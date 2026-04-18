@@ -1,0 +1,18 @@
+[project]
+name = "cs2-vibesignatures"
+version = "0.1.0"
+description = "CS2 signature and offset generation utilities."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "httpx",
+    "mcp",
+    "openai",
+    "python-dotenv",
+    "pyyaml",
+    "requests",
+    "vdf",
+]
+
+[tool.uv]
+package = false

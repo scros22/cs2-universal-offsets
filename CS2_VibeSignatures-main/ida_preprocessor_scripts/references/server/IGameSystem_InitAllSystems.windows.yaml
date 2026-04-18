@@ -1,0 +1,341 @@
+func_name: IGameSystem_InitAllSystems
+func_va: '0x1804fa7a0'
+disasm_code: |-
+  .text:00000001804FA7A0                 mov     [rsp+arg_18], rbx
+  .text:00000001804FA7A5                 push    rbp
+  .text:00000001804FA7A6                 push    rsi
+  .text:00000001804FA7A7                 push    rdi
+  .text:00000001804FA7A8                 sub     rsp, 40h
+  .text:00000001804FA7AC                 lea     rax, aIgamesystemIni; "IGameSystem::InitAllSystems"
+  .text:00000001804FA7B3                 mov     [rsp+58h+var_30], 1388h
+  .text:00000001804FA7BC                 xor     esi, esi
+  .text:00000001804FA7BE                 mov     [rsp+58h+var_38], rax
+  .text:00000001804FA7C3                 lea     rcx, [rsp+58h+var_38]
+  .text:00000001804FA7C8                 mov     [rsp+58h+var_28], sil
+  .text:00000001804FA7CD                 call    cs:ToolsStallMonitorInternal_BeginScope
+  .text:00000001804FA7D3                 mov     rbx, cs:IGameSystem_InitAllSystems_pFirst
+  .text:00000001804FA7DA                 test    rbx, rbx
+  .text:00000001804FA7DD                 jz      loc_1804FA887
+  .text:00000001804FA7E3                 mov     ebp, 0FFFFh
+  .text:00000001804FA7E8                 nop     dword ptr [rax+rax+00000000h]
+  .text:00000001804FA7F0                 mov     rdi, [rbx+10h]
+  .text:00000001804FA7F4                 lea     rdx, [rsp+58h+arg_8]
+  .text:00000001804FA7F9                 mov     r8, rdi
+  .text:00000001804FA7FC                 lea     rcx, unk_181B22518
+  .text:00000001804FA803                 call    cs:?Find@CUtlSymbolTable@@QEBA?AVCUtlSymbol@@PEBD@Z; CUtlSymbolTable::Find(char const *)
+  .text:00000001804FA809                 cmp     [rax], bp
+  .text:00000001804FA80C                 jnz     loc_1804FA8B9
+  .text:00000001804FA812                 xor     r9d, r9d
+  .text:00000001804FA815                 lea     rdx, [rsp+58h+arg_0]
+  .text:00000001804FA81A                 mov     r8, rdi
+  .text:00000001804FA81D                 lea     rcx, unk_181B22518
+  .text:00000001804FA824                 call    cs:?AddString@CUtlSymbolTable@@QEAA?AVCUtlSymbol@@PEBDPEA_N@Z; CUtlSymbolTable::AddString(char const *,bool *)
+  .text:00000001804FA82A                 movzx   eax, word ptr [rsp+58h+arg_0]
+  .text:00000001804FA82F                 mov     edi, eax
+  .text:00000001804FA831                 cmp     ax, bp
+  .text:00000001804FA834                 jnz     short loc_1804FA83B
+  .text:00000001804FA836                 mov     edi, 0FFFFFFFFh
+  .text:00000001804FA83B                 mov     edx, cs:dword_181B22500
+  .text:00000001804FA841                 cmp     edx, edi
+  .text:00000001804FA843                 jg      short loc_1804FA85D
+  .text:00000001804FA845                 lea     r8d, [rdi+1]
+  .text:00000001804FA849                 cmp     edx, r8d
+  .text:00000001804FA84C                 jge     short loc_1804FA85D
+  .text:00000001804FA84E                 sub     r8d, edx
+  .text:00000001804FA851                 lea     rcx, dword_181B22500
+  .text:00000001804FA858                 call    sub_1804FBED0
+  .text:00000001804FA85D                 mov     rax, cs:qword_181B22508
+  .text:00000001804FA864                 movzx   ecx, di
+  .text:00000001804FA867                 add     rcx, rcx
+  .text:00000001804FA86A                 mov     [rax+rcx*8], rbx
+  .text:00000001804FA86E                 mov     rax, cs:qword_181B22508
+  .text:00000001804FA875                 mov     [rax+rcx*8+8], sil
+  .text:00000001804FA87A                 mov     rbx, [rbx+8]
+  .text:00000001804FA87E                 test    rbx, rbx
+  .text:00000001804FA881                 jnz     loc_1804FA7F0
+  .text:00000001804FA887                 mov     ebp, cs:dword_181B22538
+  .text:00000001804FA88D                 mov     eax, ebp
+  .text:00000001804FA88F                 mov     ebx, cs:dword_181D8C590
+  .text:00000001804FA895                 sub     eax, ebx
+  .text:00000001804FA897                 test    eax, eax
+  .text:00000001804FA899                 jle     short loc_1804FA8CA
+  .text:00000001804FA89B                 add     ebx, eax
+  .text:00000001804FA89D                 mov     eax, cs:dword_181D8C5A0
+  .text:00000001804FA8A3                 cmp     ebx, eax
+  .text:00000001804FA8A5                 jle     short loc_1804FA8CE
+  .text:00000001804FA8A7                 mov     edx, ebx
+  .text:00000001804FA8A9                 lea     rcx, qword_181D8C598
+  .text:00000001804FA8B0                 sub     edx, eax
+  .text:00000001804FA8B2                 call    sub_180371F70
+  .text:00000001804FA8B7                 jmp     short loc_1804FA8CE
+  .text:00000001804FA8B9                 mov     rdx, rdi
+  .text:00000001804FA8BC                 lea     rcx, aGameSystemSIsD; "Game System %s is defined twice!\n"
+  .text:00000001804FA8C3                 call    cs:Plat_FatalError
+  .text:00000001804FA8C9                 int     3; Trap to Debugger
+  .text:00000001804FA8CA                 jns     short loc_1804FA8D4
+  .text:00000001804FA8CC                 add     ebx, eax
+  .text:00000001804FA8CE                 mov     cs:dword_181D8C590, ebx
+  .text:00000001804FA8D4                 mov     r8d, esi
+  .text:00000001804FA8D7                 test    ebp, ebp
+  .text:00000001804FA8D9                 jz      loc_1804FA9C4
+  .text:00000001804FA8DF                 cmp     ebp, 10h
+  .text:00000001804FA8E2                 jb      loc_1804FA9D0
+  .text:00000001804FA8E8                 movdqa  xmm3, cs:xmmword_1815B8740
+  .text:00000001804FA8F0                 mov     r9d, ebp
+  .text:00000001804FA8F3                 and     r9d, 0FFFFFFF0h
+  .text:00000001804FA8F7                 nop     word ptr [rax+rax+00000000h]
+  .text:00000001804FA900                 mov     rax, cs:qword_181D8C598
+  .text:00000001804FA907                 lea     ecx, [r8+8]
+  .text:00000001804FA90B                 movsxd  rdx, r8d
+  .text:00000001804FA90E                 movd    xmm0, r8d
+  .text:00000001804FA913                 add     r8d, 10h
+  .text:00000001804FA917                 pshufd  xmm0, xmm0, 0
+  .text:00000001804FA91C                 paddd   xmm0, xmm3
+  .text:00000001804FA920                 pshufhw xmm0, xmm0, 0D8h
+  .text:00000001804FA925                 pshuflw xmm1, xmm0, 0D8h
+  .text:00000001804FA92A                 pshufd  xmm2, xmm1, 0D8h
+  .text:00000001804FA92F                 movq    qword ptr [rax+rdx*2], xmm2
+  .text:00000001804FA934                 lea     eax, [rcx-4]
+  .text:00000001804FA937                 movd    xmm0, eax
+  .text:00000001804FA93B                 mov     rax, cs:qword_181D8C598
+  .text:00000001804FA942                 pshufd  xmm0, xmm0, 0
+  .text:00000001804FA947                 paddd   xmm0, xmm3
+  .text:00000001804FA94B                 pshufhw xmm0, xmm0, 0D8h
+  .text:00000001804FA950                 pshuflw xmm1, xmm0, 0D8h
+  .text:00000001804FA955                 pshufd  xmm2, xmm1, 0D8h
+  .text:00000001804FA95A                 movq    qword ptr [rax+rdx*2+8], xmm2
+  .text:00000001804FA960                 mov     rax, cs:qword_181D8C598
+  .text:00000001804FA967                 movd    xmm0, ecx
+  .text:00000001804FA96B                 pshufd  xmm0, xmm0, 0
+  .text:00000001804FA970                 paddd   xmm0, xmm3
+  .text:00000001804FA974                 pshufhw xmm0, xmm0, 0D8h
+  .text:00000001804FA979                 pshuflw xmm1, xmm0, 0D8h
+  .text:00000001804FA97E                 pshufd  xmm2, xmm1, 0D8h
+  .text:00000001804FA983                 movq    qword ptr [rax+rdx*2+10h], xmm2
+  .text:00000001804FA989                 lea     eax, [rcx+4]
+  .text:00000001804FA98C                 movd    xmm0, eax
+  .text:00000001804FA990                 mov     rax, cs:qword_181D8C598
+  .text:00000001804FA997                 pshufd  xmm0, xmm0, 0
+  .text:00000001804FA99C                 paddd   xmm0, xmm3
+  .text:00000001804FA9A0                 pshufhw xmm0, xmm0, 0D8h
+  .text:00000001804FA9A5                 pshuflw xmm1, xmm0, 0D8h
+  .text:00000001804FA9AA                 pshufd  xmm2, xmm1, 0D8h
+  .text:00000001804FA9AF                 movq    qword ptr [rax+rdx*2+18h], xmm2
+  .text:00000001804FA9B5                 cmp     r8d, r9d
+  .text:00000001804FA9B8                 jb      loc_1804FA900
+  .text:00000001804FA9BE                 mov     ebx, cs:dword_181D8C590
+  .text:00000001804FA9C4                 cmp     r8d, ebp
+  .text:00000001804FA9C7                 jnb     short loc_1804FA9ED
+  .text:00000001804FA9C9                 nop     dword ptr [rax+00000000h]
+  .text:00000001804FA9D0                 mov     rax, cs:qword_181D8C598
+  .text:00000001804FA9D7                 movsxd  rcx, r8d
+  .text:00000001804FA9DA                 mov     [rax+rcx*2], r8w
+  .text:00000001804FA9DF                 inc     r8d
+  .text:00000001804FA9E2                 cmp     r8d, ebp
+  .text:00000001804FA9E5                 jb      short loc_1804FA9D0
+  .text:00000001804FA9E7                 mov     ebx, cs:dword_181D8C590
+  .text:00000001804FA9ED                 mov     rcx, cs:qword_181D8C598
+  .text:00000001804FA9F4                 lea     r9, dword_181B22500
+  .text:00000001804FA9FB                 movsxd  rax, ebx
+  .text:00000001804FA9FE                 add     rax, rax
+  .text:00000001804FAA01                 mov     [rsp+58h+arg_10], r14
+  .text:00000001804FAA06                 mov     r8, rax
+  .text:00000001804FAA09                 sar     r8, 1
+  .text:00000001804FAA0C                 lea     rdx, [rax+rcx]
+  .text:00000001804FAA10                 call    sub_1804DCF70
+  .text:00000001804FAA15                 test    ebp, ebp
+  .text:00000001804FAA17                 jz      loc_1804FAA9A
+  .text:00000001804FAA1D                 nop     dword ptr [rax]
+  .text:00000001804FAA20                 mov     rax, cs:qword_181D8C598
+  .text:00000001804FAA27                 movsxd  rcx, esi
+  .text:00000001804FAA2A                 movzx   edx, word ptr [rax+rcx*2]
+  .text:00000001804FAA2E                 mov     rax, cs:qword_181B22508
+  .text:00000001804FAA35                 add     rdx, rdx
+  .text:00000001804FAA38                 mov     rdi, [rax+rdx*8]
+  .text:00000001804FAA3C                 mov     rcx, rdi
+  .text:00000001804FAA3F                 mov     rax, [rdi]
+  .text:00000001804FAA42                 call    qword ptr [rax+30h]
+  .text:00000001804FAA45                 call    cs:Plat_RelativeTicks
+  .text:00000001804FAA4B                 mov     rdx, [rdi]
+  .text:00000001804FAA4E                 mov     rcx, rdi
+  .text:00000001804FAA51                 mov     r14, rax
+  .text:00000001804FAA54                 call    qword ptr [rdx]
+  .text:00000001804FAA56                 movzx   ebx, al
+  .text:00000001804FAA59                 call    cs:Plat_NotifyOSAppIsNotHung
+  .text:00000001804FAA5F                 test    bl, bl
+  .text:00000001804FAA61                 jz      short loc_1804FAAB7
+  .text:00000001804FAA63                 call    cs:Plat_RelativeTicks
+  .text:00000001804FAA69                 sub     rax, r14
+  .text:00000001804FAA6C                 lea     rcx, [rsp+58h+arg_0]
+  .text:00000001804FAA71                 mov     [rsp+58h+arg_0], rax
+  .text:00000001804FAA76                 call    sub_1804F6A90
+  .text:00000001804FAA7B                 mov     rdx, [rdi+10h]
+  .text:00000001804FAA7F                 lea     rcx, aIgamesystemIni_0; "IGameSystem::Init( %-80s ) %8.3f msec"
+  .text:00000001804FAA86                 movaps  xmm2, xmm0
+  .text:00000001804FAA89                 movq    r8, xmm0
+  .text:00000001804FAA8E                 call    cs:COM_TimestampedLog
+  .text:00000001804FAA94                 inc     esi
+  .text:00000001804FAA96                 cmp     esi, ebp
+  .text:00000001804FAA98                 jb      short loc_1804FAA20
+  .text:00000001804FAA9A                 lea     rcx, [rsp+58h+var_38]
+  .text:00000001804FAA9F                 call    cs:ToolsStallMonitorInternal_EndScope
+  .text:00000001804FAAA5                 mov     r14, [rsp+58h+arg_10]
+  .text:00000001804FAAAA                 mov     rbx, [rsp+58h+arg_18]
+  .text:00000001804FAAAF                 add     rsp, 40h
+  .text:00000001804FAAB3                 pop     rdi
+  .text:00000001804FAAB4                 pop     rsi
+  .text:00000001804FAAB5                 pop     rbp
+  .text:00000001804FAAB6                 retn
+  .text:00000001804FAAB7                 mov     rdx, [rdi+10h]
+  .text:00000001804FAABB                 lea     rcx, aSystemSFailedT; "System %s failed to init\n"
+  .text:00000001804FAAC2                 call    cs:Plat_FatalError
+procedure: |-
+  __int64 sub_1804FA7A0()
+  {
+    unsigned int v0; // esi
+    __int64 i; // rbx
+    const char *v2; // rdi
+    int v3; // edi
+    __int64 v4; // rcx
+    unsigned int v5; // ebp
+    int v6; // ebx
+    unsigned int v7; // r8d
+    __m128i si128; // xmm3
+    unsigned int v9; // ecx
+    __int64 v10; // rdx
+    __m128i v11; // xmm0
+    const char **v12; // rdi
+    __int64 v13; // r14
+    char v14; // bl
+    double v15; // xmm0_8
+    _QWORD v17[2]; // [rsp+20h] [rbp-38h] BYREF
+    char v18; // [rsp+30h] [rbp-28h]
+    __int64 v19; // [rsp+60h] [rbp+8h] BYREF
+    char v20; // [rsp+68h] [rbp+10h] BYREF
+
+    v17[1] = 5000;
+    v0 = 0;
+    v17[0] = "IGameSystem::InitAllSystems";
+    v18 = 0;
+    ToolsStallMonitorInternal_BeginScope(v17);
+    for ( i = IGameSystem_InitAllSystems_pFirst; i; i = *(_QWORD *)(i + 8) )
+    {
+      v2 = *(const char **)(i + 16);
+      if ( *(_WORD *)CUtlSymbolTable::Find(&unk_181B22518, &v20, v2) != 0xFFFF )
+      {
+        Plat_FatalError("Game System %s is defined twice!\n", v2);
+        __debugbreak();
+      }
+      CUtlSymbolTable::AddString(&unk_181B22518, &v19, v2, 0);
+      v3 = (unsigned __int16)v19;
+      if ( (_WORD)v19 == 0xFFFF )
+        v3 = -1;
+      if ( dword_181B22500 <= v3 && dword_181B22500 < v3 + 1 )
+        sub_1804FBED0(&dword_181B22500, (unsigned int)dword_181B22500, (unsigned int)(v3 + 1 - dword_181B22500));
+      v4 = 2LL * (unsigned __int16)v3;
+      *(_QWORD *)(qword_181B22508 + 8 * v4) = i;
+      *(_BYTE *)(qword_181B22508 + 8 * v4 + 8) = 0;
+    }
+    v5 = dword_181B22538;
+    v6 = dword_181D8C590;
+    if ( dword_181B22538 - dword_181D8C590 <= 0 )
+    {
+      if ( dword_181B22538 - dword_181D8C590 >= 0 )
+        goto LABEL_16;
+      v6 = dword_181B22538;
+    }
+    else
+    {
+      v6 = dword_181B22538;
+      if ( dword_181B22538 > dword_181D8C5A0 )
+        sub_180371F70(&qword_181D8C598, (unsigned int)(dword_181B22538 - dword_181D8C5A0));
+    }
+    dword_181D8C590 = v6;
+  LABEL_16:
+    v7 = 0;
+    if ( !v5 )
+      goto LABEL_21;
+    if ( v5 >= 0x10 )
+    {
+      si128 = _mm_load_si128((const __m128i *)&xmmword_1815B8740);
+      do
+      {
+        v9 = v7 + 8;
+        v10 = (int)v7;
+        v11 = _mm_cvtsi32_si128(v7);
+        v7 += 16;
+        *(_QWORD *)(qword_181D8C598 + 2 * v10) = _mm_shuffle_epi32(
+                                                   _mm_shufflelo_epi16(
+                                                     _mm_shufflehi_epi16(
+                                                       _mm_add_epi32(_mm_shuffle_epi32(v11, 0), si128),
+                                                       216),
+                                                     216),
+                                                   216).m128i_u64[0];
+        *(_QWORD *)(qword_181D8C598 + 2 * v10 + 8) = _mm_shuffle_epi32(
+                                                       _mm_shufflelo_epi16(
+                                                         _mm_shufflehi_epi16(
+                                                           _mm_add_epi32(
+                                                             _mm_shuffle_epi32(_mm_cvtsi32_si128(v9 - 4), 0),
+                                                             si128),
+                                                           216),
+                                                         216),
+                                                       216).m128i_u64[0];
+        *(_QWORD *)(qword_181D8C598 + 2 * v10 + 16) = _mm_shuffle_epi32(
+                                                        _mm_shufflelo_epi16(
+                                                          _mm_shufflehi_epi16(
+                                                            _mm_add_epi32(
+                                                              _mm_shuffle_epi32(_mm_cvtsi32_si128(v9), 0),
+                                                              si128),
+                                                            216),
+                                                          216),
+                                                        216).m128i_u64[0];
+        *(_QWORD *)(qword_181D8C598 + 2 * v10 + 24) = _mm_shuffle_epi32(
+                                                        _mm_shufflelo_epi16(
+                                                          _mm_shufflehi_epi16(
+                                                            _mm_add_epi32(
+                                                              _mm_shuffle_epi32(_mm_cvtsi32_si128(v9 + 4), 0),
+                                                              si128),
+                                                            216),
+                                                          216),
+                                                        216).m128i_u64[0];
+      }
+      while ( v7 < (v5 & 0xFFFFFFF0) );
+      v6 = dword_181D8C590;
+  LABEL_21:
+      if ( v7 >= v5 )
+        goto LABEL_24;
+      goto LABEL_22;
+    }
+    do
+    {
+  LABEL_22:
+      *(_WORD *)(qword_181D8C598 + 2LL * (int)v7) = v7;
+      ++v7;
+    }
+    while ( v7 < v5 );
+    v6 = dword_181D8C590;
+  LABEL_24:
+    sub_1804DCF70(qword_181D8C598, 2LL * v6 + qword_181D8C598, (2LL * v6) >> 1, &dword_181B22500);
+    if ( v5 )
+    {
+      do
+      {
+        v12 = *(const char ***)(qword_181B22508 + 16LL * *(unsigned __int16 *)(qword_181D8C598 + 2LL * (int)v0));
+        (*((void (__fastcall **)(const char **))*v12 + 6))(v12);
+        v13 = Plat_RelativeTicks();
+        v14 = (*(__int64 (__fastcall **)(const char **))*v12)(v12);
+        Plat_NotifyOSAppIsNotHung();
+        if ( !v14 )
+        {
+          Plat_FatalError("System %s failed to init\n", v12[2]);
+          JUMPOUT(0x1804FAAC8LL);
+        }
+        v19 = Plat_RelativeTicks() - v13;
+        v15 = sub_1804F6A90(&v19);
+        COM_TimestampedLog("IGameSystem::Init( %-80s ) %8.3f msec", v12[2], v15);
+        ++v0;
+      }
+      while ( v0 < v5 );
+    }
+    return ToolsStallMonitorInternal_EndScope(v17);
+  }

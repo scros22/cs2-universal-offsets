@@ -1,0 +1,36 @@
+{
+  "mcpServers": {
+    "ida-pro": {
+      "command": "python",
+      "args": [
+        "-m",
+        "ida_pro_mcp"
+      ],
+      "env": {
+        "IDA_PATH": "C:\\Users\\Samuel\\Pictures\\ida\\ida93sp1\\portable_win\\ida64.exe"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "server_health",
+        "xrefs_to",
+        "find_bytes",
+        "insn_query",
+        "find_regex",
+        "survey_binary",
+        "get_bytes",
+        "decompile",
+        "analyze_function",
+        "list_funcs",
+        "int_convert",
+        "func_query",
+        "lookup_funcs",
+        "disasm",
+        "py_eval",
+        "get_int",
+        "analyze_batch",
+        "type_query",
+        "list_instances"
+      ]
+    }
+  }
+}

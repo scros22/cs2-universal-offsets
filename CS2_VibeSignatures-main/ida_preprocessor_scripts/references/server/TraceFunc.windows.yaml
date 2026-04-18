@@ -1,0 +1,105 @@
+func_name: TraceFunc
+func_va: '0x180af80d0'
+disasm_code: |-
+  .text:0000000180AF80D0                 mov     [rsp+arg_0], rbx
+  .text:0000000180AF80D5                 mov     [rsp+arg_8], rbp
+  .text:0000000180AF80DA                 mov     [rsp+arg_10], rsi
+  .text:0000000180AF80DF                 mov     [rsp+arg_18], rdi
+  .text:0000000180AF80E4                 push    r12
+  .text:0000000180AF80E6                 push    r14
+  .text:0000000180AF80E8                 push    r15
+  .text:0000000180AF80EA                 sub     rsp, 90h
+  .text:0000000180AF80F1                 xor     r12d, r12d
+  .text:0000000180AF80F4                 lea     rsi, [rcx+10h]
+  .text:0000000180AF80F8                 lea     rbx, [rsi+10h]
+  .text:0000000180AF80FC                 mov     rbp, r9
+  .text:0000000180AF80FF                 mov     [rbx], r12
+  .text:0000000180AF8102                 mov     r14, r8
+  .text:0000000180AF8105                 mov     dword ptr [rbx+8], 40h ; '@'
+  .text:0000000180AF810C                 mov     r15, rdx
+  .text:0000000180AF810F                 mov     dword ptr [rbx+0Ch], 80000000h
+  .text:0000000180AF8116                 mov     rdi, rcx
+  .text:0000000180AF8119                 test    bl, 0Fh
+  .text:0000000180AF811C                 jz      short loc_180AF8123
+  .text:0000000180AF811E                 call    sub_18146DB60
+  .text:0000000180AF8123                 lea     rax, [rbx+10h]
+  .text:0000000180AF8127                 mov     [rsp+0A8h+var_78], 1
+  .text:0000000180AF812C                 mov     [rbx], rax
+  .text:0000000180AF812F                 lea     r9, [rsp+0A8h+var_68]
+  .text:0000000180AF8134                 movzx   eax, [rsp+0A8h+var_2F]
+  .text:0000000180AF8139                 xorps   xmm0, xmm0
+  .text:0000000180AF813C                 and     al, 0C9h
+  .text:0000000180AF813E                 mov     [rsi], r12d
+  .text:0000000180AF8141                 or      al, 49h
+  .text:0000000180AF8143                 mov     [rdi], r12d
+  .text:0000000180AF8146                 mov     rcx, cs:g_GameTraceManager
+  .text:0000000180AF814D                 mov     r8, r14
+  .text:0000000180AF8150                 mov     [rsp+0A8h+var_2F], al
+  .text:0000000180AF8154                 mov     rdx, r15
+  .text:0000000180AF8157                 lea     rax, ??_7CTraceFilter@@6B@; const CTraceFilter::`vftable'
+  .text:0000000180AF815E                 mov     [rsp+0A8h+var_80], rsi
+  .text:0000000180AF8163                 mov     [rsp+0A8h+var_68], rax
+  .text:0000000180AF8168                 movdqa  [rsp+0A8h+var_58], xmm0
+  .text:0000000180AF816E                 mov     [rsp+0A8h+var_48], 0FFFFFFFFFFFFFFFFh
+  .text:0000000180AF8177                 mov     [rsp+0A8h+var_40], 0FFFFFFFFFFFFFFFFh
+  .text:0000000180AF8180                 mov     [rsp+0A8h+var_36], 0FFFF0000h
+  .text:0000000180AF8188                 mov     [rsp+0A8h+var_32], 0E00h
+  .text:0000000180AF818F                 mov     [rsp+0A8h+var_28], r12b
+  .text:0000000180AF8197                 mov     [rsp+0A8h+var_30], 3
+  .text:0000000180AF819C                 mov     [rsp+0A8h+var_60], rbp
+  .text:0000000180AF81A1                 mov     [rsp+0A8h+var_38], r12w
+  .text:0000000180AF81A7                 mov     [rsp+0A8h+var_88], 1
+  .text:0000000180AF81AF                 call    sub_180B11950
+  .text:0000000180AF81B4                 lea     r11, [rsp+0A8h+var_18]
+  .text:0000000180AF81BC                 mov     rax, rdi
+  .text:0000000180AF81BF                 mov     rbx, [r11+20h]
+  .text:0000000180AF81C3                 mov     rbp, [r11+28h]
+  .text:0000000180AF81C7                 mov     rsi, [r11+30h]
+  .text:0000000180AF81CB                 mov     rdi, [r11+38h]
+  .text:0000000180AF81CF                 mov     rsp, r11
+  .text:0000000180AF81D2                 pop     r15
+  .text:0000000180AF81D4                 pop     r14
+  .text:0000000180AF81D6                 pop     r12
+  .text:0000000180AF81D8                 retn
+procedure: |-
+  __int64 __fastcall sub_180AF80D0(__int64 a1, int a2, int a3, __int64 a4)
+  {
+    _DWORD *v4; // rsi
+    _QWORD *v5; // rbx
+    char v10; // al
+    _QWORD v12[2]; // [rsp+40h] [rbp-68h] BYREF
+    __int128 v13; // [rsp+50h] [rbp-58h]
+    __int64 v14; // [rsp+60h] [rbp-48h]
+    __int64 v15; // [rsp+68h] [rbp-40h]
+    __int16 v16; // [rsp+70h] [rbp-38h]
+    int v17; // [rsp+72h] [rbp-36h]
+    __int16 v18; // [rsp+76h] [rbp-32h]
+    char v19; // [rsp+78h] [rbp-30h]
+    char v20; // [rsp+79h] [rbp-2Fh]
+    char v21; // [rsp+80h] [rbp-28h]
+
+    v4 = (_DWORD *)(a1 + 16);
+    v5 = (_QWORD *)(a1 + 32);
+    *(_QWORD *)(a1 + 32) = 0;
+    *(_DWORD *)(a1 + 40) = 64;
+    *(_DWORD *)(a1 + 44) = 0x80000000;
+    if ( (((_BYTE)a1 + 32) & 0xF) != 0 )
+      sub_18146DB60();
+    *v5 = v5 + 2;
+    v10 = v20 & 0xC9;
+    *v4 = 0;
+    *(_DWORD *)a1 = 0;
+    v20 = v10 | 0x49;
+    v12[0] = &CTraceFilter::`vftable';
+    v13 = 0;
+    v14 = -1;
+    v15 = -1;
+    v17 = -65536;
+    v18 = 3584;
+    v21 = 0;
+    v19 = 3;
+    v12[1] = a4;
+    v16 = 0;
+    sub_180B11950((_DWORD)g_GameTraceManager, a2, a3, (unsigned int)v12, 1, (__int64)v4, 1);
+    return a1;
+  }

@@ -1,0 +1,78 @@
+func_name: BotAdd_CommandHandler
+func_va: '0xb52c30'
+disasm_code: |-
+  .text:0000000000B52C30                 push    rbp
+  .text:0000000000B52C31                 mov     rbp, rsp
+  .text:0000000000B52C34                 push    r12
+  .text:0000000000B52C36                 push    rbx
+  .text:0000000000B52C37                 mov     rbx, rsi
+  .text:0000000000B52C3A                 sub     rsp, 0A0h
+  .text:0000000000B52C41                 call    sub_18D3360
+  .text:0000000000B52C46                 test    al, al
+  .text:0000000000B52C48                 jnz     short loc_B52C60
+  .text:0000000000B52C4A                 add     rsp, 0A0h
+  .text:0000000000B52C51                 pop     rbx
+  .text:0000000000B52C52                 pop     r12
+  .text:0000000000B52C54                 pop     rbp
+  .text:0000000000B52C55                 retn
+  .text:0000000000B52C60                 lea     r12, [rbp+var_A0]
+  .text:0000000000B52C67                 xor     r9d, r9d
+  .text:0000000000B52C6A                 mov     rdi, rbx
+  .text:0000000000B52C6D                 mov     [rbp+var_98], 0
+  .text:0000000000B52C78                 mov     rax, 0C000008000000000h
+  .text:0000000000B52C82                 mov     rsi, r12
+  .text:0000000000B52C85                 lea     rcx, [rbp+var_AC]
+  .text:0000000000B52C8C                 mov     [rbp+var_A0], rax
+  .text:0000000000B52C93                 lea     r8, [rbp+var_A4]
+  .text:0000000000B52C9A                 lea     rdx, [rbp+var_A8]
+  .text:0000000000B52CA1                 call    sub_B3A800
+  .text:0000000000B52CA6                 mov     rdi, cs:g_pCSBotManager
+  .text:0000000000B52CAD                 lea     rcx, [rbp+var_98]
+  .text:0000000000B52CB4                 mov     r9d, [rbp+var_AC]
+  .text:0000000000B52CBB                 mov     r8d, [rbp+var_A8]
+  .text:0000000000B52CC2                 test    byte ptr [rbp+var_A0+7], 40h
+  .text:0000000000B52CC9                 jnz     short loc_B52CE5
+  .text:0000000000B52CCB                 lea     rcx, byte_8D6258
+  .text:0000000000B52CD2                 test    dword ptr [rbp+var_A0+4], 3FFFFFFFh
+  .text:0000000000B52CDC                 jz      short loc_B52CE5
+  .text:0000000000B52CDE                 mov     rcx, [rbp+var_98]
+  .text:0000000000B52CE5                 mov     esi, [rbp+var_A4]
+  .text:0000000000B52CEB                 xor     edx, edx
+  .text:0000000000B52CED                 call    CCSBotManager_AddBot
+  .text:0000000000B52CF2                 mov     rdi, r12
+  .text:0000000000B52CF5                 xor     esi, esi
+  .text:0000000000B52CF7                 call    sub_97EF20
+  .text:0000000000B52CFC                 add     rsp, 0A0h
+  .text:0000000000B52D03                 pop     rbx
+  .text:0000000000B52D04                 pop     r12
+  .text:0000000000B52D06                 pop     rbp
+  .text:0000000000B52D07                 retn
+procedure: |-
+  __int64 __fastcall BotAdd_CommandHandler(__int64 a1, __int64 a2)
+  {
+    __int64 result; // rax
+    const char *v3; // rcx
+    unsigned int v4; // [rsp+4h] [rbp-ACh] BYREF
+    unsigned int v5; // [rsp+8h] [rbp-A8h] BYREF
+    unsigned int v6; // [rsp+Ch] [rbp-A4h] BYREF
+    unsigned __int64 v7; // [rsp+10h] [rbp-A0h] BYREF
+    const char *v8; // [rsp+18h] [rbp-98h] BYREF
+
+    result = sub_18D3360();
+    if ( (_BYTE)result )
+    {
+      v8 = nullptr;
+      v7 = 0xC000008000000000LL;
+      sub_B3A800(a2, &v7, &v5, &v4, &v6, 0);
+      v3 = (const char *)&v8;
+      if ( (v7 & 0x4000000000000000LL) == 0 )
+      {
+        v3 = &byte_8D6258;
+        if ( (v7 & 0x3FFFFFFF00000000LL) != 0 )
+          v3 = v8;
+      }
+      CCSBotManager_AddBot(g_pCSBotManager, v6, 0, v3, v5, v4);
+      return sub_97EF20(&v7, 0);
+    }
+    return result;
+  }

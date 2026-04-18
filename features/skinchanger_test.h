@@ -1,0 +1,649 @@
+#pragma once
+
+// ---------------------------------------------------------------
+// STABLE SKINCHANGER - Based on friend's working implementation
+// Key improvements:
+// - Only applies to active weapon (no mass iteration)
+// - Uses proper attribute system (temporary attributes)
+// - Has regeneration function with proper cleanup
+// - Caching to prevent unnecessary applications
+// - Exception handling for stability
+//
+// CS2 KNIFE/GLOVE CHANGING (2026 RESEARCH - CRITICAL DISCOVERY):
+// **THE PROBLEM**: Just writing m_iItemDefinitionIndex doesn't work!
+// **THE SOLUTION**: Must call EquipItemInLoadout to update inventory system
+//
+// CS2 uses an inventory manager that tracks equipped items. When you change
+// a knife/glove defIndex, the game doesn't see it until you tell the inventory
+// system via EquipItemInLoadout(team, slot, itemID).
+//
+// This is why weapon skins work (they use fallback system) but knives/gloves
+// don't (they need inventory system update).
+//
+// Signature: EquipItemInLoadout @ client.dll
+// "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 89 54 24 ? 57 41 54 41 55 41 56 41 57 48 83 EC ? 0F B7 FA"
+// ---------------------------------------------------------------
+
+#include <Windows.h>
+#include <cstdint>
+#include <map>
+#include <mutex>
+#include <atomic>
+#include "../core/game_state.h"
+#include "../core/sdk_offsets.h"
+#include "../core/memory.h"
+
+namespace SkinChanger
+{
+    struct SkinConfig
+    {
+        int paintKit = 0;
+        float wear = 0.001f;
+        int seed = 0;
+        int statTrak = -1;
+        bool enabled = false;
+    };
+
+    #pragma pack(push, 1)
+    struct CEconItemAttribute
+    {
+        uintptr_t vtable;
+        uintptr_t owner;
+        char pad_0010[32];
+        uint16_t defIndex;
+        char pad_0032[2];
+        float value;
+        float initValue;
+        int32_t refundableCurrency;
+        bool setBonus;
+        char pad_0041[7];
+    };
+
+    struct CPtrGameVector
+    {
+        uint64_t size;
+        uintptr_t ptr;
+    };
+    #pragma pack(pop)
+
+    // ---------------------------------------------------------------
+    // Lookup tables for menu compatibility
+    // ---------------------------------------------------------------
+    struct ItemDef {
+        int defIndex;
+        const char* name;
+    };
+
+    inline constexpr ItemDef kKnives[] = {
+        { 0,   "Default" },
+        { 500, "Bayonet" },
+        { 503, "Classic Knife" },
+        { 505, "Flip Knife" },
+        { 506, "Gut Knife" },
+        { 507, "Karambit" },
+        { 508, "M9 Bayonet" },
+        { 509, "Huntsman Knife" },
+        { 512, "Falchion Knife" },
+        { 514, "Bowie Knife" },
+        { 515, "Butterfly Knife" },
+        { 516, "Shadow Daggers" },
+        { 517, "Paracord Knife" },
+        { 518, "Survival Knife" },
+        { 519, "Ursus Knife" },
+        { 520, "Navaja Knife" },
+        { 521, "Nomad Knife" },
+        { 522, "Stiletto Knife" },
+        { 523, "Talon Knife" },
+        { 525, "Skeleton Knife" },
+        { 526, "Kukri Knife" },
+    };
+    inline constexpr int kKnifeCount = sizeof(kKnives) / sizeof(kKnives[0]);
+
+    struct WeaponDef {
+        int defIndex;
+        const char* name;
+    };
+
+    inline constexpr WeaponDef kWeapons[] = {
+        { 1,  "Desert Eagle" },
+        { 2,  "Dual Berettas" },
+        { 3,  "Five-SeveN" },
+        { 4,  "Glock-18" },
+        { 7,  "AK-47" },
+        { 8,  "AUG" },
+        { 9,  "AWP" },
+        { 10, "FAMAS" },
+        { 13, "Galil AR" },
+        { 14, "M249" },
+        { 16, "M4A4" },
+        { 17, "MAC-10" },
+        { 19, "P90" },
+        { 23, "MP5-SD" },
+        { 24, "UMP-45" },
+        { 25, "XM1014" },
+        { 26, "PP-Bizon" },
+        { 27, "MAG-7" },
+        { 28, "Negev" },
+        { 29, "Sawed-Off" },
+        { 30, "Tec-9" },
+        { 32, "P2000" },
+        { 33, "MP7" },
+        { 34, "MP9" },
+        { 35, "Nova" },
+        { 36, "P250" },
+        { 39, "SG 553" },
+        { 40, "SSG 08" },
+        { 60, "M4A1-S" },
+        { 61, "USP-S" },
+        { 63, "CZ75-Auto" },
+        { 64, "R8 Revolver" },
+    };
+    inline constexpr int kWeaponCount = sizeof(kWeapons) / sizeof(kWeapons[0]);
+
+    // Glove definitions for menu compatibility
+    inline constexpr ItemDef kGloves[] = {
+        { 0,    "Default" },
+        { 5027, "Sport Gloves" },
+        { 5028, "Driver Gloves" },
+        { 5029, "Hand Wraps" },
+        { 5030, "Moto Gloves" },
+        { 5031, "Specialist Gloves" },
+        { 5032, "Hydra Gloves" },
+        { 5033, "Broken Fang Gloves" },
+    };
+    inline constexpr int kGloveCount = sizeof(kGloves) / sizeof(kGloves[0]);
+
+    // ---------------------------------------------------------------
+    // Model path mappings for SetModel
+    // ---------------------------------------------------------------
+    inline const char* GetKnifeModelPath(int defIndex) {
+        switch (defIndex) {
+            case 500: return "weapons/models/knife/knife_bayonet/weapon_knife_bayonet.vmdl";
+            case 503: return "weapons/models/knife/knife_css/weapon_knife_css.vmdl";
+            case 505: return "weapons/models/knife/knife_flip/weapon_knife_flip.vmdl";
+            case 506: return "weapons/models/knife/knife_gut/weapon_knife_gut.vmdl";
+            case 507: return "weapons/models/knife/knife_karambit/weapon_knife_karambit.vmdl";
+            case 508: return "weapons/models/knife/knife_m9_bayonet/weapon_knife_m9_bayonet.vmdl";
+            case 509: return "weapons/models/knife/knife_tactical/weapon_knife_tactical.vmdl";
+            case 512: return "weapons/models/knife/knife_falchion/weapon_knife_falchion.vmdl";
+            case 514: return "weapons/models/knife/knife_survival_bowie/weapon_knife_survival_bowie.vmdl";
+            case 515: return "weapons/models/knife/knife_butterfly/weapon_knife_butterfly.vmdl";
+            case 516: return "weapons/models/knife/knife_push/weapon_knife_push.vmdl";
+            case 517: return "weapons/models/knife/knife_cord/weapon_knife_cord.vmdl";
+            case 518: return "weapons/models/knife/knife_canis/weapon_knife_canis.vmdl";
+            case 519: return "weapons/models/knife/knife_ursus/weapon_knife_ursus.vmdl";
+            case 520: return "weapons/models/knife/knife_gypsy_jackknife/weapon_knife_gypsy_jackknife.vmdl";
+            case 521: return "weapons/models/knife/knife_outdoor/weapon_knife_outdoor.vmdl";
+            case 522: return "weapons/models/knife/knife_stiletto/weapon_knife_stiletto.vmdl";
+            case 523: return "weapons/models/knife/knife_widowmaker/weapon_knife_widowmaker.vmdl";
+            case 524: return "weapons/models/knife/knife_kukri/weapon_knife_kukri.vmdl";
+            case 525: return "weapons/models/knife/knife_skeleton/weapon_knife_skeleton.vmdl";
+            default: return nullptr;
+        }
+    }
+
+    inline const char* GetGloveModelPath(int defIndex) {
+        switch (defIndex) {
+            case 5027: return "weapons/models/arms/glove_sporty/glove_sporty.vmdl";
+            case 5028: return "weapons/models/arms/glove_slick/glove_slick.vmdl";
+            case 5029: return "weapons/models/arms/glove_handwrap_leathery/glove_handwrap_leathery.vmdl";
+            case 5030: return "weapons/models/arms/glove_motorcycle/glove_motorcycle.vmdl";
+            case 5031: return "weapons/models/arms/glove_specialist/glove_specialist.vmdl";
+            case 5032: return "weapons/models/arms/glove_bloodhound/glove_bloodhound.vmdl";
+            case 5033: return "weapons/models/arms/glove_sporty/glove_sporty.vmdl"; // Broken Fang uses sporty base
+            default: return nullptr;
+        }
+    }
+
+    // ---------------------------------------------------------------
+    // Menu compatibility structure
+    // ---------------------------------------------------------------
+    struct WeaponSkin {
+        bool enabled = false;
+        int paintKit = 0;
+        int seed = 0;
+        float wear = 0.0001f;
+        int statTrak = -1;
+    };
+
+    struct Config {
+        bool enabled = false;
+        int activeWeaponSlot = 0;
+        
+        // Weapon configs (menu compatibility)
+        WeaponSkin weapons[32];
+        
+        // Knife config
+        bool knifeEnabled = false;
+        int knifeModel = 0;
+        int knifePaintKit = 38;  // Default to Fade for testing
+        int knifeSeed = 0;
+        float knifeWear = 0.0001f;
+        int knifeStatTrak = -1;
+        
+        // Glove config
+        bool gloveEnabled = false;
+        int gloveModel = 0;
+        int glovePaintKit = 10006;
+        float gloveWear = 0.0001f;
+    };
+
+    // ---------------------------------------------------------------
+    // State variables
+    // ---------------------------------------------------------------
+    inline Config cfg;
+    inline std::map<int, SkinConfig> weaponSkins;
+    inline std::atomic<bool> forceUpdate = false;
+    inline std::atomic<bool> running = false;
+    inline std::mutex configMutex;
+    inline uintptr_t lastAppliedWeapon = 0;
+    inline int lastAppliedKit = 0;
+    inline uintptr_t regenAddr = 0;
+    inline bool regenPatched = false;
+    inline CEconItemAttribute* g_attrBuffer = nullptr;
+
+    // Menu compatibility variables
+    inline int lastKnifeDefIdx = 0;
+    inline float lastGloveSpawnTime = 0.f;
+    inline int gloveRefreshFrames = 0;
+
+    // SetModel function pointer and related functions
+    using SetModelFn = void(__fastcall*)(uintptr_t entity, const char* modelPath);
+    using SetMeshGroupMaskFn = void(__fastcall*)(uintptr_t entity, uint64_t mask);
+    using UpdateSubclassFn = void(__fastcall*)(uintptr_t item);
+    using UpdateWeaponDataFn = void(__fastcall*)(uintptr_t weapon);
+    using UpdateCompositeFn = void(__fastcall*)(uintptr_t weapon, int param);
+    
+    inline SetModelFn SetModel = nullptr;
+    inline SetMeshGroupMaskFn SetMeshGroupMask = nullptr;
+    inline UpdateSubclassFn UpdateSubclass = nullptr;
+    inline UpdateWeaponDataFn UpdateWeaponData = nullptr;
+    inline UpdateCompositeFn UpdateComposite = nullptr;
+
+    // ---------------------------------------------------------------
+    // Helper functions
+    // ---------------------------------------------------------------
+    inline bool IsKnife(uint16_t defIndex) {
+        return defIndex == 42 || defIndex == 59 || (defIndex >= 500 && defIndex <= 526);
+    }
+
+    inline CEconItemAttribute MakeAttribute(uint16_t defIndex, float value) {
+        CEconItemAttribute attr{};
+        attr.defIndex = defIndex;
+        attr.value = value;
+        attr.initValue = value;
+        return attr;
+    }
+
+    inline void CreateAttributes(uintptr_t item, int paintKit, int seed, float wear) {
+        if (paintKit <= 0) return;
+
+        uintptr_t attrListAddr = item + Offsets::m_AttributeList + Offsets::m_Attributes;
+        CPtrGameVector existing = Mem::Read<CPtrGameVector>(attrListAddr);
+        if (existing.size > 0 || existing.ptr != 0) return;
+
+        if (!g_attrBuffer) {
+            g_attrBuffer = reinterpret_cast<CEconItemAttribute*>(
+                VirtualAlloc(nullptr, sizeof(CEconItemAttribute) * 3,
+                    MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE));
+            if (!g_attrBuffer) return;
+        }
+
+        g_attrBuffer[0] = MakeAttribute(6, static_cast<float>(paintKit));
+        g_attrBuffer[1] = MakeAttribute(7, static_cast<float>(seed));
+        g_attrBuffer[2] = MakeAttribute(8, wear);
+
+        CPtrGameVector newList;
+        newList.size = 3;
+        newList.ptr = reinterpret_cast<uintptr_t>(g_attrBuffer);
+        Mem::Write<CPtrGameVector>(attrListAddr, newList);
+    }
+
+    inline void RemoveAttributes(uintptr_t item) {
+        uintptr_t attrListAddr = item + Offsets::m_AttributeList + Offsets::m_Attributes;
+        CPtrGameVector existing = Mem::Read<CPtrGameVector>(attrListAddr);
+        if (existing.size == 0) return;
+
+        CPtrGameVector empty{};
+        Mem::Write<CPtrGameVector>(attrListAddr, empty);
+    }
+
+    inline void InitRegen() {
+        if (regenAddr != 0) return;
+        if (!GameState::clientBase) return;
+        
+        const char* sig = "48 83 EC ? E8 ? ? ? ? 48 85 C0 0F 84 ? ? ? ? 48 8B 10";
+        uintptr_t found = Mem::FindPatternInModule(GameState::clientBase, sig);
+        
+        if (found) {
+            regenAddr = found;
+            uint16_t combinedOffset = static_cast<uint16_t>(
+                Offsets::m_AttributeManager + Offsets::m_Item +
+                Offsets::m_AttributeList + Offsets::m_Attributes
+            );
+
+            DWORD oldProtect;
+            if (VirtualProtect(reinterpret_cast<void*>(regenAddr + 0x52), 2, PAGE_EXECUTE_READWRITE, &oldProtect)) {
+                *reinterpret_cast<uint16_t*>(regenAddr + 0x52) = combinedOffset;
+                VirtualProtect(reinterpret_cast<void*>(regenAddr + 0x52), 2, oldProtect, &oldProtect);
+                regenPatched = true;
+            }
+        }
+    }
+
+    inline void InitModelFunctions() {
+        if (SetModel != nullptr) return;
+        if (!GameState::clientBase) return;
+        
+        // SetModel signature - EXACT from your friend (IDA verified: 0x1808cc060)
+        const char* setModelSig = "40 53 48 83 EC ? 48 8B D9 4C 8B C2 48 8B 0D ? ? ? ? 48 8D 54 24 40";
+        uintptr_t setModelAddr = Mem::FindPatternInModule(GameState::clientBase, setModelSig);
+        if (setModelAddr) {
+            SetModel = reinterpret_cast<SetModelFn>(setModelAddr);
+        }
+        
+        // SetMeshGroupMask signature - EXACT from your friend
+        const char* meshMaskSig = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8D 99";
+        uintptr_t meshMaskAddr = Mem::FindPatternInModule(GameState::clientBase, meshMaskSig);
+        if (meshMaskAddr) {
+            SetMeshGroupMask = reinterpret_cast<SetMeshGroupMaskFn>(meshMaskAddr);
+        }
+        
+        // UpdateSubclass signature - EXACT from your friend (IDA verified: 0x1801e9a70)
+        const char* updateSubclassSig = "4C 8B DC 53 48 81 EC ? ? ? ? 48 8B 41";
+        uintptr_t updateSubclassAddr = Mem::FindPatternInModule(GameState::clientBase, updateSubclassSig);
+        if (updateSubclassAddr) {
+            UpdateSubclass = reinterpret_cast<UpdateSubclassFn>(updateSubclassAddr);
+        }
+        
+        // UpdateWeaponData - NEW! This is what we're missing
+        // Signature from forum post analysis
+        const char* updateWeaponDataSig = "48 89 5C 24 ? 57 48 83 EC ? 48 8B F9 E8 ? ? ? ? 48 8B D8";
+        uintptr_t updateWeaponDataAddr = Mem::FindPatternInModule(GameState::clientBase, updateWeaponDataSig);
+        if (updateWeaponDataAddr) {
+            UpdateWeaponData = reinterpret_cast<UpdateWeaponDataFn>(updateWeaponDataAddr);
+        }
+        
+        // UpdateComposite - NEW! This refreshes the weapon model
+        // Signature from forum post analysis
+        const char* updateCompositeSig = "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 8B EA";
+        uintptr_t updateCompositeAddr = Mem::FindPatternInModule(GameState::clientBase, updateCompositeSig);
+        if (updateCompositeAddr) {
+            UpdateComposite = reinterpret_cast<UpdateCompositeFn>(updateCompositeAddr);
+        }
+    }
+
+    inline void CallRegen() {
+        if (!regenAddr || !regenPatched) return;
+        
+        __try {
+            typedef void(__fastcall* RegenFn)();
+            auto fn = reinterpret_cast<RegenFn>(regenAddr);
+            fn();
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER) {}
+    }
+
+    inline void ApplyAndRegen(uintptr_t weapon, const SkinConfig& skin, uint16_t targetDefIndex) {
+        uintptr_t item = weapon + Offsets::m_AttributeManager + Offsets::m_Item;
+
+        if (regenAddr && regenPatched) {
+            // Flash approach: write → regen → cleanup
+            uint32_t origItemIDHigh = Mem::Read<uint32_t>(item + Offsets::m_iItemIDHigh);
+
+            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0xFFFFFFFF);
+            Mem::Write<int32_t>(weapon + Offsets::m_nFallbackPaintKit, skin.paintKit);
+            Mem::Write<float>(weapon + Offsets::m_flFallbackWear, skin.wear);
+            Mem::Write<int32_t>(weapon + Offsets::m_nFallbackSeed, skin.seed);
+            Mem::Write<int32_t>(weapon + Offsets::m_nFallbackStatTrak, skin.statTrak);
+
+            CreateAttributes(item, skin.paintKit, skin.seed, skin.wear);
+            CallRegen();
+
+            RemoveAttributes(item);
+            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, origItemIDHigh);
+            Mem::Write<int32_t>(weapon + Offsets::m_nFallbackPaintKit, 0);
+            Mem::Write<float>(weapon + Offsets::m_flFallbackWear, 0.0f);
+            Mem::Write<int32_t>(weapon + Offsets::m_nFallbackSeed, 0);
+            Mem::Write<int32_t>(weapon + Offsets::m_nFallbackStatTrak, -1);
+        } else {
+            // Persistent fallback approach: keep values written
+            // Works without regen — game reads fallbacks when m_iItemIDHigh == 0xFFFFFFFF
+            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0xFFFFFFFF);
+            Mem::Write<int32_t>(weapon + Offsets::m_nFallbackPaintKit, skin.paintKit);
+            Mem::Write<float>(weapon + Offsets::m_flFallbackWear, skin.wear);
+            Mem::Write<int32_t>(weapon + Offsets::m_nFallbackSeed, skin.seed);
+            Mem::Write<int32_t>(weapon + Offsets::m_nFallbackStatTrak, skin.statTrak);
+        }
+    }
+
+    // ---------------------------------------------------------------
+    // Glove skin helper — SEH-safe, no C++ objects with destructors
+    // ---------------------------------------------------------------
+    inline void ApplyGloveSkin(uintptr_t localPawn, int paintKit, float wear)
+    {
+        __try {
+            // m_hMyWearables is CNetworkUtlVectorBase<CHandle> at pawn + 0x1350
+            uintptr_t wearablesBase = localPawn + 0x1350;
+            int32_t wearableCount = Mem::Read<int32_t>(wearablesBase + 0x00);
+            uintptr_t wearablesData = Mem::Read<uintptr_t>(wearablesBase + 0x08);
+
+            if (wearableCount > 0 && wearableCount < 16 && wearablesData) {
+                for (int w = 0; w < wearableCount; w++) {
+                    uint32_t wearableHandle = Mem::Read<uint32_t>(wearablesData + w * 4);
+                    uintptr_t wearable = GameState::ResolveHandle(wearableHandle);
+                    if (!wearable) continue;
+
+                    uintptr_t wearItem = wearable + Offsets::m_AttributeManager + Offsets::m_Item;
+                    uint16_t wearDefIdx = Mem::Read<uint16_t>(wearItem + Offsets::m_iItemDefinitionIndex);
+                    bool isGlove = (wearDefIdx >= 5027 && wearDefIdx <= 5033);
+
+                    if (isGlove || w == 0) {
+                        // Persistent fallback — same as weapon skins
+                        Mem::Write<uint32_t>(wearItem + Offsets::m_iItemIDHigh, 0xFFFFFFFF);
+                        Mem::Write<int32_t>(wearable + Offsets::m_nFallbackPaintKit, paintKit);
+                        Mem::Write<float>(wearable + Offsets::m_flFallbackWear, wear);
+                        Mem::Write<int32_t>(wearable + Offsets::m_nFallbackSeed, 0);
+                        Mem::Write<int32_t>(wearable + Offsets::m_nFallbackStatTrak, -1);
+                        break;
+                    }
+                }
+            }
+
+            // Signal game to reapply gloves
+            Mem::Write<bool>(localPawn + Offsets::m_bNeedToReApplyGloves, true);
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+    }
+
+    // ---------------------------------------------------------------
+    // Sync function to convert menu config to internal system
+    // ---------------------------------------------------------------
+    inline void SyncConfigs() {
+        std::lock_guard<std::mutex> lock(configMutex);
+        
+        // Sync weapon configs from menu to internal system
+        for (int i = 0; i < kWeaponCount && i < 32; ++i) {
+            int defIndex = kWeapons[i].defIndex;
+            const auto& oldSkin = cfg.weapons[i];
+            
+            if (oldSkin.enabled) {
+                weaponSkins[defIndex] = {
+                    oldSkin.paintKit,
+                    oldSkin.wear,
+                    oldSkin.seed,
+                    oldSkin.statTrak,
+                    true
+                };
+            } else {
+                weaponSkins[defIndex].enabled = false;
+            }
+        }
+    }
+
+    // ---------------------------------------------------------------
+    // Main functions
+    // ---------------------------------------------------------------
+    inline void Init() {
+        running = true;
+        
+        // Initialize with some default skins for testing
+        weaponSkins[7] = {38, 0.001f, 0, -1, true};   // AK-47 Fade (ENABLED)
+        weaponSkins[4] = {38, 0.001f, 0, -1, true};   // Glock Fade (ENABLED)
+        weaponSkins[9] = {344, 0.001f, 0, -1, true};  // AWP Dragon Lore (ENABLED)
+        weaponSkins[16] = {279, 0.001f, 0, -1, true}; // M4A4 Asiimov (ENABLED)
+        
+        // Enable knife changer by default for testing
+        cfg.enabled = true;
+        cfg.knifeEnabled = true;
+        cfg.knifeModel = 7; // Karambit (index 7 in kKnives array)
+        cfg.knifePaintKit = 38; // Fade
+        cfg.knifeSeed = 0;
+        cfg.knifeWear = 0.001f;
+        cfg.knifeStatTrak = -1;
+        
+        srand((unsigned)(__rdtsc() & 0xFFFFFFFF));
+    }
+
+    inline void Tick() {
+        if (!cfg.enabled || !running) return;
+        if (!GameState::clientBase) return;
+
+        // Sync menu configs to internal system
+        SyncConfigs();
+
+        uintptr_t localPawn = GameState::GetLocalPawn();
+        if (!localPawn) {
+            lastAppliedWeapon = 0;
+            lastAppliedKit = 0;
+            return;
+        }
+
+        uint8_t lifeState = Mem::Read<uint8_t>(localPawn + Offsets::m_lifeState);
+        int32_t health = Mem::Read<int32_t>(localPawn + Offsets::m_iHealth);
+
+        if (lifeState != 0 || health <= 0) {
+            lastAppliedWeapon = 0;
+            lastAppliedKit = 0;
+            return;
+        }
+
+        InitRegen();
+        InitModelFunctions();
+
+        bool force = forceUpdate.load();
+        std::lock_guard<std::mutex> lock(configMutex);
+
+        // ---------------------------------------------------------------
+        // GLOVE CHANGER — find glove wearable from m_hMyWearables and
+        // apply skin via fallback system (same as weapon skins).
+        // Glove MODEL changing needs server inventory — only skins work.
+        // ---------------------------------------------------------------
+        if (cfg.gloveEnabled && cfg.glovePaintKit > 0) {
+            ApplyGloveSkin(localPawn, cfg.glovePaintKit, cfg.gloveWear);
+        }
+
+        // ---------------------------------------------------------------
+        // WEAPON/KNIFE CHANGER
+        // ---------------------------------------------------------------
+        uintptr_t activeWeapon = Mem::Read<uintptr_t>(localPawn + Offsets::m_pClippingWeapon);
+        if (!activeWeapon) return;
+
+        uintptr_t item = activeWeapon + Offsets::m_AttributeManager + Offsets::m_Item;
+        uint16_t defIndex = Mem::Read<uint16_t>(item + Offsets::m_iItemDefinitionIndex);
+
+        bool isWeapon = (defIndex > 0 && defIndex < 70) || (defIndex >= 500 && defIndex < 600);
+        if (!isWeapon || defIndex == 31) return; // Skip grenades
+
+        int lookupIndex = defIndex;
+        
+        // ---------------------------------------------------------------
+        // KNIFE SKIN — apply paint kit to equipped knife via ApplyAndRegen
+        // NOTE: Knife MODEL changing (e.g. Karambit) is server-authoritative
+        // and cannot be done client-side. Only knife SKINS work.
+        // ---------------------------------------------------------------
+        if (IsKnife(defIndex) && cfg.knifeEnabled && cfg.knifePaintKit > 0) {
+            SkinConfig knifeSkin;
+            knifeSkin.paintKit = cfg.knifePaintKit;
+            knifeSkin.wear = cfg.knifeWear;
+            knifeSkin.seed = cfg.knifeSeed;
+            knifeSkin.statTrak = cfg.knifeStatTrak;
+            knifeSkin.enabled = true;
+
+            bool needsApply = force || (activeWeapon != lastAppliedWeapon) || (cfg.knifePaintKit != lastAppliedKit);
+            if (needsApply) {
+                lifeState = Mem::Read<uint8_t>(localPawn + Offsets::m_lifeState);
+                health = Mem::Read<int32_t>(localPawn + Offsets::m_iHealth);
+                if (lifeState == 0 && health > 0) {
+                    Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0);
+                    ApplyAndRegen(activeWeapon, knifeSkin, defIndex);
+                    lastAppliedWeapon = activeWeapon;
+                    lastAppliedKit = cfg.knifePaintKit;
+                }
+            }
+        }
+        else {
+            // Handle regular weapons — use proven ApplyAndRegen approach
+            auto it = weaponSkins.find(lookupIndex);
+            if (it != weaponSkins.end() && it->second.enabled && it->second.paintKit > 0) {
+                const SkinConfig& skin = it->second;
+                bool needsApply = force || (activeWeapon != lastAppliedWeapon) || (skin.paintKit != lastAppliedKit);
+
+                if (needsApply) {
+                    lifeState = Mem::Read<uint8_t>(localPawn + Offsets::m_lifeState);
+                    health = Mem::Read<int32_t>(localPawn + Offsets::m_iHealth);
+                    if (lifeState == 0 && health > 0) {
+                        // Reset ItemIDHigh before apply (reference approach)
+                        Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0);
+                        // Write-regen-cleanup cycle
+                        ApplyAndRegen(activeWeapon, skin, defIndex);
+                        lastAppliedWeapon = activeWeapon;
+                        lastAppliedKit = skin.paintKit;
+                    }
+                }
+            }
+        }
+
+        if (force) forceUpdate.store(false);
+    }
+
+    // ---------------------------------------------------------------
+    // Menu interface functions
+    // ---------------------------------------------------------------
+    inline void RandomizeAll() {
+        std::lock_guard<std::mutex> lock(configMutex);
+        
+        cfg.enabled = true;
+        
+        // Popular paint kits
+        int kits[] = {12, 38, 44, 77, 135, 279, 309, 344, 409, 415, 417, 418, 433, 475, 524, 597, 637, 735, 811, 846};
+        int kitCount = sizeof(kits) / sizeof(kits[0]);
+        
+        // Randomize weapons in menu config
+        for (int i = 0; i < kWeaponCount && i < 32; ++i) {
+            cfg.weapons[i].enabled = true;
+            cfg.weapons[i].paintKit = kits[rand() % kitCount];
+            cfg.weapons[i].seed = rand() % 1000;
+            cfg.weapons[i].wear = 0.0001f;
+            cfg.weapons[i].statTrak = (rand() % 4 == 0) ? (rand() % 500) : -1;
+        }
+        
+        // Randomize knife
+        cfg.knifeEnabled = true;
+        cfg.knifeModel = 1 + (rand() % (kKnifeCount - 1));
+        cfg.knifePaintKit = kits[rand() % kitCount];
+        cfg.knifeSeed = rand() % 1000;
+        cfg.knifeWear = 0.0001f;
+        cfg.knifeStatTrak = (rand() % 3 == 0) ? (rand() % 500) : -1;
+        
+        forceUpdate.store(true);
+    }
+
+    inline void ForceFullUpdate() {
+        forceUpdate.store(true);
+        lastAppliedWeapon = 0;
+        lastAppliedKit = 0;
+    }
+}
+
+// Namespace alias for compatibility
+namespace SkinChangerTest = SkinChanger;

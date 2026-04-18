@@ -1,0 +1,417 @@
+{
+    "$schema": "https://raw.githubusercontent.com/untrustedmodders/plugify-source-2/refs/heads/main/schemas/gamedata.schema.json",
+    "csgo": {
+        "Signatures": {
+            "PreloadLibrary": {
+                "library": "engine2",
+                "win64": "48 89 4C 24 ? 53 56 57 48 83 EC ? 48 8B F1"
+            },
+            "CSScript::ResolveModule": {
+                "library": "server",
+                "win64": "48 89 54 24 ? 48 89 4C 24 ? 55 53 56 57 41 55 41 56 48 8D AC 24",
+                "linuxsteamrt64": "55 48 89 E5 41 57 41 56 49 89 F6 41 55 41 54 53 48 89 FB 48 81 EC ? ? ? ? 48 89 B5"
+            },
+            "CCSPlayerController::SwitchTeam": {
+                "library": "server",
+                "win64": "40 53 57 48 81 EC 88 00 00 00 48 8B D9 8B FA 8B CA E8 ? ? ? ? 48 85 C0 0F 84 ? ? ? ? 8D 47 FE 83 F8 01 0F 87 ? ? ? ? 0F B6 83 44 03 00 00 3B F8 0F 84 ? ? ? ?",
+                "linuxsteamrt64": "55 48 89 E5 41 54 49 89 FC 89 F7 53 89 F3 E8 ? ? ? ? 48 85 C0 74 ? 8D 43 FE 83 F8 01 77 ? 41 0F B6 84 24 24 06 00 00 39 C3 74 ? 89 DE 4C 89 E7 5B 41 5C 5D E9 ? ? ? ?"
+            },
+            "CHostStateMgr::StartNewRequest": {
+                "library": "engine2",
+                "win64": "48 89 74 24 ? 57 48 83 EC ? 33 F6 48 8B FA 48 39 35",
+                "linuxsteamrt64": "55 48 89 E5 41 57 41 56 41 55 41 54 49 89 FC 53 48 89 F3 48 83 EC 18 48 83 7F 30 00"
+            },
+            "CNetworkGameServer::ReplyConnection": {
+                "library": "engine2",
+                "win64": "48 8B C4 55 41 55 41 56",
+                "linuxsteamrt64": "55 48 8D 05 ? ? ? ? 66 0F EF C0 48 89 E5 41 57 41 56 41 55 41 54 49 89 FC"
+            },
+            "CBasePlayerController::SetPawn": {
+                "library": "server",
+                "win64": "44 88 4C 24 ? 53 57",
+                "linuxsteamrt64": "55 48 8D 87 ? ? ? ? 48 89 E5 41 57 41 56 41 89 CE 41 55 45 89 CD"
+            },
+            "LegacyGameEventListener": {
+                "library": "server",
+                "win64": "48 8B 15 ? ? ? ? 48 85 D2 74 14 83 F9 3F 77 0F 48 63 C1 48 83 C0 04 48 C1 E0 04 48 03 C2 C3 33 C0 C3",
+                "linuxsteamrt64": "48 8B 05 ? ? ? ? 48 85 C0 74 ? 83 FF 3F 77 ? 48 63 FF 48 C1 E7 04 48 8D 44 38 40 C3"
+            },
+            "CSource2Server::Init": {
+                "library": "server",
+                "win64": "48 83 EC ? 48 83 3D ? ? ? ? ? 74 ? 33 C9 E8 ? ? ? ? FF 15 ? ? ? ?",
+                "linuxsteamrt64": "55 48 89 E5 41 55 41 54 53 48 83 EC ? 48 8D 05 ? ? ? ? 48 83 38 ?"
+            },
+            "CEntityInstance::AcceptInput": {
+                "library": "server",
+                "win64": "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 49 8B F0 48 8B D9 48 8B 0D ? ? ? ?",
+                "linuxsteamrt64": "55 48 89 F0 48 89 E5 41 57 49 89 FF 41 56 48 8D 7D ?"
+            },
+            "CEntityIOOutput::FireOutputInternal": {
+                "library": "server",
+                "win64": "4C 89 4C 24 ? 48 89 4C 24 ? 53 56 57 41 55 41 56 41 57 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 4D 8B F0",
+                "linuxsteamrt64": "55 48 89 E5 41 57 49 89 FF 41 56 41 55 41 54 49 89 D4 53 48 89 F3 48 83 EC 78 48 8D 05 ? ? ? ? 48 89 BD 78 FF FF FF 48 89 4D A0 F3 0F 11 45 9C 4C 89 45 A8 48 8B 00 4C 89 8D 70 FF FF FF"
+            },
+            "CGameRules::TerminateRound": {
+                "library": "server",
+                "win64": "48 8B C4 4C 89 48 ? 48 89 48 ? 55 56 41 56",
+                "linuxsteamrt64": "55 48 89 E5 41 57 49 89 FF 41 56 41 55 41 54 53 48 81 EC ? ? ? ? 48 8D 05 ? ? ? ? F3 0F 11 85 ? ? ? ?"
+            },
+            "CGameEntitySystem::CreateEntityByName": {
+                "library": "server",
+                "win64": "48 83 EC ? C6 44 24 ? ? 4C 8B C1",
+                "linuxsteamrt64": "48 8D 05 ? ? ? ? 55 48 89 FA"
+            },
+            "CGameEntitySystem::DispatchSpawn": {
+                "library": "server",
+                "win64": "48 89 5C 24 ? 57 48 83 EC ? 48 8B DA 48 8B F9 48 85 C9 0F 84 ? ? ? ? 48 85 D2",
+                "linuxsteamrt64": "48 85 FF 74 ? 55 48 89 E5 41 55 49 89 FD"
+            },
+            "CBaseEntity::EmitSoundFilter": {
+                "library": "server",
+                "win64": "48 89 74 24 18 57 41 56 41 57 48 83 EC 40 BE FF FF FF FF 4C 8B FA 48 8B F9 89 74 24 78 8B D6 48 8D 0D ? ? ? ? 4D 8B F0 E8 ? ? ? ? 48 85 C0 75 0B 48 8B 05 ? ? ? ? 48 8B 40 08 80 38",
+                "linuxsteamrt64": "55 48 89 E5 53 48 89 FB 48 83 EC 08 E8 ? ? ? ? 48 89 D8 48 8B 5D F8 C9 C3 CC CC CC CC CC CC 48 B8"
+            },
+            "CBaseEntity::SetMoveType": {
+                "library": "server",
+                "win64": "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 41 56 48 83 EC ? 41 0F B6 F0",
+                "linuxsteamrt64": "55 48 89 E5 41 57 49 89 FF 41 56 41 55 41 54 53 89 D3 48 81 EC ? ? ? ? 40 38 B7 ? 05 00 00"
+            },
+            "CCSPlayer_WeaponServices::RemoveItem": {
+                "library": "server",
+                "win64": "48 85 D2 0F 84 ? ? ? ? 48 89 5C 24 ? 57 48 83 EC ? 48 8B DA 48 8B F9 E8",
+                "linuxsteamrt64": "55 48 89 E5 41 54 49 89 FC 53 48 89 F3 E8 ? ? ? ? 48 39 C3"
+            },
+            "CCSPlayer_ItemServices::CanAcquire": {
+                "library": "server",
+                "win64": "44 89 44 24 18 48 89 54 24 10 48 89 4C 24 08 55 53 56 57 41 55 41 56 41 57 48 8B EC 48 81 EC ? ? ? ? 48 83 79 38 00 49 8B D9 45 8B E8 4C 8B FA 48 8B F9 75 05 E8 ? ? ? ?",
+                "linuxsteamrt64": "55 48 89 E5 41 57 41 56 41 55 49 89 CD 41 54 49 89 FC 53 48 89 F3 48 83 EC 78 4C 8B 77 38 89 55 BC 4D 85 F6 0F 84 ? ? ? ? 48 8D 45 CC 4D 85 ED 4C 0F 44 E8 41 C7 45 00 00 00 00 00 48 85 DB"
+            },
+            "GetCSWeaponDataFromKey": {
+                "library": "server",
+                "win64": "48 89 5C 24 08 57 48 83 EC 20 33 FF 4C 8B CA 8B D9 8B C7 48 85 D2 74 22 38 02 74 1E 48 C7 C2 FF FF FF FF 48 FF C2 41 38 04 11 75 F7 41 B8 26 59 41 31 49 8B C9 E8 ? ? ? ? 89 44 24 38 85 C0",
+                "linuxsteamrt64": "48 85 F6 0F 84 ? ? ? ? 55 48 89 E5 41 57 41 56 41 55 49 89 F5 41 54 53 48 81 EC ? ? ? ? 80 3E ? 75 ? 31 C0 48 81 C4 ? ? ? ? 5B 41 5C 41 5D 41 5E 41 5F 5D C3 0F 1F 80 ? ? ? ? 4C 8D A5 ? ? ? ?"
+            },
+            "VScriptInitialization": {
+                "library": "vscript",
+                "win64": "BE ? ? ? ? 2B D6",
+                "linuxsteamrt64": "83 FE 01 0F 84 67"
+            },
+            "CheckJumpButtonWater": {
+                "library": "server",
+                "win64": "C8 42 EB ? 4C 8B 77 ? 4D 39 6E",
+                "linuxsteamrt64": "C8 42 41 C7 84 24 ? ? ? ? ? ? ? ? 41 C7 84 24 ? ? ? ? ? ? ? ? E9 ? ? ? ? 66 90"
+            },
+            "CPhysBox_Use": {
+                "library": "server",
+                "win64": "48 89 5C 24 ? 57 48 83 EC ? 48 8B DA 48 8B F9 E8 ? ? ? ? 80 BF ? 08 00 00 ? 74 ?",
+                "linuxsteamrt64": "55 48 89 E5 41 54 49 89 F4 53 48 89 FB 48 83 EC ? E8 ? ? ? ? 80 BB ? 0B 00 00 ? 75 ? 48 83 C4 ? 5B 41 5C 5D C3 0F 1F 84 00 ? ? ? ? 49 8B 54 24 ?"
+            },
+            "BotNavIgnore": {
+                "library": "server",
+                "win64": "0F 84 ? ? ? ? 80 B8 ? ? ? ? 00 0F 84 ? ? ? ? 80 3D ? ? ? ? 00 74 15",
+                "linuxsteamrt64": "0F 84 ? ? ? ? 44 0F B6 B0 ? ? ? ? 45 84 F6 0F 84"
+            },
+            "ServerMovementUnlock": {
+                "library": "server",
+                "win64": "0F 86 ? ? ? ? 0F 57 C0 0F 2E C2",
+                "linuxsteamrt64": "0F 87 ? ? ? ? F3 0F 12 C2"
+            },
+            "EmitSoundVolume": {
+                "library": "server",
+                "win64": "41 B9 ? ? ? ? 48 89 5C 24 ? 49 8B D5",
+                "linuxsteamrt64": "E8 ? ? ? ? F3 0F 6F 03 48 83 EC ? 45 31 C9 89 C2 45 31 C0 4C 89 FE 0F 11 04 24 8B 43 ? 4C 89 E7"
+            }
+        },
+        "Offsets": {
+            "GameEntitySystem": {
+                "win64": 88,
+                "linuxsteamrt64": 80
+            },
+            "CBaseEntity::CollisionRulesChanged": {
+                "win64": 186,
+                "linuxsteamrt64": 185
+            },
+            "CBaseEntity::IsWeapon": {
+                "win64": 180,
+                "linuxsteamrt64": 179
+            },
+            "CBaseEntity::Teleport": {
+                "win64": 13,
+                "linuxsteamrt64": 14
+            },
+            "CBasePlayerController::RoundRespawn": {
+                "win64": 272,
+                "linuxsteamrt64": 274
+            },
+            "CBasePlayerPawn::CommitSuicide": {
+                "win64": 390,
+                "linuxsteamrt64": 390
+            },
+            "CCSPlayer_WeaponServices::CanUse": {
+                "win64": 24,
+                "linuxsteamrt64": 25
+            },
+            "CCSPlayer_WeaponServices::DropWeapon": {
+                "win64": 25,
+                "linuxsteamrt64": 26
+            },
+            "CCSPlayer_WeaponServices::SelectItem": {
+                "win64": 27,
+                "linuxsteamrt64": 28
+            },
+            "CCSPlayer_WeaponServices::SwitchWeapon": {
+                "win64": 20,
+                "linuxsteamrt64": 21
+            },
+            "CCSPlayer_ItemServices::GiveNamedItem": {
+                "win64": 20,
+                "linuxsteamrt64": 21
+            },
+            "CCSPlayer_ItemServices::RemoveAllItems": {
+                "win64": 23,
+                "linuxsteamrt64": 24
+            },
+            "CCSScript_EntityScript": {
+                "win64": 1288,
+                "linuxsteamrt64": 2032
+            }
+        },
+        "Addresses": {
+            "&s_GameEventManager": {
+                "signature": "CSource2Server::Init",
+                "win64": [
+                    {
+                        "read_offs32": 98
+                    },
+                    {
+                        "read": 0
+                    }
+                ],
+                "linuxsteamrt64": [
+                    {
+                        "read_offs32": 106
+                    },
+                    {
+                        "read": 0
+                    }
+                ]
+            },
+            "&s_pScripts": {
+                "signature": "CSScript::ResolveModule",
+                "win64": [
+                    {
+                        "read_offs32": 272
+                    }
+                ],
+                "linuxsteamrt64": [
+                    {
+                        "read_offs32": 320
+                    }
+                ]
+            },
+            "v8::Isolate::Enter": {
+                "signature": "CSScript::ResolveModule",
+                "win64": [
+                    {
+                        "read_offs32": 59
+                    }
+                ],
+                "linuxsteamrt64": [
+                    {
+                        "read_offs32": 45
+                    }
+                ]
+            },
+            "v8::Isolate::Exit": {
+                "signature": "CSScript::ResolveModule",
+                "win64": [
+                    {
+                        "read_offs32": 1216
+                    }
+                ],
+                "linuxsteamrt64": [
+                    {
+                        "read_offs32": 218
+                    }
+                ]
+            },
+            "GetHammerUniqueId": {
+                "vtable": "CPointEntity",
+                "win64": [
+                    {
+                        "index": 118
+                    }
+                ],
+                "linuxsteamrt64": [
+                    {
+                        "index": 117
+                    }
+                ]
+            }
+        },
+        "Patches": {
+            "VScriptPatch": {
+                "signature": "VScriptInitialization",
+                "win64": "BE 02",
+                "linuxsteamrt64": "83 FE 02"
+            },
+            "HammerIdPatch": {
+                "address": "GetHammerUniqueId",
+                "win64": "B0 01",
+                "linuxsteamrt64": "B0 01"
+            },
+            "FixWaterFloorJumpPatch": {
+                "signature": "CheckJumpButtonWater",
+                "win64": "11 43",
+                "linuxsteamrt64": "11 43"
+            },
+            "CPhysBoxUsePatch": {
+                "signature": "CPhysBox_Use",
+                "win64": "49 89 F8 90",
+                "linuxsteamrt64": "48 89 DA 90 90"
+            },
+            "ServerMovementUnlockPatch": {
+                "signature": "ServerMovementUnlock",
+                "win64": "E9 B1 00 00 00 90",
+                "linuxsteamrt64": "90 90 90 90 90 90"
+            },
+            "BotNavIgnorePatch": {
+                "signature": "BotNavIgnore",
+                "win64": "E9 2C 00 00 00 90",
+                "linuxsteamrt64": "E9 25 00 00 00 90"
+            },
+            "EmitSoundVolumePatch": {
+                "signature": "EmitSoundVolume",
+                "win64": "41 B9 E9 54 60 BD",
+                "linuxsteamrt64": "B8 E9 54 60 BD"
+            }
+        },
+        "VTables": {
+            "CServerSideClient": {
+                "library": "engine2",
+                "table": "CServerSideClient"
+            },
+            "CGameRulesGameSystem": {
+                "library": "server",
+                "table": "CGameRulesGameSystem"
+            },
+            "CLuaVM": {
+                "library": "vscript",
+                "table": "CLuaVM"
+            },
+            "CPointEntity": {
+                "library": "server",
+                "table": "CPointEntity"
+            }
+        }
+    },
+    "citadel": {
+        "Signatures": {
+            "PreloadLibrary": {
+                "library": "engine2",
+                "win64": "48 89 4C 24 08 53 56 57 48 83 EC 60"
+            },
+            "CHostStateMgr::StartNewRequest": {
+                "library": "engine2",
+                "win64": "48 89 74 24 10 57 48 83 EC 30 33 F6 48 8B FA",
+                "linuxsteamrt64": "55 48 89 E5 41 56 41 55 41 54 49 89 F4 53 48 83 7F"
+            },
+            "CNetworkGameServer::ReplyConnection": {
+                "library": "engine2",
+                "win64": "48 8B C4 55 41 55 41 56",
+                "linuxsteamrt64": "TODO"
+            },
+            "CBasePlayerController::SetPawn": {
+                "library": "server",
+                "win64": "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 40 48 8B D9 48 8B FA 48 81 C1 50 06 00 00",
+                "linuxsteamrt64": "TODO"
+            },
+            "LegacyGameEventListener": {
+                "library": "server",
+                "win64": "48 8B 15 ? ? ? ? 48 85 D2 74 ? 83 F9 20 77 ? 48 63 C1 48 C1 E0 04",
+                "linuxsteamrt64": "TODO"
+            },
+            "CSource2Server::Init": {
+                "library": "server",
+                "win64": "48 83 EC 28 48 83 3D ? ? ? ? 00 74 ? 33 C9 E8 ? ? ? ? FF 15",
+                "linuxsteamrt64": "TODO"
+            },
+            "CEntityInstance::AcceptInput": {
+                "library": "server",
+                "win64": "48 89 5C 24 10 48 89 74 24 18 57 48 83 EC 50 49 8B F0",
+                "linuxsteamrt64": "TODO"
+            },
+            "CEntityIOOutput::FireOutputInternal": {
+                "library": "server",
+                "win64": "4C 89 4C 24 20 48 89 4C 24 08 53 56 57 41 55",
+                "linuxsteamrt64": "TODO"
+            },
+            "CGameEntitySystem::CreateEntityByName": {
+                "library": "server",
+                "win64": "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 41 56 48 83 EC 50 49 8B F8",
+                "linuxsteamrt64": "TODO"
+            },
+            "CGameEntitySystem::DispatchSpawn": {
+                "library": "server",
+                "win64": "48 89 5C 24 08 57 48 83 EC 60 48 8B F9 0F 29 74 24 50 48 8D 4C 24 40 41 B0 01 0F 28 F2 48 8B DA E8 ? ? ? ? 8B 44 24 40 48 8D 54 24 40 48 8B CF 89 44 24 40 C7 44 24 44 FF FF FF FF 48 89 5C 24 48 E8 ? ? ? ? 48 8B D8 48 85 C0 74 ? 33 C0 C6 44 24 30 00 89 44 24 28 45 33 C9 41 B0 18",
+                "linuxsteamrt64": "TODO"
+            },
+            "CBaseEntity::EmitSoundFilter": {
+                "library": "server",
+                "win64": "4C 8B DC 49 89 5B 08 49 89 6B 10 49 89 73 18 49 89 7B 20 41 56 48 83 EC 70 49 C7 43 C0 7E 01 00 00",
+                "linuxsteamrt64": "TODO"
+            },
+            "CBaseEntity::SetMoveType": {
+                "library": "server",
+                "win64": "48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 55 41 56 41 57 48 8D 6C 24 ? 48 81 EC 90 00 00 00 48 8B FA",
+                "linuxsteamrt64": "TODO"
+            }
+        },
+        "Offsets": {
+            "ServerAddons": {
+                "win64": 328,
+                "linuxsteamrt64": 328
+            },
+            "GameEventManager": {
+                "win64": 93,
+                "linuxsteamrt64": 93
+            },
+            "GameEntitySystem": {
+                "win64": 88,
+                "linuxsteamrt64": 80
+            },
+            "CollisionRulesChanged": {
+                "win64": 189,
+                "linuxsteamrt64": 188
+            }
+        },
+        "Addresses": {
+            "&s_GameEventManager": {
+                "signature": "CSource2Server::Init",
+                "win64": [
+                    {
+                        "read_offs32": 98
+                    },
+                    {
+                        "read": 0
+                    }
+                ],
+                "linuxsteamrt64": [
+                    {
+                        "read_offs32": 106
+                    },
+                    {
+                        "read": 0
+                    }
+                ]
+            }
+        },
+        "Patches": {},
+        "VTables": {
+            "CLuaVM": {
+                "library": "vscript",
+                "table": "CLuaVM"
+            }
+        }
+    }
+}

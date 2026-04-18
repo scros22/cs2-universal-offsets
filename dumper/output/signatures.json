@@ -1,0 +1,20 @@
+{
+    "client.dll": {
+        "CreateNewPaintKit": "0x10C9E90",
+        "CreateSOSubclassEconItem": "0x1018A20",
+        "EquipItemInLoadout": "0x7C1AD0",
+        "GetInventoryManager": "0x10C26FE",
+        "GetItemInLoadout": "0x7C36F0",
+        "RegenerateWeaponSkin": "0x793080",
+        "SetBodyGroup": "0x14D1BE0",
+        "SetMeshGroupMask": "0xA329C0",
+        "SetModel": "0x8E19A0",
+        "UpdateCompositeMaterial": "0x13DB150"
+    },
+    "materialsystem2.dll": {
+        "CreateMaterial": "0x3BB70",
+        "FindParameter": "0x11E10",
+        "PrepareSceneMaterial": "0x11BC0",
+        "UpdateParameter": "0x12350"
+    }
+}

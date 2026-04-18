@@ -1,0 +1,50 @@
+{
+    "Addresses": {
+        "CResourceNameTyped::ResolveResourceName": {
+            "library": "resourcesystem",
+            "linux": "55 48 89 F2",
+            "windows": "48 89 5C 24 ? 57 48 83 EC ? 8B 41 ? 48 8D 79"
+        },
+        "INetChannel::SendNetMessage": {
+            "library": "networksystem",
+            "linux": "55 48 89 E5 41 57 41 89 D7 41 56 4C 8D B7",
+            "windows": "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 83 EC ? 41 0F B6 F0"
+        },
+        "IScriptVM::CreateVM": {
+            "library": "vscript",
+            "linux": "55 4C 8D 05 ? ? ? ?",
+            "windows": "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 56 48 83 EC ? 48 8B D9"
+        },
+        "Resource_FindBlockInfo": {
+            "library": "resourcesystem",
+            "linux": "48 B8 ? ? ? ? ? ? ? ? 55 66 0F EF C0 48 89 E5 41 57 41 56 41 55 41 54 53",
+            "windows": "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 45 33 C9"
+        }
+    },
+    "VFuncs": {
+        "CGameEventManager::FireEvent": {
+            "linux": 8,
+            "windows": 7
+        },
+        "CVPhys2World::GetTouchingList": {
+            "linux": 121,
+            "windows": 121
+        },
+        "IGameEventSystem::PostEventAbstract": {
+            "linux": 15,
+            "windows": 16
+        },
+        "IGameTypes::GetMapGroupMapList": {
+            "linux": 62,
+            "windows": 61
+        },
+        "INetworkServerService::StartupServer": {
+            "linux": 27,
+            "windows": 26
+        },
+        "IResourceSystem::GetResourceStatus": {
+            "linux": 49,
+            "windows": 51
+        }
+    }
+}

@@ -1,0 +1,16 @@
+// Resource script — application icon + embedded payloads + admin manifest
+#include <windows.h>
+
+// App icon (shows in Explorer, taskbar, etc.)
+IDI_ICON1 ICON "app.ico"
+
+// Admin manifest — forces "Run as administrator" without right-clicking
+1 24 "app.manifest"
+
+// Embedded payloads as RCDATA resources
+// The injector extracts these at runtime so no loose files needed
+101 RCDATA "..\\x64\\Release\\CS2.dll"
+102 RCDATA "..\\RTCore64.sys"
+103 RCDATA "..\\CorMem.sys"
+104 RCDATA "..\\WDTKernel.sys"
+105 RCDATA "..\\SIVX64.sys"

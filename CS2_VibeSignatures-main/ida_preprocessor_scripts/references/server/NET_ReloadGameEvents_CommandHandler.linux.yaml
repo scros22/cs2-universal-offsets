@@ -1,0 +1,61 @@
+func_name: NET_ReloadGameEvents_CommandHandler
+func_va: '0x156ef90'
+disasm_code: |-
+  .text:000000000156EF90                 mov     eax, cs:dword_259B300
+  .text:000000000156EF96                 test    eax, eax
+  .text:000000000156EF98                 jle     short locret_156F000
+  .text:000000000156EF9A                 push    rbp
+  .text:000000000156EF9B                 mov     rbp, rsp
+  .text:000000000156EF9E                 push    r13
+  .text:000000000156EFA0                 push    r12
+  .text:000000000156EFA2                 lea     r13, byte_8D6258
+  .text:000000000156EFA9                 push    rbx
+  .text:000000000156EFAA                 lea     r12, s_GameEventManager
+  .text:000000000156EFB1                 xor     ebx, ebx
+  .text:000000000156EFB3                 sub     rsp, 8
+  .text:000000000156EFB7                 nop     word ptr [rax+rax+00000000h]
+  .text:000000000156EFC0                 mov     rax, rbx
+  .text:000000000156EFC3                 shl     rax, 4
+  .text:000000000156EFC7                 add     rax, cs:qword_259B308
+  .text:000000000156EFCE                 mov     rsi, [rax]
+  .text:000000000156EFD1                 mov     edx, [rax+8]
+  .text:000000000156EFD4                 test    rsi, rsi
+  .text:000000000156EFD7                 jnz     short loc_156EFDC
+  .text:000000000156EFD9                 mov     rsi, r13
+  .text:000000000156EFDC                 mov     rdi, r12
+  .text:000000000156EFDF                 add     rbx, 1
+  .text:000000000156EFE3                 call    sub_156E8C0
+  .text:000000000156EFE8                 cmp     cs:dword_259B300, ebx
+  .text:000000000156EFEE                 jg      short loc_156EFC0
+  .text:000000000156EFF0                 add     rsp, 8
+  .text:000000000156EFF4                 pop     rbx
+  .text:000000000156EFF5                 pop     r12
+  .text:000000000156EFF7                 pop     r13
+  .text:000000000156EFF9                 pop     rbp
+  .text:000000000156EFFA                 retn
+  .text:000000000156F000                 retn
+procedure: |-
+  __int64 NET_ReloadGameEvents_CommandHandler()
+  {
+    __int64 result; // rax
+    __int64 v1; // rbx
+    __int64 v2; // rax
+    const char *v3; // rsi
+
+    result = (unsigned int)dword_259B300;
+    if ( dword_259B300 > 0 )
+    {
+      v1 = 0;
+      do
+      {
+        v2 = qword_259B308 + 16 * v1;
+        v3 = *(const char **)v2;
+        if ( !*(_QWORD *)v2 )
+          v3 = &byte_8D6258;
+        ++v1;
+        result = sub_156E8C0(&s_GameEventManager, v3, *(unsigned int *)(v2 + 8));
+      }
+      while ( dword_259B300 > (int)v1 );
+    }
+    return result;
+  }

@@ -1,0 +1,835 @@
+func_name: CLoopModeGame_RegisterEventMapInternal
+func_va: '0x1809b92f0'
+disasm_code: |-
+  .text:00000001809B92F0                 mov     [rsp-18h+arg_0], rbx
+  .text:00000001809B92F5                 mov     [rsp-18h+arg_10], rsi
+  .text:00000001809B92FA                 push    rbp
+  .text:00000001809B92FB                 push    rdi
+  .text:00000001809B92FC                 push    r14
+  .text:00000001809B92FE                 mov     rbp, rsp
+  .text:00000001809B9301                 sub     rsp, 50h
+  .text:00000001809B9305                 mov     r14d, r9d
+  .text:00000001809B9308                 mov     rdi, rdx
+  .text:00000001809B930B                 mov     rsi, rcx
+  .text:00000001809B930E                 test    r8d, r8d
+  .text:00000001809B9311                 jnz     loc_1809B98CC
+  .text:00000001809B9317                 call    nullsub_320
+  .text:00000001809B931C                 mov     rdx, cs:off_1819EEAB0
+  .text:00000001809B9323                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9327                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B932C                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9330                 lea     rax, CLoopModeGame_OnClientPollNetworking
+  .text:00000001809B9337                 mov     rcx, rdi
+  .text:00000001809B933A                 mov     [rbp+var_8], rax
+  .text:00000001809B933E                 call    sub_180162250
+  .text:00000001809B9343                 mov     [rbp+var_10], rax
+  .text:00000001809B9347                 lea     rdx, [rbp+var_10]
+  .text:00000001809B934B                 lea     rax, aCloopmodegameO; "CLoopModeGame::OnClientPollNetworking"
+  .text:00000001809B9352                 mov     r9b, 1
+  .text:00000001809B9355                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B935A                 mov     r8d, 1
+  .text:00000001809B9360                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B9365                 mov     rcx, rsi
+  .text:00000001809B9368                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B936D                 call    RegisterEventListener_Abstract
+  .text:00000001809B9372                 call    nullsub_316
+  .text:00000001809B9377                 mov     rdx, cs:off_1819EEA60
+  .text:00000001809B937E                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9382                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9387                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B938B                 lea     rax, CLoopModeGame_OnClientAdvanceTick
+  .text:00000001809B9392                 mov     rcx, rdi
+  .text:00000001809B9395                 mov     [rbp+var_8], rax
+  .text:00000001809B9399                 call    sub_180162250
+  .text:00000001809B939E                 mov     [rbp+var_10], rax
+  .text:00000001809B93A2                 lea     rdx, [rbp+var_10]
+  .text:00000001809B93A6                 lea     rax, aCloopmodegameO_0; "CLoopModeGame::OnClientAdvanceTick"
+  .text:00000001809B93AD                 mov     r9b, 1
+  .text:00000001809B93B0                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B93B5                 mov     r8d, 1
+  .text:00000001809B93BB                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B93C0                 mov     rcx, rsi
+  .text:00000001809B93C3                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B93C8                 call    RegisterEventListener_Abstract
+  .text:00000001809B93CD                 call    nullsub_321
+  .text:00000001809B93D2                 mov     rdx, cs:off_1819EEA88
+  .text:00000001809B93D9                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B93DD                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B93E2                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B93E6                 lea     rax, CLoopModeGame_OnClientPostAdvanceTick
+  .text:00000001809B93ED                 mov     rcx, rdi
+  .text:00000001809B93F0                 mov     [rbp+var_8], rax
+  .text:00000001809B93F4                 call    sub_180162250
+  .text:00000001809B93F9                 mov     [rbp+var_10], rax
+  .text:00000001809B93FD                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9401                 lea     rax, aCloopmodegameO_1; "CLoopModeGame::OnClientPostAdvanceTick"
+  .text:00000001809B9408                 mov     r9b, 1
+  .text:00000001809B940B                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B9410                 mov     r8d, 1
+  .text:00000001809B9416                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B941B                 mov     rcx, rsi
+  .text:00000001809B941E                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B9423                 call    RegisterEventListener_Abstract
+  .text:00000001809B9428                 call    nullsub_326
+  .text:00000001809B942D                 mov     rdx, cs:off_1819EEB00
+  .text:00000001809B9434                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9438                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B943D                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9441                 lea     rax, CLoopModeGame_OnClientPreSimulate
+  .text:00000001809B9448                 mov     rcx, rdi
+  .text:00000001809B944B                 mov     [rbp+var_8], rax
+  .text:00000001809B944F                 call    sub_180162250
+  .text:00000001809B9454                 mov     [rbp+var_10], rax
+  .text:00000001809B9458                 lea     rdx, [rbp+var_10]
+  .text:00000001809B945C                 lea     rax, aCloopmodegameO_2; "CLoopModeGame::OnClientPreSimulate"
+  .text:00000001809B9463                 mov     r9b, 1
+  .text:00000001809B9466                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B946B                 mov     r8d, 1
+  .text:00000001809B9471                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B9476                 mov     rcx, rsi
+  .text:00000001809B9479                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B947E                 call    RegisterEventListener_Abstract
+  .text:00000001809B9483                 call    nullsub_325
+  .text:00000001809B9488                 mov     rdx, cs:off_1819F0F28
+  .text:00000001809B948F                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9493                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9498                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B949C                 lea     rax, CLoopModeGame_OnClientPreOutput
+  .text:00000001809B94A3                 mov     rcx, rdi
+  .text:00000001809B94A6                 mov     [rbp+var_8], rax
+  .text:00000001809B94AA                 call    sub_180162250
+  .text:00000001809B94AF                 mov     [rbp+var_10], rax
+  .text:00000001809B94B3                 lea     rdx, [rbp+var_10]
+  .text:00000001809B94B7                 lea     rax, aCloopmodegameO_3; "CLoopModeGame::OnClientPreOutput"
+  .text:00000001809B94BE                 mov     r9b, 1
+  .text:00000001809B94C1                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B94C6                 mov     r8d, 1
+  .text:00000001809B94CC                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B94D1                 mov     rcx, rsi
+  .text:00000001809B94D4                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B94D9                 call    RegisterEventListener_Abstract
+  .text:00000001809B94DE                 call    nullsub_324
+  .text:00000001809B94E3                 mov     rdx, cs:off_1819F0F48
+  .text:00000001809B94EA                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B94EE                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B94F3                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B94F7                 lea     rax, CLoopModeGame_OnClientPreOutputParallelWithServer
+  .text:00000001809B94FE                 mov     rcx, rdi
+  .text:00000001809B9501                 mov     [rbp+var_8], rax
+  .text:00000001809B9505                 call    sub_180162250
+  .text:00000001809B950A                 mov     [rbp+var_10], rax
+  .text:00000001809B950E                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9512                 lea     rax, aCloopmodegameO_4; "CLoopModeGame::OnClientPreOutputParalle"...
+  .text:00000001809B9519                 mov     r9b, 1
+  .text:00000001809B951C                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B9521                 mov     r8d, 1
+  .text:00000001809B9527                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B952C                 mov     rcx, rsi
+  .text:00000001809B952F                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B9534                 call    RegisterEventListener_Abstract
+  .text:00000001809B9539                 call    nullsub_322
+  .text:00000001809B953E                 mov     rdx, cs:off_1819F0FE0
+  .text:00000001809B9545                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9549                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B954E                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9552                 lea     rax, CLoopModeGame_OnClientPostOutput
+  .text:00000001809B9559                 mov     rcx, rdi
+  .text:00000001809B955C                 mov     [rbp+var_8], rax
+  .text:00000001809B9560                 call    sub_180162250
+  .text:00000001809B9565                 mov     [rbp+var_10], rax
+  .text:00000001809B9569                 lea     rdx, [rbp+var_10]
+  .text:00000001809B956D                 lea     rax, aCloopmodegameO_5; "CLoopModeGame::OnClientPostOutput"
+  .text:00000001809B9574                 mov     r9b, 1
+  .text:00000001809B9577                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B957C                 mov     r8d, 1
+  .text:00000001809B9582                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B9587                 mov     rcx, rsi
+  .text:00000001809B958A                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B958F                 call    RegisterEventListener_Abstract
+  .text:00000001809B9594                 call    nullsub_317
+  .text:00000001809B9599                 mov     rdx, cs:off_1819F1040
+  .text:00000001809B95A0                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B95A4                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B95A9                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B95AD                 lea     rax, CLoopModeGame_OnClientFrameSimulate
+  .text:00000001809B95B4                 mov     rcx, rdi
+  .text:00000001809B95B7                 mov     [rbp+var_8], rax
+  .text:00000001809B95BB                 call    sub_180162250
+  .text:00000001809B95C0                 mov     [rbp+var_10], rax
+  .text:00000001809B95C4                 lea     rdx, [rbp+var_10]
+  .text:00000001809B95C8                 lea     rax, aCloopmodegameO_6; "CLoopModeGame::OnClientFrameSimulate"
+  .text:00000001809B95CF                 mov     r9b, 1
+  .text:00000001809B95D2                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B95D7                 mov     r8d, 1
+  .text:00000001809B95DD                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B95E2                 mov     rcx, rsi
+  .text:00000001809B95E5                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B95EA                 call    RegisterEventListener_Abstract
+  .text:00000001809B95EF                 call    nullsub_315
+  .text:00000001809B95F4                 mov     rdx, cs:off_1819F1010
+  .text:00000001809B95FB                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B95FF                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9604                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9608                 lea     rax, CLoopModeGame_OnClientAdvanceNonRenderedFrame
+  .text:00000001809B960F                 mov     rcx, rdi
+  .text:00000001809B9612                 mov     [rbp+var_8], rax
+  .text:00000001809B9616                 call    sub_180162250
+  .text:00000001809B961B                 mov     [rbp+var_10], rax
+  .text:00000001809B961F                 lea     rax, aCloopmodegameO_7; "CLoopModeGame::OnClientAdvanceNonRender"...
+  .text:00000001809B9626                 mov     r9b, 1
+  .text:00000001809B9629                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B962E                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9632                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B9637                 mov     r8d, 1
+  .text:00000001809B963D                 mov     rcx, rsi
+  .text:00000001809B9640                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B9645                 call    RegisterEventListener_Abstract
+  .text:00000001809B964A                 call    nullsub_328
+  .text:00000001809B964F                 mov     rdx, cs:off_1819F0F80
+  .text:00000001809B9656                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B965A                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B965F                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9663                 lea     rax, nullsub_476
+  .text:00000001809B966A                 mov     rcx, rdi
+  .text:00000001809B966D                 mov     [rbp+var_8], rax
+  .text:00000001809B9671                 call    sub_180162250
+  .text:00000001809B9676                 mov     [rbp+var_10], rax
+  .text:00000001809B967A                 lea     rdx, [rbp+var_10]
+  .text:00000001809B967E                 lea     rax, aCloopmodegameO_8; "CLoopModeGame::OnClientSceneSystemThrea"...
+  .text:00000001809B9685                 mov     r9b, 1
+  .text:00000001809B9688                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B968D                 mov     r8d, 1
+  .text:00000001809B9693                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B9698                 mov     rcx, rsi
+  .text:00000001809B969B                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B96A0                 call    RegisterEventListener_Abstract
+  .text:00000001809B96A5                 call    nullsub_323
+  .text:00000001809B96AA                 mov     rdx, cs:off_1819EEF18
+  .text:00000001809B96B1                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B96B5                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B96BA                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B96BE                 lea     rax, CLoopModeGame_OnClientPostSimulate
+  .text:00000001809B96C5                 mov     rcx, rdi
+  .text:00000001809B96C8                 mov     [rbp+var_8], rax
+  .text:00000001809B96CC                 call    sub_180162250
+  .text:00000001809B96D1                 mov     [rbp+var_10], rax
+  .text:00000001809B96D5                 lea     rdx, [rbp+var_10]
+  .text:00000001809B96D9                 lea     rax, aCloopmodegameO_9; "CLoopModeGame::OnClientPostSimulate"
+  .text:00000001809B96E0                 mov     r9b, 1
+  .text:00000001809B96E3                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B96E8                 mov     r8d, 1
+  .text:00000001809B96EE                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B96F3                 mov     rcx, rsi
+  .text:00000001809B96F6                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B96FB                 call    RegisterEventListener_Abstract
+  .text:00000001809B9700                 call    nullsub_318
+  .text:00000001809B9705                 mov     rdx, cs:off_1819EEF40
+  .text:00000001809B970C                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9710                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9715                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9719                 lea     rax, CLoopModeGame_OnClientPauseSimulate
+  .text:00000001809B9720                 mov     rcx, rdi
+  .text:00000001809B9723                 mov     [rbp+var_8], rax
+  .text:00000001809B9727                 call    sub_180162250
+  .text:00000001809B972C                 mov     [rbp+var_10], rax
+  .text:00000001809B9730                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9734                 lea     rax, aCloopmodegameO_10; "CLoopModeGame::OnClientPauseSimulate"
+  .text:00000001809B973B                 mov     r9b, 1
+  .text:00000001809B973E                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B9743                 mov     r8d, 1
+  .text:00000001809B9749                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B974E                 mov     rcx, rsi
+  .text:00000001809B9751                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B9756                 call    RegisterEventListener_Abstract
+  .text:00000001809B975B                 call    nullsub_329
+  .text:00000001809B9760                 mov     rdx, cs:off_1819EEB48
+  .text:00000001809B9767                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B976B                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9770                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9774                 lea     rax, CLoopModeGame_OnClientSimulate
+  .text:00000001809B977B                 mov     rcx, rdi
+  .text:00000001809B977E                 mov     [rbp+var_8], rax
+  .text:00000001809B9782                 call    sub_180162250
+  .text:00000001809B9787                 mov     [rbp+var_10], rax
+  .text:00000001809B978B                 mov     r9b, 1
+  .text:00000001809B978E                 lea     rax, aCloopmodegameO_11; "CLoopModeGame::OnClientSimulate"
+  .text:00000001809B9795                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B979A                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B979F                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B97A4                 mov     r8d, 1
+  .text:00000001809B97AA                 lea     rdx, [rbp+var_10]
+  .text:00000001809B97AE                 mov     rcx, rsi
+  .text:00000001809B97B1                 call    RegisterEventListener_Abstract
+  .text:00000001809B97B6                 call    nullsub_332
+  .text:00000001809B97BB                 mov     rdx, cs:off_1819EEF68
+  .text:00000001809B97C2                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B97C6                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B97CB                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B97CF                 lea     rax, CLoopModeGame_OnPostDataUpdate
+  .text:00000001809B97D6                 mov     rcx, rdi
+  .text:00000001809B97D9                 mov     [rbp+var_8], rax
+  .text:00000001809B97DD                 call    sub_180162250
+  .text:00000001809B97E2                 mov     [rbp+var_10], rax
+  .text:00000001809B97E6                 lea     rdx, [rbp+var_10]
+  .text:00000001809B97EA                 lea     rax, aCloopmodegameO_12; "CLoopModeGame::OnPostDataUpdate"
+  .text:00000001809B97F1                 mov     r9b, 1
+  .text:00000001809B97F4                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B97F9                 mov     r8d, 1
+  .text:00000001809B97FF                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B9804                 mov     rcx, rsi
+  .text:00000001809B9807                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B980C                 call    RegisterEventListener_Abstract
+  .text:00000001809B9811                 call    nullsub_333
+  .text:00000001809B9816                 mov     rdx, cs:off_1819EEF88
+  .text:00000001809B981D                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9821                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9826                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B982A                 lea     rax, CLoopModeGame_OnPreDataUpdate
+  .text:00000001809B9831                 mov     rcx, rdi
+  .text:00000001809B9834                 mov     [rbp+var_8], rax
+  .text:00000001809B9838                 call    sub_180162250
+  .text:00000001809B983D                 mov     [rbp+var_10], rax
+  .text:00000001809B9841                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9845                 lea     rax, aCloopmodegameO_13; "CLoopModeGame::OnPreDataUpdate"
+  .text:00000001809B984C                 mov     r9b, 1
+  .text:00000001809B984F                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B9854                 mov     r8d, 1
+  .text:00000001809B985A                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B985F                 mov     rcx, rsi
+  .text:00000001809B9862                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B9867                 call    RegisterEventListener_Abstract
+  .text:00000001809B986C                 call    nullsub_330
+  .text:00000001809B9871                 mov     rdx, cs:off_1819F0E40
+  .text:00000001809B9878                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B987C                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9881                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9885                 lea     rax, CLoopModeGame_OnFrameBoundary
+  .text:00000001809B988C                 mov     rcx, rdi
+  .text:00000001809B988F                 mov     [rbp+var_8], rax
+  .text:00000001809B9893                 call    sub_180162250
+  .text:00000001809B9898                 mov     [rbp+var_10], rax
+  .text:00000001809B989C                 lea     rdx, [rbp+var_10]
+  .text:00000001809B98A0                 lea     rax, aCloopmodegameO_14; "CLoopModeGame::OnFrameBoundary"
+  .text:00000001809B98A7                 mov     r9b, 1
+  .text:00000001809B98AA                 mov     [rsp+50h+var_20], rax
+  .text:00000001809B98AF                 mov     r8d, 1
+  .text:00000001809B98B5                 mov     [rsp+50h+var_28], r14d
+  .text:00000001809B98BA                 mov     rcx, rsi
+  .text:00000001809B98BD                 mov     [rsp+50h+var_30], rbx
+  .text:00000001809B98C2                 call    RegisterEventListener_Abstract
+  .text:00000001809B98C7                 jmp     loc_1809B9CBC
+  .text:00000001809B98CC                 call    nullsub_320
+  .text:00000001809B98D1                 mov     rdx, cs:off_1819EEAB0
+  .text:00000001809B98D8                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B98DC                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B98E1                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B98E5                 lea     rax, CLoopModeGame_OnClientPollNetworking
+  .text:00000001809B98EC                 mov     rcx, rdi
+  .text:00000001809B98EF                 mov     [rbp+var_8], rax
+  .text:00000001809B98F3                 call    sub_180162250
+  .text:00000001809B98F8                 mov     r8, rbx
+  .text:00000001809B98FB                 mov     [rbp+var_10], rax
+  .text:00000001809B98FF                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9903                 mov     rcx, rsi
+  .text:00000001809B9906                 call    sub_18092BF30
+  .text:00000001809B990B                 call    nullsub_316
+  .text:00000001809B9910                 mov     rdx, cs:off_1819EEA60
+  .text:00000001809B9917                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B991B                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9920                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9924                 lea     rax, CLoopModeGame_OnClientAdvanceTick
+  .text:00000001809B992B                 mov     rcx, rdi
+  .text:00000001809B992E                 mov     [rbp+var_8], rax
+  .text:00000001809B9932                 call    sub_180162250
+  .text:00000001809B9937                 mov     r8, rbx
+  .text:00000001809B993A                 mov     [rbp+var_10], rax
+  .text:00000001809B993E                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9942                 mov     rcx, rsi
+  .text:00000001809B9945                 call    sub_18092BF30
+  .text:00000001809B994A                 call    nullsub_321
+  .text:00000001809B994F                 mov     rdx, cs:off_1819EEA88
+  .text:00000001809B9956                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B995A                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B995F                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9963                 lea     rax, CLoopModeGame_OnClientPostAdvanceTick
+  .text:00000001809B996A                 mov     rcx, rdi
+  .text:00000001809B996D                 mov     [rbp+var_8], rax
+  .text:00000001809B9971                 call    sub_180162250
+  .text:00000001809B9976                 mov     r8, rbx
+  .text:00000001809B9979                 mov     [rbp+var_10], rax
+  .text:00000001809B997D                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9981                 mov     rcx, rsi
+  .text:00000001809B9984                 call    sub_18092BF30
+  .text:00000001809B9989                 call    nullsub_326
+  .text:00000001809B998E                 mov     rdx, cs:off_1819EEB00
+  .text:00000001809B9995                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9999                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B999E                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B99A2                 lea     rax, CLoopModeGame_OnClientPreSimulate
+  .text:00000001809B99A9                 mov     rcx, rdi
+  .text:00000001809B99AC                 mov     [rbp+var_8], rax
+  .text:00000001809B99B0                 call    sub_180162250
+  .text:00000001809B99B5                 mov     r8, rbx
+  .text:00000001809B99B8                 mov     [rbp+var_10], rax
+  .text:00000001809B99BC                 lea     rdx, [rbp+var_10]
+  .text:00000001809B99C0                 mov     rcx, rsi
+  .text:00000001809B99C3                 call    sub_18092BF30
+  .text:00000001809B99C8                 call    nullsub_325
+  .text:00000001809B99CD                 mov     rdx, cs:off_1819F0F28
+  .text:00000001809B99D4                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B99D8                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B99DD                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B99E1                 lea     rax, CLoopModeGame_OnClientPreOutput
+  .text:00000001809B99E8                 mov     rcx, rdi
+  .text:00000001809B99EB                 mov     [rbp+var_8], rax
+  .text:00000001809B99EF                 call    sub_180162250
+  .text:00000001809B99F4                 mov     r8, rbx
+  .text:00000001809B99F7                 mov     [rbp+var_10], rax
+  .text:00000001809B99FB                 lea     rdx, [rbp+var_10]
+  .text:00000001809B99FF                 mov     rcx, rsi
+  .text:00000001809B9A02                 call    sub_18092BF30
+  .text:00000001809B9A07                 call    nullsub_324
+  .text:00000001809B9A0C                 mov     rdx, cs:off_1819F0F48
+  .text:00000001809B9A13                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9A17                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9A1C                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9A20                 lea     rax, CLoopModeGame_OnClientPreOutputParallelWithServer
+  .text:00000001809B9A27                 mov     rcx, rdi
+  .text:00000001809B9A2A                 mov     [rbp+var_8], rax
+  .text:00000001809B9A2E                 call    sub_180162250
+  .text:00000001809B9A33                 mov     [rbp+var_10], rax
+  .text:00000001809B9A37                 mov     r8, rbx
+  .text:00000001809B9A3A                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9A3E                 mov     rcx, rsi
+  .text:00000001809B9A41                 call    sub_18092BF30
+  .text:00000001809B9A46                 call    nullsub_322
+  .text:00000001809B9A4B                 mov     rdx, cs:off_1819F0FE0
+  .text:00000001809B9A52                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9A56                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9A5B                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9A5F                 lea     rax, CLoopModeGame_OnClientPostOutput
+  .text:00000001809B9A66                 mov     rcx, rdi
+  .text:00000001809B9A69                 mov     [rbp+var_8], rax
+  .text:00000001809B9A6D                 call    sub_180162250
+  .text:00000001809B9A72                 mov     r8, rbx
+  .text:00000001809B9A75                 mov     [rbp+var_10], rax
+  .text:00000001809B9A79                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9A7D                 mov     rcx, rsi
+  .text:00000001809B9A80                 call    sub_18092BF30
+  .text:00000001809B9A85                 call    nullsub_317
+  .text:00000001809B9A8A                 mov     rdx, cs:off_1819F1040
+  .text:00000001809B9A91                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9A95                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9A9A                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9A9E                 lea     rax, CLoopModeGame_OnClientFrameSimulate
+  .text:00000001809B9AA5                 mov     rcx, rdi
+  .text:00000001809B9AA8                 mov     [rbp+var_8], rax
+  .text:00000001809B9AAC                 call    sub_180162250
+  .text:00000001809B9AB1                 mov     r8, rbx
+  .text:00000001809B9AB4                 mov     [rbp+var_10], rax
+  .text:00000001809B9AB8                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9ABC                 mov     rcx, rsi
+  .text:00000001809B9ABF                 call    sub_18092BF30
+  .text:00000001809B9AC4                 call    nullsub_315
+  .text:00000001809B9AC9                 mov     rdx, cs:off_1819F1010
+  .text:00000001809B9AD0                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9AD4                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9AD9                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9ADD                 lea     rax, CLoopModeGame_OnClientAdvanceNonRenderedFrame
+  .text:00000001809B9AE4                 mov     rcx, rdi
+  .text:00000001809B9AE7                 mov     [rbp+var_8], rax
+  .text:00000001809B9AEB                 call    sub_180162250
+  .text:00000001809B9AF0                 mov     r8, rbx
+  .text:00000001809B9AF3                 mov     [rbp+var_10], rax
+  .text:00000001809B9AF7                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9AFB                 mov     rcx, rsi
+  .text:00000001809B9AFE                 call    sub_18092BF30
+  .text:00000001809B9B03                 call    nullsub_328
+  .text:00000001809B9B08                 mov     rdx, cs:off_1819F0F80
+  .text:00000001809B9B0F                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9B13                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9B18                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9B1C                 lea     rax, nullsub_476
+  .text:00000001809B9B23                 mov     rcx, rdi
+  .text:00000001809B9B26                 mov     [rbp+var_8], rax
+  .text:00000001809B9B2A                 call    sub_180162250
+  .text:00000001809B9B2F                 mov     r8, rbx
+  .text:00000001809B9B32                 mov     [rbp+var_10], rax
+  .text:00000001809B9B36                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9B3A                 mov     rcx, rsi
+  .text:00000001809B9B3D                 call    sub_18092BF30
+  .text:00000001809B9B42                 call    nullsub_323
+  .text:00000001809B9B47                 mov     rdx, cs:off_1819EEF18
+  .text:00000001809B9B4E                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9B52                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9B57                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9B5B                 lea     rax, CLoopModeGame_OnClientPostSimulate
+  .text:00000001809B9B62                 mov     rcx, rdi
+  .text:00000001809B9B65                 mov     [rbp+var_8], rax
+  .text:00000001809B9B69                 call    sub_180162250
+  .text:00000001809B9B6E                 mov     r8, rbx
+  .text:00000001809B9B71                 mov     [rbp+var_10], rax
+  .text:00000001809B9B75                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9B79                 mov     rcx, rsi
+  .text:00000001809B9B7C                 call    sub_18092BF30
+  .text:00000001809B9B81                 call    nullsub_318
+  .text:00000001809B9B86                 mov     rdx, cs:off_1819EEF40
+  .text:00000001809B9B8D                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9B91                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9B96                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9B9A                 lea     rax, CLoopModeGame_OnClientPauseSimulate
+  .text:00000001809B9BA1                 mov     [rbp+var_8], rax
+  .text:00000001809B9BA5                 mov     rcx, rdi
+  .text:00000001809B9BA8                 call    sub_180162250
+  .text:00000001809B9BAD                 mov     r8, rbx
+  .text:00000001809B9BB0                 mov     [rbp+var_10], rax
+  .text:00000001809B9BB4                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9BB8                 mov     rcx, rsi
+  .text:00000001809B9BBB                 call    sub_18092BF30
+  .text:00000001809B9BC0                 call    nullsub_329
+  .text:00000001809B9BC5                 mov     rdx, cs:off_1819EEB48
+  .text:00000001809B9BCC                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9BD0                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9BD5                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9BD9                 lea     rax, CLoopModeGame_OnClientSimulate
+  .text:00000001809B9BE0                 mov     rcx, rdi
+  .text:00000001809B9BE3                 mov     [rbp+var_8], rax
+  .text:00000001809B9BE7                 call    sub_180162250
+  .text:00000001809B9BEC                 mov     r8, rbx
+  .text:00000001809B9BEF                 mov     [rbp+var_10], rax
+  .text:00000001809B9BF3                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9BF7                 mov     rcx, rsi
+  .text:00000001809B9BFA                 call    sub_18092BF30
+  .text:00000001809B9BFF                 call    nullsub_332
+  .text:00000001809B9C04                 mov     rdx, cs:off_1819EEF68
+  .text:00000001809B9C0B                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9C0F                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9C14                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9C18                 lea     rax, CLoopModeGame_OnPostDataUpdate
+  .text:00000001809B9C1F                 mov     rcx, rdi
+  .text:00000001809B9C22                 mov     [rbp+var_8], rax
+  .text:00000001809B9C26                 call    sub_180162250
+  .text:00000001809B9C2B                 mov     r8, rbx
+  .text:00000001809B9C2E                 mov     [rbp+var_10], rax
+  .text:00000001809B9C32                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9C36                 mov     rcx, rsi
+  .text:00000001809B9C39                 call    sub_18092BF30
+  .text:00000001809B9C3E                 call    nullsub_333
+  .text:00000001809B9C43                 mov     rdx, cs:off_1819EEF88
+  .text:00000001809B9C4A                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9C4E                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9C53                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9C57                 lea     rax, CLoopModeGame_OnPreDataUpdate
+  .text:00000001809B9C5E                 mov     rcx, rdi
+  .text:00000001809B9C61                 mov     [rbp+var_8], rax
+  .text:00000001809B9C65                 call    sub_180162250
+  .text:00000001809B9C6A                 mov     r8, rbx
+  .text:00000001809B9C6D                 mov     [rbp+var_10], rax
+  .text:00000001809B9C71                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9C75                 mov     rcx, rsi
+  .text:00000001809B9C78                 call    sub_18092BF30
+  .text:00000001809B9C7D                 call    nullsub_330
+  .text:00000001809B9C82                 mov     rdx, cs:off_1819F0E40
+  .text:00000001809B9C89                 lea     rcx, [rbp+arg_8]
+  .text:00000001809B9C8D                 call    unknown_libname_429; Microsoft VisualC v7/14 64bit runtime
+  .text:00000001809B9C92                 mov     rbx, [rbp+arg_8]
+  .text:00000001809B9C96                 lea     rax, CLoopModeGame_OnFrameBoundary
+  .text:00000001809B9C9D                 mov     rcx, rdi
+  .text:00000001809B9CA0                 mov     [rbp+var_8], rax
+  .text:00000001809B9CA4                 call    sub_180162250
+  .text:00000001809B9CA9                 mov     r8, rbx
+  .text:00000001809B9CAC                 mov     [rbp+var_10], rax
+  .text:00000001809B9CB0                 lea     rdx, [rbp+var_10]
+  .text:00000001809B9CB4                 mov     rcx, rsi
+  .text:00000001809B9CB7                 call    sub_18092BF30
+  .text:00000001809B9CBC                 mov     rbx, [rsp+50h+arg_0]
+  .text:00000001809B9CC1                 mov     rsi, [rsp+50h+arg_10]
+  .text:00000001809B9CC9                 add     rsp, 50h
+  .text:00000001809B9CCD                 pop     r14
+  .text:00000001809B9CCF                 pop     rdi
+  .text:00000001809B9CD0                 pop     rbp
+  .text:00000001809B9CD1                 retn
+procedure: |-
+  __int64 __fastcall CLoopModeGame_RegisterEventMapInternal(__int64 a1, __int64 a2, int a3, int a4)
+  {
+    __int64 v7; // rbx
+    int v8; // r9d
+    __int64 v9; // rbx
+    int v10; // r9d
+    __int64 v11; // rbx
+    int v12; // r9d
+    __int64 v13; // rbx
+    int v14; // r9d
+    __int64 v15; // rbx
+    int v16; // r9d
+    __int64 v17; // rbx
+    int v18; // r9d
+    __int64 v19; // rbx
+    int v20; // r9d
+    __int64 v21; // rbx
+    int v22; // r9d
+    __int64 v23; // rbx
+    int v24; // r9d
+    __int64 v25; // rbx
+    int v26; // r9d
+    __int64 v27; // rbx
+    int v28; // r9d
+    __int64 v29; // rbx
+    int v30; // r9d
+    __int64 v31; // rbx
+    int v32; // r9d
+    __int64 v33; // rbx
+    int v34; // r9d
+    __int64 v35; // rbx
+    int v36; // r9d
+    __int64 v37; // rbx
+    int v38; // r9d
+    __int64 v40; // rbx
+    __int64 v41; // rbx
+    __int64 v42; // rbx
+    __int64 v43; // rbx
+    __int64 v44; // rbx
+    __int64 v45; // rbx
+    __int64 v46; // rbx
+    __int64 v47; // rbx
+    __int64 v48; // rbx
+    __int64 v49; // rbx
+    __int64 v50; // rbx
+    __int64 v51; // rbx
+    __int64 v52; // rbx
+    __int64 v53; // rbx
+    __int64 v54; // rbx
+    __int64 v55; // rbx
+    __int64 v56; // [rsp+40h] [rbp-10h] BYREF
+    __int64 (__fastcall *v57)(__int64, __int64); // [rsp+48h] [rbp-8h]
+    __int64 v58; // [rsp+78h] [rbp+28h] BYREF
+
+    if ( a3 )
+    {
+      nullsub_320();
+      unknown_libname_429(&v58, &unk_182018340);
+      v40 = v58;
+      v57 = CLoopModeGame_OnClientPollNetworking;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v40);
+      nullsub_316();
+      unknown_libname_429(&v58, &unk_182018230);
+      v41 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientAdvanceTick;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v41);
+      nullsub_321();
+      unknown_libname_429(&v58, &unk_1820182B0);
+      v42 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPostAdvanceTick;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v42);
+      nullsub_326();
+      unknown_libname_429(&v58, &unk_182018450);
+      v43 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPreSimulate;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v43);
+      nullsub_325();
+      unknown_libname_429(&v58, &unk_182017760);
+      v44 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPreOutput;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v44);
+      nullsub_324();
+      unknown_libname_429(&v58, &unk_1820177E0);
+      v45 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPreOutputParallelWithServer;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v45);
+      nullsub_322();
+      unknown_libname_429(&v58, &unk_182017A90);
+      v46 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPostOutput;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v46);
+      nullsub_317();
+      unknown_libname_429(&v58, &unk_182017BF0);
+      v47 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientFrameSimulate;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v47);
+      nullsub_315();
+      unknown_libname_429(&v58, &unk_182017B00);
+      v48 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientAdvanceNonRenderedFrame;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v48);
+      nullsub_328();
+      unknown_libname_429(&v58, &unk_182017870);
+      v49 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))nullsub_476;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v49);
+      nullsub_323();
+      unknown_libname_429(&v58, &unk_182018800);
+      v50 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPostSimulate;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v50);
+      nullsub_318();
+      unknown_libname_429(&v58, &unk_182018880);
+      v51 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPauseSimulate;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v51);
+      nullsub_329();
+      unknown_libname_429(&v58, &unk_1820184D0);
+      v52 = v58;
+      v57 = CLoopModeGame_OnClientSimulate;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v52);
+      nullsub_332();
+      unknown_libname_429(&v58, &unk_182018910);
+      v53 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnPostDataUpdate;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v53);
+      nullsub_333();
+      unknown_libname_429(&v58, &unk_1820189A0);
+      v54 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnPreDataUpdate;
+      v56 = sub_180162250(a2);
+      sub_18092BF30(a1, &v56, v54);
+      nullsub_330();
+      unknown_libname_429(&v58, &unk_182017150);
+      v55 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnFrameBoundary;
+      v56 = sub_180162250(a2);
+      return sub_18092BF30(a1, &v56, v55);
+    }
+    else
+    {
+      nullsub_320();
+      unknown_libname_429(&v58, &unk_182018340);
+      v7 = v58;
+      v57 = CLoopModeGame_OnClientPollNetworking;
+      v56 = sub_180162250(a2);
+      LOBYTE(v8) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v8, v7, a4, (__int64)"CLoopModeGame::OnClientPollNetworking");
+      nullsub_316();
+      unknown_libname_429(&v58, &unk_182018230);
+      v9 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientAdvanceTick;
+      v56 = sub_180162250(a2);
+      LOBYTE(v10) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v10, v9, a4, (__int64)"CLoopModeGame::OnClientAdvanceTick");
+      nullsub_321();
+      unknown_libname_429(&v58, &unk_1820182B0);
+      v11 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPostAdvanceTick;
+      v56 = sub_180162250(a2);
+      LOBYTE(v12) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v12, v11, a4, (__int64)"CLoopModeGame::OnClientPostAdvanceTick");
+      nullsub_326();
+      unknown_libname_429(&v58, &unk_182018450);
+      v13 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPreSimulate;
+      v56 = sub_180162250(a2);
+      LOBYTE(v14) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v14, v13, a4, (__int64)"CLoopModeGame::OnClientPreSimulate");
+      nullsub_325();
+      unknown_libname_429(&v58, &unk_182017760);
+      v15 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPreOutput;
+      v56 = sub_180162250(a2);
+      LOBYTE(v16) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v16, v15, a4, (__int64)"CLoopModeGame::OnClientPreOutput");
+      nullsub_324();
+      unknown_libname_429(&v58, &unk_1820177E0);
+      v17 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPreOutputParallelWithServer;
+      v56 = sub_180162250(a2);
+      LOBYTE(v18) = 1;
+      RegisterEventListener_Abstract(
+        a1,
+        (unsigned int)&v56,
+        1,
+        v18,
+        v17,
+        a4,
+        (__int64)"CLoopModeGame::OnClientPreOutputParallelWithServer");
+      nullsub_322();
+      unknown_libname_429(&v58, &unk_182017A90);
+      v19 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPostOutput;
+      v56 = sub_180162250(a2);
+      LOBYTE(v20) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v20, v19, a4, (__int64)"CLoopModeGame::OnClientPostOutput");
+      nullsub_317();
+      unknown_libname_429(&v58, &unk_182017BF0);
+      v21 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientFrameSimulate;
+      v56 = sub_180162250(a2);
+      LOBYTE(v22) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v22, v21, a4, (__int64)"CLoopModeGame::OnClientFrameSimulate");
+      nullsub_315();
+      unknown_libname_429(&v58, &unk_182017B00);
+      v23 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientAdvanceNonRenderedFrame;
+      v56 = sub_180162250(a2);
+      LOBYTE(v24) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v24, v23, a4, (__int64)"CLoopModeGame::OnClientAdvanceNonRenderedFrame");
+      nullsub_328();
+      unknown_libname_429(&v58, &unk_182017870);
+      v25 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))nullsub_476;
+      v56 = sub_180162250(a2);
+      LOBYTE(v26) = 1;
+      RegisterEventListener_Abstract(
+        a1,
+        (unsigned int)&v56,
+        1,
+        v26,
+        v25,
+        a4,
+        (__int64)"CLoopModeGame::OnClientSceneSystemThreadStateChange");
+      nullsub_323();
+      unknown_libname_429(&v58, &unk_182018800);
+      v27 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPostSimulate;
+      v56 = sub_180162250(a2);
+      LOBYTE(v28) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v28, v27, a4, (__int64)"CLoopModeGame::OnClientPostSimulate");
+      nullsub_318();
+      unknown_libname_429(&v58, &unk_182018880);
+      v29 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnClientPauseSimulate;
+      v56 = sub_180162250(a2);
+      LOBYTE(v30) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v30, v29, a4, (__int64)"CLoopModeGame::OnClientPauseSimulate");
+      nullsub_329();
+      unknown_libname_429(&v58, &unk_1820184D0);
+      v31 = v58;
+      v57 = CLoopModeGame_OnClientSimulate;
+      v56 = sub_180162250(a2);
+      LOBYTE(v32) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v32, v31, a4, (__int64)"CLoopModeGame::OnClientSimulate");
+      nullsub_332();
+      unknown_libname_429(&v58, &unk_182018910);
+      v33 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnPostDataUpdate;
+      v56 = sub_180162250(a2);
+      LOBYTE(v34) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v34, v33, a4, (__int64)"CLoopModeGame::OnPostDataUpdate");
+      nullsub_333();
+      unknown_libname_429(&v58, &unk_1820189A0);
+      v35 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnPreDataUpdate;
+      v56 = sub_180162250(a2);
+      LOBYTE(v36) = 1;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v36, v35, a4, (__int64)"CLoopModeGame::OnPreDataUpdate");
+      nullsub_330();
+      unknown_libname_429(&v58, &unk_182017150);
+      v37 = v58;
+      v57 = (__int64 (__fastcall *)(__int64, __int64))CLoopModeGame_OnFrameBoundary;
+      v56 = sub_180162250(a2);
+      LOBYTE(v38) = 1;
+      return RegisterEventListener_Abstract(a1, (unsigned int)&v56, 1, v38, v37, a4, (__int64)"CLoopModeGame::OnFrameBoundary");
+    }
+  }

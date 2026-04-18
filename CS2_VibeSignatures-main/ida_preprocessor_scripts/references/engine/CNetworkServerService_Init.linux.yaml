@@ -1,0 +1,1774 @@
+func_name: CNetworkServerService_Init
+func_va: '0x5aa970'
+disasm_code: |-
+  .text:00000000005AA970                 push    rbp
+  .text:00000000005AA971                 mov     rbp, rsp
+  .text:00000000005AA974                 push    r13
+  .text:00000000005AA976                 push    r12
+  .text:00000000005AA978                 push    rbx
+  .text:00000000005AA979                 mov     rbx, rdi
+  .text:00000000005AA97C                 sub     rsp, 18h
+  .text:00000000005AA980                 cmp     cs:qword_974D28, 0
+  .text:00000000005AA988                 jz      short loc_5AA997
+  .text:00000000005AA98A                 cmp     cs:byte_979448, 0
+  .text:00000000005AA991                 jz      loc_5AB040
+  .text:00000000005AA997                 mov     r12, cs:g_pNetworkMessages
+  .text:00000000005AA99E                 mov     rax, [r12]
+  .text:00000000005AA9A2                 mov     r13, [rax+100h]
+  .text:00000000005AA9A9                 call    sub_858820
+  .text:00000000005AA9AE                 mov     rdi, r12
+  .text:00000000005AA9B1                 movzx   esi, al
+  .text:00000000005AA9B4                 call    r13; g_pNetworkMessages->SetIsForServer(...), 0x100 = INetworkMessages_SetIsForServer
+  .text:00000000005AA9B7                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AA9BE                 lea     rdx, aServertoclient; "ServerToClient"
+  .text:00000000005AA9C5                 mov     esi, 1
+  .text:00000000005AA9CA                 mov     rax, [rdi]
+  .text:00000000005AA9CD                 call    qword ptr [rax]; g_pNetworkMessages->RegisterNetworkCategory(...), 0 = INetworkMessages_RegisterNetworkCategory
+  .text:00000000005AA9CF                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AA9D6                 mov     esi, 1
+  .text:00000000005AA9DB                 lea     rdx, aEntities; "Entities"
+  .text:00000000005AA9E2                 mov     rax, [rdi]
+  .text:00000000005AA9E5                 call    qword ptr [rax+98h]; g_pNetworkMessages->AssociateNetMessageGroupIdWithChannelCategory(...), 0x98 = INetworkMessages_AssociateNetMessageGroupIdWithChannelCategory
+  .text:00000000005AA9EB                 mov     rsi, cs:qword_9BD230
+  .text:00000000005AA9F2                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AA9F9                 test    rsi, rsi
+  .text:00000000005AA9FC                 jz      loc_5ABB20
+  .text:00000000005AAA02                 mov     rax, [rdi]
+  .text:00000000005AAA05                 mov     ecx, 1
+  .text:00000000005AAA0A                 mov     edx, 1
+  .text:00000000005AAA0F                 call    qword ptr [rax+8]
+  .text:00000000005AAA12                 mov     rsi, cs:qword_9BD238
+  .text:00000000005AAA19                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAA20                 test    rsi, rsi
+  .text:00000000005AAA23                 jz      loc_5ABAE0
+  .text:00000000005AAA29                 mov     rax, [rdi]
+  .text:00000000005AAA2C                 mov     ecx, 1
+  .text:00000000005AAA31                 mov     edx, 1
+  .text:00000000005AAA36                 call    qword ptr [rax+8]
+  .text:00000000005AAA39                 mov     rsi, cs:qword_9BD240
+  .text:00000000005AAA40                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAA47                 test    rsi, rsi
+  .text:00000000005AAA4A                 jz      loc_5ABA98
+  .text:00000000005AAA50                 mov     rax, [rdi]
+  .text:00000000005AAA53                 mov     ecx, 1
+  .text:00000000005AAA58                 mov     edx, 1
+  .text:00000000005AAA5D                 call    qword ptr [rax+8]
+  .text:00000000005AAA60                 mov     rsi, cs:qword_9BD248
+  .text:00000000005AAA67                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAA6E                 test    rsi, rsi
+  .text:00000000005AAA71                 jz      loc_5ABA50
+  .text:00000000005AAA77                 mov     rax, [rdi]
+  .text:00000000005AAA7A                 mov     ecx, 1
+  .text:00000000005AAA7F                 mov     edx, 1
+  .text:00000000005AAA84                 call    qword ptr [rax+8]
+  .text:00000000005AAA87                 mov     rsi, cs:qword_9BD250
+  .text:00000000005AAA8E                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAA95                 test    rsi, rsi
+  .text:00000000005AAA98                 jz      loc_5ABA08
+  .text:00000000005AAA9E                 mov     rax, [rdi]
+  .text:00000000005AAAA1                 mov     ecx, 1
+  .text:00000000005AAAA6                 mov     edx, 1
+  .text:00000000005AAAAB                 call    qword ptr [rax+8]
+  .text:00000000005AAAAE                 mov     rsi, cs:qword_9BD258
+  .text:00000000005AAAB5                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAABC                 test    rsi, rsi
+  .text:00000000005AAABF                 jz      loc_5AB9C0
+  .text:00000000005AAAC5                 mov     rax, [rdi]
+  .text:00000000005AAAC8                 mov     ecx, 1
+  .text:00000000005AAACD                 mov     edx, 1
+  .text:00000000005AAAD2                 call    qword ptr [rax+8]
+  .text:00000000005AAAD5                 mov     rsi, cs:qword_9BD260
+  .text:00000000005AAADC                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAAE3                 test    rsi, rsi
+  .text:00000000005AAAE6                 jz      loc_5AB980
+  .text:00000000005AAAEC                 mov     rax, [rdi]
+  .text:00000000005AAAEF                 mov     ecx, 1
+  .text:00000000005AAAF4                 mov     edx, 1
+  .text:00000000005AAAF9                 call    qword ptr [rax+8]
+  .text:00000000005AAAFC                 mov     rsi, cs:qword_9BD268
+  .text:00000000005AAB03                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAB0A                 test    rsi, rsi
+  .text:00000000005AAB0D                 jz      loc_5AB938
+  .text:00000000005AAB13                 mov     rax, [rdi]
+  .text:00000000005AAB16                 mov     ecx, 1
+  .text:00000000005AAB1B                 mov     edx, 1
+  .text:00000000005AAB20                 call    qword ptr [rax+8]
+  .text:00000000005AAB23                 mov     rsi, cs:qword_9BD270
+  .text:00000000005AAB2A                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAB31                 test    rsi, rsi
+  .text:00000000005AAB34                 jz      loc_5AB8F0
+  .text:00000000005AAB3A                 mov     rax, [rdi]
+  .text:00000000005AAB3D                 mov     ecx, 1
+  .text:00000000005AAB42                 mov     edx, 1
+  .text:00000000005AAB47                 call    qword ptr [rax+8]
+  .text:00000000005AAB4A                 mov     rsi, cs:qword_9BD278
+  .text:00000000005AAB51                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAB58                 test    rsi, rsi
+  .text:00000000005AAB5B                 jz      loc_5AB8A8
+  .text:00000000005AAB61                 mov     rax, [rdi]
+  .text:00000000005AAB64                 mov     ecx, 1
+  .text:00000000005AAB69                 mov     edx, 1
+  .text:00000000005AAB6E                 call    qword ptr [rax+8]
+  .text:00000000005AAB71                 mov     rsi, cs:qword_9BD280
+  .text:00000000005AAB78                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAB7F                 test    rsi, rsi
+  .text:00000000005AAB82                 jz      loc_5AB860
+  .text:00000000005AAB88                 mov     rax, [rdi]
+  .text:00000000005AAB8B                 mov     ecx, 1
+  .text:00000000005AAB90                 mov     edx, 1
+  .text:00000000005AAB95                 call    qword ptr [rax+8]
+  .text:00000000005AAB98                 mov     rsi, cs:qword_9BD288
+  .text:00000000005AAB9F                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AABA6                 test    rsi, rsi
+  .text:00000000005AABA9                 jz      loc_5AB820
+  .text:00000000005AABAF                 mov     rax, [rdi]
+  .text:00000000005AABB2                 mov     ecx, 1
+  .text:00000000005AABB7                 mov     edx, 1
+  .text:00000000005AABBC                 call    qword ptr [rax+8]
+  .text:00000000005AABBF                 mov     rsi, cs:qword_9BD290
+  .text:00000000005AABC6                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AABCD                 test    rsi, rsi
+  .text:00000000005AABD0                 jz      loc_5AB7D8
+  .text:00000000005AABD6                 mov     rax, [rdi]
+  .text:00000000005AABD9                 mov     ecx, 1
+  .text:00000000005AABDE                 mov     edx, 1
+  .text:00000000005AABE3                 call    qword ptr [rax+8]
+  .text:00000000005AABE6                 mov     rsi, cs:qword_9BD298
+  .text:00000000005AABED                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AABF4                 test    rsi, rsi
+  .text:00000000005AABF7                 jz      loc_5AB790
+  .text:00000000005AABFD                 mov     rax, [rdi]
+  .text:00000000005AAC00                 mov     ecx, 1
+  .text:00000000005AAC05                 mov     edx, 1
+  .text:00000000005AAC0A                 call    qword ptr [rax+8]
+  .text:00000000005AAC0D                 mov     rsi, cs:qword_9BD2A0
+  .text:00000000005AAC14                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAC1B                 test    rsi, rsi
+  .text:00000000005AAC1E                 jz      loc_5AB748
+  .text:00000000005AAC24                 mov     rax, [rdi]
+  .text:00000000005AAC27                 mov     ecx, 1
+  .text:00000000005AAC2C                 mov     edx, 1
+  .text:00000000005AAC31                 call    qword ptr [rax+8]
+  .text:00000000005AAC34                 mov     rsi, cs:qword_9BD2A8
+  .text:00000000005AAC3B                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAC42                 test    rsi, rsi
+  .text:00000000005AAC45                 jz      loc_5AB700
+  .text:00000000005AAC4B                 mov     rax, [rdi]
+  .text:00000000005AAC4E                 mov     ecx, 1
+  .text:00000000005AAC53                 mov     edx, 1
+  .text:00000000005AAC58                 call    qword ptr [rax+8]
+  .text:00000000005AAC5B                 mov     rsi, cs:qword_9BD2B0
+  .text:00000000005AAC62                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAC69                 test    rsi, rsi
+  .text:00000000005AAC6C                 jz      loc_5AB6C0
+  .text:00000000005AAC72                 mov     rax, [rdi]
+  .text:00000000005AAC75                 mov     ecx, 1
+  .text:00000000005AAC7A                 mov     edx, 1
+  .text:00000000005AAC7F                 call    qword ptr [rax+8]
+  .text:00000000005AAC82                 mov     rsi, cs:qword_9BD2B8
+  .text:00000000005AAC89                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAC90                 test    rsi, rsi
+  .text:00000000005AAC93                 jz      loc_5AB678
+  .text:00000000005AAC99                 mov     rax, [rdi]
+  .text:00000000005AAC9C                 mov     ecx, 1
+  .text:00000000005AACA1                 mov     edx, 1
+  .text:00000000005AACA6                 call    qword ptr [rax+8]
+  .text:00000000005AACA9                 mov     rsi, cs:qword_9BD2C0
+  .text:00000000005AACB0                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AACB7                 test    rsi, rsi
+  .text:00000000005AACBA                 jz      loc_5AB630
+  .text:00000000005AACC0                 mov     rax, [rdi]
+  .text:00000000005AACC3                 mov     ecx, 1
+  .text:00000000005AACC8                 mov     edx, 1
+  .text:00000000005AACCD                 call    qword ptr [rax+8]
+  .text:00000000005AACD0                 mov     rsi, cs:qword_9BD2C8
+  .text:00000000005AACD7                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AACDE                 test    rsi, rsi
+  .text:00000000005AACE1                 jz      loc_5AB5E8
+  .text:00000000005AACE7                 mov     rax, [rdi]
+  .text:00000000005AACEA                 mov     ecx, 1
+  .text:00000000005AACEF                 mov     edx, 1
+  .text:00000000005AACF4                 call    qword ptr [rax+8]
+  .text:00000000005AACF7                 mov     rsi, cs:qword_9BD2D0
+  .text:00000000005AACFE                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAD05                 test    rsi, rsi
+  .text:00000000005AAD08                 jz      loc_5AB5A0
+  .text:00000000005AAD0E                 mov     rax, [rdi]
+  .text:00000000005AAD11                 mov     ecx, 1
+  .text:00000000005AAD16                 mov     edx, 1
+  .text:00000000005AAD1B                 call    qword ptr [rax+8]
+  .text:00000000005AAD1E                 mov     rsi, cs:qword_9BD2D8
+  .text:00000000005AAD25                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAD2C                 test    rsi, rsi
+  .text:00000000005AAD2F                 jz      loc_5AB560
+  .text:00000000005AAD35                 mov     rax, [rdi]
+  .text:00000000005AAD38                 mov     ecx, 1
+  .text:00000000005AAD3D                 mov     edx, 1
+  .text:00000000005AAD42                 call    qword ptr [rax+8]
+  .text:00000000005AAD45                 mov     rsi, cs:qword_9BD2E0
+  .text:00000000005AAD4C                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAD53                 test    rsi, rsi
+  .text:00000000005AAD56                 jz      loc_5AB518
+  .text:00000000005AAD5C                 mov     rax, [rdi]
+  .text:00000000005AAD5F                 mov     ecx, 1
+  .text:00000000005AAD64                 mov     edx, 1
+  .text:00000000005AAD69                 call    qword ptr [rax+8]
+  .text:00000000005AAD6C                 mov     rsi, cs:qword_9BD2E8
+  .text:00000000005AAD73                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAD7A                 test    rsi, rsi
+  .text:00000000005AAD7D                 jz      loc_5AB4D0
+  .text:00000000005AAD83                 mov     rax, [rdi]
+  .text:00000000005AAD86                 mov     ecx, 1
+  .text:00000000005AAD8B                 mov     edx, 1
+  .text:00000000005AAD90                 call    qword ptr [rax+8]
+  .text:00000000005AAD93                 mov     rsi, cs:qword_9BD2F0
+  .text:00000000005AAD9A                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AADA1                 test    rsi, rsi
+  .text:00000000005AADA4                 jz      loc_5AB488
+  .text:00000000005AADAA                 mov     rax, [rdi]
+  .text:00000000005AADAD                 mov     ecx, 1
+  .text:00000000005AADB2                 mov     edx, 1
+  .text:00000000005AADB7                 call    qword ptr [rax+8]
+  .text:00000000005AADBA                 mov     rsi, cs:qword_9BD2F8
+  .text:00000000005AADC1                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AADC8                 test    rsi, rsi
+  .text:00000000005AADCB                 jz      loc_5AB440
+  .text:00000000005AADD1                 mov     rax, [rdi]
+  .text:00000000005AADD4                 mov     ecx, 1
+  .text:00000000005AADD9                 mov     edx, 1
+  .text:00000000005AADDE                 call    qword ptr [rax+8]
+  .text:00000000005AADE1                 mov     rsi, cs:qword_9BD300
+  .text:00000000005AADE8                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AADEF                 test    rsi, rsi
+  .text:00000000005AADF2                 jz      loc_5AB400
+  .text:00000000005AADF8                 mov     rax, [rdi]
+  .text:00000000005AADFB                 mov     ecx, 1
+  .text:00000000005AAE00                 mov     edx, 1
+  .text:00000000005AAE05                 call    qword ptr [rax+8]
+  .text:00000000005AAE08                 mov     rsi, cs:qword_9BD308
+  .text:00000000005AAE0F                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAE16                 test    rsi, rsi
+  .text:00000000005AAE19                 jz      loc_5AB3B8
+  .text:00000000005AAE1F                 mov     rax, [rdi]
+  .text:00000000005AAE22                 mov     ecx, 1
+  .text:00000000005AAE27                 mov     edx, 1
+  .text:00000000005AAE2C                 call    qword ptr [rax+8]
+  .text:00000000005AAE2F                 mov     rsi, cs:qword_9BD310
+  .text:00000000005AAE36                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAE3D                 test    rsi, rsi
+  .text:00000000005AAE40                 jz      loc_5AB370
+  .text:00000000005AAE46                 mov     rax, [rdi]
+  .text:00000000005AAE49                 mov     ecx, 1
+  .text:00000000005AAE4E                 mov     edx, 1
+  .text:00000000005AAE53                 call    qword ptr [rax+8]
+  .text:00000000005AAE56                 mov     rsi, cs:qword_9BD318
+  .text:00000000005AAE5D                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAE64                 test    rsi, rsi
+  .text:00000000005AAE67                 jz      loc_5AB328
+  .text:00000000005AAE6D                 mov     rax, [rdi]
+  .text:00000000005AAE70                 mov     ecx, 1
+  .text:00000000005AAE75                 mov     edx, 1
+  .text:00000000005AAE7A                 call    qword ptr [rax+8]
+  .text:00000000005AAE7D                 mov     rsi, cs:qword_9BD320
+  .text:00000000005AAE84                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAE8B                 test    rsi, rsi
+  .text:00000000005AAE8E                 jz      loc_5AB2E0
+  .text:00000000005AAE94                 mov     rax, [rdi]
+  .text:00000000005AAE97                 mov     ecx, 1
+  .text:00000000005AAE9C                 mov     edx, 1
+  .text:00000000005AAEA1                 call    qword ptr [rax+8]
+  .text:00000000005AAEA4                 mov     rsi, cs:qword_9BD328
+  .text:00000000005AAEAB                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAEB2                 test    rsi, rsi
+  .text:00000000005AAEB5                 jz      loc_5AB2A0
+  .text:00000000005AAEBB                 mov     rax, [rdi]
+  .text:00000000005AAEBE                 mov     ecx, 1
+  .text:00000000005AAEC3                 mov     edx, 1
+  .text:00000000005AAEC8                 call    qword ptr [rax+8]
+  .text:00000000005AAECB                 mov     rsi, cs:qword_9BD330
+  .text:00000000005AAED2                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAED9                 test    rsi, rsi
+  .text:00000000005AAEDC                 jz      loc_5AB258
+  .text:00000000005AAEE2                 mov     rax, [rdi]
+  .text:00000000005AAEE5                 mov     ecx, 1
+  .text:00000000005AAEEA                 mov     edx, 1
+  .text:00000000005AAEEF                 call    qword ptr [rax+8]
+  .text:00000000005AAEF2                 mov     rsi, cs:qword_9BD338
+  .text:00000000005AAEF9                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAF00                 test    rsi, rsi
+  .text:00000000005AAF03                 jz      loc_5AB210
+  .text:00000000005AAF09                 mov     rax, [rdi]
+  .text:00000000005AAF0C                 mov     ecx, 1
+  .text:00000000005AAF11                 mov     edx, 1
+  .text:00000000005AAF16                 call    qword ptr [rax+8]
+  .text:00000000005AAF19                 mov     rsi, cs:qword_9BD340
+  .text:00000000005AAF20                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAF27                 test    rsi, rsi
+  .text:00000000005AAF2A                 jz      loc_5AB1C8
+  .text:00000000005AAF30                 mov     rax, [rdi]
+  .text:00000000005AAF33                 mov     ecx, 1
+  .text:00000000005AAF38                 mov     edx, 1
+  .text:00000000005AAF3D                 call    qword ptr [rax+8]
+  .text:00000000005AAF40                 mov     rsi, cs:qword_9BD348
+  .text:00000000005AAF47                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAF4E                 test    rsi, rsi
+  .text:00000000005AAF51                 jz      loc_5AB180
+  .text:00000000005AAF57                 mov     rax, [rdi]
+  .text:00000000005AAF5A                 mov     ecx, 1
+  .text:00000000005AAF5F                 mov     edx, 1
+  .text:00000000005AAF64                 call    qword ptr [rax+8]
+  .text:00000000005AAF67                 mov     rsi, cs:qword_9BD350
+  .text:00000000005AAF6E                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAF75                 test    rsi, rsi
+  .text:00000000005AAF78                 jz      loc_5AB140
+  .text:00000000005AAF7E                 mov     rax, [rdi]
+  .text:00000000005AAF81                 mov     ecx, 1
+  .text:00000000005AAF86                 mov     edx, 1
+  .text:00000000005AAF8B                 call    qword ptr [rax+8]
+  .text:00000000005AAF8E                 mov     rsi, cs:qword_9BD358
+  .text:00000000005AAF95                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAF9C                 test    rsi, rsi
+  .text:00000000005AAF9F                 jz      loc_5AB0F8
+  .text:00000000005AAFA5                 mov     rax, [rdi]
+  .text:00000000005AAFA8                 xor     ecx, ecx
+  .text:00000000005AAFAA                 mov     edx, 1
+  .text:00000000005AAFAF                 call    qword ptr [rax+8]
+  .text:00000000005AAFB2                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAFB9                 lea     rdx, aLocalPlayer; "Local Player"
+  .text:00000000005AAFC0                 mov     esi, 1
+  .text:00000000005AAFC5                 mov     rax, [rdi]
+  .text:00000000005AAFC8                 call    qword ptr [rax+98h]
+  .text:00000000005AAFCE                 mov     rdi, cs:g_pNetworkMessages
+  .text:00000000005AAFD5                 mov     esi, 1
+  .text:00000000005AAFDA                 lea     rdx, aOtherPlayers; "Other Players"
+  .text:00000000005AAFE1                 mov     rax, [rdi]
+  .text:00000000005AAFE4                 call    qword ptr [rax+98h]
+  .text:00000000005AAFEA                 lea     rdi, xmmword_9BCCE0
+  .text:00000000005AAFF1                 call    sub_63F4E0
+  .text:00000000005AAFF6                 mov     rdi, cs:qword_975528
+  .text:00000000005AAFFD                 lea     rdx, sub_4F69A0
+  .text:00000000005AB004                 mov     rax, [rdi]
+  .text:00000000005AB007                 mov     rax, [rax+120h]
+  .text:00000000005AB00E                 cmp     rax, rdx
+  .text:00000000005AB011                 jnz     short loc_5AB050
+  .text:00000000005AB013                 mov     rax, [rdi+8]
+  .text:00000000005AB017                 cmp     byte ptr [rax+0FBh], 0
+  .text:00000000005AB01E                 jz      short loc_5AB029
+  .text:00000000005AB020                 cmp     byte ptr [rax+0FCh], 0
+  .text:00000000005AB027                 jnz     short loc_5AB060
+  .text:00000000005AB029                 lea     rsp, [rbp-18h]
+  .text:00000000005AB02D                 mov     eax, 1
+  .text:00000000005AB032                 pop     rbx
+  .text:00000000005AB033                 pop     r12
+  .text:00000000005AB035                 pop     r13
+  .text:00000000005AB037                 pop     rbp
+  .text:00000000005AB038                 retn
+  .text:00000000005AB040                 call    sub_8EF680
+  .text:00000000005AB045                 jmp     loc_5AA997
+  .text:00000000005AB050                 call    rax
+  .text:00000000005AB052                 cmp     eax, 2
+  .text:00000000005AB055                 jnz     short loc_5AB029
+  .text:00000000005AB057                 nop     word ptr [rax+rax+00000000h]
+  .text:00000000005AB060                 mov     edi, 38h ; '8'
+  .text:00000000005AB065                 call    sub_2B0190
+  .text:00000000005AB06A                 mov     rdi, cs:qword_9BD360
+  .text:00000000005AB071                 mov     rsi, rax
+  .text:00000000005AB074                 lea     rax, off_940710
+  .text:00000000005AB07B                 mov     qword ptr [rsi+8], 0
+  .text:00000000005AB083                 mov     [rsi], rax
+  .text:00000000005AB086                 mov     qword ptr [rsi+10h], 0
+  .text:00000000005AB08E                 mov     qword ptr [rsi+18h], 0
+  .text:00000000005AB096                 mov     qword ptr [rsi+20h], 0
+  .text:00000000005AB09E                 mov     byte ptr [rsi+28h], 0
+  .text:00000000005AB0A2                 mov     dword ptr [rsi+30h], 0FFFFFFFFh
+  .text:00000000005AB0A9                 mov     byte ptr [rsi+34h], 1
+  .text:00000000005AB0AD                 mov     [rbx+180h], rsi
+  .text:00000000005AB0B4                 mov     rax, [rdi]
+  .text:00000000005AB0B7                 call    qword ptr [rax+0E8h]
+  .text:00000000005AB0BD                 mov     rdi, cs:qword_979250
+  .text:00000000005AB0C4                 test    rdi, rdi
+  .text:00000000005AB0C7                 jz      loc_5AB029
+  .text:00000000005AB0CD                 mov     rax, [rdi]
+  .text:00000000005AB0D0                 lea     rcx, [rbx+38h]
+  .text:00000000005AB0D4                 mov     edx, 5
+  .text:00000000005AB0D9                 mov     esi, 454E5443h
+  .text:00000000005AB0DE                 call    qword ptr [rax+70h]
+  .text:00000000005AB0E1                 lea     rsp, [rbp-18h]
+  .text:00000000005AB0E5                 mov     eax, 1
+  .text:00000000005AB0EA                 pop     rbx
+  .text:00000000005AB0EB                 pop     r12
+  .text:00000000005AB0ED                 pop     r13
+  .text:00000000005AB0EF                 pop     rbp
+  .text:00000000005AB0F0                 retn
+  .text:00000000005AB0F8                 mov     rax, [rdi]
+  .text:00000000005AB0FB                 sub     rsp, 8
+  .text:00000000005AB0FF                 mov     esi, 13h
+  .text:00000000005AB104                 xor     r8d, r8d
+  .text:00000000005AB107                 push    0
+  .text:00000000005AB109                 mov     r9d, 1
+  .text:00000000005AB10F                 mov     ecx, 60h ; '`'
+  .text:00000000005AB114                 lea     rdx, off_969E30
+  .text:00000000005AB11B                 mov     [rbp+var_28], rdi
+  .text:00000000005AB11F                 call    qword ptr [rax+10h]
+  .text:00000000005AB122                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB126                 mov     cs:qword_9BD358, rax
+  .text:00000000005AB12D                 mov     rsi, rax
+  .text:00000000005AB130                 pop     rax
+  .text:00000000005AB131                 pop     rdx
+  .text:00000000005AB132                 jmp     loc_5AAFA5
+  .text:00000000005AB140                 mov     rax, [rdi]
+  .text:00000000005AB143                 sub     rsp, 8
+  .text:00000000005AB147                 mov     ecx, 50h ; 'P'
+  .text:00000000005AB14C                 xor     r8d, r8d
+  .text:00000000005AB14F                 push    0
+  .text:00000000005AB151                 mov     esi, 4Dh ; 'M'
+  .text:00000000005AB156                 mov     r9d, 1
+  .text:00000000005AB15C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB160                 lea     rdx, off_967FE8
+  .text:00000000005AB167                 call    qword ptr [rax+10h]
+  .text:00000000005AB16A                 mov     cs:qword_9BD350, rax
+  .text:00000000005AB171                 mov     rsi, rax
+  .text:00000000005AB174                 pop     rcx
+  .text:00000000005AB175                 pop     rdi
+  .text:00000000005AB176                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB17A                 jmp     loc_5AAF7E
+  .text:00000000005AB180                 mov     rax, [rdi]
+  .text:00000000005AB183                 sub     rsp, 8
+  .text:00000000005AB187                 mov     r9d, 1
+  .text:00000000005AB18D                 xor     r8d, r8d
+  .text:00000000005AB190                 push    0
+  .text:00000000005AB192                 mov     esi, 4Ch ; 'L'
+  .text:00000000005AB197                 mov     ecx, 60h ; '`'
+  .text:00000000005AB19C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB1A0                 lea     rdx, off_969E28
+  .text:00000000005AB1A7                 call    qword ptr [rax+10h]
+  .text:00000000005AB1AA                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB1AE                 mov     cs:qword_9BD348, rax
+  .text:00000000005AB1B5                 mov     rsi, rax
+  .text:00000000005AB1B8                 pop     r8
+  .text:00000000005AB1BA                 pop     r9
+  .text:00000000005AB1BC                 jmp     loc_5AAF57
+  .text:00000000005AB1C8                 mov     rax, [rdi]
+  .text:00000000005AB1CB                 sub     rsp, 8
+  .text:00000000005AB1CF                 mov     esi, 4Ah ; 'J'
+  .text:00000000005AB1D4                 xor     r8d, r8d
+  .text:00000000005AB1D7                 push    0
+  .text:00000000005AB1D9                 mov     r9d, 1
+  .text:00000000005AB1DF                 mov     ecx, 68h ; 'h'
+  .text:00000000005AB1E4                 mov     [rbp+var_28], rdi
+  .text:00000000005AB1E8                 lea     rdx, off_969E20
+  .text:00000000005AB1EF                 call    qword ptr [rax+10h]
+  .text:00000000005AB1F2                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB1F6                 mov     cs:qword_9BD340, rax
+  .text:00000000005AB1FD                 mov     rsi, rax
+  .text:00000000005AB200                 pop     r10
+  .text:00000000005AB202                 pop     r11
+  .text:00000000005AB204                 jmp     loc_5AAF30
+  .text:00000000005AB210                 mov     rax, [rdi]
+  .text:00000000005AB213                 sub     rsp, 8
+  .text:00000000005AB217                 mov     esi, 46h ; 'F'
+  .text:00000000005AB21C                 xor     r8d, r8d
+  .text:00000000005AB21F                 push    0
+  .text:00000000005AB221                 mov     r9d, 1
+  .text:00000000005AB227                 mov     ecx, 60h ; '`'
+  .text:00000000005AB22C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB230                 lea     rdx, off_969E18
+  .text:00000000005AB237                 call    qword ptr [rax+10h]
+  .text:00000000005AB23A                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB23E                 mov     cs:qword_9BD338, rax
+  .text:00000000005AB245                 mov     rsi, rax
+  .text:00000000005AB248                 pop     r12
+  .text:00000000005AB24A                 pop     r13
+  .text:00000000005AB24C                 jmp     loc_5AAF09
+  .text:00000000005AB258                 mov     rax, [rdi]
+  .text:00000000005AB25B                 sub     rsp, 8
+  .text:00000000005AB25F                 mov     esi, 3Fh ; '?'
+  .text:00000000005AB264                 xor     r8d, r8d
+  .text:00000000005AB267                 push    0
+  .text:00000000005AB269                 mov     r9d, 1
+  .text:00000000005AB26F                 mov     ecx, 50h ; 'P'
+  .text:00000000005AB274                 lea     rdx, off_969E10
+  .text:00000000005AB27B                 mov     [rbp+var_28], rdi
+  .text:00000000005AB27F                 call    qword ptr [rax+10h]
+  .text:00000000005AB282                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB286                 mov     cs:qword_9BD330, rax
+  .text:00000000005AB28D                 mov     rsi, rax
+  .text:00000000005AB290                 pop     rax
+  .text:00000000005AB291                 pop     rdx
+  .text:00000000005AB292                 jmp     loc_5AAEE2
+  .text:00000000005AB2A0                 mov     rax, [rdi]
+  .text:00000000005AB2A3                 sub     rsp, 8
+  .text:00000000005AB2A7                 mov     ecx, 60h ; '`'
+  .text:00000000005AB2AC                 xor     r8d, r8d
+  .text:00000000005AB2AF                 push    0
+  .text:00000000005AB2B1                 mov     esi, 3Eh ; '>'
+  .text:00000000005AB2B6                 mov     r9d, 1
+  .text:00000000005AB2BC                 mov     [rbp+var_28], rdi
+  .text:00000000005AB2C0                 lea     rdx, off_969E08
+  .text:00000000005AB2C7                 call    qword ptr [rax+10h]
+  .text:00000000005AB2CA                 mov     cs:qword_9BD328, rax
+  .text:00000000005AB2D1                 mov     rsi, rax
+  .text:00000000005AB2D4                 pop     rcx
+  .text:00000000005AB2D5                 pop     rdi
+  .text:00000000005AB2D6                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB2DA                 jmp     loc_5AAEBB
+  .text:00000000005AB2E0                 mov     rax, [rdi]
+  .text:00000000005AB2E3                 sub     rsp, 8
+  .text:00000000005AB2E7                 mov     r9d, 1
+  .text:00000000005AB2ED                 xor     r8d, r8d
+  .text:00000000005AB2F0                 push    0
+  .text:00000000005AB2F2                 mov     esi, 3Dh ; '='
+  .text:00000000005AB2F7                 mov     ecx, 58h ; 'X'
+  .text:00000000005AB2FC                 mov     [rbp+var_28], rdi
+  .text:00000000005AB300                 lea     rdx, off_969E00
+  .text:00000000005AB307                 call    qword ptr [rax+10h]
+  .text:00000000005AB30A                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB30E                 mov     cs:qword_9BD320, rax
+  .text:00000000005AB315                 mov     rsi, rax
+  .text:00000000005AB318                 pop     r8
+  .text:00000000005AB31A                 pop     r9
+  .text:00000000005AB31C                 jmp     loc_5AAE94
+  .text:00000000005AB328                 mov     rax, [rdi]
+  .text:00000000005AB32B                 sub     rsp, 8
+  .text:00000000005AB32F                 mov     esi, 3Ch ; '<'
+  .text:00000000005AB334                 xor     r8d, r8d
+  .text:00000000005AB337                 push    0
+  .text:00000000005AB339                 mov     r9d, 1
+  .text:00000000005AB33F                 mov     ecx, 60h ; '`'
+  .text:00000000005AB344                 mov     [rbp+var_28], rdi
+  .text:00000000005AB348                 lea     rdx, off_969DF8
+  .text:00000000005AB34F                 call    qword ptr [rax+10h]
+  .text:00000000005AB352                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB356                 mov     cs:qword_9BD318, rax
+  .text:00000000005AB35D                 mov     rsi, rax
+  .text:00000000005AB360                 pop     r10
+  .text:00000000005AB362                 pop     r11
+  .text:00000000005AB364                 jmp     loc_5AAE6D
+  .text:00000000005AB370                 mov     rax, [rdi]
+  .text:00000000005AB373                 sub     rsp, 8
+  .text:00000000005AB377                 mov     esi, 3Ah ; ':'
+  .text:00000000005AB37C                 xor     r8d, r8d
+  .text:00000000005AB37F                 push    0
+  .text:00000000005AB381                 mov     r9d, 1
+  .text:00000000005AB387                 mov     ecx, 58h ; 'X'
+  .text:00000000005AB38C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB390                 lea     rdx, off_969DF0
+  .text:00000000005AB397                 call    qword ptr [rax+10h]
+  .text:00000000005AB39A                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB39E                 mov     cs:qword_9BD310, rax
+  .text:00000000005AB3A5                 mov     rsi, rax
+  .text:00000000005AB3A8                 pop     r12
+  .text:00000000005AB3AA                 pop     r13
+  .text:00000000005AB3AC                 jmp     loc_5AAE46
+  .text:00000000005AB3B8                 mov     rax, [rdi]
+  .text:00000000005AB3BB                 sub     rsp, 8
+  .text:00000000005AB3BF                 mov     esi, 47h ; 'G'
+  .text:00000000005AB3C4                 xor     r8d, r8d
+  .text:00000000005AB3C7                 push    0
+  .text:00000000005AB3C9                 mov     r9d, 1
+  .text:00000000005AB3CF                 mov     ecx, 58h ; 'X'
+  .text:00000000005AB3D4                 lea     rdx, off_969DE8
+  .text:00000000005AB3DB                 mov     [rbp+var_28], rdi
+  .text:00000000005AB3DF                 call    qword ptr [rax+10h]
+  .text:00000000005AB3E2                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB3E6                 mov     cs:qword_9BD308, rax
+  .text:00000000005AB3ED                 mov     rsi, rax
+  .text:00000000005AB3F0                 pop     rax
+  .text:00000000005AB3F1                 pop     rdx
+  .text:00000000005AB3F2                 jmp     loc_5AAE1F
+  .text:00000000005AB400                 mov     rax, [rdi]
+  .text:00000000005AB403                 sub     rsp, 8
+  .text:00000000005AB407                 mov     ecx, 58h ; 'X'
+  .text:00000000005AB40C                 xor     r8d, r8d
+  .text:00000000005AB40F                 push    0
+  .text:00000000005AB411                 mov     esi, 34h ; '4'
+  .text:00000000005AB416                 mov     r9d, 1
+  .text:00000000005AB41C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB420                 lea     rdx, off_967FE0
+  .text:00000000005AB427                 call    qword ptr [rax+10h]
+  .text:00000000005AB42A                 mov     cs:qword_9BD300, rax
+  .text:00000000005AB431                 mov     rsi, rax
+  .text:00000000005AB434                 pop     rcx
+  .text:00000000005AB435                 pop     rdi
+  .text:00000000005AB436                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB43A                 jmp     loc_5AADF8
+  .text:00000000005AB440                 mov     rax, [rdi]
+  .text:00000000005AB443                 sub     rsp, 8
+  .text:00000000005AB447                 mov     r9d, 1
+  .text:00000000005AB44D                 xor     r8d, r8d
+  .text:00000000005AB450                 push    0
+  .text:00000000005AB452                 mov     esi, 39h ; '9'
+  .text:00000000005AB457                 mov     ecx, 58h ; 'X'
+  .text:00000000005AB45C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB460                 lea     rdx, off_969DE0
+  .text:00000000005AB467                 call    qword ptr [rax+10h]
+  .text:00000000005AB46A                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB46E                 mov     cs:qword_9BD2F8, rax
+  .text:00000000005AB475                 mov     rsi, rax
+  .text:00000000005AB478                 pop     r8
+  .text:00000000005AB47A                 pop     r9
+  .text:00000000005AB47C                 jmp     loc_5AADD1
+  .text:00000000005AB488                 mov     rax, [rdi]
+  .text:00000000005AB48B                 sub     rsp, 8
+  .text:00000000005AB48F                 mov     esi, 36h ; '6'
+  .text:00000000005AB494                 xor     r8d, r8d
+  .text:00000000005AB497                 push    0
+  .text:00000000005AB499                 mov     r9d, 1
+  .text:00000000005AB49F                 mov     ecx, 58h ; 'X'
+  .text:00000000005AB4A4                 mov     [rbp+var_28], rdi
+  .text:00000000005AB4A8                 lea     rdx, off_969DD8
+  .text:00000000005AB4AF                 call    qword ptr [rax+10h]
+  .text:00000000005AB4B2                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB4B6                 mov     cs:qword_9BD2F0, rax
+  .text:00000000005AB4BD                 mov     rsi, rax
+  .text:00000000005AB4C0                 pop     r10
+  .text:00000000005AB4C2                 pop     r11
+  .text:00000000005AB4C4                 jmp     loc_5AADAA
+  .text:00000000005AB4D0                 mov     rax, [rdi]
+  .text:00000000005AB4D3                 sub     rsp, 8
+  .text:00000000005AB4D7                 mov     esi, 38h ; '8'
+  .text:00000000005AB4DC                 xor     r8d, r8d
+  .text:00000000005AB4DF                 push    0
+  .text:00000000005AB4E1                 mov     r9d, 1
+  .text:00000000005AB4E7                 mov     ecx, 50h ; 'P'
+  .text:00000000005AB4EC                 mov     [rbp+var_28], rdi
+  .text:00000000005AB4F0                 lea     rdx, off_969DD0
+  .text:00000000005AB4F7                 call    qword ptr [rax+10h]
+  .text:00000000005AB4FA                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB4FE                 mov     cs:qword_9BD2E8, rax
+  .text:00000000005AB505                 mov     rsi, rax
+  .text:00000000005AB508                 pop     r12
+  .text:00000000005AB50A                 pop     r13
+  .text:00000000005AB50C                 jmp     loc_5AAD83
+  .text:00000000005AB518                 mov     rax, [rdi]
+  .text:00000000005AB51B                 sub     rsp, 8
+  .text:00000000005AB51F                 mov     esi, 37h ; '7'
+  .text:00000000005AB524                 xor     r8d, r8d
+  .text:00000000005AB527                 push    0
+  .text:00000000005AB529                 mov     r9d, 1
+  .text:00000000005AB52F                 mov     ecx, 0D8h
+  .text:00000000005AB534                 lea     rdx, off_969DC8
+  .text:00000000005AB53B                 mov     [rbp+var_28], rdi
+  .text:00000000005AB53F                 call    qword ptr [rax+10h]
+  .text:00000000005AB542                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB546                 mov     cs:qword_9BD2E0, rax
+  .text:00000000005AB54D                 mov     rsi, rax
+  .text:00000000005AB550                 pop     rax
+  .text:00000000005AB551                 pop     rdx
+  .text:00000000005AB552                 jmp     loc_5AAD5C
+  .text:00000000005AB560                 mov     rax, [rdi]
+  .text:00000000005AB563                 sub     rsp, 8
+  .text:00000000005AB567                 mov     ecx, 50h ; 'P'
+  .text:00000000005AB56C                 xor     r8d, r8d
+  .text:00000000005AB56F                 push    0
+  .text:00000000005AB571                 mov     esi, 32h ; '2'
+  .text:00000000005AB576                 mov     r9d, 1
+  .text:00000000005AB57C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB580                 lea     rdx, off_969DC0
+  .text:00000000005AB587                 call    qword ptr [rax+10h]
+  .text:00000000005AB58A                 mov     cs:qword_9BD2D8, rax
+  .text:00000000005AB591                 mov     rsi, rax
+  .text:00000000005AB594                 pop     rcx
+  .text:00000000005AB595                 pop     rdi
+  .text:00000000005AB596                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB59A                 jmp     loc_5AAD35
+  .text:00000000005AB5A0                 mov     rax, [rdi]
+  .text:00000000005AB5A3                 sub     rsp, 8
+  .text:00000000005AB5A7                 mov     r9d, 1
+  .text:00000000005AB5AD                 xor     r8d, r8d
+  .text:00000000005AB5B0                 push    0
+  .text:00000000005AB5B2                 mov     esi, 3Bh ; ';'
+  .text:00000000005AB5B7                 mov     ecx, 50h ; 'P'
+  .text:00000000005AB5BC                 mov     [rbp+var_28], rdi
+  .text:00000000005AB5C0                 lea     rdx, off_969DB8
+  .text:00000000005AB5C7                 call    qword ptr [rax+10h]
+  .text:00000000005AB5CA                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB5CE                 mov     cs:qword_9BD2D0, rax
+  .text:00000000005AB5D5                 mov     rsi, rax
+  .text:00000000005AB5D8                 pop     r8
+  .text:00000000005AB5DA                 pop     r9
+  .text:00000000005AB5DC                 jmp     loc_5AAD0E
+  .text:00000000005AB5E8                 mov     rax, [rdi]
+  .text:00000000005AB5EB                 sub     rsp, 8
+  .text:00000000005AB5EF                 mov     esi, 31h ; '1'
+  .text:00000000005AB5F4                 xor     r8d, r8d
+  .text:00000000005AB5F7                 push    0
+  .text:00000000005AB5F9                 mov     r9d, 1
+  .text:00000000005AB5FF                 mov     ecx, 68h ; 'h'
+  .text:00000000005AB604                 mov     [rbp+var_28], rdi
+  .text:00000000005AB608                 lea     rdx, off_969DB0
+  .text:00000000005AB60F                 call    qword ptr [rax+10h]
+  .text:00000000005AB612                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB616                 mov     cs:qword_9BD2C8, rax
+  .text:00000000005AB61D                 mov     rsi, rax
+  .text:00000000005AB620                 pop     r10
+  .text:00000000005AB622                 pop     r11
+  .text:00000000005AB624                 jmp     loc_5AACE7
+  .text:00000000005AB630                 mov     rax, [rdi]
+  .text:00000000005AB633                 sub     rsp, 8
+  .text:00000000005AB637                 mov     esi, 2Fh ; '/'
+  .text:00000000005AB63C                 xor     r8d, r8d
+  .text:00000000005AB63F                 push    0
+  .text:00000000005AB641                 mov     r9d, 1
+  .text:00000000005AB647                 mov     ecx, 70h ; 'p'
+  .text:00000000005AB64C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB650                 lea     rdx, off_969DA8
+  .text:00000000005AB657                 call    qword ptr [rax+10h]
+  .text:00000000005AB65A                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB65E                 mov     cs:qword_9BD2C0, rax
+  .text:00000000005AB665                 mov     rsi, rax
+  .text:00000000005AB668                 pop     r12
+  .text:00000000005AB66A                 pop     r13
+  .text:00000000005AB66C                 jmp     loc_5AACC0
+  .text:00000000005AB678                 mov     rax, [rdi]
+  .text:00000000005AB67B                 sub     rsp, 8
+  .text:00000000005AB67F                 mov     esi, 2Eh ; '.'
+  .text:00000000005AB684                 xor     r8d, r8d
+  .text:00000000005AB687                 push    0
+  .text:00000000005AB689                 mov     r9d, 1
+  .text:00000000005AB68F                 mov     ecx, 58h ; 'X'
+  .text:00000000005AB694                 lea     rdx, off_969DA0
+  .text:00000000005AB69B                 mov     [rbp+var_28], rdi
+  .text:00000000005AB69F                 call    qword ptr [rax+10h]
+  .text:00000000005AB6A2                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB6A6                 mov     cs:qword_9BD2B8, rax
+  .text:00000000005AB6AD                 mov     rsi, rax
+  .text:00000000005AB6B0                 pop     rax
+  .text:00000000005AB6B1                 pop     rdx
+  .text:00000000005AB6B2                 jmp     loc_5AAC99
+  .text:00000000005AB6C0                 mov     rax, [rdi]
+  .text:00000000005AB6C3                 sub     rsp, 8
+  .text:00000000005AB6C7                 mov     ecx, 58h ; 'X'
+  .text:00000000005AB6CC                 xor     r8d, r8d
+  .text:00000000005AB6CF                 push    0
+  .text:00000000005AB6D1                 mov     esi, 2Dh ; '-'
+  .text:00000000005AB6D6                 mov     r9d, 1
+  .text:00000000005AB6DC                 mov     [rbp+var_28], rdi
+  .text:00000000005AB6E0                 lea     rdx, off_969D98
+  .text:00000000005AB6E7                 call    qword ptr [rax+10h]
+  .text:00000000005AB6EA                 mov     cs:qword_9BD2B0, rax
+  .text:00000000005AB6F1                 mov     rsi, rax
+  .text:00000000005AB6F4                 pop     rcx
+  .text:00000000005AB6F5                 pop     rdi
+  .text:00000000005AB6F6                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB6FA                 jmp     loc_5AAC72
+  .text:00000000005AB700                 mov     rax, [rdi]
+  .text:00000000005AB703                 sub     rsp, 8
+  .text:00000000005AB707                 mov     r9d, 1
+  .text:00000000005AB70D                 xor     r8d, r8d
+  .text:00000000005AB710                 push    0
+  .text:00000000005AB712                 mov     esi, 2Ch ; ','
+  .text:00000000005AB717                 mov     ecx, 70h ; 'p'
+  .text:00000000005AB71C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB720                 lea     rdx, off_969D90
+  .text:00000000005AB727                 call    qword ptr [rax+10h]
+  .text:00000000005AB72A                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB72E                 mov     cs:qword_9BD2A8, rax
+  .text:00000000005AB735                 mov     rsi, rax
+  .text:00000000005AB738                 pop     r8
+  .text:00000000005AB73A                 pop     r9
+  .text:00000000005AB73C                 jmp     loc_5AAC4B
+  .text:00000000005AB748                 mov     rax, [rdi]
+  .text:00000000005AB74B                 sub     rsp, 8
+  .text:00000000005AB74F                 mov     esi, 33h ; '3'
+  .text:00000000005AB754                 xor     r8d, r8d
+  .text:00000000005AB757                 push    0
+  .text:00000000005AB759                 mov     r9d, 1
+  .text:00000000005AB75F                 mov     ecx, 58h ; 'X'
+  .text:00000000005AB764                 mov     [rbp+var_28], rdi
+  .text:00000000005AB768                 lea     rdx, off_969D88
+  .text:00000000005AB76F                 call    qword ptr [rax+10h]
+  .text:00000000005AB772                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB776                 mov     cs:qword_9BD2A0, rax
+  .text:00000000005AB77D                 mov     rsi, rax
+  .text:00000000005AB780                 pop     r10
+  .text:00000000005AB782                 pop     r11
+  .text:00000000005AB784                 jmp     loc_5AAC24
+  .text:00000000005AB790                 mov     rax, [rdi]
+  .text:00000000005AB793                 sub     rsp, 8
+  .text:00000000005AB797                 mov     esi, 2Bh ; '+'
+  .text:00000000005AB79C                 xor     r8d, r8d
+  .text:00000000005AB79F                 push    0
+  .text:00000000005AB7A1                 mov     r9d, 1
+  .text:00000000005AB7A7                 mov     ecx, 50h ; 'P'
+  .text:00000000005AB7AC                 mov     [rbp+var_28], rdi
+  .text:00000000005AB7B0                 lea     rdx, off_969D80
+  .text:00000000005AB7B7                 call    qword ptr [rax+10h]
+  .text:00000000005AB7BA                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB7BE                 mov     cs:qword_9BD298, rax
+  .text:00000000005AB7C5                 mov     rsi, rax
+  .text:00000000005AB7C8                 pop     r12
+  .text:00000000005AB7CA                 pop     r13
+  .text:00000000005AB7CC                 jmp     loc_5AABFD
+  .text:00000000005AB7D8                 mov     rax, [rdi]
+  .text:00000000005AB7DB                 sub     rsp, 8
+  .text:00000000005AB7DF                 mov     esi, 29h ; ')'
+  .text:00000000005AB7E4                 xor     r8d, r8d
+  .text:00000000005AB7E7                 push    0
+  .text:00000000005AB7E9                 mov     r9d, 1
+  .text:00000000005AB7EF                 mov     ecx, 98h
+  .text:00000000005AB7F4                 lea     rdx, off_969D78
+  .text:00000000005AB7FB                 mov     [rbp+var_28], rdi
+  .text:00000000005AB7FF                 call    qword ptr [rax+10h]
+  .text:00000000005AB802                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB806                 mov     cs:qword_9BD290, rax
+  .text:00000000005AB80D                 mov     rsi, rax
+  .text:00000000005AB810                 pop     rax
+  .text:00000000005AB811                 pop     rdx
+  .text:00000000005AB812                 jmp     loc_5AABD6
+  .text:00000000005AB820                 mov     rax, [rdi]
+  .text:00000000005AB823                 sub     rsp, 8
+  .text:00000000005AB827                 mov     ecx, 68h ; 'h'
+  .text:00000000005AB82C                 xor     r8d, r8d
+  .text:00000000005AB82F                 push    0
+  .text:00000000005AB831                 mov     esi, 2Ah ; '*'
+  .text:00000000005AB836                 mov     r9d, 1
+  .text:00000000005AB83C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB840                 lea     rdx, off_969D70
+  .text:00000000005AB847                 call    qword ptr [rax+10h]
+  .text:00000000005AB84A                 mov     cs:qword_9BD288, rax
+  .text:00000000005AB851                 mov     rsi, rax
+  .text:00000000005AB854                 pop     rcx
+  .text:00000000005AB855                 pop     rdi
+  .text:00000000005AB856                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB85A                 jmp     loc_5AABAF
+  .text:00000000005AB860                 mov     rax, [rdi]
+  .text:00000000005AB863                 sub     rsp, 8
+  .text:00000000005AB867                 mov     r9d, 1
+  .text:00000000005AB86D                 xor     r8d, r8d
+  .text:00000000005AB870                 push    0
+  .text:00000000005AB872                 mov     esi, 28h ; '('
+  .text:00000000005AB877                 mov     ecx, 0A0h
+  .text:00000000005AB87C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB880                 lea     rdx, off_969D68
+  .text:00000000005AB887                 call    qword ptr [rax+10h]
+  .text:00000000005AB88A                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB88E                 mov     cs:qword_9BD280, rax
+  .text:00000000005AB895                 mov     rsi, rax
+  .text:00000000005AB898                 pop     r8
+  .text:00000000005AB89A                 pop     r9
+  .text:00000000005AB89C                 jmp     loc_5AAB88
+  .text:00000000005AB8A8                 mov     rax, [rdi]
+  .text:00000000005AB8AB                 sub     rsp, 8
+  .text:00000000005AB8AF                 mov     esi, 30h ; '0'
+  .text:00000000005AB8B4                 xor     r8d, r8d
+  .text:00000000005AB8B7                 push    0
+  .text:00000000005AB8B9                 mov     r9d, 1
+  .text:00000000005AB8BF                 mov     ecx, 50h ; 'P'
+  .text:00000000005AB8C4                 mov     [rbp+var_28], rdi
+  .text:00000000005AB8C8                 lea     rdx, off_969D60
+  .text:00000000005AB8CF                 call    qword ptr [rax+10h]
+  .text:00000000005AB8D2                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB8D6                 mov     cs:qword_9BD278, rax
+  .text:00000000005AB8DD                 mov     rsi, rax
+  .text:00000000005AB8E0                 pop     r10
+  .text:00000000005AB8E2                 pop     r11
+  .text:00000000005AB8E4                 jmp     loc_5AAB61
+  .text:00000000005AB8F0                 mov     rax, [rdi]
+  .text:00000000005AB8F3                 sub     rsp, 8
+  .text:00000000005AB8F7                 mov     esi, 0Ch
+  .text:00000000005AB8FC                 xor     r8d, r8d
+  .text:00000000005AB8FF                 push    0
+  .text:00000000005AB901                 mov     r9d, 1
+  .text:00000000005AB907                 mov     ecx, 58h ; 'X'
+  .text:00000000005AB90C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB910                 lea     rdx, off_967FC8
+  .text:00000000005AB917                 call    qword ptr [rax+10h]
+  .text:00000000005AB91A                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB91E                 mov     cs:qword_9BD270, rax
+  .text:00000000005AB925                 mov     rsi, rax
+  .text:00000000005AB928                 pop     r12
+  .text:00000000005AB92A                 pop     r13
+  .text:00000000005AB92C                 jmp     loc_5AAB3A
+  .text:00000000005AB938                 mov     rax, [rdi]
+  .text:00000000005AB93B                 sub     rsp, 8
+  .text:00000000005AB93F                 mov     esi, 0Bh
+  .text:00000000005AB944                 xor     r8d, r8d
+  .text:00000000005AB947                 push    0
+  .text:00000000005AB949                 mov     r9d, 1
+  .text:00000000005AB94F                 mov     ecx, 58h ; 'X'
+  .text:00000000005AB954                 lea     rdx, off_967FC0
+  .text:00000000005AB95B                 mov     [rbp+var_28], rdi
+  .text:00000000005AB95F                 call    qword ptr [rax+10h]
+  .text:00000000005AB962                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB966                 mov     cs:qword_9BD268, rax
+  .text:00000000005AB96D                 mov     rsi, rax
+  .text:00000000005AB970                 pop     rax
+  .text:00000000005AB971                 pop     rdx
+  .text:00000000005AB972                 jmp     loc_5AAB13
+  .text:00000000005AB980                 mov     rax, [rdi]
+  .text:00000000005AB983                 sub     rsp, 8
+  .text:00000000005AB987                 mov     ecx, 58h ; 'X'
+  .text:00000000005AB98C                 xor     r8d, r8d
+  .text:00000000005AB98F                 push    0
+  .text:00000000005AB991                 mov     esi, 9
+  .text:00000000005AB996                 mov     r9d, 1
+  .text:00000000005AB99C                 mov     [rbp+var_28], rdi
+  .text:00000000005AB9A0                 lea     rdx, off_967FB8
+  .text:00000000005AB9A7                 call    qword ptr [rax+10h]
+  .text:00000000005AB9AA                 mov     cs:qword_9BD260, rax
+  .text:00000000005AB9B1                 mov     rsi, rax
+  .text:00000000005AB9B4                 pop     rcx
+  .text:00000000005AB9B5                 pop     rdi
+  .text:00000000005AB9B6                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB9BA                 jmp     loc_5AAAEC
+  .text:00000000005AB9C0                 mov     rax, [rdi]
+  .text:00000000005AB9C3                 sub     rsp, 8
+  .text:00000000005AB9C7                 mov     r9d, 1
+  .text:00000000005AB9CD                 xor     r8d, r8d
+  .text:00000000005AB9D0                 push    0
+  .text:00000000005AB9D2                 mov     esi, 8
+  .text:00000000005AB9D7                 mov     ecx, 0C0h
+  .text:00000000005AB9DC                 mov     [rbp+var_28], rdi
+  .text:00000000005AB9E0                 lea     rdx, off_967FB0
+  .text:00000000005AB9E7                 call    qword ptr [rax+10h]
+  .text:00000000005AB9EA                 mov     rdi, [rbp+var_28]
+  .text:00000000005AB9EE                 mov     cs:qword_9BD258, rax
+  .text:00000000005AB9F5                 mov     rsi, rax
+  .text:00000000005AB9F8                 pop     r8
+  .text:00000000005AB9FA                 pop     r9
+  .text:00000000005AB9FC                 jmp     loc_5AAAC5
+  .text:00000000005ABA08                 mov     rax, [rdi]
+  .text:00000000005ABA0B                 sub     rsp, 8
+  .text:00000000005ABA0F                 mov     esi, 7
+  .text:00000000005ABA14                 xor     r8d, r8d
+  .text:00000000005ABA17                 push    0
+  .text:00000000005ABA19                 mov     r9d, 1
+  .text:00000000005ABA1F                 mov     ecx, 80h
+  .text:00000000005ABA24                 mov     [rbp+var_28], rdi
+  .text:00000000005ABA28                 lea     rdx, off_967FA8
+  .text:00000000005ABA2F                 call    qword ptr [rax+10h]
+  .text:00000000005ABA32                 mov     rdi, [rbp+var_28]
+  .text:00000000005ABA36                 mov     cs:qword_9BD250, rax
+  .text:00000000005ABA3D                 mov     rsi, rax
+  .text:00000000005ABA40                 pop     r10
+  .text:00000000005ABA42                 pop     r11
+  .text:00000000005ABA44                 jmp     loc_5AAA9E
+  .text:00000000005ABA50                 mov     rax, [rdi]
+  .text:00000000005ABA53                 sub     rsp, 8
+  .text:00000000005ABA57                 mov     esi, 0Fh
+  .text:00000000005ABA5C                 xor     r8d, r8d
+  .text:00000000005ABA5F                 push    0
+  .text:00000000005ABA61                 mov     r9d, 1
+  .text:00000000005ABA67                 mov     ecx, 0D8h
+  .text:00000000005ABA6C                 mov     [rbp+var_28], rdi
+  .text:00000000005ABA70                 lea     rdx, off_969D58
+  .text:00000000005ABA77                 call    qword ptr [rax+10h]
+  .text:00000000005ABA7A                 mov     rdi, [rbp+var_28]
+  .text:00000000005ABA7E                 mov     cs:qword_9BD248, rax
+  .text:00000000005ABA85                 mov     rsi, rax
+  .text:00000000005ABA88                 pop     r12
+  .text:00000000005ABA8A                 pop     r13
+  .text:00000000005ABA8C                 jmp     loc_5AAA77
+  .text:00000000005ABA98                 mov     rax, [rdi]
+  .text:00000000005ABA9B                 sub     rsp, 8
+  .text:00000000005ABA9F                 mov     esi, 6
+  .text:00000000005ABAA4                 xor     r8d, r8d
+  .text:00000000005ABAA7                 push    0
+  .text:00000000005ABAA9                 mov     r9d, 1
+  .text:00000000005ABAAF                 mov     ecx, 50h ; 'P'
+  .text:00000000005ABAB4                 lea     rdx, off_967F90
+  .text:00000000005ABABB                 mov     [rbp+var_28], rdi
+  .text:00000000005ABABF                 call    qword ptr [rax+10h]
+  .text:00000000005ABAC2                 mov     rdi, [rbp+var_28]
+  .text:00000000005ABAC6                 mov     cs:qword_9BD240, rax
+  .text:00000000005ABACD                 mov     rsi, rax
+  .text:00000000005ABAD0                 pop     rax
+  .text:00000000005ABAD1                 pop     rdx
+  .text:00000000005ABAD2                 jmp     loc_5AAA50
+  .text:00000000005ABAE0                 mov     rax, [rdi]
+  .text:00000000005ABAE3                 sub     rsp, 8
+  .text:00000000005ABAE7                 mov     ecx, 58h ; 'X'
+  .text:00000000005ABAEC                 xor     r8d, r8d
+  .text:00000000005ABAEF                 push    0
+  .text:00000000005ABAF1                 mov     esi, 5
+  .text:00000000005ABAF6                 mov     r9d, 1
+  .text:00000000005ABAFC                 mov     [rbp+var_28], rdi
+  .text:00000000005ABB00                 lea     rdx, off_967F98
+  .text:00000000005ABB07                 call    qword ptr [rax+10h]
+  .text:00000000005ABB0A                 mov     cs:qword_9BD238, rax
+  .text:00000000005ABB11                 mov     rsi, rax
+  .text:00000000005ABB14                 pop     rcx
+  .text:00000000005ABB15                 pop     rdi
+  .text:00000000005ABB16                 mov     rdi, [rbp+var_28]
+  .text:00000000005ABB1A                 jmp     loc_5AAA29
+  .text:00000000005ABB20                 mov     rax, [rdi]
+  .text:00000000005ABB23                 sub     rsp, 8
+  .text:00000000005ABB27                 mov     r9d, 1
+  .text:00000000005ABB2D                 xor     r8d, r8d
+  .text:00000000005ABB30                 push    0
+  .text:00000000005ABB32                 mov     esi, 4
+  .text:00000000005ABB37                 mov     ecx, 78h ; 'x'
+  .text:00000000005ABB3C                 mov     [rbp+var_28], rdi
+  .text:00000000005ABB40                 lea     rdx, off_967FA0
+  .text:00000000005ABB47                 call    qword ptr [rax+10h]; g_pNetworkMessages->FindOrCreateNetMessage(...), 0x10 = INetworkMessages_FindOrCreateNetMessage
+  .text:00000000005ABB4A                 mov     rdi, [rbp+var_28]
+  .text:00000000005ABB4E                 mov     cs:qword_9BD230, rax
+  .text:00000000005ABB55                 mov     rsi, rax
+  .text:00000000005ABB58                 pop     r8
+  .text:00000000005ABB5A                 pop     r9
+  .text:00000000005ABB5C                 jmp     loc_5AAA02
+procedure: |-
+  __int64 __fastcall CNetworkServerService_Init(__int64 a1)
+  {
+    __int64 v2; // r12
+    void (__fastcall *v3)(__int64, _QWORD); // r13
+    unsigned __int8 v4; // al
+    __int64 v5; // rsi
+    __int64 v6; // rdi
+    __int64 v7; // rsi
+    __int64 v8; // rdi
+    __int64 v9; // rsi
+    __int64 v10; // rdi
+    __int64 v11; // rsi
+    __int64 v12; // rdi
+    __int64 v13; // rsi
+    __int64 v14; // rdi
+    __int64 v15; // rsi
+    __int64 v16; // rdi
+    __int64 v17; // rsi
+    __int64 v18; // rdi
+    __int64 v19; // rsi
+    __int64 v20; // rdi
+    __int64 v21; // rsi
+    __int64 v22; // rdi
+    __int64 v23; // rsi
+    __int64 v24; // rdi
+    __int64 v25; // rsi
+    __int64 v26; // rdi
+    __int64 v27; // rsi
+    __int64 v28; // rdi
+    __int64 v29; // rsi
+    __int64 v30; // rdi
+    __int64 v31; // rsi
+    __int64 v32; // rdi
+    __int64 v33; // rsi
+    __int64 v34; // rdi
+    __int64 v35; // rsi
+    __int64 v36; // rdi
+    __int64 v37; // rsi
+    __int64 v38; // rdi
+    __int64 v39; // rsi
+    __int64 v40; // rdi
+    __int64 v41; // rsi
+    __int64 v42; // rdi
+    __int64 v43; // rsi
+    __int64 v44; // rdi
+    __int64 v45; // rsi
+    __int64 v46; // rdi
+    __int64 v47; // rsi
+    __int64 v48; // rdi
+    __int64 v49; // rsi
+    __int64 v50; // rdi
+    __int64 v51; // rsi
+    __int64 v52; // rdi
+    __int64 v53; // rsi
+    __int64 v54; // rdi
+    __int64 v55; // rsi
+    __int64 v56; // rdi
+    __int64 v57; // rsi
+    __int64 v58; // rdi
+    __int64 v59; // rsi
+    __int64 v60; // rdi
+    __int64 v61; // rsi
+    __int64 v62; // rdi
+    __int64 v63; // rsi
+    __int64 v64; // rdi
+    __int64 v65; // rsi
+    __int64 v66; // rdi
+    __int64 v67; // rsi
+    __int64 v68; // rdi
+    __int64 v69; // rsi
+    __int64 v70; // rdi
+    __int64 v71; // rsi
+    __int64 v72; // rdi
+    __int64 v73; // rsi
+    __int64 v74; // rdi
+    __int64 v75; // rsi
+    __int64 v76; // rdi
+    __int64 v77; // rsi
+    __int64 v78; // rdi
+    __int64 v79; // rsi
+    __int64 v80; // rdi
+    unsigned int (*v81)(void); // rax
+    __int64 v82; // rax
+    __int64 v84; // rax
+    __int64 v85; // rdi
+    __int64 v86; // [rsp+8h] [rbp-28h]
+    __int64 v87; // [rsp+8h] [rbp-28h]
+    __int64 v88; // [rsp+8h] [rbp-28h]
+    __int64 v89; // [rsp+8h] [rbp-28h]
+    __int64 v90; // [rsp+8h] [rbp-28h]
+    __int64 v91; // [rsp+8h] [rbp-28h]
+    __int64 v92; // [rsp+8h] [rbp-28h]
+    __int64 v93; // [rsp+8h] [rbp-28h]
+
+    if ( qword_974D28 && !byte_979448 )
+      sub_8EF680();
+    v2 = g_pNetworkMessages;
+    v3 = *(void (__fastcall **)(__int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 256LL);
+    v4 = sub_858820();
+    v3(v2, v4);                                   // g_pNetworkMessages->SetIsForServer(...), 256LL = INetworkMessages_SetIsForServer
+    (**(void (__fastcall ***)(__int64, __int64, const char *))g_pNetworkMessages)(g_pNetworkMessages, 1, "ServerToClient");// g_pNetworkMessages->RegisterNetworkCategory(...), 0 = INetworkMessages_RegisterNetworkCategory
+    (*(void (__fastcall **)(__int64, __int64, const char *))(*(_QWORD *)g_pNetworkMessages
+                                                           + 152LL))(// g_pNetworkMessages->AssociateNetMessageGroupIdWithChannelCategory(...), 152LL = INetworkMessages_AssociateNetMessageGroupIdWithChannelCategory
+      g_pNetworkMessages,
+      1,
+      "Entities");
+    v5 = qword_9BD230;
+    v6 = g_pNetworkMessages;
+    if ( !qword_9BD230 )
+    {
+      v6 = g_pNetworkMessages;
+      qword_9BD230 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(// g_pNetworkMessages->FindOrCreateNetMessage(...), 16LL = INetworkMessages_FindOrCreateNetMessage
+                       g_pNetworkMessages,
+                       4,
+                       off_967FA0,
+                       120,
+                       0,
+                       1,
+                       0);
+      v5 = qword_9BD230;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v6 + 8LL))(v6, v5, 1, 1);
+    v7 = qword_9BD238;
+    v8 = g_pNetworkMessages;
+    if ( !qword_9BD238 )
+    {
+      v93 = g_pNetworkMessages;
+      qword_9BD238 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       5,
+                       off_967F98,
+                       88,
+                       0,
+                       1,
+                       0);
+      v7 = qword_9BD238;
+      v8 = v93;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v8 + 8LL))(v8, v7, 1, 1);
+    v9 = qword_9BD240;
+    v10 = g_pNetworkMessages;
+    if ( !qword_9BD240 )
+    {
+      v10 = g_pNetworkMessages;
+      qword_9BD240 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       6,
+                       off_967F90,
+                       80,
+                       0,
+                       1,
+                       0);
+      v9 = qword_9BD240;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v10 + 8LL))(v10, v9, 1, 1);
+    v11 = qword_9BD248;
+    v12 = g_pNetworkMessages;
+    if ( !qword_9BD248 )
+    {
+      v12 = g_pNetworkMessages;
+      qword_9BD248 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       15,
+                       off_969D58,
+                       216,
+                       0,
+                       1,
+                       0);
+      v11 = qword_9BD248;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v12 + 8LL))(v12, v11, 1, 1);
+    v13 = qword_9BD250;
+    v14 = g_pNetworkMessages;
+    if ( !qword_9BD250 )
+    {
+      v14 = g_pNetworkMessages;
+      qword_9BD250 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       7,
+                       off_967FA8,
+                       128,
+                       0,
+                       1,
+                       0);
+      v13 = qword_9BD250;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v14 + 8LL))(v14, v13, 1, 1);
+    v15 = qword_9BD258;
+    v16 = g_pNetworkMessages;
+    if ( !qword_9BD258 )
+    {
+      v16 = g_pNetworkMessages;
+      qword_9BD258 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       8,
+                       off_967FB0,
+                       192,
+                       0,
+                       1,
+                       0);
+      v15 = qword_9BD258;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v16 + 8LL))(v16, v15, 1, 1);
+    v17 = qword_9BD260;
+    v18 = g_pNetworkMessages;
+    if ( !qword_9BD260 )
+    {
+      v92 = g_pNetworkMessages;
+      qword_9BD260 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       9,
+                       off_967FB8,
+                       88,
+                       0,
+                       1,
+                       0);
+      v17 = qword_9BD260;
+      v18 = v92;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v18 + 8LL))(v18, v17, 1, 1);
+    v19 = qword_9BD268;
+    v20 = g_pNetworkMessages;
+    if ( !qword_9BD268 )
+    {
+      v20 = g_pNetworkMessages;
+      qword_9BD268 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       11,
+                       off_967FC0,
+                       88,
+                       0,
+                       1,
+                       0);
+      v19 = qword_9BD268;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v20 + 8LL))(v20, v19, 1, 1);
+    v21 = qword_9BD270;
+    v22 = g_pNetworkMessages;
+    if ( !qword_9BD270 )
+    {
+      v22 = g_pNetworkMessages;
+      qword_9BD270 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       12,
+                       off_967FC8,
+                       88,
+                       0,
+                       1,
+                       0);
+      v21 = qword_9BD270;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v22 + 8LL))(v22, v21, 1, 1);
+    v23 = qword_9BD278;
+    v24 = g_pNetworkMessages;
+    if ( !qword_9BD278 )
+    {
+      v24 = g_pNetworkMessages;
+      qword_9BD278 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       48,
+                       off_969D60,
+                       80,
+                       0,
+                       1,
+                       0);
+      v23 = qword_9BD278;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v24 + 8LL))(v24, v23, 1, 1);
+    v25 = qword_9BD280;
+    v26 = g_pNetworkMessages;
+    if ( !qword_9BD280 )
+    {
+      v26 = g_pNetworkMessages;
+      qword_9BD280 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       40,
+                       off_969D68,
+                       160,
+                       0,
+                       1,
+                       0);
+      v25 = qword_9BD280;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v26 + 8LL))(v26, v25, 1, 1);
+    v27 = qword_9BD288;
+    v28 = g_pNetworkMessages;
+    if ( !qword_9BD288 )
+    {
+      v91 = g_pNetworkMessages;
+      qword_9BD288 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       42,
+                       off_969D70,
+                       104,
+                       0,
+                       1,
+                       0);
+      v27 = qword_9BD288;
+      v28 = v91;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v28 + 8LL))(v28, v27, 1, 1);
+    v29 = qword_9BD290;
+    v30 = g_pNetworkMessages;
+    if ( !qword_9BD290 )
+    {
+      v30 = g_pNetworkMessages;
+      qword_9BD290 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       41,
+                       off_969D78,
+                       152,
+                       0,
+                       1,
+                       0);
+      v29 = qword_9BD290;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v30 + 8LL))(v30, v29, 1, 1);
+    v31 = qword_9BD298;
+    v32 = g_pNetworkMessages;
+    if ( !qword_9BD298 )
+    {
+      v32 = g_pNetworkMessages;
+      qword_9BD298 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       43,
+                       off_969D80,
+                       80,
+                       0,
+                       1,
+                       0);
+      v31 = qword_9BD298;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v32 + 8LL))(v32, v31, 1, 1);
+    v33 = qword_9BD2A0;
+    v34 = g_pNetworkMessages;
+    if ( !qword_9BD2A0 )
+    {
+      v34 = g_pNetworkMessages;
+      qword_9BD2A0 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       51,
+                       off_969D88,
+                       88,
+                       0,
+                       1,
+                       0);
+      v33 = qword_9BD2A0;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v34 + 8LL))(v34, v33, 1, 1);
+    v35 = qword_9BD2A8;
+    v36 = g_pNetworkMessages;
+    if ( !qword_9BD2A8 )
+    {
+      v36 = g_pNetworkMessages;
+      qword_9BD2A8 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       44,
+                       off_969D90,
+                       112,
+                       0,
+                       1,
+                       0);
+      v35 = qword_9BD2A8;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v36 + 8LL))(v36, v35, 1, 1);
+    v37 = qword_9BD2B0;
+    v38 = g_pNetworkMessages;
+    if ( !qword_9BD2B0 )
+    {
+      v90 = g_pNetworkMessages;
+      qword_9BD2B0 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       45,
+                       off_969D98,
+                       88,
+                       0,
+                       1,
+                       0);
+      v37 = qword_9BD2B0;
+      v38 = v90;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v38 + 8LL))(v38, v37, 1, 1);
+    v39 = qword_9BD2B8;
+    v40 = g_pNetworkMessages;
+    if ( !qword_9BD2B8 )
+    {
+      v40 = g_pNetworkMessages;
+      qword_9BD2B8 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       46,
+                       off_969DA0,
+                       88,
+                       0,
+                       1,
+                       0);
+      v39 = qword_9BD2B8;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v40 + 8LL))(v40, v39, 1, 1);
+    v41 = qword_9BD2C0;
+    v42 = g_pNetworkMessages;
+    if ( !qword_9BD2C0 )
+    {
+      v42 = g_pNetworkMessages;
+      qword_9BD2C0 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       47,
+                       off_969DA8,
+                       112,
+                       0,
+                       1,
+                       0);
+      v41 = qword_9BD2C0;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v42 + 8LL))(v42, v41, 1, 1);
+    v43 = qword_9BD2C8;
+    v44 = g_pNetworkMessages;
+    if ( !qword_9BD2C8 )
+    {
+      v44 = g_pNetworkMessages;
+      qword_9BD2C8 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       49,
+                       off_969DB0,
+                       104,
+                       0,
+                       1,
+                       0);
+      v43 = qword_9BD2C8;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v44 + 8LL))(v44, v43, 1, 1);
+    v45 = qword_9BD2D0;
+    v46 = g_pNetworkMessages;
+    if ( !qword_9BD2D0 )
+    {
+      v46 = g_pNetworkMessages;
+      qword_9BD2D0 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       59,
+                       off_969DB8,
+                       80,
+                       0,
+                       1,
+                       0);
+      v45 = qword_9BD2D0;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v46 + 8LL))(v46, v45, 1, 1);
+    v47 = qword_9BD2D8;
+    v48 = g_pNetworkMessages;
+    if ( !qword_9BD2D8 )
+    {
+      v89 = g_pNetworkMessages;
+      qword_9BD2D8 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       50,
+                       off_969DC0,
+                       80,
+                       0,
+                       1,
+                       0);
+      v47 = qword_9BD2D8;
+      v48 = v89;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v48 + 8LL))(v48, v47, 1, 1);
+    v49 = qword_9BD2E0;
+    v50 = g_pNetworkMessages;
+    if ( !qword_9BD2E0 )
+    {
+      v50 = g_pNetworkMessages;
+      qword_9BD2E0 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       55,
+                       off_969DC8,
+                       216,
+                       0,
+                       1,
+                       0);
+      v49 = qword_9BD2E0;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v50 + 8LL))(v50, v49, 1, 1);
+    v51 = qword_9BD2E8;
+    v52 = g_pNetworkMessages;
+    if ( !qword_9BD2E8 )
+    {
+      v52 = g_pNetworkMessages;
+      qword_9BD2E8 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       56,
+                       off_969DD0,
+                       80,
+                       0,
+                       1,
+                       0);
+      v51 = qword_9BD2E8;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v52 + 8LL))(v52, v51, 1, 1);
+    v53 = qword_9BD2F0;
+    v54 = g_pNetworkMessages;
+    if ( !qword_9BD2F0 )
+    {
+      v54 = g_pNetworkMessages;
+      qword_9BD2F0 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       54,
+                       off_969DD8,
+                       88,
+                       0,
+                       1,
+                       0);
+      v53 = qword_9BD2F0;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v54 + 8LL))(v54, v53, 1, 1);
+    v55 = qword_9BD2F8;
+    v56 = g_pNetworkMessages;
+    if ( !qword_9BD2F8 )
+    {
+      v56 = g_pNetworkMessages;
+      qword_9BD2F8 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       57,
+                       off_969DE0,
+                       88,
+                       0,
+                       1,
+                       0);
+      v55 = qword_9BD2F8;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v56 + 8LL))(v56, v55, 1, 1);
+    v57 = qword_9BD300;
+    v58 = g_pNetworkMessages;
+    if ( !qword_9BD300 )
+    {
+      v88 = g_pNetworkMessages;
+      qword_9BD300 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       52,
+                       off_967FE0,
+                       88,
+                       0,
+                       1,
+                       0);
+      v57 = qword_9BD300;
+      v58 = v88;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v58 + 8LL))(v58, v57, 1, 1);
+    v59 = qword_9BD308;
+    v60 = g_pNetworkMessages;
+    if ( !qword_9BD308 )
+    {
+      v60 = g_pNetworkMessages;
+      qword_9BD308 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       71,
+                       off_969DE8,
+                       88,
+                       0,
+                       1,
+                       0);
+      v59 = qword_9BD308;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v60 + 8LL))(v60, v59, 1, 1);
+    v61 = qword_9BD310;
+    v62 = g_pNetworkMessages;
+    if ( !qword_9BD310 )
+    {
+      v62 = g_pNetworkMessages;
+      qword_9BD310 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       58,
+                       off_969DF0,
+                       88,
+                       0,
+                       1,
+                       0);
+      v61 = qword_9BD310;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v62 + 8LL))(v62, v61, 1, 1);
+    v63 = qword_9BD318;
+    v64 = g_pNetworkMessages;
+    if ( !qword_9BD318 )
+    {
+      v64 = g_pNetworkMessages;
+      qword_9BD318 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       60,
+                       off_969DF8,
+                       96,
+                       0,
+                       1,
+                       0);
+      v63 = qword_9BD318;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v64 + 8LL))(v64, v63, 1, 1);
+    v65 = qword_9BD320;
+    v66 = g_pNetworkMessages;
+    if ( !qword_9BD320 )
+    {
+      v66 = g_pNetworkMessages;
+      qword_9BD320 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       61,
+                       off_969E00,
+                       88,
+                       0,
+                       1,
+                       0);
+      v65 = qword_9BD320;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v66 + 8LL))(v66, v65, 1, 1);
+    v67 = qword_9BD328;
+    v68 = g_pNetworkMessages;
+    if ( !qword_9BD328 )
+    {
+      v87 = g_pNetworkMessages;
+      qword_9BD328 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       62,
+                       off_969E08,
+                       96,
+                       0,
+                       1,
+                       0);
+      v67 = qword_9BD328;
+      v68 = v87;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v68 + 8LL))(v68, v67, 1, 1);
+    v69 = qword_9BD330;
+    v70 = g_pNetworkMessages;
+    if ( !qword_9BD330 )
+    {
+      v70 = g_pNetworkMessages;
+      qword_9BD330 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       63,
+                       off_969E10,
+                       80,
+                       0,
+                       1,
+                       0);
+      v69 = qword_9BD330;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v70 + 8LL))(v70, v69, 1, 1);
+    v71 = qword_9BD338;
+    v72 = g_pNetworkMessages;
+    if ( !qword_9BD338 )
+    {
+      v72 = g_pNetworkMessages;
+      qword_9BD338 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       70,
+                       off_969E18,
+                       96,
+                       0,
+                       1,
+                       0);
+      v71 = qword_9BD338;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v72 + 8LL))(v72, v71, 1, 1);
+    v73 = qword_9BD340;
+    v74 = g_pNetworkMessages;
+    if ( !qword_9BD340 )
+    {
+      v74 = g_pNetworkMessages;
+      qword_9BD340 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       74,
+                       off_969E20,
+                       104,
+                       0,
+                       1,
+                       0);
+      v73 = qword_9BD340;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v74 + 8LL))(v74, v73, 1, 1);
+    v75 = qword_9BD348;
+    v76 = g_pNetworkMessages;
+    if ( !qword_9BD348 )
+    {
+      v76 = g_pNetworkMessages;
+      qword_9BD348 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       76,
+                       off_969E28,
+                       96,
+                       0,
+                       1,
+                       0);
+      v75 = qword_9BD348;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v76 + 8LL))(v76, v75, 1, 1);
+    v77 = qword_9BD350;
+    v78 = g_pNetworkMessages;
+    if ( !qword_9BD350 )
+    {
+      v86 = g_pNetworkMessages;
+      qword_9BD350 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       77,
+                       &off_967FE8,
+                       80,
+                       0,
+                       1,
+                       0);
+      v77 = qword_9BD350;
+      v78 = v86;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)v78 + 8LL))(v78, v77, 1, 1);
+    v79 = qword_9BD358;
+    v80 = g_pNetworkMessages;
+    if ( !qword_9BD358 )
+    {
+      v80 = g_pNetworkMessages;
+      qword_9BD358 = (*(__int64 (__fastcall **)(__int64, __int64, __int64 (__fastcall ***)(), __int64, _QWORD, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages + 16LL))(
+                       g_pNetworkMessages,
+                       19,
+                       &off_969E30,
+                       96,
+                       0,
+                       1,
+                       0);
+      v79 = qword_9BD358;
+    }
+    (*(void (__fastcall **)(__int64, __int64, __int64, _QWORD))(*(_QWORD *)v80 + 8LL))(v80, v79, 1, 0);
+    (*(void (__fastcall **)(__int64, __int64, const char *))(*(_QWORD *)g_pNetworkMessages + 152LL))(
+      g_pNetworkMessages,
+      1,
+      "Local Player");
+    (*(void (__fastcall **)(__int64, __int64, const char *))(*(_QWORD *)g_pNetworkMessages + 152LL))(
+      g_pNetworkMessages,
+      1,
+      "Other Players");
+    sub_63F4E0(&xmmword_9BCCE0);
+    v81 = *(unsigned int (**)(void))(*(_QWORD *)qword_975528 + 288LL);
+    if ( (char *)v81 == (char *)sub_4F69A0 )
+    {
+      v82 = *(_QWORD *)(qword_975528 + 8);
+      if ( !*(_BYTE *)(v82 + 251) || !*(_BYTE *)(v82 + 252) )
+        return 1;
+    }
+    else if ( v81() != 2 )
+    {
+      return 1;
+    }
+    v84 = sub_2B0190(56);
+    v85 = qword_9BD360;
+    *(_QWORD *)(v84 + 8) = 0;
+    *(_QWORD *)v84 = off_940710;
+    *(_QWORD *)(v84 + 16) = 0;
+    *(_QWORD *)(v84 + 24) = 0;
+    *(_QWORD *)(v84 + 32) = 0;
+    *(_BYTE *)(v84 + 40) = 0;
+    *(_DWORD *)(v84 + 48) = -1;
+    *(_BYTE *)(v84 + 52) = 1;
+    *(_QWORD *)(a1 + 384) = v84;
+    (*(void (__fastcall **)(__int64))(*(_QWORD *)v85 + 232LL))(v85);
+    if ( !qword_979250 )
+      return 1;
+    (*(void (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)qword_979250 + 112LL))(
+      qword_979250,
+      1162761283,
+      5,
+      a1 + 56);
+    return 1;
+  }

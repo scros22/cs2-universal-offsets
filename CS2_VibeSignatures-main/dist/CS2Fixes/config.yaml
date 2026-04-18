@@ -1,0 +1,13 @@
+modules:
+  - name: server
+
+    symbols:
+      - name: CTakeDamageInfo_ctor
+        category: func
+        alias:
+          - CTakeDamageInfo
+
+      - name: CPhysBox_Use_PatchCaller
+        category: patch
+        alias:
+          - CPhysBox_Use

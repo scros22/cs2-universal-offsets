@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish"
+        required: true
+      draft:
+        description: "Draft release"
+        type: boolean
+        default: false
+      prerelease:
+        description: "Pre-release"
+        type: boolean
+        default: false
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm run test
+
+      - name: Build
+        run: npm run prepack
+
+      - name: Cleanup
+        run: rm -rf assets scripts
+
+      - name: Version
+        if: inputs.version
+        run: npm version ${{ inputs.version }} --git-tag-version=false
+
+      - name: Publish Release
+        if: inputs.version && !inputs.prerelease
+        run: npm publish --access public
+
+      - name: Publish Pre-release
+        if: inputs.version && inputs.prerelease
+        run: npm publish --access public --tag next
+
+      - name: Generate Changelog
+        if: inputs.version
+        run: |
+          git log --reverse $(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || git rev-list --max-parents=0 HEAD)..HEAD --pretty=format:"* %s (%h)" > CHANGELOG.md
+        continue-on-error: true
+
+      - name: Create Release
+        if: inputs.version
+        run: |
+          FLAGS=""
+          if [ "${{ inputs.draft }}" = "true" ]; then FLAGS="$FLAGS --draft"; fi
+          if [ "${{ inputs.prerelease }}" = "true" ]; then FLAGS="$FLAGS --prerelease"; fi
+          gh release create "v${{ inputs.version }}" $FLAGS --title "v${{ inputs.version }}" --notes-file CHANGELOG.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Docs
+        if: inputs.version
+        run: npm run docs
+
+      - name: Deploy Docs
+        if: inputs.version
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs

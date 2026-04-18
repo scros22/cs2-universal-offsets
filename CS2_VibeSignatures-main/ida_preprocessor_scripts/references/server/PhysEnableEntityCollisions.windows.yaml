@@ -1,0 +1,163 @@
+func_name: PhysEnableEntityCollisions
+func_va: '0x180d18920'
+disasm_code: |-
+  .text:0000000180D18920                 test    rcx, rcx
+  .text:0000000180D18923                 jz      locret_180D18A48
+  .text:0000000180D18929                 mov     [rsp+arg_8], rbx
+  .text:0000000180D1892E                 push    rsi
+  .text:0000000180D1892F                 sub     rsp, 30h
+  .text:0000000180D18933                 mov     rsi, rdx
+  .text:0000000180D18936                 mov     rbx, rcx
+  .text:0000000180D18939                 test    rdx, rdx
+  .text:0000000180D1893C                 jz      loc_180D18A3E
+  .text:0000000180D18942                 mov     rcx, [rdx+10h]
+  .text:0000000180D18946                 mov     rax, [rbx+10h]
+  .text:0000000180D1894A                 mov     [rsp+38h+arg_0], rdi
+  .text:0000000180D1894F                 mov     edi, [rcx+38h]
+  .text:0000000180D18952                 cmp     [rax+38h], edi
+  .text:0000000180D18955                 jz      short loc_180D18995
+  .text:0000000180D18957                 call    sub_1811A5280
+  .text:0000000180D1895C                 mov     rcx, [rbx+10h]
+  .text:0000000180D18960                 mov     rsi, rax
+  .text:0000000180D18963                 mov     ebx, [rcx+38h]
+  .text:0000000180D18966                 call    sub_1811A5280
+  .text:0000000180D1896B                 mov     r9, rsi
+  .text:0000000180D1896E                 mov     [rsp+38h+var_18], edi
+  .text:0000000180D18972                 mov     r8d, ebx
+  .text:0000000180D18975                 lea     rcx, aPhysenableenti; "PhysEnableEntityCollisions called on en"...
+  .text:0000000180D1897C                 mov     rdx, rax
+  .text:0000000180D1897F                 call    cs:Warning
+  .text:0000000180D18985                 mov     rdi, [rsp+38h+arg_0]
+  .text:0000000180D1898A                 mov     rbx, [rsp+38h+arg_8]
+  .text:0000000180D1898F                 add     rsp, 30h
+  .text:0000000180D18993                 pop     rsi
+  .text:0000000180D18994                 retn
+  .text:0000000180D18995                 mov     rcx, rbx
+  .text:0000000180D18998                 call    sub_1803D1690
+  .text:0000000180D1899D                 mov     r10, rax
+  .text:0000000180D189A0                 mov     r9d, 7FFFh
+  .text:0000000180D189A6                 mov     rcx, [rax]
+  .text:0000000180D189A9                 mov     r11, [rcx+480h]
+  .text:0000000180D189B0                 mov     rcx, [rsi+10h]
+  .text:0000000180D189B4                 test    rcx, rcx
+  .text:0000000180D189B7                 jz      short loc_180D189E3
+  .text:0000000180D189B9                 mov     edx, [rcx+10h]
+  .text:0000000180D189BC                 mov     r8d, edx
+  .text:0000000180D189BF                 mov     ecx, [rcx+30h]
+  .text:0000000180D189C2                 mov     eax, edx
+  .text:0000000180D189C4                 and     ecx, 1
+  .text:0000000180D189C7                 shr     r8d, 0Fh
+  .text:0000000180D189CB                 sub     r8d, ecx
+  .text:0000000180D189CE                 and     eax, r9d
+  .text:0000000180D189D1                 shl     r8d, 0Fh
+  .text:0000000180D189D5                 mov     ecx, r9d
+  .text:0000000180D189D8                 cmp     edx, 0FFFFFFFFh
+  .text:0000000180D189DB                 cmovnz  ecx, eax
+  .text:0000000180D189DE                 or      r8d, ecx
+  .text:0000000180D189E1                 jmp     short loc_180D189E9
+  .text:0000000180D189E3                 mov     r8d, 0FFFFFFFFh
+  .text:0000000180D189E9                 mov     rax, [rbx+10h]
+  .text:0000000180D189ED                 test    rax, rax
+  .text:0000000180D189F0                 jz      short loc_180D18A16
+  .text:0000000180D189F2                 mov     ecx, [rax+10h]
+  .text:0000000180D189F5                 mov     edx, ecx
+  .text:0000000180D189F7                 mov     eax, [rax+30h]
+  .text:0000000180D189FA                 and     eax, 1
+  .text:0000000180D189FD                 shr     edx, 0Fh
+  .text:0000000180D18A00                 sub     edx, eax
+  .text:0000000180D18A02                 mov     eax, ecx
+  .text:0000000180D18A04                 and     eax, r9d
+  .text:0000000180D18A07                 shl     edx, 0Fh
+  .text:0000000180D18A0A                 cmp     ecx, 0FFFFFFFFh
+  .text:0000000180D18A0D                 cmovnz  r9d, eax
+  .text:0000000180D18A11                 or      edx, r9d
+  .text:0000000180D18A14                 jmp     short loc_180D18A1B
+  .text:0000000180D18A16                 mov     edx, 0FFFFFFFFh
+  .text:0000000180D18A1B                 mov     rcx, r10
+  .text:0000000180D18A1E                 call    r11
+  .text:0000000180D18A21                 mov     rax, [rbx]
+  .text:0000000180D18A24                 mov     rcx, rbx
+  .text:0000000180D18A27                 call    qword ptr [rax+5C8h]; 0x5C8 = 1480LL = CBaseEntity_CollisionRulesChanged
+  .text:0000000180D18A2D                 mov     rax, [rsi]
+  .text:0000000180D18A30                 mov     rcx, rsi
+  .text:0000000180D18A33                 call    qword ptr [rax+5C8h]; 0x5C8 = 1480LL = CBaseEntity_CollisionRulesChanged
+  .text:0000000180D18A39                 mov     rdi, [rsp+38h+arg_0]
+  .text:0000000180D18A3E                 mov     rbx, [rsp+38h+arg_8]
+  .text:0000000180D18A43                 add     rsp, 30h
+  .text:0000000180D18A47                 pop     rsi
+  .text:0000000180D18A48                 retn
+procedure: |-
+  void __fastcall PhysEnableEntityCollisions(_QWORD *a1, _QWORD *a2)
+  {
+    __int64 v4; // rcx
+    int v5; // edi
+    __int64 v6; // rax
+    __int64 v7; // rcx
+    const char *v8; // rsi
+    int v9; // ebx
+    const char *v10; // rax
+    __int64 v11; // r10
+    int v12; // r9d
+    __int64 v13; // rcx
+    unsigned int v14; // edx
+    int v15; // r8d
+    int v16; // ecx
+    __int64 v17; // r8
+    __int64 v18; // rax
+    unsigned int v19; // ecx
+    __int64 v20; // rdx
+
+    if ( a1 && a2 )
+    {
+      v4 = a2[2];
+      v5 = *(_DWORD *)(v4 + 56);
+      if ( *(_DWORD *)(a1[2] + 56LL) == v5 )
+      {
+        v11 = sub_1803D1690(a1);
+        v12 = 0x7FFF;
+        v13 = a2[2];
+        if ( v13 )
+        {
+          v14 = *(_DWORD *)(v13 + 16);
+          v15 = ((v14 >> 15) - (*(_DWORD *)(v13 + 48) & 1)) << 15;
+          v16 = 0x7FFF;
+          if ( v14 != -1 )
+            v16 = v14 & 0x7FFF;
+          v17 = v16 | (unsigned int)v15;
+        }
+        else
+        {
+          v17 = 0xFFFFFFFFLL;
+        }
+        v18 = a1[2];
+        if ( v18 )
+        {
+          v19 = *(_DWORD *)(v18 + 16);
+          if ( v19 != -1 )
+            v12 = v19 & 0x7FFF;
+          v20 = v12 | (((v19 >> 15) - (*(_DWORD *)(v18 + 48) & 1)) << 15);
+        }
+        else
+        {
+          v20 = 0xFFFFFFFFLL;
+        }
+        (*(void (__fastcall **)(__int64, __int64, __int64))(*(_QWORD *)v11 + 1152LL))(v11, v20, v17);
+        (*(void (__fastcall **)(_QWORD *))(*a1 + 1480LL))(a1);// 1480LL = CBaseEntity_CollisionRulesChanged
+        (*(void (__fastcall **)(_QWORD *))(*a2 + 1480LL))(a2);// 1480LL = CBaseEntity_CollisionRulesChanged
+      }
+      else
+      {
+        v6 = sub_1811A5280(v4);
+        v7 = a1[2];
+        v8 = (const char *)v6;
+        v9 = *(_DWORD *)(v7 + 56);
+        v10 = (const char *)sub_1811A5280(v7);
+        Warning(
+          "PhysEnableEntityCollisions called on entities in two different scene worlds (%s - %u vs %s - %u)\n",
+          v10,
+          v9,
+          v8,
+          v5);
+      }
+    }
+  }

@@ -1,0 +1,98 @@
+name: Dependencies
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Determine update type
+        id: update_type
+        run: |
+          DAY_OF_WEEK=$(date +%u)
+          if [ "$DAY_OF_WEEK" -eq 1 ]; then
+            echo "target=major" >> $GITHUB_OUTPUT
+            echo "description=major" >> $GITHUB_OUTPUT
+          else
+            echo "target=minor" >> $GITHUB_OUTPUT
+            echo "description=minor" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upgrade dependencies
+        id: upgrade
+        run: |
+          if [ "${{ steps.update_type.outputs.target }}" == "major" ]; then
+            NCU_JSON=$(npx npm-check-updates@latest --target latest --reject @types/node --cooldown 7 -u --jsonUpgraded 2>/dev/null)
+          else
+            NCU_JSON=$(npx npm-check-updates@latest --target minor --reject rolldown --cooldown 7 -u --jsonUpgraded 2>/dev/null)
+          fi
+
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes detected"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          TITLE=$(echo "$NCU_JSON" | node -e "
+            const json = require('fs').readFileSync('/dev/stdin', 'utf8');
+            const deps = JSON.parse(json);
+            const entries = Object.entries(deps).map(([k, v]) => '\`' + k + '@' + v.replace(/[\^~]/, '') + '\`');
+            const max = 2;
+            let title = 'Bump ' + entries.slice(0, max).join(', ');
+            if (entries.length > max) title += ' and ' + (entries.length - max) + ' more';
+            process.stdout.write(title);
+          ")
+
+          rm package-lock.json
+          npm install
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          echo "title=$TITLE" >> $GITHUB_OUTPUT
+
+      - name: Configure Git
+        if: steps.upgrade.outputs.has_changes == 'true'
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Handle existing branch
+        if: steps.upgrade.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.LIB_TOKEN }}
+        run: |
+          if git ls-remote --exit-code --heads origin update-dependencies > /dev/null 2>&1; then
+            gh pr close update-dependencies --delete-branch || true
+          fi
+
+      - name: Commit and push changes
+        if: steps.upgrade.outputs.has_changes == 'true'
+        env:
+          TITLE: ${{ steps.upgrade.outputs.title }}
+        run: |
+          git checkout -b update-dependencies
+          git add .
+          git commit -m "$TITLE"
+          git push origin update-dependencies
+
+      - name: Create pull request
+        if: steps.upgrade.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.LIB_TOKEN }}
+          TITLE: ${{ steps.upgrade.outputs.title }}
+        run: |
+          gh pr create \
+            --base main \
+            --head update-dependencies \
+            --title "$TITLE" \
+            --body "Dependencies ${{ steps.update_type.outputs.description }} upgrade"

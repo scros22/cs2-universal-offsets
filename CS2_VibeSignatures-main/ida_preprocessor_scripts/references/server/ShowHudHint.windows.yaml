@@ -1,0 +1,34 @@
+func_name: ShowHudHint
+func_va: '0x180293c50'
+disasm_code: |-
+  .text:0000000180293C50                 push    rbx
+  .text:0000000180293C52                 sub     rsp, 20h
+  .text:0000000180293C56                 mov     rbx, rcx
+  .text:0000000180293C59                 mov     rcx, [rdx]
+  .text:0000000180293C5C                 call    UTIL_GetPlayerControllerForEntity
+  .text:0000000180293C61                 mov     rcx, rax
+  .text:0000000180293C64                 test    rax, rax
+  .text:0000000180293C67                 jnz     short loc_180293C71
+  .text:0000000180293C69                 call    sub_180A9DA60
+  .text:0000000180293C6E                 mov     rcx, rax
+  .text:0000000180293C71                 mov     rax, [rbx+4A8h]
+  .text:0000000180293C78                 lea     rdx, byte_18152DF88
+  .text:0000000180293C7F                 test    rax, rax
+  .text:0000000180293C82                 cmovnz  rdx, rax
+  .text:0000000180293C86                 add     rsp, 20h
+  .text:0000000180293C8A                 pop     rbx
+  .text:0000000180293C8B                 jmp     sub_1808DB740
+procedure: |-
+  void __fastcall ShowHudHint(__int64 a1, _QWORD *a2)
+  {
+    __int64 v3; // rcx
+    char *v4; // rdx
+
+    v3 = UTIL_GetPlayerControllerForEntity(*a2);
+    if ( !v3 )
+      v3 = sub_180A9DA60();
+    v4 = byte_18152DF88;
+    if ( *(_QWORD *)(a1 + 1192) )
+      v4 = *(char **)(a1 + 1192);
+    sub_1808DB740(v3, (__int64)v4);
+  }

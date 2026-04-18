@@ -1,0 +1,216 @@
+func_name: UTIL_GetPlayerControllerForEntity
+func_va: '0x180bcfbe0'
+disasm_code: |-
+  .text:0000000180BCFBE0                 mov     [rsp+arg_0], rbx
+  .text:0000000180BCFBE5                 push    rdi
+  .text:0000000180BCFBE6                 sub     rsp, 20h
+  .text:0000000180BCFBEA                 mov     rbx, rcx
+  .text:0000000180BCFBED                 test    rcx, rcx
+  .text:0000000180BCFBF0                 jz      loc_180BCFCD7
+  .text:0000000180BCFBF6                 xor     edi, edi
+  .text:0000000180BCFBF8                 nop     dword ptr [rax+rax+00000000h]
+  .text:0000000180BCFC00                 mov     rax, [rbx]
+  .text:0000000180BCFC03                 mov     rcx, rbx
+  .text:0000000180BCFC06                 call    qword ptr [rax+548h] ; 0x548 = CBaseEntity_IsPlayerController
+  .text:0000000180BCFC0C                 mov     rdx, [rbx]
+  .text:0000000180BCFC0F                 mov     rcx, rbx
+  .text:0000000180BCFC12                 test    al, al
+  .text:0000000180BCFC14                 jnz     loc_180BCFD5C
+  .text:0000000180BCFC1A                 call    qword ptr [rdx+540h] ; 0x540 = CBaseEntity_IsPlayerPawn
+  .text:0000000180BCFC20                 test    al, al
+  .text:0000000180BCFC22                 jnz     loc_180BCFCE4
+  .text:0000000180BCFC28                 mov     ecx, [rbx+3E4h]
+  .text:0000000180BCFC2E                 cmp     ecx, 0FFFFFFFFh
+  .text:0000000180BCFC31                 jz      loc_180BCFCD7
+  .text:0000000180BCFC37                 mov     rdx, cs:qword_181D17000
+  .text:0000000180BCFC3E                 test    rdx, rdx
+  .text:0000000180BCFC41                 jz      loc_180BCFCD7
+  .text:0000000180BCFC47                 cmp     ecx, 0FFFFFFFEh
+  .text:0000000180BCFC4A                 jz      short loc_180BCFC7C
+  .text:0000000180BCFC4C                 mov     eax, ecx
+  .text:0000000180BCFC4E                 and     eax, 7FFFh
+  .text:0000000180BCFC53                 mov     r8d, eax
+  .text:0000000180BCFC56                 shr     rax, 9
+  .text:0000000180BCFC5A                 mov     r9, [rdx+rax*8]
+  .text:0000000180BCFC5E                 test    r9, r9
+  .text:0000000180BCFC61                 jz      short loc_180BCFC7C
+  .text:0000000180BCFC63                 and     r8d, 1FFh
+  .text:0000000180BCFC6A                 imul    rax, r8, 70h ; 'p'
+  .text:0000000180BCFC6E                 add     rax, r9
+  .text:0000000180BCFC71                 jz      short loc_180BCFC7C
+  .text:0000000180BCFC73                 cmp     [rax+10h], ecx
+  .text:0000000180BCFC76                 cmovnz  rax, rdi
+  .text:0000000180BCFC7A                 jmp     short loc_180BCFC7F
+  .text:0000000180BCFC7C                 mov     rax, rdi
+  .text:0000000180BCFC7F                 test    rax, rax
+  .text:0000000180BCFC82                 jz      short loc_180BCFCD7
+  .text:0000000180BCFC84                 cmp     [rax], rdi
+  .text:0000000180BCFC87                 jz      short loc_180BCFCD7
+  .text:0000000180BCFC89                 test    rdx, rdx
+  .text:0000000180BCFC8C                 jz      short loc_180BCFCD7
+  .text:0000000180BCFC8E                 cmp     ecx, 0FFFFFFFEh
+  .text:0000000180BCFC91                 jz      short loc_180BCFCC3
+  .text:0000000180BCFC93                 mov     eax, ecx
+  .text:0000000180BCFC95                 and     eax, 7FFFh
+  .text:0000000180BCFC9A                 mov     r8d, eax
+  .text:0000000180BCFC9D                 shr     rax, 9
+  .text:0000000180BCFCA1                 mov     r9, [rdx+rax*8]
+  .text:0000000180BCFCA5                 test    r9, r9
+  .text:0000000180BCFCA8                 jz      short loc_180BCFCC3
+  .text:0000000180BCFCAA                 and     r8d, 1FFh
+  .text:0000000180BCFCB1                 imul    rax, r8, 70h ; 'p'
+  .text:0000000180BCFCB5                 add     rax, r9
+  .text:0000000180BCFCB8                 jz      short loc_180BCFCC3
+  .text:0000000180BCFCBA                 cmp     [rax+10h], ecx
+  .text:0000000180BCFCBD                 cmovnz  rax, rdi
+  .text:0000000180BCFCC1                 jmp     short loc_180BCFCC6
+  .text:0000000180BCFCC3                 mov     rax, rdi
+  .text:0000000180BCFCC6                 test    rax, rax
+  .text:0000000180BCFCC9                 jz      short loc_180BCFCD7
+  .text:0000000180BCFCCB                 mov     rbx, [rax]
+  .text:0000000180BCFCCE                 test    rbx, rbx
+  .text:0000000180BCFCD1                 jnz     loc_180BCFC00
+  .text:0000000180BCFCD7                 xor     eax, eax
+  .text:0000000180BCFCD9                 mov     rbx, [rsp+28h+arg_0]
+  .text:0000000180BCFCDE                 add     rsp, 20h
+  .text:0000000180BCFCE2                 pop     rdi
+  .text:0000000180BCFCE3                 retn
+  .text:0000000180BCFCE4                 mov     rax, [rbx]
+  .text:0000000180BCFCE7                 mov     rcx, rbx
+  .text:0000000180BCFCEA                 call    qword ptr [rax+540h]
+  .text:0000000180BCFCF0                 test    al, al
+  .text:0000000180BCFCF2                 mov     rcx, rdi
+  .text:0000000180BCFCF5                 cmovnz  rcx, rbx
+  .text:0000000180BCFCF9                 mov     edx, [rcx+0CF0h]
+  .text:0000000180BCFCFF                 cmp     edx, 0FFFFFFFFh
+  .text:0000000180BCFD02                 jz      short loc_180BCFD4E
+  .text:0000000180BCFD04                 mov     r8, cs:qword_181D17000
+  .text:0000000180BCFD0B                 test    r8, r8
+  .text:0000000180BCFD0E                 jz      short loc_180BCFD4E
+  .text:0000000180BCFD10                 cmp     edx, 0FFFFFFFEh
+  .text:0000000180BCFD13                 jz      short loc_180BCFD43
+  .text:0000000180BCFD15                 mov     eax, edx
+  .text:0000000180BCFD17                 and     eax, 7FFFh
+  .text:0000000180BCFD1C                 mov     ecx, eax
+  .text:0000000180BCFD1E                 shr     rax, 9
+  .text:0000000180BCFD22                 mov     r9, [r8+rax*8]
+  .text:0000000180BCFD26                 test    r9, r9
+  .text:0000000180BCFD29                 jz      short loc_180BCFD43
+  .text:0000000180BCFD2B                 and     ecx, 1FFh
+  .text:0000000180BCFD31                 imul    rax, rcx, 70h ; 'p'
+  .text:0000000180BCFD35                 add     rax, r9
+  .text:0000000180BCFD38                 jz      short loc_180BCFD43
+  .text:0000000180BCFD3A                 cmp     [rax+10h], edx
+  .text:0000000180BCFD3D                 cmovnz  rax, rdi
+  .text:0000000180BCFD41                 jmp     short loc_180BCFD46
+  .text:0000000180BCFD43                 mov     rax, rdi
+  .text:0000000180BCFD46                 test    rax, rax
+  .text:0000000180BCFD49                 jz      short loc_180BCFD4E
+  .text:0000000180BCFD4B                 mov     rdi, [rax]
+  .text:0000000180BCFD4E                 mov     rax, rdi
+  .text:0000000180BCFD51                 mov     rbx, [rsp+28h+arg_0]
+  .text:0000000180BCFD56                 add     rsp, 20h
+  .text:0000000180BCFD5A                 pop     rdi
+  .text:0000000180BCFD5B                 retn
+  .text:0000000180BCFD5C                 call    qword ptr [rdx+548h]
+  .text:0000000180BCFD62                 test    al, al
+  .text:0000000180BCFD64                 cmovz   rbx, rdi
+  .text:0000000180BCFD68                 mov     rax, rbx
+  .text:0000000180BCFD6B                 mov     rbx, [rsp+28h+arg_0]
+  .text:0000000180BCFD70                 add     rsp, 20h
+  .text:0000000180BCFD74                 pop     rdi
+  .text:0000000180BCFD75                 retn
+procedure: |-
+  _DWORD *__fastcall sub_180BCFBE0(_DWORD *a1)
+  {
+    _DWORD *v1; // rbx
+    __int64 v2; // rdi
+    char v3; // al
+    __int64 v4; // rdx
+    int v5; // ecx
+    __int64 v6; // r9
+    __int64 v7; // rax
+    __int64 v8; // r9
+    __int64 v9; // rax
+    char v11; // al
+    _DWORD *v12; // rcx
+    int v13; // edx
+    __int64 v14; // r9
+    _DWORD *v15; // rax
+
+    v1 = a1;
+    if ( !a1 )
+      return nullptr;
+    v2 = 0;
+    while ( 1 )
+    {
+      v3 = (*(__int64 (__fastcall **)(_DWORD *))(*(_QWORD *)v1 + 1352LL))(v1); // 1352 = 0x548 = CBaseEntity_IsPlayerController
+      v4 = *(_QWORD *)v1;
+      if ( v3 )
+        break;
+      if ( (*(unsigned __int8 (__fastcall **)(_DWORD *))(v4 + 1344))(v1) ) // 1344 = 0x540 = CBaseEntity_IsPlayerPawn
+      {
+        v11 = (*(__int64 (__fastcall **)(_DWORD *))(*(_QWORD *)v1 + 1344LL))(v1);
+        v12 = nullptr;
+        if ( v11 )
+          v12 = v1;
+        v13 = v12[828];
+        if ( v13 != -1 && qword_181D17000 )
+        {
+          if ( v13 != -2
+            && (v14 = *(_QWORD *)(qword_181D17000 + 8 * ((unsigned __int64)(v13 & 0x7FFF) >> 9))) != 0
+            && (v15 = (_DWORD *)(v14 + 112LL * (v13 & 0x1FF))) != nullptr )
+          {
+            if ( v15[4] != v13 )
+              v15 = nullptr;
+          }
+          else
+          {
+            v15 = nullptr;
+          }
+          if ( v15 )
+            return *(_DWORD **)v15;
+        }
+        return (_DWORD *)v2;
+      }
+      v5 = v1[249];
+      if ( v5 != -1 && qword_181D17000 )
+      {
+        if ( v5 != -2
+          && (v6 = *(_QWORD *)(qword_181D17000 + 8 * ((unsigned __int64)(v5 & 0x7FFF) >> 9))) != 0
+          && (v7 = v6 + 112LL * (v5 & 0x1FF)) != 0 )
+        {
+          if ( *(_DWORD *)(v7 + 16) != v5 )
+            v7 = 0;
+        }
+        else
+        {
+          v7 = 0;
+        }
+        if ( v7 && *(_QWORD *)v7 && qword_181D17000 )
+        {
+          if ( v5 != -2
+            && (v8 = *(_QWORD *)(qword_181D17000 + 8 * ((unsigned __int64)(v5 & 0x7FFF) >> 9))) != 0
+            && (v9 = v8 + 112LL * (v5 & 0x1FF)) != 0 )
+          {
+            if ( *(_DWORD *)(v9 + 16) != v5 )
+              v9 = 0;
+          }
+          else
+          {
+            v9 = 0;
+          }
+          if ( v9 )
+          {
+            v1 = *(_DWORD **)v9;
+            if ( *(_QWORD *)v9 )
+              continue;
+          }
+        }
+      }
+      return nullptr;
+    }
+    if ( !(*(unsigned __int8 (__fastcall **)(_DWORD *))(v4 + 1352))(v1) )
+      return nullptr;
+    return v1;
+  }

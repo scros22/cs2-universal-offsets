@@ -1,0 +1,32 @@
+downloads:
+  - tag: "14141"
+    name: 1.41.4.1
+    manifests: 
+     "2347771" : "8158810264338894897" #DepotDownloader -app 730 -depot 2347771 -manifest 8158810264338894897 -os all-platform -dir cs2_depot
+     "2347773" : "4721707405076024766" #DepotDownloader -app 730 -depot 2347773 -manifest 4721707405076024766 -os all-platform -dir cs2_depot
+
+  - tag: "14141b"
+    name: 1.41.4.1
+    manifests: 
+     "2347771" : "2367650111076067440"
+     "2347773" : "5170166536177825328"
+
+  - tag: "14141c"
+    name: 1.41.4.1
+    manifests: 
+     "2347771" : "5302572154886330081"
+     "2347773" : "5549971910709061943"
+
+  - tag: "14150b"
+    name: 1.41.5.0-animgraph2-beta
+    branch: animgraph_2_beta
+    manifests: 
+     "2347771" : "6193117256740098235" # this is incorrect
+     "2347773" : "64590193016997098"   # this is incorrect
+
+  - tag: "14150c"
+    name: 1.41.5.0-animgraph2-beta
+    branch: animgraph_2_beta
+    manifests: 
+     "2347771" : "6193117256740098235"
+     "2347773" : "64590193016997098"

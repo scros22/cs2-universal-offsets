@@ -1,0 +1,59 @@
+func_name: CEnvShake_Spawn
+func_va: '0x180c8a6e0'
+disasm_code: |-
+  .text:0000000180C8A6E0                 push    rbx
+  .text:0000000180C8A6E2                 sub     rsp, 20h
+  .text:0000000180C8A6E6                 mov     rbx, rcx
+  .text:0000000180C8A6E9                 call    CBaseEntity_Spawn
+  .text:0000000180C8A6EE                 xor     r8d, r8d
+  .text:0000000180C8A6F1                 xor     edx, edx
+  .text:0000000180C8A6F3                 mov     rcx, rbx
+  .text:0000000180C8A6F6                 call    CBaseEntity_SetMoveType
+  .text:0000000180C8A6FB                 mov     edx, [rbx+360h]
+  .text:0000000180C8A701                 test    dl, 1
+  .text:0000000180C8A704                 jz      short loc_180C8A710
+  .text:0000000180C8A706                 mov     dword ptr [rbx+4BCh], 0
+  .text:0000000180C8A710                 mov     eax, edx
+  .text:0000000180C8A712                 shr     eax, 5
+  .text:0000000180C8A715                 test    al, 1
+  .text:0000000180C8A717                 jz      short loc_180C8A752
+  .text:0000000180C8A719                 mov     eax, edx
+  .text:0000000180C8A71B                 shr     eax, 3
+  .text:0000000180C8A71E                 test    al, 1
+  .text:0000000180C8A720                 jnz     short loc_180C8A752
+  .text:0000000180C8A722                 mov     eax, edx
+  .text:0000000180C8A724                 shr     eax, 4
+  .text:0000000180C8A727                 test    al, 1
+  .text:0000000180C8A729                 jnz     short loc_180C8A752
+  .text:0000000180C8A72B                 shr     edx, 8
+  .text:0000000180C8A72E                 test    dl, 1
+  .text:0000000180C8A731                 jnz     short loc_180C8A752
+  .text:0000000180C8A733                 mov     rcx, [rbx+10h]
+  .text:0000000180C8A737                 call    sub_1811A5280
+  .text:0000000180C8A73C                 mov     rdx, rax
+  .text:0000000180C8A73F                 lea     rcx, aEnvShakeSWithD; "env_shake %s with \"Don't shake view\" "...
+  .text:0000000180C8A746                 add     rsp, 20h
+  .text:0000000180C8A74A                 pop     rbx
+  .text:0000000180C8A74B                 jmp     cs:?DevWarning@@YAXPEBDZZ; DevWarning(char const *,...)
+  .text:0000000180C8A752                 add     rsp, 20h
+  .text:0000000180C8A756                 pop     rbx
+  .text:0000000180C8A757                 retn
+procedure: |-
+  void __fastcall sub_180C8A6E0(__int64 a1, _QWORD *a2)
+  {
+    int v3; // edx
+    const char *v4; // rax
+
+    CBaseEntity_Spawn(a1, a2);
+    CBaseEntity_SetMoveType(a1, 0, 0);
+    v3 = *(_DWORD *)(a1 + 864);
+    if ( (v3 & 1) != 0 )
+      *(_DWORD *)(a1 + 1212) = 0;
+    if ( (v3 & 0x20) != 0 && (v3 & 8) == 0 && (v3 & 0x10) == 0 && (v3 & 0x100) == 0 )
+    {
+      v4 = (const char *)sub_1811A5280(*(_QWORD *)(a1 + 16));
+      DevWarning(
+        "env_shake %s with \"Don't shake view\" spawnflag set without \"Shake physics\" or \"Shake ropes\" spawnflags set.\n",
+        v4);
+    }
+  }

@@ -1,0 +1,119 @@
+func_name: CBaseEntity_Spawn
+func_va: '0x180c17760'
+disasm_code: |-
+  .text:0000000180C17760                 mov     [rsp+arg_8], rbx
+  .text:0000000180C17765                 mov     [rsp+arg_10], rsi
+  .text:0000000180C1776A                 push    rdi
+  .text:0000000180C1776B                 sub     rsp, 30h
+  .text:0000000180C1776F                 mov     rsi, rdx
+  .text:0000000180C17772                 mov     rbx, rcx
+  .text:0000000180C17775                 call    sub_1811A3110
+  .text:0000000180C1777A                 mov     rdx, [rbx+10h]
+  .text:0000000180C1777E                 lea     rcx, [rsp+38h+arg_0]
+  .text:0000000180C17783                 mov     edx, [rdx+38h]
+  .text:0000000180C17786                 call    sub_180880D40
+  .text:0000000180C1778B                 cmp     qword ptr [rbx+320h], 0
+  .text:0000000180C17793                 mov     eax, [rsp+38h+arg_0]
+  .text:0000000180C17797                 mov     [rbx+26Ch], eax
+  .text:0000000180C1779D                 jz      short loc_180C177AD
+  .text:0000000180C1779F                 mov     rax, [rbx]
+  .text:0000000180C177A2                 xor     edx, edx
+  .text:0000000180C177A4                 mov     rcx, rbx
+  .text:0000000180C177A7                 call    qword ptr [rax+710h]
+  .text:0000000180C177AD                 mov     rax, [rbx]
+  .text:0000000180C177B0                 mov     rdx, rsi
+  .text:0000000180C177B3                 mov     rcx, rbx
+  .text:0000000180C177B6                 call    qword ptr [rax+180h]
+  .text:0000000180C177BC                 cmp     byte ptr [rbx+48Dh], 0
+  .text:0000000180C177C3                 jz      short loc_180C177D5
+  .text:0000000180C177C5                 mov     rcx, cs:off_181BF4EF8
+  .text:0000000180C177CC                 mov     rdx, rbx
+  .text:0000000180C177CF                 mov     rax, [rcx]
+  .text:0000000180C177D2                 call    qword ptr [rax+38h]
+  .text:0000000180C177D5                 mov     rax, cs:off_181BD05B8
+  .text:0000000180C177DC                 mov     ecx, [rax+30h]
+  .text:0000000180C177DF                 xor     eax, eax
+  .text:0000000180C177E1                 mov     [rbx+288h], ecx
+  .text:0000000180C177E7                 mov     [rbx+280h], rax
+  .text:0000000180C177EE                 cmp     [rbx+334h], al
+  .text:0000000180C177F4                 jz      short loc_180C17814
+  .text:0000000180C177F6                 mov     edx, 0FFFFFFFFh
+  .text:0000000180C177FB                 lea     rcx, [rbx+334h]
+  .text:0000000180C17802                 mov     r8d, 0FFFFFFFFh
+  .text:0000000180C17808                 call    sub_180251BA0
+  .text:0000000180C1780D                 mov     byte ptr [rbx+334h], 0
+  .text:0000000180C17814                 mov     rcx, cs:g_pVApplication
+  .text:0000000180C1781B                 mov     rax, [rcx]
+  .text:0000000180C1781E                 call    qword ptr [rax+0B0h]
+  .text:0000000180C17824                 test    al, al
+  .text:0000000180C17826                 jnz     short loc_180C17838
+  .text:0000000180C17828                 mov     rax, [rbx]
+  .text:0000000180C1782B                 mov     rcx, rbx
+  .text:0000000180C1782E                 call    qword ptr [rax+378h]; 0x378 = CBaseEntity_GetHammerUniqueId
+  .text:0000000180C17834                 test    al, al
+  .text:0000000180C17836                 jz      short loc_180C17896
+  .text:0000000180C17838                 lea     rax, aHammeruniqueid; "hammerUniqueId"
+  .text:0000000180C1783F                 mov     [rsp+38h+var_18], 0FFFFFFFFA963A038h
+  .text:0000000180C17848                 xor     r8d, r8d
+  .text:0000000180C1784B                 mov     [rsp+38h+var_10], rax
+  .text:0000000180C17850                 lea     rdx, [rsp+38h+var_18]
+  .text:0000000180C17855                 mov     rcx, rsi
+  .text:0000000180C17858                 call    sub_181197830
+  .text:0000000180C1785D                 mov     rcx, rax
+  .text:0000000180C17860                 test    rax, rax
+  .text:0000000180C17863                 jz      short loc_180C1787F
+  .text:0000000180C17865                 movzx   eax, byte ptr [rax]
+  .text:0000000180C17868                 shr     al, 2
+  .text:0000000180C1786B                 and     al, 0Fh
+  .text:0000000180C1786D                 cmp     al, 6
+  .text:0000000180C1786F                 jnz     short loc_180C1787F
+  .text:0000000180C17871                 lea     rdx, byte_18152DF88
+  .text:0000000180C17878                 call    sub_181465740
+  .text:0000000180C1787D                 jmp     short loc_180C17886
+  .text:0000000180C1787F                 lea     rax, byte_18152DF88
+  .text:0000000180C17886                 lea     rcx, [rbx+358h]
+  .text:0000000180C1788D                 mov     rdx, rax
+  .text:0000000180C17890                 call    cs:?Set@CUtlString@@QEAAXPEBD@Z; CUtlString::Set(char const *)
+  .text:0000000180C17896                 mov     rbx, [rsp+38h+arg_8]
+  .text:0000000180C1789B                 mov     rsi, [rsp+38h+arg_10]
+  .text:0000000180C178A0                 add     rsp, 30h
+  .text:0000000180C178A4                 pop     rdi
+  .text:0000000180C178A5                 retn
+procedure: |-
+  void __fastcall CBaseEntity_Spawn(__int64 a1, _QWORD *a2)
+  {
+    bool v4; // zf
+    _QWORD *v5; // rax
+    char *v6; // rax
+    _QWORD v7[3]; // [rsp+20h] [rbp-18h] BYREF
+    int v8; // [rsp+40h] [rbp+8h] BYREF
+
+    sub_1811A3110(a1, (__int64)a2);
+    sub_180880D40(&v8, *(_DWORD *)(*(_QWORD *)(a1 + 16) + 56LL));
+    v4 = *(_QWORD *)(a1 + 800) == 0;
+    *(_DWORD *)(a1 + 620) = v8;
+    if ( !v4 )
+      (*(void (__fastcall **)(__int64, _QWORD))(*(_QWORD *)a1 + 1808LL))(a1, 0);
+    (*(void (__fastcall **)(__int64, _QWORD *))(*(_QWORD *)a1 + 384LL))(a1, a2);
+    if ( *(_BYTE *)(a1 + 1165) )
+      ((void (__fastcall *)(__int64 (__fastcall ***)(), __int64))(*off_181BF4EF8)[7])(off_181BF4EF8, a1);
+    *(_DWORD *)(a1 + 648) = *((_DWORD *)off_181BD05B8 + 12);
+    *(_QWORD *)(a1 + 640) = 0;
+    if ( *(_BYTE *)(a1 + 820) )
+    {
+      sub_180251BA0(a1 + 820, -1, -1);
+      *(_BYTE *)(a1 + 820) = 0;
+    }
+    if ( (*(unsigned __int8 (__fastcall **)(__int64))(*(_QWORD *)g_pVApplication + 176LL))(g_pVApplication)
+      || (*(unsigned __int8 (__fastcall **)(__int64))(*(_QWORD *)a1 + 888LL))(a1) )// 888L = CBaseEntity_GetHammerUniqueId
+    {
+      v7[0] = -1453088712;
+      v7[1] = "hammerUniqueId";
+      v5 = (_QWORD *)sub_181197830(a2, (int *)v7, nullptr);
+      if ( v5 && ((*(_BYTE *)v5 >> 2) & 0xF) == 6 )
+        v6 = sub_181465740(v5, (__int64)byte_18152DF88);
+      else
+        v6 = byte_18152DF88;
+      CUtlString::Set((CUtlString *)(a1 + 856), v6);
+    }
+  }

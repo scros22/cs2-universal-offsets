@@ -1,0 +1,156 @@
+func_name: UTIL_GetPlayerControllerForEntity
+func_va: '0x15de7f0'
+disasm_code: |-
+  .text:00000000015DE7F0                 test    rdi, rdi
+  .text:00000000015DE7F3                 jz      loc_15DE880
+  .text:00000000015DE7F9                 push    rbp
+  .text:00000000015DE7FA                 mov     rbp, rsp
+  .text:00000000015DE7FD                 push    rbx
+  .text:00000000015DE7FE                 mov     rbx, rdi
+  .text:00000000015DE801                 sub     rsp, 8
+  .text:00000000015DE805                 mov     rax, [rbx]
+  .text:00000000015DE808                 mov     rdi, rbx
+  .text:00000000015DE80B                 call    qword ptr [rax+540h] ; 0x540 = CBaseEntity_IsPlayerController
+  .text:00000000015DE811                 mov     rdx, [rbx]
+  .text:00000000015DE814                 mov     rdi, rbx
+  .text:00000000015DE817                 test    al, al
+  .text:00000000015DE819                 jnz     short loc_15DE888
+  .text:00000000015DE81B                 call    qword ptr [rdx+538h] ; 0x538 = CBaseEntity_IsPlayerPawn
+  .text:00000000015DE821                 test    al, al
+  .text:00000000015DE823                 jnz     short loc_15DE8A0
+  .text:00000000015DE825                 mov     ecx, [rbx+6C4h]
+  .text:00000000015DE82B                 cmp     ecx, 0FFFFFFFFh
+  .text:00000000015DE82E                 jz      short loc_15DE878
+  .text:00000000015DE830                 mov     rsi, cs:qword_24587A0
+  .text:00000000015DE837                 cmp     ecx, 0FFFFFFFEh
+  .text:00000000015DE83A                 jz      short loc_15DE878
+  .text:00000000015DE83C                 test    rsi, rsi
+  .text:00000000015DE83F                 jz      short loc_15DE878
+  .text:00000000015DE841                 movzx   eax, word ptr [rbx+6C4h]
+  .text:00000000015DE848                 mov     rdx, rax
+  .text:00000000015DE84B                 shr     rdx, 9
+  .text:00000000015DE84F                 and     edx, 3Fh
+  .text:00000000015DE852                 mov     rdx, [rsi+rdx*8]
+  .text:00000000015DE856                 test    rdx, rdx
+  .text:00000000015DE859                 jz      short loc_15DE878
+  .text:00000000015DE85B                 and     eax, 1FFh
+  .text:00000000015DE860                 imul    rax, 70h ; 'p'
+  .text:00000000015DE864                 add     rax, rdx
+  .text:00000000015DE867                 cmp     ecx, [rax+10h]
+  .text:00000000015DE86A                 jnz     short loc_15DE878
+  .text:00000000015DE86C                 mov     rbx, [rax]
+  .text:00000000015DE86F                 test    rbx, rbx
+  .text:00000000015DE872                 jnz     short loc_15DE805
+  .text:00000000015DE874                 nop     dword ptr [rax+00h]
+  .text:00000000015DE878                 xor     eax, eax
+  .text:00000000015DE87A                 mov     rbx, [rbp-8]
+  .text:00000000015DE87E                 leave
+  .text:00000000015DE87F                 retn
+  .text:00000000015DE880                 xor     eax, eax
+  .text:00000000015DE882                 retn
+  .text:00000000015DE888                 call    qword ptr [rdx+540h]
+  .text:00000000015DE88E                 mov     edx, eax
+  .text:00000000015DE890                 mov     rax, rbx
+  .text:00000000015DE893                 test    dl, dl
+  .text:00000000015DE895                 jnz     short loc_15DE87A
+  .text:00000000015DE897                 jmp     short loc_15DE878
+  .text:00000000015DE8A0                 mov     rax, [rbx]
+  .text:00000000015DE8A3                 mov     rdi, rbx
+  .text:00000000015DE8A6                 call    qword ptr [rax+538h]
+  .text:00000000015DE8AC                 test    al, al
+  .text:00000000015DE8AE                 jz      loc_15DE7E7
+  .text:00000000015DE8B4                 mov     ecx, [rbx+0FF8h]
+  .text:00000000015DE8BA                 cmp     ecx, 0FFFFFFFFh
+  .text:00000000015DE8BD                 jz      short loc_15DE878
+  .text:00000000015DE8BF                 mov     rsi, cs:qword_24587A0
+  .text:00000000015DE8C6                 test    rsi, rsi
+  .text:00000000015DE8C9                 jz      short loc_15DE878
+  .text:00000000015DE8CB                 cmp     ecx, 0FFFFFFFEh
+  .text:00000000015DE8CE                 jz      short loc_15DE878
+  .text:00000000015DE8D0                 movzx   eax, word ptr [rbx+0FF8h]
+  .text:00000000015DE8D7                 mov     rdx, rax
+  .text:00000000015DE8DA                 shr     rdx, 9
+  .text:00000000015DE8DE                 and     edx, 3Fh
+  .text:00000000015DE8E1                 mov     rdx, [rsi+rdx*8]
+  .text:00000000015DE8E5                 test    rdx, rdx
+  .text:00000000015DE8E8                 jz      short loc_15DE878
+  .text:00000000015DE8EA                 and     eax, 1FFh
+  .text:00000000015DE8EF                 imul    rax, 70h ; 'p'
+  .text:00000000015DE8F3                 add     rax, rdx
+  .text:00000000015DE8F6                 cmp     ecx, [rax+10h]
+  .text:00000000015DE8F9                 jnz     loc_15DE878
+  .text:00000000015DE8FF                 mov     rax, [rax]
+  .text:00000000015DE902                 jmp     loc_15DE87A
+procedure: |-
+  _DWORD *__fastcall sub_15DE7F0(_DWORD *a1)
+  {
+    _DWORD *v1; // rbx
+    char v2; // al
+    __int64 v3; // rdx
+    int v4; // ecx
+    __int64 v5; // rdx
+    __int64 v6; // rax
+    _DWORD *result; // rax
+    char v8; // dl
+    int v9; // ecx
+    __int64 v10; // rdx
+    _DWORD *v11; // rax
+
+    if ( !a1 )
+      return nullptr;
+    v1 = a1;
+    while ( 1 )
+    {
+      v2 = (*(__int64 (__fastcall **)(_DWORD *))(*(_QWORD *)v1 + 1344LL))(v1); // 1344 = 0x540 = CBaseEntity_IsPlayerController
+      v3 = *(_QWORD *)v1;
+      if ( v2 )
+        break;
+      if ( (*(unsigned __int8 (__fastcall **)(_DWORD *))(v3 + 1336))(v1) ) // 1336 = 0x538 = CBaseEntity_IsPlayerPawn
+      {
+        if ( !(*(unsigned __int8 (__fastcall **)(_DWORD *))(*(_QWORD *)v1 + 1336LL))(v1) )
+          BUG();
+        v9 = v1[1022];
+        if ( v9 != -1 )
+        {
+          if ( qword_24587A0 )
+          {
+            if ( v9 != -2 )
+            {
+              v10 = *(_QWORD *)(qword_24587A0 + 8 * (((unsigned __int64)*((unsigned __int16 *)v1 + 2044) >> 9) & 0x3F));
+              if ( v10 )
+              {
+                v11 = (_DWORD *)(v10 + 112LL * (v1[1022] & 0x1FF));
+                if ( v9 == v11[4] )
+                  return *(_DWORD **)v11;
+              }
+            }
+          }
+        }
+        return nullptr;
+      }
+      v4 = v1[433];
+      if ( v4 != -1 && v4 != -2 )
+      {
+        if ( qword_24587A0 )
+        {
+          v5 = *(_QWORD *)(qword_24587A0 + 8 * (((unsigned __int64)*((unsigned __int16 *)v1 + 866) >> 9) & 0x3F));
+          if ( v5 )
+          {
+            v6 = v5 + 112LL * (v1[433] & 0x1FF);
+            if ( v4 == *(_DWORD *)(v6 + 16) )
+            {
+              v1 = *(_DWORD **)v6;
+              if ( *(_QWORD *)v6 )
+                continue;
+            }
+          }
+        }
+      }
+      return nullptr;
+    }
+    v8 = (*(__int64 (__fastcall **)(_DWORD *))(v3 + 1344))(v1);
+    result = v1;
+    if ( !v8 )
+      return nullptr;
+    return result;
+  }

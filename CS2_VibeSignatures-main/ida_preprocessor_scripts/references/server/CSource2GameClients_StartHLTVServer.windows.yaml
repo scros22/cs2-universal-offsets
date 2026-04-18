@@ -1,0 +1,79 @@
+func_name: CSource2GameClients_StartHLTVServer
+func_va: '0x180cc6770'
+disasm_code: |-
+  .text:0000000180CC6770                 mov     [rsp+arg_0], rbx
+  .text:0000000180CC6775                 mov     [rsp+arg_8], rsi
+  .text:0000000180CC677A                 push    rdi
+  .text:0000000180CC677B                 sub     rsp, 20h
+  .text:0000000180CC677F                 mov     ebx, edx
+  .text:0000000180CC6781                 call    sub_1801D48D0
+  .text:0000000180CC6786                 xor     ecx, ecx
+  .text:0000000180CC6788                 test    rax, rax
+  .text:0000000180CC678B                 lea     rdi, [rax+20h]
+  .text:0000000180CC678F                 cmovz   rdi, rcx
+  .text:0000000180CC6793                 mov     ecx, ebx
+  .text:0000000180CC6795                 call    LegacyGameEventListener
+  .text:0000000180CC679A                 mov     rdx, [rdi]
+  .text:0000000180CC679D                 mov     rcx, rdi
+  .text:0000000180CC67A0                 mov     rsi, rax
+  .text:0000000180CC67A3                 call    qword ptr [rdx+50h]
+  .text:0000000180CC67A6                 mov     rdi, rax
+  .text:0000000180CC67A9                 mov     rbx, [rax]
+  .text:0000000180CC67AC                 test    rbx, rbx
+  .text:0000000180CC67AF                 jz      short loc_180CC67FF
+  .text:0000000180CC67B1                 mov     rcx, cs:gameeventmanager
+  .text:0000000180CC67B8                 xor     r8d, r8d
+  .text:0000000180CC67BB                 mov     rdx, rbx
+  .text:0000000180CC67BE                 call    sub_180B1A7A0
+  .text:0000000180CC67C3                 test    rax, rax
+  .text:0000000180CC67C6                 jz      short loc_180CC67E2
+  .text:0000000180CC67C8                 mov     rcx, cs:gameeventmanager
+  .text:0000000180CC67CF                 mov     r9d, 2
+  .text:0000000180CC67D5                 mov     r8, rax
+  .text:0000000180CC67D8                 mov     rdx, rsi
+  .text:0000000180CC67DB                 call    sub_180AFF2A0
+  .text:0000000180CC67E0                 jmp     short loc_180CC67F2
+  .text:0000000180CC67E2                 mov     rdx, rbx
+  .text:0000000180CC67E5                 lea     rcx, aCsource2gamecl; "CSource2GameClients::StartHLTVServer: g"...
+  .text:0000000180CC67EC                 call    cs:?DevMsg@@YAXPEBDZZ; DevMsg(char const *,...)
+  .text:0000000180CC67F2                 mov     rbx, [rdi+8]
+  .text:0000000180CC67F6                 add     rdi, 8
+  .text:0000000180CC67FA                 test    rbx, rbx
+  .text:0000000180CC67FD                 jnz     short loc_180CC67B1
+  .text:0000000180CC67FF                 mov     rbx, [rsp+28h+arg_0]
+  .text:0000000180CC6804                 mov     rsi, [rsp+28h+arg_8]
+  .text:0000000180CC6809                 add     rsp, 20h
+  .text:0000000180CC680D                 pop     rdi
+  .text:0000000180CC680E                 retn
+procedure: |-
+  void __fastcall sub_180CC6770(__int64 a1, unsigned int a2)
+  {
+    __int64 v3; // rax
+    __int64 v4; // rdi
+    __int64 v5; // rsi
+    __int64 v6; // rdi
+    const char *v7; // rbx
+    __int64 v8; // rax
+
+    v3 = sub_1801D48D0();
+    v4 = v3 + 32;
+    if ( !v3 )
+      v4 = 0;
+    v5 = LegacyGameEventListener(a2);
+    v6 = (*(__int64 (__fastcall **)(__int64))(*(_QWORD *)v4 + 80LL))(v4);
+    v7 = *(const char **)v6;
+    if ( *(_QWORD *)v6 )
+    {
+      do
+      {
+        v8 = sub_180B1A7A0(gameeventmanager, v7, 0);
+        if ( v8 )
+          sub_180AFF2A0(gameeventmanager, v5, v8, 2);
+        else
+          DevMsg("CSource2GameClients::StartHLTVServer: game event %s not found.\n", v7);
+        v7 = *(const char **)(v6 + 8);
+        v6 += 8;
+      }
+      while ( v7 );
+    }
+  }

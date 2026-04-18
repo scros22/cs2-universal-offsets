@@ -1,0 +1,8 @@
+modules:
+  - name: server
+
+    symbols:
+      - name: gameeventmanager
+        category: gv
+        alias:
+          - g_GameEventManager

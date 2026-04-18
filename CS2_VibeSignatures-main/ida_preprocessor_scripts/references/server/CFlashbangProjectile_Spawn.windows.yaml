@@ -1,0 +1,72 @@
+func_name: CFlashbangProjectile_Spawn
+func_va: '0x18038fdd0'
+disasm_code: |-
+  .text:000000018038FDD0                 mov     [rsp+arg_8], rbx
+  .text:000000018038FDD5                 mov     [rsp+arg_10], rsi
+  .text:000000018038FDDA                 push    rdi
+  .text:000000018038FDDB                 sub     rsp, 30h
+  .text:000000018038FDDF                 mov     rsi, rdx
+  .text:000000018038FDE2                 mov     rbx, rcx
+  .text:000000018038FDE5                 lea     rdx, aWeaponsModelsG; "weapons/models/grenade/flashbang/weapon"...
+  .text:000000018038FDEC                 call    CBaseModelEntity_SetModel
+  .text:000000018038FDF1                 movss   xmm1, dword ptr [rbx+0BB0h]
+  .text:000000018038FDF9                 mov     rcx, rbx
+  .text:000000018038FDFC                 call    sub_180914C40
+  .text:000000018038FE01                 lea     rax, sub_18038C1E0
+  .text:000000018038FE08                 xor     r9d, r9d
+  .text:000000018038FE0B                 mov     [rbx+2B8h], rax
+  .text:000000018038FE12                 lea     rdx, sub_18038C1D4
+  .text:000000018038FE19                 mov     r8d, cs:dword_1815347A4
+  .text:000000018038FE20                 mov     rcx, rbx
+  .text:000000018038FE23                 mov     [rsp+38h+var_18], r9
+  .text:000000018038FE28                 call    sub_1803CF930
+  .text:000000018038FE2D                 mov     rdx, [rbx+10h]
+  .text:000000018038FE31                 lea     rcx, [rsp+38h+arg_0]
+  .text:000000018038FE36                 mov     edx, [rdx+38h]
+  .text:000000018038FE39                 call    sub_180880DB0
+  .text:000000018038FE3E                 mov     edx, [rsp+38h+arg_0]
+  .text:000000018038FE42                 xor     r8d, r8d
+  .text:000000018038FE45                 mov     rcx, rbx
+  .text:000000018038FE48                 call    sub_1803CB790
+  .text:000000018038FE4D                 movss   xmm1, cs:dword_181546284
+  .text:000000018038FE55                 mov     rcx, rbx
+  .text:000000018038FE58                 call    CBaseEntity_SetGravityScale
+  .text:000000018038FE5D                 movss   xmm1, cs:dword_181546278
+  .text:000000018038FE65                 mov     rcx, rbx
+  .text:000000018038FE68                 call    sub_180C14AA0
+  .text:000000018038FE6D                 movss   xmm0, dword ptr [rbx+3F8h]
+  .text:000000018038FE75                 ucomiss xmm0, cs:dword_18157C41C
+  .text:000000018038FE7C                 jp      short loc_18038FE80
+  .text:000000018038FE7E                 jz      short loc_18038FEA1
+  .text:000000018038FE80                 mov     edx, 0FFFFFFFFh
+  .text:000000018038FE85                 lea     rcx, [rbx+3F8h]
+  .text:000000018038FE8C                 mov     r8d, 0FFFFFFFFh
+  .text:000000018038FE92                 call    sub_18038E440
+  .text:000000018038FE97                 mov     dword ptr [rbx+3F8h], 3EE66666h
+  .text:000000018038FEA1                 mov     rdx, rsi
+  .text:000000018038FEA4                 mov     rcx, rbx
+  .text:000000018038FEA7                 mov     rbx, [rsp+38h+arg_8]
+  .text:000000018038FEAC                 mov     rsi, [rsp+38h+arg_10]
+  .text:000000018038FEB1                 add     rsp, 30h
+  .text:000000018038FEB5                 pop     rdi
+  .text:000000018038FEB6                 jmp     sub_180917500
+procedure: |-
+  __int64 __fastcall CFlashbangProjectile_Spawn(__int64 a1, __int64 a2)
+  {
+    int v5; // [rsp+40h] [rbp+8h] BYREF
+
+    CBaseModelEntity_SetModel(a1, "weapons/models/grenade/flashbang/weapon_flashbang.vmdl");
+    sub_180914C40(a1);
+    *(_QWORD *)(a1 + 696) = sub_18038C1E0;
+    sub_1803CF930(a1, (__int64)sub_18038C1D4, 0, 0, 0);
+    sub_180880DB0(&v5, *(_DWORD *)(*(_QWORD *)(a1 + 16) + 56LL));
+    sub_1803CB790(a1, v5, 0);
+    CBaseEntity_SetGravityScale(a1, 0.40000001);
+    sub_180C14AA0(a1, 0.2);
+    if ( *(float *)(a1 + 1016) != 0.44999999 )
+    {
+      sub_18038E440(a1 + 1016, -1, -1);
+      *(_DWORD *)(a1 + 1016) = 1055286886;
+    }
+    return sub_180917500(a1, a2);
+  }

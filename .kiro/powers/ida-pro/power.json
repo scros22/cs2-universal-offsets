@@ -1,0 +1,17 @@
+{
+  "name": "ida-pro",
+  "displayName": "IDA Pro",
+  "description": "Connect to IDA Pro for binary analysis and reverse engineering",
+  "version": "1.0.0",
+  "keywords": ["ida", "reverse engineering", "binary analysis", "disassembly"],
+  "mcpServers": {
+    "ida-pro-server": {
+      "command": "python",
+      "args": [
+        "-m",
+        "ida_pro_mcp"
+      ],
+      "cwd": "C:\\Users\\Samuel\\License-Loader\\Loader\\Products\\CS2\\ida-pro-mcp-main"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+func_name: NET_ReloadGameEvents_CommandHandler
+func_va: '0x180b52c60'
+disasm_code: |-
+  .text:0000000180B52C60                 push    rbx
+  .text:0000000180B52C62                 sub     rsp, 20h
+  .text:0000000180B52C66                 xor     ebx, ebx
+  .text:0000000180B52C68                 cmp     cs:dword_181B99DC0, ebx
+  .text:0000000180B52C6E                 jle     short loc_180B52CC2
+  .text:0000000180B52C70                 mov     [rsp+28h+arg_0], rdi
+  .text:0000000180B52C75                 mov     edi, ebx
+  .text:0000000180B52C77                 nop     word ptr [rax+rax+00000000h]
+  .text:0000000180B52C80                 mov     r8, cs:qword_181B99DC8
+  .text:0000000180B52C87                 lea     rdx, byte_18152DF88
+  .text:0000000180B52C8E                 lea     rcx, s_GameEventManager
+  .text:0000000180B52C95                 mov     rax, [r8+rdi]
+  .text:0000000180B52C99                 mov     r8d, [r8+rdi+8]
+  .text:0000000180B52C9E                 test    rax, rax
+  .text:0000000180B52CA1                 cmovnz  rdx, rax
+  .text:0000000180B52CA5                 mov     rax, cs:s_GameEventManager
+  .text:0000000180B52CAC                 call    qword ptr [rax+8]
+  .text:0000000180B52CAF                 inc     ebx
+  .text:0000000180B52CB1                 lea     rdi, [rdi+10h]
+  .text:0000000180B52CB5                 cmp     ebx, cs:dword_181B99DC0
+  .text:0000000180B52CBB                 jl      short loc_180B52C80
+  .text:0000000180B52CBD                 mov     rdi, [rsp+28h+arg_0]
+  .text:0000000180B52CC2                 add     rsp, 20h
+  .text:0000000180B52CC6                 pop     rbx
+  .text:0000000180B52CC7                 retn
+procedure: |-
+  __int64 NET_ReloadGameEvents_CommandHandler()
+  {
+    int v0; // ebx
+    __int64 v1; // rdi
+    char *v2; // rdx
+    __int64 result; // rax
+
+    v0 = 0;
+    if ( dword_181B99DC0 > 0 )
+    {
+      v1 = 0;
+      do
+      {
+        v2 = byte_18152DF88;
+        if ( *(_QWORD *)(qword_181B99DC8 + v1) )
+          v2 = *(char **)(qword_181B99DC8 + v1);
+        result = ((__int64 (__fastcall *)(void ***, char *, _QWORD))s_GameEventManager[1])(
+                   &s_GameEventManager,
+                   v2,
+                   *(unsigned int *)(qword_181B99DC8 + v1 + 8));
+        ++v0;
+        v1 += 16;
+      }
+      while ( v0 < dword_181B99DC0 );
+    }
+    return result;
+  }

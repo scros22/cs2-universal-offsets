@@ -1,0 +1,171 @@
+func_name: PhysEnableEntityCollisions
+func_va: '0x17937e0'
+disasm_code: |-
+  .text:00000000017937E0                 test    rdi, rdi
+  .text:00000000017937E3                 jz      locret_1793920
+  .text:00000000017937E9                 push    rbp
+  .text:00000000017937EA                 mov     rbp, rsp
+  .text:00000000017937ED                 push    r13
+  .text:00000000017937EF                 push    r12
+  .text:00000000017937F1                 mov     r12, rsi
+  .text:00000000017937F4                 push    rbx
+  .text:00000000017937F5                 sub     rsp, 8
+  .text:00000000017937F9                 test    rsi, rsi
+  .text:00000000017937FC                 jz      loc_1793910
+  .text:0000000001793802                 mov     rbx, rdi
+  .text:0000000001793805                 mov     rdi, [rsi+10h]
+  .text:0000000001793809                 mov     rax, [rbx+10h]
+  .text:000000000179380D                 mov     r13d, [rdi+38h]
+  .text:0000000001793811                 cmp     [rax+38h], r13d
+  .text:0000000001793815                 jnz     loc_17938D0
+  .text:000000000179381B                 mov     rdi, rbx
+  .text:000000000179381E                 call    sub_C7E0D0
+  .text:0000000001793823                 mov     rcx, [r12+10h]
+  .text:0000000001793828                 mov     edx, 0FFFFFFFFh
+  .text:000000000179382D                 mov     rdi, rax
+  .text:0000000001793830                 mov     rax, [rax]
+  .text:0000000001793833                 mov     rax, [rax+480h]
+  .text:000000000179383A                 test    rcx, rcx
+  .text:000000000179383D                 jz      short loc_1793868
+  .text:000000000179383F                 mov     edx, [rcx+10h]
+  .text:0000000001793842                 mov     esi, [rcx+30h]
+  .text:0000000001793845                 shr     edx, 0Fh
+  .text:0000000001793848                 and     esi, 1
+  .text:000000000179384B                 sub     edx, esi
+  .text:000000000179384D                 cmp     dword ptr [rcx+10h], 0FFFFFFFFh
+  .text:0000000001793851                 jz      loc_1793938
+  .text:0000000001793857                 movzx   ecx, word ptr [rcx+10h]
+  .text:000000000179385B                 and     cx, 7FFFh
+  .text:0000000001793860                 shl     edx, 0Fh
+  .text:0000000001793863                 movzx   ecx, cx
+  .text:0000000001793866                 or      edx, ecx
+  .text:0000000001793868                 mov     rcx, [rbx+10h]
+  .text:000000000179386C                 mov     esi, 0FFFFFFFFh
+  .text:0000000001793871                 test    rcx, rcx
+  .text:0000000001793874                 jz      short loc_17938A2
+  .text:0000000001793876                 mov     esi, [rcx+10h]
+  .text:0000000001793879                 mov     r8d, [rcx+30h]
+  .text:000000000179387D                 shr     esi, 0Fh
+  .text:0000000001793880                 and     r8d, 1
+  .text:0000000001793884                 sub     esi, r8d
+  .text:0000000001793887                 cmp     dword ptr [rcx+10h], 0FFFFFFFFh
+  .text:000000000179388B                 jz      loc_1793928
+  .text:0000000001793891                 movzx   ecx, word ptr [rcx+10h]
+  .text:0000000001793895                 and     cx, 7FFFh
+  .text:000000000179389A                 shl     esi, 0Fh
+  .text:000000000179389D                 movzx   ecx, cx
+  .text:00000000017938A0                 or      esi, ecx
+  .text:00000000017938A2                 call    rax
+  .text:00000000017938A4                 mov     rax, [rbx]
+  .text:00000000017938A7                 mov     rdi, rbx
+  .text:00000000017938AA                 call    qword ptr [rax+5C0h]; 0x5C0 = 1472LL = CBaseEntity_CollisionRulesChanged
+  .text:00000000017938B0                 mov     rax, [r12]
+  .text:00000000017938B4                 mov     rdi, r12
+  .text:00000000017938B7                 mov     rax, [rax+5C0h]; 0x5C0 = 1472LL = CBaseEntity_CollisionRulesChanged
+  .text:00000000017938BE                 add     rsp, 8
+  .text:00000000017938C2                 pop     rbx
+  .text:00000000017938C3                 pop     r12
+  .text:00000000017938C5                 pop     r13
+  .text:00000000017938C7                 pop     rbp
+  .text:00000000017938C8                 jmp     rax
+  .text:00000000017938D0                 call    sub_1D57ED0
+  .text:00000000017938D5                 mov     rdi, [rbx+10h]
+  .text:00000000017938D9                 mov     r12, rax
+  .text:00000000017938DC                 mov     ebx, [rdi+38h]
+  .text:00000000017938DF                 call    sub_1D57ED0
+  .text:00000000017938E4                 add     rsp, 8
+  .text:00000000017938E8                 mov     r8d, r13d
+  .text:00000000017938EB                 mov     rcx, r12
+  .text:00000000017938EE                 lea     rdi, aPhysenableenti; "PhysEnableEntityCollisions called on en"...
+  .text:00000000017938F5                 mov     rsi, rax
+  .text:00000000017938F8                 xor     eax, eax
+  .text:00000000017938FA                 mov     edx, ebx
+  .text:00000000017938FC                 pop     rbx
+  .text:00000000017938FD                 pop     r12
+  .text:00000000017938FF                 pop     r13
+  .text:0000000001793901                 pop     rbp
+  .text:0000000001793902                 jmp     sub_97F3E0
+  .text:0000000001793910                 add     rsp, 8
+  .text:0000000001793914                 pop     rbx
+  .text:0000000001793915                 pop     r12
+  .text:0000000001793917                 pop     r13
+  .text:0000000001793919                 pop     rbp
+  .text:000000000179391A                 retn
+  .text:0000000001793920                 retn
+  .text:0000000001793928                 mov     ecx, 7FFFh
+  .text:000000000179392D                 jmp     loc_179389A
+  .text:0000000001793938                 mov     ecx, 7FFFh
+  .text:000000000179393D                 jmp     loc_1793860
+procedure: |-
+  void __fastcall PhysEnableEntityCollisions(_QWORD *a1, _QWORD *a2)
+  {
+    __int64 v4; // rdi
+    int v5; // r13d
+    __int64 v6; // rax
+    __int64 v7; // rcx
+    __int64 v8; // rdx
+    __int64 v9; // rdi
+    void (__fastcall *v10)(__int64, __int64, __int64); // rax
+    int v11; // edx
+    unsigned __int16 v12; // cx
+    __int64 v13; // rcx
+    __int64 v14; // rsi
+    int v15; // esi
+    unsigned __int16 v16; // cx
+    __int64 v17; // rax
+    __int64 v18; // rdi
+    const char *v19; // r12
+    int v20; // ebx
+    const char *v21; // rax
+
+    if ( a1 && a2 )
+    {
+      v4 = a2[2];
+      v5 = *(_DWORD *)(v4 + 56);
+      if ( *(_DWORD *)(a1[2] + 56LL) == v5 )
+      {
+        v6 = sub_C7E0D0(a1);
+        v7 = a2[2];
+        v8 = 0xFFFFFFFFLL;
+        v9 = v6;
+        v10 = *(void (__fastcall **)(__int64, __int64, __int64))(*(_QWORD *)v6 + 1152LL);
+        if ( v7 )
+        {
+          v11 = (*(_DWORD *)(v7 + 16) >> 15) - (*(_DWORD *)(v7 + 48) & 1);
+          if ( *(_DWORD *)(v7 + 16) == -1 )
+            v12 = 0x7FFF;
+          else
+            v12 = *(_WORD *)(v7 + 16) & 0x7FFF;
+          v8 = v12 | (unsigned int)(v11 << 15);
+        }
+        v13 = a1[2];
+        v14 = 0xFFFFFFFFLL;
+        if ( v13 )
+        {
+          v15 = (*(_DWORD *)(v13 + 16) >> 15) - (*(_DWORD *)(v13 + 48) & 1);
+          if ( *(_DWORD *)(v13 + 16) == -1 )
+            v16 = 0x7FFF;
+          else
+            v16 = *(_WORD *)(v13 + 16) & 0x7FFF;
+          v14 = v16 | (unsigned int)(v15 << 15);
+        }
+        v10(v9, v14, v8);
+        (*(void (__fastcall **)(_QWORD *))(*a1 + 1472LL))(a1);// 1472LL = CBaseEntity_CollisionRulesChanged
+        (*(void (__fastcall **)(_QWORD *))(*a2 + 1472LL))(a2);// 1472LL = CBaseEntity_CollisionRulesChanged
+      }
+      else
+      {
+        v17 = sub_1D57ED0(v4);
+        v18 = a1[2];
+        v19 = (const char *)v17;
+        v20 = *(_DWORD *)(v18 + 56);
+        v21 = (const char *)sub_1D57ED0(v18);
+        sub_97F3E0(
+          "PhysEnableEntityCollisions called on entities in two different scene worlds (%s - %u vs %s - %u)\n",
+          v21,
+          v20,
+          v19,
+          v5);
+      }
+    }
+  }

@@ -1,0 +1,117 @@
+func_name: CNetChan_ParseMessagesDemo
+func_va: '0x1800b7070'
+disasm_code: |-
+  .text:00000001800B7070                 mov     [rsp+arg_8], rbx
+  .text:00000001800B7075                 mov     [rsp+arg_10], rbp
+  .text:00000001800B707A                 push    rsi
+  .text:00000001800B707B                 sub     rsp, 50h
+  .text:00000001800B707F                 inc     dword ptr [rcx+71A4h]
+  .text:00000001800B7085                 mov     rbp, rcx
+  .text:00000001800B7088                 mov     rcx, cs:qword_1802A6F68
+  .text:00000001800B708F                 mov     rsi, rdx
+  .text:00000001800B7092                 movaps  [rsp+58h+var_18], xmm6
+  .text:00000001800B7097                 mov     rax, [rcx]
+  .text:00000001800B709A                 call    qword ptr [rax+60h]
+  .text:00000001800B709D                 mov     r8d, [rsi+74h]
+  .text:00000001800B70A1                 lea     rcx, [rbp+38h]
+  .text:00000001800B70A5                 mov     dword ptr [rsp+58h+var_38], r8d
+  .text:00000001800B70AA                 mov     r9, rax
+  .text:00000001800B70AD                 mov     r8d, [rbp+71A4h]
+  .text:00000001800B70B4                 mov     rdx, rbp
+  .text:00000001800B70B7                 mov     rbx, rax
+  .text:00000001800B70BA                 call    sub_1800BCDE0
+  .text:00000001800B70BF                 movss   xmm6, cs:dword_180243BAC
+  .text:00000001800B70C7                 mov     rdx, rbx
+  .text:00000001800B70CA                 movaps  xmm2, xmm6
+  .text:00000001800B70CD                 mov     rcx, rbp
+  .text:00000001800B70D0                 call    sub_1800B2800
+  .text:00000001800B70D5                 movsd   xmm0, cs:qword_180294FC8
+  .text:00000001800B70DD                 lea     rcx, unk_1802A3920
+  .text:00000001800B70E4                 mov     edx, 0FFFFFFFFh
+  .text:00000001800B70E9                 movsd   qword ptr [rbp+72C8h], xmm0
+  .text:00000001800B70F1                 call    sub_1801C3740
+  .text:00000001800B70F6                 test    rax, rax
+  .text:00000001800B70F9                 jnz     short loc_1800B7106
+  .text:00000001800B70FB                 mov     rax, cs:qword_1802A3928
+  .text:00000001800B7102                 mov     rax, [rax+8]
+  .text:00000001800B7106                 cmp     byte ptr [rax], 0
+  .text:00000001800B7109                 jz      short loc_1800B7177
+  .text:00000001800B710B                 mov     ecx, cs:g_pLoggingChannel
+  .text:00000001800B7111                 mov     edx, 2
+  .text:00000001800B7116                 call    cs:LoggingSystem_IsChannelEnabled
+  .text:00000001800B711C                 test    al, al
+  .text:00000001800B711E                 jz      short loc_1800B7177
+  .text:00000001800B7120                 mov     rax, [rbp+72B8h]
+  .text:00000001800B7127                 lea     rbx, unk_180231C1A
+  .text:00000001800B712E                 mov     [rsp+58h+arg_0], rdi
+  .text:00000001800B7133                 mov     edi, [rsi+2Ch]
+  .text:00000001800B7136                 sub     edi, [rsi+30h]
+  .text:00000001800B7139                 sar     edi, 3
+  .text:00000001800B713C                 test    rax, rax
+  .text:00000001800B713F                 cmovnz  rbx, rax
+  .text:00000001800B7143                 call    cs:Plat_FloatTime
+  .text:00000001800B7149                 mov     ecx, cs:g_pLoggingChannel
+  .text:00000001800B714F                 lea     r8, a83fSParsemessa; "%8.3f: %s: ParseMessagesDemo UNRELIABLE"...
+  .text:00000001800B7156                 movaps  xmm3, xmm0
+  .text:00000001800B7159                 mov     [rsp+58h+var_30], edi
+  .text:00000001800B715D                 movq    r9, xmm0
+  .text:00000001800B7162                 mov     [rsp+58h+var_38], rbx
+  .text:00000001800B7167                 mov     edx, 2
+  .text:00000001800B716C                 call    cs:LoggingSystem_Log
+  .text:00000001800B7172                 mov     rdi, [rsp+58h+arg_0]
+  .text:00000001800B7177                 call    cs:Plat_FloatTime
+  .text:00000001800B717D                 mov     rax, [rsi+68h]
+  .text:00000001800B7181                 lea     rdx, [rsi+20h]
+  .text:00000001800B7185                 mov     [rsp+58h+var_28], rax
+  .text:00000001800B718A                 movaps  xmm3, xmm0
+  .text:00000001800B718D                 movss   [rsp+58h+var_30], xmm6
+  .text:00000001800B7193                 xor     r8d, r8d
+  .text:00000001800B7196                 mov     rcx, rbp
+  .text:00000001800B7199                 mov     dword ptr [rsp+58h+var_38], 0
+  .text:00000001800B71A1                 call    CNetChan_ParseMessagesDemoInternal
+  .text:00000001800B71A6                 mov     rbx, [rsp+58h+arg_8]
+  .text:00000001800B71AB                 test    al, al
+  .text:00000001800B71AD                 mov     rbp, [rsp+58h+arg_10]
+  .text:00000001800B71B2                 movaps  xmm6, [rsp+58h+var_18]
+  .text:00000001800B71B7                 setnz   al
+  .text:00000001800B71BA                 add     rsp, 50h
+  .text:00000001800B71BE                 pop     rsi
+  .text:00000001800B71BF                 retn
+procedure: |-
+  bool __fastcall CNetChan_ParseMessagesDemo(__int64 a1, __int64 a2)
+  {
+    __int64 v4; // rbx
+    _BYTE *v5; // rax
+    void *v6; // rbx
+    int v7; // edi
+    double v8; // xmm0_8
+    double v9; // xmm0_8
+    int v11; // [rsp+28h] [rbp-30h]
+
+    ++*(_DWORD *)(a1 + 29092);
+    v4 = (*(__int64 (__fastcall **)(__int64))(*(_QWORD *)qword_1802A6F68 + 96LL))(qword_1802A6F68);
+    sub_1800BCDE0(a1 + 56, a1, *(_DWORD *)(a1 + 29092), v4, *(_DWORD *)(a2 + 116));
+    sub_1800B2800(a1, v4);
+    *(_QWORD *)(a1 + 29384) = qword_180294FC8;
+    v5 = (_BYTE *)sub_1801C3740(&unk_1802A3920, 0xFFFFFFFFLL);
+    if ( !v5 )
+      v5 = *(_BYTE **)(qword_1802A3928 + 8);
+    if ( *v5 && (unsigned __int8)LoggingSystem_IsChannelEnabled((unsigned int)g_pLoggingChannel, 2) )
+    {
+      v6 = &unk_180231C1A;
+      v7 = (*(_DWORD *)(a2 + 44) - *(_DWORD *)(a2 + 48)) >> 3;
+      if ( *(_QWORD *)(a1 + 29368) )
+        v6 = *(void **)(a1 + 29368);
+      v8 = Plat_FloatTime();
+      v11 = v7;
+      LoggingSystem_Log(
+        (unsigned int)g_pLoggingChannel,
+        2,
+        "%8.3f: %s: ParseMessagesDemo UNRELIABLE %d bytes\n",
+        v8,
+        v6,
+        v11);
+    }
+    v9 = Plat_FloatTime();
+    return (unsigned __int8)CNetChan_ParseMessagesDemoInternal(a1, a2 + 32, 0, v9, 0, -1082130432, *(_QWORD *)(a2 + 104)) != 0;
+  }

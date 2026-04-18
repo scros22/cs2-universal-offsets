@@ -1,0 +1,48 @@
+func_name: ShowHudHint
+func_va: '0xafc530'
+disasm_code: |-
+  .text:0000000000AFC530                 push    rbp
+  .text:0000000000AFC531                 mov     rbp, rsp
+  .text:0000000000AFC534                 push    rbx
+  .text:0000000000AFC535                 mov     rbx, rdi
+  .text:0000000000AFC538                 sub     rsp, 8
+  .text:0000000000AFC53C                 mov     rdi, [rsi]
+  .text:0000000000AFC53F                 call    UTIL_GetPlayerControllerForEntity
+  .text:0000000000AFC544                 mov     rdi, rax
+  .text:0000000000AFC547                 test    rax, rax
+  .text:0000000000AFC54A                 jz      short loc_AFC570
+  .text:0000000000AFC54C                 mov     rsi, [rbx+788h]
+  .text:0000000000AFC553                 lea     rax, byte_8D6258
+  .text:0000000000AFC55A                 mov     rbx, [rbp+var_8]
+  .text:0000000000AFC55E                 leave
+  .text:0000000000AFC55F                 test    rsi, rsi
+  .text:0000000000AFC562                 cmovz   rsi, rax
+  .text:0000000000AFC566                 jmp     loc_12586C0
+  .text:0000000000AFC570                 call    sub_1444E70
+  .text:0000000000AFC575                 mov     rdi, rax
+  .text:0000000000AFC578                 jmp     short loc_AFC54C
+procedure: |-
+  __int64 __fastcall ShowHudHint(__int64 a1, _QWORD *a2)
+  {
+    __int64 v3; // rdx
+    __int64 v4; // rcx
+    __int64 v5; // rdi
+    __int64 v6; // r8
+    const char *v7; // rsi
+    __int64 result; // rax
+    __int64 savedregs; // [rsp+10h] [rbp+0h] BYREF
+
+    v5 = UTIL_GetPlayerControllerForEntity(*a2);
+    if ( !v5 )
+      v5 = sub_1444E70();
+    v7 = *(const char **)(a1 + 1928);
+    if ( !v7 )
+      v7 = &byte_8D6258;
+    if ( !v5 )
+      return nullsub_2995(0, v7);
+    savedregs = (__int64)&savedregs;
+    result = sub_1445940(v5, v7, v3, v4, v6);
+    if ( (_BYTE)result )
+      JUMPOUT(0x1258700);
+    return result;
+  }

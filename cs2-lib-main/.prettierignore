@@ -1,0 +1,8 @@
+/dist
+/node_modules
+/scripts/.changelogs/**/*.md
+/scripts/data
+/src/economy-constants.ts
+/src/items.ts
+/src/sticker-markup.ts
+/src/translations

@@ -1,0 +1,52 @@
+func_name: CEnvShake_Spawn
+func_va: '0x16b58b0'
+disasm_code: |-
+  .text:00000000016B58B0                 push    rbp
+  .text:00000000016B58B1                 mov     rbp, rsp
+  .text:00000000016B58B4                 push    rbx
+  .text:00000000016B58B5                 mov     rbx, rdi
+  .text:00000000016B58B8                 sub     rsp, 8
+  .text:00000000016B58BC                 call    CBaseEntity_Spawn
+  .text:00000000016B58C1                 xor     edx, edx
+  .text:00000000016B58C3                 xor     esi, esi
+  .text:00000000016B58C5                 mov     rdi, rbx
+  .text:00000000016B58C8                 call    CBaseEntity_SetMoveType
+  .text:00000000016B58CD                 mov     eax, [rbx+640h]
+  .text:00000000016B58D3                 test    al, 1
+  .text:00000000016B58D5                 jz      short loc_16B58E1
+  .text:00000000016B58D7                 mov     dword ptr [rbx+79Ch], 0
+  .text:00000000016B58E1                 test    al, 20h
+  .text:00000000016B58E3                 jz      short loc_16B58EC
+  .text:00000000016B58E5                 test    eax, 118h
+  .text:00000000016B58EA                 jz      short loc_16B58F8
+  .text:00000000016B58EC                 mov     rbx, [rbp+var_8]
+  .text:00000000016B58F0                 leave
+  .text:00000000016B58F1                 retn
+  .text:00000000016B58F8                 mov     rdi, [rbx+10h]
+  .text:00000000016B58FC                 call    sub_1D57ED0
+  .text:00000000016B5901                 mov     rbx, [rbp+var_8]
+  .text:00000000016B5905                 lea     rdi, aEnvShakeSWithD; "env_shake %s with \"Don't shake view\" "...
+  .text:00000000016B590C                 leave
+  .text:00000000016B590D                 mov     rsi, rax
+  .text:00000000016B5910                 xor     eax, eax
+  .text:00000000016B5912                 jmp     sub_97F450
+procedure: |-
+  __int64 __fastcall CEnvShake_Spawn(__int64 a1, __int64 a2)
+  {
+    __int64 result; // rax
+    const char *v3; // rax
+
+    CBaseEntity_Spawn((_BYTE *)a1, a2);
+    CBaseEntity_SetMoveType(a1, 0, 0);
+    result = *(unsigned int *)(a1 + 1600);
+    if ( (result & 1) != 0 )
+      *(_DWORD *)(a1 + 1948) = 0;
+    if ( (result & 0x20) != 0 && (result & 0x118) == 0 )
+    {
+      v3 = (const char *)sub_1D57ED0(*(_QWORD *)(a1 + 16));
+      return sub_97F450(
+               "env_shake %s with \"Don't shake view\" spawnflag set without \"Shake physics\" or \"Shake ropes\" spawnflags set.\n",
+               v3);
+    }
+    return result;
+  }

@@ -1,0 +1,549 @@
+func_name: CCSBotManager_AddBot
+func_va: '0x1802a6e20'
+disasm_code: |-
+  .text:00000001802A6E20                 mov     [rsp+arg_0], rbx
+  .text:00000001802A6E25                 mov     [rsp+arg_8], rbp
+  .text:00000001802A6E2A                 mov     [rsp+arg_10], rsi
+  .text:00000001802A6E2F                 push    rdi
+  .text:00000001802A6E30                 push    r12
+  .text:00000001802A6E32                 push    r13
+  .text:00000001802A6E34                 push    r14
+  .text:00000001802A6E36                 push    r15
+  .text:00000001802A6E38                 sub     rsp, 30h
+  .text:00000001802A6E3C                 mov     rax, cs:g_pNavMesh
+  .text:00000001802A6E43                 mov     r12, r9
+  .text:00000001802A6E46                 mov     r15d, r8d
+  .text:00000001802A6E49                 mov     ebp, edx
+  .text:00000001802A6E4B                 test    rax, rax
+  .text:00000001802A6E4E                 jz      loc_1802A72B5
+  .text:00000001802A6E54                 cmp     byte ptr [rax+108h], 0
+  .text:00000001802A6E5B                 jz      loc_1802A72B5
+  .text:00000001802A6E61                 cmp     cs:byte_181E55ABC, 0
+  .text:00000001802A6E68                 jz      short loc_1802A6E7F
+  .text:00000001802A6E6A                 test    r8d, r8d
+  .text:00000001802A6E6D                 jnz     loc_1802A72B5
+  .text:00000001802A6E73                 lea     rcx, aErrorCannotAdd; "Error - cannot add bots after game is o"...
+  .text:00000001802A6E7A                 jmp     loc_1802A72AF
+  .text:00000001802A6E7F                 lea     rbx, byte_18152DF88
+  .text:00000001802A6E86                 test    r15d, r15d
+  .text:00000001802A6E89                 jz      short loc_1802A6EE8
+  .text:00000001802A6E8B                 call    sub_1802B48C0
+  .text:00000001802A6E90                 mov     r13d, eax
+  .text:00000001802A6E93                 test    ebp, ebp
+  .text:00000001802A6E95                 jnz     loc_1802A7180
+  .text:00000001802A6E9B                 mov     edx, 0FFFFFFFFh
+  .text:00000001802A6EA0                 lea     rcx, unk_181D69E48
+  .text:00000001802A6EA7                 call    sub_18146E6D0
+  .text:00000001802A6EAC                 test    rax, rax
+  .text:00000001802A6EAF                 jnz     short loc_1802A6EBC
+  .text:00000001802A6EB1                 mov     rax, cs:qword_181D69E50
+  .text:00000001802A6EB8                 mov     rax, [rax+8]
+  .text:00000001802A6EBC                 mov     rax, [rax]
+  .text:00000001802A6EBF                 lea     rdx, aT; "T"
+  .text:00000001802A6EC6                 test    rax, rax
+  .text:00000001802A6EC9                 mov     rcx, rbx
+  .text:00000001802A6ECC                 cmovnz  rcx, rax; a1
+  .text:00000001802A6ED0                 call    cs:V_stricmp_fast
+  .text:00000001802A6ED6                 test    eax, eax
+  .text:00000001802A6ED8                 jnz     loc_1802A712A
+  .text:00000001802A6EDE                 mov     ebp, 2
+  .text:00000001802A6EE3                 jmp     loc_1802A7180
+  .text:00000001802A6EE8                 mov     r13d, [rsp+58h+arg_28]
+  .text:00000001802A6EF0                 cmp     r13d, 4
+  .text:00000001802A6EF4                 jnz     short loc_1802A6EFE
+  .text:00000001802A6EF6                 call    sub_1802B48C0
+  .text:00000001802A6EFB                 mov     r13d, eax
+  .text:00000001802A6EFE                 test    ebp, ebp
+  .text:00000001802A6F00                 jnz     loc_1802A6FA2
+  .text:00000001802A6F06                 mov     edx, 0FFFFFFFFh
+  .text:00000001802A6F0B                 lea     rcx, unk_181D69E48
+  .text:00000001802A6F12                 call    sub_18146E6D0
+  .text:00000001802A6F17                 test    rax, rax
+  .text:00000001802A6F1A                 jnz     short loc_1802A6F27
+  .text:00000001802A6F1C                 mov     rax, cs:qword_181D69E50
+  .text:00000001802A6F23                 mov     rax, [rax+8]
+  .text:00000001802A6F27                 mov     rax, [rax]
+  .text:00000001802A6F2A                 lea     rdx, aT; "T"
+  .text:00000001802A6F31                 test    rax, rax
+  .text:00000001802A6F34                 mov     rcx, rbx
+  .text:00000001802A6F37                 cmovnz  rcx, rax; a1
+  .text:00000001802A6F3B                 call    cs:V_stricmp_fast
+  .text:00000001802A6F41                 test    eax, eax
+  .text:00000001802A6F43                 jnz     short loc_1802A6F4C
+  .text:00000001802A6F45                 mov     ebp, 2
+  .text:00000001802A6F4A                 jmp     short loc_1802A6FA2
+  .text:00000001802A6F4C                 mov     edx, 0FFFFFFFFh
+  .text:00000001802A6F51                 lea     rcx, unk_181D69E48
+  .text:00000001802A6F58                 call    sub_18146E6D0
+  .text:00000001802A6F5D                 test    rax, rax
+  .text:00000001802A6F60                 jnz     short loc_1802A6F6D
+  .text:00000001802A6F62                 mov     rax, cs:qword_181D69E50
+  .text:00000001802A6F69                 mov     rax, [rax+8]
+  .text:00000001802A6F6D                 mov     rax, [rax]
+  .text:00000001802A6F70                 lea     rdx, aCt; "CT"
+  .text:00000001802A6F77                 test    rax, rax
+  .text:00000001802A6F7A                 mov     rcx, rbx
+  .text:00000001802A6F7D                 cmovnz  rcx, rax; a1
+  .text:00000001802A6F81                 call    cs:V_stricmp_fast
+  .text:00000001802A6F87                 test    eax, eax
+  .text:00000001802A6F89                 jnz     short loc_1802A6F92
+  .text:00000001802A6F8B                 mov     ebp, 3
+  .text:00000001802A6F90                 jmp     short loc_1802A6FA2
+  .text:00000001802A6F92                 mov     rcx, cs:qword_181EC20B8
+  .text:00000001802A6F99                 xor     edx, edx
+  .text:00000001802A6F9B                 call    sub_1808B6C50
+  .text:00000001802A6FA0                 mov     ebp, eax
+  .text:00000001802A6FA2                 test    r12, r12
+  .text:00000001802A6FA5                 jz      loc_1802A6E93
+  .text:00000001802A6FAB                 cmp     byte ptr [r12], 0
+  .text:00000001802A6FB0                 jz      loc_1802A6E93
+  .text:00000001802A6FB6                 xor     edx, edx
+  .text:00000001802A6FB8                 mov     rcx, r12
+  .text:00000001802A6FBB                 call    sub_180317240
+  .text:00000001802A6FC0                 test    al, al
+  .text:00000001802A6FC2                 jz      short loc_1802A6FDB
+  .text:00000001802A6FC4                 mov     rdx, r12
+  .text:00000001802A6FC7                 lea     rcx, aErrorSIsAlread; "Error - %s is already in the game.\n"
+  .text:00000001802A6FCE                 call    cs:Msg
+  .text:00000001802A6FD4                 mov     al, 1
+  .text:00000001802A6FD6                 jmp     loc_1802A72B7
+  .text:00000001802A6FDB                 mov     rdi, cs:qword_181D6A5C8
+  .text:00000001802A6FE2                 mov     edx, 0FFFFh
+  .text:00000001802A6FE7                 mov     ecx, 7FFFh
+  .text:00000001802A6FEC                 movzx   eax, word ptr [rdi+10h]
+  .text:00000001802A6FF0                 cmp     ax, dx
+  .text:00000001802A6FF3                 jz      loc_1802A7078
+  .text:00000001802A6FF9                 lea     rsi, [rdi+8]
+  .text:00000001802A6FFD                 nop     dword ptr [rax]
+  .text:00000001802A7000                 test    [rdi+2], cx
+  .text:00000001802A7004                 jnz     short loc_1802A700A
+  .text:00000001802A7006                 xor     ebx, ebx
+  .text:00000001802A7008                 jmp     short loc_1802A700D
+  .text:00000001802A700A                 mov     rbx, [rsi]
+  .text:00000001802A700D                 movzx   r14d, ax
+  .text:00000001802A7011                 mov     rcx, r12; a1
+  .text:00000001802A7014                 add     r14, r14
+  .text:00000001802A7017                 mov     rbx, [rbx+r14*8]
+  .text:00000001802A701B                 mov     rdx, [rbx]; a2
+  .text:00000001802A701E                 call    cs:V_stricmp_fast
+  .text:00000001802A7024                 test    eax, eax
+  .text:00000001802A7026                 jnz     short loc_1802A7036
+  .text:00000001802A7028                 mov     edx, ebp
+  .text:00000001802A702A                 mov     rcx, rbx
+  .text:00000001802A702D                 call    sub_180314590
+  .text:00000001802A7032                 test    al, al
+  .text:00000001802A7034                 jnz     short loc_1802A705E
+  .text:00000001802A7036                 mov     ecx, 7FFFh
+  .text:00000001802A703B                 test    [rdi+2], cx
+  .text:00000001802A703F                 jnz     short loc_1802A7049
+  .text:00000001802A7041                 xor     eax, eax
+  .text:00000001802A7043                 lea     rsi, [rdi+8]
+  .text:00000001802A7047                 jmp     short loc_1802A704C
+  .text:00000001802A7049                 mov     rax, [rsi]
+  .text:00000001802A704C                 movzx   eax, word ptr [rax+r14*8+0Ah]
+  .text:00000001802A7052                 mov     edx, 0FFFFh
+  .text:00000001802A7057                 cmp     ax, dx
+  .text:00000001802A705A                 jnz     short loc_1802A7000
+  .text:00000001802A705C                 jmp     short loc_1802A7071
+  .text:00000001802A705E                 test    rbx, rbx
+  .text:00000001802A7061                 jnz     loc_1802A71C0
+  .text:00000001802A7067                 mov     ecx, 7FFFh
+  .text:00000001802A706C                 mov     edx, 0FFFFh
+  .text:00000001802A7071                 mov     rdi, cs:qword_181D6A5C8
+  .text:00000001802A7078                 movzx   eax, word ptr [rdi+10h]
+  .text:00000001802A707C                 cmp     ax, dx
+  .text:00000001802A707F                 jz      loc_1802A7113
+  .text:00000001802A7085                 lea     rsi, [rdi+8]
+  .text:00000001802A7089                 nop     dword ptr [rax+00000000h]
+  .text:00000001802A7090                 test    [rdi+2], cx
+  .text:00000001802A7094                 jnz     short loc_1802A709A
+  .text:00000001802A7096                 xor     ebx, ebx
+  .text:00000001802A7098                 jmp     short loc_1802A709D
+  .text:00000001802A709A                 mov     rbx, [rsi]
+  .text:00000001802A709D                 movzx   r14d, ax
+  .text:00000001802A70A1                 mov     rdx, r12
+  .text:00000001802A70A4                 add     r14, r14
+  .text:00000001802A70A7                 mov     rbx, [rbx+r14*8]
+  .text:00000001802A70AB                 mov     rcx, rbx
+  .text:00000001802A70AE                 call    sub_180312F00
+  .text:00000001802A70B3                 test    al, al
+  .text:00000001802A70B5                 jz      short loc_1802A70E2
+  .text:00000001802A70B7                 mov     edx, ebp
+  .text:00000001802A70B9                 mov     rcx, rbx
+  .text:00000001802A70BC                 call    sub_180314590
+  .text:00000001802A70C1                 test    al, al
+  .text:00000001802A70C3                 jz      short loc_1802A70E2
+  .text:00000001802A70C5                 mov     ecx, r13d
+  .text:00000001802A70C8                 mov     eax, 1
+  .text:00000001802A70CD                 shl     eax, cl
+  .text:00000001802A70CF                 test    [rbx+50h], al
+  .text:00000001802A70D2                 jz      short loc_1802A70E2
+  .text:00000001802A70D4                 mov     rcx, [rbx]
+  .text:00000001802A70D7                 xor     edx, edx
+  .text:00000001802A70D9                 call    sub_180317240
+  .text:00000001802A70DE                 test    al, al
+  .text:00000001802A70E0                 jz      short loc_1802A710A
+  .text:00000001802A70E2                 mov     ecx, 7FFFh
+  .text:00000001802A70E7                 test    [rdi+2], cx
+  .text:00000001802A70EB                 jnz     short loc_1802A70F5
+  .text:00000001802A70ED                 xor     eax, eax
+  .text:00000001802A70EF                 lea     rsi, [rdi+8]
+  .text:00000001802A70F3                 jmp     short loc_1802A70F8
+  .text:00000001802A70F5                 mov     rax, [rsi]
+  .text:00000001802A70F8                 movzx   eax, word ptr [rax+r14*8+0Ah]
+  .text:00000001802A70FE                 mov     edx, 0FFFFh
+  .text:00000001802A7103                 cmp     ax, dx
+  .text:00000001802A7106                 jnz     short loc_1802A7090
+  .text:00000001802A7108                 jmp     short loc_1802A7113
+  .text:00000001802A710A                 test    rbx, rbx
+  .text:00000001802A710D                 jnz     loc_1802A71C0
+  .text:00000001802A7113                 mov     rdx, r12
+  .text:00000001802A7116                 lea     rcx, aErrorNoProfile; "Error - no profile for '%s' exists.\n"
+  .text:00000001802A711D                 call    cs:Msg
+  .text:00000001802A7123                 mov     al, 1
+  .text:00000001802A7125                 jmp     loc_1802A72B7
+  .text:00000001802A712A                 mov     edx, 0FFFFFFFFh
+  .text:00000001802A712F                 lea     rcx, unk_181D69E48
+  .text:00000001802A7136                 call    sub_18146E6D0
+  .text:00000001802A713B                 test    rax, rax
+  .text:00000001802A713E                 jnz     short loc_1802A714B
+  .text:00000001802A7140                 mov     rax, cs:qword_181D69E50
+  .text:00000001802A7147                 mov     rax, [rax+8]
+  .text:00000001802A714B                 mov     rax, [rax]
+  .text:00000001802A714E                 lea     rdx, aCt; "CT"
+  .text:00000001802A7155                 test    rax, rax
+  .text:00000001802A7158                 cmovnz  rbx, rax
+  .text:00000001802A715C                 mov     rcx, rbx; a1
+  .text:00000001802A715F                 call    cs:V_stricmp_fast
+  .text:00000001802A7165                 test    eax, eax
+  .text:00000001802A7167                 jnz     short loc_1802A7170
+  .text:00000001802A7169                 mov     ebp, 3
+  .text:00000001802A716E                 jmp     short loc_1802A7180
+  .text:00000001802A7170                 mov     rcx, cs:qword_181EC20B8
+  .text:00000001802A7177                 xor     edx, edx
+  .text:00000001802A7179                 call    sub_1808B6C50
+  .text:00000001802A717E                 mov     ebp, eax
+  .text:00000001802A7180                 mov     r9d, [rsp+58h+arg_20]
+  .text:00000001802A7188                 mov     r8d, ebp
+  .text:00000001802A718B                 mov     rcx, cs:qword_181D6A5C8
+  .text:00000001802A7192                 mov     edx, r13d
+  .text:00000001802A7195                 mov     [rsp+58h+var_38], 0
+  .text:00000001802A719A                 call    sub_180312790
+  .text:00000001802A719F                 mov     rbx, rax
+  .text:00000001802A71A2                 test    rax, rax
+  .text:00000001802A71A5                 jnz     short loc_1802A71C0
+  .text:00000001802A71A7                 test    r15d, r15d
+  .text:00000001802A71AA                 jnz     short loc_1802A71B9
+  .text:00000001802A71AC                 lea     rcx, aAllBotProfiles; "All bot profiles at this difficulty lev"...
+  .text:00000001802A71B3                 call    cs:Msg
+  .text:00000001802A71B9                 mov     al, 1
+  .text:00000001802A71BB                 jmp     loc_1802A72B7
+  .text:00000001802A71C0                 cmp     ebp, 1
+  .text:00000001802A71C3                 jbe     loc_1802A72A3
+  .text:00000001802A71C9                 mov     rcx, cs:qword_181EC20B8
+  .text:00000001802A71D0                 mov     edx, ebp
+  .text:00000001802A71D2                 call    sub_1808BBD90
+  .text:00000001802A71D7                 test    al, al
+  .text:00000001802A71D9                 jz      short loc_1802A71F0
+  .text:00000001802A71DB                 test    r15d, r15d
+  .text:00000001802A71DE                 jnz     loc_1802A72B5
+  .text:00000001802A71E4                 lea     rcx, aCouldNotAddBot; "Could not add bot to the game: Team is "...
+  .text:00000001802A71EB                 jmp     loc_1802A72AF
+  .text:00000001802A71F0                 mov     rcx, cs:qword_181EC20B8
+  .text:00000001802A71F7                 xor     r8d, r8d
+  .text:00000001802A71FA                 mov     edx, ebp
+  .text:00000001802A71FC                 call    sub_1808BBF50
+  .text:00000001802A7201                 test    al, al
+  .text:00000001802A7203                 jz      short loc_1802A721A
+  .text:00000001802A7205                 test    r15d, r15d
+  .text:00000001802A7208                 jnz     loc_1802A72B5
+  .text:00000001802A720E                 lea     rcx, aCouldNotAddBot_0; "Could not add bot to the game: Team is "...
+  .text:00000001802A7215                 jmp     loc_1802A72AF
+  .text:00000001802A721A                 mov     edx, ebp
+  .text:00000001802A721C                 mov     rcx, rbx
+  .text:00000001802A721F                 call    sub_1803111E0
+  .text:00000001802A7224                 test    rax, rax
+  .text:00000001802A7227                 jnz     short loc_1802A723B
+  .text:00000001802A7229                 test    r15d, r15d
+  .text:00000001802A722C                 jnz     loc_1802A72B5
+  .text:00000001802A7232                 lea     rcx, aErrorCreatebot; "Error: CreateBot() failed.\n"
+  .text:00000001802A7239                 jmp     short loc_1802A72AF
+  .text:00000001802A723B                 test    r15d, r15d
+  .text:00000001802A723E                 jnz     loc_1802A71B9
+  .text:00000001802A7244                 mov     dl, 1
+  .text:00000001802A7246                 xor     ecx, ecx
+  .text:00000001802A7248                 call    sub_1808C1730
+  .text:00000001802A724D                 mov     edi, eax
+  .text:00000001802A724F                 call    sub_1808C1B80
+  .text:00000001802A7254                 mov     ebx, eax
+  .text:00000001802A7256                 call    sub_1802D2F20
+  .text:00000001802A725B                 sub     edi, ebx
+  .text:00000001802A725D                 lea     rcx, unk_181D69D98
+  .text:00000001802A7264                 mov     edx, 0FFFFFFFFh
+  .text:00000001802A7269                 lea     ebx, [rax+rdi]
+  .text:00000001802A726C                 call    sub_18146E6D0
+  .text:00000001802A7271                 test    rax, rax
+  .text:00000001802A7274                 jnz     short loc_1802A7281
+  .text:00000001802A7276                 mov     rax, cs:qword_181D69DA0
+  .text:00000001802A727D                 mov     rax, [rax+8]
+  .text:00000001802A7281                 mov     r8d, [rax]
+  .text:00000001802A7284                 lea     rcx, unk_181D69D98
+  .text:00000001802A728B                 inc     r8d
+  .text:00000001802A728E                 mov     edx, 0FFFFFFFFh
+  .text:00000001802A7293                 cmp     r8d, ebx
+  .text:00000001802A7296                 cmovle  r8d, ebx
+  .text:00000001802A729A                 call    sub_1801A9470
+  .text:00000001802A729F                 mov     al, 1
+  .text:00000001802A72A1                 jmp     short loc_1802A72B7
+  .text:00000001802A72A3                 test    r15d, r15d
+  .text:00000001802A72A6                 jnz     short loc_1802A72B5
+  .text:00000001802A72A8                 lea     rcx, aCouldNotAddBot_1; "Could not add bot to the game: The game"...
+  .text:00000001802A72AF                 call    cs:Msg
+  .text:00000001802A72B5                 xor     al, al
+  .text:00000001802A72B7                 mov     rbx, [rsp+58h+arg_0]
+  .text:00000001802A72BC                 mov     rbp, [rsp+58h+arg_8]
+  .text:00000001802A72C1                 mov     rsi, [rsp+58h+arg_10]
+  .text:00000001802A72C6                 add     rsp, 30h
+  .text:00000001802A72CA                 pop     r15
+  .text:00000001802A72CC                 pop     r14
+  .text:00000001802A72CE                 pop     r13
+  .text:00000001802A72D0                 pop     r12
+  .text:00000001802A72D2                 pop     rdi
+  .text:00000001802A72D3                 retn
+procedure: |-
+  char __fastcall CCSBotManager_AddBot(__int64 a1, unsigned int a2, int a3, char *a4, int a5, int a6)
+  {
+    const char *v9; // rbx
+    int v10; // r13d
+    const char **v11; // rax
+    const char *v12; // rax
+    const char *v13; // rcx
+    const char **v14; // rax
+    const char *v15; // rax
+    const char *v16; // rcx
+    const char **v17; // rax
+    const char *v18; // rax
+    const char *v19; // rcx
+    __int64 v21; // rdi
+    unsigned __int16 v22; // ax
+    __int64 *v23; // rsi
+    __int64 v24; // rbx
+    __int64 v25; // r14
+    __int64 v26; // rbx
+    __int64 v27; // rax
+    unsigned __int16 v28; // ax
+    __int64 *v29; // rsi
+    __int64 v30; // rbx
+    __int64 v31; // r14
+    __int64 v32; // rax
+    const char **v33; // rax
+    const char *v34; // rax
+    __int64 v35; // rdx
+    int v36; // edi
+    int v37; // ebx
+    int v38; // ebx
+    _DWORD *v39; // rax
+    __int64 v40; // r8
+
+    if ( !g_pNavMesh || !*(_BYTE *)(g_pNavMesh + 264) )
+      return 0;
+    if ( byte_181E55ABC )
+    {
+      if ( !a3 )
+        Msg("Error - cannot add bots after game is over.\n");
+      return 0;
+    }
+    v9 = byte_18152DF88;
+    if ( a3 )
+    {
+      v10 = sub_1802B48C0();
+    }
+    else
+    {
+      v10 = a6;
+      if ( a6 == 4 )
+        v10 = sub_1802B48C0();
+      if ( !a2 )
+      {
+        v14 = (const char **)sub_18146E6D0(&unk_181D69E48, 0xFFFFFFFFLL);
+        if ( !v14 )
+          v14 = *(const char ***)(qword_181D69E50 + 8);
+        v15 = *v14;
+        v16 = byte_18152DF88;
+        if ( v15 )
+          v16 = v15;
+        if ( (unsigned int)V_stricmp_fast(v16, "T") )
+        {
+          v17 = (const char **)sub_18146E6D0(&unk_181D69E48, 0xFFFFFFFFLL);
+          if ( !v17 )
+            v17 = *(const char ***)(qword_181D69E50 + 8);
+          v18 = *v17;
+          v19 = byte_18152DF88;
+          if ( v18 )
+            v19 = v18;
+          if ( (unsigned int)V_stricmp_fast(v19, "CT") )
+            a2 = sub_1808B6C50(qword_181EC20B8, 0);
+          else
+            a2 = 3;
+        }
+        else
+        {
+          a2 = 2;
+        }
+      }
+      if ( a4 && *a4 )
+      {
+        if ( (unsigned __int8)sub_180317240(a4) )
+        {
+          Msg("Error - %s is already in the game.\n", a4);
+          return 1;
+        }
+        v21 = qword_181D6A5C8;
+        v22 = *(_WORD *)(qword_181D6A5C8 + 16);
+        if ( v22 != 0xFFFF )
+        {
+          v23 = (__int64 *)(qword_181D6A5C8 + 8);
+          while ( 1 )
+          {
+            v24 = (*(_WORD *)(v21 + 2) & 0x7FFF) != 0 ? *v23 : 0LL;
+            v25 = 2LL * v22;
+            v26 = *(_QWORD *)(v24 + 16LL * v22);
+            if ( !(unsigned int)V_stricmp_fast(a4, *(const char **)v26) )
+            {
+              if ( (unsigned __int8)sub_180314590(v26, a2) )
+                break;
+            }
+            if ( (*(_WORD *)(v21 + 2) & 0x7FFF) != 0 )
+            {
+              v27 = *v23;
+            }
+            else
+            {
+              v27 = 0;
+              v23 = (__int64 *)(v21 + 8);
+            }
+            v22 = *(_WORD *)(v27 + 8 * v25 + 10);
+            if ( v22 == 0xFFFF )
+              goto LABEL_48;
+          }
+          if ( v26 )
+            goto LABEL_76;
+  LABEL_48:
+          v21 = qword_181D6A5C8;
+        }
+        v28 = *(_WORD *)(v21 + 16);
+        if ( v28 == 0xFFFF )
+          goto LABEL_64;
+        v29 = (__int64 *)(v21 + 8);
+        while ( 1 )
+        {
+          v30 = (*(_WORD *)(v21 + 2) & 0x7FFF) != 0 ? *v29 : 0LL;
+          v31 = 2LL * v28;
+          v26 = *(_QWORD *)(v30 + 16LL * v28);
+          if ( (unsigned __int8)sub_180312F00(v26, a4) )
+          {
+            if ( (unsigned __int8)sub_180314590(v26, a2)
+              && ((unsigned __int8)(1 << v10) & *(_BYTE *)(v26 + 80)) != 0
+              && !(unsigned __int8)sub_180317240(*(char **)v26) )
+            {
+              break;
+            }
+          }
+          if ( (*(_WORD *)(v21 + 2) & 0x7FFF) != 0 )
+          {
+            v32 = *v29;
+          }
+          else
+          {
+            v32 = 0;
+            v29 = (__int64 *)(v21 + 8);
+          }
+          v28 = *(_WORD *)(v32 + 8 * v31 + 10);
+          if ( v28 == 0xFFFF )
+            goto LABEL_64;
+        }
+        if ( !v26 )
+        {
+  LABEL_64:
+          Msg("Error - no profile for '%s' exists.\n", a4);
+          return 1;
+        }
+        goto LABEL_76;
+      }
+    }
+    if ( !a2 )
+    {
+      v11 = (const char **)sub_18146E6D0(&unk_181D69E48, 0xFFFFFFFFLL);
+      if ( !v11 )
+        v11 = *(const char ***)(qword_181D69E50 + 8);
+      v12 = *v11;
+      v13 = byte_18152DF88;
+      if ( v12 )
+        v13 = v12;
+      if ( (unsigned int)V_stricmp_fast(v13, "T") )
+      {
+        v33 = (const char **)sub_18146E6D0(&unk_181D69E48, 0xFFFFFFFFLL);
+        if ( !v33 )
+          v33 = *(const char ***)(qword_181D69E50 + 8);
+        v34 = *v33;
+        if ( v34 )
+          v9 = v34;
+        if ( (unsigned int)V_stricmp_fast(v9, "CT") )
+          a2 = sub_1808B6C50(qword_181EC20B8, 0);
+        else
+          a2 = 3;
+      }
+      else
+      {
+        a2 = 2;
+      }
+    }
+    v26 = sub_180312790(qword_181D6A5C8, v10, a2, a5, 0);
+    if ( !v26 )
+    {
+      if ( !a3 )
+        Msg("All bot profiles at this difficulty level are in use.\n");
+      return 1;
+    }
+  LABEL_76:
+    if ( a2 <= 1 )
+    {
+      if ( !a3 )
+        Msg("Could not add bot to the game: The game is full\n");
+      return 0;
+    }
+    if ( (unsigned __int8)sub_1808BBD90(qword_181EC20B8, a2) )
+    {
+      if ( !a3 )
+        Msg("Could not add bot to the game: Team is full\n");
+      return 0;
+    }
+    if ( (unsigned __int8)sub_1808BBF50(qword_181EC20B8, a2, 0) )
+    {
+      if ( !a3 )
+        Msg(
+          "Could not add bot to the game: Team is stacked (to disable this check, set mp_autoteambalance to zero, increase "
+          "mp_limitteams, and restart the round).\n");
+      return 0;
+    }
+    if ( !sub_1803111E0(v26, a2) )
+    {
+      if ( !a3 )
+        Msg("Error: CreateBot() failed.\n");
+      return 0;
+    }
+    if ( a3 )
+      return 1;
+    LOBYTE(v35) = 1;
+    v36 = sub_1808C1730(0, v35);
+    v37 = sub_1808C1B80();
+    v38 = sub_1802D2F20() + v36 - v37;
+    v39 = (_DWORD *)sub_18146E6D0(&unk_181D69D98, 0xFFFFFFFFLL);
+    if ( !v39 )
+      v39 = *(_DWORD **)(qword_181D69DA0 + 8);
+    v40 = (unsigned int)(*v39 + 1);
+    if ( (int)v40 <= v38 )
+      v40 = (unsigned int)v38;
+    sub_1801A9470(&unk_181D69D98, 0xFFFFFFFFLL, v40);
+    return 1;
+  }

@@ -1,0 +1,19 @@
+{
+  "Addresses": {
+    "LogDirect": {
+      "library": "tier0",
+      "linux": "55 49 89 FA 48 89 E5 41 57 41 56 41 89 D6",
+      "windows": "4C 89 4C 24 20 44 89 44 24 18 89 54 24 10 55"
+    },
+    "LoggingSystem_IsChannelEnabled": {
+      "library": "tier0",
+      "linux": "@LoggingSystem_IsChannelEnabled",
+      "windows": "@LoggingSystem_IsChannelEnabled"
+    },
+    "LoggingSystem_IsChannelEnabled_Overload": {
+      "library": "tier0",
+      "linux": "@_Z30LoggingSystem_IsChannelEnabledi18LoggingVerbosity_t",
+      "windows": "@?LoggingSystem_IsChannelEnabled@@YA_NHW4LoggingVerbosity_t@@@Z"
+    }
+  }
+}

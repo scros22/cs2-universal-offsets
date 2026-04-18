@@ -1,0 +1,126 @@
+func_name: CNetChan_ParseMessagesDemo
+func_va: '0x3a5ba0'
+disasm_code: |-
+  .text:00000000003A5BA0                 push    rbp
+  .text:00000000003A5BA1                 mov     rbp, rsp
+  .text:00000000003A5BA4                 push    r14
+  .text:00000000003A5BA6                 push    r13
+  .text:00000000003A5BA8                 push    r12
+  .text:00000000003A5BAA                 mov     r12, rsi
+  .text:00000000003A5BAD                 push    rbx
+  .text:00000000003A5BAE                 mov     rbx, rdi
+  .text:00000000003A5BB1                 add     dword ptr [rdi+71ACh], 1
+  .text:00000000003A5BB8                 mov     rdi, cs:qword_4CB3E0
+  .text:00000000003A5BBF                 mov     rax, [rdi]
+  .text:00000000003A5BC2                 call    qword ptr [rax+60h]
+  .text:00000000003A5BC5                 mov     edx, [rbx+71ACh]
+  .text:00000000003A5BCB                 lea     rdi, [rbx+38h]
+  .text:00000000003A5BCF                 mov     rsi, rbx
+  .text:00000000003A5BD2                 mov     r8d, [r12+74h]
+  .text:00000000003A5BD7                 mov     rcx, rax
+  .text:00000000003A5BDA                 mov     r13, rax
+  .text:00000000003A5BDD                 call    sub_3A7960
+  .text:00000000003A5BE2                 movss   xmm0, dword ptr cs:qword_149C78
+  .text:00000000003A5BEA                 mov     rsi, r13
+  .text:00000000003A5BED                 mov     rdi, rbx
+  .text:00000000003A5BF0                 call    sub_39F2D0
+  .text:00000000003A5BF5                 mov     r13, cs:qword_4CB568
+  .text:00000000003A5BFC                 movsd   xmm0, cs:qword_4CB448
+  .text:00000000003A5C04                 movsd   qword ptr [rbx+72D0h], xmm0
+  .text:00000000003A5C0C                 test    byte ptr [r13+31h], 80h
+  .text:00000000003A5C11                 jnz     short loc_3A5C50
+  .text:00000000003A5C13                 movzx   eax, byte ptr [r13+58h]
+  .text:00000000003A5C18                 test    al, al
+  .text:00000000003A5C1A                 jnz     short loc_3A5C82
+  .text:00000000003A5C1C                 call    sub_176EE0
+  .text:00000000003A5C21                 mov     r8, [r12+68h]
+  .text:00000000003A5C26                 mov     rdi, rbx
+  .text:00000000003A5C29                 xor     ecx, ecx
+  .text:00000000003A5C2B                 pop     rbx
+  .text:00000000003A5C2C                 lea     rsi, [r12+20h]
+  .text:00000000003A5C31                 xor     edx, edx
+  .text:00000000003A5C33                 pop     r12
+  .text:00000000003A5C35                 pop     r13
+  .text:00000000003A5C37                 pop     r14
+  .text:00000000003A5C39                 pop     rbp
+  .text:00000000003A5C3A                 movss   xmm1, dword ptr cs:qword_149C78
+  .text:00000000003A5C42                 jmp     CNetChan_ParseMessagesDemoInternal
+  .text:00000000003A5C50                 mov     rdi, cs:qword_4CB290
+  .text:00000000003A5C57                 mov     rax, [rdi]
+  .text:00000000003A5C5A                 call    qword ptr [rax+0D0h]
+  .text:00000000003A5C60                 test    eax, eax
+  .text:00000000003A5C62                 jle     short loc_3A5C70
+  .text:00000000003A5C64                 movsx   edi, word ptr [r13+28h]
+  .text:00000000003A5C69                 call    sub_3FF700
+  .text:00000000003A5C6E                 jmp     short loc_3A5C13
+  .text:00000000003A5C70                 mov     rax, cs:qword_4CB568
+  .text:00000000003A5C77                 mov     rax, [rax+8]
+  .text:00000000003A5C7B                 movzx   eax, byte ptr [rax]
+  .text:00000000003A5C7E                 test    al, al
+  .text:00000000003A5C80                 jz      short loc_3A5C1C
+  .text:00000000003A5C82                 mov     edi, cs:g_pLoggingChannel
+  .text:00000000003A5C88                 mov     esi, 2
+  .text:00000000003A5C8D                 call    sub_177140
+  .text:00000000003A5C92                 test    al, al
+  .text:00000000003A5C94                 jz      short loc_3A5C1C
+  .text:00000000003A5C96                 mov     r14, [rbx+72C0h]
+  .text:00000000003A5C9D                 lea     rax, unk_14F347
+  .text:00000000003A5CA4                 mov     r13d, [r12+2Ch]
+  .text:00000000003A5CA9                 sub     r13d, [r12+30h]
+  .text:00000000003A5CAE                 sar     r13d, 3
+  .text:00000000003A5CB2                 test    r14, r14
+  .text:00000000003A5CB5                 cmovz   r14, rax
+  .text:00000000003A5CB9                 call    sub_176EE0
+  .text:00000000003A5CBE                 mov     edi, cs:g_pLoggingChannel
+  .text:00000000003A5CC4                 mov     r8d, r13d
+  .text:00000000003A5CC7                 mov     esi, 2
+  .text:00000000003A5CCC                 lea     rdx, a83fSParsemessa; "%8.3f: %s: ParseMessagesDemo UNRELIABLE"...
+  .text:00000000003A5CD3                 mov     rcx, r14
+  .text:00000000003A5CD6                 mov     eax, 1
+  .text:00000000003A5CDB                 call    sub_176B60
+  .text:00000000003A5CE0                 jmp     loc_3A5C1C
+procedure: |-
+  __int64 __fastcall CNetChan_ParseMessagesDemo(__int64 a1, __int64 a2)
+  {
+    __int64 v2; // r13
+    __int64 v3; // r13
+    double v4; // xmm0_8
+    double v5; // xmm0_8
+    const char *v7; // r14
+    int v8; // r13d
+
+    ++*(_DWORD *)(a1 + 29100);
+    v2 = (*(__int64 (__fastcall **)(__int64))(*(_QWORD *)qword_4CB3E0 + 96LL))(qword_4CB3E0);
+    sub_3A7960(a1 + 56, a1, *(unsigned int *)(a1 + 29100), v2, *(unsigned int *)(a2 + 116));
+    sub_39F2D0(a1, v2, -1.0);
+    v3 = qword_4CB568;
+    v4 = *(double *)&qword_4CB448;
+    *(_QWORD *)(a1 + 29392) = qword_4CB448;
+    if ( *(char *)(v3 + 49) >= 0 )
+    {
+  LABEL_2:
+      if ( !*(_BYTE *)(v3 + 88) )
+        goto LABEL_3;
+      goto LABEL_7;
+    }
+    if ( (*(int (__fastcall **)(__int64))(*(_QWORD *)qword_4CB290 + 208LL))(qword_4CB290) > 0 )
+    {
+      sub_3FF700((unsigned int)*(__int16 *)(v3 + 40));
+      goto LABEL_2;
+    }
+    if ( !**(_BYTE **)(qword_4CB568 + 8) )
+      goto LABEL_3;
+  LABEL_7:
+    if ( (unsigned __int8)sub_177140((unsigned int)g_pLoggingChannel, 2) )
+    {
+      v7 = *(const char **)(a1 + 29376);
+      v8 = (*(_DWORD *)(a2 + 44) - *(_DWORD *)(a2 + 48)) >> 3;
+      if ( !v7 )
+        v7 = (const char *)&unk_14F347;
+      sub_176EE0();
+      sub_176B60((unsigned int)g_pLoggingChannel, 2, "%8.3f: %s: ParseMessagesDemo UNRELIABLE %d bytes\n", v4, v7, v8);
+    }
+  LABEL_3:
+    v5 = sub_176EE0();
+    return CNetChan_ParseMessagesDemoInternal(a1, a2 + 32, 0, 0, *(_QWORD *)(a2 + 104), v5, -1.0);
+  }

@@ -1,0 +1,121 @@
+func_name: CGameResourceService_BuildResourceManifest
+func_va: '0x1801ba080'
+disasm_code: |-
+  .text:00000001801BA080                 mov     [rsp+arg_8], rbx
+  .text:00000001801BA085                 mov     [rsp+arg_10], rbp
+  .text:00000001801BA08A                 push    rsi
+  .text:00000001801BA08B                 push    r14
+  .text:00000001801BA08D                 push    r15
+  .text:00000001801BA08F                 sub     rsp, 50h
+  .text:00000001801BA093                 mov     [rsp+68h+arg_0], 0
+  .text:00000001801BA09C                 mov     rsi, r9
+  .text:00000001801BA09F                 lea     rbx, unk_1805262BF
+  .text:00000001801BA0A6                 mov     ebp, r8d
+  .text:00000001801BA0A9                 mov     r15d, edx
+  .text:00000001801BA0AC                 mov     r14, rcx
+  .text:00000001801BA0AF                 test    r9, r9
+  .text:00000001801BA0B2                 jz      short loc_1801BA118
+  .text:00000001801BA0B4                 mov     rcx, [r9+8]
+  .text:00000001801BA0B8                 test    rcx, rcx
+  .text:00000001801BA0BB                 jz      short loc_1801BA118
+  .text:00000001801BA0BD                 lea     rax, aClassname; "classname"
+  .text:00000001801BA0C4                 mov     [rsp+68h+var_28], 0FFFFFFFFC61B1C62h
+  .text:00000001801BA0CD                 xor     r8d, r8d
+  .text:00000001801BA0D0                 mov     [rsp+68h+var_20], rax
+  .text:00000001801BA0D5                 lea     rdx, [rsp+68h+var_28]
+  .text:00000001801BA0DA                 call    sub_18031C510
+  .text:00000001801BA0DF                 mov     rcx, rax
+  .text:00000001801BA0E2                 test    rax, rax
+  .text:00000001801BA0E5                 jz      short loc_1801BA0FD
+  .text:00000001801BA0E7                 movzx   eax, byte ptr [rax]
+  .text:00000001801BA0EA                 shr     al, 2
+  .text:00000001801BA0ED                 and     al, 0Fh
+  .text:00000001801BA0EF                 cmp     al, 6
+  .text:00000001801BA0F1                 jnz     short loc_1801BA0FD
+  .text:00000001801BA0F3                 mov     rdx, rbx
+  .text:00000001801BA0F6                 call    sub_180409660
+  .text:00000001801BA0FB                 jmp     short loc_1801BA100
+  .text:00000001801BA0FD                 mov     rax, rbx
+  .text:00000001801BA100                 mov     rdx, rax
+  .text:00000001801BA103                 lea     rcx, [rsp+68h+arg_0]
+  .text:00000001801BA108                 call    cs:?Set@CUtlString@@QEAAXPEBD@Z; CUtlString::Set(char const *)
+  .text:00000001801BA10E                 mov     r8, [rsp+68h+arg_0]
+  .text:00000001801BA113                 test    r8, r8
+  .text:00000001801BA116                 jnz     short loc_1801BA11B
+  .text:00000001801BA118                 mov     r8, rbx
+  .text:00000001801BA11B                 mov     edx, ebp
+  .text:00000001801BA11D                 lea     rcx, aCgameresources_2; "CGameResourceService::BuildResourceMani"...
+  .text:00000001801BA124                 call    cs:COM_TimestampedLog
+  .text:00000001801BA12A                 mov     rcx, [r14+58h] ; 0x58 = CGameResourceService::m_pEntitySystem
+  .text:00000001801BA12E                 test    rcx, rcx
+  .text:00000001801BA131                 jz      short loc_1801BA169
+  .text:00000001801BA133                 mov     rax, [rcx]
+  .text:00000001801BA136                 mov     r9, rsi
+  .text:00000001801BA139                 mov     r8d, ebp
+  .text:00000001801BA13C                 mov     edx, r15d
+  .text:00000001801BA13F                 mov     r10, [rax+20h]
+  .text:00000001801BA143                 mov     rax, [rsp+68h+arg_30]
+  .text:00000001801BA14B                 mov     [rsp+68h+var_38], rax
+  .text:00000001801BA150                 mov     rax, [rsp+68h+arg_20]
+  .text:00000001801BA158                 mov     [rsp+68h+var_40], 0
+  .text:00000001801BA161                 mov     [rsp+68h+var_48], rax
+  .text:00000001801BA166                 call    r10
+  .text:00000001801BA169                 mov     rax, [rsp+68h+arg_0]
+  .text:00000001801BA16E                 lea     rcx, aCgameresources_3; "CGameResourceService::BuildResourceMani"...
+  .text:00000001801BA175                 test    rax, rax
+  .text:00000001801BA178                 mov     edx, ebp
+  .text:00000001801BA17A                 cmovnz  rbx, rax
+  .text:00000001801BA17E                 mov     r8, rbx
+  .text:00000001801BA181                 call    cs:COM_TimestampedLog
+  .text:00000001801BA187                 cmp     [rsp+68h+arg_0], 0
+  .text:00000001801BA18D                 jz      short loc_1801BA19A
+  .text:00000001801BA18F                 lea     rcx, [rsp+68h+arg_0]
+  .text:00000001801BA194                 call    cs:?FreeMemoryBlock@CUtlString@@AEAAXXZ; CUtlString::FreeMemoryBlock(void)
+  .text:00000001801BA19A                 mov     rbx, [rsp+68h+arg_8]
+  .text:00000001801BA19F                 mov     rbp, [rsp+68h+arg_10]
+  .text:00000001801BA1A7                 add     rsp, 50h
+  .text:00000001801BA1AB                 pop     r15
+  .text:00000001801BA1AD                 pop     r14
+  .text:00000001801BA1AF                 pop     rsi
+  .text:00000001801BA1B0                 retn
+procedure: |-
+  void __fastcall CGameResourceService_BuildResourceManifest(__int64 a1, unsigned int a2, unsigned int a3, __int64 a4, __int64 a5, int a6, __int64 a7)
+  {
+    __int64 v11; // rcx
+    _BYTE *v12; // rax
+    const char *v13; // rax
+    __int64 v14; // rcx
+    _QWORD v15[5]; // [rsp+40h] [rbp-28h] BYREF
+    __int64 v16; // [rsp+70h] [rbp+8h] BYREF
+
+    v16 = 0;
+    if ( a4 )
+    {
+      v11 = *(_QWORD *)(a4 + 8);
+      if ( v11 )
+      {
+        v15[0] = -971301790;
+        v15[1] = "classname";
+        v12 = (_BYTE *)sub_18031C510(v11, v15, 0);
+        if ( v12 && ((*v12 >> 2) & 0xF) == 6 )
+          v13 = (const char *)sub_180409660(v12, &unk_1805262BF);
+        else
+          v13 = (const char *)&unk_1805262BF;
+        CUtlString::Set((CUtlString *)&v16, v13);
+      }
+    }
+    COM_TimestampedLog("CGameResourceService::BuildResourceManifest(start) [%d entities - %s]", a3);
+    v14 = *(_QWORD *)(a1 + 88); // 88 = 0x58 = CGameResourceService::m_pEntitySystem
+    if ( v14 )
+      (*(void (__fastcall **)(__int64, _QWORD, _QWORD, __int64, __int64, _QWORD, __int64))(*(_QWORD *)v14 + 32LL))(
+        v14,
+        a2,
+        a3,
+        a4,
+        a5,
+        0,
+        a7);
+    COM_TimestampedLog("CGameResourceService::BuildResourceManifest(finish) [%d entities - %s]", a3);
+    if ( v16 )
+      CUtlString::FreeMemoryBlock((CUtlString *)&v16);
+  }

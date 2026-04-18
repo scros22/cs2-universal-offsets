@@ -1,0 +1,155 @@
+name: Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Force update?"
+        type: boolean
+        default: false
+      textures:
+        description: "Download textures?"
+        type: boolean
+        default: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          remove-dotnet: "true"
+          remove-android: "true"
+          remove-haskell: "true"
+          remove-codeql: "true"
+          remove-docker-images: "true"
+
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install
+        run: npm ci
+
+      - name: Download CS2 data
+        run: npm run cs2
+        env:
+          INPUT_FORCE: ${{ inputs.force }}
+          INPUT_TEXTURES: ${{ inputs.textures }}
+          STORAGE_ZONE: ${{ secrets.STORAGE_ZONE }}
+          STORAGE_ACCESS_KEY: ${{ secrets.STORAGE_ACCESS_KEY }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Extract CS2 version
+        id: version
+        run: |
+          CS2_VERSION="$(awk -F'=' '/^ClientVersion/ {print $2}' scripts/workdir/game/csgo/steam.inf | tr -d '\r')"
+          echo "number=${CS2_VERSION}" >> $GITHUB_OUTPUT
+          echo "branch=cs2-v${CS2_VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Check if branch already exists
+        id: check_branch
+        run: |
+          if git ls-remote --heads origin "${{ steps.version.outputs.branch }}" | grep -q .; then
+            echo "Branch ${{ steps.version.outputs.branch }} already exists, skipping."
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update
+        run: npm run update
+        env:
+          INPUT_FORCE: ${{ inputs.force }}
+          INPUT_TEXTURES: ${{ inputs.textures }}
+          STORAGE_ZONE: ${{ secrets.STORAGE_ZONE }}
+          STORAGE_ACCESS_KEY: ${{ secrets.STORAGE_ACCESS_KEY }}
+
+      - name: Commit and push changes
+        if: steps.check_branch.outputs.exists != 'true'
+        id: commit_main
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes detected in main repository"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          MANIFEST_ID="$(cat scripts/cs2.manifest)"
+          git checkout -b "${{ steps.version.outputs.branch }}"
+          git add .
+          git commit -m "Update items (CS2 v${{ steps.version.outputs.number }})"
+          git push origin "${{ steps.version.outputs.branch }}"
+
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          echo "manifest=${MANIFEST_ID}" >> $GITHUB_OUTPUT
+          echo "Committed changes to branch ${{ steps.version.outputs.branch }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Create pull request for main repository
+        if: steps.check_branch.outputs.exists != 'true' && steps.commit_main.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.LIB_TOKEN }}
+        run: |
+          gh pr create \
+            --base main \
+            --head "${{ steps.version.outputs.branch }}" \
+            --title "Update items (CS2 v${{ steps.version.outputs.number }})" \
+            --body "Manifest: ${{ steps.commit_main.outputs.manifest }}" \
+            --fill
+
+      - name: Clean up work directories
+        if: always()
+        run: rm -rf scripts/workdir/decompiled scripts/workdir/game
+
+      - name: Checkout assets repository
+        if: steps.check_branch.outputs.exists != 'true' && steps.commit_main.outputs.has_changes == 'true'
+        uses: actions/checkout@v5
+        with:
+          repository: ianlucas/cs2-lib-assets
+          path: cs2-lib-assets
+          token: ${{ secrets.ASSETS_TOKEN }}
+
+      - name: Sync assets to repository
+        if: steps.check_branch.outputs.exists != 'true' && steps.commit_main.outputs.has_changes == 'true'
+        run: rsync -av scripts/workdir/output/ cs2-lib-assets/
+
+      - name: Commit and push asset changes
+        if: steps.check_branch.outputs.exists != 'true' && steps.commit_main.outputs.has_changes == 'true'
+        id: commit_assets
+        working-directory: ./cs2-lib-assets
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No asset changes detected"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          git checkout -b "${{ steps.version.outputs.branch }}"
+          git add .
+          git commit -m "Update assets (CS2 v${{ steps.version.outputs.number }})"
+          git push origin "${{ steps.version.outputs.branch }}"
+
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          echo "Committed asset changes to branch ${{ steps.version.outputs.branch }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Create pull request for assets repository
+        if: steps.check_branch.outputs.exists != 'true' && steps.commit_assets.outputs.has_changes == 'true'
+        working-directory: ./cs2-lib-assets
+        env:
+          GH_TOKEN: ${{ secrets.ASSETS_TOKEN }}
+        run: |
+          gh pr create \
+            --base main \
+            --head "${{ steps.version.outputs.branch }}" \
+            --title "Update assets (CS2 v${{ steps.version.outputs.number }})" \
+            --body "Automated asset update for CS2 v${{ steps.version.outputs.number }}"

@@ -1,0 +1,223 @@
+func_name: CDemoRecorder_ParseMessage
+func_va: '0x180028f60'
+disasm_code: |-
+  .text:0000000180028F60                 push    rsi
+  .text:0000000180028F62                 push    rdi
+  .text:0000000180028F63                 push    r15
+  .text:0000000180028F65                 sub     rsp, 40h
+  .text:0000000180028F69                 mov     r15, rcx
+  .text:0000000180028F6C                 mov     rdi, r8
+  .text:0000000180028F6F                 mov     rcx, cs:off_1806105C8
+  .text:0000000180028F76                 mov     rsi, rdx
+  .text:0000000180028F79                 mov     rax, [rcx]
+  .text:0000000180028F7C                 call    qword ptr [rax+58h]
+  .text:0000000180028F7F                 test    al, al
+  .text:0000000180028F81                 jnz     loc_180029182
+  .text:0000000180028F87                 movsxd  rax, dword ptr [r15+228h]
+  .text:0000000180028F8E                 mov     r8, rsi
+  .text:0000000180028F91                 mov     rcx, cs:g_pNetworkMessages
+  .text:0000000180028F98                 mov     [rsp+58h+arg_0], rbx
+  .text:0000000180028F9D                 mov     rbx, [r15+230h]
+  .text:0000000180028FA4                 imul    r9, rax, 70h ; 'p'
+  .text:0000000180028FA8                 mov     rax, [rcx]
+  .text:0000000180028FAB                 add     rbx, 0FFFFFFFFFFFFFF90h
+  .text:0000000180028FAF                 add     rbx, r9
+  .text:0000000180028FB2                 mov     [rsp+58h+arg_10], r12
+  .text:0000000180028FB7                 mov     r9, rdi
+  .text:0000000180028FBA                 mov     [rsp+58h+arg_18], r14
+  .text:0000000180028FBF                 mov     rdx, rbx
+  .text:0000000180028FC2                 mov     r12d, [rbx+10h]
+  .text:0000000180028FC6                 call    qword ptr [rax+38h]; g_pNetworkMessages->SerializeAbstract, 0x38 = INetworkMessages_SerializeAbstract
+  .text:0000000180028FC9                 test    al, al
+  .text:0000000180028FCB                 jnz     short loc_180028FFA
+  .text:0000000180028FCD                 mov     ecx, cs:dword_180688300
+  .text:0000000180028FD3                 mov     edx, 3
+  .text:0000000180028FD8                 call    cs:LoggingSystem_IsChannelEnabled
+  .text:0000000180028FDE                 test    al, al
+  .text:0000000180028FE0                 jz      short loc_180028FFA
+  .text:0000000180028FE2                 mov     ecx, cs:dword_180688300
+  .text:0000000180028FE8                 lea     r8, aCdemorecorderP; "CDemoRecorder::ParseMessage: Failed to "...
+  .text:0000000180028FEF                 mov     edx, 3
+  .text:0000000180028FF4                 call    cs:LoggingSystem_Log
+  .text:0000000180028FFA                 mov     rcx, cs:g_pNetworkMessages
+  .text:0000000180029001                 mov     rdx, rsi
+  .text:0000000180029004                 mov     rax, [rcx]
+  .text:0000000180029007                 call    qword ptr [rax+60h]; g_pNetworkMessages->GetNetMessageInfo, 0x60 = INetworkMessages_GetNetMessageInfo
+  .text:000000018002900A                 mov     r14, rax
+  .text:000000018002900D                 cmp     dword ptr [rax+18h], 33h ; '3'
+  .text:0000000180029011                 jnz     loc_180029103
+  .text:0000000180029017                 cmp     byte ptr [rdi+50h], 0
+  .text:000000018002901B                 jz      loc_180029103
+  .text:0000000180029021                 or      dword ptr [rbx+40h], 1
+  .text:0000000180029025                 lea     rcx, [rbx+48h]
+  .text:0000000180029029                 mov     rdx, [rbx+38h]
+  .text:000000018002902D                 and     rdx, 0FFFFFFFFFFFFFFFCh
+  .text:0000000180029031                 mov     [rsp+58h+arg_8], rbp
+  .text:0000000180029036                 test    byte ptr [rbx+38h], 1
+  .text:000000018002903A                 jz      short loc_18002903F
+  .text:000000018002903C                 mov     rdx, [rdx]
+  .text:000000018002903F                 call    sub_18025C070
+  .text:0000000180029044                 mov     rdi, rax
+  .text:0000000180029047                 mov     rbp, [rax+10h]
+  .text:000000018002904B                 lea     rsi, [rbp+20003h]
+  .text:0000000180029052                 and     rsi, 0FFFFFFFFFFFFFFFCh
+  .text:0000000180029056                 cmp     [rax+18h], rsi
+  .text:000000018002905A                 jnb     short loc_18002906E
+  .text:000000018002905C                 mov     rdx, rsi
+  .text:000000018002905F                 mov     rcx, rax
+  .text:0000000180029062                 sub     rdx, rbp
+  .text:0000000180029065                 call    sub_180047A50
+  .text:000000018002906A                 mov     [rdi+10h], rbp
+  .text:000000018002906E                 xor     r8d, r8d
+  .text:0000000180029071                 mov     rdx, rsi
+  .text:0000000180029074                 mov     rcx, rdi
+  .text:0000000180029077                 call    sub_180047F00
+  .text:000000018002907C                 cmp     qword ptr [rdi+18h], 0Fh
+  .text:0000000180029081                 mov     r8d, [rdi+10h]
+  .text:0000000180029085                 mov     rbp, [rsp+58h+arg_8]
+  .text:000000018002908A                 jbe     short loc_18002908F
+  .text:000000018002908C                 mov     rdi, [rdi]
+  .text:000000018002908F                 mov     r9d, [rbx+10h]
+  .text:0000000180029093                 mov     rdx, rdi
+  .text:0000000180029096                 mov     rcx, rbx
+  .text:0000000180029099                 mov     [rsp+58h+var_38], 0FFFFFFFFh
+  .text:00000001800290A1                 call    sub_1803FA140
+  .text:00000001800290A6                 mov     r8d, [r15+5C0h]
+  .text:00000001800290AD                 lea     rcx, off_180611C40
+  .text:00000001800290B4                 mov     edi, [rbx+10h]
+  .text:00000001800290B7                 xor     r9d, r9d
+  .text:00000001800290BA                 mov     rdx, rbx
+  .text:00000001800290BD                 call    sub_1801193C0
+  .text:00000001800290C2                 cmp     cs:dword_18090C8D0, 2
+  .text:00000001800290C9                 jl      loc_180029168
+  .text:00000001800290CF                 mov     ecx, cs:dword_180688300
+  .text:00000001800290D5                 mov     edx, 2
+  .text:00000001800290DA                 call    cs:LoggingSystem_IsChannelEnabled
+  .text:00000001800290E0                 test    al, al
+  .text:00000001800290E2                 jz      short loc_180029103
+  .text:00000001800290E4                 mov     r9d, [rbx+10h]
+  .text:00000001800290E8                 lea     r8, aInsertingClien; "Inserting client StringTable baselines "...
+  .text:00000001800290EF                 mov     ecx, cs:dword_180688300
+  .text:00000001800290F5                 sub     r9d, edi
+  .text:00000001800290F8                 mov     edx, 2
+  .text:00000001800290FD                 call    cs:LoggingSystem_Log
+  .text:0000000180029103                 cmp     cs:dword_18090C8D0, 2
+  .text:000000018002910A                 jl      short loc_180029168
+  .text:000000018002910C                 mov     ecx, cs:dword_180688300
+  .text:0000000180029112                 mov     edx, 2
+  .text:0000000180029117                 mov     ebx, [rbx+10h]
+  .text:000000018002911A                 call    cs:LoggingSystem_IsChannelEnabled
+  .text:0000000180029120                 test    al, al
+  .text:0000000180029122                 jz      short loc_180029168
+  .text:0000000180029124                 mov     rcx, [r14+8]
+  .text:0000000180029128                 test    rcx, rcx
+  .text:000000018002912B                 jz      short loc_180029137
+  .text:000000018002912D                 mov     rax, [rcx]
+  .text:0000000180029130                 call    qword ptr [rax]
+  .text:0000000180029132                 mov     r9, rax
+  .text:0000000180029135                 jmp     short loc_18002913E
+  .text:0000000180029137                 lea     r9, aUnknown_0; "unknown"
+  .text:000000018002913E                 mov     ecx, cs:dword_180688300
+  .text:0000000180029144                 lea     r8, aRecordedSDDDBi; "Recorded %s [%d -> %d:  %d bits\n"
+  .text:000000018002914B                 mov     eax, ebx
+  .text:000000018002914D                 mov     edx, 2
+  .text:0000000180029152                 sub     eax, r12d
+  .text:0000000180029155                 mov     [rsp+58h+var_28], eax
+  .text:0000000180029159                 mov     [rsp+58h+var_30], ebx
+  .text:000000018002915D                 mov     [rsp+58h+var_38], r12d
+  .text:0000000180029162                 call    cs:LoggingSystem_Log
+  .text:0000000180029168                 mov     r12, [rsp+58h+arg_10]
+  .text:000000018002916D                 mov     al, 1
+  .text:000000018002916F                 mov     rbx, [rsp+58h+arg_0]
+  .text:0000000180029174                 mov     r14, [rsp+58h+arg_18]
+  .text:0000000180029179                 add     rsp, 40h
+  .text:000000018002917D                 pop     r15
+  .text:000000018002917F                 pop     rdi
+  .text:0000000180029180                 pop     rsi
+  .text:0000000180029181                 retn
+  .text:0000000180029182                 mov     al, 1
+  .text:0000000180029184                 add     rsp, 40h
+  .text:0000000180029188                 pop     r15
+  .text:000000018002918A                 pop     rdi
+  .text:000000018002918B                 pop     rsi
+  .text:000000018002918C                 retn
+procedure: |-
+  char __fastcall CDemoRecorder_ParseMessage(__int64 a1, __int64 a2, __int64 a3)
+  {
+    __int64 v6; // rbx
+    int v7; // r12d
+    __int64 v8; // r14
+    _QWORD *v9; // rdx
+    __int64 v10; // rax
+    _QWORD *v11; // rdi
+    __int64 v12; // rbp
+    unsigned __int64 v13; // rsi
+    int v14; // r8d
+    int v15; // edi
+    int v16; // ebx
+    __int64 (__fastcall ***v17)(_QWORD); // rcx
+    const char *v18; // r9
+
+    if ( !(*(unsigned __int8 (__fastcall **)(__int64 *))(*off_1806105C8 + 88))(off_1806105C8) )
+    {
+      v6 = 112LL * *(int *)(a1 + 552) + *(_QWORD *)(a1 + 560) - 112LL;
+      v7 = *(_DWORD *)(v6 + 16);
+      if ( !(*(unsigned __int8 (__fastcall **)(__int64, __int64, __int64, __int64))(*(_QWORD *)g_pNetworkMessages
+                                                                                  + 56LL))(// g_pNetworkMessages->SerializeAbstract, 56LL = INetworkMessages_SerializeAbstract
+              g_pNetworkMessages,
+              v6,
+              a2,
+              a3)
+        && (unsigned __int8)LoggingSystem_IsChannelEnabled((unsigned int)dword_180688300, 3) )
+      {
+        LoggingSystem_Log((unsigned int)dword_180688300, 3, "CDemoRecorder::ParseMessage: Failed to serialize message\n");
+      }
+      v8 = (*(__int64 (__fastcall **)(__int64, __int64))(*(_QWORD *)g_pNetworkMessages + 96LL))(g_pNetworkMessages, a2);// g_pNetworkMessages->GetNetMessageInfo, 96LL = INetworkMessages_GetNetMessageInfo
+      if ( *(_DWORD *)(v8 + 24) == 51 && *(_BYTE *)(a3 + 80) )
+      {
+        *(_DWORD *)(v6 + 64) |= 1u;
+        v9 = (_QWORD *)(*(_QWORD *)(v6 + 56) & 0xFFFFFFFFFFFFFFFCuLL);
+        if ( (*(_BYTE *)(v6 + 56) & 1) != 0 )
+          v9 = (_QWORD *)*v9;
+        v10 = sub_18025C070(v6 + 72, v9);
+        v11 = (_QWORD *)v10;
+        v12 = *(_QWORD *)(v10 + 16);
+        v13 = (v12 + 131075) & 0xFFFFFFFFFFFFFFFCuLL;
+        if ( *(_QWORD *)(v10 + 24) < v13 )
+        {
+          sub_180047A50(v10, v13 - v12);
+          v11[2] = v12;
+        }
+        sub_180047F00(v11, (v12 + 131075) & 0xFFFFFFFFFFFFFFFCuLL, 0);
+        v14 = *((_DWORD *)v11 + 4);
+        if ( v11[3] > 0xFu )
+          v11 = (_QWORD *)*v11;
+        sub_1803FA140(v6, (_DWORD)v11, v14, *(_DWORD *)(v6 + 16), -1);
+        v15 = *(_DWORD *)(v6 + 16);
+        sub_1801193C0(&off_180611C40, v6, *(unsigned int *)(a1 + 1472), 0);
+        if ( dword_18090C8D0 < 2 )
+          return 1;
+        if ( (unsigned __int8)LoggingSystem_IsChannelEnabled((unsigned int)dword_180688300, 2) )
+          LoggingSystem_Log(
+            (unsigned int)dword_180688300,
+            2,
+            "Inserting client StringTable baselines in listenserver case, %d bits\n",
+            *(_DWORD *)(v6 + 16) - v15);
+      }
+      if ( dword_18090C8D0 >= 2 )
+      {
+        v16 = *(_DWORD *)(v6 + 16);
+        if ( (unsigned __int8)LoggingSystem_IsChannelEnabled((unsigned int)dword_180688300, 2) )
+        {
+          v17 = *(__int64 (__fastcall ****)(_QWORD))(v8 + 8);
+          if ( v17 )
+            v18 = (const char *)(**v17)(v17);
+          else
+            v18 = "unknown";
+          LoggingSystem_Log((unsigned int)dword_180688300, 2, "Recorded %s [%d -> %d:  %d bits\n", v18, v7, v16, v16 - v7);
+        }
+      }
+      return 1;
+    }
+    return 1;
+  }

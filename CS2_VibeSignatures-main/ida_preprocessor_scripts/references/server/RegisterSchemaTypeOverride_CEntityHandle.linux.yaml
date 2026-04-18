@@ -1,0 +1,20 @@
+func_name: RegisterSchemaTypeOverride_CEntityHandle
+func_va: '0x1d62c90'
+disasm_code: |-
+  .text:0000000001D62C90                 lea     rax, g_pNetworkMessages
+  .text:0000000001D62C97                 lea     rcx, aEhandle; "ehandle"
+  .text:0000000001D62C9E                 mov     edx, 963099A8h
+  .text:0000000001D62CA3                 lea     rsi, aCentityhandle; "CEntityHandle"
+  .text:0000000001D62CAA                 mov     rdi, [rax]
+  .text:0000000001D62CAD                 mov     rax, [rdi]
+  .text:0000000001D62CB0                 mov     rax, [rax+110h]; g_pNetworkMessages->RegisterSchemaTypeOverride, 0x110 = INetworkMessages_RegisterSchemaTypeOverride
+  .text:0000000001D62CB7                 jmp     rax
+procedure: |-
+  __int64 RegisterSchemaTypeOverride_CEntityHandle()
+  {
+    return (*(__int64 (__fastcall **)(_QWORD *, const char *, __int64, const char *))(*g_pNetworkMessages + 272LL))(// g_pNetworkMessages->RegisterSchemaTypeOverride, 272LL = INetworkMessages_RegisterSchemaTypeOverride
+             g_pNetworkMessages,
+             "CEntityHandle",
+             2519767464LL,
+             "ehandle");
+  }

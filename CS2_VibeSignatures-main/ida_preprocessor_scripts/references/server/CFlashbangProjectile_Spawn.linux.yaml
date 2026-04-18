@@ -1,0 +1,286 @@
+func_name: CFlashbangProjectile_Spawn
+func_va: '0xc6c0a0'
+disasm_code: |-
+  .text:0000000000C6C0A0                 push    rbp
+  .text:0000000000C6C0A1                 mov     rbp, rsp
+  .text:0000000000C6C0A4                 push    r15
+  .text:0000000000C6C0A6                 push    r14
+  .text:0000000000C6C0A8                 push    r13
+  .text:0000000000C6C0AA                 push    r12
+  .text:0000000000C6C0AC                 mov     r12, rsi
+  .text:0000000000C6C0AF                 push    rbx
+  .text:0000000000C6C0B0                 lea     rsi, aWeaponsModelsG_0; "weapons/models/grenade/flashbang/weapon"...
+  .text:0000000000C6C0B7                 mov     rbx, rdi
+  .text:0000000000C6C0BA                 sub     rsp, 168h
+  .text:0000000000C6C0C1                 call    CBaseModelEntity_SetModel
+  .text:0000000000C6C0C6                 movss   xmm0, dword ptr [rbx+0EA8h]
+  .text:0000000000C6C0CE                 mov     rdi, rbx
+  .text:0000000000C6C0D1                 call    sub_1287920
+  .text:0000000000C6C0D6                 xor     r8d, r8d
+  .text:0000000000C6C0D9                 xor     ecx, ecx
+  .text:0000000000C6C0DB                 xor     edx, edx
+  .text:0000000000C6C0DD                 movss   xmm0, cs:dword_77F38C
+  .text:0000000000C6C0E5                 mov     esi, 0A59h
+  .text:0000000000C6C0EA                 mov     rdi, rbx
+  .text:0000000000C6C0ED                 mov     qword ptr [rbx+578h], 0A09h
+  .text:0000000000C6C0F8                 mov     qword ptr [rbx+580h], 0
+  .text:0000000000C6C103                 call    sub_C9D640
+  .text:0000000000C6C108                 mov     rax, [rbx+10h]
+  .text:0000000000C6C10C                 mov     edi, [rax+38h]
+  .text:0000000000C6C10F                 call    sub_119D060
+  .text:0000000000C6C114                 xor     esi, esi
+  .text:0000000000C6C116                 mov     rdi, rbx
+  .text:0000000000C6C119                 call    sub_C9E020
+  .text:0000000000C6C11E                 movss   xmm0, cs:dword_86CED0
+  .text:0000000000C6C126                 mov     rdi, rbx
+  .text:0000000000C6C129                 call    CBaseEntity_SetGravityScale
+  .text:0000000000C6C12E                 movss   xmm0, cs:dword_86D668
+  .text:0000000000C6C136                 mov     rdi, rbx
+  .text:0000000000C6C139                 call    sub_1637FE0
+  .text:0000000000C6C13E                 movss   xmm0, dword ptr [rbx+6D8h]
+  .text:0000000000C6C146                 ucomiss xmm0, cs:dword_86D41C
+  .text:0000000000C6C14D                 jp      short loc_C6C170
+  .text:0000000000C6C14F                 jnz     short loc_C6C170
+  .text:0000000000C6C151                 add     rsp, 168h
+  .text:0000000000C6C158                 mov     rsi, r12
+  .text:0000000000C6C15B                 mov     rdi, rbx
+  .text:0000000000C6C15E                 pop     rbx
+  .text:0000000000C6C15F                 pop     r12
+  .text:0000000000C6C161                 pop     r13
+  .text:0000000000C6C163                 pop     r14
+  .text:0000000000C6C165                 pop     r15
+  .text:0000000000C6C167                 pop     rbp
+  .text:0000000000C6C168                 jmp     sub_12B6050
+  .text:0000000000C6C170                 xor     ecx, ecx
+  .text:0000000000C6C172                 mov     edx, 1
+  .text:0000000000C6C177                 xor     esi, esi
+  .text:0000000000C6C179                 pxor    xmm0, xmm0
+  .text:0000000000C6C17D                 mov     [rbp+var_144], cx
+  .text:0000000000C6C184                 xor     edi, edi
+  .text:0000000000C6C186                 mov     ecx, 4
+  .text:0000000000C6C18B                 mov     [rbp+var_180], 1
+  .text:0000000000C6C196                 mov     [rbp+var_178], 0
+  .text:0000000000C6C1A1                 mov     [rbp+var_170], 0
+  .text:0000000000C6C1AC                 mov     [rbp+var_168], 0
+  .text:0000000000C6C1B7                 movaps  [rbp+var_160], xmm0
+  .text:0000000000C6C1BE                 mov     [rbp+var_150], 0FFFFFFFFFFFFFFFFh
+  .text:0000000000C6C1C9                 mov     [rbp+var_148], 0FFFFFFFFh
+  .text:0000000000C6C1D3                 call    sub_980270
+  .text:0000000000C6C1D8                 mov     r13d, eax
+  .text:0000000000C6C1DB                 test    eax, eax
+  .text:0000000000C6C1DD                 jle     loc_C6C2F6
+  .text:0000000000C6C1E3                 movsxd  rcx, dword ptr [rbp+var_168]
+  .text:0000000000C6C1EA                 movsxd  rdx, eax
+  .text:0000000000C6C1ED                 xor     esi, esi
+  .text:0000000000C6C1EF                 shl     rdx, 2
+  .text:0000000000C6C1F3                 mov     rdi, [rbp+var_170]
+  .text:0000000000C6C1FA                 shl     rcx, 2
+  .text:0000000000C6C1FE                 cmp     dword ptr [rbp+var_168+4], 3FFFFFFFh
+  .text:0000000000C6C208                 setbe   sil
+  .text:0000000000C6C20C                 call    sub_97FB10
+  .text:0000000000C6C211                 mov     edx, dword ptr [rbp+var_168+4]
+  .text:0000000000C6C217                 mov     [rbp+var_170], rax
+  .text:0000000000C6C21E                 cmp     edx, 3FFFFFFFh
+  .text:0000000000C6C224                 jbe     short loc_C6C232
+  .text:0000000000C6C226                 and     edx, 3FFFFFFFh
+  .text:0000000000C6C22C                 mov     dword ptr [rbp+var_168+4], edx
+  .text:0000000000C6C232                 add     dword ptr [rbp+var_178], 1
+  .text:0000000000C6C239                 mov     dword ptr [rbp+var_168], r13d
+  .text:0000000000C6C240                 lea     rdx, CBaseEntity_SetStateChanged
+  .text:0000000000C6C247                 mov     dword ptr [rax], 6D8h
+  .text:0000000000C6C24D                 mov     rax, [rbx]
+  .text:0000000000C6C250                 mov     rax, [rax+0E0h]
+  .text:0000000000C6C257                 cmp     rax, rdx
+  .text:0000000000C6C25A                 jnz     loc_C6C3D0
+  .text:0000000000C6C260                 mov     edx, dword ptr [rbp+var_180]
+  .text:0000000000C6C266                 lea     r15, [rbx+40h]
+  .text:0000000000C6C26A                 test    edx, edx
+  .text:0000000000C6C26C                 jnz     loc_C6C3E8
+  .text:0000000000C6C272                 cmp     byte ptr [rbx+320h], 0
+  .text:0000000000C6C279                 jnz     short loc_C6C298
+  .text:0000000000C6C27B                 mov     rax, [rbx+50h]
+  .text:0000000000C6C27F                 test    rax, rax
+  .text:0000000000C6C282                 jz      short loc_C6C300
+  .text:0000000000C6C284                 cmp     byte ptr [rax+18h], 0
+  .text:0000000000C6C288                 jz      short loc_C6C300
+  .text:0000000000C6C28A                 mov     byte ptr [rbx+31Dh], 1
+  .text:0000000000C6C291                 nop     dword ptr [rax+00000000h]
+  .text:0000000000C6C298                 lea     rax, off_23E9488
+  .text:0000000000C6C29F                 mov     rax, [rax]
+  .text:0000000000C6C2A2                 movss   xmm0, dword ptr [rax+30h]
+  .text:0000000000C6C2A7                 comiss  xmm0, dword ptr [rbx+540h]
+  .text:0000000000C6C2AE                 ja      loc_C6C3B0
+  .text:0000000000C6C2B4                 cmp     dword ptr [rbp+var_168+4], 3FFFFFFFh
+  .text:0000000000C6C2BE                 mov     dword ptr [rbp+var_178], 0
+  .text:0000000000C6C2C8                 ja      short loc_C6C2E6
+  .text:0000000000C6C2CA                 mov     rsi, [rbp+var_170]
+  .text:0000000000C6C2D1                 test    rsi, rsi
+  .text:0000000000C6C2D4                 jz      short loc_C6C2E6
+  .text:0000000000C6C2D6                 mov     rax, cs:g_pMemAlloc_ptr
+  .text:0000000000C6C2DD                 mov     rdi, [rax]
+  .text:0000000000C6C2E0                 mov     rax, [rdi]
+  .text:0000000000C6C2E3                 call    qword ptr [rax+20h]
+  .text:0000000000C6C2E6                 mov     dword ptr [rbx+6D8h], 3EE66666h
+  .text:0000000000C6C2F0                 jmp     loc_C6C151
+  .text:0000000000C6C2F6                 jmp     short loc_C6C2F6
+  .text:0000000000C6C300                 mov     rdi, qword ptr [rbp+var_160+8]
+  .text:0000000000C6C307                 lea     r13, byte_8D6258
+  .text:0000000000C6C30E                 mov     r8d, dword ptr [rbp+var_150]
+  .text:0000000000C6C315                 lea     r14, [rbp+var_140]
+  .text:0000000000C6C31C                 test    rdi, rdi
+  .text:0000000000C6C31F                 cmovz   rdi, r13
+  .text:0000000000C6C323                 mov     [rbp+var_184], r8d
+  .text:0000000000C6C32A                 call    sub_97F700
+  .text:0000000000C6C32F                 mov     rdx, qword ptr [rbp+var_160]
+  .text:0000000000C6C336                 lea     rsi, aCnetworktransm; "CNetworkTransmitComponent::StateChanged"...
+  .text:0000000000C6C33D                 mov     rdi, r14
+  .text:0000000000C6C340                 mov     r8d, [rbp+var_184]
+  .text:0000000000C6C347                 mov     rcx, rax
+  .text:0000000000C6C34A                 test    rdx, rdx
+  .text:0000000000C6C34D                 cmovz   rdx, r13
+  .text:0000000000C6C351                 xor     eax, eax
+  .text:0000000000C6C353                 call    sub_9AFFB0
+  .text:0000000000C6C358                 lea     rsi, [rbp+var_138]
+  .text:0000000000C6C35F                 test    [rbp+var_139], 40h
+  .text:0000000000C6C366                 jnz     short loc_C6C37E
+  .text:0000000000C6C368                 mov     rsi, r13
+  .text:0000000000C6C36B                 test    dword ptr [rbp-13Ch], 3FFFFFFFh
+  .text:0000000000C6C375                 jz      short loc_C6C37E
+  .text:0000000000C6C377                 mov     rsi, [rbp+var_138]
+  .text:0000000000C6C37E                 mov     rdi, r15
+  .text:0000000000C6C381                 call    sub_9F6500
+  .text:0000000000C6C386                 xor     esi, esi
+  .text:0000000000C6C388                 mov     rdi, r14
+  .text:0000000000C6C38B                 call    sub_97EF20
+  .text:0000000000C6C390                 lock or dword ptr [rbx+318h], 3
+  .text:0000000000C6C398                 xor     eax, eax
+  .text:0000000000C6C39A                 mov     [rbx+336h], ax
+  .text:0000000000C6C3A1                 jmp     loc_C6C298
+  .text:0000000000C6C3B0                 movss   dword ptr [rbx+540h], xmm0
+  .text:0000000000C6C3B8                 mov     qword ptr [rbx+538h], 0
+  .text:0000000000C6C3C3                 jmp     loc_C6C2B4
+  .text:0000000000C6C3D0                 lea     rsi, [rbp+var_180]
+  .text:0000000000C6C3D7                 mov     rdi, rbx
+  .text:0000000000C6C3DA                 call    rax
+  .text:0000000000C6C3DC                 jmp     loc_C6C2B4
+  .text:0000000000C6C3E8                 lea     rdx, [rbp+var_180]
+  .text:0000000000C6C3EF                 mov     rsi, rbx
+  .text:0000000000C6C3F2                 mov     rdi, r15
+  .text:0000000000C6C3F5                 call    CNetworkTransmitComponent_StateChanged
+  .text:0000000000C6C3FA                 jmp     loc_C6C298
+procedure: |-
+  __int64 __fastcall CFlashbangProjectile_Spawn(__int64 a1, __int64 a2)
+  {
+    float v3; // xmm0_4
+    int v5; // eax
+    int v6; // r13d
+    __int64 v7; // rcx
+    int v8; // r8d
+    int v9; // r9d
+    _DWORD *v10; // rax
+    void (__fastcall *v11)(__int64, __int64 *); // rax
+    __int64 v12; // rax
+    float v13; // xmm0_4
+    __int64 v14; // rax
+    const char *v15; // rdx
+    const char *v16; // rsi
+    __int64 v17; // [rsp+10h] [rbp-180h] BYREF
+    __int64 v18; // [rsp+18h] [rbp-178h]
+    _DWORD *v19; // [rsp+20h] [rbp-170h]
+    __int64 v20; // [rsp+28h] [rbp-168h]
+    __int128 v21; // [rsp+30h] [rbp-160h]
+    __int64 v22; // [rsp+40h] [rbp-150h]
+    int v23; // [rsp+48h] [rbp-148h]
+    __int16 v24; // [rsp+4Ch] [rbp-144h]
+    _BYTE v25[4]; // [rsp+50h] [rbp-140h] BYREF
+    int v26; // [rsp+54h] [rbp-13Ch]
+    const char *v27; // [rsp+58h] [rbp-138h] BYREF
+
+    CBaseModelEntity_SetModel(a1, "weapons/models/grenade/flashbang/weapon_flashbang.vmdl");
+    sub_1287920(a1, *(float *)(a1 + 3752));
+    *(_QWORD *)(a1 + 1400) = 2569;
+    *(_QWORD *)(a1 + 1408) = 0;
+    sub_C9D640(a1, 2649, 0, 0, 0, 0.0);
+    v3 = sub_119D060(*(unsigned int *)(*(_QWORD *)(a1 + 16) + 56LL));
+    sub_C9E020(a1, 0, v3);
+    CBaseEntity_SetGravityScale(a1, 0.40000001);
+    sub_1637FE0(a1, 0.2);
+    if ( *(float *)(a1 + 1752) != 0.44999999 )
+    {
+      v24 = 0;
+      v17 = 1;
+      v18 = 0;
+      v19 = nullptr;
+      v20 = 0;
+      v21 = 0;
+      v22 = -1;
+      v23 = -1;
+      sub_980270();
+      v6 = v5;
+      if ( v5 <= 0 )
+      {
+        while ( 1 )
+          ;
+      }
+      sub_97FB10();
+      v19 = v10;
+      LODWORD(v18) = v18 + 1;
+      LODWORD(v20) = v6;
+      *v10 = 1752;
+      v11 = *(void (__fastcall **)(__int64, __int64 *))(*(_QWORD *)a1 + 224LL);
+      if ( (char *)v11 == (char *)CBaseEntity_SetStateChanged )
+      {
+        if ( (_DWORD)v17 )
+        {
+          CNetworkTransmitComponent_StateChanged(a1 + 64, a1, (__int64)&v17, v7, v8, v9);
+        }
+        else if ( !*(_BYTE *)(a1 + 800) )
+        {
+          v12 = *(_QWORD *)(a1 + 80);
+          if ( v12 && *(_BYTE *)(v12 + 24) )
+          {
+            *(_BYTE *)(a1 + 797) = 1;
+          }
+          else
+          {
+            v14 = sub_97F700();
+            v15 = (const char *)v21;
+            if ( !(_QWORD)v21 )
+              v15 = &byte_8D6258;
+            sub_9AFFB0(
+              (__int64)v25,
+              (__int64)"CNetworkTransmitComponent::StateChanged(%s) @%s:%d",
+              v15,
+              v14,
+              (unsigned int)v22);
+            v16 = (const char *)&v27;
+            if ( (v26 & 0x40000000) == 0 )
+            {
+              v16 = &byte_8D6258;
+              if ( (v26 & 0x3FFFFFFF) != 0 )
+                v16 = v27;
+            }
+            sub_9F6500(a1 + 64, v16);
+            sub_97EF20(v25, 0);
+            _InterlockedOr((volatile signed __int32 *)(a1 + 792), 3u);
+            *(_WORD *)(a1 + 822) = 0;
+          }
+        }
+        v13 = *((float *)off_23E9488 + 12);
+        if ( v13 > *(float *)(a1 + 1344) )
+        {
+          *(float *)(a1 + 1344) = v13;
+          *(_QWORD *)(a1 + 1336) = 0;
+        }
+      }
+      else
+      {
+        v11(a1, &v17);
+      }
+      LODWORD(v18) = 0;
+      if ( HIDWORD(v20) <= 0x3FFFFFFF && v19 )
+        (*(void (__fastcall **)(_QWORD *))(*g_pMemAlloc + 32LL))(g_pMemAlloc);
+      *(_DWORD *)(a1 + 1752) = 1055286886;
+    }
+    return sub_12B6050(a1, a2);
+  }

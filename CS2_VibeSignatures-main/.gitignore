@@ -1,0 +1,8 @@
+settings.local.json
+__pycache__
+.venv
+.env
+.stignore
+cs2_depot
+bin
+vcall_finder

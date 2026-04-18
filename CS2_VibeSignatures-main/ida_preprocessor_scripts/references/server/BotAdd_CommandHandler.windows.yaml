@@ -1,0 +1,283 @@
+func_name: BotAdd_CommandHandler
+func_va: '0x1802da7b0'
+disasm_code: |-
+  .text:00000001802DA7B0                 mov     [rsp+arg_8], rdx
+  .text:00000001802DA7B5                 push    rbx
+  .text:00000001802DA7B6                 sub     rsp, 120h
+  .text:00000001802DA7BD                 mov     rbx, rdx
+  .text:00000001802DA7C0                 call    sub_180E2DDE0
+  .text:00000001802DA7C5                 test    al, al
+  .text:00000001802DA7C7                 jz      loc_1802DAA5C
+  .text:00000001802DA7CD                 mov     eax, [rbx+438h]
+  .text:00000001802DA7D3                 mov     ecx, 0C0000080h
+  .text:00000001802DA7D8                 mov     [rsp+128h+arg_0], rbp
+  .text:00000001802DA7E0                 mov     r8d, 0Ch
+  .text:00000001802DA7E6                 mov     [rsp+128h+var_28], r13
+  .text:00000001802DA7EE                 lea     rbp, byte_18152DF88
+  .text:00000001802DA7F5                 xor     r13d, r13d
+  .text:00000001802DA7F8                 mov     [rsp+128h+var_30], r14
+  .text:00000001802DA800                 mov     [rsp+128h+var_38], r15
+  .text:00000001802DA808                 mov     edx, r13d
+  .text:00000001802DA80B                 mov     r15d, 1
+  .text:00000001802DA811                 mov     [rsp+128h+var_C0], r13
+  .text:00000001802DA816                 mov     [rsp+128h+var_C4], ecx
+  .text:00000001802DA81A                 mov     r14d, 4
+  .text:00000001802DA820                 mov     [rsp+128h+var_C8], r13d
+  .text:00000001802DA825                 mov     [rsp+128h+arg_18], edx
+  .text:00000001802DA82C                 mov     [rsp+128h+arg_10], r8d
+  .text:00000001802DA834                 cmp     eax, r15d
+  .text:00000001802DA837                 jle     loc_1802DA9FC
+  .text:00000001802DA83D                 mov     [rsp+128h+var_10], rsi
+  .text:00000001802DA845                 lea     rdx, aEasy; "EASY"
+  .text:00000001802DA84C                 mov     [rsp+128h+var_20], r12
+  .text:00000001802DA854                 mov     r12d, r15d
+  .text:00000001802DA857                 mov     [rsp+128h+var_18], rdi
+  .text:00000001802DA85F                 nop
+  .text:00000001802DA860                 xor     sil, sil
+  .text:00000001802DA863                 lea     r8, aT_0; "t"
+  .text:00000001802DA86A                 test    r12, r12
+  .text:00000001802DA86D                 js      short loc_1802DA88B
+  .text:00000001802DA86F                 cmp     r15d, eax
+  .text:00000001802DA872                 jge     short loc_1802DA88B
+  .text:00000001802DA874                 mov     rax, [rbx+440h]
+  .text:00000001802DA87B                 mov     rdi, [rax+r12*8]
+  .text:00000001802DA87F                 cmp     rdi, r8
+  .text:00000001802DA882                 jz      short loc_1802DA89E
+  .text:00000001802DA884                 test    rdi, rdi
+  .text:00000001802DA887                 jnz     short loc_1802DA88E
+  .text:00000001802DA889                 jmp     short loc_1802DA8E1
+  .text:00000001802DA88B                 mov     rdi, rbp
+  .text:00000001802DA88E                 mov     rdx, r8; a2
+  .text:00000001802DA891                 mov     rcx, rdi; a1
+  .text:00000001802DA894                 call    cs:V_stricmp_fast
+  .text:00000001802DA89A                 test    eax, eax
+  .text:00000001802DA89C                 jnz     short loc_1802DA8AB
+  .text:00000001802DA89E                 mov     [rsp+128h+arg_18], 2
+  .text:00000001802DA8A9                 jmp     short loc_1802DA8D7
+  .text:00000001802DA8AB                 lea     rax, aCt_0; "ct"
+  .text:00000001802DA8B2                 cmp     rdi, rax
+  .text:00000001802DA8B5                 jz      short loc_1802DA8CC
+  .text:00000001802DA8B7                 test    rdi, rdi
+  .text:00000001802DA8BA                 jz      short loc_1802DA8DA
+  .text:00000001802DA8BC                 mov     rdx, rax; a2
+  .text:00000001802DA8BF                 mov     rcx, rdi; a1
+  .text:00000001802DA8C2                 call    cs:V_stricmp_fast
+  .text:00000001802DA8C8                 test    eax, eax
+  .text:00000001802DA8CA                 jnz     short loc_1802DA8DA
+  .text:00000001802DA8CC                 mov     [rsp+128h+arg_18], 3
+  .text:00000001802DA8D7                 mov     sil, 1
+  .text:00000001802DA8DA                 lea     rdx, aEasy; "EASY"
+  .text:00000001802DA8E1                 mov     ebx, r13d
+  .text:00000001802DA8E4                 test    sil, sil
+  .text:00000001802DA8E7                 jnz     loc_1802DA9A8
+  .text:00000001802DA8ED                 mov     [rsp+128h+a1], rdx
+  .text:00000001802DA8F2                 lea     rax, aNormal_0; "NORMAL"
+  .text:00000001802DA8F9                 mov     [rsp+128h+var_F0], rax
+  .text:00000001802DA8FE                 mov     rdx, rdi; a2
+  .text:00000001802DA901                 lea     rax, aHard; "HARD"
+  .text:00000001802DA908                 mov     [rsp+128h+var_D8], rbp
+  .text:00000001802DA90D                 mov     [rsp+128h+var_E8], rax
+  .text:00000001802DA912                 lea     rax, aExpert; "EXPERT"
+  .text:00000001802DA919                 mov     [rsp+128h+var_E0], rax
+  .text:00000001802DA91E                 mov     eax, 3
+  .text:00000001802DA923                 cmp     ebx, eax
+  .text:00000001802DA925                 cmovb   eax, ebx
+  .text:00000001802DA928                 mov     rcx, [rsp+rax*8+128h+a1]; a1
+  .text:00000001802DA92D                 call    cs:V_stricmp_fast
+  .text:00000001802DA933                 test    eax, eax
+  .text:00000001802DA935                 jnz     short loc_1802DA93D
+  .text:00000001802DA937                 mov     r14d, ebx
+  .text:00000001802DA93A                 mov     sil, 1
+  .text:00000001802DA93D                 inc     ebx
+  .text:00000001802DA93F                 lea     rdx, aEasy; "EASY"
+  .text:00000001802DA946                 cmp     ebx, 4
+  .text:00000001802DA949                 jl      short loc_1802DA8E4
+  .text:00000001802DA94B                 test    sil, sil
+  .text:00000001802DA94E                 jnz     short loc_1802DA9A8
+  .text:00000001802DA950                 mov     rcx, rdi
+  .text:00000001802DA953                 call    sub_18091BCC0
+  .text:00000001802DA958                 mov     [rsp+128h+arg_10], eax
+  .text:00000001802DA95F                 mov     r8d, eax
+  .text:00000001802DA962                 cmp     eax, 0Ch
+  .text:00000001802DA965                 jnz     short loc_1802DA9B0
+  .text:00000001802DA967                 mov     ecx, [rsp+128h+var_C4]
+  .text:00000001802DA96B                 test    ecx, 3FFFFFFFh
+  .text:00000001802DA971                 jbe     short loc_1802DA985
+  .text:00000001802DA973                 bt      ecx, 1Eh
+  .text:00000001802DA977                 lea     rcx, [rsp+128h+var_C0]
+  .text:00000001802DA97C                 cmovnb  rcx, [rsp+128h+var_C0]
+  .text:00000001802DA982                 mov     [rcx], r13b
+  .text:00000001802DA985                 and     [rsp+128h+var_C8], 0C0000000h
+  .text:00000001802DA98D                 lea     rcx, [rsp+128h+var_C8]
+  .text:00000001802DA992                 mov     r9d, 0FFFFFFFFh
+  .text:00000001802DA998                 mov     byte ptr [rsp+128h+var_108], r13b
+  .text:00000001802DA99D                 mov     r8, rdi
+  .text:00000001802DA9A0                 xor     edx, edx
+  .text:00000001802DA9A2                 call    cs:?Insert@CBufferString@@QEAAPEBDHPEBDH_N@Z; CBufferString::Insert(int,char const *,int,bool)
+  .text:00000001802DA9A8                 mov     r8d, [rsp+128h+arg_10]
+  .text:00000001802DA9B0                 mov     rbx, [rsp+128h+arg_8]
+  .text:00000001802DA9B8                 lea     rdx, aEasy; "EASY"
+  .text:00000001802DA9BF                 inc     r15d
+  .text:00000001802DA9C2                 inc     r12
+  .text:00000001802DA9C5                 mov     eax, [rbx+438h]
+  .text:00000001802DA9CB                 cmp     r15d, eax
+  .text:00000001802DA9CE                 jl      loc_1802DA860
+  .text:00000001802DA9D4                 mov     r12, [rsp+128h+var_20]
+  .text:00000001802DA9DC                 mov     rdi, [rsp+128h+var_18]
+  .text:00000001802DA9E4                 mov     rsi, [rsp+128h+var_10]
+  .text:00000001802DA9EC                 mov     r13, [rsp+128h+var_C0]
+  .text:00000001802DA9F1                 mov     ecx, [rsp+128h+var_C4]
+  .text:00000001802DA9F5                 mov     edx, [rsp+128h+arg_18]
+  .text:00000001802DA9FC                 mov     r15, [rsp+128h+var_38]
+  .text:00000001802DAA04                 bt      ecx, 1Eh
+  .text:00000001802DAA08                 jnb     short loc_1802DAA11
+  .text:00000001802DAA0A                 lea     rbp, [rsp+128h+var_C0]
+  .text:00000001802DAA0F                 jmp     short loc_1802DAA1B
+  .text:00000001802DAA11                 test    ecx, 3FFFFFFFh
+  .text:00000001802DAA17                 cmova   rbp, r13
+  .text:00000001802DAA1B                 mov     rcx, cs:g_pCSBotManager
+  .text:00000001802DAA22                 mov     r9, rbp
+  .text:00000001802DAA25                 mov     [rsp+128h+var_100], r14d
+  .text:00000001802DAA2A                 mov     [rsp+128h+var_108], r8d
+  .text:00000001802DAA2F                 xor     r8d, r8d
+  .text:00000001802DAA32                 call    CCSBotManager_AddBot
+  .text:00000001802DAA37                 xor     edx, edx
+  .text:00000001802DAA39                 lea     rcx, [rsp+128h+var_C8]
+  .text:00000001802DAA3E                 call    cs:?Purge@CBufferString@@QEAAXH@Z; CBufferString::Purge(int)
+  .text:00000001802DAA44                 mov     r14, [rsp+128h+var_30]
+  .text:00000001802DAA4C                 mov     r13, [rsp+128h+var_28]
+  .text:00000001802DAA54                 mov     rbp, [rsp+128h+arg_0]
+  .text:00000001802DAA5C                 add     rsp, 120h
+  .text:00000001802DAA63                 pop     rbx
+  .text:00000001802DAA64                 retn
+procedure: |-
+  void __fastcall BotAdd_CommandHandler(__int64 rcx0, __int64 a2)
+  {
+    __int64 v2; // rbx
+    int v3; // eax
+    int v4; // ecx
+    int v5; // r8d
+    char *v6; // rbp
+    char *v7; // r13
+    unsigned int v8; // edx
+    int v9; // r15d
+    int v10; // r14d
+    __int64 v11; // r12
+    char v12; // si
+    char *v13; // rdi
+    unsigned int v14; // ebx
+    __int64 v15; // rax
+    _BYTE *v16; // rcx
+    char *a1[6]; // [rsp+30h] [rbp-F8h]
+    int v18; // [rsp+60h] [rbp-C8h] BYREF
+    int v19; // [rsp+64h] [rbp-C4h]
+    _QWORD v20[17]; // [rsp+68h] [rbp-C0h] BYREF
+    int v22; // [rsp+140h] [rbp+18h]
+    int v23; // [rsp+148h] [rbp+20h]
+
+    v2 = a2;
+    if ( !(unsigned __int8)sub_180E2DDE0() )
+      return;
+    v3 = *(_DWORD *)(v2 + 1080);
+    v4 = -1073741696;
+    v5 = 12;
+    v6 = byte_18152DF88;
+    v7 = nullptr;
+    v8 = 0;
+    v9 = 1;
+    v20[0] = 0;
+    v19 = -1073741696;
+    v10 = 4;
+    v18 = 0;
+    v23 = 0;
+    v22 = 12;
+    if ( v3 <= 1 )
+      goto LABEL_34;
+    v11 = 1;
+    do
+    {
+      v12 = 0;
+      if ( v11 < 0 || v9 >= v3 )
+      {
+        v13 = byte_18152DF88;
+      }
+      else
+      {
+        v13 = *(char **)(*(_QWORD *)(v2 + 1088) + 8 * v11);
+        if ( v13 == "t" )
+          goto LABEL_11;
+        if ( !v13 )
+          goto LABEL_17;
+      }
+      if ( (unsigned int)V_stricmp_fast(v13, "t") )
+      {
+        if ( v13 != "ct" && (!v13 || (unsigned int)V_stricmp_fast(v13, "ct")) )
+          goto LABEL_17;
+        v23 = 3;
+        goto LABEL_16;
+      }
+  LABEL_11:
+      v23 = 2;
+  LABEL_16:
+      v12 = 1;
+  LABEL_17:
+      v14 = 0;
+      while ( !v12 )
+      {
+        a1[0] = "EASY";
+        a1[1] = "NORMAL";
+        a1[4] = byte_18152DF88;
+        a1[2] = "HARD";
+        a1[3] = "EXPERT";
+        v15 = 3;
+        if ( v14 < 3 )
+          v15 = v14;
+        if ( !(unsigned int)V_stricmp_fast(a1[v15], v13) )
+        {
+          v10 = v14;
+          v12 = 1;
+        }
+        if ( (int)++v14 >= 4 )
+        {
+          if ( !v12 )
+          {
+            v22 = sub_18091BCC0(v13);
+            v5 = v22;
+            if ( v22 != 12 )
+              goto LABEL_32;
+            if ( (v19 & 0x3FFFFFFF) != 0 )
+            {
+              v16 = v20;
+              if ( (v19 & 0x40000000) == 0 )
+                v16 = (_BYTE *)v20[0];
+              *v16 = 0;
+            }
+            v18 &= 0xC0000000;
+            CBufferString::Insert((CBufferString *)&v18, 0, v13, -1, 0);
+          }
+          break;
+        }
+      }
+      v5 = v22;
+  LABEL_32:
+      v2 = a2;
+      ++v9;
+      ++v11;
+      v3 = *(_DWORD *)(a2 + 1080);
+    }
+    while ( v9 < v3 );
+    v7 = (char *)v20[0];
+    v4 = v19;
+    v8 = v23;
+  LABEL_34:
+    if ( (v4 & 0x40000000) != 0 )
+    {
+      v6 = (char *)v20;
+    }
+    else if ( (v4 & 0x3FFFFFFF) != 0 )
+    {
+      v6 = v7;
+    }
+    CCSBotManager_AddBot(g_pCSBotManager, v8, 0, v6, v5, v10);
+    CBufferString::Purge((CBufferString *)&v18, 0);
+  }

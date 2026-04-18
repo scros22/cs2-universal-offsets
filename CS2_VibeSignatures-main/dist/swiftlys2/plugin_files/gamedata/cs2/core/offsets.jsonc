@@ -1,0 +1,170 @@
+{
+    "GameEntitySystem": {
+        "windows": 88,
+        "linux": 80
+    },
+    "CBasePlayerPawn::CommitSuicide": {
+        "windows": 390,
+        "linux": 390
+    },
+    "CCSPlayerController::ChangeTeam": {
+        "windows": 103,
+        "linux": 102
+    },
+    "CBaseEntity::Teleport": {
+        "windows": 13,
+        "linux": 14
+    },
+    "CCSPlayerController::Respawn": {
+        "windows": 273,
+        "linux": 275
+    },
+    "CBaseEntity::CollisionRulesChanged": {
+        "windows": 186,
+        "linux": 185
+    },
+    "CGameSceneNode::GetSkeletonInstance": {
+        "windows": 10,
+        "linux": 10
+    },
+    "GetHammerUniqueID": {
+        "windows": 111,
+        "linux": 110
+    },
+    "CEntityResourceManifest::AddResource": {
+        "windows": 2,
+        "linux": 0
+    },
+    "CSoundSystem::TakeGuid": {
+        "windows": 76,
+        "linux": 75
+    },
+    "CGameRules::FindPickerEntity": {
+        "windows": 26,
+        "linux": 27
+    },
+    "CCSPlayer_ItemServices::DropActiveItem": {
+        "windows": 22,
+        "linux": 23
+    },
+    "CCSPlayer_ItemServices::RemoveWeapons": {
+        "windows": 24,
+        "linux": 25
+    },
+    "CCSPlayer_ItemServices::GiveNamedItem": {
+        "windows": 20,
+        "linux": 21
+    },
+    "CCSPlayer_WeaponServices::CanUse": {
+        "windows": 24,
+        "linux": 25
+    },
+    "CCSPlayer_WeaponServices::DropWeapon": {
+        "windows": 25,
+        "linux": 26
+    },
+    "CCSPlayer_WeaponServices::SelectWeapon": {
+        "windows": 26,
+        "linux": 27
+    },
+    "CPlayer_MovementServices::RunCommand": {
+        "windows": 21,
+        "linux": 22
+    },
+    "ICvar::FindConCommand": {
+        "windows": 17,
+        "linux": 17
+    },
+    "ICvar::DispatchConCommand": {
+        "windows": 20,
+        "linux": 20
+    },
+    "IServerGameDLL::PreWorldUpdate": {
+        "windows": 15,
+        "linux": 15
+    },
+    "IServerGameDLL::GameFrame": {
+        "windows": 19,
+        "linux": 19
+    },
+    "IServerGameDLL::GameServerSteamAPIActivated": {
+        "windows": 41,
+        "linux": 41
+    },
+    "IServerGameDLL::GameServerSteamAPIDeactivated": {
+        "windows": 42,
+        "linux": 42
+    },
+    "IGameEventSystem::PostEventAbstract": {
+        "windows": 16,
+        "linux": 15
+    },
+    "INetworkServerService::StartupServer": {
+        "windows": 26,
+        "linux": 27
+    },
+    "IVEngineServer2::SetClientListening": {
+        "windows": 91,
+        "linux": 91
+    },
+    "IServerGameClients::ClientCommand": {
+        "windows": 17,
+        "linux": 17
+    },
+    "IServerGameClients::ClientConnect": {
+        "windows": 12,
+        "linux": 12
+    },
+    "IServerGameClients::OnClientConnected": {
+        "windows": 11,
+        "linux": 11
+    },
+    "IServerGameClients::ClientDisconnect": {
+        "windows": 16,
+        "linux": 16
+    },
+    "IServerGameClients::ClientPutInServer": {
+        "windows": 13,
+        "linux": 13
+    },
+    "ISource2GameEntities::CheckTransmit": {
+        "windows": 12,
+        "linux": 13
+    },
+    "ILoopMode::LoopInit": {
+        "windows": 0,
+        "linux": 0
+    },
+    "IGameEventManager2::FireEvent": {
+        "windows": 7,
+        "linux": 8
+    },
+    "IGameSystem::BuildGameSessionManifest": {
+        "windows": 7,
+        "linux": 7
+    },
+    "CServerSideClient::SendNetMessage": {
+        "windows": 15,
+        "linux": 16
+    },
+    "CServerSideClient::ProcessRespondCvarValue": {
+        "windows": 38,
+        "linux": 40
+    },
+    "CBaseEntity::StartTouch": {
+        "windows": 148,
+        "linux": 147
+    },
+    "CBaseEntity::Touch": {
+        "windows": 149,
+        "linux": 148
+    },
+    "CBaseEntity::EndTouch": {
+        "windows": 150,
+        "linux": 149
+    },
+    "CGameRules::GetViewVectors": {
+        "windows": 32,
+        "linux": 33
+    }
+}

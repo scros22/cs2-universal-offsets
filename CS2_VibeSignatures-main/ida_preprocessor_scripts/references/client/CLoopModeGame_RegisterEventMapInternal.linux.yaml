@@ -1,0 +1,755 @@
+func_name: CLoopModeGame_RegisterEventMapInternal
+func_va: '0x15f5170'
+disasm_code: |-
+  .text:00000000015F5170                 push    rbp
+  .text:00000000015F5171                 mov     rbp, rsp
+  .text:00000000015F5174                 push    r15
+  .text:00000000015F5176                 push    r14
+  .text:00000000015F5178                 push    r13
+  .text:00000000015F517A                 mov     r13d, ecx
+  .text:00000000015F517D                 push    r12
+  .text:00000000015F517F                 mov     r12, rsi
+  .text:00000000015F5182                 push    rbx
+  .text:00000000015F5183                 mov     rbx, rdi
+  .text:00000000015F5186                 sub     rsp, 98h
+  .text:00000000015F518D                 lea     rax, off_4144098
+  .text:00000000015F5194                 mov     r14, [rax]
+  .text:00000000015F5197                 lea     rax, off_41440A8
+  .text:00000000015F519E                 mov     r15, [rax]
+  .text:00000000015F51A1                 lea     rax, off_41440A0
+  .text:00000000015F51A8                 mov     rax, [rax]
+  .text:00000000015F51AB                 mov     [rbp+var_C0], rax
+  .text:00000000015F51B2                 lea     rax, off_4144088
+  .text:00000000015F51B9                 mov     rcx, [rax]
+  .text:00000000015F51BC                 lea     rax, off_41440D8
+  .text:00000000015F51C3                 mov     [rbp+var_B8], rcx
+  .text:00000000015F51CA                 mov     rsi, [rax]
+  .text:00000000015F51CD                 lea     rax, off_41440D0
+  .text:00000000015F51D4                 mov     [rbp+var_B0], rsi
+  .text:00000000015F51DB                 mov     r10, [rax]
+  .text:00000000015F51DE                 lea     rax, off_41440C0
+  .text:00000000015F51E5                 mov     [rbp+var_A8], r10
+  .text:00000000015F51EC                 mov     r11, [rax]
+  .text:00000000015F51EF                 mov     [rbp+var_A0], r11
+  .text:00000000015F51F6                 lea     rax, off_41440B0
+  .text:00000000015F51FD                 mov     r9, [rax]
+  .text:00000000015F5200                 lea     rax, off_41440B8
+  .text:00000000015F5207                 mov     [rbp+var_98], r9
+  .text:00000000015F520E                 mov     r8, [rax]
+  .text:00000000015F5211                 lea     rax, off_41440C8
+  .text:00000000015F5218                 mov     [rbp+var_90], r8
+  .text:00000000015F521F                 mov     rax, [rax]
+  .text:00000000015F5222                 mov     [rbp+var_88], rax
+  .text:00000000015F5229                 lea     rax, off_4144078
+  .text:00000000015F5230                 mov     rcx, [rax]
+  .text:00000000015F5233                 lea     rax, off_4144070
+  .text:00000000015F523A                 mov     [rbp+var_80], rcx
+  .text:00000000015F523E                 mov     rsi, [rax]
+  .text:00000000015F5241                 lea     rax, off_4144080
+  .text:00000000015F5248                 mov     [rbp+var_78], rsi
+  .text:00000000015F524C                 mov     r10, [rax]
+  .text:00000000015F524F                 lea     rax, off_4144068
+  .text:00000000015F5256                 mov     [rbp+var_70], r10
+  .text:00000000015F525A                 mov     r11, [rax]
+  .text:00000000015F525D                 lea     rax, off_4144060
+  .text:00000000015F5264                 mov     [rbp+var_68], r11
+  .text:00000000015F5268                 mov     r9, [rax]
+  .text:00000000015F526B                 lea     rax, off_41440E8
+  .text:00000000015F5272                 mov     [rbp+var_60], r9
+  .text:00000000015F5276                 mov     r8, [rax]
+  .text:00000000015F5279                 mov     [rbp+var_58], r8
+  .text:00000000015F527D                 test    edx, edx
+  .text:00000000015F527F                 jnz     loc_15F5768
+  .text:00000000015F5285                 call    nullsub_597
+  .text:00000000015F528A                 mov     rdi, r14
+  .text:00000000015F528D                 call    sub_29AB320
+  .text:00000000015F5292                 lea     r14, [rbp+var_50]
+  .text:00000000015F5296                 sub     rsp, 8
+  .text:00000000015F529A                 mov     r9d, r13d
+  .text:00000000015F529D                 mov     rsi, r14
+  .text:00000000015F52A0                 mov     r8, rax
+  .text:00000000015F52A3                 mov     [rbp+var_50], r12
+  .text:00000000015F52A7                 mov     ecx, 1
+  .text:00000000015F52AC                 lea     rdx, CLoopModeGame_OnClientPollNetworking
+  .text:00000000015F52B3                 mov     rdi, rbx
+  .text:00000000015F52B6                 mov     [rbp+var_40], 0
+  .text:00000000015F52BE                 mov     [rbp+var_48], rdx
+  .text:00000000015F52C2                 lea     rdx, aCloopmodegameO; "CLoopModeGame::OnClientPollNetworking"
+  .text:00000000015F52C9                 push    rdx
+  .text:00000000015F52CA                 mov     edx, 1
+  .text:00000000015F52CF                 call    RegisterEventListener_Abstract
+  .text:00000000015F52D4                 call    nullsub_595
+  .text:00000000015F52D9                 mov     rdi, r15
+  .text:00000000015F52DC                 call    sub_29AB320
+  .text:00000000015F52E1                 mov     r9d, r13d
+  .text:00000000015F52E4                 mov     rsi, r14
+  .text:00000000015F52E7                 mov     [rbp+var_50], r12
+  .text:00000000015F52EB                 lea     rdx, CLoopModeGame_OnClientAdvanceTick
+  .text:00000000015F52F2                 mov     r8, rax
+  .text:00000000015F52F5                 mov     ecx, 1
+  .text:00000000015F52FA                 mov     [rbp+var_40], 0
+  .text:00000000015F5302                 mov     [rbp+var_48], rdx
+  .text:00000000015F5306                 lea     rdx, aCloopmodegameO_0; "CLoopModeGame::OnClientAdvanceTick"
+  .text:00000000015F530D                 mov     rdi, rbx
+  .text:00000000015F5310                 mov     [rsp+0D0h+var_D0], rdx
+  .text:00000000015F5314                 mov     edx, 1
+  .text:00000000015F5319                 call    RegisterEventListener_Abstract
+  .text:00000000015F531E                 call    nullsub_596
+  .text:00000000015F5323                 mov     rdi, [rbp+var_C0]
+  .text:00000000015F532A                 call    sub_29AB320
+  .text:00000000015F532F                 mov     r9d, r13d
+  .text:00000000015F5332                 mov     rsi, r14
+  .text:00000000015F5335                 mov     [rbp+var_50], r12
+  .text:00000000015F5339                 lea     rdx, CLoopModeGame_OnClientPostAdvanceTick
+  .text:00000000015F5340                 mov     r8, rax
+  .text:00000000015F5343                 mov     ecx, 1
+  .text:00000000015F5348                 mov     [rbp+var_40], 0
+  .text:00000000015F5350                 mov     [rbp+var_48], rdx
+  .text:00000000015F5354                 lea     rdx, aCloopmodegameO_1; "CLoopModeGame::OnClientPostAdvanceTick"
+  .text:00000000015F535B                 mov     rdi, rbx
+  .text:00000000015F535E                 mov     [rsp+0D0h+var_D0], rdx
+  .text:00000000015F5362                 mov     edx, 1
+  .text:00000000015F5367                 call    RegisterEventListener_Abstract
+  .text:00000000015F536C                 call    nullsub_599
+  .text:00000000015F5371                 mov     rdi, [rbp+var_B8]
+  .text:00000000015F5378                 call    sub_29AB320
+  .text:00000000015F537D                 mov     r9d, r13d
+  .text:00000000015F5380                 mov     rsi, r14
+  .text:00000000015F5383                 mov     [rbp+var_50], r12
+  .text:00000000015F5387                 lea     rdx, CLoopModeGame_OnClientPreSimulate
+  .text:00000000015F538E                 mov     r8, rax
+  .text:00000000015F5391                 mov     ecx, 1
+  .text:00000000015F5396                 mov     [rbp+var_40], 0
+  .text:00000000015F539E                 mov     [rbp+var_48], rdx
+  .text:00000000015F53A2                 lea     rdx, aCloopmodegameO_2; "CLoopModeGame::OnClientPreSimulate"
+  .text:00000000015F53A9                 mov     rdi, rbx
+  .text:00000000015F53AC                 mov     [rsp+0D0h+var_D0], rdx
+  .text:00000000015F53B0                 mov     edx, 1
+  .text:00000000015F53B5                 call    RegisterEventListener_Abstract
+  .text:00000000015F53BA                 call    nullsub_589
+  .text:00000000015F53BF                 mov     rdi, [rbp+var_B0]
+  .text:00000000015F53C6                 call    sub_29AB320
+  .text:00000000015F53CB                 mov     r9d, r13d
+  .text:00000000015F53CE                 mov     rsi, r14
+  .text:00000000015F53D1                 mov     [rbp+var_50], r12
+  .text:00000000015F53D5                 lea     rdx, CLoopModeGame_OnClientPreOutput
+  .text:00000000015F53DC                 mov     r8, rax
+  .text:00000000015F53DF                 mov     ecx, 1
+  .text:00000000015F53E4                 mov     [rbp+var_40], 0
+  .text:00000000015F53EC                 mov     [rbp+var_48], rdx
+  .text:00000000015F53F0                 lea     rdx, aCloopmodegameO_3; "CLoopModeGame::OnClientPreOutput"
+  .text:00000000015F53F7                 mov     rdi, rbx
+  .text:00000000015F53FA                 mov     [rsp+0D0h+var_D0], rdx
+  .text:00000000015F53FE                 mov     edx, 1
+  .text:00000000015F5403                 call    RegisterEventListener_Abstract
+  .text:00000000015F5408                 call    nullsub_590
+  .text:00000000015F540D                 mov     rdi, [rbp+var_A8]
+  .text:00000000015F5414                 call    sub_29AB320
+  .text:00000000015F5419                 mov     r9d, r13d
+  .text:00000000015F541C                 mov     rsi, r14
+  .text:00000000015F541F                 mov     [rbp+var_50], r12
+  .text:00000000015F5423                 lea     rdx, CLoopModeGame_OnClientPreOutputParallelWithServer
+  .text:00000000015F542A                 mov     r8, rax
+  .text:00000000015F542D                 mov     ecx, 1
+  .text:00000000015F5432                 mov     [rbp+var_40], 0
+  .text:00000000015F543A                 mov     [rbp+var_48], rdx
+  .text:00000000015F543E                 lea     rdx, aCloopmodegameO_4; "CLoopModeGame::OnClientPreOutputParalle"...
+  .text:00000000015F5445                 mov     rdi, rbx
+  .text:00000000015F5448                 mov     [rsp+0D0h+var_D0], rdx
+  .text:00000000015F544C                 mov     edx, 1
+  .text:00000000015F5451                 call    RegisterEventListener_Abstract
+  .text:00000000015F5456                 call    nullsub_592
+  .text:00000000015F545B                 mov     rdi, [rbp+var_A0]
+  .text:00000000015F5462                 call    sub_29AB320
+  .text:00000000015F5467                 mov     r9d, r13d
+  .text:00000000015F546A                 mov     rsi, r14
+  .text:00000000015F546D                 mov     [rbp+var_50], r12
+  .text:00000000015F5471                 lea     rdx, CLoopModeGame_OnClientPostOutput
+  .text:00000000015F5478                 mov     r8, rax
+  .text:00000000015F547B                 mov     ecx, 1
+  .text:00000000015F5480                 mov     [rbp+var_40], 0
+  .text:00000000015F5488                 mov     [rbp+var_48], rdx
+  .text:00000000015F548C                 lea     rdx, aCloopmodegameO_5; "CLoopModeGame::OnClientPostOutput"
+  .text:00000000015F5493                 mov     rdi, rbx
+  .text:00000000015F5496                 mov     [rsp+0D0h+var_D0], rdx
+  .text:00000000015F549A                 mov     edx, 1
+  .text:00000000015F549F                 call    RegisterEventListener_Abstract
+  .text:00000000015F54A4                 call    nullsub_594
+  .text:00000000015F54A9                 mov     rdi, [rbp+var_98]
+  .text:00000000015F54B0                 call    sub_29AB320
+  .text:00000000015F54B5                 mov     r9d, r13d
+  .text:00000000015F54B8                 mov     rsi, r14
+  .text:00000000015F54BB                 mov     [rbp+var_50], r12
+  .text:00000000015F54BF                 lea     rdx, CLoopModeGame_OnClientFrameSimulate
+  .text:00000000015F54C6                 mov     r8, rax
+  .text:00000000015F54C9                 mov     ecx, 1
+  .text:00000000015F54CE                 mov     [rbp+var_40], 0
+  .text:00000000015F54D6                 mov     [rbp+var_48], rdx
+  .text:00000000015F54DA                 lea     rdx, aCloopmodegameO_6; "CLoopModeGame::OnClientFrameSimulate"
+  .text:00000000015F54E1                 mov     rdi, rbx
+  .text:00000000015F54E4                 mov     [rsp+0D0h+var_D0], rdx
+  .text:00000000015F54E8                 mov     edx, 1
+  .text:00000000015F54ED                 call    RegisterEventListener_Abstract
+  .text:00000000015F54F2                 call    nullsub_593
+  .text:00000000015F54F7                 mov     rdi, [rbp+var_90]
+  .text:00000000015F54FE                 call    sub_29AB320
+  .text:00000000015F5503                 mov     r9d, r13d
+  .text:00000000015F5506                 mov     rsi, r14
+  .text:00000000015F5509                 mov     [rbp+var_50], r12
+  .text:00000000015F550D                 lea     rdx, CLoopModeGame_OnClientAdvanceNonRenderedFrame
+  .text:00000000015F5514                 mov     r8, rax
+  .text:00000000015F5517                 mov     ecx, 1
+  .text:00000000015F551C                 mov     [rbp+var_40], 0
+  .text:00000000015F5524                 mov     [rbp+var_48], rdx
+  .text:00000000015F5528                 lea     rdx, aCloopmodegameO_7; "CLoopModeGame::OnClientAdvanceNonRender"...
+  .text:00000000015F552F                 mov     rdi, rbx
+  .text:00000000015F5532                 mov     [rsp+0D0h+var_D0], rdx
+  .text:00000000015F5536                 mov     edx, 1
+  .text:00000000015F553B                 call    RegisterEventListener_Abstract
+  .text:00000000015F5540                 call    nullsub_591
+  .text:00000000015F5545                 mov     rdi, [rbp+var_88]
+  .text:00000000015F554C                 call    sub_29AB320
+  .text:00000000015F5551                 mov     r9d, r13d
+  .text:00000000015F5554                 mov     rsi, r14
+  .text:00000000015F5557                 mov     [rbp+var_50], r12
+  .text:00000000015F555B                 mov     r8, rax
+  .text:00000000015F555E                 mov     ecx, 1
+  .text:00000000015F5563                 mov     edx, 1
+  .text:00000000015F5568                 mov     [rbp+var_40], 0
+  .text:00000000015F5570                 lea     rax, nullsub_1062
+  .text:00000000015F5577                 mov     rdi, rbx
+  .text:00000000015F557A                 mov     [rbp+var_48], rax
+  .text:00000000015F557E                 lea     rax, aCloopmodegameO_8; "CLoopModeGame::OnClientSceneSystemThrea"...
+  .text:00000000015F5585                 mov     [rsp+0D0h+var_D0], rax
+  .text:00000000015F5589                 call    RegisterEventListener_Abstract
+  .text:00000000015F558E                 call    nullsub_601
+  .text:00000000015F5593                 mov     rdi, [rbp+var_80]
+  .text:00000000015F5597                 call    sub_29AB320
+  .text:00000000015F559C                 mov     r9d, r13d
+  .text:00000000015F559F                 mov     rsi, r14
+  .text:00000000015F55A2                 mov     [rbp+var_50], r12
+  .text:00000000015F55A6                 mov     r8, rax
+  .text:00000000015F55A9                 mov     ecx, 1
+  .text:00000000015F55AE                 mov     edx, 1
+  .text:00000000015F55B3                 mov     [rbp+var_40], 0
+  .text:00000000015F55BB                 lea     rax, CLoopModeGame_OnClientPostSimulate
+  .text:00000000015F55C2                 mov     rdi, rbx
+  .text:00000000015F55C5                 mov     [rbp+var_48], rax
+  .text:00000000015F55C9                 lea     rax, aCloopmodegameO_9; "CLoopModeGame::OnClientPostSimulate"
+  .text:00000000015F55D0                 mov     [rsp+0D0h+var_D0], rax
+  .text:00000000015F55D4                 call    RegisterEventListener_Abstract
+  .text:00000000015F55D9                 call    nullsub_602
+  .text:00000000015F55DE                 mov     rdi, [rbp+var_78]
+  .text:00000000015F55E2                 call    sub_29AB320
+  .text:00000000015F55E7                 mov     r9d, r13d
+  .text:00000000015F55EA                 mov     rsi, r14
+  .text:00000000015F55ED                 mov     [rbp+var_50], r12
+  .text:00000000015F55F1                 mov     r8, rax
+  .text:00000000015F55F4                 mov     ecx, 1
+  .text:00000000015F55F9                 mov     edx, 1
+  .text:00000000015F55FE                 mov     [rbp+var_40], 0
+  .text:00000000015F5606                 lea     rax, CLoopModeGame_OnClientPauseSimulate
+  .text:00000000015F560D                 mov     rdi, rbx
+  .text:00000000015F5610                 mov     [rbp+var_48], rax
+  .text:00000000015F5614                 lea     rax, aCloopmodegameO_10; "CLoopModeGame::OnClientPauseSimulate"
+  .text:00000000015F561B                 mov     [rsp+0D0h+var_D0], rax
+  .text:00000000015F561F                 call    RegisterEventListener_Abstract
+  .text:00000000015F5624                 call    nullsub_600
+  .text:00000000015F5629                 mov     rdi, [rbp+var_70]
+  .text:00000000015F562D                 call    sub_29AB320
+  .text:00000000015F5632                 mov     r9d, r13d
+  .text:00000000015F5635                 mov     rsi, r14
+  .text:00000000015F5638                 mov     [rbp+var_50], r12
+  .text:00000000015F563C                 mov     r8, rax
+  .text:00000000015F563F                 mov     ecx, 1
+  .text:00000000015F5644                 mov     edx, 1
+  .text:00000000015F5649                 mov     [rbp+var_40], 0
+  .text:00000000015F5651                 lea     rax, CLoopModeGame_OnClientSimulate
+  .text:00000000015F5658                 mov     rdi, rbx
+  .text:00000000015F565B                 mov     [rbp+var_48], rax
+  .text:00000000015F565F                 lea     rax, aCloopmodegameO_11; "CLoopModeGame::OnClientSimulate"
+  .text:00000000015F5666                 mov     [rsp+0D0h+var_D0], rax
+  .text:00000000015F566A                 call    RegisterEventListener_Abstract
+  .text:00000000015F566F                 call    nullsub_603
+  .text:00000000015F5674                 mov     rdi, [rbp+var_68]
+  .text:00000000015F5678                 call    sub_29AB320
+  .text:00000000015F567D                 mov     r9d, r13d
+  .text:00000000015F5680                 mov     rsi, r14
+  .text:00000000015F5683                 mov     [rbp+var_50], r12
+  .text:00000000015F5687                 mov     r8, rax
+  .text:00000000015F568A                 mov     ecx, 1
+  .text:00000000015F568F                 mov     edx, 1
+  .text:00000000015F5694                 mov     [rbp+var_40], 0
+  .text:00000000015F569C                 lea     rax, CLoopModeGame_OnPostDataUpdate
+  .text:00000000015F56A3                 mov     rdi, rbx
+  .text:00000000015F56A6                 mov     [rbp+var_48], rax
+  .text:00000000015F56AA                 lea     rax, aCloopmodegameO_12; "CLoopModeGame::OnPostDataUpdate"
+  .text:00000000015F56B1                 mov     [rsp+0D0h+var_D0], rax
+  .text:00000000015F56B5                 call    RegisterEventListener_Abstract
+  .text:00000000015F56BA                 call    nullsub_604
+  .text:00000000015F56BF                 mov     rdi, [rbp+var_60]
+  .text:00000000015F56C3                 call    sub_29AB320
+  .text:00000000015F56C8                 mov     r9d, r13d
+  .text:00000000015F56CB                 mov     rsi, r14
+  .text:00000000015F56CE                 mov     [rbp+var_50], r12
+  .text:00000000015F56D2                 mov     r8, rax
+  .text:00000000015F56D5                 mov     ecx, 1
+  .text:00000000015F56DA                 mov     edx, 1
+  .text:00000000015F56DF                 mov     [rbp+var_40], 0
+  .text:00000000015F56E7                 lea     rax, CLoopModeGame_OnPreDataUpdate
+  .text:00000000015F56EE                 mov     rdi, rbx
+  .text:00000000015F56F1                 mov     [rbp+var_48], rax
+  .text:00000000015F56F5                 lea     rax, aCloopmodegameO_13; "CLoopModeGame::OnPreDataUpdate"
+  .text:00000000015F56FC                 mov     [rsp+0D0h+var_D0], rax
+  .text:00000000015F5700                 call    RegisterEventListener_Abstract
+  .text:00000000015F5705                 call    nullsub_587
+  .text:00000000015F570A                 mov     rdi, [rbp+var_58]
+  .text:00000000015F570E                 call    sub_29AB320
+  .text:00000000015F5713                 mov     [rbp+var_50], r12
+  .text:00000000015F5717                 mov     r9d, r13d
+  .text:00000000015F571A                 mov     rsi, r14
+  .text:00000000015F571D                 mov     r8, rax
+  .text:00000000015F5720                 mov     [rbp+var_40], 0
+  .text:00000000015F5728                 mov     edx, 1
+  .text:00000000015F572D                 mov     rdi, rbx
+  .text:00000000015F5730                 lea     rax, CLoopModeGame_OnFrameBoundary
+  .text:00000000015F5737                 mov     ecx, 1
+  .text:00000000015F573C                 mov     [rbp+var_48], rax
+  .text:00000000015F5740                 lea     rax, aCloopmodegameO_14; "CLoopModeGame::OnFrameBoundary"
+  .text:00000000015F5747                 mov     [rsp+0D0h+var_D0], rax
+  .text:00000000015F574B                 call    RegisterEventListener_Abstract
+  .text:00000000015F5750                 pop     rax
+  .text:00000000015F5751                 pop     rdx
+  .text:00000000015F5752                 lea     rsp, [rbp-28h]
+  .text:00000000015F5756                 pop     rbx
+  .text:00000000015F5757                 pop     r12
+  .text:00000000015F5759                 pop     r13
+  .text:00000000015F575B                 pop     r14
+  .text:00000000015F575D                 pop     r15
+  .text:00000000015F575F                 pop     rbp
+  .text:00000000015F5760                 retn
+  .text:00000000015F5768                 call    nullsub_597
+  .text:00000000015F576D                 lea     r13, [rbp+var_50]
+  .text:00000000015F5771                 mov     rdi, r14
+  .text:00000000015F5774                 call    sub_29AB320
+  .text:00000000015F5779                 mov     rsi, r13
+  .text:00000000015F577C                 mov     rdi, rbx
+  .text:00000000015F577F                 mov     [rbp+var_50], r12
+  .text:00000000015F5783                 mov     rdx, rax
+  .text:00000000015F5786                 mov     [rbp+var_40], 0
+  .text:00000000015F578E                 lea     rax, CLoopModeGame_OnClientPollNetworking
+  .text:00000000015F5795                 mov     [rbp+var_48], rax
+  .text:00000000015F5799                 call    sub_15DA9B0
+  .text:00000000015F579E                 call    nullsub_595
+  .text:00000000015F57A3                 mov     rdi, r15
+  .text:00000000015F57A6                 call    sub_29AB320
+  .text:00000000015F57AB                 mov     rsi, r13
+  .text:00000000015F57AE                 mov     rdi, rbx
+  .text:00000000015F57B1                 mov     [rbp+var_50], r12
+  .text:00000000015F57B5                 mov     rdx, rax
+  .text:00000000015F57B8                 mov     [rbp+var_40], 0
+  .text:00000000015F57C0                 lea     rax, CLoopModeGame_OnClientAdvanceTick
+  .text:00000000015F57C7                 mov     [rbp+var_48], rax
+  .text:00000000015F57CB                 call    sub_15DA9B0
+  .text:00000000015F57D0                 call    nullsub_596
+  .text:00000000015F57D5                 mov     rdi, [rbp+var_C0]
+  .text:00000000015F57DC                 call    sub_29AB320
+  .text:00000000015F57E1                 mov     rsi, r13
+  .text:00000000015F57E4                 mov     rdi, rbx
+  .text:00000000015F57E7                 mov     [rbp+var_50], r12
+  .text:00000000015F57EB                 mov     rdx, rax
+  .text:00000000015F57EE                 mov     [rbp+var_40], 0
+  .text:00000000015F57F6                 lea     rax, CLoopModeGame_OnClientPostAdvanceTick
+  .text:00000000015F57FD                 mov     [rbp+var_48], rax
+  .text:00000000015F5801                 call    sub_15DA9B0
+  .text:00000000015F5806                 call    nullsub_599
+  .text:00000000015F580B                 mov     rdi, [rbp+var_B8]
+  .text:00000000015F5812                 call    sub_29AB320
+  .text:00000000015F5817                 mov     rsi, r13
+  .text:00000000015F581A                 mov     rdi, rbx
+  .text:00000000015F581D                 mov     [rbp+var_50], r12
+  .text:00000000015F5821                 mov     rdx, rax
+  .text:00000000015F5824                 mov     [rbp+var_40], 0
+  .text:00000000015F582C                 lea     rax, CLoopModeGame_OnClientPreSimulate
+  .text:00000000015F5833                 mov     [rbp+var_48], rax
+  .text:00000000015F5837                 call    sub_15DA9B0
+  .text:00000000015F583C                 call    nullsub_589
+  .text:00000000015F5841                 mov     rdi, [rbp+var_B0]
+  .text:00000000015F5848                 call    sub_29AB320
+  .text:00000000015F584D                 mov     rsi, r13
+  .text:00000000015F5850                 mov     rdi, rbx
+  .text:00000000015F5853                 mov     [rbp+var_50], r12
+  .text:00000000015F5857                 mov     rdx, rax
+  .text:00000000015F585A                 mov     [rbp+var_40], 0
+  .text:00000000015F5862                 lea     rax, CLoopModeGame_OnClientPreOutput
+  .text:00000000015F5869                 mov     [rbp+var_48], rax
+  .text:00000000015F586D                 call    sub_15DA9B0
+  .text:00000000015F5872                 call    nullsub_590
+  .text:00000000015F5877                 mov     rdi, [rbp+var_A8]
+  .text:00000000015F587E                 call    sub_29AB320
+  .text:00000000015F5883                 mov     rsi, r13
+  .text:00000000015F5886                 mov     rdi, rbx
+  .text:00000000015F5889                 mov     [rbp+var_50], r12
+  .text:00000000015F588D                 mov     rdx, rax
+  .text:00000000015F5890                 mov     [rbp+var_40], 0
+  .text:00000000015F5898                 lea     rax, CLoopModeGame_OnClientPreOutputParallelWithServer
+  .text:00000000015F589F                 mov     [rbp+var_48], rax
+  .text:00000000015F58A3                 call    sub_15DA9B0
+  .text:00000000015F58A8                 call    nullsub_592
+  .text:00000000015F58AD                 mov     rdi, [rbp+var_A0]
+  .text:00000000015F58B4                 call    sub_29AB320
+  .text:00000000015F58B9                 mov     rsi, r13
+  .text:00000000015F58BC                 mov     rdi, rbx
+  .text:00000000015F58BF                 mov     [rbp+var_50], r12
+  .text:00000000015F58C3                 mov     rdx, rax
+  .text:00000000015F58C6                 mov     [rbp+var_40], 0
+  .text:00000000015F58CE                 lea     rax, CLoopModeGame_OnClientPostOutput
+  .text:00000000015F58D5                 mov     [rbp+var_48], rax
+  .text:00000000015F58D9                 call    sub_15DA9B0
+  .text:00000000015F58DE                 call    nullsub_594
+  .text:00000000015F58E3                 mov     rdi, [rbp+var_98]
+  .text:00000000015F58EA                 call    sub_29AB320
+  .text:00000000015F58EF                 mov     rsi, r13
+  .text:00000000015F58F2                 mov     rdi, rbx
+  .text:00000000015F58F5                 mov     [rbp+var_50], r12
+  .text:00000000015F58F9                 mov     rdx, rax
+  .text:00000000015F58FC                 mov     [rbp+var_40], 0
+  .text:00000000015F5904                 lea     rax, CLoopModeGame_OnClientFrameSimulate
+  .text:00000000015F590B                 mov     [rbp+var_48], rax
+  .text:00000000015F590F                 call    sub_15DA9B0
+  .text:00000000015F5914                 call    nullsub_593
+  .text:00000000015F5919                 mov     rdi, [rbp+var_90]
+  .text:00000000015F5920                 call    sub_29AB320
+  .text:00000000015F5925                 mov     rsi, r13
+  .text:00000000015F5928                 mov     rdi, rbx
+  .text:00000000015F592B                 mov     [rbp+var_50], r12
+  .text:00000000015F592F                 mov     rdx, rax
+  .text:00000000015F5932                 mov     [rbp+var_40], 0
+  .text:00000000015F593A                 lea     rax, CLoopModeGame_OnClientAdvanceNonRenderedFrame
+  .text:00000000015F5941                 mov     [rbp+var_48], rax
+  .text:00000000015F5945                 call    sub_15DA9B0
+  .text:00000000015F594A                 call    nullsub_591
+  .text:00000000015F594F                 mov     rdi, [rbp+var_88]
+  .text:00000000015F5956                 call    sub_29AB320
+  .text:00000000015F595B                 mov     rsi, r13
+  .text:00000000015F595E                 mov     rdi, rbx
+  .text:00000000015F5961                 mov     [rbp+var_50], r12
+  .text:00000000015F5965                 mov     rdx, rax
+  .text:00000000015F5968                 mov     [rbp+var_40], 0
+  .text:00000000015F5970                 lea     rax, nullsub_1062
+  .text:00000000015F5977                 mov     [rbp+var_48], rax
+  .text:00000000015F597B                 call    sub_15DA9B0
+  .text:00000000015F5980                 call    nullsub_601
+  .text:00000000015F5985                 mov     rdi, [rbp+var_80]
+  .text:00000000015F5989                 call    sub_29AB320
+  .text:00000000015F598E                 mov     rsi, r13
+  .text:00000000015F5991                 mov     rdi, rbx
+  .text:00000000015F5994                 mov     [rbp+var_50], r12
+  .text:00000000015F5998                 mov     rdx, rax
+  .text:00000000015F599B                 mov     [rbp+var_40], 0
+  .text:00000000015F59A3                 lea     rax, CLoopModeGame_OnClientPostSimulate
+  .text:00000000015F59AA                 mov     [rbp+var_48], rax
+  .text:00000000015F59AE                 call    sub_15DA9B0
+  .text:00000000015F59B3                 call    nullsub_602
+  .text:00000000015F59B8                 mov     rdi, [rbp+var_78]
+  .text:00000000015F59BC                 call    sub_29AB320
+  .text:00000000015F59C1                 mov     rsi, r13
+  .text:00000000015F59C4                 mov     rdi, rbx
+  .text:00000000015F59C7                 mov     [rbp+var_50], r12
+  .text:00000000015F59CB                 mov     rdx, rax
+  .text:00000000015F59CE                 mov     [rbp+var_40], 0
+  .text:00000000015F59D6                 lea     rax, CLoopModeGame_OnClientPauseSimulate
+  .text:00000000015F59DD                 mov     [rbp+var_48], rax
+  .text:00000000015F59E1                 call    sub_15DA9B0
+  .text:00000000015F59E6                 call    nullsub_600
+  .text:00000000015F59EB                 mov     rdi, [rbp+var_70]
+  .text:00000000015F59EF                 call    sub_29AB320
+  .text:00000000015F59F4                 mov     rsi, r13
+  .text:00000000015F59F7                 mov     rdi, rbx
+  .text:00000000015F59FA                 mov     [rbp+var_50], r12
+  .text:00000000015F59FE                 mov     rdx, rax
+  .text:00000000015F5A01                 mov     [rbp+var_40], 0
+  .text:00000000015F5A09                 lea     rax, CLoopModeGame_OnClientSimulate
+  .text:00000000015F5A10                 mov     [rbp+var_48], rax
+  .text:00000000015F5A14                 call    sub_15DA9B0
+  .text:00000000015F5A19                 call    nullsub_603
+  .text:00000000015F5A1E                 mov     rdi, [rbp+var_68]
+  .text:00000000015F5A22                 call    sub_29AB320
+  .text:00000000015F5A27                 mov     rsi, r13
+  .text:00000000015F5A2A                 mov     rdi, rbx
+  .text:00000000015F5A2D                 mov     [rbp+var_50], r12
+  .text:00000000015F5A31                 mov     rdx, rax
+  .text:00000000015F5A34                 mov     [rbp+var_40], 0
+  .text:00000000015F5A3C                 lea     rax, CLoopModeGame_OnPostDataUpdate
+  .text:00000000015F5A43                 mov     [rbp+var_48], rax
+  .text:00000000015F5A47                 call    sub_15DA9B0
+  .text:00000000015F5A4C                 call    nullsub_604
+  .text:00000000015F5A51                 mov     rdi, [rbp+var_60]
+  .text:00000000015F5A55                 call    sub_29AB320
+  .text:00000000015F5A5A                 mov     rsi, r13
+  .text:00000000015F5A5D                 mov     rdi, rbx
+  .text:00000000015F5A60                 mov     [rbp+var_50], r12
+  .text:00000000015F5A64                 mov     rdx, rax
+  .text:00000000015F5A67                 mov     [rbp+var_40], 0
+  .text:00000000015F5A6F                 lea     rax, CLoopModeGame_OnPreDataUpdate
+  .text:00000000015F5A76                 mov     [rbp+var_48], rax
+  .text:00000000015F5A7A                 call    sub_15DA9B0
+  .text:00000000015F5A7F                 call    nullsub_587
+  .text:00000000015F5A84                 mov     rdi, [rbp+var_58]
+  .text:00000000015F5A88                 call    sub_29AB320
+  .text:00000000015F5A8D                 mov     rsi, r13
+  .text:00000000015F5A90                 mov     rdi, rbx
+  .text:00000000015F5A93                 mov     [rbp+var_50], r12
+  .text:00000000015F5A97                 mov     rdx, rax
+  .text:00000000015F5A9A                 mov     [rbp+var_40], 0
+  .text:00000000015F5AA2                 lea     rax, CLoopModeGame_OnFrameBoundary
+  .text:00000000015F5AA9                 mov     [rbp+var_48], rax
+  .text:00000000015F5AAD                 call    sub_15DA9B0
+  .text:00000000015F5AB2                 lea     rsp, [rbp-28h]
+  .text:00000000015F5AB6                 pop     rbx
+  .text:00000000015F5AB7                 pop     r12
+  .text:00000000015F5AB9                 pop     r13
+  .text:00000000015F5ABB                 pop     r14
+  .text:00000000015F5ABD                 pop     r15
+  .text:00000000015F5ABF                 pop     rbp
+  .text:00000000015F5AC0                 retn
+procedure: |-
+  __int64 __fastcall CLoopModeGame_RegisterEventMapInternal(__int64 a1, __int64 a2, int a3, int a4)
+  {
+    int v5; // eax
+    int v6; // eax
+    int v7; // eax
+    int v8; // eax
+    int v9; // eax
+    int v10; // eax
+    int v11; // eax
+    int v12; // eax
+    int v13; // eax
+    int v14; // eax
+    int v15; // eax
+    int v16; // eax
+    int v17; // eax
+    int v18; // eax
+    int v19; // eax
+    int v20; // eax
+    __int64 v22; // rax
+    __int64 v23; // rax
+    __int64 v24; // rax
+    __int64 v25; // rax
+    __int64 v26; // rax
+    __int64 v27; // rax
+    __int64 v28; // rax
+    __int64 v29; // rax
+    __int64 v30; // rax
+    __int64 v31; // rax
+    __int64 v32; // rax
+    __int64 v33; // rax
+    __int64 v34; // rax
+    __int64 v35; // rax
+    __int64 v36; // rax
+    __int64 v37; // rax
+    __int64 v38; // [rsp+0h] [rbp-D0h]
+    __int64 v39; // [rsp+80h] [rbp-50h] BYREF
+    __int64 (__fastcall *v40)(); // [rsp+88h] [rbp-48h]
+    __int64 v41; // [rsp+90h] [rbp-40h]
+
+    if ( a3 )
+    {
+      nullsub_597();
+      v22 = sub_29AB320(&unk_4331CE0);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPollNetworking;
+      sub_15DA9B0(a1, &v39, v22);
+      nullsub_595();
+      v23 = sub_29AB320(&unk_4331E00);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientAdvanceTick;
+      sub_15DA9B0(a1, &v39, v23);
+      nullsub_596();
+      v24 = sub_29AB320(&unk_4331D80);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPostAdvanceTick;
+      sub_15DA9B0(a1, &v39, v24);
+      nullsub_599();
+      v25 = sub_29AB320(&unk_4331BC0);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPreSimulate;
+      sub_15DA9B0(a1, &v39, v25);
+      nullsub_589();
+      v26 = sub_29AB320(&unk_4332960);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPreOutput;
+      sub_15DA9B0(a1, &v39, v26);
+      nullsub_590();
+      v27 = sub_29AB320(&unk_43328E0);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPreOutputParallelWithServer;
+      sub_15DA9B0(a1, &v39, v27);
+      nullsub_592();
+      v28 = sub_29AB320(&unk_4332600);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPostOutput;
+      sub_15DA9B0(a1, &v39, v28);
+      nullsub_594();
+      v29 = sub_29AB320(&unk_4332480);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientFrameSimulate;
+      sub_15DA9B0(a1, &v39, v29);
+      nullsub_593();
+      v30 = sub_29AB320(&unk_4332580);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientAdvanceNonRenderedFrame;
+      sub_15DA9B0(a1, &v39, v30);
+      nullsub_591();
+      v31 = sub_29AB320(&unk_4332840);
+      v39 = a2;
+      v41 = 0;
+      v40 = nullsub_1062;
+      sub_15DA9B0(a1, &v39, v31);
+      nullsub_601();
+      v32 = sub_29AB320(&unk_4331800);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPostSimulate;
+      sub_15DA9B0(a1, &v39, v32);
+      nullsub_602();
+      v33 = sub_29AB320(&unk_4331780);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPauseSimulate;
+      sub_15DA9B0(a1, &v39, v33);
+      nullsub_600();
+      v34 = sub_29AB320(&unk_4331B40);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientSimulate;
+      sub_15DA9B0(a1, &v39, v34);
+      nullsub_603();
+      v35 = sub_29AB320(&unk_43316E0);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnPostDataUpdate;
+      sub_15DA9B0(a1, &v39, v35);
+      nullsub_604();
+      v36 = sub_29AB320(&unk_4331640);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnPreDataUpdate;
+      sub_15DA9B0(a1, &v39, v36);
+      nullsub_587();
+      v37 = sub_29AB320(&unk_4332FE0);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnFrameBoundary;
+      return sub_15DA9B0(a1, &v39, v37);
+    }
+    else
+    {
+      nullsub_597();
+      v5 = sub_29AB320(&unk_4331CE0);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPollNetworking;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v5, a4, (__int64)"CLoopModeGame::OnClientPollNetworking");
+      nullsub_595();
+      v6 = sub_29AB320(&unk_4331E00);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientAdvanceTick;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v6, a4, (__int64)"CLoopModeGame::OnClientAdvanceTick");
+      nullsub_596();
+      v7 = sub_29AB320(&unk_4331D80);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPostAdvanceTick;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v7, a4, (__int64)"CLoopModeGame::OnClientPostAdvanceTick");
+      nullsub_599();
+      v8 = sub_29AB320(&unk_4331BC0);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPreSimulate;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v8, a4, (__int64)"CLoopModeGame::OnClientPreSimulate");
+      nullsub_589();
+      v9 = sub_29AB320(&unk_4332960);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPreOutput;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v9, a4, (__int64)"CLoopModeGame::OnClientPreOutput");
+      nullsub_590();
+      v10 = sub_29AB320(&unk_43328E0);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPreOutputParallelWithServer;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v10, a4, (__int64)"CLoopModeGame::OnClientPreOutputParallelWithServer");
+      nullsub_592();
+      v11 = sub_29AB320(&unk_4332600);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPostOutput;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v11, a4, (__int64)"CLoopModeGame::OnClientPostOutput");
+      nullsub_594();
+      v12 = sub_29AB320(&unk_4332480);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientFrameSimulate;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v12, a4, (__int64)"CLoopModeGame::OnClientFrameSimulate");
+      nullsub_593();
+      v13 = sub_29AB320(&unk_4332580);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientAdvanceNonRenderedFrame;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v13, a4, (__int64)"CLoopModeGame::OnClientAdvanceNonRenderedFrame");
+      nullsub_591();
+      v14 = sub_29AB320(&unk_4332840);
+      v39 = a2;
+      v41 = 0;
+      v40 = nullsub_1062;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v14, a4, (__int64)"CLoopModeGame::OnClientSceneSystemThreadStateChange");
+      nullsub_601();
+      v15 = sub_29AB320(&unk_4331800);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPostSimulate;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v15, a4, (__int64)"CLoopModeGame::OnClientPostSimulate");
+      nullsub_602();
+      v16 = sub_29AB320(&unk_4331780);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientPauseSimulate;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v16, a4, (__int64)"CLoopModeGame::OnClientPauseSimulate");
+      nullsub_600();
+      v17 = sub_29AB320(&unk_4331B40);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnClientSimulate;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v17, a4, (__int64)"CLoopModeGame::OnClientSimulate");
+      nullsub_603();
+      v18 = sub_29AB320(&unk_43316E0);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnPostDataUpdate;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v18, a4, (__int64)"CLoopModeGame::OnPostDataUpdate");
+      nullsub_604();
+      v19 = sub_29AB320(&unk_4331640);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnPreDataUpdate;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v19, a4, (__int64)"CLoopModeGame::OnPreDataUpdate");
+      nullsub_587();
+      v20 = sub_29AB320(&unk_4332FE0);
+      v39 = a2;
+      v41 = 0;
+      v40 = CLoopModeGame_OnFrameBoundary;
+      RegisterEventListener_Abstract(a1, (unsigned int)&v39, 1, 1, v20, a4, (__int64)"CLoopModeGame::OnFrameBoundary");
+      return v38;
+    }
+  }

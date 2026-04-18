@@ -1,0 +1,154 @@
+func_name: CCSPlayer_WeaponServices_EquipWeapon
+func_va: '0x180a294f0'
+disasm_code: |-
+  .text:0000000180A294F0                 mov     [rsp+arg_8], rbx
+  .text:0000000180A294F5                 push    rdi
+  .text:0000000180A294F6                 sub     rsp, 20h
+  .text:0000000180A294FA                 cmp     qword ptr [rcx+38h], 0
+  .text:0000000180A294FF                 mov     rdi, rdx
+  .text:0000000180A29502                 mov     rbx, rcx
+  .text:0000000180A29505                 jnz     short loc_180A2950C
+  .text:0000000180A29507                 call    nullsub_605
+  .text:0000000180A2950C                 mov     rdx, [rbx+38h]
+  .text:0000000180A29510                 mov     rcx, rdi
+  .text:0000000180A29513                 call    sub_180A9D690
+  .text:0000000180A29518                 mov     rax, [rdi+320h]
+  .text:0000000180A2951F                 mov     edx, [rax+620h]
+  .text:0000000180A29525                 cmp     edx, 1
+  .text:0000000180A29528                 jbe     short loc_180A29575
+  .text:0000000180A2952A                 mov     rax, [rdi]
+  .text:0000000180A2952D                 mov     rcx, rdi
+  .text:0000000180A29530                 call    qword ptr [rax+0CC0h]
+  .text:0000000180A29536                 cmp     eax, 9
+  .text:0000000180A29539                 jz      short loc_180A2954C
+  .text:0000000180A2953B                 mov     rax, [rdi]
+  .text:0000000180A2953E                 mov     rcx, rdi
+  .text:0000000180A29541                 call    qword ptr [rax+0CC0h]
+  .text:0000000180A29547                 cmp     eax, 0Bh
+  .text:0000000180A2954A                 jnz     short loc_180A2959C
+  .text:0000000180A2954C                 mov     rax, [rdi]
+  .text:0000000180A2954F                 mov     rcx, rdi
+  .text:0000000180A29552                 call    qword ptr [rax+0AB8h]
+  .text:0000000180A29558                 mov     rdx, rax
+  .text:0000000180A2955B                 mov     rcx, rbx
+  .text:0000000180A2955E                 call    sub_180B90310
+  .text:0000000180A29563                 test    rax, rax
+  .text:0000000180A29566                 jz      short loc_180A2959C
+  .text:0000000180A29568                 mov     rcx, rdi
+  .text:0000000180A2956B                 call    sub_180B499C0
+  .text:0000000180A29570                 jmp     loc_180A2964B
+  .text:0000000180A29575                 mov     r8d, 0FFFFFFFFh
+  .text:0000000180A2957B                 mov     rcx, rbx
+  .text:0000000180A2957E                 call    sub_180B90400
+  .text:0000000180A29583                 test    rax, rax
+  .text:0000000180A29586                 jz      short loc_180A2959C
+  .text:0000000180A29588                 xor     r9d, r9d
+  .text:0000000180A2958B                 mov     r8d, 1
+  .text:0000000180A29591                 mov     rdx, rax
+  .text:0000000180A29594                 mov     rcx, rbx
+  .text:0000000180A29597                 call    sub_180A24C80
+  .text:0000000180A2959C                 lea     rcx, [rdi+5B0h]
+  .text:0000000180A295A3                 mov     [rsp+28h+arg_0], rsi
+  .text:0000000180A295A8                 call    sub_180C3B840
+  .text:0000000180A295AD                 cmp     qword ptr [rbx+38h], 0
+  .text:0000000180A295B2                 mov     rax, [rdi]
+  .text:0000000180A295B5                 mov     rsi, [rax+1A0h] ; 0x1A0 = CBaseEntity_SetOwner
+  .text:0000000180A295BC                 jnz     short loc_180A295C6
+  .text:0000000180A295BE                 mov     rcx, rbx
+  .text:0000000180A295C1                 call    nullsub_605
+  .text:0000000180A295C6                 mov     rdx, [rbx+38h]
+  .text:0000000180A295CA                 mov     rcx, rdi
+  .text:0000000180A295CD                 call    rsi
+  .text:0000000180A295CF                 mov     rdx, rdi
+  .text:0000000180A295D2                 mov     rcx, rbx
+  .text:0000000180A295D5                 call    sub_180B8EC80
+  .text:0000000180A295DA                 cmp     qword ptr [rbx+38h], 0
+  .text:0000000180A295DF                 mov     rax, [rdi]
+  .text:0000000180A295E2                 mov     rsi, [rax+330h]
+  .text:0000000180A295E9                 jnz     short loc_180A295F3
+  .text:0000000180A295EB                 mov     rcx, rbx
+  .text:0000000180A295EE                 call    nullsub_605
+  .text:0000000180A295F3                 mov     rax, [rbx+38h]
+  .text:0000000180A295F7                 mov     rcx, rdi
+  .text:0000000180A295FA                 movzx   edx, byte ptr [rax+344h]
+  .text:0000000180A29601                 call    rsi
+  .text:0000000180A29603                 cmp     qword ptr [rbx+38h], 0
+  .text:0000000180A29608                 mov     rax, [rdi]
+  .text:0000000180A2960B                 mov     rsi, [rax+0A40h]
+  .text:0000000180A29612                 jnz     short loc_180A2961C
+  .text:0000000180A29614                 mov     rcx, rbx
+  .text:0000000180A29617                 call    nullsub_605
+  .text:0000000180A2961C                 mov     rdx, [rbx+38h]
+  .text:0000000180A29620                 mov     rcx, rdi
+  .text:0000000180A29623                 call    rsi
+  .text:0000000180A29625                 mov     rdx, rdi
+  .text:0000000180A29628                 mov     rcx, rbx
+  .text:0000000180A2962B                 call    sub_180A41310
+  .text:0000000180A29630                 mov     rsi, [rsp+28h+arg_0]
+  .text:0000000180A29635                 test    al, al
+  .text:0000000180A29637                 jz      short loc_180A2964B
+  .text:0000000180A29639                 mov     rax, [rbx]
+  .text:0000000180A2963C                 xor     r8d, r8d
+  .text:0000000180A2963F                 mov     rdx, rdi
+  .text:0000000180A29642                 mov     rcx, rbx
+  .text:0000000180A29645                 call    qword ptr [rax+0D0h]
+  .text:0000000180A2964B                 cmp     qword ptr [rbx+38h], 0
+  .text:0000000180A29650                 jnz     short loc_180A2965A
+  .text:0000000180A29652                 mov     rcx, rbx
+  .text:0000000180A29655                 call    nullsub_605
+  .text:0000000180A2965A                 mov     rcx, [rbx+38h]
+  .text:0000000180A2965E                 mov     rbx, [rsp+28h+arg_8]
+  .text:0000000180A29663                 add     rsp, 20h
+  .text:0000000180A29667                 pop     rdi
+  .text:0000000180A29668                 jmp     sub_1801E65E0
+procedure: |-
+  __int64 __fastcall CCSPlayer_WeaponServices_EquipWeapon(_QWORD *a1, _QWORD *a2)
+  {
+    __int64 v4; // rdx
+    __int64 v5; // rax
+    __int64 v6; // rax
+    void (__fastcall *v7)(_QWORD *, _QWORD); // rsi
+    void (__fastcall *v8)(_QWORD *, _QWORD); // rsi
+    void (__fastcall *v9)(_QWORD *, _QWORD); // rsi
+
+    if ( !a1[7] )
+      nullsub_605(a1);
+    sub_180A9D690(a2, a1[7]);
+    v4 = *(unsigned int *)(a2[100] + 1568LL);
+    if ( (unsigned int)v4 <= 1 )
+    {
+      v6 = sub_180B90400(a1, v4, 0xFFFFFFFFLL);
+      if ( v6 )
+        sub_180A24C80(a1, v6, 1, 0);
+    }
+    else if ( (*(unsigned int (__fastcall **)(_QWORD *))(*a2 + 3264LL))(a2) == 9
+           || (*(unsigned int (__fastcall **)(_QWORD *))(*a2 + 3264LL))(a2) == 11 )
+    {
+      v5 = (*(__int64 (__fastcall **)(_QWORD *))(*a2 + 2744LL))(a2);
+      if ( sub_180B90310(a1, v5) )
+      {
+        sub_180B499C0(a2);
+        goto LABEL_18;
+      }
+    }
+    sub_180C3B840((__int64)(a2 + 182));
+    v7 = *(void (__fastcall **)(_QWORD *, _QWORD))(*a2 + 416LL); // 416 = 0x1A0 = CBaseEntity_SetOwner
+    if ( !a1[7] )
+      nullsub_605(a1);
+    v7(a2, a1[7]);
+    sub_180B8EC80(a1, a2);
+    v8 = *(void (__fastcall **)(_QWORD *, _QWORD))(*a2 + 816LL);
+    if ( !a1[7] )
+      nullsub_605(a1);
+    v8(a2, *(unsigned __int8 *)(a1[7] + 836LL));
+    v9 = *(void (__fastcall **)(_QWORD *, _QWORD))(*a2 + 2624LL);
+    if ( !a1[7] )
+      nullsub_605(a1);
+    v9(a2, a1[7]);
+    if ( (unsigned __int8)sub_180A41310(a1, a2) )
+      (*(void (__fastcall **)(_QWORD *, _QWORD *, _QWORD))(*a1 + 208LL))(a1, a2, 0);
+  LABEL_18:
+    if ( !a1[7] )
+      nullsub_605(a1);
+    return sub_1801E65E0(a1[7]);
+  }

@@ -1,0 +1,96 @@
+func_name: CGameResourceService_BuildResourceManifest
+func_va: '0x8dff80'
+disasm_code: |-
+  .text:00000000008DFF80                 push    rbp
+  .text:00000000008DFF81                 mov     rbp, rsp
+  .text:00000000008DFF84                 push    r15
+  .text:00000000008DFF86                 push    r14
+  .text:00000000008DFF88                 mov     r14, r9
+  .text:00000000008DFF8B                 push    r13
+  .text:00000000008DFF8D                 mov     r13, r8
+  .text:00000000008DFF90                 push    r12
+  .text:00000000008DFF92                 mov     r12, rdi
+  .text:00000000008DFF95                 push    rbx
+  .text:00000000008DFF96                 mov     ebx, edx
+  .text:00000000008DFF98                 sub     rsp, 28h
+  .text:00000000008DFF9C                 mov     [rbp+var_44], esi
+  .text:00000000008DFF9F                 xor     esi, esi
+  .text:00000000008DFFA1                 test    rcx, rcx
+  .text:00000000008DFFA4                 jz      short loc_8DFFAA
+  .text:00000000008DFFA6                 mov     rsi, [rcx+8]
+  .text:00000000008DFFAA                 lea     r15, [rbp+var_38]
+  .text:00000000008DFFAE                 mov     [rbp+var_50], rcx
+  .text:00000000008DFFB2                 mov     rdi, r15
+  .text:00000000008DFFB5                 call    sub_57A410
+  .text:00000000008DFFBA                 mov     rdx, [rbp+var_38]
+  .text:00000000008DFFBE                 lea     rax, byte_26801C
+  .text:00000000008DFFC5                 mov     esi, ebx
+  .text:00000000008DFFC7                 lea     rdi, aCgameresources_7; "CGameResourceService::BuildResourceMani"...
+  .text:00000000008DFFCE                 test    rdx, rdx
+  .text:00000000008DFFD1                 cmovz   rdx, rax
+  .text:00000000008DFFD5                 xor     eax, eax
+  .text:00000000008DFFD7                 call    sub_2B3060
+  .text:00000000008DFFDC                 mov     rdi, [r12+50h] ; 0x50 = CGameResourceService::m_pEntitySystem
+  .text:00000000008DFFE1                 test    rdi, rdi
+  .text:00000000008DFFE4                 jz      short loc_8E0005
+  .text:00000000008DFFE6                 mov     rax, [rdi]
+  .text:00000000008DFFE9                 sub     rsp, 8
+  .text:00000000008DFFED                 mov     edx, ebx
+  .text:00000000008DFFEF                 xor     r9d, r9d
+  .text:00000000008DFFF2                 mov     rcx, [rbp+var_50]
+  .text:00000000008DFFF6                 mov     r8, r13
+  .text:00000000008DFFF9                 mov     rax, [rax]
+  .text:00000000008DFFFC                 push    r14
+  .text:00000000008DFFFE                 mov     esi, [rbp+var_44]
+  .text:00000000008E0001                 call    rax
+  .text:00000000008E0003                 pop     rax
+  .text:00000000008E0004                 pop     rdx
+  .text:00000000008E0005                 mov     rdx, [rbp+var_38]
+  .text:00000000008E0009                 mov     esi, ebx
+  .text:00000000008E000B                 lea     rax, byte_26801C
+  .text:00000000008E0012                 lea     rdi, aCgameresources_8; "CGameResourceService::BuildResourceMani"...
+  .text:00000000008E0019                 test    rdx, rdx
+  .text:00000000008E001C                 cmovz   rdx, rax
+  .text:00000000008E0020                 xor     eax, eax
+  .text:00000000008E0022                 call    sub_2B3060
+  .text:00000000008E0027                 cmp     [rbp+var_38], 0
+  .text:00000000008E002C                 jz      short loc_8E0036
+  .text:00000000008E002E                 mov     rdi, r15
+  .text:00000000008E0031                 call    sub_2B3B80
+  .text:00000000008E0036                 lea     rsp, [rbp-28h]
+  .text:00000000008E003A                 pop     rbx
+  .text:00000000008E003B                 pop     r12
+  .text:00000000008E003D                 pop     r13
+  .text:00000000008E003F                 pop     r14
+  .text:00000000008E0041                 pop     r15
+  .text:00000000008E0043                 pop     rbp
+  .text:00000000008E0044                 retn
+procedure: |-
+  __int64 __fastcall CGameResourceService_BuildResourceManifest(__int64 a1, unsigned int a2, unsigned int a3, __int64 a4, __int64 a5, __int64 a6)
+  {
+    __int64 v9; // rsi
+    const char *v10; // rdx
+    void (__fastcall ***v11)(_QWORD, _QWORD, _QWORD, __int64, __int64, _QWORD, __int64); // rdi
+    const char *v12; // rdx
+    __int64 result; // rax
+    _QWORD v16[7]; // [rsp+18h] [rbp-38h] BYREF
+
+    v9 = 0;
+    if ( a4 )
+      v9 = *(_QWORD *)(a4 + 8);
+    sub_57A410(v16, v9);
+    v10 = (const char *)v16[0];
+    if ( !v16[0] )
+      v10 = &byte_26801C;
+    sub_2B3060("CGameResourceService::BuildResourceManifest(start) [%d entities - %s]", a3, v10);
+    v11 = *(void (__fastcall ****)(_QWORD, _QWORD, _QWORD, __int64, __int64, _QWORD, __int64))(a1 + 80); // 80 = 0x50 = CGameResourceService::m_pEntitySystem
+    if ( v11 )
+      (**v11)(v11, a2, a3, a4, a5, 0, a6);
+    v12 = (const char *)v16[0];
+    if ( !v16[0] )
+      v12 = &byte_26801C;
+    result = sub_2B3060("CGameResourceService::BuildResourceManifest(finish) [%d entities - %s]", a3, v12);
+    if ( v16[0] )
+      return sub_2B3B80(v16);
+    return result;
+  }

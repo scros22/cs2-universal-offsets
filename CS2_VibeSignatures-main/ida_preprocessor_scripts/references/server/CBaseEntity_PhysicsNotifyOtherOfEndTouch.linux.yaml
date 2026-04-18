@@ -1,0 +1,31 @@
+func_name: CBaseEntity_PhysicsNotifyOtherOfEndTouch
+func_va: '0x178f630'
+disasm_code: |-
+  .text:000000000178F630                 test    rsi, rsi
+  .text:000000000178F633                 jz      short locret_178F658
+  .text:000000000178F635                 mov     rax, [rdi+10h]
+  .text:000000000178F639                 test    byte ptr [rax+31h], 2
+  .text:000000000178F63D                 jnz     short locret_178F658
+  .text:000000000178F63F                 mov     rax, [rsi+10h]
+  .text:000000000178F643                 test    byte ptr [rax+31h], 2
+  .text:000000000178F647                 jnz     short locret_178F658
+  .text:000000000178F649                 mov     rax, [rdi]
+  .text:000000000178F64C                 jmp     qword ptr [rax+498h] ; 0x498 = CBaseEntity_EndTouch
+  .text:000000000178F658                 retn
+procedure: |-
+  __int64 __fastcall CBaseEntity_PhysicsNotifyOtherOfEndTouch(_QWORD *a1, __int64 a2)
+  {
+    __int64 result; // rax
+
+    if ( a2 )
+    {
+      result = a1[2];
+      if ( (*(_BYTE *)(result + 49) & 2) == 0 )
+      {
+        result = *(_QWORD *)(a2 + 16);
+        if ( (*(_BYTE *)(result + 49) & 2) == 0 )
+          return (*(__int64 (__fastcall **)(_QWORD *))(*a1 + 1176LL))(a1); // 1176 = 0x498 = CBaseEntity_EndTouch
+      }
+    }
+    return result;
+  }

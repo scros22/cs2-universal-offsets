@@ -1,0 +1,146 @@
+func_name: CFlattenedSerializers_CreateFieldChangedEventQueue
+func_va: '0x1800aabe0'
+disasm_code: |-
+  .text:00000001800AABE0                 mov     [rsp+arg_10], rbx
+  .text:00000001800AABE5                 push    rbp
+  .text:00000001800AABE6                 push    rdi
+  .text:00000001800AABE7                 push    r15
+  .text:00000001800AABE9                 sub     rsp, 20h
+  .text:00000001800AABED                 mov     rax, cs:g_pMemAlloc
+  .text:00000001800AABF4                 mov     r15, rdx
+  .text:00000001800AABF7                 mov     edx, 0E8h
+  .text:00000001800AABFC                 mov     rbp, r8
+  .text:00000001800AABFF                 mov     rcx, [rax]
+  .text:00000001800AAC02                 mov     rax, [rcx]
+  .text:00000001800AAC05                 call    qword ptr [rax+8]
+  .text:00000001800AAC08                 xor     edi, edi
+  .text:00000001800AAC0A                 mov     rbx, rax
+  .text:00000001800AAC0D                 test    rax, rax
+  .text:00000001800AAC10                 jz      loc_1800AAD04
+  .text:00000001800AAC16                 mov     [rsp+38h+arg_0], rsi
+  .text:00000001800AAC1B                 lea     rax, ??_7CNetworkFieldChangedEventQueue@@6B@; const CNetworkFieldChangedEventQueue::`vftable'
+  .text:00000001800AAC22                 mov     [rbx], rax
+  .text:00000001800AAC25                 mov     [rbx+10h], rdi
+  .text:00000001800AAC29                 mov     [rbx+18h], rdi
+  .text:00000001800AAC2D                 mov     [rbx+8], edi
+  .text:00000001800AAC30                 mov     [rsp+38h+arg_8], r14
+  .text:00000001800AAC35                 lea     r14, [rbx+28h]
+  .text:00000001800AAC39                 mov     [r14], rdi
+  .text:00000001800AAC3C                 mov     dword ptr [r14+8], 20h ; ' '
+  .text:00000001800AAC44                 mov     dword ptr [r14+0Ch], 80000000h
+  .text:00000001800AAC4C                 test    r14b, 3
+  .text:00000001800AAC50                 jz      short loc_1800AAC57
+  .text:00000001800AAC52                 call    sub_1801BA330
+  .text:00000001800AAC57                 mov     rcx, cs:g_pNetworkMessages
+  .text:00000001800AAC5E                 lea     rax, [r14+10h]
+  .text:00000001800AAC62                 mov     [r14], rax
+  .text:00000001800AAC65                 mov     [rbx+20h], edi
+  .text:00000001800AAC68                 mov     [rbx+0B8h], rdi
+  .text:00000001800AAC6F                 mov     [rbx+0C0h], rdi
+  .text:00000001800AAC76                 mov     [rbx+0C8h], r15
+  .text:00000001800AAC7D                 mov     [rbx+0D0h], rbp
+  .text:00000001800AAC84                 mov     dword ptr [rbx+0D8h], 0FFFFFFFFh
+  .text:00000001800AAC8E                 mov     rax, [rcx]
+  .text:00000001800AAC91                 call    qword ptr [rax+0E0h]; g_pNetworkMessages->GetFieldChangeCallbackOrderCount(),  0xE0 = INetworkMessages_GetFieldChangeCallbackOrderCount
+  .text:00000001800AAC97                 mov     edi, eax
+  .text:00000001800AAC99                 mov     [rbx+0DCh], eax
+  .text:00000001800AAC9F                 mov     byte ptr [rbx+0E0h], 0
+  .text:00000001800AACA6                 mov     edx, edi
+  .text:00000001800AACA8                 sub     eax, [rbx+20h]
+  .text:00000001800AACAB                 test    eax, eax
+  .text:00000001800AACAD                 jle     short loc_1800AACC8
+  .text:00000001800AACAF                 mov     eax, [rbx+30h]
+  .text:00000001800AACB2                 cmp     edi, eax
+  .text:00000001800AACB4                 jle     short loc_1800AACCA
+  .text:00000001800AACB6                 sub     edx, eax
+  .text:00000001800AACB8                 mov     rcx, r14
+  .text:00000001800AACBB                 call    sub_18008C610
+  .text:00000001800AACC0                 mov     edx, [rbx+0DCh]
+  .text:00000001800AACC6                 jmp     short loc_1800AACCA
+  .text:00000001800AACC8                 jns     short loc_1800AACCD
+  .text:00000001800AACCA                 mov     [rbx+20h], edi
+  .text:00000001800AACCD                 mov     rcx, cs:g_pNetworkMessages
+  .text:00000001800AACD4                 mov     r8, [rbx+28h]
+  .text:00000001800AACD8                 mov     rax, [rcx]
+  .text:00000001800AACDB                 call    qword ptr [rax+0E8h]; g_pNetworkMessages->GetFieldChangeCallbackPriorities(...),  0xE8 = INetworkMessages_GetFieldChangeCallbackPriorities
+  .text:00000001800AACE1                 mov     rcx, rbx
+  .text:00000001800AACE4                 call    sub_1800AA8F0
+  .text:00000001800AACE9                 mov     r14, [rsp+38h+arg_8]
+  .text:00000001800AACEE                 mov     rax, rbx
+  .text:00000001800AACF1                 mov     rsi, [rsp+38h+arg_0]
+  .text:00000001800AACF6                 mov     rbx, [rsp+38h+arg_10]
+  .text:00000001800AACFB                 add     rsp, 20h
+  .text:00000001800AACFF                 pop     r15
+  .text:00000001800AAD01                 pop     rdi
+  .text:00000001800AAD02                 pop     rbp
+  .text:00000001800AAD03                 retn
+  .text:00000001800AAD04                 mov     rbx, [rsp+38h+arg_10]
+  .text:00000001800AAD09                 mov     rax, rdi
+  .text:00000001800AAD0C                 add     rsp, 20h
+  .text:00000001800AAD10                 pop     r15
+  .text:00000001800AAD12                 pop     rdi
+  .text:00000001800AAD13                 pop     rbp
+  .text:00000001800AAD14                 retn
+procedure: |-
+  __int64 __fastcall CFlattenedSerializers_CreateFieldChangedEventQueue(__int64 a1, __int64 a2, __int64 a3)
+  {
+    __int64 v5; // rbx
+    __int64 v6; // rcx
+    unsigned int v7; // edi
+    __int64 v8; // rdx
+    int v9; // eax
+    int v10; // eax
+
+    v5 = (*(__int64 (__fastcall **)(_QWORD, __int64))(*g_pMemAlloc + 8LL))(g_pMemAlloc, 232);
+    if ( v5 )
+    {
+      *(_QWORD *)v5 = &CNetworkFieldChangedEventQueue::`vftable';
+      *(_QWORD *)(v5 + 16) = 0;
+      *(_QWORD *)(v5 + 24) = 0;
+      *(_DWORD *)(v5 + 8) = 0;
+      *(_QWORD *)(v5 + 40) = 0;
+      *(_DWORD *)(v5 + 48) = 32;
+      *(_DWORD *)(v5 + 52) = 0x80000000;
+      if ( (((_BYTE)v5 + 40) & 3) != 0 )
+        sub_1801BA330();
+      v6 = g_pNetworkMessages;
+      *(_QWORD *)(v5 + 40) = v5 + 56;
+      *(_DWORD *)(v5 + 32) = 0;
+      *(_QWORD *)(v5 + 184) = 0;
+      *(_QWORD *)(v5 + 192) = 0;
+      *(_QWORD *)(v5 + 200) = a2;
+      *(_QWORD *)(v5 + 208) = a3;
+      *(_DWORD *)(v5 + 216) = -1;
+      v7 = (*(__int64 (__fastcall **)(__int64))(*(_QWORD *)v6 + 224LL))(v6);// g_pNetworkMessages->GetFieldChangeCallbackOrderCount(),  224LL = INetworkMessages_GetFieldChangeCallbackOrderCount
+      *(_DWORD *)(v5 + 220) = v7;
+      *(_BYTE *)(v5 + 224) = 0;
+      v8 = v7;
+      v9 = v7 - *(_DWORD *)(v5 + 32);
+      if ( v9 <= 0 )
+      {
+        if ( v9 >= 0 )
+        {
+  LABEL_9:
+          (*(void (__fastcall **)(__int64, __int64, _QWORD))(*(_QWORD *)g_pNetworkMessages
+                                                           + 232LL))(// g_pNetworkMessages->GetFieldChangeCallbackPriorities(...),  232LL = INetworkMessages_GetFieldChangeCallbackPriorities
+            g_pNetworkMessages,
+            v8,
+            *(_QWORD *)(v5 + 40));
+          sub_1800AA8F0(v5);
+          return v5;
+        }
+      }
+      else
+      {
+        v10 = *(_DWORD *)(v5 + 48);
+        if ( (int)v7 > v10 )
+        {
+          sub_18008C610(v5 + 40, v7 - v10);
+          v8 = *(unsigned int *)(v5 + 220);
+        }
+      }
+      *(_DWORD *)(v5 + 32) = v7;
+      goto LABEL_9;
+    }
+    return 0;
+  }

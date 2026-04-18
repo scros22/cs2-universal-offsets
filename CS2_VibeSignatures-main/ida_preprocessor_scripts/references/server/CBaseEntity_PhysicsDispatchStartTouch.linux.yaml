@@ -1,0 +1,89 @@
+func_name: CBaseEntity_PhysicsDispatchStartTouch
+func_va: '0x178f670'
+disasm_code: |-
+  .text:000000000178F670                 push    rbp
+  .text:000000000178F671                 mov     rbp, rsp
+  .text:000000000178F674                 push    r15
+  .text:000000000178F676                 push    r14
+  .text:000000000178F678                 lea     r15, [rbp+var_50]
+  .text:000000000178F67C                 mov     r14, rdx
+  .text:000000000178F67F                 push    r13
+  .text:000000000178F681                 mov     r13, rcx
+  .text:000000000178F684                 push    r12
+  .text:000000000178F686                 mov     r12, rdi
+  .text:000000000178F689                 mov     rdi, r15
+  .text:000000000178F68C                 push    rbx
+  .text:000000000178F68D                 mov     rbx, rsi
+  .text:000000000178F690                 sub     rsp, 28h
+  .text:000000000178F694                 mov     rsi, [rcx+8]
+  .text:000000000178F698                 mov     rax, [rsi]
+  .text:000000000178F69B                 call    qword ptr [rax+198h]
+  .text:000000000178F6A1                 mov     rdx, r14
+  .text:000000000178F6A4                 mov     rsi, r15
+  .text:000000000178F6A7                 lea     r14, xmmword_25BD500
+  .text:000000000178F6AE                 mov     rdi, r14
+  .text:000000000178F6B1                 call    sub_E3C380
+  .text:000000000178F6B6                 mov     qword ptr cs:xmmword_25BD500+8, rbx
+  .text:000000000178F6BD                 mov     cs:qword_25BD4F8, r13
+  .text:000000000178F6C4                 test    rbx, rbx
+  .text:000000000178F6C7                 jz      short loc_178F6FE
+  .text:000000000178F6C9                 mov     rax, [r12+10h]
+  .text:000000000178F6CE                 test    byte ptr [rax+31h], 2
+  .text:000000000178F6D2                 jnz     short loc_178F731
+  .text:000000000178F6D4                 mov     rax, [rbx+10h]
+  .text:000000000178F6D8                 test    byte ptr [rax+31h], 2
+  .text:000000000178F6DC                 jnz     short loc_178F731
+  .text:000000000178F6DE                 mov     rax, [r12]
+  .text:000000000178F6E2                 mov     rsi, rbx
+  .text:000000000178F6E5                 mov     rdi, r12
+  .text:000000000178F6E8                 call    qword ptr [rax+490h] ; 0x490 = CBaseEntity_StartTouch
+  .text:000000000178F6EE                 mov     rax, [r12]
+  .text:000000000178F6F2                 mov     rsi, rbx
+  .text:000000000178F6F5                 mov     rdi, r12
+  .text:000000000178F6F8                 call    qword ptr [rax+498h] ; 0x498 = CBaseEntity_Touch
+  .text:000000000178F6FE                 mov     rax, [rbx+10h]
+  .text:000000000178F702                 test    byte ptr [rax+31h], 2
+  .text:000000000178F706                 jnz     short loc_178F731
+  .text:000000000178F708                 mov     rax, [r12+10h]
+  .text:000000000178F70D                 test    byte ptr [rax+31h], 2
+  .text:000000000178F711                 jnz     short loc_178F731
+  .text:000000000178F713                 mov     rax, [rbx]
+  .text:000000000178F716                 mov     rsi, r12
+  .text:000000000178F719                 mov     rdi, rbx
+  .text:000000000178F71C                 call    qword ptr [rax+490h] ; 0x490 = CBaseEntity_StartTouch
+  .text:000000000178F722                 mov     rax, [rbx]
+  .text:000000000178F725                 mov     rsi, r12
+  .text:000000000178F728                 mov     rdi, rbx
+  .text:000000000178F72B                 call    qword ptr [rax+498h] ; 0x498 = CBaseEntity_Touch
+  .text:000000000178F731                 add     rsp, 28h
+  .text:000000000178F735                 mov     rdi, r14
+  .text:000000000178F738                 pop     rbx
+  .text:000000000178F739                 pop     r12
+  .text:000000000178F73B                 pop     r13
+  .text:000000000178F73D                 pop     r14
+  .text:000000000178F73F                 pop     r15
+  .text:000000000178F741                 pop     rbp
+  .text:000000000178F742                 jmp     sub_1B6E700
+procedure: |-
+  __int64 __fastcall CBaseEntity_PhysicsDispatchStartTouch(_QWORD *a1, _QWORD *a2, __int64 a3, __int64 a4)
+  {
+    _BYTE v7[80]; // [rsp+0h] [rbp-50h] BYREF
+
+    (*(void (__fastcall **)(_BYTE *))(**(_QWORD **)(a4 + 8) + 408LL))(v7);
+    sub_E3C380(&xmmword_25BD500, v7, a3);
+    *((_QWORD *)&xmmword_25BD500 + 1) = a2;
+    qword_25BD4F8 = a4;
+    if ( a2 )
+    {
+      if ( (*(_BYTE *)(a1[2] + 49LL) & 2) != 0 || (*(_BYTE *)(a2[2] + 49LL) & 2) != 0 )
+        return sub_1B6E700(&xmmword_25BD500);
+      (*(void (__fastcall **)(_QWORD *, _QWORD *))(*a1 + 1168LL))(a1, a2); // 1168 = 0x490 = CBaseEntity_StartTouch
+      (*(void (__fastcall **)(_QWORD *, _QWORD *))(*a1 + 1176LL))(a1, a2); // 1176 = 0x498 = CBaseEntity_Touch
+    }
+    if ( (*(_BYTE *)(a2[2] + 49LL) & 2) == 0 && (*(_BYTE *)(a1[2] + 49LL) & 2) == 0 )
+    {
+      (*(void (__fastcall **)(_QWORD *, _QWORD *))(*a2 + 1168LL))(a2, a1); // 1168 = 0x490 = CBaseEntity_StartTouch
+      (*(void (__fastcall **)(_QWORD *, _QWORD *))(*a2 + 1176LL))(a2, a1); // 1176 = 0x498 = CBaseEntity_Touch
+    }
+    return sub_1B6E700(&xmmword_25BD500);
+  }

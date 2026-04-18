@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(hl2sdk_cs2)",
+      "Edit(hl2sdk_cs2)",
+      "MultiEdit(hl2sdk_cs2)",
+      "Write(hl2sdk_cs2)",
+      "Read(.claude/skills)",
+      "Edit(.claude/skills)",
+      "MultiEdit(.claude/skills)",
+      "Write(.claude/skills)",
+      "Read(docs)",
+      "Edit(docs)",
+      "MultiEdit(docs)",
+      "Write(docs)",
+      "Read(ida_preprocessor_scripts)",
+      "Edit(ida_preprocessor_scripts)",
+      "MultiEdit(ida_preprocessor_scripts)",
+      "Write(ida_preprocessor_scripts)",
+      "Bash(mkdir -p)",
+      "Bash(mv -p)",
+      "Bash(grep -n)",
+      "Bash(grep -rn)",
+      "Bash(grep -l)",
+      "Bash(sed -n)",
+      "Bash(git status)",
+      "Bash(git diff)",
+      "Bash(git log)",
+      "Bash(cd * && git status)",
+      "Bash(cd * && git diff)",
+      "Bash(cd * && git log)",
+      "Bash(cd * && uv run ida_analyze_bin.py)",
+      "Bash(cd * && uv run generate_reference_yaml.py *)",
+      "Bash(cd * && rm -rf \"*/.claude/skills/find-*\")"
+    ]
+  }
+}

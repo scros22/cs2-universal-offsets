@@ -1,0 +1,124 @@
+func_name: CSource2GameClients_StartHLTVServer
+func_va: '0x16fc150'
+disasm_code: |-
+  .text:00000000016FC150                 push    rbp
+  .text:00000000016FC151                 mov     rbp, rsp
+  .text:00000000016FC154                 push    r15
+  .text:00000000016FC156                 push    r14
+  .text:00000000016FC158                 push    r13
+  .text:00000000016FC15A                 push    r12
+  .text:00000000016FC15C                 mov     r12d, esi
+  .text:00000000016FC15F                 push    rbx
+  .text:00000000016FC160                 sub     rsp, 8
+  .text:00000000016FC164                 call    sub_A4ACC0
+  .text:00000000016FC169                 test    rax, rax
+  .text:00000000016FC16C                 jz      loc_16FC138
+  .text:00000000016FC172                 lea     r14, [rax+20h]
+  .text:00000000016FC176                 mov     edi, r12d
+  .text:00000000016FC179                 mov     rbx, rax
+  .text:00000000016FC17C                 call    LegacyGameEventListener
+  .text:00000000016FC181                 lea     rdx, sub_16FC130
+  .text:00000000016FC188                 mov     r13, rax
+  .text:00000000016FC18B                 mov     rax, [rbx+20h]
+  .text:00000000016FC18F                 lea     rbx, off_23E86A0; "hltv_chat"
+  .text:00000000016FC196                 mov     rax, [rax+58h]
+  .text:00000000016FC19A                 cmp     rax, rdx
+  .text:00000000016FC19D                 jnz     loc_16FC238
+  .text:00000000016FC1A3                 mov     r15, [rbx]
+  .text:00000000016FC1A6                 test    r15, r15
+  .text:00000000016FC1A9                 jz      short loc_16FC1F2
+  .text:00000000016FC1AB                 lea     rax, gameeventmanager
+  .text:00000000016FC1B2                 lea     r14, aCsource2gamecl; "CSource2GameClients::StartHLTVServer: g"...
+  .text:00000000016FC1B9                 mov     r12, [rax]
+  .text:00000000016FC1BC                 nop     dword ptr [rax+00h]
+  .text:00000000016FC1C0                 xor     edx, edx
+  .text:00000000016FC1C2                 mov     rsi, r15
+  .text:00000000016FC1C5                 mov     rdi, r12
+  .text:00000000016FC1C8                 call    sub_155A240
+  .text:00000000016FC1CD                 mov     rdx, rax
+  .text:00000000016FC1D0                 test    rax, rax
+  .text:00000000016FC1D3                 jz      short loc_16FC208
+  .text:00000000016FC1D5                 mov     ecx, 2
+  .text:00000000016FC1DA                 mov     rsi, r13
+  .text:00000000016FC1DD                 mov     rdi, r12
+  .text:00000000016FC1E0                 call    sub_1538520
+  .text:00000000016FC1E5                 mov     r15, [rbx+8]
+  .text:00000000016FC1E9                 add     rbx, 8
+  .text:00000000016FC1ED                 test    r15, r15
+  .text:00000000016FC1F0                 jnz     short loc_16FC1C0
+  .text:00000000016FC1F2                 add     rsp, 8
+  .text:00000000016FC1F6                 pop     rbx
+  .text:00000000016FC1F7                 pop     r12
+  .text:00000000016FC1F9                 pop     r13
+  .text:00000000016FC1FB                 pop     r14
+  .text:00000000016FC1FD                 pop     r15
+  .text:00000000016FC1FF                 pop     rbp
+  .text:00000000016FC200                 retn
+  .text:00000000016FC208                 mov     rsi, r15
+  .text:00000000016FC20B                 mov     rdi, r14
+  .text:00000000016FC20E                 xor     eax, eax
+  .text:00000000016FC210                 call    sub_97F110
+  .text:00000000016FC215                 mov     r15, [rbx+8]
+  .text:00000000016FC219                 add     rbx, 8
+  .text:00000000016FC21D                 test    r15, r15
+  .text:00000000016FC220                 jnz     short loc_16FC1C0
+  .text:00000000016FC222                 add     rsp, 8
+  .text:00000000016FC226                 pop     rbx
+  .text:00000000016FC227                 pop     r12
+  .text:00000000016FC229                 pop     r13
+  .text:00000000016FC22B                 pop     r14
+  .text:00000000016FC22D                 pop     r15
+  .text:00000000016FC22F                 pop     rbp
+  .text:00000000016FC230                 retn
+  .text:00000000016FC238                 mov     rdi, r14
+  .text:00000000016FC23B                 call    rax
+  .text:00000000016FC23D                 mov     rbx, rax
+  .text:00000000016FC240                 jmp     loc_16FC1A3
+procedure: |-
+  char **__fastcall sub_16FC150(__int64 a1, unsigned int a2)
+  {
+    __int64 v2; // rax
+    __int64 v3; // r14
+    __int64 v4; // rbx
+    __int64 v5; // r13
+    __int64 v6; // rax
+    char **v7; // rbx
+    char **result; // rax
+    const char *i; // r15
+    __int64 v10; // rdx
+
+    v2 = sub_A4ACC0();
+    if ( !v2 )
+    {
+      LegacyGameEventListener(a2);
+      BUG();
+    }
+    v3 = v2 + 32;
+    v4 = v2;
+    v5 = LegacyGameEventListener(a2);
+    v6 = *(_QWORD *)(v4 + 32);
+    v7 = off_23E86A0;
+    result = *(char ***)(v6 + 88);
+    if ( result != (char **)sub_16FC130 )
+    {
+      result = (char **)((__int64 (__fastcall *)(__int64))result)(v3);
+      v7 = result;
+    }
+    for ( i = *v7; i; ++v7 )
+    {
+      while ( 1 )
+      {
+        v10 = sub_155A240(&s_GameEventManager, i, 0);
+        if ( !v10 )
+          break;
+        result = (char **)sub_1538520(&s_GameEventManager, v5, v10, 2);
+        i = v7[1];
+        ++v7;
+        if ( !i )
+          return result;
+      }
+      result = (char **)sub_97F110("CSource2GameClients::StartHLTVServer: game event %s not found.\n", i);
+      i = v7[1];
+    }
+    return result;
+  }

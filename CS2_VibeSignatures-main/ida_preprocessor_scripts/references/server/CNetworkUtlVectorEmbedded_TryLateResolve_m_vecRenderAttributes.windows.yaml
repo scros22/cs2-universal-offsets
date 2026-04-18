@@ -1,0 +1,333 @@
+func_name: CNetworkUtlVectorEmbedded_TryLateResolve_m_vecRenderAttributes
+func_va: '0x1805f0070'
+disasm_code: |-
+  .text:00000001805F0070                 push    rbp
+  .text:00000001805F0072                 push    rbx
+  .text:00000001805F0073                 push    r14
+  .text:00000001805F0075                 lea     rbp, [rsp-47h]
+  .text:00000001805F007A                 sub     rsp, 90h
+  .text:00000001805F0081                 xor     ebx, ebx
+  .text:00000001805F0083                 mov     r14, rcx
+  .text:00000001805F0086                 mov     [rbp+57h+arg_0], ebx
+  .text:00000001805F0089                 test    byte ptr [rcx+61h], 1
+  .text:00000001805F008D                 jz      short loc_1805F009D
+  .text:00000001805F008F                 xor     al, al
+  .text:00000001805F0091                 add     rsp, 90h
+  .text:00000001805F0098                 pop     r14
+  .text:00000001805F009A                 pop     rbx
+  .text:00000001805F009B                 pop     rbp
+  .text:00000001805F009C                 retn
+  .text:00000001805F009D                 mov     rdx, [rcx+18h]
+  .text:00000001805F00A1                 mov     [rsp+0A0h+var_20], rdi
+  .text:00000001805F00A9                 test    rdx, rdx
+  .text:00000001805F00AC                 jz      loc_1805F0339
+  .text:00000001805F00B2                 lea     rcx, [rbp+57h+var_60]
+  .text:00000001805F00B6                 call    sub_1811A5F20
+  .text:00000001805F00BB                 mov     rcx, cs:g_pFlattenedSerializers
+  .text:00000001805F00C2                 lea     r8, [rbp+57h+var_60]
+  .text:00000001805F00C6                 mov     r9, [r14+18h]
+  .text:00000001805F00CA                 lea     rdx, [rbp+57h+var_50]
+  .text:00000001805F00CE                 mov     rax, [rcx]
+  .text:00000001805F00D1                 mov     r10, [rax+0A0h]
+  .text:00000001805F00D8                 lea     rax, [r14+60h]
+  .text:00000001805F00DC                 mov     [rsp+0A0h+var_78], rax
+  .text:00000001805F00E1                 mov     [rsp+0A0h+var_80], r14
+  .text:00000001805F00E6                 call    r10
+  .text:00000001805F00E9                 lea     rdi, [r14+28h]
+  .text:00000001805F00ED                 cmp     rax, rdi
+  .text:00000001805F00F0                 jz      short loc_1805F012A
+  .text:00000001805F00F2                 mov     [rdi+1Ah], bl
+  .text:00000001805F00F5                 movzx   ecx, word ptr [rax+18h]
+  .text:00000001805F00F9                 cmp     cx, 0Ah
+  .text:00000001805F00FD                 jg      loc_1805F01D8
+  .text:00000001805F0103                 mov     [rdi+18h], cx
+  .text:00000001805F0107                 movsx   rcx, word ptr [rax+18h]
+  .text:00000001805F010C                 test    cx, cx
+  .text:00000001805F010F                 jle     short loc_1805F012A
+  .text:00000001805F0111                 mov     r8, rcx
+  .text:00000001805F0114                 add     r8, r8
+  .text:00000001805F0117                 cmp     [rax+1Ah], bl
+  .text:00000001805F011A                 jz      short loc_1805F011F
+  .text:00000001805F011C                 mov     rax, [rax]
+  .text:00000001805F011F                 mov     rdx, rax
+  .text:00000001805F0122                 mov     rcx, rdi
+  .text:00000001805F0125                 call    sub_1814DA740
+  .text:00000001805F012A                 movzx   eax, byte ptr [r14+61h]
+  .text:00000001805F012F                 mov     [rsp+0A0h+var_28], r15
+  .text:00000001805F0134                 cmp     bx, [r14+40h]
+  .text:00000001805F0139                 jnz     loc_1805F01EB
+  .text:00000001805F013F                 test    al, 2
+  .text:00000001805F0141                 jnz     loc_1805F0334
+  .text:00000001805F0147                 mov     rcx, [r14+18h]
+  .text:00000001805F014B                 lea     r8, [rbp+57h+arg_8]
+  .text:00000001805F014F                 or      al, 2
+  .text:00000001805F0151                 mov     [rbp+57h+arg_0], 0FFFFFFFFh
+  .text:00000001805F0158                 lea     rdx, [rbp+57h+arg_0]
+  .text:00000001805F015C                 mov     [r14+61h], al
+  .text:00000001805F0160                 mov     [rbp+57h+arg_8], rbx
+  .text:00000001805F0164                 call    sub_1811A5E90
+  .text:00000001805F0169                 mov     rcx, cs:g_pNetworkMessages
+  .text:00000001805F0170                 mov     rax, [rcx]
+  .text:00000001805F0173                 call    qword ptr [rax+120h]; g_pNetworkMessages->GetLoggingChannel(), 0x120 = INetworkMessages_GetLoggingChannel
+  .text:00000001805F0179                 mov     ecx, eax
+  .text:00000001805F017B                 mov     edx, 1
+  .text:00000001805F0180                 call    cs:LoggingSystem_IsChannelEnabled
+  .text:00000001805F0186                 test    al, al
+  .text:00000001805F0188                 jz      loc_1805F0323
+  .text:00000001805F018E                 mov     rax, [rbp+57h+arg_8]
+  .text:00000001805F0192                 lea     r15, byte_18152DF88
+  .text:00000001805F0199                 mov     rcx, cs:g_pNetworkMessages
+  .text:00000001805F01A0                 test    rax, rax
+  .text:00000001805F01A3                 mov     ebx, [rbp+57h+arg_0]
+  .text:00000001805F01A6                 cmovnz  r15, rax
+  .text:00000001805F01AA                 mov     rax, [rcx]
+  .text:00000001805F01AD                 call    qword ptr [rax+120h]; g_pNetworkMessages->GetLoggingChannel(), 0x120 = INetworkMessages_GetLoggingChannel
+  .text:00000001805F01B3                 mov     [rsp+0A0h+var_78], r15
+  .text:00000001805F01B8                 lea     r8, aCnetworkutlvec_2; "CNetworkUtlVectorEmbedded: failed to re"...
+  .text:00000001805F01BF                 mov     ecx, eax
+  .text:00000001805F01C1                 mov     dword ptr [rsp+0A0h+var_80], ebx
+  .text:00000001805F01C5                 mov     r9, r14
+  .text:00000001805F01C8                 mov     edx, 1
+  .text:00000001805F01CD                 call    cs:LoggingSystem_Log
+  .text:00000001805F01D3                 jmp     loc_1805F0323
+  .text:00000001805F01D8                 mov     edx, 0Ah
+  .text:00000001805F01DD                 lea     rcx, aPathSetcountFa; "Path_SetCount failed, depth already == "...
+  .text:00000001805F01E4                 call    cs:Plat_FatalError
+  .text:00000001805F01EA                 int     3; Trap to Debugger
+  .text:00000001805F01EB                 or      al, 1
+  .text:00000001805F01ED                 mov     [r14+61h], al
+  .text:00000001805F01F1                 test    al, 2
+  .text:00000001805F01F3                 jz      loc_1805F0334
+  .text:00000001805F01F9                 mov     rcx, [r14+18h]
+  .text:00000001805F01FD                 lea     r8, [rbp+57h+arg_8]
+  .text:00000001805F0201                 and     al, 0FDh
+  .text:00000001805F0203                 mov     [rbp+57h+arg_0], 0FFFFFFFFh
+  .text:00000001805F020A                 lea     rdx, [rbp+57h+arg_0]
+  .text:00000001805F020E                 mov     [r14+61h], al
+  .text:00000001805F0212                 mov     [rbp+57h+arg_8], rbx
+  .text:00000001805F0216                 call    sub_1811A5E90
+  .text:00000001805F021B                 mov     eax, [rbp+57h+arg_0]
+  .text:00000001805F021E                 lea     r8, [rbp+57h+var_60]
+  .text:00000001805F0222                 mov     rcx, cs:g_pFlattenedSerializers
+  .text:00000001805F0229                 lea     rdx, [rbp+57h+arg_10]
+  .text:00000001805F022D                 mov     byte ptr [rsp+0A0h+var_68], bl
+  .text:00000001805F0231                 mov     r9, rdi
+  .text:00000001805F0234                 mov     dword ptr [rsp+0A0h+var_70], ebx
+  .text:00000001805F0238                 mov     dword ptr [rsp+0A0h+var_78], eax
+  .text:00000001805F023C                 mov     rax, [r14+18h]
+  .text:00000001805F0240                 mov     r10, [rcx]
+  .text:00000001805F0243                 mov     [rsp+0A0h+var_80], rax
+  .text:00000001805F0248                 call    qword ptr [r10+8]
+  .text:00000001805F024C                 mov     rcx, cs:g_pNetworkMessages
+  .text:00000001805F0253                 mov     rax, [rcx]
+  .text:00000001805F0256                 call    qword ptr [rax+120h]
+  .text:00000001805F025C                 mov     ecx, eax
+  .text:00000001805F025E                 mov     edx, 2
+  .text:00000001805F0263                 call    cs:LoggingSystem_IsChannelEnabled
+  .text:00000001805F0269                 test    al, al
+  .text:00000001805F026B                 jz      loc_1805F02FC
+  .text:00000001805F0271                 mov     rax, [rbp+57h+arg_10]
+  .text:00000001805F0275                 lea     r15, byte_18152DF88
+  .text:00000001805F027C                 test    rax, rax
+  .text:00000001805F027F                 mov     [rsp+0A0h+var_18], rsi
+  .text:00000001805F0287                 mov     rsi, r15
+  .text:00000001805F028A                 lea     rdx, [rbp+57h+arg_18]
+  .text:00000001805F028E                 mov     rcx, rdi
+  .text:00000001805F0291                 cmovnz  rsi, rax
+  .text:00000001805F0295                 call    sub_18147F110
+  .text:00000001805F029A                 mov     ebx, [rbp+57h+arg_0]
+  .text:00000001805F029D                 mov     rdi, r15
+  .text:00000001805F02A0                 mov     rcx, [rax]
+  .text:00000001805F02A3                 mov     rax, [rbp+57h+arg_8]
+  .text:00000001805F02A7                 test    rcx, rcx
+  .text:00000001805F02AA                 cmovnz  rdi, rcx
+  .text:00000001805F02AE                 mov     rcx, cs:g_pNetworkMessages
+  .text:00000001805F02B5                 test    rax, rax
+  .text:00000001805F02B8                 cmovnz  r15, rax
+  .text:00000001805F02BC                 mov     rax, [rcx]
+  .text:00000001805F02BF                 call    qword ptr [rax+120h]
+  .text:00000001805F02C5                 mov     [rsp+0A0h+var_68], rsi
+  .text:00000001805F02CA                 lea     r8, aCnetworkutlvec_3; "CNetworkUtlVectorEmbedded: successfully"...
+  .text:00000001805F02D1                 mov     [rsp+0A0h+var_70], rdi
+  .text:00000001805F02D6                 mov     ecx, eax
+  .text:00000001805F02D8                 mov     [rsp+0A0h+var_78], r15
+  .text:00000001805F02DD                 mov     r9, r14
+  .text:00000001805F02E0                 mov     edx, 2
+  .text:00000001805F02E5                 mov     dword ptr [rsp+0A0h+var_80], ebx
+  .text:00000001805F02E9                 call    cs:LoggingSystem_Log
+  .text:00000001805F02EF                 mov     rsi, [rsp+0A0h+var_18]
+  .text:00000001805F02F7                 mov     ebx, 1
+  .text:00000001805F02FC                 test    bl, 1
+  .text:00000001805F02FF                 jz      short loc_1805F0312
+  .text:00000001805F0301                 cmp     [rbp+57h+arg_18], 0
+  .text:00000001805F0306                 jz      short loc_1805F0312
+  .text:00000001805F0308                 lea     rcx, [rbp+57h+arg_18]
+  .text:00000001805F030C                 call    cs:?FreeMemoryBlock@CUtlString@@AEAAXXZ; CUtlString::FreeMemoryBlock(void)
+  .text:00000001805F0312                 cmp     [rbp+57h+arg_10], 0
+  .text:00000001805F0317                 jz      short loc_1805F0323
+  .text:00000001805F0319                 lea     rcx, [rbp+57h+arg_10]
+  .text:00000001805F031D                 call    cs:?FreeMemoryBlock@CUtlString@@AEAAXXZ; CUtlString::FreeMemoryBlock(void)
+  .text:00000001805F0323                 cmp     [rbp+57h+arg_8], 0
+  .text:00000001805F0328                 jz      short loc_1805F0334
+  .text:00000001805F032A                 lea     rcx, [rbp+57h+arg_8]
+  .text:00000001805F032E                 call    cs:?FreeMemoryBlock@CUtlString@@AEAAXXZ; CUtlString::FreeMemoryBlock(void)
+  .text:00000001805F0334                 mov     r15, [rsp+0A0h+var_28]
+  .text:00000001805F0339                 movzx   eax, byte ptr [r14+61h]
+  .text:00000001805F033E                 mov     rdi, [rsp+0A0h+var_20]
+  .text:00000001805F0346                 and     al, 1
+  .text:00000001805F0348                 add     rsp, 90h
+  .text:00000001805F034F                 pop     r14
+  .text:00000001805F0351                 pop     rbx
+  .text:00000001805F0352                 pop     rbp
+  .text:00000001805F0353                 retn
+procedure: |-
+  char __fastcall CNetworkUtlVectorEmbedded_TryLateResolve_m_vecRenderAttributes(__int64 a1)
+  {
+    char v1; // bl
+    __int64 v4; // rdx
+    __int64 v5; // rax
+    __int16 v6; // cx
+    __int64 v7; // rcx
+    char v8; // al
+    __int64 v9; // rcx
+    unsigned int v10; // eax
+    const char *v11; // r15
+    int v12; // ebx
+    unsigned int v13; // eax
+    char v14; // al
+    __int64 v15; // rcx
+    unsigned int v16; // eax
+    const char *v17; // r15
+    const char *v18; // rsi
+    const char **v19; // rax
+    int v20; // ebx
+    const char *v21; // rdi
+    unsigned int v22; // eax
+    char v23; // [rsp+38h] [rbp-11h]
+    _QWORD v24[2]; // [rsp+40h] [rbp-9h] BYREF
+    _BYTE v25[40]; // [rsp+50h] [rbp+7h] BYREF
+    int v26; // [rsp+B0h] [rbp+67h] BYREF
+    const char *v27; // [rsp+B8h] [rbp+6Fh] BYREF
+    const char *v28; // [rsp+C0h] [rbp+77h] BYREF
+    __int64 v29; // [rsp+C8h] [rbp+7Fh] BYREF
+
+    v1 = 0;
+    v26 = 0;
+    if ( (*(_BYTE *)(a1 + 97) & 1) != 0 )
+      return 0;
+    v4 = *(_QWORD *)(a1 + 24);
+    if ( v4 )
+    {
+      sub_1811A5F20(v24, v4);
+      v5 = (*(__int64 (__fastcall **)(__int64, _BYTE *, _QWORD *, _QWORD, __int64, __int64))(*(_QWORD *)g_pFlattenedSerializers
+                                                                                           + 160LL))(
+             g_pFlattenedSerializers,
+             v25,
+             v24,
+             *(_QWORD *)(a1 + 24),
+             a1,
+             a1 + 96);
+      if ( v5 != a1 + 40 )
+      {
+        *(_BYTE *)(a1 + 66) = 0;
+        v6 = *(_WORD *)(v5 + 24);
+        if ( v6 > 10 )
+        {
+          Plat_FatalError("Path_SetCount failed, depth already == DEFAULT_MAX_PATH_DEPTH(%d)", 10);
+          __debugbreak();
+        }
+        *(_WORD *)(a1 + 64) = v6;
+        v7 = *(__int16 *)(v5 + 24);
+        if ( (__int16)v7 > 0 )
+        {
+          if ( *(_BYTE *)(v5 + 26) )
+            v5 = *(_QWORD *)v5;
+          sub_1814DA740(a1 + 40, v5, 2 * v7);
+        }
+      }
+      v8 = *(_BYTE *)(a1 + 97);
+      if ( *(_WORD *)(a1 + 64) )
+      {
+        v14 = v8 | 1;
+        *(_BYTE *)(a1 + 97) = v14;
+        if ( (v14 & 2) != 0 )
+        {
+          v15 = *(_QWORD *)(a1 + 24);
+          v26 = -1;
+          *(_BYTE *)(a1 + 97) = v14 & 0xFD;
+          v27 = nullptr;
+          sub_1811A5E90(v15, &v26, &v27);
+          v23 = 0;
+          (*(void (__fastcall **)(__int64, const char **, _QWORD *, __int64, _QWORD, int, _DWORD, char))(*(_QWORD *)g_pFlattenedSerializers + 8LL))(
+            g_pFlattenedSerializers,
+            &v28,
+            v24,
+            a1 + 40,
+            *(_QWORD *)(a1 + 24),
+            v26,
+            0,
+            v23);
+          v16 = (*(__int64 (__fastcall **)(__int64))(*(_QWORD *)g_pNetworkMessages + 288LL))(g_pNetworkMessages);
+          if ( (unsigned __int8)LoggingSystem_IsChannelEnabled(v16, 2) )
+          {
+            v17 = byte_18152DF88;
+            v18 = byte_18152DF88;
+            if ( v28 )
+              v18 = v28;
+            v19 = (const char **)sub_18147F110(a1 + 40, &v29);
+            v20 = v26;
+            v21 = byte_18152DF88;
+            if ( *v19 )
+              v21 = *v19;
+            if ( v27 )
+              v17 = v27;
+            v22 = (*(__int64 (**)(void))(*(_QWORD *)g_pNetworkMessages + 288LL))();
+            LoggingSystem_Log(
+              v22,
+              2,
+              "CNetworkUtlVectorEmbedded: successfully late-resolved 0x%p in entity %d:%s to %s:'%s'.\n",
+              (const void *)a1,
+              v20,
+              v17,
+              v21,
+              v18);
+            v1 = 1;
+          }
+          if ( (v1 & 1) != 0 && v29 )
+            CUtlString::FreeMemoryBlock((CUtlString *)&v29);
+          if ( v28 )
+            CUtlString::FreeMemoryBlock((CUtlString *)&v28);
+          goto LABEL_31;
+        }
+      }
+      else if ( (v8 & 2) == 0 )
+      {
+        v9 = *(_QWORD *)(a1 + 24);
+        v26 = -1;
+        *(_BYTE *)(a1 + 97) = v8 | 2;
+        v27 = nullptr;
+        sub_1811A5E90(v9, &v26, &v27);
+        v10 = (*(__int64 (__fastcall **)(__int64))(*(_QWORD *)g_pNetworkMessages + 288LL))(g_pNetworkMessages);// g_pNetworkMessages->GetLoggingChannel(), 288LL = INetworkMessages_GetLoggingChannel
+        if ( (unsigned __int8)LoggingSystem_IsChannelEnabled(v10, 1) )
+        {
+          v11 = byte_18152DF88;
+          v12 = v26;
+          if ( v27 )
+            v11 = v27;
+          v13 = (*(__int64 (__fastcall **)(__int64))(*(_QWORD *)g_pNetworkMessages + 288LL))(g_pNetworkMessages);// g_pNetworkMessages->GetLoggingChannel(), 288LL = INetworkMessages_GetLoggingChannel
+          LoggingSystem_Log(
+            v13,
+            1,
+            "CNetworkUtlVectorEmbedded: failed to resolve 0x%p in entity %d:%s (possibly from adding to CUtlVector during c"
+            "onstruction of class referenced via pointer).\n",
+            (const void *)a1,
+            v12,
+            v11);
+        }
+  LABEL_31:
+        if ( v27 )
+          CUtlString::FreeMemoryBlock((CUtlString *)&v27);
+      }
+    }
+    return *(_BYTE *)(a1 + 97) & 1;
+  }

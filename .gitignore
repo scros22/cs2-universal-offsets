@@ -1,0 +1,47 @@
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.opendb
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+[Dd]ebug/
+[Rr]elease/
+x64/Debug/
+x64/Release/
+CS2/x64/
+x64/Release/
+*.obj
+*.o
+*.iobj
+*.ipdb
+*.idb
+*.pdb
+*.ilk
+*.dll
+*.exe
+*.lib
+*.exp
+*.tlog
+*.lastbuildstate
+*.recipe
+
+# Precompiled headers / caches
+ipch/
+*.ipch
+
+# Driver and kernel binaries
+*.sys
+
+# Archives and dumps
+*.zip
+*.rar
+*.7z
+*.dmp
+
+# Misc
+NUL.obj
+*.log

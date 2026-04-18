@@ -1,0 +1,142 @@
+func_name: CBaseEntity_Spawn
+func_va: '0x16741e0'
+disasm_code: |-
+  .text:00000000016741E0                 push    rbp
+  .text:00000000016741E1                 mov     rbp, rsp
+  .text:00000000016741E4                 push    r13
+  .text:00000000016741E6                 push    r12
+  .text:00000000016741E8                 mov     r12, rsi
+  .text:00000000016741EB                 push    rbx
+  .text:00000000016741EC                 mov     rbx, rdi
+  .text:00000000016741EF                 sub     rsp, 48h
+  .text:00000000016741F3                 call    sub_1D5A570
+  .text:00000000016741F8                 mov     rax, [rbx+10h]
+  .text:00000000016741FC                 mov     edi, [rax+38h]
+  .text:00000000016741FF                 call    sub_119DA50
+  .text:0000000001674204                 cmp     qword ptr [rbx+600h], 0
+  .text:000000000167420C                 mov     [rbx+524h], eax
+  .text:0000000001674212                 jz      short loc_1674222
+  .text:0000000001674214                 mov     rax, [rbx]
+  .text:0000000001674217                 xor     esi, esi
+  .text:0000000001674219                 mov     rdi, rbx
+  .text:000000000167421C                 call    qword ptr [rax+708h]
+  .text:0000000001674222                 mov     rax, [rbx]
+  .text:0000000001674225                 mov     rsi, r12
+  .text:0000000001674228                 mov     rdi, rbx
+  .text:000000000167422B                 call    qword ptr [rax+180h]
+  .text:0000000001674231                 cmp     byte ptr [rbx+76Dh], 0
+  .text:0000000001674238                 jz      short loc_167424D
+  .text:000000000167423A                 lea     rax, off_24170C0
+  .text:0000000001674241                 mov     rsi, rbx
+  .text:0000000001674244                 mov     rdi, [rax]
+  .text:0000000001674247                 mov     rax, [rdi]
+  .text:000000000167424A                 call    qword ptr [rax+38h]
+  .text:000000000167424D                 lea     rax, off_23E9488
+  .text:0000000001674254                 cmp     byte ptr [rbx+614h], 0
+  .text:000000000167425B                 mov     rax, [rax]
+  .text:000000000167425E                 movss   xmm0, dword ptr [rax+30h]
+  .text:0000000001674263                 mov     qword ptr [rbx+538h], 0
+  .text:000000000167426E                 movss   dword ptr [rbx+540h], xmm0
+  .text:0000000001674276                 jz      short loc_16742B2
+  .text:0000000001674278                 lea     r13, [rbp+var_60]
+  .text:000000000167427C                 mov     ecx, 0FFFFFFFFh
+  .text:0000000001674281                 mov     edx, 0FFFFFFFFh
+  .text:0000000001674286                 mov     esi, 614h
+  .text:000000000167428B                 mov     rdi, r13
+  .text:000000000167428E                 call    sub_AB0210
+  .text:0000000001674293                 mov     rax, [rbx]
+  .text:0000000001674296                 mov     rsi, r13
+  .text:0000000001674299                 mov     rdi, rbx
+  .text:000000000167429C                 call    qword ptr [rax+0E0h]
+  .text:00000000016742A2                 lea     rdi, [rbp+var_58]
+  .text:00000000016742A6                 call    sub_9C2F70
+  .text:00000000016742AB                 mov     byte ptr [rbx+614h], 0
+  .text:00000000016742B2                 lea     rax, qword_25F2570
+  .text:00000000016742B9                 mov     rdi, [rax]
+  .text:00000000016742BC                 mov     rax, [rdi]
+  .text:00000000016742BF                 call    qword ptr [rax+0B8h]
+  .text:00000000016742C5                 test    al, al
+  .text:00000000016742C7                 jnz     short loc_16742D9
+  .text:00000000016742C9                 mov     rax, [rbx]
+  .text:00000000016742CC                 mov     rdi, rbx
+  .text:00000000016742CF                 call    qword ptr [rax+370h]; 0x370 = CBaseEntity_GetHammerUniqueId
+  .text:00000000016742D5                 test    al, al
+  .text:00000000016742D7                 jz      short loc_1674330
+  .text:00000000016742D9                 lea     rax, aHammeruniqueid; "hammerUniqueId"
+  .text:00000000016742E0                 xor     edx, edx
+  .text:00000000016742E2                 mov     rdi, r12
+  .text:00000000016742E5                 mov     [rbp+var_60], 0FFFFFFFFA963A038h
+  .text:00000000016742ED                 lea     rsi, [rbp+var_60]
+  .text:00000000016742F1                 mov     [rbp+var_58], rax
+  .text:00000000016742F5                 call    sub_1D61780
+  .text:00000000016742FA                 lea     rsi, byte_8D6258
+  .text:0000000001674301                 test    rax, rax
+  .text:0000000001674304                 jz      short loc_1674315
+  .text:0000000001674306                 movzx   edx, word ptr [rax]
+  .text:0000000001674309                 shr     dx, 2
+  .text:000000000167430D                 and     edx, 0Fh
+  .text:0000000001674310                 cmp     dl, 6
+  .text:0000000001674313                 jz      short loc_1674340
+  .text:0000000001674315                 lea     rdi, [rbx+638h]
+  .text:000000000167431C                 add     rsp, 48h
+  .text:0000000001674320                 pop     rbx
+  .text:0000000001674321                 pop     r12
+  .text:0000000001674323                 pop     r13
+  .text:0000000001674325                 pop     rbp
+  .text:0000000001674326                 jmp     sub_97F150
+  .text:0000000001674330                 add     rsp, 48h
+  .text:0000000001674334                 pop     rbx
+  .text:0000000001674335                 pop     r12
+  .text:0000000001674337                 pop     r13
+  .text:0000000001674339                 pop     rbp
+  .text:000000000167433A                 retn
+  .text:0000000001674340                 mov     rdi, rax
+  .text:0000000001674343                 call    sub_1A89DF0
+  .text:0000000001674348                 mov     rsi, rax
+  .text:000000000167434B                 jmp     short loc_1674315
+procedure: |-
+  __int64 __fastcall CBaseEntity_Spawn(_BYTE *a1, __int64 a2)
+  {
+    int v2; // eax
+    bool v3; // zf
+    int v4; // xmm0_4
+    __int64 result; // rax
+    _WORD *v6; // rax
+    unsigned __int64 v7; // [rsp+0h] [rbp-60h] BYREF
+    const char *v8; // [rsp+8h] [rbp-58h] BYREF
+
+    sub_1D5A570();
+    v2 = sub_119DA50(*(unsigned int *)(*((_QWORD *)a1 + 2) + 56LL));
+    v3 = *((_QWORD *)a1 + 192) == 0;
+    *((_DWORD *)a1 + 329) = v2;
+    if ( !v3 )
+      (*(void (__fastcall **)(_BYTE *, _QWORD))(*(_QWORD *)a1 + 1800LL))(a1, 0);
+    (*(void (__fastcall **)(_BYTE *, __int64))(*(_QWORD *)a1 + 384LL))(a1, a2);
+    if ( a1[1901] )
+      (*(void (__fastcall **)(void *, _BYTE *))(*(_QWORD *)off_24170C0 + 56LL))(off_24170C0, a1);
+    v3 = a1[1556] == 0;
+    v4 = *((_DWORD *)off_23E9488 + 12);
+    *((_QWORD *)a1 + 167) = 0;
+    *((_DWORD *)a1 + 336) = v4;
+    if ( !v3 )
+    {
+      sub_AB0210(&v7, 1556, 0xFFFFFFFFLL, 0xFFFFFFFFLL);
+      (*(void (__fastcall **)(_BYTE *, unsigned __int64 *))(*(_QWORD *)a1 + 224LL))(a1, &v7);
+      sub_9C2F70(&v8);
+      a1[1556] = 0;
+    }
+    if ( (*(unsigned __int8 (__fastcall **)(_QWORD *))(*qword_25F2570 + 184LL))(qword_25F2570)
+      || (result = (*(__int64 (__fastcall **)(_BYTE *))(*(_QWORD *)a1 + 880LL))(a1), (_BYTE)result) )// 880L = CBaseEntity_GetHammerUniqueId
+    {
+      v7 = 0xFFFFFFFFA963A038LL;
+      v8 = "hammerUniqueId";
+      v6 = (_WORD *)sub_1D61780(a2, &v7, 0);
+      if ( v6 )
+      {
+        if ( ((*v6 >> 2) & 0xF) == 6 )
+          sub_1A89DF0(v6, &byte_8D6258);
+      }
+      return sub_97F150(a1 + 1592);
+    }
+    return result;
+  }

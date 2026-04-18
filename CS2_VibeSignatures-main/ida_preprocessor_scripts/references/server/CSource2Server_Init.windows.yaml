@@ -1,0 +1,171 @@
+func_name: CSource2Server_Init
+func_va: '0x180c96140'
+disasm_code: |-
+  .text:0000000180C96140                 sub     rsp, 28h
+  .text:0000000180C96144                 cmp     cs:qword_1820588D8, 0
+  .text:0000000180C9614C                 jz      short loc_180C96155
+  .text:0000000180C9614E                 xor     ecx, ecx
+  .text:0000000180C96150                 call    sub_181470450
+  .text:0000000180C96155                 call    cs:CommandLine
+  .text:0000000180C9615B                 xor     r8d, r8d
+  .text:0000000180C9615E                 mov     edx, 34D6B4E6h
+  .text:0000000180C96163                 mov     rcx, [rax]
+  .text:0000000180C96166                 mov     r9, [rcx+30h]
+  .text:0000000180C9616A                 mov     rcx, rax
+  .text:0000000180C9616D                 call    r9
+  .text:0000000180C96170                 test    eax, eax
+  .text:0000000180C96172                 jz      short loc_180C9617B
+  .text:0000000180C96174                 mov     cs:byte_181EC53D4, 1
+  .text:0000000180C9617B                 lea     rcx, aMathlibInit; "MathLib_Init"
+  .text:0000000180C96182                 call    cs:COM_TimestampedLog
+  .text:0000000180C96188                 call    sub_1812670E0
+  .text:0000000180C9618D                 call    sub_1803B1B50
+  .text:0000000180C96192                 lea     rcx, aGameeventmanag; "gameeventmanager->Init()"
+  .text:0000000180C96199                 call    cs:COM_TimestampedLog
+  .text:0000000180C9619F                 mov     rcx, cs:gameeventmanager
+  .text:0000000180C961A6                 call    CGameEventManager_Init
+  .text:0000000180C961AB                 lea     rcx, aCengineservice; "CEngineServiceRegistry::RegisterEngineS"...
+  .text:0000000180C961B2                 call    cs:COM_TimestampedLog
+  .text:0000000180C961B8                 call    sub_181173590
+  .text:0000000180C961BD                 lea     rcx, aCloopmoderegis; "CLoopModeRegistry::RegisterLoopModes()"
+  .text:0000000180C961C4                 call    cs:COM_TimestampedLog
+  .text:0000000180C961CA                 call    sub_181173660
+  .text:0000000180C961CF                 mov     rax, cs:qword_181EC1400
+  .text:0000000180C961D6                 test    rax, rax
+  .text:0000000180C961D9                 jz      loc_180C96322
+  .text:0000000180C961DF                 mov     eax, [rax+30h]
+  .text:0000000180C961E2                 bt      rax, 0Ah
+  .text:0000000180C961E7                 jb      loc_180C96322
+  .text:0000000180C961ED                 lea     rcx, aGPgamesaverest; "g_pGameSaveRestoreBlockSet"
+  .text:0000000180C961F4                 mov     [rsp+28h+var_8], rbx
+  .text:0000000180C961F9                 call    cs:COM_TimestampedLog
+  .text:0000000180C961FF                 mov     rax, cs:off_181B98898
+  .text:0000000180C96206                 mov     rcx, [rax]
+  .text:0000000180C96209                 mov     rbx, [rcx+48h]
+  .text:0000000180C9620D                 call    sub_180B1A740
+  .text:0000000180C96212                 mov     rcx, cs:off_181B98898
+  .text:0000000180C96219                 mov     rdx, rax
+  .text:0000000180C9621C                 call    rbx
+  .text:0000000180C9621E                 mov     rax, cs:off_181B98898
+  .text:0000000180C96225                 mov     rcx, [rax]
+  .text:0000000180C96228                 mov     rbx, [rcx+48h]
+  .text:0000000180C9622C                 call    sub_180D0BE80
+  .text:0000000180C96231                 mov     rcx, cs:off_181B98898
+  .text:0000000180C96238                 mov     rdx, rax
+  .text:0000000180C9623B                 call    rbx
+  .text:0000000180C9623D                 mov     rax, cs:off_181B98898
+  .text:0000000180C96244                 mov     rcx, [rax]
+  .text:0000000180C96247                 mov     rbx, [rcx+48h]
+  .text:0000000180C9624B                 call    sub_180A777B0
+  .text:0000000180C96250                 mov     rcx, cs:off_181B98898
+  .text:0000000180C96257                 mov     rdx, rax
+  .text:0000000180C9625A                 call    rbx
+  .text:0000000180C9625C                 mov     rax, cs:off_181B98898
+  .text:0000000180C96263                 mov     rcx, [rax]
+  .text:0000000180C96266                 mov     rbx, [rcx+48h]
+  .text:0000000180C9626A                 call    sub_180B1A8B0
+  .text:0000000180C9626F                 mov     rcx, cs:off_181B98898
+  .text:0000000180C96276                 mov     rdx, rax
+  .text:0000000180C96279                 call    rbx
+  .text:0000000180C9627B                 mov     rcx, cs:off_181B98898
+  .text:0000000180C96282                 lea     rdx, off_181BD0AC0
+  .text:0000000180C96289                 mov     rax, [rcx]
+  .text:0000000180C9628C                 call    qword ptr [rax+48h]
+  .text:0000000180C9628F                 lea     rcx, aInitgamesystem; "InitGameSystems - Start"
+  .text:0000000180C96296                 call    cs:COM_TimestampedLog
+  .text:0000000180C9629C                 call    sub_1802BAB50
+  .text:0000000180C962A1                 call    sub_180D8FF10
+  .text:0000000180C962A6                 call    sub_180D99B30
+  .text:0000000180C962AB                 lea     rcx, aInitgamesystem_0; "InitGameSystems - Finish"
+  .text:0000000180C962B2                 call    cs:COM_TimestampedLog
+  .text:0000000180C962B8                 xorps   xmm1, xmm1
+  .text:0000000180C962BB                 mov     cs:dword_181EC1050, 0
+  .text:0000000180C962C5                 movsd   cs:qword_181EC1058, xmm1
+  .text:0000000180C962CD                 movsd   cs:qword_181EC1068, xmm1
+  .text:0000000180C962D5                 mov     cs:dword_181EC1060, 0
+  .text:0000000180C962DF                 mov     cs:dword_181EC1070, 0
+  .text:0000000180C962E9                 call    cs:Plat_FloatTime
+  .text:0000000180C962EF                 movaps  xmm1, xmm0
+  .text:0000000180C962F2                 movsd   cs:qword_181BD0700, xmm0
+  .text:0000000180C962FA                 movq    rdx, xmm0
+  .text:0000000180C962FF                 lea     r8, aOk; "ok"
+  .text:0000000180C96306                 lea     rcx, aStartup3fServe; "[STARTUP] {%.3f} server module init %s"...
+  .text:0000000180C9630D                 call    cs:Msg
+  .text:0000000180C96313                 mov     rbx, [rsp+28h+var_8]
+  .text:0000000180C96318                 mov     eax, 1
+  .text:0000000180C9631D                 add     rsp, 28h
+  .text:0000000180C96321                 retn
+  .text:0000000180C96322                 xor     eax, eax
+  .text:0000000180C96324                 add     rsp, 28h
+  .text:0000000180C96328                 retn
+procedure: |-
+  __int64 sub_180C96140()
+  {
+    __int64 v0; // rax
+    __int64 v1; // rdx
+    __int64 v2; // r8
+    __int64 v3; // rdx
+    __int64 v4; // r8
+    __int64 v5; // rdx
+    __int64 v6; // r8
+    __int64 v7; // rdx
+    __int64 v8; // r8
+    __int64 v9; // rdx
+    __int64 v10; // r8
+    void (__fastcall *v11)(_UNKNOWN ***, __int64); // rbx
+    __int64 v12; // rax
+    void (__fastcall *v13)(_UNKNOWN ***, __int64); // rbx
+    __int64 v14; // rax
+    void (__fastcall *v15)(_UNKNOWN ***, __int64); // rbx
+    __int64 v16; // rax
+    void (__fastcall *v17)(_UNKNOWN ***, __int64); // rbx
+    __int64 v18; // rax
+    __int64 v19; // rdx
+    __int64 v20; // r8
+    __int64 v21; // rdx
+    __int64 v22; // r8
+
+    if ( qword_1820588D8 )
+      sub_181470450(0);
+    v0 = CommandLine();
+    if ( (*(unsigned int (__fastcall **)(__int64, __int64, _QWORD))(*(_QWORD *)v0 + 48LL))(v0, 886486246, 0) )
+      byte_181EC53D4 = 1;
+    COM_TimestampedLog("MathLib_Init", v1, v2);
+    sub_1812670E0();
+    sub_1803B1B50();
+    COM_TimestampedLog("gameeventmanager->Init()", v3, v4);
+    CGameEventManager_Init(gameeventmanager);
+    COM_TimestampedLog("CEngineServiceRegistry::RegisterEngineServices()", v5, v6);
+    sub_181173590();
+    COM_TimestampedLog("CLoopModeRegistry::RegisterLoopModes()", v7, v8);
+    sub_181173660();
+    if ( !qword_181EC1400 || (*(_DWORD *)(qword_181EC1400 + 48) & 0x400LL) != 0 )
+      return 0;
+    COM_TimestampedLog("g_pGameSaveRestoreBlockSet", v9, v10);
+    v11 = (void (__fastcall *)(_UNKNOWN ***, __int64))(*off_181B98898)[9];
+    v12 = sub_180B1A740();
+    v11(off_181B98898, v12);
+    v13 = (void (__fastcall *)(_UNKNOWN ***, __int64))(*off_181B98898)[9];
+    v14 = sub_180D0BE80();
+    v13(off_181B98898, v14);
+    v15 = (void (__fastcall *)(_UNKNOWN ***, __int64))(*off_181B98898)[9];
+    v16 = sub_180A777B0();
+    v15(off_181B98898, v16);
+    v17 = (void (__fastcall *)(_UNKNOWN ***, __int64))(*off_181B98898)[9];
+    v18 = sub_180B1A8B0();
+    v17(off_181B98898, v18);
+    ((void (__fastcall *)(_UNKNOWN ***, __int64 (__fastcall ***)()))(*off_181B98898)[9])(off_181B98898, off_181BD0AC0);
+    COM_TimestampedLog("InitGameSystems - Start", v19, v20);
+    sub_1802BAB50();
+    sub_180D8FF10();
+    sub_180D99B30();
+    COM_TimestampedLog("InitGameSystems - Finish", v21, v22);
+    dword_181EC1050 = 0;
+    qword_181EC1058 = 0;
+    qword_181EC1068 = 0;
+    dword_181EC1060 = 0;
+    dword_181EC1070 = 0;
+    qword_181BD0700 = Plat_FloatTime();
+    Msg("[STARTUP] {%.3f} server module init %s\n", qword_181BD0700, "ok");
+    return 1;
+  }

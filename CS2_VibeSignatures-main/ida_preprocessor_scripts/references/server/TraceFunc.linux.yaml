@@ -1,0 +1,84 @@
+func_name: TraceFunc
+func_va: '0x153ad40'
+disasm_code: |-
+  .text:000000000153AD40                 mov     rax, 8000000000000040h
+  .text:000000000153AD4A                 push    rbp
+  .text:000000000153AD4B                 mov     rbp, rsp
+  .text:000000000153AD4E                 push    r13
+  .text:000000000153AD50                 push    r12
+  .text:000000000153AD52                 lea     r13, [rdi+30h]
+  .text:000000000153AD56                 mov     r12, rcx
+  .text:000000000153AD59                 push    rbx
+  .text:000000000153AD5A                 mov     rbx, rdi
+  .text:000000000153AD5D                 sub     rsp, 58h
+  .text:000000000153AD61                 mov     qword ptr [rdi+20h], 0
+  .text:000000000153AD69                 mov     [rdi+28h], rax
+  .text:000000000153AD6D                 and     edi, 0Fh
+  .text:000000000153AD70                 jnz     short loc_153ADF0
+  .text:000000000153AD72                 mov     [rbx+20h], r13
+  .text:000000000153AD76                 pxor    xmm0, xmm0
+  .text:000000000153AD7A                 lea     rcx, [rbp+var_60]
+  .text:000000000153AD7E                 sub     rsp, 8
+  .text:000000000153AD82                 movaps  [rbp+var_50], xmm0
+  .text:000000000153AD86                 pcmpeqd xmm0, xmm0
+  .text:000000000153AD8A                 lea     rax, off_2129E08
+  .text:000000000153AD91                 mov     r8d, 1
+  .text:000000000153AD97                 mov     [rbp+var_60], rax
+  .text:000000000153AD9B                 lea     r9, [rbx+10h]
+  .text:000000000153AD9F                 mov     rax, 0E00FFFF00000000h
+  .text:000000000153ADA9                 mov     [rbp+var_30], rax
+  .text:000000000153ADAD                 mov     eax, 4903h
+  .text:000000000153ADB2                 mov     [rbp+var_58], r12
+  .text:000000000153ADB6                 mov     dword ptr [rbx+10h], 0
+  .text:000000000153ADBD                 mov     dword ptr [rbx], 0
+  .text:000000000153ADC3                 movaps  [rbp+var_40], xmm0
+  .text:000000000153ADC7                 mov     [rbp+var_28], ax
+  .text:000000000153ADCB                 mov     [rbp+var_26], 0
+  .text:000000000153ADCF                 push    1
+  .text:000000000153ADD1                 mov     rdi, cs:g_GameTraceManager
+  .text:000000000153ADD8                 call    sub_153A830
+  .text:000000000153ADDD                 pop     rdx
+  .text:000000000153ADDE                 pop     rcx
+  .text:000000000153ADDF                 lea     rsp, [rbp-18h]
+  .text:000000000153ADE3                 pop     rbx
+  .text:000000000153ADE4                 pop     r12
+  .text:000000000153ADE6                 pop     r13
+  .text:000000000153ADE8                 pop     rbp
+  .text:000000000153ADE9                 retn
+  .text:000000000153ADF0                 mov     [rbp+var_70], rdx
+  .text:000000000153ADF4                 mov     [rbp+var_68], rsi
+  .text:000000000153ADF8                 call    sub_1A9B7B0
+  .text:000000000153ADFD                 mov     rdx, [rbp+var_70]
+  .text:000000000153AE01                 mov     rsi, [rbp+var_68]
+  .text:000000000153AE05                 jmp     loc_153AD72
+procedure: |-
+  __int64 __fastcall sub_153AD40(__int64 a1, int a2, int a3, __int64 a4)
+  {
+    int v6; // [rsp+0h] [rbp-70h]
+    _QWORD v7[2]; // [rsp+10h] [rbp-60h] BYREF
+    __int128 v8; // [rsp+20h] [rbp-50h]
+    __int128 v9; // [rsp+30h] [rbp-40h]
+    __int64 v10; // [rsp+40h] [rbp-30h]
+    __int16 v11; // [rsp+48h] [rbp-28h]
+    char v12; // [rsp+4Ah] [rbp-26h]
+
+    *(_QWORD *)(a1 + 32) = 0;
+    *(_QWORD *)(a1 + 40) = 0x8000000000000040LL;
+    if ( (a1 & 0xF) != 0 )
+    {
+      v6 = a3;
+      sub_1A9B7B0();
+      a3 = v6;
+    }
+    *(_QWORD *)(a1 + 32) = a1 + 48;
+    v8 = 0;
+    v7[0] = off_2129E08;
+    v10 = 0xE00FFFF00000000LL;
+    v7[1] = a4;
+    *(_DWORD *)(a1 + 16) = 0;
+    *(_DWORD *)a1 = 0;
+    v9 = -1;
+    v11 = 18691;
+    v12 = 0;
+    return sub_153A830((_DWORD)g_GameTraceManager, a2, a3, (unsigned int)v7, 1, (int)a1 + 16, 1);
+  }
