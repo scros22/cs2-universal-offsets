@@ -260,6 +260,28 @@ namespace SkinChanger
     inline UpdateWeaponDataFn UpdateWeaponData = nullptr;
     inline UpdateCompositeFn UpdateComposite = nullptr;
 
+    // Cache so we only call expensive model swaps when the target changes
+    inline uintptr_t lastKnifeModelEntity = 0;
+    inline int       lastKnifeModelDef   = 0;
+    inline uintptr_t lastGloveModelEntity = 0;
+    inline int       lastGloveModelDef   = 0;
+
+    // Simple file logger — writes to %TEMP%\skinchanger.log
+    inline void SkLog(const char* fmt, ...) {
+        char path[MAX_PATH];
+        GetTempPathA(MAX_PATH, path);
+        lstrcatA(path, "skinchanger.log");
+        HANDLE h = CreateFileA(path, FILE_APPEND_DATA, FILE_SHARE_READ | FILE_SHARE_WRITE,
+                               nullptr, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+        if (h == INVALID_HANDLE_VALUE) return;
+        char buf[1024];
+        va_list ap; va_start(ap, fmt);
+        int n = vsprintf_s(buf, sizeof(buf) - 2, fmt, ap);
+        va_end(ap);
+        if (n > 0) { buf[n] = '\n'; buf[n+1] = 0; DWORD w; WriteFile(h, buf, n+1, &w, nullptr); }
+        CloseHandle(h);
+    }
+
     // ---------------------------------------------------------------
     // Helper functions
     // ---------------------------------------------------------------
@@ -347,8 +369,7 @@ namespace SkinChanger
         uintptr_t meshMaskAddr = Mem::FindPatternInModule(GameState::clientBase, meshMaskSig);
         if (meshMaskAddr) {
             SetMeshGroupMask = reinterpret_cast<SetMeshGroupMaskFn>(meshMaskAddr);
-        }
-        
+        }        
         // UpdateSubclass signature - EXACT from your friend (IDA verified: 0x1801e9a70)
         const char* updateSubclassSig = "4C 8B DC 53 48 81 EC ? ? ? ? 48 8B 41";
         uintptr_t updateSubclassAddr = Mem::FindPatternInModule(GameState::clientBase, updateSubclassSig);
@@ -371,6 +392,21 @@ namespace SkinChanger
         if (updateCompositeAddr) {
             UpdateComposite = reinterpret_cast<UpdateCompositeFn>(updateCompositeAddr);
         }
+
+        // ---- one-time diagnostic so we can verify each sig actually resolved
+        SkLog("[Init] sigs: SetModel=0x%llX SetMeshGroupMask=0x%llX UpdateSubclass=0x%llX UpdateWeaponData=0x%llX UpdateComposite=0x%llX",
+            (unsigned long long)(uintptr_t)SetModel,
+            (unsigned long long)(uintptr_t)SetMeshGroupMask,
+            (unsigned long long)(uintptr_t)UpdateSubclass,
+            (unsigned long long)(uintptr_t)UpdateWeaponData,
+            (unsigned long long)(uintptr_t)UpdateComposite);
+        char buf[256];
+        wsprintfA(buf,
+            "[SkinChanger] sig resolve: SetModel=0x%llX SetMeshGroupMask=0x%llX UpdateSubclass=0x%llX\n",
+            (unsigned long long)(uintptr_t)SetModel,
+            (unsigned long long)(uintptr_t)SetMeshGroupMask,
+            (unsigned long long)(uintptr_t)UpdateSubclass);
+        OutputDebugStringA(buf);
     }
 
     inline void CallRegen() {
@@ -420,6 +456,110 @@ namespace SkinChanger
     // ---------------------------------------------------------------
     // Glove skin helper — SEH-safe, no C++ objects with destructors
     // ---------------------------------------------------------------
+    // ---------------------------------------------------------------
+    // Force-load knife model on the equipped weapon entity.
+    // Writes def-index + subclass, then calls UpdateSubclass +
+    // SetModel (weapon, vmdl) + SetMeshGroupMask (skeleton, 1).
+    // ---------------------------------------------------------------
+    inline void ApplyKnifeModelSwap(uintptr_t weapon, int targetDefIndex)
+    {
+        if (!weapon || targetDefIndex <= 0) return;
+        if (!SetModel || !UpdateSubclass || !SetMeshGroupMask) return;
+
+        const char* modelPath = GetKnifeModelPath(targetDefIndex);
+        if (!modelPath) return;
+
+        __try {
+            uintptr_t item = weapon + Offsets::m_AttributeManager + Offsets::m_Item;
+
+            // 1. Write def-index + entity quality + invalid item id (forces re-init)
+            Mem::Write<uint16_t>(item + Offsets::m_iItemDefinitionIndex, (uint16_t)targetDefIndex);
+            Mem::Write<int32_t>(item + Offsets::m_iEntityQuality, 3);
+            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0xFFFFFFFF);
+            Mem::Write<bool>(item + Offsets::m_bInitialized, false);
+
+            // 2. Write subclass id (used by view-model resolver)
+            Mem::Write<uint32_t>(weapon + Offsets::m_nSubclassID, (uint32_t)targetDefIndex);
+
+            // 3. SetModel(weapon, modelPath) — force the .vmdl load
+            SetModel(weapon, modelPath);
+
+            // 4. SetMeshGroupMask(skeleton, 1) — !Legacy mesh group
+            uintptr_t sceneNode = Mem::Read<uintptr_t>(weapon + Offsets::m_pGameSceneNode);
+            if (sceneNode)
+                SetMeshGroupMask(sceneNode, 1ull);
+
+            // 5. UpdateSubclass(item) — refresh derived state (last per friend's order)
+            UpdateSubclass(item);
+
+            char buf[160];
+            wsprintfA(buf, "[SkinChanger] knife model swap: def=%d path=%s scene=0x%llX\n",
+                targetDefIndex, modelPath, (unsigned long long)sceneNode);
+            OutputDebugStringA(buf);
+            SkLog("[Knife] SetModel(weapon=0x%llX, '%s'); MeshMask(scene=0x%llX,1); UpdateSubclass(item=0x%llX); newDef=%u",
+                (unsigned long long)weapon, modelPath,
+                (unsigned long long)sceneNode, (unsigned long long)item,
+                (unsigned)Mem::Read<uint16_t>(item + Offsets::m_iItemDefinitionIndex));
+        } __except (EXCEPTION_EXECUTE_HANDLER) { SkLog("[Knife] EXCEPTION in swap"); }
+    }
+
+    // ---------------------------------------------------------------
+    // Force-load glove model on the equipped glove wearable entity.
+    // ---------------------------------------------------------------
+    inline void ApplyGloveModelSwap(uintptr_t localPawn, int targetDefIndex)
+    {
+        if (!localPawn || targetDefIndex <= 0) return;
+        if (!SetModel || !UpdateSubclass || !SetMeshGroupMask) return;
+
+        const char* modelPath = GetGloveModelPath(targetDefIndex);
+        if (!modelPath) return;
+
+        __try {
+            // m_EconGloves is a CHandle/pointer-ish struct — game treats it as the
+            // local pawn's glove wearable. Read as 64-bit pointer first.
+            uintptr_t glove = Mem::Read<uintptr_t>(localPawn + Offsets::m_EconGloves);
+            if (!glove || glove < 0x10000) {
+                // Try walking m_hMyWearables (CHandle list at +0x1350) for a glove
+                uintptr_t wearablesBase = localPawn + 0x1350;
+                int32_t   wCount = Mem::Read<int32_t>(wearablesBase + 0x00);
+                uintptr_t wData  = Mem::Read<uintptr_t>(wearablesBase + 0x08);
+                if (wCount > 0 && wCount < 16 && wData) {
+                    for (int i = 0; i < wCount; ++i) {
+                        uint32_t h = Mem::Read<uint32_t>(wData + i * 4);
+                        uintptr_t e = GameState::ResolveHandle(h);
+                        if (!e) continue;
+                        uintptr_t it = e + Offsets::m_AttributeManager + Offsets::m_Item;
+                        uint16_t  d  = Mem::Read<uint16_t>(it + Offsets::m_iItemDefinitionIndex);
+                        if (d >= 5027 && d <= 5035) { glove = e; break; }
+                    }
+                }
+            }
+            if (!glove || glove < 0x10000) return;
+
+            uintptr_t item = glove + Offsets::m_AttributeManager + Offsets::m_Item;
+
+            Mem::Write<uint16_t>(item + Offsets::m_iItemDefinitionIndex, (uint16_t)targetDefIndex);
+            Mem::Write<int32_t>(item + Offsets::m_iEntityQuality, 4);
+            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0xFFFFFFFF);
+            Mem::Write<bool>(item + Offsets::m_bInitialized, false);
+            Mem::Write<uint32_t>(glove + Offsets::m_nSubclassID, (uint32_t)targetDefIndex);
+
+            UpdateSubclass(item);
+            SetModel(glove, modelPath);
+
+            uintptr_t sceneNode = Mem::Read<uintptr_t>(glove + Offsets::m_pGameSceneNode);
+            if (sceneNode)
+                SetMeshGroupMask(sceneNode, 1ull);
+
+            Mem::Write<bool>(localPawn + Offsets::m_bNeedToReApplyGloves, true);
+
+            char buf[160];
+            wsprintfA(buf, "[SkinChanger] glove model swap: def=%d path=%s scene=0x%llX\n",
+                targetDefIndex, modelPath, (unsigned long long)sceneNode);
+            OutputDebugStringA(buf);
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+    }
+
     inline void ApplyGloveSkin(uintptr_t localPawn, int paintKit, float wear)
     {
         __try {
@@ -534,12 +674,19 @@ namespace SkinChanger
         std::lock_guard<std::mutex> lock(configMutex);
 
         // ---------------------------------------------------------------
-        // GLOVE CHANGER — find glove wearable from m_hMyWearables and
-        // apply skin via fallback system (same as weapon skins).
-        // Glove MODEL changing needs server inventory — only skins work.
+        // GLOVE CHANGER — force model load + skin
         // ---------------------------------------------------------------
-        if (cfg.gloveEnabled && cfg.glovePaintKit > 0) {
-            ApplyGloveSkin(localPawn, cfg.glovePaintKit, cfg.gloveWear);
+        if (cfg.gloveEnabled && cfg.gloveModel > 0 && cfg.gloveModel < kGloveCount) {
+            int targetGloveDef = kGloves[cfg.gloveModel].defIndex;
+            // Re-apply every tick until it sticks (game may revert)
+            ApplyGloveModelSwap(localPawn, targetGloveDef);
+            lastGloveModelEntity = localPawn;
+            lastGloveModelDef    = targetGloveDef;
+            if (cfg.glovePaintKit > 0)
+                ApplyGloveSkin(localPawn, cfg.glovePaintKit, cfg.gloveWear);
+        } else {
+            lastGloveModelEntity = 0;
+            lastGloveModelDef    = 0;
         }
 
         // ---------------------------------------------------------------
@@ -561,23 +708,47 @@ namespace SkinChanger
         // NOTE: Knife MODEL changing (e.g. Karambit) is server-authoritative
         // and cannot be done client-side. Only knife SKINS work.
         // ---------------------------------------------------------------
-        if (IsKnife(defIndex) && cfg.knifeEnabled && cfg.knifePaintKit > 0) {
-            SkinConfig knifeSkin;
-            knifeSkin.paintKit = cfg.knifePaintKit;
-            knifeSkin.wear = cfg.knifeWear;
-            knifeSkin.seed = cfg.knifeSeed;
-            knifeSkin.statTrak = cfg.knifeStatTrak;
-            knifeSkin.enabled = true;
+        if (IsKnife(defIndex) && cfg.knifeEnabled) {
+            // Resolve target knife def-index from menu selection
+            int targetKnifeDef = (cfg.knifeModel > 0 && cfg.knifeModel < kKnifeCount)
+                ? kKnives[cfg.knifeModel].defIndex
+                : 0;
 
-            bool needsApply = force || (activeWeapon != lastAppliedWeapon) || (cfg.knifePaintKit != lastAppliedKit);
-            if (needsApply) {
-                lifeState = Mem::Read<uint8_t>(localPawn + Offsets::m_lifeState);
-                health = Mem::Read<int32_t>(localPawn + Offsets::m_iHealth);
-                if (lifeState == 0 && health > 0) {
-                    Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0);
-                    ApplyAndRegen(activeWeapon, knifeSkin, defIndex);
-                    lastAppliedWeapon = activeWeapon;
-                    lastAppliedKit = cfg.knifePaintKit;
+            // 1. MODEL SWAP — re-swap every tick until on-entity def matches target.
+            //    Game's network update can revert def-index, so caching is unsafe.
+            if (targetKnifeDef > 0 && (int)defIndex != targetKnifeDef) {
+                static int s_swapLogCount = 0;
+                if (s_swapLogCount < 5) {
+                    SkLog("[Knife] swap attempt: weapon=0x%llX curDef=%u targetDef=%d",
+                        (unsigned long long)activeWeapon, (unsigned)defIndex, targetKnifeDef);
+                    s_swapLogCount++;
+                }
+                ApplyKnifeModelSwap(activeWeapon, targetKnifeDef);
+                lastKnifeModelEntity = activeWeapon;
+                lastKnifeModelDef    = targetKnifeDef;
+                // Re-read after swap
+                defIndex = Mem::Read<uint16_t>(item + Offsets::m_iItemDefinitionIndex);
+            }
+
+            // 2. SKIN APPLY (paint-kit/wear/seed) — only when paint kit is set
+            if (cfg.knifePaintKit > 0) {
+                SkinConfig knifeSkin;
+                knifeSkin.paintKit = cfg.knifePaintKit;
+                knifeSkin.wear     = cfg.knifeWear;
+                knifeSkin.seed     = cfg.knifeSeed;
+                knifeSkin.statTrak = cfg.knifeStatTrak;
+                knifeSkin.enabled  = true;
+
+                bool needsApply = force || (activeWeapon != lastAppliedWeapon) || (cfg.knifePaintKit != lastAppliedKit);
+                if (needsApply) {
+                    lifeState = Mem::Read<uint8_t>(localPawn + Offsets::m_lifeState);
+                    health    = Mem::Read<int32_t>(localPawn + Offsets::m_iHealth);
+                    if (lifeState == 0 && health > 0) {
+                        Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0);
+                        ApplyAndRegen(activeWeapon, knifeSkin, defIndex);
+                        lastAppliedWeapon = activeWeapon;
+                        lastAppliedKit    = cfg.knifePaintKit;
+                    }
                 }
             }
         }
