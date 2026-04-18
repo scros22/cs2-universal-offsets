@@ -1,8 +1,0 @@
-modules:
-  - name: server
-
-    symbols:
-      - name: CSource2Server_Init
-        category: vfunc
-        alias:
-          - CSource2Server::g_GameEventManager

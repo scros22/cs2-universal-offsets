@@ -45,3 +45,11 @@ ipch/
 # Misc
 NUL.obj
 *.log
+
+# Local-only / sensitive (do not commit)
+private/
+*.hexlic
+
+# Per-developer scratch
+temp/logs/
+temp/assets/
