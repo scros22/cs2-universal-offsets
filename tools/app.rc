@@ -9,8 +9,6 @@ IDI_ICON1 ICON "app.ico"
 
 // Embedded payloads as RCDATA resources
 // The injector extracts these at runtime so no loose files needed
+// Only CorMem is used — other BYOVD drivers removed.
 101 RCDATA "..\\x64\\Release\\CS2.dll"
-102 RCDATA "..\\RTCore64.sys"
 103 RCDATA "..\\CorMem.sys"
-104 RCDATA "..\\WDTKernel.sys"
-105 RCDATA "..\\SIVX64.sys"
