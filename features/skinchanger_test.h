@@ -253,12 +253,17 @@ namespace SkinChanger
     using UpdateSubclassFn = void(__fastcall*)(uintptr_t item);
     using UpdateWeaponDataFn = void(__fastcall*)(uintptr_t weapon);
     using UpdateCompositeFn = void(__fastcall*)(uintptr_t weapon, int param);
+    // CBaseModelEntity::SetBodygroup(int group, int value)
+    // Required by CS2 to actually refresh the rendered mesh after a model change.
+    // Verified via Ghidra @ 0x1808E0610 in CS2 build (April 2026).
+    using SetBodyGroupFn = void(__fastcall*)(uintptr_t entity, int group, int value);
     
     inline SetModelFn SetModel = nullptr;
     inline SetMeshGroupMaskFn SetMeshGroupMask = nullptr;
     inline UpdateSubclassFn UpdateSubclass = nullptr;
     inline UpdateWeaponDataFn UpdateWeaponData = nullptr;
     inline UpdateCompositeFn UpdateComposite = nullptr;
+    inline SetBodyGroupFn SetBodyGroup = nullptr;
 
     // Cache so we only call expensive model swaps when the target changes
     inline uintptr_t lastKnifeModelEntity = 0;
@@ -393,13 +398,26 @@ namespace SkinChanger
             UpdateComposite = reinterpret_cast<UpdateCompositeFn>(updateCompositeAddr);
         }
 
+        // CBaseModelEntity::SetBodygroup(int group, int value)
+        // Ghidra-verified @ 0x1808E0610 (CS2, April 2026). The 23-byte prologue
+        // signature below is unique in client.dll. Per Raphilaa (UC, March 2026)
+        // this call is mandatory for the engine to refresh the rendered mesh
+        // after we change a knife/glove def-index + model.
+        const char* setBodyGroupSig =
+            "85 D2 0F 88 ? ? ? ? 53 55 56 48 83 EC 70 41 8B F0 8B DA 48 8B E9";
+        uintptr_t setBodyGroupAddr = Mem::FindPatternInModule(GameState::clientBase, setBodyGroupSig);
+        if (setBodyGroupAddr) {
+            SetBodyGroup = reinterpret_cast<SetBodyGroupFn>(setBodyGroupAddr);
+        }
+
         // ---- one-time diagnostic so we can verify each sig actually resolved
-        SkLog("[Init] sigs: SetModel=0x%llX SetMeshGroupMask=0x%llX UpdateSubclass=0x%llX UpdateWeaponData=0x%llX UpdateComposite=0x%llX",
+        SkLog("[Init] sigs: SetModel=0x%llX SetMeshGroupMask=0x%llX UpdateSubclass=0x%llX UpdateWeaponData=0x%llX UpdateComposite=0x%llX SetBodyGroup=0x%llX",
             (unsigned long long)(uintptr_t)SetModel,
             (unsigned long long)(uintptr_t)SetMeshGroupMask,
             (unsigned long long)(uintptr_t)UpdateSubclass,
             (unsigned long long)(uintptr_t)UpdateWeaponData,
-            (unsigned long long)(uintptr_t)UpdateComposite);
+            (unsigned long long)(uintptr_t)UpdateComposite,
+            (unsigned long long)(uintptr_t)SetBodyGroup);
         char buf[256];
         wsprintfA(buf,
             "[SkinChanger] sig resolve: SetModel=0x%llX SetMeshGroupMask=0x%llX UpdateSubclass=0x%llX\n",
@@ -538,6 +556,14 @@ namespace SkinChanger
             //    client.dll — passing item ptr causes a guaranteed SEH crash.
             UpdateSubclass(weapon);
 
+            // 6. SetBodygroup(weapon, 0, 0) — forces the renderer to drop the
+            //    cached mesh from the previous def-index and rebind to the new
+            //    model loaded by SetModel. Without this the world+view weapon
+            //    keeps the original mesh even though SetModel "succeeded" and
+            //    the animation/pose comes from the new subclass id.
+            //    Ghidra @ 0x1808E0610: void CBaseModelEntity::SetBodygroup(int,int)
+            if (SetBodyGroup) SetBodyGroup(weapon, 0, 0);
+
             char buf[160];
             wsprintfA(buf, "[SkinChanger] knife model swap: def=%d path=%s scene=0x%llX\n",
                 targetDefIndex, modelPath, (unsigned long long)sceneNode);
@@ -617,6 +643,14 @@ namespace SkinChanger
 
             // UpdateSubclass takes the ENTITY (glove), not the item ptr.
             UpdateSubclass(glove);
+
+            // Mandatory mesh refresh — see knife path. For gloves we hit BOTH
+            // the wearable entity AND the pawn (per Raphilaa's working code:
+            // pLocalPawn->SetBodyGroup() is what actually refreshes the hands).
+            if (SetBodyGroup) {
+                SetBodyGroup(glove, 0, 0);
+                SetBodyGroup(localPawn, 0, 0);
+            }
 
             Mem::Write<bool>(localPawn + Offsets::m_bNeedToReApplyGloves, true);
 
