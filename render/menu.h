@@ -22,6 +22,7 @@
 #include "../features/grenade_prediction.h"
 #include "../features/nade_helper.h"
 #include "../features/skinchanger_test.h"
+#include "../features/inventory_changer.h"
 #include "../features/triggerbot.h"
 #include "../features/backtrack.h"
 #include "../features/anti_aim.h"
@@ -1220,6 +1221,11 @@ namespace Menu
                 SkinChanger::lastKnifeDefIdx    = 0;
                 SkinChanger::lastGloveSpawnTime = 0.f;
                 SkinChanger::gloveRefreshFrames = 0;
+            }
+            SynthSep();
+            if (EvoButton("Inject Locker Items##ili"))
+            {
+                InventoryChanger::ResetAutoInject();
             }
         }
         SynthEndSection();

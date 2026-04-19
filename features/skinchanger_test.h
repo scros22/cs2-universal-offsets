@@ -457,9 +457,40 @@ namespace SkinChanger
     // Glove skin helper — SEH-safe, no C++ objects with destructors
     // ---------------------------------------------------------------
     // ---------------------------------------------------------------
+    // ARCHILIX-style subclass-id magic table per knife def-index.
+    // Server validates this hash; without it the swap is rejected.
+    // ---------------------------------------------------------------
+    inline uint64_t GetKnifeSubclassID(int defIndex) {
+        switch (defIndex) {
+            case 500: return 3933374535ull;
+            case 503: return 3787235507ull;
+            case 505: return 4046390180ull;
+            case 506: return 2047704618ull;
+            case 507: return 1731408398ull;
+            case 508: return 1638561588ull;
+            case 509: return 2282479884ull;
+            case 512: return 3412259219ull;
+            case 514: return 2511498851ull;
+            case 515: return 1353709123ull;
+            case 516: return 4269888884ull;
+            case 517: return 1105782941ull;
+            case 518: return 275962944ull;
+            case 519: return 1338637359ull;
+            case 520: return 3230445913ull;
+            case 521: return 3206681373ull;
+            case 522: return 2595277776ull;
+            case 523: return 4029975521ull;
+            case 524: return 2463111489ull;
+            case 525: return 365028728ull;
+            case 526: return 3845286452ull;
+            default:  return 0ull;
+        }
+    }
+
+    // ---------------------------------------------------------------
     // Force-load knife model on the equipped weapon entity.
-    // Writes def-index + subclass, then calls UpdateSubclass +
-    // SetModel (weapon, vmdl) + SetMeshGroupMask (skeleton, 1).
+    // Mirrors ARCHILIX: spoof ownership (account id + item id), set
+    // the per-knife subclass id hash, then SetModel + mesh mask.
     // ---------------------------------------------------------------
     inline void ApplyKnifeModelSwap(uintptr_t weapon, int targetDefIndex)
     {
@@ -469,25 +500,39 @@ namespace SkinChanger
         const char* modelPath = GetKnifeModelPath(targetDefIndex);
         if (!modelPath) return;
 
+        uint64_t subclassId = GetKnifeSubclassID(targetDefIndex);
+        if (!subclassId) return;
+
         __try {
             uintptr_t item = weapon + Offsets::m_AttributeManager + Offsets::m_Item;
 
-            // 1. Write def-index + entity quality + invalid item id (forces re-init)
+            // Pull local player's account id from any owned weapon (XuidLow)
+            uint32_t accountId = Mem::Read<uint32_t>(weapon + Offsets::m_OriginalOwnerXuidLow);
+            if (!accountId) accountId = 0xFFFFFFFFu; // fallback
+
+            // 1. Item identity \u2014 spoof ownership so the game accepts the swap
             Mem::Write<uint16_t>(item + Offsets::m_iItemDefinitionIndex, (uint16_t)targetDefIndex);
-            Mem::Write<int32_t>(item + Offsets::m_iEntityQuality, 3);
-            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0xFFFFFFFF);
-            Mem::Write<bool>(item + Offsets::m_bInitialized, false);
+            Mem::Write<int32_t>(item  + Offsets::m_iEntityQuality, 3);
+            Mem::Write<uint64_t>(item + Offsets::m_iItemID,     0xF000000000000000ull | (uint64_t)targetDefIndex);
+            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0xFFFFFFFFu);
+            Mem::Write<uint32_t>(item + Offsets::m_iItemIDLow,  0xFFFFFFFFu);
+            Mem::Write<uint32_t>(item + Offsets::m_iAccountID,  accountId);
+            Mem::Write<bool>(item + Offsets::m_bRestoreCustomMaterialAfterPrecache, true);
+            Mem::Write<bool>(item + Offsets::m_bDisallowSOC,    false);
+            Mem::Write<bool>(item + Offsets::m_bInitialized,    true);
 
-            // 2. Write subclass id (used by view-model resolver)
-            Mem::Write<uint32_t>(weapon + Offsets::m_nSubclassID, (uint32_t)targetDefIndex);
+            // 2. Subclass id hash \u2014 critical, server validates this
+            Mem::Write<uint64_t>(weapon + Offsets::m_nSubclassID, subclassId);
 
-            // 3. SetModel(weapon, modelPath) — force the .vmdl load
+            // 3. SetModel(weapon, vmdl)
             SetModel(weapon, modelPath);
 
-            // 4. SetMeshGroupMask(skeleton, 1) — !Legacy mesh group
+            // 4. SetMeshGroupMask(scene, 1) \u2014 !Legacy mesh group
             uintptr_t sceneNode = Mem::Read<uintptr_t>(weapon + Offsets::m_pGameSceneNode);
             if (sceneNode)
                 SetMeshGroupMask(sceneNode, 1ull);
+
+            // 5. UpdateSubclass(item) \u2014 refresh derived state
 
             // 5. UpdateSubclass(item) — refresh derived state (last per friend's order)
             UpdateSubclass(item);

@@ -26,6 +26,7 @@
 #include "features/world_effects.h"
 #include "features/bhop.h"
 #include "features/skinchanger_test.h"
+#include "features/inventory_changer.h"
 #include "render/hooks.h"
 
 #pragma comment(lib, "Psapi.lib")
@@ -311,6 +312,10 @@ static void EntryThread(HMODULE hModule)
     WorldEffects::Setup();
     SkinChanger::Init();
     DllLog("[EntryThread] SkinChanger::Init OK");
+
+    // Inventory locker injector (ARCHILIX-style)
+    InventoryChanger::Init();
+    DllLog("[EntryThread] InventoryChanger::Init done");
     
     // KNIFE/GLOVE CHANGER - DISABLED (ARCHITECTURALLY IMPOSSIBLE)
     // After extensive IDA Pro analysis and testing, knife changing is confirmed IMPOSSIBLE in CS2.
