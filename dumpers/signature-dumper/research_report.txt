@@ -1,0 +1,296 @@
+Loaded client.dll               base=0x180000000 sections=5
+Loaded engine2.dll              base=0x180000000 sections=6
+Loaded scenesystem.dll          base=0x180000000 sections=5
+Loaded tier0.dll                base=0x180000000 sections=6
+Loaded materialsystem2.dll      base=0x180000000 sections=5
+Loaded inputsystem.dll          base=0x180000000 sections=5
+Loaded vphysics2.dll            base=0x180000000 sections=5
+Loaded rendersystemdx11.dll     base=0x180000000 sections=5
+Loaded schemasystem.dll         base=0x180000000 sections=6
+Loaded soundsystem.dll          base=0x180000000 sections=6
+
+==============================================================================
+STRING ANCHOR VERIFICATION
+==============================================================================
+  [Engine_GetTime                ] engine2.dll: string @ 0x1805B3659 but NO .text refs
+  [Engine_AccumulateTime         ] engine2.dll: string @ 0x1805B3659 but NO .text refs
+  [CL_FullyConnected             ] engine2.dll: STRING NOT FOUND  'CNetworkGameClient for demo'
+  [HostStateMgr                  ] engine2.dll: str@0x18057B978 ref@0x180212941 fn@0x0  (1 str copies, 1 refs)
+  [Source2EngineToClient         ] engine2.dll: string @ 0x180535A10 but NO .text refs
+  [INetworkGameClient            ] engine2.dll: STRING NOT FOUND  'INetworkGameClient'
+  [CGameClient_for_demo          ] engine2.dll: STRING NOT FOUND  'CNetworkGameClient for demo '%s''
+  [LoadKV3FromText               ] tier0.dll: string @ 0x180311688 but NO .text refs
+  [Plat_FloatTime                ] tier0.dll: string @ 0x180385C73 but NO .text refs
+  [SceneSystem_factory           ] scenesystem.dll: string @ 0x1805D3660 but NO .text refs
+  [CSGOHudDeathNotice            ] client.dll: string @ 0x181B21F60 but NO .text refs
+  [HudWeaponSelection            ] client.dll: str@0x181B239E8 ref@0x180DE893B fn@0x0  (3 str copies, 1 refs)
+  [VacNetShot                    ] client.dll: STRING NOT FOUND  'VacNetShot'
+  [CSOPartyInvite                ] client.dll: STRING NOT FOUND  'CSOPartyInvite'
+  [CCSPlayer_WeaponServices      ] client.dll: str@0x181A5D3C0 ref@0x180873699 fn@0x180873660  (1 str copies, 3 refs)
+      prologue bytes: 48 83 EC 28 8B 0D 46 FC CA 01 65 48 8B 04 25 58 00 00 00 BA 98 00 00 00
+  [CCSPlayer_MovementServices    ] client.dll: str@0x181A58330 ref@0x180836E49 fn@0x180836E10  (1 str copies, 3 refs)
+      prologue bytes: 48 83 EC 28 8B 0D 96 C4 CE 01 65 48 8B 04 25 58 00 00 00 BA 98 00 00 00
+  [CCSPlayer_BulletServices      ] client.dll: str@0x181A52FB0 ref@0x18080AB65 fn@0x18080AA70  (1 str copies, 3 refs)
+      prologue bytes: 48 89 5C 24 18 57 48 83 EC 40 E8 E1 68 CB 00 48 8B F8 E8 D9 68 CB 00 8B
+  [CCSPlayerController           ] client.dll: str@0x181A52F60 ref@0x1800A82FB fn@0x1800A82F0  (1 str copies, 14 refs)
+      prologue bytes: 48 83 EC 28 33 C9 E8 55 9F 0B 00 48 8D 0D 5E AC 9A 01 48 89 05 D7 6C 24
+  [CCSPlayerPawn                 ] client.dll: str@0x181ADEAE8 ref@0x180BDABA2 fn@0x180BDAB40  (1 str copies, 1 refs)
+      prologue bytes: 48 83 EC 28 48 8D 15 A5 D3 49 01 48 8D 4C 24 38 E8 1B AF C0 00 8B 0D 55
+  [CSGameRules                   ] client.dll: string @ 0x1819F6859 but NO .text refs
+  [paintkit_seed                 ] client.dll: str@0x181B45130 ref@0x180F1106F fn@0x180F10990  (1 str copies, 2 refs)
+      prologue bytes: 48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 48 B8 FF 7F FF 7F FF 7F FF
+  [paintkit_prefab               ] client.dll: str@0x181B65A88 ref@0x18107E001 fn@0x18107DF40  (1 str copies, 2 refs)
+      prologue bytes: 48 89 5C 24 10 48 89 6C 24 18 48 89 74 24 20 57 48 83 EC 30 48 8B D9 48
+  [paintkit_wear                 ] client.dll: str@0x181A50320 ref@0x180F1104E fn@0x180F10990  (1 str copies, 3 refs)
+      prologue bytes: 48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 48 B8 FF 7F FF 7F FF 7F FF
+
+==============================================================================
+EXPORT DUMP (filtered)
+==============================================================================
+
+--- client.dll : 51 exports ---
+   BinaryProperties_GetValue                        0x180BADD70
+   CreateInterface                                  0x181832550
+   ExtractModuleMetadata                            0x180BAE420
+   GetResourceManifestCount                         0x18183A590
+   GetResourceManifests                             0x18183A5A0
+   InstallSchemaBindings                            0x18183C390
+   antlr3BaseRecognizerNew                          0x1818B2B30
+   antlr3BitsetCopy                                 0x1818B2180
+   antlr3BitsetList                                 0x1818B2350
+   antlr3BitsetLoad                                 0x1818B23C0
+   antlr3BitsetNew                                  0x1818B2480
+   antlr3BitsetOf                                   0x1818B2770
+   antlr3BitsetSetAPI                               0x1818B2850
+   antlr3CommonTokenDebugStreamSourceNew            0x1818AD900
+   antlr3CommonTokenNew                             0x1818B4650
+   antlr3CommonTokenStreamNew                       0x1818AD9E0
+   antlr3CommonTokenStreamSourceNew                 0x1818ADBE0
+   antlr3EnumNew                                    0x1818AFB10
+   antlr3ExceptionNew                               0x1818B6330
+   antlr3Hash                                       0x1818AFC40
+   antlr3HashTableNew                               0x1818B0260
+   antlr3IntStreamNew                               0x1818B2A10
+   antlr3IntTrieNew                                 0x1818B0370
+   antlr3LexerNew                                   0x1818AE900
+   antlr3LexerNewStream                             0x1818AEB70
+   antlr3ListNew                                    0x1818B04C0
+   antlr3MTExceptionNew                             0x1818B2DF0
+   antlr3NewAsciiStringCopyStream                   0x1818AD630
+   antlr3NewAsciiStringInPlaceStream                0x1818AD6F0
+   antlr3NewUCS2StringInPlaceStream                 0x1818AD780
+   ... +21 more
+
+--- engine2.dll : 88 exports ---
+   BinaryProperties_GetValue                        0x1802523D0
+   CreateInterface                                  0x180400100
+   ExtractModuleMetadata                            0x180252870
+   GetResourceManifestCount                         0x1804138C0
+   GetResourceManifests                             0x1804138D0
+   InstallSchemaBindings                            0x180414E50
+   Source2Main                                      0x180219430
+   antlr3BaseRecognizerNew                          0x18046B090
+   antlr3BitsetCopy                                 0x18046A6F0
+   antlr3BitsetList                                 0x18046A8C0
+   antlr3BitsetLoad                                 0x18046A930
+   antlr3BitsetNew                                  0x18046A9F0
+   antlr3BitsetOf                                   0x18046ACE0
+   antlr3BitsetSetAPI                               0x18046ADC0
+   antlr3CommonTokenDebugStreamSourceNew            0x180465FA0
+   antlr3CommonTokenNew                             0x18046CB70
+   antlr3CommonTokenStreamNew                       0x180466080
+   antlr3CommonTokenStreamSourceNew                 0x180466280
+   antlr3EnumNew                                    0x180468110
+   antlr3ExceptionNew                               0x18046E710
+   antlr3Hash                                       0x180468240
+   antlr3HashTableNew                               0x180468850
+   antlr3IntStreamNew                               0x18046AF80
+   antlr3IntTrieNew                                 0x180468960
+   antlr3LexerNew                                   0x180466F60
+   antlr3LexerNewStream                             0x1804671D0
+   antlr3ListNew                                    0x180468AB0
+   antlr3MTExceptionNew                             0x18046B350
+   antlr3NewAsciiStringCopyStream                   0x180465CD0
+   antlr3NewAsciiStringInPlaceStream                0x180465D90
+   ... +58 more
+
+--- scenesystem.dll : 6 exports ---
+   BinaryProperties_GetValue                        0x180159F40
+   CreateInterface                                  0x1804B16D0
+   ExtractModuleMetadata                            0x18015A400
+   GetResourceManifestCount                         0x1804B1FD0
+   GetResourceManifests                             0x1804B1FE0
+   InstallSchemaBindings                            0x1804B24D0
+
+--- tier0.dll : 2545 exports ---
+   ??0?$CUniformRandomStreamImpl@VCAtomicMutex@@@@QEAA@H@Z 0x18015D370
+   ??0?$CUniformRandomStreamImpl@VCAtomicMutex@@@@QEAA@XZ 0x18015D3A0
+   ??0?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@QEAA@H@Z 0x18015CF10
+   ??0?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@QEAA@XZ 0x18015CF30
+   ??0?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAA@AEBV0@@Z 0x18015BEB0
+   ??0?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAA@H@Z 0x18015C050
+   ??0?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAA@XZ 0x18015C080
+   ??0CBlake3HashContext@@QEAA@XZ                   0x1800560B0
+   ??0CBufferStringFormatOutputStream@@QEAA@$$QEAV0@@Z 0x18004F9D0
+   ??0CBufferStringFormatOutputStream@@QEAA@AEAVCBufferString@@@Z 0x18004F960
+   ??0CBufferStringFormatOutputStream@@QEAA@AEBV0@@Z 0x18004F9D0
+   ??0CBufferStringFormatOutputStream@@QEAA@XZ      0x18004F9A0
+   ??0CCallStackCapture@@QEAA@P6AHIPEAPEAXHH@ZII@Z  0x180162600
+   ??0CCallStackMarker@@QEAA@_N@Z                   0x180162710
+   ??0CCallStackMarker_ThisLine@@QEAA@_N@Z          0x180162720
+   ??0CCharBufferFormatOutputStream@@QEAA@$$QEAV0@@Z 0x18004FB80
+   ??0CCharBufferFormatOutputStream@@QEAA@AEBV0@@Z  0x18004FB80
+   ??0CCharBufferFormatOutputStream@@QEAA@PEADH@Z   0x18004FB40
+   ??0CCircularBuffer@@QEAA@I@Z                     0x180059350
+   ??0CCircularBuffer@@QEAA@XZ                      0x180059330
+   ??0CCommandBuffer@@QEAA@XZ                       0x1800599A0
+   ??0CCountedStringPool_CI@@QEAA@XZ                0x180165D00
+   ??0CDbgHelpFunctionsLoader@@QEAA@XZ              0x18018B660
+   ??0CDirIterator@@QEAA@PEBD0I@Z                   0x180090EC0
+   ??0CDirIterator@@QEAA@PEBDI@Z                    0x180090F20
+   ??0CDirIterator@@QEAA@XZ                         0x180090EA0
+   ??0CDirTreeWatchManager@@QEAA@I@Z                0x180095250
+   ??0CDirWatcher@@QEAA@XZ                          0x180092230
+   ??0CEnvironmentBlock@@QEAA@XZ                    0x180159A80
+   ??0CEventDispatcher_Base@@IEAA@XZ                0x180084620
+   ... +2515 more
+
+--- materialsystem2.dll : 55 exports ---
+   BinaryProperties_GetValue                        0x180047950
+   CreateInterface                                  0x180095570
+   ExtractModuleMetadata                            0x180047DA0
+   GetResourceManifestCount                         0x180095D80
+   GetResourceManifests                             0x180095D90
+   InstallSchemaBindings                            0x1800960C0
+   antlr3BaseRecognizerNew                          0x1800E9370
+   antlr3BitsetCopy                                 0x1800EBA90
+   antlr3BitsetList                                 0x1800EBC60
+   antlr3BitsetLoad                                 0x1800EBCD0
+   antlr3BitsetNew                                  0x1800EBD90
+   antlr3BitsetOf                                   0x1800EC080
+   antlr3BitsetSetAPI                               0x1800EC160
+   antlr3CommonTokenDebugStreamSourceNew            0x1800E7100
+   antlr3CommonTokenNew                             0x1800EDCF0
+   antlr3CommonTokenStreamNew                       0x1800E71E0
+   antlr3CommonTokenStreamSourceNew                 0x1800E73E0
+   antlr3EnumNew                                    0x1800EC320
+   antlr3ExceptionNew                               0x1800EE480
+   antlr3Hash                                       0x1800EC450
+   antlr3HashTableNew                               0x1800ECA60
+   antlr3IntStreamNew                               0x1800EDCC0
+   antlr3IntTrieNew                                 0x1800ECB70
+   antlr3LexerNew                                   0x1800E80E0
+   antlr3LexerNewStream                             0x1800E8350
+   antlr3ListNew                                    0x1800ECCC0
+   antlr3MTExceptionNew                             0x1800E9630
+   antlr3NewAsciiStringCopyStream                   0x1800E6E30
+   antlr3NewAsciiStringInPlaceStream                0x1800E6EF0
+   antlr3NewUCS2StringInPlaceStream                 0x1800E6F80
+   ... +25 more
+
+--- inputsystem.dll : 6 exports ---
+   BinaryProperties_GetValue                        0x180016520
+   CreateInterface                                  0x180017050
+   ExtractModuleMetadata                            0x180016970
+   GetResourceManifestCount                         0x18001EBF0
+   GetResourceManifests                             0x18001EC00
+   InstallSchemaBindings                            0x18001EE50
+
+--- vphysics2.dll : 23 exports ---
+   BinaryProperties_GetValue                        0x180076380
+   CreateInterface                                  0x180309B80
+   ExtractModuleMetadata                            0x180076810
+   GetResourceManifestCount                         0x18030BEB0
+   GetResourceManifests                             0x18030BEC0
+   InstallSchemaBindings                            0x18030C1F0
+   RnHullClone                                      0x18017E030
+   RnHullCreate                                     0x18017E360
+   RnHullCreateBox                                  0x18017E630
+   RnHullCreateCone                                 0x18017ED90
+   RnHullCreateCylinder                             0x18017F130
+   RnHullCreateRuntime                              0x18017F4C0
+   RnHullCreateRuntimeFromPlanes                    0x18017F530
+   RnHullDestroy                                    0x18017F5E0
+   RnMeshClone                                      0x18017F610
+   RnMeshCreate                                     0x18017F8A0
+   RnMeshDestroy                                    0x1801809B0
+   RnMeshHideTriangles                              0x1801809E0
+   RnMeshUpdateChangedVertices                      0x180181740
+   RnMeshUpdateTriangleAABBs                        0x1801819E0
+   RnShutdown                                       0x1800088A0
+   RnStartup                                        0x180181C70
+   RnUnitTest                                       0x1800088A0
+
+--- rendersystemdx11.dll : 98 exports ---
+   BinaryProperties_GetValue                        0x1800811E0
+   CreateInterface                                  0x18015A980
+   ExtractModuleMetadata                            0x180081740
+   GetResourceManifestCount                         0x180161490
+   GetResourceManifests                             0x1801614A0
+   InstallSchemaBindings                            0x180160FF0
+   NVSDK_NGX_D3D11_AllocateParameters               0x18008A990
+   NVSDK_NGX_D3D11_CreateFeature                    0x18008A9F0
+   NVSDK_NGX_D3D11_DestroyParameters                0x18008AA70
+   NVSDK_NGX_D3D11_EvaluateFeature                  0x18008AAD0
+   NVSDK_NGX_D3D11_EvaluateFeature_C                0x18008AB40
+   NVSDK_NGX_D3D11_GetCapabilityParameters          0x18008AB80
+   NVSDK_NGX_D3D11_GetFeatureRequirements           0x18008ABE0
+   NVSDK_NGX_D3D11_GetParameters                    0x18008ACC0
+   NVSDK_NGX_D3D11_GetScratchBufferSize             0x18008AD10
+   NVSDK_NGX_D3D11_ReleaseFeature                   0x18008AE90
+   NVSDK_NGX_D3D11_Shutdown                         0x18008AEE0
+   NVSDK_NGX_D3D11_Shutdown1                        0x18008AEF0
+   NVSDK_NGX_Parameter_GetD                         0x180089A00
+   NVSDK_NGX_Parameter_GetD3d11Resource             0x180089A60
+   NVSDK_NGX_Parameter_GetD3d12Resource             0x180089AC0
+   NVSDK_NGX_Parameter_GetF                         0x180089B20
+   NVSDK_NGX_Parameter_GetI                         0x180089B80
+   NVSDK_NGX_Parameter_GetUI                        0x180089BE0
+   NVSDK_NGX_Parameter_GetULL                       0x180089C40
+   NVSDK_NGX_Parameter_GetVoidPointer               0x180089CA0
+   NVSDK_NGX_Parameter_SetD                         0x180089D00
+   NVSDK_NGX_Parameter_SetD3d11Resource             0x180089D50
+   NVSDK_NGX_Parameter_SetD3d12Resource             0x180089DB0
+   NVSDK_NGX_Parameter_SetF                         0x180089E10
+   ... +68 more
+
+--- schemasystem.dll : 6 exports ---
+   BinaryProperties_GetValue                        0x180026220
+   CreateInterface                                  0x180035B10
+   ExtractModuleMetadata                            0x180026670
+   GetResourceManifestCount                         0x180037800
+   GetResourceManifests                             0x180037810
+   InstallSchemaBindings                            0x180037360
+
+--- soundsystem.dll : 87 exports ---
+   BinaryProperties_GetValue                        0x1800AFFF0
+   CreateInterface                                  0x18038F680
+   ExtractModuleMetadata                            0x1800B0440
+   GetResourceManifestCount                         0x1803908F0
+   GetResourceManifests                             0x180390900
+   InstallSchemaBindings                            0x180391150
+   antlr3BaseRecognizerNew                          0x1803B11D0
+   antlr3BitsetCopy                                 0x1803B0830
+   antlr3BitsetList                                 0x1803B0A00
+   antlr3BitsetLoad                                 0x1803B0A70
+   antlr3BitsetNew                                  0x1803B0B30
+   antlr3BitsetOf                                   0x1803B0E20
+   antlr3BitsetSetAPI                               0x1803B0F00
+   antlr3CommonTokenDebugStreamSourceNew            0x1803AC0C0
+   antlr3CommonTokenNew                             0x1803B2CB0
+   antlr3CommonTokenStreamNew                       0x1803AC1A0
+   antlr3CommonTokenStreamSourceNew                 0x1803AC3A0
+   antlr3EnumNew                                    0x1803AE230
+   antlr3ExceptionNew                               0x1803B48A0
+   antlr3Hash                                       0x1803AE360
+   antlr3HashTableNew                               0x1803AE970
+   antlr3IntStreamNew                               0x1803B10C0
+   antlr3IntTrieNew                                 0x1803AEA80
+   antlr3LexerNew                                   0x1803AD080
+   antlr3LexerNewStream                             0x1803AD2F0
+   antlr3ListNew                                    0x1803AEBD0
+   antlr3MTExceptionNew                             0x1803B1490
+   antlr3NewAsciiStringCopyStream                   0x1803ABDF0
+   antlr3NewAsciiStringInPlaceStream                0x1803ABEB0
+   antlr3NewUCS2StringInPlaceStream                 0x1803ABF40
+   ... +57 more
