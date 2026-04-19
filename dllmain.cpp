@@ -295,6 +295,7 @@ static void EntryThread(HMODULE hModule)
 
     // Register emergency cleanup so Heartbeat can restore hooks on detection
     Stealth::SetCleanupCallback([]() {
+        InventoryChanger::Shutdown();
         Bhop::Shutdown();
         WorldEffects::Shutdown();
         Hooks::Shutdown();
@@ -474,6 +475,7 @@ static void EntryThread(HMODULE hModule)
 
     // Teardown
     g_running.store(false);
+    InventoryChanger::Shutdown();
     Bhop::Shutdown();
     WorldEffects::Shutdown();
     Aimbot::Shutdown();

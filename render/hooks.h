@@ -671,10 +671,10 @@ namespace Hooks
         __try {
             SoundESP::Tick();
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
-        // KnifeGloveManager disabled — SkinChanger handles knife/glove now
-        // __try {
-        //     KnifeGloveManager::Tick();
-        // } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        // Entity-level knife/glove model swap (ARCHILIX-style fallback writes)
+        __try {
+            KnifeGloveManager::Tick();
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
 
         // Wireframe hands: tint viewmodel entity via m_clrRender each frame
         if (WireframeHands::cfg.enabled)

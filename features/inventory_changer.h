@@ -402,6 +402,15 @@ namespace InventoryChanger
     constexpr int TEAM_T  = 2;
     constexpr int TEAM_CT = 3;
 
+    // Dedup helper — true if we have already injected an item with this defIndex
+    inline bool HasInjected(uint16_t defIndex)
+    {
+        std::lock_guard<std::mutex> lk(g_mutex);
+        for (const auto& it : g_injected)
+            if (it.defIndex == defIndex) return true;
+        return false;
+    }
+
     // Inject the chosen knife + glove + every enabled weapon, with paint
     // kits, and equip the knife/glove for both teams.
     inline int AddFromConfig()
@@ -418,7 +427,7 @@ namespace InventoryChanger
             && cfg.knifeModel >= 0 && cfg.knifeModel < SkinChanger::kKnifeCount)
         {
             uint16_t kdef = static_cast<uint16_t>(SkinChanger::kKnives[cfg.knifeModel].defIndex);
-            if (kdef != 0)
+            if (kdef != 0 && !HasInjected(kdef))
             {
                 if (g_pCreateEconItem) {
                     CEconItem* p = g_pCreateEconItem();
@@ -452,7 +461,7 @@ namespace InventoryChanger
             && cfg.gloveModel >= 0 && cfg.gloveModel < SkinChanger::kGloveCount)
         {
             uint16_t gdef = static_cast<uint16_t>(SkinChanger::kGloves[cfg.gloveModel].defIndex);
-            if (gdef != 0)
+            if (gdef != 0 && !HasInjected(gdef))
             {
                 if (g_pCreateEconItem) {
                     CEconItem* p = g_pCreateEconItem();
@@ -480,12 +489,12 @@ namespace InventoryChanger
             }
         }
 
-        // ---- WEAPONS ----
+        // ---- WEAPONS (inject ALL 33 so the locker looks fully decked) ----
         for (int i = 0; i < SkinChanger::kWeaponCount && i < 32; ++i)
         {
             const auto& w = cfg.weapons[i];
-            if (!w.enabled || w.paintKit <= 0) continue;
             uint16_t wdef = static_cast<uint16_t>(SkinChanger::kWeapons[i].defIndex);
+            if (wdef == 0 || HasInjected(wdef)) continue;
             if (!g_pCreateEconItem) break;
             CEconItem* p = g_pCreateEconItem();
             if (!p) continue;
@@ -498,7 +507,9 @@ namespace InventoryChanger
             p->SetQuality(4);
             p->SetRarity(6);
             p->m_unFlags = 0;
-            ApplyPaintKit(p, w.paintKit, w.seed, w.wear, w.statTrak);
+            // If user did not pick a paint kit for this weapon, leave vanilla
+            if (w.paintKit > 0)
+                ApplyPaintKit(p, w.paintKit, w.seed, w.wear, w.statTrak);
             if (AddEconItem(inv, p)) {
                 std::lock_guard<std::mutex> lk(g_mutex);
                 g_injected.push_back({ p->m_ulID, wdef, w.paintKit, w.wear, w.seed, w.statTrak });
@@ -651,5 +662,24 @@ namespace InventoryChanger
         g_autoInjected.store(false);
         g_autoInjectRequested.store(true);
         IcLog("[InvCh] ResetAutoInject — will re-inject on next Tick");
+    }
+
+    // ---------------------------------------------------------------
+    // Shutdown — must run BEFORE MH_Uninitialize on DLL detach so the
+    // GetItemInLoadout trampoline does not call into freed DLL memory
+    // when the game continues to invoke the inventory pump.
+    // ---------------------------------------------------------------
+    inline void Shutdown()
+    {
+        if (!g_initialized.load()) return;
+        IcLog("[InvCh] Shutdown — disabling GetItemInLoadout hook");
+        if (g_pGetItemInLoadoutTarget) {
+            MH_DisableHook(g_pGetItemInLoadoutTarget);
+            MH_RemoveHook(g_pGetItemInLoadoutTarget);
+            g_pGetItemInLoadoutTarget = nullptr;
+            g_pGetItemInLoadoutOrig = nullptr;
+        }
+        g_autoInjectRequested.store(false);
+        g_initialized.store(false);
     }
 }
