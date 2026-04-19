@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "ida-pro-mcp": {
+      "type": "http",
+      "url": "http://127.0.0.1:13337/mcp"
+    },
+    "ghidra-mcp": {
+      "type": "stdio",
+      "command": "C:\\Users\\Samuel\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "args": [
+        "C:\\Users\\Samuel\\Documents\\GhidraMCP-main\\bridge_mcp_ghidra.py",
+        "--ghidra-server",
+        "http://127.0.0.1:8080/"
+      ]
+    }
+  }
+}

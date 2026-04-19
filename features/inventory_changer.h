@@ -402,6 +402,20 @@ namespace InventoryChanger
     constexpr int TEAM_T  = 2;
     constexpr int TEAM_CT = 3;
 
+    // Build a deterministic item ID for a given defIndex so re-injecting the
+    // DLL doesn't double up the locker (the game's SO cache keys by m_ulID
+    // and ignores duplicates).  High bit set to keep us out of the real-ID
+    // range that Steam allocates.
+    inline uint64_t MakeItemID(uint16_t defIndex)
+    {
+        return 0xF000000000000000ull | (uint64_t)defIndex;
+    }
+
+    inline uint32_t MakeInvSlot(uint16_t defIndex)
+    {
+        return 0x10000u | defIndex;
+    }
+
     // Dedup helper — true if we have already injected an item with this defIndex
     inline bool HasInjected(uint16_t defIndex)
     {
@@ -433,9 +447,9 @@ namespace InventoryChanger
                     CEconItem* p = g_pCreateEconItem();
                     if (p) {
                         SOID_t owner = GetInventoryOwner(inv);
-                        p->m_ulID = g_nextItemId++;
+                        p->m_ulID = MakeItemID(kdef);
                         p->m_ulOriginalID = 0;
-                        p->m_unInventory = ++g_nextInvId;
+                        p->m_unInventory = MakeInvSlot(kdef);
                         p->m_unAccountID = (uint32_t)owner.m_id;
                         p->m_unDefIndex = kdef;
                         p->SetQuality(4);
@@ -467,9 +481,9 @@ namespace InventoryChanger
                     CEconItem* p = g_pCreateEconItem();
                     if (p) {
                         SOID_t owner = GetInventoryOwner(inv);
-                        p->m_ulID = g_nextItemId++;
+                        p->m_ulID = MakeItemID(gdef);
                         p->m_ulOriginalID = 0;
-                        p->m_unInventory = ++g_nextInvId;
+                        p->m_unInventory = MakeInvSlot(gdef);
                         p->m_unAccountID = (uint32_t)owner.m_id;
                         p->m_unDefIndex = gdef;
                         p->SetQuality(4);
@@ -499,9 +513,9 @@ namespace InventoryChanger
             CEconItem* p = g_pCreateEconItem();
             if (!p) continue;
             SOID_t owner = GetInventoryOwner(inv);
-            p->m_ulID = g_nextItemId++;
+            p->m_ulID = MakeItemID(wdef);
             p->m_ulOriginalID = 0;
-            p->m_unInventory = ++g_nextInvId;
+            p->m_unInventory = MakeInvSlot(wdef);
             p->m_unAccountID = (uint32_t)owner.m_id;
             p->m_unDefIndex = wdef;
             p->SetQuality(4);

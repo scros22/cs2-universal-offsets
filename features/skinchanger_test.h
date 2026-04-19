@@ -532,10 +532,11 @@ namespace SkinChanger
             if (sceneNode)
                 SetMeshGroupMask(sceneNode, 1ull);
 
-            // 5. UpdateSubclass(item) \u2014 refresh derived state
-
-            // 5. UpdateSubclass(item) — refresh derived state (last per friend's order)
-            UpdateSubclass(item);
+            // 5. UpdateSubclass(weapon) — refresh derived state.
+            //    NOTE: takes the ENTITY pointer (vtable + m_nSubclassID@0x388),
+            //    NOT the item ptr. Verified via IDA on caller sub_180204820 in
+            //    client.dll — passing item ptr causes a guaranteed SEH crash.
+            UpdateSubclass(weapon);
 
             char buf[160];
             wsprintfA(buf, "[SkinChanger] knife model swap: def=%d path=%s scene=0x%llX\n",
@@ -560,43 +561,73 @@ namespace SkinChanger
         if (!modelPath) return;
 
         __try {
-            // m_EconGloves is a CHandle/pointer-ish struct — game treats it as the
-            // local pawn's glove wearable. Read as 64-bit pointer first.
-            uintptr_t glove = Mem::Read<uintptr_t>(localPawn + Offsets::m_EconGloves);
-            if (!glove || glove < 0x10000) {
-                // Try walking m_hMyWearables (CHandle list at +0x1350) for a glove
-                uintptr_t wearablesBase = localPawn + 0x1350;
-                int32_t   wCount = Mem::Read<int32_t>(wearablesBase + 0x00);
-                uintptr_t wData  = Mem::Read<uintptr_t>(wearablesBase + 0x08);
-                if (wCount > 0 && wCount < 16 && wData) {
-                    for (int i = 0; i < wCount; ++i) {
-                        uint32_t h = Mem::Read<uint32_t>(wData + i * 4);
-                        uintptr_t e = GameState::ResolveHandle(h);
-                        if (!e) continue;
-                        uintptr_t it = e + Offsets::m_AttributeManager + Offsets::m_Item;
-                        uint16_t  d  = Mem::Read<uint16_t>(it + Offsets::m_iItemDefinitionIndex);
-                        if (d >= 5027 && d <= 5035) { glove = e; break; }
-                    }
+            // IDA: m_EconGloves@0x1890 is an EMBEDDED CEconItemView struct, not a
+            // pointer/handle. The actual glove ENTITY lives in m_hMyWearables
+            // (CNetworkUtlVectorBase<CHandle<C_EconWearable>> @ pawn+0x1350).
+            // Walk the list and pick the first wearable whose def-index is a
+            // glove (5027..5035).
+            uintptr_t glove = 0;
+            uintptr_t wearablesBase = localPawn + 0x1350;
+            int32_t   wCount = Mem::Read<int32_t>(wearablesBase + 0x00);
+            uintptr_t wData  = Mem::Read<uintptr_t>(wearablesBase + 0x08);
+            if (wCount > 0 && wCount < 16 && wData) {
+                for (int i = 0; i < wCount; ++i) {
+                    uint32_t h = Mem::Read<uint32_t>(wData + i * 4);
+                    uintptr_t e = GameState::ResolveHandle(h);
+                    if (!e || e < 0x10000) continue;
+                    uintptr_t it = e + Offsets::m_AttributeManager + Offsets::m_Item;
+                    uint16_t  d  = Mem::Read<uint16_t>(it + Offsets::m_iItemDefinitionIndex);
+                    // Accept any glove def OR the first wearable if list has only one
+                    if ((d >= 5027 && d <= 5035) || wCount == 1) { glove = e; break; }
                 }
             }
-            if (!glove || glove < 0x10000) return;
+            if (!glove || glove < 0x10000) {
+                static int s_noGloveLog = 0;
+                if (s_noGloveLog < 3) {
+                    SkLog("[Glove] no wearable found: pawn=0x%llX wCount=%d wData=0x%llX",
+                        (unsigned long long)localPawn, wCount, (unsigned long long)wData);
+                    s_noGloveLog++;
+                }
+                return;
+            }
 
             uintptr_t item = glove + Offsets::m_AttributeManager + Offsets::m_Item;
 
+            // Pull local player's account id from the glove's existing owner XUID
+            uint32_t accountId = Mem::Read<uint32_t>(glove + Offsets::m_OriginalOwnerXuidLow);
+            if (!accountId) accountId = 0xFFFFFFFFu;
+
+            // Mirror the (working) knife identity-spoof exactly
             Mem::Write<uint16_t>(item + Offsets::m_iItemDefinitionIndex, (uint16_t)targetDefIndex);
-            Mem::Write<int32_t>(item + Offsets::m_iEntityQuality, 4);
-            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0xFFFFFFFF);
-            Mem::Write<bool>(item + Offsets::m_bInitialized, false);
+            Mem::Write<int32_t>(item  + Offsets::m_iEntityQuality, 3);
+            Mem::Write<uint64_t>(item + Offsets::m_iItemID,     0xF000000000000000ull | (uint64_t)targetDefIndex);
+            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0xFFFFFFFFu);
+            Mem::Write<uint32_t>(item + Offsets::m_iItemIDLow,  0xFFFFFFFFu);
+            Mem::Write<uint32_t>(item + Offsets::m_iAccountID,  accountId);
+            Mem::Write<bool>(item + Offsets::m_bRestoreCustomMaterialAfterPrecache, true);
+            Mem::Write<bool>(item + Offsets::m_bDisallowSOC,    false);
+            Mem::Write<bool>(item + Offsets::m_bInitialized,    true);
             Mem::Write<uint32_t>(glove + Offsets::m_nSubclassID, (uint32_t)targetDefIndex);
 
-            UpdateSubclass(item);
             SetModel(glove, modelPath);
 
             uintptr_t sceneNode = Mem::Read<uintptr_t>(glove + Offsets::m_pGameSceneNode);
             if (sceneNode)
                 SetMeshGroupMask(sceneNode, 1ull);
 
+            // UpdateSubclass takes the ENTITY (glove), not the item ptr.
+            UpdateSubclass(glove);
+
             Mem::Write<bool>(localPawn + Offsets::m_bNeedToReApplyGloves, true);
+
+            static int s_gloveSwapLog = 0;
+            if (s_gloveSwapLog < 5) {
+                SkLog("[Glove] swap: glove=0x%llX def=%d path=%s scene=0x%llX newDef=%u",
+                    (unsigned long long)glove, targetDefIndex, modelPath,
+                    (unsigned long long)sceneNode,
+                    (unsigned)Mem::Read<uint16_t>(item + Offsets::m_iItemDefinitionIndex));
+                s_gloveSwapLog++;
+            }
 
             char buf[160];
             wsprintfA(buf, "[SkinChanger] glove model swap: def=%d path=%s scene=0x%llX\n",

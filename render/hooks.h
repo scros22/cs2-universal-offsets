@@ -671,10 +671,10 @@ namespace Hooks
         __try {
             SoundESP::Tick();
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
-        // Entity-level knife/glove model swap (ARCHILIX-style fallback writes)
-        __try {
-            KnifeGloveManager::Tick();
-        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        // KnifeGloveManager intentionally disabled — SkinChanger::Tick already
+        // performs the full ARCHILIX-style knife/glove swap (SetModel +
+        // SetMeshGroupMask + UpdateSubclass).  Running both racing each other
+        // causes the model to revert.
 
         // Wireframe hands: tint viewmodel entity via m_clrRender each frame
         if (WireframeHands::cfg.enabled)
