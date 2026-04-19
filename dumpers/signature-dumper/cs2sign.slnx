@@ -1,0 +1,10 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Production" />
+    <BuildType Name="Release" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="cs2sign/cs2sign.vcxproj" Id="3dd2cbbf-5ddf-4f64-884c-4d417cf02939" />
+</Solution>

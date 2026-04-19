@@ -187,57 +187,60 @@ namespace InventoryChanger
     // ---------------------------------------------------------------
     // Econ schema — to look up attribute definitions for paint kit etc
     // ---------------------------------------------------------------
-    // Cache for resolved CEconItemSchema*
+    // Resolved via Ghidra (April 2026 build):
+    //   FUN_1810D5C50 = GetEconItemSystem()  -> returns ptr where [+8] is the
+    //                                          CEconItemSchema*.
+    //   FUN_18106EDF0 = CEconItemSchema::GetAttributeDefinitionByName(this,name)
+    //                                       -> CEconItemAttributeDefinition*
+    using FnGetEconItemSystem    = void**(__fastcall*)();
+    using FnGetAttrDefByName     = void*(__fastcall*)(void* schema, const char* name);
+    inline FnGetEconItemSystem g_pGetEconItemSystem = nullptr;
+    inline FnGetAttrDefByName  g_pGetAttrDefByName  = nullptr;
     inline void* g_pEconSchema = nullptr;
 
     inline void* GetEconItemSchema()
     {
         if (g_pEconSchema) return g_pEconSchema;
-        // Sig: returns CEconItemSystem*; vfunc 0 returns CEconItemSchema*
-        // ARCHILIX: I::iclient->get_econ_item_system()->get_econ_item_schema()
-        // We approximate by scanning for the global getter.
-        // Pattern: "48 8B 05 ? ? ? ? 48 85 C0 74 ? 48 8B 80 ? ? ? ? 48 85 C0 74\n? C3"
-        static bool tried = false;
-        if (tried) return nullptr;
-        tried = true;
-        uintptr_t addr = Mem::FindPattern(L"client.dll", "48 8B 05 ? ? ? ? 48 85 C0 74 ? 48 8B 80");
-        IcLog("[InvCh] EconItemSystem global lea: 0x%llX", (unsigned long long)addr);
-        if (!addr) return nullptr;
-        // mov rax, [rip+disp32]
-        int32_t rel = *reinterpret_cast<int32_t*>(addr + 3);
-        void** pSlot = reinterpret_cast<void**>(addr + 7 + rel);
-        if (!pSlot || !*pSlot) { IcLog("[InvCh] EconItemSystem slot empty"); return nullptr; }
-        void* pSystem = *pSlot;
-        // get_econ_item_schema is a vfunc on the system. ARCHILIX uses a method
-        // but we can also pull it from a known offset.  Most builds keep the
-        // schema pointer at +0x88 in CEconItemSystem.
-        void* pSchema = *reinterpret_cast<void**>(reinterpret_cast<uint8_t*>(pSystem) + 0x88);
-        IcLog("[InvCh] EconItemSchema = %p", pSchema);
+        if (!g_pGetEconItemSystem) return nullptr;
+        void** sys = nullptr;
+        __try { sys = g_pGetEconItemSystem(); }
+        __except (EXCEPTION_EXECUTE_HANDLER) { sys = nullptr; }
+        if (!sys) { IcLog("[InvCh] GetEconItemSystem returned null"); return nullptr; }
+        // Layout (verified): [0]=vtable, [1]=CEconItemSchema*
+        void* pSchema = sys[1];
+        IcLog("[InvCh] EconItemSchema = %p (sys=%p)", pSchema, sys);
         g_pEconSchema = pSchema;
         return pSchema;
     }
 
-    // CEconItemSchema::GetAttributeDefinitionInterface(int index) is vfunc ~27
-    // Index varies by build; try a few. Safer: locate via signature later.
-    // For now we use an indirect approach: store attribute writes by index
-    // and let the SetDynamicAttributeValue function do the schema lookup.
-    // Many builds expose a direct GetAttributeDefByIndex helper at vfunc 27.
+    // CS2 paint-kit attribute names (verified strings present in client.dll):
+    //   index 6 → "set item texture prefab"  (paint kit / pattern)
+    //   index 7 → "set item texture seed"    (pattern seed)
+    //   index 8 → "set item texture wear"    (float wear)
+    //   index 80→ "kill eater"               (StatTrak kill count)
+    //   index 81→ "kill eater score type"
+    inline const char* AttrNameForIndex(int idx)
+    {
+        switch (idx) {
+            case 6:  return "set item texture prefab";
+            case 7:  return "set item texture seed";
+            case 8:  return "set item texture wear";
+            case 80: return "kill eater";
+            case 81: return "kill eater score type";
+            default: return nullptr;
+        }
+    }
+
     inline void* GetAttributeDef(int index)
     {
+        const char* name = AttrNameForIndex(index);
+        if (!name) return nullptr;
         void* schema = GetEconItemSchema();
-        if (!schema) return nullptr;
-        // Try vfunc 27 first (common). If it returns garbage, the caller
-        // will skip the attribute write.
-        using Fn = void*(__fastcall*)(void*, int);
-        void** vt = *reinterpret_cast<void***>(schema);
-        if (!vt) return nullptr;
-        Fn f = reinterpret_cast<Fn>(vt[27]);
-        if (!f) return nullptr;
-        __try {
-            return f(schema, index);
-        } __except (EXCEPTION_EXECUTE_HANDLER) {
-            return nullptr;
-        }
+        if (!schema || !g_pGetAttrDefByName) return nullptr;
+        void* def = nullptr;
+        __try { def = g_pGetAttrDefByName(schema, name); }
+        __except (EXCEPTION_EXECUTE_HANDLER) { def = nullptr; }
+        return def;
     }
 
     inline void SetItemAttribute(CEconItem* pItem, int attrIndex, void* valuePtr)
@@ -503,12 +506,16 @@ namespace InventoryChanger
             }
         }
 
-        // ---- WEAPONS (inject ALL 33 so the locker looks fully decked) ----
+        // ---- WEAPONS (only inject ones the user has explicitly enabled
+        //               with a non-zero paint kit) ----
         for (int i = 0; i < SkinChanger::kWeaponCount && i < 32; ++i)
         {
             const auto& w = cfg.weapons[i];
             uint16_t wdef = static_cast<uint16_t>(SkinChanger::kWeapons[i].defIndex);
             if (wdef == 0 || HasInjected(wdef)) continue;
+            // Only inject when the user actually picked a skin for this weapon.
+            // Otherwise we end up flooding the locker with vanilla R8/CZ/USP/etc.
+            if (!w.enabled || w.paintKit <= 0) continue;
             if (!g_pCreateEconItem) break;
             CEconItem* p = g_pCreateEconItem();
             if (!p) continue;
@@ -521,9 +528,8 @@ namespace InventoryChanger
             p->SetQuality(4);
             p->SetRarity(6);
             p->m_unFlags = 0;
-            // If user did not pick a paint kit for this weapon, leave vanilla
-            if (w.paintKit > 0)
-                ApplyPaintKit(p, w.paintKit, w.seed, w.wear, w.statTrak);
+            // Always have a paint kit here (loop guard ensures w.paintKit > 0)
+            ApplyPaintKit(p, w.paintKit, w.seed, w.wear, w.statTrak);
             if (AddEconItem(inv, p)) {
                 std::lock_guard<std::mutex> lk(g_mutex);
                 g_injected.push_back({ p->m_ulID, wdef, w.paintKit, w.wear, w.seed, w.statTrak });
@@ -629,6 +635,20 @@ namespace InventoryChanger
             "48 89 6C 24 ? 57 41 56 41 57 48 81 EC ? ? ? ? 48 8B FA C7 44 24 ? ? ? ? ? 4D 8B F8");
         IcLog("[InvCh] SetDynamicAttributeValue: 0x%llX", (unsigned long long)pSDA);
         if (pSDA) g_pSetDynamicAttribute = reinterpret_cast<FnSetDynamicAttribute>(pSDA);
+
+        // 6) GetEconItemSystem (Ghidra-verified @ 0x1810D5C50, CS2 April 2026)
+        //    Returns void* where [+8] is the CEconItemSchema*.
+        uintptr_t pGES = Mem::FindPattern(L"client.dll",
+            "48 83 EC 28 48 8B 05 ? ? ? ? 48 85 C0 0F 85 ? ? ? ? 48 89 5C 24");
+        IcLog("[InvCh] GetEconItemSystem: 0x%llX", (unsigned long long)pGES);
+        if (pGES) g_pGetEconItemSystem = reinterpret_cast<FnGetEconItemSystem>(pGES);
+
+        // 7) CEconItemSchema::GetAttributeDefinitionByName (Ghidra-verified @ 0x18106EDF0)
+        //    Looks up an attribute definition pointer by its display name.
+        uintptr_t pGAD = Mem::FindPattern(L"client.dll",
+            "48 89 5C 24 10 48 89 6C 24 18 57 41 56 41 57 48 83 EC 60 48 8D 05");
+        IcLog("[InvCh] GetAttributeDefByName: 0x%llX", (unsigned long long)pGAD);
+        if (pGAD) g_pGetAttrDefByName = reinterpret_cast<FnGetAttrDefByName>(pGAD);
 
         bool ok = g_pCreateEconItem && g_pGetCSInvMgr && g_pCreateBaseTypeCache;
         IcLog("[InvCh] Init end ok=%d", ok ? 1 : 0);

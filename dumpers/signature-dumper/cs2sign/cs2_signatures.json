@@ -1,0 +1,2513 @@
+{
+  "metadata": {
+    "game": "Counter-Strike 2",
+    "process_id": 20088,
+    "total_signatures": 249,
+    "scan_time": "Dec  6 2025 15:55:47"
+  },
+  "signatures": [
+    {
+      "name": "EntityList",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE7D5A8D",
+      "error": null,
+      "regions_scanned": 68,
+      "bytes_scanned": 25E000
+    },
+    {
+      "name": "LocalPlayer",
+      "pattern": "48 8b 05 00 00 00 00 48 85 c0 74 0b",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FFA1655EF90",
+      "error": null,
+      "regions_scanned": 50,
+      "bytes_scanned": DB000
+    },
+    {
+      "name": "EntityListBase",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07 48 8b 01",
+      "mask": "xxx????xxxxxxxx",
+      "found": true,
+      "address": "0x7FF9EA919169",
+      "error": null,
+      "regions_scanned": 7D,
+      "bytes_scanned": 3F4000
+    },
+    {
+      "name": "EntityCount",
+      "pattern": "8b 15 00 00 00 00 48 8b 0d 00 00 00 00",
+      "mask": "xx????xxx????",
+      "found": true,
+      "address": "0x7FFA0C763622",
+      "error": null,
+      "regions_scanned": 64,
+      "bytes_scanned": 1F2000
+    },
+    {
+      "name": "ViewMatrix",
+      "pattern": "48 8d 0d 00 00 00 00 48 c1 e0 06",
+      "mask": "xxx????xxxx",
+      "found": true,
+      "address": "0x7FF969AD230B",
+      "error": null,
+      "regions_scanned": EC,
+      "bytes_scanned": BE36000
+    },
+    {
+      "name": "ViewAngles",
+      "pattern": "f3 0f 11 86 00 00 00 00 f3 0f 10 44 24",
+      "mask": "xxxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9177DACDC",
+      "error": null,
+      "regions_scanned": F2,
+      "bytes_scanned": 15AAB000
+    },
+    {
+      "name": "CameraPosition",
+      "pattern": "f3 0f 10 05 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FFA16E5E00B",
+      "error": null,
+      "regions_scanned": 96,
+      "bytes_scanned": B47000
+    },
+    {
+      "name": "WorldToScreen",
+      "pattern": "48 89 5c 24 08 48 89 74 24 10 57 48 83 ec 20 f3 0f 10",
+      "mask": "xxxxxxxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FF96B2B0380",
+      "error": null,
+      "regions_scanned": E4,
+      "bytes_scanned": 7A52000
+    },
+    {
+      "name": "InputSystem",
+      "pattern": "48 8b 0d 00 00 00 00 48 8b 01 ff 50 18",
+      "mask": "xxx????xxxxxx",
+      "found": true,
+      "address": "0x7FF9ABE1DB8C",
+      "error": null,
+      "regions_scanned": B6,
+      "bytes_scanned": 21B7000
+    },
+    {
+      "name": "MouseInput",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 80,
+      "bytes_scanned": 492000
+    },
+    {
+      "name": "KeyboardInput",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 0f 84",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9EE2A3EB1",
+      "error": null,
+      "regions_scanned": 67,
+      "bytes_scanned": 175000
+    },
+    {
+      "name": "GameResources",
+      "pattern": "48 8b 05 00 00 00 00 48 85 c0 75 5f",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FFA1706CC2E",
+      "error": null,
+      "regions_scanned": C4,
+      "bytes_scanned": 30BE000
+    },
+    {
+      "name": "PlayerResource",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE7D5A8D",
+      "error": null,
+      "regions_scanned": 78,
+      "bytes_scanned": 324000
+    },
+    {
+      "name": "GameRules",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 7C,
+      "bytes_scanned": 3DC000
+    },
+    {
+      "name": "ClientState",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 0f 84",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FFA174E379B",
+      "error": null,
+      "regions_scanned": 1A,
+      "bytes_scanned": 29000
+    },
+    {
+      "name": "ClientStateBase",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE7D5A8D",
+      "error": null,
+      "regions_scanned": 74,
+      "bytes_scanned": 288000
+    },
+    {
+      "name": "SignOnState",
+      "pattern": "83 3d 00 00 00 00 06 0f 94 c0",
+      "mask": "xx????xxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GlobalVars",
+      "pattern": "48 8b 05 00 00 00 00 8b 38 e8 00",
+      "mask": "xxx????xxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ClientTime",
+      "pattern": "f3 0f 10 05 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FFA0035279B",
+      "error": null,
+      "regions_scanned": A0,
+      "bytes_scanned": 1212000
+    },
+    {
+      "name": "ServerTime",
+      "pattern": "f3 0f 10 0d 00 00 00 00 f3 0f 11 4d",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF94016F0D5",
+      "error": null,
+      "regions_scanned": ED,
+      "bytes_scanned": D5E1000
+    },
+    {
+      "name": "FrameTime",
+      "pattern": "f3 0f 10 05 00 00 00 00 f3 0f 11 86",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF993FA0C9C",
+      "error": null,
+      "regions_scanned": E8,
+      "bytes_scanned": 9037000
+    },
+    {
+      "name": "RenderView",
+      "pattern": "48 89 5c 24 08 48 89 74 24 10 57 48 83 ec 20",
+      "mask": "xxxxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FFA037F32F4",
+      "error": null,
+      "regions_scanned": 15,
+      "bytes_scanned": 18000
+    },
+    {
+      "name": "DrawModel",
+      "pattern": "48 89 5c 24 08 57 48 83 ec 20 48 8b f9",
+      "mask": "xxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FFA037F3C70",
+      "error": null,
+      "regions_scanned": 15,
+      "bytes_scanned": 18000
+    },
+    {
+      "name": "DrawModelExecute",
+      "pattern": "55 8b ec 83 ec 10 53 56 57 8b f9",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "RenderSmokeOverlay",
+      "pattern": "55 8b ec 83 ec 08 8b 0d 00 00 00 00",
+      "mask": "xxxxxxxx????",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetColorModulation",
+      "pattern": "55 8b ec 83 ec 0c 56 8b f1 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "SetColorModulation",
+      "pattern": "55 8b ec 83 ec 08 8b c1 89 45 f8",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "OverrideMaterial",
+      "pattern": "55 8b ec 83 ec 0c 56 8b f1 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "NetworkChannel",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 7F,
+      "bytes_scanned": 456000
+    },
+    {
+      "name": "SendNetMessage",
+      "pattern": "48 89 5c 24 08 48 89 74 24 10 57 48 83 ec 20",
+      "mask": "xxxxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FFA037F32F4",
+      "error": null,
+      "regions_scanned": 13,
+      "bytes_scanned": 16000
+    },
+    {
+      "name": "SendDatagram",
+      "pattern": "48 89 5c 24 08 57 48 83 ec 20 48 8b f9",
+      "mask": "xxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FFA037F3C70",
+      "error": null,
+      "regions_scanned": 1A,
+      "bytes_scanned": 1D000
+    },
+    {
+      "name": "ProcessPacket",
+      "pattern": "48 89 5c 24 08 48 89 74 24 10 57 48 83 ec 20",
+      "mask": "xxxxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FFA037F32F4",
+      "error": null,
+      "regions_scanned": 18,
+      "bytes_scanned": 1B000
+    },
+    {
+      "name": "WeaponSystem",
+      "pattern": "48 8b 05 00 00 00 00 48 85 c0 74 0c",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FFA1619B729",
+      "error": null,
+      "regions_scanned": 75,
+      "bytes_scanned": 2AF000
+    },
+    {
+      "name": "GetWeaponData",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetSpread",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 58 05",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF94B849890",
+      "error": null,
+      "regions_scanned": F0,
+      "bytes_scanned": 11D5E000
+    },
+    {
+      "name": "GetInaccuracy",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 58 05",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF94B849890",
+      "error": null,
+      "regions_scanned": EC,
+      "bytes_scanned": BD36000
+    },
+    {
+      "name": "UpdateAccuracyPenalty",
+      "pattern": "f3 0f 10 87 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF9171D3118",
+      "error": null,
+      "regions_scanned": EC,
+      "bytes_scanned": C84B000
+    },
+    {
+      "name": "PlayerInfo",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE7D5A8D",
+      "error": null,
+      "regions_scanned": 74,
+      "bytes_scanned": 28B000
+    },
+    {
+      "name": "GetPlayerInfo",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetPlayerName",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetPlayerSteamID",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GameEventManager",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 7C,
+      "bytes_scanned": 3DE000
+    },
+    {
+      "name": "FireEvent",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "FireEventClientSide",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "AddListener",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "RemoveListener",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "MaterialSystem",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE7D5A8D",
+      "error": null,
+      "regions_scanned": 7A,
+      "bytes_scanned": 37F000
+    },
+    {
+      "name": "CreateMaterial",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "FindMaterial",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetMaterial",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "EngineClient",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FFA12E15183",
+      "error": null,
+      "regions_scanned": 88,
+      "bytes_scanned": 6E6000
+    },
+    {
+      "name": "GetScreenSize",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetPlayerForUserID",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetLocalPlayer",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ClientCmd",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ClientCmd_Unrestricted",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ExecuteClientCmd",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "Surface",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF995E4E4F5",
+      "error": null,
+      "regions_scanned": 78,
+      "bytes_scanned": 329000
+    },
+    {
+      "name": "DrawSetColor",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "DrawFilledRect",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "DrawOutlinedRect",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "DrawLine",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "DrawText",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetTextSize",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "Panel",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 7D,
+      "bytes_scanned": 404000
+    },
+    {
+      "name": "GetName",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "PaintTraverse",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ModelInfo",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9EA919169",
+      "error": null,
+      "regions_scanned": 7B,
+      "bytes_scanned": 3A0000
+    },
+    {
+      "name": "GetModelIndex",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetModelName",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetStudioModel",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ModelRender",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 83,
+      "bytes_scanned": 53F000
+    },
+    {
+      "name": "DrawModelEx",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "DrawModelExStaticProp",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "RenderContext",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF995E4E4F5",
+      "error": null,
+      "regions_scanned": 79,
+      "bytes_scanned": 34A000
+    },
+    {
+      "name": "PushRenderTargetAndViewport",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "PopRenderTargetAndViewport",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "StudioRender",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 80,
+      "bytes_scanned": 4B8000
+    },
+    {
+      "name": "DrawModel",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ForcedMaterialOverride",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ClientMode",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF995E4E4F5",
+      "error": null,
+      "regions_scanned": 78,
+      "bytes_scanned": 325000
+    },
+    {
+      "name": "CreateMove",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "OverrideView",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetViewModelFOV",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "DoPostScreenSpaceEffects",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "Prediction",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 81,
+      "bytes_scanned": 4D2000
+    },
+    {
+      "name": "SetupMove",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "FinishMove",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "RunCommand",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "MoveHelper",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9EA919169",
+      "error": null,
+      "regions_scanned": 3F,
+      "bytes_scanned": 276000
+    },
+    {
+      "name": "SetHost",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GameMovement",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 2F,
+      "bytes_scanned": 179000
+    },
+    {
+      "name": "ProcessMovement",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "PlayerMove",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "EngineTrace",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE7D5A8D",
+      "error": null,
+      "regions_scanned": 75,
+      "bytes_scanned": 2AA000
+    },
+    {
+      "name": "TraceRay",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "TraceLine",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "TraceHull",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "FileSystem",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9794AF4BF",
+      "error": null,
+      "regions_scanned": 7F,
+      "bytes_scanned": 8F0000
+    },
+    {
+      "name": "ReadFile",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "WriteFile",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "SoundEngine",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE7D5A8D",
+      "error": null,
+      "regions_scanned": 78,
+      "bytes_scanned": 321000
+    },
+    {
+      "name": "EmitSound",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "StopSound",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetSoundDuration",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ConVar",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 87,
+      "bytes_scanned": 76D000
+    },
+    {
+      "name": "FindVar",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetFloat",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetInt",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetString",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "SetValue",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "KeyValues",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9EA919169",
+      "error": null,
+      "regions_scanned": 1E,
+      "bytes_scanned": BC000
+    },
+    {
+      "name": "LoadFromFile",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "SaveToFile",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "StringTable",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 45,
+      "bytes_scanned": 29E000
+    },
+    {
+      "name": "FindString",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "AddString",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "SteamAPI",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE7D5A8D",
+      "error": null,
+      "regions_scanned": 3A,
+      "bytes_scanned": 142000
+    },
+    {
+      "name": "SteamFriends",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FFA12E15183",
+      "error": null,
+      "regions_scanned": 6A,
+      "bytes_scanned": 429000
+    },
+    {
+      "name": "SteamUser",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9EA919169",
+      "error": null,
+      "regions_scanned": 5E,
+      "bytes_scanned": 30C000
+    },
+    {
+      "name": "SteamUtils",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 66,
+      "bytes_scanned": 27F000
+    },
+    {
+      "name": "SteamMatchmaking",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE7D5A8D",
+      "error": null,
+      "regions_scanned": 36,
+      "bytes_scanned": 123000
+    },
+    {
+      "name": "SteamNetworking",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 4B,
+      "bytes_scanned": 1FF000
+    },
+    {
+      "name": "SteamUserStats",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF995E4E4F5",
+      "error": null,
+      "regions_scanned": 3C,
+      "bytes_scanned": 19B000
+    },
+    {
+      "name": "SteamApps",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 83,
+      "bytes_scanned": 55B000
+    },
+    {
+      "name": "SteamInventory",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9EA919169",
+      "error": null,
+      "regions_scanned": 20,
+      "bytes_scanned": 108000
+    },
+    {
+      "name": "SteamHTTP",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 5F,
+      "bytes_scanned": 29D000
+    },
+    {
+      "name": "SteamController",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE7D5A8D",
+      "error": null,
+      "regions_scanned": 76,
+      "bytes_scanned": 2D5000
+    },
+    {
+      "name": "SteamUGC",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 5C,
+      "bytes_scanned": 276000
+    },
+    {
+      "name": "SteamAppList",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE7D5A8D",
+      "error": null,
+      "regions_scanned": 3C,
+      "bytes_scanned": 156000
+    },
+    {
+      "name": "SteamMusic",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 74,
+      "bytes_scanned": 4E5000
+    },
+    {
+      "name": "SteamMusicRemote",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9EA919169",
+      "error": null,
+      "regions_scanned": 11,
+      "bytes_scanned": 87000
+    },
+    {
+      "name": "SteamHTMLSurface",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 90,
+      "bytes_scanned": C17000
+    },
+    {
+      "name": "SteamVideo",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE7D5A8D",
+      "error": null,
+      "regions_scanned": 64,
+      "bytes_scanned": 214000
+    },
+    {
+      "name": "SteamParentalSettings",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 4E,
+      "bytes_scanned": 2EA000
+    },
+    {
+      "name": "SteamInput",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF995E4E4F5",
+      "error": null,
+      "regions_scanned": 72,
+      "bytes_scanned": 28C000
+    },
+    {
+      "name": "SteamPartys",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 7F,
+      "bytes_scanned": 495000
+    },
+    {
+      "name": "SteamRemotePlay",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9EA919169",
+      "error": null,
+      "regions_scanned": 4E,
+      "bytes_scanned": 273000
+    },
+    {
+      "name": "EntityHealth",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FFA16ED1071",
+      "error": null,
+      "regions_scanned": D,
+      "bytes_scanned": 1B000
+    },
+    {
+      "name": "EntityTeam",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FFA16ED1071",
+      "error": null,
+      "regions_scanned": 25,
+      "bytes_scanned": 36000
+    },
+    {
+      "name": "EntityOrigin",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF98E868B10",
+      "error": null,
+      "regions_scanned": E1,
+      "bytes_scanned": 7628000
+    },
+    {
+      "name": "EntityAngles",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF91928B846",
+      "error": null,
+      "regions_scanned": DF,
+      "bytes_scanned": 8F57000
+    },
+    {
+      "name": "EntityVelocity",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF91928B846",
+      "error": null,
+      "regions_scanned": E9,
+      "bytes_scanned": B88C000
+    },
+    {
+      "name": "EntityFlags",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FF9DE6E7329",
+      "error": null,
+      "regions_scanned": 1C,
+      "bytes_scanned": A8000
+    },
+    {
+      "name": "EntityDormant",
+      "pattern": "80 b9 00 00 00 00 00 74 07",
+      "mask": "xx?????xx",
+      "found": true,
+      "address": "0x7FFA1723C634",
+      "error": null,
+      "regions_scanned": 1F,
+      "bytes_scanned": 1FF000
+    },
+    {
+      "name": "EntitySpotted",
+      "pattern": "80 b9 00 00 00 00 00 74 07",
+      "mask": "xx?????xx",
+      "found": true,
+      "address": "0x7FF99A9B42C0",
+      "error": null,
+      "regions_scanned": 22,
+      "bytes_scanned": 181000
+    },
+    {
+      "name": "EntitySpottedByMask",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FFA16ED1071",
+      "error": null,
+      "regions_scanned": 34,
+      "bytes_scanned": 55000
+    },
+    {
+      "name": "PlayerArmor",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FFA1653AEAB",
+      "error": null,
+      "regions_scanned": 1C,
+      "bytes_scanned": 82000
+    },
+    {
+      "name": "PlayerHasHelmet",
+      "pattern": "80 b9 00 00 00 00 00 74 07",
+      "mask": "xx?????xx",
+      "found": true,
+      "address": "0x7FF99A9B42C0",
+      "error": null,
+      "regions_scanned": 72,
+      "bytes_scanned": 538000
+    },
+    {
+      "name": "PlayerHasDefuser",
+      "pattern": "80 b9 00 00 00 00 00 74 07",
+      "mask": "xx?????xx",
+      "found": true,
+      "address": "0x7FF94B4FA024",
+      "error": null,
+      "regions_scanned": 59,
+      "bytes_scanned": 563000
+    },
+    {
+      "name": "PlayerMoney",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FF9DE6E7329",
+      "error": null,
+      "regions_scanned": 2D,
+      "bytes_scanned": 10B000
+    },
+    {
+      "name": "PlayerKills",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FFA16ED1071",
+      "error": null,
+      "regions_scanned": 2F,
+      "bytes_scanned": 4D000
+    },
+    {
+      "name": "PlayerDeaths",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FFA16ED1071",
+      "error": null,
+      "regions_scanned": 24,
+      "bytes_scanned": 3C000
+    },
+    {
+      "name": "PlayerAssists",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FFA16ED1071",
+      "error": null,
+      "regions_scanned": D,
+      "bytes_scanned": 1B000
+    },
+    {
+      "name": "PlayerScore",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FF9FE2C5E69",
+      "error": null,
+      "regions_scanned": 26,
+      "bytes_scanned": 5F000
+    },
+    {
+      "name": "PlayerPing",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FFA16ED1071",
+      "error": null,
+      "regions_scanned": 35,
+      "bytes_scanned": 57000
+    },
+    {
+      "name": "WeaponOwner",
+      "pattern": "48 8b 81 00 00 00 00 48 85 c0 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FFA16BB1B94",
+      "error": null,
+      "regions_scanned": 65,
+      "bytes_scanned": 4D9000
+    },
+    {
+      "name": "WeaponClip1",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FFA0023D839",
+      "error": null,
+      "regions_scanned": 41,
+      "bytes_scanned": BE000
+    },
+    {
+      "name": "WeaponClip2",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FF9FE2C5E69",
+      "error": null,
+      "regions_scanned": 34,
+      "bytes_scanned": 83000
+    },
+    {
+      "name": "WeaponReserveAmmo",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FFA1653AEAB",
+      "error": null,
+      "regions_scanned": 22,
+      "bytes_scanned": 7C000
+    },
+    {
+      "name": "WeaponType",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FFA1653AEAB",
+      "error": null,
+      "regions_scanned": 4E,
+      "bytes_scanned": 146000
+    },
+    {
+      "name": "WeaponState",
+      "pattern": "8b 81 00 00 00 00 c3 cc cc cc cc cc cc cc cc 8b 81",
+      "mask": "xx??????????????x",
+      "found": true,
+      "address": "0x7FFA1653AEAB",
+      "error": null,
+      "regions_scanned": 41,
+      "bytes_scanned": B8000
+    },
+    {
+      "name": "WeaponOwner",
+      "pattern": "48 8b 81 00 00 00 00 48 85 c0 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FFA16BB1B94",
+      "error": null,
+      "regions_scanned": 8D,
+      "bytes_scanned": 8E4000
+    },
+    {
+      "name": "BoneMatrix",
+      "pattern": "48 8b 81 00 00 00 00 48 85 c0 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FFA16BB1B94",
+      "error": null,
+      "regions_scanned": 8A,
+      "bytes_scanned": 762000
+    },
+    {
+      "name": "GetBonePosition",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GlowManager",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 8C,
+      "bytes_scanned": A79000
+    },
+    {
+      "name": "RegisterGlowObject",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "UnregisterGlowObject",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "DrawModelChams",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ApplyCustomSkin",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetSkinData",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "NetVarManager",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 67,
+      "bytes_scanned": 59C000
+    },
+    {
+      "name": "GetOffset",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetProp",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "VMTBase",
+      "pattern": "48 8b 05 00 00 00 00 48 85 c0 74 0c",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FFA159E01A5",
+      "error": null,
+      "regions_scanned": 65,
+      "bytes_scanned": 215000
+    },
+    {
+      "name": "InterfaceRegistry",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 70,
+      "bytes_scanned": 3EB000
+    },
+    {
+      "name": "GetInterface",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "Console",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF98A8567AF",
+      "error": null,
+      "regions_scanned": 95,
+      "bytes_scanned": E56000
+    },
+    {
+      "name": "Print",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "DPrint",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "MemAlloc",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FF9DE6CBC2F",
+      "error": null,
+      "regions_scanned": 87,
+      "bytes_scanned": 6A4000
+    },
+    {
+      "name": "Alloc",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "Realloc",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "Free",
+      "pattern": "55 8b ec 83 ec 08 8b 45 08 8b 0d",
+      "mask": "xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "WeaponServices",
+      "pattern": "48 8b 81 00 00 00 00 48 85 c0 74 0a 48 8b 08",
+      "mask": "xxx????xxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ActiveWeaponHandle",
+      "pattern": "8b 81 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ItemDefinitionIndex",
+      "pattern": "8b 81 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "WeaponClip1",
+      "pattern": "8b 81 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "NextPrimaryAttack",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF91928B846",
+      "error": null,
+      "regions_scanned": DB,
+      "bytes_scanned": B8AA000
+    },
+    {
+      "name": "NextSecondaryAttack",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 4d",
+      "mask": "xxxx????xxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "WeaponAmmo",
+      "pattern": "8b 81 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "WeaponPenetration",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF91928B846",
+      "error": null,
+      "regions_scanned": E8,
+      "bytes_scanned": F2B8000
+    },
+    {
+      "name": "WeaponDamage",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF91928B846",
+      "error": null,
+      "regions_scanned": A5,
+      "bytes_scanned": 7DFC000
+    },
+    {
+      "name": "WeaponRangeModifier",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 4d",
+      "mask": "xxxx????xxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "WeaponArmorRatio",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF91928B846",
+      "error": null,
+      "regions_scanned": E7,
+      "bytes_scanned": 100C2000
+    },
+    {
+      "name": "WeaponRange",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 4d",
+      "mask": "xxxx????xxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GetWeaponEntity",
+      "pattern": "48 8b 05 00 00 00 00 48 85 c0 74 0c 48 8b 08 00",
+      "mask": "xxx????xxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "WeaponDataFunction",
+      "pattern": "48 89 5c 24 08 48 89 6c 24 10 48 89 74 24 18 57 41 56 41 57 48 83 ec 00",
+      "mask": "xxxxxxxxxxxxxxxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "SimulationTime",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF91928B846",
+      "error": null,
+      "regions_scanned": 92,
+      "bytes_scanned": 76B0000
+    },
+    {
+      "name": "OldSimulationTime",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 4d",
+      "mask": "xxxx????xxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "TickBase",
+      "pattern": "8b 81 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "InterpolationFunction",
+      "pattern": "48 89 5c 24 08 48 89 6c 24 10 48 89 74 24 18 57 41 56 41 57 48 83 ec 20 48 8b f9 00",
+      "mask": "xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "CommandNumber",
+      "pattern": "8b 81 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "NetworkLatency",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF91928B846",
+      "error": null,
+      "regions_scanned": E6,
+      "bytes_scanned": B63B000
+    },
+    {
+      "name": "ChokedPackets",
+      "pattern": "8b 81 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "OutSequenceNr",
+      "pattern": "8b 81 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "InSequenceNr",
+      "pattern": "8b 81 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "CommandBatchingFunction",
+      "pattern": "48 89 5c 24 08 48 89 6c 24 10 48 89 74 24 18 57 41 56 41 57 48 83 ec 20 48 8b f9 48 8b 0d 00 00",
+      "mask": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "SendCommandFunction",
+      "pattern": "48 89 5c 24 08 55 56 57 41 54 41 55 41 56 41 57 48 8d ac 24 00 00 00 00 48 81 ec 00 00 00",
+      "mask": "xxxxxxxxxxxxxxxxxxxxx????xxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GlobalVarsPointer",
+      "pattern": "48 8b 05 00 00 00 00 8b 38 e8 00 00 00 00",
+      "mask": "xxx????xxxx???",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "IntervalPerTick",
+      "pattern": "f3 0f 10 05 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FFA0035279B",
+      "error": null,
+      "regions_scanned": B8,
+      "bytes_scanned": 30D8000
+    },
+    {
+      "name": "CurrentTime",
+      "pattern": "f3 0f 10 05 00 00 00 00 f3 0f 11 4d",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF989FFA0CA",
+      "error": null,
+      "regions_scanned": D4,
+      "bytes_scanned": 6020000
+    },
+    {
+      "name": "TickCount",
+      "pattern": "8b 05 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "PredictionPointer",
+      "pattern": "48 8b 05 00 00 00 00 48 85 c0 74 0c 48 8b 08 00",
+      "mask": "xxx????xxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "PredictionTime",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF98E868B10",
+      "error": null,
+      "regions_scanned": CE,
+      "bytes_scanned": 5D66000
+    },
+    {
+      "name": "PlayerAccount",
+      "pattern": "8b 81 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ObserverTarget",
+      "pattern": "8b 81 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ObserverMode",
+      "pattern": "8b 81 00 00 00 00 89 45 00 48 8b 0d",
+      "mask": "xx????xx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "FlashBangTime",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF91928B846",
+      "error": null,
+      "regions_scanned": E8,
+      "bytes_scanned": BB22000
+    },
+    {
+      "name": "FlashMaxAlpha",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 4d",
+      "mask": "xxxx????xxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "FlashDangerSound",
+      "pattern": "80 b9 00 00 00 00 00 74 07",
+      "mask": "xx?????xx",
+      "found": true,
+      "address": "0x7FF99A9B42C0",
+      "error": null,
+      "regions_scanned": 22,
+      "bytes_scanned": 177000
+    },
+    {
+      "name": "AimPunchCache",
+      "pattern": "48 8b 81 00 00 00 00 48 85 c0 74 07",
+      "mask": "xxx????xxxxx",
+      "found": true,
+      "address": "0x7FFA16BB1B94",
+      "error": null,
+      "regions_scanned": 8B,
+      "bytes_scanned": 7F2000
+    },
+    {
+      "name": "AimPunchAngleVel",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF98E868B10",
+      "error": null,
+      "regions_scanned": DB,
+      "bytes_scanned": 66AC000
+    },
+    {
+      "name": "WeaponSpread",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 45",
+      "mask": "xxxx????xxxx",
+      "found": true,
+      "address": "0x7FF98E868B10",
+      "error": null,
+      "regions_scanned": E5,
+      "bytes_scanned": AB7E000
+    },
+    {
+      "name": "WeaponInaccuracy",
+      "pattern": "f3 0f 10 81 00 00 00 00 f3 0f 11 4d",
+      "mask": "xxxx????xxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "MaterialSystemPointer",
+      "pattern": "48 8b 05 00 00 00 00 48 85 c0 74 0c 48 8b 08 48 8b 01 ff 50 00 48 8b",
+      "mask": "xxx????xxxxxxxxxxxxx?xx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "DrawModelFunction",
+      "pattern": "48 89 5c 24 00 48 89 6c 24 00 48 89 74 24 00 57 48 81 ec 00 00 00 00 48 8b 05 00 00 00 00 48 33",
+      "mask": "xxxx?xxxx?xxxx?xxxxx????xxx????xxx",
+      "found": false,
+      "address": null,
+      "error": "Pattern (32 bytes) != mask (34 chars)",
+      "regions_scanned": 0,
+      "bytes_scanned": 0
+    },
+    {
+      "name": "MaterialOverride",
+      "pattern": "48 89 5c 24 00 55 56 57 41 54 41 55 41 56 41 57 48 8d ac 24",
+      "mask": "xxxx?xxxxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FFA16554A80",
+      "error": null,
+      "regions_scanned": E,
+      "bytes_scanned": 34000
+    },
+    {
+      "name": "ScopeOverlayRendering",
+      "pattern": "48 89 5c 24 00 55 56 57 41 54 41 55 41 56 41 57 48 8d ac 24 00 00 00 00",
+      "mask": "xxxx?xxxxxxxxxxxxxxx????",
+      "found": true,
+      "address": "0x7FFA174E9CB0",
+      "error": null,
+      "regions_scanned": 1A,
+      "bytes_scanned": 37000
+    },
+    {
+      "name": "CrosshairRendering",
+      "pattern": "48 89 5c 24 00 48 89 74 24 00 57 48 83 ec 00 48 8b f9 48 8b 0d 00 00 00",
+      "mask": "xxxx?xxxx?xxxx?xxxxxxx????",
+      "found": false,
+      "address": null,
+      "error": "Pattern (24 bytes) != mask (26 chars)",
+      "regions_scanned": 0,
+      "bytes_scanned": 0
+    },
+    {
+      "name": "MatchmakingAccept",
+      "pattern": "48 89 5c 24 00 48 89 74 24 00 57 48 83 ec 00 48 8b f9 48 8b 0d 00 00 00",
+      "mask": "xxxx?xxxx?xxxx?xxxxxxx????",
+      "found": false,
+      "address": null,
+      "error": "Pattern (24 bytes) != mask (26 chars)",
+      "regions_scanned": 0,
+      "bytes_scanned": 0
+    },
+    {
+      "name": "SpectatorList",
+      "pattern": "48 8b 05 00 00 00 00 48 85 c0 74 0c 48 8b 08 48 8b 01",
+      "mask": "xxx????xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "WorldColorModulation",
+      "pattern": "48 89 5c 24 00 48 89 6c 24 00 48 89 74 24 00 57 48 81 ec 00 00 00 00 48 8b 05 00 00",
+      "mask": "xxxx?xxxx?xxxx?xxxxx????xxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ShadowRendering",
+      "pattern": "48 89 5c 24 00 48 89 6c 24 00 48 89 74 24 00 57 48 81 ec 00 00 00 00 48 8b 05 00 00",
+      "mask": "xxxx?xxxx?xxxx?xxxxx????xxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "DecalSystem",
+      "pattern": "48 8b 05 00 00 00 00 48 85 c0 74 0c 48 8b 08 48 8b 01 ff 50 00 48 8b",
+      "mask": "xxx????xxxxxxxxxxxxx?xx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "WaterRendering",
+      "pattern": "48 89 5c 24 00 55 56 57 41 54 41 55 41 56 41 57 48 8d ac 24 00 00 00 00",
+      "mask": "xxxx?xxxxxxxxxxxxxxx????",
+      "found": true,
+      "address": "0x7FFA16471090",
+      "error": null,
+      "regions_scanned": 18,
+      "bytes_scanned": 2B000
+    },
+    {
+      "name": "LightningEffect",
+      "pattern": "48 8b 05 00 00 00 00 48 85 c0 74 0c 48 8b 08 00",
+      "mask": "xxx????xxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "SoundSystem",
+      "pattern": "48 8b 05 00 00 00 00 48 85 c0 74 0c 48 8b 08 48 8b 01",
+      "mask": "xxx????xxxxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "WeaponDamageCalculation",
+      "pattern": "48 89 5c 24 00 55 56 57 41 54 41 55 41 56 41 57 48 8d ac 24 00 00 00 00 48 81 ec 00 00 00 00 48 8b 05 00",
+      "mask": "xxxx?xxxxxxxxxxxxxxxxx????xxx????xx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "TracePenetrationFunction",
+      "pattern": "48 89 5c 24 00 48 89 6c 24 00 48 89 74 24 00 57 41 56 41 57 48 83 ec 00 48 8b f9 00",
+      "mask": "xxxx?xxxx?xxxx?xxxxxxxxx?xxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "ClientStateSignOnState",
+      "pattern": "83 3d 00 00 00 00 06 0f 94 c0",
+      "mask": "xx????xxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "GlobalVarsAlternative",
+      "pattern": "48 8b 05 00 00 00 00 f3 0f 10 38",
+      "mask": "xxx????xxxx",
+      "found": true,
+      "address": "0x7FF901D0EB6B",
+      "error": null,
+      "regions_scanned": F3,
+      "bytes_scanned": 183EE000
+    },
+    {
+      "name": "NetworkChannelAlternative",
+      "pattern": "48 8b 0d 00 00 00 00 48 85 c9 74 0a 48 8b 01 00",
+      "mask": "xxx????xxxxxxxxx",
+      "found": false,
+      "address": null,
+      "error": "Not found after 3185 regions",
+      "regions_scanned": C71,
+      "bytes_scanned": 18FA3C000
+    },
+    {
+      "name": "CreateMoveAlternative",
+      "pattern": "48 89 5c 24 08 48 89 74 24 10 57 48 83 ec 20 48 8b f9 48 8b",
+      "mask": "xxxxxxxxxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FFA16564D30",
+      "error": null,
+      "regions_scanned": 6A,
+      "bytes_scanned": 331000
+    },
+    {
+      "name": "PaintTraverseAlternative",
+      "pattern": "48 89 5c 24 08 48 89 74 24 10 57 48 83 ec 20 48 8b f9 48 8b",
+      "mask": "xxxxxxxxxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FFA16564D30",
+      "error": null,
+      "regions_scanned": 55,
+      "bytes_scanned": 19C000
+    },
+    {
+      "name": "FrameStageNotify",
+      "pattern": "48 89 5c 24 08 48 89 74 24 10 57 48 83 ec 20 48 8b f9 48 8b",
+      "mask": "xxxxxxxxxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FFA16564D30",
+      "error": null,
+      "regions_scanned": 39,
+      "bytes_scanned": 116000
+    },
+    {
+      "name": "OverrideViewAlternative",
+      "pattern": "48 89 5c 24 08 48 89 74 24 10 57 48 83 ec 20 48 8b f9 48 8b",
+      "mask": "xxxxxxxxxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FFA16564D30",
+      "error": null,
+      "regions_scanned": 39,
+      "bytes_scanned": 7B000
+    },
+    {
+      "name": "GetViewModelFOVAlternative",
+      "pattern": "48 89 5c 24 08 48 89 74 24 10 57 48 83 ec 20 48 8b f9 48 8b",
+      "mask": "xxxxxxxxxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FFA16564D30",
+      "error": null,
+      "regions_scanned": 42,
+      "bytes_scanned": DD000
+    },
+    {
+      "name": "DoPostScreenSpaceEffectsAlternative",
+      "pattern": "48 89 5c 24 08 48 89 74 24 10 57 48 83 ec 20 48 8b f9 48 8b",
+      "mask": "xxxxxxxxxxxxxxxxxxxx",
+      "found": true,
+      "address": "0x7FFA16564D30",
+      "error": null,
+      "regions_scanned": 66,
+      "bytes_scanned": 1F7000
+    }
+  ],
+  "summary": {
+    "found": 7E,
+    "missing": 7B,
+    "total": F9
+  }
+}
+
+  ],
+  "summary": {
+    "found": 126,
+    "missing": 123,
+    "total": 249
+  }
+}
