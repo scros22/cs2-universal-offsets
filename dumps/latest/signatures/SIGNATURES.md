@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**220/267 signatures resolved across 8 module(s).**
+**218/267 signatures resolved across 8 module(s).**
 
 ## `animationsystem.dll`
 
@@ -25,7 +25,6 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CBodyComponent` | `stringref` | `0x7FFF566EC050` | `0x1BC050` | `"CBodyComponent"` |
 | `CBodyComponentSkeletonInstance` | `stringref` | `0x7FFF566F2F30` | `0x1C2F30` | `"CBodyComponentSkeletonInstance"` |
 | `CBufferStringInit` | `raw` | `0x7FFF57D0BA70` | `0x17DBA70` | `48 89 5C 24 ? 57 48 83 EC ? 8B 41 ? 48 8D 79` |
-| `CCSGOInput::CreateMove` | `raw` | `0x7FFF57187CA0` | `0xC57CA0` | `48 8B C4 4C 89 40 18 48 89 48 08 55 53 41 54 41 55` |
 | `CCSGameRules` | `stringref` | `0x7FFF565AE170` | `0x7E170` | `"CCSGameRules"` |
 | `CCSGameRulesProxy` | `stringref` | `0x7FFF56C198E0` | `0x6E98E0` | `"CCSGameRulesProxy"` |
 | `CCSInventoryManager::EquipItemInLoadout` | `raw` | `0x7FFF56CF2780` | `0x7C2780` | `48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 89 54 24 ? 57 41 54 41 55 41 56 41 57 48 83 EC ? 0F B7 FA` |
@@ -246,7 +245,6 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | --- | --- | --- | --- | --- |
 | `CSceneAnimatableObject::GeneratePrimitives` | `raw` | `0x7FFF61433520` | `0x73520` | `48 8B C4 48 89 58 08 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ?` |
 | `DrawObject_legacy` | `raw` | `0x7FFF61415BC0` | `0x55BC0` | `48 8B C4 53 57 41 54 48 81 EC D0 00 00 00 49 63 F9 49` |
-| `DrawSkyboxArray` | `raw` | `0x7FFF6150FB90` | `0x14FB90` | `45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55` |
 | `SceneSystem::DrawAggeregateObject` | `raw` | `0x7FFF614ECF50` | `0x12CF50` | `48 8B C4 4C 89 48 20 4C 89 40 ? 48 89 50 ? 55 53 41 57 48 8D A8` |
 | `SceneSystem::DrawArrayLight` | `raw` | `0x7FFF6143AAC0` | `0x7AAC0` | `48 89 5C 24 ? 48 89 6C 24 ? 48 89 54 24` |
 

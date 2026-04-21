@@ -62,11 +62,6 @@
       "va": 140734666685040
     },
     {
-      "name": "CCSGOInput::CreateMove",
-      "module": "client.dll",
-      "va": 140734654610592
-    },
-    {
       "name": "CCSGameRules",
       "module": "client.dll",
       "va": 140734642184560
@@ -1045,11 +1040,6 @@
       "name": "DrawObject_legacy",
       "module": "scenesystem.dll",
       "va": 140734825061312
-    },
-    {
-      "name": "DrawSkyboxArray",
-      "module": "scenesystem.dll",
-      "va": 140734826085264
     },
     {
       "name": "SceneSystem::DrawAggeregateObject",

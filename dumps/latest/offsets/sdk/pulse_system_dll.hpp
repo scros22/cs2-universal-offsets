@@ -4,7 +4,7 @@
 // classes:       99
 // enums:         5
 // build_number:  14152
-// generated_at:  2026-04-21T23:10:40.293151800+00:00
+// generated_at:  2026-04-21T23:34:47.377899600+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -155,9 +155,11 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_WaitForCursorsWithTag
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_WaitForCursorsWithTag {
     public:
+        SCHEMA_FIELD(bool                            , m_bTagSelfWhenComplete                          , 0x98) // bool
+        SCHEMA_FIELD(PulseCursorCancelPriority_t     , m_nDesiredKillPriority                          , 0x9C) // PulseCursorCancelPriority_t
     };
 
     // CPulseCell_Test_NoInflow
@@ -176,7 +178,7 @@ namespace cs2::sdk::pulse_system {
     //   fields: 1
     class CPulseCell_Base {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(PulseDocNodeID_t                , m_nEditorNodeID                                 , 0x8) // PulseDocNodeID_t
     };
 
     // CPulse_ResumePoint
@@ -186,15 +188,19 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CTestDomainDerived_Cursor
-    //   fields: 0
+    //   fields: 2
     class CTestDomainDerived_Cursor {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCursorValueA                                 , 0xD8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCursorValueB                                 , 0xDC) // int32
     };
 
     // CPulseCell_PickBestOutflowSelector
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_PickBestOutflowSelector {
     public:
+        SCHEMA_FIELD(PulseBestOutflowRules_t         , m_nCheckType                                    , 0x48) // PulseBestOutflowRules_t
+        SCHEMA_FIELD(PulseSelectorOutflowList_t      , m_OutflowList                                   , 0x50) // PulseSelectorOutflowList_t
     };
 
     // CPulseTestFuncs_LibraryA
@@ -204,22 +210,41 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_WaitForObservable
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_WaitForObservable {
     public:
+        SCHEMA_FIELD(PulseObservableBoolExpression_t , m_Condition                                     , 0x48) // PulseObservableBoolExpression_t
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnTrue                                        , 0xC0) // CPulse_ResumePoint
     };
 
     // CPulse_OutflowConnection
-    //   fields: 0
+    //   fields: 4
     class CPulse_OutflowConnection {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_SourceOutflowName                             , 0x0) // PulseSymbol_t
+        SCHEMA_FIELD(PulseRuntimeChunkIndex_t        , m_nDestChunk                                    , 0x10) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nInstruction                                  , 0x14) // int32
+        SCHEMA_FIELD(PulseRegisterMap_t              , m_OutflowRegisterMap                            , 0x18) // PulseRegisterMap_t
     };
 
     // CPulseGraphDef
-    //   fields: 1
+    //   fields: 14
     class CPulseGraphDef {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(PulseSymbol_t                   , m_DomainIdentifier                              , 0x8) // PulseSymbol_t
+        SCHEMA_FIELD(CPulseValueFullType             , m_DomainSubType                                 , 0x18) // CPulseValueFullType
+        SCHEMA_FIELD(PulseSymbol_t                   , m_ParentMapName                                 , 0x30) // PulseSymbol_t
+        SCHEMA_FIELD(PulseSymbol_t                   , m_ParentXmlName                                 , 0x40) // PulseSymbol_t
+        SCHEMA_FIELD(CUtlVector<CPulse_Chunk*>       , m_Chunks                                        , 0x50) // CUtlVector<CPulse_Chunk*>
+        SCHEMA_FIELD(CUtlVector<CPulseCell_Base*>    , m_Cells                                         , 0x68) // CUtlVector<CPulseCell_Base*>
+        SCHEMA_FIELD(CUtlVector<CPulse_Variable>     , m_Vars                                          , 0x80) // CUtlVector<CPulse_Variable>
+        SCHEMA_FIELD(CUtlVector<CPulse_PublicOutput> , m_PublicOutputs                                 , 0x98) // CUtlVector<CPulse_PublicOutput>
+        SCHEMA_FIELD(CUtlVector<CPulse_InvokeBinding*>, m_InvokeBindings                                , 0xB0) // CUtlVector<CPulse_InvokeBinding*>
+        SCHEMA_FIELD(CUtlVector<CPulse_CallInfo*>    , m_CallInfos                                     , 0xC8) // CUtlVector<CPulse_CallInfo*>
+        SCHEMA_FIELD(CUtlVector<CPulse_Constant>     , m_Constants                                     , 0xE0) // CUtlVector<CPulse_Constant>
+        SCHEMA_FIELD(CUtlVector<CPulse_DomainValue>  , m_DomainValues                                  , 0xF8) // CUtlVector<CPulse_DomainValue>
+        SCHEMA_FIELD(CUtlVector<CPulse_BlackboardReference>, m_BlackboardReferences                          , 0x110) // CUtlVector<CPulse_BlackboardReference>
+        SCHEMA_FIELD(CUtlVector<CPulse_OutputConnection*>, m_OutputConnections                             , 0x128) // CUtlVector<CPulse_OutputConnection*>
     };
 
     // CPulseGraphInstance_TestDomain_UseReadOnlyBlackboardView
@@ -229,29 +254,37 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_FireCursors
-    //   fields: 0
+    //   fields: 4
     class CPulseCell_FireCursors {
     public:
+        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outflows                                      , 0x48) // CUtlVector<CPulse_OutflowConnection>
+        SCHEMA_FIELD(bool                            , m_bWaitForChildOutflows                         , 0x60) // bool
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnFinished                                    , 0x68) // CPulse_ResumePoint
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnCanceled                                    , 0xB0) // CPulse_ResumePoint
     };
 
     // CPulseCell_Timeline::TimelineEvent_t
-    //   fields: 1
+    //   fields: 2
     class CPulseCell_Timeline {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(float                           , m_flTimeFromPrevious                            , 0x0) // float32
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_EventOutflow                                  , 0x8) // CPulse_OutflowConnection
     };
 
     // CPulseCell_IntervalTimer::CursorState_t
-    //   fields: 1
+    //   fields: 5
     class CPulseCell_IntervalTimer {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(GameTime_t                      , m_StartTime                                     , 0x0) // GameTime_t
+        SCHEMA_FIELD(GameTime_t                      , m_EndTime                                       , 0x4) // GameTime_t
+        SCHEMA_FIELD(float                           , m_flWaitInterval                                , 0x8) // float32
+        SCHEMA_FIELD(float                           , m_flWaitIntervalHigh                            , 0xC) // float32
+        SCHEMA_FIELD(bool                            , m_bCompleteOnNextWake                           , 0x10) // bool
     };
 
     // CPulseCell_BaseRequirement
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_BaseRequirement : public pulse_runtime_lib {
+    class CPulseCell_BaseRequirement {
     public:
     };
 
@@ -262,24 +295,26 @@ namespace cs2::sdk::pulse_system {
     };
 
     // OutflowWithRequirements_t
-    //   fields: 1
+    //   fields: 4
     class OutflowWithRequirements_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_Connection                                    , 0x0) // CPulse_OutflowConnection
+        SCHEMA_FIELD(PulseDocNodeID_t                , m_DestinationFlowNodeID                         , 0x48) // PulseDocNodeID_t
+        SCHEMA_FIELD(CUtlVector<PulseDocNodeID_t>    , m_RequirementNodeIDs                            , 0x50) // CUtlVector<PulseDocNodeID_t>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_nCursorStateBlockIndex                        , 0x68) // CUtlVector<int32>
     };
 
     // CPulseCell_IsRequirementValid
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_IsRequirementValid : public pulse_runtime_lib {
+    class CPulseCell_IsRequirementValid {
     public:
     };
 
     // CPulseCell_Value_Gradient
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Value_Gradient : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Value_Gradient {
     public:
+        SCHEMA_FIELD(CColorGradient                  , m_Gradient                                      , 0x48) // CColorGradient
     };
 
     // CPulseCursorFuncs
@@ -289,16 +324,19 @@ namespace cs2::sdk::pulse_system {
     };
 
     // PulseNodeDynamicOutflows_t::DynamicOutflow_t
-    //   fields: 1
+    //   fields: 2
     class PulseNodeDynamicOutflows_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CGlobalSymbol                   , m_OutflowID                                     , 0x0) // CGlobalSymbol
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_Connection                                    , 0x8) // CPulse_OutflowConnection
     };
 
     // CPulseCell_Test_MultiOutflow_WithParams
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_Test_MultiOutflow_WithParams {
     public:
+        SCHEMA_FIELD(SignatureOutflow_Continue       , m_Out1                                          , 0x48) // SignatureOutflow_Continue
+        SCHEMA_FIELD(SignatureOutflow_Continue       , m_Out2                                          , 0x90) // SignatureOutflow_Continue
     };
 
     // CBasePulseGraphInstance
@@ -308,10 +346,10 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_Inflow_GraphHook
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Inflow_GraphHook : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Inflow_GraphHook {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_HookName                                      , 0x80) // PulseSymbol_t
     };
 
     // SignatureOutflow_Resume
@@ -324,26 +362,33 @@ namespace cs2::sdk::pulse_system {
     //   fields: 1
     class CPulseCell_Test_MultiOutflow_WithParams_Yielding {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::int32_t                    , nTestStep                                       , 0x0) // int32
     };
 
     // CPulseTurtleGraphicsCursor
-    //   fields: 0
+    //   fields: 4
     class CPulseTurtleGraphicsCursor {
     public:
+        SCHEMA_FIELD(::Color                         , m_Color                                         , 0xD8) // Color
+        SCHEMA_FIELD(::Vector2D                      , m_vPos                                          , 0xDC) // Vector2D
+        SCHEMA_FIELD(float                           , m_flHeadingDeg                                  , 0xE4) // float32
+        SCHEMA_FIELD(bool                            , m_bPenUp                                        , 0xE8) // bool
     };
 
     // CPulseCell_TestWaitWithCursorState::CursorState_t
-    //   fields: 1
+    //   fields: 2
     class CPulseCell_TestWaitWithCursorState {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(float                           , flWaitValue                                     , 0x0) // float32
+        SCHEMA_FIELD(bool                            , bFailOnCancel                                   , 0x4) // bool
     };
 
     // CPulseCell_Inflow_BaseEntrypoint
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_Inflow_BaseEntrypoint {
     public:
+        SCHEMA_FIELD(PulseRuntimeChunkIndex_t        , m_EntryChunk                                    , 0x48) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(PulseRegisterMap_t              , m_RegisterMap                                   , 0x50) // PulseRegisterMap_t
     };
 
     // CPulseCell_Test_MultiInflow_NoDefault
@@ -353,22 +398,30 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_WaitForCursorsWithTagBase
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_WaitForCursorsWithTagBase {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCursorsAllowedToWait                         , 0x48) // int32
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_WaitComplete                                  , 0x50) // CPulse_ResumePoint
     };
 
     // CPulse_InvokeBinding
-    //   fields: 1
+    //   fields: 5
     class CPulse_InvokeBinding {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(PulseRegisterMap_t              , m_RegisterMap                                   , 0x0) // PulseRegisterMap_t
+        SCHEMA_FIELD(PulseSymbol_t                   , m_FuncName                                      , 0x30) // PulseSymbol_t
+        SCHEMA_FIELD(PulseRuntimeCellIndex_t         , m_nCellIndex                                    , 0x40) // PulseRuntimeCellIndex_t
+        SCHEMA_FIELD(PulseRuntimeChunkIndex_t        , m_nSrcChunk                                     , 0x44) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nSrcInstruction                               , 0x48) // int32
     };
 
     // CPulseCell_IntervalTimer
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_IntervalTimer {
     public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_Completed                                     , 0x48) // CPulse_ResumePoint
+        SCHEMA_FIELD(SignatureOutflow_Continue       , m_OnInterval                                    , 0x90) // SignatureOutflow_Continue
     };
 
     // CPulseTestScriptLib
@@ -378,10 +431,10 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_BaseLerp
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_BaseLerp : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_BaseLerp {
     public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_WakeResume                                    , 0x48) // CPulse_ResumePoint
     };
 
     // CPulseCell_Value_TestValue50
@@ -391,10 +444,14 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_Test_MultiOutflow_WithParams_Yielding
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Test_MultiOutflow_WithParams_Yielding : public pulse_runtime_lib {
+    //   fields: 5
+    class CPulseCell_Test_MultiOutflow_WithParams_Yielding {
     public:
+        SCHEMA_FIELD(SignatureOutflow_Continue       , m_Out1                                          , 0x48) // SignatureOutflow_Continue
+        SCHEMA_FIELD(SignatureOutflow_Continue       , m_AsyncChild1                                   , 0x90) // SignatureOutflow_Continue
+        SCHEMA_FIELD(SignatureOutflow_Continue       , m_AsyncChild2                                   , 0xD8) // SignatureOutflow_Continue
+        SCHEMA_FIELD(SignatureOutflow_Resume         , m_YieldResume1                                  , 0x120) // SignatureOutflow_Resume
+        SCHEMA_FIELD(SignatureOutflow_Resume         , m_YieldResume2                                  , 0x168) // SignatureOutflow_Resume
     };
 
     // TestComponent_tAPI
@@ -404,22 +461,22 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_Value_Curve
-    //   fields: 0
+    //   fields: 1
     class CPulseCell_Value_Curve {
     public:
+        SCHEMA_FIELD(CPiecewiseCurve                 , m_Curve                                         , 0x48) // CPiecewiseCurve
     };
 
     // CPulseCell_Inflow_EventHandler
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Inflow_EventHandler : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Inflow_EventHandler {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_EventName                                     , 0x80) // PulseSymbol_t
     };
 
     // CPulseCell_BaseFlow
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_BaseFlow : public pulse_runtime_lib {
+    class CPulseCell_BaseFlow {
     public:
     };
 
@@ -430,30 +487,33 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_Outflow_CycleShuffled::InstanceState_t
-    //   fields: 1
+    //   fields: 2
     class CPulseCell_Outflow_CycleShuffled {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CUtlVectorFixedGrowable<uint8,8>, m_Shuffle                                       , 0x0) // CUtlVectorFixedGrowable<uint8,8>
+        SCHEMA_FIELD(std::int32_t                    , m_nNextShuffle                                  , 0x20) // int32
     };
 
     // CPulseCell_BaseLerp::CursorState_t
-    //   fields: 1
+    //   fields: 2
     class CPulseCell_BaseLerp {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(GameTime_t                      , m_StartTime                                     , 0x0) // GameTime_t
+        SCHEMA_FIELD(GameTime_t                      , m_EndTime                                       , 0x4) // GameTime_t
     };
 
     // CPulseGraphInstance_TestDomain_Derived
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseGraphInstance_TestDomain_Derived : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseGraphInstance_TestDomain_Derived {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInstanceValueX                               , 0x160) // int32
     };
 
     // CPulseCell_WaitForCursorsWithTagBase::CursorState_t
-    //   fields: 0
+    //   fields: 1
     class CPulseCell_WaitForCursorsWithTagBase {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_TagName                                       , 0x0) // PulseSymbol_t
     };
 
     // CPulseArraylib
@@ -463,9 +523,18 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseGraphInstance_TestDomain
-    //   fields: 0
+    //   fields: 9
     class CPulseGraphInstance_TestDomain {
     public:
+        SCHEMA_FIELD(bool                            , m_bIsRunningUnitTests                           , 0x130) // bool
+        SCHEMA_FIELD(bool                            , m_bExplicitTimeStepping                         , 0x131) // bool
+        SCHEMA_FIELD(bool                            , m_bExpectingToDestroyWithYieldedCursors         , 0x132) // bool
+        SCHEMA_FIELD(bool                            , m_bQuietTracepoints                             , 0x133) // bool
+        SCHEMA_FIELD(bool                            , m_bExpectingCursorTerminatedDueToMaxInstructions, 0x134) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nCursorsTerminatedDueToMaxInstructions        , 0x138) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nNextValidateIndex                            , 0x13C) // int32
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_Tracepoints                                   , 0x140) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(bool                            , m_bTestYesOrNoPath                              , 0x158) // bool
     };
 
     // SignatureOutflow_Continue
@@ -475,41 +544,52 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_Timeline
-    //   fields: 0
+    //   fields: 4
     class CPulseCell_Timeline {
     public:
+        SCHEMA_FIELD(CUtlVector<CPulseCell_Timeline::TimelineEvent_t>, m_TimelineEvents                                , 0x48) // CUtlVector<CPulseCell_Timeline::TimelineEvent_t>
+        SCHEMA_FIELD(bool                            , m_bWaitForChildOutflows                         , 0x60) // bool
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnFinished                                    , 0x68) // CPulse_ResumePoint
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnCanceled                                    , 0xB0) // CPulse_ResumePoint
     };
 
     // CPulseCell_Inflow_EntOutputHandler
-    //   fields: 0
+    //   fields: 3
     class CPulseCell_Inflow_EntOutputHandler {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_SourceEntity                                  , 0x80) // PulseSymbol_t
+        SCHEMA_FIELD(PulseSymbol_t                   , m_SourceOutput                                  , 0x90) // PulseSymbol_t
+        SCHEMA_FIELD(CPulseValueFullType             , m_ExpectedParamType                             , 0xA0) // CPulseValueFullType
     };
 
     // CPulseCell_Outflow_TestExplicitYesNo
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_Outflow_TestExplicitYesNo {
     public:
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_Yes                                           , 0x48) // CPulse_OutflowConnection
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_No                                            , 0x90) // CPulse_OutflowConnection
     };
 
     // CPulseCell_Outflow_TestRandomYesNo
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_Outflow_TestRandomYesNo {
     public:
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_Yes                                           , 0x48) // CPulse_OutflowConnection
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_No                                            , 0x90) // CPulse_OutflowConnection
     };
 
     // CPulseCell_Outflow_CycleOrdered::InstanceState_t
     //   fields: 1
     class CPulseCell_Outflow_CycleOrdered {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::int32_t                    , m_nNextIndex                                    , 0x0) // int32
     };
 
     // CPulseCell_LimitCount::InstanceState_t
     //   fields: 1
     class CPulseCell_LimitCount {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::int32_t                    , m_nCurrentCount                                 , 0x0) // int32
     };
 
     // FakeEntity_tAPI
@@ -519,23 +599,20 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_Test_MultiInflow_WithDefault
-    //   parent: pulse_system
     //   fields: 0
-    class CPulseCell_Test_MultiInflow_WithDefault : public pulse_system {
+    class CPulseCell_Test_MultiInflow_WithDefault {
     public:
     };
 
     // CPulseCell_Step_DebugLog
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_Step_DebugLog : public pulse_runtime_lib {
+    class CPulseCell_Step_DebugLog {
     public:
     };
 
     // CPulseCell_BaseYieldingInflow
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_BaseYieldingInflow : public pulse_runtime_lib {
+    class CPulseCell_BaseYieldingInflow {
     public:
     };
 
@@ -543,39 +620,41 @@ namespace cs2::sdk::pulse_system {
     //   fields: 1
     class PulseNodeDynamicOutflows_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CUtlVector<PulseNodeDynamicOutflows_t::DynamicOutflow_t>, m_Outflows                                      , 0x0) // CUtlVector<PulseNodeDynamicOutflows_t::DynamicOutflow_t>
     };
 
     // CPulseCell_IsRequirementValid::Criteria_t
-    //   fields: 0
+    //   fields: 1
     class CPulseCell_IsRequirementValid {
     public:
+        SCHEMA_FIELD(bool                            , m_bIsValid                                      , 0x0) // bool
     };
 
     // CPulseCell_Inflow_ObservableVariableListener
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_Inflow_ObservableVariableListener {
     public:
+        SCHEMA_FIELD(PulseRuntimeBlackboardReferenceIndex_t, m_nBlackboardReference                          , 0x80) // PulseRuntimeBlackboardReferenceIndex_t
+        SCHEMA_FIELD(bool                            , m_bSelfReference                                , 0x82) // bool
     };
 
     // CPulseCell_Outflow_CycleOrdered
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Outflow_CycleOrdered : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Outflow_CycleOrdered {
     public:
+        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outputs                                       , 0x48) // CUtlVector<CPulse_OutflowConnection>
     };
 
     // PulseSelectorOutflowList_t
     //   fields: 1
     class PulseSelectorOutflowList_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CUtlVector<OutflowWithRequirements_t>, m_Outflows                                      , 0x0) // CUtlVector<OutflowWithRequirements_t>
     };
 
     // CPulseGraphInstance_TurtleGraphics
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseGraphInstance_TurtleGraphics : public pulse_runtime_lib {
+    class CPulseGraphInstance_TurtleGraphics {
     public:
     };
 
@@ -586,43 +665,53 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_Inflow_Wait
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Inflow_Wait : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Inflow_Wait {
     public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_WakeResume                                    , 0x48) // CPulse_ResumePoint
     };
 
     // CPulseCell_TestWaitWithCursorState
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_TestWaitWithCursorState : public pulse_runtime_lib {
+    //   fields: 3
+    class CPulseCell_TestWaitWithCursorState {
     public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_WakeResume                                    , 0x48) // CPulse_ResumePoint
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_WakeCancel                                    , 0x90) // CPulse_ResumePoint
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_WakeFail                                      , 0xD8) // CPulse_ResumePoint
     };
 
     // CPulseCell_Outflow_CycleShuffled
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Outflow_CycleShuffled : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Outflow_CycleShuffled {
     public:
+        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outputs                                       , 0x48) // CUtlVector<CPulse_OutflowConnection>
     };
 
     // CPulseCell_Inflow_Method
-    //   fields: 0
+    //   fields: 5
     class CPulseCell_Inflow_Method {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_MethodName                                    , 0x80) // PulseSymbol_t
+        SCHEMA_FIELD(::CUtlString                    , m_Description                                   , 0x90) // CUtlString
+        SCHEMA_FIELD(bool                            , m_bIsPublic                                     , 0x98) // bool
+        SCHEMA_FIELD(CPulseValueFullType             , m_ReturnType                                    , 0xA0) // CPulseValueFullType
+        SCHEMA_FIELD(CUtlLeanVector<CPulseRuntimeMethodArg>, m_Args                                          , 0xB8) // CUtlLeanVector<CPulseRuntimeMethodArg>
     };
 
     // CPulseCell_BaseValue
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_BaseValue : public pulse_runtime_lib {
+    class CPulseCell_BaseValue {
     public:
     };
 
     // CPulseCell_BooleanSwitchState
-    //   fields: 0
+    //   fields: 4
     class CPulseCell_BooleanSwitchState {
     public:
+        SCHEMA_FIELD(PulseObservableBoolExpression_t , m_Condition                                     , 0x48) // PulseObservableBoolExpression_t
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_Always                                        , 0xC0) // CPulse_OutflowConnection
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_WhenTrue                                      , 0x108) // CPulse_OutflowConnection
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_WhenFalse                                     , 0x150) // CPulse_OutflowConnection
     };
 
     // FakeEntityDerivedB_tAPI
@@ -632,10 +721,10 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_Inflow_Yield
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Inflow_Yield : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Inflow_Yield {
     public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_UnyieldResume                                 , 0x48) // CPulse_ResumePoint
     };
 
     // CPulseMathlib
@@ -645,37 +734,40 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_Unknown
-    //   fields: 0
+    //   fields: 1
     class CPulseCell_Unknown {
     public:
+        SCHEMA_FIELD(KeyValues3                      , m_UnknownKeys                                   , 0x48) // KeyValues3
     };
 
     // CPulseCell_Outflow_CycleRandom
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Outflow_CycleRandom : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Outflow_CycleRandom {
     public:
+        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outputs                                       , 0x48) // CUtlVector<CPulse_OutflowConnection>
     };
 
     // CPulseCell_Step_PublicOutput
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Step_PublicOutput : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Step_PublicOutput {
     public:
+        SCHEMA_FIELD(PulseRuntimeOutputIndex_t       , m_OutputIndex                                   , 0x48) // PulseRuntimeOutputIndex_t
     };
 
     // CPulseCell_Val_TestDomainFindEntityByName
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_Val_TestDomainFindEntityByName : public pulse_runtime_lib {
+    class CPulseCell_Val_TestDomainFindEntityByName {
     public:
     };
 
     // CPulse_BlackboardReference
-    //   fields: 1
+    //   fields: 4
     class CPulse_BlackboardReference {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIPulseGraphDef>, m_hBlackboardResource                           , 0x0) // CStrongHandle<InfoForResourceTypeIPulseGraphDef>
+        SCHEMA_FIELD(PulseSymbol_t                   , m_BlackboardResource                            , 0x8) // PulseSymbol_t
+        SCHEMA_FIELD(PulseDocNodeID_t                , m_nNodeID                                       , 0x18) // PulseDocNodeID_t
+        SCHEMA_FIELD(CGlobalSymbol                   , m_NodeName                                      , 0x20) // CGlobalSymbol
     };
 
     // CPulseCell_Value_RandomInt
@@ -685,9 +777,10 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_Step_TestDomainEntFire
-    //   fields: 0
+    //   fields: 1
     class CPulseCell_Step_TestDomainEntFire {
     public:
+        SCHEMA_FIELD(::CUtlString                    , m_Input                                         , 0x48) // CUtlString
     };
 
     // FakeEntityDerivedA_tAPI
@@ -697,28 +790,41 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_ExampleSelector
-    //   fields: 0
+    //   fields: 1
     class CPulseCell_ExampleSelector {
     public:
+        SCHEMA_FIELD(PulseSelectorOutflowList_t      , m_OutflowList                                   , 0x48) // PulseSelectorOutflowList_t
     };
 
     // CPulse_CallInfo
-    //   fields: 1
+    //   fields: 6
     class CPulse_CallInfo {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(PulseSymbol_t                   , m_PortName                                      , 0x0) // PulseSymbol_t
+        SCHEMA_FIELD(PulseDocNodeID_t                , m_nEditorNodeID                                 , 0x10) // PulseDocNodeID_t
+        SCHEMA_FIELD(PulseRegisterMap_t              , m_RegisterMap                                   , 0x18) // PulseRegisterMap_t
+        SCHEMA_FIELD(PulseDocNodeID_t                , m_CallMethodID                                  , 0x48) // PulseDocNodeID_t
+        SCHEMA_FIELD(PulseRuntimeChunkIndex_t        , m_nSrcChunk                                     , 0x4C) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nSrcInstruction                               , 0x50) // int32
     };
 
     // CPulseCell_InlineNodeSkipSelector
-    //   fields: 0
+    //   fields: 4
     class CPulseCell_InlineNodeSkipSelector {
     public:
+        SCHEMA_FIELD(PulseDocNodeID_t                , m_nFlowNodeID                                   , 0x48) // PulseDocNodeID_t
+        SCHEMA_FIELD(bool                            , m_bAnd                                          , 0x4C) // bool
+        SCHEMA_FIELD(PulseSelectorOutflowList_t      , m_PassOutflow                                   , 0x50) // PulseSelectorOutflowList_t
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_FailOutflow                                   , 0x68) // CPulse_OutflowConnection
     };
 
     // CPulseCell_ExampleCriteria::Criteria_t
-    //   fields: 0
+    //   fields: 3
     class CPulseCell_ExampleCriteria {
     public:
+        SCHEMA_FIELD(float                           , m_flFloatValue1                                 , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flFloatValue2                                 , 0x4) // float32
+        SCHEMA_FIELD(bool                            , m_bMyBool                                       , 0x8) // bool
     };
 
     // CPulseCell_ExampleCriteria
@@ -728,29 +834,37 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_LimitCount
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_LimitCount : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_LimitCount {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nLimitCount                                   , 0x48) // int32
     };
 
     // CPulseCell_Step_CallExternalMethod
-    //   fields: 0
+    //   fields: 5
     class CPulseCell_Step_CallExternalMethod {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_MethodName                                    , 0x48) // PulseSymbol_t
+        SCHEMA_FIELD(PulseRuntimeBlackboardReferenceIndex_t, m_nBlackboardIndex                              , 0x58) // PulseRuntimeBlackboardReferenceIndex_t
+        SCHEMA_FIELD(CUtlLeanVector<CPulseRuntimeMethodArg>, m_ExpectedArgs                                  , 0x60) // CUtlLeanVector<CPulseRuntimeMethodArg>
+        SCHEMA_FIELD(PulseMethodCallMode_t           , m_nAsyncCallMode                                , 0x70) // PulseMethodCallMode_t
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnFinished                                    , 0x78) // CPulse_ResumePoint
     };
 
     // PulseObservableBoolExpression_t
-    //   fields: 1
+    //   fields: 3
     class PulseObservableBoolExpression_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_EvaluateConnection                            , 0x0) // CPulse_OutflowConnection
+        SCHEMA_FIELD(CUtlVector<PulseRuntimeVarIndex_t>, m_DependentObservableVars                       , 0x48) // CUtlVector<PulseRuntimeVarIndex_t>
+        SCHEMA_FIELD(CUtlVector<PulseRuntimeBlackboardReferenceIndex_t>, m_DependentObservableBlackboardReferences       , 0x60) // CUtlVector<PulseRuntimeBlackboardReferenceIndex_t>
     };
 
     // CPulseCell_LimitCount::Criteria_t
-    //   fields: 0
+    //   fields: 1
     class CPulseCell_LimitCount {
     public:
+        SCHEMA_FIELD(bool                            , m_bLimitCountPasses                             , 0x0) // bool
     };
 
     // CPulseCell_Step_TestDomainCreateFakeEntity
@@ -760,10 +874,10 @@ namespace cs2::sdk::pulse_system {
     };
 
     // CPulseCell_CursorQueue
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_CursorQueue : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_CursorQueue {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCursorsAllowedToRunParallel                  , 0x98) // int32
     };
 
     // CPulseCell_Value_RandomFloat
@@ -779,9 +893,10 @@ namespace cs2::sdk::pulse_system {
     };
 
     // TestComponent_t
-    //   fields: 0
+    //   fields: 1
     class TestComponent_t {
     public:
+        SCHEMA_FIELD(::CUtlString                    , m_ComponentData                                 , 0x8) // CUtlString
     };
 
 } // namespace cs2::sdk::pulse_system

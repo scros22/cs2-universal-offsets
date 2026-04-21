@@ -4,7 +4,7 @@
 // classes:       2
 // enums:         0
 // build_number:  14152
-// generated_at:  2026-04-21T23:10:40.293151800+00:00
+// generated_at:  2026-04-21T23:34:47.377899600+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -21,16 +21,17 @@ namespace cs2::sdk::host {
     class CAnimScriptBase;
 
     // EmptyTestScript
-    //   parent: xL��
-    //   fields: 0
-    class EmptyTestScript : public xL {
+    //   fields: 1
+    class EmptyTestScript {
     public:
+        SCHEMA_FIELD(CAnimScriptParam<float32>       , m_hTest                                         , 0x10) // CAnimScriptParam<float32>
     };
 
     // CAnimScriptBase
-    //   fields: 0
+    //   fields: 1
     class CAnimScriptBase {
     public:
+        SCHEMA_FIELD(bool                            , m_bIsValid                                      , 0x8) // bool
     };
 
 } // namespace cs2::sdk::host

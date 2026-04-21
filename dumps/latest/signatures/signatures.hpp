@@ -19,7 +19,6 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CBodyComponent = 0x7FFF566EC050; // rva 0x1BC050
         inline constexpr std::uintptr_t CBodyComponentSkeletonInstance = 0x7FFF566F2F30; // rva 0x1C2F30
         inline constexpr std::uintptr_t CBufferStringInit = 0x7FFF57D0BA70; // rva 0x17DBA70
-        inline constexpr std::uintptr_t CCSGOInput__CreateMove = 0x7FFF57187CA0; // rva 0xC57CA0
         inline constexpr std::uintptr_t CCSGameRules = 0x7FFF565AE170; // rva 0x7E170
         inline constexpr std::uintptr_t CCSGameRulesProxy = 0x7FFF56C198E0; // rva 0x6E98E0
         inline constexpr std::uintptr_t CCSInventoryManager__EquipItemInLoadout = 0x7FFF56CF2780; // rva 0x7C2780
@@ -228,7 +227,6 @@ namespace cs2::signatures {
     namespace scenesystem {
         inline constexpr std::uintptr_t CSceneAnimatableObject__GeneratePrimitives = 0x7FFF61433520; // rva 0x73520
         inline constexpr std::uintptr_t DrawObject_legacy = 0x7FFF61415BC0; // rva 0x55BC0
-        inline constexpr std::uintptr_t DrawSkyboxArray = 0x7FFF6150FB90; // rva 0x14FB90
         inline constexpr std::uintptr_t SceneSystem__DrawAggeregateObject = 0x7FFF614ECF50; // rva 0x12CF50
         inline constexpr std::uintptr_t SceneSystem__DrawArrayLight = 0x7FFF6143AAC0; // rva 0x7AAC0
     }

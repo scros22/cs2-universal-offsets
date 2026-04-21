@@ -4,7 +4,7 @@
 // classes:       1
 // enums:         0
 // build_number:  14152
-// generated_at:  2026-04-21T23:10:40.293151800+00:00
+// generated_at:  2026-04-21T23:34:47.377899600+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -20,9 +20,10 @@ namespace cs2::sdk::networksystem {
     class ChangeAccessorFieldPathIndex_t;
 
     // ChangeAccessorFieldPathIndex_t
-    //   fields: 0
+    //   fields: 1
     class ChangeAccessorFieldPathIndex_t {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
     };
 
 } // namespace cs2::sdk::networksystem

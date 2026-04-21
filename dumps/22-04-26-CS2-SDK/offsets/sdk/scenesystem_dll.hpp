@@ -4,7 +4,7 @@
 // classes:       9
 // enums:         5
 // build_number:  14152
-// generated_at:  2026-04-21T23:10:40.293151800+00:00
+// generated_at:  2026-04-21T23:34:47.377899600+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -71,38 +71,52 @@ namespace cs2::sdk::scenesystem {
     };
 
     // CSSDSMsg_ViewTarget
-    //   fields: 1
+    //   fields: 10
     class CSSDSMsg_ViewTarget {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(std::uint64_t                   , m_TextureId                                     , 0x8) // uint64
+        SCHEMA_FIELD(std::int32_t                    , m_nWidth                                        , 0x10) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nHeight                                       , 0x14) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nRequestedWidth                               , 0x18) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nRequestedHeight                              , 0x1C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nNumMipLevels                                 , 0x20) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nDepth                                        , 0x24) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMultisampleNumSamples                        , 0x28) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFormat                                       , 0x2C) // int32
     };
 
     // SceneViewId_t
-    //   fields: 1
+    //   fields: 2
     class SceneViewId_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::uint64_t                   , m_nViewId                                       , 0x0) // uint64
+        SCHEMA_FIELD(std::uint64_t                   , m_nFrameCount                                   , 0x8) // uint64
     };
 
     // CSSDSEndFrameViewInfo
-    //   fields: 1
+    //   fields: 2
     class CSSDSEndFrameViewInfo {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::uint64_t                   , m_nViewId                                       , 0x0) // uint64
+        SCHEMA_FIELD(::CUtlString                    , m_ViewName                                      , 0x8) // CUtlString
     };
 
     // CSSDSMsg_PostLayer
-    //   parent: scenesystem
     //   fields: 0
-    class CSSDSMsg_PostLayer : public scenesystem {
+    class CSSDSMsg_PostLayer {
     public:
     };
 
     // CSSDSMsg_LayerBase
-    //   fields: 1
+    //   fields: 5
     class CSSDSMsg_LayerBase {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(SceneViewId_t                   , m_viewId                                        , 0x0) // SceneViewId_t
+        SCHEMA_FIELD(::CUtlString                    , m_ViewName                                      , 0x10) // CUtlString
+        SCHEMA_FIELD(std::uint64_t                   , m_nLayerId                                      , 0x18) // uint64
+        SCHEMA_FIELD(::CUtlString                    , m_LayerName                                     , 0x20) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_displayText                                   , 0x28) // CUtlString
     };
 
     // CSSDSMsg_PreLayer
@@ -112,24 +126,27 @@ namespace cs2::sdk::scenesystem {
     };
 
     // CSSDSMsg_ViewTargetList
-    //   fields: 1
+    //   fields: 3
     class CSSDSMsg_ViewTargetList {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(SceneViewId_t                   , m_viewId                                        , 0x0) // SceneViewId_t
+        SCHEMA_FIELD(::CUtlString                    , m_ViewName                                      , 0x10) // CUtlString
+        SCHEMA_FIELD(CUtlVector<CSSDSMsg_ViewTarget> , m_Targets                                       , 0x18) // CUtlVector<CSSDSMsg_ViewTarget>
     };
 
     // CSSDSMsg_ViewRender
-    //   fields: 1
+    //   fields: 2
     class CSSDSMsg_ViewRender {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(SceneViewId_t                   , m_viewId                                        , 0x0) // SceneViewId_t
+        SCHEMA_FIELD(::CUtlString                    , m_ViewName                                      , 0x10) // CUtlString
     };
 
     // CSSDSMsg_EndFrame
     //   fields: 1
     class CSSDSMsg_EndFrame {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CUtlVector<CSSDSEndFrameViewInfo>, m_Views                                         , 0x0) // CUtlVector<CSSDSEndFrameViewInfo>
     };
 
 } // namespace cs2::sdk::scenesystem

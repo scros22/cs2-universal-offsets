@@ -29,8 +29,6 @@ pub mod client {
     pub const CBodyComponentSkeletonInstance: usize = 0x7FFF566F2F30;
     /// rva 0x17DBA70
     pub const CBufferStringInit: usize = 0x7FFF57D0BA70;
-    /// rva 0xC57CA0
-    pub const CCSGOInput__CreateMove: usize = 0x7FFF57187CA0;
     /// rva 0x7E170
     pub const CCSGameRules: usize = 0x7FFF565AE170;
     /// rva 0x6E98E0
@@ -443,8 +441,6 @@ pub mod scenesystem {
     pub const CSceneAnimatableObject__GeneratePrimitives: usize = 0x7FFF61433520;
     /// rva 0x55BC0
     pub const DrawObject_legacy: usize = 0x7FFF61415BC0;
-    /// rva 0x14FB90
-    pub const DrawSkyboxArray: usize = 0x7FFF6150FB90;
     /// rva 0x12CF50
     pub const SceneSystem__DrawAggeregateObject: usize = 0x7FFF614ECF50;
     /// rva 0x7AAC0

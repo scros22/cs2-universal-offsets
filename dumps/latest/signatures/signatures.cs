@@ -21,7 +21,6 @@ public static class Signatures
         public const ulong CBodyComponent = 0x7FFF566EC050UL; // rva 0x1BC050
         public const ulong CBodyComponentSkeletonInstance = 0x7FFF566F2F30UL; // rva 0x1C2F30
         public const ulong CBufferStringInit = 0x7FFF57D0BA70UL; // rva 0x17DBA70
-        public const ulong CCSGOInput__CreateMove = 0x7FFF57187CA0UL; // rva 0xC57CA0
         public const ulong CCSGameRules = 0x7FFF565AE170UL; // rva 0x7E170
         public const ulong CCSGameRulesProxy = 0x7FFF56C198E0UL; // rva 0x6E98E0
         public const ulong CCSInventoryManager__EquipItemInLoadout = 0x7FFF56CF2780UL; // rva 0x7C2780
@@ -234,7 +233,6 @@ public static class Signatures
     {
         public const ulong CSceneAnimatableObject__GeneratePrimitives = 0x7FFF61433520UL; // rva 0x73520
         public const ulong DrawObject_legacy = 0x7FFF61415BC0UL; // rva 0x55BC0
-        public const ulong DrawSkyboxArray = 0x7FFF6150FB90UL; // rva 0x14FB90
         public const ulong SceneSystem__DrawAggeregateObject = 0x7FFF614ECF50UL; // rva 0x12CF50
         public const ulong SceneSystem__DrawArrayLight = 0x7FFF6143AAC0UL; // rva 0x7AAC0
     }

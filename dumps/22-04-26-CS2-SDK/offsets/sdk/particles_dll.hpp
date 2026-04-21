@@ -4,7 +4,7 @@
 // classes:       501
 // enums:         76
 // build_number:  14152
-// generated_at:  2026-04-21T23:10:40.293151800+00:00
+// generated_at:  2026-04-21T23:34:47.377899600+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -1095,16 +1095,18 @@ namespace cs2::sdk::particles {
     };
 
     // CPulseCell_WaitForCursorsWithTag
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_WaitForCursorsWithTag {
     public:
+        SCHEMA_FIELD(bool                            , m_bTagSelfWhenComplete                          , 0x98) // bool
+        SCHEMA_FIELD(PulseCursorCancelPriority_t     , m_nDesiredKillPriority                          , 0x9C) // PulseCursorCancelPriority_t
     };
 
     // CPulseCell_Base
     //   fields: 1
     class CPulseCell_Base {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(PulseDocNodeID_t                , m_nEditorNodeID                                 , 0x8) // PulseDocNodeID_t
     };
 
     // CPulse_ResumePoint
@@ -1114,61 +1116,89 @@ namespace cs2::sdk::particles {
     };
 
     // CPulseCell_PickBestOutflowSelector
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_PickBestOutflowSelector {
     public:
+        SCHEMA_FIELD(PulseBestOutflowRules_t         , m_nCheckType                                    , 0x48) // PulseBestOutflowRules_t
+        SCHEMA_FIELD(PulseSelectorOutflowList_t      , m_OutflowList                                   , 0x50) // PulseSelectorOutflowList_t
     };
 
     // CParticleBindingRealPulse
-    //   parent: particleslib
     //   fields: 0
-    class CParticleBindingRealPulse : public particleslib {
+    class CParticleBindingRealPulse {
     public:
     };
 
     // CPulseCell_WaitForObservable
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_WaitForObservable {
     public:
+        SCHEMA_FIELD(PulseObservableBoolExpression_t , m_Condition                                     , 0x48) // PulseObservableBoolExpression_t
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnTrue                                        , 0xC0) // CPulse_ResumePoint
     };
 
     // CPulse_OutflowConnection
-    //   fields: 0
+    //   fields: 4
     class CPulse_OutflowConnection {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_SourceOutflowName                             , 0x0) // PulseSymbol_t
+        SCHEMA_FIELD(PulseRuntimeChunkIndex_t        , m_nDestChunk                                    , 0x10) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nInstruction                                  , 0x14) // int32
+        SCHEMA_FIELD(PulseRegisterMap_t              , m_OutflowRegisterMap                            , 0x18) // PulseRegisterMap_t
     };
 
     // CPulseGraphDef
-    //   fields: 1
+    //   fields: 14
     class CPulseGraphDef {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(PulseSymbol_t                   , m_DomainIdentifier                              , 0x8) // PulseSymbol_t
+        SCHEMA_FIELD(CPulseValueFullType             , m_DomainSubType                                 , 0x18) // CPulseValueFullType
+        SCHEMA_FIELD(PulseSymbol_t                   , m_ParentMapName                                 , 0x30) // PulseSymbol_t
+        SCHEMA_FIELD(PulseSymbol_t                   , m_ParentXmlName                                 , 0x40) // PulseSymbol_t
+        SCHEMA_FIELD(CUtlVector<CPulse_Chunk*>       , m_Chunks                                        , 0x50) // CUtlVector<CPulse_Chunk*>
+        SCHEMA_FIELD(CUtlVector<CPulseCell_Base*>    , m_Cells                                         , 0x68) // CUtlVector<CPulseCell_Base*>
+        SCHEMA_FIELD(CUtlVector<CPulse_Variable>     , m_Vars                                          , 0x80) // CUtlVector<CPulse_Variable>
+        SCHEMA_FIELD(CUtlVector<CPulse_PublicOutput> , m_PublicOutputs                                 , 0x98) // CUtlVector<CPulse_PublicOutput>
+        SCHEMA_FIELD(CUtlVector<CPulse_InvokeBinding*>, m_InvokeBindings                                , 0xB0) // CUtlVector<CPulse_InvokeBinding*>
+        SCHEMA_FIELD(CUtlVector<CPulse_CallInfo*>    , m_CallInfos                                     , 0xC8) // CUtlVector<CPulse_CallInfo*>
+        SCHEMA_FIELD(CUtlVector<CPulse_Constant>     , m_Constants                                     , 0xE0) // CUtlVector<CPulse_Constant>
+        SCHEMA_FIELD(CUtlVector<CPulse_DomainValue>  , m_DomainValues                                  , 0xF8) // CUtlVector<CPulse_DomainValue>
+        SCHEMA_FIELD(CUtlVector<CPulse_BlackboardReference>, m_BlackboardReferences                          , 0x110) // CUtlVector<CPulse_BlackboardReference>
+        SCHEMA_FIELD(CUtlVector<CPulse_OutputConnection*>, m_OutputConnections                             , 0x128) // CUtlVector<CPulse_OutputConnection*>
     };
 
     // CPulseCell_FireCursors
-    //   fields: 0
+    //   fields: 4
     class CPulseCell_FireCursors {
     public:
+        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outflows                                      , 0x48) // CUtlVector<CPulse_OutflowConnection>
+        SCHEMA_FIELD(bool                            , m_bWaitForChildOutflows                         , 0x60) // bool
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnFinished                                    , 0x68) // CPulse_ResumePoint
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnCanceled                                    , 0xB0) // CPulse_ResumePoint
     };
 
     // CPulseCell_Timeline::TimelineEvent_t
-    //   fields: 1
+    //   fields: 2
     class CPulseCell_Timeline {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(float                           , m_flTimeFromPrevious                            , 0x0) // float32
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_EventOutflow                                  , 0x8) // CPulse_OutflowConnection
     };
 
     // CPulseCell_IntervalTimer::CursorState_t
-    //   fields: 1
+    //   fields: 5
     class CPulseCell_IntervalTimer {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(GameTime_t                      , m_StartTime                                     , 0x0) // GameTime_t
+        SCHEMA_FIELD(GameTime_t                      , m_EndTime                                       , 0x4) // GameTime_t
+        SCHEMA_FIELD(float                           , m_flWaitInterval                                , 0x8) // float32
+        SCHEMA_FIELD(float                           , m_flWaitIntervalHigh                            , 0xC) // float32
+        SCHEMA_FIELD(bool                            , m_bCompleteOnNextWake                           , 0x10) // bool
     };
 
     // CPulseCell_BaseRequirement
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_BaseRequirement : public pulse_runtime_lib {
+    class CPulseCell_BaseRequirement {
     public:
     };
 
@@ -1179,24 +1209,26 @@ namespace cs2::sdk::particles {
     };
 
     // OutflowWithRequirements_t
-    //   fields: 1
+    //   fields: 4
     class OutflowWithRequirements_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_Connection                                    , 0x0) // CPulse_OutflowConnection
+        SCHEMA_FIELD(PulseDocNodeID_t                , m_DestinationFlowNodeID                         , 0x48) // PulseDocNodeID_t
+        SCHEMA_FIELD(CUtlVector<PulseDocNodeID_t>    , m_RequirementNodeIDs                            , 0x50) // CUtlVector<PulseDocNodeID_t>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_nCursorStateBlockIndex                        , 0x68) // CUtlVector<int32>
     };
 
     // CPulseCell_IsRequirementValid
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_IsRequirementValid : public pulse_runtime_lib {
+    class CPulseCell_IsRequirementValid {
     public:
     };
 
     // CPulseCell_Value_Gradient
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Value_Gradient : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Value_Gradient {
     public:
+        SCHEMA_FIELD(CColorGradient                  , m_Gradient                                      , 0x48) // CColorGradient
     };
 
     // CPulseCursorFuncs
@@ -1206,10 +1238,11 @@ namespace cs2::sdk::particles {
     };
 
     // PulseNodeDynamicOutflows_t::DynamicOutflow_t
-    //   fields: 1
+    //   fields: 2
     class PulseNodeDynamicOutflows_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CGlobalSymbol                   , m_OutflowID                                     , 0x0) // CGlobalSymbol
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_Connection                                    , 0x8) // CPulse_OutflowConnection
     };
 
     // CBasePulseGraphInstance
@@ -1219,10 +1252,10 @@ namespace cs2::sdk::particles {
     };
 
     // CPulseCell_Inflow_GraphHook
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Inflow_GraphHook : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Inflow_GraphHook {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_HookName                                      , 0x80) // PulseSymbol_t
     };
 
     // SignatureOutflow_Resume
@@ -1232,28 +1265,38 @@ namespace cs2::sdk::particles {
     };
 
     // CPulseCell_Inflow_BaseEntrypoint
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_Inflow_BaseEntrypoint {
     public:
+        SCHEMA_FIELD(PulseRuntimeChunkIndex_t        , m_EntryChunk                                    , 0x48) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(PulseRegisterMap_t              , m_RegisterMap                                   , 0x50) // PulseRegisterMap_t
     };
 
     // CPulseCell_WaitForCursorsWithTagBase
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_WaitForCursorsWithTagBase {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCursorsAllowedToWait                         , 0x48) // int32
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_WaitComplete                                  , 0x50) // CPulse_ResumePoint
     };
 
     // CPulse_InvokeBinding
-    //   fields: 1
+    //   fields: 5
     class CPulse_InvokeBinding {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(PulseRegisterMap_t              , m_RegisterMap                                   , 0x0) // PulseRegisterMap_t
+        SCHEMA_FIELD(PulseSymbol_t                   , m_FuncName                                      , 0x30) // PulseSymbol_t
+        SCHEMA_FIELD(PulseRuntimeCellIndex_t         , m_nCellIndex                                    , 0x40) // PulseRuntimeCellIndex_t
+        SCHEMA_FIELD(PulseRuntimeChunkIndex_t        , m_nSrcChunk                                     , 0x44) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nSrcInstruction                               , 0x48) // int32
     };
 
     // CPulseCell_IntervalTimer
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_IntervalTimer {
     public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_Completed                                     , 0x48) // CPulse_ResumePoint
+        SCHEMA_FIELD(SignatureOutflow_Continue       , m_OnInterval                                    , 0x90) // SignatureOutflow_Continue
     };
 
     // CPulseTestScriptLib
@@ -1263,50 +1306,53 @@ namespace cs2::sdk::particles {
     };
 
     // CPulseCell_BaseLerp
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_BaseLerp : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_BaseLerp {
     public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_WakeResume                                    , 0x48) // CPulse_ResumePoint
     };
 
     // CPulseCell_Value_Curve
-    //   fields: 0
+    //   fields: 1
     class CPulseCell_Value_Curve {
     public:
+        SCHEMA_FIELD(CPiecewiseCurve                 , m_Curve                                         , 0x48) // CPiecewiseCurve
     };
 
     // CPulseCell_Inflow_EventHandler
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Inflow_EventHandler : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Inflow_EventHandler {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_EventName                                     , 0x80) // PulseSymbol_t
     };
 
     // CPulseCell_BaseFlow
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_BaseFlow : public pulse_runtime_lib {
+    class CPulseCell_BaseFlow {
     public:
     };
 
     // CPulseCell_Outflow_CycleShuffled::InstanceState_t
-    //   fields: 1
+    //   fields: 2
     class CPulseCell_Outflow_CycleShuffled {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CUtlVectorFixedGrowable<uint8,8>, m_Shuffle                                       , 0x0) // CUtlVectorFixedGrowable<uint8,8>
+        SCHEMA_FIELD(std::int32_t                    , m_nNextShuffle                                  , 0x20) // int32
     };
 
     // CPulseCell_BaseLerp::CursorState_t
-    //   fields: 1
+    //   fields: 2
     class CPulseCell_BaseLerp {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(GameTime_t                      , m_StartTime                                     , 0x0) // GameTime_t
+        SCHEMA_FIELD(GameTime_t                      , m_EndTime                                       , 0x4) // GameTime_t
     };
 
     // CPulseCell_WaitForCursorsWithTagBase::CursorState_t
-    //   fields: 0
+    //   fields: 1
     class CPulseCell_WaitForCursorsWithTagBase {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_TagName                                       , 0x0) // PulseSymbol_t
     };
 
     // CPulseArraylib
@@ -1322,22 +1368,29 @@ namespace cs2::sdk::particles {
     };
 
     // CPulseCell_Timeline
-    //   fields: 0
+    //   fields: 4
     class CPulseCell_Timeline {
     public:
+        SCHEMA_FIELD(CUtlVector<CPulseCell_Timeline::TimelineEvent_t>, m_TimelineEvents                                , 0x48) // CUtlVector<CPulseCell_Timeline::TimelineEvent_t>
+        SCHEMA_FIELD(bool                            , m_bWaitForChildOutflows                         , 0x60) // bool
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnFinished                                    , 0x68) // CPulse_ResumePoint
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnCanceled                                    , 0xB0) // CPulse_ResumePoint
     };
 
     // CPulseCell_Inflow_EntOutputHandler
-    //   fields: 0
+    //   fields: 3
     class CPulseCell_Inflow_EntOutputHandler {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_SourceEntity                                  , 0x80) // PulseSymbol_t
+        SCHEMA_FIELD(PulseSymbol_t                   , m_SourceOutput                                  , 0x90) // PulseSymbol_t
+        SCHEMA_FIELD(CPulseValueFullType             , m_ExpectedParamType                             , 0xA0) // CPulseValueFullType
     };
 
     // CPulseCell_Outflow_CycleOrdered::InstanceState_t
     //   fields: 1
     class CPulseCell_Outflow_CycleOrdered {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::int32_t                    , m_nNextIndex                                    , 0x0) // int32
     };
 
     // CParticleCollectionBindingInstance
@@ -1350,20 +1403,18 @@ namespace cs2::sdk::particles {
     //   fields: 1
     class CPulseCell_LimitCount {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::int32_t                    , m_nCurrentCount                                 , 0x0) // int32
     };
 
     // CPulseCell_Step_DebugLog
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_Step_DebugLog : public pulse_runtime_lib {
+    class CPulseCell_Step_DebugLog {
     public:
     };
 
     // CPulseCell_BaseYieldingInflow
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_BaseYieldingInflow : public pulse_runtime_lib {
+    class CPulseCell_BaseYieldingInflow {
     public:
     };
 
@@ -1371,73 +1422,84 @@ namespace cs2::sdk::particles {
     //   fields: 1
     class PulseNodeDynamicOutflows_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CUtlVector<PulseNodeDynamicOutflows_t::DynamicOutflow_t>, m_Outflows                                      , 0x0) // CUtlVector<PulseNodeDynamicOutflows_t::DynamicOutflow_t>
     };
 
     // CPulseCell_IsRequirementValid::Criteria_t
-    //   fields: 0
+    //   fields: 1
     class CPulseCell_IsRequirementValid {
     public:
+        SCHEMA_FIELD(bool                            , m_bIsValid                                      , 0x0) // bool
     };
 
     // CPulseCell_Inflow_ObservableVariableListener
-    //   fields: 0
+    //   fields: 2
     class CPulseCell_Inflow_ObservableVariableListener {
     public:
+        SCHEMA_FIELD(PulseRuntimeBlackboardReferenceIndex_t, m_nBlackboardReference                          , 0x80) // PulseRuntimeBlackboardReferenceIndex_t
+        SCHEMA_FIELD(bool                            , m_bSelfReference                                , 0x82) // bool
     };
 
     // CPulseCell_Outflow_CycleOrdered
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Outflow_CycleOrdered : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Outflow_CycleOrdered {
     public:
+        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outputs                                       , 0x48) // CUtlVector<CPulse_OutflowConnection>
     };
 
     // PulseSelectorOutflowList_t
     //   fields: 1
     class PulseSelectorOutflowList_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CUtlVector<OutflowWithRequirements_t>, m_Outflows                                      , 0x0) // CUtlVector<OutflowWithRequirements_t>
     };
 
     // CPulseCell_Inflow_Wait
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Inflow_Wait : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Inflow_Wait {
     public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_WakeResume                                    , 0x48) // CPulse_ResumePoint
     };
 
     // CPulseCell_Outflow_CycleShuffled
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Outflow_CycleShuffled : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Outflow_CycleShuffled {
     public:
+        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outputs                                       , 0x48) // CUtlVector<CPulse_OutflowConnection>
     };
 
     // CPulseCell_Inflow_Method
-    //   fields: 0
+    //   fields: 5
     class CPulseCell_Inflow_Method {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_MethodName                                    , 0x80) // PulseSymbol_t
+        SCHEMA_FIELD(::CUtlString                    , m_Description                                   , 0x90) // CUtlString
+        SCHEMA_FIELD(bool                            , m_bIsPublic                                     , 0x98) // bool
+        SCHEMA_FIELD(CPulseValueFullType             , m_ReturnType                                    , 0xA0) // CPulseValueFullType
+        SCHEMA_FIELD(CUtlLeanVector<CPulseRuntimeMethodArg>, m_Args                                          , 0xB8) // CUtlLeanVector<CPulseRuntimeMethodArg>
     };
 
     // CPulseCell_BaseValue
-    //   parent: pulse_runtime_lib
     //   fields: 0
-    class CPulseCell_BaseValue : public pulse_runtime_lib {
+    class CPulseCell_BaseValue {
     public:
     };
 
     // CPulseCell_BooleanSwitchState
-    //   fields: 0
+    //   fields: 4
     class CPulseCell_BooleanSwitchState {
     public:
+        SCHEMA_FIELD(PulseObservableBoolExpression_t , m_Condition                                     , 0x48) // PulseObservableBoolExpression_t
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_Always                                        , 0xC0) // CPulse_OutflowConnection
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_WhenTrue                                      , 0x108) // CPulse_OutflowConnection
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_WhenFalse                                     , 0x150) // CPulse_OutflowConnection
     };
 
     // CPulseCell_Inflow_Yield
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Inflow_Yield : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Inflow_Yield {
     public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_UnyieldResume                                 , 0x48) // CPulse_ResumePoint
     };
 
     // CPulseMathlib
@@ -1447,30 +1509,34 @@ namespace cs2::sdk::particles {
     };
 
     // CPulseCell_Unknown
-    //   fields: 0
+    //   fields: 1
     class CPulseCell_Unknown {
     public:
+        SCHEMA_FIELD(KeyValues3                      , m_UnknownKeys                                   , 0x48) // KeyValues3
     };
 
     // CPulseCell_Outflow_CycleRandom
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Outflow_CycleRandom : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Outflow_CycleRandom {
     public:
+        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outputs                                       , 0x48) // CUtlVector<CPulse_OutflowConnection>
     };
 
     // CPulseCell_Step_PublicOutput
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_Step_PublicOutput : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_Step_PublicOutput {
     public:
+        SCHEMA_FIELD(PulseRuntimeOutputIndex_t       , m_OutputIndex                                   , 0x48) // PulseRuntimeOutputIndex_t
     };
 
     // CPulse_BlackboardReference
-    //   fields: 1
+    //   fields: 4
     class CPulse_BlackboardReference {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIPulseGraphDef>, m_hBlackboardResource                           , 0x0) // CStrongHandle<InfoForResourceTypeIPulseGraphDef>
+        SCHEMA_FIELD(PulseSymbol_t                   , m_BlackboardResource                            , 0x8) // PulseSymbol_t
+        SCHEMA_FIELD(PulseDocNodeID_t                , m_nNodeID                                       , 0x18) // PulseDocNodeID_t
+        SCHEMA_FIELD(CGlobalSymbol                   , m_NodeName                                      , 0x20) // CGlobalSymbol
     };
 
     // CPulseCell_Value_RandomInt
@@ -1480,49 +1546,66 @@ namespace cs2::sdk::particles {
     };
 
     // CPulse_CallInfo
-    //   fields: 1
+    //   fields: 6
     class CPulse_CallInfo {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(PulseSymbol_t                   , m_PortName                                      , 0x0) // PulseSymbol_t
+        SCHEMA_FIELD(PulseDocNodeID_t                , m_nEditorNodeID                                 , 0x10) // PulseDocNodeID_t
+        SCHEMA_FIELD(PulseRegisterMap_t              , m_RegisterMap                                   , 0x18) // PulseRegisterMap_t
+        SCHEMA_FIELD(PulseDocNodeID_t                , m_CallMethodID                                  , 0x48) // PulseDocNodeID_t
+        SCHEMA_FIELD(PulseRuntimeChunkIndex_t        , m_nSrcChunk                                     , 0x4C) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nSrcInstruction                               , 0x50) // int32
     };
 
     // CPulseCell_InlineNodeSkipSelector
-    //   fields: 0
+    //   fields: 4
     class CPulseCell_InlineNodeSkipSelector {
     public:
+        SCHEMA_FIELD(PulseDocNodeID_t                , m_nFlowNodeID                                   , 0x48) // PulseDocNodeID_t
+        SCHEMA_FIELD(bool                            , m_bAnd                                          , 0x4C) // bool
+        SCHEMA_FIELD(PulseSelectorOutflowList_t      , m_PassOutflow                                   , 0x50) // PulseSelectorOutflowList_t
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_FailOutflow                                   , 0x68) // CPulse_OutflowConnection
     };
 
     // CPulseCell_LimitCount
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_LimitCount : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_LimitCount {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nLimitCount                                   , 0x48) // int32
     };
 
     // CPulseCell_Step_CallExternalMethod
-    //   fields: 0
+    //   fields: 5
     class CPulseCell_Step_CallExternalMethod {
     public:
+        SCHEMA_FIELD(PulseSymbol_t                   , m_MethodName                                    , 0x48) // PulseSymbol_t
+        SCHEMA_FIELD(PulseRuntimeBlackboardReferenceIndex_t, m_nBlackboardIndex                              , 0x58) // PulseRuntimeBlackboardReferenceIndex_t
+        SCHEMA_FIELD(CUtlLeanVector<CPulseRuntimeMethodArg>, m_ExpectedArgs                                  , 0x60) // CUtlLeanVector<CPulseRuntimeMethodArg>
+        SCHEMA_FIELD(PulseMethodCallMode_t           , m_nAsyncCallMode                                , 0x70) // PulseMethodCallMode_t
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnFinished                                    , 0x78) // CPulse_ResumePoint
     };
 
     // PulseObservableBoolExpression_t
-    //   fields: 1
+    //   fields: 3
     class PulseObservableBoolExpression_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_EvaluateConnection                            , 0x0) // CPulse_OutflowConnection
+        SCHEMA_FIELD(CUtlVector<PulseRuntimeVarIndex_t>, m_DependentObservableVars                       , 0x48) // CUtlVector<PulseRuntimeVarIndex_t>
+        SCHEMA_FIELD(CUtlVector<PulseRuntimeBlackboardReferenceIndex_t>, m_DependentObservableBlackboardReferences       , 0x60) // CUtlVector<PulseRuntimeBlackboardReferenceIndex_t>
     };
 
     // CPulseCell_LimitCount::Criteria_t
-    //   fields: 0
+    //   fields: 1
     class CPulseCell_LimitCount {
     public:
+        SCHEMA_FIELD(bool                            , m_bLimitCountPasses                             , 0x0) // bool
     };
 
     // CPulseCell_CursorQueue
-    //   parent: pulse_runtime_lib
-    //   fields: 0
-    class CPulseCell_CursorQueue : public pulse_runtime_lib {
+    //   fields: 1
+    class CPulseCell_CursorQueue {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCursorsAllowedToRunParallel                  , 0x98) // int32
     };
 
     // CPulseCell_Value_RandomFloat
@@ -1544,165 +1627,361 @@ namespace cs2::sdk::particles {
     };
 
     // ParticleAttributeIndex_t
-    //   fields: 0
+    //   fields: 1
     class ParticleAttributeIndex_t {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
     };
 
     // C_OP_RemapGravityToVector
-    //   fields: 0
+    //   fields: 4
     class C_OP_RemapGravityToVector {
     public:
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vInput1                                       , 0x1D8) // CPerParticleVecInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x890) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x894) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x898) // bool
     };
 
     // C_OP_Decay
-    //   fields: 0
+    //   fields: 2
     class C_OP_Decay {
     public:
+        SCHEMA_FIELD(bool                            , m_bRopeDecay                                    , 0x1D8) // bool
+        SCHEMA_FIELD(bool                            , m_bForcePreserveParticleOrder                   , 0x1D9) // bool
     };
 
     // C_OP_RenderDeferredLight
-    //   fields: 0
+    //   fields: 16
     class C_OP_RenderDeferredLight {
     public:
+        SCHEMA_FIELD(bool                            , m_bUseAlphaTestWindow                           , 0x228) // bool
+        SCHEMA_FIELD(bool                            , m_bUseTexture                                   , 0x229) // bool
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x22C) // float32
+        SCHEMA_FIELD(float                           , m_flAlphaScale                                  , 0x230) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlpha2Field                                  , 0x234) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecColorScale                                 , 0x238) // CParticleCollectionVecInput
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x8F0) // ParticleColorBlendType_t
+        SCHEMA_FIELD(float                           , m_flLightDistance                               , 0x8F4) // float32
+        SCHEMA_FIELD(float                           , m_flStartFalloff                                , 0x8F8) // float32
+        SCHEMA_FIELD(float                           , m_flDistanceFalloff                             , 0x8FC) // float32
+        SCHEMA_FIELD(float                           , m_flSpotFoV                                     , 0x900) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlphaTestPointField                          , 0x904) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlphaTestRangeField                          , 0x908) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlphaTestSharpnessField                      , 0x90C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_hTexture                                      , 0x910) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(std::int32_t                    , m_nHSVShiftControlPoint                         , 0x918) // int32
     };
 
     // C_OP_RemapSpeedtoCP
-    //   fields: 0
+    //   fields: 8
     class C_OP_RemapSpeedtoCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInControlPointNumber                         , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nField                                        , 0x1E8) // int32
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32
+        SCHEMA_FIELD(bool                            , m_bUseDeltaV                                    , 0x1FC) // bool
     };
 
     // C_OP_RemapTransformToVelocity
-    //   fields: 0
+    //   fields: 1
     class C_OP_RemapTransformToVelocity {
     public:
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1D8) // CParticleTransformInput
     };
 
     // CollisionGroupContext_t
     //   fields: 1
     class CollisionGroupContext_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::int32_t                    , m_nCollisionGroupNumber                         , 0x0) // int32
     };
 
     // CParticleFunctionPreEmission
-    //   fields: 0
+    //   fields: 1
     class CParticleFunctionPreEmission {
     public:
+        SCHEMA_FIELD(bool                            , m_bRunOnce                                      , 0x1D8) // bool
     };
 
     // C_OP_FadeOutSimple
-    //   parent: particles
-    //   fields: 0
-    class C_OP_FadeOutSimple : public particles {
+    //   fields: 2
+    class C_OP_FadeOutSimple {
     public:
+        SCHEMA_FIELD(float                           , m_flFadeOutTime                                 , 0x1D8) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
     };
 
     // C_OP_SpringToVectorConstraint
-    //   fields: 0
+    //   fields: 5
     class C_OP_SpringToVectorConstraint {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRestLength                                  , 0x1D8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flMinDistance                                 , 0x348) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flMaxDistance                                 , 0x4B8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRestingLength                               , 0x628) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecAnchorVector                               , 0x798) // CPerParticleVecInput
     };
 
     // C_OP_RenderRopes
-    //   fields: 0
+    //   fields: 32
     class C_OP_RenderRopes {
     public:
+        SCHEMA_FIELD(bool                            , m_bEnableFadingAndClamping                      , 0x2DF0) // bool
+        SCHEMA_FIELD(float                           , m_flMinSize                                     , 0x2DF4) // float32
+        SCHEMA_FIELD(float                           , m_flMaxSize                                     , 0x2DF8) // float32
+        SCHEMA_FIELD(float                           , m_flStartFadeSize                               , 0x2DFC) // float32
+        SCHEMA_FIELD(float                           , m_flEndFadeSize                                 , 0x2E00) // float32
+        SCHEMA_FIELD(float                           , m_flStartFadeDot                                , 0x2E04) // float32
+        SCHEMA_FIELD(float                           , m_flEndFadeDot                                  , 0x2E08) // float32
+        SCHEMA_FIELD(float                           , m_flRadiusTaper                                 , 0x2E0C) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nMinTesselation                               , 0x2E10) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxTesselation                               , 0x2E14) // int32
+        SCHEMA_FIELD(float                           , m_flTessScale                                   , 0x2E18) // float32
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flTextureVWorldSize                           , 0x2E20) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flTextureVScrollRate                          , 0x2F90) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flTextureVOffset                              , 0x3100) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nTextureVParamsCP                             , 0x3270) // int32
+        SCHEMA_FIELD(bool                            , m_bClampV                                       , 0x3274) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP1                                     , 0x3278) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP2                                     , 0x327C) // int32
+        SCHEMA_FIELD(float                           , m_flScaleVSizeByControlPointDistance            , 0x3280) // float32
+        SCHEMA_FIELD(float                           , m_flScaleVScrollByControlPointDistance          , 0x3284) // float32
+        SCHEMA_FIELD(float                           , m_flScaleVOffsetByControlPointDistance          , 0x3288) // float32
+        SCHEMA_FIELD(bool                            , m_bUseScalarForTextureCoordinate                , 0x328D) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nScalarFieldForTextureCoordinate              , 0x3290) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flScalarAttributeTextureCoordScale            , 0x3294) // float32
+        SCHEMA_FIELD(bool                            , m_bReverseOrder                                 , 0x3298) // bool
+        SCHEMA_FIELD(bool                            , m_bClosedLoop                                   , 0x3299) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nSplitField                                   , 0x329C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bSortBySegmentID                              , 0x32A0) // bool
+        SCHEMA_FIELD(ParticleOrientationChoiceList_t , m_nOrientationType                              , 0x32A4) // ParticleOrientationChoiceList_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nVectorFieldForOrientation                    , 0x32A8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bDrawAsOpaque                                 , 0x32AC) // bool
+        SCHEMA_FIELD(bool                            , m_bGenerateNormals                              , 0x32AD) // bool
     };
 
     // C_INIT_StatusEffectCitadel
-    //   fields: 0
+    //   fields: 19
     class C_INIT_StatusEffectCitadel {
     public:
+        SCHEMA_FIELD(float                           , m_flSFXColorWarpAmount                          , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flSFXNormalAmount                             , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flSFXMetalnessAmount                          , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flSFXRoughnessAmount                          , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSelfIllumAmount                          , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSScale                                   , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSScrollX                                 , 0x1F8) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSScrollY                                 , 0x1FC) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSScrollZ                                 , 0x200) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSOffsetX                                 , 0x204) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSOffsetY                                 , 0x208) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSOffsetZ                                 , 0x20C) // float32
+        SCHEMA_FIELD(DetailCombo_t                   , m_nDetailCombo                                  , 0x210) // DetailCombo_t
+        SCHEMA_FIELD(float                           , m_flSFXSDetailAmount                            , 0x214) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSDetailScale                             , 0x218) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollX                           , 0x21C) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollY                           , 0x220) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollZ                           , 0x224) // float32
+        SCHEMA_FIELD(float                           , m_flSFXSUseModelUVs                             , 0x228) // float32
     };
 
     // C_OP_RenderSound
-    //   fields: 0
+    //   fields: 12
     class C_OP_RenderSound {
     public:
+        SCHEMA_FIELD(float                           , m_flDurationScale                               , 0x228) // float32
+        SCHEMA_FIELD(float                           , m_flSndLvlScale                                 , 0x22C) // float32
+        SCHEMA_FIELD(float                           , m_flPitchScale                                  , 0x230) // float32
+        SCHEMA_FIELD(float                           , m_flVolumeScale                                 , 0x234) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nSndLvlField                                  , 0x238) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nDurationField                                , 0x23C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nPitchField                                   , 0x240) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nVolumeField                                  , 0x244) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nChannel                                      , 0x248) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPReference                                  , 0x24C) // int32
+        SCHEMA_FIELD(char[256]                       , m_pszSoundName                                  , 0x250) // char[256]
+        SCHEMA_FIELD(bool                            , m_bSuppressStopSoundEvent                       , 0x350) // bool
     };
 
     // CParticleVisibilityInputs
-    //   fields: 1
+    //   fields: 19
     class CParticleVisibilityInputs {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(float                           , m_flCameraBias                                  , 0x0) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPin                                         , 0x4) // int32
+        SCHEMA_FIELD(float                           , m_flProxyRadius                                 , 0x8) // float32
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0xC) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x10) // float32
+        SCHEMA_FIELD(float                           , m_flInputPixelVisFade                           , 0x14) // float32
+        SCHEMA_FIELD(float                           , m_flNoPixelVisibilityFallback                   , 0x18) // float32
+        SCHEMA_FIELD(float                           , m_flDistanceInputMin                            , 0x1C) // float32
+        SCHEMA_FIELD(float                           , m_flDistanceInputMax                            , 0x20) // float32
+        SCHEMA_FIELD(float                           , m_flDotInputMin                                 , 0x24) // float32
+        SCHEMA_FIELD(float                           , m_flDotInputMax                                 , 0x28) // float32
+        SCHEMA_FIELD(bool                            , m_bDotCPAngles                                  , 0x2C) // bool
+        SCHEMA_FIELD(bool                            , m_bDotCameraAngles                              , 0x2D) // bool
+        SCHEMA_FIELD(float                           , m_flAlphaScaleMin                               , 0x30) // float32
+        SCHEMA_FIELD(float                           , m_flAlphaScaleMax                               , 0x34) // float32
+        SCHEMA_FIELD(float                           , m_flRadiusScaleMin                              , 0x38) // float32
+        SCHEMA_FIELD(float                           , m_flRadiusScaleMax                              , 0x3C) // float32
+        SCHEMA_FIELD(float                           , m_flRadiusScaleFOVBase                          , 0x40) // float32
+        SCHEMA_FIELD(bool                            , m_bRightEye                                     , 0x44) // bool
     };
 
     // C_OP_SetControlPointsToParticle
-    //   fields: 0
+    //   fields: 8
     class C_OP_SetControlPointsToParticle {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1DC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstSourcePoint                             , 0x1E4) // int32
+        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x1E8) // bool
+        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x1E9) // bool
+        SCHEMA_FIELD(ParticleOrientationSetMode_t    , m_nOrientationMode                              , 0x1EC) // ParticleOrientationSetMode_t
+        SCHEMA_FIELD(ParticleParentSetMode_t         , m_nSetParent                                    , 0x1F0) // ParticleParentSetMode_t
     };
 
     // C_OP_RemapCPVelocityToVector
-    //   fields: 0
+    //   fields: 4
     class C_OP_RemapCPVelocityToVector {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1D8) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E0) // float32
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1E4) // bool
     };
 
     // C_OP_PointVectorAtNextParticle
-    //   fields: 0
+    //   fields: 2
     class C_OP_PointVectorAtNextParticle {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInterpolation                               , 0x1E0) // CPerParticleFloatInput
     };
 
     // ParticlePreviewBodyGroup_t
-    //   fields: 1
+    //   fields: 2
     class ParticlePreviewBodyGroup_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(::CUtlString                    , m_bodyGroupName                                 , 0x0) // CUtlString
+        SCHEMA_FIELD(std::int32_t                    , m_nValue                                        , 0x8) // int32
     };
 
     // C_OP_OscillateScalarSimple
-    //   fields: 0
+    //   fields: 5
     class C_OP_OscillateScalarSimple {
     public:
+        SCHEMA_FIELD(float                           , m_Rate                                          , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_Frequency                                     , 0x1DC) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flOscMult                                     , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flOscAdd                                      , 0x1E8) // float32
     };
 
     // C_INIT_StatusEffect
-    //   fields: 0
+    //   fields: 18
     class C_INIT_StatusEffect {
     public:
+        SCHEMA_FIELD(Detail2Combo_t                  , m_nDetail2Combo                                 , 0x1E0) // Detail2Combo_t
+        SCHEMA_FIELD(float                           , m_flDetail2Rotation                             , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flDetail2Scale                                , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flDetail2BlendFactor                          , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flColorWarpIntensity                          , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flDiffuseWarpBlendToFull                      , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flEnvMapIntensity                             , 0x1F8) // float32
+        SCHEMA_FIELD(float                           , m_flAmbientScale                                , 0x1FC) // float32
+        SCHEMA_FIELD(::Color                         , m_specularColor                                 , 0x200) // Color
+        SCHEMA_FIELD(float                           , m_flSpecularScale                               , 0x204) // float32
+        SCHEMA_FIELD(float                           , m_flSpecularExponent                            , 0x208) // float32
+        SCHEMA_FIELD(float                           , m_flSpecularExponentBlendToFull                 , 0x20C) // float32
+        SCHEMA_FIELD(float                           , m_flSpecularBlendToFull                         , 0x210) // float32
+        SCHEMA_FIELD(::Color                         , m_rimLightColor                                 , 0x214) // Color
+        SCHEMA_FIELD(float                           , m_flRimLightScale                               , 0x218) // float32
+        SCHEMA_FIELD(float                           , m_flReflectionsTintByBaseBlendToNone            , 0x21C) // float32
+        SCHEMA_FIELD(float                           , m_flMetalnessBlendToFull                        , 0x220) // float32
+        SCHEMA_FIELD(float                           , m_flSelfIllumBlendToFull                        , 0x224) // float32
     };
 
     // C_INIT_RtEnvCull
-    //   parent: particles
-    //   fields: 0
-    class C_INIT_RtEnvCull : public particles {
+    //   fields: 8
+    class C_INIT_RtEnvCull {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vecTestDir                                    , 0x1E0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecTestNormal                                 , 0x1EC) // Vector
+        SCHEMA_FIELD(bool                            , m_bUseVelocity                                  , 0x1F8) // bool
+        SCHEMA_FIELD(bool                            , m_bCullOnMiss                                   , 0x1F9) // bool
+        SCHEMA_FIELD(bool                            , m_bLifeAdjust                                   , 0x1FA) // bool
+        SCHEMA_FIELD(char[128]                       , m_RtEnvName                                     , 0x1FB) // char[128]
+        SCHEMA_FIELD(std::int32_t                    , m_nRTEnvCP                                      , 0x27C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x280) // int32
     };
 
     // C_OP_ConstrainDistance
-    //   parent: particles
-    //   fields: 0
-    class C_OP_ConstrainDistance : public particles {
+    //   fields: 5
+    class C_OP_ConstrainDistance {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_fMinDistance                                  , 0x1D8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_fMaxDistance                                  , 0x348) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x4B8) // int32
+        SCHEMA_FIELD(::Vector                        , m_CenterOffset                                  , 0x4BC) // Vector
+        SCHEMA_FIELD(bool                            , m_bGlobalCenter                                 , 0x4C8) // bool
     };
 
     // C_INIT_RandomVector
-    //   fields: 0
+    //   fields: 4
     class C_INIT_RandomVector {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vecMin                                        , 0x1E0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecMax                                        , 0x1EC) // Vector
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x1FC) // CRandomNumberGeneratorParameters
     };
 
     // C_INIT_InitialVelocityNoise
-    //   fields: 0
+    //   fields: 10
     class C_INIT_InitialVelocityNoise {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vecAbsVal                                     , 0x1E0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecAbsValInv                                  , 0x1EC) // Vector
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecOffsetLoc                                  , 0x1F8) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOffset                                      , 0x8B0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecOutputMin                                  , 0xA20) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecOutputMax                                  , 0x10D8) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flNoiseScale                                  , 0x1790) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flNoiseScaleLoc                               , 0x1900) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1A70) // CParticleTransformInput
+        SCHEMA_FIELD(bool                            , m_bIgnoreDt                                     , 0x1AD8) // bool
     };
 
     // ParticleChildrenInfo_t
-    //   fields: 0
+    //   fields: 5
     class ParticleChildrenInfo_t {
     public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_ChildRef                                      , 0x0) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>
+        SCHEMA_FIELD(float                           , m_flDelay                                       , 0x8) // float32
+        SCHEMA_FIELD(bool                            , m_bEndCap                                       , 0xC) // bool
+        SCHEMA_FIELD(bool                            , m_bDisableChild                                 , 0xD) // bool
+        SCHEMA_FIELD(ParticleDetailLevel_t           , m_nDetailLevel                                  , 0x10) // ParticleDetailLevel_t
     };
 
     // C_OP_RemapScalarOnceTimed
-    //   fields: 0
+    //   fields: 8
     class C_OP_RemapScalarOnceTimed {
     public:
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x1D8) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flRemapTime                                   , 0x1F4) // float32
     };
 
     // C_INIT_RandomNamedModelSequence
@@ -1712,46 +1991,148 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_PlaneCull
-    //   fields: 0
+    //   fields: 4
     class C_OP_PlaneCull {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nPlaneControlPoint                            , 0x1D8) // int32
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecPlaneDirection                             , 0x1E0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0x898) // bool
+        SCHEMA_FIELD(float                           , m_flPlaneOffset                                 , 0x89C) // float32
     };
 
     // C_INIT_VelocityRandom
-    //   parent: particles
-    //   fields: 0
-    class C_INIT_VelocityRandom : public particles {
+    //   fields: 7
+    class C_INIT_VelocityRandom {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fSpeedMin                                     , 0x1E8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fSpeedMax                                     , 0x358) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_LocalCoordinateSystemSpeedMin                 , 0x4C8) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_LocalCoordinateSystemSpeedMax                 , 0xB80) // CPerParticleVecInput
+        SCHEMA_FIELD(bool                            , m_bIgnoreDT                                     , 0x1238) // bool
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x123C) // CRandomNumberGeneratorParameters
     };
 
     // C_OP_ModelDampenMovement
-    //   fields: 0
+    //   fields: 7
     class C_OP_ModelDampenMovement {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1D8) // int32
+        SCHEMA_FIELD(bool                            , m_bBoundBox                                     , 0x1DC) // bool
+        SCHEMA_FIELD(bool                            , m_bOutside                                      , 0x1DD) // bool
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1DE) // bool
+        SCHEMA_FIELD(char[128]                       , m_HitboxSetName                                 , 0x1DF) // char[128]
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecPosOffset                                  , 0x260) // CPerParticleVecInput
+        SCHEMA_FIELD(float                           , m_fDrag                                         , 0x918) // float32
     };
 
     // C_OP_TwistAroundAxis
-    //   fields: 0
+    //   fields: 4
     class C_OP_TwistAroundAxis {
     public:
+        SCHEMA_FIELD(float                           , m_fForceAmount                                  , 0x1E8) // float32
+        SCHEMA_FIELD(::Vector                        , m_TwistAxis                                     , 0x1EC) // Vector
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0x1F8) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1FC) // int32
     };
 
     // C_OP_TeleportBeam
-    //   fields: 0
+    //   fields: 11
     class C_OP_TeleportBeam {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPPosition                                   , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPVelocity                                   , 0x1DC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPMisc                                       , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPColor                                      , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInvalidColor                               , 0x1E8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPExtraArcData                               , 0x1EC) // int32
+        SCHEMA_FIELD(::Vector                        , m_vGravity                                      , 0x1F0) // Vector
+        SCHEMA_FIELD(float                           , m_flArcMaxDuration                              , 0x1FC) // float32
+        SCHEMA_FIELD(float                           , m_flSegmentBreak                                , 0x200) // float32
+        SCHEMA_FIELD(float                           , m_flArcSpeed                                    , 0x204) // float32
+        SCHEMA_FIELD(float                           , m_flAlpha                                       , 0x208) // float32
     };
 
     // C_OP_RemapExternalWindToCP
-    //   fields: 0
+    //   fields: 5
     class C_OP_RemapExternalWindToCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x1E4) // int32
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecScale                                      , 0x1E8) // CParticleCollectionVecInput
+        SCHEMA_FIELD(bool                            , m_bSetMagnitude                                 , 0x8A0) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x8A4) // int32
     };
 
     // CBaseRendererSource2
-    //   fields: 0
+    //   fields: 65
     class CBaseRendererSource2 {
     public:
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flRadiusScale                                 , 0x228) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flAlphaScale                                  , 0x398) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flRollScale                                   , 0x508) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlpha2Field                                  , 0x678) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CParticleCollectionRendererVecInput, m_vecColorScale                                 , 0x680) // CParticleCollectionRendererVecInput
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0xD38) // ParticleColorBlendType_t
+        SCHEMA_FIELD(SpriteCardShaderType_t          , m_nShaderType                                   , 0xD3C) // SpriteCardShaderType_t
+        SCHEMA_FIELD(::CUtlString                    , m_strShaderOverride                             , 0xD40) // CUtlString
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flCenterXOffset                               , 0xD48) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flCenterYOffset                               , 0xEB8) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(float                           , m_flBumpStrength                                , 0x1028) // float32
+        SCHEMA_FIELD(ParticleSequenceCropOverride_t  , m_nCropTextureOverride                          , 0x102C) // ParticleSequenceCropOverride_t
+        SCHEMA_FIELD(CUtlLeanVector<TextureGroup_t>  , m_vecTexturesInput                              , 0x1030) // CUtlLeanVector<TextureGroup_t>
+        SCHEMA_FIELD(float                           , m_flAnimationRate                               , 0x1040) // float32
+        SCHEMA_FIELD(AnimationType_t                 , m_nAnimationType                                , 0x1044) // AnimationType_t
+        SCHEMA_FIELD(bool                            , m_bAnimateInFPS                                 , 0x1048) // bool
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flMotionVectorScaleU                          , 0x1050) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flMotionVectorScaleV                          , 0x11C0) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flSelfIllumAmount                             , 0x1330) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flDiffuseAmount                               , 0x14A0) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flDiffuseClamp                                , 0x1610) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nLightingControlPoint                         , 0x1780) // int32
+        SCHEMA_FIELD(ParticleOutputBlendMode_t       , m_nOutputBlendMode                              , 0x1784) // ParticleOutputBlendMode_t
+        SCHEMA_FIELD(bool                            , m_bGammaCorrectVertexColors                     , 0x1788) // bool
+        SCHEMA_FIELD(bool                            , m_bSaturateColorPreAlphaBlend                   , 0x1789) // bool
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flAddSelfAmount                               , 0x1790) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flDesaturation                                , 0x1900) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flOverbrightFactor                            , 0x1A70) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nHSVShiftControlPoint                         , 0x1BE0) // int32
+        SCHEMA_FIELD(ParticleFogType_t               , m_nFogType                                      , 0x1BE4) // ParticleFogType_t
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flFogAmount                                   , 0x1BE8) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(bool                            , m_bTintByFOW                                    , 0x1D58) // bool
+        SCHEMA_FIELD(bool                            , m_bTintByGlobalLight                            , 0x1D59) // bool
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleAlphaReference                    , 0x1D5C) // SpriteCardPerParticleScale_t
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleAlphaRefWindow                    , 0x1D60) // SpriteCardPerParticleScale_t
+        SCHEMA_FIELD(ParticleAlphaReferenceType_t    , m_nAlphaReferenceType                           , 0x1D64) // ParticleAlphaReferenceType_t
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flAlphaReferenceSoftness                      , 0x1D68) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flSourceAlphaValueToMapToZero                 , 0x1ED8) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flSourceAlphaValueToMapToOne                  , 0x2048) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(bool                            , m_bRefract                                      , 0x21B8) // bool
+        SCHEMA_FIELD(bool                            , m_bRefractSolid                                 , 0x21B9) // bool
+        SCHEMA_FIELD(bool                            , m_bRefract2Passes                               , 0x21BA) // bool
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flRefractAmount                               , 0x21C0) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nRefractBlurRadius                            , 0x2330) // int32
+        SCHEMA_FIELD(BlurFilterType_t                , m_nRefractBlurType                              , 0x2334) // BlurFilterType_t
+        SCHEMA_FIELD(bool                            , m_bOnlyRenderInEffectsBloomPass                 , 0x2338) // bool
+        SCHEMA_FIELD(bool                            , m_bOnlyRenderInEffectsWaterPass                 , 0x2339) // bool
+        SCHEMA_FIELD(bool                            , m_bUseMixedResolutionRendering                  , 0x233A) // bool
+        SCHEMA_FIELD(bool                            , m_bOnlyRenderInEffecsGameOverlay                , 0x233B) // bool
+        SCHEMA_FIELD(char[128]                       , m_stencilTestID                                 , 0x233C) // char[128]
+        SCHEMA_FIELD(bool                            , m_bStencilTestExclude                           , 0x23BC) // bool
+        SCHEMA_FIELD(char[128]                       , m_stencilWriteID                                , 0x23BD) // char[128]
+        SCHEMA_FIELD(bool                            , m_bWriteStencilOnDepthPass                      , 0x243D) // bool
+        SCHEMA_FIELD(bool                            , m_bWriteStencilOnDepthFail                      , 0x243E) // bool
+        SCHEMA_FIELD(bool                            , m_bReverseZBuffering                            , 0x243F) // bool
+        SCHEMA_FIELD(bool                            , m_bDisableZBuffering                            , 0x2440) // bool
+        SCHEMA_FIELD(ParticleDepthFeatheringMode_t   , m_nFeatheringMode                               , 0x2444) // ParticleDepthFeatheringMode_t
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flFeatheringMinDist                           , 0x2448) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flFeatheringMaxDist                           , 0x25B8) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flFeatheringFilter                            , 0x2728) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flFeatheringDepthMapFilter                    , 0x2898) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flDepthBias                                   , 0x2A08) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(ParticleSortingChoiceList_t     , m_nSortMethod                                   , 0x2B78) // ParticleSortingChoiceList_t
+        SCHEMA_FIELD(bool                            , m_bBlendFramesSeq0                              , 0x2B7C) // bool
+        SCHEMA_FIELD(bool                            , m_bMaxLuminanceBlendingSequence0                , 0x2B7D) // bool
     };
 
     // CSpinUpdateBase
@@ -1761,200 +2142,377 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_OrientTo2dDirection
-    //   fields: 0
+    //   fields: 3
     class C_OP_OrientTo2dDirection {
     public:
+        SCHEMA_FIELD(float                           , m_flRotOffset                                   , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flSpinStrength                                , 0x1DC) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t
     };
 
     // C_OP_RemapDotProductToCP
-    //   parent: particles
-    //   fields: 0
-    class C_OP_RemapDotProductToCP : public particles {
+    //   fields: 8
+    class C_OP_RemapDotProductToCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInputCP1                                     , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nInputCP2                                     , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1E8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x1EC) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInputMin                                    , 0x1F0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInputMax                                    , 0x360) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flOutputMin                                   , 0x4D0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flOutputMax                                   , 0x640) // CParticleCollectionFloatInput
     };
 
     // C_INIT_RemapParticleCountToNamedModelElementScalar
-    //   parent: particles
-    //   fields: 0
-    class C_INIT_RemapParticleCountToNamedModelElementScalar : public particles {
+    //   fields: 4
+    class C_INIT_RemapParticleCountToNamedModelElementScalar {
     public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x210) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(::CUtlString                    , m_outputMinName                                 , 0x218) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_outputMaxName                                 , 0x220) // CUtlString
+        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x228) // bool
     };
 
     // C_OP_RenderTrails
-    //   fields: 0
+    //   fields: 20
     class C_OP_RenderTrails {
     public:
+        SCHEMA_FIELD(bool                            , m_bEnableFadingAndClamping                      , 0x30E8) // bool
+        SCHEMA_FIELD(float                           , m_flStartFadeDot                                , 0x30EC) // float32
+        SCHEMA_FIELD(float                           , m_flEndFadeDot                                  , 0x30F0) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nPrevPntSource                                , 0x30F4) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flMaxLength                                   , 0x30F8) // float32
+        SCHEMA_FIELD(float                           , m_flMinLength                                   , 0x30FC) // float32
+        SCHEMA_FIELD(bool                            , m_bIgnoreDT                                     , 0x3100) // bool
+        SCHEMA_FIELD(float                           , m_flConstrainRadiusToLengthRatio                , 0x3104) // float32
+        SCHEMA_FIELD(float                           , m_flLengthScale                                 , 0x3108) // float32
+        SCHEMA_FIELD(float                           , m_flLengthFadeInTime                            , 0x310C) // float32
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadiusHeadTaper                             , 0x3110) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecHeadColorScale                             , 0x3280) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flHeadAlphaScale                              , 0x3938) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadiusTaper                                 , 0x3AA8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecTailColorScale                             , 0x3C18) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flTailAlphaScale                              , 0x42D0) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nHorizCropField                               , 0x4440) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nVertCropField                                , 0x4444) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flForwardShift                                , 0x4448) // float32
+        SCHEMA_FIELD(bool                            , m_bFlipUVBasedOnPitchYaw                        , 0x444C) // bool
     };
 
     // C_OP_SetControlPointPositionToTimeOfDayValue
-    //   fields: 0
+    //   fields: 3
     class C_OP_SetControlPointPositionToTimeOfDayValue {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32
+        SCHEMA_FIELD(char[128]                       , m_pszTimeOfDayParameter                         , 0x1E4) // char[128]
+        SCHEMA_FIELD(::Vector                        , m_vecDefaultValue                               , 0x264) // Vector
     };
 
     // C_OP_DecayMaintainCount
-    //   fields: 0
+    //   fields: 7
     class C_OP_DecayMaintainCount {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nParticlesToMaintain                          , 0x1D8) // int32
+        SCHEMA_FIELD(float                           , m_flDecayDelay                                  , 0x1DC) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x1E0) // int32
+        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x1E8) // CUtlString
+        SCHEMA_FIELD(bool                            , m_bLifespanDecay                                , 0x1F0) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flScale                                       , 0x1F8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bKillNewest                                   , 0x368) // bool
     };
 
     // C_INIT_RandomModelSequence
-    //   parent: particles
-    //   fields: 0
-    class C_INIT_RandomModelSequence : public particles {
+    //   fields: 3
+    class C_INIT_RandomModelSequence {
     public:
+        SCHEMA_FIELD(char[256]                       , m_ActivityName                                  , 0x1E0) // char[256]
+        SCHEMA_FIELD(char[256]                       , m_SequenceName                                  , 0x2E0) // char[256]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x3E0) // CStrongHandle<InfoForResourceTypeCModel>
     };
 
     // C_OP_ExternalGameImpulseForce
-    //   fields: 0
+    //   fields: 5
     class C_OP_ExternalGameImpulseForce {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flForceScale                                  , 0x1E8) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bRopes                                        , 0x358) // bool
+        SCHEMA_FIELD(bool                            , m_bRopesZOnly                                   , 0x359) // bool
+        SCHEMA_FIELD(bool                            , m_bExplosions                                   , 0x35A) // bool
+        SCHEMA_FIELD(bool                            , m_bParticles                                    , 0x35B) // bool
     };
 
     // C_OP_RemapAverageHitboxSpeedtoCP
-    //   fields: 0
+    //   fields: 11
     class C_OP_RemapAverageHitboxSpeedtoCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInControlPointNumber                         , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nField                                        , 0x1E8) // int32
+        SCHEMA_FIELD(ParticleHitboxDataSelection_t   , m_nHitboxDataType                               , 0x1EC) // ParticleHitboxDataSelection_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInputMin                                    , 0x1F0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInputMax                                    , 0x360) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flOutputMin                                   , 0x4D0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flOutputMax                                   , 0x640) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nHeightControlPointNumber                     , 0x7B0) // int32
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecComparisonVelocity                         , 0x7B8) // CParticleCollectionVecInput
+        SCHEMA_FIELD(char[128]                       , m_HitboxSetName                                 , 0xE70) // char[128]
     };
 
     // C_INIT_RandomAlpha
-    //   fields: 0
+    //   fields: 4
     class C_INIT_RandomAlpha {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nAlphaMin                                     , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nAlphaMax                                     , 0x1E8) // int32
+        SCHEMA_FIELD(float                           , m_flAlphaRandExponent                           , 0x1F4) // float32
     };
 
     // C_OP_NormalizeVector
-    //   fields: 0
+    //   fields: 2
     class C_OP_NormalizeVector {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1DC) // float32
     };
 
     // C_OP_FadeInSimple
-    //   fields: 0
+    //   fields: 2
     class C_OP_FadeInSimple {
     public:
+        SCHEMA_FIELD(float                           , m_flFadeInTime                                  , 0x1D8) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
     };
 
     // C_OP_RepeatedTriggerChildGroup
-    //   fields: 0
+    //   fields: 5
     class C_OP_RepeatedTriggerChildGroup {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E0) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flClusterRefireTime                           , 0x1E8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flClusterSize                                 , 0x358) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flClusterCooldown                             , 0x4C8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bLimitChildCount                              , 0x638) // bool
     };
 
     // C_OP_RemapVelocityToVector
-    //   fields: 0
+    //   fields: 3
     class C_OP_RemapVelocityToVector {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1DC) // float32
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1E0) // bool
     };
 
     // C_INIT_SetHitboxToClosest
-    //   fields: 0
+    //   fields: 9
     class C_INIT_SetHitboxToClosest {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nDesiredHitbox                                , 0x1E4) // int32
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecHitBoxScale                                , 0x1E8) // CParticleCollectionVecInput
+        SCHEMA_FIELD(char[128]                       , m_HitboxSetName                                 , 0x8A0) // char[128]
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x920) // bool
+        SCHEMA_FIELD(bool                            , m_bUseClosestPointOnHitbox                      , 0x921) // bool
+        SCHEMA_FIELD(ClosestPointTestType_t          , m_nTestType                                     , 0x924) // ClosestPointTestType_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flHybridRatio                                 , 0x928) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bUpdatePosition                               , 0xA98) // bool
     };
 
     // C_INIT_RingWave
-    //   fields: 0
+    //   fields: 11
     class C_INIT_RingWave {
     public:
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1E0) // CParticleTransformInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flParticlesPerOrbit                           , 0x248) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInitialRadius                               , 0x3B8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flThickness                                   , 0x528) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInitialSpeedMin                             , 0x698) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInitialSpeedMax                             , 0x808) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRoll                                        , 0x978) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flPitch                                       , 0xAE8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flYaw                                         , 0xC58) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bEvenDistribution                             , 0xDC8) // bool
+        SCHEMA_FIELD(bool                            , m_bXYVelocityOnly                               , 0xDC9) // bool
     };
 
     // C_INIT_RandomTrailLength
-    //   fields: 0
+    //   fields: 3
     class C_INIT_RandomTrailLength {
     public:
+        SCHEMA_FIELD(float                           , m_flMinLength                                   , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flMaxLength                                   , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flLengthRandExponent                          , 0x1E8) // float32
     };
 
     // C_OP_RemapScalar
-    //   fields: 0
+    //   fields: 7
     class C_OP_RemapScalar {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1EC) // float32
+        SCHEMA_FIELD(bool                            , m_bOldCode                                      , 0x1F0) // bool
     };
 
     // C_OP_DistanceBetweenTransforms
-    //   fields: 0
+    //   fields: 13
     class C_OP_DistanceBetweenTransforms {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformStart                                , 0x1E0) // CParticleTransformInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformEnd                                  , 0x248) // CParticleTransformInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInputMin                                    , 0x2B0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInputMax                                    , 0x420) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMin                                   , 0x590) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMax                                   , 0x700) // CPerParticleFloatInput
+        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x870) // float32
+        SCHEMA_FIELD(float                           , m_flLOSScale                                    , 0x874) // float32
+        SCHEMA_FIELD(char[128]                       , m_CollisionGroupName                            , 0x878) // char[128]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x8F8) // ParticleTraceSet_t
+        SCHEMA_FIELD(bool                            , m_bLOS                                          , 0x8FC) // bool
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x900) // ParticleSetMethod_t
     };
 
     // C_OP_DecayOffscreen
-    //   fields: 0
+    //   fields: 1
     class C_OP_DecayOffscreen {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flOffscreenTime                               , 0x1D8) // CParticleCollectionFloatInput
     };
 
     // C_INIT_CreateSequentialPath
-    //   fields: 0
+    //   fields: 6
     class C_INIT_CreateSequentialPath {
     public:
+        SCHEMA_FIELD(float                           , m_fMaxDistance                                  , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flNumToAssign                                 , 0x1E4) // float32
+        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x1E8) // bool
+        SCHEMA_FIELD(bool                            , m_bCPPairs                                      , 0x1E9) // bool
+        SCHEMA_FIELD(bool                            , m_bSaveOffset                                   , 0x1EA) // bool
+        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x1F0) // CPathParameters
     };
 
     // C_OP_EndCapTimedDecay
-    //   parent: particles
-    //   fields: 0
-    class C_OP_EndCapTimedDecay : public particles {
+    //   fields: 1
+    class C_OP_EndCapTimedDecay {
     public:
+        SCHEMA_FIELD(float                           , m_flDecayTime                                   , 0x1D8) // float32
     };
 
     // C_OP_RemapDistanceToLineSegmentBase
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_RemapDistanceToLineSegmentBase : public xL {
+    //   fields: 5
+    class C_OP_RemapDistanceToLineSegmentBase {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP0                                          , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1DC) // int32
+        SCHEMA_FIELD(float                           , m_flMinInputValue                               , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flMaxInputValue                               , 0x1E4) // float32
+        SCHEMA_FIELD(bool                            , m_bInfiniteLine                                 , 0x1E8) // bool
     };
 
     // C_OP_ContinuousEmitter
-    //   fields: 0
+    //   fields: 12
     class C_OP_ContinuousEmitter {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flEmissionDuration                            , 0x1E0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flStartTime                                   , 0x350) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flEmitRate                                    , 0x4C0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(float                           , m_flEmissionScale                               , 0x630) // float32
+        SCHEMA_FIELD(float                           , m_flScalePerParentParticle                      , 0x634) // float32
+        SCHEMA_FIELD(bool                            , m_bInitFromKilledParentParticles                , 0x638) // bool
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x63C) // EventTypeSelection_t
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x640) // int32
+        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x648) // CUtlString
+        SCHEMA_FIELD(std::int32_t                    , m_nLimitPerUpdate                               , 0x650) // int32
+        SCHEMA_FIELD(bool                            , m_bForceEmitOnFirstUpdate                       , 0x654) // bool
+        SCHEMA_FIELD(bool                            , m_bForceEmitOnLastUpdate                        , 0x655) // bool
     };
 
     // C_OP_OscillateVectorSimple
-    //   fields: 0
+    //   fields: 6
     class C_OP_OscillateVectorSimple {
     public:
+        SCHEMA_FIELD(::Vector                        , m_Rate                                          , 0x1D8) // Vector
+        SCHEMA_FIELD(::Vector                        , m_Frequency                                     , 0x1E4) // Vector
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x1F0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flOscMult                                     , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flOscAdd                                      , 0x1F8) // float32
+        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x1FC) // bool
     };
 
     // C_INIT_SequenceLifeTime
-    //   fields: 0
+    //   fields: 1
     class C_INIT_SequenceLifeTime {
     public:
+        SCHEMA_FIELD(float                           , m_flFramerate                                   , 0x1E0) // float32
     };
 
     // C_INIT_MoveBetweenPoints
-    //   fields: 0
+    //   fields: 7
     class C_INIT_MoveBetweenPoints {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flSpeedMin                                    , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flSpeedMax                                    , 0x350) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flEndSpread                                   , 0x4C0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flStartOffset                                 , 0x630) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flEndOffset                                   , 0x7A0) // CPerParticleFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nEndControlPointNumber                        , 0x910) // int32
+        SCHEMA_FIELD(bool                            , m_bTrailBias                                    , 0x914) // bool
     };
 
     // C_OP_SetUserEvent
-    //   fields: 0
+    //   fields: 5
     class C_OP_SetUserEvent {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInput                                       , 0x1D8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRisingEdge                                  , 0x348) // CPerParticleFloatInput
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nRisingEventType                              , 0x4B8) // EventTypeSelection_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flFallingEdge                                 , 0x4C0) // CPerParticleFloatInput
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nFallingEventType                             , 0x630) // EventTypeSelection_t
     };
 
     // C_OP_QuantizeFloat
-    //   fields: 0
+    //   fields: 2
     class C_OP_QuantizeFloat {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_InputValue                                    , 0x1D8) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x348) // ParticleAttributeIndex_t
     };
 
     // C_OP_BasicMovement
-    //   fields: 0
+    //   fields: 5
     class C_OP_BasicMovement {
     public:
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_Gravity                                       , 0x1D8) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_fDrag                                         , 0x890) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleMassCalculationParameters, m_massControls                                  , 0xA00) // CParticleMassCalculationParameters
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxConstraintPasses                          , 0xE58) // int32
+        SCHEMA_FIELD(bool                            , m_bUseNewCode                                   , 0xE5C) // bool
     };
 
     // C_INIT_RandomNamedModelElement
-    //   fields: 0
+    //   fields: 6
     class C_INIT_RandomNamedModelElement {
     public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x1E0) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_names                                         , 0x1E8) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(bool                            , m_bShuffle                                      , 0x200) // bool
+        SCHEMA_FIELD(bool                            , m_bLinear                                       , 0x201) // bool
+        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x202) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x204) // ParticleAttributeIndex_t
     };
 
     // C_INIT_InitFromParentKilled
-    //   fields: 0
+    //   fields: 2
     class C_INIT_InitFromParentKilled {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToCopy                              , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x1E4) // EventTypeSelection_t
     };
 
     // C_OP_Callback
@@ -1964,57 +2522,123 @@ namespace cs2::sdk::particles {
     };
 
     // CParticleFunction
-    //   fields: 0
+    //   fields: 17
     class CParticleFunction {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flOpStrength                                  , 0x8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(ParticleEndcapMode_t            , m_nOpEndCapState                                , 0x178) // ParticleEndcapMode_t
+        SCHEMA_FIELD(ParticleToolsState_t            , m_nToolsState                                   , 0x17C) // ParticleToolsState_t
+        SCHEMA_FIELD(float                           , m_flOpStartFadeInTime                           , 0x180) // float32
+        SCHEMA_FIELD(float                           , m_flOpEndFadeInTime                             , 0x184) // float32
+        SCHEMA_FIELD(float                           , m_flOpStartFadeOutTime                          , 0x188) // float32
+        SCHEMA_FIELD(float                           , m_flOpEndFadeOutTime                            , 0x18C) // float32
+        SCHEMA_FIELD(float                           , m_flOpFadeOscillatePeriod                       , 0x190) // float32
+        SCHEMA_FIELD(bool                            , m_bNormalizeToStopTime                          , 0x194) // bool
+        SCHEMA_FIELD(float                           , m_flOpTimeOffsetMin                             , 0x198) // float32
+        SCHEMA_FIELD(float                           , m_flOpTimeOffsetMax                             , 0x19C) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nOpTimeOffsetSeed                             , 0x1A0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOpTimeScaleSeed                              , 0x1A4) // int32
+        SCHEMA_FIELD(float                           , m_flOpTimeScaleMin                              , 0x1A8) // float32
+        SCHEMA_FIELD(float                           , m_flOpTimeScaleMax                              , 0x1AC) // float32
+        SCHEMA_FIELD(bool                            , m_bDisableOperator                              , 0x1B2) // bool
+        SCHEMA_FIELD(::CUtlString                    , m_Notes                                         , 0x1B8) // CUtlString
     };
 
     // C_OP_GlobalLight
-    //   fields: 0
+    //   fields: 3
     class C_OP_GlobalLight {
     public:
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1D8) // float32
+        SCHEMA_FIELD(bool                            , m_bClampLowerRange                              , 0x1DC) // bool
+        SCHEMA_FIELD(bool                            , m_bClampUpperRange                              , 0x1DD) // bool
     };
 
     // C_INIT_OffsetVectorToVector
-    //   fields: 0
+    //   fields: 5
     class C_INIT_OffsetVectorToVector {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1E8) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1F4) // Vector
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x200) // CRandomNumberGeneratorParameters
     };
 
     // C_OP_SetPerChildControlPointFromAttribute
-    //   fields: 0
+    //   fields: 8
     class C_OP_SetPerChildControlPointFromAttribute {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1DC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nParticleIncrement                            , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstSourcePoint                             , 0x1E8) // int32
+        SCHEMA_FIELD(bool                            , m_bNumBasedOnParticleCount                      , 0x1EC) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToRead                              , 0x1F0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nCPField                                      , 0x1F4) // int32
     };
 
     // C_OP_SetParentControlPointsToChildCP
-    //   fields: 0
+    //   fields: 5
     class C_OP_SetParentControlPointsToChildCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nChildControlPoint                            , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstSourcePoint                             , 0x1EC) // int32
+        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x1F0) // bool
     };
 
     // C_OP_BoxConstraint
-    //   fields: 0
+    //   fields: 5
     class C_OP_BoxConstraint {
     public:
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecMin                                        , 0x1D8) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecMax                                        , 0x890) // CParticleCollectionVecInput
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0xF48) // int32
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0xF4C) // bool
+        SCHEMA_FIELD(bool                            , m_bAccountForRadius                             , 0xF4D) // bool
     };
 
     // C_INIT_CreatePhyllotaxis
-    //   fields: 0
+    //   fields: 14
     class C_INIT_CreatePhyllotaxis {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP                                      , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x1E8) // int32
+        SCHEMA_FIELD(float                           , m_fRadCentCore                                  , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_fRadPerPoint                                  , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_fRadPerPointTo                                , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_fpointAngle                                   , 0x1F8) // float32
+        SCHEMA_FIELD(float                           , m_fsizeOverall                                  , 0x1FC) // float32
+        SCHEMA_FIELD(float                           , m_fRadBias                                      , 0x200) // float32
+        SCHEMA_FIELD(float                           , m_fMinRad                                       , 0x204) // float32
+        SCHEMA_FIELD(float                           , m_fDistBias                                     , 0x208) // float32
+        SCHEMA_FIELD(bool                            , m_bUseLocalCoords                               , 0x20C) // bool
+        SCHEMA_FIELD(bool                            , m_bUseWithContEmit                              , 0x20D) // bool
+        SCHEMA_FIELD(bool                            , m_bUseOrigRadius                                , 0x20E) // bool
     };
 
     // C_OP_AttractToControlPoint
-    //   fields: 0
+    //   fields: 6
     class C_OP_AttractToControlPoint {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vecComponentScale                             , 0x1E8) // Vector
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fForceAmount                                  , 0x1F8) // CPerParticleFloatInput
+        SCHEMA_FIELD(float                           , m_fFalloffPower                                 , 0x368) // float32
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x370) // CParticleTransformInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fForceAmountMin                               , 0x3D8) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bApplyMinForce                                , 0x548) // bool
     };
 
     // C_INIT_RandomLifeTime
-    //   fields: 0
+    //   fields: 3
     class C_INIT_RandomLifeTime {
     public:
+        SCHEMA_FIELD(float                           , m_fLifetimeMin                                  , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_fLifetimeMax                                  , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_fLifetimeRandExponent                         , 0x1E8) // float32
     };
 
     // C_INIT_RemapParticleCountToNamedModelSequenceScalar
@@ -2024,80 +2648,153 @@ namespace cs2::sdk::particles {
     };
 
     // C_INIT_VelocityRadialRandom
-    //   parent: particles
-    //   fields: 0
-    class C_INIT_VelocityRadialRandom : public particles {
+    //   fields: 8
+    class C_INIT_VelocityRadialRandom {
     public:
+        SCHEMA_FIELD(bool                            , m_bPerParticleCenter                            , 0x1E0) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E4) // int32
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecPosition                                   , 0x1E8) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecFwd                                        , 0x8A0) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fSpeedMin                                     , 0xF58) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fSpeedMax                                     , 0x10C8) // CPerParticleFloatInput
+        SCHEMA_FIELD(::Vector                        , m_vecLocalCoordinateSystemSpeedScale            , 0x1238) // Vector
+        SCHEMA_FIELD(bool                            , m_bIgnoreDelta                                  , 0x1245) // bool
     };
 
     // C_INIT_RandomRadius
-    //   fields: 0
+    //   fields: 3
     class C_INIT_RandomRadius {
     public:
+        SCHEMA_FIELD(float                           , m_flRadiusMin                                   , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flRadiusMax                                   , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flRadiusRandExponent                          , 0x1E8) // float32
     };
 
     // C_OP_Orient2DRelToCP
-    //   fields: 0
+    //   fields: 4
     class C_OP_Orient2DRelToCP {
     public:
+        SCHEMA_FIELD(float                           , m_flRotOffset                                   , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flSpinStrength                                , 0x1DC) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E0) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t
     };
 
     // TextureControls_t
-    //   fields: 1
+    //   fields: 16
     class TextureControls_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flFinalTextureScaleU                          , 0x0) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flFinalTextureScaleV                          , 0x170) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flFinalTextureOffsetU                         , 0x2E0) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flFinalTextureOffsetV                         , 0x450) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flFinalTextureUVRotation                      , 0x5C0) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flZoomScale                                   , 0x730) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flDistortion                                  , 0x8A0) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(bool                            , m_bRandomizeOffsets                             , 0xA10) // bool
+        SCHEMA_FIELD(bool                            , m_bClampUVs                                     , 0xA11) // bool
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleBlend                             , 0xA14) // SpriteCardPerParticleScale_t
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleScale                             , 0xA18) // SpriteCardPerParticleScale_t
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleOffsetU                           , 0xA1C) // SpriteCardPerParticleScale_t
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleOffsetV                           , 0xA20) // SpriteCardPerParticleScale_t
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleRotation                          , 0xA24) // SpriteCardPerParticleScale_t
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleZoom                              , 0xA28) // SpriteCardPerParticleScale_t
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleDistortion                        , 0xA2C) // SpriteCardPerParticleScale_t
     };
 
     // ControlPointReference_t
-    //   fields: 1
+    //   fields: 3
     class ControlPointReference_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::int32_t                    , m_controlPointNameString                        , 0x0) // int32
+        SCHEMA_FIELD(::Vector                        , m_vOffsetFromControlPoint                       , 0x4) // Vector
+        SCHEMA_FIELD(bool                            , m_bOffsetInLocalSpace                           , 0x10) // bool
     };
 
     // C_OP_SetControlPointToVectorExpression
-    //   parent: particles
-    //   fields: 0
-    class C_OP_SetControlPointToVectorExpression : public particles {
+    //   fields: 6
+    class C_OP_SetControlPointToVectorExpression {
     public:
+        SCHEMA_FIELD(VectorExpressionType_t          , m_nExpression                                   , 0x1E0) // VectorExpressionType_t
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1E4) // int32
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vInput1                                       , 0x1E8) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vInput2                                       , 0x8A0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flLerp                                        , 0xF58) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x10C8) // bool
     };
 
     // C_OP_LightningSnapshotGenerator
-    //   fields: 0
+    //   fields: 15
     class C_OP_LightningSnapshotGenerator {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPSnapshot                                   , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPStartPnt                                   , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPEndPnt                                     , 0x1E8) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flSegments                                    , 0x1F0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flOffset                                      , 0x360) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flOffsetDecay                                 , 0x4D0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRecalcRate                                  , 0x640) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flUVScale                                     , 0x7B0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flUVOffset                                    , 0x920) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flSplitRate                                   , 0xA90) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flBranchTwist                                 , 0xC00) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(ParticleLightnintBranchBehavior_t, m_nBranchBehavior                               , 0xD70) // ParticleLightnintBranchBehavior_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRadiusStart                                 , 0xD78) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRadiusEnd                                   , 0xEE8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flDedicatedPool                               , 0x1058) // CParticleCollectionFloatInput
     };
 
     // C_OP_RemapNamedModelMeshGroupOnceTimed
-    //   parent: xL��
     //   fields: 0
-    class C_OP_RemapNamedModelMeshGroupOnceTimed : public xL {
+    class C_OP_RemapNamedModelMeshGroupOnceTimed {
     public:
     };
 
     // C_INIT_RemapQAnglesToRotation
-    //   fields: 0
+    //   fields: 1
     class C_INIT_RemapQAnglesToRotation {
     public:
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1E0) // CParticleTransformInput
     };
 
     // C_INIT_PositionWarp
-    //   fields: 0
+    //   fields: 10
     class C_INIT_PositionWarp {
     public:
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecWarpMin                                    , 0x1E0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecWarpMax                                    , 0x898) // CParticleCollectionVecInput
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointNumber                      , 0xF50) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0xF54) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nRadiusComponent                              , 0xF58) // int32
+        SCHEMA_FIELD(float                           , m_flWarpTime                                    , 0xF5C) // float32
+        SCHEMA_FIELD(float                           , m_flWarpStartTime                               , 0xF60) // float32
+        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0xF64) // float32
+        SCHEMA_FIELD(bool                            , m_bInvertWarp                                   , 0xF68) // bool
+        SCHEMA_FIELD(bool                            , m_bUseCount                                     , 0xF69) // bool
     };
 
     // C_OP_SetControlPointFieldToScalarExpression
-    //   fields: 0
+    //   fields: 7
     class C_OP_SetControlPointFieldToScalarExpression {
     public:
+        SCHEMA_FIELD(ScalarExpressionType_t          , m_nExpression                                   , 0x1E0) // ScalarExpressionType_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInput1                                      , 0x1E8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInput2                                      , 0x358) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleRemapFloatInput        , m_flOutputRemap                                 , 0x4C8) // CParticleRemapFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x638) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x63C) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInterpolation                               , 0x640) // CParticleCollectionFloatInput
     };
 
     // C_OP_CreateParticleSystemRenderer
-    //   fields: 0
+    //   fields: 5
     class C_OP_CreateParticleSystemRenderer {
     public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_hEffect                                       , 0x228) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x230) // EventTypeSelection_t
+        SCHEMA_FIELD(CUtlLeanVector<CPAssignment_t>  , m_vecCPs                                        , 0x238) // CUtlLeanVector<CPAssignment_t>
+        SCHEMA_FIELD(::CUtlString                    , m_szParticleConfig                              , 0x248) // CUtlString
+        SCHEMA_FIELD(CPerParticleVecInput            , m_AggregationPos                                , 0x250) // CPerParticleVecInput
     };
 
     // CParticleFunctionForce
@@ -2107,94 +2804,165 @@ namespace cs2::sdk::particles {
     };
 
     // C_INIT_RandomVectorComponent
-    //   fields: 0
+    //   fields: 4
     class C_INIT_RandomVectorComponent {
     public:
+        SCHEMA_FIELD(float                           , m_flMin                                         , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flMax                                         , 0x1E4) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x1EC) // int32
     };
 
     // C_OP_InheritFromParentParticles
-    //   fields: 0
+    //   fields: 4
     class C_OP_InheritFromParentParticles {
     public:
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1D8) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E0) // int32
+        SCHEMA_FIELD(bool                            , m_bRandomDistribution                           , 0x1E4) // bool
     };
 
     // C_INIT_SetVectorAttributeToVectorExpression
-    //   fields: 0
+    //   fields: 7
     class C_INIT_SetVectorAttributeToVectorExpression {
     public:
+        SCHEMA_FIELD(VectorExpressionType_t          , m_nExpression                                   , 0x1E0) // VectorExpressionType_t
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vInput1                                       , 0x1E8) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vInput2                                       , 0x8A0) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flLerp                                        , 0xF58) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x10C8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x10CC) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x10D0) // bool
     };
 
     // C_OP_RemapTransformVisibilityToVector
-    //   fields: 0
+    //   fields: 8
     class C_OP_RemapTransformVisibilityToVector {
     public:
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1D8) // ParticleSetMethod_t
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1E0) // CParticleTransformInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x248) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x24C) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x250) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x254) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x260) // Vector
+        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x26C) // float32
     };
 
     // C_OP_DirectionBetweenVecsToVec
-    //   fields: 0
+    //   fields: 3
     class C_OP_DirectionBetweenVecsToVec {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecPoint1                                     , 0x1E0) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecPoint2                                     , 0x898) // CPerParticleVecInput
     };
 
     // C_OP_MovementLoopInsideSphere
-    //   fields: 0
+    //   fields: 4
     class C_OP_MovementLoopInsideSphere {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1D8) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flDistance                                    , 0x1E0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecScale                                      , 0x350) // CParticleCollectionVecInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nDistSqrAttr                                  , 0xA08) // ParticleAttributeIndex_t
     };
 
     // C_OP_RenderSimpleModelCollection
-    //   fields: 0
+    //   fields: 9
     class C_OP_RenderSimpleModelCollection {
     public:
+        SCHEMA_FIELD(bool                            , m_bCenterOffset                                 , 0x228) // bool
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x230) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(CParticleModelInput             , m_modelInput                                    , 0x238) // CParticleModelInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_fSizeCullScale                                , 0x298) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bDisableShadows                               , 0x408) // bool
+        SCHEMA_FIELD(bool                            , m_bDisableMotionBlur                            , 0x409) // bool
+        SCHEMA_FIELD(bool                            , m_bAcceptsDecals                                , 0x40A) // bool
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fDrawFilter                                   , 0x410) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAngularVelocityField                         , 0x580) // ParticleAttributeIndex_t
     };
 
     // C_OP_QuantizeCPComponent
-    //   fields: 0
+    //   fields: 4
     class C_OP_QuantizeCPComponent {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInputValue                                  , 0x1E0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x350) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x354) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flQuantizeValue                               , 0x358) // CParticleCollectionFloatInput
     };
 
     // C_OP_PlayEndCapWhenFinished
-    //   fields: 0
+    //   fields: 2
     class C_OP_PlayEndCapWhenFinished {
     public:
+        SCHEMA_FIELD(bool                            , m_bFireOnEmissionEnd                            , 0x1E0) // bool
+        SCHEMA_FIELD(bool                            , m_bIncludeChildren                              , 0x1E1) // bool
     };
 
     // C_INIT_InitFloatCollection
-    //   fields: 0
+    //   fields: 2
     class C_INIT_InitFloatCollection {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_InputValue                                    , 0x1E0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x350) // ParticleAttributeIndex_t
     };
 
     // CPathParameters
-    //   fields: 0
+    //   fields: 8
     class CPathParameters {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nStartControlPointNumber                      , 0x0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nEndControlPointNumber                        , 0x4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nBulgeControl                                 , 0x8) // int32
+        SCHEMA_FIELD(float                           , m_flBulge                                       , 0xC) // float32
+        SCHEMA_FIELD(float                           , m_flMidPoint                                    , 0x10) // float32
+        SCHEMA_FIELD(::Vector                        , m_vStartPointOffset                             , 0x14) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vMidPointOffset                               , 0x20) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vEndOffset                                    , 0x2C) // Vector
     };
 
     // C_OP_RemapScalarEndCap
-    //   fields: 0
+    //   fields: 6
     class C_OP_RemapScalarEndCap {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1EC) // float32
     };
 
     // C_INIT_CreateFromPlaneCache
-    //   parent: particles
-    //   fields: 0
-    class C_INIT_CreateFromPlaneCache : public particles {
+    //   fields: 3
+    class C_INIT_CreateFromPlaneCache {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetMin                                  , 0x1E0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetMax                                  , 0x1EC) // Vector
+        SCHEMA_FIELD(bool                            , m_bUseNormal                                    , 0x1F9) // bool
     };
 
     // C_OP_LazyCullCompareFloat
-    //   fields: 0
+    //   fields: 3
     class C_OP_LazyCullCompareFloat {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flComparsion1                                 , 0x1D8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flComparsion2                                 , 0x348) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flCullTime                                    , 0x4B8) // CPerParticleFloatInput
     };
 
     // C_OP_ControlPointToRadialScreenSpace
-    //   fields: 0
+    //   fields: 5
     class C_OP_ControlPointToRadialScreenSpace {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPIn                                         , 0x1E0) // int32
+        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1E4) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOut                                        , 0x1F0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutField                                   , 0x1F4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPSSPosOut                                   , 0x1F8) // int32
     };
 
     // C_OP_SpinUpdate
@@ -2204,27 +2972,53 @@ namespace cs2::sdk::particles {
     };
 
     // C_INIT_NormalOffset
-    //   fields: 0
+    //   fields: 5
     class C_INIT_NormalOffset {
     public:
+        SCHEMA_FIELD(::Vector                        , m_OffsetMin                                     , 0x1E0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_OffsetMax                                     , 0x1EC) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1F8) // int32
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x1FC) // bool
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1FD) // bool
     };
 
     // C_OP_RemapDistanceToLineSegmentToVector
-    //   fields: 0
+    //   fields: 3
     class C_OP_RemapDistanceToLineSegmentToVector {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(::Vector                        , m_vMinOutputValue                               , 0x1F4) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vMaxOutputValue                               , 0x200) // Vector
     };
 
     // C_OP_RenderAsModels
-    //   fields: 0
+    //   fields: 8
     class C_OP_RenderAsModels {
     public:
+        SCHEMA_FIELD(CUtlVector<ModelReference_t>    , m_ModelList                                     , 0x228) // CUtlVector<ModelReference_t>
+        SCHEMA_FIELD(float                           , m_flModelScale                                  , 0x244) // float32
+        SCHEMA_FIELD(bool                            , m_bFitToModelSize                               , 0x248) // bool
+        SCHEMA_FIELD(bool                            , m_bNonUniformScaling                            , 0x249) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nXAxisScalingAttribute                        , 0x24C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nYAxisScalingAttribute                        , 0x250) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nZAxisScalingAttribute                        , 0x254) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nSizeCullBloat                                , 0x258) // int32
     };
 
     // C_INIT_CreationNoise
-    //   fields: 0
+    //   fields: 10
     class C_INIT_CreationNoise {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bAbsVal                                       , 0x1E4) // bool
+        SCHEMA_FIELD(bool                            , m_bAbsValInv                                    , 0x1E5) // bool
+        SCHEMA_FIELD(float                           , m_flOffset                                      , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flNoiseScale                                  , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flNoiseScaleLoc                               , 0x1F8) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetLoc                                  , 0x1FC) // Vector
+        SCHEMA_FIELD(float                           , m_flWorldTimeScale                              , 0x208) // float32
     };
 
     // C_OP_Spin
@@ -2234,157 +3028,340 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_GameLiquidSpill
-    //   fields: 0
+    //   fields: 3
     class C_OP_GameLiquidSpill {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flLiquidContentsField                         , 0x228) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flExpirationTime                              , 0x398) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAmountAttribute                              , 0x508) // ParticleAttributeIndex_t
     };
 
     // C_OP_InstantaneousEmitter
-    //   fields: 0
+    //   fields: 8
     class C_OP_InstantaneousEmitter {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nParticlesToEmit                              , 0x1E0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flStartTime                                   , 0x350) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(float                           , m_flInitFromKilledParentParticles               , 0x4C0) // float32
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x4C4) // EventTypeSelection_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flParentParticleScale                         , 0x4C8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxEmittedPerFrame                           , 0x638) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x63C) // int32
+        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x640) // CUtlString
     };
 
     // C_OP_ConstrainLineLength
-    //   fields: 0
+    //   fields: 2
     class C_OP_ConstrainLineLength {
     public:
+        SCHEMA_FIELD(float                           , m_flMinDistance                                 , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flMaxDistance                                 , 0x1DC) // float32
     };
 
     // C_INIT_LifespanFromVelocity
-    //   fields: 0
+    //   fields: 8
     class C_INIT_LifespanFromVelocity {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vecComponentScale                             , 0x1E0) // Vector
+        SCHEMA_FIELD(float                           , m_flTraceOffset                                 , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flTraceTolerance                              , 0x1F4) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxPlanes                                    , 0x1F8) // int32
+        SCHEMA_FIELD(char[128]                       , m_CollisionGroupName                            , 0x200) // char[128]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x280) // ParticleTraceSet_t
+        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0x290) // bool
     };
 
     // CBaseTrailRenderer
-    //   fields: 0
+    //   fields: 7
     class CBaseTrailRenderer {
     public:
+        SCHEMA_FIELD(ParticleOrientationChoiceList_t , m_nOrientationType                              , 0x2DF0) // ParticleOrientationChoiceList_t
+        SCHEMA_FIELD(std::int32_t                    , m_nOrientationControlPoint                      , 0x2DF4) // int32
+        SCHEMA_FIELD(float                           , m_flMinSize                                     , 0x2DF8) // float32
+        SCHEMA_FIELD(float                           , m_flMaxSize                                     , 0x2DFC) // float32
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flStartFadeSize                               , 0x2E00) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flEndFadeSize                                 , 0x2F70) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(bool                            , m_bClampV                                       , 0x30E0) // bool
     };
 
     // C_INIT_VelocityFromCP
-    //   fields: 0
+    //   fields: 4
     class C_INIT_VelocityFromCP {
     public:
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_velocityInput                                 , 0x1E0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_transformInput                                , 0x898) // CParticleTransformInput
+        SCHEMA_FIELD(float                           , m_flVelocityScale                               , 0x900) // float32
+        SCHEMA_FIELD(bool                            , m_bDirectionOnly                                , 0x904) // bool
     };
 
     // C_OP_SetControlPointOrientation
-    //   fields: 0
+    //   fields: 8
     class C_OP_SetControlPointOrientation {
     public:
+        SCHEMA_FIELD(bool                            , m_bUseWorldLocation                             , 0x1E0) // bool
+        SCHEMA_FIELD(bool                            , m_bRandomize                                    , 0x1E2) // bool
+        SCHEMA_FIELD(bool                            , m_bSetOnce                                      , 0x1E3) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nHeadLocation                                 , 0x1E8) // int32
+        SCHEMA_FIELD(::QAngle                        , m_vecRotation                                   , 0x1EC) // QAngle
+        SCHEMA_FIELD(::QAngle                        , m_vecRotationB                                  , 0x1F8) // QAngle
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInterpolation                               , 0x208) // CParticleCollectionFloatInput
     };
 
     // C_OP_MovementSkinnedPositionFromCPSnapshot
-    //   fields: 0
+    //   fields: 12
     class C_OP_MovementSkinnedPositionFromCPSnapshot {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPointNumber                   , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1DC) // int32
+        SCHEMA_FIELD(bool                            , m_bRandom                                       , 0x1E0) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1E4) // int32
+        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x1E8) // bool
+        SCHEMA_FIELD(bool                            , m_bSetRadius                                    , 0x1E9) // bool
+        SCHEMA_FIELD(SnapshotIndexType_t             , m_nIndexType                                    , 0x1EC) // SnapshotIndexType_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flReadIndex                                   , 0x1F0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flIncrement                                   , 0x360) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nFullLoopIncrement                            , 0x4D0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nSnapShotStartPoint                           , 0x640) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInterpolation                               , 0x7B0) // CPerParticleFloatInput
     };
 
     // C_OP_MultiSegmentDisplaySnapshotGenerator
-    //   parent: particles
-    //   fields: 0
-    class C_OP_MultiSegmentDisplaySnapshotGenerator : public particles {
+    //   fields: 14
+    class C_OP_MultiSegmentDisplaySnapshotGenerator {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPSnapshot                                   , 0x1E0) // int32
+        SCHEMA_FIELD(ParticleMultiSegmentCountSelection_t, m_nSegCount                                     , 0x1E4) // ParticleMultiSegmentCountSelection_t
+        SCHEMA_FIELD(ParticleMultiSegmentInputSelection_t, m_nInputType                                    , 0x1E8) // ParticleMultiSegmentInputSelection_t
+        SCHEMA_FIELD(::CUtlString                    , m_strDefaultString                              , 0x1F0) // CUtlString
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flValue                                       , 0x1F8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CUtlVector<ParticleMultiSegmentSpecialCharacter_t>, m_SpecialCharList                               , 0x368) // CUtlVector<ParticleMultiSegmentSpecialCharacter_t>
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecColorUnlit                                 , 0x380) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecColorLit                                   , 0xA38) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRadius                                      , 0x10F0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flSpacing                                     , 0x1260) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flMinCount                                    , 0x13D0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flMaxCount                                    , 0x1540) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bPrependEmpty                                 , 0x16B0) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flDigitsAfterDecimal                          , 0x16B8) // CParticleCollectionFloatInput
     };
 
     // C_OP_OscillateVector
-    //   fields: 0
+    //   fields: 15
     class C_OP_OscillateVector {
     public:
+        SCHEMA_FIELD(::Vector                        , m_RateMin                                       , 0x1D8) // Vector
+        SCHEMA_FIELD(::Vector                        , m_RateMax                                       , 0x1E4) // Vector
+        SCHEMA_FIELD(::Vector                        , m_FrequencyMin                                  , 0x1F0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_FrequencyMax                                  , 0x1FC) // Vector
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x208) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x20C) // bool
+        SCHEMA_FIELD(bool                            , m_bProportionalOp                               , 0x20D) // bool
+        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x20E) // bool
+        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x210) // float32
+        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x214) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x218) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x21C) // float32
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOscMult                                     , 0x220) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOscAdd                                      , 0x390) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRateScale                                   , 0x500) // CPerParticleFloatInput
     };
 
     // C_OP_PositionLock
-    //   fields: 0
+    //   fields: 15
     class C_OP_PositionLock {
     public:
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1D8) // CParticleTransformInput
+        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x240) // float32
+        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x244) // float32
+        SCHEMA_FIELD(float                           , m_flStartTime_exp                               , 0x248) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x24C) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x250) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime_exp                                 , 0x254) // float32
+        SCHEMA_FIELD(float                           , m_flRange                                       , 0x258) // float32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRangeBias                                   , 0x260) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(float                           , m_flJumpThreshold                               , 0x3D0) // float32
+        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x3D4) // float32
+        SCHEMA_FIELD(bool                            , m_bLockRot                                      , 0x3D8) // bool
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecScale                                      , 0x3E0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0xA98) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutputPrev                              , 0xA9C) // ParticleAttributeIndex_t
     };
 
     // C_OP_RenderVRHapticEvent
-    //   fields: 0
+    //   fields: 4
     class C_OP_RenderVRHapticEvent {
     public:
+        SCHEMA_FIELD(ParticleVRHandChoiceList_t      , m_nHand                                         , 0x228) // ParticleVRHandChoiceList_t
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputHandCP                                 , 0x22C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputField                                  , 0x230) // int32
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flAmplitude                                   , 0x238) // CPerParticleFloatInput
     };
 
     // C_OP_SetControlPointToImpactPoint
-    //   fields: 0
+    //   fields: 12
     class C_OP_SetControlPointToImpactPoint {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOut                                        , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPIn                                         , 0x1E4) // int32
+        SCHEMA_FIELD(float                           , m_flUpdateRate                                  , 0x1E8) // float32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flTraceLength                                 , 0x1F0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(float                           , m_flStartOffset                                 , 0x360) // float32
+        SCHEMA_FIELD(float                           , m_flOffset                                      , 0x364) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecTraceDir                                   , 0x368) // Vector
+        SCHEMA_FIELD(char[128]                       , m_CollisionGroupName                            , 0x374) // char[128]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x3F4) // ParticleTraceSet_t
+        SCHEMA_FIELD(bool                            , m_bSetToEndpoint                                , 0x3F8) // bool
+        SCHEMA_FIELD(bool                            , m_bTraceToClosestSurface                        , 0x3F9) // bool
+        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0x3FA) // bool
     };
 
     // C_OP_InterpolateRadius
-    //   fields: 0
+    //   fields: 6
     class C_OP_InterpolateRadius {
     public:
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flStartScale                                  , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flEndScale                                    , 0x1E4) // float32
+        SCHEMA_FIELD(bool                            , m_bEaseInAndOut                                 , 0x1E8) // bool
+        SCHEMA_FIELD(float                           , m_flBias                                        , 0x1EC) // float32
     };
 
     // C_OP_ReinitializeScalarEndCap
-    //   parent: particles
-    //   fields: 0
-    class C_OP_ReinitializeScalarEndCap : public particles {
+    //   fields: 3
+    class C_OP_ReinitializeScalarEndCap {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1E0) // float32
     };
 
     // C_OP_TurbulenceForce
-    //   fields: 0
+    //   fields: 8
     class C_OP_TurbulenceForce {
     public:
+        SCHEMA_FIELD(float                           , m_flNoiseCoordScale0                            , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flNoiseCoordScale1                            , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flNoiseCoordScale2                            , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flNoiseCoordScale3                            , 0x1F4) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecNoiseAmount0                               , 0x1F8) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecNoiseAmount1                               , 0x204) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecNoiseAmount2                               , 0x210) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecNoiseAmount3                               , 0x21C) // Vector
     };
 
     // C_OP_RemapNamedModelElementOnceTimed
-    //   fields: 0
+    //   fields: 9
     class C_OP_RemapNamedModelElementOnceTimed {
     public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x1D8) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_inNames                                       , 0x1E0) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_outNames                                      , 0x1F8) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_fallbackNames                                 , 0x210) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x228) // bool
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x229) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x22C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x230) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flRemapTime                                   , 0x234) // float32
     };
 
     // C_OP_SetControlPointToPlayer
-    //   fields: 0
+    //   fields: 4
     class C_OP_SetControlPointToPlayer {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E0) // int32
+        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1E4) // Vector
+        SCHEMA_FIELD(bool                            , m_bOrientToEyes                                 , 0x1F0) // bool
+        SCHEMA_FIELD(ParticleEntityPos_t             , m_nPosition                                     , 0x1F4) // ParticleEntityPos_t
     };
 
     // C_OP_EndCapTimedFreeze
-    //   fields: 0
+    //   fields: 1
     class C_OP_EndCapTimedFreeze {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flFreezeTime                                  , 0x1D8) // CParticleCollectionFloatInput
     };
 
     // C_OP_RenderGpuImplicit
-    //   fields: 0
+    //   fields: 8
     class C_OP_RenderGpuImplicit {
     public:
+        SCHEMA_FIELD(bool                            , m_bUsePerParticleRadius                         , 0x228) // bool
+        SCHEMA_FIELD(std::uint32_t                   , m_nVertexCountKb                                , 0x22C) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nIndexCountKb                                 , 0x230) // uint32
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_fGridSize                                     , 0x238) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_fRadiusScale                                  , 0x3A8) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_fIsosurfaceThreshold                          , 0x518) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP                                      , 0x688) // int32
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0x690) // CStrongHandle<InfoForResourceTypeIMaterial2>
     };
 
     // C_OP_SetRandomControlPointPosition
-    //   fields: 0
+    //   fields: 8
     class C_OP_SetRandomControlPointPosition {
     public:
+        SCHEMA_FIELD(bool                            , m_bUseWorldLocation                             , 0x1E0) // bool
+        SCHEMA_FIELD(bool                            , m_bOrient                                       , 0x1E1) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nHeadLocation                                 , 0x1E8) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flReRandomRate                                , 0x1F0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(::Vector                        , m_vecCPMinPos                                   , 0x360) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecCPMaxPos                                   , 0x36C) // Vector
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInterpolation                               , 0x378) // CParticleCollectionFloatInput
     };
 
     // C_OP_RenderVolumetricEmitter
-    //   parent: particles
-    //   fields: 0
-    class C_OP_RenderVolumetricEmitter : public particles {
+    //   fields: 12
+    class C_OP_RenderVolumetricEmitter {
     public:
+        SCHEMA_FIELD(::CUtlString                    , m_strChannelType                                , 0x228) // CUtlString
+        SCHEMA_FIELD(ParticleVolumetricSmokeType_t   , m_nType                                         , 0x230) // ParticleVolumetricSmokeType_t
+        SCHEMA_FIELD(ParticleVolumetricSmokeCreationType_t, m_nCreationType                                 , 0x234) // ParticleVolumetricSmokeCreationType_t
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x238) // EventTypeSelection_t
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecPos                                        , 0x240) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecVelocity                                   , 0x8F8) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadius                                      , 0xFB0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flDensity                                     , 0x1120) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flTemperature                                 , 0x1290) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flMagnitude                                   , 0x1400) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flKillRadius                                  , 0x1570) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flFalloff                                     , 0x16E0) // CPerParticleFloatInput
     };
 
     // C_OP_RemapTransformVisibilityToScalar
-    //   fields: 0
+    //   fields: 8
     class C_OP_RemapTransformVisibilityToScalar {
     public:
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1D8) // ParticleSetMethod_t
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1E0) // CParticleTransformInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x248) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x24C) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x250) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x254) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x258) // float32
+        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x25C) // float32
     };
 
     // C_OP_RemapControlPointDirectionToVector
-    //   fields: 0
+    //   fields: 3
     class C_OP_RemapControlPointDirectionToVector {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1DC) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32
     };
 
     // C_OP_ScreenSpacePositionOfTarget
-    //   parent: particles
-    //   fields: 0
-    class C_OP_ScreenSpacePositionOfTarget : public particles {
+    //   fields: 5
+    class C_OP_ScreenSpacePositionOfTarget {
     public:
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecTargetPosition                             , 0x1D8) // CPerParticleVecInput
+        SCHEMA_FIELD(bool                            , m_bOututBehindness                              , 0x890) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nBehindFieldOutput                            , 0x894) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CParticleRemapFloatInput        , m_flBehindOutputRemap                           , 0x898) // CParticleRemapFloatInput
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nBehindSetMethod                              , 0xA08) // ParticleSetMethod_t
     };
 
     // CParticleFunctionOperator
@@ -2394,59 +3371,158 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_DragRelativeToPlane
-    //   fields: 0
+    //   fields: 5
     class C_OP_DragRelativeToPlane {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flDragAtPlane                                 , 0x1D8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flFalloff                                     , 0x348) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bDirectional                                  , 0x4B8) // bool
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecPlaneNormal                                , 0x4C0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0xB78) // int32
     };
 
     // C_OP_SetCPtoVector
-    //   fields: 0
+    //   fields: 2
     class C_OP_SetCPtoVector {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1D8) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
     };
 
     // C_INIT_RandomYaw
-    //   parent: xL��
     //   fields: 0
-    class C_INIT_RandomYaw : public xL {
+    class C_INIT_RandomYaw {
     public:
     };
 
     // C_OP_SnapshotRigidSkinToBones
-    //   fields: 0
+    //   fields: 3
     class C_OP_SnapshotRigidSkinToBones {
     public:
+        SCHEMA_FIELD(bool                            , m_bTransformNormals                             , 0x1D8) // bool
+        SCHEMA_FIELD(bool                            , m_bTransformRadii                               , 0x1D9) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1DC) // int32
     };
 
     // C_OP_SetSingleControlPointPosition
-    //   fields: 0
+    //   fields: 4
     class C_OP_SetSingleControlPointPosition {
     public:
+        SCHEMA_FIELD(bool                            , m_bSetOnce                                      , 0x1E0) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E4) // int32
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecCP1Pos                                     , 0x1E8) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_transformInput                                , 0x8A0) // CParticleTransformInput
     };
 
     // C_INIT_DistanceToNeighborCull
-    //   fields: 0
+    //   fields: 7
     class C_INIT_DistanceToNeighborCull {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flDistance                                    , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bIncludeRadii                                 , 0x350) // bool
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flLifespanOverlap                             , 0x358) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldModify                                  , 0x4C8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flModify                                      , 0x4D0) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x640) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bUseNeighbor                                  , 0x644) // bool
     };
 
     // C_OP_RemapCPtoScalar
-    //   parent: particles
-    //   fields: 0
-    class C_OP_RemapCPtoScalar : public particles {
+    //   fields: 11
+    class C_OP_RemapCPtoScalar {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1D8) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nField                                        , 0x1E0) // int32
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1F8) // float32
+        SCHEMA_FIELD(float                           , m_flInterpRate                                  , 0x1FC) // float32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x200) // ParticleSetMethod_t
     };
 
     // CParticleFunctionRenderer
-    //   fields: 0
+    //   fields: 3
     class CParticleFunctionRenderer {
     public:
+        SCHEMA_FIELD(CParticleVisibilityInputs       , VisibilityInputs                                , 0x1D8) // CParticleVisibilityInputs
+        SCHEMA_FIELD(bool                            , m_bCannotBeRefracted                            , 0x220) // bool
+        SCHEMA_FIELD(bool                            , m_bSkipRenderingOnMobile                        , 0x221) // bool
     };
 
     // CParticleSystemDefinition
-    //   fields: 0
+    //   fields: 66
     class CParticleSystemDefinition {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nBehaviorVersion                              , 0x8) // int32
+        SCHEMA_FIELD(CUtlVector<CParticleFunctionPreEmission*>, m_PreEmissionOperators                          , 0x10) // CUtlVector<CParticleFunctionPreEmission*>
+        SCHEMA_FIELD(CUtlVector<CParticleFunctionEmitter*>, m_Emitters                                      , 0x28) // CUtlVector<CParticleFunctionEmitter*>
+        SCHEMA_FIELD(CUtlVector<CParticleFunctionInitializer*>, m_Initializers                                  , 0x40) // CUtlVector<CParticleFunctionInitializer*>
+        SCHEMA_FIELD(CUtlVector<CParticleFunctionOperator*>, m_Operators                                     , 0x58) // CUtlVector<CParticleFunctionOperator*>
+        SCHEMA_FIELD(CUtlVector<CParticleFunctionForce*>, m_ForceGenerators                               , 0x70) // CUtlVector<CParticleFunctionForce*>
+        SCHEMA_FIELD(CUtlVector<CParticleFunctionConstraint*>, m_Constraints                                   , 0x88) // CUtlVector<CParticleFunctionConstraint*>
+        SCHEMA_FIELD(CUtlVector<CParticleFunctionRenderer*>, m_Renderers                                     , 0xA0) // CUtlVector<CParticleFunctionRenderer*>
+        SCHEMA_FIELD(CUtlVector<ParticleChildrenInfo_t>, m_Children                                      , 0xB8) // CUtlVector<ParticleChildrenInfo_t>
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstMultipleOverride_BackwardCompat         , 0x178) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nInitialParticles                             , 0x258) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxParticles                                 , 0x25C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nGroupID                                      , 0x260) // int32
+        SCHEMA_FIELD(::Vector                        , m_BoundingBoxMin                                , 0x264) // Vector
+        SCHEMA_FIELD(::Vector                        , m_BoundingBoxMax                                , 0x270) // Vector
+        SCHEMA_FIELD(float                           , m_flDepthSortBias                               , 0x27C) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nSortOverridePositionCP                       , 0x280) // int32
+        SCHEMA_FIELD(bool                            , m_bInfiniteBounds                               , 0x284) // bool
+        SCHEMA_FIELD(bool                            , m_bEnableNamedValues                            , 0x285) // bool
+        SCHEMA_FIELD(::CUtlString                    , m_NamedValueDomain                              , 0x288) // CUtlString
+        SCHEMA_FIELD(CUtlVector<ParticleNamedValueSource_t*>, m_NamedValueLocals                              , 0x290) // CUtlVector<ParticleNamedValueSource_t*>
+        SCHEMA_FIELD(::Color                         , m_ConstantColor                                 , 0x2A8) // Color
+        SCHEMA_FIELD(::Vector                        , m_ConstantNormal                                , 0x2AC) // Vector
+        SCHEMA_FIELD(float                           , m_flConstantRadius                              , 0x2B8) // float32
+        SCHEMA_FIELD(float                           , m_flConstantRotation                            , 0x2BC) // float32
+        SCHEMA_FIELD(float                           , m_flConstantRotationSpeed                       , 0x2C0) // float32
+        SCHEMA_FIELD(float                           , m_flConstantLifespan                            , 0x2C4) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nConstantSequenceNumber                       , 0x2C8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nConstantSequenceNumber1                      , 0x2CC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x2D0) // int32
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSnapshot>, m_hSnapshot                                     , 0x2D8) // CStrongHandle<InfoForResourceTypeIParticleSnapshot>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_pszCullReplacementName                        , 0x2E0) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>
+        SCHEMA_FIELD(float                           , m_flCullRadius                                  , 0x2E8) // float32
+        SCHEMA_FIELD(float                           , m_flCullFillCost                                , 0x2EC) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nCullControlPoint                             , 0x2F0) // int32
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_hFallback                                     , 0x2F8) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>
+        SCHEMA_FIELD(std::int32_t                    , m_nFallbackMaxCount                             , 0x300) // int32
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_hLowViolenceDef                               , 0x308) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_hReferenceReplacement                         , 0x310) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>
+        SCHEMA_FIELD(float                           , m_flPreSimulationTime                           , 0x318) // float32
+        SCHEMA_FIELD(float                           , m_flStopSimulationAfterTime                     , 0x31C) // float32
+        SCHEMA_FIELD(float                           , m_flMaximumTimeStep                             , 0x320) // float32
+        SCHEMA_FIELD(float                           , m_flMaximumSimTime                              , 0x324) // float32
+        SCHEMA_FIELD(float                           , m_flMinimumSimTime                              , 0x328) // float32
+        SCHEMA_FIELD(float                           , m_flMinimumTimeStep                             , 0x32C) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nMinimumFrames                                , 0x330) // int32
+        SCHEMA_FIELD(bool                            , m_bIsGPUParticleSystem                          , 0x334) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nMinCPULevel                                  , 0x338) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMinGPULevel                                  , 0x33C) // int32
+        SCHEMA_FIELD(float                           , m_flNoDrawTimeToGoToSleep                       , 0x340) // float32
+        SCHEMA_FIELD(float                           , m_flMaxDrawDistance                             , 0x344) // float32
+        SCHEMA_FIELD(float                           , m_flStartFadeDistance                           , 0x348) // float32
+        SCHEMA_FIELD(float                           , m_flMaxCreationDistance                         , 0x34C) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nAggregationMinAvailableParticles             , 0x350) // int32
+        SCHEMA_FIELD(float                           , m_flAggregateRadius                             , 0x354) // float32
+        SCHEMA_FIELD(bool                            , m_bShouldBatch                                  , 0x358) // bool
+        SCHEMA_FIELD(bool                            , m_bShouldHitboxesFallbackToRenderBounds         , 0x359) // bool
+        SCHEMA_FIELD(bool                            , m_bShouldHitboxesFallbackToSnapshot             , 0x35A) // bool
+        SCHEMA_FIELD(bool                            , m_bShouldHitboxesFallbackToCollisionHulls       , 0x35B) // bool
+        SCHEMA_FIELD(InheritableBoolType_t           , m_nViewModelEffect                              , 0x35C) // InheritableBoolType_t
+        SCHEMA_FIELD(bool                            , m_bScreenSpaceEffect                            , 0x360) // bool
+        SCHEMA_FIELD(::CUtlSymbolLarge               , m_pszTargetLayerID                              , 0x368) // CUtlSymbolLarge
+        SCHEMA_FIELD(std::int32_t                    , m_nSkipRenderControlPoint                       , 0x370) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nAllowRenderControlPoint                      , 0x374) // int32
+        SCHEMA_FIELD(bool                            , m_bShouldSort                                   , 0x378) // bool
+        SCHEMA_FIELD(CUtlVector<ParticleControlPointConfiguration_t>, m_controlPointConfigurations                    , 0x3C0) // CUtlVector<ParticleControlPointConfiguration_t>
     };
 
     // C_OP_RemapNamedModelMeshGroupEndCap
@@ -2456,282 +3532,625 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_PercentageBetweenTransformsVector
-    //   fields: 0
+    //   fields: 10
     class C_OP_PercentageBetweenTransformsVector {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E0) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1E4) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1F0) // Vector
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformStart                                , 0x200) // CParticleTransformInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformEnd                                  , 0x268) // CParticleTransformInput
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x2D0) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x2D4) // bool
+        SCHEMA_FIELD(bool                            , m_bRadialCheck                                  , 0x2D5) // bool
     };
 
     // C_OP_RenderScreenVelocityRotate
-    //   parent: particles
-    //   fields: 0
-    class C_OP_RenderScreenVelocityRotate : public particles {
+    //   fields: 2
+    class C_OP_RenderScreenVelocityRotate {
     public:
+        SCHEMA_FIELD(float                           , m_flRotateRateDegrees                           , 0x228) // float32
+        SCHEMA_FIELD(float                           , m_flForwardDegrees                              , 0x22C) // float32
     };
 
     // C_OP_UpdateLightSource
-    //   fields: 0
+    //   fields: 6
     class C_OP_UpdateLightSource {
     public:
+        SCHEMA_FIELD(::Color                         , m_vColorTint                                    , 0x1D8) // Color
+        SCHEMA_FIELD(float                           , m_flBrightnessScale                             , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flMinimumLightingRadius                       , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flMaximumLightingRadius                       , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flPositionDampingConstant                     , 0x1EC) // float32
     };
 
     // C_INIT_CreateWithinBox
-    //   fields: 0
+    //   fields: 6
     class C_INIT_CreateWithinBox {
     public:
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecMin                                        , 0x1E0) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecMax                                        , 0x898) // CPerParticleVecInput
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0xF50) // int32
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0xF54) // bool
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0xF58) // CRandomNumberGeneratorParameters
+        SCHEMA_FIELD(bool                            , m_bUseNewCode                                   , 0xF60) // bool
     };
 
     // C_OP_ChooseRandomChildrenInGroup
-    //   fields: 0
+    //   fields: 2
     class C_OP_ChooseRandomChildrenInGroup {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E0) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flNumberOfChildren                            , 0x1E8) // CParticleCollectionFloatInput
     };
 
     // C_OP_ControlpointLight
-    //   fields: 0
+    //   fields: 33
     class C_OP_ControlpointLight {
     public:
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1D8) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint1                                , 0x660) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint2                                , 0x664) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint3                                , 0x668) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint4                                , 0x66C) // int32
+        SCHEMA_FIELD(::Vector                        , m_vecCPOffset1                                  , 0x670) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecCPOffset2                                  , 0x67C) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecCPOffset3                                  , 0x688) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecCPOffset4                                  , 0x694) // Vector
+        SCHEMA_FIELD(float                           , m_LightFiftyDist1                               , 0x6A0) // float32
+        SCHEMA_FIELD(float                           , m_LightZeroDist1                                , 0x6A4) // float32
+        SCHEMA_FIELD(float                           , m_LightFiftyDist2                               , 0x6A8) // float32
+        SCHEMA_FIELD(float                           , m_LightZeroDist2                                , 0x6AC) // float32
+        SCHEMA_FIELD(float                           , m_LightFiftyDist3                               , 0x6B0) // float32
+        SCHEMA_FIELD(float                           , m_LightZeroDist3                                , 0x6B4) // float32
+        SCHEMA_FIELD(float                           , m_LightFiftyDist4                               , 0x6B8) // float32
+        SCHEMA_FIELD(float                           , m_LightZeroDist4                                , 0x6BC) // float32
+        SCHEMA_FIELD(::Color                         , m_LightColor1                                   , 0x6C0) // Color
+        SCHEMA_FIELD(::Color                         , m_LightColor2                                   , 0x6C4) // Color
+        SCHEMA_FIELD(::Color                         , m_LightColor3                                   , 0x6C8) // Color
+        SCHEMA_FIELD(::Color                         , m_LightColor4                                   , 0x6CC) // Color
+        SCHEMA_FIELD(bool                            , m_bLightType1                                   , 0x6D0) // bool
+        SCHEMA_FIELD(bool                            , m_bLightType2                                   , 0x6D1) // bool
+        SCHEMA_FIELD(bool                            , m_bLightType3                                   , 0x6D2) // bool
+        SCHEMA_FIELD(bool                            , m_bLightType4                                   , 0x6D3) // bool
+        SCHEMA_FIELD(bool                            , m_bLightDynamic1                                , 0x6D4) // bool
+        SCHEMA_FIELD(bool                            , m_bLightDynamic2                                , 0x6D5) // bool
+        SCHEMA_FIELD(bool                            , m_bLightDynamic3                                , 0x6D6) // bool
+        SCHEMA_FIELD(bool                            , m_bLightDynamic4                                , 0x6D7) // bool
+        SCHEMA_FIELD(bool                            , m_bUseNormal                                    , 0x6D8) // bool
+        SCHEMA_FIELD(bool                            , m_bUseHLambert                                  , 0x6D9) // bool
+        SCHEMA_FIELD(bool                            , m_bClampLowerRange                              , 0x6DE) // bool
+        SCHEMA_FIELD(bool                            , m_bClampUpperRange                              , 0x6DF) // bool
     };
 
     // C_OP_VectorFieldSnapshot
-    //   fields: 0
+    //   fields: 9
     class C_OP_VectorFieldSnapshot {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1D8) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToWrite                             , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x1E0) // int32
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInterpolation                               , 0x1E8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecScale                                      , 0x358) // CPerParticleVecInput
+        SCHEMA_FIELD(float                           , m_flBoundaryDampening                           , 0xA10) // float32
+        SCHEMA_FIELD(bool                            , m_bSetVelocity                                  , 0xA14) // bool
+        SCHEMA_FIELD(bool                            , m_bLockToSurface                                , 0xA15) // bool
+        SCHEMA_FIELD(float                           , m_flGridSpacing                                 , 0xA18) // float32
     };
 
     // C_OP_CylindricalDistanceToTransform
-    //   fields: 0
+    //   fields: 11
     class C_OP_CylindricalDistanceToTransform {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInputMin                                    , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInputMax                                    , 0x350) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMin                                   , 0x4C0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMax                                   , 0x630) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformStart                                , 0x7A0) // CParticleTransformInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformEnd                                  , 0x808) // CParticleTransformInput
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x870) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x874) // bool
+        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x875) // bool
+        SCHEMA_FIELD(bool                            , m_bCapsule                                      , 0x876) // bool
     };
 
     // C_INIT_PositionPlaceOnGround
-    //   fields: 0
+    //   fields: 15
     class C_INIT_PositionPlaceOnGround {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOffset                                      , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flMaxTraceLength                              , 0x350) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecTraceDir                                   , 0x4C0) // CPerParticleVecInput
+        SCHEMA_FIELD(char[128]                       , m_CollisionGroupName                            , 0xB78) // char[128]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0xBF8) // ParticleTraceSet_t
+        SCHEMA_FIELD(ParticleTraceMissBehavior_t     , m_nTraceMissBehavior                            , 0xC08) // ParticleTraceMissBehavior_t
+        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0xC0C) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttribute                                    , 0xC10) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bSetPXYZOnly                                  , 0xC14) // bool
+        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0xC15) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nGroundNormalAttribute                        , 0xC18) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bOffsetonColOnly                              , 0xC1C) // bool
+        SCHEMA_FIELD(float                           , m_flOffsetByRadiusFactor                        , 0xC20) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nPreserveOffsetCP                             , 0xC24) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nIgnoreCP                                     , 0xC28) // int32
     };
 
     // C_INIT_RandomScalar
-    //   fields: 0
+    //   fields: 4
     class C_INIT_RandomScalar {
     public:
+        SCHEMA_FIELD(float                           , m_flMin                                         , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flMax                                         , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flExponent                                    , 0x1E8) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t
     };
 
     // C_OP_RenderPostProcessing
-    //   fields: 0
+    //   fields: 3
     class C_OP_RenderPostProcessing {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flPostProcessStrength                         , 0x228) // CPerParticleFloatInput
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCPostProcessingResource>, m_hPostTexture                                  , 0x398) // CStrongHandle<InfoForResourceTypeCPostProcessingResource>
+        SCHEMA_FIELD(ParticlePostProcessPriorityGroup_t, m_nPriority                                     , 0x3A0) // ParticlePostProcessPriorityGroup_t
     };
 
     // C_OP_WorldTraceConstraint
-    //   parent: particles
-    //   fields: 0
-    class C_OP_WorldTraceConstraint : public particles {
+    //   fields: 27
+    class C_OP_WorldTraceConstraint {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1D8) // int32
+        SCHEMA_FIELD(::Vector                        , m_vecCpOffset                                   , 0x1DC) // Vector
+        SCHEMA_FIELD(ParticleCollisionMode_t         , m_nCollisionMode                                , 0x1E8) // ParticleCollisionMode_t
+        SCHEMA_FIELD(ParticleCollisionMode_t         , m_nCollisionModeMin                             , 0x1EC) // ParticleCollisionMode_t
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x1F0) // ParticleTraceSet_t
+        SCHEMA_FIELD(char[128]                       , m_CollisionGroupName                            , 0x1F4) // char[128]
+        SCHEMA_FIELD(bool                            , m_bWorldOnly                                    , 0x274) // bool
+        SCHEMA_FIELD(bool                            , m_bBrushOnly                                    , 0x275) // bool
+        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0x276) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nIgnoreCP                                     , 0x278) // int32
+        SCHEMA_FIELD(float                           , m_flCpMovementTolerance                         , 0x27C) // float32
+        SCHEMA_FIELD(float                           , m_flRetestRate                                  , 0x280) // float32
+        SCHEMA_FIELD(float                           , m_flTraceTolerance                              , 0x284) // float32
+        SCHEMA_FIELD(float                           , m_flCollisionConfirmationSpeed                  , 0x288) // float32
+        SCHEMA_FIELD(float                           , m_nMaxTracesPerFrame                            , 0x28C) // float32
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadiusScale                                 , 0x290) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flBounceAmount                                , 0x400) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flSlideAmount                                 , 0x570) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRandomDirScale                              , 0x6E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bDecayBounce                                  , 0x850) // bool
+        SCHEMA_FIELD(bool                            , m_bKillonContact                                , 0x851) // bool
+        SCHEMA_FIELD(float                           , m_flMinSpeed                                    , 0x854) // float32
+        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x858) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nStickOnCollisionField                        , 0x85C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flStopSpeed                                   , 0x860) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nEntityStickDataField                         , 0x9D0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nEntityStickNormalField                       , 0x9D4) // ParticleAttributeIndex_t
     };
 
     // C_OP_RenderBlobs
-    //   fields: 0
+    //   fields: 8
     class C_OP_RenderBlobs {
     public:
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_cubeWidth                                     , 0x228) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_cutoffRadius                                  , 0x398) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_renderRadius                                  , 0x508) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(std::uint32_t                   , m_nVertexCountKb                                , 0x678) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nIndexCountKb                                 , 0x67C) // uint32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP                                      , 0x680) // int32
+        SCHEMA_FIELD(CUtlVector<MaterialVariable_t>  , m_MaterialVars                                  , 0x688) // CUtlVector<MaterialVariable_t>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0x6B8) // CStrongHandle<InfoForResourceTypeIMaterial2>
     };
 
     // C_OP_OscillateScalar
-    //   fields: 0
+    //   fields: 13
     class C_OP_OscillateScalar {
     public:
+        SCHEMA_FIELD(float                           , m_RateMin                                       , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_RateMax                                       , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_FrequencyMin                                  , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_FrequencyMax                                  , 0x1E4) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x1E8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x1EC) // bool
+        SCHEMA_FIELD(bool                            , m_bProportionalOp                               , 0x1ED) // bool
+        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x1F8) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x1FC) // float32
+        SCHEMA_FIELD(float                           , m_flOscMult                                     , 0x200) // float32
+        SCHEMA_FIELD(float                           , m_flOscAdd                                      , 0x204) // float32
     };
 
     // C_OP_FadeOut
-    //   fields: 0
+    //   fields: 6
     class C_OP_FadeOut {
     public:
+        SCHEMA_FIELD(float                           , m_flFadeOutTimeMin                              , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flFadeOutTimeMax                              , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flFadeOutTimeExp                              , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flFadeBias                                    , 0x1E4) // float32
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x220) // bool
+        SCHEMA_FIELD(bool                            , m_bEaseInAndOut                                 , 0x221) // bool
     };
 
     // C_OP_WaterImpulseRenderer
-    //   fields: 0
+    //   fields: 8
     class C_OP_WaterImpulseRenderer {
     public:
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecPos                                        , 0x228) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadius                                      , 0x8E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flMagnitude                                   , 0xA50) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flShape                                       , 0xBC0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flWindSpeed                                   , 0xD30) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flWobble                                      , 0xEA0) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bIsRadialWind                                 , 0x1010) // bool
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x1014) // EventTypeSelection_t
     };
 
     // C_INIT_RandomSequence
-    //   fields: 0
+    //   fields: 5
     class C_INIT_RandomSequence {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMin                                  , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMax                                  , 0x1E4) // int32
+        SCHEMA_FIELD(bool                            , m_bShuffle                                      , 0x1E8) // bool
+        SCHEMA_FIELD(bool                            , m_bLinear                                       , 0x1E9) // bool
+        SCHEMA_FIELD(CUtlVector<SequenceWeightedList_t>, m_WeightedList                                  , 0x1F0) // CUtlVector<SequenceWeightedList_t>
     };
 
     // C_OP_RampScalarSplineSimple
-    //   parent: particles
-    //   fields: 0
-    class C_OP_RampScalarSplineSimple : public particles {
+    //   fields: 5
+    class C_OP_RampScalarSplineSimple {
     public:
+        SCHEMA_FIELD(float                           , m_Rate                                          , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1E0) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x210) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bEaseOut                                      , 0x214) // bool
     };
 
     // C_INIT_DistanceCull
-    //   fields: 0
+    //   fields: 3
     class C_INIT_DistanceCull {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E0) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flDistance                                    , 0x1E8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bCullInside                                   , 0x358) // bool
     };
 
     // C_OP_CollideWithParentParticles
-    //   fields: 0
+    //   fields: 2
     class C_OP_CollideWithParentParticles {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flParentRadiusScale                           , 0x1D8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadiusScale                                 , 0x348) // CPerParticleFloatInput
     };
 
     // C_INIT_InitFromVectorFieldSnapshot
-    //   fields: 0
+    //   fields: 5
     class C_INIT_InitFromVectorFieldSnapshot {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nWeightUpdateCP                               , 0x1E8) // int32
+        SCHEMA_FIELD(bool                            , m_bUseVerticalVelocity                          , 0x1EC) // bool
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecScale                                      , 0x1F0) // CPerParticleVecInput
     };
 
     // C_OP_SetVectorAttributeToVectorExpression
-    //   fields: 0
+    //   fields: 7
     class C_OP_SetVectorAttributeToVectorExpression {
     public:
+        SCHEMA_FIELD(VectorExpressionType_t          , m_nExpression                                   , 0x1D8) // VectorExpressionType_t
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vInput1                                       , 0x1E0) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vInput2                                       , 0x898) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flLerp                                        , 0xF50) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x10C0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x10C4) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x10C8) // bool
     };
 
     // C_INIT_AddVectorToVector
-    //   fields: 0
+    //   fields: 6
     class C_INIT_AddVectorToVector {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vecScale                                      , 0x1E0) // Vector
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1F0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(::Vector                        , m_vOffsetMin                                    , 0x1F4) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vOffsetMax                                    , 0x200) // Vector
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x20C) // CRandomNumberGeneratorParameters
     };
 
     // C_INIT_RemapInitialVisibilityScalar
-    //   parent: particles
-    //   fields: 0
-    class C_INIT_RemapInitialVisibilityScalar : public particles {
+    //   fields: 5
+    class C_INIT_RemapInitialVisibilityScalar {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F4) // float32
     };
 
     // C_OP_RemapTransformOrientationToYaw
-    //   fields: 0
+    //   fields: 4
     class C_OP_RemapTransformOrientationToYaw {
     public:
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1D8) // CParticleTransformInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x240) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flRotOffset                                   , 0x244) // float32
+        SCHEMA_FIELD(float                           , m_flSpinStrength                                , 0x248) // float32
     };
 
     // C_OP_RenderStatusEffect
-    //   fields: 0
+    //   fields: 7
     class C_OP_RenderStatusEffect {
     public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureColorWarp                             , 0x228) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureDetail2                               , 0x230) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureDiffuseWarp                           , 0x238) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureFresnelColorWarp                      , 0x240) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureFresnelWarp                           , 0x248) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureSpecularWarp                          , 0x250) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureEnvMap                                , 0x258) // CStrongHandle<InfoForResourceTypeCTextureBase>
     };
 
     // C_OP_RandomForce
-    //   parent: particles
-    //   fields: 0
-    class C_OP_RandomForce : public particles {
+    //   fields: 2
+    class C_OP_RandomForce {
     public:
+        SCHEMA_FIELD(::Vector                        , m_MinForce                                      , 0x1E8) // Vector
+        SCHEMA_FIELD(::Vector                        , m_MaxForce                                      , 0x1F4) // Vector
     };
 
     // C_OP_RemapParticleCountOnScalarEndCap
-    //   fields: 0
+    //   fields: 7
     class C_OP_RemapParticleCountOnScalarEndCap {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nInputMin                                     , 0x1DC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nInputMax                                     , 0x1E0) // int32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1E8) // float32
+        SCHEMA_FIELD(bool                            , m_bBackwards                                    , 0x1EC) // bool
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F0) // ParticleSetMethod_t
     };
 
     // ParticlePreviewState_t
-    //   fields: 1
+    //   fields: 17
     class ParticlePreviewState_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(::CUtlString                    , m_previewModel                                  , 0x0) // CUtlString
+        SCHEMA_FIELD(std::uint32_t                   , m_nModSpecificData                              , 0x8) // uint32
+        SCHEMA_FIELD(PetGroundType_t                 , m_groundType                                    , 0xC) // PetGroundType_t
+        SCHEMA_FIELD(::CUtlString                    , m_sequenceName                                  , 0x10) // CUtlString
+        SCHEMA_FIELD(std::int32_t                    , m_nFireParticleOnSequenceFrame                  , 0x18) // int32
+        SCHEMA_FIELD(::CUtlString                    , m_hitboxSetName                                 , 0x20) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_materialGroupName                             , 0x28) // CUtlString
+        SCHEMA_FIELD(CUtlVector<ParticlePreviewBodyGroup_t>, m_vecBodyGroups                                 , 0x30) // CUtlVector<ParticlePreviewBodyGroup_t>
+        SCHEMA_FIELD(float                           , m_flPlaybackSpeed                               , 0x48) // float32
+        SCHEMA_FIELD(float                           , m_flParticleSimulationRate                      , 0x4C) // float32
+        SCHEMA_FIELD(bool                            , m_bShouldDrawHitboxes                           , 0x50) // bool
+        SCHEMA_FIELD(bool                            , m_bShouldDrawAttachments                        , 0x51) // bool
+        SCHEMA_FIELD(bool                            , m_bShouldDrawAttachmentNames                    , 0x52) // bool
+        SCHEMA_FIELD(bool                            , m_bShouldDrawControlPointAxes                   , 0x53) // bool
+        SCHEMA_FIELD(bool                            , m_bAnimationNonLooping                          , 0x54) // bool
+        SCHEMA_FIELD(bool                            , m_bSequenceNameIsAnimClipPath                   , 0x55) // bool
+        SCHEMA_FIELD(::Vector                        , m_vecPreviewGravity                             , 0x58) // Vector
     };
 
     // C_OP_LocalAccelerationForce
-    //   fields: 0
+    //   fields: 3
     class C_OP_LocalAccelerationForce {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP                                      , 0x1EC) // int32
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecAccel                                      , 0x1F0) // CParticleCollectionVecInput
     };
 
     // C_OP_ModelCull
-    //   fields: 0
+    //   fields: 5
     class C_OP_ModelCull {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1D8) // int32
+        SCHEMA_FIELD(bool                            , m_bBoundBox                                     , 0x1DC) // bool
+        SCHEMA_FIELD(bool                            , m_bCullOutside                                  , 0x1DD) // bool
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1DE) // bool
+        SCHEMA_FIELD(char[128]                       , m_HitboxSetName                                 , 0x1DF) // char[128]
     };
 
     // C_OP_SetFloat
-    //   fields: 0
+    //   fields: 4
     class C_OP_SetFloat {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_InputValue                                    , 0x1D8) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x348) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x34C) // ParticleSetMethod_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_Lerp                                          , 0x350) // CPerParticleFloatInput
     };
 
     // C_INIT_RemapTransformToVector
-    //   fields: 0
+    //   fields: 13
     class C_INIT_RemapTransformToVector {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(::Vector                        , m_vInputMin                                     , 0x1E4) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vInputMax                                     , 0x1F0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vOutputMin                                    , 0x1FC) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vOutputMax                                    , 0x208) // Vector
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x218) // CParticleTransformInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_LocalSpaceTransform                           , 0x280) // CParticleTransformInput
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x2E8) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x2EC) // float32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x2F0) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x2F4) // bool
+        SCHEMA_FIELD(bool                            , m_bAccelerate                                   , 0x2F5) // bool
+        SCHEMA_FIELD(float                           , m_flRemapBias                                   , 0x2F8) // float32
     };
 
     // C_OP_ScreenSpaceDistanceToEdge
-    //   parent: particles
-    //   fields: 0
-    class C_OP_ScreenSpaceDistanceToEdge : public particles {
+    //   fields: 4
+    class C_OP_ScreenSpaceDistanceToEdge {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flMaxDistFromEdge                             , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleRemapFloatInput        , m_flOutputRemap                                 , 0x350) // CParticleRemapFloatInput
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x4C0) // ParticleSetMethod_t
     };
 
     // C_OP_RemapDistanceToLineSegmentToScalar
-    //   fields: 0
+    //   fields: 3
     class C_OP_RemapDistanceToLineSegmentToScalar {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flMinOutputValue                              , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flMaxOutputValue                              , 0x1F8) // float32
     };
 
     // C_OP_RemapVectortoCP
-    //   fields: 0
+    //   fields: 3
     class C_OP_RemapVectortoCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1D8) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nParticleNumber                               , 0x1E0) // int32
     };
 
     // C_OP_SetFromCPSnapshot
-    //   fields: 0
+    //   fields: 13
     class C_OP_SetFromCPSnapshot {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1D8) // int32
+        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x1E0) // CUtlString
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToRead                              , 0x1E8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToWrite                             , 0x1EC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x1F0) // int32
+        SCHEMA_FIELD(bool                            , m_bRandom                                       , 0x1F4) // bool
+        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x1F5) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1F8) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nSnapShotStartPoint                           , 0x200) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nSnapShotIncrement                            , 0x370) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInterpolation                               , 0x4E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bSubSample                                    , 0x650) // bool
+        SCHEMA_FIELD(bool                            , m_bPrev                                         , 0x651) // bool
     };
 
     // C_OP_DistanceBetweenCPsToCP
-    //   fields: 0
+    //   fields: 15
     class C_OP_DistanceBetweenCPsToCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nStartCP                                      , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nEndCP                                        , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1E8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCPField                                , 0x1EC) // int32
+        SCHEMA_FIELD(bool                            , m_bSetOnce                                      , 0x1F0) // bool
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1FC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x200) // float32
+        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x204) // float32
+        SCHEMA_FIELD(float                           , m_flLOSScale                                    , 0x208) // float32
+        SCHEMA_FIELD(bool                            , m_bLOS                                          , 0x20C) // bool
+        SCHEMA_FIELD(char[128]                       , m_CollisionGroupName                            , 0x20D) // char[128]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x290) // ParticleTraceSet_t
+        SCHEMA_FIELD(ParticleParentSetMode_t         , m_nSetParent                                    , 0x294) // ParticleParentSetMode_t
     };
 
     // C_OP_SetControlPointToHand
-    //   fields: 0
+    //   fields: 4
     class C_OP_SetControlPointToHand {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nHand                                         , 0x1E4) // int32
+        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1E8) // Vector
+        SCHEMA_FIELD(bool                            , m_bOrientToHand                                 , 0x1F4) // bool
     };
 
     // C_OP_ConstrainDistanceToPath
-    //   fields: 0
+    //   fields: 8
     class C_OP_ConstrainDistanceToPath {
     public:
+        SCHEMA_FIELD(float                           , m_fMinDistance                                  , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flMaxDistance0                                , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flMaxDistanceMid                              , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flMaxDistance1                                , 0x1E4) // float32
+        SCHEMA_FIELD(CPathParameters                 , m_PathParameters                                , 0x1F0) // CPathParameters
+        SCHEMA_FIELD(float                           , m_flTravelTime                                  , 0x230) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldScale                                   , 0x234) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nManualTField                                 , 0x238) // ParticleAttributeIndex_t
     };
 
     // C_OP_DistanceCull
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_DistanceCull : public xL {
+    //   fields: 5
+    class C_OP_DistanceCull {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1D8) // int32
+        SCHEMA_FIELD(::Vector                        , m_vecPointOffset                                , 0x1DC) // Vector
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flDistance                                    , 0x1E8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bCullInside                                   , 0x358) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttribute                                    , 0x35C) // ParticleAttributeIndex_t
     };
 
     // C_INIT_CreateAlongPath
-    //   fields: 0
+    //   fields: 5
     class C_INIT_CreateAlongPath {
     public:
+        SCHEMA_FIELD(float                           , m_fMaxDistance                                  , 0x1E0) // float32
+        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x1F0) // CPathParameters
+        SCHEMA_FIELD(bool                            , m_bUseRandomCPs                                 , 0x230) // bool
+        SCHEMA_FIELD(::Vector                        , m_vEndOffset                                    , 0x234) // Vector
+        SCHEMA_FIELD(bool                            , m_bSaveOffset                                   , 0x240) // bool
     };
 
     // C_OP_GameDecalRenderer
-    //   fields: 0
+    //   fields: 16
     class C_OP_GameDecalRenderer {
     public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_sDecalGroupName                               , 0x228) // CGlobalSymbol
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x230) // EventTypeSelection_t
+        SCHEMA_FIELD(ParticleCollisionMask_t         , m_nInteractionMask                              , 0x238) // ParticleCollisionMask_t
+        SCHEMA_FIELD(ParticleCollisionGroup_t        , m_nCollisionGroup                               , 0x240) // ParticleCollisionGroup_t
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecStartPos                                   , 0x248) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecEndPos                                     , 0x900) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flTraceBloat                                  , 0xFB8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flDecalSize                                   , 0x1128) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_nDecalGroupIndex                              , 0x1298) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flDecalRotation                               , 0x1408) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vModulationColor                              , 0x1578) // CPerParticleVecInput
+        SCHEMA_FIELD(bool                            , m_bUseGameDefaultDecalSize                      , 0x1C30) // bool
+        SCHEMA_FIELD(bool                            , m_bRandomDecalRotation                          , 0x1C31) // bool
+        SCHEMA_FIELD(bool                            , m_bRandomlySelectDecalInGroup                   , 0x1C32) // bool
+        SCHEMA_FIELD(bool                            , m_bNoDecalsOnOwner                              , 0x1C33) // bool
+        SCHEMA_FIELD(bool                            , m_bVisualizeTraces                              , 0x1C34) // bool
     };
 
     // C_OP_SetControlPointsToModelParticles
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_SetControlPointsToModelParticles : public xL {
+    //   fields: 7
+    class C_OP_SetControlPointsToModelParticles {
     public:
+        SCHEMA_FIELD(char[128]                       , m_HitboxSetName                                 , 0x1D8) // char[128]
+        SCHEMA_FIELD(char[128]                       , m_AttachmentName                                , 0x258) // char[128]
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x2D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x2DC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstSourcePoint                             , 0x2E0) // int32
+        SCHEMA_FIELD(bool                            , m_bSkin                                         , 0x2E4) // bool
+        SCHEMA_FIELD(bool                            , m_bAttachment                                   , 0x2E5) // bool
     };
 
     // C_OP_ColorInterpolateRandom
-    //   fields: 0
+    //   fields: 6
     class C_OP_ColorInterpolateRandom {
     public:
+        SCHEMA_FIELD(::Color                         , m_ColorFadeMin                                  , 0x1D8) // Color
+        SCHEMA_FIELD(::Color                         , m_ColorFadeMax                                  , 0x1F4) // Color
+        SCHEMA_FIELD(float                           , m_flFadeStartTime                               , 0x204) // float32
+        SCHEMA_FIELD(float                           , m_flFadeEndTime                                 , 0x208) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x20C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bEaseInOut                                    , 0x210) // bool
     };
 
     // C_INIT_RemapNamedModelSequenceToScalar
@@ -2741,85 +4160,157 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_RenderLights
-    //   fields: 0
+    //   fields: 7
     class C_OP_RenderLights {
     public:
+        SCHEMA_FIELD(float                           , m_flAnimationRate                               , 0x230) // float32
+        SCHEMA_FIELD(AnimationType_t                 , m_nAnimationType                                , 0x234) // AnimationType_t
+        SCHEMA_FIELD(bool                            , m_bAnimateInFPS                                 , 0x238) // bool
+        SCHEMA_FIELD(float                           , m_flMinSize                                     , 0x23C) // float32
+        SCHEMA_FIELD(float                           , m_flMaxSize                                     , 0x240) // float32
+        SCHEMA_FIELD(float                           , m_flStartFadeSize                               , 0x244) // float32
+        SCHEMA_FIELD(float                           , m_flEndFadeSize                                 , 0x248) // float32
     };
 
     // C_OP_DecayClampCount
-    //   fields: 0
+    //   fields: 1
     class C_OP_DecayClampCount {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nCount                                        , 0x1D8) // CParticleCollectionFloatInput
     };
 
     // CRandomNumberGeneratorParameters
-    //   fields: 1
+    //   fields: 2
     class CRandomNumberGeneratorParameters {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(bool                            , m_bDistributeEvenly                             , 0x0) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nSeed                                         , 0x4) // int32
     };
 
     // C_INIT_ColorLitPerParticle
-    //   fields: 0
+    //   fields: 7
     class C_INIT_ColorLitPerParticle {
     public:
+        SCHEMA_FIELD(::Color                         , m_ColorMin                                      , 0x1F8) // Color
+        SCHEMA_FIELD(::Color                         , m_ColorMax                                      , 0x1FC) // Color
+        SCHEMA_FIELD(::Color                         , m_TintMin                                       , 0x200) // Color
+        SCHEMA_FIELD(::Color                         , m_TintMax                                       , 0x204) // Color
+        SCHEMA_FIELD(float                           , m_flTintPerc                                    , 0x208) // float32
+        SCHEMA_FIELD(ParticleColorBlendMode_t        , m_nTintBlendMode                                , 0x20C) // ParticleColorBlendMode_t
+        SCHEMA_FIELD(float                           , m_flLightAmplification                          , 0x210) // float32
     };
 
     // C_OP_RenderPoints
-    //   fields: 0
+    //   fields: 1
     class C_OP_RenderPoints {
     public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0x228) // CStrongHandle<InfoForResourceTypeIMaterial2>
     };
 
     // C_INIT_SetAttributeToScalarExpression
-    //   parent: xL��
-    //   fields: 0
-    class C_INIT_SetAttributeToScalarExpression : public xL {
+    //   fields: 6
+    class C_INIT_SetAttributeToScalarExpression {
     public:
+        SCHEMA_FIELD(ScalarExpressionType_t          , m_nExpression                                   , 0x1E0) // ScalarExpressionType_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInput1                                      , 0x1E8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInput2                                      , 0x358) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleRemapFloatInput        , m_flOutputRemap                                 , 0x4C8) // CParticleRemapFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x638) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x63C) // ParticleSetMethod_t
     };
 
     // C_INIT_CreateOnGrid
-    //   fields: 0
+    //   fields: 10
     class C_INIT_CreateOnGrid {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nXCount                                       , 0x1E0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nYCount                                       , 0x350) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nZCount                                       , 0x4C0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nXSpacing                                     , 0x630) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nYSpacing                                     , 0x7A0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nZSpacing                                     , 0x910) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0xA80) // int32
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0xA84) // bool
+        SCHEMA_FIELD(bool                            , m_bCenter                                       , 0xA85) // bool
+        SCHEMA_FIELD(bool                            , m_bHollow                                       , 0xA86) // bool
     };
 
     // C_OP_RampCPLinearRandom
-    //   fields: 0
+    //   fields: 3
     class C_OP_RampCPLinearRandom {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1E0) // int32
+        SCHEMA_FIELD(::Vector                        , m_vecRateMin                                    , 0x1E4) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecRateMax                                    , 0x1F0) // Vector
     };
 
     // C_OP_VelocityMatchingForce
-    //   fields: 0
+    //   fields: 6
     class C_OP_VelocityMatchingForce {
     public:
+        SCHEMA_FIELD(float                           , m_flDirScale                                    , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flSpdScale                                    , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flNeighborDistance                            , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flFacingStrength                              , 0x1E4) // float32
+        SCHEMA_FIELD(bool                            , m_bUseAABB                                      , 0x1E8) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nCPBroadcast                                  , 0x1EC) // int32
     };
 
     // C_INIT_RandomAlphaWindowThreshold
-    //   fields: 0
+    //   fields: 3
     class C_INIT_RandomAlphaWindowThreshold {
     public:
+        SCHEMA_FIELD(float                           , m_flMin                                         , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flMax                                         , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flExponent                                    , 0x1E8) // float32
     };
 
     // C_INIT_CreateOnModelAtHeight
-    //   parent: particles
-    //   fields: 0
-    class C_INIT_CreateOnModelAtHeight : public particles {
+    //   fields: 14
+    class C_INIT_CreateOnModelAtHeight {
     public:
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1E0) // bool
+        SCHEMA_FIELD(bool                            , m_bForceZ                                       , 0x1E1) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nHeightCP                                     , 0x1E8) // int32
+        SCHEMA_FIELD(bool                            , m_bUseWaterHeight                               , 0x1EC) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flDesiredHeight                               , 0x1F0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecHitBoxScale                                , 0x360) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecDirectionBias                              , 0xA18) // CParticleCollectionVecInput
+        SCHEMA_FIELD(ParticleHitboxBiasType_t        , m_nBiasType                                     , 0x10D0) // ParticleHitboxBiasType_t
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x10D4) // bool
+        SCHEMA_FIELD(bool                            , m_bPreferMovingBoxes                            , 0x10D5) // bool
+        SCHEMA_FIELD(char[128]                       , m_HitboxSetName                                 , 0x10D6) // char[128]
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flHitboxVelocityScale                         , 0x1158) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flMaxBoneVelocity                             , 0x12C8) // CParticleCollectionFloatInput
     };
 
     // C_OP_ModelSurfaceSnapshotGenerator
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_ModelSurfaceSnapshotGenerator : public xL {
+    //   fields: 10
+    class C_OP_ModelSurfaceSnapshotGenerator {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPSnapshot                                   , 0x1E0) // int32
+        SCHEMA_FIELD(CParticleModelInput             , m_modelInput                                    , 0x1E8) // CParticleModelInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRecalcRate                                  , 0x248) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flUSpacing                                    , 0x3B8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flVSpacing                                    , 0x528) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flSurfaceOffset                               , 0x698) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x808) // bool
+        SCHEMA_FIELD(bool                            , m_bSetUp                                        , 0x809) // bool
+        SCHEMA_FIELD(bool                            , m_bSetGravity                                   , 0x80A) // bool
+        SCHEMA_FIELD(bool                            , m_bSetUV                                        , 0x80B) // bool
     };
 
     // C_OP_RestartAfterDuration
-    //   fields: 0
+    //   fields: 6
     class C_OP_RestartAfterDuration {
     public:
+        SCHEMA_FIELD(float                           , m_flDurationMin                                 , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flDurationMax                                 , 0x1DC) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPField                                      , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E8) // int32
+        SCHEMA_FIELD(bool                            , m_bOnlyChildren                                 , 0x1EC) // bool
     };
 
     // C_OP_RenderClothForce
@@ -2829,85 +4320,130 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_RemapVisibilityScalar
-    //   fields: 0
+    //   fields: 7
     class C_OP_RemapVisibilityScalar {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1F0) // float32
     };
 
     // C_INIT_CreateSequentialPathV2
-    //   fields: 0
+    //   fields: 6
     class C_INIT_CreateSequentialPathV2 {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fMaxDistance                                  , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flNumToAssign                                 , 0x350) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x4C0) // bool
+        SCHEMA_FIELD(bool                            , m_bCPPairs                                      , 0x4C1) // bool
+        SCHEMA_FIELD(bool                            , m_bSaveOffset                                   , 0x4C2) // bool
+        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x4D0) // CPathParameters
     };
 
     // VecInputMaterialVariable_t
-    //   fields: 1
+    //   fields: 2
     class VecInputMaterialVariable_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(::CUtlString                    , m_strVariable                                   , 0x0) // CUtlString
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecInput                                      , 0x8) // CParticleCollectionVecInput
     };
 
     // C_INIT_RemapInitialDirectionToTransformToVector
-    //   fields: 0
+    //   fields: 6
     class C_INIT_RemapInitialDirectionToTransformToVector {
     public:
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1E0) // CParticleTransformInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x248) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x24C) // float32
+        SCHEMA_FIELD(float                           , m_flOffsetRot                                   , 0x250) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetAxis                                 , 0x254) // Vector
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x260) // bool
     };
 
     // C_OP_LockToSavedSequentialPathV2
-    //   fields: 0
+    //   fields: 4
     class C_OP_LockToSavedSequentialPathV2 {
     public:
+        SCHEMA_FIELD(float                           , m_flFadeStart                                   , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flFadeEnd                                     , 0x1DC) // float32
+        SCHEMA_FIELD(bool                            , m_bCPPairs                                      , 0x1E0) // bool
+        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x1F0) // CPathParameters
     };
 
     // C_OP_NormalLock
-    //   fields: 0
+    //   fields: 1
     class C_OP_NormalLock {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1D8) // int32
     };
 
     // C_INIT_RemapTransformOrientationToRotations
-    //   fields: 0
+    //   fields: 4
     class C_INIT_RemapTransformOrientationToRotations {
     public:
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1E0) // CParticleTransformInput
+        SCHEMA_FIELD(::Vector                        , m_vecRotation                                   , 0x248) // Vector
+        SCHEMA_FIELD(bool                            , m_bUseQuat                                      , 0x254) // bool
+        SCHEMA_FIELD(bool                            , m_bWriteNormal                                  , 0x255) // bool
     };
 
     // C_OP_Cull
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_Cull : public xL {
+    //   fields: 4
+    class C_OP_Cull {
     public:
+        SCHEMA_FIELD(float                           , m_flCullPerc                                    , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flCullStart                                   , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flCullEnd                                     , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flCullExp                                     , 0x1E4) // float32
     };
 
     // C_INIT_RandomYawFlip
-    //   fields: 0
+    //   fields: 1
     class C_INIT_RandomYawFlip {
     public:
+        SCHEMA_FIELD(float                           , m_flPercent                                     , 0x1E0) // float32
     };
 
     // SequenceWeightedList_t
-    //   fields: 1
+    //   fields: 2
     class SequenceWeightedList_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::int32_t                    , m_nSequence                                     , 0x0) // int32
+        SCHEMA_FIELD(float                           , m_flRelativeWeight                              , 0x4) // float32
     };
 
     // C_OP_ReadFromNeighboringParticle
-    //   fields: 0
+    //   fields: 5
     class C_OP_ReadFromNeighboringParticle {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E0) // int32
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_DistanceCheck                                 , 0x1E8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInterpolation                               , 0x358) // CPerParticleFloatInput
     };
 
     // C_OP_RenderText
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_RenderText : public xL {
+    //   fields: 2
+    class C_OP_RenderText {
     public:
+        SCHEMA_FIELD(::Color                         , m_OutlineColor                                  , 0x228) // Color
+        SCHEMA_FIELD(::CUtlString                    , m_DefaultText                                   , 0x230) // CUtlString
     };
 
     // C_OP_LerpToInitialPosition
-    //   fields: 0
+    //   fields: 5
     class C_OP_LerpToInitialPosition {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1D8) // int32
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInterpolation                               , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nCacheField                                   , 0x350) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flScale                                       , 0x358) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecScale                                      , 0x4C8) // CParticleCollectionVecInput
     };
 
     // C_INIT_RandomRotation
@@ -2917,52 +4453,94 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_LerpEndCapVector
-    //   fields: 0
+    //   fields: 3
     class C_OP_LerpEndCapVector {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(::Vector                        , m_vecOutput                                     , 0x1DC) // Vector
+        SCHEMA_FIELD(float                           , m_flLerpTime                                    , 0x1E8) // float32
     };
 
     // C_OP_VelocityDecay
-    //   fields: 0
+    //   fields: 1
     class C_OP_VelocityDecay {
     public:
+        SCHEMA_FIELD(float                           , m_flMinVelocity                                 , 0x1D8) // float32
     };
 
     // C_OP_SetCPOrientationToPointAtCP
-    //   fields: 0
+    //   fields: 6
     class C_OP_SetCPOrientationToPointAtCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInputCP                                      , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1E4) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInterpolation                               , 0x1E8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_b2DOrientation                                , 0x358) // bool
+        SCHEMA_FIELD(bool                            , m_bAvoidSingularity                             , 0x359) // bool
+        SCHEMA_FIELD(bool                            , m_bPointAway                                    , 0x35A) // bool
     };
 
     // C_OP_LockToPointList
-    //   fields: 0
+    //   fields: 5
     class C_OP_LockToPointList {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CUtlVector<PointDefinition_t>   , m_pointList                                     , 0x1E0) // CUtlVector<PointDefinition_t>
+        SCHEMA_FIELD(bool                            , m_bPlaceAlongPath                               , 0x1F8) // bool
+        SCHEMA_FIELD(bool                            , m_bClosedLoop                                   , 0x1F9) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nNumPointsAlongPath                           , 0x1FC) // int32
     };
 
     // C_OP_MovementPlaceOnGround
-    //   fields: 0
+    //   fields: 18
     class C_OP_MovementPlaceOnGround {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOffset                                      , 0x1D8) // CPerParticleFloatInput
+        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x348) // float32
+        SCHEMA_FIELD(float                           , m_flTolerance                                   , 0x34C) // float32
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecTraceDir                                   , 0x350) // CPerParticleVecInput
+        SCHEMA_FIELD(float                           , m_flTraceOffset                                 , 0xA08) // float32
+        SCHEMA_FIELD(float                           , m_flLerpRate                                    , 0xA0C) // float32
+        SCHEMA_FIELD(char[128]                       , m_CollisionGroupName                            , 0xA10) // char[128]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0xA90) // ParticleTraceSet_t
+        SCHEMA_FIELD(std::int32_t                    , m_nRefCP1                                       , 0xA94) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nRefCP2                                       , 0xA98) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nLerpCP                                       , 0xA9C) // int32
+        SCHEMA_FIELD(ParticleTraceMissBehavior_t     , m_nTraceMissBehavior                            , 0xAA8) // ParticleTraceMissBehavior_t
+        SCHEMA_FIELD(bool                            , m_bIncludeShotHull                              , 0xAAC) // bool
+        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0xAAD) // bool
+        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0xAB0) // bool
+        SCHEMA_FIELD(bool                            , m_bScaleOffset                                  , 0xAB1) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nPreserveOffsetCP                             , 0xAB4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nIgnoreCP                                     , 0xAB8) // int32
     };
 
     // C_OP_SetCPOrientationToDirection
-    //   parent: particles
-    //   fields: 0
-    class C_OP_SetCPOrientationToDirection : public particles {
+    //   fields: 2
+    class C_OP_SetCPOrientationToDirection {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInputControlPoint                            , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputControlPoint                           , 0x1DC) // int32
     };
 
     // C_OP_RemapCrossProductOfTwoVectorsToVector
-    //   fields: 0
+    //   fields: 4
     class C_OP_RemapCrossProductOfTwoVectorsToVector {
     public:
+        SCHEMA_FIELD(CPerParticleVecInput            , m_InputVec1                                     , 0x1D8) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_InputVec2                                     , 0x890) // CPerParticleVecInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0xF48) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0xF4C) // bool
     };
 
     // C_OP_RemapTransformOrientationToRotations
-    //   fields: 0
+    //   fields: 4
     class C_OP_RemapTransformOrientationToRotations {
     public:
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1D8) // CParticleTransformInput
+        SCHEMA_FIELD(::Vector                        , m_vecRotation                                   , 0x240) // Vector
+        SCHEMA_FIELD(bool                            , m_bUseQuat                                      , 0x24C) // bool
+        SCHEMA_FIELD(bool                            , m_bWriteNormal                                  , 0x24D) // bool
     };
 
     // C_INIT_RandomRotationSpeed
@@ -2972,83 +4550,160 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_InheritFromParentParticlesV2
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_InheritFromParentParticlesV2 : public xL {
+    //   fields: 8
+    class C_OP_InheritFromParentParticlesV2 {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flScale                                       , 0x1D8) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x348) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_nIncrement                                    , 0x350) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bSubSample                                    , 0x4C0) // bool
+        SCHEMA_FIELD(bool                            , m_bRandomDistribution                           , 0x4C1) // bool
+        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x4C2) // bool
+        SCHEMA_FIELD(MissingParentInheritBehavior_t  , m_nMissingParentBehavior                        , 0x4C4) // MissingParentInheritBehavior_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInterpolation                               , 0x4C8) // CPerParticleFloatInput
     };
 
     // C_INIT_RandomSecondSequence
-    //   fields: 0
+    //   fields: 2
     class C_INIT_RandomSecondSequence {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMin                                  , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMax                                  , 0x1E4) // int32
     };
 
     // C_OP_SetFloatCollection
-    //   fields: 0
+    //   fields: 4
     class C_OP_SetFloatCollection {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_InputValue                                    , 0x1D8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x348) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x34C) // ParticleSetMethod_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_Lerp                                          , 0x350) // CParticleCollectionFloatInput
     };
 
     // PointDefinition_t
-    //   fields: 1
+    //   fields: 3
     class PointDefinition_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x0) // int32
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x4) // bool
+        SCHEMA_FIELD(::Vector                        , m_vOffset                                       , 0x8) // Vector
     };
 
     // C_OP_SetControlPointPositionToRandomActiveCP
-    //   fields: 0
+    //   fields: 4
     class C_OP_SetControlPointPositionToRandomActiveCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nHeadLocationMin                              , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nHeadLocationMax                              , 0x1E8) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flResetRate                                   , 0x1F0) // CParticleCollectionFloatInput
     };
 
     // C_OP_Diffusion
-    //   fields: 0
+    //   fields: 3
     class C_OP_Diffusion {
     public:
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1D8) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nVoxelGridResolution                          , 0x1E0) // int32
     };
 
     // C_INIT_AgeNoise
-    //   fields: 0
+    //   fields: 8
     class C_INIT_AgeNoise {
     public:
+        SCHEMA_FIELD(bool                            , m_bAbsVal                                       , 0x1E0) // bool
+        SCHEMA_FIELD(bool                            , m_bAbsValInv                                    , 0x1E1) // bool
+        SCHEMA_FIELD(float                           , m_flOffset                                      , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flAgeMin                                      , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flAgeMax                                      , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flNoiseScale                                  , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flNoiseScaleLoc                               , 0x1F4) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetLoc                                  , 0x1F8) // Vector
     };
 
     // C_OP_RemapVectorComponentToScalar
-    //   fields: 0
+    //   fields: 3
     class C_OP_RemapVectorComponentToScalar {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x1E0) // int32
     };
 
     // CGeneralRandomRotation
-    //   fields: 0
+    //   fields: 6
     class CGeneralRandomRotation {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flDegrees                                     , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flDegreesMin                                  , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flDegreesMax                                  , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flRotationRandExponent                        , 0x1F0) // float32
+        SCHEMA_FIELD(bool                            , m_bRandomlyFlipDirection                        , 0x1F4) // bool
     };
 
     // C_OP_DistanceBetweenVecs
-    //   fields: 0
+    //   fields: 9
     class C_OP_DistanceBetweenVecs {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecPoint1                                     , 0x1E0) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecPoint2                                     , 0x898) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInputMin                                    , 0xF50) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInputMax                                    , 0x10C0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMin                                   , 0x1230) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMax                                   , 0x13A0) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1510) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bDeltaTime                                    , 0x1514) // bool
     };
 
     // C_OP_DampenToCP
-    //   fields: 0
+    //   fields: 3
     class C_OP_DampenToCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1D8) // int32
+        SCHEMA_FIELD(float                           , m_flRange                                       , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E0) // float32
     };
 
     // C_OP_CalculateVectorAttribute
-    //   fields: 0
+    //   fields: 11
     class C_OP_CalculateVectorAttribute {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vStartValue                                   , 0x1D8) // Vector
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput1                                  , 0x1E4) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputScale1                                 , 0x1E8) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput2                                  , 0x1EC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputScale2                                 , 0x1F0) // float32
+        SCHEMA_FIELD(ControlPointReference_t         , m_nControlPointInput1                           , 0x1F4) // ControlPointReference_t
+        SCHEMA_FIELD(float                           , m_flControlPointScale1                          , 0x208) // float32
+        SCHEMA_FIELD(ControlPointReference_t         , m_nControlPointInput2                           , 0x20C) // ControlPointReference_t
+        SCHEMA_FIELD(float                           , m_flControlPointScale2                          , 0x220) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x224) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(::Vector                        , m_vFinalOutputScale                             , 0x228) // Vector
     };
 
     // C_OP_LockToBone
-    //   fields: 0
+    //   fields: 15
     class C_OP_LockToBone {
     public:
+        SCHEMA_FIELD(CParticleModelInput             , m_modelInput                                    , 0x1D8) // CParticleModelInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_transformInput                                , 0x238) // CParticleTransformInput
+        SCHEMA_FIELD(float                           , m_flLifeTimeFadeStart                           , 0x2A0) // float32
+        SCHEMA_FIELD(float                           , m_flLifeTimeFadeEnd                             , 0x2A4) // float32
+        SCHEMA_FIELD(float                           , m_flJumpThreshold                               , 0x2A8) // float32
+        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x2AC) // float32
+        SCHEMA_FIELD(char[128]                       , m_HitboxSetName                                 , 0x2B0) // char[128]
+        SCHEMA_FIELD(bool                            , m_bRigid                                        , 0x330) // bool
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x331) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x334) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutputPrev                              , 0x338) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleRotationLockType_t      , m_nRotationSetType                              , 0x33C) // ParticleRotationLockType_t
+        SCHEMA_FIELD(bool                            , m_bRigidRotationLock                            , 0x340) // bool
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecRotation                                   , 0x348) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRotLerp                                     , 0xA00) // CPerParticleFloatInput
     };
 
     // C_OP_RemapNamedModelBodyPartOnceTimed
@@ -3058,39 +4713,72 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_ScreenSpaceRotateTowardTarget
-    //   fields: 0
+    //   fields: 4
     class C_OP_ScreenSpaceRotateTowardTarget {
     public:
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecTargetPosition                             , 0x1D8) // CPerParticleVecInput
+        SCHEMA_FIELD(CParticleRemapFloatInput        , m_flOutputRemap                                 , 0x890) // CParticleRemapFloatInput
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0xA00) // ParticleSetMethod_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flScreenEdgeAlignmentDistance                 , 0xA08) // CPerParticleFloatInput
     };
 
     // C_OP_MovementMaintainOffset
-    //   fields: 0
+    //   fields: 3
     class C_OP_MovementMaintainOffset {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x1D8) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E4) // int32
+        SCHEMA_FIELD(bool                            , m_bRadiusScale                                  , 0x1E8) // bool
     };
 
     // C_INIT_CreateWithinCapsuleTransform
-    //   fields: 0
+    //   fields: 11
     class C_INIT_CreateWithinCapsuleTransform {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fRadiusMin                                    , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fRadiusMax                                    , 0x350) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fHeight                                       , 0x4C0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x630) // CParticleTransformInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fSpeedMin                                     , 0x698) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fSpeedMax                                     , 0x808) // CPerParticleFloatInput
+        SCHEMA_FIELD(float                           , m_fSpeedRandExp                                 , 0x978) // float32
+        SCHEMA_FIELD(CPerParticleVecInput            , m_LocalCoordinateSystemSpeedMin                 , 0x980) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_LocalCoordinateSystemSpeedMax                 , 0x1038) // CPerParticleVecInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x16F0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldVelocity                                , 0x16F4) // ParticleAttributeIndex_t
     };
 
     // C_OP_SetVec
-    //   fields: 0
+    //   fields: 5
     class C_OP_SetVec {
     public:
+        SCHEMA_FIELD(CPerParticleVecInput            , m_InputValue                                    , 0x1D8) // CPerParticleVecInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x890) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x894) // ParticleSetMethod_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_Lerp                                          , 0x898) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0xA08) // bool
     };
 
     // C_INIT_CreateFromParentParticles
-    //   fields: 0
+    //   fields: 6
     class C_INIT_CreateFromParentParticles {
     public:
+        SCHEMA_FIELD(float                           , m_flVelocityScale                               , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flIncrement                                   , 0x1E4) // float32
+        SCHEMA_FIELD(bool                            , m_bRandomDistribution                           , 0x1E8) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1EC) // int32
+        SCHEMA_FIELD(bool                            , m_bSubFrame                                     , 0x1F0) // bool
+        SCHEMA_FIELD(bool                            , m_bSetRopeSegmentID                             , 0x1F1) // bool
     };
 
     // C_INIT_CheckParticleForWater
-    //   fields: 0
+    //   fields: 4
     class C_INIT_CheckParticleForWater {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadius                                      , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x350) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CParticleRemapFloatInput        , m_flOutputRemap                                 , 0x358) // CParticleRemapFloatInput
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x4C8) // ParticleSetMethod_t
     };
 
     // C_INIT_RandomNamedModelBodyPart
@@ -3100,22 +4788,48 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_RenderOmni2Light
-    //   fields: 0
+    //   fields: 19
     class C_OP_RenderOmni2Light {
     public:
+        SCHEMA_FIELD(ParticleOmni2LightTypeChoiceList_t, m_nLightType                                    , 0x228) // ParticleOmni2LightTypeChoiceList_t
+        SCHEMA_FIELD(std::uint16_t                   , m_nMaxAllowed                                   , 0x22C) // uint16
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vColorBlend                                   , 0x230) // CParticleCollectionVecInput
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x8E8) // ParticleColorBlendType_t
+        SCHEMA_FIELD(ParticleLightUnitChoiceList_t   , m_nBrightnessUnit                               , 0x8EC) // ParticleLightUnitChoiceList_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flBrightnessLumens                            , 0x8F0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flBrightnessCandelas                          , 0xA60) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bCastShadows                                  , 0xBD0) // bool
+        SCHEMA_FIELD(bool                            , m_bDynamicBounce                                , 0xBD1) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flBounceScale                                 , 0xBD8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bFog                                          , 0xD48) // bool
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flFogScale                                    , 0xD50) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flLuminaireRadius                             , 0xEC0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flSkirt                                       , 0x1030) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRange                                       , 0x11A0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInnerConeAngle                              , 0x1310) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOuterConeAngle                              , 0x1480) // CPerParticleFloatInput
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_hLightCookie                                  , 0x15F0) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(bool                            , m_bSphericalCookie                              , 0x15F8) // bool
     };
 
     // C_OP_ConnectParentParticleToNearest
-    //   fields: 0
+    //   fields: 5
     class C_OP_ConnectParentParticleToNearest {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nSecondControlPoint                           , 0x1DC) // int32
+        SCHEMA_FIELD(bool                            , m_bUseRadius                                    , 0x1E0) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRadiusScale                                 , 0x1E8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flParentRadiusScale                           , 0x358) // CParticleCollectionFloatInput
     };
 
     // CPAssignment_t
-    //   fields: 1
+    //   fields: 3
     class CPAssignment_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::int32_t                    , m_nCPNumber                                     , 0x0) // int32
+        SCHEMA_FIELD(CPerParticleVecInput            , m_Pos                                           , 0x8) // CPerParticleVecInput
+        SCHEMA_FIELD(ParticleOrientationSetMode_t    , m_nOrientationMode                              , 0x6C0) // ParticleOrientationSetMode_t
     };
 
     // C_INIT_RemapParticleCountToNamedModelBodyPartScalar
@@ -3125,131 +4839,257 @@ namespace cs2::sdk::particles {
     };
 
     // C_INIT_InitSkinnedPositionFromCPSnapshot
-    //   fields: 0
+    //   fields: 19
     class C_INIT_InitSkinnedPositionFromCPSnapshot {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPointNumber                   , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E4) // int32
+        SCHEMA_FIELD(bool                            , m_bRandom                                       , 0x1E8) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1EC) // int32
+        SCHEMA_FIELD(bool                            , m_bRigid                                        , 0x1F0) // bool
+        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x1F1) // bool
+        SCHEMA_FIELD(bool                            , m_bIgnoreDt                                     , 0x1F2) // bool
+        SCHEMA_FIELD(float                           , m_flMinNormalVelocity                           , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flMaxNormalVelocity                           , 0x1F8) // float32
+        SCHEMA_FIELD(SnapshotIndexType_t             , m_nIndexType                                    , 0x1FC) // SnapshotIndexType_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flReadIndex                                   , 0x200) // CPerParticleFloatInput
+        SCHEMA_FIELD(float                           , m_flIncrement                                   , 0x370) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nFullLoopIncrement                            , 0x374) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapShotStartPoint                           , 0x378) // int32
+        SCHEMA_FIELD(float                           , m_flBoneVelocity                                , 0x37C) // float32
+        SCHEMA_FIELD(float                           , m_flBoneVelocityMax                             , 0x380) // float32
+        SCHEMA_FIELD(bool                            , m_bCopyColor                                    , 0x384) // bool
+        SCHEMA_FIELD(bool                            , m_bCopyAlpha                                    , 0x385) // bool
+        SCHEMA_FIELD(bool                            , m_bSetRadius                                    , 0x386) // bool
     };
 
     // C_OP_LagCompensation
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_LagCompensation : public xL {
+    //   fields: 4
+    class C_OP_LagCompensation {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nDesiredVelocityCP                            , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nLatencyCP                                    , 0x1DC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nLatencyCPField                               , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nDesiredVelocityCPField                       , 0x1E4) // int32
     };
 
     // C_OP_CollideWithSelf
-    //   fields: 0
+    //   fields: 2
     class C_OP_CollideWithSelf {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadiusScale                                 , 0x1D8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flMinimumSpeed                                , 0x348) // CPerParticleFloatInput
     };
 
     // C_OP_Noise
-    //   fields: 0
+    //   fields: 6
     class C_OP_Noise {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_fl4NoiseScale                                 , 0x1E4) // float32
+        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x1E8) // bool
+        SCHEMA_FIELD(float                           , m_flNoiseAnimationTimeScale                     , 0x1EC) // float32
     };
 
     // C_OP_FadeAndKillForTracers
-    //   fields: 0
+    //   fields: 6
     class C_OP_FadeAndKillForTracers {
     public:
+        SCHEMA_FIELD(float                           , m_flStartFadeInTime                             , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flEndFadeInTime                               , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flStartFadeOutTime                            , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flEndFadeOutTime                              , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flStartAlpha                                  , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flEndAlpha                                    , 0x1EC) // float32
     };
 
     // C_OP_ColorAdjustHSL
-    //   fields: 0
+    //   fields: 3
     class C_OP_ColorAdjustHSL {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flHueAdjust                                   , 0x1D8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flSaturationAdjust                            , 0x348) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flLightnessAdjust                             , 0x4B8) // CPerParticleFloatInput
     };
 
     // CParticleMassCalculationParameters
-    //   fields: 1
+    //   fields: 4
     class CParticleMassCalculationParameters {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(ParticleMassMode_t              , m_nMassMode                                     , 0x0) // ParticleMassMode_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadius                                      , 0x8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flNominalRadius                               , 0x178) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flScale                                       , 0x2E8) // CPerParticleFloatInput
     };
 
     // C_OP_SequenceFromModel
-    //   fields: 0
+    //   fields: 8
     class C_OP_SequenceFromModel {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1D8) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutputAnim                              , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F0) // float32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F4) // ParticleSetMethod_t
     };
 
     // C_OP_AlphaDecay
-    //   fields: 0
+    //   fields: 1
     class C_OP_AlphaDecay {
     public:
+        SCHEMA_FIELD(float                           , m_flMinAlpha                                    , 0x1D8) // float32
     };
 
     // C_OP_RemapDensityGradientToVectorAttribute
-    //   fields: 0
+    //   fields: 2
     class C_OP_RemapDensityGradientToVectorAttribute {
     public:
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1D8) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
     };
 
     // C_INIT_InitVec
-    //   fields: 0
+    //   fields: 5
     class C_INIT_InitVec {
     public:
+        SCHEMA_FIELD(CPerParticleVecInput            , m_InputValue                                    , 0x1E0) // CPerParticleVecInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x898) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x89C) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x8A0) // bool
+        SCHEMA_FIELD(bool                            , m_bWritePreviousPosition                        , 0x8A1) // bool
     };
 
     // C_INIT_SetHitboxToModel
-    //   fields: 0
+    //   fields: 10
     class C_INIT_SetHitboxToModel {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nForceInModel                                 , 0x1E4) // int32
+        SCHEMA_FIELD(bool                            , m_bEvenDistribution                             , 0x1E8) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nDesiredHitbox                                , 0x1EC) // int32
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecHitBoxScale                                , 0x1F0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(::Vector                        , m_vecDirectionBias                              , 0x8A8) // Vector
+        SCHEMA_FIELD(bool                            , m_bMaintainHitbox                               , 0x8B4) // bool
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x8B5) // bool
+        SCHEMA_FIELD(char[128]                       , m_HitboxSetName                                 , 0x8B6) // char[128]
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flShellSize                                   , 0x938) // CParticleCollectionFloatInput
     };
 
     // C_OP_MovementMoveAlongSkinnedCPSnapshot
-    //   fields: 0
+    //   fields: 6
     class C_OP_MovementMoveAlongSkinnedCPSnapshot {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPointNumber                   , 0x1DC) // int32
+        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x1E0) // bool
+        SCHEMA_FIELD(bool                            , m_bSetRadius                                    , 0x1E1) // bool
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInterpolation                               , 0x1E8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flTValue                                      , 0x358) // CPerParticleFloatInput
     };
 
     // C_OP_LerpScalar
-    //   fields: 0
+    //   fields: 4
     class C_OP_LerpScalar {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutput                                      , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x350) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x354) // float32
     };
 
     // C_INIT_InitialRepulsionVelocity
-    //   fields: 0
+    //   fields: 13
     class C_INIT_InitialRepulsionVelocity {
     public:
+        SCHEMA_FIELD(char[128]                       , m_CollisionGroupName                            , 0x1E0) // char[128]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x260) // ParticleTraceSet_t
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x264) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x270) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x27C) // int32
+        SCHEMA_FIELD(bool                            , m_bPerParticle                                  , 0x280) // bool
+        SCHEMA_FIELD(bool                            , m_bTranslate                                    , 0x281) // bool
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x282) // bool
+        SCHEMA_FIELD(float                           , m_flTraceLength                                 , 0x284) // float32
+        SCHEMA_FIELD(bool                            , m_bPerParticleTR                                , 0x288) // bool
+        SCHEMA_FIELD(bool                            , m_bInherit                                      , 0x289) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nChildCP                                      , 0x28C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x290) // int32
     };
 
     // C_OP_ClampScalar
-    //   fields: 0
+    //   fields: 3
     class C_OP_ClampScalar {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMin                                   , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMax                                   , 0x350) // CPerParticleFloatInput
     };
 
     // C_OP_SetControlPointToHMD
-    //   fields: 0
+    //   fields: 3
     class C_OP_SetControlPointToHMD {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E0) // int32
+        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1E4) // Vector
+        SCHEMA_FIELD(bool                            , m_bOrientToHMD                                  , 0x1F0) // bool
     };
 
     // C_OP_DifferencePreviousParticle
-    //   fields: 0
+    //   fields: 9
     class C_OP_DifferencePreviousParticle {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1EC) // float32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F0) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x1F4) // bool
+        SCHEMA_FIELD(bool                            , m_bSetPreviousParticle                          , 0x1F5) // bool
     };
 
     // C_OP_SetControlPointFieldFromVectorExpression
-    //   fields: 0
+    //   fields: 7
     class C_OP_SetControlPointFieldFromVectorExpression {
     public:
+        SCHEMA_FIELD(VectorFloatExpressionType_t     , m_nExpression                                   , 0x1E0) // VectorFloatExpressionType_t
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecInput1                                     , 0x1E8) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecInput2                                     , 0x8A0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flLerp                                        , 0xF58) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleRemapFloatInput        , m_flOutputRemap                                 , 0x10C8) // CParticleRemapFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1238) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x123C) // int32
     };
 
     // C_OP_PercentageBetweenTransforms
-    //   fields: 0
+    //   fields: 10
     class C_OP_PercentageBetweenTransforms {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1E8) // float32
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformStart                                , 0x1F0) // CParticleTransformInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformEnd                                  , 0x258) // CParticleTransformInput
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x2C0) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x2C4) // bool
+        SCHEMA_FIELD(bool                            , m_bRadialCheck                                  , 0x2C5) // bool
     };
 
     // C_INIT_PlaneCull
-    //   fields: 0
+    //   fields: 3
     class C_INIT_PlaneCull {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E0) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flDistance                                    , 0x1E8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bCullInside                                   , 0x358) // bool
     };
 
     // C_OP_RemapNamedModelSequenceEndCap
@@ -3259,170 +5099,367 @@ namespace cs2::sdk::particles {
     };
 
     // C_INIT_InitFromCPSnapshot
-    //   fields: 0
+    //   fields: 11
     class C_INIT_InitFromCPSnapshot {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32
+        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x1E8) // CUtlString
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToRead                              , 0x1F0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToWrite                             , 0x1F4) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x1F8) // int32
+        SCHEMA_FIELD(bool                            , m_bRandom                                       , 0x1FC) // bool
+        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x1FD) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nSnapShotIncrement                            , 0x200) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_nManualSnapshotIndex                          , 0x370) // CPerParticleFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x4E0) // int32
+        SCHEMA_FIELD(bool                            , m_bLocalSpaceAngles                             , 0x4E4) // bool
     };
 
     // C_OP_RenderCables
-    //   fields: 0
+    //   fields: 23
     class C_OP_RenderCables {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRadiusScale                                 , 0x228) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flAlphaScale                                  , 0x398) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecColorScale                                 , 0x508) // CParticleCollectionVecInput
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0xBC0) // ParticleColorBlendType_t
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0xBC8) // CStrongHandle<InfoForResourceTypeIMaterial2>
+        SCHEMA_FIELD(TextureRepetitionMode_t         , m_nTextureRepetitionMode                        , 0xBD0) // TextureRepetitionMode_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flTextureRepeatsPerSegment                    , 0xBD8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flTextureRepeatsCircumference                 , 0xD48) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flColorMapOffsetV                             , 0xEB8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flColorMapOffsetU                             , 0x1028) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flNormalMapOffsetV                            , 0x1198) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flNormalMapOffsetU                            , 0x1308) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bDrawCableCaps                                , 0x1478) // bool
+        SCHEMA_FIELD(float                           , m_flCapRoundness                                , 0x147C) // float32
+        SCHEMA_FIELD(float                           , m_flCapOffsetAmount                             , 0x1480) // float32
+        SCHEMA_FIELD(float                           , m_flTessScale                                   , 0x1484) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nMinTesselation                               , 0x1488) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxTesselation                               , 0x148C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nRoundness                                    , 0x1490) // int32
+        SCHEMA_FIELD(bool                            , m_nForceRoundnessFixed                          , 0x1494) // bool
+        SCHEMA_FIELD(CParticleTransformInput         , m_LightingTransform                             , 0x1498) // CParticleTransformInput
+        SCHEMA_FIELD(CUtlLeanVector<FloatInputMaterialVariable_t>, m_MaterialFloatVars                             , 0x1500) // CUtlLeanVector<FloatInputMaterialVariable_t>
+        SCHEMA_FIELD(CUtlLeanVector<VecInputMaterialVariable_t>, m_MaterialVecVars                               , 0x1520) // CUtlLeanVector<VecInputMaterialVariable_t>
     };
 
     // C_INIT_InheritVelocity
-    //   parent: particles
-    //   fields: 0
-    class C_INIT_InheritVelocity : public particles {
+    //   fields: 2
+    class C_INIT_InheritVelocity {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32
+        SCHEMA_FIELD(float                           , m_flVelocityScale                               , 0x1E4) // float32
     };
 
     // C_OP_SetControlPointToWaterSurface
-    //   fields: 0
+    //   fields: 7
     class C_OP_SetControlPointToWaterSurface {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSourceCP                                     , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nDestCP                                       , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFlowCP                                       , 0x1E8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nActiveCP                                     , 0x1EC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nActiveCPField                                , 0x1F0) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRetestRate                                  , 0x1F8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bAdaptiveThreshold                            , 0x368) // bool
     };
 
     // C_INIT_PositionOffset
-    //   fields: 0
+    //   fields: 6
     class C_INIT_PositionOffset {
     public:
+        SCHEMA_FIELD(CPerParticleVecInput            , m_OffsetMin                                     , 0x1E0) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_OffsetMax                                     , 0x898) // CPerParticleVecInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0xF50) // CParticleTransformInput
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0xFB8) // bool
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0xFB9) // bool
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0xFBC) // CRandomNumberGeneratorParameters
     };
 
     // C_INIT_NormalAlignToCP
-    //   parent: xL��
-    //   fields: 0
-    class C_INIT_NormalAlignToCP : public xL {
+    //   fields: 2
+    class C_INIT_NormalAlignToCP {
     public:
+        SCHEMA_FIELD(CParticleTransformInput         , m_transformInput                                , 0x1E0) // CParticleTransformInput
+        SCHEMA_FIELD(ParticleControlPointAxis_t      , m_nControlPointAxis                             , 0x248) // ParticleControlPointAxis_t
     };
 
     // C_OP_ShapeMatchingConstraint
-    //   fields: 0
+    //   fields: 1
     class C_OP_ShapeMatchingConstraint {
     public:
+        SCHEMA_FIELD(float                           , m_flShapeRestorationTime                        , 0x1D8) // float32
     };
 
     // C_OP_SetChildControlPoints
-    //   fields: 0
+    //   fields: 7
     class C_OP_SetChildControlPoints {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1DC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E0) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nFirstSourcePoint                             , 0x1E8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x358) // bool
+        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x359) // bool
+        SCHEMA_FIELD(ParticleOrientationType_t       , m_nOrientation                                  , 0x35C) // ParticleOrientationType_t
     };
 
     // C_OP_ChladniWave
-    //   fields: 0
+    //   fields: 10
     class C_OP_ChladniWave {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInputMin                                    , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInputMax                                    , 0x350) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMin                                   , 0x4C0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMax                                   , 0x630) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecWaveLength                                 , 0x7A0) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecHarmonics                                  , 0xE58) // CPerParticleVecInput
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1510) // ParticleSetMethod_t
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceControlPoint                       , 0x1514) // int32
+        SCHEMA_FIELD(bool                            , m_b3D                                           , 0x1518) // bool
     };
 
     // C_OP_RemapDirectionToCPToVector
-    //   fields: 0
+    //   fields: 7
     class C_OP_RemapDirectionToCPToVector {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1D8) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flOffsetRot                                   , 0x1E4) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetAxis                                 , 0x1E8) // Vector
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1F4) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldStrength                                , 0x1F8) // ParticleAttributeIndex_t
     };
 
     // C_OP_DriveCPFromGlobalSoundFloat
-    //   fields: 0
+    //   fields: 9
     class C_OP_DriveCPFromGlobalSoundFloat {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputControlPoint                           , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputField                                  , 0x1E4) // int32
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F4) // float32
+        SCHEMA_FIELD(::CUtlString                    , m_StackName                                     , 0x1F8) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_OperatorName                                  , 0x200) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_FieldName                                     , 0x208) // CUtlString
     };
 
     // C_INIT_ScreenSpacePositionOfTarget
-    //   fields: 0
+    //   fields: 4
     class C_INIT_ScreenSpacePositionOfTarget {
     public:
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecTargetPosition                             , 0x1E0) // CPerParticleVecInput
+        SCHEMA_FIELD(bool                            , m_bOututBehindness                              , 0x898) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nBehindFieldOutput                            , 0x89C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CParticleRemapFloatInput        , m_flBehindOutputRemap                           , 0x8A0) // CParticleRemapFloatInput
     };
 
     // C_OP_RtEnvCull
-    //   fields: 0
+    //   fields: 7
     class C_OP_RtEnvCull {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vecTestDir                                    , 0x1D8) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecTestNormal                                 , 0x1E4) // Vector
+        SCHEMA_FIELD(bool                            , m_bCullOnMiss                                   , 0x1F0) // bool
+        SCHEMA_FIELD(bool                            , m_bStickInsteadOfCull                           , 0x1F1) // bool
+        SCHEMA_FIELD(char[128]                       , m_RtEnvName                                     , 0x1F2) // char[128]
+        SCHEMA_FIELD(std::int32_t                    , m_nRTEnvCP                                      , 0x274) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x278) // int32
     };
 
     // C_OP_PinParticleToCP
-    //   fields: 0
+    //   fields: 14
     class C_OP_PinParticleToCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1D8) // int32
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecOffset                                     , 0x1E0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(bool                            , m_bOffsetLocal                                  , 0x898) // bool
+        SCHEMA_FIELD(ParticleSelection_t             , m_nParticleSelection                            , 0x89C) // ParticleSelection_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nParticleNumber                               , 0x8A0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(ParticlePinDistance_t           , m_nPinBreakType                                 , 0xA10) // ParticlePinDistance_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flBreakDistance                               , 0xA18) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flBreakSpeed                                  , 0xB88) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flAge                                         , 0xCF8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nBreakControlPointNumber                      , 0xE68) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nBreakControlPointNumber2                     , 0xE6C) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flBreakValue                                  , 0xE70) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInterpolation                               , 0xFE0) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bRetainInitialVelocity                        , 0x1150) // bool
     };
 
     // C_OP_RemapCPtoVector
-    //   fields: 0
+    //   fields: 13
     class C_OP_RemapCPtoVector {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1D8) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x1E0) // int32
+        SCHEMA_FIELD(::Vector                        , m_vInputMin                                     , 0x1E4) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vInputMax                                     , 0x1F0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vOutputMin                                    , 0x1FC) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vOutputMax                                    , 0x208) // Vector
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x214) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x218) // float32
+        SCHEMA_FIELD(float                           , m_flInterpRate                                  , 0x21C) // float32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x220) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x224) // bool
+        SCHEMA_FIELD(bool                            , m_bAccelerate                                   , 0x225) // bool
     };
 
     // C_INIT_CreateParticleImpulse
-    //   fields: 0
+    //   fields: 5
     class C_INIT_CreateParticleImpulse {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_InputRadius                                   , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_InputMagnitude                                , 0x350) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleFalloffFunction_t       , m_nFalloffFunction                              , 0x4C0) // ParticleFalloffFunction_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_InputFalloffExp                               , 0x4C8) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleImpulseType_t           , m_nImpulseType                                  , 0x638) // ParticleImpulseType_t
     };
 
     // C_OP_DensityForce
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_DensityForce : public xL {
+    //   fields: 3
+    class C_OP_DensityForce {
     public:
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flForceScale                                  , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flTargetDensity                               , 0x1F0) // float32
     };
 
     // C_INIT_CreateInEpitrochoid
-    //   fields: 0
+    //   fields: 10
     class C_INIT_CreateInEpitrochoid {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent1                                   , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent2                                   , 0x1E4) // int32
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1E8) // CParticleTransformInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flParticleDensity                             , 0x250) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOffset                                      , 0x3C0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadius1                                     , 0x530) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadius2                                     , 0x6A0) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bUseCount                                     , 0x810) // bool
+        SCHEMA_FIELD(bool                            , m_bUseLocalCoords                               , 0x811) // bool
+        SCHEMA_FIELD(bool                            , m_bOffsetExistingPos                            , 0x812) // bool
     };
 
     // C_OP_ConstrainDistanceToUserSpecifiedPath
-    //   fields: 0
+    //   fields: 5
     class C_OP_ConstrainDistanceToUserSpecifiedPath {
     public:
+        SCHEMA_FIELD(float                           , m_fMinDistance                                  , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flMaxDistance                                 , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flTimeScale                                   , 0x1E0) // float32
+        SCHEMA_FIELD(bool                            , m_bLoopedPath                                   , 0x1E4) // bool
+        SCHEMA_FIELD(CUtlVector<PointDefinitionWithTimeValues_t>, m_pointList                                     , 0x1E8) // CUtlVector<PointDefinitionWithTimeValues_t>
     };
 
     // C_OP_SetControlPointPositions
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_SetControlPointPositions : public xL {
+    //   fields: 12
+    class C_OP_SetControlPointPositions {
     public:
+        SCHEMA_FIELD(bool                            , m_bUseWorldLocation                             , 0x1E0) // bool
+        SCHEMA_FIELD(bool                            , m_bOrient                                       , 0x1E1) // bool
+        SCHEMA_FIELD(bool                            , m_bSetOnce                                      , 0x1E2) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCP2                                          , 0x1E8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCP3                                          , 0x1EC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCP4                                          , 0x1F0) // int32
+        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1F4) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecCP2Pos                                     , 0x200) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecCP3Pos                                     , 0x20C) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecCP4Pos                                     , 0x218) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_nHeadLocation                                 , 0x224) // int32
     };
 
     // C_OP_SetFloatAttributeToVectorExpression
-    //   fields: 0
+    //   fields: 6
     class C_OP_SetFloatAttributeToVectorExpression {
     public:
+        SCHEMA_FIELD(VectorFloatExpressionType_t     , m_nExpression                                   , 0x1D8) // VectorFloatExpressionType_t
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vInput1                                       , 0x1E0) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vInput2                                       , 0x898) // CPerParticleVecInput
+        SCHEMA_FIELD(CParticleRemapFloatInput        , m_flOutputRemap                                 , 0xF50) // CParticleRemapFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x10C0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x10C4) // ParticleSetMethod_t
     };
 
     // C_OP_MovementRotateParticleAroundAxis
-    //   fields: 0
+    //   fields: 4
     class C_OP_MovementRotateParticleAroundAxis {
     public:
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecRotAxis                                    , 0x1D8) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRotRate                                     , 0x890) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0xA00) // CParticleTransformInput
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0xA68) // bool
     };
 
     // C_OP_IntraParticleForce
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_IntraParticleForce : public xL {
+    //   fields: 7
+    class C_OP_IntraParticleForce {
     public:
+        SCHEMA_FIELD(float                           , m_flAttractionMinDistance                       , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flAttractionMaxDistance                       , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flAttractionMaxStrength                       , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flRepulsionMinDistance                        , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flRepulsionMaxDistance                        , 0x1F8) // float32
+        SCHEMA_FIELD(float                           , m_flRepulsionMaxStrength                        , 0x1FC) // float32
+        SCHEMA_FIELD(bool                            , m_bUseAABB                                      , 0x200) // bool
     };
 
     // C_INIT_InitFloat
-    //   fields: 0
+    //   fields: 4
     class C_INIT_InitFloat {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_InputValue                                    , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x350) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x354) // ParticleSetMethod_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_InputStrength                                 , 0x358) // CPerParticleFloatInput
     };
 
     // C_INIT_CreateOnModel
-    //   fields: 0
+    //   fields: 16
     class C_INIT_CreateOnModel {
     public:
+        SCHEMA_FIELD(CParticleModelInput             , m_modelInput                                    , 0x1E0) // CParticleModelInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_transformInput                                , 0x240) // CParticleTransformInput
+        SCHEMA_FIELD(std::int32_t                    , m_nForceInModel                                 , 0x2A8) // int32
+        SCHEMA_FIELD(bool                            , m_bScaleToVolume                                , 0x2AC) // bool
+        SCHEMA_FIELD(bool                            , m_bEvenDistribution                             , 0x2AD) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nDesiredHitbox                                , 0x2B0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nHitboxValueFromControlPointIndex             , 0x420) // int32
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecHitBoxScale                                , 0x428) // CParticleCollectionVecInput
+        SCHEMA_FIELD(float                           , m_flBoneVelocity                                , 0xAE0) // float32
+        SCHEMA_FIELD(float                           , m_flMaxBoneVelocity                             , 0xAE4) // float32
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecDirectionBias                              , 0xAE8) // CParticleCollectionVecInput
+        SCHEMA_FIELD(char[128]                       , m_HitboxSetName                                 , 0x11A0) // char[128]
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x1220) // bool
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1221) // bool
+        SCHEMA_FIELD(bool                            , m_bUseMesh                                      , 0x1222) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flShellSize                                   , 0x1228) // CParticleCollectionFloatInput
     };
 
     // C_OP_InheritFromPeerSystem
-    //   fields: 0
+    //   fields: 4
     class C_OP_InheritFromPeerSystem {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nGroupID                                      , 0x1E4) // int32
     };
 
     // C_OP_PerParticleForce
-    //   fields: 0
+    //   fields: 3
     class C_OP_PerParticleForce {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flForceScale                                  , 0x1E8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vForce                                        , 0x358) // CPerParticleVecInput
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0xA10) // int32
     };
 
     // C_INIT_RandomNamedModelMeshGroup
@@ -3432,57 +5469,120 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_RenderProjected
-    //   fields: 0
+    //   fields: 18
     class C_OP_RenderProjected {
     public:
+        SCHEMA_FIELD(bool                            , m_bProjectCharacter                             , 0x228) // bool
+        SCHEMA_FIELD(bool                            , m_bProjectWorld                                 , 0x229) // bool
+        SCHEMA_FIELD(bool                            , m_bProjectWater                                 , 0x22A) // bool
+        SCHEMA_FIELD(bool                            , m_bFlipHorizontal                               , 0x22B) // bool
+        SCHEMA_FIELD(bool                            , m_bEnableProjectedDepthControls                 , 0x22C) // bool
+        SCHEMA_FIELD(float                           , m_flMinProjectionDepth                          , 0x230) // float32
+        SCHEMA_FIELD(float                           , m_flMaxProjectionDepth                          , 0x234) // float32
+        SCHEMA_FIELD(CUtlVector<RenderProjectedMaterial_t>, m_vecProjectedMaterials                         , 0x238) // CUtlVector<RenderProjectedMaterial_t>
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flMaterialSelection                           , 0x250) // CPerParticleFloatInput
+        SCHEMA_FIELD(float                           , m_flAnimationTimeScale                          , 0x3C0) // float32
+        SCHEMA_FIELD(bool                            , m_bOrientToNormal                               , 0x3C4) // bool
+        SCHEMA_FIELD(CUtlVector<MaterialVariable_t>  , m_MaterialVars                                  , 0x3C8) // CUtlVector<MaterialVariable_t>
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRadiusScale                                 , 0x3E0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flAlphaScale                                  , 0x550) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRollScale                                   , 0x6C0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlpha2Field                                  , 0x830) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecColorScale                                 , 0x838) // CParticleCollectionVecInput
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0xEF0) // ParticleColorBlendType_t
     };
 
     // C_OP_MaxVelocity
-    //   fields: 0
+    //   fields: 4
     class C_OP_MaxVelocity {
     public:
+        SCHEMA_FIELD(float                           , m_flMaxVelocity                                 , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flMinVelocity                                 , 0x1DC) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nOverrideCP                                   , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOverrideCPField                              , 0x1E4) // int32
     };
 
     // C_INIT_VelocityFromNormal
-    //   fields: 0
+    //   fields: 3
     class C_INIT_VelocityFromNormal {
     public:
+        SCHEMA_FIELD(float                           , m_fSpeedMin                                     , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_fSpeedMax                                     , 0x1E4) // float32
+        SCHEMA_FIELD(bool                            , m_bIgnoreDt                                     , 0x1E8) // bool
     };
 
     // C_OP_MaintainEmitter
-    //   fields: 0
+    //   fields: 9
     class C_OP_MaintainEmitter {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nParticlesToMaintain                          , 0x1E0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x350) // float32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flEmissionDuration                            , 0x358) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(float                           , m_flEmissionRate                                , 0x4C8) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x4CC) // int32
+        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x4D0) // CUtlString
+        SCHEMA_FIELD(bool                            , m_bEmitInstantaneously                          , 0x4D8) // bool
+        SCHEMA_FIELD(bool                            , m_bFinalEmitOnStop                              , 0x4D9) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flScale                                       , 0x4E0) // CParticleCollectionFloatInput
     };
 
     // C_INIT_PositionOffsetToCP
-    //   fields: 0
+    //   fields: 3
     class C_INIT_PositionOffsetToCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumberStart                      , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumberEnd                        , 0x1E4) // int32
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x1E8) // bool
     };
 
     // C_INIT_RemapInitialTransformDirectionToRotation
-    //   fields: 0
+    //   fields: 4
     class C_INIT_RemapInitialTransformDirectionToRotation {
     public:
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1E0) // CParticleTransformInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x248) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flOffsetRot                                   , 0x24C) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x250) // int32
     };
 
     // C_OP_FadeAndKill
-    //   fields: 0
+    //   fields: 7
     class C_OP_FadeAndKill {
     public:
+        SCHEMA_FIELD(float                           , m_flStartFadeInTime                             , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flEndFadeInTime                               , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flStartFadeOutTime                            , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flEndFadeOutTime                              , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flStartAlpha                                  , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flEndAlpha                                    , 0x1EC) // float32
+        SCHEMA_FIELD(bool                            , m_bForcePreserveParticleOrder                   , 0x1F0) // bool
     };
 
     // C_OP_ColorInterpolate
-    //   fields: 0
+    //   fields: 5
     class C_OP_ColorInterpolate {
     public:
+        SCHEMA_FIELD(::Color                         , m_ColorFade                                     , 0x1D8) // Color
+        SCHEMA_FIELD(float                           , m_flFadeStartTime                               , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flFadeEndTime                                 , 0x1EC) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bEaseInOut                                    , 0x1F4) // bool
     };
 
     // C_OP_RampScalarSpline
-    //   fields: 0
+    //   fields: 10
     class C_OP_RampScalarSpline {
     public:
+        SCHEMA_FIELD(float                           , m_RateMin                                       , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_RateMax                                       , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flBias                                        , 0x1F0) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x220) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bProportionalOp                               , 0x224) // bool
+        SCHEMA_FIELD(bool                            , m_bEaseOut                                      , 0x225) // bool
     };
 
     // C_OP_RemapNamedModelSequenceOnceTimed
@@ -3492,15 +5592,24 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_SetControlPointFromObjectScale
-    //   fields: 0
+    //   fields: 2
     class C_OP_SetControlPointFromObjectScale {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x1E4) // int32
     };
 
     // C_OP_MaintainSequentialPath
-    //   fields: 0
+    //   fields: 7
     class C_OP_MaintainSequentialPath {
     public:
+        SCHEMA_FIELD(float                           , m_fMaxDistance                                  , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flNumToAssign                                 , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flCohesionStrength                            , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flTolerance                                   , 0x1E4) // float32
+        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x1E8) // bool
+        SCHEMA_FIELD(bool                            , m_bUseParticleCount                             , 0x1E9) // bool
+        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x1F0) // CPathParameters
     };
 
     // C_OP_RemapNamedModelBodyPartEndCap
@@ -3510,39 +5619,65 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_StopAfterCPDuration
-    //   fields: 0
+    //   fields: 3
     class C_OP_StopAfterCPDuration {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flDuration                                    , 0x1E0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bDestroyImmediately                           , 0x350) // bool
+        SCHEMA_FIELD(bool                            , m_bPlayEndCap                                   , 0x351) // bool
     };
 
     // CGeneralSpin
-    //   fields: 0
+    //   fields: 3
     class CGeneralSpin {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSpinRateDegrees                              , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nSpinRateMinDegrees                           , 0x1DC) // int32
+        SCHEMA_FIELD(float                           , m_fSpinRateStopTime                             , 0x1E4) // float32
     };
 
     // C_OP_LockToSavedSequentialPath
-    //   fields: 0
+    //   fields: 4
     class C_OP_LockToSavedSequentialPath {
     public:
+        SCHEMA_FIELD(float                           , m_flFadeStart                                   , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flFadeEnd                                     , 0x1E0) // float32
+        SCHEMA_FIELD(bool                            , m_bCPPairs                                      , 0x1E4) // bool
+        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x1F0) // CPathParameters
     };
 
     // C_INIT_RemapNamedModelElementToScalar
-    //   fields: 0
+    //   fields: 7
     class C_INIT_RemapNamedModelElementToScalar {
     public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x1E0) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_names                                         , 0x1E8) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_values                                        , 0x200) // CUtlVector<float32>
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x218) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x21C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x220) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x224) // bool
     };
 
     // C_OP_ClampVector
-    //   fields: 0
+    //   fields: 3
     class C_OP_ClampVector {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecOutputMin                                  , 0x1E0) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecOutputMax                                  , 0x898) // CPerParticleVecInput
     };
 
     // C_OP_RenderStatusEffectCitadel
-    //   fields: 0
+    //   fields: 6
     class C_OP_RenderStatusEffectCitadel {
     public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureColorWarp                             , 0x228) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureNormal                                , 0x230) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureMetalness                             , 0x238) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureRoughness                             , 0x240) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureSelfIllum                             , 0x248) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureDetail                                , 0x250) // CStrongHandle<InfoForResourceTypeCTextureBase>
     };
 
     // IParticleSystemDefinition
@@ -3552,183 +5687,368 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_WindForce
-    //   fields: 0
+    //   fields: 1
     class C_OP_WindForce {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vForce                                        , 0x1E8) // Vector
     };
 
     // C_OP_SetVariable
-    //   parent: particles
-    //   fields: 0
-    class C_OP_SetVariable : public particles {
+    //   fields: 6
+    class C_OP_SetVariable {
     public:
+        SCHEMA_FIELD(CParticleVariableRef            , m_variableReference                             , 0x1E0) // CParticleVariableRef
+        SCHEMA_FIELD(CParticleTransformInput         , m_transformInput                                , 0x230) // CParticleTransformInput
+        SCHEMA_FIELD(::Vector                        , m_positionOffset                                , 0x298) // Vector
+        SCHEMA_FIELD(::QAngle                        , m_rotationOffset                                , 0x2A4) // QAngle
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecInput                                      , 0x2B0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_floatInput                                    , 0x968) // CParticleCollectionFloatInput
     };
 
     // C_OP_RenderStandardLight
-    //   fields: 0
+    //   fields: 32
     class C_OP_RenderStandardLight {
     public:
+        SCHEMA_FIELD(ParticleLightTypeChoiceList_t   , m_nLightType                                    , 0x228) // ParticleLightTypeChoiceList_t
+        SCHEMA_FIELD(std::uint16_t                   , m_nMaxAllowed                                   , 0x22C) // uint16
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecColorScale                                 , 0x230) // CParticleCollectionVecInput
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x8E8) // ParticleColorBlendType_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flIntensity                                   , 0x8F0) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bCastShadows                                  , 0xA60) // bool
+        SCHEMA_FIELD(bool                            , m_bDynamicBounce                                , 0xA61) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flBounceScale                                 , 0xA68) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flTheta                                       , 0xBD8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flPhi                                         , 0xD48) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRadiusMultiplier                            , 0xEB8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(StandardLightingAttenuationStyle_t, m_nAttenuationStyle                             , 0x1028) // StandardLightingAttenuationStyle_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flFalloffLinearity                            , 0x1030) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flFiftyPercentFalloff                         , 0x11A0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flZeroPercentFalloff                          , 0x1310) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bRenderDiffuse                                , 0x1480) // bool
+        SCHEMA_FIELD(bool                            , m_bRenderSpecular                               , 0x1481) // bool
+        SCHEMA_FIELD(::CUtlString                    , m_lightCookie                                   , 0x1488) // CUtlString
+        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x1490) // int32
+        SCHEMA_FIELD(ParticleLightFogLightingMode_t  , m_nFogLightingMode                              , 0x1494) // ParticleLightFogLightingMode_t
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flFogContribution                             , 0x1498) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(ParticleLightBehaviorChoiceList_t, m_nCapsuleLightBehavior                         , 0x1608) // ParticleLightBehaviorChoiceList_t
+        SCHEMA_FIELD(float                           , m_flCapsuleLength                               , 0x160C) // float32
+        SCHEMA_FIELD(bool                            , m_bReverseOrder                                 , 0x1610) // bool
+        SCHEMA_FIELD(bool                            , m_bClosedLoop                                   , 0x1611) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nPrevPntSource                                , 0x1614) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flMaxLength                                   , 0x1618) // float32
+        SCHEMA_FIELD(float                           , m_flMinLength                                   , 0x161C) // float32
+        SCHEMA_FIELD(bool                            , m_bIgnoreDT                                     , 0x1620) // bool
+        SCHEMA_FIELD(float                           , m_flConstrainRadiusToLengthRatio                , 0x1624) // float32
+        SCHEMA_FIELD(float                           , m_flLengthScale                                 , 0x1628) // float32
+        SCHEMA_FIELD(float                           , m_flLengthFadeInTime                            , 0x162C) // float32
     };
 
     // C_OP_DistanceToTransform
-    //   fields: 0
+    //   fields: 15
     class C_OP_DistanceToTransform {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInputMin                                    , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInputMax                                    , 0x350) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMin                                   , 0x4C0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMax                                   , 0x630) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformStart                                , 0x7A0) // CParticleTransformInput
+        SCHEMA_FIELD(bool                            , m_bLOS                                          , 0x808) // bool
+        SCHEMA_FIELD(char[128]                       , m_CollisionGroupName                            , 0x809) // char[128]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x88C) // ParticleTraceSet_t
+        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x890) // float32
+        SCHEMA_FIELD(float                           , m_flLOSScale                                    , 0x894) // float32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x898) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x89C) // bool
+        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x89D) // bool
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecComponentScale                             , 0x8A0) // CPerParticleVecInput
     };
 
     // C_OP_RemapControlPointOrientationToRotation
-    //   parent: particles
-    //   fields: 0
-    class C_OP_RemapControlPointOrientationToRotation : public particles {
+    //   fields: 4
+    class C_OP_RemapControlPointOrientationToRotation {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1D8) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flOffsetRot                                   , 0x1E0) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x1E4) // int32
     };
 
     // C_OP_SetControlPointToCenter
-    //   fields: 0
+    //   fields: 4
     class C_OP_SetControlPointToCenter {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E0) // int32
+        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1E4) // Vector
+        SCHEMA_FIELD(bool                            , m_bUseAvgParticlePos                            , 0x1F0) // bool
+        SCHEMA_FIELD(ParticleParentSetMode_t         , m_nSetParent                                    , 0x1F4) // ParticleParentSetMode_t
     };
 
     // C_OP_RemapAverageScalarValuetoCP
-    //   fields: 0
+    //   fields: 6
     class C_OP_RemapAverageScalarValuetoCP {
     public:
+        SCHEMA_FIELD(SetStatisticExpressionType_t    , m_nExpression                                   , 0x1E0) // SetStatisticExpressionType_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flDecimalPlaces                               , 0x1E8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x358) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x35C) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x360) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CParticleRemapFloatInput        , m_flOutputRemap                                 , 0x368) // CParticleRemapFloatInput
     };
 
     // C_OP_RemapDotProductToScalar
-    //   fields: 0
+    //   fields: 11
     class C_OP_RemapDotProductToScalar {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInputCP1                                     , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nInputCP2                                     , 0x1DC) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F0) // float32
+        SCHEMA_FIELD(bool                            , m_bUseParticleVelocity                          , 0x1F4) // bool
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F8) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x1FC) // bool
+        SCHEMA_FIELD(bool                            , m_bUseParticleNormal                            , 0x1FD) // bool
     };
 
     // C_OP_RemapCPtoCP
-    //   fields: 0
+    //   fields: 10
     class C_OP_RemapCPtoCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInputControlPoint                            , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputControlPoint                           , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nInputField                                   , 0x1E8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputField                                  , 0x1EC) // int32
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1FC) // float32
+        SCHEMA_FIELD(bool                            , m_bDerivative                                   , 0x200) // bool
+        SCHEMA_FIELD(float                           , m_flInterpRate                                  , 0x204) // float32
     };
 
     // C_OP_SetControlPointRotation
-    //   fields: 0
+    //   fields: 4
     class C_OP_SetControlPointRotation {
     public:
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecRotAxis                                    , 0x1E0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRotRate                                     , 0x898) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0xA08) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalCP                                      , 0xA0C) // int32
     };
 
     // C_OP_CurlNoiseForce
-    //   fields: 0
+    //   fields: 7
     class C_OP_CurlNoiseForce {
     public:
+        SCHEMA_FIELD(ParticleDirectionNoiseType_t    , m_nNoiseType                                    , 0x1E8) // ParticleDirectionNoiseType_t
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecNoiseFreq                                  , 0x1F0) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecNoiseScale                                 , 0x8A8) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecOffset                                     , 0xF60) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecOffsetRate                                 , 0x1618) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flWorleySeed                                  , 0x1CD0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flWorleyJitter                                , 0x1E40) // CPerParticleFloatInput
     };
 
     // C_INIT_Orient2DRelToCP
-    //   fields: 0
+    //   fields: 3
     class C_INIT_Orient2DRelToCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E0) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flRotOffset                                   , 0x1E8) // float32
     };
 
     // C_OP_SetSimulationRate
-    //   parent: particles
-    //   fields: 0
-    class C_OP_SetSimulationRate : public particles {
+    //   fields: 1
+    class C_OP_SetSimulationRate {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flSimulationScale                             , 0x1E0) // CParticleCollectionFloatInput
     };
 
     // C_OP_FadeIn
-    //   fields: 0
+    //   fields: 4
     class C_OP_FadeIn {
     public:
+        SCHEMA_FIELD(float                           , m_flFadeInTimeMin                               , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flFadeInTimeMax                               , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flFadeInTimeExp                               , 0x1E0) // float32
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x1E4) // bool
     };
 
     // C_OP_RenderScreenShake
-    //   fields: 0
+    //   fields: 9
     class C_OP_RenderScreenShake {
     public:
+        SCHEMA_FIELD(float                           , m_flDurationScale                               , 0x228) // float32
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x22C) // float32
+        SCHEMA_FIELD(float                           , m_flFrequencyScale                              , 0x230) // float32
+        SCHEMA_FIELD(float                           , m_flAmplitudeScale                              , 0x234) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nRadiusField                                  , 0x238) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nDurationField                                , 0x23C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFrequencyField                               , 0x240) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAmplitudeField                               , 0x244) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nFilterCP                                     , 0x248) // int32
     };
 
     // C_OP_RemapBoundingVolumetoCP
-    //   fields: 0
+    //   fields: 5
     class C_OP_RemapBoundingVolumetoCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1E0) // int32
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F0) // float32
     };
 
     // C_OP_HSVShiftToCP
-    //   fields: 0
+    //   fields: 4
     class C_OP_HSVShiftToCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nColorCP                                      , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nColorGemEnableCP                             , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1E8) // int32
+        SCHEMA_FIELD(::Color                         , m_DefaultHSVColor                               , 0x1EC) // Color
     };
 
     // C_OP_RemapVectorToRotations
-    //   fields: 0
+    //   fields: 2
     class C_OP_RemapVectorToRotations {
     public:
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecInput                                      , 0x1D8) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecRotation                                   , 0x890) // CPerParticleVecInput
     };
 
     // C_INIT_GlobalScale
-    //   fields: 0
+    //   fields: 6
     class C_INIT_GlobalScale {
     public:
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E0) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointNumber                      , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32
+        SCHEMA_FIELD(bool                            , m_bScaleRadius                                  , 0x1EC) // bool
+        SCHEMA_FIELD(bool                            , m_bScalePosition                                , 0x1ED) // bool
+        SCHEMA_FIELD(bool                            , m_bScaleVelocity                                , 0x1EE) // bool
     };
 
     // C_INIT_RadiusFromCPObject
-    //   fields: 0
+    //   fields: 1
     class C_INIT_RadiusFromCPObject {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E0) // int32
     };
 
     // C_INIT_InitialVelocityFromHitbox
-    //   parent: particles
-    //   fields: 0
-    class C_INIT_InitialVelocityFromHitbox : public particles {
+    //   fields: 5
+    class C_INIT_InitialVelocityFromHitbox {
     public:
+        SCHEMA_FIELD(float                           , m_flVelocityMin                                 , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flVelocityMax                                 , 0x1E4) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32
+        SCHEMA_FIELD(char[128]                       , m_HitboxSetName                                 , 0x1EC) // char[128]
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x26C) // bool
     };
 
     // C_OP_LerpVector
-    //   fields: 0
+    //   fields: 5
     class C_OP_LerpVector {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(::Vector                        , m_vecOutput                                     , 0x1DC) // Vector
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1EC) // float32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F0) // ParticleSetMethod_t
     };
 
     // C_OP_SetControlPointFieldToWater
-    //   fields: 0
+    //   fields: 3
     class C_OP_SetControlPointFieldToWater {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSourceCP                                     , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nDestCP                                       , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPField                                      , 0x1E8) // int32
     };
 
     // TextureGroup_t
-    //   fields: 1
+    //   fields: 9
     class TextureGroup_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(bool                            , m_bEnabled                                      , 0x0) // bool
+        SCHEMA_FIELD(bool                            , m_bReplaceTextureWithGradient                   , 0x1) // bool
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_hTexture                                      , 0x8) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CColorGradient                  , m_Gradient                                      , 0x10) // CColorGradient
+        SCHEMA_FIELD(SpriteCardTextureType_t         , m_nTextureType                                  , 0x28) // SpriteCardTextureType_t
+        SCHEMA_FIELD(SpriteCardTextureChannel_t      , m_nTextureChannels                              , 0x2C) // SpriteCardTextureChannel_t
+        SCHEMA_FIELD(ParticleTextureLayerBlendType_t , m_nTextureBlendMode                             , 0x30) // ParticleTextureLayerBlendType_t
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flTextureBlend                                , 0x38) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(TextureControls_t               , m_TextureControls                               , 0x1A8) // TextureControls_t
     };
 
     // C_OP_TimeVaryingForce
-    //   fields: 0
+    //   fields: 4
     class C_OP_TimeVaryingForce {
     public:
+        SCHEMA_FIELD(float                           , m_flStartLerpTime                               , 0x1E8) // float32
+        SCHEMA_FIELD(::Vector                        , m_StartingForce                                 , 0x1EC) // Vector
+        SCHEMA_FIELD(float                           , m_flEndLerpTime                                 , 0x1F8) // float32
+        SCHEMA_FIELD(::Vector                        , m_EndingForce                                   , 0x1FC) // Vector
     };
 
     // C_OP_SetCPOrientationToGroundNormal
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_SetCPOrientationToGroundNormal : public xL {
+    //   fields: 9
+    class C_OP_SetCPOrientationToGroundNormal {
     public:
+        SCHEMA_FIELD(float                           , m_flInterpRate                                  , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flTolerance                                   , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flTraceOffset                                 , 0x1E4) // float32
+        SCHEMA_FIELD(char[128]                       , m_CollisionGroupName                            , 0x1E8) // char[128]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x268) // ParticleTraceSet_t
+        SCHEMA_FIELD(std::int32_t                    , m_nInputCP                                      , 0x26C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x270) // int32
+        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0x280) // bool
     };
 
     // C_OP_SnapshotSkinToBones
-    //   fields: 0
+    //   fields: 7
     class C_OP_SnapshotSkinToBones {
     public:
+        SCHEMA_FIELD(bool                            , m_bTransformNormals                             , 0x1D8) // bool
+        SCHEMA_FIELD(bool                            , m_bTransformRadii                               , 0x1D9) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1DC) // int32
+        SCHEMA_FIELD(float                           , m_flLifeTimeFadeStart                           , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flLifeTimeFadeEnd                             , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flJumpThreshold                               , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x1EC) // float32
     };
 
     // C_INIT_CreateWithinSphereTransform
-    //   fields: 0
+    //   fields: 13
     class C_INIT_CreateWithinSphereTransform {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fRadiusMin                                    , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fRadiusMax                                    , 0x350) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecDistanceBias                               , 0x4C0) // CPerParticleVecInput
+        SCHEMA_FIELD(::Vector                        , m_vecDistanceBiasAbs                            , 0xB78) // Vector
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0xB88) // CParticleTransformInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fSpeedMin                                     , 0xBF0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_fSpeedMax                                     , 0xD60) // CPerParticleFloatInput
+        SCHEMA_FIELD(float                           , m_fSpeedRandExp                                 , 0xED0) // float32
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0xED4) // bool
+        SCHEMA_FIELD(CPerParticleVecInput            , m_LocalCoordinateSystemSpeedMin                 , 0xED8) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_LocalCoordinateSystemSpeedMax                 , 0x1590) // CPerParticleVecInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1C48) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldVelocity                                , 0x1C4C) // ParticleAttributeIndex_t
     };
 
     // C_OP_RadiusDecay
-    //   fields: 0
+    //   fields: 1
     class C_OP_RadiusDecay {
     public:
+        SCHEMA_FIELD(float                           , m_flMinRadius                                   , 0x1D8) // float32
     };
 
     // C_INIT_RemapNamedModelBodyPartToScalar
@@ -3738,180 +6058,368 @@ namespace cs2::sdk::particles {
     };
 
     // C_INIT_RemapScalarToVector
-    //   fields: 0
+    //   fields: 12
     class C_INIT_RemapScalarToVector {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1EC) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1F0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1FC) // Vector
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x208) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x20C) // float32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x210) // ParticleSetMethod_t
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x214) // int32
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x218) // bool
+        SCHEMA_FIELD(float                           , m_flRemapBias                                   , 0x21C) // float32
     };
 
     // C_INIT_InitialSequenceFromModel
-    //   fields: 0
+    //   fields: 8
     class C_INIT_InitialSequenceFromModel {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutputAnim                              , 0x1E8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1FC) // ParticleSetMethod_t
     };
 
     // C_OP_NoiseEmitter
-    //   fields: 0
+    //   fields: 15
     class C_OP_NoiseEmitter {
     public:
+        SCHEMA_FIELD(float                           , m_flEmissionDuration                            , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flEmissionScale                               , 0x1E8) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPoint                            , 0x1EC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointField                       , 0x1F0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nWorldNoisePoint                              , 0x1F4) // int32
+        SCHEMA_FIELD(bool                            , m_bAbsVal                                       , 0x1F8) // bool
+        SCHEMA_FIELD(bool                            , m_bAbsValInv                                    , 0x1F9) // bool
+        SCHEMA_FIELD(float                           , m_flOffset                                      , 0x1FC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x200) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x204) // float32
+        SCHEMA_FIELD(float                           , m_flNoiseScale                                  , 0x208) // float32
+        SCHEMA_FIELD(float                           , m_flWorldNoiseScale                             , 0x20C) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetLoc                                  , 0x210) // Vector
+        SCHEMA_FIELD(float                           , m_flWorldTimeScale                              , 0x21C) // float32
     };
 
     // CParticleFunctionInitializer
-    //   fields: 0
+    //   fields: 1
     class CParticleFunctionInitializer {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nAssociatedEmitterIndex                       , 0x1D8) // int32
     };
 
     // C_OP_SelectivelyEnableChildren
-    //   fields: 0
+    //   fields: 5
     class C_OP_SelectivelyEnableChildren {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nChildGroupID                                 , 0x1E0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nFirstChild                                   , 0x350) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nNumChildrenToEnable                          , 0x4C0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bPlayEndcapOnStop                             , 0x630) // bool
+        SCHEMA_FIELD(bool                            , m_bDestroyImmediately                           , 0x631) // bool
     };
 
     // ModelReference_t
-    //   fields: 1
+    //   fields: 2
     class ModelReference_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_model                                         , 0x0) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(float                           , m_flRelativeProbabilityOfSpawn                  , 0x8) // float32
     };
 
     // C_OP_PlanarConstraint
-    //   fields: 0
+    //   fields: 8
     class C_OP_PlanarConstraint {
     public:
+        SCHEMA_FIELD(::Vector                        , m_PointOnPlane                                  , 0x1D8) // Vector
+        SCHEMA_FIELD(::Vector                        , m_PlaneNormal                                   , 0x1E4) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1F0) // int32
+        SCHEMA_FIELD(bool                            , m_bGlobalOrigin                                 , 0x1F4) // bool
+        SCHEMA_FIELD(bool                            , m_bGlobalNormal                                 , 0x1F5) // bool
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadiusScale                                 , 0x1F8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flMaximumDistanceToCP                         , 0x368) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bUseOldCode                                   , 0x4D8) // bool
     };
 
     // C_INIT_CreateFromCPs
-    //   fields: 0
+    //   fields: 4
     class C_INIT_CreateFromCPs {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMinCP                                        , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxCP                                        , 0x1E8) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nDynamicCPCount                               , 0x1F0) // CParticleCollectionFloatInput
     };
 
     // C_OP_LockPoints
-    //   fields: 0
+    //   fields: 6
     class C_OP_LockPoints {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nMinCol                                       , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxCol                                       , 0x1DC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMinRow                                       , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxRow                                       , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E8) // int32
+        SCHEMA_FIELD(float                           , m_flBlendValue                                  , 0x1EC) // float32
     };
 
     // C_INIT_CreateSpiralSphere
-    //   fields: 0
+    //   fields: 6
     class C_INIT_CreateSpiralSphere {
     public:
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformInput                                , 0x1E0) // CParticleTransformInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flDensity                                     , 0x248) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInitialRadius                               , 0x3B8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInitialSpeedMin                             , 0x528) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInitialSpeedMax                             , 0x698) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bUseParticleCount                             , 0x808) // bool
     };
 
     // C_OP_CPVelocityForce
-    //   fields: 0
+    //   fields: 2
     class C_OP_CPVelocityForce {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flScale                                       , 0x1F0) // CPerParticleFloatInput
     };
 
     // C_OP_RemapNamedModelElementEndCap
-    //   fields: 0
+    //   fields: 7
     class C_OP_RemapNamedModelElementEndCap {
     public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x1D8) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_inNames                                       , 0x1E0) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_outNames                                      , 0x1F8) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_fallbackNames                                 , 0x210) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x228) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x22C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x230) // ParticleAttributeIndex_t
     };
 
     // C_INIT_ScaleVelocity
-    //   fields: 0
+    //   fields: 1
     class C_INIT_ScaleVelocity {
     public:
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecScale                                      , 0x1E0) // CParticleCollectionVecInput
     };
 
     // C_OP_MoveToHitbox
-    //   parent: particles
-    //   fields: 0
-    class C_OP_MoveToHitbox : public particles {
+    //   fields: 9
+    class C_OP_MoveToHitbox {
     public:
+        SCHEMA_FIELD(CParticleModelInput             , m_modelInput                                    , 0x1D8) // CParticleModelInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_transformInput                                , 0x238) // CParticleTransformInput
+        SCHEMA_FIELD(float                           , m_flLifeTimeLerpStart                           , 0x2A4) // float32
+        SCHEMA_FIELD(float                           , m_flLifeTimeLerpEnd                             , 0x2A8) // float32
+        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x2AC) // float32
+        SCHEMA_FIELD(char[128]                       , m_HitboxSetName                                 , 0x2B0) // char[128]
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x330) // bool
+        SCHEMA_FIELD(HitboxLerpType_t                , m_nLerpType                                     , 0x334) // HitboxLerpType_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInterpolation                               , 0x338) // CPerParticleFloatInput
     };
 
     // C_OP_PinRopeSegmentParticleToParent
-    //   fields: 0
+    //   fields: 3
     class C_OP_PinRopeSegmentParticleToParent {
     public:
+        SCHEMA_FIELD(ParticleSelection_t             , m_nParticleSelection                            , 0x1D8) // ParticleSelection_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nParticleNumber                               , 0x1E0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInterpolation                               , 0x350) // CPerParticleFloatInput
     };
 
     // C_INIT_PointList
-    //   fields: 0
+    //   fields: 5
     class C_INIT_PointList {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CUtlVector<PointDefinition_t>   , m_pointList                                     , 0x1E8) // CUtlVector<PointDefinition_t>
+        SCHEMA_FIELD(bool                            , m_bPlaceAlongPath                               , 0x200) // bool
+        SCHEMA_FIELD(bool                            , m_bClosedLoop                                   , 0x201) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nNumPointsAlongPath                           , 0x204) // int32
     };
 
     // C_OP_LerpToOtherAttribute
-    //   fields: 0
+    //   fields: 4
     class C_OP_LerpToOtherAttribute {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInterpolation                               , 0x1D8) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInputFrom                               , 0x348) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x34C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x350) // ParticleAttributeIndex_t
     };
 
     // C_INIT_RandomColor
-    //   fields: 0
+    //   fields: 10
     class C_INIT_RandomColor {
     public:
+        SCHEMA_FIELD(::Color                         , m_ColorMin                                      , 0x1FC) // Color
+        SCHEMA_FIELD(::Color                         , m_ColorMax                                      , 0x200) // Color
+        SCHEMA_FIELD(::Color                         , m_TintMin                                       , 0x204) // Color
+        SCHEMA_FIELD(::Color                         , m_TintMax                                       , 0x208) // Color
+        SCHEMA_FIELD(float                           , m_flTintPerc                                    , 0x20C) // float32
+        SCHEMA_FIELD(float                           , m_flUpdateThreshold                             , 0x210) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nTintCP                                       , 0x214) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x218) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleColorBlendMode_t        , m_nTintBlendMode                                , 0x21C) // ParticleColorBlendMode_t
+        SCHEMA_FIELD(float                           , m_flLightAmplification                          , 0x220) // float32
     };
 
     // C_OP_SetGravityToCP
-    //   fields: 0
+    //   fields: 6
     class C_OP_SetGravityToCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x1E4) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flScale                                       , 0x1E8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bSetPosition                                  , 0x358) // bool
+        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x359) // bool
+        SCHEMA_FIELD(bool                            , m_bSetZDown                                     , 0x35A) // bool
     };
 
     // C_INIT_RemapParticleCountToScalar
-    //   fields: 0
+    //   fields: 12
     class C_INIT_RemapParticleCountToScalar {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nInputMin                                     , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nInputMax                                     , 0x1E8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPoint                            , 0x1EC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointField                       , 0x1F0) // int32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1FC) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x200) // bool
+        SCHEMA_FIELD(bool                            , m_bInvert                                       , 0x201) // bool
+        SCHEMA_FIELD(bool                            , m_bWrap                                         , 0x202) // bool
+        SCHEMA_FIELD(float                           , m_flRemapBias                                   , 0x204) // float32
     };
 
     // C_INIT_InheritFromParentParticles
-    //   fields: 0
+    //   fields: 5
     class C_INIT_InheritFromParentParticles {
     public:
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E0) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E8) // int32
+        SCHEMA_FIELD(bool                            , m_bRandomDistribution                           , 0x1EC) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1F0) // int32
     };
 
     // C_OP_RampScalarLinearSimple
-    //   fields: 0
+    //   fields: 4
     class C_OP_RampScalarLinearSimple {
     public:
+        SCHEMA_FIELD(float                           , m_Rate                                          , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1E0) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x210) // ParticleAttributeIndex_t
     };
 
     // C_INIT_ChaoticAttractor
-    //   fields: 0
+    //   fields: 9
     class C_INIT_ChaoticAttractor {
     public:
+        SCHEMA_FIELD(float                           , m_flAParm                                       , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flBParm                                       , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flCParm                                       , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flDParm                                       , 0x1EC) // float32
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1F0) // float32
+        SCHEMA_FIELD(float                           , m_flSpeedMin                                    , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flSpeedMax                                    , 0x1F8) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nBaseCP                                       , 0x1FC) // int32
+        SCHEMA_FIELD(bool                            , m_bUniformSpeed                                 , 0x200) // bool
     };
 
     // C_OP_MovementRigidAttachToCP
-    //   fields: 0
+    //   fields: 6
     class C_OP_MovementRigidAttachToCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPoint                            , 0x1DC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCPField                                 , 0x1E0) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E4) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bOffsetLocal                                  , 0x1EC) // bool
     };
 
     // C_OP_RenderFlattenGrass
-    //   fields: 0
+    //   fields: 3
     class C_OP_RenderFlattenGrass {
     public:
+        SCHEMA_FIELD(float                           , m_flFlattenStrength                             , 0x228) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nStrengthFieldOverride                        , 0x22C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x230) // float32
     };
 
     // C_OP_RenderLightBeam
-    //   fields: 0
+    //   fields: 10
     class C_OP_RenderLightBeam {
     public:
+        SCHEMA_FIELD(std::uint16_t                   , m_nMaxAllowed                                   , 0x228) // uint16
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vColorBlend                                   , 0x230) // CParticleCollectionVecInput
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x8E8) // ParticleColorBlendType_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flBrightnessLumensPerMeter                    , 0x8F0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bCastShadows                                  , 0xA60) // bool
+        SCHEMA_FIELD(bool                            , m_bDynamicBounce                                , 0xA61) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flBounceScale                                 , 0xA68) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flSkirt                                       , 0xBD8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRange                                       , 0xD48) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flThickness                                   , 0xEB8) // CParticleCollectionFloatInput
     };
 
     // C_OP_EnableChildrenFromParentParticleCount
-    //   fields: 0
+    //   fields: 6
     class C_OP_EnableChildrenFromParentParticleCount {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstChild                                   , 0x1E4) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nNumChildrenToEnable                          , 0x1E8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bDisableChildren                              , 0x358) // bool
+        SCHEMA_FIELD(bool                            , m_bPlayEndcapOnStop                             , 0x359) // bool
+        SCHEMA_FIELD(bool                            , m_bDestroyImmediately                           , 0x35A) // bool
     };
 
     // C_INIT_DistanceToCPInit
-    //   fields: 0
+    //   fields: 15
     class C_INIT_DistanceToCPInit {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInputMin                                    , 0x1E8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInputMax                                    , 0x358) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMin                                   , 0x4C8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flOutputMax                                   , 0x638) // CPerParticleFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nStartCP                                      , 0x7A8) // int32
+        SCHEMA_FIELD(bool                            , m_bLOS                                          , 0x7AC) // bool
+        SCHEMA_FIELD(char[128]                       , m_CollisionGroupName                            , 0x7AD) // char[128]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x830) // ParticleTraceSet_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flMaxTraceLength                              , 0x838) // CPerParticleFloatInput
+        SCHEMA_FIELD(float                           , m_flLOSScale                                    , 0x9A8) // float32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x9AC) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x9B0) // bool
+        SCHEMA_FIELD(::Vector                        , m_vecDistanceScale                              , 0x9B4) // Vector
+        SCHEMA_FIELD(float                           , m_flRemapBias                                   , 0x9C0) // float32
     };
 
     // CReplicationParameters
-    //   fields: 1
+    //   fields: 7
     class CReplicationParameters {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(ParticleReplicationMode_t       , m_nReplicationMode                              , 0x0) // ParticleReplicationMode_t
+        SCHEMA_FIELD(bool                            , m_bScaleChildParticleRadii                      , 0x4) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flMinRandomRadiusScale                        , 0x8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flMaxRandomRadiusScale                        , 0x178) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vMinRandomDisplacement                        , 0x2E8) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vMaxRandomDisplacement                        , 0x9A0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flModellingScale                              , 0x1058) // CParticleCollectionFloatInput
     };
 
     // C_OP_EndCapDecay
@@ -3921,36 +6429,58 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_ForceBasedOnDistanceToPlane
-    //   parent: xL��
-    //   fields: 0
-    class C_OP_ForceBasedOnDistanceToPlane : public xL {
+    //   fields: 7
+    class C_OP_ForceBasedOnDistanceToPlane {
     public:
+        SCHEMA_FIELD(float                           , m_flMinDist                                     , 0x1E8) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecForceAtMinDist                             , 0x1EC) // Vector
+        SCHEMA_FIELD(float                           , m_flMaxDist                                     , 0x1F8) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecForceAtMaxDist                             , 0x1FC) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecPlaneNormal                                , 0x208) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x214) // int32
+        SCHEMA_FIELD(float                           , m_flExponent                                    , 0x218) // float32
     };
 
     // C_OP_RemapDensityToVector
-    //   fields: 0
+    //   fields: 8
     class C_OP_RemapDensityToVector {
     public:
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1D8) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1DC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flDensityMin                                  , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flDensityMax                                  , 0x1E4) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1E8) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1F4) // Vector
+        SCHEMA_FIELD(bool                            , m_bUseParentDensity                             , 0x200) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nVoxelGridResolution                          , 0x204) // int32
     };
 
     // ParticleControlPointConfiguration_t
-    //   fields: 1
+    //   fields: 3
     class ParticleControlPointConfiguration_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(CUtlVector<ParticleControlPointDriver_t>, m_drivers                                       , 0x8) // CUtlVector<ParticleControlPointDriver_t>
+        SCHEMA_FIELD(ParticlePreviewState_t          , m_previewState                                  , 0x20) // ParticlePreviewState_t
     };
 
     // C_INIT_SetRigidAttachment
-    //   fields: 0
+    //   fields: 4
     class C_INIT_SetRigidAttachment {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E4) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0x1EC) // bool
     };
 
     // MaterialVariable_t
-    //   fields: 1
+    //   fields: 3
     class MaterialVariable_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(::CUtlString                    , m_strVariable                                   , 0x0) // CUtlString
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nVariableField                                , 0x8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0xC) // float32
     };
 
     // CParticleFunctionConstraint
@@ -3960,27 +6490,94 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_RemapSpeed
-    //   fields: 0
+    //   fields: 7
     class C_OP_RemapSpeed {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1E8) // float32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1EC) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bIgnoreDelta                                  , 0x1F0) // bool
     };
 
     // C_OP_RenderModels
-    //   fields: 0
+    //   fields: 56
     class C_OP_RenderModels {
     public:
+        SCHEMA_FIELD(bool                            , m_bOnlyRenderInEffectsBloomPass                 , 0x228) // bool
+        SCHEMA_FIELD(bool                            , m_bOnlyRenderInEffectsWaterPass                 , 0x229) // bool
+        SCHEMA_FIELD(bool                            , m_bUseMixedResolutionRendering                  , 0x22A) // bool
+        SCHEMA_FIELD(bool                            , m_bOnlyRenderInEffecsGameOverlay                , 0x22B) // bool
+        SCHEMA_FIELD(CUtlVector<ModelReference_t>    , m_ModelList                                     , 0x230) // CUtlVector<ModelReference_t>
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nBodyGroupField                               , 0x248) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nSubModelField                                , 0x24C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bIgnoreNormal                                 , 0x250) // bool
+        SCHEMA_FIELD(bool                            , m_bOrientZ                                      , 0x251) // bool
+        SCHEMA_FIELD(bool                            , m_bCenterOffset                                 , 0x252) // bool
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecLocalOffset                                , 0x258) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecLocalRotation                              , 0x910) // CPerParticleVecInput
+        SCHEMA_FIELD(bool                            , m_bIgnoreRadius                                 , 0xFC8) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nModelScaleCP                                 , 0xFCC) // int32
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecComponentScale                             , 0xFD0) // CPerParticleVecInput
+        SCHEMA_FIELD(bool                            , m_bLocalScale                                   , 0x1688) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nSizeCullBloat                                , 0x168C) // int32
+        SCHEMA_FIELD(bool                            , m_bAnimated                                     , 0x1690) // bool
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flAnimationRate                               , 0x1698) // CPerParticleFloatInput
+        SCHEMA_FIELD(bool                            , m_bScaleAnimationRate                           , 0x1808) // bool
+        SCHEMA_FIELD(bool                            , m_bForceLoopingAnimation                        , 0x1809) // bool
+        SCHEMA_FIELD(bool                            , m_bResetAnimOnStop                              , 0x180A) // bool
+        SCHEMA_FIELD(bool                            , m_bManualAnimFrame                              , 0x180B) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAnimationScaleField                          , 0x180C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAnimationField                               , 0x1810) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nManualFrameField                             , 0x1814) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(char[256]                       , m_ActivityName                                  , 0x1818) // char[256]
+        SCHEMA_FIELD(char[256]                       , m_SequenceName                                  , 0x1918) // char[256]
+        SCHEMA_FIELD(bool                            , m_bEnableClothSimulation                        , 0x1A18) // bool
+        SCHEMA_FIELD(bool                            , m_bDisableClothGroundCollision                  , 0x1A19) // bool
+        SCHEMA_FIELD(char[64]                        , m_ClothEffectName                               , 0x1A1A) // char[64]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hOverrideMaterial                             , 0x1A60) // CStrongHandle<InfoForResourceTypeIMaterial2>
+        SCHEMA_FIELD(bool                            , m_bOverrideTranslucentMaterials                 , 0x1A68) // bool
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_nSkin                                         , 0x1A70) // CPerParticleFloatInput
+        SCHEMA_FIELD(CUtlVector<MaterialVariable_t>  , m_MaterialVars                                  , 0x1BE0) // CUtlVector<MaterialVariable_t>
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRenderFilter                                , 0x1BF8) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flManualModelSelection                        , 0x1D68) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleModelInput             , m_modelInput                                    , 0x1ED8) // CParticleModelInput
+        SCHEMA_FIELD(std::int32_t                    , m_nLOD                                          , 0x1F38) // int32
+        SCHEMA_FIELD(char[256]                       , m_EconSlotName                                  , 0x1F3C) // char[256]
+        SCHEMA_FIELD(bool                            , m_bOriginalModel                                , 0x203C) // bool
+        SCHEMA_FIELD(bool                            , m_bSuppressTint                                 , 0x203D) // bool
+        SCHEMA_FIELD(RenderModelSubModelFieldType_t  , m_nSubModelFieldType                            , 0x2040) // RenderModelSubModelFieldType_t
+        SCHEMA_FIELD(bool                            , m_bDisableShadows                               , 0x2044) // bool
+        SCHEMA_FIELD(bool                            , m_bDisableDepthPrepass                          , 0x2045) // bool
+        SCHEMA_FIELD(bool                            , m_bAcceptsDecals                                , 0x2046) // bool
+        SCHEMA_FIELD(bool                            , m_bForceDrawInterlevedWithSiblings              , 0x2047) // bool
+        SCHEMA_FIELD(bool                            , m_bDoNotDrawInParticlePass                      , 0x2048) // bool
+        SCHEMA_FIELD(bool                            , m_bAllowApproximateTransforms                   , 0x2049) // bool
+        SCHEMA_FIELD(char[260]                       , m_szRenderAttribute                             , 0x204A) // char[260]
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRadiusScale                                 , 0x2150) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flAlphaScale                                  , 0x22C0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRollScale                                   , 0x2430) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlpha2Field                                  , 0x25A0) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecColorScale                                 , 0x25A8) // CParticleCollectionVecInput
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x2C60) // ParticleColorBlendType_t
     };
 
     // C_OP_RenderClientPhysicsImpulse
-    //   fields: 0
+    //   fields: 3
     class C_OP_RenderClientPhysicsImpulse {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flRadius                                      , 0x228) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flMagnitude                                   , 0x398) // CPerParticleFloatInput
+        SCHEMA_FIELD(std::int32_t                    , m_nSimIdFilter                                  , 0x508) // int32
     };
 
     // CParticleFunctionEmitter
-    //   fields: 0
+    //   fields: 1
     class CParticleFunctionEmitter {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nEmitterIndex                                 , 0x1D8) // int32
     };
 
     // C_INIT_RemapNamedModelMeshGroupToScalar
@@ -3990,84 +6587,153 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_SetControlPointOrientationToCPVelocity
-    //   fields: 0
+    //   fields: 2
     class C_OP_SetControlPointOrientationToCPVelocity {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x1E4) // int32
     };
 
     // C_OP_RopeSpringConstraint
-    //   parent: particles
-    //   fields: 0
-    class C_OP_RopeSpringConstraint : public particles {
+    //   fields: 5
+    class C_OP_RopeSpringConstraint {
     public:
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flRestLength                                  , 0x1D8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flMinDistance                                 , 0x348) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flMaxDistance                                 , 0x4B8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(float                           , m_flAdjustmentScale                             , 0x628) // float32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInitialRestingLength                        , 0x630) // CParticleCollectionFloatInput
     };
 
     // C_INIT_PositionWarpScalar
-    //   fields: 0
+    //   fields: 6
     class C_INIT_PositionWarpScalar {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vecWarpMin                                    , 0x1E0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecWarpMax                                    , 0x1EC) // Vector
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_InputValue                                    , 0x1F8) // CPerParticleFloatInput
+        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x368) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointNumber                      , 0x36C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x370) // int32
     };
 
     // C_OP_ForceControlPointStub
-    //   fields: 0
+    //   fields: 1
     class C_OP_ForceControlPointStub {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_ControlPoint                                  , 0x1E0) // int32
     };
 
     // C_OP_VectorNoise
-    //   fields: 0
+    //   fields: 7
     class C_OP_VectorNoise {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1DC) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1E8) // Vector
+        SCHEMA_FIELD(float                           , m_fl4NoiseScale                                 , 0x1F4) // float32
+        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x1F8) // bool
+        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x1F9) // bool
+        SCHEMA_FIELD(float                           , m_flNoiseAnimationTimeScale                     , 0x1FC) // float32
     };
 
     // C_OP_RemapParticleCountToScalar
-    //   parent: particles
-    //   fields: 0
-    class C_OP_RemapParticleCountToScalar : public particles {
+    //   fields: 7
+    class C_OP_RemapParticleCountToScalar {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nInputMin                                     , 0x1E0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nInputMax                                     , 0x350) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flOutputMin                                   , 0x4C0) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flOutputMax                                   , 0x630) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x7A0) // bool
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x7A4) // ParticleSetMethod_t
     };
 
     // C_INIT_QuantizeFloat
-    //   fields: 0
+    //   fields: 2
     class C_INIT_QuantizeFloat {
     public:
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_InputValue                                    , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x350) // ParticleAttributeIndex_t
     };
 
     // C_OP_RemapModelVolumetoCP
-    //   fields: 0
+    //   fields: 11
     class C_OP_RemapModelVolumetoCP {
     public:
+        SCHEMA_FIELD(BBoxVolumeType_t                , m_nBBoxType                                     , 0x1E0) // BBoxVolumeType_t
+        SCHEMA_FIELD(std::int32_t                    , m_nInControlPointNumber                         , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1E8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointMaxNumber                     , 0x1EC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nField                                        , 0x1F0) // int32
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F8) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1FC) // float32
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x200) // float32
+        SCHEMA_FIELD(bool                            , m_bBBoxOnly                                     , 0x204) // bool
+        SCHEMA_FIELD(bool                            , m_bCubeRoot                                     , 0x205) // bool
     };
 
     // C_OP_SetToCP
-    //   fields: 0
+    //   fields: 3
     class C_OP_SetToCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1D8) // int32
+        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x1DC) // Vector
+        SCHEMA_FIELD(bool                            , m_bOffsetLocal                                  , 0x1E8) // bool
     };
 
     // ParticleControlPointDriver_t
-    //   fields: 1
+    //   fields: 6
     class ParticleControlPointDriver_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(ParticleParamID_t               , m_iControlPoint                                 , 0x0) // ParticleParamID_t
+        SCHEMA_FIELD(ParticleAttachment_t            , m_iAttachType                                   , 0x10) // ParticleAttachment_t
+        SCHEMA_FIELD(::CUtlString                    , m_attachmentName                                , 0x18) // CUtlString
+        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x20) // Vector
+        SCHEMA_FIELD(::QAngle                        , m_angOffset                                     , 0x2C) // QAngle
+        SCHEMA_FIELD(::CUtlString                    , m_entityName                                    , 0x38) // CUtlString
     };
 
     // C_OP_ParentVortices
-    //   fields: 0
+    //   fields: 3
     class C_OP_ParentVortices {
     public:
+        SCHEMA_FIELD(float                           , m_flForceScale                                  , 0x1E8) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecTwistAxis                                  , 0x1EC) // Vector
+        SCHEMA_FIELD(bool                            , m_bFlipBasedOnYaw                               , 0x1F8) // bool
     };
 
     // C_OP_SetControlPointToCPVelocity
-    //   fields: 0
+    //   fields: 6
     class C_OP_SetControlPointToCPVelocity {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutputVel                                  , 0x1E4) // int32
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1E8) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutputMag                                  , 0x1EC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPField                                      , 0x1F0) // int32
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecComparisonVelocity                         , 0x1F8) // CParticleCollectionVecInput
     };
 
     // C_OP_ClientPhysics
-    //   fields: 0
+    //   fields: 13
     class C_OP_ClientPhysics {
     public:
+        SCHEMA_FIELD(::CUtlString                    , m_strPhysicsType                                , 0x228) // CUtlString
+        SCHEMA_FIELD(bool                            , m_bStartAsleep                                  , 0x230) // bool
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flPlayerWakeRadius                            , 0x238) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flVehicleWakeRadius                           , 0x3A8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bUseHighQualitySimulation                     , 0x518) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxParticleCount                             , 0x51C) // int32
+        SCHEMA_FIELD(bool                            , m_bRespectExclusionVolumes                      , 0x520) // bool
+        SCHEMA_FIELD(bool                            , m_bKillParticles                                , 0x521) // bool
+        SCHEMA_FIELD(bool                            , m_bDeleteSim                                    , 0x522) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x524) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nForcedSimId                                  , 0x528) // int32
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x52C) // ParticleColorBlendType_t
+        SCHEMA_FIELD(ParticleAttrBoxFlags_t          , m_nForcedStatusEffects                          , 0x530) // ParticleAttrBoxFlags_t
     };
 
     // C_OP_SpinYaw
@@ -4077,59 +6743,141 @@ namespace cs2::sdk::particles {
     };
 
     // PointDefinitionWithTimeValues_t
-    //   fields: 0
+    //   fields: 1
     class PointDefinitionWithTimeValues_t {
     public:
+        SCHEMA_FIELD(float                           , m_flTimeDuration                                , 0x14) // float32
     };
 
     // RenderProjectedMaterial_t
     //   fields: 1
     class RenderProjectedMaterial_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0x0) // CStrongHandle<InfoForResourceTypeIMaterial2>
     };
 
     // C_INIT_SetFloatAttributeToVectorExpression
-    //   parent: xL��
-    //   fields: 0
-    class C_INIT_SetFloatAttributeToVectorExpression : public xL {
+    //   fields: 6
+    class C_INIT_SetFloatAttributeToVectorExpression {
     public:
+        SCHEMA_FIELD(VectorFloatExpressionType_t     , m_nExpression                                   , 0x1E0) // VectorFloatExpressionType_t
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vInput1                                       , 0x1E8) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vInput2                                       , 0x8A0) // CPerParticleVecInput
+        SCHEMA_FIELD(CParticleRemapFloatInput        , m_flOutputRemap                                 , 0xF58) // CParticleRemapFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x10C8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x10CC) // ParticleSetMethod_t
     };
 
     // C_OP_ExternalWindForce
-    //   fields: 0
+    //   fields: 11
     class C_OP_ExternalWindForce {
     public:
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecSamplePosition                             , 0x1E8) // CPerParticleVecInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecScale                                      , 0x8A0) // CPerParticleVecInput
+        SCHEMA_FIELD(bool                            , m_bSampleWind                                   , 0xF58) // bool
+        SCHEMA_FIELD(bool                            , m_bSampleWater                                  , 0xF59) // bool
+        SCHEMA_FIELD(bool                            , m_bDampenNearWaterPlane                         , 0xF5A) // bool
+        SCHEMA_FIELD(bool                            , m_bSampleGravity                                , 0xF5B) // bool
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecGravityForce                               , 0xF60) // CPerParticleVecInput
+        SCHEMA_FIELD(bool                            , m_bUseBasicMovementGravity                      , 0x1618) // bool
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flLocalGravityScale                           , 0x1620) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flLocalBuoyancyScale                          , 0x1790) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleVecInput            , m_vecBuoyancyForce                              , 0x1900) // CPerParticleVecInput
     };
 
     // C_INIT_ModelCull
-    //   fields: 0
+    //   fields: 5
     class C_INIT_ModelCull {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32
+        SCHEMA_FIELD(bool                            , m_bBoundBox                                     , 0x1E4) // bool
+        SCHEMA_FIELD(bool                            , m_bCullOutside                                  , 0x1E5) // bool
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1E6) // bool
+        SCHEMA_FIELD(char[128]                       , m_HitboxSetName                                 , 0x1E7) // char[128]
     };
 
     // C_OP_RenderSprites
-    //   fields: 0
+    //   fields: 30
     class C_OP_RenderSprites {
     public:
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_nSequenceOverride                             , 0x2DF0) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(bool                            , m_bSequenceNumbersAreRawSequenceIndices         , 0x2F60) // bool
+        SCHEMA_FIELD(ParticleOrientationChoiceList_t , m_nOrientationType                              , 0x2F64) // ParticleOrientationChoiceList_t
+        SCHEMA_FIELD(std::int32_t                    , m_nOrientationControlPoint                      , 0x2F68) // int32
+        SCHEMA_FIELD(bool                            , m_bUseYawWithNormalAligned                      , 0x2F6C) // bool
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flMinSize                                     , 0x2F70) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flMaxSize                                     , 0x30E0) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flAlphaAdjustWithSizeAdjust                   , 0x3250) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flStartFadeSize                               , 0x33C0) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flEndFadeSize                                 , 0x3530) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(float                           , m_flStartFadeDot                                , 0x36A0) // float32
+        SCHEMA_FIELD(float                           , m_flEndFadeDot                                  , 0x36A4) // float32
+        SCHEMA_FIELD(bool                            , m_bDistanceAlpha                                , 0x36A8) // bool
+        SCHEMA_FIELD(bool                            , m_bSoftEdges                                    , 0x36A9) // bool
+        SCHEMA_FIELD(float                           , m_flEdgeSoftnessStart                           , 0x36AC) // float32
+        SCHEMA_FIELD(float                           , m_flEdgeSoftnessEnd                             , 0x36B0) // float32
+        SCHEMA_FIELD(bool                            , m_bOutline                                      , 0x36B4) // bool
+        SCHEMA_FIELD(::Color                         , m_OutlineColor                                  , 0x36B5) // Color
+        SCHEMA_FIELD(std::int32_t                    , m_nOutlineAlpha                                 , 0x36BC) // int32
+        SCHEMA_FIELD(float                           , m_flOutlineStart0                               , 0x36C0) // float32
+        SCHEMA_FIELD(float                           , m_flOutlineStart1                               , 0x36C4) // float32
+        SCHEMA_FIELD(float                           , m_flOutlineEnd0                                 , 0x36C8) // float32
+        SCHEMA_FIELD(float                           , m_flOutlineEnd1                                 , 0x36CC) // float32
+        SCHEMA_FIELD(ParticleLightingQuality_t       , m_nLightingMode                                 , 0x36D0) // ParticleLightingQuality_t
+        SCHEMA_FIELD(CParticleCollectionRendererVecInput, m_vecLightingOverride                           , 0x36D8) // CParticleCollectionRendererVecInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flLightingTessellation                        , 0x3D90) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(CParticleCollectionRendererFloatInput, m_flLightingDirectionality                      , 0x3F00) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(bool                            , m_bParticleShadows                              , 0x4070) // bool
+        SCHEMA_FIELD(float                           , m_flShadowDensity                               , 0x4074) // float32
+        SCHEMA_FIELD(CReplicationParameters          , m_replicationParameters                         , 0x4078) // CReplicationParameters
     };
 
     // C_OP_PercentageBetweenTransformLerpCPs
-    //   fields: 0
+    //   fields: 12
     class C_OP_PercentageBetweenTransformLerpCPs {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E0) // float32
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformStart                                , 0x1E8) // CParticleTransformInput
+        SCHEMA_FIELD(CParticleTransformInput         , m_TransformEnd                                  , 0x250) // CParticleTransformInput
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputStartCP                                , 0x2B8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputStartField                             , 0x2BC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputEndCP                                  , 0x2C0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputEndField                               , 0x2C4) // int32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x2C8) // ParticleSetMethod_t
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x2CC) // bool
+        SCHEMA_FIELD(bool                            , m_bRadialCheck                                  , 0x2CD) // bool
     };
 
     // C_OP_SetPerChildControlPoint
-    //   fields: 0
+    //   fields: 8
     class C_OP_SetPerChildControlPoint {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1D8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1DC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E0) // int32
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nParticleIncrement                            , 0x1E8) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_nFirstSourcePoint                             , 0x358) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x4C8) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOrientationField                             , 0x4CC) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bNumBasedOnParticleCount                      , 0x4D0) // bool
     };
 
     // C_OP_RenderTreeShake
-    //   fields: 0
+    //   fields: 10
     class C_OP_RenderTreeShake {
     public:
+        SCHEMA_FIELD(float                           , m_flPeakStrength                                , 0x228) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nPeakStrengthFieldOverride                    , 0x22C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x230) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nRadiusFieldOverride                          , 0x234) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flShakeDuration                               , 0x238) // float32
+        SCHEMA_FIELD(float                           , m_flTransitionTime                              , 0x23C) // float32
+        SCHEMA_FIELD(float                           , m_flTwistAmount                                 , 0x240) // float32
+        SCHEMA_FIELD(float                           , m_flRadialAmount                                , 0x244) // float32
+        SCHEMA_FIELD(float                           , m_flControlPointOrientationAmount               , 0x248) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointForLinearDirection               , 0x24C) // int32
     };
 
     // C_OP_WorldCollideConstraint
@@ -4139,48 +6887,88 @@ namespace cs2::sdk::particles {
     };
 
     // C_OP_SetAttributeToScalarExpression
-    //   fields: 0
+    //   fields: 6
     class C_OP_SetAttributeToScalarExpression {
     public:
+        SCHEMA_FIELD(ScalarExpressionType_t          , m_nExpression                                   , 0x1D8) // ScalarExpressionType_t
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInput1                                      , 0x1E0) // CPerParticleFloatInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flInput2                                      , 0x350) // CPerParticleFloatInput
+        SCHEMA_FIELD(CParticleRemapFloatInput        , m_flOutputRemap                                 , 0x4C0) // CParticleRemapFloatInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x630) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x634) // ParticleSetMethod_t
     };
 
     // C_OP_CycleScalar
-    //   parent: particles
-    //   fields: 0
-    class C_OP_CycleScalar : public particles {
+    //   fields: 10
+    class C_OP_CycleScalar {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nDestField                                    , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flStartValue                                  , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flEndValue                                    , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flCycleTime                                   , 0x1E4) // float32
+        SCHEMA_FIELD(bool                            , m_bDoNotRepeatCycle                             , 0x1E8) // bool
+        SCHEMA_FIELD(bool                            , m_bSynchronizeParticles                         , 0x1E9) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nCPScale                                      , 0x1EC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPFieldMin                                   , 0x1F0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCPFieldMax                                   , 0x1F4) // int32
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F8) // ParticleSetMethod_t
     };
 
     // C_OP_RenderMaterialProxy
-    //   fields: 0
+    //   fields: 8
     class C_OP_RenderMaterialProxy {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nMaterialControlPoint                         , 0x228) // int32
+        SCHEMA_FIELD(MaterialProxyType_t             , m_nProxyType                                    , 0x22C) // MaterialProxyType_t
+        SCHEMA_FIELD(CUtlVector<MaterialVariable_t>  , m_MaterialVars                                  , 0x230) // CUtlVector<MaterialVariable_t>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hOverrideMaterial                             , 0x248) // CStrongHandle<InfoForResourceTypeIMaterial2>
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flMaterialOverrideEnabled                     , 0x250) // CParticleCollectionFloatInput
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_vecColorScale                                 , 0x3C0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flAlpha                                       , 0xA78) // CPerParticleFloatInput
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0xBE8) // ParticleColorBlendType_t
     };
 
     // FloatInputMaterialVariable_t
-    //   fields: 1
+    //   fields: 2
     class FloatInputMaterialVariable_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(::CUtlString                    , m_strVariable                                   , 0x0) // CUtlString
+        SCHEMA_FIELD(CParticleCollectionFloatInput   , m_flInput                                       , 0x8) // CParticleCollectionFloatInput
     };
 
     // C_OP_RampScalarLinear
-    //   fields: 0
+    //   fields: 8
     class C_OP_RampScalarLinear {
     public:
+        SCHEMA_FIELD(float                           , m_RateMin                                       , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_RateMax                                       , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x1E0) // float32
+        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x1E4) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x1E8) // float32
+        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x1EC) // float32
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x210) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(bool                            , m_bProportionalOp                               , 0x214) // bool
     };
 
     // C_OP_RotateVector
-    //   fields: 0
+    //   fields: 7
     class C_OP_RotateVector {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(::Vector                        , m_vecRotAxisMin                                 , 0x1DC) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecRotAxisMax                                 , 0x1E8) // Vector
+        SCHEMA_FIELD(float                           , m_flRotRateMin                                  , 0x1F4) // float32
+        SCHEMA_FIELD(float                           , m_flRotRateMax                                  , 0x1F8) // float32
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1FC) // bool
+        SCHEMA_FIELD(CPerParticleFloatInput          , m_flScale                                       , 0x200) // CPerParticleFloatInput
     };
 
     // C_INIT_InitVecCollection
-    //   parent: particles
-    //   fields: 0
-    class C_INIT_InitVecCollection : public particles {
+    //   fields: 2
+    class C_INIT_InitVecCollection {
     public:
+        SCHEMA_FIELD(CParticleCollectionVecInput     , m_InputValue                                    , 0x1E0) // CParticleCollectionVecInput
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x898) // ParticleAttributeIndex_t
     };
 
     // C_INIT_RemapParticleCountToNamedModelMeshGroupScalar
@@ -4190,22 +6978,39 @@ namespace cs2::sdk::particles {
     };
 
     // C_INIT_SequenceFromCP
-    //   parent: xL��
-    //   fields: 0
-    class C_INIT_SequenceFromCP : public xL {
+    //   fields: 4
+    class C_INIT_SequenceFromCP {
     public:
+        SCHEMA_FIELD(bool                            , m_bKillUnused                                   , 0x1E0) // bool
+        SCHEMA_FIELD(bool                            , m_bRadiusScale                                  , 0x1E1) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E4) // int32
+        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x1E8) // Vector
     };
 
     // C_OP_CPOffsetToPercentageBetweenCPs
-    //   fields: 0
+    //   fields: 11
     class C_OP_CPOffsetToPercentageBetweenCPs {
     public:
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1D8) // float32
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flInputBias                                   , 0x1E0) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nStartCP                                      , 0x1E4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nEndCP                                        , 0x1E8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOffsetCP                                     , 0x1EC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nOuputCP                                      , 0x1F0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nInputCP                                      , 0x1F4) // int32
+        SCHEMA_FIELD(bool                            , m_bRadialCheck                                  , 0x1F8) // bool
+        SCHEMA_FIELD(bool                            , m_bScaleOffset                                  , 0x1F9) // bool
+        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x1FC) // Vector
     };
 
     // C_OP_LerpEndCapScalar
-    //   fields: 0
+    //   fields: 3
     class C_OP_LerpEndCapScalar {
     public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1D8) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(float                           , m_flOutput                                      , 0x1DC) // float32
+        SCHEMA_FIELD(float                           , m_flLerpTime                                    , 0x1E0) // float32
     };
 
 } // namespace cs2::sdk::particles

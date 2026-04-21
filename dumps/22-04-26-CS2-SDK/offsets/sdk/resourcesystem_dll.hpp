@@ -4,7 +4,7 @@
 // classes:       58
 // enums:         2
 // build_number:  14152
-// generated_at:  2026-04-21T23:10:40.293151800+00:00
+// generated_at:  2026-04-21T23:34:47.377899600+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -118,9 +118,11 @@ namespace cs2::sdk::resourcesystem {
     };
 
     // PackedAABB_t
-    //   fields: 0
+    //   fields: 2
     class PackedAABB_t {
     public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nPackedMin                                    , 0x0) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nPackedMax                                    , 0x4) // uint32
     };
 
     // InfoForResourceTypeCVPhysXSurfacePropertiesList
@@ -136,16 +138,19 @@ namespace cs2::sdk::resourcesystem {
     };
 
     // ConstantInfo_t
-    //   fields: 1
+    //   fields: 3
     class ConstantInfo_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(CUtlStringToken                 , m_nameToken                                     , 0x8) // CUtlStringToken
+        SCHEMA_FIELD(float                           , m_flValue                                       , 0xC) // float32
     };
 
     // FuseFunctionIndex_t
-    //   fields: 0
+    //   fields: 1
     class FuseFunctionIndex_t {
     public:
+        SCHEMA_FIELD(std::uint16_t                   , m_Value                                         , 0x0) // uint16
     };
 
     // InfoForResourceTypeCGcExportableExternalData
@@ -167,10 +172,15 @@ namespace cs2::sdk::resourcesystem {
     };
 
     // CFuseSymbolTable
-    //   fields: 1
+    //   fields: 6
     class CFuseSymbolTable {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CUtlVector<ConstantInfo_t>      , m_constants                                     , 0x0) // CUtlVector<ConstantInfo_t>
+        SCHEMA_FIELD(CUtlVector<VariableInfo_t>      , m_variables                                     , 0x18) // CUtlVector<VariableInfo_t>
+        SCHEMA_FIELD(CUtlVector<FunctionInfo_t>      , m_functions                                     , 0x30) // CUtlVector<FunctionInfo_t>
+        SCHEMA_FIELD(CUtlHashtable<CUtlStringToken,int32>, m_constantMap                                   , 0x48) // CUtlHashtable<CUtlStringToken,int32>
+        SCHEMA_FIELD(CUtlHashtable<CUtlStringToken,int32>, m_variableMap                                   , 0x68) // CUtlHashtable<CUtlStringToken,int32>
+        SCHEMA_FIELD(CUtlHashtable<CUtlStringToken,int32>, m_functionMap                                   , 0x88) // CUtlHashtable<CUtlStringToken,int32>
     };
 
     // InfoForResourceTypeCRenderMesh
@@ -210,9 +220,11 @@ namespace cs2::sdk::resourcesystem {
     };
 
     // AABB_t
-    //   fields: 0
+    //   fields: 2
     class AABB_t {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vMinBounds                                    , 0x0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vMaxBounds                                    , 0xC) // Vector
     };
 
     // InfoForResourceTypeCPostProcessingResource
@@ -222,10 +234,15 @@ namespace cs2::sdk::resourcesystem {
     };
 
     // VariableInfo_t
-    //   fields: 1
+    //   fields: 6
     class VariableInfo_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(CUtlStringToken                 , m_nameToken                                     , 0x8) // CUtlStringToken
+        SCHEMA_FIELD(FuseVariableIndex_t             , m_nIndex                                        , 0xC) // FuseVariableIndex_t
+        SCHEMA_FIELD(std::uint8_t                    , m_nNumComponents                                , 0xE) // uint8
+        SCHEMA_FIELD(FuseVariableType_t              , m_eVarType                                      , 0xF) // FuseVariableType_t
+        SCHEMA_FIELD(FuseVariableAccess_t            , m_eAccess                                       , 0x10) // FuseVariableAccess_t
     };
 
     // InfoForResourceTypeIParticleSnapshot
@@ -235,9 +252,13 @@ namespace cs2::sdk::resourcesystem {
     };
 
     // FourQuaternions
-    //   fields: 0
+    //   fields: 4
     class FourQuaternions {
     public:
+        SCHEMA_FIELD(fltx4                           , x                                               , 0x0) // fltx4
+        SCHEMA_FIELD(fltx4                           , y                                               , 0x10) // fltx4
+        SCHEMA_FIELD(fltx4                           , z                                               , 0x20) // fltx4
+        SCHEMA_FIELD(fltx4                           , w                                               , 0x30) // fltx4
     };
 
     // InfoForResourceTypeCPanoramaLayout
@@ -325,10 +346,13 @@ namespace cs2::sdk::resourcesystem {
     };
 
     // CFuseProgram
-    //   fields: 1
+    //   fields: 4
     class CFuseProgram {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(CUtlVector<uint8>               , m_programBuffer                                 , 0x0) // CUtlVector<uint8>
+        SCHEMA_FIELD(CUtlVector<FuseVariableIndex_t> , m_variablesRead                                 , 0x18) // CUtlVector<FuseVariableIndex_t>
+        SCHEMA_FIELD(CUtlVector<FuseVariableIndex_t> , m_variablesWritten                              , 0x30) // CUtlVector<FuseVariableIndex_t>
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxTempVarsUsed                              , 0x48) // int32
     };
 
     // InfoForResourceTypeCCompositeMaterialKit
@@ -380,10 +404,14 @@ namespace cs2::sdk::resourcesystem {
     };
 
     // FunctionInfo_t
-    //   fields: 1
+    //   fields: 5
     class FunctionInfo_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x8) // CUtlString
+        SCHEMA_FIELD(CUtlStringToken                 , m_nameToken                                     , 0x10) // CUtlStringToken
+        SCHEMA_FIELD(std::int32_t                    , m_nParamCount                                   , 0x14) // int32
+        SCHEMA_FIELD(FuseFunctionIndex_t             , m_nIndex                                        , 0x18) // FuseFunctionIndex_t
+        SCHEMA_FIELD(bool                            , m_bIsPure                                       , 0x1A) // bool
     };
 
     // InfoForResourceTypeCVDataResource
@@ -411,9 +439,10 @@ namespace cs2::sdk::resourcesystem {
     };
 
     // FuseVariableIndex_t
-    //   fields: 0
+    //   fields: 1
     class FuseVariableIndex_t {
     public:
+        SCHEMA_FIELD(std::uint16_t                   , m_Value                                         , 0x0) // uint16
     };
 
     // InfoForResourceTypeIParticleSystemDefinition
@@ -429,10 +458,11 @@ namespace cs2::sdk::resourcesystem {
     };
 
     // ManifestTestResource_t
-    //   fields: 1
+    //   fields: 2
     class ManifestTestResource_t {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeManifestTestResource_t>, m_child                                         , 0x8) // CStrongHandle<InfoForResourceTypeManifestTestResource_t>
     };
 
     // InfoForResourceTypeCEntityLump

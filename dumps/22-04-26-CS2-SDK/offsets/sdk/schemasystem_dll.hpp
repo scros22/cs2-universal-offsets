@@ -4,7 +4,7 @@
 // classes:       7
 // enums:         2
 // build_number:  14152
-// generated_at:  2026-04-21T23:10:40.293151800+00:00
+// generated_at:  2026-04-21T23:34:47.377899600+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -123,43 +123,68 @@ namespace cs2::sdk::schemasystem {
     };
 
     // CSchemaSystemInternalRegistration
-    //   fields: 0
+    //   fields: 23
     class CSchemaSystemInternalRegistration {
     public:
+        SCHEMA_FIELD(::Vector2D                      , m_Vector2D                                      , 0x0) // Vector2D
+        SCHEMA_FIELD(::Vector                        , m_Vector                                        , 0x8) // Vector
+        SCHEMA_FIELD(VectorWS                        , m_VectorWS                                      , 0x14) // VectorWS
+        SCHEMA_FIELD(VectorAligned                   , m_VectorAligned                                 , 0x20) // VectorAligned
+        SCHEMA_FIELD(::Quaternion                    , m_Quaternion                                    , 0x30) // Quaternion
+        SCHEMA_FIELD(::QAngle                        , m_QAngle                                        , 0x40) // QAngle
+        SCHEMA_FIELD(RotationVector                  , m_RotationVector                                , 0x4C) // RotationVector
+        SCHEMA_FIELD(RadianEuler                     , m_RadianEuler                                   , 0x58) // RadianEuler
+        SCHEMA_FIELD(DegreeEuler                     , m_DegreeEuler                                   , 0x64) // DegreeEuler
+        SCHEMA_FIELD(QuaternionStorage               , m_QuaternionStorage                             , 0x70) // QuaternionStorage
+        SCHEMA_FIELD(matrix3x4_t                     , m_matrix3x4_t                                   , 0x80) // matrix3x4_t
+        SCHEMA_FIELD(matrix3x4a_t                    , m_matrix3x4a_t                                  , 0xB0) // matrix3x4a_t
+        SCHEMA_FIELD(::Color                         , m_Color                                         , 0xE0) // Color
+        SCHEMA_FIELD(::Vector4D                      , m_Vector4D                                      , 0xE4) // Vector4D
+        SCHEMA_FIELD(CTransform                      , m_CTransform                                    , 0x100) // CTransform
+        SCHEMA_FIELD(KeyValues*                      , m_pKeyValues                                    , 0x120) // KeyValues*
+        SCHEMA_FIELD(CUtlBinaryBlock                 , m_CUtlBinaryBlock                               , 0x128) // CUtlBinaryBlock
+        SCHEMA_FIELD(::CUtlString                    , m_CUtlString                                    , 0x138) // CUtlString
+        SCHEMA_FIELD(CUtlSymbol                      , m_CUtlSymbol                                    , 0x140) // CUtlSymbol
+        SCHEMA_FIELD(CUtlStringToken                 , m_stringToken                                   , 0x144) // CUtlStringToken
+        SCHEMA_FIELD(CUtlStringTokenWithStorage      , m_stringTokenWithStorage                        , 0x148) // CUtlStringTokenWithStorage
+        SCHEMA_FIELD(CResourceArray<CResourcePointer<CResourceString>>, m_ResourceTypes                                 , 0x160) // CResourceArray<CResourcePointer<CResourceString>>
+        SCHEMA_FIELD(KeyValues3                      , m_KV3                                           , 0x168) // KeyValues3
     };
 
     // CExampleSchemaVData_PolymorphicDerivedA
-    //   parent: resourcefile
-    //   fields: 0
-    class CExampleSchemaVData_PolymorphicDerivedA : public resourcefile {
+    //   fields: 1
+    class CExampleSchemaVData_PolymorphicDerivedA {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nDerivedA                                     , 0x10) // int32
     };
 
     // CExampleSchemaVData_PolymorphicBase
     //   fields: 1
     class CExampleSchemaVData_PolymorphicBase {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::int32_t                    , m_nBase                                         , 0x8) // int32
     };
 
     // CExampleSchemaVData_PolymorphicDerivedB
-    //   parent: resourcefile
-    //   fields: 0
-    class CExampleSchemaVData_PolymorphicDerivedB : public resourcefile {
+    //   fields: 1
+    class CExampleSchemaVData_PolymorphicDerivedB {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nDerivedB                                     , 0x10) // int32
     };
 
     // ResourceId_t
-    //   fields: 0
+    //   fields: 1
     class ResourceId_t {
     public:
+        SCHEMA_FIELD(std::uint64_t                   , m_Value                                         , 0x0) // uint64
     };
 
     // CExampleSchemaVData_Monomorphic
-    //   fields: 1
+    //   fields: 2
     class CExampleSchemaVData_Monomorphic {
     public:
-        SCHEMA_FIELD(                                ,                                                 , 0x0) // 
+        SCHEMA_FIELD(std::int32_t                    , m_nExample1                                     , 0x0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nExample2                                     , 0x4) // int32
     };
 
 } // namespace cs2::sdk::schemasystem
