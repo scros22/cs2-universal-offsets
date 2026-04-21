@@ -16,6 +16,13 @@
 //             offsets.(cs|hpp|json|rs|zig)
 //             <schema modules>.(cs|hpp|json|rs|zig)
 //             info.json
+//             # SDK extras (cheat-developer-friendly outputs):
+//             cs2sdk.hpp                       single-include amalgamation
+//             cs2sdk.rs                        Rust amalgamation module
+//             netvars.(json|hpp|cs)            split networked-field offsets
+//             interfaces_sdk.(hpp|cs)          typed accessor stubs
+//             sdk/cs2sdk_macros.hpp            SCHEMA_FIELD macro family
+//             sdk/<module>.hpp                 typed schema classes
 //         signatures/
 //             signatures.json   (hand-formatted, one entry per line)
 //             signatures.cs     (C#  static class per module)
@@ -23,6 +30,9 @@
 //             signatures.rs     (Rust module per module)
 //             SIGNATURES.md     (human-readable table)
 //             diff.json         (delta vs. previous session, when found)
+//
+//     <OutputRoot>/latest/                     mirror of the most recent
+//                                              successful session
 
 use std::fs::{self, File};
 use std::path::{Path, PathBuf};
@@ -177,6 +187,16 @@ fn main() -> Result<()> {
                         process.read::<u32>(m.base + o).data_part().ok()
                     });
 
+                // Emit the cheat-developer-friendly SDK extras (typed schema
+                // classes, netvars split-out, interface accessor stubs,
+                // single-include amalgamation). Pure-additive — the original
+                // outputs above are untouched.
+                if let Err(e) = out.dump_sdk_extras(build_number) {
+                    ui::warn(&format!("sdk extras emitter failed: {}", e));
+                } else {
+                    ui::ok("sdk extras (classes, netvars, accessors, amalgamation) emitted");
+                }
+
                 offsets_elapsed = t0.elapsed();
                 ui::ok(&format!("offsets pass completed in {}", ui::fmt_duration(offsets_elapsed)));
             }
@@ -322,6 +342,18 @@ fn main() -> Result<()> {
     ui::divider();
     let all_ok = offsets_ok && sigs_ok;
     if all_ok {
+        // Mirror this session into <output>/latest/ so URLs of the form
+        // raw.githubusercontent.com/.../dumps/latest/signatures/signatures.hpp
+        // always resolve to the most recent successful dump.
+        if let Err(e) = mirror_to_latest(&args.output, &session_dir) {
+            ui::warn(&format!("latest/ mirror failed: {}", e));
+        } else {
+            ui::ok(&format!(
+                "latest/ mirror updated -> {}",
+                args.output.join("latest").display()
+            ));
+        }
+
         ui::sound(ui::Cue::Success);
         ui::step("All stages completed successfully.");
         Ok(())
@@ -367,7 +399,6 @@ fn build_os(args: &Args) -> Result<OsInstanceArcBox<'static>> {
 /// Locate the newest sibling session folder under `output` (skipping the
 /// one we're currently writing) and return the path to its
 /// `signatures/signatures.json` if it exists.
-///
 /// Used to enable warm-cache + diff behaviour without any explicit flag.
 fn find_previous_signatures_json(output: &Path, current_session: &str) -> Option<PathBuf> {
     let mut candidates: Vec<(std::time::SystemTime, PathBuf)> = Vec::new();
@@ -390,6 +421,40 @@ fn find_previous_signatures_json(output: &Path, current_session: &str) -> Option
     }
     candidates.sort_by(|a, b| b.0.cmp(&a.0));
     candidates.into_iter().next().map(|(_, p)| p)
+}
+
+/// Mirror `session_dir` into `<output>/latest/`, replacing any existing
+/// content. The `latest/` folder is what consumers point their
+/// `raw.githubusercontent.com/.../dumps/latest/...` URLs at, so it
+/// always reflects the most recent successful dump.
+///
+/// We avoid an external `robocopy` dependency by walking the tree
+/// ourselves; this also keeps behaviour identical on dev machines that
+/// don't have robocopy on PATH.
+fn mirror_to_latest(output_root: &Path, session_dir: &Path) -> Result<()> {
+    let dest = output_root.join("latest");
+    if dest.exists() {
+        fs::remove_dir_all(&dest)
+            .with_context(|| format!("failed to clear {}", dest.display()))?;
+    }
+    copy_tree(session_dir, &dest)?;
+    Ok(())
+}
+
+fn copy_tree(src: &Path, dst: &Path) -> Result<()> {
+    fs::create_dir_all(dst)?;
+    for entry in fs::read_dir(src)? {
+        let entry = entry?;
+        let from = entry.path();
+        let to = dst.join(entry.file_name());
+        let ft = entry.file_type()?;
+        if ft.is_dir() {
+            copy_tree(&from, &to)?;
+        } else if ft.is_file() {
+            fs::copy(&from, &to)?;
+        }
+    }
+    Ok(())
 }
 
 fn init_logging(logs_dir: &Path, verbose: u8) -> Result<()> {

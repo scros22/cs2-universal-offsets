@@ -1,6 +1,2 @@
 # build artifacts
 /target
-
-# logs
-build.log
-*.log

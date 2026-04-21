@@ -17,6 +17,13 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [x] Multi-match / ambiguity detection (per-hit `matches` count + run-end warning)
 - [x] Removed noisy dead-code paths (`signature_research`, `signature_verification`, `advanced_signatures`)
 - [x] GitHub Actions CI: build + clippy + fmt + auto-release on `v*` tags
+- [x] **v1.2:** Typed schema classes via `SCHEMA_FIELD` macros (`offsets/sdk/<module>.hpp`)
+- [x] **v1.2:** Netvar split emitter (`offsets/netvars.{json,hpp,cs}`)
+- [x] **v1.2:** Typed interface accessor stubs (`offsets/interfaces_sdk.{hpp,cs}`)
+- [x] **v1.2:** Single-include amalgamation (`offsets/cs2sdk.hpp` + `cs2sdk.rs`)
+- [x] **v1.2:** `build_number` pinned into every emitted file as `CS2_BUILD`
+- [x] **v1.2:** `dumps/latest/` mirror of the most recent successful session
+- [x] **v1.2:** Educational guides under `docs/` (PATTERNS, SCHEMA, SIGNATURES, CONSUMING, ADDING_SIGNATURES, LAYOUT)
 
 ## Scanner
 
@@ -32,12 +39,13 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [ ] `signatures.zig` emitter to match the offset pass coverage
 - [ ] `signatures.proto` / `.fbs` for cross-language consumers
 - [ ] HTML report (sortable table, missing in red, diff highlights)
-- [ ] `latest/` symlink/junction pointing at the most recent session
+- [x] `latest/` symlink/junction pointing at the most recent session
 
 ## Schema / offsets
 
 - [ ] VTable index dumper per class (with method names where RTTI is present)
-- [ ] Netvar / `CNetworkVarChainer` dumper alongside schemas
+- [x] Netvar / `CNetworkVarChainer` dumper alongside schemas
+- [ ] **Investigate:** schema metadata extraction comes back empty for build 14152 — `network_value` is null for every entry, so `netvars.{json,hpp,cs}` emit empty. Walker logic in `src/analysis/schemas.rs::read_class_binding_metadata` likely needs an offset update for the current build.
 - [ ] ConVar dumper (name → address → default / min / max / flags)
 - [ ] Interface-version drift detector (flag any `XXX_VERSIONXXX` change)
 
