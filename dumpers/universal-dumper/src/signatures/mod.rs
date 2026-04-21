@@ -22,7 +22,12 @@ use pelite::pe64::{Pe, PeView};
 
 use crate::ui;
 
+pub mod cache;
 pub mod database;
+pub mod diff;
+pub mod writers;
+
+pub use cache::SignatureCache;
 
 // ---------------------------------------------------------------------------
 // Public types
@@ -57,8 +62,19 @@ pub struct SignatureHit {
     pub match_va: Option<u64>,
     pub rva: Option<u64>,
     pub va: Option<u64>,
+    /// Number of distinct matches the pattern produced.
+    /// `1` is ideal; `>1` means the pattern is ambiguous and should be
+    /// tightened.
+    #[serde(default = "default_match_count")]
+    pub matches: u32,
+    /// `true` when the result was satisfied directly from a previously
+    /// validated cache entry (no full module scan was performed).
+    #[serde(default)]
+    pub from_cache: bool,
     pub error: Option<String>,
 }
+
+fn default_match_count() -> u32 { 1 }
 
 #[derive(Default, Debug, serde::Serialize)]
 pub struct SignatureReport {
@@ -77,20 +93,33 @@ pub fn scan_all<P>(process: &mut P, sigs: &[Signature]) -> Result<SignatureRepor
 where
     P: Process + MemoryView,
 {
+    scan_all_with_cache(process, sigs, &SignatureCache::default())
+}
+
+/// Like [`scan_all`] but consults `cache` first.  When a cached
+/// `match_rva` still has the pattern bytes the scanner expects, the entry
+/// is satisfied without performing a full module sweep — useful when
+/// re-running on the same CS2 build.
+pub fn scan_all_with_cache<P>(
+    process: &mut P,
+    sigs: &[Signature],
+    cache: &SignatureCache,
+) -> Result<SignatureReport>
+where
+    P: Process + MemoryView,
+{
     let t0 = Instant::now();
 
     // Pre-load each unique module image once so every signature reuses it.
-    let mut cache: BTreeMap<String, ModuleCache> = BTreeMap::new();
+    let mut module_cache: BTreeMap<String, ModuleCache> = BTreeMap::new();
     for sig in sigs {
         let key = sig.module.to_ascii_lowercase();
-        if !cache.contains_key(&key) {
+        if !module_cache.contains_key(&key) {
             match ModuleCache::load(process, sig.module) {
                 Ok(mc) => {
-                    cache.insert(key, mc);
+                    module_cache.insert(key, mc);
                 }
                 Err(e) => {
-                    // A single failure shouldn't kill the whole pass — we just
-                    // mark any sigs for this module as failed below.
                     log::warn!("module load failed for {}: {}", sig.module, e);
                 }
             }
@@ -99,25 +128,39 @@ where
 
     let mut report = SignatureReport {
         total: sigs.len(),
-        modules: cache.keys().cloned().collect(),
+        modules: module_cache.keys().cloned().collect(),
         ..Default::default()
     };
 
     let total = sigs.len();
+    let mut cache_hits = 0u32;
+    let mut ambiguous = 0u32;
     for (idx, sig) in sigs.iter().enumerate() {
         ui::progress(idx + 1, total, sig.name);
 
-        let hit = match cache.get(&sig.module.to_ascii_lowercase()) {
-            Some(mc) => scan_one(mc, sig),
+        let hit = match module_cache.get(&sig.module.to_ascii_lowercase()) {
+            Some(mc) => {
+                // Try the cache first.  Only accept the cache entry if the
+                // pattern still matches at the recorded RVA — otherwise the
+                // module has shifted and we must do a full scan.
+                if let Some(entry) = cache.get(&mc.name, sig.name, sig.needle)
+                    && let Some(mut hit) = try_satisfy_from_cache(mc, sig, entry)
+                {
+                    cache_hits += 1;
+                    hit.from_cache = true;
+                    hit
+                } else {
+                    scan_one(mc, sig)
+                }
+            }
             None => SignatureHit::fail(sig, "module not loaded"),
         };
 
         if hit.found {
-            let detail = format!(
-                "[{}, {}]",
-                hit.resolve,
-                hit.module
-            );
+            if hit.matches > 1 {
+                ambiguous += 1;
+            }
+            let detail = format!("[{}, {}]", hit.resolve, hit.module);
             ui::found(&hit.name, hit.va.unwrap_or(0), &detail);
             report.found += 1;
         } else {
@@ -127,8 +170,64 @@ where
     }
     ui::progress_clear();
 
+    if cache_hits > 0 {
+        log::info!("signature cache satisfied {}/{} entries", cache_hits, total);
+    }
+    if ambiguous > 0 {
+        log::warn!(
+            "{} signature(s) matched more than once in their .text section — consider tightening",
+            ambiguous
+        );
+    }
+
     report.elapsed_ms = t0.elapsed().as_millis();
     Ok(report)
+}
+
+/// Verify a cached `match_rva` is still valid by re-checking the pattern
+/// bytes at that exact location.  On success we replay the same `resolve`
+/// step the scanner would have performed, so the returned `va`/`rva` are
+/// fully up to date with the current module base.
+fn try_satisfy_from_cache(
+    mc: &ModuleCache,
+    sig: &Signature,
+    entry: cache::CacheEntry,
+) -> Option<SignatureHit> {
+    if matches!(sig.resolve, ResolveKind::StringRef) {
+        // String-ref entries don't have a stable byte-pattern at
+        // `match_rva`, so they always re-scan.
+        return None;
+    }
+    let (bytes, mask) = parse_ida(sig.needle).ok()?;
+    let lo = entry.match_rva as usize;
+    let hi = lo.checked_add(bytes.len())?;
+    let img = mc.image.get(lo..hi)?;
+    for (i, &b) in img.iter().enumerate() {
+        if mask[i] && b != bytes[i] {
+            return None;
+        }
+    }
+
+    let match_va = mc.base + entry.match_rva as u64;
+    let (res_rva, res_va, err) = resolve(mc, sig, entry.match_rva, match_va);
+    if err.is_some() {
+        return None;
+    }
+
+    Some(SignatureHit {
+        name: sig.name.to_string(),
+        module: mc.name.clone(),
+        resolve: kind_name(sig.resolve),
+        pattern: sig.needle.to_string(),
+        found: true,
+        match_rva: Some(entry.match_rva as u64),
+        match_va: Some(match_va),
+        rva: Some(res_rva),
+        va: Some(res_va),
+        matches: 1,
+        from_cache: true,
+        error: None,
+    })
 }
 
 // ---------------------------------------------------------------------------
@@ -305,20 +404,23 @@ fn scan_pattern(mc: &ModuleCache, sig: &Signature) -> SignatureHit {
         Err(e) => return SignatureHit::fail(sig, &format!("bad pattern: {}", e)),
     };
 
-    // .text first
-    let mut off: Option<(u32, &'static str)> = None;
-    if let Some(o) = find_pattern(mc.text(), &bytes, &mask) {
-        off = Some((mc.text_rva + o as u32, ".text"));
-    } else if let Some(rd) = mc.rdata() {
-        // Fallback for globals that live in .rdata
-        if let Some(o) = find_pattern(rd, &bytes, &mask) {
-            off = Some((mc.rdata_rva + o as u32, ".rdata"));
-        }
+    // .text first; .rdata fallback for globals.
+    // We always count *all* matches in the primary section so callers can
+    // detect ambiguous patterns and tighten them.
+    let text_hits = find_all_pattern(mc.text(), &bytes, &mask);
+    let mut matches: u32 = text_hits.len() as u32;
+    let mut off: Option<u32> = text_hits.first().map(|o| mc.text_rva + *o as u32);
+
+    if off.is_none()
+        && let Some(rd) = mc.rdata()
+        && let Some(o) = find_pattern(rd, &bytes, &mask)
+    {
+        off = Some(mc.rdata_rva + o as u32);
+        matches = 1;
     }
 
-    let (match_rva, _section) = match off {
-        Some(p) => p,
-        None => return SignatureHit::fail(sig, "pattern not found"),
+    let Some(match_rva) = off else {
+        return SignatureHit::fail(sig, "pattern not found");
     };
 
     let match_va = mc.base + match_rva as u64;
@@ -338,6 +440,8 @@ fn scan_pattern(mc: &ModuleCache, sig: &Signature) -> SignatureHit {
         match_va: Some(match_va),
         rva: Some(res_rva),
         va: Some(res_va),
+        matches,
+        from_cache: false,
         error: None,
     }
 }
@@ -417,6 +521,8 @@ fn scan_string_ref(mc: &ModuleCache, sig: &Signature) -> SignatureHit {
                 match_va: Some(match_va),
                 rva: Some(fn_rva as u64),
                 va: Some(fn_va),
+                matches: 1,
+                from_cache: false,
                 error: None,
             };
         }
@@ -516,6 +622,8 @@ impl SignatureHit {
             match_va: None,
             rva: None,
             va: None,
+            matches: 0,
+            from_cache: false,
             error: Some(err.to_string()),
         }
     }

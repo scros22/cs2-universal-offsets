@@ -12,14 +12,17 @@
 //         logs/cs2-sdk.log
 //         offsets/
 //             buttons.(cs|hpp|json|rs|zig)
-//             interfaces.(â€¦)
-//             offsets.(â€¦)
-//             <schema modules>.(â€¦)
+//             interfaces.(cs|hpp|json|rs|zig)
+//             offsets.(cs|hpp|json|rs|zig)
+//             <schema modules>.(cs|hpp|json|rs|zig)
 //             info.json
-//         signatures/signatures.json
-
-#![allow(dead_code)]
-#![allow(unused_imports)]
+//         signatures/
+//             signatures.json   (hand-formatted, one entry per line)
+//             signatures.cs     (C#  static class per module)
+//             signatures.hpp    (C++ namespace per module)
+//             signatures.rs     (Rust module per module)
+//             SIGNATURES.md     (human-readable table)
+//             diff.json         (delta vs. previous session, when found)
 
 use std::fs::{self, File};
 use std::path::{Path, PathBuf};
@@ -35,6 +38,7 @@ use serde_json::json;
 use simplelog::*;
 
 use output::Output;
+use signatures::SignatureCache;
 
 mod analysis;
 mod memory;
@@ -76,6 +80,17 @@ struct Args {
 
     #[arg(long)]
     no_sound: bool,
+
+    /// Path to a previous `signatures.json` to use as a hot cache.  When
+    /// the cached `match_rva` still matches the recorded pattern bytes,
+    /// the entry is satisfied without a full module scan.  If omitted the
+    /// most recent session under `--output` is used automatically.
+    #[arg(long)]
+    cache: Option<PathBuf>,
+
+    /// Disable the automatic "use previous session as cache" behaviour.
+    #[arg(long)]
+    no_cache: bool,
 }
 
 fn main() -> Result<()> {
@@ -180,7 +195,36 @@ fn main() -> Result<()> {
         ui::section("Signatures (PE/section aware)");
         ui::sound(ui::Cue::Step);
 
-        match signatures::scan_all(&mut process, signatures::database::CS2_SIGNATURES) {
+        // Build the warm-start cache.  Explicit `--cache` wins; otherwise
+        // we look for the newest sibling session folder.
+        let cache_path = args.cache.clone().or_else(|| {
+            if args.no_cache {
+                None
+            } else {
+                find_previous_signatures_json(&args.output, &session_name)
+            }
+        });
+        let cache = match &cache_path {
+            Some(p) => match SignatureCache::load(p) {
+                Ok(c) => {
+                    if !c.is_empty() {
+                        ui::info(&format!("warm cache from {} ({} entries)", p.display(), c.len()));
+                    }
+                    c
+                }
+                Err(e) => {
+                    ui::warn(&format!("cache load failed ({}): {}", p.display(), e));
+                    SignatureCache::default()
+                }
+            },
+            None => SignatureCache::default(),
+        };
+
+        match signatures::scan_all_with_cache(
+            &mut process,
+            signatures::database::CS2_SIGNATURES,
+            &cache,
+        ) {
             Ok(report) => {
                 ui::ok(&format!(
                     "{}/{} signatures resolved across {} module(s) in {}",
@@ -189,9 +233,35 @@ fn main() -> Result<()> {
                     report.modules.len(),
                     ui::fmt_duration(Duration::from_millis(report.elapsed_ms as u64))
                 ));
-                let path = sigs_dir.join("signatures.json");
-                fs::write(&path, format_found_signatures(&report))?;
-                ui::ok(&format!("wrote {}", path.display()));
+
+                let json_path = sigs_dir.join("signatures.json");
+                fs::write(&json_path, format_found_signatures(&report))?;
+                ui::ok(&format!("wrote {}", json_path.display()));
+
+                // Multi-language fan-out.
+                fs::write(sigs_dir.join("signatures.cs"), signatures::writers::render_cs(&report.hits))?;
+                fs::write(sigs_dir.join("signatures.hpp"), signatures::writers::render_hpp(&report.hits))?;
+                fs::write(sigs_dir.join("signatures.rs"), signatures::writers::render_rs(&report.hits))?;
+                fs::write(sigs_dir.join("SIGNATURES.md"), signatures::writers::render_markdown(&report.hits))?;
+
+                // Diff vs. previous session, if any.
+                if let Some(prev) = &cache_path
+                    && let Ok(diff) = signatures::diff::diff_against(prev, &report)
+                {
+                    let path = sigs_dir.join("diff.json");
+                    fs::write(&path, serde_json::to_string_pretty(&diff)?)?;
+                    let n = diff.added.len() + diff.removed.len() + diff.shifted.len();
+                    if n > 0 {
+                        ui::info(&format!(
+                            "diff vs previous: +{} -{} ~{} (pattern changes: {})",
+                            diff.added.len(),
+                            diff.removed.len(),
+                            diff.shifted.len(),
+                            diff.pattern_changed.len(),
+                        ));
+                    }
+                }
+
                 sig_report = Some(report);
             }
             Err(e) => {
@@ -292,6 +362,34 @@ fn build_os(args: &Args) -> Result<OsInstanceArcBox<'static>> {
             }
         }
     }
+}
+
+/// Locate the newest sibling session folder under `output` (skipping the
+/// one we're currently writing) and return the path to its
+/// `signatures/signatures.json` if it exists.
+///
+/// Used to enable warm-cache + diff behaviour without any explicit flag.
+fn find_previous_signatures_json(output: &Path, current_session: &str) -> Option<PathBuf> {
+    let mut candidates: Vec<(std::time::SystemTime, PathBuf)> = Vec::new();
+    let entries = fs::read_dir(output).ok()?;
+    for entry in entries.flatten() {
+        let name = entry.file_name();
+        let Some(name) = name.to_str() else { continue };
+        if name == current_session || !name.ends_with("-CS2-SDK") {
+            continue;
+        }
+        let sigs = entry.path().join("signatures").join("signatures.json");
+        if !sigs.exists() {
+            continue;
+        }
+        let mtime = entry
+            .metadata()
+            .and_then(|m| m.modified())
+            .unwrap_or(std::time::UNIX_EPOCH);
+        candidates.push((mtime, sigs));
+    }
+    candidates.sort_by(|a, b| b.0.cmp(&a.0));
+    candidates.into_iter().next().map(|(_, p)| p)
 }
 
 fn init_logging(logs_dir: &Path, verbose: u8) -> Result<()> {
