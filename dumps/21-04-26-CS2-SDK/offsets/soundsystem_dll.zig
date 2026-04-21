@@ -1,0 +1,887 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:21:30.322409500 UTC
+
+pub const cs2_dumper = struct {
+    pub const schemas = struct {
+        // Module: soundsystem.dll
+        // Class count: 136
+        // Enum count: 26
+        pub const soundsystem_dll = struct {
+            // Alignment: 4
+            // Member count: 3
+            pub const SndSeqInstrumentType_t = enum(u32) {
+                eSndSeqInstNull = 0x0,
+                eSndSeqInstSndEvt = 0x1,
+                eSndSeqInstMidiSampler = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const EMode_t = enum(u32) {
+                Peak = 0x0,
+                RMS = 0x1
+            };
+            // Alignment: 4
+            // Member count: 39
+            pub const VMixGraphCommandID_t = enum(u32) {
+                CMD_INVALID = 0xFFFFFFFF,
+                CMD_CONTROL_INPUT_STORE = 0x1,
+                CMD_CONTROL_INPUT_STORE_DB = 0x2,
+                CMD_CONTROL_TRANSIENT_INPUT_STORE = 0x3,
+                CMD_CONTROL_TRANSIENT_INPUT_RESET = 0x4,
+                CMD_CONTROL_OUTPUT_STORE = 0x5,
+                CMD_CONTROL_EVALUATE_CURVE = 0x6,
+                CMD_CONTROL_COPY = 0x7,
+                CMD_CONTROL_COND_COPY_IF_NEGATIVE = 0x8,
+                CMD_CONTROL_REMAP_LINEAR = 0x9,
+                CMD_CONTROL_REMAP_SINE = 0xA,
+                CMD_CONTROL_REMAP_LOGLINEAR = 0xB,
+                CMD_CONTROL_MAX = 0xC,
+                CMD_CONTROL_RESET_TIMER = 0xD,
+                CMD_CONTROL_INCREMENT_TIMER = 0xE,
+                CMD_CONTROL_EVAL_ENVELOPE = 0xF,
+                CMD_CONTROL_SINE_BLEND = 0x10,
+                CMD_PROCESSOR_SET_CONTROL_VALUE = 0x11,
+                CMD_PROCESSOR_SET_NAME_INPUT = 0x12,
+                CMD_PROCESSOR_SET_CONTROL_ARRAYVALUE = 0x13,
+                CMD_PROCESSOR_STORE_CONTROL_VALUE = 0x14,
+                CMD_PROCESSOR_SET_VSND_VALUE = 0x15,
+                CMD_SUBMIX_PROCESS = 0x16,
+                CMD_SUBMIX_GENERATE = 0x17,
+                CMD_SUBMIX_GENERATE_SIDECHAIN = 0x18,
+                CMD_SUBMIX_DEBUG = 0x19,
+                CMD_SUBMIX_MIX2x1 = 0x1A,
+                CMD_SUBMIX_OUTPUT = 0x1B,
+                CMD_SUBMIX_OUTPUTx2 = 0x1C,
+                CMD_SUBMIX_COPY = 0x1D,
+                CMD_SUBMIX_ACCUMULATE = 0x1E,
+                CMD_SUBMIX_METER = 0x1F,
+                CMD_SUBMIX_METER_SPECTRUM = 0x20,
+                CMD_IMPULSERESPONSE_INPUT_STORE = 0x21,
+                CMD_PROCESSOR_SET_IMPULSERESPONSE_VALUE = 0x22,
+                CMD_REMAP_VSND_TO_IMPULSERESPONSE = 0x23,
+                CMD_IMPULSERESPONSE_RESET = 0x24,
+                CMD_BLEND_VSNDS_TO_IMPULSERESPONSE = 0x25,
+                CMD_IMPULSERESPONSE_DELAY = 0x26
+            };
+            // Alignment: 1
+            // Member count: 5
+            pub const EWaveform = enum(u8) {
+                Sine = 0x0,
+                Square = 0x1,
+                Saw = 0x2,
+                Triangle = 0x3,
+                Noise = 0x4
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const VMixLFOShape_t = enum(u32) {
+                LFO_SHAPE_SINE = 0x0,
+                LFO_SHAPE_SQUARE = 0x1,
+                LFO_SHAPE_TRI = 0x2,
+                LFO_SHAPE_SAW = 0x3,
+                LFO_SHAPE_NOISE = 0x4
+            };
+            // Alignment: 2
+            // Member count: 10
+            pub const VMixFilterType_t = enum(u16) {
+                FILTER_UNKNOWN = 0xFFFF,
+                FILTER_LOWPASS = 0x0,
+                FILTER_HIGHPASS = 0x1,
+                FILTER_BANDPASS = 0x2,
+                FILTER_NOTCH = 0x3,
+                FILTER_PEAKING_EQ = 0x4,
+                FILTER_LOW_SHELF = 0x5,
+                FILTER_HIGH_SHELF = 0x6,
+                FILTER_ALLPASS = 0x7,
+                FILTER_PASSTHROUGH = 0x8
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const SosActionStopType_t = enum(u32) {
+                SOS_STOPTYPE_NONE = 0x0,
+                SOS_STOPTYPE_TIME = 0x1,
+                SOS_STOPTYPE_OPVAR = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const SndSeqTrackPlaybackType_t = enum(u32) {
+                eSndSeqTrackPlaybackTypeStep = 0x0,
+                eSndSeqTrackPlaybackTypeFwd = 0x1
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const SosEditItemType_t = enum(u32) {
+                SOS_EDIT_ITEM_TYPE_SOUNDEVENTS = 0x0,
+                SOS_EDIT_ITEM_TYPE_SOUNDEVENT = 0x1,
+                SOS_EDIT_ITEM_TYPE_LIBRARYSTACKS = 0x2,
+                SOS_EDIT_ITEM_TYPE_STACK = 0x3,
+                SOS_EDIT_ITEM_TYPE_OPERATOR = 0x4,
+                SOS_EDIT_ITEM_TYPE_FIELD = 0x5
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const SndSeqQuantizeType_t = enum(u32) {
+                eSndSeqQuantizeInvalid = 0xFFFFFFFF,
+                eSndSeqQuantizeNone = 0x0,
+                eSndSeqQuantizeBeat = 0x1,
+                eSndSeqQuantizeBar = 0x2,
+                eSndSeqQuantizeSequence = 0x3,
+                eSndSeqQuantizeSeek = 0x4,
+                eSndSeqQuantizeReset = 0x5
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const PlayBackMode_t = enum(u32) {
+                Random = 0x0,
+                RandomNoRepeats = 0x1,
+                RandomAvoidLast = 0x2,
+                Sequential = 0x3,
+                RandomWeights = 0x4
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const SosGroupFieldBehavior_t = enum(u32) {
+                kIgnore = 0x0,
+                kBranch = 0x1,
+                kMatch = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const SndSeqSyncType_t = enum(u32) {
+                eSndSeqSyncTypeNone = 0x0,
+                eSndSeqSyncTypeWait = 0x1,
+                eSndSeqSyncTypeSeek = 0x2
+            };
+            // Alignment: 4
+            // Member count: 30
+            pub const soundlevel_t = enum(u32) {
+                SNDLVL_NONE = 0x0,
+                SNDLVL_20dB = 0x14,
+                SNDLVL_25dB = 0x19,
+                SNDLVL_30dB = 0x1E,
+                SNDLVL_35dB = 0x23,
+                SNDLVL_40dB = 0x28,
+                SNDLVL_45dB = 0x2D,
+                SNDLVL_50dB = 0x32,
+                SNDLVL_55dB = 0x37,
+                SNDLVL_IDLE = 0x3C,
+                SNDLVL_65dB = 0x41,
+                SNDLVL_STATIC = 0x42,
+                SNDLVL_70dB = 0x46,
+                SNDLVL_NORM = 0x4B,
+                SNDLVL_80dB = 0x50,
+                SNDLVL_85dB = 0x55,
+                SNDLVL_90dB = 0x5A,
+                SNDLVL_95dB = 0x5F,
+                SNDLVL_100dB = 0x64,
+                SNDLVL_105dB = 0x69,
+                SNDLVL_110dB = 0x6E,
+                SNDLVL_120dB = 0x78,
+                SNDLVL_130dB = 0x82,
+                SNDLVL_GUNFIRE = 0x8C,
+                SNDLVL_150dB = 0x96,
+                SNDLVL_180dB = 0xB4
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const VMixPannerType_t = enum(u32) {
+                PANNER_TYPE_LINEAR = 0x0,
+                PANNER_TYPE_EQUAL_POWER = 0x1
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const VMixChannelOperation_t = enum(u32) {
+                VMIX_CHAN_STEREO = 0x0,
+                VMIX_CHAN_LEFT = 0x1,
+                VMIX_CHAN_RIGHT = 0x2,
+                VMIX_CHAN_SWAP = 0x3,
+                VMIX_CHAN_MONO = 0x4,
+                VMIX_CHAN_MID_SIDE = 0x5
+            };
+            // Alignment: 1
+            // Member count: 13
+            pub const EMidiNote = enum(u8) {
+                C = 0x0,
+                C_Sharp = 0x1,
+                D = 0x2,
+                D_Sharp = 0x3,
+                E = 0x4,
+                F = 0x5,
+                F_Sharp = 0x6,
+                G = 0x7,
+                G_Sharp = 0x8,
+                A = 0x9,
+                A_Sharp = 0xA,
+                B = 0xB,
+                Count = 0xC
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const SndSeqRegionType_t = enum(u32) {
+                eSndSeqRegionTypeNull = 0x0,
+                eSndSeqRegionTypeSndEvt = 0x1,
+                eSndSeqRegionTypeMidiSeq = 0x2
+            };
+            // Alignment: 1
+            // Member count: 4
+            pub const CVSoundFormat_t = enum(u8) {
+                PCM16 = 0x0,
+                PCM8 = 0x1,
+                MP3 = 0x2,
+                ADPCM = 0x3
+            };
+            // Alignment: 1
+            // Member count: 9
+            pub const VMixFilterSlope_t = enum(u8) {
+                FILTER_SLOPE_1POLE_6dB = 0x0,
+                FILTER_SLOPE_1POLE_12dB = 0x1,
+                FILTER_SLOPE_1POLE_18dB = 0x2,
+                FILTER_SLOPE_1POLE_24dB = 0x3,
+                FILTER_SLOPE_12dB = 0x4,
+                FILTER_SLOPE_24dB = 0x5,
+                FILTER_SLOPE_36dB = 0x6,
+                FILTER_SLOPE_48dB = 0x7
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const SndSeqPlayerType_t = enum(u32) {
+                eSndSeqPlayerNull = 0x0,
+                eSndSeqPlayerSndEvt = 0x1,
+                eSndSeqPlayerMidiSeq = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const SosActionLimitSortType_t = enum(u32) {
+                SOS_LIMIT_SORTTYPE_HIGHEST = 0x0,
+                SOS_LIMIT_SORTTYPE_LOWEST = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const VMixSubgraphSwitchInterpolationType_t = enum(u32) {
+                SUBGRAPH_INTERPOLATION_TEMPORAL_CROSSFADE = 0x0,
+                SUBGRAPH_INTERPOLATION_TEMPORAL_FADE_OUT = 0x1,
+                SUBGRAPH_INTERPOLATION_KEEP_LAST_SUBGRAPH_RUNNING = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const SosGroupType_t = enum(u32) {
+                SOS_GROUPTYPE_DYNAMIC = 0x0,
+                SOS_GROUPTYPE_STATIC = 0x1
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const SosActionSetParamSortType_t = enum(u32) {
+                SOS_SETPARAM_SORTTYPE_HIGHEST = 0x0,
+                SOS_SETPARAM_SORTTYPE_LOWEST = 0x1
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const SndSeqMidiStatusType_t = enum(u32) {
+                SndSeqMidiStatusNoteOff = 0x8,
+                SndSeqMidiStatusNoteOn = 0x9,
+                SndSeqMidiStatusKeyPressure = 0xA,
+                SndSeqMidiStatusCtrlChange = 0xB,
+                SndSeqMidiStatusProgramChange = 0xC,
+                SndSeqMidiStatusChannelPressure = 0xD,
+                SndSeqMidiStatusPitchBend = 0xE
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVMixInputBase = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerBlender = struct {
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixPitchShiftProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixFreeverbDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVoiceContainerStaticAdditiveSynth__CHarmonic = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVoiceContainerStaticAdditiveSynth__CTone = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSosGroupActionOcclusionSchema = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerRandomSampler = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixSteamAudioDirectProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixSteamAudioHRTFProcessorDesc = struct {
+            };
+            // Parent: soundsystem_voicecontainers
+            // Field count: 0
+            pub const CVoiceContainerDefault = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVSound = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CDSPPresetMixgroupModifierTable = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CSosGroupActionSoundeventClusterSchema = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CSosGroupActionSetSoundeventParameterSchema = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSoundContainerReference = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: soundsystem_voicecontainers
+            // Field count: 0
+            pub const CVoiceContainerNull = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixSubgraphSwitchDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVoiceContainerAnalysisBase = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CSosGroupActionSoundeventMinMaxValuesSchema = struct {
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixEnvelopeProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVMixCommand = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SamplerVoice_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixControlInput = struct {
+            };
+            // Parent: _B_e__
+            // Field count: 0
+            pub const CVMixBoxverbProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixDynamicsCompressorProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixPannerDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CSosGroupActionSoundeventPrioritySchema = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerRealtimeFMSineWave = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const SelectedEditItemInfo_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixModDelayDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CSndSeqInstSndEvtSchema = struct {
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixNameInputMeter = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CSndSeqInstruments = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixDynamics3BandProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixBoxverbDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSosGroupActionSchema = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSosSoundEventGroupSchema = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSndSeqInstMidiSampler = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSndSeqInstBaseSchema = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixDynamics3BandDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixEQ8ProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CDSPMixgroupModifier = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CAudioMorphData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixDualCompressorDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerStaticAdditiveSynth = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerShapedNoise = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CDspPresetModifierList = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerBase = struct {
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixDiffusorProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixUtilityProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerGranulator = struct {
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixPresetDSPProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixDelayDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixEQ8Desc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixDynamicsProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVMixGraphDescData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerLoopXFade = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixPresetDSPDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CAudioPhonemeTag = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixControlInputArray = struct {
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixNameInput = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSosGroupActionSoundeventCountSchema = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerEnvelopeAnalyzer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixBaseProcessorDesc = struct {
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixImpulseResponseInput = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixSteamAudioHybridReverbProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSoundEventMetaData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixPitchShiftDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixControlOutput = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixModDelayProcessorDesc = struct {
+            };
+            // Parent: _B_e__
+            // Field count: 0
+            pub const CVMixShaperProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVMixAutomaticControlInput = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CAudioEmphasisSample = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: _B_e__
+            // Field count: 0
+            pub const CVMixOscProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVMixCurveHeader = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: soundsystem_voicecontainers
+            // Field count: 0
+            pub const CVoiceContainerGenerator = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerSet = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixConvolutionDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVoiceContainerSetElement = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: soundsystem_voicecontainers
+            // Field count: 0
+            pub const CVoiceContainerAsyncGenerator = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSoundInfoHeader = struct {
+                pub const @"": usize = 0x100; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const SosEditItemInfo_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixFlangerProcessorDesc = struct {
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixEffectChainProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const KeyGroup_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixFreeverbProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixPlateverbDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixConvolutionProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSoundContainerReferenceArray = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: _B_e__
+            // Field count: 0
+            pub const CVMixFilterProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVMixAdditionalOutput = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerTapePlayer = struct {
+            };
+            // Parent: _B_e__
+            // Field count: 0
+            pub const CVMixSubgraphSwitchProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixDiffusorDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixSteamAudioPathingProcessorDesc = struct {
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixPannerProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixDynamicsCompressorDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixStereoDelayProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixShaperDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixEnvelopeDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CAudioSentence = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerParameterBlender = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVMixAudioMeter = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixVocoderProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSosGroupActionLimitSchema = struct {
+            };
+            // Parent: soundsystem_voicecontainers
+            // Field count: 0
+            pub const CVoiceContainerAmpedDecayingSineWave = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerEnvelope = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixAutoFilterDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixDynamicsBand_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixEffectChainDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: _B_e__
+            // Field count: 0
+            pub const CVMixPlateReverbProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerMultiBlender = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixVsndInput = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVoiceContainerStaticAdditiveSynth__CGainScalePerInstance = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const VelocityZone_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerSelector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSosGroupActionTimeBlockLimitSchema = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSosGroupActionMemberCountEnvelopeSchema = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixDualCompressorProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerSwitch = struct {
+            };
+            // Parent: soundsystem_lowlevel
+            // Field count: 0
+            pub const CVMixControlMeter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerEnum = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSosGroupActionTimeLimitSchema = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixVocoderDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixUtilityDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerLoopTrigger = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoiceContainerDecayingSineWave = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CVMixDelayProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVMixBoxverb2ProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixFilterDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixOscDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub const CVMixAutoFilterProcessorDesc = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ISndSeqInstruments = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixFlangerDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VMixDynamicsDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+        };
+    };
+};

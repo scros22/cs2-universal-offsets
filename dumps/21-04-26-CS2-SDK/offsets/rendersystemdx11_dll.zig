@@ -1,0 +1,131 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:21:30.322409500 UTC
+
+pub const cs2_dumper = struct {
+    pub const schemas = struct {
+        // Module: rendersystemdx11.dll
+        // Class count: 8
+        // Enum count: 8
+        pub const rendersystemdx11_dll = struct {
+            // Alignment: 4
+            // Member count: 14
+            pub const RenderPrimitiveType_t = enum(u32) {
+                RENDER_PRIM_POINTS = 0x0,
+                RENDER_PRIM_LINES = 0x1,
+                RENDER_PRIM_LINES_WITH_ADJACENCY = 0x2,
+                RENDER_PRIM_LINE_STRIP = 0x3,
+                RENDER_PRIM_LINE_STRIP_WITH_ADJACENCY = 0x4,
+                RENDER_PRIM_TRIANGLES = 0x5,
+                RENDER_PRIM_TRIANGLES_WITH_ADJACENCY = 0x6,
+                RENDER_PRIM_TRIANGLE_STRIP = 0x7,
+                RENDER_PRIM_TRIANGLE_STRIP_WITH_ADJACENCY = 0x8,
+                RENDER_PRIM_INSTANCED_QUADS = 0x9,
+                RENDER_PRIM_HETEROGENOUS = 0xA,
+                RENDER_PRIM_COMPUTE_SHADER = 0xB,
+                RENDER_PRIM_MESH_SHADER = 0xC,
+                RENDER_PRIM_TYPE_COUNT = 0xD
+            };
+            // Alignment: 4
+            // Member count: 13
+            pub const RenderBufferFlags_t = enum(u32) {
+                RENDER_BUFFER_USAGE_NONE = 0x0,
+                RENDER_BUFFER_USAGE_VERTEX_BUFFER = 0x1,
+                RENDER_BUFFER_USAGE_INDEX_BUFFER = 0x2,
+                RENDER_BUFFER_USAGE_SHADER_RESOURCE = 0x4,
+                RENDER_BUFFER_USAGE_UNORDERED_ACCESS = 0x8,
+                RENDER_BUFFER_BYTEADDRESS_BUFFER = 0x10,
+                RENDER_BUFFER_STRUCTURED_BUFFER = 0x20,
+                RENDER_BUFFER_UAV_DRAW_INDIRECT_ARGS = 0x100,
+                RENDER_BUFFER_ACCELERATION_STRUCTURE = 0x200,
+                RENDER_BUFFER_SHADER_BINDING_TABLE = 0x400,
+                RENDER_BUFFER_POOL_ALLOCATED = 0x800,
+                RENDER_BUFFER_USAGE_CONDITIONAL_RENDERING = 0x1000,
+                RENDER_BUFFER_IMMOVABLE_ALLOCATION = 0x2000
+            };
+            // Alignment: 1
+            // Member count: 3
+            pub const RsCullMode_t = enum(u8) {
+                RS_CULL_NONE = 0x0,
+                RS_CULL_BACK = 0x1,
+                RS_CULL_FRONT = 0x2
+            };
+            // Alignment: 1
+            // Member count: 8
+            pub const RsComparison_t = enum(u8) {
+                RS_CMP_NEVER = 0x0,
+                RS_CMP_LESS = 0x1,
+                RS_CMP_EQUAL = 0x2,
+                RS_CMP_LESS_EQUAL = 0x3,
+                RS_CMP_GREATER = 0x4,
+                RS_CMP_NOT_EQUAL = 0x5,
+                RS_CMP_GREATER_EQUAL = 0x6,
+                RS_CMP_ALWAYS = 0x7
+            };
+            // Alignment: 1
+            // Member count: 2
+            pub const RsFillMode_t = enum(u8) {
+                RS_FILL_SOLID = 0x0,
+                RS_FILL_WIREFRAME = 0x1
+            };
+            // Alignment: 1
+            // Member count: 8
+            pub const RenderMultisampleType_t = enum(u8) {
+                RENDER_MULTISAMPLE_INVALID = 0xFF,
+                RENDER_MULTISAMPLE_NONE = 0x0,
+                RENDER_MULTISAMPLE_2X = 0x1,
+                RENDER_MULTISAMPLE_4X = 0x2,
+                RENDER_MULTISAMPLE_6X = 0x3,
+                RENDER_MULTISAMPLE_8X = 0x4,
+                RENDER_MULTISAMPLE_16X = 0x5,
+                RENDER_MULTISAMPLE_TYPE_COUNT = 0x6
+            };
+            // Alignment: 1
+            // Member count: 4
+            pub const InputLayoutVariation_t = enum(u8) {
+                INPUT_LAYOUT_VARIATION_DEFAULT = 0x0,
+                INPUT_LAYOUT_VARIATION_STREAM1_INSTANCEID = 0x1,
+                INPUT_LAYOUT_VARIATION_STREAM1_INSTANCEID_MORPH_VERT_ID = 0x2,
+                INPUT_LAYOUT_VARIATION_MAX = 0x3
+            };
+            // Alignment: 1
+            // Member count: 3
+            pub const RenderSlotType_t = enum(u8) {
+                RENDER_SLOT_INVALID = 0xFF,
+                RENDER_SLOT_PER_VERTEX = 0x0,
+                RENDER_SLOT_PER_INSTANCE = 0x1
+            };
+            // Parent: None
+            // Field count: 0
+            pub const RsDepthStencilStateDesc_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SheetSequenceIntegerId_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const RsBlendStateDesc_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const VsInputSignatureElement_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const RsRasterizerStateDesc_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const RsStencilStateDesc_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const VsInputSignature_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const RenderInputLayoutField_t = struct {
+            };
+        };
+    };
+};

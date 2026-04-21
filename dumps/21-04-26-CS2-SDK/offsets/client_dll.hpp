@@ -1,0 +1,2316 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:21:30.322409500 UTC
+
+#pragma once
+
+#include <cstddef>
+#include <cstdint>
+
+namespace cs2_dumper {
+    namespace schemas {
+        // Module: client.dll
+        // Class count: 534
+        // Enum count: 12
+        namespace client_dll {
+            // Alignment: 4
+            // Member count: 5
+            enum class C_BaseCombatCharacter__WaterWakeMode_t : uint32_t {
+                WATER_WAKE_NONE = 0x0,
+                WATER_WAKE_IDLE = 0x1,
+                WATER_WAKE_WALKING = 0x2,
+                WATER_WAKE_RUNNING = 0x3,
+                WATER_WAKE_WATER_OVERHEAD = 0x4
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class PulseBestOutflowRules_t : uint32_t {
+                SORT_BY_NUMBER_OF_VALID_CRITERIA = 0x0,
+                SORT_BY_OUTFLOW_INDEX = 0x1
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class PulseCursorCancelPriority_t : uint32_t {
+                None = 0x0,
+                CancelOnSucceeded = 0x1,
+                SoftCancel = 0x2,
+                HardCancel = 0x3
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class PulseMethodCallMode_t : uint32_t {
+                SYNC_WAIT_FOR_COMPLETION = 0x0,
+                ASYNC_FIRE_AND_FORGET = 0x1
+            };
+            // Alignment: 4
+            // Member count: 15
+            enum class CompositeMaterialInputLooseVariableType_t : uint32_t {
+                LOOSE_VARIABLE_TYPE_BOOLEAN = 0x0,
+                LOOSE_VARIABLE_TYPE_INTEGER1 = 0x1,
+                LOOSE_VARIABLE_TYPE_INTEGER2 = 0x2,
+                LOOSE_VARIABLE_TYPE_INTEGER3 = 0x3,
+                LOOSE_VARIABLE_TYPE_INTEGER4 = 0x4,
+                LOOSE_VARIABLE_TYPE_FLOAT1 = 0x5,
+                LOOSE_VARIABLE_TYPE_FLOAT2 = 0x6,
+                LOOSE_VARIABLE_TYPE_FLOAT3 = 0x7,
+                LOOSE_VARIABLE_TYPE_FLOAT4 = 0x8,
+                LOOSE_VARIABLE_TYPE_COLOR4 = 0x9,
+                LOOSE_VARIABLE_TYPE_STRING = 0xA,
+                LOOSE_VARIABLE_TYPE_SYSTEMVAR = 0xB,
+                LOOSE_VARIABLE_TYPE_RESOURCE_MATERIAL = 0xC,
+                LOOSE_VARIABLE_TYPE_RESOURCE_TEXTURE = 0xD,
+                LOOSE_VARIABLE_TYPE_PANORAMA_RENDER = 0xE
+            };
+            // Alignment: 4
+            // Member count: 8
+            enum class CompositeMaterialInputTextureType_t : uint32_t {
+                INPUT_TEXTURE_TYPE_DEFAULT = 0x0,
+                INPUT_TEXTURE_TYPE_NORMALMAP = 0x1,
+                INPUT_TEXTURE_TYPE_COLOR = 0x2,
+                INPUT_TEXTURE_TYPE_MASKS = 0x3,
+                INPUT_TEXTURE_TYPE_ROUGHNESS = 0x4,
+                INPUT_TEXTURE_TYPE_PEARLESCENCE_MASK = 0x5,
+                INPUT_TEXTURE_TYPE_AO = 0x6,
+                INPUT_TEXTURE_TYPE_POSITION = 0x7
+            };
+            // Alignment: 4
+            // Member count: 9
+            enum class InventoryNodeType_t : uint32_t {
+                NODE_TYPE_INVALID = 0x0,
+                VIRTUAL_NODE_SCHEMA_PREFAB = 0x1,
+                VIRTUAL_NODE_SCHEMA_ITEMDEF = 0x2,
+                VIRTUAL_NODE_SCHEMA_STICKER = 0x3,
+                VIRTUAL_NODE_SCHEMA_KEYCHAIN = 0x4,
+                CONCRETE_NODE_SCHEMA_PREFAB = 0x5,
+                CONCRETE_NODE_SCHEMA_ITEMDEF = 0x6,
+                CONCRETE_NODE_SCHEMA_STICKER = 0x7,
+                CONCRETE_NODE_SCHEMA_KEYCHAIN = 0x8
+            };
+            // Alignment: 4
+            // Member count: 6
+            enum class CompositeMaterialInputContainerSourceType_t : uint32_t {
+                CONTAINER_SOURCE_TYPE_TARGET_MATERIAL = 0x0,
+                CONTAINER_SOURCE_TYPE_MATERIAL_FROM_TARGET_ATTR = 0x1,
+                CONTAINER_SOURCE_TYPE_SPECIFIC_MATERIAL = 0x2,
+                CONTAINER_SOURCE_TYPE_LOOSE_VARIABLES = 0x3,
+                CONTAINER_SOURCE_TYPE_VARIABLE_FROM_TARGET_ATTR = 0x4,
+                CONTAINER_SOURCE_TYPE_TARGET_INSTANCE_MATERIAL = 0x5
+            };
+            // Alignment: 4
+            // Member count: 10
+            enum class CompMatPropertyMutatorType_t : uint32_t {
+                COMP_MAT_PROPERTY_MUTATOR_INIT = 0x0,
+                COMP_MAT_PROPERTY_MUTATOR_COPY_MATCHING_KEYS = 0x1,
+                COMP_MAT_PROPERTY_MUTATOR_COPY_KEYS_WITH_SUFFIX = 0x2,
+                COMP_MAT_PROPERTY_MUTATOR_COPY_PROPERTY = 0x3,
+                COMP_MAT_PROPERTY_MUTATOR_SET_VALUE = 0x4,
+                COMP_MAT_PROPERTY_MUTATOR_GENERATE_TEXTURE = 0x5,
+                COMP_MAT_PROPERTY_MUTATOR_CONDITIONAL_MUTATORS = 0x6,
+                COMP_MAT_PROPERTY_MUTATOR_POP_INPUT_QUEUE = 0x7,
+                COMP_MAT_PROPERTY_MUTATOR_DRAW_TEXT = 0x8,
+                COMP_MAT_PROPERTY_MUTATOR_RANDOM_ROLL_INPUT_VARIABLES = 0x9
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class CompositeMaterialVarSystemVar_t : uint32_t {
+                COMPMATSYSVAR_COMPOSITETIME = 0x0,
+                COMPMATSYSVAR_EMPTY_RESOURCE_SPACER = 0x1
+            };
+            // Alignment: 4
+            // Member count: 6
+            enum class CompositeMaterialMatchFilterType_t : uint32_t {
+                MATCH_FILTER_MATERIAL_ATTRIBUTE_EXISTS = 0x0,
+                MATCH_FILTER_MATERIAL_SHADER = 0x1,
+                MATCH_FILTER_MATERIAL_NAME_SUBSTR = 0x2,
+                MATCH_FILTER_MATERIAL_ATTRIBUTE_EQUALS = 0x3,
+                MATCH_FILTER_MATERIAL_PROPERTY_EXISTS = 0x4,
+                MATCH_FILTER_MATERIAL_PROPERTY_EQUALS = 0x5
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class CompMatPropertyMutatorConditionType_t : uint32_t {
+                COMP_MAT_MUTATOR_CONDITION_INPUT_CONTAINER_EXISTS = 0x0,
+                COMP_MAT_MUTATOR_CONDITION_INPUT_CONTAINER_VALUE_EXISTS = 0x1,
+                COMP_MAT_MUTATOR_CONDITION_INPUT_CONTAINER_VALUE_EQUALS = 0x2
+            };
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_TeamIntroCharacterPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_FireCrackerBlast {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_WingmanIntroCounterTerroristPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_WaitForCursorsWithTag {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SceneEntity__QueuedEvents_t {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CCSPlayer_PingServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEconItemAttribute {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseTriggerAPI {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CFuncRetakeBarrier {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvWindShared {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace C_SkyCamera {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Base {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: _
+            // Field count: 0
+            namespace C_FuncRotating {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_SoundOpvarSetPointBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvCubemapFog {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_CSGO_TeamSelectTerroristPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvParticleGlow {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCS_PortraitWorldCallbackHandler {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerController_InventoryServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerModernJump {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EconEntity__AttachedModelData_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulse_ResumePoint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerFan {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_HostageCarriableProp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BulletHitModel {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_FuncElectrifiedVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_MapVetoPickController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvVolumetricFogVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_EndOfMatchCharacterPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_PlaySequence {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BaseEntityAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BarnLight {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace CPulseCell_LerpCameraSettings {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointOffScreenIndicatorUi {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSObserver_UseServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PostProcessingVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_UseServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BaseModelEntity__Emphasized_Phoneme {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_CounterTerroristWingmanIntroCamera {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_PickBestOutflowSelector {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoFan {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_VoteController {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_C4 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSPlayerPawnBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BreakableProp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_WingmanIntroTerroristPosition {
+            }
+            // Parent: MNotSaved
+            // Field count: 0
+            namespace CPrecipitationVData {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_RetakeGameRules {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_WaitForObservable {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundAreaEntitySphere {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace CPulseCell_Step_EntFire {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponAWP {
+            }
+            // Parent: __QX__
+            // Field count: 0
+            namespace C_BaseButton {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSObserver_ObserverServices {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace CHitboxComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ServerAuthoritativeWeaponSlot_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSMinimapBoundary {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPathQueryComponent {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_Precipitation {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicRelay {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SequenceHistory_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_ItemServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulse_OutflowConnection {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponUMP45 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponG3SG1 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SpotlightEnd {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_Fish {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponFamas {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvVolumetricFogController {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseGraphDef {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvDetailController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvWindVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePlayerControllerAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHostageRescueZoneShim {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace CEnvSoundscapeAlias_snd_soundscape {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_HostageServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_GameRulesProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRenderComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_Team {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PathParticleRopeAlias_path_particle_rope_clientside {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointChildModifier {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerLegacyJump {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponNOVA {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_DEagle {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CS2HudModelAddon {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_TriggerMultiple {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_TeamPreviewCamera {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_ColorCorrectionVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_MovementServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoDynamicShadowHintBox {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseAnimGraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_ColorCorrection {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace AnimGraph2SerializedPoseRecipeSlot_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBuoyancyHelper {
+            }
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            namespace C_PhysBox {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_CameraServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterMultiple {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_FireCursors {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSoundscape {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundEventEntityAlias_snd_event_point {
+            }
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            namespace C_FogController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundOpvarSetOBBWindEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_MolotovGrenade {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_NetTestBaseCombatCharacter {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBodyComponentPoint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponM4A1Silencer {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace C_EconItemView {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Timeline__TimelineEvent_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_IntervalTimer__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseRequirement {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_BaseState {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace OutflowWithRequirements_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_IsRequirementValid {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundEventPathCornerEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_InfoVisibilityBox {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_ItemServices {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Value_Gradient {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IntervalTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace audioparams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PathParticleRope {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_DecoyProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_AttributeContainer {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_CSWeaponBase {
+            }
+            // Parent: __RX__
+            // Field count: 0
+            namespace CTimeline {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCursorFuncs {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_TonemapController2 {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CountdownTimer {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseNodeDynamicOutflows_t__DynamicOutflow_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponMag7 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace WeaponPurchaseCount_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePulseGraphInstance {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FilterHealth {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PointClientUIHUD {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Inflow_GraphHook {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SignatureOutflow_Resume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPathSimpleAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_InfoLadderDismount {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PointCommentaryNode {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSpriteOriented {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace shard_model_desc_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_KeychainModule {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncWater {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace CCSPlayer_GlowServices {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CCSGameModeRules {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: WPN_ANIMSTATE_UNINITIALIZED
+            // Field count: 0
+            namespace C_Flashbang {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PointClientUIWorldTextPanel {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_WaterServices {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_CSObserverPawn {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ViewAngleServerChange_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_FuncLadder {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponMP5SD {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_World {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace C_CSGO_TeamSelectCounterTerroristPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponGalilAR {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerBase_CameraServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_TeamplayRules {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Inflow_BaseEntrypoint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponSG556 {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace C_CSPlayerPawn {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_TeamIntroTerroristPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_WaitForCursorsWithTagBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_Hostage {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_fogplayerparams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGameSceneNode {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_ObserverServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCashStack {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundAreaEntityBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PlayerVisibility {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAttributeManager__cached_attribute_float_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BasePlayerWeapon {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRagdollManager {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_HEGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvSky {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulse_InvokeBinding {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvWindController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_GameRules {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponMAC10 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_MapPreviewCameraPath {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PointWorldText {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_RopeKeyframe {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_BaseToggle {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvCubemapBox {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvCombinedLightProbeVolumeAlias_func_combined_light_probe_volume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_RopeKeyframe__CPhysicsDelegate {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoDynamicShadowHint {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CPathNode {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_FuncMoveLinear {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CServerOnlyModelEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_TeamSelectCamera {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_IntervalTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponXM1014 {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_WorldModelGloves {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PhysicsPropMultiplayer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundEventOBBEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseTestScriptLib {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseLerp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponAug {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_BasePropDoor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CChoreoInfoTarget {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTakeDamageResultAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNetworkedSequenceOperation {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_Item_Healthshot {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEntityInstance {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_BaseModelEntity {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CCSPlayer_BulletServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundOpvarSetAutoRoomEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvCombinedLightProbeVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_EndOfMatchLineupEnd {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_MultiplayRules {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_AutoaimServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_LightDirectionalEntity {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_BaseEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ActiveModelConfig_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponSSG08 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Value_Curve {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace C_Chicken {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_BasePlayerPawn {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundOpvarSetAABBEntity {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_WeaponBizon {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_StattrakModule {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSObserver_CameraServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSoundscapeProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundEventEntity {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Inflow_EventHandler {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_LightOrthoEntity {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseFlow {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBombTarget {
+            }
+            // Parent: _SH___H__H______H___Z__H__H_____________________SH___H__H______H___XZ__H__H________H__X_
+            // Field count: 0
+            namespace C_Knife {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_TerroristWingmanIntroCamera {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSkeletonInstance {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEntityComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_ItemDogtags {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_LateUpdatedAnimating {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Outflow_CycleShuffled__InstanceState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_BaseLerp__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseAnimFuncs {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BaseClientUIEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_WaitForCursorsWithTagBase__CursorState_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseArraylib {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_WeaponUSPSilencer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_MolotovProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_TriggerLerpObject {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointTemplateAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponRevolver {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponElite {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_DynamicPropAlias_cable_dynamic {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseProp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoOffscreenPanoramaTexture {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSWeaponBaseVData {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAttributeManager {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SignatureOutflow_Continue {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoTarget {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_CameraServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Timeline {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Inflow_EntOutputHandler {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BaseCSGrenade {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CScenePayloadVData {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterAttributeInt {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace CPointTemplate {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_FlashlightServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_TeamIntroCounterTerroristPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_PreviewModel {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_TeamSelectCharacterPosition {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Outflow_CycleOrdered__InstanceState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundEventAABBEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_MovementServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SellbackPurchaseEntry_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_TintController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponBaseItem {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWaterSplasher {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_FuncBrush {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PhysicsRagdollPose_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPropDataComponent {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_LimitCount__InstanceState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponCZ75a {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_DynamicLight {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCS2PawnGraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace EngineCountdownTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundEventSphereEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerController_DamageServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_TeamPreviewModel {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_TonemapController2Alias_env_tonemap_controller2 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_Inferno {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterLOS {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointOrient {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_GlobalLight {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvWindClientside {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace sky3dparams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_FlashbangProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundEventConeEntity {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CDestructiblePartsComponent {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponP90 {
+            }
+            // Parent: MNotSaved
+            // Field count: 0
+            namespace C_EnvWind {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_TerroristTeamIntroCamera {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Step_DebugLog {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerController_ActionTrackingServices {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CBodyComponentBaseAnimGraph {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_PreviewModelAlias_csgo_item_previewmodel {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_InfoInstructorHintHostageRescueZone {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseYieldingInflow {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseNodeDynamicOutflows_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_TriggerBuoyancy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_MovementServices_Humanoid {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_IsRequirementValid__Criteria_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponTec9 {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_PhysPropClientside {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BaseDoor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSMatchStats_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace EntityRenderAttribute_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Inflow_ObservableVariableListener {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterMultipleAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHostageRescueZone {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CModelState {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace CPulseCell_LerpCameraSettings__CursorState_t {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Outflow_CycleOrdered {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSWeaponBaseGun {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_CSGameRulesProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCollisionProperty {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponP250 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_ShatterGlassShardPhysics {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterMassGreater {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EntityDissolve {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundOpvarSetOBBEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGameModeRules_ArmsRace {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace C_FuncMonitor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_ClientRagdoll {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseSelectorOutflowList_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_PlaySequence__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBodyComponentSkeletonInstance {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_CS2WeaponModuleBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_TeamPreviewCharacterPosition {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_SmokeGrenadeProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CScriptComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_BuyServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PortraitWorldCallbackHandler {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_DynamicProp {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_CSTeam {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CS2HudModelWeapon {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_TextureBasedAnimatable {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_LightEnvironmentEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace DestructiblePartDamageRequestAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicRelayAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_TriggerPhysics {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PropDoorRotating {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_HandleTest {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoWorldLayer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBodyComponentBaseModelEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_Multimeter {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BaseTrigger {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FilterDamageType {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAttributeList {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Inflow_Wait {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterProximity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCS2WeaponGraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEffectData {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_ParticleSystem {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Outflow_CycleShuffled {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponSCAR20 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_FuncMover {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerController_InventoryServices__NetworkedLoadoutSlot_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLightComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_DecoyGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WaterBullet {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_ActionTrackingServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvCubemap {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSObserver_MovementServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBodyComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Inflow_Method {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BaseCombatCharacter {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGlowProperty {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PointClientUIDialog {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseValue {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponHKP2000 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_FootstepControl {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCitadelSoundOpvarSetOBB {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_EndOfMatchLineupStart {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_WaterServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_BooleanSwitchState {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CDamageRecord {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace VPhysicsCollisionAttribute_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_DynamicPropAlias_dynamic_prop {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSoundscapeProxyAlias_snd_soundscape_proxy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_OmniLight {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SceneEntity {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Inflow_Yield {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseMathlib {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_NametagModule {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace C_EconEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_UseServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PointValueRemapper {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGameSceneNodeHandle {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Unknown {
+            }
+            // Parent: ___W__
+            // Field count: 0
+            namespace C_WeaponMP7 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSPerRoundStats_t {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Outflow_CycleRandom {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Step_PublicOutput {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CS2HudModelBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGameRules {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGrenadeTracer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGameModeRules_Noop {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulse_BlackboardReference {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BaseCSGrenadeProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_GradientFog {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerController_InGameMoneyServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_HEGrenadeProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterModel {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundAreaEntityOrientedBox {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundOpvarSetPointEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseGameBlackboard {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CChoreoComponent {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Value_RandomInt {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_CSWeaponBaseShotgun {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_RagdollPropAttached {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_ModelPointEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_PreviewPlayer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_RectLight {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPathSimple {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_FuncTrackTrain {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EconWearable {
+            }
+            // Parent: MEntityAllowsPortraitWorldSpawn
+            // Field count: 0
+            namespace C_EnvDecal {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace EntitySpottedState_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace fogparams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponM4A1 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_Item {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSPetPlacement {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_Beam {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EnvLightProbeVolume {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CExplosionTypeData {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_FuncConveyor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_WeaponServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PhysMagnet {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSoundscapeTriggerableAlias_snd_soundscape_triggerable {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_Breakable {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace C_PlantedC4 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_WingmanIntroCharacterPosition {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CFilterName {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_RagdollProp {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulse_CallInfo {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_MapPreviewParticleSystem {
+            }
+            // Parent: MNotSaved
+            // Field count: 0
+            namespace CBaseAnimGraph {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_InlineNodeSkipSelector {
+            }
+            // Parent: MNotSaved
+            // Field count: 0
+            namespace C_LightEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponM249 {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_LocalTempEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponTaser {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PointEntity {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace C_SingleplayRules {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace CLogicalEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PrecipitationBlocker {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_CounterTerroristTeamIntroCamera {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SoundOpvarSetPathCornerEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_WeaponServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponNegev {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponFiveSeven {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponSawedoff {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_TriggerVolume {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_LimitCount {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Step_CallExternalMethod {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponMP9 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_DynamicPropAlias_prop_dynamic_override {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSoundscapeTriggerable {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PlayerPing {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_AK47 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_MapPreviewCameraPathNode {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSPlayerResource {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSkyboxReference {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_IncendiaryGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterClass {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PointCameraVFOV {
+            }
+            // Parent: MEntityAllowsPortraitWorldSpawn
+            // Field count: 0
+            namespace C_PointCamera {
+            }
+            // Parent: client
+            // Field count: 0
+            namespace CPathWithDynamicNodes {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseFilter {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace WeaponPurchaseTracker_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseObservableBoolExpression_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMapInfo {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_EndOfMatchCamera {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_BaseGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PlayerSprayDecal {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEntityIdentity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_LimitCount__Criteria_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CS2HudModelArms {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePlayerVData {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_LightSpotEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGameModeRules_Deathmatch {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_CursorQueue {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Value_RandomFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseExecCursor {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace C_Sprite {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CsmFovOverride {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_WeaponGlock {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PhysicsProp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterTeam {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePlayerWeaponVData {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoInteraction {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_SmokeGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_PreviewPlayerAlias_csgo_player_previewmodel {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoParticleTarget {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_DamageReactServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_PointClientUIWorldPanel {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_EntityFlame {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePlayerController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CSGO_EndOfMatchLineupEndpoint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace GeneratedTextureHandle_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CompositeMaterialInputContainer_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CompositeMaterialAssemblyProcedure_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CompositeMaterialInputLooseVariable_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace screenshake_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCS2UIPawnGraphController {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace inv_image_light_barn_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace inv_image_map_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace inv_image_light_fill_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInterpolatedValue {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace inv_image_item_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace TimedEvent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFlashlightEffect {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace inv_image_camera_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CInventoryImageData {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace inv_image_clearcolor_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_CommandContext {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CompositeMaterialEditorPoint_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayerSprayDecalRenderHelper {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace C_IronSightController {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CompMatMutatorCondition_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace inv_image_data_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CompMatPropertyMutator_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CCompositeMaterialEditorDoc {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CClientAlphaProperty {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace screenfade_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGlobalLightBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IClientAlphaProperty {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace inv_image_light_sun_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CompositeMaterialMatchFilter_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CompositeMaterial_t {
+            }
+        }
+    }
+}

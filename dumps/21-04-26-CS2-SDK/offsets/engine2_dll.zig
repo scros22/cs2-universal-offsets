@@ -1,0 +1,252 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:21:30.322409500 UTC
+
+pub const cs2_dumper = struct {
+    pub const schemas = struct {
+        // Module: engine2.dll
+        // Class count: 56
+        // Enum count: 2
+        pub const engine2_dll = struct {
+            // Alignment: 4
+            // Member count: 3
+            pub const EntityDormancyType_t = enum(u32) {
+                ENTITY_NOT_DORMANT = 0x0,
+                ENTITY_DORMANT = 0x1,
+                ENTITY_SUSPENDED = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const EntityIOTargetType_t = enum(u32) {
+                ENTITY_IO_TARGET_INVALID = 0xFFFFFFFF,
+                ENTITY_IO_TARGET_ENTITYNAME = 0x2,
+                ENTITY_IO_TARGET_EHANDLE = 0x6,
+                ENTITY_IO_TARGET_ENTITYNAME_OR_CLASSNAME = 0x7
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityInstance = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CScriptComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityIdentity = struct {
+            };
+            // Parent: engine2
+            // Field count: 0
+            pub const EventClientPostSimulate_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventSimpleLoopFrameUpdate_t = struct {
+            };
+            // Parent: engine2
+            // Field count: 0
+            pub const EventPostAdvanceTick_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityIOOutput = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventClientSceneSystemThreadStateChange_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventClientOutput_t = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const EventServerPostSimulate_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityComponentHelper = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const GameTime_t = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const EventServerBeginSimulate_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const EntityIOQueuePrioritizedEvent_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventServerEndAsyncPostTickWork_t = struct {
+            };
+            // Parent: engine2
+            // Field count: 0
+            pub const EventClientAdvanceTick_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EntInput_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNetworkVarChainer = struct {
+            };
+            // Parent: engine2
+            // Field count: 0
+            pub const EventClientSimulate_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventClientPostOutput_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const GameTick_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventClientPollInput_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventPreDataUpdate_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventClientProcessGameInput_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventFrameBoundary_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventAppShutdown_t = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const EventServerPostAdvanceTick_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventProfileStorageAvailable_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventPostDataUpdate_t = struct {
+            };
+            // Parent: engine2
+            // Field count: 0
+            pub const EventClientPreSimulate_t = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const EventClientPauseSimulate_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventClientProcessNetworking_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityAttributeTable = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const EventClientPreOutputParallelWithServer_t = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const EventAdvanceTick_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventSplitScreenStateChanged_t = struct {
+            };
+            // Parent: engine2
+            // Field count: 0
+            pub const EventClientPostAdvanceTick_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVariantDefaultAllocator = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventModInitialized_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventClientPreOutput_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventClientFrameSimulate_t = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const EventServerAdvanceTick_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventSetTime_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventSimulate_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityKeyValues = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventClientAdvanceNonRenderedFrame_t = struct {
+            };
+            // Parent: engine2
+            // Field count: 0
+            pub const EventServerProcessNetworking_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEmptyEntityInstance = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EntComponentInfo_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EngineLoopState_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventClientPollNetworking_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventServerBeginAsyncPostTickWork_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventClientProcessInput_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EventServerEndSimulate_t = struct {
+            };
+            // Parent: engine2
+            // Field count: 0
+            pub const EventServerPollNetworking_t = struct {
+            };
+        };
+    };
+};

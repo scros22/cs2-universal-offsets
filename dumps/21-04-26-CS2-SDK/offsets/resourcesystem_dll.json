@@ -1,0 +1,333 @@
+{
+  "resourcesystem.dll": {
+    "classes": {
+      "AABB_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CFuseProgram": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CFuseSymbolTable": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "ConstantInfo_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FourQuaternions": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FunctionInfo_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FuseFunctionIndex_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FuseVariableIndex_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCAnimData": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCAnimationGroup": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCCSGOEconItem": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCChoreoSceneResource": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCCompositeMaterialKit": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCDOTANovelsList": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCDOTAPatchNotesList": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCDotaItemDefinitionResource": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCEntityLump": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCGcExportableExternalData": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCJavaScriptResource": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCModel": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCMorphSetData": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCNmClip": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCNmGraphDefinition": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCNmSkeleton": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCPanoramaDynamicImages": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCPanoramaLayout": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCPanoramaStyle": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCPhysAggregateData": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCPostProcessingResource": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCRenderMesh": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCResponseRulesList": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCSequenceGroupData": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCSmartProp": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCSurfaceGraph": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCTestResourceData": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCTextureBase": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCTypeScriptResource": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCVDataItemDefs": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCVDataResource": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCVMixListResource": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCVPhysXSurfacePropertiesList": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCVSoundEventScriptList": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCVSoundStackScriptList": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCVoiceContainerBase": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCVoxelVisibility": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeCWorldNode": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeIAnimGraphModelBinding": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeIMaterial2": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeIParticleSnapshot": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeIParticleSystemDefinition": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeIPulseGraphDef": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeIVectorGraphic": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeManifestTestResource_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeProceduralTestResource_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "InfoForResourceTypeWorld_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "ManifestTestResource_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "PackedAABB_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "VariableInfo_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      }
+    },
+    "enums": {
+      "FuseVariableAccess_t": {
+        "alignment": 1,
+        "members": {
+          "READ_ONLY": 1,
+          "WRITABLE": 0
+        },
+        "type": "uint8"
+      },
+      "FuseVariableType_t": {
+        "alignment": 1,
+        "members": {
+          "BOOL": 1,
+          "FLOAT32": 8,
+          "INT16": 3,
+          "INT32": 4,
+          "INT8": 2,
+          "INVALID": 0,
+          "UINT16": 6,
+          "UINT32": 7,
+          "UINT8": 5
+        },
+        "type": "uint8"
+      }
+    }
+  }
+}

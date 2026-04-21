@@ -1,0 +1,469 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:21:30.322409500 UTC
+
+#![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
+
+pub mod cs2_dumper {
+    pub mod schemas {
+        // Module: pulse_system.dll
+        // Class count: 99
+        // Enum count: 5
+        pub mod pulse_system_dll {
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum PulseBestOutflowRules_t {
+                SORT_BY_NUMBER_OF_VALID_CRITERIA = 0x0,
+                SORT_BY_OUTFLOW_INDEX = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum PulseTestEnumShape_t {
+                CIRCLE = 0x64,
+                SQUARE = 0xC8,
+                TRIANGLE = 0x12C
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum PulseCursorCancelPriority_t {
+                None = 0x0,
+                CancelOnSucceeded = 0x1,
+                SoftCancel = 0x2,
+                HardCancel = 0x3
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum PulseMethodCallMode_t {
+                SYNC_WAIT_FOR_COMPLETION = 0x0,
+                ASYNC_FIRE_AND_FORGET = 0x1
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum PulseTestEnumColor_t {
+                BLACK = 0x0,
+                WHITE = 0x1,
+                RED = 0x2,
+                GREEN = 0x3,
+                BLUE = 0x4
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Step_TestDomainDestroyFakeEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_WaitForCursorsWithTag {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Test_NoInflow {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseGraphInstance_TestDomain_FakeEntityOwner {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Base {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulse_ResumePoint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTestDomainDerived_Cursor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_PickBestOutflowSelector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseTestFuncs_LibraryA {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_WaitForObservable {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulse_OutflowConnection {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseGraphDef {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseGraphInstance_TestDomain_UseReadOnlyBlackboardView {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_FireCursors {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Timeline__TimelineEvent_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_IntervalTimer__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseRequirement {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_BaseState {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod OutflowWithRequirements_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_IsRequirementValid {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Value_Gradient {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCursorFuncs {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseNodeDynamicOutflows_t__DynamicOutflow_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Test_MultiOutflow_WithParams {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBasePulseGraphInstance {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Inflow_GraphHook {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SignatureOutflow_Resume {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Test_MultiOutflow_WithParams_Yielding__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseTurtleGraphicsCursor {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_TestWaitWithCursorState__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Inflow_BaseEntrypoint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Test_MultiInflow_NoDefault {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_WaitForCursorsWithTagBase {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulse_InvokeBinding {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_IntervalTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseTestScriptLib {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseLerp {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Value_TestValue50 {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Test_MultiOutflow_WithParams_Yielding {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod TestComponent_tAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Value_Curve {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Inflow_EventHandler {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseFlow {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Step_TestDomainTracepoint {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Outflow_CycleShuffled__InstanceState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_BaseLerp__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseGraphInstance_TestDomain_Derived {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_WaitForCursorsWithTagBase__CursorState_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseArraylib {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseGraphInstance_TestDomain {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SignatureOutflow_Continue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Timeline {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Inflow_EntOutputHandler {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Outflow_TestExplicitYesNo {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Outflow_TestRandomYesNo {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Outflow_CycleOrdered__InstanceState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_LimitCount__InstanceState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod FakeEntity_tAPI {
+            }
+            // Parent: pulse_system
+            // Field count: 0
+            pub mod CPulseCell_Test_MultiInflow_WithDefault {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Step_DebugLog {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseYieldingInflow {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseNodeDynamicOutflows_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_IsRequirementValid__Criteria_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Inflow_ObservableVariableListener {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Outflow_CycleOrdered {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseSelectorOutflowList_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseGraphInstance_TurtleGraphics {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Val_TestDomainGetEntityName {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Inflow_Wait {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_TestWaitWithCursorState {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Outflow_CycleShuffled {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Inflow_Method {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseValue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_BooleanSwitchState {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod FakeEntityDerivedB_tAPI {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Inflow_Yield {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseMathlib {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Unknown {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Outflow_CycleRandom {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Step_PublicOutput {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Val_TestDomainFindEntityByName {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulse_BlackboardReference {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Value_RandomInt {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Step_TestDomainEntFire {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod FakeEntityDerivedA_tAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_ExampleSelector {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulse_CallInfo {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_InlineNodeSkipSelector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_ExampleCriteria__Criteria_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_ExampleCriteria {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_LimitCount {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Step_CallExternalMethod {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseObservableBoolExpression_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_LimitCount__Criteria_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Step_TestDomainCreateFakeEntity {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_CursorQueue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Value_RandomFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseExecCursor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod TestComponent_t {
+            }
+        }
+    }
+}

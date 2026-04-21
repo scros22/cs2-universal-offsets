@@ -1,0 +1,3388 @@
+{
+  "particles.dll": {
+    "classes": {
+      "CBasePulseGraphInstance": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CBaseRendererSource2": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CBaseTrailRenderer": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CGeneralRandomRotation": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CGeneralSpin": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPAssignment_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CParticleBindingRealPulse": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particleslib"
+      },
+      "CParticleCollectionBindingInstance": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CParticleFunction": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CParticleFunctionConstraint": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CParticleFunctionEmitter": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CParticleFunctionForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CParticleFunctionInitializer": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CParticleFunctionOperator": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CParticleFunctionPreEmission": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CParticleFunctionRenderer": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CParticleMassCalculationParameters": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CParticleSystemDefinition": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CParticleVisibilityInputs": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CPathParameters": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseArraylib": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Base": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_BaseFlow": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_BaseLerp": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_BaseLerp__CursorState_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_BaseRequirement": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_BaseState": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_BaseValue": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_BaseYieldingInflow": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_BooleanSwitchState": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_CursorQueue": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_FireCursors": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Inflow_BaseEntrypoint": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Inflow_EntOutputHandler": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Inflow_EventHandler": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_Inflow_GraphHook": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_Inflow_Method": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Inflow_ObservableVariableListener": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Inflow_Wait": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_Inflow_Yield": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_InlineNodeSkipSelector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_IntervalTimer": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_IntervalTimer__CursorState_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_IsRequirementValid": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_IsRequirementValid__Criteria_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_LimitCount": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_LimitCount__Criteria_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_LimitCount__InstanceState_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Outflow_CycleOrdered": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_Outflow_CycleOrdered__InstanceState_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Outflow_CycleRandom": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_Outflow_CycleShuffled": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_Outflow_CycleShuffled__InstanceState_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_PickBestOutflowSelector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Step_CallExternalMethod": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Step_DebugLog": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_Step_PublicOutput": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_Timeline": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Timeline__TimelineEvent_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Unknown": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Value_Curve": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Value_Gradient": {
+        "fields": {},
+        "metadata": [],
+        "parent": "pulse_runtime_lib"
+      },
+      "CPulseCell_Value_RandomFloat": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_Value_RandomInt": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_WaitForCursorsWithTag": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_WaitForCursorsWithTagBase": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_WaitForCursorsWithTagBase__CursorState_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCell_WaitForObservable": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseCursorFuncs": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseExecCursor": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseGraphDef": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseMathlib": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulseTestScriptLib": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulse_BlackboardReference": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CPulse_CallInfo": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CPulse_InvokeBinding": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CPulse_OutflowConnection": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CPulse_ResumePoint": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CRandomNumberGeneratorParameters": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CReplicationParameters": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CSpinUpdateBase": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_AddVectorToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_AgeNoise": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_ChaoticAttractor": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CheckParticleForWater": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_ColorLitPerParticle": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateAlongPath": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateFromCPs": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateFromParentParticles": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateFromPlaneCache": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_INIT_CreateInEpitrochoid": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateOnGrid": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateOnModel": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateOnModelAtHeight": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_INIT_CreateParticleImpulse": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreatePhyllotaxis": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateSequentialPath": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateSequentialPathV2": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateSpiralSphere": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateWithinBox": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateWithinCapsuleTransform": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreateWithinSphereTransform": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_CreationNoise": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_DistanceCull": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_DistanceToCPInit": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_DistanceToNeighborCull": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_GlobalScale": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_InheritFromParentParticles": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_InheritVelocity": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_INIT_InitFloat": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_InitFloatCollection": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_InitFromCPSnapshot": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_InitFromParentKilled": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_InitFromVectorFieldSnapshot": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_InitSkinnedPositionFromCPSnapshot": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_InitVec": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_InitVecCollection": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_INIT_InitialRepulsionVelocity": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_InitialSequenceFromModel": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_InitialVelocityFromHitbox": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_INIT_InitialVelocityNoise": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_LifespanFromVelocity": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_ModelCull": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_MoveBetweenPoints": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_NormalAlignToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_INIT_NormalOffset": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_OffsetVectorToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_Orient2DRelToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_PlaneCull": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_PointList": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_PositionOffset": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_PositionOffsetToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_PositionPlaceOnGround": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_PositionWarp": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_PositionWarpScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_QuantizeFloat": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RadiusFromCPObject": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomAlpha": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomAlphaWindowThreshold": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomColor": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomLifeTime": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomModelSequence": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_INIT_RandomNamedModelBodyPart": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomNamedModelElement": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomNamedModelMeshGroup": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomNamedModelSequence": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomRadius": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomRotation": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomRotationSpeed": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomSecondSequence": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomSequence": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomTrailLength": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomVectorComponent": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RandomYaw": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_INIT_RandomYawFlip": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapInitialDirectionToTransformToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapInitialTransformDirectionToRotation": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapInitialVisibilityScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_INIT_RemapNamedModelBodyPartToScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapNamedModelElementToScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapNamedModelMeshGroupToScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapNamedModelSequenceToScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapParticleCountToNamedModelBodyPartScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapParticleCountToNamedModelElementScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_INIT_RemapParticleCountToNamedModelMeshGroupScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapParticleCountToNamedModelSequenceScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapParticleCountToScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapQAnglesToRotation": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapScalarToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapTransformOrientationToRotations": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RemapTransformToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RingWave": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_RtEnvCull": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_INIT_ScaleVelocity": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_ScreenSpacePositionOfTarget": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_SequenceFromCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_INIT_SequenceLifeTime": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_SetAttributeToScalarExpression": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_INIT_SetFloatAttributeToVectorExpression": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_INIT_SetHitboxToClosest": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_SetHitboxToModel": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_SetRigidAttachment": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_SetVectorAttributeToVectorExpression": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_StatusEffect": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_StatusEffectCitadel": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_VelocityFromCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_VelocityFromNormal": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_INIT_VelocityRadialRandom": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_INIT_VelocityRandom": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_AlphaDecay": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_AttractToControlPoint": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_BasicMovement": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_BoxConstraint": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_CPOffsetToPercentageBetweenCPs": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_CPVelocityForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_CalculateVectorAttribute": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_Callback": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ChladniWave": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ChooseRandomChildrenInGroup": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ClampScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ClampVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ClientPhysics": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_CollideWithParentParticles": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_CollideWithSelf": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ColorAdjustHSL": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ColorInterpolate": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ColorInterpolateRandom": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ConnectParentParticleToNearest": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ConstrainDistance": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_ConstrainDistanceToPath": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ConstrainDistanceToUserSpecifiedPath": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ConstrainLineLength": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ContinuousEmitter": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ControlPointToRadialScreenSpace": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ControlpointLight": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_CreateParticleSystemRenderer": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_Cull": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_CurlNoiseForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_CycleScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_CylindricalDistanceToTransform": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_DampenToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_Decay": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_DecayClampCount": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_DecayMaintainCount": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_DecayOffscreen": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_DensityForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_DifferencePreviousParticle": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_Diffusion": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_DirectionBetweenVecsToVec": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_DistanceBetweenCPsToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_DistanceBetweenTransforms": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_DistanceBetweenVecs": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_DistanceCull": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_DistanceToTransform": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_DragRelativeToPlane": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_DriveCPFromGlobalSoundFloat": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_EnableChildrenFromParentParticleCount": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_EndCapDecay": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_EndCapTimedDecay": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_EndCapTimedFreeze": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ExternalGameImpulseForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ExternalWindForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_FadeAndKill": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_FadeAndKillForTracers": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_FadeIn": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_FadeInSimple": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_FadeOut": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_FadeOutSimple": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_ForceBasedOnDistanceToPlane": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_ForceControlPointStub": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_GameDecalRenderer": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_GameLiquidSpill": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_GlobalLight": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_HSVShiftToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_InheritFromParentParticles": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_InheritFromParentParticlesV2": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_InheritFromPeerSystem": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_InstantaneousEmitter": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_InterpolateRadius": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_IntraParticleForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_LagCompensation": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_LazyCullCompareFloat": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LerpEndCapScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LerpEndCapVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LerpScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LerpToInitialPosition": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LerpToOtherAttribute": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LerpVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LightningSnapshotGenerator": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LocalAccelerationForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LockPoints": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LockToBone": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LockToPointList": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LockToSavedSequentialPath": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_LockToSavedSequentialPathV2": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_MaintainEmitter": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_MaintainSequentialPath": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_MaxVelocity": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ModelCull": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ModelDampenMovement": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ModelSurfaceSnapshotGenerator": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_MoveToHitbox": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_MovementLoopInsideSphere": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_MovementMaintainOffset": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_MovementMoveAlongSkinnedCPSnapshot": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_MovementPlaceOnGround": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_MovementRigidAttachToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_MovementRotateParticleAroundAxis": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_MovementSkinnedPositionFromCPSnapshot": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_MultiSegmentDisplaySnapshotGenerator": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_Noise": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_NoiseEmitter": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_NormalLock": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_NormalizeVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_Orient2DRelToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_OrientTo2dDirection": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_OscillateScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_OscillateScalarSimple": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_OscillateVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_OscillateVectorSimple": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ParentVortices": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_PerParticleForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_PercentageBetweenTransformLerpCPs": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_PercentageBetweenTransforms": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_PercentageBetweenTransformsVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_PinParticleToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_PinRopeSegmentParticleToParent": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_PlanarConstraint": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_PlaneCull": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_PlayEndCapWhenFinished": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_PointVectorAtNextParticle": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_PositionLock": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_QuantizeCPComponent": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_QuantizeFloat": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RadiusDecay": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RampCPLinearRandom": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RampScalarLinear": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RampScalarLinearSimple": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RampScalarSpline": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RampScalarSplineSimple": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_RandomForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_ReadFromNeighboringParticle": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ReinitializeScalarEndCap": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_RemapAverageHitboxSpeedtoCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapAverageScalarValuetoCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapBoundingVolumetoCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapCPVelocityToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapCPtoCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapCPtoScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_RemapCPtoVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapControlPointDirectionToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapControlPointOrientationToRotation": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_RemapCrossProductOfTwoVectorsToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapDensityGradientToVectorAttribute": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapDensityToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapDirectionToCPToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapDistanceToLineSegmentBase": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_RemapDistanceToLineSegmentToScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapDistanceToLineSegmentToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapDotProductToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_RemapDotProductToScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapExternalWindToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapGravityToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapModelVolumetoCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapNamedModelBodyPartEndCap": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapNamedModelBodyPartOnceTimed": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapNamedModelElementEndCap": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapNamedModelElementOnceTimed": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapNamedModelMeshGroupEndCap": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapNamedModelMeshGroupOnceTimed": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_RemapNamedModelSequenceEndCap": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapNamedModelSequenceOnceTimed": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapParticleCountOnScalarEndCap": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapParticleCountToScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_RemapScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapScalarEndCap": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapScalarOnceTimed": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapSpeed": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapSpeedtoCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapTransformOrientationToRotations": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapTransformOrientationToYaw": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapTransformToVelocity": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapTransformVisibilityToScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapTransformVisibilityToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapVectorComponentToScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapVectorToRotations": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapVectortoCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapVelocityToVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RemapVisibilityScalar": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderAsModels": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderBlobs": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderCables": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderClientPhysicsImpulse": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderClothForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderDeferredLight": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderFlattenGrass": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderGpuImplicit": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderLightBeam": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderLights": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderMaterialProxy": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderModels": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderOmni2Light": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderPoints": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderPostProcessing": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderProjected": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderRopes": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderScreenShake": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderScreenVelocityRotate": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_RenderSimpleModelCollection": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderSound": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderSprites": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderStandardLight": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderStatusEffect": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderStatusEffectCitadel": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderText": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_RenderTrails": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderTreeShake": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderVRHapticEvent": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RenderVolumetricEmitter": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_RepeatedTriggerChildGroup": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RestartAfterDuration": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RopeSpringConstraint": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_RotateVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_RtEnvCull": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ScreenSpaceDistanceToEdge": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_ScreenSpacePositionOfTarget": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_ScreenSpaceRotateTowardTarget": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SelectivelyEnableChildren": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SequenceFromModel": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetAttributeToScalarExpression": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetCPOrientationToDirection": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_SetCPOrientationToGroundNormal": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_SetCPOrientationToPointAtCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetCPtoVector": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetChildControlPoints": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointFieldFromVectorExpression": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointFieldToScalarExpression": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointFieldToWater": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointFromObjectScale": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointOrientation": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointOrientationToCPVelocity": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointPositionToRandomActiveCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointPositionToTimeOfDayValue": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointPositions": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_SetControlPointRotation": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointToCPVelocity": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointToCenter": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointToHMD": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointToHand": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointToImpactPoint": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointToPlayer": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointToVectorExpression": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_SetControlPointToWaterSurface": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetControlPointsToModelParticles": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "C_OP_SetControlPointsToParticle": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetFloat": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetFloatAttributeToVectorExpression": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetFloatCollection": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetFromCPSnapshot": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetGravityToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetParentControlPointsToChildCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetPerChildControlPoint": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetPerChildControlPointFromAttribute": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetRandomControlPointPosition": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetSimulationRate": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_SetSingleControlPointPosition": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetToCP": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetUserEvent": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetVariable": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "C_OP_SetVec": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SetVectorAttributeToVectorExpression": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_ShapeMatchingConstraint": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SnapshotRigidSkinToBones": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SnapshotSkinToBones": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_Spin": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SpinUpdate": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SpinYaw": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_SpringToVectorConstraint": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_StopAfterCPDuration": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_TeleportBeam": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_TimeVaryingForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_TurbulenceForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_TwistAroundAxis": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_UpdateLightSource": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_VectorFieldSnapshot": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_VectorNoise": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_VelocityDecay": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_VelocityMatchingForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_WaterImpulseRenderer": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_WindForce": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_WorldCollideConstraint": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_OP_WorldTraceConstraint": {
+        "fields": {},
+        "metadata": [],
+        "parent": "particles"
+      },
+      "CollisionGroupContext_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "ControlPointReference_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FloatInputMaterialVariable_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "IParticleCollection": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "IParticleSystemDefinition": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "MaterialVariable_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "ModelReference_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "OutflowWithRequirements_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "ParticleAttributeIndex_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "ParticleChildrenInfo_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "ParticleControlPointConfiguration_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "ParticleControlPointDriver_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "ParticlePreviewBodyGroup_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "ParticlePreviewState_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "PointDefinitionWithTimeValues_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "PointDefinition_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "PulseNodeDynamicOutflows_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "PulseNodeDynamicOutflows_t__DynamicOutflow_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "PulseObservableBoolExpression_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "PulseSelectorOutflowList_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RenderProjectedMaterial_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "SequenceWeightedList_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "SignatureOutflow_Continue": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "SignatureOutflow_Resume": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "TextureControls_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "TextureGroup_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "VecInputMaterialVariable_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      }
+    },
+    "enums": {
+      "BBoxVolumeType_t": {
+        "alignment": 4,
+        "members": {
+          "BBOX_DIMENSIONS": 1,
+          "BBOX_MINS_MAXS": 2,
+          "BBOX_RADIUS": 3,
+          "BBOX_VOLUME": 0
+        },
+        "type": "uint32"
+      },
+      "BlurFilterType_t": {
+        "alignment": 4,
+        "members": {
+          "BLURFILTER_BOX": 1,
+          "BLURFILTER_GAUSSIAN": 0
+        },
+        "type": "uint32"
+      },
+      "ClosestPointTestType_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_CLOSEST_TYPE_BOX": 0,
+          "PARTICLE_CLOSEST_TYPE_CAPSULE": 1,
+          "PARTICLE_CLOSEST_TYPE_HYBRID": 2
+        },
+        "type": "uint32"
+      },
+      "Detail2Combo_t": {
+        "alignment": 4,
+        "members": {
+          "DETAIL_2_COMBO_ADD": 1,
+          "DETAIL_2_COMBO_ADD_SELF_ILLUM": 2,
+          "DETAIL_2_COMBO_CROSSFADE": 5,
+          "DETAIL_2_COMBO_MOD2X": 3,
+          "DETAIL_2_COMBO_MUL": 4,
+          "DETAIL_2_COMBO_OFF": 0,
+          "DETAIL_2_COMBO_UNINITIALIZED": -1
+        },
+        "type": "uint32"
+      },
+      "DetailCombo_t": {
+        "alignment": 4,
+        "members": {
+          "DETAIL_COMBO_ADD": 1,
+          "DETAIL_COMBO_ADD_SELF_ILLUM": 2,
+          "DETAIL_COMBO_MOD2X": 3,
+          "DETAIL_COMBO_OFF": 0
+        },
+        "type": "uint32"
+      },
+      "EventTypeSelection_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_EVENT_TYPE_MASK_COLLISION": 4,
+          "PARTICLE_EVENT_TYPE_MASK_COLLISION_STOPPED": 16,
+          "PARTICLE_EVENT_TYPE_MASK_FIRST_COLLISION": 8,
+          "PARTICLE_EVENT_TYPE_MASK_KILLED": 2,
+          "PARTICLE_EVENT_TYPE_MASK_KILLED_ON_COLLISION": 32,
+          "PARTICLE_EVENT_TYPE_MASK_NONE": 0,
+          "PARTICLE_EVENT_TYPE_MASK_SPAWNED": 1,
+          "PARTICLE_EVENT_TYPE_MASK_USER_1": 64,
+          "PARTICLE_EVENT_TYPE_MASK_USER_2": 128,
+          "PARTICLE_EVENT_TYPE_MASK_USER_3": 256,
+          "PARTICLE_EVENT_TYPE_MASK_USER_4": 512
+        },
+        "type": "uint32"
+      },
+      "HitboxLerpType_t": {
+        "alignment": 4,
+        "members": {
+          "HITBOX_LERP_CONSTANT": 1,
+          "HITBOX_LERP_LIFETIME": 0
+        },
+        "type": "uint32"
+      },
+      "InheritableBoolType_t": {
+        "alignment": 4,
+        "members": {
+          "INHERITABLE_BOOL_FALSE": 1,
+          "INHERITABLE_BOOL_INHERIT": 0,
+          "INHERITABLE_BOOL_TRUE": 2
+        },
+        "type": "uint32"
+      },
+      "MaterialProxyType_t": {
+        "alignment": 4,
+        "members": {
+          "MATERIAL_PROXY_STATUS_EFFECT": 0,
+          "MATERIAL_PROXY_TINT": 1
+        },
+        "type": "uint32"
+      },
+      "MissingParentInheritBehavior_t": {
+        "alignment": 4,
+        "members": {
+          "MISSING_PARENT_DO_NOTHING": -1,
+          "MISSING_PARENT_FIND_NEW": 1,
+          "MISSING_PARENT_KILL": 0,
+          "MISSING_PARENT_SAME_INDEX": 2
+        },
+        "type": "uint32"
+      },
+      "ModelHitboxType_t": {
+        "alignment": 4,
+        "members": {
+          "MODEL_HITBOX_TYPE_RAW_BONES": 1,
+          "MODEL_HITBOX_TYPE_RENDERBOUNDS": 2,
+          "MODEL_HITBOX_TYPE_SNAPSHOT": 3,
+          "MODEL_HITBOX_TYPE_STANDARD": 0
+        },
+        "type": "uint32"
+      },
+      "PFuncVisualizationType_t": {
+        "alignment": 4,
+        "members": {
+          "PFUNC_VISUALIZATION_BOX": 2,
+          "PFUNC_VISUALIZATION_CYLINDER": 6,
+          "PFUNC_VISUALIZATION_LINE": 5,
+          "PFUNC_VISUALIZATION_PLANE": 4,
+          "PFUNC_VISUALIZATION_RING": 3,
+          "PFUNC_VISUALIZATION_SPHERE_SOLID": 1,
+          "PFUNC_VISUALIZATION_SPHERE_WIREFRAME": 0
+        },
+        "type": "uint32"
+      },
+      "ParticleAlphaReferenceType_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_ALPHA_REFERENCE_ALPHA_ALPHA": 0,
+          "PARTICLE_ALPHA_REFERENCE_ALPHA_OPAQUE": 2,
+          "PARTICLE_ALPHA_REFERENCE_OPAQUE_ALPHA": 1,
+          "PARTICLE_ALPHA_REFERENCE_OPAQUE_OPAQUE": 3
+        },
+        "type": "uint32"
+      },
+      "ParticleAttrBoxFlags_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_ATTR_BOX_FLAGS_ASLEEP": 8,
+          "PARTICLE_ATTR_BOX_FLAGS_ELECTRIFIED": 4,
+          "PARTICLE_ATTR_BOX_FLAGS_FROZEN": 16,
+          "PARTICLE_ATTR_BOX_FLAGS_NONE": 0,
+          "PARTICLE_ATTR_BOX_FLAGS_ON_FIRE": 2,
+          "PARTICLE_ATTR_BOX_FLAGS_TIMED_DECAY": 32,
+          "PARTICLE_ATTR_BOX_FLAGS_WATER": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleCollisionGroup_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_COLLISION_GROUP_DEBRIS": 5,
+          "PARTICLE_COLLISION_GROUP_DEFAULT": 4,
+          "PARTICLE_COLLISION_GROUP_INTERACTIVE": 7,
+          "PARTICLE_COLLISION_GROUP_NPC": 12,
+          "PARTICLE_COLLISION_GROUP_PLAYER": 8,
+          "PARTICLE_COLLISION_GROUP_PROPS": 24,
+          "PARTICLE_COLLISION_GROUP_VEHICLE": 10
+        },
+        "type": "uint32"
+      },
+      "ParticleCollisionMask_t": {
+        "alignment": 8,
+        "members": {
+          "PARTICLE_MASK_ALL": -1,
+          "PARTICLE_MASK_DEFAULTPLAYERSOLID": 798737,
+          "PARTICLE_MASK_NPCSOLID": 798753,
+          "PARTICLE_MASK_OPAQUE": 128,
+          "PARTICLE_MASK_SHOT": 1839107,
+          "PARTICLE_MASK_SHOT_BRUSHONLY": 1052673,
+          "PARTICLE_MASK_SHOT_HULL": 1847297,
+          "PARTICLE_MASK_SOLID": 798721,
+          "PARTICLE_MASK_SOLID_WATER": 897025,
+          "PARTICLE_MASK_WATER": 98304
+        },
+        "type": "uint64"
+      },
+      "ParticleCollisionMode_t": {
+        "alignment": 4,
+        "members": {
+          "COLLISION_MODE_DISABLED": -1,
+          "COLLISION_MODE_INITIAL_TRACE_DOWN": 0,
+          "COLLISION_MODE_PER_FRAME_PLANESET": 1,
+          "COLLISION_MODE_PER_PARTICLE_TRACE": 3,
+          "COLLISION_MODE_USE_NEAREST_TRACE": 2
+        },
+        "type": "uint32"
+      },
+      "ParticleControlPointAxis_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_CP_AXIS_NEGATIVE_X": 3,
+          "PARTICLE_CP_AXIS_NEGATIVE_Y": 4,
+          "PARTICLE_CP_AXIS_NEGATIVE_Z": 5,
+          "PARTICLE_CP_AXIS_X": 0,
+          "PARTICLE_CP_AXIS_Y": 1,
+          "PARTICLE_CP_AXIS_Z": 2
+        },
+        "type": "uint32"
+      },
+      "ParticleDepthFeatheringMode_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_DEPTH_FEATHERING_OFF": 0,
+          "PARTICLE_DEPTH_FEATHERING_ON_OPTIONAL": 1,
+          "PARTICLE_DEPTH_FEATHERING_ON_REQUIRED": 2
+        },
+        "type": "uint32"
+      },
+      "ParticleDetailLevel_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLEDETAIL_HIGH": 2,
+          "PARTICLEDETAIL_LOW": 0,
+          "PARTICLEDETAIL_MEDIUM": 1,
+          "PARTICLEDETAIL_ULTRA": 3
+        },
+        "type": "uint32"
+      },
+      "ParticleEndcapMode_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_ENDCAP_ALWAYS_ON": -1,
+          "PARTICLE_ENDCAP_ENDCAP_OFF": 0,
+          "PARTICLE_ENDCAP_ENDCAP_ON": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleEntityPos_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_ABS_ORIGIN": 0,
+          "PARTICLE_EYES": 2,
+          "PARTICLE_WORLDSPACE_CENTER": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleFalloffFunction_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_FALLOFF_CONSTANT": 0,
+          "PARTICLE_FALLOFF_EXPONENTIAL": 2,
+          "PARTICLE_FALLOFF_LINEAR": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleFanType_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_FAN_TYPE_FAN": 0,
+          "PARTICLE_FAN_TYPE_RADIAL": 2,
+          "PARTICLE_FAN_TYPE_ROTOR_WASH": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleFogType_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_FOG_DISABLED": 2,
+          "PARTICLE_FOG_ENABLED": 1,
+          "PARTICLE_FOG_GAME_DEFAULT": 0
+        },
+        "type": "uint32"
+      },
+      "ParticleHitboxBiasType_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_HITBOX_BIAS_ENTITY": 0,
+          "PARTICLE_HITBOX_BIAS_HITBOX": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleHitboxDataSelection_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_HITBOX_AVERAGE_SPEED": 0,
+          "PARTICLE_HITBOX_COUNT": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleImpulseType_t": {
+        "alignment": 4,
+        "members": {
+          "IMPULSE_TYPE_EXPLOSION": 4,
+          "IMPULSE_TYPE_EXPLOSION_UNDERWATER": 8,
+          "IMPULSE_TYPE_GENERIC": 1,
+          "IMPULSE_TYPE_NONE": 0,
+          "IMPULSE_TYPE_PARTICLE_SYSTEM": 16,
+          "IMPULSE_TYPE_ROPE": 2
+        },
+        "type": "uint32"
+      },
+      "ParticleLightBehaviorChoiceList_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_LIGHT_BEHAVIOR_FOLLOW_DIRECTION": 0,
+          "PARTICLE_LIGHT_BEHAVIOR_ROPE": 1,
+          "PARTICLE_LIGHT_BEHAVIOR_TRAILS": 2
+        },
+        "type": "uint32"
+      },
+      "ParticleLightFogLightingMode_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_LIGHT_FOG_LIGHTING_MODE_DYNAMIC": 2,
+          "PARTICLE_LIGHT_FOG_LIGHTING_MODE_DYNAMIC_NOSHADOWS": 4,
+          "PARTICLE_LIGHT_FOG_LIGHTING_MODE_NONE": 0
+        },
+        "type": "uint32"
+      },
+      "ParticleLightTypeChoiceList_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_LIGHT_TYPE_CAPSULE": 3,
+          "PARTICLE_LIGHT_TYPE_FX": 2,
+          "PARTICLE_LIGHT_TYPE_POINT": 0,
+          "PARTICLE_LIGHT_TYPE_SPOT": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleLightUnitChoiceList_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_LIGHT_UNIT_CANDELAS": 0,
+          "PARTICLE_LIGHT_UNIT_LUMENS": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleLightingQuality_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_LIGHTING_ADD_EXTRA_LIGHT": 4,
+          "PARTICLE_LIGHTING_OVERRIDE_COLOR": 3,
+          "PARTICLE_LIGHTING_OVERRIDE_POSITION": 2,
+          "PARTICLE_LIGHTING_PER_PARTICLE": 0,
+          "PARTICLE_LIGHTING_PER_PIXEL": -1,
+          "PARTICLE_LIGHTING_PER_VERTEX": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleLightnintBranchBehavior_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_LIGHTNING_BRANCH_CURRENT_DIR": 0,
+          "PARTICLE_LIGHTNING_BRANCH_ENDPOINT_DIR": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleLiquidContents_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_LIQUID_NONE": 0,
+          "PARTICLE_LIQUID_OIL": 1,
+          "PARTICLE_LIQUID_WATER": 2
+        },
+        "type": "uint32"
+      },
+      "ParticleMassMode_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_MASSMODE_RADIUS_CUBED": 0,
+          "PARTICLE_MASSMODE_RADIUS_SQUARED": 2
+        },
+        "type": "uint32"
+      },
+      "ParticleMultiSegmentCountSelection_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_MULTISEGMENT_SEG_COUNT_14": 14,
+          "PARTICLE_MULTISEGMENT_SEG_COUNT_16": 16,
+          "PARTICLE_MULTISEGMENT_SEG_COUNT_7": 7
+        },
+        "type": "uint32"
+      },
+      "ParticleMultiSegmentInputSelection_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_MULTISEGMENT_SELECTION_FLOAT": 0,
+          "PARTICLE_MULTISEGMENT_SELECTION_STRING": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleMultiSegmentSpecialCharacter_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_MULTISEGMENT_SPECIAL_COLON": 1,
+          "PARTICLE_MULTISEGMENT_SPECIAL_DECIMAL": 0,
+          "PARTICLE_MULTISEGMENT_SPECIAL_DEGREES": 2,
+          "PARTICLE_MULTISEGMENT_SPECIAL_NONE": -1
+        },
+        "type": "uint32"
+      },
+      "ParticleOmni2LightTypeChoiceList_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_OMNI2_LIGHT_TYPE_POINT": 0,
+          "PARTICLE_OMNI2_LIGHT_TYPE_SPHERE": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleOrientationChoiceList_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_ORIENTATION_ALIGN_TO_PARTICLE_NORMAL": 3,
+          "PARTICLE_ORIENTATION_FULL_3AXIS_ROTATION": 5,
+          "PARTICLE_ORIENTATION_SCREENALIGN_TO_PARTICLE_NORMAL": 4,
+          "PARTICLE_ORIENTATION_SCREEN_ALIGNED": 0,
+          "PARTICLE_ORIENTATION_SCREEN_Z_ALIGNED": 1,
+          "PARTICLE_ORIENTATION_WORLD_Z_ALIGNED": 2
+        },
+        "type": "uint32"
+      },
+      "ParticleOrientationSetMode_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_ORIENTATION_SET_FROM_NORMAL": 1,
+          "PARTICLE_ORIENTATION_SET_FROM_ROTATIONS": 2,
+          "PARTICLE_ORIENTATION_SET_FROM_VELOCITY": 0,
+          "PARTICLE_ORIENTATION_SET_NONE": -1
+        },
+        "type": "uint32"
+      },
+      "ParticleOrientationType_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_ORIENTATION_NONE": 0,
+          "PARTICLE_ORIENTATION_NORMAL": 2,
+          "PARTICLE_ORIENTATION_ROTATION": 4,
+          "PARTICLE_ORIENTATION_VELOCITY": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleOutputBlendMode_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_OUTPUT_BLEND_MODE_ADD": 1,
+          "PARTICLE_OUTPUT_BLEND_MODE_ALPHA": 0,
+          "PARTICLE_OUTPUT_BLEND_MODE_BLEND_ADD": 2,
+          "PARTICLE_OUTPUT_BLEND_MODE_HALF_BLEND_ADD": 3,
+          "PARTICLE_OUTPUT_BLEND_MODE_LIGHTEN": 6,
+          "PARTICLE_OUTPUT_BLEND_MODE_MOD2X": 5,
+          "PARTICLE_OUTPUT_BLEND_MODE_NEG_HALF_BLEND_ADD": 4
+        },
+        "type": "uint32"
+      },
+      "ParticleParentSetMode_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_SET_PARENT_IMMEDIATE": 1,
+          "PARTICLE_SET_PARENT_NO": 0,
+          "PARTICLE_SET_PARENT_ROOT": 2
+        },
+        "type": "uint32"
+      },
+      "ParticlePinDistance_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_PIN_COLLECTION_AGE": 10,
+          "PARTICLE_PIN_DISTANCE_CENTER": 5,
+          "PARTICLE_PIN_DISTANCE_CP": 6,
+          "PARTICLE_PIN_DISTANCE_CP_PAIR_BOTH": 8,
+          "PARTICLE_PIN_DISTANCE_CP_PAIR_EITHER": 7,
+          "PARTICLE_PIN_DISTANCE_FARTHEST": 1,
+          "PARTICLE_PIN_DISTANCE_FIRST": 2,
+          "PARTICLE_PIN_DISTANCE_LAST": 3,
+          "PARTICLE_PIN_DISTANCE_NEIGHBOR": 0,
+          "PARTICLE_PIN_DISTANCE_NONE": -1,
+          "PARTICLE_PIN_FLOAT_VALUE": 11,
+          "PARTICLE_PIN_SPEED": 9
+        },
+        "type": "uint32"
+      },
+      "ParticlePostProcessPriorityGroup_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_POST_PROCESS_PRIORITY_GAMEPLAY_EFFECT": 2,
+          "PARTICLE_POST_PROCESS_PRIORITY_GAMEPLAY_STATE_HIGH": 4,
+          "PARTICLE_POST_PROCESS_PRIORITY_GAMEPLAY_STATE_LOW": 3,
+          "PARTICLE_POST_PROCESS_PRIORITY_GLOBAL_UI": 5,
+          "PARTICLE_POST_PROCESS_PRIORITY_LEVEL_OVERRIDE": 1,
+          "PARTICLE_POST_PROCESS_PRIORITY_LEVEL_VOLUME": 0
+        },
+        "type": "uint32"
+      },
+      "ParticleReplicationMode_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_REPLICATIONMODE_NONE": 0,
+          "PARTICLE_REPLICATIONMODE_REPLICATE_FOR_EACH_PARENT_PARTICLE": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleRotationLockType_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_ROTATION_LOCK_NONE": 0,
+          "PARTICLE_ROTATION_LOCK_NORMAL": 2,
+          "PARTICLE_ROTATION_LOCK_ROTATIONS": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleSelection_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_SELECTION_FIRST": 0,
+          "PARTICLE_SELECTION_LAST": 1,
+          "PARTICLE_SELECTION_NUMBER": 2
+        },
+        "type": "uint32"
+      },
+      "ParticleSequenceCropOverride_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_SEQUENCE_CROP_OVERRIDE_DEFAULT": -1,
+          "PARTICLE_SEQUENCE_CROP_OVERRIDE_FORCE_OFF": 0,
+          "PARTICLE_SEQUENCE_CROP_OVERRIDE_FORCE_ON": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleSortingChoiceList_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_SORTING_CREATION_TIME": 1,
+          "PARTICLE_SORTING_NEAREST": 0
+        },
+        "type": "uint32"
+      },
+      "ParticleTextureLayerBlendType_t": {
+        "alignment": 4,
+        "members": {
+          "SPRITECARD_TEXTURE_BLEND_ADD": 3,
+          "SPRITECARD_TEXTURE_BLEND_AVERAGE": 5,
+          "SPRITECARD_TEXTURE_BLEND_LUMINANCE": 6,
+          "SPRITECARD_TEXTURE_BLEND_MOD2X": 1,
+          "SPRITECARD_TEXTURE_BLEND_MULTIPLY": 0,
+          "SPRITECARD_TEXTURE_BLEND_REPLACE": 2,
+          "SPRITECARD_TEXTURE_BLEND_SUBTRACT": 4
+        },
+        "type": "uint32"
+      },
+      "ParticleToolsState_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_TOOLS_STATE_ALWAYS_ON": -1,
+          "PARTICLE_TOOLS_STATE_GAME_ONLY": 1,
+          "PARTICLE_TOOLS_STATE_TOOLS_ONLY": 0
+        },
+        "type": "uint32"
+      },
+      "ParticleTopology_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_TOPOLOGY_CUBES": 4,
+          "PARTICLE_TOPOLOGY_LINES": 1,
+          "PARTICLE_TOPOLOGY_POINTS": 0,
+          "PARTICLE_TOPOLOGY_QUADS": 3,
+          "PARTICLE_TOPOLOGY_TRIS": 2
+        },
+        "type": "uint32"
+      },
+      "ParticleTraceMissBehavior_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_TRACE_MISS_BEHAVIOR_KILL": 1,
+          "PARTICLE_TRACE_MISS_BEHAVIOR_NONE": 0,
+          "PARTICLE_TRACE_MISS_BEHAVIOR_TRACE_END": 2
+        },
+        "type": "uint32"
+      },
+      "ParticleTraceSet_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_TRACE_SET_ALL": 0,
+          "PARTICLE_TRACE_SET_DYNAMIC": 3,
+          "PARTICLE_TRACE_SET_STATIC": 1,
+          "PARTICLE_TRACE_SET_STATIC_AND_KEYFRAMED": 2
+        },
+        "type": "uint32"
+      },
+      "ParticleVRHandChoiceList_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_VRHAND_CP": 2,
+          "PARTICLE_VRHAND_CP_OBJECT": 3,
+          "PARTICLE_VRHAND_LEFT": 0,
+          "PARTICLE_VRHAND_RIGHT": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleVolumetricSmokeCreationType_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_VOLUMETRIC_SMOKE_TYPE_CONTINUOUS": 0,
+          "PARTICLE_VOLUMETRIC_SMOKE_TYPE_IMPULSE": 1
+        },
+        "type": "uint32"
+      },
+      "ParticleVolumetricSmokeType_t": {
+        "alignment": 4,
+        "members": {
+          "PARTICLE_VOLUMETRIC_SMOKE_TYPE_EMISSION": 0,
+          "PARTICLE_VOLUMETRIC_SMOKE_TYPE_REPEL": 2,
+          "PARTICLE_VOLUMETRIC_SMOKE_TYPE_SINK": 1
+        },
+        "type": "uint32"
+      },
+      "PetGroundType_t": {
+        "alignment": 4,
+        "members": {
+          "PET_GROUND_GRID": 1,
+          "PET_GROUND_NONE": 0,
+          "PET_GROUND_PLANE": 2
+        },
+        "type": "uint32"
+      },
+      "PulseBestOutflowRules_t": {
+        "alignment": 4,
+        "members": {
+          "SORT_BY_NUMBER_OF_VALID_CRITERIA": 0,
+          "SORT_BY_OUTFLOW_INDEX": 1
+        },
+        "type": "uint32"
+      },
+      "PulseCursorCancelPriority_t": {
+        "alignment": 4,
+        "members": {
+          "CancelOnSucceeded": 1,
+          "HardCancel": 3,
+          "None": 0,
+          "SoftCancel": 2
+        },
+        "type": "uint32"
+      },
+      "PulseMethodCallMode_t": {
+        "alignment": 4,
+        "members": {
+          "ASYNC_FIRE_AND_FORGET": 1,
+          "SYNC_WAIT_FOR_COMPLETION": 0
+        },
+        "type": "uint32"
+      },
+      "RenderModelSubModelFieldType_t": {
+        "alignment": 4,
+        "members": {
+          "SUBMODEL_AS_BODYGROUP_SUBMODEL": 0,
+          "SUBMODEL_AS_MESHGROUP_INDEX": 1,
+          "SUBMODEL_AS_MESHGROUP_MASK": 2,
+          "SUBMODEL_IGNORED_USE_MODEL_DEFAULT_MESHGROUP_MASK": 3
+        },
+        "type": "uint32"
+      },
+      "ScalarExpressionType_t": {
+        "alignment": 4,
+        "members": {
+          "SCALAR_EXPRESSION_ADD": 0,
+          "SCALAR_EXPRESSION_DIVIDE": 3,
+          "SCALAR_EXPRESSION_EQUAL": 8,
+          "SCALAR_EXPRESSION_GT": 9,
+          "SCALAR_EXPRESSION_INPUT_1": 4,
+          "SCALAR_EXPRESSION_LT": 10,
+          "SCALAR_EXPRESSION_MAX": 6,
+          "SCALAR_EXPRESSION_MIN": 5,
+          "SCALAR_EXPRESSION_MOD": 7,
+          "SCALAR_EXPRESSION_MUL": 2,
+          "SCALAR_EXPRESSION_SUBTRACT": 1,
+          "SCALAR_EXPRESSION_UNINITIALIZED": -1
+        },
+        "type": "uint32"
+      },
+      "SetStatisticExpressionType_t": {
+        "alignment": 4,
+        "members": {
+          "SET_EXPRESSION_MAX": 6,
+          "SET_EXPRESSION_MEAN": 1,
+          "SET_EXPRESSION_MEDIAN": 2,
+          "SET_EXPRESSION_MIN": 5,
+          "SET_EXPRESSION_MODE": 3,
+          "SET_EXPRESSION_STANDARD_DEVIATION": 4,
+          "SET_EXPRESSION_SUM": 0,
+          "SET_EXPRESSION_UNINITIALIZED": -1
+        },
+        "type": "uint32"
+      },
+      "SnapshotIndexType_t": {
+        "alignment": 4,
+        "members": {
+          "SNAPSHOT_INDEX_DIRECT": 1,
+          "SNAPSHOT_INDEX_INCREMENT": 0
+        },
+        "type": "uint32"
+      },
+      "SpriteCardPerParticleScale_t": {
+        "alignment": 4,
+        "members": {
+          "SPRITECARD_TEXTURE_PP_SCALE_ANIMATION_FRAME": 2,
+          "SPRITECARD_TEXTURE_PP_SCALE_NEG_RANDOM": 11,
+          "SPRITECARD_TEXTURE_PP_SCALE_NEG_RANDOM_TIME": 13,
+          "SPRITECARD_TEXTURE_PP_SCALE_NONE": 0,
+          "SPRITECARD_TEXTURE_PP_SCALE_PARTICLE_AGE": 1,
+          "SPRITECARD_TEXTURE_PP_SCALE_PARTICLE_ALPHA": 5,
+          "SPRITECARD_TEXTURE_PP_SCALE_PITCH": 9,
+          "SPRITECARD_TEXTURE_PP_SCALE_RANDOM": 10,
+          "SPRITECARD_TEXTURE_PP_SCALE_RANDOM_TIME": 12,
+          "SPRITECARD_TEXTURE_PP_SCALE_ROLL": 7,
+          "SPRITECARD_TEXTURE_PP_SCALE_SHADER_EXTRA_DATA1": 3,
+          "SPRITECARD_TEXTURE_PP_SCALE_SHADER_EXTRA_DATA2": 4,
+          "SPRITECARD_TEXTURE_PP_SCALE_SHADER_RADIUS": 6,
+          "SPRITECARD_TEXTURE_PP_SCALE_YAW": 8
+        },
+        "type": "uint32"
+      },
+      "SpriteCardShaderType_t": {
+        "alignment": 4,
+        "members": {
+          "SPRITECARD_SHADER_BASE": 0,
+          "SPRITECARD_SHADER_CUSTOM": 1
+        },
+        "type": "uint32"
+      },
+      "SpriteCardTextureChannel_t": {
+        "alignment": 4,
+        "members": {
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_A": 2,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_A_RGBALPHA": 7,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_B": 11,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_BALPHA": 14,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_G": 10,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_GALPHA": 13,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_R": 9,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_RALPHA": 12,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_RGB": 0,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_RGBA": 1,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_RGBA_RGBALPHA": 6,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_A": 3,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_ALPHAMASK": 4,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_A_RGBALPHA": 8,
+          "SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_RGBMASK": 5
+        },
+        "type": "uint32"
+      },
+      "SpriteCardTextureType_t": {
+        "alignment": 4,
+        "members": {
+          "SPRITECARD_TEXTURE_1D_COLOR_LOOKUP": 2,
+          "SPRITECARD_TEXTURE_ANIMMOTIONVEC": 6,
+          "SPRITECARD_TEXTURE_DEPTH": 10,
+          "SPRITECARD_TEXTURE_DIFFUSE": 0,
+          "SPRITECARD_TEXTURE_ILLUMINATION_GRADIENT": 11,
+          "SPRITECARD_TEXTURE_NORMALMAP": 5,
+          "SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_A": 7,
+          "SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_B": 8,
+          "SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_C": 9,
+          "SPRITECARD_TEXTURE_UVDISTORTION": 3,
+          "SPRITECARD_TEXTURE_UVDISTORTION_ZOOM": 4,
+          "SPRITECARD_TEXTURE_ZOOM": 1
+        },
+        "type": "uint32"
+      },
+      "StandardLightingAttenuationStyle_t": {
+        "alignment": 4,
+        "members": {
+          "LIGHT_STYLE_NEW": 1,
+          "LIGHT_STYLE_OLD": 0
+        },
+        "type": "uint32"
+      },
+      "TextureRepetitionMode_t": {
+        "alignment": 4,
+        "members": {
+          "TEXTURE_REPETITION_PARTICLE": 0,
+          "TEXTURE_REPETITION_PATH": 1
+        },
+        "type": "uint32"
+      },
+      "VectorExpressionType_t": {
+        "alignment": 4,
+        "members": {
+          "VECTOR_EXPRESSION_ADD": 0,
+          "VECTOR_EXPRESSION_CROSSPRODUCT": 7,
+          "VECTOR_EXPRESSION_DIVIDE": 3,
+          "VECTOR_EXPRESSION_INPUT_1": 4,
+          "VECTOR_EXPRESSION_LERP": 8,
+          "VECTOR_EXPRESSION_MAX": 6,
+          "VECTOR_EXPRESSION_MIN": 5,
+          "VECTOR_EXPRESSION_MUL": 2,
+          "VECTOR_EXPRESSION_SUBTRACT": 1,
+          "VECTOR_EXPRESSION_UNINITIALIZED": -1
+        },
+        "type": "uint32"
+      },
+      "VectorFloatExpressionType_t": {
+        "alignment": 4,
+        "members": {
+          "VECTOR_FLOAT_EXPRESSION_DISTANCE": 1,
+          "VECTOR_FLOAT_EXPRESSION_DISTANCESQR": 2,
+          "VECTOR_FLOAT_EXPRESSION_DOTPRODUCT": 0,
+          "VECTOR_FLOAT_EXPRESSION_INPUT1_LENGTH": 3,
+          "VECTOR_FLOAT_EXPRESSION_INPUT1_LENGTHSQR": 4,
+          "VECTOR_FLOAT_EXPRESSION_INPUT1_NOISE": 5,
+          "VECTOR_FLOAT_EXPRESSION_UNINITIALIZED": -1
+        },
+        "type": "uint32"
+      }
+    }
+  }
+}

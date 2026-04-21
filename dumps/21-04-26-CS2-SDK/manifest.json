@@ -1,0 +1,24 @@
+{
+  "build_number": 14152,
+  "generated_at": "2026-04-21T23:21:26.238060900+01:00",
+  "process": "cs2.exe",
+  "session": "21-04-26-CS2-SDK",
+  "stages": {
+    "offsets": {
+      "elapsed_ms": 4168,
+      "enabled": true,
+      "output_dir": "C:\\Users\\Samuel\\Projects\\cs2\\dumpers\\universal-dumper\\dumps\\21-04-26-CS2-SDK\\offsets",
+      "success": true
+    },
+    "signatures": {
+      "counts": {
+        "found": 181,
+        "total": 221
+      },
+      "elapsed_ms": 3747,
+      "enabled": true,
+      "output_dir": "C:\\Users\\Samuel\\Projects\\cs2\\dumpers\\universal-dumper\\dumps\\21-04-26-CS2-SDK\\signatures",
+      "success": true
+    }
+  }
+}

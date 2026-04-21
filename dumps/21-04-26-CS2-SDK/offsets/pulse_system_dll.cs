@@ -1,0 +1,460 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:21:30.322409500 UTC
+
+namespace CS2Dumper.Schemas {
+    // Module: pulse_system.dll
+    // Class count: 99
+    // Enum count: 5
+    public static class PulseSystemDll {
+        // Alignment: 4
+        // Member count: 2
+        public enum PulseBestOutflowRules_t : uint {
+            SORT_BY_NUMBER_OF_VALID_CRITERIA = 0x0,
+            SORT_BY_OUTFLOW_INDEX = 0x1
+        }
+        // Alignment: 4
+        // Member count: 3
+        public enum PulseTestEnumShape_t : uint {
+            CIRCLE = 0x64,
+            SQUARE = 0xC8,
+            TRIANGLE = 0x12C
+        }
+        // Alignment: 4
+        // Member count: 4
+        public enum PulseCursorCancelPriority_t : uint {
+            None = 0x0,
+            CancelOnSucceeded = 0x1,
+            SoftCancel = 0x2,
+            HardCancel = 0x3
+        }
+        // Alignment: 4
+        // Member count: 2
+        public enum PulseMethodCallMode_t : uint {
+            SYNC_WAIT_FOR_COMPLETION = 0x0,
+            ASYNC_FIRE_AND_FORGET = 0x1
+        }
+        // Alignment: 4
+        // Member count: 5
+        public enum PulseTestEnumColor_t : uint {
+            BLACK = 0x0,
+            WHITE = 0x1,
+            RED = 0x2,
+            GREEN = 0x3,
+            BLUE = 0x4
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Step_TestDomainDestroyFakeEntity {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_WaitForCursorsWithTag {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Test_NoInflow {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseGraphInstance_TestDomain_FakeEntityOwner {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulseCell_Base {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulse_ResumePoint {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CTestDomainDerived_Cursor {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_PickBestOutflowSelector {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseTestFuncs_LibraryA {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_WaitForObservable {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulse_OutflowConnection {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulseGraphDef {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseGraphInstance_TestDomain_UseReadOnlyBlackboardView {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_FireCursors {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulseCell_Timeline__TimelineEvent_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulseCell_IntervalTimer__CursorState_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_BaseRequirement {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_BaseState {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class OutflowWithRequirements_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_IsRequirementValid {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_Value_Gradient {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCursorFuncs {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class PulseNodeDynamicOutflows_t__DynamicOutflow_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Test_MultiOutflow_WithParams {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CBasePulseGraphInstance {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_Inflow_GraphHook {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class SignatureOutflow_Resume {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulseCell_Test_MultiOutflow_WithParams_Yielding__CursorState_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseTurtleGraphicsCursor {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulseCell_TestWaitWithCursorState__CursorState_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Inflow_BaseEntrypoint {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Test_MultiInflow_NoDefault {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_WaitForCursorsWithTagBase {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulse_InvokeBinding {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_IntervalTimer {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseTestScriptLib {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_BaseLerp {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Value_TestValue50 {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_Test_MultiOutflow_WithParams_Yielding {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class TestComponent_tAPI {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Value_Curve {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_Inflow_EventHandler {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_BaseFlow {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Step_TestDomainTracepoint {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulseCell_Outflow_CycleShuffled__InstanceState_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulseCell_BaseLerp__CursorState_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseGraphInstance_TestDomain_Derived {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_WaitForCursorsWithTagBase__CursorState_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseArraylib {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseGraphInstance_TestDomain {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class SignatureOutflow_Continue {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Timeline {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Inflow_EntOutputHandler {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Outflow_TestExplicitYesNo {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Outflow_TestRandomYesNo {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulseCell_Outflow_CycleOrdered__InstanceState_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulseCell_LimitCount__InstanceState_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FakeEntity_tAPI {
+        }
+        // Parent: pulse_system
+        // Field count: 0
+        public static class CPulseCell_Test_MultiInflow_WithDefault {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_Step_DebugLog {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_BaseYieldingInflow {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class PulseNodeDynamicOutflows_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_IsRequirementValid__Criteria_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Inflow_ObservableVariableListener {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_Outflow_CycleOrdered {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class PulseSelectorOutflowList_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseGraphInstance_TurtleGraphics {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Val_TestDomainGetEntityName {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_Inflow_Wait {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_TestWaitWithCursorState {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_Outflow_CycleShuffled {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Inflow_Method {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_BaseValue {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_BooleanSwitchState {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FakeEntityDerivedB_tAPI {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_Inflow_Yield {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseMathlib {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Unknown {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_Outflow_CycleRandom {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_Step_PublicOutput {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_Val_TestDomainFindEntityByName {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulse_BlackboardReference {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Value_RandomInt {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Step_TestDomainEntFire {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FakeEntityDerivedA_tAPI {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_ExampleSelector {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CPulse_CallInfo {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_InlineNodeSkipSelector {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_ExampleCriteria__Criteria_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_ExampleCriteria {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_LimitCount {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Step_CallExternalMethod {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class PulseObservableBoolExpression_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_LimitCount__Criteria_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Step_TestDomainCreateFakeEntity {
+        }
+        // Parent: pulse_runtime_lib
+        // Field count: 0
+        public static class CPulseCell_CursorQueue {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseCell_Value_RandomFloat {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CPulseExecCursor {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class TestComponent_t {
+        }
+    }
+}

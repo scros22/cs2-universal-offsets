@@ -1,0 +1,568 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:21:30.322409500 UTC
+
+#pragma once
+
+#include <cstddef>
+#include <cstdint>
+
+namespace cs2_dumper {
+    namespace schemas {
+        // Module: vphysics2.dll
+        // Class count: 110
+        // Enum count: 5
+        namespace vphysics2_dll {
+            // Alignment: 4
+            // Member count: 3
+            enum class JointMotion_t : uint32_t {
+                JOINT_MOTION_FREE = 0x0,
+                JOINT_MOTION_LOCKED = 0x1,
+                JOINT_MOTION_COUNT = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class JointAxis_t : uint32_t {
+                JOINT_AXIS_X = 0x0,
+                JOINT_AXIS_Y = 0x1,
+                JOINT_AXIS_Z = 0x2,
+                JOINT_AXIS_COUNT = 0x3
+            };
+            // Alignment: 1
+            // Member count: 3
+            enum class DynamicContinuousContactBehavior_t : uint8_t {
+                DYNAMIC_CONTINUOUS_ALLOW_IF_REQUESTED_BY_OTHER_BODY = 0x0,
+                DYNAMIC_CONTINUOUS_ALWAYS = 0x1,
+                DYNAMIC_CONTINUOUS_NEVER = 0x2
+            };
+            // Alignment: 4
+            // Member count: 8
+            enum class PhysInterfaceId_t : uint32_t {
+                PIID_UNKNOWN = 0x0,
+                PIID_IPHYSICSBODY = 0x1,
+                PIID_IPHYSAGGREGATE = 0x2,
+                PIID_IPHYSICSJOINT = 0x3,
+                PIID_IPHYSICSMOTIONCONTROLLER = 0x4,
+                PIID_IPHYSICSPARTICLEROPE = 0x5,
+                PIID_IPHYSICSRAGDOLLCONTROL = 0x6,
+                PIID_NUM_TYPES = 0x7
+            };
+            // Alignment: 1
+            // Member count: 5
+            enum class PhysGenericShapeType_t : uint8_t {
+                GENERIC_SHAPE_POINT = 0x0,
+                GENERIC_SHAPE_SPHERE = 0x1,
+                GENERIC_SHAPE_AABB = 0x2,
+                GENERIC_SHAPE_CAPSULE = 0x3,
+                GENERIC_SHAPE_HULL = 0x4
+            };
+            // Parent: physicslib
+            // Field count: 0
+            namespace RnSphereDesc_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnSoftbodyParticle_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: physicslib
+            // Field count: 0
+            namespace RnHullDesc_t {
+            }
+            // Parent: physicslib
+            // Field count: 0
+            namespace RnCapsuleDesc_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PhysFeModelDesc_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: physicslib
+            // Field count: 0
+            namespace RnMeshDesc_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnSoftbodySpring_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnSoftbodyCapsule_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace vphysics_save_cphysicsbody_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeBuildBoxRigid_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CFeIndexedJiggleBone {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace IPhysAggregateInstance {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeBandBendLimit_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeTaperedCapsuleStretch_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace constraint_axislimit_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeSimdRodConstraintAnim_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeSimdRodConstraint_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IPhysicsParticleRope {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace constraint_hingeparams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IPhysicsBodyList {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeBuildSphereRigid_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeSimdAnimStrayRadius_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnTriangle_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeProxyVertexMap_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeNodeIntegrator_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnCapsule_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFeNamedJiggleBone {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeAntiTunnelProbeBuild_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnBodyDesc_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace OldFeEdge_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeFollowNode_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnMesh_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace VertexPositionNormal_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IPhysicsRagdollControl {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeBuildSDFRigid_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace RnBlendVertex_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CFeMorphLayer {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeCtrlSoftOffset_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeVertexMapDesc_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeTaperedCapsuleRigid_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeAnimStrayRadius_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IPhysicsJoint {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeEdgeDesc_t {
+                constexpr std::ptrdiff_t  = 0x1; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeNodeStrayBox_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeNodeReverseOffset_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnPlane_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeSDFRigid_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CFeJiggleBone {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CRegionSVM {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeWorldCollisionParams_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGenericShapeProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace RnNode_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeFitMatrix_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeSimdQuad_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeSimdSpringIntegrator_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeSimdNodeBase_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeQuad_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeHingeLimit_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnWing_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeWeightedNode_t {
+                constexpr std::ptrdiff_t  = 0x1; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CollisionDetailLayerInfo_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeEffectDesc_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeSpringIntegrator_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FourVectors2D {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeKelagerBend2_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CastSphereSATParams_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace vphysics_save_ragdoll_control_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeRigidColliderIndices_t {
+                constexpr std::ptrdiff_t  = 0x1; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeCollisionPlane_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeStiffHingeBuild_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeBoxRigid_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeMorphLayerDepr_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeCtrlOffset_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IPhysicsPlayerController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeNodeBase_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeVertexMapBuild_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CFeVertexMapBuildArray {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeTri_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnHull_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeModelSelfCollisionLayer_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeAntiTunnelGroupBuild_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CovMatrix3 {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace PhysicsParticleId_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnVertex_t {
+                constexpr std::ptrdiff_t  = 0x100; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IPhysicsMotionController {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace Dop26_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeDynKinLink_t {
+                constexpr std::ptrdiff_t  = 0x1; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnFace_t {
+                constexpr std::ptrdiff_t  = 0x100; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeCtrlOsOffset_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeAntiTunnelProbe_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeSourceEdge_t {
+                constexpr std::ptrdiff_t  = 0x1; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeTwistConstraint_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeNodeWindBase_t {
+                constexpr std::ptrdiff_t  = 0x1; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeAxialEdgeBend_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FourCovMatrices3 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace constraint_breakableparams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeSphereRigid_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CollisionDetailLayerInfo_t__Name_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeBuildTaperedCapsuleRigid_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IPhysicsBody {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeSoftParent_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnShapeDesc_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeTreeChildren_t {
+                constexpr std::ptrdiff_t  = 0x1; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeRodConstraint_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeFitWeight_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace RnHalfEdge_t {
+                constexpr std::ptrdiff_t  = 0x100; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FeSimdTri_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace VertexPositionColor_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeFitInfluence_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace FeHingeLimitBuild_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+        }
+    }
+}

@@ -1,0 +1,5892 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:21:30.322409500 UTC
+
+#pragma once
+
+#include <cstddef>
+#include <cstdint>
+
+namespace cs2_dumper {
+    namespace schemas {
+        // Module: server.dll
+        // Class count: 943
+        // Enum count: 179
+        namespace server_dll {
+            // Alignment: 4
+            // Member count: 4
+            enum class CLogicBranchList__LogicBranchListenerLastState_t : uint32_t {
+                LOGIC_BRANCH_LISTENER_NOT_INIT = 0x0,
+                LOGIC_BRANCH_LISTENER_ALL_TRUE = 0x1,
+                LOGIC_BRANCH_LISTENER_ALL_FALSE = 0x2,
+                LOGIC_BRANCH_LISTENER_MIXED = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class CFuncMover__Move_t : uint32_t {
+                MOVE_LOOP = 0x0,
+                MOVE_OSCILLATE = 0x1,
+                MOVE_STOP_AT_END = 0x2
+            };
+            // Alignment: 4
+            // Member count: 6
+            enum class CFuncRotator__Rotate_t : uint32_t {
+                ROTATE_LOOP = 0x0,
+                ROTATE_OSCILLATE = 0x1,
+                ROTATE_STOP_AT_END = 0x2,
+                ROTATE_LOOK_AT_TARGET = 0x3,
+                ROTATE_LOOK_AT_TARGET_ONLY_YAW = 0x4,
+                ROTATE_RETURN_TO_INITIAL_ORIENTATION = 0x5
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class PulseBestOutflowRules_t : uint32_t {
+                SORT_BY_NUMBER_OF_VALID_CRITERIA = 0x0,
+                SORT_BY_OUTFLOW_INDEX = 0x1
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class CPhysicsProp__CrateType_t : uint32_t {
+                CRATE_SPECIFIC_ITEM = 0x0,
+                CRATE_TYPE_COUNT = 0x1
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class PulseCursorCancelPriority_t : uint32_t {
+                None = 0x0,
+                CancelOnSucceeded = 0x1,
+                SoftCancel = 0x2,
+                HardCancel = 0x3
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class PulseMethodCallMode_t : uint32_t {
+                SYNC_WAIT_FOR_COMPLETION = 0x0,
+                ASYNC_FIRE_AND_FORGET = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class CFuncMover__FollowConstraint_t : uint32_t {
+                FOLLOW_CONSTRAINT_DISTANCE = 0x0,
+                FOLLOW_CONSTRAINT_SPRING = 0x1,
+                FOLLOW_CONSTRAINT_RATIO = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class CFuncMover__FollowEntityDirection_t : uint32_t {
+                FOLLOW_ENTITY_BIDIRECTIONAL = 0x0,
+                FOLLOW_ENTITY_FORWARD = 0x1,
+                FOLLOW_ENTITY_REVERSE = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class CFuncMover__TransitionToPathNodeAction_t : uint32_t {
+                TRANSITION_TO_PATH_NODE_ACTION_NONE = 0x0,
+                TRANSITION_TO_PATH_NODE_ACTION_START_FORWARD = 0x1,
+                TRANSITION_TO_PATH_NODE_ACTION_START_REVERSE = 0x2,
+                TRANSITION_TO_PATH_NODE_TRANSITIONING = 0x3
+            };
+            // Alignment: 4
+            // Member count: 9
+            enum class CFuncMover__OrientationUpdate_t : uint32_t {
+                ORIENTATION_FORWARD_PATH = 0x0,
+                ORIENTATION_FORWARD_PATH_AND_FIXED_PITCH = 0x1,
+                ORIENTATION_FORWARD_PATH_AND_UP_CONTROL_POINT = 0x2,
+                ORIENTATION_MATCH_CONTROL_POINT = 0x3,
+                ORIENTATION_FIXED = 0x4,
+                ORIENTATION_FACE_PLAYER = 0x5,
+                ORIENTATION_FORWARD_MOVEMENT_DIRECTION = 0x6,
+                ORIENTATION_FORWARD_MOVEMENT_DIRECTION_AND_UP_CONTROL_POINT = 0x7,
+                ORIENTATION_FACE_ENTITY = 0x8
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class PropDoorRotatingOpenDirection_e : uint32_t {
+                DOOR_ROTATING_OPEN_BOTH_WAYS = 0x0,
+                DOOR_ROTATING_OPEN_FORWARD = 0x1,
+                DOOR_ROTATING_OPEN_BACKWARD = 0x2
+            };
+            // Alignment: 4
+            // Member count: 1
+            enum class PulseCollisionGroup_t : uint32_t {
+                DEFAULT = 0x0
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class SceneOnPlayerDeath_t : uint32_t {
+                SCENE_ONPLAYERDEATH_DO_NOTHING = 0x0,
+                SCENE_ONPLAYERDEATH_CANCEL = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class LessonPanelLayoutFileTypes_t : uint32_t {
+                LAYOUT_HAND_DEFAULT = 0x0,
+                LAYOUT_WORLD_DEFAULT = 0x1,
+                LAYOUT_CUSTOM = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class TimelineCompression_t : uint32_t {
+                TIMELINE_COMPRESSION_SUM = 0x0,
+                TIMELINE_COMPRESSION_COUNT_PER_INTERVAL = 0x1,
+                TIMELINE_COMPRESSION_AVERAGE = 0x2,
+                TIMELINE_COMPRESSION_AVERAGE_BLEND = 0x3,
+                TIMELINE_COMPRESSION_TOTAL = 0x4
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class SubclassVDataChangeType_t : uint32_t {
+                SUBCLASS_VDATA_CREATED = 0x0,
+                SUBCLASS_VDATA_SUBCLASS_CHANGED = 0x1,
+                SUBCLASS_VDATA_RELOADED = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class C4LightEffect_t : uint32_t {
+                eLightEffectNone = 0x0,
+                eLightEffectDropped = 0x1,
+                eLightEffectThirdPersonHeld = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class StanceType_t : uint32_t {
+                STANCE_CURRENT = 0xFFFFFFFF,
+                STANCE_DEFAULT = 0x0,
+                STANCE_CROUCHING = 0x1,
+                STANCE_PRONE = 0x2,
+                NUM_STANCES = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class Explosions : uint32_t {
+                expRandom = 0x0,
+                expDirected = 0x1,
+                expUsePrecise = 0x2
+            };
+            // Alignment: 4
+            // Member count: 11
+            enum class PreviewCharacterMode : uint32_t {
+                INVALID = 0xFFFFFFFF,
+                DIORAMA = 0x0,
+                MAIN_MENU = 0x1,
+                BUY_MENU = 0x2,
+                TEAM_SELECT = 0x3,
+                END_OF_MATCH = 0x4,
+                INVENTORY_INSPECT = 0x5,
+                WALKING = 0x6,
+                TEAM_INTRO = 0x7,
+                WINGMAN_INTRO = 0x8,
+                BANNER = 0x9
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class ObserverInterpState_t : uint32_t {
+                OBSERVER_INTERP_NONE = 0x0,
+                OBSERVER_INTERP_STARTING = 0x1,
+                OBSERVER_INTERP_TRAVELING = 0x2,
+                OBSERVER_INTERP_SETTLING = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class WorldTextPanelOrientation_t : uint32_t {
+                WORLDTEXT_ORIENTATION_DEFAULT = 0x0,
+                WORLDTEXT_ORIENTATION_FACEUSER = 0x1,
+                WORLDTEXT_ORIENTATION_FACEUSER_UPRIGHT = 0x2
+            };
+            // Alignment: 4
+            // Member count: 8
+            enum class EDestructibleParts_DestroyParameterFlags : uint32_t {
+                None = 0x0,
+                GenerateBreakpieces = 0x1,
+                SetBodyGroupAndCollisionState = 0x2,
+                EnableFlinches = 0x4,
+                ForceDamageApply = 0x8,
+                IgnoreKillEntityFlag = 0x10,
+                IgnoreHealthCheck = 0x20,
+                Default = 0x7
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class WorldTextPanelHorizontalAlign_t : uint32_t {
+                WORLDTEXT_HORIZONTAL_ALIGN_LEFT = 0x0,
+                WORLDTEXT_HORIZONTAL_ALIGN_CENTER = 0x1,
+                WORLDTEXT_HORIZONTAL_ALIGN_RIGHT = 0x2
+            };
+            // Alignment: 1
+            // Member count: 3
+            enum class SequenceFinishNotifyState_t : uint8_t {
+                eDoNotNotify = 0x0,
+                eNotifyWhenFinished = 0x1,
+                eNotifyTriggered = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class SoundEventStartType_t : uint32_t {
+                SOUNDEVENT_START_PLAYER = 0x0,
+                SOUNDEVENT_START_WORLD = 0x1,
+                SOUNDEVENT_START_ENTITY = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class soundcommands_t : uint32_t {
+                SOUNDCTRL_CHANGE_VOLUME = 0x0,
+                SOUNDCTRL_CHANGE_PITCH = 0x1,
+                SOUNDCTRL_STOP = 0x2,
+                SOUNDCTRL_DESTROY = 0x3,
+                SOUNDCTRL_FADEOUT = 0x4
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class AnimGraphDebugDrawType_t : uint32_t {
+                None = 0x0,
+                WsPosition = 0x1,
+                MsPosition = 0x2,
+                WsDirection = 0x3,
+                MsDirection = 0x4
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class TrainOrientationType_t : uint32_t {
+                TrainOrientation_Fixed = 0x0,
+                TrainOrientation_AtPathTracks = 0x1,
+                TrainOrientation_LinearBlend = 0x2,
+                TrainOrientation_EaseInEaseOut = 0x3
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class CInfoChoreoLocatorShapeType_t : uint32_t {
+                POINT = 0x0,
+                LINE = 0x1,
+                COUNT = 0x2,
+                NONE = 0x3
+            };
+            // Alignment: 4
+            // Member count: 7
+            enum class CSWeaponCategory : uint32_t {
+                WEAPONCATEGORY_OTHER = 0x0,
+                WEAPONCATEGORY_MELEE = 0x1,
+                WEAPONCATEGORY_SECONDARY = 0x2,
+                WEAPONCATEGORY_SMG = 0x3,
+                WEAPONCATEGORY_RIFLE = 0x4,
+                WEAPONCATEGORY_HEAVY = 0x5,
+                WEAPONCATEGORY_COUNT = 0x6
+            };
+            // Alignment: 1
+            // Member count: 2
+            enum class BeginDeathLifeStateTransition_t : uint8_t {
+                TRANSITION_TO_LIFESTATE_DYING = 0x0,
+                TRANSITION_TO_LIFESTATE_DEAD = 0x1
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class PointOrientGoalDirectionType_t : uint32_t {
+                eAbsOrigin = 0x0,
+                eCenter = 0x1,
+                eHead = 0x2,
+                eForward = 0x3,
+                eEyesForward = 0x4
+            };
+            // Alignment: 1
+            // Member count: 9
+            enum class ItemFlagTypes_t : uint8_t {
+                ITEM_FLAG_NONE = 0x0,
+                ITEM_FLAG_CAN_SELECT_WITHOUT_AMMO = 0x1,
+                ITEM_FLAG_NOAUTORELOAD = 0x2,
+                ITEM_FLAG_NOAUTOSWITCHEMPTY = 0x4,
+                ITEM_FLAG_LIMITINWORLD = 0x8,
+                ITEM_FLAG_EXHAUSTIBLE = 0x10,
+                ITEM_FLAG_DOHITLOCATIONDMG = 0x20,
+                ITEM_FLAG_NOAMMOPICKUPS = 0x40,
+                ITEM_FLAG_NOITEMPICKUP = 0x80
+            };
+            // Alignment: 1
+            // Member count: 10
+            enum class SurroundingBoundsType_t : uint8_t {
+                USE_OBB_COLLISION_BOUNDS = 0x0,
+                USE_BEST_COLLISION_BOUNDS = 0x1,
+                USE_HITBOXES = 0x2,
+                USE_SPECIFIED_BOUNDS = 0x3,
+                USE_GAME_CODE = 0x4,
+                USE_ROTATION_EXPANDED_BOUNDS = 0x5,
+                USE_ROTATION_EXPANDED_ORIENTED_BOUNDS = 0x6,
+                USE_COLLISION_BOUNDS_NEVER_VPHYSICS = 0x7,
+                USE_ROTATION_EXPANDED_SEQUENCE_BOUNDS = 0x8,
+                SURROUNDING_TYPE_BIT_COUNT = 0x3
+            };
+            // Alignment: 4
+            // Member count: 6
+            enum class LifeState_t : uint32_t {
+                LIFE_ALIVE = 0x0,
+                LIFE_DYING = 0x1,
+                LIFE_DEAD = 0x2,
+                LIFE_RESPAWNABLE = 0x3,
+                LIFE_RESPAWNING = 0x4,
+                NUM_LIFESTATES = 0x5
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class PointOrientConstraint_t : uint32_t {
+                eNone = 0x0,
+                ePreserveUpAxis = 0x1
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class NPCFollowFormation_t : uint32_t {
+                Default = 0xFFFFFFFF,
+                CloseCircle = 0x0,
+                WideCircle = 0x1,
+                MediumCircle = 0x5,
+                Sidekick = 0x6
+            };
+            // Alignment: 1
+            // Member count: 3
+            enum class GLOBALESTATE : uint8_t {
+                GLOBAL_OFF = 0x0,
+                GLOBAL_ON = 0x1,
+                GLOBAL_DEAD = 0x2
+            };
+            // Alignment: 1
+            // Member count: 6
+            enum class AnimationAlgorithm_t : uint8_t {
+                eInvalid = 0xFF,
+                eNone = 0x0,
+                eSequence = 0x1,
+                eAnimGraph2 = 0x2,
+                eAnimGraph2Secondary = 0x3,
+                eCount = 0x4
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class CSWeaponMode : uint32_t {
+                Primary_Mode = 0x0,
+                Secondary_Mode = 0x1,
+                WeaponMode_MAX = 0x2
+            };
+            // Alignment: 1
+            // Member count: 3
+            enum class OnFrame : uint8_t {
+                ONFRAME_UNKNOWN = 0x0,
+                ONFRAME_TRUE = 0x1,
+                ONFRAME_FALSE = 0x2
+            };
+            // Alignment: 4
+            // Member count: 12
+            enum class Materials : uint32_t {
+                matGlass = 0x0,
+                matWood = 0x1,
+                matMetal = 0x2,
+                matFlesh = 0x3,
+                matCinderBlock = 0x4,
+                matCeilingTile = 0x5,
+                matComputer = 0x6,
+                matUnbreakableGlass = 0x7,
+                matRocks = 0x8,
+                matWeb = 0x9,
+                matNone = 0xA,
+                matLastMaterial = 0xB
+            };
+            // Alignment: 4
+            // Member count: 9
+            enum class BloodType : uint32_t {
+                None = 0xFFFFFFFF,
+                ColorRed = 0x0,
+                ColorYellow = 0x1,
+                ColorGreen = 0x2,
+                ColorRedLVL2 = 0x3,
+                ColorRedLVL3 = 0x4,
+                ColorRedLVL4 = 0x5,
+                ColorRedLVL5 = 0x6,
+                ColorRedLVL6 = 0x7
+            };
+            // Alignment: 1
+            // Member count: 5
+            enum class NavScope_t : uint8_t {
+                eGround = 0x0,
+                eAir = 0x1,
+                eCount = 0x2,
+                eFirst = 0x0,
+                eInvalid = 0xFF
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class BreakableContentsType_t : uint32_t {
+                BC_DEFAULT = 0x0,
+                BC_EMPTY = 0x1,
+                BC_PROP_GROUP_OVERRIDE = 0x2,
+                BC_PARTICLE_SYSTEM_OVERRIDE = 0x3
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class AnimLoopMode_t : uint32_t {
+                ANIM_LOOP_MODE_INVALID = 0xFFFFFFFF,
+                ANIM_LOOP_MODE_NOT_LOOPING = 0x0,
+                ANIM_LOOP_MODE_LOOPING = 0x1,
+                ANIM_LOOP_MODE_USE_SEQUENCE_SETTINGS = 0x2,
+                ANIM_LOOP_MODE_COUNT = 0x3
+            };
+            // Alignment: 4
+            // Member count: 14
+            enum class Class_T : uint32_t {
+                CLASS_NONE = 0x0,
+                CLASS_PLAYER = 0x1,
+                CLASS_PLAYER_ALLY = 0x2,
+                CLASS_C4_FOR_RADAR = 0x3,
+                CLASS_FOOT_CONTACT_SHADOW = 0x4,
+                CLASS_WEAPON = 0x5,
+                CLASS_WATER_SPLASHER = 0x6,
+                CLASS_HUDMODEL_WEAPON = 0x7,
+                CLASS_HUDMODEL_ARMS = 0x8,
+                CLASS_HUDMODEL_ADDON = 0x9,
+                CLASS_WORLDMODEL_GLOVES = 0xA,
+                CLASS_DOOR = 0xB,
+                CLASS_PLANTED_C4 = 0xC,
+                NUM_CLASSIFY_CLASSES = 0xD
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class filter_t : uint32_t {
+                FILTER_AND = 0x0,
+                FILTER_OR = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class CSWeaponSilencerType : uint32_t {
+                WEAPONSILENCER_NONE = 0x0,
+                WEAPONSILENCER_DETACHABLE = 0x1,
+                WEAPONSILENCER_INTEGRATED = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class EProceduralRagdollWeightIndexPropagationMethod : uint32_t {
+                Bone = 0x0,
+                BoneAndChildren = 0x1
+            };
+            // Alignment: 4
+            // Member count: 37
+            enum class GameAnimEventIndex_t : uint32_t {
+                AE_EMPTY = 0x0,
+                AE_CL_PLAYSOUND = 0x1,
+                AE_CL_PLAYSOUND_ATTACHMENT = 0x2,
+                AE_CL_PLAYSOUND_POSITION = 0x3,
+                AE_SV_PLAYSOUND = 0x4,
+                AE_CL_STOPSOUND = 0x5,
+                AE_CL_PLAYSOUND_LOOPING = 0x6,
+                AE_CL_CREATE_PARTICLE_EFFECT = 0x7,
+                AE_CL_STOP_PARTICLE_EFFECT = 0x8,
+                AE_CL_CREATE_PARTICLE_EFFECT_CFG = 0x9,
+                AE_SV_CREATE_PARTICLE_EFFECT_CFG = 0xA,
+                AE_SV_STOP_PARTICLE_EFFECT = 0xB,
+                AE_FOOTSTEP = 0xC,
+                AE_CL_STOP_RAGDOLL_CONTROL = 0xD,
+                AE_CL_ENABLE_BODYGROUP = 0xE,
+                AE_CL_DISABLE_BODYGROUP = 0xF,
+                AE_BODYGROUP_SET_VALUE = 0x10,
+                AE_WEAPON_PERFORM_ATTACK = 0x11,
+                AE_FIRE_INPUT = 0x12,
+                AE_CL_CLOTH_ATTR = 0x13,
+                AE_CL_CLOTH_GROUND_OFFSET = 0x14,
+                AE_CL_CLOTH_STIFFEN = 0x15,
+                AE_CL_CLOTH_EFFECT = 0x16,
+                AE_CL_CREATE_ANIM_SCOPE_PROP = 0x17,
+                AE_SV_IKLOCK = 0x18,
+                AE_PULSE_GRAPH = 0x19,
+                AE_DISABLE_PLATFORM = 0x1A,
+                AE_ENABLE_PLATFORM_PLAYER_FOLLOWS_YAW = 0x1B,
+                AE_ENABLE_PLATFORM_PLAYER_IGNORES_YAW = 0x1C,
+                AE_DESTRUCTIBLE_PART_DESTROY = 0x1D,
+                AE_CL_WEAPON_TRANSITION_INTO_HAND = 0x1E,
+                AE_SV_ATTACH_SILENCER_COMPLETE = 0x1F,
+                AE_SV_DETACH_SILENCER_COMPLETE = 0x20,
+                AE_CL_EJECT_MAG = 0x21,
+                AE_WPN_COMPLETE_RELOAD = 0x22,
+                AE_WPN_HEALTHSHOT_INJECT = 0x23,
+                AE_GRENADE_THROW_COMPLETE = 0x24
+            };
+            // Alignment: 1
+            // Member count: 3
+            enum class FixAngleSet_t : uint8_t {
+                None = 0x0,
+                Absolute = 0x1,
+                Relative = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class IChoreoServices__ScriptState_t : uint32_t {
+                SCRIPT_PLAYING = 0x0,
+                SCRIPT_WAIT = 0x1,
+                SCRIPT_POST_IDLE = 0x2,
+                SCRIPT_CLEANUP = 0x3,
+                SCRIPT_MOVE_TO_MARK = 0x4
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class Touch_t : uint32_t {
+                touch_none = 0x0,
+                touch_player_only = 0x1,
+                touch_npc_only = 0x2,
+                touch_player_or_npc = 0x3,
+                touch_player_or_npc_or_physicsprop = 0x4
+            };
+            // Alignment: 1
+            // Member count: 4
+            enum class CCSPlayerAnimationState__MoveType_t : uint8_t {
+                None = 0x0,
+                Ground = 0x1,
+                Air = 0x2,
+                Ladder = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class TrainVelocityType_t : uint32_t {
+                TrainVelocity_Instantaneous = 0x0,
+                TrainVelocity_LinearBlend = 0x1,
+                TrainVelocity_EaseInEaseOut = 0x2
+            };
+            // Alignment: 4
+            // Member count: 13
+            enum class CSWeaponType : uint32_t {
+                WEAPONTYPE_KNIFE = 0x0,
+                WEAPONTYPE_PISTOL = 0x1,
+                WEAPONTYPE_SUBMACHINEGUN = 0x2,
+                WEAPONTYPE_RIFLE = 0x3,
+                WEAPONTYPE_SHOTGUN = 0x4,
+                WEAPONTYPE_SNIPER_RIFLE = 0x5,
+                WEAPONTYPE_MACHINEGUN = 0x6,
+                WEAPONTYPE_C4 = 0x7,
+                WEAPONTYPE_TASER = 0x8,
+                WEAPONTYPE_GRENADE = 0x9,
+                WEAPONTYPE_EQUIPMENT = 0xA,
+                WEAPONTYPE_STACKABLEITEM = 0xB,
+                WEAPONTYPE_UNKNOWN = 0xC
+            };
+            // Alignment: 1
+            // Member count: 4
+            enum class NavScopeFlags_t : uint8_t {
+                eGround = 0x1,
+                eAir = 0x2,
+                eAll = 0x3,
+                eNone = 0x0
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class EntFinderMethod_t : uint32_t {
+                ENT_FIND_METHOD_NEAREST = 0x0,
+                ENT_FIND_METHOD_FARTHEST = 0x1,
+                ENT_FIND_METHOD_RANDOM = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class TestInputOutputCombinationsEnum_t : uint32_t {
+                ZERO = 0x0,
+                ONE = 0x1,
+                TWO = 0x2
+            };
+            // Alignment: 4
+            // Member count: 6
+            enum class FuncMoverMovementSummaryFlags_t : uint32_t {
+                eNone = 0x0,
+                eMovementBegin = 0x1,
+                eStopBegin = 0x2,
+                eStopComplete = 0x4,
+                eReversing = 0x8,
+                eEventsDispatched = 0x10
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class PropDoorRotatingSpawnPos_t : uint32_t {
+                DOOR_SPAWN_CLOSED = 0x0,
+                DOOR_SPAWN_OPEN_FORWARD = 0x1,
+                DOOR_SPAWN_OPEN_BACK = 0x2,
+                DOOR_SPAWN_AJAR = 0x3
+            };
+            // Alignment: 1
+            // Member count: 2
+            enum class ShardSolid_t : uint8_t {
+                SHARD_SOLID = 0x0,
+                SHARD_DEBRIS = 0x1
+            };
+            // Alignment: 1
+            // Member count: 3
+            enum class EntityPlatformTypes_t : uint8_t {
+                ENTITY_NOT_PLATFORM = 0x0,
+                ENTITY_PLATFORM_PLAYER_FOLLOWS_YAW = 0x1,
+                ENTITY_PLATFORM_PLAYER_IGNORES_YAW = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class PulseNPCCondition_t : uint32_t {
+                COND_SEE_PLAYER = 0x1,
+                COND_LOST_PLAYER = 0x2,
+                COND_HEAR_PLAYER = 0x3,
+                COND_PLAYER_PUSHING = 0x4,
+                COND_NO_PRIMARY_AMMO = 0x5
+            };
+            // Alignment: 1
+            // Member count: 4
+            enum class RenderMode_t : uint8_t {
+                kRenderNormal = 0x0,
+                kRenderTransAlpha = 0x1,
+                kRenderNone = 0x2,
+                kRenderModeCount = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class ForcedCrouchState_t : uint32_t {
+                FORCEDCROUCH_NONE = 0x0,
+                FORCEDCROUCH_CROUCHED = 0x1,
+                FORCEDCROUCH_UNCROUCHED = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class PerformanceMode_t : uint32_t {
+                PM_NORMAL = 0x0,
+                PM_NO_GIBS = 0x1
+            };
+            // Alignment: 4
+            // Member count: 8
+            enum class TOGGLE_STATE : uint32_t {
+                TS_AT_TOP = 0x0,
+                TS_AT_BOTTOM = 0x1,
+                TS_GOING_UP = 0x2,
+                TS_GOING_DOWN = 0x3,
+                DOOR_OPEN = 0x0,
+                DOOR_CLOSED = 0x1,
+                DOOR_OPENING = 0x2,
+                DOOR_CLOSING = 0x3
+            };
+            // Alignment: 4
+            // Member count: 74
+            enum class loadout_slot_t : uint32_t {
+                LOADOUT_SLOT_PROMOTED = 0xFFFFFFFF,
+                LOADOUT_SLOT_INVALID = 0xFFFFFFFF,
+                LOADOUT_SLOT_MELEE = 0x0,
+                LOADOUT_SLOT_C4 = 0x1,
+                LOADOUT_SLOT_FIRST_AUTO_BUY_WEAPON = 0x0,
+                LOADOUT_SLOT_LAST_AUTO_BUY_WEAPON = 0x1,
+                LOADOUT_SLOT_SECONDARY0 = 0x2,
+                LOADOUT_SLOT_SECONDARY1 = 0x3,
+                LOADOUT_SLOT_SECONDARY2 = 0x4,
+                LOADOUT_SLOT_SECONDARY3 = 0x5,
+                LOADOUT_SLOT_SECONDARY4 = 0x6,
+                LOADOUT_SLOT_SECONDARY5 = 0x7,
+                LOADOUT_SLOT_SMG0 = 0x8,
+                LOADOUT_SLOT_SMG1 = 0x9,
+                LOADOUT_SLOT_SMG2 = 0xA,
+                LOADOUT_SLOT_SMG3 = 0xB,
+                LOADOUT_SLOT_SMG4 = 0xC,
+                LOADOUT_SLOT_SMG5 = 0xD,
+                LOADOUT_SLOT_RIFLE0 = 0xE,
+                LOADOUT_SLOT_RIFLE1 = 0xF,
+                LOADOUT_SLOT_RIFLE2 = 0x10,
+                LOADOUT_SLOT_RIFLE3 = 0x11,
+                LOADOUT_SLOT_RIFLE4 = 0x12,
+                LOADOUT_SLOT_RIFLE5 = 0x13,
+                LOADOUT_SLOT_HEAVY0 = 0x14,
+                LOADOUT_SLOT_HEAVY1 = 0x15,
+                LOADOUT_SLOT_HEAVY2 = 0x16,
+                LOADOUT_SLOT_HEAVY3 = 0x17,
+                LOADOUT_SLOT_HEAVY4 = 0x18,
+                LOADOUT_SLOT_HEAVY5 = 0x19,
+                LOADOUT_SLOT_FIRST_WHEEL_WEAPON = 0x2,
+                LOADOUT_SLOT_LAST_WHEEL_WEAPON = 0x19,
+                LOADOUT_SLOT_FIRST_PRIMARY_WEAPON = 0x8,
+                LOADOUT_SLOT_LAST_PRIMARY_WEAPON = 0x19,
+                LOADOUT_SLOT_FIRST_WHEEL_GRENADE = 0x1A,
+                LOADOUT_SLOT_GRENADE0 = 0x1A,
+                LOADOUT_SLOT_GRENADE1 = 0x1B,
+                LOADOUT_SLOT_GRENADE2 = 0x1C,
+                LOADOUT_SLOT_GRENADE3 = 0x1D,
+                LOADOUT_SLOT_GRENADE4 = 0x1E,
+                LOADOUT_SLOT_GRENADE5 = 0x1F,
+                LOADOUT_SLOT_LAST_WHEEL_GRENADE = 0x1F,
+                LOADOUT_SLOT_EQUIPMENT0 = 0x20,
+                LOADOUT_SLOT_EQUIPMENT1 = 0x21,
+                LOADOUT_SLOT_EQUIPMENT2 = 0x22,
+                LOADOUT_SLOT_EQUIPMENT3 = 0x23,
+                LOADOUT_SLOT_EQUIPMENT4 = 0x24,
+                LOADOUT_SLOT_EQUIPMENT5 = 0x25,
+                LOADOUT_SLOT_FIRST_WHEEL_EQUIPMENT = 0x20,
+                LOADOUT_SLOT_LAST_WHEEL_EQUIPMENT = 0x25,
+                LOADOUT_SLOT_CLOTHING_CUSTOMPLAYER = 0x26,
+                LOADOUT_SLOT_CLOTHING_CUSTOMHEAD = 0x27,
+                LOADOUT_SLOT_CLOTHING_FACEMASK = 0x28,
+                LOADOUT_SLOT_CLOTHING_HANDS = 0x29,
+                LOADOUT_SLOT_FIRST_COSMETIC = 0x29,
+                LOADOUT_SLOT_LAST_COSMETIC = 0x29,
+                LOADOUT_SLOT_CLOTHING_EYEWEAR = 0x2A,
+                LOADOUT_SLOT_CLOTHING_HAT = 0x2B,
+                LOADOUT_SLOT_CLOTHING_LOWERBODY = 0x2C,
+                LOADOUT_SLOT_CLOTHING_TORSO = 0x2D,
+                LOADOUT_SLOT_CLOTHING_APPEARANCE = 0x2E,
+                LOADOUT_SLOT_MISC0 = 0x2F,
+                LOADOUT_SLOT_MISC1 = 0x30,
+                LOADOUT_SLOT_MISC2 = 0x31,
+                LOADOUT_SLOT_MISC3 = 0x32,
+                LOADOUT_SLOT_MISC4 = 0x33,
+                LOADOUT_SLOT_MISC5 = 0x34,
+                LOADOUT_SLOT_MISC6 = 0x35,
+                LOADOUT_SLOT_MUSICKIT = 0x36,
+                LOADOUT_SLOT_FLAIR0 = 0x37,
+                LOADOUT_SLOT_SPRAY0 = 0x38,
+                LOADOUT_SLOT_FIRST_ALL_CHARACTER = 0x36,
+                LOADOUT_SLOT_LAST_ALL_CHARACTER = 0x38,
+                LOADOUT_SLOT_COUNT = 0x39
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class EDestructiblePartDamagePassThroughType : uint32_t {
+                Normal = 0x0,
+                Absorb = 0x1,
+                InvincibleAbsorb = 0x2,
+                InvinciblePassthrough = 0x3
+            };
+            // Alignment: 8
+            // Member count: 20
+            enum class NavAttributeEnum : uint64_t {
+                NAV_MESH_AVOID = 0x80,
+                NAV_MESH_STAIRS = 0x1000,
+                NAV_MESH_NON_ZUP = 0x8000,
+                NAV_MESH_CROUCH_HEIGHT = 0x10000,
+                NAV_MESH_NON_ZUP_TRANSITION = 0x20000,
+                NAV_MESH_CRAWL_HEIGHT = 0x40000,
+                NAV_MESH_CROUCH = 0x10000,
+                NAV_MESH_JUMP = 0x2,
+                NAV_MESH_NO_JUMP = 0x8,
+                NAV_MESH_STOP = 0x10,
+                NAV_MESH_RUN = 0x20,
+                NAV_MESH_WALK = 0x40,
+                NAV_MESH_TRANSIENT = 0x100,
+                NAV_MESH_DONT_HIDE = 0x200,
+                NAV_MESH_STAND = 0x400,
+                NAV_MESH_NO_HOSTAGES = 0x800,
+                NAV_MESH_NO_MERGE = 0x2000,
+                NAV_MESH_OBSTACLE_TOP = 0x4000,
+                NAV_ATTR_FIRST_GAME_INDEX = 0x13,
+                NAV_ATTR_LAST_INDEX = 0x3F
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class MoveLinearAuthoredPos_t : uint32_t {
+                MOVELINEAR_AUTHORED_AT_START_POSITION = 0x0,
+                MOVELINEAR_AUTHORED_AT_OPEN_POSITION = 0x1,
+                MOVELINEAR_AUTHORED_AT_CLOSED_POSITION = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class InteractionPassive_t : uint32_t {
+                INTERACT_PASSIVE_NONE = 0x0,
+                INTERACT_PASSIVE_LOOKAT = 0x1,
+                INTERACT_PASSIVE_SPEAK = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class ValueRemapperMomentumType_t : uint32_t {
+                MomentumType_None = 0x0,
+                MomentumType_Friction = 0x1,
+                MomentumType_SpringTowardSnapValue = 0x2,
+                MomentumType_SpringAwayFromSnapValue = 0x3
+            };
+            // Alignment: 4
+            // Member count: 12
+            enum class Hull_t : uint32_t {
+                HULL_HUMAN = 0x0,
+                HULL_SMALL_CENTERED = 0x1,
+                HULL_WIDE_HUMAN = 0x2,
+                HULL_TINY = 0x3,
+                HULL_MEDIUM = 0x4,
+                HULL_TINY_CENTERED = 0x5,
+                HULL_LARGE = 0x6,
+                HULL_LARGE_CENTERED = 0x7,
+                HULL_MEDIUM_TALL = 0x8,
+                HULL_SMALL = 0x9,
+                NUM_HULLS = 0xA,
+                HULL_NONE = 0xB
+            };
+            // Alignment: 1
+            // Member count: 3
+            enum class ExternalAnimGraphInactiveBehavior_t : uint8_t {
+                eNone = 0x0,
+                eUnbind = 0x1,
+                eUnbindAndDelete = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class BodySectionAuthority_t : uint32_t {
+                eNone = 0x0,
+                eLowerBody = 0x1,
+                eUpperBody = 0x2,
+                eFullBody = 0x3
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class ESceneRequestState_t : uint32_t {
+                INACTIVE = 0x0,
+                ACTIVE = 0x1,
+                FINISHED = 0x2,
+                FAILED = 0x3
+            };
+            // Alignment: 1
+            // Member count: 7
+            enum class CCSPlayerAnimationState__GroundMoveState_t : uint8_t {
+                None = 0x0,
+                Idle = 0x1,
+                Start = 0x2,
+                Move = 0x3,
+                TurnOnSpot = 0x4,
+                TurnOnSpotLoop = 0x5,
+                PlantAndTurn = 0x6
+            };
+            // Alignment: 4
+            // Member count: 6
+            enum class PreviewWeaponState : uint32_t {
+                DROPPED = 0x0,
+                HOLSTERED = 0x1,
+                DEPLOYED = 0x2,
+                PLANTED = 0x3,
+                INSPECT = 0x4,
+                ICON = 0x5
+            };
+            // Alignment: 4
+            // Member count: 9
+            enum class EInButtonState : uint32_t {
+                IN_BUTTON_UP = 0x0,
+                IN_BUTTON_DOWN = 0x1,
+                IN_BUTTON_DOWN_UP = 0x2,
+                IN_BUTTON_UP_DOWN = 0x3,
+                IN_BUTTON_UP_DOWN_UP = 0x4,
+                IN_BUTTON_DOWN_UP_DOWN = 0x5,
+                IN_BUTTON_DOWN_UP_DOWN_UP = 0x6,
+                IN_BUTTON_UP_DOWN_UP_DOWN = 0x7,
+                IN_BUTTON_STATE_COUNT = 0x8
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class BeamClipStyle_t : uint32_t {
+                kNOCLIP = 0x0,
+                kGEOCLIP = 0x1,
+                kMODELCLIP = 0x2,
+                kBEAMCLIPSTYLE_NUMBITS = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class WeaponAttackType_t : uint32_t {
+                eInvalid = 0xFFFFFFFF,
+                ePrimary = 0x0,
+                eSecondary = 0x1,
+                eCount = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class CDebugOverlayFilterTextType_t : uint32_t {
+                FILTER_TEXT_NONE = 0x0,
+                MATCH = 0x1,
+                HIERARCHY = 0x2,
+                COUNT = 0x3
+            };
+            // Alignment: 4
+            // Member count: 8
+            enum class CSPlayerBlockingUseAction_t : uint32_t {
+                k_CSPlayerBlockingUseAction_None = 0x0,
+                k_CSPlayerBlockingUseAction_DefusingDefault = 0x1,
+                k_CSPlayerBlockingUseAction_DefusingWithKit = 0x2,
+                k_CSPlayerBlockingUseAction_HostageGrabbing = 0x3,
+                k_CSPlayerBlockingUseAction_HostageDropping = 0x4,
+                k_CSPlayerBlockingUseAction_MapLongUseEntity_Pickup = 0x5,
+                k_CSPlayerBlockingUseAction_MapLongUseEntity_Place = 0x6,
+                k_CSPlayerBlockingUseAction_MaxCount = 0x7
+            };
+            // Alignment: 1
+            // Member count: 5
+            enum class ShatterDamageCause : uint8_t {
+                SHATTERDAMAGE_BULLET = 0x0,
+                SHATTERDAMAGE_MELEE = 0x1,
+                SHATTERDAMAGE_THROWN = 0x2,
+                SHATTERDAMAGE_SCRIPT = 0x3,
+                SHATTERDAMAGE_EXPLOSIVE = 0x4
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class ScriptedOnDeath_t : uint32_t {
+                SS_ONDEATH_NOT_APPLICABLE = 0xFFFFFFFF,
+                SS_ONDEATH_UNDEFINED = 0x0,
+                SS_ONDEATH_RAGDOLL = 0x1,
+                SS_ONDEATH_ANIMATED_DEATH = 0x2
+            };
+            // Alignment: 4
+            // Member count: 66
+            enum class CSWeaponNameID : uint32_t {
+                WEAPONID_GLOCK = 0x0,
+                WEAPONID_HKP2000 = 0x1,
+                WEAPONID_CZ75A = 0x2,
+                WEAPONID_ELITE = 0x3,
+                WEAPONID_DEAGLE = 0x4,
+                WEAPONID_FIVESEVEN = 0x5,
+                WEAPONID_P250 = 0x6,
+                WEAPONID_REVOLVER = 0x7,
+                WEAPONID_TEC9 = 0x8,
+                WEAPONID_USP_SILENCER = 0x9,
+                WEAPONID_AK47 = 0xA,
+                WEAPONID_M4A1 = 0xB,
+                WEAPONID_M4A1_SILENCER = 0xC,
+                WEAPONID_FAMAS = 0xD,
+                WEAPONID_GALILAR = 0xE,
+                WEAPONID_AUG = 0xF,
+                WEAPONID_SG556 = 0x10,
+                WEAPONID_BIZON = 0x11,
+                WEAPONID_MAC10 = 0x12,
+                WEAPONID_MP5SD = 0x13,
+                WEAPONID_MP7 = 0x14,
+                WEAPONID_MP9 = 0x15,
+                WEAPONID_P90 = 0x16,
+                WEAPONID_UMP45 = 0x17,
+                WEAPONID_MAG7 = 0x18,
+                WEAPONID_NOVA = 0x19,
+                WEAPONID_SAWEDOFF = 0x1A,
+                WEAPONID_XM1014 = 0x1B,
+                WEAPONID_AWP = 0x1C,
+                WEAPONID_SSG08 = 0x1D,
+                WEAPONID_G3SG1 = 0x1E,
+                WEAPONID_SCAR20 = 0x1F,
+                WEAPONID_M249 = 0x20,
+                WEAPONID_NEGEV = 0x21,
+                WEAPONID_TASER = 0x22,
+                WEAPONID_DECOY = 0x23,
+                WEAPONID_FLASHBANG = 0x24,
+                WEAPONID_HEGRENADE = 0x25,
+                WEAPONID_INCGRENADE = 0x26,
+                WEAPONID_MOLOTOV = 0x27,
+                WEAPONID_SMOKEGRENADE = 0x28,
+                WEAPONID_C4 = 0x29,
+                WEAPONID_HEALTHSHOT = 0x2A,
+                WEAPONID_KNIFE = 0x2B,
+                WEAPONID_KNIFE_T = 0x2C,
+                WEAPONID_KNIFE_CSS = 0x2D,
+                WEAPONID_KNIFE_FLIP = 0x2E,
+                WEAPONID_KNIFE_GUT = 0x2F,
+                WEAPONID_KNIFE_KARAMBIT = 0x30,
+                WEAPONID_BAYONET = 0x31,
+                WEAPONID_KNIFE_M9_BAYONET = 0x32,
+                WEAPONID_KNIFE_TACTICAL = 0x33,
+                WEAPONID_KNIFE_FALCHION = 0x34,
+                WEAPONID_KNIFE_SURVIVAL_BOWIE = 0x35,
+                WEAPONID_KNIFE_BUTTERFLY = 0x36,
+                WEAPONID_KNIFE_PUSH = 0x37,
+                WEAPONID_KNIFE_CORD = 0x38,
+                WEAPONID_KNIFE_CANIS = 0x39,
+                WEAPONID_KNIFE_URSUS = 0x3A,
+                WEAPONID_KNIFE_GYPSY_JACKKNIFE = 0x3B,
+                WEAPONID_KNIFE_OUTDOOR = 0x3C,
+                WEAPONID_KNIFE_STILETTO = 0x3D,
+                WEAPONID_KNIFE_WIDOWMAKER = 0x3E,
+                WEAPONID_KNIFE_SKELETON = 0x3F,
+                WEAPONID_KNIFE_KUKRI = 0x40,
+                WEAPONID_UNKNOWN = 0x41
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class ChoreoLookAtSpeed_t : uint32_t {
+                eInvalid = 0xFFFFFFFF,
+                eSlow = 0x0,
+                eMedium = 0x1,
+                eFast = 0x2
+            };
+            // Alignment: 4
+            // Member count: 17
+            enum class gear_slot_t : uint32_t {
+                GEAR_SLOT_INVALID = 0xFFFFFFFF,
+                GEAR_SLOT_RIFLE = 0x0,
+                GEAR_SLOT_PISTOL = 0x1,
+                GEAR_SLOT_KNIFE = 0x2,
+                GEAR_SLOT_GRENADES = 0x3,
+                GEAR_SLOT_C4 = 0x4,
+                GEAR_SLOT_RESERVED_SLOT6 = 0x5,
+                GEAR_SLOT_RESERVED_SLOT7 = 0x6,
+                GEAR_SLOT_RESERVED_SLOT8 = 0x7,
+                GEAR_SLOT_RESERVED_SLOT9 = 0x8,
+                GEAR_SLOT_RESERVED_SLOT10 = 0x9,
+                GEAR_SLOT_RESERVED_SLOT11 = 0xA,
+                GEAR_SLOT_BOOSTS = 0xB,
+                GEAR_SLOT_UTILITY = 0xC,
+                GEAR_SLOT_COUNT = 0xD,
+                GEAR_SLOT_FIRST = 0x0,
+                GEAR_SLOT_LAST = 0xC
+            };
+            // Alignment: 4
+            // Member count: 10
+            enum class CSPlayerState : uint32_t {
+                STATE_ACTIVE = 0x0,
+                STATE_WELCOME = 0x1,
+                STATE_PICKINGTEAM = 0x2,
+                STATE_PICKINGCLASS = 0x3,
+                STATE_DEATH_ANIM = 0x4,
+                STATE_DEATH_WAIT_FOR_KEY = 0x5,
+                STATE_OBSERVER_MODE = 0x6,
+                STATE_GUNGAME_RESPAWN = 0x7,
+                STATE_DORMANT = 0x8,
+                NUM_PLAYER_STATES = 0x9
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class ScriptedConflictResponse_t : uint32_t {
+                SS_CONFLICT_ENQUEUE = 0x0,
+                SS_CONFLICT_INTERRUPT = 0x1
+            };
+            // Alignment: 1
+            // Member count: 7
+            enum class WaterLevel_t : uint8_t {
+                WL_NotInWater = 0x0,
+                WL_Feet = 0x1,
+                WL_Knees = 0x2,
+                WL_Waist = 0x3,
+                WL_Chest = 0x4,
+                WL_FullyUnderwater = 0x5,
+                WL_Count = 0x6
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class WorldTextPanelVerticalAlign_t : uint32_t {
+                WORLDTEXT_VERTICAL_ALIGN_TOP = 0x0,
+                WORLDTEXT_VERTICAL_ALIGN_CENTER = 0x1,
+                WORLDTEXT_VERTICAL_ALIGN_BOTTOM = 0x2
+            };
+            // Alignment: 1
+            // Member count: 4
+            enum class RelativeLocationType_t : uint8_t {
+                WORLD_SPACE_POSITION = 0x0,
+                RELATIVE_TO_ENTITY_IN_LOCAL_SPACE = 0x1,
+                RELATIVE_TO_ENTITY_YAW_ONLY = 0x2,
+                RELATIVE_TO_ENTITY_IN_WORLD_SPACE = 0x3
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class AmmoPosition_t : uint32_t {
+                AMMO_POSITION_INVALID = 0xFFFFFFFF,
+                AMMO_POSITION_PRIMARY = 0x0,
+                AMMO_POSITION_SECONDARY = 0x1,
+                AMMO_POSITION_COUNT = 0x2
+            };
+            // Alignment: 4
+            // Member count: 11
+            enum class CDebugOverlayFilterType_t : uint32_t {
+                NONE = 0x0,
+                TEXT = 0x1,
+                ENTITY = 0x2,
+                COUNT = 0x3,
+                TACTICAL_SEARCH = 0x4,
+                AI_SCHEDULE = 0x5,
+                AI_TASK = 0x6,
+                AI_EVENT = 0x7,
+                AI_PATHFINDING = 0x8,
+                END_SIM_HISTORY_TYPES = 0x9,
+                COMBINED = 0xFFFFFFFF
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class ENPCBehaviorOverride_t : uint32_t {
+                eKeepExisting = 0x0,
+                eTakeOver = 0x1
+            };
+            // Alignment: 4
+            // Member count: 24
+            enum class PreviewEOMCelebration : uint32_t {
+                INVALID = 0xFFFFFFFF,
+                WALKUP = 0x0,
+                PUNCHING = 0x1,
+                SWAGGER = 0x2,
+                DROPDOWN = 0x3,
+                STRETCH = 0x4,
+                SWAT_FEMALE = 0x5,
+                MASK_F = 0x6,
+                GUERILLA = 0x7,
+                GUERILLA02 = 0x8,
+                GENDARMERIE = 0x9,
+                SCUBA_FEMALE = 0xA,
+                SCUBA_MALE = 0xB,
+                AVA_DEFEAT = 0xC,
+                GENDARMERIE_DEFEAT = 0xD,
+                MAE_DEFEAT = 0xE,
+                RICKSAW_DEFEAT = 0xF,
+                SCUBA_FEMALE_DEFEAT = 0x10,
+                SCUBA_MALE_DEFEAT = 0x11,
+                CRASSWATER_DEFEAT = 0x12,
+                DARRYL_DEFEAT = 0x13,
+                DOCTOR_DEFEAT = 0x14,
+                MUHLIK_DEFEAT = 0x15,
+                VYPA_DEFEAT = 0x16
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class EntityDisolveType_t : uint32_t {
+                ENTITY_DISSOLVE_INVALID = 0xFFFFFFFF,
+                ENTITY_DISSOLVE_NORMAL = 0x0,
+                ENTITY_DISSOLVE_ELECTRICAL = 0x1,
+                ENTITY_DISSOLVE_ELECTRICAL_LIGHT = 0x2,
+                ENTITY_DISSOLVE_CORE = 0x3
+            };
+            // Alignment: 4
+            // Member count: 22
+            enum class SaveRestoreTableFlags_t : uint32_t {
+                FENTTABLE_NONE = 0x0,
+                FENTTABLE_PLAYER = 0xFFFFFFFF,
+                FENTTABLE_REMOVED = 0x40000000,
+                FENTTABLE_MOVEABLE = 0x20000000,
+                FENTTABLE_GLOBAL = 0x10000000,
+                FENTTABLE_PLAYERCHILD = 0x8000000,
+                LEVELMASK_BIT_0 = 0x1,
+                LEVELMASK_BIT_1 = 0x2,
+                LEVELMASK_BIT_2 = 0x4,
+                LEVELMASK_BIT_3 = 0x8,
+                LEVELMASK_BIT_4 = 0x10,
+                LEVELMASK_BIT_5 = 0x20,
+                LEVELMASK_BIT_6 = 0x40,
+                LEVELMASK_BIT_7 = 0x80,
+                LEVELMASK_BIT_8 = 0x100,
+                LEVELMASK_BIT_9 = 0x200,
+                LEVELMASK_BIT_10 = 0x400,
+                LEVELMASK_BIT_11 = 0x800,
+                LEVELMASK_BIT_12 = 0x1000,
+                LEVELMASK_BIT_13 = 0x2000,
+                LEVELMASK_BIT_14 = 0x4000,
+                LEVELMASK_BIT_15 = 0x8000
+            };
+            // Alignment: 8
+            // Member count: 21
+            enum class InputBitMask_t : uint64_t {
+                IN_NONE = 0x0,
+                IN_ALL = 0xFFFFFFFFFFFFFFFF,
+                IN_ATTACK = 0x1,
+                IN_JUMP = 0x2,
+                IN_DUCK = 0x4,
+                IN_FORWARD = 0x8,
+                IN_BACK = 0x10,
+                IN_USE = 0x20,
+                IN_TURNLEFT = 0x80,
+                IN_TURNRIGHT = 0x100,
+                IN_MOVELEFT = 0x200,
+                IN_MOVERIGHT = 0x400,
+                IN_ATTACK2 = 0x800,
+                IN_RELOAD = 0x2000,
+                IN_SPEED = 0x10000,
+                IN_JOYAUTOSPRINT = 0x20000,
+                IN_FIRST_MOD_SPECIFIC_BIT = 0xFFFFFFFFFFFFFFFF,
+                IN_USEORRELOAD = 0xFFFFFFFFFFFFFFFF,
+                IN_SCORE = 0xFFFFFFFFFFFFFFFF,
+                IN_ZOOM = 0xFFFFFFFFFFFFFFFF,
+                IN_LOOK_AT_WEAPON = 0xFFFFFFFFFFFFFFFF
+            };
+            // Alignment: 4
+            // Member count: 14
+            enum class HitGroup_t : uint32_t {
+                HITGROUP_INVALID = 0xFFFFFFFF,
+                HITGROUP_GENERIC = 0x0,
+                HITGROUP_HEAD = 0x1,
+                HITGROUP_CHEST = 0x2,
+                HITGROUP_STOMACH = 0x3,
+                HITGROUP_LEFTARM = 0x4,
+                HITGROUP_RIGHTARM = 0x5,
+                HITGROUP_LEFTLEG = 0x6,
+                HITGROUP_RIGHTLEG = 0x7,
+                HITGROUP_NECK = 0x8,
+                HITGROUP_UNUSED = 0x9,
+                HITGROUP_GEAR = 0xA,
+                HITGROUP_SPECIAL = 0xB,
+                HITGROUP_COUNT = 0xC
+            };
+            // Alignment: 4
+            // Member count: 11
+            enum class ChickenActivity : uint32_t {
+                IDLE = 0x0,
+                SQUAT = 0x1,
+                WALK = 0x2,
+                RUN = 0x3,
+                GLIDE = 0x4,
+                LAND = 0x5,
+                PANIC = 0x6,
+                TRICK = 0x7,
+                TURN_IN_PLACE = 0x8,
+                FEED = 0x9,
+                SLEEP = 0xA
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class PointWorldTextReorientMode_t : uint32_t {
+                POINT_WORLD_TEXT_REORIENT_NONE = 0x0,
+                POINT_WORLD_TEXT_REORIENT_AROUND_UP = 0x1
+            };
+            // Alignment: 8
+            // Member count: 40
+            enum class DebugOverlayBits_t : uint64_t {
+                OVERLAY_TEXT_BIT = 0x1,
+                OVERLAY_NAME_BIT = 0x2,
+                OVERLAY_BBOX_BIT = 0x4,
+                OVERLAY_PIVOT_BIT = 0x8,
+                OVERLAY_MESSAGE_BIT = 0x10,
+                OVERLAY_ABSBOX_BIT = 0x20,
+                OVERLAY_RBOX_BIT = 0x40,
+                OVERLAY_SHOW_BLOCKSLOS = 0x80,
+                OVERLAY_ATTACHMENTS_BIT = 0x100,
+                OVERLAY_INTERPOLATED_ATTACHMENTS_BIT = 0x200,
+                OVERLAY_INTERPOLATED_PIVOT_BIT = 0x400,
+                OVERLAY_SKELETON_BIT = 0x800,
+                OVERLAY_INTERPOLATED_SKELETON_BIT = 0x1000,
+                OVERLAY_TRIGGER_BOUNDS_BIT = 0x2000,
+                OVERLAY_HITBOX_BIT = 0x4000,
+                OVERLAY_INTERPOLATED_HITBOX_BIT = 0x8000,
+                OVERLAY_AUTOAIM_BIT = 0x10000,
+                OVERLAY_NPC_SELECTED_BIT = 0x20000,
+                OVERLAY_JOINT_INFO_BIT = 0x40000,
+                OVERLAY_NPC_ROUTE_BIT = 0x80000,
+                OVERLAY_VISIBILITY_TRACES_BIT = 0x100000,
+                OVERLAY_NPC_ENEMIES_BIT = 0x400000,
+                OVERLAY_NPC_CONDITIONS_BIT = 0x800000,
+                OVERLAY_NPC_COMBAT_BIT = 0x1000000,
+                OVERLAY_NPC_TASK_BIT = 0x2000000,
+                OVERLAY_NPC_BODYLOCATIONS = 0x4000000,
+                OVERLAY_NPC_VIEWCONE_BIT = 0x8000000,
+                OVERLAY_NPC_KILL_BIT = 0x10000000,
+                OVERLAY_BUDDHA_MODE = 0x40000000,
+                OVERLAY_NPC_STEERING_REGULATIONS = 0xFFFFFFFFFFFFFFFF,
+                OVERLAY_NPC_TASK_TEXT_BIT = 0xFFFFFFFFFFFFFFFF,
+                OVERLAY_PROP_DEBUG = 0xFFFFFFFFFFFFFFFF,
+                OVERLAY_NPC_RELATION_BIT = 0xFFFFFFFFFFFFFFFF,
+                OVERLAY_VIEWOFFSET = 0xFFFFFFFFFFFFFFFF,
+                OVERLAY_VCOLLIDE_WIREFRAME_BIT = 0xFFFFFFFFFFFFFFFF,
+                OVERLAY_NPC_SCRIPTED_COMMANDS_BIT = 0xFFFFFFFFFFFFFFFF,
+                OVERLAY_ACTORNAME_BIT = 0xFFFFFFFFFFFFFFFF,
+                OVERLAY_NPC_CONDITIONS_TEXT_BIT = 0xFFFFFFFFFFFFFFFF,
+                OVERLAY_NPC_ABILITY_RANGE_DEBUG_BIT = 0xFFFFFFFFFFFFFFFF,
+                OVERLAY_MINIMAL_TEXT = 0xFFFFFFFFFFFFFFFF
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class AmmoFlags_t : uint32_t {
+                AMMO_FORCE_DROP_IF_CARRIED = 0x1,
+                AMMO_RESERVE_STAYS_WITH_WEAPON = 0x2,
+                AMMO_FLAG_MAX = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class DecalFlags_t : uint32_t {
+                eNone = 0x0,
+                eCannotClear = 0x1,
+                eDecalProjectToBackfaces = 0x2,
+                eAll = 0xFFFFFFFF,
+                eAllButCannotClear = 0xFFFFFFFF
+            };
+            // Alignment: 4
+            // Member count: 6
+            enum class HierarchyType_t : uint32_t {
+                HIERARCHY_NONE = 0x0,
+                HIERARCHY_BONE_MERGE = 0x1,
+                HIERARCHY_ATTACHMENT = 0x2,
+                HIERARCHY_ABSORIGIN = 0x3,
+                HIERARCHY_BONE = 0x4,
+                HIERARCHY_TYPE_COUNT = 0x5
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class doorCheck_e : uint32_t {
+                DOOR_CHECK_FORWARD = 0x0,
+                DOOR_CHECK_BACKWARD = 0x1,
+                DOOR_CHECK_FULL = 0x2
+            };
+            // Alignment: 4
+            // Member count: 7
+            enum class BeamType_t : uint32_t {
+                BEAM_INVALID = 0x0,
+                BEAM_POINTS = 0x1,
+                BEAM_ENTPOINT = 0x2,
+                BEAM_ENTS = 0x3,
+                BEAM_HOSE = 0x4,
+                BEAM_SPLINE = 0x5,
+                BEAM_LASER = 0x6
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class EntitySubclassScope_t : uint32_t {
+                SUBCLASS_SCOPE_NONE = 0xFFFFFFFF,
+                SUBCLASS_SCOPE_PRECIPITATION = 0x0,
+                SUBCLASS_SCOPE_PLAYER_WEAPONS = 0x1,
+                SUBCLASS_SCOPE_COUNT = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class PointTemplateClientOnlyEntityBehavior_t : uint32_t {
+                CREATE_FOR_CURRENTLY_CONNECTED_CLIENTS_ONLY = 0x0,
+                CREATE_FOR_CLIENTS_WHO_CONNECT_LATER = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class CDebugOverlayCombinedTypes_t : uint32_t {
+                ALL = 0x0,
+                ANY = 0x1,
+                COUNT = 0x2
+            };
+            // Alignment: 1
+            // Member count: 4
+            enum class ShatterGlassStressType : uint8_t {
+                SHATTERGLASS_BLUNT = 0x0,
+                SHATTERGLASS_BALLISTIC = 0x1,
+                SHATTERGLASS_PULSE = 0x2,
+                SHATTERGLASS_EXPLOSIVE = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class TrackOrientationType_t : uint32_t {
+                TrackOrientation_Fixed = 0x0,
+                TrackOrientation_FacePath = 0x1,
+                TrackOrientation_FacePathAngles = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class WeaponSwitchReason_t : uint32_t {
+                eDrawn = 0x0,
+                eEquipped = 0x1,
+                eUserInitiatedSwitchToLast = 0x2,
+                eUserInitiatedUIKeyPress = 0x3,
+                eUserInitiatedSwitchHands = 0x4
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class ValueRemapperRatchetType_t : uint32_t {
+                RatchetType_Absolute = 0x0,
+                RatchetType_EachEngage = 0x1
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class NavDirType : uint32_t {
+                NORTH = 0x0,
+                EAST = 0x1,
+                SOUTH = 0x2,
+                WEST = 0x3,
+                NUM_NAV_DIR_TYPE_DIRECTIONS = 0x4
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class CRR_Response__ResponseEnum_t : uint32_t {
+                MAX_RESPONSE_NAME = 0xC0,
+                MAX_RULE_NAME = 0x80
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class MoveMountingAmount_t : uint32_t {
+                MOVE_MOUNT_NONE = 0x0,
+                MOVE_MOUNT_LOW = 0x1,
+                MOVE_MOUNT_HIGH = 0x2,
+                MOVE_MOUNT_MAXCOUNT = 0x3
+            };
+            // Alignment: 1
+            // Member count: 3
+            enum class HoverPoseFlags_t : uint8_t {
+                eNone = 0x0,
+                ePosition = 0x1,
+                eAngles = 0x2
+            };
+            // Alignment: 1
+            // Member count: 18
+            enum class RenderFx_t : uint8_t {
+                kRenderFxNone = 0x0,
+                kRenderFxPulseSlow = 0x1,
+                kRenderFxPulseFast = 0x2,
+                kRenderFxPulseSlowWide = 0x3,
+                kRenderFxPulseFastWide = 0x4,
+                kRenderFxFadeSlow = 0x5,
+                kRenderFxFadeFast = 0x6,
+                kRenderFxSolidSlow = 0x7,
+                kRenderFxSolidFast = 0x8,
+                kRenderFxStrobeSlow = 0x9,
+                kRenderFxStrobeFast = 0xA,
+                kRenderFxStrobeFaster = 0xB,
+                kRenderFxFlickerSlow = 0xC,
+                kRenderFxFlickerFast = 0xD,
+                kRenderFxFadeOut = 0xE,
+                kRenderFxFadeIn = 0xF,
+                kRenderFxPulseFastWider = 0x10,
+                kRenderFxMax = 0x11
+            };
+            // Alignment: 4
+            // Member count: 35
+            enum class vote_create_failed_t : uint32_t {
+                VOTE_FAILED_GENERIC = 0x0,
+                VOTE_FAILED_TRANSITIONING_PLAYERS = 0x1,
+                VOTE_FAILED_RATE_EXCEEDED = 0x2,
+                VOTE_FAILED_YES_MUST_EXCEED_NO = 0x3,
+                VOTE_FAILED_QUORUM_FAILURE = 0x4,
+                VOTE_FAILED_ISSUE_DISABLED = 0x5,
+                VOTE_FAILED_MAP_NOT_FOUND = 0x6,
+                VOTE_FAILED_MAP_NAME_REQUIRED = 0x7,
+                VOTE_FAILED_FAILED_RECENTLY = 0x8,
+                VOTE_FAILED_TEAM_CANT_CALL = 0x9,
+                VOTE_FAILED_WAITINGFORPLAYERS = 0xA,
+                VOTE_FAILED_PLAYERNOTFOUND = 0xB,
+                VOTE_FAILED_CANNOT_KICK_ADMIN = 0xC,
+                VOTE_FAILED_SCRAMBLE_IN_PROGRESS = 0xD,
+                VOTE_FAILED_SPECTATOR = 0xE,
+                VOTE_FAILED_FAILED_RECENT_KICK = 0xF,
+                VOTE_FAILED_FAILED_RECENT_CHANGEMAP = 0x10,
+                VOTE_FAILED_FAILED_RECENT_SWAPTEAMS = 0x11,
+                VOTE_FAILED_FAILED_RECENT_SCRAMBLETEAMS = 0x12,
+                VOTE_FAILED_FAILED_RECENT_RESTART = 0x13,
+                VOTE_FAILED_SWAP_IN_PROGRESS = 0x14,
+                VOTE_FAILED_DISABLED = 0x15,
+                VOTE_FAILED_NEXTLEVEL_SET = 0x16,
+                VOTE_FAILED_TOO_EARLY_SURRENDER = 0x17,
+                VOTE_FAILED_MATCH_PAUSED = 0x18,
+                VOTE_FAILED_MATCH_NOT_PAUSED = 0x19,
+                VOTE_FAILED_NOT_IN_WARMUP = 0x1A,
+                VOTE_FAILED_NOT_10_PLAYERS = 0x1B,
+                VOTE_FAILED_TIMEOUT_ACTIVE = 0x1C,
+                VOTE_FAILED_TIMEOUT_INACTIVE = 0x1D,
+                VOTE_FAILED_TIMEOUT_EXHAUSTED = 0x1E,
+                VOTE_FAILED_CANT_ROUND_END = 0x1F,
+                VOTE_FAILED_REMATCH = 0x20,
+                VOTE_FAILED_CONTINUE = 0x21,
+                VOTE_FAILED_MAX = 0x22
+            };
+            // Alignment: 4
+            // Member count: 27
+            enum class RumbleEffect_t : uint32_t {
+                RUMBLE_INVALID = 0xFFFFFFFF,
+                RUMBLE_STOP_ALL = 0x0,
+                RUMBLE_PISTOL = 0x1,
+                RUMBLE_357 = 0x2,
+                RUMBLE_SMG1 = 0x3,
+                RUMBLE_AR2 = 0x4,
+                RUMBLE_SHOTGUN_SINGLE = 0x5,
+                RUMBLE_SHOTGUN_DOUBLE = 0x6,
+                RUMBLE_AR2_ALT_FIRE = 0x7,
+                RUMBLE_RPG_MISSILE = 0x8,
+                RUMBLE_CROWBAR_SWING = 0x9,
+                RUMBLE_AIRBOAT_GUN = 0xA,
+                RUMBLE_JEEP_ENGINE_LOOP = 0xB,
+                RUMBLE_FLAT_LEFT = 0xC,
+                RUMBLE_FLAT_RIGHT = 0xD,
+                RUMBLE_FLAT_BOTH = 0xE,
+                RUMBLE_DMG_LOW = 0xF,
+                RUMBLE_DMG_MED = 0x10,
+                RUMBLE_DMG_HIGH = 0x11,
+                RUMBLE_FALL_LONG = 0x12,
+                RUMBLE_FALL_SHORT = 0x13,
+                RUMBLE_PHYSCANNON_OPEN = 0x14,
+                RUMBLE_PHYSCANNON_PUNT = 0x15,
+                RUMBLE_PHYSCANNON_LOW = 0x16,
+                RUMBLE_PHYSCANNON_MEDIUM = 0x17,
+                RUMBLE_PHYSCANNON_HIGH = 0x18,
+                NUM_RUMBLE_EFFECTS = 0x19
+            };
+            // Alignment: 4
+            // Member count: 6
+            enum class LatchDirtyPermission_t : uint32_t {
+                LATCH_DIRTY_DISALLOW = 0x0,
+                LATCH_DIRTY_SERVER_CONTROLLED = 0x1,
+                LATCH_DIRTY_CLIENT_SIMULATED = 0x2,
+                LATCH_DIRTY_PREDICTION = 0x3,
+                LATCH_DIRTY_FRAMESIMULATE = 0x4,
+                LATCH_DIRTY_PARTICLE_SIMULATE = 0x5
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class DoorState_t : uint32_t {
+                DOOR_STATE_CLOSED = 0x0,
+                DOOR_STATE_OPENING = 0x1,
+                DOOR_STATE_OPEN = 0x2,
+                DOOR_STATE_CLOSING = 0x3,
+                DOOR_STATE_AJAR = 0x4
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class ChoreoLookAtMode_t : uint32_t {
+                eInvalid = 0xFFFFFFFF,
+                eChest = 0x0,
+                eHead = 0x1,
+                eEyesOnly = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class ChatIgnoreType_t : uint32_t {
+                CHAT_IGNORE_NONE = 0x0,
+                CHAT_IGNORE_ALL = 0x1,
+                CHAT_IGNORE_TEAM = 0x2
+            };
+            // Alignment: 4
+            // Member count: 7
+            enum class PlayerConnectedState : uint32_t {
+                NeverConnected = 0xFFFFFFFF,
+                Connected = 0x0,
+                Connecting = 0x1,
+                Reconnecting = 0x2,
+                Disconnecting = 0x3,
+                Disconnected = 0x4,
+                Reserved = 0x5
+            };
+            // Alignment: 4
+            // Member count: 29
+            enum class PreviewCharacterBannerAnimation : uint32_t {
+                INVALID = 0xFFFFFFFF,
+                IDLE_OFFSCREEN = 0x0,
+                BANNER_AWP_ACE_GUN = 0x1,
+                BANNER_AWP_ACE_A = 0x2,
+                BANNER_AWP_ACE_B = 0x3,
+                BANNER_AWP_ACE_C = 0x4,
+                BANNER_AWP_ACE_D = 0x5,
+                BANNER_AWP_ACE_E = 0x6,
+                BANNER_PISTOL3SHOT = 0x7,
+                BANNER_3SHOT_A = 0x8,
+                BANNER_3SHOT_B = 0x9,
+                BANNER_3SHOT_C = 0xA,
+                BANNER_PISTOL4SHOT = 0xB,
+                BANNER_4SHOT_A = 0xC,
+                BANNER_4SHOT_B = 0xD,
+                BANNER_4SHOT_C = 0xE,
+                BANNER_4SHOT_D = 0xF,
+                CELEBRATE_STRETCH_NOWEAP_IDLE0 = 0x10,
+                BANNER_BOMB_PLANT = 0x11,
+                BANNER_BOMB_DEFUSAL_VER = 0x12,
+                BANNER_FIRE = 0x13,
+                BANNER_BOMB_BLAST_TOSS = 0x14,
+                BANNER_BOMB_BLAST01 = 0x15,
+                BANNER_BOMB_BLAST02 = 0x16,
+                BANNER_BOMB_BLAST03 = 0x17,
+                BANNER_CELEBRATE_01 = 0x18,
+                BANNER_CELEBRATE_02 = 0x19,
+                BANNER_CELEBRATE_03 = 0x1A,
+                BANNER_CELEBRATE_04 = 0x1B
+            };
+            // Alignment: 4
+            // Member count: 1
+            enum class navproperties_t : uint32_t {
+                NAV_IGNORE = 0x1
+            };
+            // Alignment: 2
+            // Member count: 7
+            enum class EntityEffects_t : uint16_t {
+                DEPRICATED_EF_NOINTERP = 0x8,
+                EF_NOSHADOW = 0x10,
+                EF_NODRAW = 0x20,
+                EF_NORECEIVESHADOW = 0x40,
+                EF_PARENT_ANIMATES = 0x200,
+                EF_NODRAW_BUT_TRANSMIT = 0x400,
+                EF_MAX_BITS = 0xA
+            };
+            // Alignment: 4
+            // Member count: 6
+            enum class ChoreoExternalAnimgraphControlState_t : uint32_t {
+                eNone = 0x0,
+                eBegin = 0x1,
+                eLooping = 0x2,
+                eExit = 0x3,
+                eAbort = 0x4,
+                eCount = 0x5
+            };
+            // Alignment: 1
+            // Member count: 9
+            enum class SolidType_t : uint8_t {
+                SOLID_NONE = 0x0,
+                SOLID_BSP = 0x1,
+                SOLID_BBOX = 0x2,
+                SOLID_OBB = 0x3,
+                SOLID_SPHERE = 0x4,
+                SOLID_POINT = 0x5,
+                SOLID_VPHYSICS = 0x6,
+                SOLID_CAPSULE = 0x7,
+                SOLID_LAST = 0x8
+            };
+            // Alignment: 4
+            // Member count: 22
+            enum class DamageTypes_t : uint32_t {
+                DMG_GENERIC = 0x0,
+                DMG_CRUSH = 0x1,
+                DMG_BULLET = 0x2,
+                DMG_SLASH = 0x4,
+                DMG_BURN = 0x8,
+                DMG_VEHICLE = 0x10,
+                DMG_FALL = 0x20,
+                DMG_BLAST = 0x40,
+                DMG_CLUB = 0x80,
+                DMG_SHOCK = 0x100,
+                DMG_SONIC = 0x200,
+                DMG_ENERGYBEAM = 0x400,
+                DMG_BUCKSHOT = 0x800,
+                DMG_BLAST_SURFACE = 0x1000,
+                DMG_DISSOLVE = 0x2000,
+                DMG_DROWN = 0x4000,
+                DMG_POISON = 0x8000,
+                DMG_RADIATION = 0x10000,
+                DMG_DROWNRECOVER = 0x20000,
+                DMG_ACID = 0x40000,
+                DMG_LASTGENERICFLAG = 0x40000,
+                DMG_HEADSHOT = 0x80000
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class PointWorldTextJustifyVertical_t : uint32_t {
+                POINT_WORLD_TEXT_JUSTIFY_VERTICAL_BOTTOM = 0x0,
+                POINT_WORLD_TEXT_JUSTIFY_VERTICAL_CENTER = 0x1,
+                POINT_WORLD_TEXT_JUSTIFY_VERTICAL_TOP = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class attributeprovidertypes_t : uint32_t {
+                PROVIDER_GENERIC = 0x0,
+                PROVIDER_WEAPON = 0x1
+            };
+            // Alignment: 1
+            // Member count: 6
+            enum class MoveCollide_t : uint8_t {
+                MOVECOLLIDE_DEFAULT = 0x0,
+                MOVECOLLIDE_FLY_BOUNCE = 0x1,
+                MOVECOLLIDE_FLY_CUSTOM = 0x2,
+                MOVECOLLIDE_FLY_SLIDE = 0x3,
+                MOVECOLLIDE_COUNT = 0x4,
+                MOVECOLLIDE_MAX_BITS = 0x3
+            };
+            // Alignment: 4
+            // Member count: 7
+            enum class IChoreoServices__ChoreoState_t : uint32_t {
+                STATE_PRE_SCRIPT = 0x0,
+                STATE_WAIT_FOR_SCRIPT = 0x1,
+                STATE_WALK_TO_MARK = 0x2,
+                STATE_SYNCHRONIZE_SCRIPT = 0x3,
+                STATE_PLAY_SCRIPT = 0x4,
+                STATE_PLAY_SCRIPT_POST_IDLE = 0x5,
+                STATE_PLAY_SCRIPT_POST_IDLE_DONE = 0x6
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class ValueRemapperOutputType_t : uint32_t {
+                OutputType_AnimationCycle = 0x0,
+                OutputType_RotationX = 0x1,
+                OutputType_RotationY = 0x2,
+                OutputType_RotationZ = 0x3
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class INavObstacle__NavObstacleType_t : uint32_t {
+                NAV_OBSTACLE_TYPE_INVALID = 0xFFFFFFFF,
+                NAV_OBSTACLE_TYPE_NONE = 0x0,
+                NAV_OBSTACLE_TYPE_AVOID = 0x1,
+                NAV_OBSTACLE_TYPE_CONN = 0x2,
+                NAV_OBSTACLE_TYPE_BLOCK = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class PointTemplateOwnerSpawnGroupType_t : uint32_t {
+                INSERT_INTO_POINT_TEMPLATE_SPAWN_GROUP = 0x0,
+                INSERT_INTO_CURRENTLY_ACTIVE_SPAWN_GROUP = 0x1,
+                INSERT_INTO_NEWLY_CREATED_SPAWN_GROUP = 0x2
+            };
+            // Alignment: 1
+            // Member count: 3
+            enum class EContributionScoreFlag_t : uint8_t {
+                k_EContributionScoreFlag_Default = 0x0,
+                k_EContributionScoreFlag_Objective = 0x1,
+                k_EContributionScoreFlag_Bullets = 0x2
+            };
+            // Alignment: 1
+            // Member count: 9
+            enum class CCSPlayerAnimationState__Direction_t : uint8_t {
+                None = 0x0,
+                N = 0x1,
+                NE = 0x2,
+                E = 0x3,
+                SE = 0x4,
+                S = 0x5,
+                SW = 0x6,
+                W = 0x7,
+                NW = 0x8
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class eSplinePushType : uint32_t {
+                k_eSplinePushAlong = 0x0,
+                k_eSplinePushAway = 0x1,
+                k_eSplinePushTowards = 0x2
+            };
+            // Alignment: 2
+            // Member count: 29
+            enum class WeaponGameplayAnimState : uint16_t {
+                WPN_ANIMSTATE_UNINITIALIZED = 0x0,
+                WPN_ANIMSTATE_DROPPED = 0x1,
+                WPN_ANIMSTATE_HOLSTERED = 0xA,
+                WPN_ANIMSTATE_DEPLOY = 0xB,
+                WPN_ANIMSTATE_IDLE = 0x32,
+                WPN_ANIMSTATE_SHOOT_PRIMARY = 0x64,
+                WPN_ANIMSTATE_SHOOT_SECONDARY = 0x65,
+                WPN_ANIMSTATE_SHOOT_DRYFIRE = 0x66,
+                WPN_ANIMSTATE_CHARGE = 0x67,
+                WPN_ANIMSTATE_GRENADE_PULL_PIN = 0xC8,
+                WPN_ANIMSTATE_GRENADE_READY = 0xC9,
+                WPN_ANIMSTATE_GRENADE_THROW = 0xCA,
+                WPN_ANIMSTATE_C4_PLANT = 0x12C,
+                WPN_ANIMSTATE_HEALTHSHOT_INJECT = 0x190,
+                WPN_ANIMSTATE_KNIFE_PRIMARY_HIT = 0x1F4,
+                WPN_ANIMSTATE_KNIFE_PRIMARY_MISS = 0x1F5,
+                WPN_ANIMSTATE_KNIFE_SECONDARY_HIT = 0x1F6,
+                WPN_ANIMSTATE_KNIFE_SECONDARY_MISS = 0x1F7,
+                WPN_ANIMSTATE_KNIFE_PRIMARY_STAB = 0x1F8,
+                WPN_ANIMSTATE_KNIFE_SECONDARY_STAB = 0x1F9,
+                WPN_ANIMSTATE_SILENCER_APPLY = 0x258,
+                WPN_ANIMSTATE_SILENCER_REMOVE = 0x259,
+                WPN_ANIMSTATE_RELOAD = 0x320,
+                WPN_ANIMSTATE_RELOAD_OUTRO = 0x321,
+                WPN_ANIMSTATE_INSPECT = 0x3E8,
+                WPN_ANIMSTATE_INSPECT_OUTRO = 0x3E9,
+                WPN_ANIMSTATE_INVENTORY_UI_TUMBLE = 0x5DC,
+                WPN_ANIMSTATE_INVENTORY_UI_KEYCHAIN_APPLY = 0x5DD,
+                WPN_ANIMSTATE_END_VALID = 0x7D0
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class EDestructiblePartRadiusDamageApplyType : uint32_t {
+                ScaleByExplosionRadius = 0x0,
+                PrioritizeClosestPart = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class EntityDistanceMode_t : uint32_t {
+                eOriginToOrigin = 0x0,
+                eCenterToCenter = 0x1,
+                eAxisToAxis = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class PulseTraceContents_t : uint32_t {
+                STATIC_LEVEL = 0x0,
+                SOLID = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class PointWorldTextJustifyHorizontal_t : uint32_t {
+                POINT_WORLD_TEXT_JUSTIFY_HORIZONTAL_LEFT = 0x0,
+                POINT_WORLD_TEXT_JUSTIFY_HORIZONTAL_CENTER = 0x1,
+                POINT_WORLD_TEXT_JUSTIFY_HORIZONTAL_RIGHT = 0x2
+            };
+            // Alignment: 4
+            // Member count: 7
+            enum class ShakeCommand_t : uint32_t {
+                SHAKE_START = 0x0,
+                SHAKE_STOP = 0x1,
+                SHAKE_AMPLITUDE = 0x2,
+                SHAKE_FREQUENCY = 0x3,
+                SHAKE_START_RUMBLEONLY = 0x4,
+                SHAKE_START_NORUMBLE = 0x5,
+                SHAKE_DURATION = 0x6
+            };
+            // Alignment: 4
+            // Member count: 23
+            enum class Flags_t : uint32_t {
+                FL_ONGROUND = 0x1,
+                FL_DUCKING = 0x2,
+                FL_WATERJUMP = 0x4,
+                FL_BOT = 0x10,
+                FL_FROZEN = 0x20,
+                FL_ATCONTROLS = 0x40,
+                FL_CLIENT = 0x80,
+                FL_FAKECLIENT = 0x100,
+                FL_FLY = 0x400,
+                FL_SUPPRESS_SAVE = 0x800,
+                FL_IN_VEHICLE = 0x1000,
+                FL_GODMODE = 0x4000,
+                FL_NOTARGET = 0x8000,
+                FL_AIMTARGET = 0x10000,
+                FL_GRENADE = 0x100000,
+                FL_DONTTOUCH = 0x400000,
+                FL_BASEVELOCITY = 0x800000,
+                FL_CONVEYOR = 0x1000000,
+                FL_OBJECT = 0x2000000,
+                FL_ONFIRE = 0x8000000,
+                FL_DISSOLVING = 0x10000000,
+                FL_TRANSRAGDOLL = 0x20000000,
+                FL_UNBLOCKABLE_BY_PLAYER = 0x40000000
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class TRAIN_CODE : uint32_t {
+                TRAIN_SAFE = 0x0,
+                TRAIN_BLOCKING = 0x1,
+                TRAIN_FOLLOWING = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class DestructiblePartDestructionDeathBehavior_t : uint32_t {
+                eDoNotKill = 0x0,
+                eKill = 0x1,
+                eGib = 0x2,
+                eRemove = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class BrushSolidities_e : uint32_t {
+                BRUSHSOLID_TOGGLE = 0x0,
+                BRUSHSOLID_NEVER = 0x1,
+                BRUSHSOLID_ALWAYS = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class InteractionPriority_t : uint32_t {
+                INTERACT_PRIORITY_NONE = 0x0,
+                INTERACT_PRIORITY_PASSIVE = 0x1,
+                INTERACT_PRIORITY_LOW = 0x2,
+                INTERACT_PRIORITY_MED = 0x3,
+                INTERACT_PRIORITY_HIGH = 0x4
+            };
+            // Alignment: 4
+            // Member count: 13
+            enum class QuestProgress__Reason : uint32_t {
+                QUEST_NONINITIALIZED = 0x0,
+                QUEST_OK = 0x1,
+                QUEST_NOT_ENOUGH_PLAYERS = 0x2,
+                QUEST_WARMUP = 0x3,
+                QUEST_NOT_CONNECTED_TO_STEAM = 0x4,
+                QUEST_NONOFFICIAL_SERVER = 0x5,
+                QUEST_NO_ENTITLEMENT = 0x6,
+                QUEST_NO_QUEST = 0x7,
+                QUEST_PLAYER_IS_BOT = 0x8,
+                QUEST_WRONG_MAP = 0x9,
+                QUEST_WRONG_MODE = 0xA,
+                QUEST_NOT_SYNCED_WITH_SERVER = 0xB,
+                QUEST_REASON_MAX = 0xC
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class ModifyDamageReturn_t : uint32_t {
+                CONTINUE_TO_APPLY_DAMAGE = 0x0,
+                ABORT_DO_NOT_APPLY_DAMAGE = 0x1
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class ShadowType_t : uint32_t {
+                SHADOWS_NONE = 0x0,
+                SHADOWS_SIMPLE = 0x1
+            };
+            // Alignment: 4
+            // Member count: 6
+            enum class GrenadeType_t : uint32_t {
+                GRENADE_TYPE_EXPLOSIVE = 0x0,
+                GRENADE_TYPE_FLASH = 0x1,
+                GRENADE_TYPE_FIRE = 0x2,
+                GRENADE_TYPE_DECOY = 0x3,
+                GRENADE_TYPE_SMOKE = 0x4,
+                GRENADE_TYPE_TOTAL = 0x5
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class ValueRemapperInputType_t : uint32_t {
+                InputType_PlayerShootPosition = 0x0,
+                InputType_PlayerShootPositionAroundAxis = 0x1
+            };
+            // Alignment: 1
+            // Member count: 8
+            enum class EKillTypes_t : uint8_t {
+                KILL_NONE = 0x0,
+                KILL_DEFAULT = 0x1,
+                KILL_HEADSHOT = 0x2,
+                KILL_BLAST = 0x3,
+                KILL_BURN = 0x4,
+                KILL_SLASH = 0x5,
+                KILL_SHOCK = 0x6,
+                KILLTYPE_COUNT = 0x7
+            };
+            // Alignment: 4
+            // Member count: 25
+            enum class WeaponSound_t : uint32_t {
+                WEAPON_SOUND_EMPTY = 0x0,
+                WEAPON_SOUND_SECONDARY_EMPTY = 0x1,
+                WEAPON_SOUND_SINGLE = 0x2,
+                WEAPON_SOUND_SECONDARY_ATTACK = 0x3,
+                WEAPON_SOUND_MELEE_MISS = 0x4,
+                WEAPON_SOUND_MELEE_HIT = 0x5,
+                WEAPON_SOUND_MELEE_HIT_WORLD = 0x6,
+                WEAPON_SOUND_MELEE_HIT_PLAYER = 0x7,
+                WEAPON_SOUND_MELEE_HIT_NPC = 0x8,
+                WEAPON_SOUND_SPECIAL1 = 0x9,
+                WEAPON_SOUND_SPECIAL2 = 0xA,
+                WEAPON_SOUND_SPECIAL3 = 0xB,
+                WEAPON_SOUND_NEARLYEMPTY = 0xC,
+                WEAPON_SOUND_IMPACT = 0xD,
+                WEAPON_SOUND_REFLECT = 0xE,
+                WEAPON_SOUND_SECONDARY_IMPACT = 0xF,
+                WEAPON_SOUND_SECONDARY_REFLECT = 0x10,
+                WEAPON_SOUND_RELOAD = 0x11,
+                WEAPON_SOUND_SINGLE_ACCURATE = 0x12,
+                WEAPON_SOUND_ZOOM_IN = 0x13,
+                WEAPON_SOUND_ZOOM_OUT = 0x14,
+                WEAPON_SOUND_MOUSE_PRESSED = 0x15,
+                WEAPON_SOUND_DROP = 0x16,
+                WEAPON_SOUND_RADIO_USE = 0x17,
+                WEAPON_SOUND_NUM_TYPES = 0x18
+            };
+            // Alignment: 8
+            // Member count: 22
+            enum class TakeDamageFlags_t : uint64_t {
+                DFLAG_NONE = 0x0,
+                DFLAG_SUPPRESS_HEALTH_CHANGES = 0x1,
+                DFLAG_SUPPRESS_PHYSICS_FORCE = 0x2,
+                DFLAG_SUPPRESS_EFFECTS = 0x4,
+                DFLAG_PREVENT_DEATH = 0x8,
+                DFLAG_FORCE_DEATH = 0x10,
+                DFLAG_ALWAYS_GIB = 0x20,
+                DFLAG_NEVER_GIB = 0x40,
+                DFLAG_REMOVE_NO_RAGDOLL = 0x80,
+                DFLAG_SUPPRESS_DAMAGE_MODIFICATION = 0x100,
+                DFLAG_ALWAYS_FIRE_DAMAGE_EVENTS = 0x200,
+                DFLAG_RADIUS_DMG = 0x400,
+                DFLAG_FORCEREDUCEARMOR_DMG = 0x800,
+                DFLAG_SUPPRESS_INTERRUPT_FLINCH = 0x1000,
+                DFLAG_IGNORE_DESTRUCTIBLE_PARTS = 0x2000,
+                DFLAG_SUPPRESS_BREAKABLES = 0x4000,
+                DFLAG_FORCE_PHYSICS_FORCE = 0x8000,
+                DFLAG_SUPPRESS_SCREENSPACE_DAMAGE_FX = 0x10000,
+                DFLAG_ALLOW_NON_AUTHORITATIVE = 0x20000,
+                DMG_LASTDFLAG = 0x20000,
+                DFLAG_IGNORE_ARMOR = 0x40000,
+                DFLAG_SUPPRESS_UTILREMOVE = 0x80000
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class ValueRemapperHapticsType_t : uint32_t {
+                HaticsType_Default = 0x0,
+                HaticsType_None = 0x1
+            };
+            // Alignment: 4
+            // Member count: 10
+            enum class Disposition_t : uint32_t {
+                D_ER = 0x0,
+                D_HT = 0x1,
+                D_FR = 0x2,
+                D_LI = 0x3,
+                D_NU = 0x4,
+                D_ERROR = 0x0,
+                D_HATE = 0x1,
+                D_FEAR = 0x2,
+                D_LIKE = 0x3,
+                D_NEUTRAL = 0x4
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class RotatorTargetSpace_t : uint32_t {
+                ROTATOR_TARGET_WORLDSPACE = 0x0,
+                ROTATOR_TARGET_LOCALSPACE = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class CanPlaySequence_t : uint32_t {
+                CANNOT_PLAY = 0x0,
+                CAN_PLAY_NOW = 0x1,
+                CAN_PLAY_ENQUEUED = 0x2
+            };
+            // Alignment: 1
+            // Member count: 4
+            enum class CCSPlayerAnimationState__AirAction_t : uint8_t {
+                None = 0x0,
+                Jump = 0x1,
+                StartFall = 0x2,
+                Land = 0x3
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class MedalRank_t : uint32_t {
+                MEDAL_RANK_NONE = 0x0,
+                MEDAL_RANK_BRONZE = 0x1,
+                MEDAL_RANK_SILVER = 0x2,
+                MEDAL_RANK_GOLD = 0x3,
+                MEDAL_RANK_COUNT = 0x4
+            };
+            // Alignment: 4
+            // Member count: 6
+            enum class ObserverMode_t : uint32_t {
+                OBS_MODE_NONE = 0x0,
+                OBS_MODE_FIXED = 0x1,
+                OBS_MODE_IN_EYE = 0x2,
+                OBS_MODE_CHASE = 0x3,
+                OBS_MODE_ROAMING = 0x4,
+                NUM_OBSERVER_MODES = 0x5
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class FuncDoorSpawnPos_t : uint32_t {
+                FUNC_DOOR_SPAWN_CLOSED = 0x0,
+                FUNC_DOOR_SPAWN_OPEN = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class EOverrideBlockLOS_t : uint32_t {
+                BLOCK_LOS_DEFAULT = 0x0,
+                BLOCK_LOS_FORCE_FALSE = 0x1,
+                BLOCK_LOS_FORCE_TRUE = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class EntityAttachmentType_t : uint32_t {
+                eAbsOrigin = 0x0,
+                eCenter = 0x1,
+                eEyes = 0x2,
+                eAttachment = 0x3
+            };
+            // Alignment: 1
+            // Member count: 14
+            enum class MoveType_t : uint8_t {
+                MOVETYPE_NONE = 0x0,
+                MOVETYPE_OBSOLETE = 0x1,
+                MOVETYPE_WALK = 0x2,
+                MOVETYPE_FLY = 0x3,
+                MOVETYPE_FLYGRAVITY = 0x4,
+                MOVETYPE_VPHYSICS = 0x5,
+                MOVETYPE_PUSH = 0x6,
+                MOVETYPE_NOCLIP = 0x7,
+                MOVETYPE_OBSERVER = 0x8,
+                MOVETYPE_LADDER = 0x9,
+                MOVETYPE_CUSTOM = 0xA,
+                MOVETYPE_LAST = 0xB,
+                MOVETYPE_INVALID = 0xB,
+                MOVETYPE_MAX_BITS = 0x5
+            };
+            // Parent: xL___
+            // Field count: 0
+            namespace CWeaponNOVA {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointWorldText {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAmbientGeneric {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvEntityMaker {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPulseGraphInstance_GameBlackboard {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterEnemy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_WingmanIntroCounterTerroristPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_WaitForCursorsWithTag {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncTrackAuto {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CScriptedSequence {
+            }
+            // Parent: MNotSaved
+            // Field count: 0
+            namespace CFogTrigger {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoTeleportDestination {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointBroadcastClientCommand {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_PingServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHEGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysicsSpring {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvMuzzleFlash {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEconItemAttribute {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseTriggerAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponRevolver {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncTrainControls {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBtActionCombatPositioning {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncRetakeBarrier {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerBuoyancy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTonemapController2Alias_env_tonemap_controller2 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPathTrack {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_EndOfMatchLineupEndpoint {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Base {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerProximity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTankTrainAI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGameText {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGameEnd {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoDeathmatchSpawn {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerController_InventoryServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerModernJump {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulse_ResumePoint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerFan {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysHingeAlias_phys_hinge_local {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CLogicCase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Outflow_PlayVOLine {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoGameEventProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTestPulseIOComponent_DerivedAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponBizon {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CGamePlayerZone {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseToggle {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseServerCursor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_PlaySequence {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CInferno {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTouchExpansionComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Outflow_PlaySceneBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_LerpCameraSettings {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponSCAR20 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncInteractionLayerClip {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSObserver_UseServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerDetectBulletFire {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_UseServices {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CWeaponAWP {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_PickBestOutflowSelector {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoFan {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGameRules {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFish {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSBot {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHandleTest {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicNPCCounter {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_RadioServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponSG556 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRagdollConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncVehicleClip {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CDEagle {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponFamas {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSplash {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPointCameraVFOV {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_WingmanIntroTerroristPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTestPulseIOAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSWeaponBaseShotgun {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPrecipitationVData {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncMoveLinear {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysMotorAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_WaitForObservable {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CScriptItem {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CDynamicPropAlias_prop_dynamic_override {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseTrigger {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointPush {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPulseCell_Step_EntFire {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSObserver_ObserverServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayerPing {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHitboxComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRopeKeyframe {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CSmokeGrenade {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CBaseCombatCharacter {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ServerAuthoritativeWeaponSlot_t {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPathQueryComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicRelay {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SequenceHistory_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_ItemServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulse_OutflowConnection {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTestPulseIO {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponUMP45 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGamePlayerEquip {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPointEntityFinder {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseGraphDef {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CKnife {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CLogicPlayerProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_TeamIntroCharacterPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePlayerControllerAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHostageRescueZoneShim {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSimpleMarkupVolumeTagged {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSoundscapeAlias_snd_soundscape {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_HostageServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRenderComponent {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CWaterBullet {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerSoundscape {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Outflow_PlayVOLine__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointTeleportAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHostageExpresserShim {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointChildModifier {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerLegacyJump {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponHKP2000 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CShatterGlassShardPhysics {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPathParticleRope {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCredits {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponFiveSeven {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFishPool {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_MovementServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRagdollPropAlias_physics_prop_ragdoll {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBreakableProp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLightEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoDynamicShadowHintBox {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseAnimGraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace AnimGraph2SerializedPoseRecipeSlot_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBuoyancyHelper {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace COrnamentProp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_CameraServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CModelPointEntity {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CRectLight {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterMultiple {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerResource {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_FireCursors {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncNavBlocker {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMoverPathNode {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CEnvSoundscape {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncBrush {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBodyComponentPoint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysBox {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundEventAABBEntity {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CItemSoda {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Timeline__TimelineEvent_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: MEntityAllowsPortraitWorldSpawn
+            // Field count: 0
+            namespace COmniLight {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBtNodeCondition {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_IntervalTimer__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseRequirement {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvExplosion {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_BaseState {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace OutflowWithRequirements_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CTestPulseIO__ThreeStringArgs_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_IsRequirementValid {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFootstepControl {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_ItemServices {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Value_Gradient {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CParticleSystem {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerBrush {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IntervalTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace audioparams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundAreaEntityBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponM4A1Silencer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTimeline {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCursorFuncs {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CTestPulseIO__FloatStringArgs_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CountdownTimer {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseNodeDynamicOutflows_t__DynamicOutflow_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CItemAssaultSuit {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBeam {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicEventListener {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_TeamSelectTerroristPosition {
+            }
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            namespace CInfoData {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponNegev {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CWeaponElite {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePlayerPawn {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace WeaponPurchaseCount_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePulseGraphInstance {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FilterHealth {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSSprite {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMathColorBlend {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CShower {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Inflow_GraphHook {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CScriptNavBlocker {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEntityBlocker {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SignatureOutflow_Resume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPathSimpleAPI {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CCSObserverPawn {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerActiveWeaponDetect {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CFuncLadderAlias_func_useableladder {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSpriteOriented {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointServerCommand {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace shard_model_desc_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayerSprayDecal {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncWater {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CCSGameModeRules {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointPrefabAPI {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Outflow_PlayVCD__VCDRequirementInfo_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CEconEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTankTargetChange {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_WaterServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicDistanceCheck {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvCombinedLightProbeVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ViewAngleServerChange_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicDistanceAutosave {
+            }
+            // Parent: _i_Z__
+            // Field count: 0
+            namespace CLogicBranch {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Outflow_ScriptedSequence {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CFuncTrackChange {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncTrackTrain {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvInstructorHint {
+            }
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            namespace CEnvWind {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundEventPathCornerEntity {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CCSPlayerBase_CameraServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Inflow_BaseEntrypoint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CDynamicNavConnectionsVolume {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CConstraintAnchor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_WaitForCursorsWithTagBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerPawn {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CEnvLightProbeVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SpawnPoint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncMoverAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGameSceneNode {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponM249 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRopeKeyframeAlias_move_rope {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseServerFuncs_Sounds {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulsePhysicsConstraintsFuncs {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_ObserverServices {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CCashStack {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CLogicScript {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAttributeManager__cached_attribute_float_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseGraphInstance_ServerEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSceneEntityAlias_logic_choreographed_scene {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRagdollManager {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPostProcessingVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointProximitySensor {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulse_InvokeBinding {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerLook {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Outflow_PlayVCD {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMultiplayRules {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMolotovGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysTorque {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMultiSource {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseCSGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicAuto {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPhysicsWire {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CFuncIllusionary {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoDynamicShadowHint {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CMarkupVolume {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPathNode {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_TeamSelectCounterTerroristPosition {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CTriggerRemove {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicGameEventListener {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CServerOnlyModelEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_IntervalTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMarkupVolumeTagged_Nav {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoPlayerTerrorist {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicAutosave {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_TeamIntroTerroristPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseTestScriptLib {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSingleplayRules {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvWindShared {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointPrefab {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseLerp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvInstructorVRHint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGameRulesProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPrecipitation {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCommentaryViewPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvGlobal {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CLogicNPCCounterOBB {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlatTrigger {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSceneEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CChoreoInfoTarget {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CTonemapController2 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMapSharedEnvironment {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTakeDamageResultAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNetworkedSequenceOperation {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysMagnet {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEntityInstance {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CGameGibManager {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHandleDummy {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CFuncWallToggle {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_BulletServices {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CSkyCamera {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_EndOfMatchLineupEnd {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPlayer_AutoaimServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CItemDefuserAlias_item_defuser {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPathCornerCrash {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysPulley {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPetPlacement {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponMP5SD {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponBaseItem {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCommentaryAuto {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Outflow_ListenForEntityOutput__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ActiveModelConfig_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponUSPSilencer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundStackSave {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Value_Curve {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponMag7 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicMeasureMovement {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CC4 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHostageCarriableProp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CDynamicPropAlias_cable_dynamic {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSObserver_CameraServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvDetailController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerPawnBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSoundscapeProxy {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Inflow_EventHandler {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPointScriptEntity {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseFlow {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBombTarget {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRuleEntity {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CPhysThruster {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoPlayerStart {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEntityFlame {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSkeletonInstance {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEntityComponent {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CBasePlatTrain {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointTeleport {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerGameEvent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMessageEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvEntityIgniter {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Outflow_CycleShuffled__InstanceState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_BaseLerp__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CMarkupVolumeTagged_NavGame {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMultiLightProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponM4A1 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerHostageReset {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseAnimFuncs {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEconWearable {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_WaitForCursorsWithTagBase__CursorState_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseArraylib {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponMAC10 {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CFuncLadder {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFogController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointTemplateAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CItem {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CTriggerPush {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseProp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoOffscreenPanoramaTexture {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointAngularVelocitySensor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayerVisibility {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Step_FollowEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFlashbang {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePlayerWeapon {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSWeaponBaseVData {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysForce {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAttributeManager {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SignatureOutflow_Continue {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoTarget {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_CameraServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Timeline {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Inflow_EntOutputHandler {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseFuncs_GameParticleManager {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CScenePayloadVData {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterAttributeInt {
+            }
+            // Parent: MPropertyAttributeSuggestionName
+            // Field count: 0
+            namespace CKeepUpright {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointTemplate {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvVolumetricFogController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBot {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPulseCell_Step_SetAnimGraphParam {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_FlashlightServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysLength {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CTeam {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicNPCCounterAABB {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Outflow_CycleOrdered__InstanceState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CChicken {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysicsPropRespawnable {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CEnvBeam {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CLightSpotEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponSawedoff {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CTonemapTrigger {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvShake {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_MovementServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SellbackPurchaseEntry_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CTestPulseIO__EntityNameStringArgs_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerCallback {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundOpvarSetAutoRoomEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Outflow_ListenForEntityOutput {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPushable {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRotatorTarget {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPhysicsEntitySolver {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicCollisionPair {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTestEffect {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Outflow_ScriptedSequence__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPropDoorRotating {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvParticleGlow {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMathRemap {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundOpvarSetOBBWindEntity {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PhysicsRagdollPose_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPropDataComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CScriptTriggerOnce {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLightOrthoEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoInstructorHintHostageRescueZone {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_LimitCount__InstanceState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerTeleport {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CFuncWall {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBtActionAim {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_TeamPreviewCharacterPosition {
+            }
+            // Parent: ___Z__
+            // Field count: 0
+            namespace CGameRulesProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoLadderDismount {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseServerFuncs {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMessage {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointVelocitySensor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCS2PawnGraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace EngineCountdownTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseModelEntityAPI {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CScriptTriggerMultiple {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHostage {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSpark {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerController_DamageServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvCombinedLightProbeVolumeAlias_func_combined_light_probe_volume {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CBaseModelEntity__OnDamageLevelChangedArgs_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterLOS {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointOrient {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace sky3dparams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponP250 {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CDestructiblePartsComponent {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CChangeLevel {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CBaseButton {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPulseCell_SoundEventStart {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Step_DebugLog {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CItem_Healthshot {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CColorCorrectionVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerController_ActionTrackingServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBodyComponentBaseAnimGraph {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseYieldingInflow {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseNodeDynamicOutflows_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFogVolume {
+            }
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            namespace CFuncRotating {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTimerEntity {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CBtActionMoveTo {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_MovementServices_Humanoid {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseEntityAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_IsRequirementValid__Criteria_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponG3SG1 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerOnce {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CSMatchStats_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace EntityRenderAttribute_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Inflow_ObservableVariableListener {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CFuncMonitor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoVisibilityBox {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGunTarget {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CSoundEventConeEntity {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CSoundOpvarSetOBBEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterMultipleAPI {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CDecoyProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPrecipitationBlocker {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundOpvarSetPathCornerEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointClientCommand {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHostageRescueZone {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWorld {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPathMoverEntitySpawner {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CModelState {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_LerpCameraSettings__CursorState_t {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Outflow_CycleOrdered {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponGlock {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHEGrenadeProjectile {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CTriggerGravity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCollisionProperty {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CWeaponGalilAR {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterMassGreater {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponMP7 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSWeaponBaseGun {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnableMotionFixup {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicActiveAutosave {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMathCounter {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGameModeRules_ArmsRace {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAttributeContainer {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CCSPlace {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseSelectorOutflowList_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CFilterContext {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLightEnvironmentEntity {
+            }
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            namespace CEnvDecal {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvVolumetricFogVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CServerOnlyEntity {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_PlaySequence__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBodyComponentSkeletonInstance {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CItemGeneric {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointValueRemapper {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBtNodeConditionInactive {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_TeamIntroCounterTerroristPosition {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CRagdollProp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CScriptComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncTrain {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAI_ChangeHintGroup {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_BuyServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponAug {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysHinge {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBuyZone {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoChoreoAnchor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace DestructiblePartDamageRequestAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponSSG08 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicRelayAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoWorldLayer {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CBodyComponentBaseModelEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicProximity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointGiveAmmo {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_EndOfMatchLineupStart {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FilterDamageType {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointCamera {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAttributeList {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Inflow_Wait {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterProximity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCS2WeaponGraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEffectData {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CEntityDissolve {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CCSGameRules {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Outflow_CycleShuffled {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseCSGrenadeProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicAchievement {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerController_InventoryServices__NetworkedLoadoutSlot_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLightComponent {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CCSWeaponBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointClientUIDialog {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicLineToEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundAreaEntitySphere {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_ActionTrackingServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTestPulseIOComponent_API {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysicalButton {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoSpawnGroupLoadUnload {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundAreaEntityOrientedBox {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSObserver_MovementServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Outflow_ListenForAnimgraphTag {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBodyComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Inflow_Method {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CDecoyGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEconItemView {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CIncendiaryGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseDMStart {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CBaseModelEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace fogplayerparams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGlowProperty {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInstancedSceneEntity {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseValue {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCitadelSoundOpvarSetOBB {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundEventParameter {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_WaterServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_BooleanSwitchState {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRotButton {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvViewPunch {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CDamageRecord {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace VPhysicsCollisionAttribute_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CItemKevlar {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncShatterglass {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNavWalkable {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPlantedC4 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSoundscapeProxyAlias_snd_soundscape_proxy {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CVoteController {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Inflow_Yield {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseMathlib {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysImpact {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CBaseEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_UseServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGameSceneNodeHandle {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CMarkupVolumeWithRef {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_TeamSelectCharacterPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Unknown {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncPlatRot {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRagdollMagnet {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoInstructorHintTarget {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CSpriteAlias_env_glow {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CFireCrackerBlast {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSpotlightEnd {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSky {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CInfoSpawnGroupLandmark {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointAngleSensor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvWindController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSPerRoundStats_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGenericConstraint {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Outflow_CycleRandom {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Step_PublicOutput {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvLaser {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundOpvarSetEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvBeverage {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CPhysMotor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicGameEvent {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPhysicsPropMultiplayer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysExplosion {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSplineConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicCompare {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGameModeRules_Noop {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulse_BlackboardReference {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncTankTrain {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointClientUIWorldPanel {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundEventSphereEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerController_InGameMoneyServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRuleBrushEntity {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CMapVetoPickController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncPropRespawnZone {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterModel {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponP90 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNavSpaceInfo {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysSlideConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseGameBlackboard {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundEventEntityAlias_snd_event_point {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CChoreoComponent {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Value_RandomInt {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointGamestatsCounter {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTextureBasedAnimatable {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSprite {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseMoveBehavior {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CDynamicLight {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponTaser {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvCubemapBox {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CRotDoor {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPathMover {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncVPhysicsClip {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysFixed {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicNavigation {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CPathSimple {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPathParticleRopeAlias_path_particle_rope_clientside {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPointPulseAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvWindVolume {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CFuncElectrifiedVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSMinimapBoundary {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace EntitySpottedState_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace fogparams_t {
+            }
+            // Parent: entity2
+            // Field count: 0
+            namespace CSoundEventOBBEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFlashbangProjectile {
+            }
+            // Parent: p__Z__
+            // Field count: 0
+            namespace CTriggerMultiple {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysBallSocket {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CDebugHistory {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundOpvarSetPointBase {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CExplosionTypeData {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPathKeyFrame {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CWeaponCZ75a {
+            }
+            // Parent: _
+            // Field count: 0
+            namespace CScriptTriggerPush {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRevertSaved {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerBombReset {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerHurt {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayer_WeaponServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRetakeGameRules {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSoundscapeTriggerableAlias_snd_soundscape_triggerable {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CInfoInstructorHintBombTargetA {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CTeamplayRules {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CScriptTriggerHurt {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGO_WingmanIntroCharacterPosition {
+            }
+            // Parent: Primary_Mode
+            // Field count: 0
+            namespace CWeaponMP9 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerDetectExplosion {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterName {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSmokeGrenadeProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBlood {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CCSTeam {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRulePointEntity {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulse_CallInfo {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncMoveLinearAlias_momentary_door {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseAnimGraph {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvCubemapFog {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_InlineNodeSkipSelector {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseDoor {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CServerOnlyPointEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGameMoney {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CEnvHudHint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNullEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLogicalEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CItemDefuser {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CItemGenericTriggerHelper {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayer_WeaponServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRagdollPropAttached {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CItemDogtags {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncPlat {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBarnLight {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInstructorEventEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponTec9 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPathCorner {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerSndSosOpvar {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_LimitCount {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Step_CallExternalMethod {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPointCommentaryNode {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMomentaryRotButton {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSceneListManager {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvTilt {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEnvSoundscapeTriggerable {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncMover {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysicsProp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncNavObstruction {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysWheelConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSkyboxReference {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointPulse {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMolotovProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterClass {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerToggleSave {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPathWithDynamicNodes {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CColorCorrection {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPropDoorRotatingBreakable {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CLightDirectionalEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseClientUIEntity {
+            }
+            // Parent: expRandom
+            // Field count: 0
+            namespace CBreakable {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CInfoLandmark {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseFilter {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace WeaponPurchaseTracker_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Outflow_PlaySceneBase__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseObservableBoolExpression_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMapInfo {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGradientFog {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundOpvarSetAABBEntity {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPulseCell_Outflow_PlaySequence {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CPointClientUIWorldTextPanel {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEntityIdentity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_LimitCount__Criteria_t {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CFuncRotator {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundEventEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoPlayerCounterterrorist {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CEnvFade {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePlayerVData {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerImpact {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSGameModeRules_Deathmatch {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CTestPulseIO__EntityHandleIntArgs_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_CursorQueue {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Value_RandomFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseExecCursor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePropDoor {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CLogicBranchList {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBtActionParachutePositioning {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAK47 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CDynamicProp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHostageAlias_info_hostage_spawn {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFilterTeam {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncConveyor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerPhysics {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoInstructorHintBombTargetB {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFuncTimescale {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePlayerWeaponVData {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoInteraction {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSoundOpvarSetPointEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoTargetServerOnly {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CServerRagdollTrigger {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CDynamicPropAlias_dynamic_prop {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMarkupVolumeTagged {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoParticleTarget {
+            }
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            namespace CEnvCubemap {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CCSPlayer_DamageReactServices {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWeaponXM1014 {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerLerpObject {
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace CPhysicsPropOverride {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTriggerSave {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPointHurt {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePlayerController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRangeFloat {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CDestructiblePart {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAnimEventQueueListener {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PhysBlockHeader_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace RelationshipOverride_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace AutoRoomDoorwayPairs_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace NavHull_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CDebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRemapFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHintMessage {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ParticleNode_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFootstepTableHandle {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CDecalGroupVData {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNmSnapWeaponTask {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayerControllerComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CResponseQueue {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CodeGenAABB_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CScriptUniformRandomStream {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace lerpdata_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace WrappedPhysicsJoint_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SimpleConstraintSoundProfile {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSimpleSimTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace AI_BaseNPCAnimGraph_DebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPhysicsBodyGameMarkupData {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace SoundCommand_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace modifiedconvars_t {
+                constexpr std::ptrdiff_t  = 0x100; // 
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CTestPulseIOComponent_Derived {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SAVE_HEADER {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CSkillDamage {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace DebugSnapshotBaseStructuredData_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace AI_DefaultNPC_DebugSnapshotData_t__PathQuery_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace AI_Motor_DebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFloatExponentialMovingAverage {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace physics_save_sphere_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace GAME_HEADER {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAnimEventListenerBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace AI_BaseNPC_DebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CDebugDrawHistoryData {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNmEventConsumer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNetworkViewOffsetVector {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace AmmoIndex_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace SceneRequestTargetMapPair_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CDestructiblePartsSystemData {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRopeOverlapHit {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ResponseContext_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNavVolumeSphericalShell {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPlayerPawnComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace AI_Navigator_DebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CDecalInstance {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CGameScriptedMoveData {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSkeletonAnimationController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNavVolumeMarkupVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CResponseCriteriaSet {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAI_Expresser {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IChoreoServices {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CNmEventConsumerAttributes {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CStopwatch {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ResponseParams {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SPAWNGROUP_HEADER {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace globalentity_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SceneInterestTags_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ConstraintSoundInfo {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPhysicsBodyGameMarkup {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PointCameraSettings_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: xL___
+            // Field count: 0
+            namespace DebugDrawBoneTransforms_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CVectorMovingAverage {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace AI_MotorGroundAnimgraph_DebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CSoundEnvelope {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace dynpitchvol_base_t {
+            }
+            // Parent: CONTINUE_TO_APPLY_DAMAGE
+            // Field count: 0
+            namespace CStopwatchBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SceneRequestHandle_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNavVolumeVector {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace NavGravity_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseScriptedSequenceData_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace RotatorQueueEntry_t {
+            }
+            // Parent: Base_entity_with_model
+            // Field count: 0
+            namespace CBaseAnimGraphDestructibleParts_GraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ExternalAnimGraphHandle_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPhysicsShake {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInfoChoreoAnchorPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace VelocitySampler {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CTakeDamageResult {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SceneEventId_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ExternalAnimGraph_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CCommentarySystem {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ResponseFollowup {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace AmmoTypeInfo_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNetworkTransmitComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPathQueryUtil {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace RagdollCreationParams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRelativeTransform {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRangeInt {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CWorldCompositionChunkReferenceElement_t {
+            }
+            // Parent: MNotSaved
+            // Field count: 0
+            namespace CRandStopwatch {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMovementStatsProperty {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGameChoreoServices {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PhysObjectHeader_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: _f_Z__
+            // Field count: 0
+            namespace CSimpleStopwatch {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CShatterGlassShard {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ragdollelement_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CGameScriptedMoveDef_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNetworkOriginCellCoordQuantizedVector {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseAnimGraphVariationUserData {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace DynamicVolumeDef_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNetworkOriginQuantizedVector {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace magnetted_objects_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CHintMessageQueue {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSkillInt {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace thinkfunc_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CNavHullPresetVData {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSkillFloat {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace WaterWheelFrictionScale_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ragdollhierarchyjoint_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSceneEventInfo {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SoundeventPathCornerPairNetworked_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CSoundPatch {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSceneOpportunity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCS2ChickenGraphController {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace levellist_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace locksound_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace DecalGroupOption_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBtNode {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAnimGraphControllerManager {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFiringModeFloat {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CCopyRecipientFilter {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFloatMovingAverage {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FuncMoverMovementSummary_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSmoothFunc {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IHasAttributes {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ragdoll_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace HullFlags_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ISkeletonAnimationController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace RotatorHistoryEntry_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace GameAmmoTypeInfo_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMotorController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSimTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBaseIssue {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SummaryTakeDamageInfo_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace INavObstacle {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSceneRequest {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace entitytable_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SceneOpportunityActor_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRR_Response {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CVectorExponentialMovingAverage {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNmAimCSNode__CDefinition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CConstantForceController {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace WaterWheelDrag_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CTakeDamageInfo {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CRandSimTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBtNodeComposite {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CRelativeLocation {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace Extent {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace sndopvarlatchdata_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PrecipitationFilter_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IEconItemInterface {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace PathMoverEntitySpawn {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CMultiplayer_Expresser {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNavVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace QuestProgress {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNmAimCSTask {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ParticleIndex_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAI_ExpresserWithFollowup {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTakeDamageSummaryScopeGuard {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CIronSightController {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CNmEventConsumerSound {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CNmEventConsumerLegacy {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace DestructiblePartDamageRequest_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CInButtonState {
+            }
+            // Parent: server
+            // Field count: 0
+            namespace CNmEventConsumerParticle {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CNavHullVData {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace AI_DefaultNPC_DebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNmSnapWeaponNode__CDefinition {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SoundOpvarTraceResult_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAnimEventListener {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNavVolumeCalculatedVector {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CFiringModeInt {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBtNodeDecorator {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSAdditionalPerRoundStats_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CEmptyGraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace ModelConfigHandle_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CEntitySubclassVDataBase {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBreakableStageHelper {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace AI_MotorGroundAnimgraph_DebugSnapshotData_t__Event_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNavVolumeBreadthFirstSearch {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SceneOpportunityHandle_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace dynpitchvol_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSAdditionalMatchStats_t {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace AI_Navigator_DebugSnapshotData_t__Waypoint_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CSceneCriteria {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CTestPulseIOComponent {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace IRagdoll {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CCSPlayerAnimationState {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace hudtextparms_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CAnimGraphControllerBase {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNetworkVelocityVector {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CDestructiblePart_DamageLevel {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNavVolumeAll {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CNavVolumeSphere {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace Relationship_t {
+            }
+        }
+    }
+}

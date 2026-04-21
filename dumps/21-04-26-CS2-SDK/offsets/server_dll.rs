@@ -1,0 +1,6032 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:21:30.322409500 UTC
+
+#![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
+
+pub mod cs2_dumper {
+    pub mod schemas {
+        // Module: server.dll
+        // Class count: 943
+        // Enum count: 179
+        pub mod server_dll {
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum CLogicBranchList__LogicBranchListenerLastState_t {
+                LOGIC_BRANCH_LISTENER_NOT_INIT = 0x0,
+                LOGIC_BRANCH_LISTENER_ALL_TRUE = 0x1,
+                LOGIC_BRANCH_LISTENER_ALL_FALSE = 0x2,
+                LOGIC_BRANCH_LISTENER_MIXED = 0x3
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum CFuncMover__Move_t {
+                MOVE_LOOP = 0x0,
+                MOVE_OSCILLATE = 0x1,
+                MOVE_STOP_AT_END = 0x2
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum CFuncRotator__Rotate_t {
+                ROTATE_LOOP = 0x0,
+                ROTATE_OSCILLATE = 0x1,
+                ROTATE_STOP_AT_END = 0x2,
+                ROTATE_LOOK_AT_TARGET = 0x3,
+                ROTATE_LOOK_AT_TARGET_ONLY_YAW = 0x4,
+                ROTATE_RETURN_TO_INITIAL_ORIENTATION = 0x5
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum PulseBestOutflowRules_t {
+                SORT_BY_NUMBER_OF_VALID_CRITERIA = 0x0,
+                SORT_BY_OUTFLOW_INDEX = 0x1
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum CPhysicsProp__CrateType_t {
+                CRATE_SPECIFIC_ITEM = 0x0,
+                CRATE_TYPE_COUNT = 0x1
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum PulseCursorCancelPriority_t {
+                None = 0x0,
+                CancelOnSucceeded = 0x1,
+                SoftCancel = 0x2,
+                HardCancel = 0x3
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum PulseMethodCallMode_t {
+                SYNC_WAIT_FOR_COMPLETION = 0x0,
+                ASYNC_FIRE_AND_FORGET = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum CFuncMover__FollowConstraint_t {
+                FOLLOW_CONSTRAINT_DISTANCE = 0x0,
+                FOLLOW_CONSTRAINT_SPRING = 0x1,
+                FOLLOW_CONSTRAINT_RATIO = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum CFuncMover__FollowEntityDirection_t {
+                FOLLOW_ENTITY_BIDIRECTIONAL = 0x0,
+                FOLLOW_ENTITY_FORWARD = 0x1,
+                FOLLOW_ENTITY_REVERSE = 0x2
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum CFuncMover__TransitionToPathNodeAction_t {
+                TRANSITION_TO_PATH_NODE_ACTION_NONE = 0x0,
+                TRANSITION_TO_PATH_NODE_ACTION_START_FORWARD = 0x1,
+                TRANSITION_TO_PATH_NODE_ACTION_START_REVERSE = 0x2,
+                TRANSITION_TO_PATH_NODE_TRANSITIONING = 0x3
+            }
+            // Alignment: 4
+            // Member count: 9
+            #[repr(u32)]
+            pub enum CFuncMover__OrientationUpdate_t {
+                ORIENTATION_FORWARD_PATH = 0x0,
+                ORIENTATION_FORWARD_PATH_AND_FIXED_PITCH = 0x1,
+                ORIENTATION_FORWARD_PATH_AND_UP_CONTROL_POINT = 0x2,
+                ORIENTATION_MATCH_CONTROL_POINT = 0x3,
+                ORIENTATION_FIXED = 0x4,
+                ORIENTATION_FACE_PLAYER = 0x5,
+                ORIENTATION_FORWARD_MOVEMENT_DIRECTION = 0x6,
+                ORIENTATION_FORWARD_MOVEMENT_DIRECTION_AND_UP_CONTROL_POINT = 0x7,
+                ORIENTATION_FACE_ENTITY = 0x8
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum PropDoorRotatingOpenDirection_e {
+                DOOR_ROTATING_OPEN_BOTH_WAYS = 0x0,
+                DOOR_ROTATING_OPEN_FORWARD = 0x1,
+                DOOR_ROTATING_OPEN_BACKWARD = 0x2
+            }
+            // Alignment: 4
+            // Member count: 1
+            #[repr(u32)]
+            pub enum PulseCollisionGroup_t {
+                DEFAULT = 0x0
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum SceneOnPlayerDeath_t {
+                SCENE_ONPLAYERDEATH_DO_NOTHING = 0x0,
+                SCENE_ONPLAYERDEATH_CANCEL = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum LessonPanelLayoutFileTypes_t {
+                LAYOUT_HAND_DEFAULT = 0x0,
+                LAYOUT_WORLD_DEFAULT = 0x1,
+                LAYOUT_CUSTOM = 0x2
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum TimelineCompression_t {
+                TIMELINE_COMPRESSION_SUM = 0x0,
+                TIMELINE_COMPRESSION_COUNT_PER_INTERVAL = 0x1,
+                TIMELINE_COMPRESSION_AVERAGE = 0x2,
+                TIMELINE_COMPRESSION_AVERAGE_BLEND = 0x3,
+                TIMELINE_COMPRESSION_TOTAL = 0x4
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum SubclassVDataChangeType_t {
+                SUBCLASS_VDATA_CREATED = 0x0,
+                SUBCLASS_VDATA_SUBCLASS_CHANGED = 0x1,
+                SUBCLASS_VDATA_RELOADED = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum C4LightEffect_t {
+                eLightEffectNone = 0x0,
+                eLightEffectDropped = 0x1,
+                eLightEffectThirdPersonHeld = 0x2
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum StanceType_t {
+                STANCE_CURRENT = u32::MAX,
+                STANCE_DEFAULT = 0x0,
+                STANCE_CROUCHING = 0x1,
+                STANCE_PRONE = 0x2,
+                NUM_STANCES = 0x3
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum Explosions {
+                expRandom = 0x0,
+                expDirected = 0x1,
+                expUsePrecise = 0x2
+            }
+            // Alignment: 4
+            // Member count: 11
+            #[repr(u32)]
+            pub enum PreviewCharacterMode {
+                INVALID = u32::MAX,
+                DIORAMA = 0x0,
+                MAIN_MENU = 0x1,
+                BUY_MENU = 0x2,
+                TEAM_SELECT = 0x3,
+                END_OF_MATCH = 0x4,
+                INVENTORY_INSPECT = 0x5,
+                WALKING = 0x6,
+                TEAM_INTRO = 0x7,
+                WINGMAN_INTRO = 0x8,
+                BANNER = 0x9
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ObserverInterpState_t {
+                OBSERVER_INTERP_NONE = 0x0,
+                OBSERVER_INTERP_STARTING = 0x1,
+                OBSERVER_INTERP_TRAVELING = 0x2,
+                OBSERVER_INTERP_SETTLING = 0x3
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum WorldTextPanelOrientation_t {
+                WORLDTEXT_ORIENTATION_DEFAULT = 0x0,
+                WORLDTEXT_ORIENTATION_FACEUSER = 0x1,
+                WORLDTEXT_ORIENTATION_FACEUSER_UPRIGHT = 0x2
+            }
+            // Alignment: 4
+            // Member count: 8
+            #[repr(u32)]
+            pub enum EDestructibleParts_DestroyParameterFlags {
+                None = 0x0,
+                GenerateBreakpieces = 0x1,
+                SetBodyGroupAndCollisionState = 0x2,
+                EnableFlinches = 0x4,
+                ForceDamageApply = 0x8,
+                IgnoreKillEntityFlag = 0x10,
+                IgnoreHealthCheck = 0x20,
+                Default = 0x7
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum WorldTextPanelHorizontalAlign_t {
+                WORLDTEXT_HORIZONTAL_ALIGN_LEFT = 0x0,
+                WORLDTEXT_HORIZONTAL_ALIGN_CENTER = 0x1,
+                WORLDTEXT_HORIZONTAL_ALIGN_RIGHT = 0x2
+            }
+            // Alignment: 1
+            // Member count: 3
+            #[repr(u8)]
+            pub enum SequenceFinishNotifyState_t {
+                eDoNotNotify = 0x0,
+                eNotifyWhenFinished = 0x1,
+                eNotifyTriggered = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum SoundEventStartType_t {
+                SOUNDEVENT_START_PLAYER = 0x0,
+                SOUNDEVENT_START_WORLD = 0x1,
+                SOUNDEVENT_START_ENTITY = 0x2
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum soundcommands_t {
+                SOUNDCTRL_CHANGE_VOLUME = 0x0,
+                SOUNDCTRL_CHANGE_PITCH = 0x1,
+                SOUNDCTRL_STOP = 0x2,
+                SOUNDCTRL_DESTROY = 0x3,
+                SOUNDCTRL_FADEOUT = 0x4
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum AnimGraphDebugDrawType_t {
+                None = 0x0,
+                WsPosition = 0x1,
+                MsPosition = 0x2,
+                WsDirection = 0x3,
+                MsDirection = 0x4
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum TrainOrientationType_t {
+                TrainOrientation_Fixed = 0x0,
+                TrainOrientation_AtPathTracks = 0x1,
+                TrainOrientation_LinearBlend = 0x2,
+                TrainOrientation_EaseInEaseOut = 0x3
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum CInfoChoreoLocatorShapeType_t {
+                POINT = 0x0,
+                LINE = 0x1,
+                COUNT = 0x2,
+                NONE = 0x3
+            }
+            // Alignment: 4
+            // Member count: 7
+            #[repr(u32)]
+            pub enum CSWeaponCategory {
+                WEAPONCATEGORY_OTHER = 0x0,
+                WEAPONCATEGORY_MELEE = 0x1,
+                WEAPONCATEGORY_SECONDARY = 0x2,
+                WEAPONCATEGORY_SMG = 0x3,
+                WEAPONCATEGORY_RIFLE = 0x4,
+                WEAPONCATEGORY_HEAVY = 0x5,
+                WEAPONCATEGORY_COUNT = 0x6
+            }
+            // Alignment: 1
+            // Member count: 2
+            #[repr(u8)]
+            pub enum BeginDeathLifeStateTransition_t {
+                TRANSITION_TO_LIFESTATE_DYING = 0x0,
+                TRANSITION_TO_LIFESTATE_DEAD = 0x1
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum PointOrientGoalDirectionType_t {
+                eAbsOrigin = 0x0,
+                eCenter = 0x1,
+                eHead = 0x2,
+                eForward = 0x3,
+                eEyesForward = 0x4
+            }
+            // Alignment: 1
+            // Member count: 9
+            #[repr(u8)]
+            pub enum ItemFlagTypes_t {
+                ITEM_FLAG_NONE = 0x0,
+                ITEM_FLAG_CAN_SELECT_WITHOUT_AMMO = 0x1,
+                ITEM_FLAG_NOAUTORELOAD = 0x2,
+                ITEM_FLAG_NOAUTOSWITCHEMPTY = 0x4,
+                ITEM_FLAG_LIMITINWORLD = 0x8,
+                ITEM_FLAG_EXHAUSTIBLE = 0x10,
+                ITEM_FLAG_DOHITLOCATIONDMG = 0x20,
+                ITEM_FLAG_NOAMMOPICKUPS = 0x40,
+                ITEM_FLAG_NOITEMPICKUP = 0x80
+            }
+            // Alignment: 1
+            // Member count: 10
+            #[repr(u8)]
+            pub enum SurroundingBoundsType_t {
+                USE_OBB_COLLISION_BOUNDS = 0x0,
+                USE_BEST_COLLISION_BOUNDS = 0x1,
+                USE_HITBOXES = 0x2,
+                USE_SPECIFIED_BOUNDS = 0x3,
+                USE_GAME_CODE = 0x4,
+                USE_ROTATION_EXPANDED_BOUNDS = 0x5,
+                USE_ROTATION_EXPANDED_ORIENTED_BOUNDS = 0x6,
+                USE_COLLISION_BOUNDS_NEVER_VPHYSICS = 0x7,
+                USE_ROTATION_EXPANDED_SEQUENCE_BOUNDS = 0x8
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum LifeState_t {
+                LIFE_ALIVE = 0x0,
+                LIFE_DYING = 0x1,
+                LIFE_DEAD = 0x2,
+                LIFE_RESPAWNABLE = 0x3,
+                LIFE_RESPAWNING = 0x4,
+                NUM_LIFESTATES = 0x5
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum PointOrientConstraint_t {
+                eNone = 0x0,
+                ePreserveUpAxis = 0x1
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum NPCFollowFormation_t {
+                Default = u32::MAX,
+                CloseCircle = 0x0,
+                WideCircle = 0x1,
+                MediumCircle = 0x5,
+                Sidekick = 0x6
+            }
+            // Alignment: 1
+            // Member count: 3
+            #[repr(u8)]
+            pub enum GLOBALESTATE {
+                GLOBAL_OFF = 0x0,
+                GLOBAL_ON = 0x1,
+                GLOBAL_DEAD = 0x2
+            }
+            // Alignment: 1
+            // Member count: 6
+            #[repr(u8)]
+            pub enum AnimationAlgorithm_t {
+                eInvalid = u8::MAX,
+                eNone = 0x0,
+                eSequence = 0x1,
+                eAnimGraph2 = 0x2,
+                eAnimGraph2Secondary = 0x3,
+                eCount = 0x4
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum CSWeaponMode {
+                Primary_Mode = 0x0,
+                Secondary_Mode = 0x1,
+                WeaponMode_MAX = 0x2
+            }
+            // Alignment: 1
+            // Member count: 3
+            #[repr(u8)]
+            pub enum OnFrame {
+                ONFRAME_UNKNOWN = 0x0,
+                ONFRAME_TRUE = 0x1,
+                ONFRAME_FALSE = 0x2
+            }
+            // Alignment: 4
+            // Member count: 12
+            #[repr(u32)]
+            pub enum Materials {
+                matGlass = 0x0,
+                matWood = 0x1,
+                matMetal = 0x2,
+                matFlesh = 0x3,
+                matCinderBlock = 0x4,
+                matCeilingTile = 0x5,
+                matComputer = 0x6,
+                matUnbreakableGlass = 0x7,
+                matRocks = 0x8,
+                matWeb = 0x9,
+                matNone = 0xA,
+                matLastMaterial = 0xB
+            }
+            // Alignment: 4
+            // Member count: 9
+            #[repr(u32)]
+            pub enum BloodType {
+                None = u32::MAX,
+                ColorRed = 0x0,
+                ColorYellow = 0x1,
+                ColorGreen = 0x2,
+                ColorRedLVL2 = 0x3,
+                ColorRedLVL3 = 0x4,
+                ColorRedLVL4 = 0x5,
+                ColorRedLVL5 = 0x6,
+                ColorRedLVL6 = 0x7
+            }
+            // Alignment: 1
+            // Member count: 5
+            #[repr(u8)]
+            pub enum NavScope_t {
+                eGround = 0x0,
+                eAir = 0x1,
+                eCount = 0x2,
+                eInvalid = 0xFF
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum BreakableContentsType_t {
+                BC_DEFAULT = 0x0,
+                BC_EMPTY = 0x1,
+                BC_PROP_GROUP_OVERRIDE = 0x2,
+                BC_PARTICLE_SYSTEM_OVERRIDE = 0x3
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum AnimLoopMode_t {
+                ANIM_LOOP_MODE_INVALID = u32::MAX,
+                ANIM_LOOP_MODE_NOT_LOOPING = 0x0,
+                ANIM_LOOP_MODE_LOOPING = 0x1,
+                ANIM_LOOP_MODE_USE_SEQUENCE_SETTINGS = 0x2,
+                ANIM_LOOP_MODE_COUNT = 0x3
+            }
+            // Alignment: 4
+            // Member count: 14
+            #[repr(u32)]
+            pub enum Class_T {
+                CLASS_NONE = 0x0,
+                CLASS_PLAYER = 0x1,
+                CLASS_PLAYER_ALLY = 0x2,
+                CLASS_C4_FOR_RADAR = 0x3,
+                CLASS_FOOT_CONTACT_SHADOW = 0x4,
+                CLASS_WEAPON = 0x5,
+                CLASS_WATER_SPLASHER = 0x6,
+                CLASS_HUDMODEL_WEAPON = 0x7,
+                CLASS_HUDMODEL_ARMS = 0x8,
+                CLASS_HUDMODEL_ADDON = 0x9,
+                CLASS_WORLDMODEL_GLOVES = 0xA,
+                CLASS_DOOR = 0xB,
+                CLASS_PLANTED_C4 = 0xC,
+                NUM_CLASSIFY_CLASSES = 0xD
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum filter_t {
+                FILTER_AND = 0x0,
+                FILTER_OR = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum CSWeaponSilencerType {
+                WEAPONSILENCER_NONE = 0x0,
+                WEAPONSILENCER_DETACHABLE = 0x1,
+                WEAPONSILENCER_INTEGRATED = 0x2
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum EProceduralRagdollWeightIndexPropagationMethod {
+                Bone = 0x0,
+                BoneAndChildren = 0x1
+            }
+            // Alignment: 4
+            // Member count: 37
+            #[repr(u32)]
+            pub enum GameAnimEventIndex_t {
+                AE_EMPTY = 0x0,
+                AE_CL_PLAYSOUND = 0x1,
+                AE_CL_PLAYSOUND_ATTACHMENT = 0x2,
+                AE_CL_PLAYSOUND_POSITION = 0x3,
+                AE_SV_PLAYSOUND = 0x4,
+                AE_CL_STOPSOUND = 0x5,
+                AE_CL_PLAYSOUND_LOOPING = 0x6,
+                AE_CL_CREATE_PARTICLE_EFFECT = 0x7,
+                AE_CL_STOP_PARTICLE_EFFECT = 0x8,
+                AE_CL_CREATE_PARTICLE_EFFECT_CFG = 0x9,
+                AE_SV_CREATE_PARTICLE_EFFECT_CFG = 0xA,
+                AE_SV_STOP_PARTICLE_EFFECT = 0xB,
+                AE_FOOTSTEP = 0xC,
+                AE_CL_STOP_RAGDOLL_CONTROL = 0xD,
+                AE_CL_ENABLE_BODYGROUP = 0xE,
+                AE_CL_DISABLE_BODYGROUP = 0xF,
+                AE_BODYGROUP_SET_VALUE = 0x10,
+                AE_WEAPON_PERFORM_ATTACK = 0x11,
+                AE_FIRE_INPUT = 0x12,
+                AE_CL_CLOTH_ATTR = 0x13,
+                AE_CL_CLOTH_GROUND_OFFSET = 0x14,
+                AE_CL_CLOTH_STIFFEN = 0x15,
+                AE_CL_CLOTH_EFFECT = 0x16,
+                AE_CL_CREATE_ANIM_SCOPE_PROP = 0x17,
+                AE_SV_IKLOCK = 0x18,
+                AE_PULSE_GRAPH = 0x19,
+                AE_DISABLE_PLATFORM = 0x1A,
+                AE_ENABLE_PLATFORM_PLAYER_FOLLOWS_YAW = 0x1B,
+                AE_ENABLE_PLATFORM_PLAYER_IGNORES_YAW = 0x1C,
+                AE_DESTRUCTIBLE_PART_DESTROY = 0x1D,
+                AE_CL_WEAPON_TRANSITION_INTO_HAND = 0x1E,
+                AE_SV_ATTACH_SILENCER_COMPLETE = 0x1F,
+                AE_SV_DETACH_SILENCER_COMPLETE = 0x20,
+                AE_CL_EJECT_MAG = 0x21,
+                AE_WPN_COMPLETE_RELOAD = 0x22,
+                AE_WPN_HEALTHSHOT_INJECT = 0x23,
+                AE_GRENADE_THROW_COMPLETE = 0x24
+            }
+            // Alignment: 1
+            // Member count: 3
+            #[repr(u8)]
+            pub enum FixAngleSet_t {
+                None = 0x0,
+                Absolute = 0x1,
+                Relative = 0x2
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum IChoreoServices__ScriptState_t {
+                SCRIPT_PLAYING = 0x0,
+                SCRIPT_WAIT = 0x1,
+                SCRIPT_POST_IDLE = 0x2,
+                SCRIPT_CLEANUP = 0x3,
+                SCRIPT_MOVE_TO_MARK = 0x4
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum Touch_t {
+                touch_none = 0x0,
+                touch_player_only = 0x1,
+                touch_npc_only = 0x2,
+                touch_player_or_npc = 0x3,
+                touch_player_or_npc_or_physicsprop = 0x4
+            }
+            // Alignment: 1
+            // Member count: 4
+            #[repr(u8)]
+            pub enum CCSPlayerAnimationState__MoveType_t {
+                None = 0x0,
+                Ground = 0x1,
+                Air = 0x2,
+                Ladder = 0x3
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum TrainVelocityType_t {
+                TrainVelocity_Instantaneous = 0x0,
+                TrainVelocity_LinearBlend = 0x1,
+                TrainVelocity_EaseInEaseOut = 0x2
+            }
+            // Alignment: 4
+            // Member count: 13
+            #[repr(u32)]
+            pub enum CSWeaponType {
+                WEAPONTYPE_KNIFE = 0x0,
+                WEAPONTYPE_PISTOL = 0x1,
+                WEAPONTYPE_SUBMACHINEGUN = 0x2,
+                WEAPONTYPE_RIFLE = 0x3,
+                WEAPONTYPE_SHOTGUN = 0x4,
+                WEAPONTYPE_SNIPER_RIFLE = 0x5,
+                WEAPONTYPE_MACHINEGUN = 0x6,
+                WEAPONTYPE_C4 = 0x7,
+                WEAPONTYPE_TASER = 0x8,
+                WEAPONTYPE_GRENADE = 0x9,
+                WEAPONTYPE_EQUIPMENT = 0xA,
+                WEAPONTYPE_STACKABLEITEM = 0xB,
+                WEAPONTYPE_UNKNOWN = 0xC
+            }
+            // Alignment: 1
+            // Member count: 4
+            #[repr(u8)]
+            pub enum NavScopeFlags_t {
+                eGround = 0x1,
+                eAir = 0x2,
+                eAll = 0x3,
+                eNone = 0x0
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum EntFinderMethod_t {
+                ENT_FIND_METHOD_NEAREST = 0x0,
+                ENT_FIND_METHOD_FARTHEST = 0x1,
+                ENT_FIND_METHOD_RANDOM = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum TestInputOutputCombinationsEnum_t {
+                ZERO = 0x0,
+                ONE = 0x1,
+                TWO = 0x2
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum FuncMoverMovementSummaryFlags_t {
+                eNone = 0x0,
+                eMovementBegin = 0x1,
+                eStopBegin = 0x2,
+                eStopComplete = 0x4,
+                eReversing = 0x8,
+                eEventsDispatched = 0x10
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum PropDoorRotatingSpawnPos_t {
+                DOOR_SPAWN_CLOSED = 0x0,
+                DOOR_SPAWN_OPEN_FORWARD = 0x1,
+                DOOR_SPAWN_OPEN_BACK = 0x2,
+                DOOR_SPAWN_AJAR = 0x3
+            }
+            // Alignment: 1
+            // Member count: 2
+            #[repr(u8)]
+            pub enum ShardSolid_t {
+                SHARD_SOLID = 0x0,
+                SHARD_DEBRIS = 0x1
+            }
+            // Alignment: 1
+            // Member count: 3
+            #[repr(u8)]
+            pub enum EntityPlatformTypes_t {
+                ENTITY_NOT_PLATFORM = 0x0,
+                ENTITY_PLATFORM_PLAYER_FOLLOWS_YAW = 0x1,
+                ENTITY_PLATFORM_PLAYER_IGNORES_YAW = 0x2
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum PulseNPCCondition_t {
+                COND_SEE_PLAYER = 0x1,
+                COND_LOST_PLAYER = 0x2,
+                COND_HEAR_PLAYER = 0x3,
+                COND_PLAYER_PUSHING = 0x4,
+                COND_NO_PRIMARY_AMMO = 0x5
+            }
+            // Alignment: 1
+            // Member count: 4
+            #[repr(u8)]
+            pub enum RenderMode_t {
+                kRenderNormal = 0x0,
+                kRenderTransAlpha = 0x1,
+                kRenderNone = 0x2,
+                kRenderModeCount = 0x3
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ForcedCrouchState_t {
+                FORCEDCROUCH_NONE = 0x0,
+                FORCEDCROUCH_CROUCHED = 0x1,
+                FORCEDCROUCH_UNCROUCHED = 0x2
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum PerformanceMode_t {
+                PM_NORMAL = 0x0,
+                PM_NO_GIBS = 0x1
+            }
+            // Alignment: 4
+            // Member count: 8
+            #[repr(u32)]
+            pub enum TOGGLE_STATE {
+                TS_AT_TOP = 0x0,
+                TS_AT_BOTTOM = 0x1,
+                TS_GOING_UP = 0x2,
+                TS_GOING_DOWN = 0x3
+            }
+            // Alignment: 4
+            // Member count: 74
+            #[repr(u32)]
+            pub enum loadout_slot_t {
+                LOADOUT_SLOT_PROMOTED = 0xFFFFFFFFFFFFFFFE,
+                LOADOUT_SLOT_INVALID = u32::MAX,
+                LOADOUT_SLOT_MELEE = 0x0,
+                LOADOUT_SLOT_C4 = 0x1,
+                LOADOUT_SLOT_SECONDARY0 = 0x2,
+                LOADOUT_SLOT_SECONDARY1 = 0x3,
+                LOADOUT_SLOT_SECONDARY2 = 0x4,
+                LOADOUT_SLOT_SECONDARY3 = 0x5,
+                LOADOUT_SLOT_SECONDARY4 = 0x6,
+                LOADOUT_SLOT_SECONDARY5 = 0x7,
+                LOADOUT_SLOT_SMG0 = 0x8,
+                LOADOUT_SLOT_SMG1 = 0x9,
+                LOADOUT_SLOT_SMG2 = 0xA,
+                LOADOUT_SLOT_SMG3 = 0xB,
+                LOADOUT_SLOT_SMG4 = 0xC,
+                LOADOUT_SLOT_SMG5 = 0xD,
+                LOADOUT_SLOT_RIFLE0 = 0xE,
+                LOADOUT_SLOT_RIFLE1 = 0xF,
+                LOADOUT_SLOT_RIFLE2 = 0x10,
+                LOADOUT_SLOT_RIFLE3 = 0x11,
+                LOADOUT_SLOT_RIFLE4 = 0x12,
+                LOADOUT_SLOT_RIFLE5 = 0x13,
+                LOADOUT_SLOT_HEAVY0 = 0x14,
+                LOADOUT_SLOT_HEAVY1 = 0x15,
+                LOADOUT_SLOT_HEAVY2 = 0x16,
+                LOADOUT_SLOT_HEAVY3 = 0x17,
+                LOADOUT_SLOT_HEAVY4 = 0x18,
+                LOADOUT_SLOT_HEAVY5 = 0x19,
+                LOADOUT_SLOT_FIRST_WHEEL_GRENADE = 0x1A,
+                LOADOUT_SLOT_GRENADE1 = 0x1B,
+                LOADOUT_SLOT_GRENADE2 = 0x1C,
+                LOADOUT_SLOT_GRENADE3 = 0x1D,
+                LOADOUT_SLOT_GRENADE4 = 0x1E,
+                LOADOUT_SLOT_GRENADE5 = 0x1F,
+                LOADOUT_SLOT_EQUIPMENT0 = 0x20,
+                LOADOUT_SLOT_EQUIPMENT1 = 0x21,
+                LOADOUT_SLOT_EQUIPMENT2 = 0x22,
+                LOADOUT_SLOT_EQUIPMENT3 = 0x23,
+                LOADOUT_SLOT_EQUIPMENT4 = 0x24,
+                LOADOUT_SLOT_EQUIPMENT5 = 0x25,
+                LOADOUT_SLOT_CLOTHING_CUSTOMPLAYER = 0x26,
+                LOADOUT_SLOT_CLOTHING_CUSTOMHEAD = 0x27,
+                LOADOUT_SLOT_CLOTHING_FACEMASK = 0x28,
+                LOADOUT_SLOT_CLOTHING_HANDS = 0x29,
+                LOADOUT_SLOT_CLOTHING_EYEWEAR = 0x2A,
+                LOADOUT_SLOT_CLOTHING_HAT = 0x2B,
+                LOADOUT_SLOT_CLOTHING_LOWERBODY = 0x2C,
+                LOADOUT_SLOT_CLOTHING_TORSO = 0x2D,
+                LOADOUT_SLOT_CLOTHING_APPEARANCE = 0x2E,
+                LOADOUT_SLOT_MISC0 = 0x2F,
+                LOADOUT_SLOT_MISC1 = 0x30,
+                LOADOUT_SLOT_MISC2 = 0x31,
+                LOADOUT_SLOT_MISC3 = 0x32,
+                LOADOUT_SLOT_MISC4 = 0x33,
+                LOADOUT_SLOT_MISC5 = 0x34,
+                LOADOUT_SLOT_MISC6 = 0x35,
+                LOADOUT_SLOT_MUSICKIT = 0x36,
+                LOADOUT_SLOT_FLAIR0 = 0x37,
+                LOADOUT_SLOT_SPRAY0 = 0x38,
+                LOADOUT_SLOT_COUNT = 0x39
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum EDestructiblePartDamagePassThroughType {
+                Normal = 0x0,
+                Absorb = 0x1,
+                InvincibleAbsorb = 0x2,
+                InvinciblePassthrough = 0x3
+            }
+            // Alignment: 8
+            // Member count: 20
+            #[repr(u64)]
+            pub enum NavAttributeEnum {
+                NAV_MESH_AVOID = 0x80,
+                NAV_MESH_STAIRS = 0x1000,
+                NAV_MESH_NON_ZUP = 0x8000,
+                NAV_MESH_CROUCH_HEIGHT = 0x10000,
+                NAV_MESH_NON_ZUP_TRANSITION = 0x20000,
+                NAV_MESH_CRAWL_HEIGHT = 0x40000,
+                NAV_MESH_JUMP = 0x2,
+                NAV_MESH_NO_JUMP = 0x8,
+                NAV_MESH_STOP = 0x10,
+                NAV_MESH_RUN = 0x20,
+                NAV_MESH_WALK = 0x40,
+                NAV_MESH_TRANSIENT = 0x100,
+                NAV_MESH_DONT_HIDE = 0x200,
+                NAV_MESH_STAND = 0x400,
+                NAV_MESH_NO_HOSTAGES = 0x800,
+                NAV_MESH_NO_MERGE = 0x2000,
+                NAV_MESH_OBSTACLE_TOP = 0x4000,
+                NAV_ATTR_FIRST_GAME_INDEX = 0x13,
+                NAV_ATTR_LAST_INDEX = 0x3F
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum MoveLinearAuthoredPos_t {
+                MOVELINEAR_AUTHORED_AT_START_POSITION = 0x0,
+                MOVELINEAR_AUTHORED_AT_OPEN_POSITION = 0x1,
+                MOVELINEAR_AUTHORED_AT_CLOSED_POSITION = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum InteractionPassive_t {
+                INTERACT_PASSIVE_NONE = 0x0,
+                INTERACT_PASSIVE_LOOKAT = 0x1,
+                INTERACT_PASSIVE_SPEAK = 0x2
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ValueRemapperMomentumType_t {
+                MomentumType_None = 0x0,
+                MomentumType_Friction = 0x1,
+                MomentumType_SpringTowardSnapValue = 0x2,
+                MomentumType_SpringAwayFromSnapValue = 0x3
+            }
+            // Alignment: 4
+            // Member count: 12
+            #[repr(u32)]
+            pub enum Hull_t {
+                HULL_HUMAN = 0x0,
+                HULL_SMALL_CENTERED = 0x1,
+                HULL_WIDE_HUMAN = 0x2,
+                HULL_TINY = 0x3,
+                HULL_MEDIUM = 0x4,
+                HULL_TINY_CENTERED = 0x5,
+                HULL_LARGE = 0x6,
+                HULL_LARGE_CENTERED = 0x7,
+                HULL_MEDIUM_TALL = 0x8,
+                HULL_SMALL = 0x9,
+                NUM_HULLS = 0xA,
+                HULL_NONE = 0xB
+            }
+            // Alignment: 1
+            // Member count: 3
+            #[repr(u8)]
+            pub enum ExternalAnimGraphInactiveBehavior_t {
+                eNone = 0x0,
+                eUnbind = 0x1,
+                eUnbindAndDelete = 0x2
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum BodySectionAuthority_t {
+                eNone = 0x0,
+                eLowerBody = 0x1,
+                eUpperBody = 0x2,
+                eFullBody = 0x3
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ESceneRequestState_t {
+                INACTIVE = 0x0,
+                ACTIVE = 0x1,
+                FINISHED = 0x2,
+                FAILED = 0x3
+            }
+            // Alignment: 1
+            // Member count: 7
+            #[repr(u8)]
+            pub enum CCSPlayerAnimationState__GroundMoveState_t {
+                None = 0x0,
+                Idle = 0x1,
+                Start = 0x2,
+                Move = 0x3,
+                TurnOnSpot = 0x4,
+                TurnOnSpotLoop = 0x5,
+                PlantAndTurn = 0x6
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum PreviewWeaponState {
+                DROPPED = 0x0,
+                HOLSTERED = 0x1,
+                DEPLOYED = 0x2,
+                PLANTED = 0x3,
+                INSPECT = 0x4,
+                ICON = 0x5
+            }
+            // Alignment: 4
+            // Member count: 9
+            #[repr(u32)]
+            pub enum EInButtonState {
+                IN_BUTTON_UP = 0x0,
+                IN_BUTTON_DOWN = 0x1,
+                IN_BUTTON_DOWN_UP = 0x2,
+                IN_BUTTON_UP_DOWN = 0x3,
+                IN_BUTTON_UP_DOWN_UP = 0x4,
+                IN_BUTTON_DOWN_UP_DOWN = 0x5,
+                IN_BUTTON_DOWN_UP_DOWN_UP = 0x6,
+                IN_BUTTON_UP_DOWN_UP_DOWN = 0x7,
+                IN_BUTTON_STATE_COUNT = 0x8
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum BeamClipStyle_t {
+                kNOCLIP = 0x0,
+                kGEOCLIP = 0x1,
+                kMODELCLIP = 0x2
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum WeaponAttackType_t {
+                eInvalid = u32::MAX,
+                ePrimary = 0x0,
+                eSecondary = 0x1,
+                eCount = 0x2
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum CDebugOverlayFilterTextType_t {
+                FILTER_TEXT_NONE = 0x0,
+                MATCH = 0x1,
+                HIERARCHY = 0x2,
+                COUNT = 0x3
+            }
+            // Alignment: 4
+            // Member count: 8
+            #[repr(u32)]
+            pub enum CSPlayerBlockingUseAction_t {
+                k_CSPlayerBlockingUseAction_None = 0x0,
+                k_CSPlayerBlockingUseAction_DefusingDefault = 0x1,
+                k_CSPlayerBlockingUseAction_DefusingWithKit = 0x2,
+                k_CSPlayerBlockingUseAction_HostageGrabbing = 0x3,
+                k_CSPlayerBlockingUseAction_HostageDropping = 0x4,
+                k_CSPlayerBlockingUseAction_MapLongUseEntity_Pickup = 0x5,
+                k_CSPlayerBlockingUseAction_MapLongUseEntity_Place = 0x6,
+                k_CSPlayerBlockingUseAction_MaxCount = 0x7
+            }
+            // Alignment: 1
+            // Member count: 5
+            #[repr(u8)]
+            pub enum ShatterDamageCause {
+                SHATTERDAMAGE_BULLET = 0x0,
+                SHATTERDAMAGE_MELEE = 0x1,
+                SHATTERDAMAGE_THROWN = 0x2,
+                SHATTERDAMAGE_SCRIPT = 0x3,
+                SHATTERDAMAGE_EXPLOSIVE = 0x4
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ScriptedOnDeath_t {
+                SS_ONDEATH_NOT_APPLICABLE = u32::MAX,
+                SS_ONDEATH_UNDEFINED = 0x0,
+                SS_ONDEATH_RAGDOLL = 0x1,
+                SS_ONDEATH_ANIMATED_DEATH = 0x2
+            }
+            // Alignment: 4
+            // Member count: 66
+            #[repr(u32)]
+            pub enum CSWeaponNameID {
+                WEAPONID_GLOCK = 0x0,
+                WEAPONID_HKP2000 = 0x1,
+                WEAPONID_CZ75A = 0x2,
+                WEAPONID_ELITE = 0x3,
+                WEAPONID_DEAGLE = 0x4,
+                WEAPONID_FIVESEVEN = 0x5,
+                WEAPONID_P250 = 0x6,
+                WEAPONID_REVOLVER = 0x7,
+                WEAPONID_TEC9 = 0x8,
+                WEAPONID_USP_SILENCER = 0x9,
+                WEAPONID_AK47 = 0xA,
+                WEAPONID_M4A1 = 0xB,
+                WEAPONID_M4A1_SILENCER = 0xC,
+                WEAPONID_FAMAS = 0xD,
+                WEAPONID_GALILAR = 0xE,
+                WEAPONID_AUG = 0xF,
+                WEAPONID_SG556 = 0x10,
+                WEAPONID_BIZON = 0x11,
+                WEAPONID_MAC10 = 0x12,
+                WEAPONID_MP5SD = 0x13,
+                WEAPONID_MP7 = 0x14,
+                WEAPONID_MP9 = 0x15,
+                WEAPONID_P90 = 0x16,
+                WEAPONID_UMP45 = 0x17,
+                WEAPONID_MAG7 = 0x18,
+                WEAPONID_NOVA = 0x19,
+                WEAPONID_SAWEDOFF = 0x1A,
+                WEAPONID_XM1014 = 0x1B,
+                WEAPONID_AWP = 0x1C,
+                WEAPONID_SSG08 = 0x1D,
+                WEAPONID_G3SG1 = 0x1E,
+                WEAPONID_SCAR20 = 0x1F,
+                WEAPONID_M249 = 0x20,
+                WEAPONID_NEGEV = 0x21,
+                WEAPONID_TASER = 0x22,
+                WEAPONID_DECOY = 0x23,
+                WEAPONID_FLASHBANG = 0x24,
+                WEAPONID_HEGRENADE = 0x25,
+                WEAPONID_INCGRENADE = 0x26,
+                WEAPONID_MOLOTOV = 0x27,
+                WEAPONID_SMOKEGRENADE = 0x28,
+                WEAPONID_C4 = 0x29,
+                WEAPONID_HEALTHSHOT = 0x2A,
+                WEAPONID_KNIFE = 0x2B,
+                WEAPONID_KNIFE_T = 0x2C,
+                WEAPONID_KNIFE_CSS = 0x2D,
+                WEAPONID_KNIFE_FLIP = 0x2E,
+                WEAPONID_KNIFE_GUT = 0x2F,
+                WEAPONID_KNIFE_KARAMBIT = 0x30,
+                WEAPONID_BAYONET = 0x31,
+                WEAPONID_KNIFE_M9_BAYONET = 0x32,
+                WEAPONID_KNIFE_TACTICAL = 0x33,
+                WEAPONID_KNIFE_FALCHION = 0x34,
+                WEAPONID_KNIFE_SURVIVAL_BOWIE = 0x35,
+                WEAPONID_KNIFE_BUTTERFLY = 0x36,
+                WEAPONID_KNIFE_PUSH = 0x37,
+                WEAPONID_KNIFE_CORD = 0x38,
+                WEAPONID_KNIFE_CANIS = 0x39,
+                WEAPONID_KNIFE_URSUS = 0x3A,
+                WEAPONID_KNIFE_GYPSY_JACKKNIFE = 0x3B,
+                WEAPONID_KNIFE_OUTDOOR = 0x3C,
+                WEAPONID_KNIFE_STILETTO = 0x3D,
+                WEAPONID_KNIFE_WIDOWMAKER = 0x3E,
+                WEAPONID_KNIFE_SKELETON = 0x3F,
+                WEAPONID_KNIFE_KUKRI = 0x40,
+                WEAPONID_UNKNOWN = 0x41
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ChoreoLookAtSpeed_t {
+                eInvalid = u32::MAX,
+                eSlow = 0x0,
+                eMedium = 0x1,
+                eFast = 0x2
+            }
+            // Alignment: 4
+            // Member count: 17
+            #[repr(u32)]
+            pub enum gear_slot_t {
+                GEAR_SLOT_INVALID = u32::MAX,
+                GEAR_SLOT_RIFLE = 0x0,
+                GEAR_SLOT_PISTOL = 0x1,
+                GEAR_SLOT_KNIFE = 0x2,
+                GEAR_SLOT_GRENADES = 0x3,
+                GEAR_SLOT_C4 = 0x4,
+                GEAR_SLOT_RESERVED_SLOT6 = 0x5,
+                GEAR_SLOT_RESERVED_SLOT7 = 0x6,
+                GEAR_SLOT_RESERVED_SLOT8 = 0x7,
+                GEAR_SLOT_RESERVED_SLOT9 = 0x8,
+                GEAR_SLOT_RESERVED_SLOT10 = 0x9,
+                GEAR_SLOT_RESERVED_SLOT11 = 0xA,
+                GEAR_SLOT_BOOSTS = 0xB,
+                GEAR_SLOT_UTILITY = 0xC,
+                GEAR_SLOT_COUNT = 0xD
+            }
+            // Alignment: 4
+            // Member count: 10
+            #[repr(u32)]
+            pub enum CSPlayerState {
+                STATE_ACTIVE = 0x0,
+                STATE_WELCOME = 0x1,
+                STATE_PICKINGTEAM = 0x2,
+                STATE_PICKINGCLASS = 0x3,
+                STATE_DEATH_ANIM = 0x4,
+                STATE_DEATH_WAIT_FOR_KEY = 0x5,
+                STATE_OBSERVER_MODE = 0x6,
+                STATE_GUNGAME_RESPAWN = 0x7,
+                STATE_DORMANT = 0x8,
+                NUM_PLAYER_STATES = 0x9
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ScriptedConflictResponse_t {
+                SS_CONFLICT_ENQUEUE = 0x0,
+                SS_CONFLICT_INTERRUPT = 0x1
+            }
+            // Alignment: 1
+            // Member count: 7
+            #[repr(u8)]
+            pub enum WaterLevel_t {
+                WL_NotInWater = 0x0,
+                WL_Feet = 0x1,
+                WL_Knees = 0x2,
+                WL_Waist = 0x3,
+                WL_Chest = 0x4,
+                WL_FullyUnderwater = 0x5,
+                WL_Count = 0x6
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum WorldTextPanelVerticalAlign_t {
+                WORLDTEXT_VERTICAL_ALIGN_TOP = 0x0,
+                WORLDTEXT_VERTICAL_ALIGN_CENTER = 0x1,
+                WORLDTEXT_VERTICAL_ALIGN_BOTTOM = 0x2
+            }
+            // Alignment: 1
+            // Member count: 4
+            #[repr(u8)]
+            pub enum RelativeLocationType_t {
+                WORLD_SPACE_POSITION = 0x0,
+                RELATIVE_TO_ENTITY_IN_LOCAL_SPACE = 0x1,
+                RELATIVE_TO_ENTITY_YAW_ONLY = 0x2,
+                RELATIVE_TO_ENTITY_IN_WORLD_SPACE = 0x3
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum AmmoPosition_t {
+                AMMO_POSITION_INVALID = u32::MAX,
+                AMMO_POSITION_PRIMARY = 0x0,
+                AMMO_POSITION_SECONDARY = 0x1,
+                AMMO_POSITION_COUNT = 0x2
+            }
+            // Alignment: 4
+            // Member count: 11
+            #[repr(u32)]
+            pub enum CDebugOverlayFilterType_t {
+                NONE = 0x0,
+                TEXT = 0x1,
+                ENTITY = 0x2,
+                COUNT = 0x3,
+                TACTICAL_SEARCH = 0x4,
+                AI_SCHEDULE = 0x5,
+                AI_TASK = 0x6,
+                AI_EVENT = 0x7,
+                AI_PATHFINDING = 0x8,
+                END_SIM_HISTORY_TYPES = 0x9,
+                COMBINED = u32::MAX
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ENPCBehaviorOverride_t {
+                eKeepExisting = 0x0,
+                eTakeOver = 0x1
+            }
+            // Alignment: 4
+            // Member count: 24
+            #[repr(u32)]
+            pub enum PreviewEOMCelebration {
+                INVALID = u32::MAX,
+                WALKUP = 0x0,
+                PUNCHING = 0x1,
+                SWAGGER = 0x2,
+                DROPDOWN = 0x3,
+                STRETCH = 0x4,
+                SWAT_FEMALE = 0x5,
+                MASK_F = 0x6,
+                GUERILLA = 0x7,
+                GUERILLA02 = 0x8,
+                GENDARMERIE = 0x9,
+                SCUBA_FEMALE = 0xA,
+                SCUBA_MALE = 0xB,
+                AVA_DEFEAT = 0xC,
+                GENDARMERIE_DEFEAT = 0xD,
+                MAE_DEFEAT = 0xE,
+                RICKSAW_DEFEAT = 0xF,
+                SCUBA_FEMALE_DEFEAT = 0x10,
+                SCUBA_MALE_DEFEAT = 0x11,
+                CRASSWATER_DEFEAT = 0x12,
+                DARRYL_DEFEAT = 0x13,
+                DOCTOR_DEFEAT = 0x14,
+                MUHLIK_DEFEAT = 0x15,
+                VYPA_DEFEAT = 0x16
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum EntityDisolveType_t {
+                ENTITY_DISSOLVE_INVALID = u32::MAX,
+                ENTITY_DISSOLVE_NORMAL = 0x0,
+                ENTITY_DISSOLVE_ELECTRICAL = 0x1,
+                ENTITY_DISSOLVE_ELECTRICAL_LIGHT = 0x2,
+                ENTITY_DISSOLVE_CORE = 0x3
+            }
+            // Alignment: 4
+            // Member count: 22
+            #[repr(u32)]
+            pub enum SaveRestoreTableFlags_t {
+                FENTTABLE_NONE = 0x0,
+                FENTTABLE_PLAYER = 0x80000000,
+                FENTTABLE_REMOVED = 0x40000000,
+                FENTTABLE_MOVEABLE = 0x20000000,
+                FENTTABLE_GLOBAL = 0x10000000,
+                FENTTABLE_PLAYERCHILD = 0x8000000,
+                LEVELMASK_BIT_0 = 0x1,
+                LEVELMASK_BIT_1 = 0x2,
+                LEVELMASK_BIT_2 = 0x4,
+                LEVELMASK_BIT_3 = 0x8,
+                LEVELMASK_BIT_4 = 0x10,
+                LEVELMASK_BIT_5 = 0x20,
+                LEVELMASK_BIT_6 = 0x40,
+                LEVELMASK_BIT_7 = 0x80,
+                LEVELMASK_BIT_8 = 0x100,
+                LEVELMASK_BIT_9 = 0x200,
+                LEVELMASK_BIT_10 = 0x400,
+                LEVELMASK_BIT_11 = 0x800,
+                LEVELMASK_BIT_12 = 0x1000,
+                LEVELMASK_BIT_13 = 0x2000,
+                LEVELMASK_BIT_14 = 0x4000,
+                LEVELMASK_BIT_15 = 0x8000
+            }
+            // Alignment: 8
+            // Member count: 21
+            #[repr(u64)]
+            pub enum InputBitMask_t {
+                IN_NONE = 0x0,
+                IN_ALL = u64::MAX,
+                IN_ATTACK = 0x1,
+                IN_JUMP = 0x2,
+                IN_DUCK = 0x4,
+                IN_FORWARD = 0x8,
+                IN_BACK = 0x10,
+                IN_USE = 0x20,
+                IN_TURNLEFT = 0x80,
+                IN_TURNRIGHT = 0x100,
+                IN_MOVELEFT = 0x200,
+                IN_MOVERIGHT = 0x400,
+                IN_ATTACK2 = 0x800,
+                IN_RELOAD = 0x2000,
+                IN_SPEED = 0x10000,
+                IN_JOYAUTOSPRINT = 0x20000,
+                IN_FIRST_MOD_SPECIFIC_BIT = 0x100000000,
+                IN_SCORE = 0x200000000,
+                IN_ZOOM = 0x400000000,
+                IN_LOOK_AT_WEAPON = 0x800000000
+            }
+            // Alignment: 4
+            // Member count: 14
+            #[repr(u32)]
+            pub enum HitGroup_t {
+                HITGROUP_INVALID = u32::MAX,
+                HITGROUP_GENERIC = 0x0,
+                HITGROUP_HEAD = 0x1,
+                HITGROUP_CHEST = 0x2,
+                HITGROUP_STOMACH = 0x3,
+                HITGROUP_LEFTARM = 0x4,
+                HITGROUP_RIGHTARM = 0x5,
+                HITGROUP_LEFTLEG = 0x6,
+                HITGROUP_RIGHTLEG = 0x7,
+                HITGROUP_NECK = 0x8,
+                HITGROUP_UNUSED = 0x9,
+                HITGROUP_GEAR = 0xA,
+                HITGROUP_SPECIAL = 0xB,
+                HITGROUP_COUNT = 0xC
+            }
+            // Alignment: 4
+            // Member count: 11
+            #[repr(u32)]
+            pub enum ChickenActivity {
+                IDLE = 0x0,
+                SQUAT = 0x1,
+                WALK = 0x2,
+                RUN = 0x3,
+                GLIDE = 0x4,
+                LAND = 0x5,
+                PANIC = 0x6,
+                TRICK = 0x7,
+                TURN_IN_PLACE = 0x8,
+                FEED = 0x9,
+                SLEEP = 0xA
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum PointWorldTextReorientMode_t {
+                POINT_WORLD_TEXT_REORIENT_NONE = 0x0,
+                POINT_WORLD_TEXT_REORIENT_AROUND_UP = 0x1
+            }
+            // Alignment: 8
+            // Member count: 40
+            #[repr(u64)]
+            pub enum DebugOverlayBits_t {
+                OVERLAY_TEXT_BIT = 0x1,
+                OVERLAY_NAME_BIT = 0x2,
+                OVERLAY_BBOX_BIT = 0x4,
+                OVERLAY_PIVOT_BIT = 0x8,
+                OVERLAY_MESSAGE_BIT = 0x10,
+                OVERLAY_ABSBOX_BIT = 0x20,
+                OVERLAY_RBOX_BIT = 0x40,
+                OVERLAY_SHOW_BLOCKSLOS = 0x80,
+                OVERLAY_ATTACHMENTS_BIT = 0x100,
+                OVERLAY_INTERPOLATED_ATTACHMENTS_BIT = 0x200,
+                OVERLAY_INTERPOLATED_PIVOT_BIT = 0x400,
+                OVERLAY_SKELETON_BIT = 0x800,
+                OVERLAY_INTERPOLATED_SKELETON_BIT = 0x1000,
+                OVERLAY_TRIGGER_BOUNDS_BIT = 0x2000,
+                OVERLAY_HITBOX_BIT = 0x4000,
+                OVERLAY_INTERPOLATED_HITBOX_BIT = 0x8000,
+                OVERLAY_AUTOAIM_BIT = 0x10000,
+                OVERLAY_NPC_SELECTED_BIT = 0x20000,
+                OVERLAY_JOINT_INFO_BIT = 0x40000,
+                OVERLAY_NPC_ROUTE_BIT = 0x80000,
+                OVERLAY_VISIBILITY_TRACES_BIT = 0x100000,
+                OVERLAY_NPC_ENEMIES_BIT = 0x400000,
+                OVERLAY_NPC_CONDITIONS_BIT = 0x800000,
+                OVERLAY_NPC_COMBAT_BIT = 0x1000000,
+                OVERLAY_NPC_TASK_BIT = 0x2000000,
+                OVERLAY_NPC_BODYLOCATIONS = 0x4000000,
+                OVERLAY_NPC_VIEWCONE_BIT = 0x8000000,
+                OVERLAY_NPC_KILL_BIT = 0x10000000,
+                OVERLAY_BUDDHA_MODE = 0x40000000,
+                OVERLAY_NPC_STEERING_REGULATIONS = 0x80000000,
+                OVERLAY_NPC_TASK_TEXT_BIT = 0x100000000,
+                OVERLAY_PROP_DEBUG = 0x200000000,
+                OVERLAY_NPC_RELATION_BIT = 0x400000000,
+                OVERLAY_VIEWOFFSET = 0x800000000,
+                OVERLAY_VCOLLIDE_WIREFRAME_BIT = 0x1000000000,
+                OVERLAY_NPC_SCRIPTED_COMMANDS_BIT = 0x2000000000,
+                OVERLAY_ACTORNAME_BIT = 0x4000000000,
+                OVERLAY_NPC_CONDITIONS_TEXT_BIT = 0x8000000000,
+                OVERLAY_NPC_ABILITY_RANGE_DEBUG_BIT = 0x10000000000,
+                OVERLAY_MINIMAL_TEXT = 0x20000000000
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum AmmoFlags_t {
+                AMMO_FORCE_DROP_IF_CARRIED = 0x1,
+                AMMO_RESERVE_STAYS_WITH_WEAPON = 0x2
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum DecalFlags_t {
+                eNone = 0x0,
+                eCannotClear = 0x1,
+                eDecalProjectToBackfaces = 0x2,
+                eAll = 0xFFFFFFFF,
+                eAllButCannotClear = 0xFFFFFFFE
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum HierarchyType_t {
+                HIERARCHY_NONE = 0x0,
+                HIERARCHY_BONE_MERGE = 0x1,
+                HIERARCHY_ATTACHMENT = 0x2,
+                HIERARCHY_ABSORIGIN = 0x3,
+                HIERARCHY_BONE = 0x4,
+                HIERARCHY_TYPE_COUNT = 0x5
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum doorCheck_e {
+                DOOR_CHECK_FORWARD = 0x0,
+                DOOR_CHECK_BACKWARD = 0x1,
+                DOOR_CHECK_FULL = 0x2
+            }
+            // Alignment: 4
+            // Member count: 7
+            #[repr(u32)]
+            pub enum BeamType_t {
+                BEAM_INVALID = 0x0,
+                BEAM_POINTS = 0x1,
+                BEAM_ENTPOINT = 0x2,
+                BEAM_ENTS = 0x3,
+                BEAM_HOSE = 0x4,
+                BEAM_SPLINE = 0x5,
+                BEAM_LASER = 0x6
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum EntitySubclassScope_t {
+                SUBCLASS_SCOPE_NONE = u32::MAX,
+                SUBCLASS_SCOPE_PRECIPITATION = 0x0,
+                SUBCLASS_SCOPE_PLAYER_WEAPONS = 0x1,
+                SUBCLASS_SCOPE_COUNT = 0x2
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum PointTemplateClientOnlyEntityBehavior_t {
+                CREATE_FOR_CURRENTLY_CONNECTED_CLIENTS_ONLY = 0x0,
+                CREATE_FOR_CLIENTS_WHO_CONNECT_LATER = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum CDebugOverlayCombinedTypes_t {
+                ALL = 0x0,
+                ANY = 0x1,
+                COUNT = 0x2
+            }
+            // Alignment: 1
+            // Member count: 4
+            #[repr(u8)]
+            pub enum ShatterGlassStressType {
+                SHATTERGLASS_BLUNT = 0x0,
+                SHATTERGLASS_BALLISTIC = 0x1,
+                SHATTERGLASS_PULSE = 0x2,
+                SHATTERGLASS_EXPLOSIVE = 0x3
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum TrackOrientationType_t {
+                TrackOrientation_Fixed = 0x0,
+                TrackOrientation_FacePath = 0x1,
+                TrackOrientation_FacePathAngles = 0x2
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum WeaponSwitchReason_t {
+                eDrawn = 0x0,
+                eEquipped = 0x1,
+                eUserInitiatedSwitchToLast = 0x2,
+                eUserInitiatedUIKeyPress = 0x3,
+                eUserInitiatedSwitchHands = 0x4
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ValueRemapperRatchetType_t {
+                RatchetType_Absolute = 0x0,
+                RatchetType_EachEngage = 0x1
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum NavDirType {
+                NORTH = 0x0,
+                EAST = 0x1,
+                SOUTH = 0x2,
+                WEST = 0x3,
+                NUM_NAV_DIR_TYPE_DIRECTIONS = 0x4
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum CRR_Response__ResponseEnum_t {
+                MAX_RESPONSE_NAME = 0xC0,
+                MAX_RULE_NAME = 0x80
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum MoveMountingAmount_t {
+                MOVE_MOUNT_NONE = 0x0,
+                MOVE_MOUNT_LOW = 0x1,
+                MOVE_MOUNT_HIGH = 0x2,
+                MOVE_MOUNT_MAXCOUNT = 0x3
+            }
+            // Alignment: 1
+            // Member count: 3
+            #[repr(u8)]
+            pub enum HoverPoseFlags_t {
+                eNone = 0x0,
+                ePosition = 0x1,
+                eAngles = 0x2
+            }
+            // Alignment: 1
+            // Member count: 18
+            #[repr(u8)]
+            pub enum RenderFx_t {
+                kRenderFxNone = 0x0,
+                kRenderFxPulseSlow = 0x1,
+                kRenderFxPulseFast = 0x2,
+                kRenderFxPulseSlowWide = 0x3,
+                kRenderFxPulseFastWide = 0x4,
+                kRenderFxFadeSlow = 0x5,
+                kRenderFxFadeFast = 0x6,
+                kRenderFxSolidSlow = 0x7,
+                kRenderFxSolidFast = 0x8,
+                kRenderFxStrobeSlow = 0x9,
+                kRenderFxStrobeFast = 0xA,
+                kRenderFxStrobeFaster = 0xB,
+                kRenderFxFlickerSlow = 0xC,
+                kRenderFxFlickerFast = 0xD,
+                kRenderFxFadeOut = 0xE,
+                kRenderFxFadeIn = 0xF,
+                kRenderFxPulseFastWider = 0x10,
+                kRenderFxMax = 0x11
+            }
+            // Alignment: 4
+            // Member count: 35
+            #[repr(u32)]
+            pub enum vote_create_failed_t {
+                VOTE_FAILED_GENERIC = 0x0,
+                VOTE_FAILED_TRANSITIONING_PLAYERS = 0x1,
+                VOTE_FAILED_RATE_EXCEEDED = 0x2,
+                VOTE_FAILED_YES_MUST_EXCEED_NO = 0x3,
+                VOTE_FAILED_QUORUM_FAILURE = 0x4,
+                VOTE_FAILED_ISSUE_DISABLED = 0x5,
+                VOTE_FAILED_MAP_NOT_FOUND = 0x6,
+                VOTE_FAILED_MAP_NAME_REQUIRED = 0x7,
+                VOTE_FAILED_FAILED_RECENTLY = 0x8,
+                VOTE_FAILED_TEAM_CANT_CALL = 0x9,
+                VOTE_FAILED_WAITINGFORPLAYERS = 0xA,
+                VOTE_FAILED_PLAYERNOTFOUND = 0xB,
+                VOTE_FAILED_CANNOT_KICK_ADMIN = 0xC,
+                VOTE_FAILED_SCRAMBLE_IN_PROGRESS = 0xD,
+                VOTE_FAILED_SPECTATOR = 0xE,
+                VOTE_FAILED_FAILED_RECENT_KICK = 0xF,
+                VOTE_FAILED_FAILED_RECENT_CHANGEMAP = 0x10,
+                VOTE_FAILED_FAILED_RECENT_SWAPTEAMS = 0x11,
+                VOTE_FAILED_FAILED_RECENT_SCRAMBLETEAMS = 0x12,
+                VOTE_FAILED_FAILED_RECENT_RESTART = 0x13,
+                VOTE_FAILED_SWAP_IN_PROGRESS = 0x14,
+                VOTE_FAILED_DISABLED = 0x15,
+                VOTE_FAILED_NEXTLEVEL_SET = 0x16,
+                VOTE_FAILED_TOO_EARLY_SURRENDER = 0x17,
+                VOTE_FAILED_MATCH_PAUSED = 0x18,
+                VOTE_FAILED_MATCH_NOT_PAUSED = 0x19,
+                VOTE_FAILED_NOT_IN_WARMUP = 0x1A,
+                VOTE_FAILED_NOT_10_PLAYERS = 0x1B,
+                VOTE_FAILED_TIMEOUT_ACTIVE = 0x1C,
+                VOTE_FAILED_TIMEOUT_INACTIVE = 0x1D,
+                VOTE_FAILED_TIMEOUT_EXHAUSTED = 0x1E,
+                VOTE_FAILED_CANT_ROUND_END = 0x1F,
+                VOTE_FAILED_REMATCH = 0x20,
+                VOTE_FAILED_CONTINUE = 0x21,
+                VOTE_FAILED_MAX = 0x22
+            }
+            // Alignment: 4
+            // Member count: 27
+            #[repr(u32)]
+            pub enum RumbleEffect_t {
+                RUMBLE_INVALID = u32::MAX,
+                RUMBLE_STOP_ALL = 0x0,
+                RUMBLE_PISTOL = 0x1,
+                RUMBLE_357 = 0x2,
+                RUMBLE_SMG1 = 0x3,
+                RUMBLE_AR2 = 0x4,
+                RUMBLE_SHOTGUN_SINGLE = 0x5,
+                RUMBLE_SHOTGUN_DOUBLE = 0x6,
+                RUMBLE_AR2_ALT_FIRE = 0x7,
+                RUMBLE_RPG_MISSILE = 0x8,
+                RUMBLE_CROWBAR_SWING = 0x9,
+                RUMBLE_AIRBOAT_GUN = 0xA,
+                RUMBLE_JEEP_ENGINE_LOOP = 0xB,
+                RUMBLE_FLAT_LEFT = 0xC,
+                RUMBLE_FLAT_RIGHT = 0xD,
+                RUMBLE_FLAT_BOTH = 0xE,
+                RUMBLE_DMG_LOW = 0xF,
+                RUMBLE_DMG_MED = 0x10,
+                RUMBLE_DMG_HIGH = 0x11,
+                RUMBLE_FALL_LONG = 0x12,
+                RUMBLE_FALL_SHORT = 0x13,
+                RUMBLE_PHYSCANNON_OPEN = 0x14,
+                RUMBLE_PHYSCANNON_PUNT = 0x15,
+                RUMBLE_PHYSCANNON_LOW = 0x16,
+                RUMBLE_PHYSCANNON_MEDIUM = 0x17,
+                RUMBLE_PHYSCANNON_HIGH = 0x18,
+                NUM_RUMBLE_EFFECTS = 0x19
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum LatchDirtyPermission_t {
+                LATCH_DIRTY_DISALLOW = 0x0,
+                LATCH_DIRTY_SERVER_CONTROLLED = 0x1,
+                LATCH_DIRTY_CLIENT_SIMULATED = 0x2,
+                LATCH_DIRTY_PREDICTION = 0x3,
+                LATCH_DIRTY_FRAMESIMULATE = 0x4,
+                LATCH_DIRTY_PARTICLE_SIMULATE = 0x5
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum DoorState_t {
+                DOOR_STATE_CLOSED = 0x0,
+                DOOR_STATE_OPENING = 0x1,
+                DOOR_STATE_OPEN = 0x2,
+                DOOR_STATE_CLOSING = 0x3,
+                DOOR_STATE_AJAR = 0x4
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ChoreoLookAtMode_t {
+                eInvalid = u32::MAX,
+                eChest = 0x0,
+                eHead = 0x1,
+                eEyesOnly = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ChatIgnoreType_t {
+                CHAT_IGNORE_NONE = 0x0,
+                CHAT_IGNORE_ALL = 0x1,
+                CHAT_IGNORE_TEAM = 0x2
+            }
+            // Alignment: 4
+            // Member count: 7
+            #[repr(u32)]
+            pub enum PlayerConnectedState {
+                NeverConnected = u32::MAX,
+                Connected = 0x0,
+                Connecting = 0x1,
+                Reconnecting = 0x2,
+                Disconnecting = 0x3,
+                Disconnected = 0x4,
+                Reserved = 0x5
+            }
+            // Alignment: 4
+            // Member count: 29
+            #[repr(u32)]
+            pub enum PreviewCharacterBannerAnimation {
+                INVALID = u32::MAX,
+                IDLE_OFFSCREEN = 0x0,
+                BANNER_AWP_ACE_GUN = 0x1,
+                BANNER_AWP_ACE_A = 0x2,
+                BANNER_AWP_ACE_B = 0x3,
+                BANNER_AWP_ACE_C = 0x4,
+                BANNER_AWP_ACE_D = 0x5,
+                BANNER_AWP_ACE_E = 0x6,
+                BANNER_PISTOL3SHOT = 0x7,
+                BANNER_3SHOT_A = 0x8,
+                BANNER_3SHOT_B = 0x9,
+                BANNER_3SHOT_C = 0xA,
+                BANNER_PISTOL4SHOT = 0xB,
+                BANNER_4SHOT_A = 0xC,
+                BANNER_4SHOT_B = 0xD,
+                BANNER_4SHOT_C = 0xE,
+                BANNER_4SHOT_D = 0xF,
+                CELEBRATE_STRETCH_NOWEAP_IDLE0 = 0x10,
+                BANNER_BOMB_PLANT = 0x11,
+                BANNER_BOMB_DEFUSAL_VER = 0x12,
+                BANNER_FIRE = 0x13,
+                BANNER_BOMB_BLAST_TOSS = 0x14,
+                BANNER_BOMB_BLAST01 = 0x15,
+                BANNER_BOMB_BLAST02 = 0x16,
+                BANNER_BOMB_BLAST03 = 0x17,
+                BANNER_CELEBRATE_01 = 0x18,
+                BANNER_CELEBRATE_02 = 0x19,
+                BANNER_CELEBRATE_03 = 0x1A,
+                BANNER_CELEBRATE_04 = 0x1B
+            }
+            // Alignment: 4
+            // Member count: 1
+            #[repr(u32)]
+            pub enum navproperties_t {
+                NAV_IGNORE = 0x1
+            }
+            // Alignment: 2
+            // Member count: 7
+            #[repr(u16)]
+            pub enum EntityEffects_t {
+                DEPRICATED_EF_NOINTERP = 0x8,
+                EF_NOSHADOW = 0x10,
+                EF_NODRAW = 0x20,
+                EF_NORECEIVESHADOW = 0x40,
+                EF_PARENT_ANIMATES = 0x200,
+                EF_NODRAW_BUT_TRANSMIT = 0x400,
+                EF_MAX_BITS = 0xA
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum ChoreoExternalAnimgraphControlState_t {
+                eNone = 0x0,
+                eBegin = 0x1,
+                eLooping = 0x2,
+                eExit = 0x3,
+                eAbort = 0x4,
+                eCount = 0x5
+            }
+            // Alignment: 1
+            // Member count: 9
+            #[repr(u8)]
+            pub enum SolidType_t {
+                SOLID_NONE = 0x0,
+                SOLID_BSP = 0x1,
+                SOLID_BBOX = 0x2,
+                SOLID_OBB = 0x3,
+                SOLID_SPHERE = 0x4,
+                SOLID_POINT = 0x5,
+                SOLID_VPHYSICS = 0x6,
+                SOLID_CAPSULE = 0x7,
+                SOLID_LAST = 0x8
+            }
+            // Alignment: 4
+            // Member count: 22
+            #[repr(u32)]
+            pub enum DamageTypes_t {
+                DMG_GENERIC = 0x0,
+                DMG_CRUSH = 0x1,
+                DMG_BULLET = 0x2,
+                DMG_SLASH = 0x4,
+                DMG_BURN = 0x8,
+                DMG_VEHICLE = 0x10,
+                DMG_FALL = 0x20,
+                DMG_BLAST = 0x40,
+                DMG_CLUB = 0x80,
+                DMG_SHOCK = 0x100,
+                DMG_SONIC = 0x200,
+                DMG_ENERGYBEAM = 0x400,
+                DMG_BUCKSHOT = 0x800,
+                DMG_BLAST_SURFACE = 0x1000,
+                DMG_DISSOLVE = 0x2000,
+                DMG_DROWN = 0x4000,
+                DMG_POISON = 0x8000,
+                DMG_RADIATION = 0x10000,
+                DMG_DROWNRECOVER = 0x20000,
+                DMG_ACID = 0x40000,
+                DMG_HEADSHOT = 0x80000
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum PointWorldTextJustifyVertical_t {
+                POINT_WORLD_TEXT_JUSTIFY_VERTICAL_BOTTOM = 0x0,
+                POINT_WORLD_TEXT_JUSTIFY_VERTICAL_CENTER = 0x1,
+                POINT_WORLD_TEXT_JUSTIFY_VERTICAL_TOP = 0x2
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum attributeprovidertypes_t {
+                PROVIDER_GENERIC = 0x0,
+                PROVIDER_WEAPON = 0x1
+            }
+            // Alignment: 1
+            // Member count: 6
+            #[repr(u8)]
+            pub enum MoveCollide_t {
+                MOVECOLLIDE_DEFAULT = 0x0,
+                MOVECOLLIDE_FLY_BOUNCE = 0x1,
+                MOVECOLLIDE_FLY_CUSTOM = 0x2,
+                MOVECOLLIDE_FLY_SLIDE = 0x3,
+                MOVECOLLIDE_COUNT = 0x4
+            }
+            // Alignment: 4
+            // Member count: 7
+            #[repr(u32)]
+            pub enum IChoreoServices__ChoreoState_t {
+                STATE_PRE_SCRIPT = 0x0,
+                STATE_WAIT_FOR_SCRIPT = 0x1,
+                STATE_WALK_TO_MARK = 0x2,
+                STATE_SYNCHRONIZE_SCRIPT = 0x3,
+                STATE_PLAY_SCRIPT = 0x4,
+                STATE_PLAY_SCRIPT_POST_IDLE = 0x5,
+                STATE_PLAY_SCRIPT_POST_IDLE_DONE = 0x6
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ValueRemapperOutputType_t {
+                OutputType_AnimationCycle = 0x0,
+                OutputType_RotationX = 0x1,
+                OutputType_RotationY = 0x2,
+                OutputType_RotationZ = 0x3
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum INavObstacle__NavObstacleType_t {
+                NAV_OBSTACLE_TYPE_INVALID = u32::MAX,
+                NAV_OBSTACLE_TYPE_NONE = 0x0,
+                NAV_OBSTACLE_TYPE_AVOID = 0x1,
+                NAV_OBSTACLE_TYPE_CONN = 0x2,
+                NAV_OBSTACLE_TYPE_BLOCK = 0x3
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum PointTemplateOwnerSpawnGroupType_t {
+                INSERT_INTO_POINT_TEMPLATE_SPAWN_GROUP = 0x0,
+                INSERT_INTO_CURRENTLY_ACTIVE_SPAWN_GROUP = 0x1,
+                INSERT_INTO_NEWLY_CREATED_SPAWN_GROUP = 0x2
+            }
+            // Alignment: 1
+            // Member count: 3
+            #[repr(u8)]
+            pub enum EContributionScoreFlag_t {
+                k_EContributionScoreFlag_Default = 0x0,
+                k_EContributionScoreFlag_Objective = 0x1,
+                k_EContributionScoreFlag_Bullets = 0x2
+            }
+            // Alignment: 1
+            // Member count: 9
+            #[repr(u8)]
+            pub enum CCSPlayerAnimationState__Direction_t {
+                None = 0x0,
+                N = 0x1,
+                NE = 0x2,
+                E = 0x3,
+                SE = 0x4,
+                S = 0x5,
+                SW = 0x6,
+                W = 0x7,
+                NW = 0x8
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum eSplinePushType {
+                k_eSplinePushAlong = 0x0,
+                k_eSplinePushAway = 0x1,
+                k_eSplinePushTowards = 0x2
+            }
+            // Alignment: 2
+            // Member count: 29
+            #[repr(u16)]
+            pub enum WeaponGameplayAnimState {
+                WPN_ANIMSTATE_UNINITIALIZED = 0x0,
+                WPN_ANIMSTATE_DROPPED = 0x1,
+                WPN_ANIMSTATE_HOLSTERED = 0xA,
+                WPN_ANIMSTATE_DEPLOY = 0xB,
+                WPN_ANIMSTATE_IDLE = 0x32,
+                WPN_ANIMSTATE_SHOOT_PRIMARY = 0x64,
+                WPN_ANIMSTATE_SHOOT_SECONDARY = 0x65,
+                WPN_ANIMSTATE_SHOOT_DRYFIRE = 0x66,
+                WPN_ANIMSTATE_CHARGE = 0x67,
+                WPN_ANIMSTATE_GRENADE_PULL_PIN = 0xC8,
+                WPN_ANIMSTATE_GRENADE_READY = 0xC9,
+                WPN_ANIMSTATE_GRENADE_THROW = 0xCA,
+                WPN_ANIMSTATE_C4_PLANT = 0x12C,
+                WPN_ANIMSTATE_HEALTHSHOT_INJECT = 0x190,
+                WPN_ANIMSTATE_KNIFE_PRIMARY_HIT = 0x1F4,
+                WPN_ANIMSTATE_KNIFE_PRIMARY_MISS = 0x1F5,
+                WPN_ANIMSTATE_KNIFE_SECONDARY_HIT = 0x1F6,
+                WPN_ANIMSTATE_KNIFE_SECONDARY_MISS = 0x1F7,
+                WPN_ANIMSTATE_KNIFE_PRIMARY_STAB = 0x1F8,
+                WPN_ANIMSTATE_KNIFE_SECONDARY_STAB = 0x1F9,
+                WPN_ANIMSTATE_SILENCER_APPLY = 0x258,
+                WPN_ANIMSTATE_SILENCER_REMOVE = 0x259,
+                WPN_ANIMSTATE_RELOAD = 0x320,
+                WPN_ANIMSTATE_RELOAD_OUTRO = 0x321,
+                WPN_ANIMSTATE_INSPECT = 0x3E8,
+                WPN_ANIMSTATE_INSPECT_OUTRO = 0x3E9,
+                WPN_ANIMSTATE_INVENTORY_UI_TUMBLE = 0x5DC,
+                WPN_ANIMSTATE_INVENTORY_UI_KEYCHAIN_APPLY = 0x5DD,
+                WPN_ANIMSTATE_END_VALID = 0x7D0
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum EDestructiblePartRadiusDamageApplyType {
+                ScaleByExplosionRadius = 0x0,
+                PrioritizeClosestPart = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum EntityDistanceMode_t {
+                eOriginToOrigin = 0x0,
+                eCenterToCenter = 0x1,
+                eAxisToAxis = 0x2
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum PulseTraceContents_t {
+                STATIC_LEVEL = 0x0,
+                SOLID = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum PointWorldTextJustifyHorizontal_t {
+                POINT_WORLD_TEXT_JUSTIFY_HORIZONTAL_LEFT = 0x0,
+                POINT_WORLD_TEXT_JUSTIFY_HORIZONTAL_CENTER = 0x1,
+                POINT_WORLD_TEXT_JUSTIFY_HORIZONTAL_RIGHT = 0x2
+            }
+            // Alignment: 4
+            // Member count: 7
+            #[repr(u32)]
+            pub enum ShakeCommand_t {
+                SHAKE_START = 0x0,
+                SHAKE_STOP = 0x1,
+                SHAKE_AMPLITUDE = 0x2,
+                SHAKE_FREQUENCY = 0x3,
+                SHAKE_START_RUMBLEONLY = 0x4,
+                SHAKE_START_NORUMBLE = 0x5,
+                SHAKE_DURATION = 0x6
+            }
+            // Alignment: 4
+            // Member count: 23
+            #[repr(u32)]
+            pub enum Flags_t {
+                FL_ONGROUND = 0x1,
+                FL_DUCKING = 0x2,
+                FL_WATERJUMP = 0x4,
+                FL_BOT = 0x10,
+                FL_FROZEN = 0x20,
+                FL_ATCONTROLS = 0x40,
+                FL_CLIENT = 0x80,
+                FL_FAKECLIENT = 0x100,
+                FL_FLY = 0x400,
+                FL_SUPPRESS_SAVE = 0x800,
+                FL_IN_VEHICLE = 0x1000,
+                FL_GODMODE = 0x4000,
+                FL_NOTARGET = 0x8000,
+                FL_AIMTARGET = 0x10000,
+                FL_GRENADE = 0x100000,
+                FL_DONTTOUCH = 0x400000,
+                FL_BASEVELOCITY = 0x800000,
+                FL_CONVEYOR = 0x1000000,
+                FL_OBJECT = 0x2000000,
+                FL_ONFIRE = 0x8000000,
+                FL_DISSOLVING = 0x10000000,
+                FL_TRANSRAGDOLL = 0x20000000,
+                FL_UNBLOCKABLE_BY_PLAYER = 0x40000000
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum TRAIN_CODE {
+                TRAIN_SAFE = 0x0,
+                TRAIN_BLOCKING = 0x1,
+                TRAIN_FOLLOWING = 0x2
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum DestructiblePartDestructionDeathBehavior_t {
+                eDoNotKill = 0x0,
+                eKill = 0x1,
+                eGib = 0x2,
+                eRemove = 0x3
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum BrushSolidities_e {
+                BRUSHSOLID_TOGGLE = 0x0,
+                BRUSHSOLID_NEVER = 0x1,
+                BRUSHSOLID_ALWAYS = 0x2
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum InteractionPriority_t {
+                INTERACT_PRIORITY_NONE = 0x0,
+                INTERACT_PRIORITY_PASSIVE = 0x1,
+                INTERACT_PRIORITY_LOW = 0x2,
+                INTERACT_PRIORITY_MED = 0x3,
+                INTERACT_PRIORITY_HIGH = 0x4
+            }
+            // Alignment: 4
+            // Member count: 13
+            #[repr(u32)]
+            pub enum QuestProgress__Reason {
+                QUEST_NONINITIALIZED = 0x0,
+                QUEST_OK = 0x1,
+                QUEST_NOT_ENOUGH_PLAYERS = 0x2,
+                QUEST_WARMUP = 0x3,
+                QUEST_NOT_CONNECTED_TO_STEAM = 0x4,
+                QUEST_NONOFFICIAL_SERVER = 0x5,
+                QUEST_NO_ENTITLEMENT = 0x6,
+                QUEST_NO_QUEST = 0x7,
+                QUEST_PLAYER_IS_BOT = 0x8,
+                QUEST_WRONG_MAP = 0x9,
+                QUEST_WRONG_MODE = 0xA,
+                QUEST_NOT_SYNCED_WITH_SERVER = 0xB,
+                QUEST_REASON_MAX = 0xC
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ModifyDamageReturn_t {
+                CONTINUE_TO_APPLY_DAMAGE = 0x0,
+                ABORT_DO_NOT_APPLY_DAMAGE = 0x1
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ShadowType_t {
+                SHADOWS_NONE = 0x0,
+                SHADOWS_SIMPLE = 0x1
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum GrenadeType_t {
+                GRENADE_TYPE_EXPLOSIVE = 0x0,
+                GRENADE_TYPE_FLASH = 0x1,
+                GRENADE_TYPE_FIRE = 0x2,
+                GRENADE_TYPE_DECOY = 0x3,
+                GRENADE_TYPE_SMOKE = 0x4,
+                GRENADE_TYPE_TOTAL = 0x5
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ValueRemapperInputType_t {
+                InputType_PlayerShootPosition = 0x0,
+                InputType_PlayerShootPositionAroundAxis = 0x1
+            }
+            // Alignment: 1
+            // Member count: 8
+            #[repr(u8)]
+            pub enum EKillTypes_t {
+                KILL_NONE = 0x0,
+                KILL_DEFAULT = 0x1,
+                KILL_HEADSHOT = 0x2,
+                KILL_BLAST = 0x3,
+                KILL_BURN = 0x4,
+                KILL_SLASH = 0x5,
+                KILL_SHOCK = 0x6,
+                KILLTYPE_COUNT = 0x7
+            }
+            // Alignment: 4
+            // Member count: 25
+            #[repr(u32)]
+            pub enum WeaponSound_t {
+                WEAPON_SOUND_EMPTY = 0x0,
+                WEAPON_SOUND_SECONDARY_EMPTY = 0x1,
+                WEAPON_SOUND_SINGLE = 0x2,
+                WEAPON_SOUND_SECONDARY_ATTACK = 0x3,
+                WEAPON_SOUND_MELEE_MISS = 0x4,
+                WEAPON_SOUND_MELEE_HIT = 0x5,
+                WEAPON_SOUND_MELEE_HIT_WORLD = 0x6,
+                WEAPON_SOUND_MELEE_HIT_PLAYER = 0x7,
+                WEAPON_SOUND_MELEE_HIT_NPC = 0x8,
+                WEAPON_SOUND_SPECIAL1 = 0x9,
+                WEAPON_SOUND_SPECIAL2 = 0xA,
+                WEAPON_SOUND_SPECIAL3 = 0xB,
+                WEAPON_SOUND_NEARLYEMPTY = 0xC,
+                WEAPON_SOUND_IMPACT = 0xD,
+                WEAPON_SOUND_REFLECT = 0xE,
+                WEAPON_SOUND_SECONDARY_IMPACT = 0xF,
+                WEAPON_SOUND_SECONDARY_REFLECT = 0x10,
+                WEAPON_SOUND_RELOAD = 0x11,
+                WEAPON_SOUND_SINGLE_ACCURATE = 0x12,
+                WEAPON_SOUND_ZOOM_IN = 0x13,
+                WEAPON_SOUND_ZOOM_OUT = 0x14,
+                WEAPON_SOUND_MOUSE_PRESSED = 0x15,
+                WEAPON_SOUND_DROP = 0x16,
+                WEAPON_SOUND_RADIO_USE = 0x17,
+                WEAPON_SOUND_NUM_TYPES = 0x18
+            }
+            // Alignment: 8
+            // Member count: 22
+            #[repr(u64)]
+            pub enum TakeDamageFlags_t {
+                DFLAG_NONE = 0x0,
+                DFLAG_SUPPRESS_HEALTH_CHANGES = 0x1,
+                DFLAG_SUPPRESS_PHYSICS_FORCE = 0x2,
+                DFLAG_SUPPRESS_EFFECTS = 0x4,
+                DFLAG_PREVENT_DEATH = 0x8,
+                DFLAG_FORCE_DEATH = 0x10,
+                DFLAG_ALWAYS_GIB = 0x20,
+                DFLAG_NEVER_GIB = 0x40,
+                DFLAG_REMOVE_NO_RAGDOLL = 0x80,
+                DFLAG_SUPPRESS_DAMAGE_MODIFICATION = 0x100,
+                DFLAG_ALWAYS_FIRE_DAMAGE_EVENTS = 0x200,
+                DFLAG_RADIUS_DMG = 0x400,
+                DFLAG_FORCEREDUCEARMOR_DMG = 0x800,
+                DFLAG_SUPPRESS_INTERRUPT_FLINCH = 0x1000,
+                DFLAG_IGNORE_DESTRUCTIBLE_PARTS = 0x2000,
+                DFLAG_SUPPRESS_BREAKABLES = 0x4000,
+                DFLAG_FORCE_PHYSICS_FORCE = 0x8000,
+                DFLAG_SUPPRESS_SCREENSPACE_DAMAGE_FX = 0x10000,
+                DFLAG_ALLOW_NON_AUTHORITATIVE = 0x20000,
+                DFLAG_IGNORE_ARMOR = 0x40000,
+                DFLAG_SUPPRESS_UTILREMOVE = 0x80000
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ValueRemapperHapticsType_t {
+                HaticsType_Default = 0x0,
+                HaticsType_None = 0x1
+            }
+            // Alignment: 4
+            // Member count: 10
+            #[repr(u32)]
+            pub enum Disposition_t {
+                D_ER = 0x0,
+                D_HT = 0x1,
+                D_FR = 0x2,
+                D_LI = 0x3,
+                D_NU = 0x4
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum RotatorTargetSpace_t {
+                ROTATOR_TARGET_WORLDSPACE = 0x0,
+                ROTATOR_TARGET_LOCALSPACE = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum CanPlaySequence_t {
+                CANNOT_PLAY = 0x0,
+                CAN_PLAY_NOW = 0x1,
+                CAN_PLAY_ENQUEUED = 0x2
+            }
+            // Alignment: 1
+            // Member count: 4
+            #[repr(u8)]
+            pub enum CCSPlayerAnimationState__AirAction_t {
+                None = 0x0,
+                Jump = 0x1,
+                StartFall = 0x2,
+                Land = 0x3
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum MedalRank_t {
+                MEDAL_RANK_NONE = 0x0,
+                MEDAL_RANK_BRONZE = 0x1,
+                MEDAL_RANK_SILVER = 0x2,
+                MEDAL_RANK_GOLD = 0x3,
+                MEDAL_RANK_COUNT = 0x4
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum ObserverMode_t {
+                OBS_MODE_NONE = 0x0,
+                OBS_MODE_FIXED = 0x1,
+                OBS_MODE_IN_EYE = 0x2,
+                OBS_MODE_CHASE = 0x3,
+                OBS_MODE_ROAMING = 0x4,
+                NUM_OBSERVER_MODES = 0x5
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum FuncDoorSpawnPos_t {
+                FUNC_DOOR_SPAWN_CLOSED = 0x0,
+                FUNC_DOOR_SPAWN_OPEN = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum EOverrideBlockLOS_t {
+                BLOCK_LOS_DEFAULT = 0x0,
+                BLOCK_LOS_FORCE_FALSE = 0x1,
+                BLOCK_LOS_FORCE_TRUE = 0x2
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum EntityAttachmentType_t {
+                eAbsOrigin = 0x0,
+                eCenter = 0x1,
+                eEyes = 0x2,
+                eAttachment = 0x3
+            }
+            // Alignment: 1
+            // Member count: 14
+            #[repr(u8)]
+            pub enum MoveType_t {
+                MOVETYPE_NONE = 0x0,
+                MOVETYPE_OBSOLETE = 0x1,
+                MOVETYPE_WALK = 0x2,
+                MOVETYPE_FLY = 0x3,
+                MOVETYPE_FLYGRAVITY = 0x4,
+                MOVETYPE_VPHYSICS = 0x5,
+                MOVETYPE_PUSH = 0x6,
+                MOVETYPE_NOCLIP = 0x7,
+                MOVETYPE_OBSERVER = 0x8,
+                MOVETYPE_LADDER = 0x9,
+                MOVETYPE_CUSTOM = 0xA,
+                MOVETYPE_LAST = 0xB
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CWeaponNOVA {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointWorldText {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAmbientGeneric {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvEntityMaker {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPulseGraphInstance_GameBlackboard {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFilterEnemy {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_WingmanIntroCounterTerroristPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_WaitForCursorsWithTag {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncTrackAuto {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CScriptedSequence {
+            }
+            // Parent: MNotSaved
+            // Field count: 0
+            pub mod CFogTrigger {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoTeleportDestination {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointBroadcastClientCommand {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayer_PingServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHEGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysicsSpring {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvMuzzleFlash {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEconItemAttribute {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseTriggerAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponRevolver {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncTrainControls {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBtActionCombatPositioning {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncRetakeBarrier {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerBuoyancy {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTonemapController2Alias_env_tonemap_controller2 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPathTrack {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_EndOfMatchLineupEndpoint {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Base {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerProximity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTankTrainAI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGameText {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGameEnd {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoDeathmatchSpawn {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayerController_InventoryServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayerModernJump {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulse_ResumePoint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerFan {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysHingeAlias_phys_hinge_local {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CLogicCase {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Outflow_PlayVOLine {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoGameEventProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTestPulseIOComponent_DerivedAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponBizon {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CGamePlayerZone {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseToggle {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseServerCursor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_PlaySequence {
+            }
+            // Parent: _
+            // Field count: 0
+            pub mod CInferno {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTouchExpansionComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Outflow_PlaySceneBase {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_LerpCameraSettings {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponSCAR20 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncInteractionLayerClip {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSObserver_UseServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerDetectBulletFire {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayer_UseServices {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CWeaponAWP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_PickBestOutflowSelector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoFan {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGameRules {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFish {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSBot {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHandleTest {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicNPCCounter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayer_RadioServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponSG556 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRagdollConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncVehicleClip {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CDEagle {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponFamas {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvSplash {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPointCameraVFOV {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_WingmanIntroTerroristPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTestPulseIOAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSWeaponBaseShotgun {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPrecipitationVData {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncMoveLinear {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysMotorAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_WaitForObservable {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CScriptItem {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CDynamicPropAlias_prop_dynamic_override {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseTrigger {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointPush {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPulseCell_Step_EntFire {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSObserver_ObserverServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayerPing {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHitboxComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRopeKeyframe {
+            }
+            // Parent: _
+            // Field count: 0
+            pub mod CSmokeGrenade {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CBaseCombatCharacter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ServerAuthoritativeWeaponSlot_t {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPathQueryComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicRelay {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SequenceHistory_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayer_ItemServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulse_OutflowConnection {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTestPulseIO {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponUMP45 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGamePlayerEquip {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPointEntityFinder {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseGraphDef {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CKnife {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CLogicPlayerProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_TeamIntroCharacterPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBasePlayerControllerAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHostageRescueZoneShim {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSimpleMarkupVolumeTagged {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvSoundscapeAlias_snd_soundscape {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayer_HostageServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRenderComponent {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CWaterBullet {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerSoundscape {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Outflow_PlayVOLine__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointTeleportAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHostageExpresserShim {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointChildModifier {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayerLegacyJump {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponHKP2000 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CShatterGlassShardPhysics {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPathParticleRope {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCredits {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponFiveSeven {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFishPool {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayer_MovementServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRagdollPropAlias_physics_prop_ragdoll {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBreakableProp {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLightEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoDynamicShadowHintBox {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseAnimGraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod AnimGraph2SerializedPoseRecipeSlot_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBuoyancyHelper {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod COrnamentProp {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayer_CameraServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CModelPointEntity {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CRectLight {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFilterMultiple {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayerResource {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_FireCursors {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncNavBlocker {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMoverPathNode {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CEnvSoundscape {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncBrush {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBodyComponentPoint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysBox {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundEventAABBEntity {
+            }
+            // Parent: _
+            // Field count: 0
+            pub mod CItemSoda {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Timeline__TimelineEvent_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: MEntityAllowsPortraitWorldSpawn
+            // Field count: 0
+            pub mod COmniLight {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBtNodeCondition {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_IntervalTimer__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseRequirement {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvExplosion {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_BaseState {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod OutflowWithRequirements_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CTestPulseIO__ThreeStringArgs_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_IsRequirementValid {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFootstepControl {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayer_ItemServices {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Value_Gradient {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CParticleSystem {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerBrush {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod IntervalTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod audioparams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundAreaEntityBase {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponM4A1Silencer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTimeline {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCursorFuncs {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CTestPulseIO__FloatStringArgs_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CountdownTimer {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseNodeDynamicOutflows_t__DynamicOutflow_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CItemAssaultSuit {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBeam {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicEventListener {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_TeamSelectTerroristPosition {
+            }
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub mod CInfoData {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponNegev {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CWeaponElite {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBasePlayerPawn {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod WeaponPurchaseCount_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBasePulseGraphInstance {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod FilterHealth {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSSprite {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMathColorBlend {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CShower {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Inflow_GraphHook {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CScriptNavBlocker {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEntityBlocker {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SignatureOutflow_Resume {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPathSimpleAPI {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CCSObserverPawn {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerActiveWeaponDetect {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CFuncLadderAlias_func_useableladder {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSpriteOriented {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointServerCommand {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod shard_model_desc_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayerSprayDecal {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncWater {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CCSGameModeRules {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointPrefabAPI {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Outflow_PlayVCD__VCDRequirementInfo_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CEconEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTankTargetChange {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayer_WaterServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicDistanceCheck {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvCombinedLightProbeVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ViewAngleServerChange_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicDistanceAutosave {
+            }
+            // Parent: _i_Z__
+            // Field count: 0
+            pub mod CLogicBranch {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Outflow_ScriptedSequence {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CFuncTrackChange {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncTrackTrain {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvInstructorHint {
+            }
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub mod CEnvWind {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundEventPathCornerEntity {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CCSPlayerBase_CameraServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Inflow_BaseEntrypoint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CDynamicNavConnectionsVolume {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CConstraintAnchor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_WaitForCursorsWithTagBase {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayerPawn {
+            }
+            // Parent: _
+            // Field count: 0
+            pub mod CEnvLightProbeVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SpawnPoint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncMoverAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGameSceneNode {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponM249 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRopeKeyframeAlias_move_rope {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseServerFuncs_Sounds {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulsePhysicsConstraintsFuncs {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayer_ObserverServices {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CCashStack {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CLogicScript {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAttributeManager__cached_attribute_float_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseGraphInstance_ServerEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSceneEntityAlias_logic_choreographed_scene {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRagdollManager {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPostProcessingVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointProximitySensor {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulse_InvokeBinding {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerLook {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Outflow_PlayVCD {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMultiplayRules {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMolotovGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysTorque {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMultiSource {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseCSGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicAuto {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPhysicsWire {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CFuncIllusionary {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoDynamicShadowHint {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CMarkupVolume {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPathNode {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_TeamSelectCounterTerroristPosition {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CTriggerRemove {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicGameEventListener {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CServerOnlyModelEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_IntervalTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMarkupVolumeTagged_Nav {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoPlayerTerrorist {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicAutosave {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_TeamIntroTerroristPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseTestScriptLib {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSingleplayRules {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvWindShared {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointPrefab {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseLerp {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvInstructorVRHint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGameRulesProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPrecipitation {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCommentaryViewPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvGlobal {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CLogicNPCCounterOBB {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlatTrigger {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSceneEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CChoreoInfoTarget {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CTonemapController2 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMapSharedEnvironment {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTakeDamageResultAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNetworkedSequenceOperation {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysMagnet {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEntityInstance {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CGameGibManager {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHandleDummy {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CFuncWallToggle {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayer_BulletServices {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CSkyCamera {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_EndOfMatchLineupEnd {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPlayer_AutoaimServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CItemDefuserAlias_item_defuser {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPathCornerCrash {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysPulley {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPetPlacement {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponMP5SD {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponBaseItem {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCommentaryAuto {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Outflow_ListenForEntityOutput__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ActiveModelConfig_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponUSPSilencer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundStackSave {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Value_Curve {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponMag7 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicMeasureMovement {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CC4 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHostageCarriableProp {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CDynamicPropAlias_cable_dynamic {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSObserver_CameraServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvDetailController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayerPawnBase {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvSoundscapeProxy {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Inflow_EventHandler {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPointScriptEntity {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseFlow {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBombTarget {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRuleEntity {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CPhysThruster {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoPlayerStart {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEntityFlame {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSkeletonInstance {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEntityComponent {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CBasePlatTrain {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointTeleport {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerGameEvent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMessageEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvEntityIgniter {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Outflow_CycleShuffled__InstanceState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_BaseLerp__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: _
+            // Field count: 0
+            pub mod CMarkupVolumeTagged_NavGame {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMultiLightProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponM4A1 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerHostageReset {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseAnimFuncs {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEconWearable {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_WaitForCursorsWithTagBase__CursorState_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseArraylib {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponMAC10 {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CFuncLadder {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFogController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointTemplateAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CItem {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CTriggerPush {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseProp {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoOffscreenPanoramaTexture {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointAngularVelocitySensor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayerVisibility {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Step_FollowEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFlashbang {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBasePlayerWeapon {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSWeaponBaseVData {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAttributeManager {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SignatureOutflow_Continue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoTarget {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayer_CameraServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Timeline {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Inflow_EntOutputHandler {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseFuncs_GameParticleManager {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CScenePayloadVData {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFilterAttributeInt {
+            }
+            // Parent: MPropertyAttributeSuggestionName
+            // Field count: 0
+            pub mod CKeepUpright {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointTemplate {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvVolumetricFogController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBot {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPulseCell_Step_SetAnimGraphParam {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayer_FlashlightServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayerController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysLength {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CTeam {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicNPCCounterAABB {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Outflow_CycleOrdered__InstanceState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CChicken {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysicsPropRespawnable {
+            }
+            // Parent: _
+            // Field count: 0
+            pub mod CEnvBeam {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CLightSpotEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponSawedoff {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CTonemapTrigger {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvShake {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayer_MovementServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SellbackPurchaseEntry_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CTestPulseIO__EntityNameStringArgs_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerCallback {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundOpvarSetAutoRoomEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Outflow_ListenForEntityOutput {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPushable {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRotatorTarget {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPhysicsEntitySolver {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicCollisionPair {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTestEffect {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Outflow_ScriptedSequence__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPropDoorRotating {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvParticleGlow {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMathRemap {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundOpvarSetOBBWindEntity {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PhysicsRagdollPose_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPropDataComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CScriptTriggerOnce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLightOrthoEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoInstructorHintHostageRescueZone {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_LimitCount__InstanceState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerTeleport {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CFuncWall {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBtActionAim {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_TeamPreviewCharacterPosition {
+            }
+            // Parent: ___Z__
+            // Field count: 0
+            pub mod CGameRulesProxy {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoLadderDismount {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseServerFuncs {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMessage {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointVelocitySensor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCS2PawnGraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EngineCountdownTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseModelEntityAPI {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CScriptTriggerMultiple {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHostage {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvSpark {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayerController_DamageServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvCombinedLightProbeVolumeAlias_func_combined_light_probe_volume {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CBaseModelEntity__OnDamageLevelChangedArgs_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFilterLOS {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointOrient {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod sky3dparams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponP250 {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CDestructiblePartsComponent {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CChangeLevel {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CBaseButton {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPulseCell_SoundEventStart {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Step_DebugLog {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CItem_Healthshot {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CColorCorrectionVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayerController_ActionTrackingServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBodyComponentBaseAnimGraph {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseYieldingInflow {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseNodeDynamicOutflows_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFogVolume {
+            }
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub mod CFuncRotating {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTimerEntity {
+            }
+            // Parent: _
+            // Field count: 0
+            pub mod CBtActionMoveTo {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayer_MovementServices_Humanoid {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseEntityAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_IsRequirementValid__Criteria_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponG3SG1 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerOnce {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CSMatchStats_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EntityRenderAttribute_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Inflow_ObservableVariableListener {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CFuncMonitor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoVisibilityBox {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGunTarget {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CSoundEventConeEntity {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CSoundOpvarSetOBBEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFilterMultipleAPI {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CDecoyProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPrecipitationBlocker {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundOpvarSetPathCornerEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointClientCommand {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHostageRescueZone {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWorld {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPathMoverEntitySpawner {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CModelState {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_LerpCameraSettings__CursorState_t {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Outflow_CycleOrdered {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponGlock {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHEGrenadeProjectile {
+            }
+            // Parent: _
+            // Field count: 0
+            pub mod CTriggerGravity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCollisionProperty {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CWeaponGalilAR {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFilterMassGreater {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponMP7 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSWeaponBaseGun {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnableMotionFixup {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicActiveAutosave {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMathCounter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGameModeRules_ArmsRace {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAttributeContainer {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CCSPlace {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseSelectorOutflowList_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: _
+            // Field count: 0
+            pub mod CFilterContext {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLightEnvironmentEntity {
+            }
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub mod CEnvDecal {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvVolumetricFogVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CServerOnlyEntity {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_PlaySequence__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBodyComponentSkeletonInstance {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CItemGeneric {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointValueRemapper {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBtNodeConditionInactive {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_TeamIntroCounterTerroristPosition {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CRagdollProp {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CScriptComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncTrain {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAI_ChangeHintGroup {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayer_BuyServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponAug {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysHinge {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBuyZone {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoChoreoAnchor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod DestructiblePartDamageRequestAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponSSG08 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicRelayAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoWorldLayer {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CBodyComponentBaseModelEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicProximity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointGiveAmmo {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_EndOfMatchLineupStart {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod FilterDamageType {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointCamera {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAttributeList {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Inflow_Wait {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFilterProximity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCS2WeaponGraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEffectData {
+            }
+            // Parent: _
+            // Field count: 0
+            pub mod CEntityDissolve {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CCSGameRules {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Outflow_CycleShuffled {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseCSGrenadeProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicAchievement {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayerController_InventoryServices__NetworkedLoadoutSlot_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLightComponent {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CCSWeaponBase {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointClientUIDialog {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicLineToEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundAreaEntitySphere {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayer_ActionTrackingServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTestPulseIOComponent_API {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysicalButton {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoSpawnGroupLoadUnload {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundAreaEntityOrientedBox {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSObserver_MovementServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Outflow_ListenForAnimgraphTag {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBodyComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Inflow_Method {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CDecoyGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEconItemView {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CIncendiaryGrenade {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseDMStart {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CBaseModelEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod fogplayerparams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGlowProperty {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInstancedSceneEntity {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseValue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCitadelSoundOpvarSetOBB {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundEventParameter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayer_WaterServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_BooleanSwitchState {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRotButton {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvViewPunch {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CDamageRecord {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod VPhysicsCollisionAttribute_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CItemKevlar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncShatterglass {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNavWalkable {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPlantedC4 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvSoundscapeProxyAlias_snd_soundscape_proxy {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CVoteController {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Inflow_Yield {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseMathlib {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysImpact {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CBaseEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayer_UseServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGameSceneNodeHandle {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CMarkupVolumeWithRef {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_TeamSelectCharacterPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Unknown {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncPlatRot {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRagdollMagnet {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoInstructorHintTarget {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CSpriteAlias_env_glow {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CFireCrackerBlast {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSpotlightEnd {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvSky {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CInfoSpawnGroupLandmark {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointAngleSensor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvWindController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSPerRoundStats_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGenericConstraint {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Outflow_CycleRandom {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Step_PublicOutput {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvLaser {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundOpvarSetEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvBeverage {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CPhysMotor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicGameEvent {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPhysicsPropMultiplayer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysExplosion {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSplineConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicCompare {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGameModeRules_Noop {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulse_BlackboardReference {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncTankTrain {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointClientUIWorldPanel {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundEventSphereEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayerController_InGameMoneyServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRuleBrushEntity {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CMapVetoPickController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncPropRespawnZone {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFilterModel {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponP90 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNavSpaceInfo {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysSlideConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseGameBlackboard {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundEventEntityAlias_snd_event_point {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CChoreoComponent {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Value_RandomInt {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointGamestatsCounter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTextureBasedAnimatable {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSprite {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseMoveBehavior {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CDynamicLight {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponTaser {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvCubemapBox {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CRotDoor {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPathMover {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncVPhysicsClip {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysFixed {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicNavigation {
+            }
+            // Parent: _
+            // Field count: 0
+            pub mod CPathSimple {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPathParticleRopeAlias_path_particle_rope_clientside {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPointPulseAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvWindVolume {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CFuncElectrifiedVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSMinimapBoundary {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EntitySpottedState_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod fogparams_t {
+            }
+            // Parent: entity2
+            // Field count: 0
+            pub mod CSoundEventOBBEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFlashbangProjectile {
+            }
+            // Parent: p__Z__
+            // Field count: 0
+            pub mod CTriggerMultiple {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysBallSocket {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CDebugHistory {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundOpvarSetPointBase {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CExplosionTypeData {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPathKeyFrame {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CWeaponCZ75a {
+            }
+            // Parent: _
+            // Field count: 0
+            pub mod CScriptTriggerPush {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRevertSaved {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerBombReset {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerHurt {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayer_WeaponServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRetakeGameRules {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvSoundscapeTriggerableAlias_snd_soundscape_triggerable {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CInfoInstructorHintBombTargetA {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CTeamplayRules {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CScriptTriggerHurt {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGO_WingmanIntroCharacterPosition {
+            }
+            // Parent: Primary_Mode
+            // Field count: 0
+            pub mod CWeaponMP9 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerDetectExplosion {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFilterName {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSmokeGrenadeProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBlood {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CCSTeam {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRulePointEntity {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulse_CallInfo {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncMoveLinearAlias_momentary_door {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseAnimGraph {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvCubemapFog {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_InlineNodeSkipSelector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseDoor {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CServerOnlyPointEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGameMoney {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CEnvHudHint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNullEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLogicalEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CItemDefuser {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CItemGenericTriggerHelper {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayer_WeaponServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRagdollPropAttached {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CItemDogtags {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncPlat {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBarnLight {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInstructorEventEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponTec9 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPathCorner {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerSndSosOpvar {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_LimitCount {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Step_CallExternalMethod {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPointCommentaryNode {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMomentaryRotButton {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSceneListManager {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvTilt {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEnvSoundscapeTriggerable {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncMover {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysicsProp {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncNavObstruction {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysWheelConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSkyboxReference {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointPulse {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMolotovProjectile {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFilterClass {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerToggleSave {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPathWithDynamicNodes {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CColorCorrection {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPropDoorRotatingBreakable {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CLightDirectionalEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseClientUIEntity {
+            }
+            // Parent: expRandom
+            // Field count: 0
+            pub mod CBreakable {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CInfoLandmark {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseFilter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod WeaponPurchaseTracker_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Outflow_PlaySceneBase__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseObservableBoolExpression_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMapInfo {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGradientFog {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundOpvarSetAABBEntity {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPulseCell_Outflow_PlaySequence {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CPointClientUIWorldTextPanel {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEntityIdentity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_LimitCount__Criteria_t {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CFuncRotator {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundEventEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoPlayerCounterterrorist {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CEnvFade {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBasePlayerVData {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerImpact {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSGameModeRules_Deathmatch {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CTestPulseIO__EntityHandleIntArgs_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_CursorQueue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Value_RandomFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseExecCursor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBasePropDoor {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CLogicBranchList {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBtActionParachutePositioning {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAK47 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CDynamicProp {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHostageAlias_info_hostage_spawn {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFilterTeam {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncConveyor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerPhysics {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoInstructorHintBombTargetB {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFuncTimescale {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBasePlayerWeaponVData {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoInteraction {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSoundOpvarSetPointEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoTargetServerOnly {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CServerRagdollTrigger {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CDynamicPropAlias_dynamic_prop {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMarkupVolumeTagged {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoParticleTarget {
+            }
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub mod CEnvCubemap {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CCSPlayer_DamageReactServices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWeaponXM1014 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerLerpObject {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod CPhysicsPropOverride {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTriggerSave {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPointHurt {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBasePlayerController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRangeFloat {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CDestructiblePart {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAnimEventQueueListener {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PhysBlockHeader_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod RelationshipOverride_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod AutoRoomDoorwayPairs_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod NavHull_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CDebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRemapFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHintMessage {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ParticleNode_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFootstepTableHandle {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CDecalGroupVData {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNmSnapWeaponTask {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayerControllerComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CResponseQueue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CodeGenAABB_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CScriptUniformRandomStream {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod lerpdata_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod WrappedPhysicsJoint_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SimpleConstraintSoundProfile {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSimpleSimTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod AI_BaseNPCAnimGraph_DebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPhysicsBodyGameMarkupData {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod SoundCommand_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod modifiedconvars_t {
+                pub const : usize = 0x100; // 
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CTestPulseIOComponent_Derived {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SAVE_HEADER {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CSkillDamage {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod DebugSnapshotBaseStructuredData_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod AI_DefaultNPC_DebugSnapshotData_t__PathQuery_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod AI_Motor_DebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFloatExponentialMovingAverage {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod physics_save_sphere_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod GAME_HEADER {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAnimEventListenerBase {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod AI_BaseNPC_DebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CDebugDrawHistoryData {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNmEventConsumer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNetworkViewOffsetVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod AmmoIndex_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod SceneRequestTargetMapPair_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CDestructiblePartsSystemData {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRopeOverlapHit {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ResponseContext_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNavVolumeSphericalShell {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPlayerPawnComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod AI_Navigator_DebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CDecalInstance {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CGameScriptedMoveData {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSkeletonAnimationController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNavVolumeMarkupVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CResponseCriteriaSet {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAI_Expresser {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod IChoreoServices {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CNmEventConsumerAttributes {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CStopwatch {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ResponseParams {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SPAWNGROUP_HEADER {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod globalentity_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SceneInterestTags_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ConstraintSoundInfo {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPhysicsBodyGameMarkup {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PointCameraSettings_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod DebugDrawBoneTransforms_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CVectorMovingAverage {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod AI_MotorGroundAnimgraph_DebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CSoundEnvelope {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod dynpitchvol_base_t {
+            }
+            // Parent: CONTINUE_TO_APPLY_DAMAGE
+            // Field count: 0
+            pub mod CStopwatchBase {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SceneRequestHandle_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNavVolumeVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod NavGravity_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseScriptedSequenceData_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod RotatorQueueEntry_t {
+            }
+            // Parent: Base_entity_with_model
+            // Field count: 0
+            pub mod CBaseAnimGraphDestructibleParts_GraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ExternalAnimGraphHandle_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPhysicsShake {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInfoChoreoAnchorPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod VelocitySampler {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CTakeDamageResult {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SceneEventId_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ExternalAnimGraph_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CCommentarySystem {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ResponseFollowup {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod AmmoTypeInfo_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNetworkTransmitComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPathQueryUtil {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod RagdollCreationParams_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRelativeTransform {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRangeInt {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CWorldCompositionChunkReferenceElement_t {
+            }
+            // Parent: MNotSaved
+            // Field count: 0
+            pub mod CRandStopwatch {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMovementStatsProperty {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGameChoreoServices {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PhysObjectHeader_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: _f_Z__
+            // Field count: 0
+            pub mod CSimpleStopwatch {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CShatterGlassShard {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ragdollelement_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGameScriptedMoveDef_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNetworkOriginCellCoordQuantizedVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseAnimGraphVariationUserData {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod DynamicVolumeDef_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNetworkOriginQuantizedVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod magnetted_objects_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CHintMessageQueue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSkillInt {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod thinkfunc_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CNavHullPresetVData {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSkillFloat {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod WaterWheelFrictionScale_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ragdollhierarchyjoint_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSceneEventInfo {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SoundeventPathCornerPairNetworked_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CSoundPatch {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSceneOpportunity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCS2ChickenGraphController {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod levellist_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod locksound_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod DecalGroupOption_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBtNode {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAnimGraphControllerManager {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFiringModeFloat {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CCopyRecipientFilter {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFloatMovingAverage {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod FuncMoverMovementSummary_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSmoothFunc {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod IHasAttributes {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ragdoll_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod HullFlags_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ISkeletonAnimationController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod RotatorHistoryEntry_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod GameAmmoTypeInfo_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMotorController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSimTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseIssue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SummaryTakeDamageInfo_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod INavObstacle {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSceneRequest {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod entitytable_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SceneOpportunityActor_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRR_Response {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CVectorExponentialMovingAverage {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNmAimCSNode__CDefinition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CConstantForceController {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod WaterWheelDrag_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CTakeDamageInfo {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CRandSimTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBtNodeComposite {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CRelativeLocation {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod Extent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod sndopvarlatchdata_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PrecipitationFilter_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod IEconItemInterface {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod PathMoverEntitySpawn {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CMultiplayer_Expresser {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNavVolume {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod QuestProgress {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNmAimCSTask {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ParticleIndex_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAI_ExpresserWithFollowup {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CTakeDamageSummaryScopeGuard {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CIronSightController {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CNmEventConsumerSound {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CNmEventConsumerLegacy {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod DestructiblePartDamageRequest_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CInButtonState {
+            }
+            // Parent: server
+            // Field count: 0
+            pub mod CNmEventConsumerParticle {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CNavHullVData {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod AI_DefaultNPC_DebugSnapshotData_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNmSnapWeaponNode__CDefinition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SoundOpvarTraceResult_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAnimEventListener {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNavVolumeCalculatedVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CFiringModeInt {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBtNodeDecorator {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSAdditionalPerRoundStats_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEmptyGraphController {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ModelConfigHandle_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CEntitySubclassVDataBase {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBreakableStageHelper {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod AI_MotorGroundAnimgraph_DebugSnapshotData_t__Event_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNavVolumeBreadthFirstSearch {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SceneOpportunityHandle_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod dynpitchvol_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSAdditionalMatchStats_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod AI_Navigator_DebugSnapshotData_t__Waypoint_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSceneCriteria {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CTestPulseIOComponent {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod IRagdoll {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CCSPlayerAnimationState {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod hudtextparms_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CAnimGraphControllerBase {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNetworkVelocityVector {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CDestructiblePart_DamageLevel {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNavVolumeAll {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNavVolumeSphere {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod Relationship_t {
+            }
+        }
+    }
+}
