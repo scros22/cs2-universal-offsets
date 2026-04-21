@@ -63,6 +63,16 @@ dumps/
       engine2_dll.(cs|hpp|json|rs|zig)
       ...                           (one set per schema module)
       info.json
+      # SDK extras (cheat-developer-friendly outputs):
+      cs2sdk.hpp                    # single-include amalgamation
+      cs2sdk.rs                     # Rust amalgamation module
+      netvars.(json|hpp|cs)         # split networked-field offsets
+      interfaces_sdk.(hpp|cs)       # typed accessor stubs
+      sdk/
+        cs2sdk_macros.hpp           # SCHEMA_FIELD macro family
+        client_dll.hpp              # typed schema classes (one per module)
+        engine2_dll.hpp
+        ...
     signatures/
       signatures.json   # hand-formatted, one entry per line
       signatures.cs     # C#  static class per module
@@ -70,7 +80,18 @@ dumps/
       signatures.rs     # Rust module per module
       SIGNATURES.md     # human-readable table
       diff.json         # delta vs. previous session (when found)
+  latest/                            # mirror of the most recent
+                                     # successful session
 ```
+
+For cheat developers, the most useful single file is
+[`offsets/cs2sdk.hpp`](docs/CONSUMING.md) — a single-include header that
+gives you typed `SCHEMA_FIELD` accessors, resolved interfaces, netvars,
+and signatures.
+
+Full educational guides live in [`docs/`](docs/README.md): pattern
+syntax, schema walking, the signature pipeline, how to consume the SDK
+from C++/C#/Rust, and how to add a signature.
 
 `signatures.json` is hand-formatted &mdash; one entry per line, columns aligned, with the
 exact pattern that produced the hit:
