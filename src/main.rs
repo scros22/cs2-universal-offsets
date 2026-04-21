@@ -34,6 +34,7 @@
 //     <OutputRoot>/latest/                     mirror of the most recent
 //                                              successful session
 
+use std::collections::BTreeMap;
 use std::fs::{self, File};
 use std::path::{Path, PathBuf};
 use std::str::FromStr;
@@ -349,11 +350,16 @@ fn main() -> Result<()> {
         .map(|r| json!({ "found": r.found, "total": r.total }))
         .unwrap_or(json!(null));
 
+    // Module fingerprints (PE timestamp + image size) for the major
+    // CS2 modules — lets consumers detect a build mismatch instantly.
+    let module_fingerprints = collect_module_fingerprints(&mut process);
+
     let manifest = json!({
         "session": session_name,
         "generated_at": now.to_rfc3339(),
         "process": args.process_name,
         "build_number": build_number,
+        "modules": module_fingerprints,
         "stages": {
             "offsets": {
                 "enabled": !args.skip_offsets,
@@ -533,6 +539,87 @@ fn init_logging(logs_dir: &Path, verbose: u8) -> Result<()> {
     Ok(())
 }
 
+/// Collect a per-module fingerprint (PE TimeDateStamp + image size +
+/// base) for every loaded CS2 module of interest.  Lets consumers
+/// confirm at a glance whether their cached SDK still matches the live
+/// build, without having to re-run the full dumper.
+///
+/// We don't use `pelite::PeView::from_bytes` here because we only read
+/// the first 4 KiB of headers from the live process — `PeView` requires
+/// a complete image and would reject the truncated buffer.  The PE
+/// header layout is fixed, so a hand-rolled parse is safe and avoids
+/// the round-trip cost of dragging in a whole image just for one u32.
+fn collect_module_fingerprints<P: Process + MemoryView>(
+    process: &mut P,
+) -> BTreeMap<String, serde_json::Value> {
+    const MODULES: &[&str] = &[
+        "client.dll",
+        "engine2.dll",
+        "server.dll",
+        "schemasystem.dll",
+        "animationsystem.dll",
+        "materialsystem2.dll",
+        "particles.dll",
+        "scenesystem.dll",
+        "soundsystem.dll",
+        "tier0.dll",
+        "vphysics2.dll",
+        "networksystem.dll",
+        "host.dll",
+        "panorama.dll",
+        "rendersystemdx11.dll",
+        "resourcesystem.dll",
+        "vstdlib.dll",
+        "pulse_system.dll",
+    ];
+
+    let mut out = BTreeMap::new();
+    for name in MODULES {
+        let Ok(m) = process.module_by_name(name) else {
+            continue;
+        };
+        let hdr_size = (m.size as usize).min(0x1000);
+        let Ok(hdr) = process.read_raw(m.base, hdr_size).data_part() else {
+            continue;
+        };
+        if hdr.len() < 0x40 {
+            continue;
+        }
+        let e_lfanew =
+            u32::from_le_bytes(hdr[0x3C..0x40].try_into().unwrap()) as usize;
+        // PE\0\0 at e_lfanew, then COFF FileHeader (20 bytes):
+        //   Machine(2) NumberOfSections(2) TimeDateStamp(4) ...
+        if e_lfanew + 24 > hdr.len() {
+            continue;
+        }
+        if &hdr[e_lfanew..e_lfanew + 4] != b"PE\0\0" {
+            continue;
+        }
+        let coff = e_lfanew + 4;
+        let timestamp =
+            u32::from_le_bytes(hdr[coff + 4..coff + 8].try_into().unwrap());
+
+        // OptionalHeader.SizeOfImage lives at COFF + 20 + 56 (PE32+).
+        let opt = coff + 20;
+        let size_of_image = if opt + 60 <= hdr.len() {
+            u32::from_le_bytes(hdr[opt + 56..opt + 60].try_into().unwrap())
+        } else {
+            m.size as u32
+        };
+
+        out.insert(
+            (*name).to_string(),
+            json!({
+                "base":      format!("{:#X}", m.base.to_umem() as u64),
+                "size":      m.size,
+                "image":     size_of_image,
+                "timestamp": timestamp,
+            }),
+        );
+    }
+    out
+}
+
 /// Pretty-print only successfully-resolved signatures, one hit per line.
 /// Unfound entries are dropped entirely — they have no usable address.
 fn format_found_signatures(report: &signatures::SignatureReport) -> String {
@@ -546,6 +633,11 @@ fn format_found_signatures(report: &signatures::SignatureReport) -> String {
     let byt_w = found
         .iter()
         .map(|h| h.bytes.as_deref().map(|b| b.len() + 2).unwrap_or(6))
+        .max()
+        .unwrap_or(6);
+    let synth_w = found
+        .iter()
+        .map(|h| h.pattern_synth.as_deref().map(|b| b.len() + 2).unwrap_or(6))
         .max()
         .unwrap_or(6);
 
@@ -574,8 +666,13 @@ fn format_found_signatures(report: &signatures::SignatureReport) -> String {
             .as_deref()
             .map(|b| format!("\"{}\"", b))
             .unwrap_or_else(|| "null".into());
+        let synth_field = h
+            .pattern_synth
+            .as_deref()
+            .map(|b| format!("\"{}\"", b))
+            .unwrap_or_else(|| "null".into());
         s.push_str(&format!(
-            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>12}, \"rva\": {:>10}, \"pattern\": {:<pw$}, \"bytes\": {:<bw$} }}{}\n",
+            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>12}, \"rva\": {:>10}, \"pattern\": {:<pw$}, \"bytes\": {:<bw$}, \"pattern_synth\": {:<sw$} }}{}\n",
             format!("\"{}\"", h.name),
             format!("\"{}\"", h.module),
             format!("\"{}\"", h.resolve),
@@ -583,12 +680,14 @@ fn format_found_signatures(report: &signatures::SignatureReport) -> String {
             rva,
             format!("\"{}\"", h.pattern),
             bytes_field,
+            synth_field,
             comma,
             nw = name_w + 2,
             mw = mod_w + 2,
             rw = res_w + 2,
             pw = pat_w + 2,
             bw = byt_w,
+            sw = synth_w,
         ));
     }
     s.push_str("  ]\n");

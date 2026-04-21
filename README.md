@@ -4,7 +4,7 @@
 
 **A single-binary, all-in-one external dumper for Counter-Strike 2.**
 
-Offsets · Interfaces · Schemas · Buttons · Signatures
+Offsets · Interfaces · Schemas · Buttons · Signatures &mdash; one run, one folder, one source of truth.
 
 [![Rust](https://img.shields.io/badge/rust-2024-orange?logo=rust)](https://www.rust-lang.org/)
 [![Platform](https://img.shields.io/badge/platform-windows-0078D6?logo=windows)](#requirements)
