@@ -19,6 +19,7 @@ dumps/
 │   │   ├── cs2sdk.rs                           # SDK: Rust amalgamation
 │   │   ├── netvars.{json,hpp,cs}               # SDK: split netvars
 │   │   ├── interfaces_sdk.{hpp,cs}             # SDK: typed accessors
+│   │   ├── vtables.{json,hpp,cs}               # SDK: per-interface vtable indices
 │   │   └── sdk/
 │   │       ├── cs2sdk_macros.hpp               # SCHEMA_FIELD macro family
 │   │       └── <module>.hpp                    # typed schema classes
