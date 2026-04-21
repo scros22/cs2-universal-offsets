@@ -45,6 +45,7 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 
 - [ ] VTable index dumper per class (with method names where RTTI is present)
 - [x] Netvar / `CNetworkVarChainer` dumper alongside schemas
+- [ ] **Investigate:** schema metadata extraction comes back empty for build 14152 — `network_value` is null for every entry, so `netvars.{json,hpp,cs}` emit empty. Walker logic in `src/analysis/schemas.rs::read_class_binding_metadata` likely needs an offset update for the current build.
 - [ ] ConVar dumper (name → address → default / min / max / flags)
 - [ ] Interface-version drift detector (flag any `XXX_VERSIONXXX` change)
 
