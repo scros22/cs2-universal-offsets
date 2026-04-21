@@ -57,6 +57,13 @@ pub struct SignatureHit {
     pub module: String,
     pub resolve: &'static str,
     pub pattern: String,
+    /// 24 bytes of the resolved function's prologue, formatted as an
+    /// IDA-style space-separated hex pattern (no wildcards).  Useful as a
+    /// drop-in signature on builds where the database pattern is missing
+    /// (e.g. `StringRef` entries) or has gone stale.  `None` for misses or
+    /// when the resolved RVA falls outside the module's `.text`.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bytes: Option<String>,
     pub found: bool,
     pub match_rva: Option<u64>,
     pub match_va: Option<u64>,
@@ -219,6 +226,7 @@ fn try_satisfy_from_cache(
         module: mc.name.clone(),
         resolve: kind_name(sig.resolve),
         pattern: sig.needle.to_string(),
+        bytes: capture_prologue(mc, res_rva),
         found: true,
         match_rva: Some(entry.match_rva as u64),
         match_va: Some(match_va),
@@ -435,6 +443,7 @@ fn scan_pattern(mc: &ModuleCache, sig: &Signature) -> SignatureHit {
         module: mc.name.clone(),
         resolve: kind_name(sig.resolve),
         pattern: sig.needle.to_string(),
+        bytes: capture_prologue(mc, res_rva),
         found: true,
         match_rva: Some(match_rva as u64),
         match_va: Some(match_va),
@@ -444,6 +453,31 @@ fn scan_pattern(mc: &ModuleCache, sig: &Signature) -> SignatureHit {
         from_cache: false,
         error: None,
     }
+}
+
+/// Read up to 24 bytes from the resolved RVA and format them as a
+/// space-separated, fully-concrete IDA pattern.  Returns `None` if the
+/// RVA is not inside the module's `.text` window.
+fn capture_prologue(mc: &ModuleCache, rva: u64) -> Option<String> {
+    let lo = rva as usize;
+    let text_lo = mc.text_rva as usize;
+    let text_hi = text_lo + mc.text_size as usize;
+    if lo < text_lo || lo >= text_hi {
+        return None;
+    }
+    let hi = (lo + 24).min(text_hi).min(mc.image.len());
+    let slice = mc.image.get(lo..hi)?;
+    if slice.is_empty() {
+        return None;
+    }
+    let mut s = String::with_capacity(slice.len() * 3);
+    for (i, b) in slice.iter().enumerate() {
+        if i > 0 {
+            s.push(' ');
+        }
+        s.push_str(&format!("{:02X}", b));
+    }
+    Some(s)
 }
 
 fn resolve(
@@ -516,6 +550,7 @@ fn scan_string_ref(mc: &ModuleCache, sig: &Signature) -> SignatureHit {
                 module: mc.name.clone(),
                 resolve: kind_name(sig.resolve),
                 pattern: format!("\"{}\"", sig.needle),
+                bytes: capture_prologue(mc, fn_rva as u64),
                 found: true,
                 match_rva: Some(hit as u64),
                 match_va: Some(match_va),
@@ -617,6 +652,7 @@ impl SignatureHit {
             module: sig.module.to_string(),
             resolve: kind_name(sig.resolve),
             pattern: sig.needle.to_string(),
+            bytes: None,
             found: false,
             match_rva: None,
             match_va: None,

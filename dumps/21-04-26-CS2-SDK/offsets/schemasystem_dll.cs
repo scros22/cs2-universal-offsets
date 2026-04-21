@@ -1,5 +1,5 @@
 // Generated using https://github.com/a2x/cs2-dumper
-// 2026-04-21 22:41:52.146505500 UTC
+// 2026-04-21 22:47:42.668580400 UTC
 
 namespace CS2Dumper.Schemas {
     // Module: schemasystem.dll
