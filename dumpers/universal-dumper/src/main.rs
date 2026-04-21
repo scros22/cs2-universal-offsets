@@ -190,7 +190,7 @@ fn main() -> Result<()> {
                     ui::fmt_duration(Duration::from_millis(report.elapsed_ms as u64))
                 ));
                 let path = sigs_dir.join("signatures.json");
-                fs::write(&path, serde_json::to_string_pretty(&report)?)?;
+                fs::write(&path, format_found_signatures(&report))?;
                 ui::ok(&format!("wrote {}", path.display()));
                 sig_report = Some(report);
             }
@@ -316,4 +316,52 @@ fn init_logging(logs_dir: &Path, verbose: u8) -> Result<()> {
     ));
     CombinedLogger::init(loggers).ok();
     Ok(())
+}
+
+/// Pretty-print only successfully-resolved signatures, one hit per line.
+/// Unfound entries are dropped entirely — they have no usable address.
+fn format_found_signatures(report: &signatures::SignatureReport) -> String {
+    let found: Vec<&signatures::SignatureHit> =
+        report.hits.iter().filter(|h| h.found).collect();
+
+    let name_w = found.iter().map(|h| h.name.len()).max().unwrap_or(0);
+    let mod_w = found.iter().map(|h| h.module.len()).max().unwrap_or(0);
+    let res_w = found.iter().map(|h| h.resolve.len()).max().unwrap_or(0);
+
+    let mut s = String::new();
+    s.push_str("{\n");
+    s.push_str(&format!("  \"total_scanned\":  {},\n", report.total));
+    s.push_str(&format!("  \"found\":          {},\n", report.found));
+    s.push_str(&format!("  \"missing\":        {},\n", report.total - report.found));
+    s.push_str(&format!("  \"elapsed_ms\":     {},\n", report.elapsed_ms));
+    s.push_str(&format!(
+        "  \"modules\":        [{}],\n",
+        report
+            .modules
+            .iter()
+            .map(|m| format!("\"{}\"", m))
+            .collect::<Vec<_>>()
+            .join(", ")
+    ));
+    s.push_str("  \"signatures\": [\n");
+    for (i, h) in found.iter().enumerate() {
+        let comma = if i + 1 == found.len() { "" } else { "," };
+        let va = h.va.map(|v| format!("0x{:X}", v)).unwrap_or_else(|| "null".into());
+        let rva = h.rva.map(|v| format!("0x{:X}", v)).unwrap_or_else(|| "null".into());
+        s.push_str(&format!(
+            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>12}, \"rva\": {:>10} }}{}\n",
+            format!("\"{}\"", h.name),
+            format!("\"{}\"", h.module),
+            format!("\"{}\"", h.resolve),
+            va,
+            rva,
+            comma,
+            nw = name_w + 2,
+            mw = mod_w + 2,
+            rw = res_w + 2,
+        ));
+    }
+    s.push_str("  ]\n");
+    s.push_str("}\n");
+    s
 }
