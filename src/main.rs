@@ -144,6 +144,7 @@ fn main() -> Result<()> {
     let mut offsets_ok = true;
     let mut offsets_elapsed = Duration::ZERO;
     let mut build_number: Option<u32> = None;
+    let mut analysis_result: Option<analysis::AnalysisResult> = None;
 
     if !args.skip_offsets {
         ui::section("Offsets, interfaces, buttons, schemas");
@@ -197,8 +198,24 @@ fn main() -> Result<()> {
                     ui::ok("sdk extras (classes, netvars, accessors, amalgamation) emitted");
                 }
 
+                let total_vts: usize = result.vtables.values().map(|m| m.len()).sum();
+                let total_methods: usize = result
+                    .vtables
+                    .values()
+                    .flat_map(|m| m.values())
+                    .map(|i| i.methods.len())
+                    .sum();
+                if total_vts > 0 {
+                    ui::ok(&format!(
+                        "vtables: {} interfaces, {} method slots",
+                        total_vts, total_methods
+                    ));
+                }
+
                 offsets_elapsed = t0.elapsed();
                 ui::ok(&format!("offsets pass completed in {}", ui::fmt_duration(offsets_elapsed)));
+                drop(out);
+                analysis_result = Some(result);
             }
             Err(e) => {
                 offsets_ok = false;
@@ -288,6 +305,35 @@ fn main() -> Result<()> {
                 sigs_ok = false;
                 ui::err(&format!("signatures pass failed: {}", e));
             }
+        }
+    }
+
+    // --- stage 3: vtables emit (post-sigs so we can use sig hits as a
+    // method-name oracle: a vtable slot whose RVA matches a known
+    // signature is labelled with that signature's name).
+    if let Some(result) = analysis_result.as_ref() {
+        if !result.vtables.is_empty() {
+            let oracle = sig_report
+                .as_ref()
+                .map(|r| output::vtables::name_oracle_from_signatures(&r.hits))
+                .unwrap_or_default();
+            let json = output::vtables::render_json(&result.vtables, &oracle);
+            let hpp  = output::vtables::render_hpp(&result.vtables, &oracle, build_number);
+            let cs   = output::vtables::render_cs(&result.vtables, &oracle, build_number);
+            let _ = fs::write(offsets_dir.join("vtables.json"), json);
+            let _ = fs::write(offsets_dir.join("vtables.hpp"),  hpp);
+            let _ = fs::write(offsets_dir.join("vtables.cs"),   cs);
+            let labelled = result
+                .vtables
+                .values()
+                .flat_map(|m| m.values())
+                .flat_map(|i| i.methods.iter())
+                .filter(|m| oracle.contains_key(&(m.module.clone(), m.rva)))
+                .count();
+            ui::ok(&format!(
+                "vtables emitted (vtables.{{json,hpp,cs}}) — {} slots labelled from signatures",
+                labelled
+            ));
         }
     }
 

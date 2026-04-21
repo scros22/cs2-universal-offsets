@@ -18,12 +18,14 @@ mod interfaces;
 mod offsets;
 mod schemas;
 mod skinchanger;
+mod vtables;
 
 pub use buttons::*;
 pub use interfaces::*;
 pub use offsets::*;
 pub use schemas::*;
 pub use skinchanger::*;
+pub use vtables::*;
 
 /// Aggregated output of every analysis stage.
 #[derive(Debug)]
@@ -33,6 +35,7 @@ pub struct AnalysisResult {
     pub offsets: OffsetMap,
     pub schemas: SchemaMap,
     pub skinchanger: SkinchangerMap,
+    pub vtables: VTableMap,
 }
 
 /// Run every static analyser against the live process.
@@ -76,12 +79,28 @@ pub fn analyze_all<P: Process + MemoryView>(process: &mut P) -> Result<AnalysisR
         skinchanger.len(),
     );
 
+    // VTable walk depends on the resolved interface table; run it
+    // inline rather than through `analyze` so we can pass `&interfaces`.
+    let vtables = match vtables::vtables(process, &interfaces) {
+        Ok(v) => {
+            let total: usize = v.values().map(|m| m.len()).sum();
+            let methods: usize = v.values().flat_map(|m| m.values()).map(|i| i.methods.len()).sum();
+            info!("dumped {} interface vtables ({} method slots) across {} modules", total, methods, v.len());
+            v
+        }
+        Err(err) => {
+            error!("vtable walk failed: {}", err);
+            Default::default()
+        }
+    };
+
     Ok(AnalysisResult {
         buttons,
         interfaces,
         offsets,
         schemas,
         skinchanger,
+        vtables,
     })
 }
 

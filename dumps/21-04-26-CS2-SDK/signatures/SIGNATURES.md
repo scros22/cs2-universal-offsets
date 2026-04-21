@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**181/221 signatures resolved across 8 module(s).**
+**220/267 signatures resolved across 8 module(s).**
 
 ## `animationsystem.dll`
 
@@ -22,30 +22,68 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CAM_ThinkReturn` | `raw` | `0x7FFF5684A3DF` | `0x31A3DF` | `BA 04 00 00 00 FF 15 ? ? ? ? 84 C0 0F 84` |
 | `CAttributeStringFill` | `rel32` | `0x7FFF573D7F10` | `0xEA7F10` | `E8 ? ? ? ? 41 83 CF 08` |
 | `CAttributeStringInit` | `rel32` | `0x7FFF56B28A50` | `0x5F8A50` | `E8 ? ? ? ? 48 8D 05 ? ? ? ? 48 89 7D ? 48 89 45 ? 49 8D 4F` |
+| `CBodyComponent` | `stringref` | `0x7FFF566EC050` | `0x1BC050` | `"CBodyComponent"` |
+| `CBodyComponentSkeletonInstance` | `stringref` | `0x7FFF566F2F30` | `0x1C2F30` | `"CBodyComponentSkeletonInstance"` |
 | `CBufferStringInit` | `raw` | `0x7FFF57D0BA70` | `0x17DBA70` | `48 89 5C 24 ? 57 48 83 EC ? 8B 41 ? 48 8D 79` |
 | `CCSGOInput::CreateMove` | `raw` | `0x7FFF57187CA0` | `0xC57CA0` | `48 8B C4 4C 89 40 18 48 89 48 08 55 53 41 54 41 55` |
+| `CCSGameRules` | `stringref` | `0x7FFF565AE170` | `0x7E170` | `"CCSGameRules"` |
+| `CCSGameRulesProxy` | `stringref` | `0x7FFF56C198E0` | `0x6E98E0` | `"CCSGameRulesProxy"` |
 | `CCSInventoryManager::EquipItemInLoadout` | `raw` | `0x7FFF56CF2780` | `0x7C2780` | `48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 89 54 24 ? 57 41 54 41 55 41 56 41 57 48 83 EC ? 0F B7 FA` |
 | `CCSPlayerController` | `stringref` | `0x7FFF56D12CF0` | `0x7E2CF0` | `"CCSPlayerController"` |
+| `CCSPlayerController` | `stringref` | `0x7FFF56D12CF0` | `0x7E2CF0` | `"CCSPlayerController"` |
+| `CCSPlayerController_ActionTrackingServices` | `stringref` | `0x7FFF56D12CF0` | `0x7E2CF0` | `"CCSPlayerController_ActionTrackingServices"` |
+| `CCSPlayerController_DamageServices` | `stringref` | `0x7FFF56D12CF0` | `0x7E2CF0` | `"CCSPlayerController_DamageServices"` |
+| `CCSPlayerController_InGameMoneyServices` | `stringref` | `0x7FFF56D12CF0` | `0x7E2CF0` | `"CCSPlayerController_InGameMoneyServices"` |
+| `CCSPlayerController_InventoryServices` | `stringref` | `0x7FFF56D12CF0` | `0x7E2CF0` | `"CCSPlayerController_InventoryServices"` |
 | `CCSPlayerInventory::GetItemInLoadout` | `raw` | `0x7FFF56CF43A0` | `0x7C43A0` | `40 55 48 83 EC ? 49 63 E8` |
 | `CCSPlayerPawn` | `stringref` | `0x7FFF570DC0C0` | `0xBAC0C0` | `"CCSPlayerPawn"` |
 | `CCSPlayer_BulletServices` | `stringref` | `0x7FFF56D3FD50` | `0x80FD50` | `"CCSPlayer_BulletServices"` |
+| `CCSPlayer_BulletServices` | `stringref` | `0x7FFF56D3FD50` | `0x80FD50` | `"CCSPlayer_BulletServices"` |
 | `CCSPlayer_CameraServices` | `stringref` | `0x7FFF56D3BE30` | `0x80BE30` | `"CCSPlayer_CameraServices"` |
+| `CCSPlayer_HostageServices` | `stringref` | `0x7FFF56D3FD50` | `0x80FD50` | `"CCSPlayer_HostageServices"` |
 | `CCSPlayer_ItemServices` | `stringref` | `0x7FFF56D405A0` | `0x8105A0` | `"CCSPlayer_ItemServices"` |
 | `CCSPlayer_MovementServices` | `stringref` | `0x7FFF56D68D70` | `0x838D70` | `"CCSPlayer_MovementServices"` |
+| `CCSPlayer_MovementServices` | `stringref` | `0x7FFF56D68D70` | `0x838D70` | `"CCSPlayer_MovementServices"` |
+| `CCSPlayer_PingServices` | `stringref` | `0x7FFF56D7E8B0` | `0x84E8B0` | `"CCSPlayer_PingServices"` |
+| `CCSPlayer_UseServices` | `stringref` | `0x7FFF56DACF80` | `0x87CF80` | `"CCSPlayer_UseServices"` |
+| `CCSPlayer_WaterServices` | `stringref` | `0x7FFF56DA46C0` | `0x8746C0` | `"CCSPlayer_WaterServices"` |
 | `CCSPlayer_WeaponServices` | `stringref` | `0x7FFF56DA4A70` | `0x874A70` | `"CCSPlayer_WeaponServices"` |
+| `CCSPlayer_WeaponServices` | `stringref` | `0x7FFF56DA4A70` | `0x874A70` | `"CCSPlayer_WeaponServices"` |
+| `CCSWeaponBase` | `stringref` | `0x7FFF56CAF8C0` | `0x77F8C0` | `"CCSWeaponBase"` |
+| `CCSWeaponBaseGun` | `stringref` | `0x7FFF56CAF960` | `0x77F960` | `"CCSWeaponBaseGun"` |
+| `CCSWeaponBaseVData` | `stringref` | `0x7FFF56C8A7D0` | `0x75A7D0` | `"CCSWeaponBaseVData"` |
+| `CCollisionProperty` | `stringref` | `0x7FFF56810E80` | `0x2E0E80` | `"CCollisionProperty"` |
+| `CDecoyProjectile` | `stringref` | `0x7FFF56C7E700` | `0x74E700` | `"CDecoyProjectile"` |
 | `CEconItemSchema::GetAttributeDefinitionByName` | `raw` | `0x7FFF57575F00` | `0x1045F00` | `48 89 5C 24 10 48 89 6C 24 18 57 41 56 41 57 48 83 EC 60 48 8D 05` |
 | `CEconItemView::GetCustomPaintKitIndex` | `raw` | `0x7FFF56DE5820` | `0x8B5820` | `48 89 5C 24 ? 57 48 83 EC ? 8B 15 ? ? ? ? 48 8B F9 65 48 8B 04 25` |
+| `CFlashbangProjectile` | `stringref` | `0x7FFF575094D0` | `0xFD94D0` | `"CFlashbangProjectile"` |
 | `CFogController` | `stringref` | `0x7FFF567AEEC0` | `0x27EEC0` | `"CFogController"` |
 | `CGameEntitySystem::OnAddEntity` | `raw` | `0x7FFF56E92AC0` | `0x962AC0` | `48 89 74 24 ? 57 48 83 EC ? 41 B9 ? ? ? ? 41 8B C0 41 23 C1 48 8B F2 41 83 F8 ? 48 8B F9 44 0F 45 C8 41 81 F9 ? ? ? ? 73 ? FF 81` |
 | `CGameEntitySystem::OnRemoveEntity` | `raw` | `0x7FFF56E93320` | `0x963320` | `48 89 74 24 ? 57 48 83 EC ? 41 B9 ? ? ? ? 41 8B C0 41 23 C1 48 8B F2 41 83 F8 ? 48 8B F9 44 0F 45 C8 41 81 F9 ? ? ? ? 73 ? FF 89` |
+| `CGameSceneNode` | `stringref` | `0x7FFF566D3810` | `0x1A3810` | `"CGameSceneNode"` |
+| `CGlowProperty` | `stringref` | `0x7FFF56811090` | `0x2E1090` | `"CGlowProperty"` |
+| `CHEGrenadeProjectile` | `stringref` | `0x7FFF57509570` | `0xFD9570` | `"CHEGrenadeProjectile"` |
+| `CMolotovProjectile` | `stringref` | `0x7FFF56C7E8E0` | `0x74E8E0` | `"CMolotovProjectile"` |
 | `CPostProcessingVolume` | `stringref` | `0x7FFF567D3C50` | `0x2A3C50` | `"CPostProcessingVolume"` |
 | `CSBaseGunFireData_fn` | `raw` | `0x7FFF57A111E0` | `0x14E11E0` | `48 8B C4 55 53 56 57 41 54 41 55 41 56 41 57 48 8D 68 A8 48 81 EC ? ? ? ? 4C 8B 69` |
 | `CSGOInput_resolved` | `riprel` | `0x7FFF5858C007` | `0x205C007` | `48 8B 0D ? ? ? ? 8B 10 E8 ? ? ? ? 45 32 FF` |
+| `CSkeletonInstance` | `stringref` | `0x7FFF566D3910` | `0x1A3910` | `"CSkeletonInstance"` |
 | `CSkeletonInstance::SetMeshGroupMask` | `raw` | `0x7FFF56F57EE0` | `0xA27EE0` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8D 99` |
+| `CSmokeGrenadeProjectile` | `stringref` | `0x7FFF56C7E980` | `0x74E980` | `"CSmokeGrenadeProjectile"` |
 | `CTonemapController2` | `stringref` | `0x7FFF56787B80` | `0x257B80` | `"CTonemapController2"` |
 | `C_AttributeContainer` | `stringref` | `0x7FFF57142110` | `0xC12110` | `"C_AttributeContainer"` |
+| `C_BaseEntity` | `stringref` | `0x7FFF5657E260` | `0x4E260` | `"C_BaseEntity"` |
+| `C_BaseModelEntity` | `stringref` | `0x7FFF56687EB0` | `0x157EB0` | `"C_BaseModelEntity"` |
+| `C_BasePlayerPawn` | `stringref` | `0x7FFF5659DA20` | `0x6DA20` | `"C_BasePlayerPawn"` |
+| `C_C4` | `stringref` | `0x7FFF565CA3C0` | `0x9A3C0` | `"C_C4"` |
+| `C_CSPlayerPawn` | `stringref` | `0x7FFF56BF2810` | `0x6C2810` | `"C_CSPlayerPawn"` |
+| `C_CSPlayerPawnBase` | `stringref` | `0x7FFF57100BF0` | `0xBD0BF0` | `"C_CSPlayerPawnBase"` |
 | `C_CSWeaponBase` | `stringref` | `0x7FFF56C728E0` | `0x7428E0` | `"C_CSWeaponBase"` |
 | `C_EconItemView` | `stringref` | `0x7FFF56C3B950` | `0x70B950` | `"C_EconItemView"` |
+| `C_Hostage` | `stringref` | `0x7FFF56617370` | `0xE7370` | `"C_Hostage"` |
+| `C_Inferno` | `stringref` | `0x7FFF56627330` | `0xF7330` | `"C_Inferno"` |
+| `C_PlantedC4` | `stringref` | `0x7FFF56620690` | `0xF0690` | `"C_PlantedC4"` |
+| `C_SmokeGrenadeProjectile` | `stringref` | `0x7FFF565C59B0` | `0x959B0` | `"C_SmokeGrenadeProjectile"` |
 | `CacheParticleEffect` | `raw` | `0x7FFF56737AB0` | `0x207AB0` | `4C 8B DC 53 48 81 EC ? ? ? ? F2 0F 10 05` |
 | `CalcSpread` | `raw` | `0x7FFF571A80A0` | `0xC780A0` | `48 8B C4 48 89 58 ? 48 89 68 ? 48 89 70 ? 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ? 4C 63 EA` |
 | `CalcViewmodel` | `raw` | `0x7FFF56D7C3E0` | `0x84C3E0` | `40 55 53 56 41 56 41 57 48 8B EC` |
@@ -181,6 +219,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
+| `CSplitScreenSlot` | `stringref` | `0x7FFF9F7EA250` | `0x24A250` | `"CSplitScreenSlot"` |
 | `Engine::GetScreenAspectRatio` | `raw` | `0x7FFF9F6169D0` | `0x769D0` | `48 89 5C 24 08 57 48 83 EC 20 8B FA 48 8D 0D` |
 | `Engine::PVSManager_ptr` | `riprel` | `0x7FFF9FBB33F0` | `0x6133F0` | `48 8D 0D ? ? ? ? 33 D2 FF 50` |
 | `Engine::RunPrediction` | `raw` | `0x7FFF9F606490` | `0x66490` | `40 55 41 56 48 83 EC ? 80 B9` |

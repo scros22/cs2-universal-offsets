@@ -1,21 +1,21 @@
 {
   "build_number": 14152,
-  "generated_at": "2026-04-21T23:34:32.746872500+01:00",
+  "generated_at": "2026-04-21T23:41:47.965923+01:00",
   "process": "cs2.exe",
   "session": "21-04-26-CS2-SDK",
   "stages": {
     "offsets": {
-      "elapsed_ms": 4049,
+      "elapsed_ms": 4199,
       "enabled": true,
       "output_dir": "dumps\\21-04-26-CS2-SDK\\offsets",
       "success": true
     },
     "signatures": {
       "counts": {
-        "found": 181,
-        "total": 221
+        "found": 220,
+        "total": 267
       },
-      "elapsed_ms": 3679,
+      "elapsed_ms": 4115,
       "enabled": true,
       "output_dir": "dumps\\21-04-26-CS2-SDK\\signatures",
       "success": true

@@ -24,6 +24,8 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [x] **v1.2:** `build_number` pinned into every emitted file as `CS2_BUILD`
 - [x] **v1.2:** `dumps/latest/` mirror of the most recent successful session
 - [x] **v1.2:** Educational guides under `docs/` (PATTERNS, SCHEMA, SIGNATURES, CONSUMING, ADDING_SIGNATURES, LAYOUT)
+- [x] **v1.3:** Per-interface vtable dumper (`offsets/vtables.{json,hpp,cs}`) with method-name recovery via signature cross-reference
+- [x] **v1.3:** +46 string-ref class anchors (player services, weapon classes, projectiles, gamerules, engine networking) — now 220+ resolved
 
 ## Scanner
 
@@ -43,10 +45,11 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 
 ## Schema / offsets
 
-- [ ] VTable index dumper per class (with method names where RTTI is present)
+- [x] VTable index dumper per class (with method names where signatures provide them)
 - [x] Netvar / `CNetworkVarChainer` dumper alongside schemas
 - [ ] **Investigate:** schema metadata extraction comes back empty for build 14152 — `network_value` is null for every entry, so `netvars.{json,hpp,cs}` emit empty. Walker logic in `src/analysis/schemas.rs::read_class_binding_metadata` likely needs an offset update for the current build.
-- [ ] ConVar dumper (name → address → default / min / max / flags)
+- [ ] ConVar dumper (walk `g_pCVar` registration list → name + flags + default)
+- [ ] GameEvent registry dumper (CGameEventManager → name + field schema)
 - [ ] Interface-version drift detector (flag any `XXX_VERSIONXXX` change)
 
 ## Memory / backend

@@ -23,54 +23,130 @@ pub mod client {
     pub const CAttributeStringFill: usize = 0x7FFF573D7F10;
     /// rva 0x5F8A50
     pub const CAttributeStringInit: usize = 0x7FFF56B28A50;
+    /// rva 0x1BC050
+    pub const CBodyComponent: usize = 0x7FFF566EC050;
+    /// rva 0x1C2F30
+    pub const CBodyComponentSkeletonInstance: usize = 0x7FFF566F2F30;
     /// rva 0x17DBA70
     pub const CBufferStringInit: usize = 0x7FFF57D0BA70;
     /// rva 0xC57CA0
     pub const CCSGOInput__CreateMove: usize = 0x7FFF57187CA0;
+    /// rva 0x7E170
+    pub const CCSGameRules: usize = 0x7FFF565AE170;
+    /// rva 0x6E98E0
+    pub const CCSGameRulesProxy: usize = 0x7FFF56C198E0;
     /// rva 0x7C2780
     pub const CCSInventoryManager__EquipItemInLoadout: usize = 0x7FFF56CF2780;
     /// rva 0x7E2CF0
     pub const CCSPlayerController: usize = 0x7FFF56D12CF0;
+    /// rva 0x7E2CF0
+    pub const CCSPlayerController: usize = 0x7FFF56D12CF0;
+    /// rva 0x7E2CF0
+    pub const CCSPlayerController_ActionTrackingServices: usize = 0x7FFF56D12CF0;
+    /// rva 0x7E2CF0
+    pub const CCSPlayerController_DamageServices: usize = 0x7FFF56D12CF0;
+    /// rva 0x7E2CF0
+    pub const CCSPlayerController_InGameMoneyServices: usize = 0x7FFF56D12CF0;
+    /// rva 0x7E2CF0
+    pub const CCSPlayerController_InventoryServices: usize = 0x7FFF56D12CF0;
     /// rva 0x7C43A0
     pub const CCSPlayerInventory__GetItemInLoadout: usize = 0x7FFF56CF43A0;
     /// rva 0xBAC0C0
     pub const CCSPlayerPawn: usize = 0x7FFF570DC0C0;
     /// rva 0x80FD50
     pub const CCSPlayer_BulletServices: usize = 0x7FFF56D3FD50;
+    /// rva 0x80FD50
+    pub const CCSPlayer_BulletServices: usize = 0x7FFF56D3FD50;
     /// rva 0x80BE30
     pub const CCSPlayer_CameraServices: usize = 0x7FFF56D3BE30;
+    /// rva 0x80FD50
+    pub const CCSPlayer_HostageServices: usize = 0x7FFF56D3FD50;
     /// rva 0x8105A0
     pub const CCSPlayer_ItemServices: usize = 0x7FFF56D405A0;
     /// rva 0x838D70
     pub const CCSPlayer_MovementServices: usize = 0x7FFF56D68D70;
+    /// rva 0x838D70
+    pub const CCSPlayer_MovementServices: usize = 0x7FFF56D68D70;
+    /// rva 0x84E8B0
+    pub const CCSPlayer_PingServices: usize = 0x7FFF56D7E8B0;
+    /// rva 0x87CF80
+    pub const CCSPlayer_UseServices: usize = 0x7FFF56DACF80;
+    /// rva 0x8746C0
+    pub const CCSPlayer_WaterServices: usize = 0x7FFF56DA46C0;
     /// rva 0x874A70
     pub const CCSPlayer_WeaponServices: usize = 0x7FFF56DA4A70;
+    /// rva 0x874A70
+    pub const CCSPlayer_WeaponServices: usize = 0x7FFF56DA4A70;
+    /// rva 0x77F8C0
+    pub const CCSWeaponBase: usize = 0x7FFF56CAF8C0;
+    /// rva 0x77F960
+    pub const CCSWeaponBaseGun: usize = 0x7FFF56CAF960;
+    /// rva 0x75A7D0
+    pub const CCSWeaponBaseVData: usize = 0x7FFF56C8A7D0;
+    /// rva 0x2E0E80
+    pub const CCollisionProperty: usize = 0x7FFF56810E80;
+    /// rva 0x74E700
+    pub const CDecoyProjectile: usize = 0x7FFF56C7E700;
     /// rva 0x1045F00
     pub const CEconItemSchema__GetAttributeDefinitionByName: usize = 0x7FFF57575F00;
     /// rva 0x8B5820
     pub const CEconItemView__GetCustomPaintKitIndex: usize = 0x7FFF56DE5820;
+    /// rva 0xFD94D0
+    pub const CFlashbangProjectile: usize = 0x7FFF575094D0;
     /// rva 0x27EEC0
     pub const CFogController: usize = 0x7FFF567AEEC0;
     /// rva 0x962AC0
     pub const CGameEntitySystem__OnAddEntity: usize = 0x7FFF56E92AC0;
     /// rva 0x963320
     pub const CGameEntitySystem__OnRemoveEntity: usize = 0x7FFF56E93320;
+    /// rva 0x1A3810
+    pub const CGameSceneNode: usize = 0x7FFF566D3810;
+    /// rva 0x2E1090
+    pub const CGlowProperty: usize = 0x7FFF56811090;
+    /// rva 0xFD9570
+    pub const CHEGrenadeProjectile: usize = 0x7FFF57509570;
+    /// rva 0x74E8E0
+    pub const CMolotovProjectile: usize = 0x7FFF56C7E8E0;
     /// rva 0x2A3C50
     pub const CPostProcessingVolume: usize = 0x7FFF567D3C50;
     /// rva 0x14E11E0
     pub const CSBaseGunFireData_fn: usize = 0x7FFF57A111E0;
     /// rva 0x205C007
     pub const CSGOInput_resolved: usize = 0x7FFF5858C007;
+    /// rva 0x1A3910
+    pub const CSkeletonInstance: usize = 0x7FFF566D3910;
     /// rva 0xA27EE0
     pub const CSkeletonInstance__SetMeshGroupMask: usize = 0x7FFF56F57EE0;
+    /// rva 0x74E980
+    pub const CSmokeGrenadeProjectile: usize = 0x7FFF56C7E980;
     /// rva 0x257B80
     pub const CTonemapController2: usize = 0x7FFF56787B80;
     /// rva 0xC12110
     pub const C_AttributeContainer: usize = 0x7FFF57142110;
+    /// rva 0x4E260
+    pub const C_BaseEntity: usize = 0x7FFF5657E260;
+    /// rva 0x157EB0
+    pub const C_BaseModelEntity: usize = 0x7FFF56687EB0;
+    /// rva 0x6DA20
+    pub const C_BasePlayerPawn: usize = 0x7FFF5659DA20;
+    /// rva 0x9A3C0
+    pub const C_C4: usize = 0x7FFF565CA3C0;
+    /// rva 0x6C2810
+    pub const C_CSPlayerPawn: usize = 0x7FFF56BF2810;
+    /// rva 0xBD0BF0
+    pub const C_CSPlayerPawnBase: usize = 0x7FFF57100BF0;
     /// rva 0x7428E0
     pub const C_CSWeaponBase: usize = 0x7FFF56C728E0;
     /// rva 0x70B950
     pub const C_EconItemView: usize = 0x7FFF56C3B950;
+    /// rva 0xE7370
+    pub const C_Hostage: usize = 0x7FFF56617370;
+    /// rva 0xF7330
+    pub const C_Inferno: usize = 0x7FFF56627330;
+    /// rva 0xF0690
+    pub const C_PlantedC4: usize = 0x7FFF56620690;
+    /// rva 0x959B0
+    pub const C_SmokeGrenadeProjectile: usize = 0x7FFF565C59B0;
     /// rva 0x207AB0
     pub const CacheParticleEffect: usize = 0x7FFF56737AB0;
     /// rva 0xC780A0
@@ -334,6 +410,8 @@ pub mod client {
 }
 
 pub mod engine2 {
+    /// rva 0x24A250
+    pub const CSplitScreenSlot: usize = 0x7FFF9F7EA250;
     /// rva 0x769D0
     pub const Engine__GetScreenAspectRatio: usize = 0x7FFF9F6169D0;
     /// rva 0x6133F0
