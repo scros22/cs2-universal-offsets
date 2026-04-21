@@ -22,6 +22,13 @@ mod offsets;
 mod schemas;
 mod skinchanger;
 
+// New SDK-style emitters (additive — leave the originals untouched).
+pub mod amalgamation;
+pub mod ident;
+pub mod interfaces_sdk;
+pub mod netvars;
+pub mod sdk_classes;
+
 enum Item<'a> {
     Buttons(&'a ButtonMap),
     Interfaces(&'a InterfaceMap),
@@ -127,6 +134,65 @@ impl<'a> Output<'a> {
             result,
             timestamp: Utc::now(),
         })
+    }
+
+    /// Emit the additional cheat-developer-friendly SDK files alongside
+    /// the original outputs. This is `dump_all`'s younger sibling — it
+    /// reads the *same* `AnalysisResult` and writes:
+    ///
+    /// * `<offsets>/sdk/cs2sdk_macros.hpp`         — SCHEMA_FIELD macros
+    /// * `<offsets>/sdk/<module>.hpp`              — typed schema classes
+    /// * `<offsets>/netvars.{json,hpp,cs}`         — split networked fields
+    /// * `<offsets>/interfaces_sdk.{hpp,cs}`       — typed accessor stubs
+    /// * `<offsets>/cs2sdk.hpp`                    — single-include amalgamation
+    /// * `<offsets>/cs2sdk.rs`                     — Rust amalgamation module
+    ///
+    /// `build_number` is pinned into every emitted file as `CS2_BUILD`
+    /// so internal cheats can `static_assert` against the running game.
+    pub fn dump_sdk_extras(&self, build_number: Option<u32>) -> Result<()> {
+        let ts = self.timestamp.to_rfc3339();
+
+        // 1. shared SCHEMA_FIELD macros
+        let sdk_dir = self.out_dir.join("sdk");
+        fs::create_dir_all(&sdk_dir)?;
+        fs::write(sdk_dir.join("cs2sdk_macros.hpp"), sdk_classes::render_macros_header())?;
+
+        // 2. per-module SDK class headers
+        let mut module_stems = Vec::new();
+        for (file_name, body) in sdk_classes::render_module_headers(&self.result.schemas, build_number, &ts) {
+            fs::write(sdk_dir.join(&file_name), body)?;
+            if let Some(stem) = file_name.strip_suffix(".hpp") {
+                module_stems.push(stem.to_string());
+            }
+        }
+
+        // 3. netvars (split from schema)
+        let nvs = netvars::extract(&self.result.schemas);
+        fs::write(self.out_dir.join("netvars.json"), netvars::render_json(&nvs))?;
+        fs::write(self.out_dir.join("netvars.hpp"), netvars::render_hpp(&nvs, build_number))?;
+        fs::write(self.out_dir.join("netvars.cs"), netvars::render_cs(&nvs, build_number))?;
+
+        // 4. interface accessor stubs
+        fs::write(
+            self.out_dir.join("interfaces_sdk.hpp"),
+            interfaces_sdk::render_hpp(&self.result.interfaces, build_number),
+        )?;
+        fs::write(
+            self.out_dir.join("interfaces_sdk.cs"),
+            interfaces_sdk::render_cs(&self.result.interfaces, build_number),
+        )?;
+
+        // 5. amalgamations
+        fs::write(
+            self.out_dir.join("cs2sdk.hpp"),
+            amalgamation::render_hpp(&module_stems, build_number),
+        )?;
+        fs::write(
+            self.out_dir.join("cs2sdk.rs"),
+            amalgamation::render_rs(true, build_number),
+        )?;
+
+        Ok(())
     }
 
     pub fn dump_all<P: MemoryView + Process>(&self, process: &mut P) -> Result<()> {
