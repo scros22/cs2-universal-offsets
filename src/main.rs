@@ -1,0 +1,370 @@
+﻿// cs2-universal-dumper
+// --------------------
+// One binary, two passes:
+//   * offsets    (external offset/interface/schema/button dumper)
+//   * signatures (PE/section-aware IDA-style scanner with
+//                 rel32 / riprel / string-ref resolution)
+//
+// Output layout:
+//
+//     <OutputRoot>/<DD-MM-YY>-CS2-SDK/
+//         manifest.json
+//         logs/cs2-sdk.log
+//         offsets/
+//             buttons.(cs|hpp|json|rs|zig)
+//             interfaces.(â€¦)
+//             offsets.(â€¦)
+//             <schema modules>.(â€¦)
+//             info.json
+//         signatures/signatures.json
+
+#![allow(dead_code)]
+#![allow(unused_imports)]
+
+use std::fs::{self, File};
+use std::path::{Path, PathBuf};
+use std::str::FromStr;
+use std::time::{Duration, Instant};
+
+use anyhow::{Context, Result};
+use chrono::Local;
+use clap::{ArgAction, Parser};
+use log::LevelFilter;
+use memflow::prelude::v1::*;
+use serde_json::json;
+use simplelog::*;
+
+use output::Output;
+
+mod analysis;
+mod memory;
+mod output;
+mod signatures;
+mod source2;
+mod ui;
+
+#[derive(Debug, Parser)]
+#[command(author, version, about = "CS2 Universal Dumper â€” offsets + signatures in one run")]
+struct Args {
+    #[arg(short, long)]
+    connector: Option<String>,
+
+    #[arg(short = 'a', long)]
+    connector_args: Option<String>,
+
+    #[arg(short, long, value_delimiter = ',', default_values = ["cs", "hpp", "json", "rs", "zig"])]
+    file_types: Vec<String>,
+
+    #[arg(short, long, default_value_t = 4)]
+    indent_size: usize,
+
+    /// Parent directory for the dated session folder.
+    #[arg(short, long, default_value = "dumps")]
+    output: PathBuf,
+
+    #[arg(short, long, default_value = "cs2.exe")]
+    process_name: String,
+
+    #[arg(short, long, action = ArgAction::Count)]
+    verbose: u8,
+
+    #[arg(long)]
+    skip_offsets: bool,
+
+    #[arg(long)]
+    skip_signatures: bool,
+
+    #[arg(long)]
+    no_sound: bool,
+}
+
+fn main() -> Result<()> {
+    let args = Args::parse();
+
+    ui::init(args.no_sound);
+    ui::banner();
+    ui::sound(ui::Cue::Start);
+
+    let now = Local::now();
+    let session_name = format!("{}-CS2-SDK", now.format("%d-%m-%y"));
+    let session_dir = args.output.join(&session_name);
+    let offsets_dir = session_dir.join("offsets");
+    let sigs_dir = session_dir.join("signatures");
+    let logs_dir = session_dir.join("logs");
+    for d in [&session_dir, &offsets_dir, &sigs_dir, &logs_dir] {
+        fs::create_dir_all(d)
+            .with_context(|| format!("failed to create {}", d.display()))?;
+    }
+
+    init_logging(&logs_dir, args.verbose)?;
+
+    ui::section("Session");
+    ui::kv("Timestamp", &now.format("%Y-%m-%d %H:%M:%S").to_string());
+    ui::kv("Session", &session_name);
+    ui::kv("Root", &session_dir.display().to_string());
+    ui::kv("Process", &args.process_name);
+    ui::kv("File types", &args.file_types.join(","));
+    ui::kv("Offsets", if args.skip_offsets { "skipped" } else { "enabled" });
+    ui::kv("Signatures", if args.skip_signatures { "skipped" } else { "enabled" });
+
+    ui::section("Attach");
+    let mut os = build_os(&args)?;
+    let mut process = os
+        .process_by_name(&args.process_name)
+        .with_context(|| format!("process '{}' not found", args.process_name))?;
+    let pid = process.info().pid;
+    ui::ok(&format!("attached to {} (pid {})", args.process_name, pid));
+
+    // --- stage 1: offsets --------------------------------------------------
+    let mut offsets_ok = true;
+    let mut offsets_elapsed = Duration::ZERO;
+    let mut build_number: Option<u32> = None;
+
+    if !args.skip_offsets {
+        ui::section("Offsets, interfaces, buttons, schemas");
+        ui::sound(ui::Cue::Step);
+        let t0 = Instant::now();
+
+        match analysis::analyze_all(&mut process) {
+            Ok(result) => {
+                ui::ok(&format!(
+                    "interfaces: {} across {} modules",
+                    result.interfaces.iter().map(|(_, v)| v.len()).sum::<usize>(),
+                    result.interfaces.len()
+                ));
+                ui::ok(&format!(
+                    "offsets: {} across {} modules",
+                    result.offsets.iter().map(|(_, v)| v.len()).sum::<usize>(),
+                    result.offsets.len()
+                ));
+                let (cc, ec) = result.schemas.values().fold((0, 0), |(c, e), (cv, ev)| {
+                    (c + cv.len(), e + ev.len())
+                });
+                ui::ok(&format!(
+                    "schemas: {} classes, {} enums across {} modules",
+                    cc, ec, result.schemas.len()
+                ));
+
+                let out = Output::new(
+                    &args.file_types,
+                    args.indent_size,
+                    &offsets_dir,
+                    &result,
+                )?;
+                out.dump_all(&mut process)?;
+
+                build_number = result
+                    .offsets
+                    .iter()
+                    .find_map(|(mname, offs)| {
+                        let m = process.module_by_name(mname).ok()?;
+                        let o = offs.iter().find(|(n, _)| *n == "dwBuildNumber")?.1;
+                        process.read::<u32>(m.base + o).data_part().ok()
+                    });
+
+                offsets_elapsed = t0.elapsed();
+                ui::ok(&format!("offsets pass completed in {}", ui::fmt_duration(offsets_elapsed)));
+            }
+            Err(e) => {
+                offsets_ok = false;
+                ui::err(&format!("offsets pass failed: {}", e));
+            }
+        }
+    }
+
+    // --- stage 2: signatures ----------------------------------------------
+    let mut sigs_ok = true;
+    let mut sig_report: Option<signatures::SignatureReport> = None;
+
+    if !args.skip_signatures {
+        ui::section("Signatures (PE/section aware)");
+        ui::sound(ui::Cue::Step);
+
+        match signatures::scan_all(&mut process, signatures::database::CS2_SIGNATURES) {
+            Ok(report) => {
+                ui::ok(&format!(
+                    "{}/{} signatures resolved across {} module(s) in {}",
+                    report.found,
+                    report.total,
+                    report.modules.len(),
+                    ui::fmt_duration(Duration::from_millis(report.elapsed_ms as u64))
+                ));
+                let path = sigs_dir.join("signatures.json");
+                fs::write(&path, format_found_signatures(&report))?;
+                ui::ok(&format!("wrote {}", path.display()));
+                sig_report = Some(report);
+            }
+            Err(e) => {
+                sigs_ok = false;
+                ui::err(&format!("signatures pass failed: {}", e));
+            }
+        }
+    }
+
+    // --- manifest ----------------------------------------------------------
+    let sig_counts = sig_report
+        .as_ref()
+        .map(|r| json!({ "found": r.found, "total": r.total }))
+        .unwrap_or(json!(null));
+
+    let manifest = json!({
+        "session": session_name,
+        "generated_at": now.to_rfc3339(),
+        "process": args.process_name,
+        "build_number": build_number,
+        "stages": {
+            "offsets": {
+                "enabled": !args.skip_offsets,
+                "success": offsets_ok,
+                "elapsed_ms": offsets_elapsed.as_millis(),
+                "output_dir": offsets_dir,
+            },
+            "signatures": {
+                "enabled": !args.skip_signatures,
+                "success": sigs_ok,
+                "counts": sig_counts,
+                "elapsed_ms": sig_report.as_ref().map(|r| r.elapsed_ms),
+                "output_dir": sigs_dir,
+            },
+        },
+    });
+    fs::write(
+        session_dir.join("manifest.json"),
+        serde_json::to_string_pretty(&manifest)?,
+    )?;
+
+    // --- summary -----------------------------------------------------------
+    ui::section("Summary");
+    ui::kv("Session dir", &session_dir.display().to_string());
+    if !args.skip_offsets {
+        ui::kv("Offsets", if offsets_ok { "ok" } else { "FAIL" });
+    }
+    if !args.skip_signatures {
+        match &sig_report {
+            Some(r) => ui::kv("Signatures", &format!("{} / {}", r.found, r.total)),
+            None => ui::kv("Signatures", "FAIL"),
+        }
+    }
+    if let Some(bn) = build_number {
+        ui::kv("Build number", &bn.to_string());
+    }
+
+    ui::divider();
+    let all_ok = offsets_ok && sigs_ok;
+    if all_ok {
+        ui::sound(ui::Cue::Success);
+        ui::step("All stages completed successfully.");
+        Ok(())
+    } else {
+        ui::sound(ui::Cue::Failure);
+        ui::err("One or more stages failed â€” see logs/cs2-sdk.log.");
+        std::process::exit(1);
+    }
+}
+
+fn build_os(args: &Args) -> Result<OsInstanceArcBox<'static>> {
+    let conn_args = args
+        .connector_args
+        .as_deref()
+        .map(ConnectorArgs::from_str)
+        .transpose()
+        .map_err(|e| anyhow::anyhow!("invalid connector args: {}", e))?
+        .unwrap_or_default();
+
+    match &args.connector {
+        Some(conn) => {
+            let mut inventory = Inventory::scan();
+            Ok(inventory
+                .builder()
+                .connector(conn)
+                .args(conn_args)
+                .os("win32")
+                .build()?)
+        }
+        None => {
+            #[cfg(windows)]
+            {
+                Ok(memflow_native::create_os(&OsArgs::default(), LibArc::default())?)
+            }
+            #[cfg(not(windows))]
+            {
+                anyhow::bail!("no connector specified and no native backend on this platform")
+            }
+        }
+    }
+}
+
+fn init_logging(logs_dir: &Path, verbose: u8) -> Result<()> {
+    let level = match verbose {
+        0 => LevelFilter::Warn,
+        1 => LevelFilter::Info,
+        2 => LevelFilter::Debug,
+        _ => LevelFilter::Trace,
+    };
+    let mut loggers: Vec<Box<dyn SharedLogger>> = Vec::new();
+    // Terminal: warnings+ only (UI is our main output).
+    loggers.push(TermLogger::new(
+        LevelFilter::Warn,
+        Config::default(),
+        TerminalMode::Mixed,
+        ColorChoice::Auto,
+    ));
+    loggers.push(WriteLogger::new(
+        level,
+        Config::default(),
+        File::create(logs_dir.join("cs2-sdk.log"))?,
+    ));
+    CombinedLogger::init(loggers).ok();
+    Ok(())
+}
+
+/// Pretty-print only successfully-resolved signatures, one hit per line.
+/// Unfound entries are dropped entirely — they have no usable address.
+fn format_found_signatures(report: &signatures::SignatureReport) -> String {
+    let found: Vec<&signatures::SignatureHit> =
+        report.hits.iter().filter(|h| h.found).collect();
+
+    let name_w = found.iter().map(|h| h.name.len()).max().unwrap_or(0);
+    let mod_w = found.iter().map(|h| h.module.len()).max().unwrap_or(0);
+    let res_w = found.iter().map(|h| h.resolve.len()).max().unwrap_or(0);
+    let pat_w = found.iter().map(|h| h.pattern.len()).max().unwrap_or(0);
+
+    let mut s = String::new();
+    s.push_str("{\n");
+    s.push_str(&format!("  \"total_scanned\":  {},\n", report.total));
+    s.push_str(&format!("  \"found\":          {},\n", report.found));
+    s.push_str(&format!("  \"missing\":        {},\n", report.total - report.found));
+    s.push_str(&format!("  \"elapsed_ms\":     {},\n", report.elapsed_ms));
+    s.push_str(&format!(
+        "  \"modules\":        [{}],\n",
+        report
+            .modules
+            .iter()
+            .map(|m| format!("\"{}\"", m))
+            .collect::<Vec<_>>()
+            .join(", ")
+    ));
+    s.push_str("  \"signatures\": [\n");
+    for (i, h) in found.iter().enumerate() {
+        let comma = if i + 1 == found.len() { "" } else { "," };
+        let va = h.va.map(|v| format!("0x{:X}", v)).unwrap_or_else(|| "null".into());
+        let rva = h.rva.map(|v| format!("0x{:X}", v)).unwrap_or_else(|| "null".into());
+        s.push_str(&format!(
+            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>12}, \"rva\": {:>10}, \"pattern\": {:<pw$} }}{}\n",
+            format!("\"{}\"", h.name),
+            format!("\"{}\"", h.module),
+            format!("\"{}\"", h.resolve),
+            va,
+            rva,
+            format!("\"{}\"", h.pattern),
+            comma,
+            nw = name_w + 2,
+            mw = mod_w + 2,
+            rw = res_w + 2,
+            pw = pat_w + 2,
+        ));
+    }
+    s.push_str("  ]\n");
+    s.push_str("}\n");
+    s
+}
