@@ -32,6 +32,7 @@ use log::debug;
 use memflow::prelude::v1::*;
 
 use super::InterfaceMap;
+use super::rtti;
 
 /// Dump of one interface's virtual function table.
 #[derive(Debug, Clone, Default)]
@@ -42,6 +43,11 @@ pub struct VTableInfo {
     pub vtable_rva: u64,
     /// Module name that hosts the vftable bytes.
     pub vtable_module: String,
+    /// MSVC RTTI class name recovered from `vftable[-1]` -> COL ->
+    /// TypeDescriptor.  `None` when the vtable doesn't carry RTTI
+    /// (compiler thunks, `/GR-` builds) or when the COL fails our
+    /// signature/self-RVA sanity checks.
+    pub rtti_class: Option<String>,
     /// One entry per virtual method, in slot order. `module` is the DLL
     /// that hosts the method body; `rva` is its offset within that DLL.
     pub methods: Vec<VTableMethod>,
@@ -91,12 +97,13 @@ pub fn vtables<P: Process + MemoryView>(
             match dump_one(process, inst_va, &modules) {
                 Ok(Some(info)) => {
                     debug!(
-                        "{}::{} vtable @ {}+{:#X} ({} methods)",
+                        "{}::{} vtable @ {}+{:#X} ({} methods, rtti={:?})",
                         module_name,
                         iface_name,
                         info.vtable_module,
                         info.vtable_rva,
-                        info.methods.len()
+                        info.methods.len(),
+                        info.rtti_class,
                     );
                     by_iface.insert(iface_name.clone(), info);
                 }
@@ -128,6 +135,14 @@ fn dump_one<P: MemoryView>(
         return Ok(None);
     };
 
+    // RTTI lookup is best-effort: a vtable without a valid COL is
+    // perfectly normal for thunks, and we'd rather emit unnamed slots
+    // than skip the vtable entirely.
+    let rtti_class = modules
+        .iter()
+        .find(|(name, _, _)| name == &vt_mod)
+        .and_then(|(_, base, size)| rtti::resolve_class_name(process, vt_va, *base, *size));
+
     // Slurp up to MAX_METHODS slots in one shot for speed; truncate at
     // the first non-code pointer.
     let raw = process
@@ -150,6 +165,7 @@ fn dump_one<P: MemoryView>(
     Ok(Some(VTableInfo {
         vtable_rva: vt_rva,
         vtable_module: vt_mod,
+        rtti_class,
         methods,
     }))
 }

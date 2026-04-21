@@ -26,6 +26,8 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [x] **v1.2:** Educational guides under `docs/` (PATTERNS, SCHEMA, SIGNATURES, CONSUMING, ADDING_SIGNATURES, LAYOUT)
 - [x] **v1.3:** Per-interface vtable dumper (`offsets/vtables.{json,hpp,cs}`) with method-name recovery via signature cross-reference
 - [x] **v1.3:** +46 string-ref class anchors (player services, weapon classes, projectiles, gamerules, engine networking) — now 220+ resolved
+- [x] **v1.3.1:** `bytes` field on every found signature (24-byte prologue snapshot, paste-ready IDA pattern even for StringRef entries)
+- [x] **v1.4:** MSVC RTTI walk — every interface vtable carries the demangled C++ class name (`CSource2Client`, `CGameEventSystem`, ...)
 
 ## Scanner
 

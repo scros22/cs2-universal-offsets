@@ -1,0 +1,1088 @@
+{
+  "previous": "dumps\\21-04-26-CS2-SDK\\signatures\\signatures.json",
+  "added": [
+    {
+      "name": "Animation::ShouldUpdateSequences",
+      "module": "animationsystem.dll",
+      "va": 140734903283872
+    },
+    {
+      "name": "AddNametagEntity",
+      "module": "client.dll",
+      "va": 140734649578624
+    },
+    {
+      "name": "AddStattrakEntity",
+      "module": "client.dll",
+      "va": 140734652443424
+    },
+    {
+      "name": "AutowallInit",
+      "module": "client.dll",
+      "va": 140734650958864
+    },
+    {
+      "name": "AutowallTraceData",
+      "module": "client.dll",
+      "va": 140734651665840
+    },
+    {
+      "name": "AutowallTracePos",
+      "module": "client.dll",
+      "va": 140734650076880
+    },
+    {
+      "name": "CAM_ThinkReturn",
+      "module": "client.dll",
+      "va": 140734644921311
+    },
+    {
+      "name": "CAttributeStringFill",
+      "module": "client.dll",
+      "va": 140734657036048
+    },
+    {
+      "name": "CAttributeStringInit",
+      "module": "client.dll",
+      "va": 140734647929424
+    },
+    {
+      "name": "CBodyComponent",
+      "module": "client.dll",
+      "va": 140734643486800
+    },
+    {
+      "name": "CBodyComponentSkeletonInstance",
+      "module": "client.dll",
+      "va": 140734643515184
+    },
+    {
+      "name": "CBufferStringInit",
+      "module": "client.dll",
+      "va": 140734666685040
+    },
+    {
+      "name": "CCSGOInput::CreateMove",
+      "module": "client.dll",
+      "va": 140734654610592
+    },
+    {
+      "name": "CCSGameRules",
+      "module": "client.dll",
+      "va": 140734642184560
+    },
+    {
+      "name": "CCSGameRulesProxy",
+      "module": "client.dll",
+      "va": 140734648916192
+    },
+    {
+      "name": "CCSInventoryManager::EquipItemInLoadout",
+      "module": "client.dll",
+      "va": 140734649804672
+    },
+    {
+      "name": "CCSPlayerController",
+      "module": "client.dll",
+      "va": 140734649937136
+    },
+    {
+      "name": "CCSPlayerController_ActionTrackingServices",
+      "module": "client.dll",
+      "va": 140734649937136
+    },
+    {
+      "name": "CCSPlayerController_DamageServices",
+      "module": "client.dll",
+      "va": 140734649937136
+    },
+    {
+      "name": "CCSPlayerController_InGameMoneyServices",
+      "module": "client.dll",
+      "va": 140734649937136
+    },
+    {
+      "name": "CCSPlayerController_InventoryServices",
+      "module": "client.dll",
+      "va": 140734649937136
+    },
+    {
+      "name": "CCSPlayerInventory::GetItemInLoadout",
+      "module": "client.dll",
+      "va": 140734649811872
+    },
+    {
+      "name": "CCSPlayerPawn",
+      "module": "client.dll",
+      "va": 140734653907136
+    },
+    {
+      "name": "CCSPlayer_BulletServices",
+      "module": "client.dll",
+      "va": 140734650121552
+    },
+    {
+      "name": "CCSPlayer_CameraServices",
+      "module": "client.dll",
+      "va": 140734650105392
+    },
+    {
+      "name": "CCSPlayer_HostageServices",
+      "module": "client.dll",
+      "va": 140734650121552
+    },
+    {
+      "name": "CCSPlayer_ItemServices",
+      "module": "client.dll",
+      "va": 140734650123680
+    },
+    {
+      "name": "CCSPlayer_MovementServices",
+      "module": "client.dll",
+      "va": 140734650289520
+    },
+    {
+      "name": "CCSPlayer_PingServices",
+      "module": "client.dll",
+      "va": 140734650378416
+    },
+    {
+      "name": "CCSPlayer_UseServices",
+      "module": "client.dll",
+      "va": 140734650568576
+    },
+    {
+      "name": "CCSPlayer_WaterServices",
+      "module": "client.dll",
+      "va": 140734650533568
+    },
+    {
+      "name": "CCSPlayer_WeaponServices",
+      "module": "client.dll",
+      "va": 140734650534512
+    },
+    {
+      "name": "CCSWeaponBase",
+      "module": "client.dll",
+      "va": 140734649530560
+    },
+    {
+      "name": "CCSWeaponBaseGun",
+      "module": "client.dll",
+      "va": 140734649530720
+    },
+    {
+      "name": "CCSWeaponBaseVData",
+      "module": "client.dll",
+      "va": 140734649378768
+    },
+    {
+      "name": "CCollisionProperty",
+      "module": "client.dll",
+      "va": 140734644686464
+    },
+    {
+      "name": "CDecoyProjectile",
+      "module": "client.dll",
+      "va": 140734649329408
+    },
+    {
+      "name": "CEconItemSchema::GetAttributeDefinitionByName",
+      "module": "client.dll",
+      "va": 140734658731776
+    },
+    {
+      "name": "CEconItemView::GetCustomPaintKitIndex",
+      "module": "client.dll",
+      "va": 140734650800160
+    },
+    {
+      "name": "CFlashbangProjectile",
+      "module": "client.dll",
+      "va": 140734658286800
+    },
+    {
+      "name": "CFogController",
+      "module": "client.dll",
+      "va": 140734644285120
+    },
+    {
+      "name": "CGameEntitySystem::OnAddEntity",
+      "module": "client.dll",
+      "va": 140734651509440
+    },
+    {
+      "name": "CGameEntitySystem::OnRemoveEntity",
+      "module": "client.dll",
+      "va": 140734651511584
+    },
+    {
+      "name": "CGameSceneNode",
+      "module": "client.dll",
+      "va": 140734643386384
+    },
+    {
+      "name": "CGlowProperty",
+      "module": "client.dll",
+      "va": 140734644686992
+    },
+    {
+      "name": "CHEGrenadeProjectile",
+      "module": "client.dll",
+      "va": 140734658286960
+    },
+    {
+      "name": "CMolotovProjectile",
+      "module": "client.dll",
+      "va": 140734649329888
+    },
+    {
+      "name": "CPostProcessingVolume",
+      "module": "client.dll",
+      "va": 140734644436048
+    },
+    {
+      "name": "CSBaseGunFireData_fn",
+      "module": "client.dll",
+      "va": 140734663561696
+    },
+    {
+      "name": "CSGOInput_resolved",
+      "module": "client.dll",
+      "va": 140734675599367
+    },
+    {
+      "name": "CSkeletonInstance",
+      "module": "client.dll",
+      "va": 140734643386640
+    },
+    {
+      "name": "CSkeletonInstance::SetMeshGroupMask",
+      "module": "client.dll",
+      "va": 140734652317408
+    },
+    {
+      "name": "CSmokeGrenadeProjectile",
+      "module": "client.dll",
+      "va": 140734649330048
+    },
+    {
+      "name": "CTonemapController2",
+      "module": "client.dll",
+      "va": 140734644124544
+    },
+    {
+      "name": "C_AttributeContainer",
+      "module": "client.dll",
+      "va": 140734654325008
+    },
+    {
+      "name": "C_BaseEntity",
+      "module": "client.dll",
+      "va": 140734641988192
+    },
+    {
+      "name": "C_BaseModelEntity",
+      "module": "client.dll",
+      "va": 140734643076784
+    },
+    {
+      "name": "C_BasePlayerPawn",
+      "module": "client.dll",
+      "va": 140734642117152
+    },
+    {
+      "name": "C_C4",
+      "module": "client.dll",
+      "va": 140734642299840
+    },
+    {
+      "name": "C_CSPlayerPawn",
+      "module": "client.dll",
+      "va": 140734648756240
+    },
+    {
+      "name": "C_CSPlayerPawnBase",
+      "module": "client.dll",
+      "va": 140734654057456
+    },
+    {
+      "name": "C_CSWeaponBase",
+      "module": "client.dll",
+      "va": 140734649280736
+    },
+    {
+      "name": "C_EconItemView",
+      "module": "client.dll",
+      "va": 140734649055568
+    },
+    {
+      "name": "C_Hostage",
+      "module": "client.dll",
+      "va": 140734642615152
+    },
+    {
+      "name": "C_Inferno",
+      "module": "client.dll",
+      "va": 140734642680624
+    },
+    {
+      "name": "C_PlantedC4",
+      "module": "client.dll",
+      "va": 140734642652816
+    },
+    {
+      "name": "C_SmokeGrenadeProjectile",
+      "module": "client.dll",
+      "va": 140734642280880
+    },
+    {
+      "name": "CacheParticleEffect",
+      "module": "client.dll",
+      "va": 140734643796656
+    },
+    {
+      "name": "CalcSpread",
+      "module": "client.dll",
+      "va": 140734654742688
+    },
+    {
+      "name": "CalcViewmodel",
+      "module": "client.dll",
+      "va": 140734650368992
+    },
+    {
+      "name": "CalculateInterpolation",
+      "module": "client.dll",
+      "va": 140734663429904
+    },
+    {
+      "name": "CalculateWorldSpaceBones",
+      "module": "client.dll",
+      "va": 140734652175456
+    },
+    {
+      "name": "ClearHUDWeaponIcon",
+      "module": "client.dll",
+      "va": 140734656245952
+    },
+    {
+      "name": "ClientMode_ptr",
+      "module": "client.dll",
+      "va": 140734678590400
+    },
+    {
+      "name": "ConvarGet",
+      "module": "client.dll",
+      "va": 140734650817330
+    },
+    {
+      "name": "CreateBaseTypeCache",
+      "module": "client.dll",
+      "va": 140734663728960
+    },
+    {
+      "name": "CreateEntityByClassName",
+      "module": "client.dll",
+      "va": 140734664727782
+    },
+    {
+      "name": "CreateNewSubtickMoveStep",
+      "module": "client.dll",
+      "va": 140734646590560
+    },
+    {
+      "name": "CreateParticleEffect",
+      "module": "client.dll",
+      "va": 140734651634704
+    },
+    {
+      "name": "CreateSOSubclassEconItem",
+      "module": "client.dll",
+      "va": 140734658381776
+    },
+    {
+      "name": "DestroyParticle",
+      "module": "client.dll",
+      "va": 140734651369792
+    },
+    {
+      "name": "DispatchEffect",
+      "module": "client.dll",
+      "va": 140734645183568
+    },
+    {
+      "name": "DrawCrosshair",
+      "module": "client.dll",
+      "va": 140734649733680
+    },
+    {
+      "name": "DrawOverHead",
+      "module": "client.dll",
+      "va": 140734652551296
+    },
+    {
+      "name": "DrawScopeOverlay",
+      "module": "client.dll",
+      "va": 140734650427776
+    },
+    {
+      "name": "DrawSmokeVertex",
+      "module": "client.dll",
+      "va": 140734654728000
+    },
+    {
+      "name": "FindHudElement",
+      "module": "client.dll",
+      "va": 140734656065928
+    },
+    {
+      "name": "FindHudElement_panorama",
+      "module": "client.dll",
+      "va": 140734656074080
+    },
+    {
+      "name": "FindSOCache",
+      "module": "client.dll",
+      "va": 140734666932512
+    },
+    {
+      "name": "FirstPersonLegs",
+      "module": "client.dll",
+      "va": 140734659400640
+    },
+    {
+      "name": "FlashOverlay",
+      "module": "client.dll",
+      "va": 140734655972800
+    },
+    {
+      "name": "ForceButtonsDown",
+      "module": "client.dll",
+      "va": 140734651933984
+    },
+    {
+      "name": "GameEntitySystemPtr",
+      "module": "client.dll",
+      "va": 140734680241936
+    },
+    {
+      "name": "GameRules_ptr",
+      "module": "client.dll",
+      "va": 140734678513920
+    },
+    {
+      "name": "GetBBox_ptr",
+      "module": "client.dll",
+      "va": 140734678513920
+    },
+    {
+      "name": "GetBaseEntity",
+      "module": "client.dll",
+      "va": 140734651505280
+    },
+    {
+      "name": "GetBonePositionByName",
+      "module": "client.dll",
+      "va": 140734650853136
+    },
+    {
+      "name": "GetChatObject",
+      "module": "client.dll",
+      "va": 140734659217104
+    },
+    {
+      "name": "GetClientSystem",
+      "module": "client.dll",
+      "va": 140734658639312
+    },
+    {
+      "name": "GetControllerCmd",
+      "module": "client.dll",
+      "va": 140734650810672
+    },
+    {
+      "name": "GetEconItemSystem",
+      "module": "client.dll",
+      "va": 140734645311248
+    },
+    {
+      "name": "GetEntityHandle",
+      "module": "client.dll",
+      "va": 140734651403600
+    },
+    {
+      "name": "GetGlowColor",
+      "module": "client.dll",
+      "va": 140734653237584
+    },
+    {
+      "name": "GetInstanceS",
+      "module": "client.dll",
+      "va": 140734678049344
+    },
+    {
+      "name": "GetInt2_Event",
+      "module": "client.dll",
+      "va": 140734646561312
+    },
+    {
+      "name": "GetInventoryManager",
+      "module": "client.dll",
+      "va": 140734649821792
+    },
+    {
+      "name": "GetLocalControllerById",
+      "module": "client.dll",
+      "va": 140734650955168
+    },
+    {
+      "name": "GetMatrixForView",
+      "module": "client.dll",
+      "va": 140734643149632
+    },
+    {
+      "name": "GetPlayerInterp",
+      "module": "client.dll",
+      "va": 140734650792336
+    },
+    {
+      "name": "GetRemovedAimPunch_E8",
+      "module": "client.dll",
+      "va": 140734650359824
+    },
+    {
+      "name": "GetRemovedAimpunch",
+      "module": "client.dll",
+      "va": 140734642792503
+    },
+    {
+      "name": "GetSurfaceData",
+      "module": "client.dll",
+      "va": 140734651423168
+    },
+    {
+      "name": "GetTickBase",
+      "module": "client.dll",
+      "va": 140734650810160
+    },
+    {
+      "name": "GetTraceInfo",
+      "module": "client.dll",
+      "va": 140734650074784
+    },
+    {
+      "name": "GetUserCmdManager",
+      "module": "client.dll",
+      "va": 140734650810816
+    },
+    {
+      "name": "GetViewAngles",
+      "module": "client.dll",
+      "va": 140734653005872
+    },
+    {
+      "name": "GetWeaponInAccuracyRecoveryTime",
+      "module": "client.dll",
+      "va": 140734649625456
+    },
+    {
+      "name": "GlobalVariables_ptr",
+      "module": "client.dll",
+      "va": 140734675502312
+    },
+    {
+      "name": "HandleBulletPenetration",
+      "module": "client.dll",
+      "va": 140734650177696
+    },
+    {
+      "name": "HandleEntityList",
+      "module": "client.dll",
+      "va": 140734643516912
+    },
+    {
+      "name": "HandleTeamIntro",
+      "module": "client.dll",
+      "va": 140734649025168
+    },
+    {
+      "name": "HudChatPrintf",
+      "module": "client.dll",
+      "va": 140734659207504
+    },
+    {
+      "name": "InitFilter",
+      "module": "client.dll",
+      "va": 140734644992720
+    },
+    {
+      "name": "InitPlayerMovementTraceFilter",
+      "module": "client.dll",
+      "va": 140734650299792
+    },
+    {
+      "name": "InitTraceInfo",
+      "module": "client.dll",
+      "va": 140734664692544
+    },
+    {
+      "name": "IsGlowing",
+      "module": "client.dll",
+      "va": 140734653244672
+    },
+    {
+      "name": "LevelInit",
+      "module": "client.dll",
+      "va": 140734650885680
+    },
+    {
+      "name": "LoadFileForMe",
+      "module": "client.dll",
+      "va": 140734651196528
+    },
+    {
+      "name": "LoadPath",
+      "module": "client.dll",
+      "va": 140734648727008
+    },
+    {
+      "name": "LookupBone",
+      "module": "client.dll",
+      "va": 140734650853136
+    },
+    {
+      "name": "ModulationUpdate",
+      "module": "client.dll",
+      "va": 140734651975744
+    },
+    {
+      "name": "NoSpread1",
+      "module": "client.dll",
+      "va": 140734654740352
+    },
+    {
+      "name": "ParticleCollection",
+      "module": "client.dll",
+      "va": 140734643719296
+    },
+    {
+      "name": "ParticleManager_ptr",
+      "module": "client.dll",
+      "va": 140734675388648
+    },
+    {
+      "name": "PhysicsRunThink_Ctrl",
+      "module": "client.dll",
+      "va": 140734650914880
+    },
+    {
+      "name": "PhysicsRunThink_Pawn",
+      "module": "client.dll",
+      "va": 140734653261856
+    },
+    {
+      "name": "PlayVSound_client",
+      "module": "client.dll",
+      "va": 140734663720352
+    },
+    {
+      "name": "ProcessImpacts",
+      "module": "client.dll",
+      "va": 140734651928128
+    },
+    {
+      "name": "ProcessMovement",
+      "module": "client.dll",
+      "va": 140734651973152
+    },
+    {
+      "name": "RegenerateWeaponSkin",
+      "module": "client.dll",
+      "va": 140734649583280
+    },
+    {
+      "name": "RegenerateWeaponSkins",
+      "module": "client.dll",
+      "va": 140734649734016
+    },
+    {
+      "name": "ReportHit",
+      "module": "client.dll",
+      "va": 140734647969376
+    },
+    {
+      "name": "RunCommand",
+      "module": "client.dll",
+      "va": 140734651981536
+    },
+    {
+      "name": "Scope_callsite",
+      "module": "client.dll",
+      "va": 140734650427776
+    },
+    {
+      "name": "SendChatMessage",
+      "module": "client.dll",
+      "va": 140734659207504
+    },
+    {
+      "name": "SetAbsOrigin_Pawn",
+      "module": "client.dll",
+      "va": 140734643891776
+    },
+    {
+      "name": "SetBodyGroup_inv",
+      "module": "client.dll",
+      "va": 140734655890848
+    },
+    {
+      "name": "SetCollisionBounds",
+      "module": "client.dll",
+      "va": 140734650059216
+    },
+    {
+      "name": "SetDynamicAttributeValue",
+      "module": "client.dll",
+      "va": 140734658437056
+    },
+    {
+      "name": "SetDynamicAttributeValue_raw",
+      "module": "client.dll",
+      "va": 140734658437056
+    },
+    {
+      "name": "SetMeshGroupMask",
+      "module": "client.dll",
+      "va": 140734652317408
+    },
+    {
+      "name": "SetModel",
+      "module": "client.dll",
+      "va": 140734650930928
+    },
+    {
+      "name": "SetPlayerReady",
+      "module": "client.dll",
+      "va": 140734657490608
+    },
+    {
+      "name": "SetTraceData",
+      "module": "client.dll",
+      "va": 140734649873920
+    },
+    {
+      "name": "SetTypeKV3",
+      "module": "client.dll",
+      "va": 140734666915664
+    },
+    {
+      "name": "SetViewAngle",
+      "module": "client.dll",
+      "va": 140734653067376
+    },
+    {
+      "name": "SetupCmd",
+      "module": "client.dll",
+      "va": 140734650799184
+    },
+    {
+      "name": "SetupMove",
+      "module": "client.dll",
+      "va": 140734655390720
+    },
+    {
+      "name": "SetupMovementMoves",
+      "module": "client.dll",
+      "va": 140734660017471
+    },
+    {
+      "name": "SomeTimingFromPawn",
+      "module": "client.dll",
+      "va": 140734652487232
+    },
+    {
+      "name": "TestSurfaces",
+      "module": "client.dll",
+      "va": 140734650074496
+    },
+    {
+      "name": "TracePlayerBBox",
+      "module": "client.dll",
+      "va": 140734653640864
+    },
+    {
+      "name": "TraceShape",
+      "module": "client.dll",
+      "va": 140734651666064
+    },
+    {
+      "name": "TraceToExit",
+      "module": "client.dll",
+      "va": 140734650066688
+    },
+    {
+      "name": "UpdatePostProcessing",
+      "module": "client.dll",
+      "va": 140734657507392
+    },
+    {
+      "name": "UpdateSubClass",
+      "module": "client.dll",
+      "va": 140734643742763
+    },
+    {
+      "name": "UpdateTurningInAccuracy",
+      "module": "client.dll",
+      "va": 140734649730016
+    },
+    {
+      "name": "VPhys2World_ptr",
+      "module": "client.dll",
+      "va": 140734675387736
+    },
+    {
+      "name": "ViewRender_ptr",
+      "module": "client.dll",
+      "va": 140734678536936
+    },
+    {
+      "name": "create_move_v2",
+      "module": "client.dll",
+      "va": 140734652966064
+    },
+    {
+      "name": "draw_smoke_array",
+      "module": "client.dll",
+      "va": 140734654728240
+    },
+    {
+      "name": "draw_view_punch_v2",
+      "module": "client.dll",
+      "va": 140734650061120
+    },
+    {
+      "name": "entity_list_ptr",
+      "module": "client.dll",
+      "va": 140734680242200
+    },
+    {
+      "name": "frame_stage_notify",
+      "module": "client.dll",
+      "va": 140734652993729
+    },
+    {
+      "name": "get_fov",
+      "module": "client.dll",
+      "va": 140734650061120
+    },
+    {
+      "name": "get_map_name",
+      "module": "client.dll",
+      "va": 140734657226640
+    },
+    {
+      "name": "get_view_angles_v2",
+      "module": "client.dll",
+      "va": 140734653000080
+    },
+    {
+      "name": "get_view_model",
+      "module": "client.dll",
+      "va": 140734650368992
+    },
+    {
+      "name": "global_vars_v2",
+      "module": "client.dll",
+      "va": 140734678513920
+    },
+    {
+      "name": "is_demo_or_hltv",
+      "module": "client.dll",
+      "va": 140734657362880
+    },
+    {
+      "name": "level_init_v2",
+      "module": "client.dll",
+      "va": 140734653156928
+    },
+    {
+      "name": "level_shutdown",
+      "module": "client.dll",
+      "va": 140734653157568
+    },
+    {
+      "name": "local_controller",
+      "module": "client.dll",
+      "va": 140734678380160
+    },
+    {
+      "name": "mark_interp_latch_flags_dirty",
+      "module": "client.dll",
+      "va": 140734643863392
+    },
+    {
+      "name": "on_add_entity_v2",
+      "module": "client.dll",
+      "va": 140734651510832
+    },
+    {
+      "name": "override_view_short",
+      "module": "client.dll",
+      "va": 140734654614768
+    },
+    {
+      "name": "paintkit_prefab",
+      "module": "client.dll",
+      "va": 140734658798608
+    },
+    {
+      "name": "paintkit_seed",
+      "module": "client.dll",
+      "va": 140734657308096
+    },
+    {
+      "name": "paintkit_wear",
+      "module": "client.dll",
+      "va": 140734657308096
+    },
+    {
+      "name": "planted_c4_ptr",
+      "module": "client.dll",
+      "va": 140734677981480
+    },
+    {
+      "name": "remove_legs",
+      "module": "client.dll",
+      "va": 140734659400640
+    },
+    {
+      "name": "statTrak_killEater",
+      "module": "client.dll",
+      "va": 140734657308096
+    },
+    {
+      "name": "statTrak_scoreType",
+      "module": "client.dll",
+      "va": 140734642829024
+    },
+    {
+      "name": "unlock_inventory",
+      "module": "client.dll",
+      "va": 140734649013664
+    },
+    {
+      "name": "update_global_vars",
+      "module": "client.dll",
+      "va": 140734653065920
+    },
+    {
+      "name": "update_post_processing_v2",
+      "module": "client.dll",
+      "va": 140734657525238
+    },
+    {
+      "name": "view_matrix_ptr",
+      "module": "client.dll",
+      "va": 140734678536400
+    },
+    {
+      "name": "CSplitScreenSlot",
+      "module": "engine2.dll",
+      "va": 140735869264464
+    },
+    {
+      "name": "Engine::GetScreenAspectRatio",
+      "module": "engine2.dll",
+      "va": 140735867349456
+    },
+    {
+      "name": "Engine::PVSManager_ptr",
+      "module": "engine2.dll",
+      "va": 140735873233904
+    },
+    {
+      "name": "Engine::RunPrediction",
+      "module": "engine2.dll",
+      "va": 140735867282576
+    },
+    {
+      "name": "FindParameter",
+      "module": "materialsystem2.dll",
+      "va": 140735498559024
+    },
+    {
+      "name": "MatSys::PrepareSceneMaterial",
+      "module": "materialsystem2.dll",
+      "va": 140735498558432
+    },
+    {
+      "name": "UpdateParameter",
+      "module": "materialsystem2.dll",
+      "va": 140735498560368
+    },
+    {
+      "name": "Particles::DrawArray",
+      "module": "particles.dll",
+      "va": 140734816592048
+    },
+    {
+      "name": "Particles::FindKeyVar",
+      "module": "particles.dll",
+      "va": 140734816691792
+    },
+    {
+      "name": "Particles::SetMaterialShaderType",
+      "module": "particles.dll",
+      "va": 140734817097936
+    },
+    {
+      "name": "CSceneAnimatableObject::GeneratePrimitives",
+      "module": "scenesystem.dll",
+      "va": 140734825182496
+    },
+    {
+      "name": "DrawObject_legacy",
+      "module": "scenesystem.dll",
+      "va": 140734825061312
+    },
+    {
+      "name": "DrawSkyboxArray",
+      "module": "scenesystem.dll",
+      "va": 140734826085264
+    },
+    {
+      "name": "SceneSystem::DrawAggeregateObject",
+      "module": "scenesystem.dll",
+      "va": 140734825942864
+    },
+    {
+      "name": "SceneSystem::DrawArrayLight",
+      "module": "scenesystem.dll",
+      "va": 140734825212608
+    },
+    {
+      "name": "SoundSystem::PlayVSound",
+      "module": "soundsystem.dll",
+      "va": 140734892972064
+    },
+    {
+      "name": "SoundSystem::SomeUtlSymbolFunc",
+      "module": "soundsystem.dll",
+      "va": 140734890247968
+    },
+    {
+      "name": "Tier0::LoadKeyValues",
+      "module": "tier0.dll",
+      "va": 140735877910880
+    },
+    {
+      "name": "Tier0::UtlBuffer",
+      "module": "tier0.dll",
+      "va": 140735877037840
+    }
+  ],
+  "removed": [],
+  "shifted": [],
+  "pattern_changed": []
+}

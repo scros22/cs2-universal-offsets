@@ -1,0 +1,309 @@
+{
+  "engine2.dll": {
+    "classes": {
+      "CEmptyEntityInstance": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CEntityAttributeTable": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CEntityComponent": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CEntityComponentHelper": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CEntityIOOutput": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CEntityIdentity": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CEntityInstance": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CEntityKeyValues": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CNetworkVarChainer": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CScriptComponent": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CVariantDefaultAllocator": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EngineLoopState_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EntComponentInfo_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EntInput_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EntityIOQueuePrioritizedEvent_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "EventAdvanceTick_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "EventAppShutdown_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventClientAdvanceNonRenderedFrame_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventClientAdvanceTick_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "engine2"
+      },
+      "EventClientFrameSimulate_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventClientOutput_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventClientPauseSimulate_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "EventClientPollInput_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventClientPollNetworking_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventClientPostAdvanceTick_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "engine2"
+      },
+      "EventClientPostOutput_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventClientPostSimulate_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "engine2"
+      },
+      "EventClientPreOutputParallelWithServer_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "EventClientPreOutput_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventClientPreSimulate_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "engine2"
+      },
+      "EventClientProcessGameInput_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventClientProcessInput_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventClientProcessNetworking_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventClientSceneSystemThreadStateChange_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventClientSimulate_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "engine2"
+      },
+      "EventFrameBoundary_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventModInitialized_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventPostAdvanceTick_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "engine2"
+      },
+      "EventPostDataUpdate_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventPreDataUpdate_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventProfileStorageAvailable_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventServerAdvanceTick_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "EventServerBeginAsyncPostTickWork_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventServerBeginSimulate_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "EventServerEndAsyncPostTickWork_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventServerEndSimulate_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventServerPollNetworking_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "engine2"
+      },
+      "EventServerPostAdvanceTick_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "EventServerPostSimulate_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "EventServerProcessNetworking_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "engine2"
+      },
+      "EventSetTime_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventSimpleLoopFrameUpdate_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventSimulate_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EventSplitScreenStateChanged_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "GameTick_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "GameTime_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      }
+    },
+    "enums": {
+      "EntityDormancyType_t": {
+        "alignment": 4,
+        "members": {
+          "ENTITY_DORMANT": 1,
+          "ENTITY_NOT_DORMANT": 0,
+          "ENTITY_SUSPENDED": 2
+        },
+        "type": "uint32"
+      },
+      "EntityIOTargetType_t": {
+        "alignment": 4,
+        "members": {
+          "ENTITY_IO_TARGET_EHANDLE": 6,
+          "ENTITY_IO_TARGET_ENTITYNAME": 2,
+          "ENTITY_IO_TARGET_ENTITYNAME_OR_CLASSNAME": 7,
+          "ENTITY_IO_TARGET_INVALID": -1
+        },
+        "type": "uint32"
+      }
+    }
+  }
+}

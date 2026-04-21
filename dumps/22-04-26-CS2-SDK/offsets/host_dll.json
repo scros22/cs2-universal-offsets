@@ -1,0 +1,17 @@
+{
+  "host.dll": {
+    "classes": {
+      "CAnimScriptBase": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "EmptyTestScript": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      }
+    },
+    "enums": {}
+  }
+}

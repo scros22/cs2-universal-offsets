@@ -205,10 +205,16 @@ fn main() -> Result<()> {
                     .flat_map(|m| m.values())
                     .map(|i| i.methods.len())
                     .sum();
+                let total_rtti: usize = result
+                    .vtables
+                    .values()
+                    .flat_map(|m| m.values())
+                    .filter(|i| i.rtti_class.is_some())
+                    .count();
                 if total_vts > 0 {
                     ui::ok(&format!(
-                        "vtables: {} interfaces, {} method slots",
-                        total_vts, total_methods
+                        "vtables: {} interfaces, {} method slots, {} RTTI class names",
+                        total_vts, total_methods, total_rtti
                     ));
                 }
 
