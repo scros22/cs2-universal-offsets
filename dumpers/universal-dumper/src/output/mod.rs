@@ -28,6 +28,7 @@ pub mod ident;
 pub mod interfaces_sdk;
 pub mod netvars;
 pub mod sdk_classes;
+pub mod vtables;
 
 enum Item<'a> {
     Buttons(&'a ButtonMap),
