@@ -16,6 +16,7 @@ use memflow::prelude::v1::*;
 mod buttons;
 mod interfaces;
 mod offsets;
+mod rtti;
 mod schemas;
 mod skinchanger;
 mod vtables;
@@ -85,7 +86,15 @@ pub fn analyze_all<P: Process + MemoryView>(process: &mut P) -> Result<AnalysisR
         Ok(v) => {
             let total: usize = v.values().map(|m| m.len()).sum();
             let methods: usize = v.values().flat_map(|m| m.values()).map(|i| i.methods.len()).sum();
-            info!("dumped {} interface vtables ({} method slots) across {} modules", total, methods, v.len());
+            let rtti: usize = v
+                .values()
+                .flat_map(|m| m.values())
+                .filter(|i| i.rtti_class.is_some())
+                .count();
+            info!(
+                "dumped {} interface vtables ({} method slots, {} class names recovered via RTTI) across {} modules",
+                total, methods, rtti, v.len()
+            );
             v
         }
         Err(err) => {

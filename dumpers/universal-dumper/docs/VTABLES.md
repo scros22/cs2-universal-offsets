@@ -32,6 +32,30 @@ RVA matches a method RVA, the signature's name is used instead of
 `method_<N>`. That's how slots like `update_global_vars` get a real
 name without any extra work on the consumer side.
 
+## Class-name recovery (RTTI)
+
+Every polymorphic class compiled by MSVC stores a back-pointer to a
+`RTTICompleteObjectLocator` at slot `-1` of its vtable. Following that
+chain (`COL → TypeDescriptor → mangled name`) and demangling the result
+gives us the original C++ class name for free — no signatures, no
+heuristics, no PDBs. CS2 is built with `/GR` (RTTI on), so on the live
+build every single interface vtable resolves cleanly.
+
+The recovered class becomes the C++ namespace name in `vtables.hpp`,
+with the original interface version preserved in a banner comment:
+
+```cpp
+// CSource2Client (iface: Source2Client002) | vtable @ client.dll+0x1A9AA18 (231 methods)
+namespace CSource2Client {
+    inline constexpr std::ptrdiff_t method_0 = 0; // client.dll + 0x...
+    // ...
+}
+```
+
+Falls back to the interface version if a vtable doesn't carry valid
+RTTI (rare — usually means a compiler thunk or a vftable that failed
+our signature/self-RVA sanity checks).
+
 ## Hooking by index
 
 ```cpp

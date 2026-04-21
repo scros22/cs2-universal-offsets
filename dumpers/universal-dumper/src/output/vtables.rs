@@ -68,6 +68,7 @@ pub fn render_json(vts: &VTableMap, oracle: &NameOracle) -> String {
                 json!({
                     "vtable_module": info.vtable_module,
                     "vtable_rva":    format!("0x{:X}", info.vtable_rva),
+                    "rtti_class":    info.rtti_class,
                     "method_count":  info.methods.len(),
                     "methods":       methods,
                 }),
@@ -101,9 +102,22 @@ pub fn render_hpp(vts: &VTableMap, oracle: &NameOracle, build_number: Option<u32
     for (module, ifaces) in vts {
         writeln!(s, "    namespace {} {{", slugify(module)).ok();
         for (iface, info) in ifaces {
-            writeln!(s, "        // vtable @ {}+0x{:X} ({} methods)",
-                info.vtable_module, info.vtable_rva, info.methods.len()).ok();
-            writeln!(s, "        namespace {} {{", type_ident(iface)).ok();
+            let ns = info
+                .rtti_class
+                .as_deref()
+                .map(sanitize_ident)
+                .unwrap_or_else(|| type_ident(iface));
+            let banner_class = info.rtti_class.as_deref().unwrap_or("<no RTTI>");
+            writeln!(
+                s,
+                "        // {} (iface: {}) | vtable @ {}+0x{:X} ({} methods)",
+                banner_class,
+                iface,
+                info.vtable_module,
+                info.vtable_rva,
+                info.methods.len(),
+            ).ok();
+            writeln!(s, "        namespace {} {{", ns).ok();
             for (idx, m) in info.methods.iter().enumerate() {
                 let name = oracle
                     .get(&(m.module.clone(), m.rva))
@@ -115,7 +129,7 @@ pub fn render_hpp(vts: &VTableMap, oracle: &NameOracle, build_number: Option<u32
                     name, idx, m.module, m.rva,
                 ).ok();
             }
-            writeln!(s, "        }} // namespace {}\n", type_ident(iface)).ok();
+            writeln!(s, "        }} // namespace {}\n", ns).ok();
         }
         writeln!(s, "    }} // namespace {}\n", slugify(module)).ok();
     }
@@ -136,7 +150,15 @@ pub fn render_cs(vts: &VTableMap, oracle: &NameOracle, build_number: Option<u32>
         writeln!(s, "    public static class {}", slugify(module)).ok();
         writeln!(s, "    {{").ok();
         for (iface, info) in ifaces {
-            writeln!(s, "        public static class {}", slugify(iface)).ok();
+            let ns = info
+                .rtti_class
+                .as_deref()
+                .map(sanitize_ident)
+                .unwrap_or_else(|| slugify(iface));
+            if let Some(rtti) = info.rtti_class.as_deref() {
+                writeln!(s, "        // {} (iface: {})", rtti, iface).ok();
+            }
+            writeln!(s, "        public static class {}", ns).ok();
             writeln!(s, "        {{").ok();
             for (idx, m) in info.methods.iter().enumerate() {
                 let name = oracle
