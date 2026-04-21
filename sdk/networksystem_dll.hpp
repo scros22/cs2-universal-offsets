@@ -1,5 +1,5 @@
 // Generated using https://github.com/a2x/cs2-dumper
-// 2026-04-02 23:10:20.182163 UTC
+// 2026-04-21 23:33:03.496729300 UTC
 
 #pragma once
 
@@ -10,16 +10,8 @@ namespace cs2_dumper {
     namespace schemas {
         // Module: networksystem.dll
         // Class count: 1
-        // Enum count: 1
+        // Enum count: 0
         namespace networksystem_dll {
-            // Alignment: 4
-            // Member count: 4
-            enum class OutOfPVSUpdates_t : uint32_t {
-                OOPVSUpdates_OptOut = 0x0,
-                OOPVSUpdates_OptIn = 0x1,
-                OOPVSUpdates_Default = 0x2,
-                OOPVSUpdates_Count = 0x3
-            };
             // Parent: None
             // Field count: 1
             namespace ChangeAccessorFieldPathIndex_t {

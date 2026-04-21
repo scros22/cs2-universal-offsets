@@ -64,6 +64,14 @@ pub struct SignatureHit {
     /// when the resolved RVA falls outside the module's `.text`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub bytes: Option<String>,
+    /// Auto-synthesised IDA pattern at the resolved RVA, with `?`
+    /// wildcards on relocatable bytes (CALL/JMP rel32 displacements,
+    /// RIP-relative LEA/MOV displacements).  Designed to be the
+    /// shortest unique-in-`.text` pattern for the resolved function;
+    /// safe to paste straight into IDA / x64dbg / ReClass.NET.  `None`
+    /// when the resolved RVA is outside `.text`.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub pattern_synth: Option<String>,
     pub found: bool,
     pub match_rva: Option<u64>,
     pub match_va: Option<u64>,
@@ -227,6 +235,7 @@ fn try_satisfy_from_cache(
         resolve: kind_name(sig.resolve),
         pattern: sig.needle.to_string(),
         bytes: capture_prologue(mc, res_rva),
+        pattern_synth: synthesize_pattern(mc, res_rva),
         found: true,
         match_rva: Some(entry.match_rva as u64),
         match_va: Some(match_va),
@@ -444,6 +453,7 @@ fn scan_pattern(mc: &ModuleCache, sig: &Signature) -> SignatureHit {
         resolve: kind_name(sig.resolve),
         pattern: sig.needle.to_string(),
         bytes: capture_prologue(mc, res_rva),
+        pattern_synth: synthesize_pattern(mc, res_rva),
         found: true,
         match_rva: Some(match_rva as u64),
         match_va: Some(match_va),
@@ -551,6 +561,7 @@ fn scan_string_ref(mc: &ModuleCache, sig: &Signature) -> SignatureHit {
                 resolve: kind_name(sig.resolve),
                 pattern: format!("\"{}\"", sig.needle),
                 bytes: capture_prologue(mc, fn_rva as u64),
+                pattern_synth: synthesize_pattern(mc, fn_rva as u64),
                 found: true,
                 match_rva: Some(hit as u64),
                 match_va: Some(match_va),
@@ -653,6 +664,7 @@ impl SignatureHit {
             resolve: kind_name(sig.resolve),
             pattern: sig.needle.to_string(),
             bytes: None,
+            pattern_synth: None,
             found: false,
             match_rva: None,
             match_va: None,
@@ -663,4 +675,165 @@ impl SignatureHit {
             error: Some(err.to_string()),
         }
     }
+}
+
+// ---------------------------------------------------------------------------
+// Auto-tightened pattern synthesiser
+// ---------------------------------------------------------------------------
+
+/// Build the shortest unique-in-`.text` IDA pattern at `rva`, with `?`
+/// wildcards on bytes that look like rel32 displacements (CALL/JMP near,
+/// jcc near, RIP-relative LEA/MOV).  The result is deterministic and
+/// safe to paste into IDA, x64dbg, ReClass.NET, etc. without any
+/// post-processing.
+///
+/// Strategy:
+///   1. read N bytes from `rva` (try 16, 24, 32, 40, 48 in order)
+///   2. mark suspected rel32 displacements as wildcards
+///   3. count matches of the masked pattern within the module's `.text`
+///   4. accept the first length whose match count is exactly 1
+///   5. if none unique, return the longest-attempted pattern as a
+///      best-effort fallback (consumers can still tighten by hand)
+fn synthesize_pattern(mc: &ModuleCache, rva: u64) -> Option<String> {
+    let lo = rva as usize;
+    let text_lo = mc.text_rva as usize;
+    let text_hi = text_lo + mc.text_size as usize;
+    if lo < text_lo || lo >= text_hi {
+        return None;
+    }
+    let cap = text_hi.min(mc.image.len());
+
+    let try_lengths = [16usize, 20, 24, 28, 32, 40, 48];
+    let mut best: Option<(Vec<u8>, Vec<bool>)> = None;
+    for &len in &try_lengths {
+        let hi = (lo + len).min(cap);
+        if hi <= lo {
+            break;
+        }
+        let bytes = mc.image[lo..hi].to_vec();
+        if bytes.is_empty() {
+            break;
+        }
+        let mask = relocatable_mask(&bytes);
+        let count = count_matches_capped(mc.text(), &bytes, &mask, 2);
+        // We always match ourselves once; require uniqueness.
+        if count == 1 {
+            return Some(format_ida(&bytes, &mask));
+        }
+        best = Some((bytes, mask));
+    }
+    // Couldn't disambiguate within 48 bytes — return the longest attempt
+    // anyway; it's still useful in IDA.
+    best.map(|(b, m)| format_ida(&b, &m))
+}
+
+/// Mark bytes that are part of a rel32 displacement as wildcards.
+/// Conservative: only handles instructions whose layout is well known,
+/// leaves everything else as-is.  Over-matching is fine — a wildcard
+/// just means "don't care", which only loosens the pattern.
+fn relocatable_mask(bytes: &[u8]) -> Vec<bool> {
+    let mut mask = vec![true; bytes.len()];
+    let mut i = 0;
+    while i < bytes.len() {
+        let b = bytes[i];
+
+        // E8 cd / E9 cd  — call / jmp near, rel32
+        if (b == 0xE8 || b == 0xE9) && i + 5 <= bytes.len() {
+            for j in 0..4 {
+                mask[i + 1 + j] = false;
+            }
+            i += 5;
+            continue;
+        }
+
+        // 0F 8x cd  — jcc near, rel32
+        if b == 0x0F && i + 6 <= bytes.len() && (bytes[i + 1] & 0xF0) == 0x80 {
+            for j in 0..4 {
+                mask[i + 2 + j] = false;
+            }
+            i += 6;
+            continue;
+        }
+
+        // REX.W (48..4F) + 8B/89/8D/03/0B/13/1B/23/2B/33/3B/85 + ModR/M
+        // with mod=00 rm=101  (RIP-relative addressing)
+        if (b & 0xF8) == 0x48 && i + 7 <= bytes.len() {
+            let op2 = bytes[i + 1];
+            let modrm = bytes[i + 2];
+            let rip_rel_op = matches!(
+                op2,
+                0x03 | 0x0B | 0x13 | 0x1B | 0x23 | 0x2B | 0x33 | 0x3B | 0x85 | 0x89 | 0x8B | 0x8D
+            );
+            if rip_rel_op && (modrm & 0xC7) == 0x05 {
+                for j in 0..4 {
+                    mask[i + 3 + j] = false;
+                }
+                i += 7;
+                continue;
+            }
+        }
+
+        // Plain MOV/LEA RIP-rel without REX prefix (32-bit dest).
+        if (b == 0x8B || b == 0x89 || b == 0x8D) && i + 6 <= bytes.len() {
+            let modrm = bytes[i + 1];
+            if (modrm & 0xC7) == 0x05 {
+                for j in 0..4 {
+                    mask[i + 2 + j] = false;
+                }
+                i += 6;
+                continue;
+            }
+        }
+
+        i += 1;
+    }
+    mask
+}
+
+/// Count matches of `(bytes, mask)` in `hay`, but stop early after
+/// `cap` matches — we only need to distinguish "1" from ">=2".
+fn count_matches_capped(hay: &[u8], bytes: &[u8], mask: &[bool], cap: usize) -> usize {
+    let need = bytes.len();
+    if hay.len() < need || need == 0 {
+        return 0;
+    }
+    let first = bytes[0];
+    let first_wild = !mask[0];
+    let end = hay.len() - need;
+    let mut count = 0usize;
+    let mut i = 0usize;
+    while i <= end {
+        if first_wild || hay[i] == first {
+            let mut ok = true;
+            for j in 1..need {
+                if mask[j] && hay[i + j] != bytes[j] {
+                    ok = false;
+                    break;
+                }
+            }
+            if ok {
+                count += 1;
+                if count >= cap {
+                    return count;
+                }
+            }
+        }
+        i += 1;
+    }
+    count
+}
+
+fn format_ida(bytes: &[u8], mask: &[bool]) -> String {
+    let mut s = String::with_capacity(bytes.len() * 3);
+    for (i, b) in bytes.iter().enumerate() {
+        if i > 0 {
+            s.push(' ');
+        }
+        if mask[i] {
+            s.push_str(&format!("{:02X}", b));
+        } else {
+            s.push('?');
+        }
+    }
+    s
 }
