@@ -327,6 +327,7 @@ fn format_found_signatures(report: &signatures::SignatureReport) -> String {
     let name_w = found.iter().map(|h| h.name.len()).max().unwrap_or(0);
     let mod_w = found.iter().map(|h| h.module.len()).max().unwrap_or(0);
     let res_w = found.iter().map(|h| h.resolve.len()).max().unwrap_or(0);
+    let pat_w = found.iter().map(|h| h.pattern.len()).max().unwrap_or(0);
 
     let mut s = String::new();
     s.push_str("{\n");
@@ -349,16 +350,18 @@ fn format_found_signatures(report: &signatures::SignatureReport) -> String {
         let va = h.va.map(|v| format!("0x{:X}", v)).unwrap_or_else(|| "null".into());
         let rva = h.rva.map(|v| format!("0x{:X}", v)).unwrap_or_else(|| "null".into());
         s.push_str(&format!(
-            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>12}, \"rva\": {:>10} }}{}\n",
+            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>12}, \"rva\": {:>10}, \"pattern\": {:<pw$} }}{}\n",
             format!("\"{}\"", h.name),
             format!("\"{}\"", h.module),
             format!("\"{}\"", h.resolve),
             va,
             rva,
+            format!("\"{}\"", h.pattern),
             comma,
             nw = name_w + 2,
             mw = mod_w + 2,
             rw = res_w + 2,
+            pw = pat_w + 2,
         ));
     }
     s.push_str("  ]\n");

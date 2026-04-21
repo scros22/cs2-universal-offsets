@@ -82,7 +82,9 @@ pattern_map! {
         "dwEntityList" => pattern!("48890d${'} e9${} cc") => None,
         "dwGameEntitySystem" => pattern!("488b1d${'} 48891d[4] 4c63b3") => None,
         "dwGameEntitySystem_highestEntityIndex" => pattern!("ff81u4 4885d2") => None,
-        "dwGameRules" => pattern!("48891d${'} ff15${} 84c0") => None,
+        // Updated 2026-04: store-form (48 89 1D ...) is gone; use load-form (48 8B 1D ...)
+        // anchor near GameRules write site.
+        "dwGameRules" => pattern!("488b1d${'} 488d5424? 0f28d0 488d4c24?") => None,
         "dwGlobalVars" => pattern!("488915${'} 488942") => None,
         "dwGlowManager" => pattern!("488b05${'} c3 cccccccccccccccc 8b41") => None,
         "dwLocalPlayerController" => pattern!("488b05${'} 4189be") => None,

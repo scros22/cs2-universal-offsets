@@ -44,38 +44,30 @@ macro_rules! skinchanger_patterns {
     };
 }
 
+// NOTE: TonemapController, FogController, PostProcessController and similar
+// world-effect anchors have moved to the universal-dumper StringRef scan
+// (see signatures::database) which survives prologue churn.  Patterns that
+// stayed unstable across multiple Apr-2026 builds were also moved there;
+// only patterns with verified currently-matching byte sequences live here.
 skinchanger_patterns! {
     client => {
         // Core inventory functions for proper skin/knife/glove changing
         "EquipItemInLoadout" => pattern!("48895c24u1 48896c24u1 48897424u1 895424u1 57 4154 4155 4156 4157 4883ecu1 0fb7fa"),
         "GetItemInLoadout" => pattern!("4055 4883ecu1 4963e8"),
-        "SetBodyGroup" => pattern!("85d2 0f88u4 5557"),
         "SetModel" => pattern!("4053 4883ecu1 488bd9 4c8bc2 488b0du4 488d542440"),
         "SetMeshGroupMask" => pattern!("48895c24u1 48897424u1 57 4883ecu1 488d99u4 488b71"),
-        
-        // Network update functions
-        "ForceFullUpdate" => pattern!("488b05u4 834800ff"),
-        
-        // World effects for night vision / dark mode
-        "TonemapController" => pattern!("488bc4 48895800 48896800 48897000 57 4154 4155 4156 4157 4881ecu4"),
-        "FogController" => pattern!("48895c24u1 48896c24u1 48897424u1 57 4883ecu1 488bf9 488bea"),
-        "PostProcessController" => pattern!("4055 53 56 57 4154 4155 4156 4157 488dac24"),
-        
-        // Additional skinchanger functions from recent signatures
-        "CreateNewPaintKit" => pattern!("48895c2410 56 4883ec20 488b01 ff5010 488b1du4"),
         "RegenerateWeaponSkin" => pattern!("4055 53 4157 488dac24u4 4881ecu4 440fb6fa 488bd9 bau4 488d0du4 e8u4"),
-        "UpdateCompositeMaterial" => pattern!("48895c2410 48896c2418 48897424u1 57 4156 4157 4883ec20 440fb6f2 488bf1 e8"),
-        "GetInventoryManager" => pattern!("e8u4 488bd3 488bc8 4c8b00 41ff900002"),
         "CreateSOSubclassEconItem" => pattern!("4883ec28 b948000000 e8u4 4885"),
-        "SetDynamicAttributeValue" => pattern!("e9u4 cccccccccccccccccccccccccccccccc 498bc0 488bca 488bd0"),
+        // SetBodyGroup, UpdateCompositeMaterial, GetInventoryManager,
+        // SetDynamicAttributeValue: covered by universal IDA scanner
+        // (signatures::database) which filters unfound entries silently.
     },
-    
+
     materialsystem2 => {
-        // Material system for advanced chams
-        "CreateMaterial" => pattern!("48895c24u1 48896c24u1 56 57 4156 4881ecu4 488b05"),
         "PrepareSceneMaterial" => pattern!("48895c2408 48897424u1 57 4883ec30 488b59u1 488bf2 486379u1 48c1e706"),
         "FindParameter" => pattern!("48895c24u1 48897424u1 57 4883ec20 488b5920 48"),
         "UpdateParameter" => pattern!("48897c24u1 4156 4883ecu1 8b81"),
+        // CreateMaterial: covered by universal IDA scanner.
     },
 }
 
