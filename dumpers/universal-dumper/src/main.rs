@@ -537,6 +537,11 @@ fn format_found_signatures(report: &signatures::SignatureReport) -> String {
     let mod_w = found.iter().map(|h| h.module.len()).max().unwrap_or(0);
     let res_w = found.iter().map(|h| h.resolve.len()).max().unwrap_or(0);
     let pat_w = found.iter().map(|h| h.pattern.len()).max().unwrap_or(0);
+    let byt_w = found
+        .iter()
+        .map(|h| h.bytes.as_deref().map(|b| b.len() + 2).unwrap_or(6))
+        .max()
+        .unwrap_or(6);
 
     let mut s = String::new();
     s.push_str("{\n");
@@ -558,19 +563,26 @@ fn format_found_signatures(report: &signatures::SignatureReport) -> String {
         let comma = if i + 1 == found.len() { "" } else { "," };
         let va = h.va.map(|v| format!("0x{:X}", v)).unwrap_or_else(|| "null".into());
         let rva = h.rva.map(|v| format!("0x{:X}", v)).unwrap_or_else(|| "null".into());
+        let bytes_field = h
+            .bytes
+            .as_deref()
+            .map(|b| format!("\"{}\"", b))
+            .unwrap_or_else(|| "null".into());
         s.push_str(&format!(
-            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>12}, \"rva\": {:>10}, \"pattern\": {:<pw$} }}{}\n",
+            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>12}, \"rva\": {:>10}, \"pattern\": {:<pw$}, \"bytes\": {:<bw$} }}{}\n",
             format!("\"{}\"", h.name),
             format!("\"{}\"", h.module),
             format!("\"{}\"", h.resolve),
             va,
             rva,
             format!("\"{}\"", h.pattern),
+            bytes_field,
             comma,
             nw = name_w + 2,
             mw = mod_w + 2,
             rw = res_w + 2,
             pw = pat_w + 2,
+            bw = byt_w,
         ));
     }
     s.push_str("  ]\n");
