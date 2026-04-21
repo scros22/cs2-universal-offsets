@@ -64,7 +64,12 @@ dumps/
       ...                           (one set per schema module)
       info.json
     signatures/
-      signatures.json
+      signatures.json   # hand-formatted, one entry per line
+      signatures.cs     # C#  static class per module
+      signatures.hpp    # C++ namespace per module
+      signatures.rs     # Rust module per module
+      SIGNATURES.md     # human-readable table
+      diff.json         # delta vs. previous session (when found)
 ```
 
 `signatures.json` is hand-formatted &mdash; one entry per line, columns aligned, with the
@@ -117,6 +122,8 @@ That's it. The tool will:
 | `--skip-offsets`            | off                     | run only the signature pass                                |
 | `--skip-signatures`         | off                     | run only the offset pass                                   |
 | `--no-sound`                | off                     | silence beeps                                              |
+| `--cache <PATH>`            | _(auto)_                | warm-cache from a previous `signatures.json`               |
+| `--no-cache`                | off                     | disable the auto-detected previous-session cache           |
 
 ### Example
 
@@ -185,6 +192,8 @@ PRs are very welcome &mdash; especially:
 - bug reports with a `cs2-sdk.log` attached.
 
 If you maintain a community CS2 SDK and want your offset/sig set merged in, open an issue.
+
+The active backlog lives in [TASKS.md](TASKS.md) &mdash; pick anything from there to work on.
 
 ## License
 
