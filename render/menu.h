@@ -1919,13 +1919,10 @@ namespace Menu
         int sidA = (int)(menuAlpha * 220.f);   // sidebar — slightly darker than panel
         int borA = (int)(menuAlpha * 175.f);
 
-        // Main window glass fill + inner highlight rim
-        dl->AddRectFilled(wp, { wp.x + ws.x, wp.y + ws.y },
-            IM_COL32(13, 13, 18, bgA), 12.f);
-        dl->AddRect(wp, { wp.x + ws.x, wp.y + ws.y },
-            IM_COL32(255, 255, 255, (int)(menuAlpha * 22.f)), 12.f, 0, 1.2f);
-        dl->AddRect(wp, { wp.x + ws.x, wp.y + ws.y },
-            IM_COL32(42, 40, 62, borA), 12.f, 0, 1.f);
+        // No main-window fill or border — the sidebar card and right-panel
+        // card render as two free-floating elements with empty space
+        // between them, so the menu "floats" with no monolithic backdrop.
+        (void)bgA;
 
         // ---------------------------------------------------------------
         // SIDEBAR — clean card matching the right-panel design.
@@ -1988,14 +1985,9 @@ namespace Menu
             IM_COL32(255, 255, 255, (int)(menuAlpha * 14.f)), 8.f, 0, 1.f);
         dl->AddRect(panTL, panBR, IM_COL32(42, 40, 62, (int)(menuAlpha * 140.f)), 8.f);
 
-        // Gradient accent lines (top + bottom edges, menu 19 exact)
-        float midX = wp.x + ws.x * 0.5f;
-        ImU32 a20  = EvoAccent((int)(60.f * menuAlpha));
-        ImU32 a0   = EvoAccent(0);
-        dl->AddRectFilledMultiColor({ midX,  wp.y              }, { wp.x+ws.x, wp.y+1.f        }, a20, a0,  a0,  a20);
-        dl->AddRectFilledMultiColor({ wp.x,  wp.y              }, { midX,      wp.y+1.f        }, a0,  a20, a20, a0 );
-        dl->AddRectFilledMultiColor({ midX,  wp.y+ws.y - 1.f  }, { wp.x+ws.x, wp.y+ws.y       }, a20, a0,  a0,  a20);
-        dl->AddRectFilledMultiColor({ wp.x,  wp.y+ws.y - 1.f  }, { midX,      wp.y+ws.y       }, a0,  a20, a20, a0 );
+        // Gradient accent lines removed — they spanned the full window
+        // width and read as part of the old monolithic backdrop.
+        (void)0;
 
         // ---------------------------------------------------------------
         // SIDEBAR BRANDING — vertical "LUCID" wordmark.
@@ -2145,10 +2137,7 @@ namespace Menu
             DrawTabIcon(dl, i, { tx + tW * 0.5f, ty + tH * 0.5f }, iconCol);
         }
 
-        // Outer border on foreground draw list (always on top)
-        ImGui::GetForegroundDrawList()->AddRect(
-            wp, { wp.x + ws.x, wp.y + ws.y },
-            IM_COL32(21, 23, 26, (int)(200 * menuAlpha)), 12.f, 0, 1.f);
+        // (no outer window border — cards stand on their own)
 
         // Two-column content
         ImGui::PushStyleColor(ImGuiCol_ChildBg,  { 0.f, 0.f, 0.f, 0.f });
