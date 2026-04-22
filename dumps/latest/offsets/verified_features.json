@@ -1,0 +1,335 @@
+{
+  "_doc": "Hand-curated catalogue of CS2 features verified working in a live internal cheat. Cross-reference with offsets.*, signatures.* and client_dll.* for canonical addresses.",
+  "cs2_build": 14153,
+  "feature_count": 11,
+  "features": [
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_SmokeGrenadeProjectile",
+          "field": "m_nSmokeEffectTickBegin",
+          "note": "set 0 to skip the puff",
+          "offset": "0x1250",
+          "type": "int32"
+        },
+        {
+          "class": "C_SmokeGrenadeProjectile",
+          "field": "m_bDidSmokeEffect",
+          "note": "set false",
+          "offset": "0x1254",
+          "type": "bool"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_flLastSmokeOverlayAlpha",
+          "note": "local pawn's screen overlay alpha; set 0",
+          "offset": "0x1420",
+          "type": "float"
+        }
+      ],
+      "hooks": [],
+      "name": "No Smoke",
+      "summary": "Iterate the entity list, identify C_SmokeGrenadeProjectile via CEntityIdentity::m_designerName == \"smokegrenade_projectile\", zero m_nSmokeEffectTickBegin and clear m_bDidSmokeEffect. Engine re-evaluates every tick, so writes stick. Also zero m_flLastSmokeOverlayAlpha on the local pawn for the screen overlay."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_SmokeGrenadeProjectile",
+          "field": "m_vSmokeColor",
+          "note": "3 floats, multiply RGB by 255",
+          "offset": "0x125C",
+          "type": "Vector3 (RGB 0..255)"
+        }
+      ],
+      "hooks": [],
+      "name": "Smoke Color",
+      "summary": "Same entity walk as No Smoke; write a Vector (3 floats * 255) to m_vSmokeColor. Particle system reads this every frame."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_flFlashDuration",
+          "note": "set 0 to clear flash",
+          "offset": "0x1400",
+          "type": "float"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_flFlashMaxAlpha",
+          "note": "set 0 for full removal, 0..255 for partial",
+          "offset": "0x13FC",
+          "type": "float"
+        }
+      ],
+      "hooks": [],
+      "name": "No Flash",
+      "summary": "Zero m_flFlashDuration and m_flFlashMaxAlpha on the local pawn. Trip the write only when duration > 0 to avoid spamming the engine."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "env_sky",
+          "field": "m_vTintColor",
+          "note": "DOES NOT WORK at runtime — use the DrawSkyboxArray hook instead",
+          "offset": "0xFB9",
+          "type": "Color32"
+        },
+        {
+          "class": "env_sky",
+          "field": "m_vTintColorLightingOnly",
+          "note": "Same caveat",
+          "offset": "0xFBD",
+          "type": "Color32"
+        },
+        {
+          "class": "env_sky",
+          "field": "m_flBrightnessScale",
+          "note": "DOES update live (independent code path)",
+          "offset": "0xFC4",
+          "type": "float"
+        }
+      ],
+      "hooks": [
+        {
+          "action": "Patch RGB at primitive_obj+0xE8 before passing through to the original.",
+          "function": "DrawSkyboxArray",
+          "module": "scenesystem.dll",
+          "signature": "DrawSkyboxArray"
+        }
+      ],
+      "name": "Skybox Tint",
+      "summary": "Hook scenesystem.dll!DrawSkyboxArray, intercept the draw-primitive pointer (3rd arg). Build 14152 moved the tint vec3 from +0x100 to +0xE8 inside the skybox object — writing to the old +0x100 slot poisons the renderer with NaN and crashes after ~60s. Layout: +0xE8..+0xF0 RGB tint floats, +0xF4 mode int, +0xF8..+0x104 four sun-angle floats. Do NOT write to env_sky m_vTintColor — the renderer caches material params at level setup and ignores entity writes."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "CBasePlayerController",
+          "field": "m_iDesiredFOV",
+          "note": "a2x-named m_iDesiredFOV_OnController",
+          "offset": "0x784",
+          "type": "uint32"
+        },
+        {
+          "class": "CCSPlayer_CameraServices",
+          "field": "m_iFOV",
+          "note": "current camera FOV",
+          "offset": "0x290",
+          "type": "uint32"
+        },
+        {
+          "class": "CCSPlayer_CameraServices",
+          "field": "m_iFOVStart",
+          "note": "target camera FOV",
+          "offset": "0x294",
+          "type": "uint32"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_pCameraServices",
+          "note": "deref to reach m_iFOV/m_iFOVStart",
+          "offset": "0x1218",
+          "type": "CCSPlayer_CameraServices*"
+        }
+      ],
+      "hooks": [
+        {
+          "action": "Return cfg.fovValue when not scoped, else delegate to original.",
+          "function": "GetWorldFov",
+          "module": "client.dll",
+          "signature": "SetWorldFov"
+        }
+      ],
+      "name": "FOV Changer",
+      "summary": "Two-prong approach. (1) Hook GetWorldFov in client.dll (signature SetWorldFov, E8-CALL @ +1) and return the desired value when the local pawn is not scoped. (2) Every tick, write the desired FOV into m_iFOV and m_iFOVStart on the camera services AND into m_iDesiredFOV on the local controller (canonical source the renderer reads). The controller-level field is the one that gets reset back to default if you only fight the camera-services side."
+    },
+    {
+      "convars": [],
+      "fields": [],
+      "hooks": [
+        {
+          "action": "Substitute material on player/weapon scene objects.",
+          "function": "GeneratePrimitives",
+          "module": "scenesystem.dll",
+          "signature": "CSceneAnimatableObject::GeneratePrimitives"
+        },
+        {
+          "action": "Look up the param slot.",
+          "function": "FindParameter",
+          "module": "materialsystem2.dll",
+          "signature": "FindParameter"
+        },
+        {
+          "action": "Write the new value.",
+          "function": "UpdateParameter",
+          "module": "materialsystem2.dll",
+          "signature": "UpdateParameter"
+        }
+      ],
+      "name": "Chams (Material Override)",
+      "summary": "Standard CS2 chams approach: override the material on CCSGOPlayerAnimGraphState::DrawObject path or material pointers on weapon/player render contexts. Use the cs2-dumper material signatures (FindParameter/UpdateParameter from materialsystem2) to swap shader params at draw time."
+    },
+    {
+      "convars": [
+        {
+          "name": "mat_fullbright",
+          "strip_flags": "0x4400",
+          "value": "1 to enable / 0 to disable",
+          "write_both_slots": true
+        }
+      ],
+      "fields": [],
+      "hooks": [],
+      "name": "Fullbright",
+      "summary": "ConVar mat_fullbright is registered FCVAR_CHEAT|FCVAR_DEVELOPMENTONLY. Source 2 ConVar layout (verified in scenesystem.dll sub_1804ACB70): cvar+0x30 flags DWORD, cvar+0x40 legacy value union, cvar+0x58 modern ConVar<T> value storage. The renderer's fullbright branch is gated on (flags & 0x400) == 0, so we MUST strip FCVAR_CHEAT (0x400) and FCVAR_DEVELOPMENTONLY (0x4000), then write the desired value to BOTH +0x40 (legacy) AND +0x58 (modern) slots — some code paths read each."
+    },
+    {
+      "convars": [],
+      "fields": [],
+      "hooks": [
+        {
+          "action": "Rewrite CViewSetup origin (offset 0x490) to a third-person position derived from view angles.",
+          "function": "OverrideView",
+          "module": "client.dll",
+          "signature": "CCSGOViewAdvice::OverrideView"
+        }
+      ],
+      "name": "Third Person",
+      "summary": "Hook CCSGOViewAdviceService::OverrideView (signature OverrideView, client.dll). After calling the original (lets engine set up first-person camera), read the eye position out of CViewSetup, build forward from view angles, and rewrite CViewSetup origin to eye - forward*dist + (0,0,8). Leave angles untouched. Also flip the engine input flag at clientBase + dwCSGOInput + 0x229 to true so the local model renders. Restore to false on disable. CViewSetup field offsets (CS2 build 14152): origin=+0x490, angles=+0x4A0, fov=+0x230. Do NOT use c_thirdpersonshoulder ConVar — it's FCVAR_CHEAT and reads from cvar+0x58 (same gotchas as mat_fullbright); direct CViewSetup write is the canonical CS2 approach."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_FogController",
+          "field": "m_fog (params)",
+          "note": "+0x14 RGB primary, +0x18 RGB secondary, +0x24 start, +0x28 end, +0x30 density, +0x64 enable bool",
+          "offset": "0x608",
+          "type": "fogparams_t"
+        },
+        {
+          "class": "C_EnvCubemapFog",
+          "field": "m_bActive",
+          "note": "set false",
+          "offset": "0x62C",
+          "type": "bool"
+        },
+        {
+          "class": "C_EnvCubemapFog",
+          "field": "m_flFogMaxOpacity",
+          "note": "set 0",
+          "offset": "0x630",
+          "type": "float"
+        },
+        {
+          "class": "C_EnvVolumetricFogController",
+          "field": "m_bActive",
+          "note": "set false",
+          "offset": "0x64C",
+          "type": "bool"
+        },
+        {
+          "class": "C_EnvVolumetricFogController",
+          "field": "m_bStartDisabled",
+          "note": "set true",
+          "offset": "0x674",
+          "type": "bool"
+        },
+        {
+          "class": "C_EnvVolumetricFogVolume",
+          "field": "m_bActive",
+          "note": "set false",
+          "offset": "0x600",
+          "type": "bool"
+        },
+        {
+          "class": "C_EnvVolumetricFogVolume",
+          "field": "m_flStrength",
+          "note": "set 0",
+          "offset": "0x620",
+          "type": "float"
+        }
+      ],
+      "hooks": [],
+      "name": "Anti-Fog",
+      "summary": "Disable every fog source per-entity. Cheap and total. env_fog_controller has fogparams_t embedded at +0x608: +0x14 colorPrimary, +0x18 colorSecondary, +0x24 start, +0x28 end, +0x30 maxDensity, +0x64 enable. env_cubemap_fog: +0x62C m_bActive, +0x630 m_flFogMaxOpacity, +0x60C/0x608 start/end distances. env_volumetric_fog_controller: +0x600 m_flScattering, +0x610 m_flDrawDistance, +0x64C m_bActive, +0x674 m_bStartDisabled. env_volumetric_fog_volume: +0x600 m_bActive, +0x620 m_flStrength."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_ColorCorrection",
+          "field": "m_flMaxWeight",
+          "note": "set 0",
+          "offset": "0x61C",
+          "type": "float"
+        },
+        {
+          "class": "C_ColorCorrection",
+          "field": "m_flCurWeight",
+          "note": "set 0",
+          "offset": "0x620",
+          "type": "float"
+        },
+        {
+          "class": "C_ColorCorrection",
+          "field": "m_bEnabled",
+          "note": "set false",
+          "offset": "0x824",
+          "type": "bool"
+        },
+        {
+          "class": "C_ColorCorrection",
+          "field": "m_bEnabledOnClient[0]",
+          "note": "set false",
+          "offset": "0x828",
+          "type": "bool"
+        },
+        {
+          "class": "C_ColorCorrection",
+          "field": "m_flCurWeightOnClient",
+          "note": "set 0",
+          "offset": "0x82C",
+          "type": "float"
+        }
+      ],
+      "hooks": [],
+      "name": "No Color Correction",
+      "summary": "Color-correction LUT entities (color_correction designer name) ship on most maps and apply the mood grading (warm dust on Mirage, blue-grey on Anubis, etc). Disabling them is a free visibility upgrade. Zero m_flMaxWeight and m_flCurWeight, clear m_bEnabled and m_bEnabledOnClient[0], zero m_flCurWeightOnClient."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "env_sky",
+          "field": "m_vTintColor",
+          "note": "RGBA 0..255 packed",
+          "offset": "0xFB9",
+          "type": "Color32"
+        },
+        {
+          "class": "env_sky",
+          "field": "m_vTintColorLightingOnly",
+          "note": "match m_vTintColor for consistency",
+          "offset": "0xFBD",
+          "type": "Color32"
+        },
+        {
+          "class": "env_sky",
+          "field": "m_flBrightnessScale",
+          "note": "1.0 = default",
+          "offset": "0xFC4",
+          "type": "float"
+        }
+      ],
+      "hooks": [],
+      "name": "Night Mode / Asus Mode (Sky Tint via env_sky)",
+      "summary": "For env_sky entities: m_vTintColor (Color32) at +0xFB9 and m_flBrightnessScale at +0xFC4 DO update live and are safe to poke per-tick. Use these for night/asus presets. The sky-tint hook (DrawSkyboxArray) handles dynamic per-frame color; this entity-write path handles the slower per-preset apply."
+    }
+  ]
+}

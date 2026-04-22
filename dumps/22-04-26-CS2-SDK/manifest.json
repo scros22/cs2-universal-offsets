@@ -1,125 +1,125 @@
 {
-  "build_number": 14152,
-  "generated_at": "2026-04-22T00:34:46.213877800+01:00",
+  "build_number": 14153,
+  "generated_at": "2026-04-22T20:15:44.089675800+01:00",
   "modules": {
     "animationsystem.dll": {
-      "base": "0x7FFF65D60000",
+      "base": "0x7FFE26960000",
       "image": 12197888,
       "size": 12197888,
-      "timestamp": 1776709948
+      "timestamp": 1776802843
     },
     "client.dll": {
-      "base": "0x7FFF56530000",
-      "image": 41017344,
-      "size": 41017344,
-      "timestamp": 1776731226
+      "base": "0x7FFDF69D0000",
+      "image": 41041920,
+      "size": 41041920,
+      "timestamp": 1776808258
     },
     "engine2.dll": {
-      "base": "0x7FFF9F5A0000",
+      "base": "0x7FFE29620000",
       "image": 9822208,
       "size": 9822208,
-      "timestamp": 1776710308
+      "timestamp": 1776803024
     },
     "host.dll": {
-      "base": "0x7FFF54D60000",
+      "base": "0x7FFE1E830000",
       "image": 1413120,
       "size": 1413120,
-      "timestamp": 1776710007
+      "timestamp": 1776802741
     },
     "materialsystem2.dll": {
-      "base": "0x7FFF89650000",
+      "base": "0x7FFE2DA00000",
       "image": 1564672,
       "size": 1564672,
-      "timestamp": 1776709756
+      "timestamp": 1776802762
     },
     "networksystem.dll": {
-      "base": "0x7FFF66910000",
+      "base": "0x7FFE27510000",
       "image": 2838528,
       "size": 2838528,
-      "timestamp": 1776709783
+      "timestamp": 1776802752
     },
     "panorama.dll": {
-      "base": "0x7FFF5B470000",
+      "base": "0x7FFE1EF20000",
       "image": 5926912,
       "size": 5926912,
-      "timestamp": 1776709765
+      "timestamp": 1776802937
     },
     "particles.dll": {
-      "base": "0x7FFF60BE0000",
+      "base": "0x7FFE217E0000",
       "image": 8257536,
       "size": 8257536,
-      "timestamp": 1776710129
+      "timestamp": 1776802922
     },
     "pulse_system.dll": {
-      "base": "0x7FFF66D20000",
+      "base": "0x7FFE27920000",
       "image": 2269184,
       "size": 2269184,
-      "timestamp": 1776709737
+      "timestamp": 1776802740
     },
     "rendersystemdx11.dll": {
-      "base": "0x7FFF68B10000",
+      "base": "0x7FFE2B960000",
       "image": 5046272,
       "size": 5046272,
-      "timestamp": 1776709746
+      "timestamp": 1776802755
     },
     "resourcesystem.dll": {
-      "base": "0x7FFFA4040000",
+      "base": "0x7FFE63160000",
       "image": 598016,
       "size": 598016,
-      "timestamp": 1776709729
+      "timestamp": 1776802736
     },
     "scenesystem.dll": {
-      "base": "0x7FFF613C0000",
+      "base": "0x7FFE21FC0000",
       "image": 9646080,
       "size": 9646080,
-      "timestamp": 1776710240
+      "timestamp": 1776802927
     },
     "schemasystem.dll": {
-      "base": "0x7FFF89E70000",
+      "base": "0x7FFE630E0000",
       "image": 520192,
       "size": 520192,
-      "timestamp": 1776709724
+      "timestamp": 1776802752
     },
     "server.dll": {
-      "base": "0x7FFF58C50000",
-      "image": 36429824,
-      "size": 36429824,
-      "timestamp": 1776731227
+      "base": "0x7FFE15260000",
+      "image": 36446208,
+      "size": 36446208,
+      "timestamp": 1776808252
     },
     "soundsystem.dll": {
-      "base": "0x7FFF65190000",
+      "base": "0x7FFE25D90000",
       "image": 6864896,
       "size": 6864896,
-      "timestamp": 1776745996
+      "timestamp": 1776802912
     },
     "tier0.dll": {
-      "base": "0x7FFF9FF00000",
+      "base": "0x7FFE63900000",
       "image": 4198400,
       "size": 4198400,
       "timestamp": 1776709471
     },
     "vphysics2.dll": {
-      "base": "0x7FFF65820000",
+      "base": "0x7FFE26420000",
       "image": 5459968,
       "size": 5459968,
-      "timestamp": 1776710244
+      "timestamp": 1776802763
     }
   },
   "process": "cs2.exe",
   "session": "22-04-26-CS2-SDK",
   "stages": {
     "offsets": {
-      "elapsed_ms": 1214,
+      "elapsed_ms": 1244,
       "enabled": true,
       "output_dir": "dumps\\22-04-26-CS2-SDK\\offsets",
       "success": true
     },
     "signatures": {
       "counts": {
-        "found": 218,
+        "found": 219,
         "total": 267
       },
-      "elapsed_ms": 7653,
+      "elapsed_ms": 7448,
       "enabled": true,
       "output_dir": "dumps\\22-04-26-CS2-SDK\\signatures",
       "success": true

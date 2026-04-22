@@ -3,7 +3,7 @@ namespace CS2Sdk.Interfaces;
 
 public static class Interfaces
 {
-    public const uint CS2_BUILD = 14152u;
+    public const uint CS2_BUILD = 14153u;
 
     public static class animationsystem_dll
     {
@@ -13,14 +13,14 @@ public static class Interfaces
 
     public static class client_dll
     {
-        public static nint ClientToolsInfo_001(nint moduleBase) => moduleBase + 0x20480D0;
-        public static nint EmptyWorldService001_Client(nint moduleBase) => moduleBase + 0x200BAA0;
-        public static nint GameClientExports001(nint moduleBase) => moduleBase + 0x2044D70;
-        public static nint LegacyGameUI001(nint moduleBase) => moduleBase + 0x2060480;
-        public static nint Source2Client002(nint moduleBase) => moduleBase + 0x231E850;
-        public static nint Source2ClientConfig001(nint moduleBase) => moduleBase + 0x2290B80;
-        public static nint Source2ClientPrediction001(nint moduleBase) => moduleBase + 0x204F540;
-        public static nint Source2ClientUI001(nint moduleBase) => moduleBase + 0x205EA70;
+        public static nint ClientToolsInfo_001(nint moduleBase) => moduleBase + 0x204D250;
+        public static nint EmptyWorldService001_Client(nint moduleBase) => moduleBase + 0x2010AB0;
+        public static nint GameClientExports001(nint moduleBase) => moduleBase + 0x2049EF0;
+        public static nint LegacyGameUI001(nint moduleBase) => moduleBase + 0x20655F0;
+        public static nint Source2Client002(nint moduleBase) => moduleBase + 0x2323F10;
+        public static nint Source2ClientConfig001(nint moduleBase) => moduleBase + 0x2295DB0;
+        public static nint Source2ClientPrediction001(nint moduleBase) => moduleBase + 0x20546B0;
+        public static nint Source2ClientUI001(nint moduleBase) => moduleBase + 0x2063BE0;
     }
 
     public static class engine2_dll
@@ -184,16 +184,16 @@ public static class Interfaces
 
     public static class server_dll
     {
-        public static nint EmptyWorldService001_Server(nint moduleBase) => moduleBase + 0x1BEBCE0;
-        public static nint EntitySubclassUtilsV001(nint moduleBase) => moduleBase + 0x1B97350;
-        public static nint NavGameTest001(nint moduleBase) => moduleBase + 0x1C98110;
-        public static nint ServerToolsInfo_001(nint moduleBase) => moduleBase + 0x1C45418;
-        public static nint Source2GameClients001(nint moduleBase) => moduleBase + 0x1C43E70;
-        public static nint Source2GameDirector001(nint moduleBase) => moduleBase + 0x1DDD4E0;
-        public static nint Source2GameEntities001(nint moduleBase) => moduleBase + 0x1C44B20;
-        public static nint Source2Server001(nint moduleBase) => moduleBase + 0x1C44970;
-        public static nint Source2ServerConfig001(nint moduleBase) => moduleBase + 0x1EFA788;
-        public static nint customnavsystem001(nint moduleBase) => moduleBase + 0x1B78658;
+        public static nint EmptyWorldService001_Server(nint moduleBase) => moduleBase + 0x1BEECE0;
+        public static nint EntitySubclassUtilsV001(nint moduleBase) => moduleBase + 0x1B9A340;
+        public static nint NavGameTest001(nint moduleBase) => moduleBase + 0x1C9B2C0;
+        public static nint ServerToolsInfo_001(nint moduleBase) => moduleBase + 0x1C482B8;
+        public static nint Source2GameClients001(nint moduleBase) => moduleBase + 0x1C46D10;
+        public static nint Source2GameDirector001(nint moduleBase) => moduleBase + 0x1DE07E0;
+        public static nint Source2GameEntities001(nint moduleBase) => moduleBase + 0x1C479C0;
+        public static nint Source2Server001(nint moduleBase) => moduleBase + 0x1C47810;
+        public static nint Source2ServerConfig001(nint moduleBase) => moduleBase + 0x1EFE488;
+        public static nint customnavsystem001(nint moduleBase) => moduleBase + 0x1B7B628;
     }
 
     public static class soundsystem_dll

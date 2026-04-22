@@ -3,8 +3,8 @@
 // module:        resourcesystem.dll
 // classes:       58
 // enums:         2
-// build_number:  14152
-// generated_at:  2026-04-21T23:34:47.377899600+00:00
+// build_number:  14153
+// generated_at:  2026-04-22T19:15:45.196784400+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -15,7 +15,7 @@
 
 namespace cs2::sdk::resourcesystem {
 
-    inline constexpr std::uint32_t CS2_BUILD = 14152;
+    inline constexpr std::uint32_t CS2_BUILD = 14153;
 
     class InfoForResourceTypeCResponseRulesList;
     class InfoForResourceTypeCDotaItemDefinitionResource;
