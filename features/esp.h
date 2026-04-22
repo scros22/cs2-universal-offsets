@@ -65,17 +65,37 @@ namespace ESP
             float fs = size > 0.f ? size : ImGui::GetFontSize();
             ImVec2 sz = font->CalcTextSizeA(fs, FLT_MAX, 0.f, txt);
             if (centered) pos.x -= sz.x * 0.5f;
-            // 8-directional thick outline — pops hard like premium internals
-            ImU32 outl = IM_COL32(0, 0, 0, 255);
-            constexpr float o = 1.f;  // outline offset
-            dl->AddText(font, fs, ImVec2(pos.x - o, pos.y - o), outl, txt);
-            dl->AddText(font, fs, ImVec2(pos.x,     pos.y - o), outl, txt);
-            dl->AddText(font, fs, ImVec2(pos.x + o, pos.y - o), outl, txt);
-            dl->AddText(font, fs, ImVec2(pos.x - o, pos.y),     outl, txt);
-            dl->AddText(font, fs, ImVec2(pos.x + o, pos.y),     outl, txt);
-            dl->AddText(font, fs, ImVec2(pos.x - o, pos.y + o), outl, txt);
-            dl->AddText(font, fs, ImVec2(pos.x,     pos.y + o), outl, txt);
-            dl->AddText(font, fs, ImVec2(pos.x + o, pos.y + o), outl, txt);
+
+            // Two-ring "halo" outline:
+            //   * inner ring (4 cardinal directions, 1px, full-alpha) gives a
+            //     crisp readable edge,
+            //   * outer ring (4 diagonal directions, ~1.4px, half-alpha) plus
+            //     4 cardinal directions at 1.4px low-alpha softens the corners
+            //     so the outline blends rather than "stair-steps".
+            // Net effect: a subtle drop-shadow / glyph border that reads as
+            // smooth at any zoom instead of the chunky 8-dir 1px halo.
+            const ImU32 outlInner = IM_COL32(0, 0, 0, 235);
+            const ImU32 outlOuter = IM_COL32(0, 0, 0, 110);
+            constexpr float oi = 1.0f;   // inner ring offset
+            constexpr float oo = 1.6f;   // outer ring offset
+
+            // Outer soft halo (8 directions, low alpha → looks like a blurred
+            // border once stacked under the inner ring).
+            dl->AddText(font, fs, ImVec2(pos.x - oo, pos.y      ), outlOuter, txt);
+            dl->AddText(font, fs, ImVec2(pos.x + oo, pos.y      ), outlOuter, txt);
+            dl->AddText(font, fs, ImVec2(pos.x,      pos.y - oo), outlOuter, txt);
+            dl->AddText(font, fs, ImVec2(pos.x,      pos.y + oo), outlOuter, txt);
+            dl->AddText(font, fs, ImVec2(pos.x - oo, pos.y - oo), outlOuter, txt);
+            dl->AddText(font, fs, ImVec2(pos.x + oo, pos.y - oo), outlOuter, txt);
+            dl->AddText(font, fs, ImVec2(pos.x - oo, pos.y + oo), outlOuter, txt);
+            dl->AddText(font, fs, ImVec2(pos.x + oo, pos.y + oo), outlOuter, txt);
+
+            // Crisp inner ring (4 cardinal, full alpha).
+            dl->AddText(font, fs, ImVec2(pos.x - oi, pos.y      ), outlInner, txt);
+            dl->AddText(font, fs, ImVec2(pos.x + oi, pos.y      ), outlInner, txt);
+            dl->AddText(font, fs, ImVec2(pos.x,      pos.y - oi), outlInner, txt);
+            dl->AddText(font, fs, ImVec2(pos.x,      pos.y + oi), outlInner, txt);
+
             dl->AddText(font, fs, pos, col, txt);
         }
 
@@ -176,62 +196,123 @@ namespace ESP
                               bool defusing, float defuseRem, int style = 0)
         {
             char buf[32];
-            bool urgent = remaining < 10.f;
-            ImU32 tc = urgent ? IM_COL32(255, 60, 50, 255) : IM_COL32(255, 255, 255, 230);
+            const bool urgent = remaining < 10.f;
+            const bool danger = remaining < 5.f;
 
-            if (style == 1) // Vivid — glowing accent border, more prominent
+            // Shared palette
+            const ImU32 cText      = urgent ? IM_COL32(255, 90, 80, 255) : IM_COL32(240, 240, 245, 240);
+            const ImU32 cTextDim   = urgent ? IM_COL32(255, 130, 110, 220) : IM_COL32(170, 170, 180, 220);
+            const ImU32 cAccent    = urgent ? IM_COL32(255, 70, 50, 255)  : IM_COL32(80, 200, 130, 255);
+            const ImU32 cBg        = IM_COL32(10, 11, 16, 220);
+            const ImU32 cBgDeep    = IM_COL32(6,  7,  11, 235);
+            const ImU32 cOutline   = IM_COL32(255, 255, 255, 22);
+
+            const float frac = (remaining > 0.f && remaining <= 40.f) ? (remaining / 40.f) : 0.f;
+
+            // ----------------------------------------------------------
+            //  STYLE 1 — VIVID  (compact accent capsule, glow halo)
+            // ----------------------------------------------------------
+            if (style == 1)
             {
-                ImU32 glowC = urgent ? IM_COL32(255, 40, 20, 45) : IM_COL32(60, 180, 100, 28);
-                ImU32 lineC = urgent ? IM_COL32(255, 70, 50, 255) : IM_COL32(70, 210, 130, 255);
-                float pw = 190.f, ph = 44.f;
-                float px = scrW * 0.5f - pw * 0.5f, py = 62.f;
-                dl->AddRectFilled(ImVec2(px-6, py-6), ImVec2(px+pw+6, py+ph+6), glowC, 10.f);
-                dl->AddRectFilled(ImVec2(px, py), ImVec2(px+pw, py+ph), IM_COL32(8, 10, 14, 235), 7.f);
-                dl->AddRect(ImVec2(px, py), ImVec2(px+pw, py+ph), lineC, 7.f, 0, 1.3f);
-                dl->AddRectFilled(ImVec2(px+2.f, py+8.f), ImVec2(px+4.f, py+ph-8.f), lineC, 2.f);
+                const float pw = 144.f, ph = 32.f;
+                const float px = scrW * 0.5f - pw * 0.5f;
+                const float py = 56.f;
+                const float r  = ph * 0.5f;  // capsule radius
+
+                // soft glow halo (pulses harder when urgent)
+                const int glowAlpha = danger ? 55 : (urgent ? 38 : 18);
+                for (int i = 4; i > 0; --i) {
+                    dl->AddRect({px - i, py - i}, {px + pw + i, py + ph + i},
+                                IM_COL32((cAccent>>IM_COL32_R_SHIFT)&0xFF,
+                                         (cAccent>>IM_COL32_G_SHIFT)&0xFF,
+                                         (cAccent>>IM_COL32_B_SHIFT)&0xFF,
+                                         glowAlpha / i),
+                                r + i, 0, 1.f);
+                }
+                dl->AddRectFilled({px, py}, {px + pw, py + ph}, cBgDeep, r);
+                dl->AddRect      ({px, py}, {px + pw, py + ph}, IM_COL32(255,255,255,28), r, 0, 1.f);
+                // accent bar left edge
+                dl->AddRectFilled({px + 4.f, py + 5.f}, {px + 6.f, py + ph - 5.f}, cAccent, 2.f);
+
                 snprintf(buf, sizeof(buf), "C4  %.1fs", remaining);
-                Text(dl, ImVec2(px+pw*0.5f, py+6), tc, buf, true, 16.f);
-                float bx=px+10.f, by2=py+29.f, bw=pw-20.f, bh=4.f;
-                float frac = remaining / 40.f;
-                if (frac > 1.f) frac = 1.f; if (frac < 0.f) frac = 0.f;
-                dl->AddRectFilled(ImVec2(bx, by2), ImVec2(bx+bw, by2+bh), IM_COL32(30,32,40,200), 2.f);
-                dl->AddRectFilled(ImVec2(bx, by2), ImVec2(bx+bw*frac, by2+bh), lineC, 2.f);
+                Text(dl, ImVec2(px + pw * 0.5f + 3.f, py + 4.f), cText, buf, true, 13.f);
+
+                // hairline progress under text
+                const float bX = px + 14.f, bY = py + ph - 6.f, bW = pw - 28.f, bH = 2.f;
+                dl->AddRectFilled({bX, bY}, {bX + bW, bY + bH}, IM_COL32(40, 42, 56, 200), 1.f);
+                dl->AddRectFilled({bX, bY}, {bX + bW * frac, bY + bH}, cAccent, 1.f);
+
                 if (defusing && defuseRem > 0.f) {
                     snprintf(buf, sizeof(buf), "DEFUSE %.1fs", defuseRem);
-                    Text(dl, ImVec2(px+pw*0.5f, py+ph+4), IM_COL32(100,180,255,255), buf, true, 11.f);
+                    Text(dl, ImVec2(px + pw * 0.5f, py + ph + 4.f),
+                         IM_COL32(120, 190, 255, 255), buf, true, 11.f);
                 }
+                return;
             }
-            else if (style == 2) // Compact — small badge, left edge
+
+            // ----------------------------------------------------------
+            //  STYLE 2 — COMPACT  (small left-aligned chip)
+            // ----------------------------------------------------------
+            if (style == 2)
             {
-                snprintf(buf, sizeof(buf), "C4 %.1fs", remaining);
-                float pw = 110.f, ph = 24.f;
-                float px = 14.f, py = 72.f;
-                dl->AddRectFilled(ImVec2(px, py), ImVec2(px+pw, py+ph), IM_COL32(6,6,8,185), 4.f);
-                dl->AddRect(ImVec2(px, py), ImVec2(px+pw, py+ph), tc, 4.f, 0, 0.8f);
-                Text(dl, ImVec2(px+pw*0.5f, py+5), tc, buf, true, 12.f);
+                const float pw = 96.f, ph = 22.f;
+                const float px = 14.f, py = 72.f;
+                const float r  = 4.f;
+
+                dl->AddRectFilled({px, py}, {px + pw, py + ph}, cBg, r);
+                dl->AddRect      ({px, py}, {px + pw, py + ph}, cOutline, r, 0, 1.f);
+                dl->AddRectFilled({px + 3.f, py + 4.f}, {px + 4.5f, py + ph - 4.f}, cAccent, 1.5f);
+
+                snprintf(buf, sizeof(buf), "C4  %.1fs", remaining);
+                Text(dl, ImVec2(px + 9.f, py + 4.f), cText, buf, false, 11.f);
+
+                // mini progress bar across bottom
+                const float bX = px + 1.f, bY = py + ph - 1.5f, bW = pw - 2.f;
+                dl->AddRectFilled({bX, bY}, {bX + bW * frac, bY + 1.5f}, cAccent);
+
                 if (defusing && defuseRem > 0.f) {
                     snprintf(buf, sizeof(buf), "DEF %.1fs", defuseRem);
-                    Text(dl, ImVec2(px+pw*0.5f, py+ph+2), IM_COL32(100,180,255,255), buf, true, 10.f);
+                    Text(dl, ImVec2(px + pw * 0.5f, py + ph + 3.f),
+                         IM_COL32(120, 190, 255, 255), buf, true, 10.f);
                 }
+                return;
             }
-            else // Classic (style == 0) — centered minimal dark pill
-            {
-                float pw = 160.f, ph = 38.f;
-                float px = scrW * 0.5f - pw * 0.5f, py = 70.f;
-                dl->AddRectFilled(ImVec2(px, py), ImVec2(px+pw, py+ph), IM_COL32(12,12,12,210), 6.f);
-                dl->AddRect(ImVec2(px, py), ImVec2(px+pw, py+ph), IM_COL32(255,255,255,35), 6.f, 0, 1.f);
-                snprintf(buf, sizeof(buf), "C4  %.1fs", remaining);
-                Text(dl, ImVec2(px+pw*0.5f, py+4), tc, buf, true, 15.f);
-                float bx=px+10.f, by2=py+26.f, bw=pw-20.f, bh=3.f;
-                float frac = remaining / 40.f;
-                if (frac > 1.f) frac = 1.f; if (frac < 0.f) frac = 0.f;
-                dl->AddRectFilled(ImVec2(bx, by2), ImVec2(bx+bw, by2+bh), IM_COL32(40,40,40,180), 1.5f);
-                dl->AddRectFilled(ImVec2(bx, by2), ImVec2(bx+bw*frac, by2+bh), tc, 1.5f);
-                if (defusing && defuseRem > 0.f) {
-                    snprintf(buf, sizeof(buf), "DEFUSE %.1fs", defuseRem);
-                    Text(dl, ImVec2(px+pw*0.5f, py+ph+3), IM_COL32(100,180,255,255), buf, true, 11.f);
-                }
+
+            // ----------------------------------------------------------
+            //  STYLE 0 — CLASSIC  (refined dark pill, centred)
+            // ----------------------------------------------------------
+            const float pw = 124.f, ph = 30.f;
+            const float px = scrW * 0.5f - pw * 0.5f;
+            const float py = 64.f;
+            const float r  = 6.f;
+
+            // subtle drop shadow
+            for (int i = 3; i > 0; --i) {
+                dl->AddRectFilled({px - i, py - i + 1}, {px + pw + i, py + ph + i + 1},
+                                  IM_COL32(0, 0, 0, 12 + (3 - i) * 6), r + i);
             }
+            dl->AddRectFilled({px, py}, {px + pw, py + ph}, cBgDeep, r);
+            dl->AddRect      ({px, py}, {px + pw, py + ph}, cOutline, r, 0, 1.f);
+            dl->AddRect      ({px + 1, py + 1}, {px + pw - 1, py + ph - 1},
+                              IM_COL32(255, 255, 255, 10), r - 1.f, 0, 1.f);
+
+            // tiny accent dot left
+            dl->AddCircleFilled({px + 11.f, py + ph * 0.5f}, 2.4f, cAccent, 12);
+
+            snprintf(buf, sizeof(buf), "C4  %.1fs", remaining);
+            Text(dl, ImVec2(px + pw * 0.5f + 4.f, py + 4.f), cText, buf, true, 12.f);
+
+            // hairline progress bar across the bottom
+            const float bX = px + 10.f, bY = py + ph - 5.f, bW = pw - 20.f, bH = 2.f;
+            dl->AddRectFilled({bX, bY}, {bX + bW, bY + bH}, IM_COL32(38, 40, 52, 180), 1.f);
+            dl->AddRectFilled({bX, bY}, {bX + bW * frac, bY + bH}, cAccent, 1.f);
+
+            if (defusing && defuseRem > 0.f) {
+                snprintf(buf, sizeof(buf), "DEFUSE %.1fs", defuseRem);
+                Text(dl, ImVec2(px + pw * 0.5f, py + ph + 3.f),
+                     IM_COL32(120, 190, 255, 255), buf, true, 11.f);
+            }
+            (void)cTextDim;
         }
 
         inline void SpectatorPanel(ImDrawList* dl, float scrW, const std::vector<std::string>& names, int style = 0)
@@ -619,6 +700,9 @@ namespace ESP
         bool dbgVMok = dbgVM.m[3][0] != 0.f || dbgVM.m[3][1] != 0.f || dbgVM.m[3][2] != 0.f;
 
         auto drawDbg = [&]() {
+            (void)dbg_chunks; (void)dbg_ctrls; (void)dbg_alive; (void)dbg_enemy;
+            (void)dbg_w2s_ok; (void)dbg_w2s_fail; (void)dbgVMok; (void)dl;
+            if (false) {
             char buf[480];
             snprintf(buf, sizeof(buf),
                 "ESP DIAG: cb=%llx | resLP=%llx resLC=%llx resEL=%llx resVM=%llx resVA=%llx | lp=%llx lc=%llx el=%llx | chunks=%d ctrls=%d alive=%d enemy=%d | w2s ok=%d fail=%d | VM ok=%d",
@@ -713,6 +797,7 @@ namespace ESP
                 (unsigned long)Aimbot::diag_wsCalls,
                 (unsigned long)Aimbot::diag_wsRedirected);
             dl->AddText({10.f, 90.f}, IM_COL32(180,255,160,255), buf6);
+            } // end if(false) — debug overlay disabled for clean release build
         };
 
         if (!localPawn || !localCtrl || !entList) { drawDbg(); return; }
@@ -872,30 +957,33 @@ namespace ESP
                         // Render weapon icon if enabled and font loaded, otherwise show text badge
                         if (cfg.weaponIcon && iconFont && !weaponName.empty())
                         {
-                            // Cache icon character lookup to avoid repeated string operations
                             const char* iconChar = WeaponIcons::GetWeaponIcon(weaponName.c_str());
-                            
-                            // Use smaller font size (14px instead of 18px) for better scaling
+
+                            // Tighter scale (was 0.75) — icons were eating
+                            // vertical space over short pawns. 0.60 keeps
+                            // glyphs readable while staying out of the bar.
+                            constexpr float scale    = 0.60f;
+                            const float     baseFs   = ImGui::GetFontSize();
+                            const float     glyphFs  = baseFs * scale;
+
                             ImGui::PushFont(iconFont);
-                            
-                            // Scale down the icon slightly for cleaner look
                             ImVec2 iconSize = ImGui::CalcTextSize(iconChar);
-                            float scale = 0.75f; // 25% smaller
                             iconSize.x *= scale;
                             iconSize.y *= scale;
-                            
-                            float iconX = headX - (iconSize.x * 0.5f);
-                            
-                            // Improved shadow - single offset for performance
-                            dl->AddText(iconFont, ImGui::GetFontSize() * scale, 
-                                       ImVec2(iconX + 1, yOff + 1), 
-                                       IM_COL32(0, 0, 0, 200), iconChar);
-                            
-                            // Main icon with slight transparency for softer look
-                            dl->AddText(iconFont, ImGui::GetFontSize() * scale, 
-                                       ImVec2(iconX, yOff), 
-                                       IM_COL32(255, 255, 255, 240), iconChar);
-                            
+                            const float iconX = headX - iconSize.x * 0.5f;
+
+                            // Soft 4-direction shadow (much smoother than the
+                            // single hard offset; same cost as 4 AddText).
+                            constexpr float so = 1.0f;
+                            const ImU32 shadow = IM_COL32(0, 0, 0, 170);
+                            dl->AddText(iconFont, glyphFs, ImVec2(iconX - so, yOff     ), shadow, iconChar);
+                            dl->AddText(iconFont, glyphFs, ImVec2(iconX + so, yOff     ), shadow, iconChar);
+                            dl->AddText(iconFont, glyphFs, ImVec2(iconX,      yOff - so), shadow, iconChar);
+                            dl->AddText(iconFont, glyphFs, ImVec2(iconX,      yOff + so), shadow, iconChar);
+
+                            // Main glyph
+                            dl->AddText(iconFont, glyphFs, ImVec2(iconX, yOff),
+                                        IM_COL32(245, 245, 250, 245), iconChar);
                             ImGui::PopFont();
                         }
                         else
@@ -950,50 +1038,66 @@ namespace ESP
 
                 // Get weapon icon character
                 const char* iconChar = WeaponIcons::GetWeaponIcon(className.c_str());
-                
-                // Render icon
+
+                // Tighter scale (was 0.9) — dropped icons no longer dominate
+                // the screen when several pieces of kit are stacked.
+                constexpr float scale  = 0.62f;
+                const float baseFs     = ImGui::GetFontSize();
+                const float glyphFs    = baseFs * scale;
+
                 ImGui::PushFont(iconFont);
-                
-                float scale = 0.9f; // Good visibility
                 ImVec2 iconSize = ImGui::CalcTextSize(iconChar);
                 iconSize.x *= scale;
                 iconSize.y *= scale;
-                
-                float iconX = screenX - (iconSize.x * 0.5f);
-                float iconY = screenY - (iconSize.y * 0.5f);
-                
-                // Color based on type - bright colors for visibility
+
+                const float iconX = screenX - iconSize.x * 0.5f;
+                const float iconY = screenY - iconSize.y * 0.5f;
+
+                // Type-tinted icon — desaturated a notch from the old neon
+                // palette so several drops in a frame don't clash.
                 ImU32 iconColor;
-                bool isBomb = (className == "weapon_c4");
-                if (isBomb) {
-                    iconColor = IM_COL32(255, 60, 60, 255); // Bright red for C4
-                } else if (isGrenade) {
-                    iconColor = IM_COL32(80, 200, 255, 255); // Bright blue for grenades
-                } else {
-                    iconColor = IM_COL32(255, 230, 80, 255); // Bright yellow for weapons
+                const bool isBomb = (className == "weapon_c4");
+                if      (isBomb)    iconColor = IM_COL32(255,  92,  82, 250); // C4 red
+                else if (isGrenade) iconColor = IM_COL32(110, 200, 255, 245); // grenade blue
+                else                iconColor = IM_COL32(255, 220, 110, 245); // weapon amber
+
+                // Subtle pill backdrop — gives the glyph a clean reading
+                // surface without a hard rectangle. Only painted when the
+                // item is reasonably close (avoid clutter at long range).
+                float dist = 0.f;
+                if (!localPos.IsZero())
+                    dist = (origin - localPos).Length() * 0.0254f;
+                const bool drawChip = (dist > 0.f && dist < 35.f);
+
+                if (drawChip) {
+                    const float pad   = 3.5f;
+                    const float chipR = (iconSize.y * 0.5f) + pad;
+                    const ImVec2 cMin{iconX - pad,            iconY - pad * 0.5f};
+                    const ImVec2 cMax{iconX + iconSize.x + pad, iconY + iconSize.y + pad * 0.5f};
+                    dl->AddRectFilled(cMin, cMax, IM_COL32(8, 9, 14, 165), chipR);
+                    dl->AddRect      (cMin, cMax, IM_COL32(255, 255, 255, 18), chipR, 0, 1.f);
                 }
-                
-                // Strong shadow for visibility
-                dl->AddText(iconFont, ImGui::GetFontSize() * scale, 
-                           ImVec2(iconX + 1.5f, iconY + 1.5f), 
-                           IM_COL32(0, 0, 0, 220), iconChar);
-                
+
+                // Soft 4-direction shadow halo for off-chip readability.
+                constexpr float so = 1.0f;
+                const ImU32 shadow = IM_COL32(0, 0, 0, 175);
+                dl->AddText(iconFont, glyphFs, ImVec2(iconX - so, iconY     ), shadow, iconChar);
+                dl->AddText(iconFont, glyphFs, ImVec2(iconX + so, iconY     ), shadow, iconChar);
+                dl->AddText(iconFont, glyphFs, ImVec2(iconX,      iconY - so), shadow, iconChar);
+                dl->AddText(iconFont, glyphFs, ImVec2(iconX,      iconY + so), shadow, iconChar);
+
                 // Main icon
-                dl->AddText(iconFont, ImGui::GetFontSize() * scale, 
-                           ImVec2(iconX, iconY), 
-                           iconColor, iconChar);
-                
+                dl->AddText(iconFont, glyphFs, ImVec2(iconX, iconY), iconColor, iconChar);
+
                 ImGui::PopFont();
-                
-                // Show distance for dropped items if not too far
-                if (!localPos.IsZero()) {
-                    float dist = (origin - localPos).Length() * 0.0254f;
-                    if (dist < 50.f) {
-                        char buf[16];
-                        snprintf(buf, sizeof(buf), "%.0fm", dist);
-                        Draw::Text(dl, ImVec2(screenX, screenY + iconSize.y * 0.5f + 3), 
-                                  IM_COL32(220, 220, 220, 230), buf, true, 10.f);
-                    }
+
+                // Distance label below the icon for nearby items only.
+                if (drawChip) {
+                    char buf[16];
+                    snprintf(buf, sizeof(buf), "%.0fm", dist);
+                    Draw::Text(dl,
+                               ImVec2(screenX, iconY + iconSize.y + 3.f),
+                               IM_COL32(225, 225, 230, 235), buf, true, 9.f);
                 }
             }
         }

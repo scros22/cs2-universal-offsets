@@ -1628,6 +1628,11 @@ namespace Menu
 
     // ============================================================
     //  TOP-RIGHT HUD OVERLAY  (always visible: LUCID | name | time | FPS)
+    //  Three styles:
+    //    0 Pill  — premium dark pill with accent bar, hairline dividers,
+    //              soft drop shadow, gradient backdrop, avatar accent ring
+    //    1 Clean — accent-forward outline, no dividers
+    //    2 Ghost — ultra-minimal, barely visible
     // ============================================================
     inline void RenderHUD()
     {
@@ -1637,6 +1642,7 @@ namespace Menu
         ImGuiIO&    io = ImGui::GetIO();
         ImDrawList* fl = ImGui::GetForegroundDrawList();
 
+        // ---- data --------------------------------------------------------
         char fpsBuf[8], timeBuf[12], name[64] = "User";
         snprintf(fpsBuf,  sizeof(fpsBuf),  "%d", (int)(io.Framerate + 0.5f));
         SYSTEMTIME st; GetLocalTime(&st);
@@ -1644,91 +1650,153 @@ namespace Menu
         GetEnvironmentVariableA("USERNAME", name, sizeof(name));
         name[15] = '\0';
 
-        const float fh  = ImGui::GetFontSize();
-        const float bh  = fh + 20.f;
-        const float avD = bh - 8.f;
-        const float avR = avD * 0.5f;
-        const float pad = 10.f;
-        const float sep = 11.f;
+        // ---- geometry ----------------------------------------------------
+        const float fh   = ImGui::GetFontSize();
+        const float bh   = fh + 18.f;                    // bar height
+        const float avD  = bh - 10.f;                    // avatar diameter
+        const float avR  = avD * 0.5f;
+        const float padX = 12.f;                          // horizontal padding inside pill
+        const float gap  = 9.f;                           // gap between text segments
+        const float divW = 10.f;                          // total width consumed by hairline divider (gap+1+gap)
+        const float radius = bh * 0.5f;                   // fully rounded ends → capsule
 
         ImVec2 szL  = ImGui::CalcTextSize("LUCID");
         ImVec2 szN  = ImGui::CalcTextSize(name);
         ImVec2 szT  = ImGui::CalcTextSize(timeBuf);
-        ImVec2 szFL = ImGui::CalcTextSize("FPS ");
+        ImVec2 szFL = ImGui::CalcTextSize("FPS");
         ImVec2 szFV = ImGui::CalcTextSize(fpsBuf);
 
-        float avSpace = hudAvatarSRV ? (avD + 8.f) : 0.f;
-        float totalW  = avSpace + pad + szL.x + sep + szN.x + sep + szT.x + sep + szFL.x + szFV.x + pad;
-        float bx = io.DisplaySize.x - totalW - 12.f;
-        float by = 10.f;
-        float cy = by + bh * 0.5f;
-        float ty = by + (bh - fh) * 0.5f;
+        const float avSpace  = hudAvatarSRV ? (avD + 8.f) : 0.f;
+        const float fpsInner = 5.f; // spacing between "FPS" label and value
+        // total: leftAccentBar(4) + padX + avatar + LUCID + div + name + div + time + div + FPS + fpsInner + value + padX
+        float totalW = 4.f + padX + avSpace + szL.x + divW + szN.x + divW + szT.x + divW
+                     + szFL.x + fpsInner + szFV.x + padX;
 
-        if (hudStyle == 2) // Ghost — ultra-minimal, barely visible
+        const float bx = io.DisplaySize.x - totalW - 14.f;
+        const float by = 12.f;
+        const float cy = by + bh * 0.5f;
+        const float ty = by + (bh - fh) * 0.5f;
+
+        // Hairline divider helper — shared across styles, advances cx
+        auto HairDivider = [&](float& cx, ImU32 col, float topPad = 6.f) {
+            cx += gap;
+            fl->AddRectFilled({ cx, by + topPad }, { cx + 1.f, by + bh - topPad }, col);
+            cx += 1.f + gap;
+        };
+
+        // ------------------------------------------------------------------
+        //  STYLE 2 — GHOST  (translucent, no chrome)
+        // ------------------------------------------------------------------
+        if (hudStyle == 2)
         {
-            fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, IM_COL32(0, 0, 0, 70), 8.f);
-            float cx = bx + pad;
+            fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, IM_COL32(8, 8, 14, 90), radius);
+            float cx = bx + 4.f + padX;
             if (hudAvatarSRV) {
                 fl->AddImageRounded((ImTextureID)(intptr_t)hudAvatarSRV,
                     { cx, cy - avR }, { cx + avD, cy + avR },
                     { 0.f, 0.f }, { 1.f, 1.f },
                     IM_COL32(255, 255, 255, 175), avR);
-                cx += avD + 6.f;
+                cx += avD + 8.f;
             }
-            fl->AddText({ cx, ty }, EvoAccent(210),                      "LUCID");    cx += szL.x + sep;
-            fl->AddText({ cx, ty }, IM_COL32(175, 175, 185, 165),        name);       cx += szN.x + sep;
-            fl->AddText({ cx, ty }, IM_COL32(130, 130, 140, 145),        timeBuf);    cx += szT.x + sep;
-            fl->AddText({ cx, ty }, IM_COL32(100, 100, 110, 120),        "FPS ");     cx += szFL.x;
-            fl->AddText({ cx, ty }, EvoAccent(165),                      fpsBuf);
+            fl->AddText({ cx, ty }, EvoAccent(200),                "LUCID");   cx += szL.x;
+            HairDivider(cx, IM_COL32(80, 80, 95, 70));
+            fl->AddText({ cx, ty }, IM_COL32(180,180,190,170),     name);      cx += szN.x;
+            HairDivider(cx, IM_COL32(80, 80, 95, 70));
+            fl->AddText({ cx, ty }, IM_COL32(140,140,150,150),     timeBuf);   cx += szT.x;
+            HairDivider(cx, IM_COL32(80, 80, 95, 70));
+            fl->AddText({ cx, ty }, IM_COL32(110,110,120,140),     "FPS");     cx += szFL.x + fpsInner;
+            fl->AddText({ cx, ty }, EvoAccent(180),                fpsBuf);
+            return;
         }
-        else if (hudStyle == 1) // Clean — accent-forward, single border, no separators
+
+        // ------------------------------------------------------------------
+        //  STYLE 1 — CLEAN  (accent-outline, no dividers)
+        // ------------------------------------------------------------------
+        if (hudStyle == 1)
         {
-            fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, IM_COL32(10, 8, 16, 190), 8.f);
-            fl->AddRect({ bx, by }, { bx + totalW, by + bh }, EvoAccent(85), 8.f, 0, 1.f);
-            fl->AddRectFilled({ bx + 2.5f, by + 6.f }, { bx + 4.5f, by + bh - 6.f }, EvoAccent(225), 2.f);
-            float cx = bx + 4.5f + pad;
+            // soft outer glow
+            for (int i = 4; i > 0; --i) {
+                fl->AddRect({ bx - i, by - i }, { bx + totalW + i, by + bh + i },
+                            EvoAccent(8 + (4 - i) * 4), radius + i, 0, 1.f);
+            }
+            fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, IM_COL32(11, 9, 18, 215), radius);
+            fl->AddRect      ({ bx, by }, { bx + totalW, by + bh }, EvoAccent(110), radius, 0, 1.2f);
+            fl->AddRectFilled({ bx + 4.f, by + 6.f }, { bx + 6.f, by + bh - 6.f }, EvoAccent(235), 2.f);
+
+            float cx = bx + 6.f + padX;
             if (hudAvatarSRV) {
                 fl->AddImageRounded((ImTextureID)(intptr_t)hudAvatarSRV,
                     { cx, cy - avR }, { cx + avD, cy + avR },
                     { 0.f, 0.f }, { 1.f, 1.f },
                     IM_COL32(255, 255, 255, 255), avR);
-                fl->AddCircle({ cx + avR, cy }, avR + 0.5f, EvoAccent(110), 36, 1.2f);
-                cx += avD + 8.f;
+                fl->AddCircle({ cx + avR, cy }, avR + 0.8f, EvoAccent(140), 36, 1.4f);
+                cx += avD + 10.f;
             }
-            fl->AddText({ cx, ty }, EvoAccent(255),               "LUCID");    cx += szL.x + sep;
-            fl->AddText({ cx, ty }, EvoAccent(195),               name);       cx += szN.x + sep;
-            fl->AddText({ cx, ty }, EvoAccent(140),               timeBuf);    cx += szT.x + sep;
-            fl->AddText({ cx, ty }, IM_COL32(100, 100, 110, 155), "FPS ");     cx += szFL.x;
-            fl->AddText({ cx, ty }, EvoAccent(230),               fpsBuf);
+            fl->AddText({ cx, ty }, EvoAccent(255),               "LUCID");   cx += szL.x + gap + 4.f;
+            fl->AddText({ cx, ty }, kTextBrt,                     name);      cx += szN.x + gap + 4.f;
+            fl->AddText({ cx, ty }, EvoAccent(155),               timeBuf);   cx += szT.x + gap + 4.f;
+            fl->AddText({ cx, ty }, IM_COL32(105,105,118,170),    "FPS");     cx += szFL.x + fpsInner;
+            fl->AddText({ cx, ty }, EvoAccent(235),               fpsBuf);
+            return;
         }
-        else // Pill — style 0, original design
-        {
-            fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, IM_COL32(7, 7, 10, 230), 8.f);
-            fl->AddRect({ bx, by }, { bx + totalW, by + bh }, IM_COL32(255, 255, 255, 20), 8.f, 0, 1.f);
-            fl->AddRect({ bx, by }, { bx + totalW, by + bh }, IM_COL32(42, 40, 62, 170), 8.f, 0, 1.f);
-            fl->AddRectFilled({ bx + 2.5f, by + 6.f }, { bx + 4.5f, by + bh - 6.f }, EvoAccent(200), 2.f);
-            float cx = bx + 4.5f + pad;
-            if (hudAvatarSRV) {
-                float ax = cx, ay = cy - avR;
-                fl->AddImageRounded(
-                    (ImTextureID)(intptr_t)hudAvatarSRV,
-                    { ax, ay }, { ax + avD, ay + avD },
-                    { 0.f, 0.f }, { 1.f, 1.f },
-                    IM_COL32(255, 255, 255, 255), avR);
-                fl->AddCircle({ ax + avR, cy }, avR + 0.5f, EvoAccent(90), 36, 1.2f);
-                cx += avD + 8.f;
-            }
-            auto Sep = [&]() {
-                cx += sep * 0.35f;
-                fl->AddRectFilled({ cx, by + 8.f }, { cx + 1.f, by + bh - 8.f }, IM_COL32(55, 52, 80, 190));
-                cx += 1.f + sep * 0.65f;
-            };
-            fl->AddText({ cx, ty }, EvoAccent(245), "LUCID");    cx += szL.x;  Sep();
-            fl->AddText({ cx, ty }, kTextBrt,        name);       cx += szN.x;  Sep();
-            fl->AddText({ cx, ty }, kTextMid,        timeBuf);    cx += szT.x;  Sep();
-            fl->AddText({ cx, ty }, kTextDim,        "FPS ");     cx += szFL.x;
-            fl->AddText({ cx, ty }, EvoAccent(210),  fpsBuf);
+
+        // ------------------------------------------------------------------
+        //  STYLE 0 — PILL  (default, premium)
+        //  - 4-layer drop shadow
+        //  - Two-tone gradient backdrop (top slightly lighter)
+        //  - 1px hairline outline + 1px inner highlight
+        //  - Accent bar on left edge
+        //  - Avatar with double accent ring
+        //  - Hairline vertical dividers between segments
+        // ------------------------------------------------------------------
+        // 1) Drop shadow (4 progressively softer layers, offset down 2px)
+        for (int i = 5; i > 0; --i) {
+            fl->AddRectFilled({ bx - i, by - i + 2 },
+                              { bx + totalW + i, by + bh + i + 2 },
+                              IM_COL32(0, 0, 0, 9 + (5 - i) * 6), radius + i);
         }
+
+        // 2) Backdrop — ImGui supports per-corner colors via AddRectFilledMultiColor
+        //    Top: slightly lifted; bottom: deep ink. Gives a glass-panel feel.
+        const ImU32 cTop  = IM_COL32(20, 18, 30, 235);
+        const ImU32 cBot  = IM_COL32(8,  7, 14,  240);
+        // Rounded mask is faked: draw rounded base in cBot, then a top-half
+        // gradient strip that doesn't quite reach the edges (radius makes
+        // hard rectangle inside acceptable since the rounded base shows through).
+        fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, cBot, radius);
+        fl->AddRectFilledMultiColor(
+            { bx + 1.f, by + 1.f },
+            { bx + totalW - 1.f, by + bh * 0.55f },
+            cTop, cTop, cBot, cBot);
+
+        // 3) Outline + inner highlight
+        fl->AddRect({ bx, by }, { bx + totalW, by + bh }, IM_COL32(255, 255, 255, 18), radius, 0, 1.f);
+        fl->AddRect({ bx + 1.f, by + 1.f }, { bx + totalW - 1.f, by + bh - 1.f },
+                    EvoAccent(55), radius - 1.f, 0, 1.f);
+
+        // 4) Accent bar on left edge — vertical capsule
+        fl->AddRectFilled({ bx + 4.f, by + 5.f }, { bx + 6.f, by + bh - 5.f }, EvoAccent(235), 2.f);
+
+        // 5) Content
+        float cx = bx + 6.f + padX;
+        if (hudAvatarSRV) {
+            fl->AddImageRounded((ImTextureID)(intptr_t)hudAvatarSRV,
+                { cx, cy - avR }, { cx + avD, cy + avR },
+                { 0.f, 0.f }, { 1.f, 1.f },
+                IM_COL32(255, 255, 255, 255), avR);
+            // double ring: thin accent + outer faint
+            fl->AddCircle({ cx + avR, cy }, avR + 0.5f, EvoAccent(160), 36, 1.2f);
+            fl->AddCircle({ cx + avR, cy }, avR + 1.8f, EvoAccent(45),  36, 1.0f);
+            cx += avD + 8.f;
+        }
+
+        const ImU32 cDivider = IM_COL32(60, 56, 86, 180);
+
+        fl->AddText({ cx, ty }, EvoAccent(245), "LUCID");   cx += szL.x;  HairDivider(cx, cDivider);
+        fl->AddText({ cx, ty }, kTextBrt,        name);      cx += szN.x;  HairDivider(cx, cDivider);
+        fl->AddText({ cx, ty }, kTextMid,        timeBuf);   cx += szT.x;  HairDivider(cx, cDivider);
+        fl->AddText({ cx, ty }, IM_COL32(108,108,122,200), "FPS"); cx += szFL.x + fpsInner;
+        fl->AddText({ cx, ty }, EvoAccent(225),  fpsBuf);
     }
 
     // ============================================================
