@@ -2107,15 +2107,12 @@ namespace Menu
         // --- Frosted-glass backgrounds ---
         // Bumped opacity ~18% across the board (was 192/172/155 → 228/210/195)
         // — the menu had become too see-through against bright maps.
-        int bgA  = (int)(menuAlpha * 228.f);
-        int panA = (int)(menuAlpha * 210.f);
-        int sidA = (int)(menuAlpha * 220.f);   // sidebar — slightly darker than panel
-        int borA = (int)(menuAlpha * 175.f);
+        // (no outer window border — cards stand on their own)
 
-        // No main-window fill or border — the sidebar card and right-panel
-        // card render as two free-floating elements with empty space
-        // between them, so the menu "floats" with no monolithic backdrop.
-        (void)bgA;
+        // Two-column content
+        ImGui::PushStyleColor(ImGuiCol_ChildBg,  { 0.f, 0.f, 0.f, 0.f });
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 6.f, 6.f });
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing,   { 6.f, 4.f });
 
         // ---------------------------------------------------------------
         // SIDEBAR — clean card matching the right-panel design.
