@@ -5,7 +5,7 @@
 
 #![allow(non_upper_case_globals, non_snake_case, dead_code)]
 
-pub const CS2_BUILD: u32 = 14152;
+pub const CS2_BUILD: u32 = 14153;
 
 #[path = "signatures.rs"] pub mod signatures;
 // Per-module offsets are emitted as <module>.rs by the offset pass.

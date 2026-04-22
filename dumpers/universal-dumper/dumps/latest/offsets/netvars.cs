@@ -3,6 +3,6 @@ namespace CS2Sdk.NetVars;
 
 public static class NetVars
 {
-    public const uint CS2_BUILD = 14152u;
+    public const uint CS2_BUILD = 14153u;
 
 }

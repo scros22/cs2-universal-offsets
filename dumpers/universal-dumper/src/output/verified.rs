@@ -85,7 +85,7 @@ pub static FEATURES: &[VerifiedFeature] = &[
         fields: &[
             VerifiedField { class: "C_SmokeGrenadeProjectile", field: "m_nSmokeEffectTickBegin", offset: 0x1250, ty: "int32",   note: "set 0 to skip the puff" },
             VerifiedField { class: "C_SmokeGrenadeProjectile", field: "m_bDidSmokeEffect",       offset: 0x1254, ty: "bool",    note: "set false" },
-            VerifiedField { class: "C_CSPlayerPawn",           field: "m_flLastSmokeOverlayAlpha", offset: 0,    ty: "float",   note: "see schema dump for current offset; set 0" },
+            VerifiedField { class: "C_CSPlayerPawn",           field: "m_flLastSmokeOverlayAlpha", offset: 0x1420, ty: "float",   note: "local pawn's screen overlay alpha; set 0" },
         ],
         convars: &[],
         hooks: &[],
@@ -105,8 +105,8 @@ pub static FEATURES: &[VerifiedFeature] = &[
         summary: "Zero m_flFlashDuration and m_flFlashMaxAlpha on the local pawn. \
                   Trip the write only when duration > 0 to avoid spamming the engine.",
         fields: &[
-            VerifiedField { class: "C_CSPlayerPawn", field: "m_flFlashDuration", offset: 0, ty: "float", note: "see schema dump for current offset" },
-            VerifiedField { class: "C_CSPlayerPawn", field: "m_flFlashMaxAlpha", offset: 0, ty: "float", note: "see schema dump for current offset" },
+            VerifiedField { class: "C_CSPlayerPawn", field: "m_flFlashDuration", offset: 0x1400, ty: "float", note: "set 0 to clear flash" },
+            VerifiedField { class: "C_CSPlayerPawn", field: "m_flFlashMaxAlpha", offset: 0x13FC, ty: "float", note: "set 0 for full removal, 0..255 for partial" },
         ],
         convars: &[],
         hooks: &[],
@@ -148,9 +148,9 @@ pub static FEATURES: &[VerifiedFeature] = &[
                   fight the camera-services side.",
         fields: &[
             VerifiedField { class: "CBasePlayerController", field: "m_iDesiredFOV", offset: 0x784, ty: "uint32", note: "a2x-named m_iDesiredFOV_OnController" },
-            VerifiedField { class: "CCSPlayer_CameraServices", field: "m_iFOV",      offset: 0,    ty: "uint32", note: "see schema dump" },
-            VerifiedField { class: "CCSPlayer_CameraServices", field: "m_iFOVStart", offset: 0,    ty: "uint32", note: "see schema dump" },
-            VerifiedField { class: "C_CSPlayerPawn",            field: "m_pCameraServices", offset: 0, ty: "ptr", note: "deref to reach m_iFOV/m_iFOVStart" },
+            VerifiedField { class: "CCSPlayer_CameraServices", field: "m_iFOV",      offset: 0x290, ty: "uint32", note: "current camera FOV" },
+            VerifiedField { class: "CCSPlayer_CameraServices", field: "m_iFOVStart", offset: 0x294, ty: "uint32", note: "target camera FOV" },
+            VerifiedField { class: "C_CSPlayerPawn",            field: "m_pCameraServices", offset: 0x1218, ty: "CCSPlayer_CameraServices*", note: "deref to reach m_iFOV/m_iFOVStart" },
         ],
         convars: &[],
         hooks: &[

@@ -1339,72 +1339,72 @@
           "index": 0,
           "module": "client.dll",
           "name": "method_0",
-          "rva": "0xAB75B0"
+          "rva": "0xABC100"
         },
         {
           "index": 1,
           "module": "client.dll",
           "name": "method_1",
-          "rva": "0xAB7610"
+          "rva": "0xABC160"
         },
         {
           "index": 2,
           "module": "client.dll",
           "name": "method_2",
-          "rva": "0xAB7560"
+          "rva": "0xABC0B0"
         },
         {
           "index": 3,
           "module": "client.dll",
           "name": "method_3",
-          "rva": "0xAB76B0"
+          "rva": "0xABC200"
         },
         {
           "index": 4,
           "module": "client.dll",
           "name": "method_4",
-          "rva": "0xAB76E0"
+          "rva": "0xABC230"
         },
         {
           "index": 5,
           "module": "client.dll",
           "name": "method_5",
-          "rva": "0xAB7570"
+          "rva": "0xABC0C0"
         },
         {
           "index": 6,
           "module": "client.dll",
           "name": "method_6",
-          "rva": "0xAB76F0"
+          "rva": "0xABC240"
         },
         {
           "index": 7,
           "module": "client.dll",
           "name": "method_7",
-          "rva": "0xAB75A0"
+          "rva": "0xABC0F0"
         },
         {
           "index": 8,
           "module": "client.dll",
           "name": "method_8",
-          "rva": "0xAB7650"
+          "rva": "0xABC1A0"
         },
         {
           "index": 9,
           "module": "client.dll",
           "name": "method_9",
-          "rva": "0xAB7580"
+          "rva": "0xABC0D0"
         },
         {
           "index": 10,
           "module": "client.dll",
           "name": "method_10",
-          "rva": "0xAB7590"
+          "rva": "0xABC0E0"
         }
       ],
       "rtti_class": "CClientToolsInfo",
       "vtable_module": "client.dll",
-      "vtable_rva": "0x1A97868"
+      "vtable_rva": "0x1A9CB40"
     },
     "EmptyWorldService001_Client": {
       "method_count": 23,
@@ -1413,144 +1413,144 @@
           "index": 0,
           "module": "client.dll",
           "name": "method_0",
-          "rva": "0x71EED0"
+          "rva": "0x71EF10"
         },
         {
           "index": 1,
           "module": "client.dll",
           "name": "method_1",
-          "rva": "0x71F3D0"
+          "rva": "0x71F410"
         },
         {
           "index": 2,
           "module": "client.dll",
           "name": "method_2",
-          "rva": "0x72C4C0"
+          "rva": "0x72C500"
         },
         {
           "index": 3,
           "module": "client.dll",
           "name": "method_3",
-          "rva": "0x725270"
+          "rva": "0x7252B0"
         },
         {
           "index": 4,
           "module": "client.dll",
           "name": "method_4",
-          "rva": "0x72D980"
+          "rva": "0x72D9C0"
         },
         {
           "index": 5,
           "module": "client.dll",
           "name": "method_5",
-          "rva": "0x72BB10"
+          "rva": "0x72BB50"
         },
         {
           "index": 6,
           "module": "client.dll",
           "name": "method_6",
-          "rva": "0x7209C0"
+          "rva": "0x720A00"
         },
         {
           "index": 7,
           "module": "client.dll",
           "name": "method_7",
-          "rva": "0x721580"
+          "rva": "0x7215C0"
         },
         {
           "index": 8,
           "module": "client.dll",
           "name": "method_8",
-          "rva": "0x72C7C0"
+          "rva": "0x72C800"
         },
         {
           "index": 9,
           "module": "client.dll",
           "name": "method_9",
-          "rva": "0x72A4F0"
+          "rva": "0x72A530"
         },
         {
           "index": 10,
           "module": "client.dll",
           "name": "method_10",
-          "rva": "0x721500"
+          "rva": "0x721540"
         },
         {
           "index": 11,
           "module": "client.dll",
           "name": "method_11",
-          "rva": "0x7213E0"
+          "rva": "0x721420"
         },
         {
           "index": 12,
           "module": "client.dll",
           "name": "method_12",
-          "rva": "0x7211F0"
+          "rva": "0x721230"
         },
         {
           "index": 13,
           "module": "client.dll",
           "name": "method_13",
-          "rva": "0x72D960"
+          "rva": "0x72D9A0"
         },
         {
           "index": 14,
           "module": "client.dll",
           "name": "method_14",
-          "rva": "0x72B530"
+          "rva": "0x72B570"
         },
         {
           "index": 15,
           "module": "client.dll",
           "name": "method_15",
-          "rva": "0x72B610"
+          "rva": "0x72B650"
         },
         {
           "index": 16,
           "module": "client.dll",
           "name": "method_16",
-          "rva": "0x72A360"
+          "rva": "0x72A3A0"
         },
         {
           "index": 17,
           "module": "client.dll",
           "name": "method_17",
-          "rva": "0x72D080"
+          "rva": "0x72D0C0"
         },
         {
           "index": 18,
           "module": "client.dll",
           "name": "method_18",
-          "rva": "0x72D560"
+          "rva": "0x72D5A0"
         },
         {
           "index": 19,
           "module": "client.dll",
           "name": "method_19",
-          "rva": "0x72C810"
+          "rva": "0x72C850"
         },
         {
           "index": 20,
           "module": "client.dll",
           "name": "method_20",
-          "rva": "0x7213F0"
+          "rva": "0x721430"
         },
         {
           "index": 21,
           "module": "client.dll",
           "name": "method_21",
-          "rva": "0x72D570"
+          "rva": "0x72D5B0"
         },
         {
           "index": 22,
           "module": "client.dll",
           "name": "method_22",
-          "rva": "0x71A1A0"
+          "rva": "0x71A1E0"
         }
       ],
       "rtti_class": "CEmptyWorldService",
       "vtable_module": "client.dll",
-      "vtable_rva": "0x19F6B70"
+      "vtable_rva": "0x19FBB10"
     },
     "GameClientExports001": {
       "method_count": 19,
@@ -1559,120 +1559,120 @@
           "index": 0,
           "module": "client.dll",
           "name": "method_0",
-          "rva": "0xAB7800"
+          "rva": "0xABC350"
         },
         {
           "index": 1,
           "module": "client.dll",
           "name": "method_1",
-          "rva": "0xAB7860"
+          "rva": "0xABC3B0"
         },
         {
           "index": 2,
           "module": "client.dll",
           "name": "method_2",
-          "rva": "0xAB7770"
+          "rva": "0xABC2C0"
         },
         {
           "index": 3,
           "module": "client.dll",
           "name": "method_3",
-          "rva": "0xAB77D0"
+          "rva": "0xABC320"
         },
         {
           "index": 4,
           "module": "client.dll",
           "name": "method_4",
-          "rva": "0xAB77C0"
+          "rva": "0xABC310"
         },
         {
           "index": 5,
           "module": "client.dll",
           "name": "method_5",
-          "rva": "0xAB7780"
+          "rva": "0xABC2D0"
         },
         {
           "index": 6,
           "module": "client.dll",
           "name": "method_6",
-          "rva": "0xAB7790"
+          "rva": "0xABC2E0"
         },
         {
           "index": 7,
           "module": "client.dll",
           "name": "method_7",
-          "rva": "0xAB77F0"
+          "rva": "0xABC340"
         },
         {
           "index": 8,
           "module": "client.dll",
           "name": "method_8",
-          "rva": "0xAB78A0"
+          "rva": "0xABC3F0"
         },
         {
           "index": 9,
           "module": "client.dll",
           "name": "method_9",
-          "rva": "0xAB77A0"
+          "rva": "0xABC2F0"
         },
         {
           "index": 10,
           "module": "client.dll",
           "name": "method_10",
-          "rva": "0xAB77B0"
+          "rva": "0xABC300"
         },
         {
           "index": 11,
           "module": "client.dll",
           "name": "method_11",
-          "rva": "0xAB7900"
+          "rva": "0xABC450"
         },
         {
           "index": 12,
           "module": "client.dll",
           "name": "method_12",
-          "rva": "0xAB7920"
+          "rva": "0xABC470"
         },
         {
           "index": 13,
           "module": "client.dll",
           "name": "method_13",
-          "rva": "0xAB7930"
+          "rva": "0xABC480"
         },
         {
           "index": 14,
           "module": "client.dll",
           "name": "method_14",
-          "rva": "0xAB7940"
+          "rva": "0xABC490"
         },
         {
           "index": 15,
           "module": "client.dll",
           "name": "method_15",
-          "rva": "0xAB7980"
+          "rva": "0xABC4D0"
         },
         {
           "index": 16,
           "module": "client.dll",
           "name": "method_16",
-          "rva": "0xAB79C0"
+          "rva": "0xABC510"
         },
         {
           "index": 17,
           "module": "client.dll",
           "name": "method_17",
-          "rva": "0xAB79D0"
+          "rva": "0xABC520"
         },
         {
           "index": 18,
           "module": "client.dll",
           "name": "method_18",
-          "rva": "0xAB79E0"
+          "rva": "0xABC530"
         }
       ],
       "rtti_class": "CGameClientExports",
       "vtable_module": "client.dll",
-      "vtable_rva": "0x1A980F8"
+      "vtable_rva": "0x1A9D0A0"
     },
     "LegacyGameUI001": {
       "method_count": 37,
@@ -1681,228 +1681,228 @@
           "index": 0,
           "module": "client.dll",
           "name": "method_0",
-          "rva": "0xC9E5A0"
+          "rva": "0xCA3230"
         },
         {
           "index": 1,
           "module": "client.dll",
           "name": "method_1",
-          "rva": "0xC9F300"
+          "rva": "0xCA3F90"
         },
         {
           "index": 2,
           "module": "client.dll",
           "name": "method_2",
-          "rva": "0xCA20C0"
+          "rva": "0xCA6D50"
         },
         {
           "index": 3,
           "module": "client.dll",
           "name": "method_3",
-          "rva": "0xC9F870"
+          "rva": "0xCA4500"
         },
         {
           "index": 4,
           "module": "client.dll",
           "name": "method_4",
-          "rva": "0xCA30E0"
+          "rva": "0xCA7D70"
         },
         {
           "index": 5,
           "module": "client.dll",
           "name": "method_5",
-          "rva": "0xCA20B0"
+          "rva": "0xCA6D40"
         },
         {
           "index": 6,
           "module": "client.dll",
           "name": "method_6",
-          "rva": "0xC9F6B0"
+          "rva": "0xCA4340"
         },
         {
           "index": 7,
           "module": "client.dll",
           "name": "method_7",
-          "rva": "0xC9F820"
+          "rva": "0xCA44B0"
         },
         {
           "index": 8,
           "module": "client.dll",
           "name": "method_8",
-          "rva": "0xCA20D0"
+          "rva": "0xCA6D60"
         },
         {
           "index": 9,
           "module": "client.dll",
           "name": "method_9",
-          "rva": "0xCA0BA0"
+          "rva": "0xCA5830"
         },
         {
           "index": 10,
           "module": "client.dll",
           "name": "method_10",
-          "rva": "0xC9F810"
+          "rva": "0xCA44A0"
         },
         {
           "index": 11,
           "module": "client.dll",
           "name": "method_11",
-          "rva": "0xCA2060"
+          "rva": "0xCA6CF0"
         },
         {
           "index": 12,
           "module": "client.dll",
           "name": "method_12",
-          "rva": "0xCA32E0"
+          "rva": "0xCA7F70"
         },
         {
           "index": 13,
           "module": "client.dll",
           "name": "method_13",
-          "rva": "0xCA2BE0"
+          "rva": "0xCA7870"
         },
         {
           "index": 14,
           "module": "client.dll",
           "name": "method_14",
-          "rva": "0xC9EA70"
+          "rva": "0xCA3700"
         },
         {
           "index": 15,
           "module": "client.dll",
           "name": "method_15",
-          "rva": "0xCA10B0"
+          "rva": "0xCA5D40"
         },
         {
           "index": 16,
           "module": "client.dll",
           "name": "method_16",
-          "rva": "0xCA1290"
+          "rva": "0xCA5F20"
         },
         {
           "index": 17,
           "module": "client.dll",
           "name": "method_17",
-          "rva": "0xCA1620"
+          "rva": "0xCA62B0"
         },
         {
           "index": 18,
           "module": "client.dll",
           "name": "method_18",
-          "rva": "0xCA1350"
+          "rva": "0xCA5FE0"
         },
         {
           "index": 19,
           "module": "client.dll",
           "name": "method_19",
-          "rva": "0xCA3D80"
+          "rva": "0xCA8A10"
         },
         {
           "index": 20,
           "module": "client.dll",
           "name": "method_20",
-          "rva": "0xCA2F20"
+          "rva": "0xCA7BB0"
         },
         {
           "index": 21,
           "module": "client.dll",
           "name": "method_21",
-          "rva": "0xCA0D10"
+          "rva": "0xCA59A0"
         },
         {
           "index": 22,
           "module": "client.dll",
           "name": "method_22",
-          "rva": "0xCA2F30"
+          "rva": "0xCA7BC0"
         },
         {
           "index": 23,
           "module": "client.dll",
           "name": "method_23",
-          "rva": "0xCA0D20"
+          "rva": "0xCA59B0"
         },
         {
           "index": 24,
           "module": "client.dll",
           "name": "method_24",
-          "rva": "0xCA0D00"
+          "rva": "0xCA5990"
         },
         {
           "index": 25,
           "module": "client.dll",
           "name": "method_25",
-          "rva": "0xCA30D0"
+          "rva": "0xCA7D60"
         },
         {
           "index": 26,
           "module": "client.dll",
           "name": "method_26",
-          "rva": "0xC9D720"
+          "rva": "0xCA23B0"
         },
         {
           "index": 27,
           "module": "client.dll",
           "name": "method_27",
-          "rva": "0xCA0B30"
+          "rva": "0xCA57C0"
         },
         {
           "index": 28,
           "module": "client.dll",
           "name": "method_28",
-          "rva": "0xC9E6E0"
+          "rva": "0xCA3370"
         },
         {
           "index": 29,
           "module": "client.dll",
           "name": "method_29",
-          "rva": "0xC9E960"
+          "rva": "0xCA35F0"
         },
         {
           "index": 30,
           "module": "client.dll",
           "name": "method_30",
-          "rva": "0xC9ED50"
+          "rva": "0xCA39E0"
         },
         {
           "index": 31,
           "module": "client.dll",
           "name": "method_31",
-          "rva": "0xC9F0C0"
+          "rva": "0xCA3D50"
         },
         {
           "index": 32,
           "module": "client.dll",
           "name": "method_32",
-          "rva": "0xC9EF70"
+          "rva": "0xCA3C00"
         },
         {
           "index": 33,
           "module": "client.dll",
           "name": "method_33",
-          "rva": "0xCA0B90"
+          "rva": "0xCA5820"
         },
         {
           "index": 34,
           "module": "client.dll",
           "name": "method_34",
-          "rva": "0xCA0BB0"
+          "rva": "0xCA5840"
         },
         {
           "index": 35,
           "module": "client.dll",
           "name": "method_35",
-          "rva": "0xCA2F40"
+          "rva": "0xCA7BD0"
         },
         {
           "index": 36,
           "module": "client.dll",
           "name": "method_36",
-          "rva": "0xCA2F50"
+          "rva": "0xCA7BE0"
         }
       ],
       "rtti_class": "CLegacyGameUI",
       "vtable_module": "client.dll",
-      "vtable_rva": "0x1AE4278"
+      "vtable_rva": "0x1AE93B8"
     },
     "Source2Client002": {
       "method_count": 231,
@@ -1911,1604 +1911,1784 @@
           "index": 0,
           "module": "client.dll",
           "name": "method_0",
-          "rva": "0xAC5480"
+          "rva": "0xAC9FD0"
         },
         {
           "index": 1,
           "module": "client.dll",
           "name": "method_1",
-          "rva": "0xAC7DD0"
+          "rva": "0xACC920"
         },
         {
           "index": 2,
           "module": "client.dll",
           "name": "method_2",
-          "rva": "0xADB210"
+          "rva": "0xADFD60"
         },
         {
           "index": 3,
           "module": "client.dll",
           "name": "method_3",
-          "rva": "0xAD0CD0"
+          "rva": "0xAD5820"
         },
         {
           "index": 4,
           "module": "client.dll",
           "name": "method_4",
-          "rva": "0xADFF20"
+          "rva": "0xAE4A70"
         },
         {
           "index": 5,
           "module": "client.dll",
           "name": "method_5",
-          "rva": "0xADA010"
+          "rva": "0xADEB60"
         },
         {
           "index": 6,
           "module": "client.dll",
           "name": "method_6",
-          "rva": "0xACDDA0"
+          "rva": "0xAD28F0"
         },
         {
           "index": 7,
           "module": "client.dll",
           "name": "method_7",
-          "rva": "0xACFC90"
+          "rva": "0xAD47E0"
         },
         {
           "index": 8,
           "module": "client.dll",
           "name": "method_8",
-          "rva": "0xADB610"
+          "rva": "0xAE0160"
         },
         {
           "index": 9,
           "module": "client.dll",
           "name": "method_9",
-          "rva": "0xAD4550"
+          "rva": "0xAD90A0"
         },
         {
           "index": 10,
           "module": "client.dll",
           "name": "method_10",
-          "rva": "0xACFC80"
+          "rva": "0xAD47D0"
         },
         {
           "index": 11,
           "module": "client.dll",
           "name": "update_global_vars",
-          "rva": "0xADEAC0"
+          "rva": "0xAE3610"
         },
         {
           "index": 12,
           "module": "client.dll",
           "name": "method_12",
-          "rva": "0xAD4230"
+          "rva": "0xAD8D80"
         },
         {
           "index": 13,
           "module": "client.dll",
           "name": "method_13",
-          "rva": "0xADB3F0"
+          "rva": "0xADFF40"
         },
         {
           "index": 14,
           "module": "client.dll",
           "name": "method_14",
-          "rva": "0xAD9D40"
+          "rva": "0xADE890"
         },
         {
           "index": 15,
           "module": "client.dll",
           "name": "method_15",
-          "rva": "0xAC7540"
+          "rva": "0xACC090"
         },
         {
           "index": 16,
           "module": "client.dll",
           "name": "method_16",
-          "rva": "0xACCAD0"
+          "rva": "0xAD1620"
         },
         {
           "index": 17,
           "module": "client.dll",
           "name": "method_17",
-          "rva": "0xAE0450"
+          "rva": "0xAE4FA0"
         },
         {
           "index": 18,
           "module": "client.dll",
           "name": "method_18",
-          "rva": "0xACEE80"
+          "rva": "0xAD39D0"
         },
         {
           "index": 19,
           "module": "client.dll",
           "name": "method_19",
-          "rva": "0xACEEB0"
+          "rva": "0xAD3A00"
         },
         {
           "index": 20,
           "module": "client.dll",
           "name": "method_20",
-          "rva": "0xACF0A0"
+          "rva": "0xAD3BF0"
         },
         {
           "index": 21,
           "module": "client.dll",
           "name": "method_21",
-          "rva": "0xAD86C0"
+          "rva": "0xADD210"
         },
         {
           "index": 22,
           "module": "client.dll",
           "name": "method_22",
-          "rva": "0xADAAE0"
+          "rva": "0xADF630"
         },
         {
           "index": 23,
           "module": "client.dll",
           "name": "method_23",
-          "rva": "0xAE30A0"
+          "rva": "0xAE7BF0"
         },
         {
           "index": 24,
           "module": "client.dll",
           "name": "method_24",
-          "rva": "0xAC8490"
+          "rva": "0xACCFE0"
         },
         {
           "index": 25,
           "module": "client.dll",
           "name": "method_25",
-          "rva": "0xAC7580"
+          "rva": "0xACC0D0"
         },
         {
           "index": 26,
           "module": "client.dll",
           "name": "method_26",
-          "rva": "0xACFD90"
+          "rva": "0xAD48E0"
         },
         {
           "index": 27,
           "module": "client.dll",
           "name": "method_27",
-          "rva": "0xADEAA0"
+          "rva": "0xAE35F0"
         },
         {
           "index": 28,
           "module": "client.dll",
           "name": "method_28",
-          "rva": "0xAE04B0"
+          "rva": "0xAE5000"
         },
         {
           "index": 29,
           "module": "client.dll",
           "name": "method_29",
-          "rva": "0xACE670"
+          "rva": "0xAD31C0"
         },
         {
           "index": 30,
           "module": "client.dll",
           "name": "method_30",
-          "rva": "0xAC6490"
+          "rva": "0xACAFE0"
         },
         {
           "index": 31,
           "module": "client.dll",
           "name": "method_31",
-          "rva": "0xAC7CD0"
+          "rva": "0xACC820"
         },
         {
           "index": 32,
           "module": "client.dll",
           "name": "method_32",
-          "rva": "0xACF2F0"
+          "rva": "0xAD3E40"
         },
         {
           "index": 33,
           "module": "client.dll",
           "name": "method_33",
-          "rva": "0xAD72C0"
+          "rva": "0xADBE10"
         },
         {
           "index": 34,
           "module": "client.dll",
           "name": "method_34",
-          "rva": "0xACD3A0"
+          "rva": "0xAD1EF0"
         },
         {
           "index": 35,
           "module": "client.dll",
           "name": "method_35",
-          "rva": "0xADB5B0"
+          "rva": "0xAE0100"
         },
         {
           "index": 36,
           "module": "client.dll",
           "name": "method_36",
-          "rva": "0xACCC30"
+          "rva": "0xAD1780"
         },
         {
           "index": 37,
           "module": "client.dll",
           "name": "method_37",
-          "rva": "0xAD0690"
+          "rva": "0xAD51E0"
         },
         {
           "index": 38,
           "module": "client.dll",
           "name": "method_38",
-          "rva": "0xAD04B0"
+          "rva": "0xAD5000"
         },
         {
           "index": 39,
           "module": "client.dll",
           "name": "method_39",
-          "rva": "0xAD04A0"
+          "rva": "0xAD4FF0"
         },
         {
           "index": 40,
           "module": "client.dll",
           "name": "method_40",
-          "rva": "0xAD8560"
+          "rva": "0xADD0B0"
         },
         {
           "index": 41,
           "module": "client.dll",
           "name": "method_41",
-          "rva": "0xAC40F0"
+          "rva": "0xAC8C40"
         },
         {
           "index": 42,
           "module": "client.dll",
           "name": "method_42",
-          "rva": "0xAE2D60"
+          "rva": "0xAE78B0"
         },
         {
           "index": 43,
           "module": "client.dll",
           "name": "method_43",
-          "rva": "0xAD8740"
+          "rva": "0xADD290"
         },
         {
           "index": 44,
           "module": "client.dll",
           "name": "method_44",
-          "rva": "0xAE09F0"
+          "rva": "0xAE5540"
         },
         {
           "index": 45,
           "module": "client.dll",
           "name": "method_45",
-          "rva": "0xAC40E0"
+          "rva": "0xAC8C30"
         },
         {
           "index": 46,
           "module": "client.dll",
           "name": "method_46",
-          "rva": "0xAD8130"
+          "rva": "0xADCC80"
         },
         {
           "index": 47,
           "module": "client.dll",
           "name": "method_47",
-          "rva": "0xAD86D0"
+          "rva": "0xADD220"
         },
         {
           "index": 48,
           "module": "client.dll",
           "name": "method_48",
-          "rva": "0xAE2EC0"
+          "rva": "0xAE7A10"
         },
         {
           "index": 49,
           "module": "client.dll",
           "name": "method_49",
-          "rva": "0xAC1420"
+          "rva": "0xAC5F70"
         },
         {
           "index": 50,
           "module": "client.dll",
           "name": "method_50",
-          "rva": "0xACD210"
+          "rva": "0xAD1D60"
         },
         {
           "index": 51,
           "module": "client.dll",
           "name": "method_51",
-          "rva": "0xACF1E0"
+          "rva": "0xAD3D30"
         },
         {
           "index": 52,
           "module": "client.dll",
           "name": "method_52",
-          "rva": "0xAE2150"
+          "rva": "0xAE6CA0"
         },
         {
           "index": 53,
           "module": "client.dll",
           "name": "method_53",
-          "rva": "0xAD86B0"
+          "rva": "0xADD200"
         },
         {
           "index": 54,
           "module": "client.dll",
           "name": "method_54",
-          "rva": "0xAD0AE0"
+          "rva": "0xAD5630"
         },
         {
           "index": 55,
           "module": "client.dll",
           "name": "method_55",
-          "rva": "0xAE2E90"
+          "rva": "0xAE79E0"
         },
         {
           "index": 56,
           "module": "client.dll",
           "name": "method_56",
-          "rva": "0xAD7050"
+          "rva": "0xADBBA0"
         },
         {
           "index": 57,
           "module": "client.dll",
           "name": "method_57",
-          "rva": "0xAC40A0"
+          "rva": "0xAC8BF0"
         },
         {
           "index": 58,
           "module": "client.dll",
           "name": "method_58",
-          "rva": "0xACDD90"
+          "rva": "0xAD28E0"
         },
         {
           "index": 59,
           "module": "client.dll",
           "name": "method_59",
-          "rva": "0xAC4010"
+          "rva": "0xAC8B60"
         },
         {
           "index": 60,
           "module": "client.dll",
           "name": "method_60",
-          "rva": "0xAD7900"
+          "rva": "0xADC450"
         },
         {
           "index": 61,
           "module": "client.dll",
           "name": "method_61",
-          "rva": "0xAD7910"
+          "rva": "0xADC460"
         },
         {
           "index": 62,
           "module": "client.dll",
           "name": "method_62",
-          "rva": "0xAD76C0"
+          "rva": "0xADC210"
         },
         {
           "index": 63,
           "module": "client.dll",
           "name": "method_63",
-          "rva": "0xAD7870"
+          "rva": "0xADC3C0"
         },
         {
           "index": 64,
           "module": "client.dll",
           "name": "method_64",
-          "rva": "0xAD76A0"
+          "rva": "0xADC1F0"
         },
         {
           "index": 65,
           "module": "client.dll",
           "name": "method_65",
-          "rva": "0xADF0F0"
+          "rva": "0xAE3C40"
         },
         {
           "index": 66,
           "module": "client.dll",
           "name": "method_66",
-          "rva": "0xADF420"
+          "rva": "0xAE3F70"
         },
         {
           "index": 67,
           "module": "client.dll",
           "name": "method_67",
-          "rva": "0xADF800"
+          "rva": "0xAE4350"
         },
         {
           "index": 68,
           "module": "client.dll",
           "name": "method_68",
-          "rva": "0xAC42D0"
+          "rva": "0xAC8E20"
         },
         {
           "index": 69,
           "module": "client.dll",
           "name": "method_69",
-          "rva": "0xAD7920"
+          "rva": "0xADC470"
         },
         {
           "index": 70,
           "module": "client.dll",
           "name": "method_70",
-          "rva": "0xAD7AC0"
+          "rva": "0xADC610"
         },
         {
           "index": 71,
           "module": "client.dll",
           "name": "method_71",
-          "rva": "0xADFEE0"
+          "rva": "0xAE4A30"
         },
         {
           "index": 72,
           "module": "client.dll",
           "name": "method_72",
-          "rva": "0xAD16C0"
+          "rva": "0xAD6210"
         },
         {
           "index": 73,
           "module": "client.dll",
           "name": "method_73",
-          "rva": "0xAC42C0"
+          "rva": "0xAC8E10"
         },
         {
           "index": 74,
           "module": "client.dll",
           "name": "method_74",
-          "rva": "0xAE2510"
+          "rva": "0xAE7060"
         },
         {
           "index": 75,
           "module": "client.dll",
           "name": "method_75",
-          "rva": "0xADFF00"
+          "rva": "0xAE4A50"
         },
         {
           "index": 76,
           "module": "client.dll",
           "name": "method_76",
-          "rva": "0xACD9E0"
+          "rva": "0xAD2530"
         },
         {
           "index": 77,
           "module": "client.dll",
           "name": "method_77",
-          "rva": "0xAD83B0"
+          "rva": "0xADCF00"
         },
         {
           "index": 78,
           "module": "client.dll",
           "name": "method_78",
-          "rva": "0xACDA80"
+          "rva": "0xAD25D0"
         },
         {
           "index": 79,
           "module": "client.dll",
           "name": "get_view_angles_v2",
-          "rva": "0xACE990"
+          "rva": "0xAD34E0"
         },
         {
           "index": 80,
           "module": "client.dll",
           "name": "method_80",
-          "rva": "0xAE0460"
+          "rva": "0xAE4FB0"
         },
         {
           "index": 81,
           "module": "client.dll",
           "name": "method_81",
-          "rva": "0xACE890"
+          "rva": "0xAD33E0"
         },
         {
           "index": 82,
           "module": "client.dll",
           "name": "method_82",
-          "rva": "0xACEFE0"
+          "rva": "0xAD3B30"
         },
         {
           "index": 83,
           "module": "client.dll",
           "name": "method_83",
-          "rva": "0xAD4370"
+          "rva": "0xAD8EC0"
         },
         {
           "index": 84,
           "module": "client.dll",
           "name": "method_84",
-          "rva": "0xACE130"
+          "rva": "0xAD2C80"
         },
         {
           "index": 85,
           "module": "client.dll",
           "name": "method_85",
-          "rva": "0xACE1D0"
+          "rva": "0xAD2D20"
         },
         {
           "index": 86,
           "module": "client.dll",
           "name": "method_86",
-          "rva": "0xACE0A0"
+          "rva": "0xAD2BF0"
         },
         {
           "index": 87,
           "module": "client.dll",
           "name": "method_87",
-          "rva": "0xACE720"
+          "rva": "0xAD3270"
         },
         {
           "index": 88,
           "module": "client.dll",
           "name": "method_88",
-          "rva": "0xACE620"
+          "rva": "0xAD3170"
         },
         {
           "index": 89,
           "module": "client.dll",
           "name": "method_89",
-          "rva": "0xACDC80"
+          "rva": "0xAD27D0"
         },
         {
           "index": 90,
           "module": "client.dll",
           "name": "method_90",
-          "rva": "0xACE6B0"
+          "rva": "0xAD3200"
         },
         {
           "index": 91,
           "module": "client.dll",
           "name": "method_91",
-          "rva": "0xACE240"
+          "rva": "0xAD2D90"
         },
         {
           "index": 92,
           "module": "client.dll",
           "name": "method_92",
-          "rva": "0xACE370"
+          "rva": "0xAD2EC0"
         },
         {
           "index": 93,
           "module": "client.dll",
           "name": "method_93",
-          "rva": "0xACE960"
+          "rva": "0xAD34B0"
         },
         {
           "index": 94,
           "module": "client.dll",
           "name": "method_94",
-          "rva": "0xACE590"
+          "rva": "0xAD30E0"
         },
         {
           "index": 95,
           "module": "client.dll",
           "name": "method_95",
-          "rva": "0xACF060"
+          "rva": "0xAD3BB0"
         },
         {
           "index": 96,
           "module": "client.dll",
           "name": "method_96",
-          "rva": "0xACEDA0"
+          "rva": "0xAD38F0"
         },
         {
           "index": 97,
           "module": "client.dll",
           "name": "method_97",
-          "rva": "0xACF330"
+          "rva": "0xAD3E80"
         },
         {
           "index": 98,
           "module": "client.dll",
           "name": "method_98",
-          "rva": "0xACF5F0"
+          "rva": "0xAD4140"
         },
         {
           "index": 99,
           "module": "client.dll",
           "name": "method_99",
-          "rva": "0xAC7600"
+          "rva": "0xACC150"
         },
         {
           "index": 100,
           "module": "client.dll",
           "name": "method_100",
-          "rva": "0xAD9320"
+          "rva": "0xADDE70"
         },
         {
           "index": 101,
           "module": "client.dll",
           "name": "method_101",
-          "rva": "0xACF790"
+          "rva": "0xAD42E0"
         },
         {
           "index": 102,
           "module": "client.dll",
           "name": "method_102",
-          "rva": "0xACDA00"
+          "rva": "0xAD2550"
         },
         {
           "index": 103,
           "module": "client.dll",
           "name": "method_103",
-          "rva": "0xAE2620"
+          "rva": "0xAE7170"
         },
         {
           "index": 104,
           "module": "client.dll",
           "name": "method_104",
-          "rva": "0xAC75C0"
+          "rva": "0xACC110"
         },
         {
           "index": 105,
           "module": "client.dll",
           "name": "method_105",
-          "rva": "0xAE24C0"
+          "rva": "0xAE7010"
         },
         {
           "index": 106,
           "module": "client.dll",
           "name": "method_106",
-          "rva": "0xAC75B0"
+          "rva": "0xACC100"
         },
         {
           "index": 107,
           "module": "client.dll",
           "name": "method_107",
-          "rva": "0xAE28E0"
+          "rva": "0xAE7430"
         },
         {
           "index": 108,
           "module": "client.dll",
           "name": "method_108",
-          "rva": "0xAC75E0"
+          "rva": "0xACC130"
         },
         {
           "index": 109,
           "module": "client.dll",
           "name": "method_109",
-          "rva": "0xAE2200"
+          "rva": "0xAE6D50"
         },
         {
           "index": 110,
           "module": "client.dll",
           "name": "method_110",
-          "rva": "0xAC7590"
+          "rva": "0xACC0E0"
         },
         {
           "index": 111,
           "module": "client.dll",
           "name": "method_111",
-          "rva": "0xAE1370"
+          "rva": "0xAE5EC0"
         },
         {
           "index": 112,
           "module": "client.dll",
           "name": "method_112",
-          "rva": "0xAE1460"
+          "rva": "0xAE5FB0"
         },
         {
           "index": 113,
           "module": "client.dll",
           "name": "method_113",
-          "rva": "0xACF7B0"
+          "rva": "0xAD4300"
         },
         {
           "index": 114,
           "module": "client.dll",
           "name": "method_114",
-          "rva": "0xACF800"
+          "rva": "0xAD4350"
         },
         {
           "index": 115,
           "module": "client.dll",
           "name": "method_115",
-          "rva": "0xACF810"
+          "rva": "0xAD4360"
         },
         {
           "index": 116,
           "module": "client.dll",
           "name": "method_116",
-          "rva": "0xAD5230"
+          "rva": "0xAD9D80"
         },
         {
           "index": 117,
           "module": "client.dll",
           "name": "method_117",
-          "rva": "0xAC8440"
+          "rva": "0xACCF90"
         },
         {
           "index": 118,
           "module": "client.dll",
           "name": "method_118",
-          "rva": "0xAD4530"
+          "rva": "0xAD9080"
         },
         {
           "index": 119,
           "module": "client.dll",
           "name": "method_119",
-          "rva": "0xACF7A0"
+          "rva": "0xAD42F0"
         },
         {
           "index": 120,
           "module": "client.dll",
           "name": "method_120",
-          "rva": "0xACDB60"
+          "rva": "0xAD26B0"
         },
         {
           "index": 121,
           "module": "client.dll",
           "name": "method_121",
-          "rva": "0xAD72B0"
+          "rva": "0xADBE00"
         },
         {
           "index": 122,
           "module": "client.dll",
           "name": "method_122",
-          "rva": "0xAE2EB0"
+          "rva": "0xAE7A00"
         },
         {
           "index": 123,
           "module": "client.dll",
           "name": "method_123",
-          "rva": "0xAE2C80"
+          "rva": "0xAE77D0"
         },
         {
           "index": 124,
           "module": "client.dll",
           "name": "method_124",
-          "rva": "0xAE2500"
+          "rva": "0xAE7050"
         },
         {
           "index": 125,
           "module": "client.dll",
           "name": "method_125",
-          "rva": "0xACEC80"
+          "rva": "0xAD37D0"
         },
         {
           "index": 126,
           "module": "client.dll",
           "name": "method_126",
-          "rva": "0xAD86A0"
+          "rva": "0xADD1F0"
         },
         {
           "index": 127,
           "module": "client.dll",
           "name": "method_127",
-          "rva": "0xAE24D0"
+          "rva": "0xAE7020"
         },
         {
           "index": 128,
           "module": "client.dll",
           "name": "method_128",
-          "rva": "0xACE060"
+          "rva": "0xAD2BB0"
         },
         {
           "index": 129,
           "module": "client.dll",
           "name": "method_129",
-          "rva": "0xACD340"
+          "rva": "0xAD1E90"
         },
         {
           "index": 130,
           "module": "client.dll",
           "name": "method_130",
-          "rva": "0xAD7130"
+          "rva": "0xADBC80"
         },
         {
           "index": 131,
           "module": "client.dll",
           "name": "method_131",
-          "rva": "0xACF140"
+          "rva": "0xAD3C90"
         },
         {
           "index": 132,
           "module": "client.dll",
           "name": "method_132",
-          "rva": "0xAC1440"
+          "rva": "0xAC5F90"
         },
         {
           "index": 133,
           "module": "client.dll",
           "name": "method_133",
-          "rva": "0xAC14B0"
+          "rva": "0xAC6000"
         },
         {
           "index": 134,
           "module": "client.dll",
           "name": "method_134",
-          "rva": "0xACEC90"
+          "rva": "0xAD37E0"
         },
         {
           "index": 135,
           "module": "client.dll",
           "name": "method_135",
-          "rva": "0xAD0490"
+          "rva": "0xAD4FE0"
         },
         {
           "index": 136,
           "module": "client.dll",
           "name": "method_136",
-          "rva": "0xACFD80"
+          "rva": "0xAD48D0"
         },
         {
           "index": 137,
           "module": "client.dll",
           "name": "method_137",
-          "rva": "0xACDB70"
+          "rva": "0xAD26C0"
         },
         {
           "index": 138,
           "module": "client.dll",
           "name": "method_138",
-          "rva": "0xACF960"
+          "rva": "0xAD44B0"
         },
         {
           "index": 139,
           "module": "client.dll",
           "name": "method_139",
-          "rva": "0xACE8F0"
+          "rva": "0xAD3440"
         },
         {
           "index": 140,
           "module": "client.dll",
           "name": "method_140",
-          "rva": "0xACFD60"
+          "rva": "0xAD48B0"
         },
         {
           "index": 141,
           "module": "client.dll",
           "name": "method_141",
-          "rva": "0xABF7C0"
+          "rva": "0xAC4310"
         },
         {
           "index": 142,
           "module": "client.dll",
           "name": "method_142",
-          "rva": "0xABF7D0"
+          "rva": "0xAC4320"
         },
         {
           "index": 143,
           "module": "client.dll",
           "name": "method_143",
-          "rva": "0xAD4560"
+          "rva": "0xAD90B0"
         },
         {
           "index": 144,
           "module": "client.dll",
           "name": "method_144",
-          "rva": "0xACFAC0"
+          "rva": "0xAD4610"
         },
         {
           "index": 145,
           "module": "client.dll",
           "name": "method_145",
-          "rva": "0xAC7550"
+          "rva": "0xACC0A0"
         },
         {
           "index": 146,
           "module": "client.dll",
           "name": "method_146",
-          "rva": "0xAC61A0"
+          "rva": "0xACACF0"
         },
         {
           "index": 147,
           "module": "client.dll",
           "name": "method_147",
-          "rva": "0xAD8980"
+          "rva": "0xADD4D0"
         },
         {
           "index": 148,
           "module": "client.dll",
           "name": "method_148",
-          "rva": "0xACECA0"
+          "rva": "0xAD37F0"
         },
         {
           "index": 149,
           "module": "client.dll",
           "name": "method_149",
-          "rva": "0xACE900"
+          "rva": "0xAD3450"
         },
         {
           "index": 150,
           "module": "client.dll",
           "name": "method_150",
-          "rva": "0xACD3C0"
+          "rva": "0xAD1F10"
         },
         {
           "index": 151,
           "module": "client.dll",
           "name": "method_151",
-          "rva": "0xADC950"
+          "rva": "0xAE14A0"
         },
         {
           "index": 152,
           "module": "client.dll",
           "name": "method_152",
-          "rva": "0xAE28C0"
+          "rva": "0xAE7410"
         },
         {
           "index": 153,
           "module": "client.dll",
           "name": "method_153",
-          "rva": "0xABF7E0"
+          "rva": "0xAC4330"
         },
         {
           "index": 154,
           "module": "client.dll",
           "name": "method_154",
-          "rva": "0xACD550"
+          "rva": "0xAD20A0"
         },
         {
           "index": 155,
           "module": "client.dll",
           "name": "method_155",
-          "rva": "0xACD430"
+          "rva": "0xAD1F80"
         },
         {
           "index": 156,
           "module": "client.dll",
           "name": "method_156",
-          "rva": "0xADBC30"
+          "rva": "0xAE0780"
         },
         {
           "index": 157,
           "module": "client.dll",
           "name": "method_157",
-          "rva": "0xAE0A00"
+          "rva": "0xAE5550"
         },
         {
           "index": 158,
           "module": "client.dll",
           "name": "method_158",
-          "rva": "0xAE2120"
+          "rva": "0xAE6C70"
         },
         {
           "index": 159,
           "module": "client.dll",
           "name": "method_159",
-          "rva": "0xAD0070"
+          "rva": "0xAD4BC0"
         },
         {
           "index": 160,
           "module": "client.dll",
           "name": "method_160",
-          "rva": "0xACDBC0"
+          "rva": "0xAD2710"
         },
         {
           "index": 161,
           "module": "client.dll",
           "name": "method_161",
-          "rva": "0xACF9A0"
+          "rva": "0xAD44F0"
         },
         {
           "index": 162,
           "module": "client.dll",
           "name": "method_162",
-          "rva": "0xAD8370"
+          "rva": "0xADCEC0"
         },
         {
           "index": 163,
           "module": "client.dll",
           "name": "method_163",
-          "rva": "0xAD8390"
+          "rva": "0xADCEE0"
         },
         {
           "index": 164,
           "module": "client.dll",
           "name": "method_164",
-          "rva": "0xACECD0"
+          "rva": "0xAD3820"
         },
         {
           "index": 165,
           "module": "client.dll",
           "name": "method_165",
-          "rva": "0xAD8330"
+          "rva": "0xADCE80"
         },
         {
           "index": 166,
           "module": "client.dll",
           "name": "method_166",
-          "rva": "0xACFAB0"
+          "rva": "0xAD4600"
         },
         {
           "index": 167,
           "module": "client.dll",
           "name": "method_167",
-          "rva": "0xACEEE0"
+          "rva": "0xAD3A30"
         },
         {
           "index": 168,
           "module": "client.dll",
           "name": "method_168",
-          "rva": "0xAD78C0"
+          "rva": "0xADC410"
         },
         {
           "index": 169,
           "module": "client.dll",
           "name": "method_169",
-          "rva": "0xAC8500"
+          "rva": "0xACD050"
         },
         {
           "index": 170,
           "module": "client.dll",
           "name": "method_170",
-          "rva": "0xAC7DC0"
+          "rva": "0xACC910"
         },
         {
           "index": 171,
           "module": "client.dll",
           "name": "method_171",
-          "rva": "0xACF620"
+          "rva": "0xAD4170"
         },
         {
           "index": 172,
           "module": "client.dll",
           "name": "method_172",
-          "rva": "0xACE500"
+          "rva": "0xAD3050"
         },
         {
           "index": 173,
           "module": "client.dll",
           "name": "method_173",
-          "rva": "0xAC94E0"
+          "rva": "0xACE030"
         },
         {
           "index": 174,
           "module": "client.dll",
           "name": "method_174",
-          "rva": "0xAC8430"
+          "rva": "0xACCF80"
         },
         {
           "index": 175,
           "module": "client.dll",
           "name": "method_175",
-          "rva": "0xAC02C0"
+          "rva": "0xAC4E10"
         },
         {
           "index": 176,
           "module": "client.dll",
           "name": "method_176",
-          "rva": "0xADC6C0"
+          "rva": "0xAE1210"
         },
         {
           "index": 177,
           "module": "client.dll",
           "name": "method_177",
-          "rva": "0xACDBA0"
+          "rva": "0xAD26F0"
         },
         {
           "index": 178,
           "module": "client.dll",
           "name": "method_178",
-          "rva": "0xACE690"
+          "rva": "0xAD31E0"
         },
         {
           "index": 179,
           "module": "client.dll",
           "name": "method_179",
-          "rva": "0xADA2B0"
+          "rva": "0xADEE00"
         },
         {
           "index": 180,
           "module": "client.dll",
           "name": "method_180",
-          "rva": "0xAD9130"
+          "rva": "0xADDC80"
         },
         {
           "index": 181,
           "module": "client.dll",
           "name": "method_181",
-          "rva": "0xADAD50"
+          "rva": "0xADF8A0"
         },
         {
           "index": 182,
           "module": "client.dll",
           "name": "method_182",
-          "rva": "0xAD1AD0"
+          "rva": "0xAD6620"
         },
         {
           "index": 183,
           "module": "client.dll",
           "name": "method_183",
-          "rva": "0xADA320"
+          "rva": "0xADEE70"
         },
         {
           "index": 184,
           "module": "client.dll",
           "name": "method_184",
-          "rva": "0xAD9FD0"
+          "rva": "0xADEB20"
         },
         {
           "index": 185,
           "module": "client.dll",
           "name": "method_185",
-          "rva": "0xADA340"
+          "rva": "0xADEE90"
         },
         {
           "index": 186,
           "module": "client.dll",
           "name": "method_186",
-          "rva": "0xAD9FF0"
+          "rva": "0xADEB40"
         },
         {
           "index": 187,
           "module": "client.dll",
           "name": "method_187",
-          "rva": "0xAD8670"
+          "rva": "0xADD1C0"
         },
         {
           "index": 188,
           "module": "client.dll",
           "name": "method_188",
-          "rva": "0xACE050"
+          "rva": "0xAD2BA0"
         },
         {
           "index": 189,
           "module": "client.dll",
           "name": "method_189",
-          "rva": "0xACE040"
+          "rva": "0xAD2B90"
         },
         {
           "index": 190,
           "module": "client.dll",
           "name": "method_190",
-          "rva": "0xACE080"
+          "rva": "0xAD2BD0"
         },
         {
           "index": 191,
           "module": "client.dll",
           "name": "method_191",
-          "rva": "0xACE070"
+          "rva": "0xAD2BC0"
         },
         {
           "index": 192,
           "module": "client.dll",
           "name": "method_192",
-          "rva": "0xACE030"
+          "rva": "0xAD2B80"
         },
         {
           "index": 193,
           "module": "client.dll",
           "name": "method_193",
-          "rva": "0xACE090"
+          "rva": "0xAD2BE0"
         },
         {
           "index": 194,
           "module": "client.dll",
           "name": "method_194",
-          "rva": "0xACDD80"
+          "rva": "0xAD28D0"
         },
         {
           "index": 195,
           "module": "client.dll",
           "name": "method_195",
-          "rva": "0xACDD70"
+          "rva": "0xAD28C0"
         },
         {
           "index": 196,
           "module": "client.dll",
           "name": "method_196",
-          "rva": "0xACDB40"
+          "rva": "0xAD2690"
         },
         {
           "index": 197,
           "module": "client.dll",
           "name": "method_197",
-          "rva": "0xACF1B0"
+          "rva": "0xAD3D00"
         },
         {
           "index": 198,
           "module": "client.dll",
           "name": "method_198",
-          "rva": "0xACDB50"
+          "rva": "0xAD26A0"
         },
         {
           "index": 199,
           "module": "client.dll",
           "name": "method_199",
-          "rva": "0xACDD40"
+          "rva": "0xAD2890"
         },
         {
           "index": 200,
           "module": "client.dll",
           "name": "method_200",
-          "rva": "0xAD4470"
+          "rva": "0xAD8FC0"
         },
         {
           "index": 201,
           "module": "client.dll",
           "name": "method_201",
-          "rva": "0xACF2E0"
+          "rva": "0xAD3E30"
         },
         {
           "index": 202,
           "module": "client.dll",
           "name": "method_202",
-          "rva": "0xACF090"
+          "rva": "0xAD3BE0"
         },
         {
           "index": 203,
           "module": "client.dll",
           "name": "method_203",
-          "rva": "0x1D21FB0"
+          "rva": "0x1D27030"
         },
         {
           "index": 204,
           "module": "client.dll",
           "name": "method_204",
-          "rva": "0xAE0810"
+          "rva": "0xAE5360"
         },
         {
           "index": 205,
           "module": "client.dll",
           "name": "method_205",
-          "rva": "0x1D21FD8"
+          "rva": "0x1D27058"
         },
         {
           "index": 206,
           "module": "client.dll",
           "name": "method_206",
-          "rva": "0xAD88A0"
+          "rva": "0xADD3F0"
         },
         {
           "index": 207,
           "module": "client.dll",
           "name": "method_207",
-          "rva": "0x1D227B8"
+          "rva": "0x1D27838"
         },
         {
           "index": 208,
           "module": "client.dll",
           "name": "method_208",
-          "rva": "0xABF600"
+          "rva": "0xAC4150"
         },
         {
           "index": 209,
           "module": "client.dll",
           "name": "method_209",
-          "rva": "0x9171C0"
+          "rva": "0x91BCB0"
         },
         {
           "index": 210,
           "module": "client.dll",
           "name": "method_210",
-          "rva": "0x9171B0"
+          "rva": "0x91BCA0"
         },
         {
           "index": 211,
           "module": "client.dll",
           "name": "method_211",
-          "rva": "0x9171D0"
+          "rva": "0x91BCC0"
         },
         {
           "index": 212,
           "module": "client.dll",
           "name": "method_212",
-          "rva": "0x917220"
+          "rva": "0x91BD10"
         },
         {
           "index": 213,
           "module": "client.dll",
           "name": "method_213",
-          "rva": "0x1D22858"
+          "rva": "0x1D278D8"
         },
         {
           "index": 214,
           "module": "client.dll",
           "name": "method_214",
-          "rva": "0xABECE4"
+          "rva": "0xAC3834"
         },
         {
           "index": 215,
           "module": "client.dll",
           "name": "method_215",
-          "rva": "0x115D100"
+          "rva": "0x1161E20"
         },
         {
           "index": 216,
           "module": "client.dll",
           "name": "method_216",
-          "rva": "0x4F3A00"
+          "rva": "0x4F5DD0"
         },
         {
           "index": 217,
           "module": "client.dll",
           "name": "method_217",
-          "rva": "0x4F4090"
+          "rva": "0x4F5EE0"
         },
         {
           "index": 218,
           "module": "client.dll",
           "name": "method_218",
-          "rva": "0x4F4110"
+          "rva": "0x4F5F60"
         },
         {
           "index": 219,
           "module": "client.dll",
           "name": "method_219",
-          "rva": "0x115D130"
+          "rva": "0x1161E50"
         },
         {
           "index": 220,
           "module": "client.dll",
           "name": "method_220",
-          "rva": "0x115C560"
+          "rva": "0x1161280"
         },
         {
           "index": 221,
           "module": "client.dll",
           "name": "method_221",
-          "rva": "0x4F41C0"
+          "rva": "0x4F6010"
         },
         {
           "index": 222,
           "module": "client.dll",
           "name": "method_222",
-          "rva": "0x4F4AE0"
+          "rva": "0x4F62E0"
         },
         {
           "index": 223,
           "module": "client.dll",
           "name": "method_223",
-          "rva": "0x4F43F0"
+          "rva": "0x4F60B0"
         },
         {
           "index": 224,
           "module": "client.dll",
           "name": "method_224",
-          "rva": "0x1532F0"
+          "rva": "0x1533A0"
         },
         {
           "index": 225,
           "module": "client.dll",
           "name": "method_225",
-          "rva": "0x4F46C0"
+          "rva": "0x4F6250"
         },
         {
           "index": 226,
           "module": "client.dll",
           "name": "method_226",
-          "rva": "0x115D650"
+          "rva": "0x1162370"
         },
         {
           "index": 227,
           "module": "client.dll",
           "name": "method_227",
-          "rva": "0x115DD70"
+          "rva": "0x1162A90"
         },
         {
           "index": 228,
           "module": "client.dll",
           "name": "method_228",
-          "rva": "0x4F4E10"
+          "rva": "0x4F6300"
         },
         {
           "index": 229,
           "module": "client.dll",
           "name": "method_229",
-          "rva": "0x4F52E0"
+          "rva": "0x4F6590"
         },
         {
           "index": 230,
           "module": "client.dll",
           "name": "method_230",
-          "rva": "0x4F52D0"
+          "rva": "0x4F6580"
         }
       ],
       "rtti_class": "CSource2Client",
       "vtable_module": "client.dll",
-      "vtable_rva": "0x1A9AA18"
+      "vtable_rva": "0x1A9FB48"
     },
     "Source2ClientConfig001": {
-      "method_count": 34,
+      "method_count": 64,
       "methods": [
         {
           "index": 0,
           "module": "client.dll",
           "name": "method_0",
-          "rva": "0x6C11D0"
+          "rva": "0x6C15A0"
         },
         {
           "index": 1,
           "module": "client.dll",
           "name": "method_1",
-          "rva": "0x6C1250"
+          "rva": "0x6C1720"
         },
         {
           "index": 2,
           "module": "client.dll",
           "name": "method_2",
-          "rva": "0x9681F0"
+          "rva": "0x96CCE0"
         },
         {
           "index": 3,
           "module": "client.dll",
           "name": "method_3",
-          "rva": "0x6C1ED0"
+          "rva": "0x6C2010"
         },
         {
           "index": 4,
           "module": "client.dll",
           "name": "method_4",
-          "rva": "0x6C11C0"
+          "rva": "0x6C1590"
         },
         {
           "index": 5,
           "module": "client.dll",
           "name": "method_5",
-          "rva": "0x6C1180"
+          "rva": "0x6C1550"
         },
         {
           "index": 6,
           "module": "client.dll",
           "name": "method_6",
-          "rva": "0x6C1190"
+          "rva": "0x6C1560"
         },
         {
           "index": 7,
           "module": "client.dll",
           "name": "method_7",
-          "rva": "0x6C1290"
+          "rva": "0x6C1760"
         },
         {
           "index": 8,
           "module": "client.dll",
           "name": "method_8",
-          "rva": "0x6C1210"
+          "rva": "0x6C15E0"
         },
         {
           "index": 9,
           "module": "client.dll",
           "name": "method_9",
-          "rva": "0x6C11A0"
+          "rva": "0x6C1570"
         },
         {
           "index": 10,
           "module": "client.dll",
           "name": "method_10",
-          "rva": "0x6C11B0"
+          "rva": "0x6C1580"
         },
         {
           "index": 11,
           "module": "client.dll",
           "name": "method_11",
-          "rva": "0x9523F0"
+          "rva": "0x956EE0"
         },
         {
           "index": 12,
           "module": "client.dll",
           "name": "method_12",
-          "rva": "0x6C21B0"
+          "rva": "0x6C22F0"
         },
         {
           "index": 13,
           "module": "client.dll",
           "name": "method_13",
-          "rva": "0x6C2060"
+          "rva": "0x6C21A0"
         },
         {
           "index": 14,
           "module": "client.dll",
           "name": "method_14",
-          "rva": "0xA17560"
+          "rva": "0xA1C0B0"
         },
         {
           "index": 15,
           "module": "client.dll",
           "name": "method_15",
-          "rva": "0xA17550"
+          "rva": "0xA1C0A0"
         },
         {
           "index": 16,
           "module": "client.dll",
           "name": "method_16",
-          "rva": "0x6C22D0"
+          "rva": "0x6C2410"
         },
         {
           "index": 17,
           "module": "client.dll",
           "name": "method_17",
-          "rva": "0x93B550"
+          "rva": "0x940040"
         },
         {
           "index": 18,
           "module": "client.dll",
           "name": "method_18",
-          "rva": "0x6C0F70"
+          "rva": "0x6C1020"
         },
         {
           "index": 19,
           "module": "client.dll",
           "name": "method_19",
-          "rva": "0x6C1300"
+          "rva": "0x6C17D0"
         },
         {
           "index": 20,
           "module": "client.dll",
           "name": "method_20",
-          "rva": "0x6C1310"
+          "rva": "0x6C17E0"
         },
         {
           "index": 21,
           "module": "client.dll",
           "name": "method_21",
-          "rva": "0x6C1F10"
+          "rva": "0x6C2050"
         },
         {
           "index": 22,
           "module": "client.dll",
           "name": "method_22",
-          "rva": "0x6C1F20"
+          "rva": "0x6C2060"
         },
         {
           "index": 23,
           "module": "client.dll",
           "name": "method_23",
-          "rva": "0xA29390"
+          "rva": "0xA2DEE0"
         },
         {
           "index": 24,
           "module": "client.dll",
           "name": "method_24",
-          "rva": "0x952400"
+          "rva": "0x956EF0"
         },
         {
           "index": 25,
           "module": "client.dll",
           "name": "method_25",
-          "rva": "0x6C2040"
+          "rva": "0x6C2180"
         },
         {
           "index": 26,
           "module": "client.dll",
           "name": "method_26",
-          "rva": "0xA23AE0"
+          "rva": "0xA28630"
         },
         {
           "index": 27,
           "module": "client.dll",
           "name": "method_27",
-          "rva": "0x94A310"
+          "rva": "0x94EE00"
         },
         {
           "index": 28,
           "module": "client.dll",
           "name": "method_28",
-          "rva": "0x94E310"
+          "rva": "0x952E00"
         },
         {
           "index": 29,
           "module": "client.dll",
           "name": "method_29",
-          "rva": "0x6C2350"
+          "rva": "0x6C2490"
         },
         {
           "index": 30,
           "module": "client.dll",
           "name": "method_30",
-          "rva": "0xA18800"
+          "rva": "0xA1D350"
         },
         {
           "index": 31,
           "module": "client.dll",
           "name": "method_31",
-          "rva": "0x6C1320"
+          "rva": "0x6C17F0"
         },
         {
           "index": 32,
           "module": "client.dll",
           "name": "method_32",
-          "rva": "0x95CBF0"
+          "rva": "0x9616E0"
         },
         {
           "index": 33,
           "module": "client.dll",
           "name": "method_33",
-          "rva": "0x94A260"
+          "rva": "0x94ED50"
+        },
+        {
+          "index": 34,
+          "module": "client.dll",
+          "name": "method_34",
+          "rva": "0x1D00760"
+        },
+        {
+          "index": 35,
+          "module": "client.dll",
+          "name": "method_35",
+          "rva": "0x6C1980"
+        },
+        {
+          "index": 36,
+          "module": "client.dll",
+          "name": "method_36",
+          "rva": "0x6C198C"
+        },
+        {
+          "index": 37,
+          "module": "client.dll",
+          "name": "method_37",
+          "rva": "0x6C1998"
+        },
+        {
+          "index": 38,
+          "module": "client.dll",
+          "name": "method_38",
+          "rva": "0x6C1A04"
+        },
+        {
+          "index": 39,
+          "module": "client.dll",
+          "name": "method_39",
+          "rva": "0x6C19A4"
+        },
+        {
+          "index": 40,
+          "module": "client.dll",
+          "name": "method_40",
+          "rva": "0x6C19B0"
+        },
+        {
+          "index": 41,
+          "module": "client.dll",
+          "name": "method_41",
+          "rva": "0x6C19BC"
+        },
+        {
+          "index": 42,
+          "module": "client.dll",
+          "name": "method_42",
+          "rva": "0x6C19C8"
+        },
+        {
+          "index": 43,
+          "module": "client.dll",
+          "name": "method_43",
+          "rva": "0x6C19D4"
+        },
+        {
+          "index": 44,
+          "module": "client.dll",
+          "name": "method_44",
+          "rva": "0x6C19E0"
+        },
+        {
+          "index": 45,
+          "module": "client.dll",
+          "name": "method_45",
+          "rva": "0x6C19EC"
+        },
+        {
+          "index": 46,
+          "module": "client.dll",
+          "name": "method_46",
+          "rva": "0x6C2000"
+        },
+        {
+          "index": 47,
+          "module": "client.dll",
+          "name": "method_47",
+          "rva": "0x6C23D0"
+        },
+        {
+          "index": 48,
+          "module": "client.dll",
+          "name": "method_48",
+          "rva": "0x6C2030"
+        },
+        {
+          "index": 49,
+          "module": "client.dll",
+          "name": "method_49",
+          "rva": "0x6C19F8"
+        },
+        {
+          "index": 50,
+          "module": "client.dll",
+          "name": "method_50",
+          "rva": "0x956ED0"
+        },
+        {
+          "index": 51,
+          "module": "client.dll",
+          "name": "method_51",
+          "rva": "0x93C4D0"
+        },
+        {
+          "index": 52,
+          "module": "client.dll",
+          "name": "method_52",
+          "rva": "0x6C1770"
+        },
+        {
+          "index": 53,
+          "module": "client.dll",
+          "name": "method_53",
+          "rva": "0x6C21B0"
+        },
+        {
+          "index": 54,
+          "module": "client.dll",
+          "name": "method_54",
+          "rva": "0x93C4C0"
+        },
+        {
+          "index": 55,
+          "module": "client.dll",
+          "name": "method_55",
+          "rva": "0x952E20"
+        },
+        {
+          "index": 56,
+          "module": "client.dll",
+          "name": "method_56",
+          "rva": "0x93C4E0"
+        },
+        {
+          "index": 57,
+          "module": "client.dll",
+          "name": "method_57",
+          "rva": "0x982C60"
+        },
+        {
+          "index": 58,
+          "module": "client.dll",
+          "name": "method_58",
+          "rva": "0x6C2370"
+        },
+        {
+          "index": 59,
+          "module": "client.dll",
+          "name": "method_59",
+          "rva": "0x6C23A0"
+        },
+        {
+          "index": 60,
+          "module": "client.dll",
+          "name": "method_60",
+          "rva": "0x6C23C0"
+        },
+        {
+          "index": 61,
+          "module": "client.dll",
+          "name": "method_61",
+          "rva": "0x6C2480"
+        },
+        {
+          "index": 62,
+          "module": "client.dll",
+          "name": "method_62",
+          "rva": "0x6C17C0"
+        },
+        {
+          "index": 63,
+          "module": "client.dll",
+          "name": "method_63",
+          "rva": "0x942270"
         }
       ],
       "rtti_class": "CCSGameConfiguration",
       "vtable_module": "client.dll",
-      "vtable_rva": "0x19E5278"
+      "vtable_rva": "0x19EA2F0"
     },
     "Source2ClientPrediction001": {
       "method_count": 34,
@@ -3517,210 +3697,210 @@
           "index": 0,
           "module": "client.dll",
           "name": "method_0",
-          "rva": "0xB2FDE0"
+          "rva": "0xB318C0"
         },
         {
           "index": 1,
           "module": "client.dll",
           "name": "method_1",
-          "rva": "0xB31980"
+          "rva": "0xB33460"
         },
         {
           "index": 2,
           "module": "client.dll",
           "name": "method_2",
-          "rva": "0xB41B40"
+          "rva": "0xB45D00"
         },
         {
           "index": 3,
           "module": "client.dll",
           "name": "method_3",
-          "rva": "0xB37BE0"
+          "rva": "0xB39A40"
         },
         {
           "index": 4,
           "module": "client.dll",
           "name": "method_4",
-          "rva": "0xB459E0"
+          "rva": "0xB4A650"
         },
         {
           "index": 5,
           "module": "client.dll",
           "name": "method_5",
-          "rva": "0xB3FA70"
+          "rva": "0xB43C30"
         },
         {
           "index": 6,
           "module": "client.dll",
           "name": "method_6",
-          "rva": "0xB352E0"
+          "rva": "0xB370F0"
         },
         {
           "index": 7,
           "module": "client.dll",
           "name": "method_7",
-          "rva": "0xB36B90"
+          "rva": "0xB389F0"
         },
         {
           "index": 8,
           "module": "client.dll",
           "name": "method_8",
-          "rva": "0xB41F10"
+          "rva": "0xB46470"
         },
         {
           "index": 9,
           "module": "client.dll",
           "name": "method_9",
-          "rva": "0xB3B6A0"
+          "rva": "0xB3DA00"
         },
         {
           "index": 10,
           "module": "client.dll",
           "name": "method_10",
-          "rva": "0xB36AC0"
+          "rva": "0xB38920"
         },
         {
           "index": 11,
           "module": "client.dll",
           "name": "method_11",
-          "rva": "0xB47E80"
+          "rva": "0xB4CAF0"
         },
         {
           "index": 12,
           "module": "client.dll",
           "name": "method_12",
-          "rva": "0xB3CDF0"
+          "rva": "0xB40620"
         },
         {
           "index": 13,
           "module": "client.dll",
           "name": "method_13",
-          "rva": "0xB3D000"
+          "rva": "0xB40830"
         },
         {
           "index": 14,
           "module": "client.dll",
           "name": "method_14",
-          "rva": "0xB3E8C0"
+          "rva": "0xB42A80"
         },
         {
           "index": 15,
           "module": "client.dll",
           "name": "method_15",
-          "rva": "0xB3EBD0"
+          "rva": "0xB42D90"
         },
         {
           "index": 16,
           "module": "client.dll",
           "name": "method_16",
-          "rva": "0xB3E1C0"
+          "rva": "0xB41B70"
         },
         {
           "index": 17,
           "module": "client.dll",
           "name": "method_17",
-          "rva": "0xB2DDF0"
+          "rva": "0xB2F8D0"
         },
         {
           "index": 18,
           "module": "client.dll",
           "name": "method_18",
-          "rva": "0xACF8A0"
+          "rva": "0xAD43F0"
         },
         {
           "index": 19,
           "module": "client.dll",
           "name": "method_19",
-          "rva": "0xB2CFD0"
+          "rva": "0xB2EAB0"
         },
         {
           "index": 20,
           "module": "client.dll",
           "name": "method_20",
-          "rva": "0xB37240"
+          "rva": "0xB390A0"
         },
         {
           "index": 21,
           "module": "client.dll",
           "name": "method_21",
-          "rva": "0xB37340"
+          "rva": "0xB391A0"
         },
         {
           "index": 22,
           "module": "client.dll",
           "name": "method_22",
-          "rva": "0xB372F0"
+          "rva": "0xB39150"
         },
         {
           "index": 23,
           "module": "client.dll",
           "name": "method_23",
-          "rva": "0xB359D0"
+          "rva": "0xB377B0"
         },
         {
           "index": 24,
           "module": "client.dll",
           "name": "method_24",
-          "rva": "0xB44E00"
+          "rva": "0xB49A70"
         },
         {
           "index": 25,
           "module": "client.dll",
           "name": "method_25",
-          "rva": "0xB44E30"
+          "rva": "0xB49AA0"
         },
         {
           "index": 26,
           "module": "client.dll",
           "name": "method_26",
-          "rva": "0xB3B670"
+          "rva": "0xB3D9D0"
         },
         {
           "index": 27,
           "module": "client.dll",
           "name": "method_27",
-          "rva": "0xB45730"
+          "rva": "0xB4A3A0"
         },
         {
           "index": 28,
           "module": "client.dll",
           "name": "method_28",
-          "rva": "0x8BFB50"
+          "rva": "0x8C4640"
         },
         {
           "index": 29,
           "module": "client.dll",
           "name": "method_29",
-          "rva": "0xB3B6B0"
+          "rva": "0xB3DA10"
         },
         {
           "index": 30,
           "module": "client.dll",
           "name": "method_30",
-          "rva": "0xB37230"
+          "rva": "0xB39090"
         },
         {
           "index": 31,
           "module": "client.dll",
           "name": "method_31",
-          "rva": "0xB3DD10"
+          "rva": "0xB416C0"
         },
         {
           "index": 32,
           "module": "client.dll",
           "name": "method_32",
-          "rva": "0x1D26BB0"
+          "rva": "0x1D2BC30"
         },
         {
           "index": 33,
           "module": "client.dll",
           "name": "method_33",
-          "rva": "0xB3C720"
+          "rva": "0xB3FF50"
         }
       ],
       "rtti_class": "CPrediction",
       "vtable_module": "client.dll",
-      "vtable_rva": "0x1AA8F30"
+      "vtable_rva": "0x1AAE040"
     },
     "Source2ClientUI001": {
       "method_count": 29,
@@ -3729,180 +3909,180 @@
           "index": 0,
           "module": "client.dll",
           "name": "method_0",
-          "rva": "0xC384B0"
+          "rva": "0xC3D0F0"
         },
         {
           "index": 1,
           "module": "client.dll",
           "name": "method_1",
-          "rva": "0xC39B50"
+          "rva": "0xC3E790"
         },
         {
           "index": 2,
           "module": "client.dll",
           "name": "method_2",
-          "rva": "0xC5B480"
+          "rva": "0xC600C0"
         },
         {
           "index": 3,
           "module": "client.dll",
           "name": "method_3",
-          "rva": "0x16ABC0"
+          "rva": "0x16AC70"
         },
         {
           "index": 4,
           "module": "client.dll",
           "name": "method_4",
-          "rva": "0xC603D0"
+          "rva": "0xC65060"
         },
         {
           "index": 5,
           "module": "client.dll",
           "name": "method_5",
-          "rva": "0xC5A920"
+          "rva": "0xC5F560"
         },
         {
           "index": 6,
           "module": "client.dll",
           "name": "method_6",
-          "rva": "0xC434F0"
+          "rva": "0xC48130"
         },
         {
           "index": 7,
           "module": "client.dll",
           "name": "method_7",
-          "rva": "0xC45520"
+          "rva": "0xC4A160"
         },
         {
           "index": 8,
           "module": "client.dll",
           "name": "method_8",
-          "rva": "0xC5C3E0"
+          "rva": "0xC61020"
         },
         {
           "index": 9,
           "module": "client.dll",
           "name": "method_9",
-          "rva": "0xC51510"
+          "rva": "0xC56150"
         },
         {
           "index": 10,
           "module": "client.dll",
           "name": "method_10",
-          "rva": "0xC45510"
+          "rva": "0xC4A150"
         },
         {
           "index": 11,
           "module": "client.dll",
           "name": "method_11",
-          "rva": "0xC38C20"
+          "rva": "0xC3D860"
         },
         {
           "index": 12,
           "module": "client.dll",
           "name": "method_12",
-          "rva": "0x1650A0"
+          "rva": "0x165150"
         },
         {
           "index": 13,
           "module": "client.dll",
           "name": "method_13",
-          "rva": "0x16AB60"
+          "rva": "0x16AC10"
         },
         {
           "index": 14,
           "module": "client.dll",
           "name": "method_14",
-          "rva": "0x16F7A0"
+          "rva": "0x16F850"
         },
         {
           "index": 15,
           "module": "client.dll",
           "name": "method_15",
-          "rva": "0x16F720"
+          "rva": "0x16F7D0"
         },
         {
           "index": 16,
           "module": "client.dll",
           "name": "method_16",
-          "rva": "0x175F10"
+          "rva": "0x175FC0"
         },
         {
           "index": 17,
           "module": "client.dll",
           "name": "method_17",
-          "rva": "0xC51370"
+          "rva": "0xC55FB0"
         },
         {
           "index": 18,
           "module": "client.dll",
           "name": "method_18",
-          "rva": "0x169110"
+          "rva": "0x1691C0"
         },
         {
           "index": 19,
           "module": "client.dll",
           "name": "method_19",
-          "rva": "0x171000"
+          "rva": "0x1710B0"
         },
         {
           "index": 20,
           "module": "client.dll",
           "name": "method_20",
-          "rva": "0x174F80"
+          "rva": "0x175030"
         },
         {
           "index": 21,
           "module": "client.dll",
           "name": "method_21",
-          "rva": "0x16D4E0"
+          "rva": "0x16D590"
         },
         {
           "index": 22,
           "module": "client.dll",
           "name": "method_22",
-          "rva": "0x174F20"
+          "rva": "0x174FD0"
         },
         {
           "index": 23,
           "module": "client.dll",
           "name": "method_23",
-          "rva": "0x169FA0"
+          "rva": "0x16A050"
         },
         {
           "index": 24,
           "module": "client.dll",
           "name": "method_24",
-          "rva": "0x1661B0"
+          "rva": "0x166260"
         },
         {
           "index": 25,
           "module": "client.dll",
           "name": "method_25",
-          "rva": "0x1D32A68"
+          "rva": "0x1D37B78"
         },
         {
           "index": 26,
           "module": "client.dll",
           "name": "method_26",
-          "rva": "0xC340E0"
+          "rva": "0xC38D20"
         },
         {
           "index": 27,
           "module": "client.dll",
           "name": "method_27",
-          "rva": "0x38B980"
+          "rva": "0x38BA40"
         },
         {
           "index": 28,
           "module": "client.dll",
           "name": "method_28",
-          "rva": "0x3A6FE0"
+          "rva": "0x3A70A0"
         }
       ],
       "rtti_class": "CCsgoClientUI",
       "vtable_module": "client.dll",
-      "vtable_rva": "0x1AD8AD0"
+      "vtable_rva": "0x1ADDC10"
     }
   },
   "engine2.dll": {
@@ -31465,260 +31645,686 @@
           "index": 0,
           "module": "server.dll",
           "name": "method_0",
-          "rva": "0x909980"
+          "rva": "0x907960"
         },
         {
           "index": 1,
           "module": "server.dll",
           "name": "method_1",
-          "rva": "0x9099F0"
+          "rva": "0x9079D0"
         },
         {
           "index": 2,
           "module": "server.dll",
           "name": "method_2",
-          "rva": "0x913760"
+          "rva": "0x911740"
         },
         {
           "index": 3,
           "module": "server.dll",
           "name": "method_3",
-          "rva": "0x90D030"
+          "rva": "0x90B010"
         },
         {
           "index": 4,
           "module": "server.dll",
           "name": "method_4",
-          "rva": "0x914660"
+          "rva": "0x912640"
         },
         {
           "index": 5,
           "module": "server.dll",
           "name": "method_5",
-          "rva": "0x9135C0"
+          "rva": "0x9115A0"
         },
         {
           "index": 6,
           "module": "server.dll",
           "name": "method_6",
-          "rva": "0x90A8A0"
+          "rva": "0x908880"
         },
         {
           "index": 7,
           "module": "server.dll",
           "name": "method_7",
-          "rva": "0x90B010"
+          "rva": "0x908FF0"
         },
         {
           "index": 8,
           "module": "server.dll",
           "name": "method_8",
-          "rva": "0x913770"
+          "rva": "0x911750"
         },
         {
           "index": 9,
           "module": "server.dll",
           "name": "method_9",
-          "rva": "0x911BC0"
+          "rva": "0x90FBA0"
         },
         {
           "index": 10,
           "module": "server.dll",
           "name": "method_10",
-          "rva": "0x90B000"
+          "rva": "0x908FE0"
         },
         {
           "index": 11,
           "module": "server.dll",
           "name": "method_11",
-          "rva": "0x90AFE0"
+          "rva": "0x908FC0"
         },
         {
           "index": 12,
           "module": "server.dll",
           "name": "method_12",
-          "rva": "0x90AF20"
+          "rva": "0x908F00"
         },
         {
           "index": 13,
           "module": "server.dll",
           "name": "method_13",
-          "rva": "0x914650"
+          "rva": "0x912630"
         },
         {
           "index": 14,
           "module": "server.dll",
           "name": "method_14",
-          "rva": "0x9130C0"
+          "rva": "0x9110A0"
         },
         {
           "index": 15,
           "module": "server.dll",
           "name": "method_15",
-          "rva": "0x9131A0"
+          "rva": "0x911180"
         },
         {
           "index": 16,
           "module": "server.dll",
           "name": "method_16",
-          "rva": "0x911A30"
+          "rva": "0x90FA10"
         },
         {
           "index": 17,
           "module": "server.dll",
           "name": "method_17",
-          "rva": "0x913D70"
+          "rva": "0x911D50"
         },
         {
           "index": 18,
           "module": "server.dll",
           "name": "method_18",
-          "rva": "0x914290"
+          "rva": "0x912270"
         },
         {
           "index": 19,
           "module": "server.dll",
           "name": "method_19",
-          "rva": "0x9137C0"
+          "rva": "0x9117A0"
         },
         {
           "index": 20,
           "module": "server.dll",
           "name": "method_20",
-          "rva": "0x90AFF0"
+          "rva": "0x908FD0"
         },
         {
           "index": 21,
           "module": "server.dll",
           "name": "method_21",
-          "rva": "0x9142A0"
+          "rva": "0x912280"
         },
         {
           "index": 22,
           "module": "server.dll",
           "name": "method_22",
-          "rva": "0x908020"
+          "rva": "0x906000"
         }
       ],
       "rtti_class": "CEmptyWorldService",
       "vtable_module": "server.dll",
-      "vtable_rva": "0x16D5D80"
+      "vtable_rva": "0x16D8D30"
     },
     "EntitySubclassUtilsV001": {
-      "method_count": 18,
+      "method_count": 89,
       "methods": [
         {
           "index": 0,
           "module": "server.dll",
           "name": "method_0",
-          "rva": "0x4F6D90"
+          "rva": "0x4F4E00"
         },
         {
           "index": 1,
           "module": "server.dll",
           "name": "method_1",
-          "rva": "0x4F6DF0"
+          "rva": "0x4F4E60"
         },
         {
           "index": 2,
           "module": "server.dll",
           "name": "method_2",
-          "rva": "0x4F6CC0"
+          "rva": "0x4F4D70"
         },
         {
           "index": 3,
           "module": "server.dll",
           "name": "method_3",
-          "rva": "0x4F6D30"
+          "rva": "0x4F4DD0"
         },
         {
           "index": 4,
           "module": "server.dll",
           "name": "method_4",
-          "rva": "0x4F6D10"
+          "rva": "0x4F4DC0"
         },
         {
           "index": 5,
           "module": "server.dll",
           "name": "method_5",
-          "rva": "0x4F6CD0"
+          "rva": "0x4F4D80"
         },
         {
           "index": 6,
           "module": "server.dll",
           "name": "method_6",
-          "rva": "0x4F6CE0"
+          "rva": "0x4F4D90"
         },
         {
           "index": 7,
           "module": "server.dll",
           "name": "method_7",
-          "rva": "0x4F6D80"
+          "rva": "0x4F4DF0"
         },
         {
           "index": 8,
           "module": "server.dll",
           "name": "method_8",
-          "rva": "0x4F6E30"
+          "rva": "0x4F4EA0"
         },
         {
           "index": 9,
           "module": "server.dll",
           "name": "method_9",
-          "rva": "0x4F6CF0"
+          "rva": "0x4F4DA0"
         },
         {
           "index": 10,
           "module": "server.dll",
           "name": "method_10",
-          "rva": "0x4F6D00"
+          "rva": "0x4F4DB0"
         },
         {
           "index": 11,
           "module": "server.dll",
           "name": "method_11",
-          "rva": "0x4F6F30"
+          "rva": "0x4F4FA0"
         },
         {
           "index": 12,
           "module": "server.dll",
           "name": "method_12",
-          "rva": "0x4F6E90"
+          "rva": "0x4F4F00"
         },
         {
           "index": 13,
           "module": "server.dll",
           "name": "method_13",
-          "rva": "0x192D970"
+          "rva": "0x1930860"
         },
         {
           "index": 14,
           "module": "server.dll",
           "name": "method_14",
-          "rva": "0x4F68D0"
+          "rva": "0x1859C0"
         },
         {
           "index": 15,
           "module": "server.dll",
           "name": "method_15",
-          "rva": "0x1FF2B0"
+          "rva": "0x18C300"
         },
         {
           "index": 16,
           "module": "server.dll",
           "name": "method_16",
-          "rva": "0x4F69B0"
+          "rva": "0x18E970"
         },
         {
           "index": 17,
           "module": "server.dll",
           "name": "method_17",
-          "rva": "0x1FF290"
+          "rva": "0x183D50"
+        },
+        {
+          "index": 18,
+          "module": "server.dll",
+          "name": "method_18",
+          "rva": "0x183DC0"
+        },
+        {
+          "index": 19,
+          "module": "server.dll",
+          "name": "method_19",
+          "rva": "0x183D60"
+        },
+        {
+          "index": 20,
+          "module": "server.dll",
+          "name": "method_20",
+          "rva": "0x183D70"
+        },
+        {
+          "index": 21,
+          "module": "server.dll",
+          "name": "method_21",
+          "rva": "0x1819D0"
+        },
+        {
+          "index": 22,
+          "module": "server.dll",
+          "name": "method_22",
+          "rva": "0x4F4BD0"
+        },
+        {
+          "index": 23,
+          "module": "server.dll",
+          "name": "method_23",
+          "rva": "0x181C40"
+        },
+        {
+          "index": 24,
+          "module": "server.dll",
+          "name": "method_24",
+          "rva": "0x181C30"
+        },
+        {
+          "index": 25,
+          "module": "server.dll",
+          "name": "method_25",
+          "rva": "0x181C20"
+        },
+        {
+          "index": 26,
+          "module": "server.dll",
+          "name": "method_26",
+          "rva": "0x4F4BF0"
+        },
+        {
+          "index": 27,
+          "module": "server.dll",
+          "name": "method_27",
+          "rva": "0x18ED50"
+        },
+        {
+          "index": 28,
+          "module": "server.dll",
+          "name": "method_28",
+          "rva": "0x18ED60"
+        },
+        {
+          "index": 29,
+          "module": "server.dll",
+          "name": "method_29",
+          "rva": "0x18C3C0"
+        },
+        {
+          "index": 30,
+          "module": "server.dll",
+          "name": "method_30",
+          "rva": "0x18C330"
+        },
+        {
+          "index": 31,
+          "module": "server.dll",
+          "name": "method_31",
+          "rva": "0x18C3D0"
+        },
+        {
+          "index": 32,
+          "module": "server.dll",
+          "name": "method_32",
+          "rva": "0x18C340"
+        },
+        {
+          "index": 33,
+          "module": "server.dll",
+          "name": "method_33",
+          "rva": "0x180BC0"
+        },
+        {
+          "index": 34,
+          "module": "server.dll",
+          "name": "method_34",
+          "rva": "0x18C2F0"
+        },
+        {
+          "index": 35,
+          "module": "server.dll",
+          "name": "method_35",
+          "rva": "0x18C390"
+        },
+        {
+          "index": 36,
+          "module": "server.dll",
+          "name": "method_36",
+          "rva": "0x18C3B0"
+        },
+        {
+          "index": 37,
+          "module": "server.dll",
+          "name": "method_37",
+          "rva": "0x18C370"
+        },
+        {
+          "index": 38,
+          "module": "server.dll",
+          "name": "method_38",
+          "rva": "0x183460"
+        },
+        {
+          "index": 39,
+          "module": "server.dll",
+          "name": "method_39",
+          "rva": "0x18C3A0"
+        },
+        {
+          "index": 40,
+          "module": "server.dll",
+          "name": "method_40",
+          "rva": "0x181C50"
+        },
+        {
+          "index": 41,
+          "module": "server.dll",
+          "name": "method_41",
+          "rva": "0x181C60"
+        },
+        {
+          "index": 42,
+          "module": "server.dll",
+          "name": "method_42",
+          "rva": "0x18F200"
+        },
+        {
+          "index": 43,
+          "module": "server.dll",
+          "name": "method_43",
+          "rva": "0x183CB0"
+        },
+        {
+          "index": 44,
+          "module": "server.dll",
+          "name": "method_44",
+          "rva": "0x18C320"
+        },
+        {
+          "index": 45,
+          "module": "server.dll",
+          "name": "method_45",
+          "rva": "0x183CE0"
+        },
+        {
+          "index": 46,
+          "module": "server.dll",
+          "name": "method_46",
+          "rva": "0x183CC0"
+        },
+        {
+          "index": 47,
+          "module": "server.dll",
+          "name": "method_47",
+          "rva": "0x183CD0"
+        },
+        {
+          "index": 48,
+          "module": "server.dll",
+          "name": "method_48",
+          "rva": "0x18C350"
+        },
+        {
+          "index": 49,
+          "module": "server.dll",
+          "name": "method_49",
+          "rva": "0x18C1A0"
+        },
+        {
+          "index": 50,
+          "module": "server.dll",
+          "name": "method_50",
+          "rva": "0x18BFF0"
+        },
+        {
+          "index": 51,
+          "module": "server.dll",
+          "name": "method_51",
+          "rva": "0x18C1F0"
+        },
+        {
+          "index": 52,
+          "module": "server.dll",
+          "name": "method_52",
+          "rva": "0x18C010"
+        },
+        {
+          "index": 53,
+          "module": "server.dll",
+          "name": "method_53",
+          "rva": "0x18C1E0"
+        },
+        {
+          "index": 54,
+          "module": "server.dll",
+          "name": "method_54",
+          "rva": "0x18C000"
+        },
+        {
+          "index": 55,
+          "module": "server.dll",
+          "name": "method_55",
+          "rva": "0x18C1C0"
+        },
+        {
+          "index": 56,
+          "module": "server.dll",
+          "name": "method_56",
+          "rva": "0x18C1D0"
+        },
+        {
+          "index": 57,
+          "module": "server.dll",
+          "name": "method_57",
+          "rva": "0x18C1B0"
+        },
+        {
+          "index": 58,
+          "module": "server.dll",
+          "name": "method_58",
+          "rva": "0x18BFD0"
+        },
+        {
+          "index": 59,
+          "module": "server.dll",
+          "name": "method_59",
+          "rva": "0x18C020"
+        },
+        {
+          "index": 60,
+          "module": "server.dll",
+          "name": "method_60",
+          "rva": "0x18BFE0"
+        },
+        {
+          "index": 61,
+          "module": "server.dll",
+          "name": "method_61",
+          "rva": "0x183CA0"
+        },
+        {
+          "index": 62,
+          "module": "server.dll",
+          "name": "method_62",
+          "rva": "0x18C2C0"
+        },
+        {
+          "index": 63,
+          "module": "server.dll",
+          "name": "method_63",
+          "rva": "0x18E500"
+        },
+        {
+          "index": 64,
+          "module": "server.dll",
+          "name": "method_64",
+          "rva": "0x18D9D0"
+        },
+        {
+          "index": 65,
+          "module": "server.dll",
+          "name": "method_65",
+          "rva": "0x18E980"
+        },
+        {
+          "index": 66,
+          "module": "server.dll",
+          "name": "method_66",
+          "rva": "0x18F540"
+        },
+        {
+          "index": 67,
+          "module": "server.dll",
+          "name": "method_67",
+          "rva": "0x18F550"
+        },
+        {
+          "index": 68,
+          "module": "server.dll",
+          "name": "method_68",
+          "rva": "0x18C380"
+        },
+        {
+          "index": 69,
+          "module": "server.dll",
+          "name": "method_69",
+          "rva": "0x18C310"
+        },
+        {
+          "index": 70,
+          "module": "server.dll",
+          "name": "method_70",
+          "rva": "0x18C060"
+        },
+        {
+          "index": 71,
+          "module": "server.dll",
+          "name": "method_71",
+          "rva": "0x18C200"
+        },
+        {
+          "index": 72,
+          "module": "server.dll",
+          "name": "method_72",
+          "rva": "0x184EC0"
+        },
+        {
+          "index": 73,
+          "module": "server.dll",
+          "name": "method_73",
+          "rva": "0x4F4550"
+        },
+        {
+          "index": 74,
+          "module": "server.dll",
+          "name": "method_74",
+          "rva": "0x18E850"
+        },
+        {
+          "index": 75,
+          "module": "server.dll",
+          "name": "method_75",
+          "rva": "0x4F4540"
+        },
+        {
+          "index": 76,
+          "module": "server.dll",
+          "name": "method_76",
+          "rva": "0x4F4FB0"
+        },
+        {
+          "index": 77,
+          "module": "server.dll",
+          "name": "method_77",
+          "rva": "0x4F4530"
+        },
+        {
+          "index": 78,
+          "module": "server.dll",
+          "name": "method_78",
+          "rva": "0x1930948"
+        },
+        {
+          "index": 79,
+          "module": "server.dll",
+          "name": "method_79",
+          "rva": "0x4F46D0"
+        },
+        {
+          "index": 80,
+          "module": "server.dll",
+          "name": "method_80",
+          "rva": "0x4F4820"
+        },
+        {
+          "index": 81,
+          "module": "server.dll",
+          "name": "method_81",
+          "rva": "0x4F48A0"
+        },
+        {
+          "index": 82,
+          "module": "server.dll",
+          "name": "method_82",
+          "rva": "0x4F4A10"
+        },
+        {
+          "index": 83,
+          "module": "server.dll",
+          "name": "method_83",
+          "rva": "0x4F49A0"
+        },
+        {
+          "index": 84,
+          "module": "server.dll",
+          "name": "method_84",
+          "rva": "0x1930970"
+        },
+        {
+          "index": 85,
+          "module": "server.dll",
+          "name": "method_85",
+          "rva": "0x4F4AA0"
+        },
+        {
+          "index": 86,
+          "module": "server.dll",
+          "name": "method_86",
+          "rva": "0x1FEB80"
+        },
+        {
+          "index": 87,
+          "module": "server.dll",
+          "name": "method_87",
+          "rva": "0x4F4B80"
+        },
+        {
+          "index": 88,
+          "module": "server.dll",
+          "name": "method_88",
+          "rva": "0x1FEB60"
         }
       ],
       "rtti_class": "CServerEntitySubclassUtils",
       "vtable_module": "server.dll",
-      "vtable_rva": "0x1614BC8"
+      "vtable_rva": "0x1617960"
     },
     "NavGameTest001": {
       "method_count": 12,
@@ -31727,78 +32333,78 @@
           "index": 0,
           "module": "server.dll",
           "name": "method_0",
-          "rva": "0xF780B0"
+          "rva": "0xF7AD70"
         },
         {
           "index": 1,
           "module": "server.dll",
           "name": "method_1",
-          "rva": "0xF78150"
+          "rva": "0xF7AE10"
         },
         {
           "index": 2,
           "module": "server.dll",
           "name": "method_2",
-          "rva": "0xF78050"
+          "rva": "0xF7AD10"
         },
         {
           "index": 3,
           "module": "server.dll",
           "name": "method_3",
-          "rva": "0xF78130"
+          "rva": "0xF7ADF0"
         },
         {
           "index": 4,
           "module": "server.dll",
           "name": "method_4",
-          "rva": "0xF780A0"
+          "rva": "0xF7AD60"
         },
         {
           "index": 5,
           "module": "server.dll",
           "name": "method_5",
-          "rva": "0xF78060"
+          "rva": "0xF7AD20"
         },
         {
           "index": 6,
           "module": "server.dll",
           "name": "method_6",
-          "rva": "0xF78070"
+          "rva": "0xF7AD30"
         },
         {
           "index": 7,
           "module": "server.dll",
           "name": "method_7",
-          "rva": "0xF78190"
+          "rva": "0xF7AE50"
         },
         {
           "index": 8,
           "module": "server.dll",
           "name": "method_8",
-          "rva": "0xF780F0"
+          "rva": "0xF7ADB0"
         },
         {
           "index": 9,
           "module": "server.dll",
           "name": "method_9",
-          "rva": "0xF78080"
+          "rva": "0xF7AD40"
         },
         {
           "index": 10,
           "module": "server.dll",
           "name": "method_10",
-          "rva": "0xF78090"
+          "rva": "0xF7AD50"
         },
         {
           "index": 11,
           "module": "server.dll",
           "name": "method_11",
-          "rva": "0xF781A0"
+          "rva": "0xF7AE60"
         }
       ],
       "rtti_class": "CNavGameTest",
       "vtable_module": "server.dll",
-      "vtable_rva": "0x18162C8"
+      "vtable_rva": "0x18193D8"
     },
     "ServerToolsInfo_001": {
       "method_count": 12,
@@ -31807,78 +32413,78 @@
           "index": 0,
           "module": "server.dll",
           "name": "method_0",
-          "rva": "0xCE37C0"
+          "rva": "0xCE5AF0"
         },
         {
           "index": 1,
           "module": "server.dll",
           "name": "method_1",
-          "rva": "0xCE3820"
+          "rva": "0xCE5B50"
         },
         {
           "index": 2,
           "module": "server.dll",
           "name": "method_2",
-          "rva": "0xCE3740"
+          "rva": "0xCE5AA0"
         },
         {
           "index": 3,
           "module": "server.dll",
           "name": "method_3",
-          "rva": "0xCE38C0"
+          "rva": "0xCE5BF0"
         },
         {
           "index": 4,
           "module": "server.dll",
           "name": "method_4",
-          "rva": "0xCE3900"
+          "rva": "0xCE5C30"
         },
         {
           "index": 5,
           "module": "server.dll",
           "name": "method_5",
-          "rva": "0xCE3750"
+          "rva": "0xCE5AB0"
         },
         {
           "index": 6,
           "module": "server.dll",
           "name": "method_6",
-          "rva": "0xCE3910"
+          "rva": "0xCE5C40"
         },
         {
           "index": 7,
           "module": "server.dll",
           "name": "method_7",
-          "rva": "0xCE37B0"
+          "rva": "0xCE5AE0"
         },
         {
           "index": 8,
           "module": "server.dll",
           "name": "method_8",
-          "rva": "0xCE3860"
+          "rva": "0xCE5B90"
         },
         {
           "index": 9,
           "module": "server.dll",
           "name": "method_9",
-          "rva": "0xCE3760"
+          "rva": "0xCE5AC0"
         },
         {
           "index": 10,
           "module": "server.dll",
           "name": "method_10",
-          "rva": "0xCE3770"
+          "rva": "0xCE5AD0"
         },
         {
           "index": 11,
           "module": "server.dll",
           "name": "method_11",
-          "rva": "0xCE3990"
+          "rva": "0xCE5CC0"
         }
       ],
       "rtti_class": "CServerToolsInfo",
       "vtable_module": "server.dll",
-      "vtable_rva": "0x178D370"
+      "vtable_rva": "0x1790168"
     },
     "Source2GameClients001": {
       "method_count": 256,
@@ -31887,1542 +32493,1542 @@
           "index": 0,
           "module": "server.dll",
           "name": "method_0",
-          "rva": "0xCEC410"
+          "rva": "0xCEE7E0"
         },
         {
           "index": 1,
           "module": "server.dll",
           "name": "method_1",
-          "rva": "0xCECD80"
+          "rva": "0xCEF150"
         },
         {
           "index": 2,
           "module": "server.dll",
           "name": "method_2",
-          "rva": "0xCF4680"
+          "rva": "0xCF6670"
         },
         {
           "index": 3,
           "module": "server.dll",
           "name": "method_3",
-          "rva": "0xCEF6F0"
+          "rva": "0xCF19E0"
         },
         {
           "index": 4,
           "module": "server.dll",
           "name": "method_4",
-          "rva": "0xCF7570"
+          "rva": "0xCF94F0"
         },
         {
           "index": 5,
           "module": "server.dll",
           "name": "method_5",
-          "rva": "0xCF3ED0"
+          "rva": "0xCF5EC0"
         },
         {
           "index": 6,
           "module": "server.dll",
           "name": "method_6",
-          "rva": "0xCEEC70"
+          "rva": "0xCF0F80"
         },
         {
           "index": 7,
           "module": "server.dll",
           "name": "method_7",
-          "rva": "0xCEF4C0"
+          "rva": "0xCF17B0"
         },
         {
           "index": 8,
           "module": "server.dll",
           "name": "method_8",
-          "rva": "0xCF4780"
+          "rva": "0xCF6770"
         },
         {
           "index": 9,
           "module": "server.dll",
           "name": "method_9",
-          "rva": "0xCF0FA0"
+          "rva": "0xCF3090"
         },
         {
           "index": 10,
           "module": "server.dll",
           "name": "method_10",
-          "rva": "0xCEF4A0"
+          "rva": "0xCF1790"
         },
         {
           "index": 11,
           "module": "server.dll",
           "name": "method_11",
-          "rva": "0xCF3030"
+          "rva": "0xCF5020"
         },
         {
           "index": 12,
           "module": "server.dll",
           "name": "method_12",
-          "rva": "0xCEA5A0"
+          "rva": "0xCEC980"
         },
         {
           "index": 13,
           "module": "server.dll",
           "name": "method_13",
-          "rva": "0xCEB890"
+          "rva": "0xCEDC70"
         },
         {
           "index": 14,
           "module": "server.dll",
           "name": "method_14",
-          "rva": "0xCE9EC0"
+          "rva": "0xCEC2A0"
         },
         {
           "index": 15,
           "module": "server.dll",
           "name": "method_15",
-          "rva": "0xCEB400"
+          "rva": "0xCED7E0"
         },
         {
           "index": 16,
           "module": "server.dll",
           "name": "method_16",
-          "rva": "0xCEADD0"
+          "rva": "0xCED1B0"
         },
         {
           "index": 17,
           "module": "server.dll",
           "name": "method_17",
-          "rva": "0xCEA420"
+          "rva": "0xCEC800"
         },
         {
           "index": 18,
           "module": "server.dll",
           "name": "method_18",
-          "rva": "0xCEC120"
+          "rva": "0xCEE500"
         },
         {
           "index": 19,
           "module": "server.dll",
           "name": "method_19",
-          "rva": "0xCEBE30"
+          "rva": "0xCEE210"
         },
         {
           "index": 20,
           "module": "server.dll",
           "name": "method_20",
-          "rva": "0xCEBE60"
+          "rva": "0xCEE240"
         },
         {
           "index": 21,
           "module": "server.dll",
           "name": "method_21",
-          "rva": "0xCF4060"
+          "rva": "0xCF6050"
         },
         {
           "index": 22,
           "module": "server.dll",
           "name": "method_22",
-          "rva": "0xCF0E90"
+          "rva": "0xCF2F80"
         },
         {
           "index": 23,
           "module": "server.dll",
           "name": "method_23",
-          "rva": "0xCF0F40"
+          "rva": "0xCF3030"
         },
         {
           "index": 24,
           "module": "server.dll",
           "name": "method_24",
-          "rva": "0xCEF160"
+          "rva": "0xCF1470"
         },
         {
           "index": 25,
           "module": "server.dll",
           "name": "method_25",
-          "rva": "0xCEB3A0"
+          "rva": "0xCED780"
         },
         {
           "index": 26,
           "module": "server.dll",
           "name": "method_26",
-          "rva": "0xCEE990"
+          "rva": "0xCF0CB0"
         },
         {
           "index": 27,
           "module": "server.dll",
           "name": "method_27",
-          "rva": "0xCEC130"
+          "rva": "0xCEE510"
         },
         {
           "index": 28,
           "module": "server.dll",
           "name": "method_28",
-          "rva": "0xCEA560"
+          "rva": "0xCEC940"
         },
         {
           "index": 29,
           "module": "server.dll",
           "name": "method_29",
-          "rva": "0xCEA660"
+          "rva": "0xCECA40"
         },
         {
           "index": 30,
           "module": "server.dll",
           "name": "method_30",
-          "rva": "0x1D4670"
+          "rva": "0x1D3FA0"
         },
         {
           "index": 31,
           "module": "server.dll",
           "name": "method_31",
-          "rva": "0x1D6AF0"
+          "rva": "0x1D6420"
         },
         {
           "index": 32,
           "module": "server.dll",
           "name": "method_32",
-          "rva": "0x1D45D0"
+          "rva": "0x1D3F00"
         },
         {
           "index": 33,
           "module": "server.dll",
           "name": "method_33",
-          "rva": "0xCF9A20"
+          "rva": "0xCFB9A0"
         },
         {
           "index": 34,
           "module": "server.dll",
           "name": "method_34",
-          "rva": "0xCF62B0"
+          "rva": "0xCF8250"
         },
         {
           "index": 35,
           "module": "server.dll",
           "name": "method_35",
-          "rva": "0xCEEE20"
+          "rva": "0xCF1130"
         },
         {
           "index": 36,
           "module": "server.dll",
           "name": "method_36",
-          "rva": "0xCEB730"
+          "rva": "0xCEDB10"
         },
         {
           "index": 37,
           "module": "server.dll",
           "name": "method_37",
-          "rva": "0xCEB6C0"
+          "rva": "0xCEDAA0"
         },
         {
           "index": 38,
           "module": "server.dll",
           "name": "method_38",
-          "rva": "0xCEBFB0"
+          "rva": "0xCEE390"
         },
         {
           "index": 39,
           "module": "server.dll",
           "name": "method_39",
-          "rva": "0xCEEF30"
+          "rva": "0xCF1240"
         },
         {
           "index": 40,
           "module": "server.dll",
           "name": "method_40",
-          "rva": "0xCEB760"
+          "rva": "0xCEDB40"
         },
         {
           "index": 41,
           "module": "server.dll",
           "name": "method_41",
-          "rva": "0x1D45E0"
+          "rva": "0x1D3F10"
         },
         {
           "index": 42,
           "module": "server.dll",
           "name": "method_42",
-          "rva": "0xCF73C0"
+          "rva": "0xCF9340"
         },
         {
           "index": 43,
           "module": "server.dll",
           "name": "method_43",
-          "rva": "0xCE85B0"
+          "rva": "0xCEA990"
         },
         {
           "index": 44,
           "module": "server.dll",
           "name": "method_44",
-          "rva": "0x197A198"
+          "rva": "0x197D168"
         },
         {
           "index": 45,
           "module": "server.dll",
           "name": "method_45",
-          "rva": "0xCE6B30"
+          "rva": "0xCE8F10"
         },
         {
           "index": 46,
           "module": "server.dll",
           "name": "method_46",
-          "rva": "0xBDE850"
+          "rva": "0xBE0B20"
         },
         {
           "index": 47,
           "module": "server.dll",
           "name": "method_47",
-          "rva": "0xBDE830"
+          "rva": "0xBE0B10"
         },
         {
           "index": 48,
           "module": "server.dll",
           "name": "method_48",
-          "rva": "0xBDE870"
+          "rva": "0xBE0B30"
         },
         {
           "index": 49,
           "module": "server.dll",
           "name": "method_49",
-          "rva": "0xBDE8C0"
+          "rva": "0xBE0B80"
         },
         {
           "index": 50,
           "module": "server.dll",
           "name": "method_50",
-          "rva": "0x197A2B8"
+          "rva": "0x197D288"
         },
         {
           "index": 51,
           "module": "server.dll",
           "name": "method_51",
-          "rva": "0xCE64AC"
+          "rva": "0xCE88CC"
         },
         {
           "index": 52,
           "module": "server.dll",
           "name": "method_52",
-          "rva": "0xFB63D0"
+          "rva": "0xFB8FD0"
         },
         {
           "index": 53,
           "module": "server.dll",
           "name": "method_53",
-          "rva": "0x814A80"
+          "rva": "0x813E90"
         },
         {
           "index": 54,
           "module": "server.dll",
           "name": "method_54",
-          "rva": "0x814AC0"
+          "rva": "0x813ED0"
         },
         {
           "index": 55,
           "module": "server.dll",
           "name": "method_55",
-          "rva": "0x814AE0"
+          "rva": "0x813EF0"
         },
         {
           "index": 56,
           "module": "server.dll",
           "name": "method_56",
-          "rva": "0xFB6400"
+          "rva": "0xFB9000"
         },
         {
           "index": 57,
           "module": "server.dll",
           "name": "method_57",
-          "rva": "0xFB5830"
+          "rva": "0xFB8430"
         },
         {
           "index": 58,
           "module": "server.dll",
           "name": "method_58",
-          "rva": "0x814AF0"
+          "rva": "0x813F00"
         },
         {
           "index": 59,
           "module": "server.dll",
           "name": "method_59",
-          "rva": "0x814CC0"
+          "rva": "0x8140D0"
         },
         {
           "index": 60,
           "module": "server.dll",
           "name": "method_60",
-          "rva": "0x814B10"
+          "rva": "0x813F20"
         },
         {
           "index": 61,
           "module": "server.dll",
           "name": "method_61",
-          "rva": "0x18C720"
+          "rva": "0x18C050"
         },
         {
           "index": 62,
           "module": "server.dll",
           "name": "method_62",
-          "rva": "0x814C50"
+          "rva": "0x814060"
         },
         {
           "index": 63,
           "module": "server.dll",
           "name": "method_63",
-          "rva": "0xFB6920"
+          "rva": "0xFB9520"
         },
         {
           "index": 64,
           "module": "server.dll",
           "name": "method_64",
-          "rva": "0xFB7040"
+          "rva": "0xFB9C40"
         },
         {
           "index": 65,
           "module": "server.dll",
           "name": "method_65",
-          "rva": "0x814D70"
+          "rva": "0x8140E0"
         },
         {
           "index": 66,
           "module": "server.dll",
           "name": "method_66",
-          "rva": "0x814D90"
+          "rva": "0x814100"
         },
         {
           "index": 67,
           "module": "server.dll",
           "name": "method_67",
-          "rva": "0x814D80"
+          "rva": "0x8140F0"
         },
         {
           "index": 68,
           "module": "server.dll",
           "name": "method_68",
-          "rva": "0x197A2E0"
+          "rva": "0x197D2B0"
         },
         {
           "index": 69,
           "module": "server.dll",
           "name": "method_69",
-          "rva": "0xCE6B90"
+          "rva": "0xCE8F70"
         },
         {
           "index": 70,
           "module": "server.dll",
           "name": "method_70",
-          "rva": "0xBDF1F0"
+          "rva": "0xBE13B0"
         },
         {
           "index": 71,
           "module": "server.dll",
           "name": "method_71",
-          "rva": "0xBDF0D0"
+          "rva": "0xBE13A0"
         },
         {
           "index": 72,
           "module": "server.dll",
           "name": "method_72",
-          "rva": "0xBDF210"
+          "rva": "0xBE13C0"
         },
         {
           "index": 73,
           "module": "server.dll",
           "name": "method_73",
-          "rva": "0xBDF350"
+          "rva": "0xBE1410"
         },
         {
           "index": 74,
           "module": "server.dll",
           "name": "method_74",
-          "rva": "0x197A400"
+          "rva": "0x197D3D0"
         },
         {
           "index": 75,
           "module": "server.dll",
           "name": "method_75",
-          "rva": "0xCE64B8"
+          "rva": "0xCE88D8"
         },
         {
           "index": 76,
           "module": "server.dll",
           "name": "method_76",
-          "rva": "0xFB63D0"
+          "rva": "0xFB8FD0"
         },
         {
           "index": 77,
           "module": "server.dll",
           "name": "method_77",
-          "rva": "0x816EF0"
+          "rva": "0x816A10"
         },
         {
           "index": 78,
           "module": "server.dll",
           "name": "method_78",
-          "rva": "0x817240"
+          "rva": "0x816D70"
         },
         {
           "index": 79,
           "module": "server.dll",
           "name": "method_79",
-          "rva": "0x817270"
+          "rva": "0x816DA0"
         },
         {
           "index": 80,
           "module": "server.dll",
           "name": "method_80",
-          "rva": "0xFB6400"
+          "rva": "0xFB9000"
         },
         {
           "index": 81,
           "module": "server.dll",
           "name": "method_81",
-          "rva": "0xFB5830"
+          "rva": "0xFB8430"
         },
         {
           "index": 82,
           "module": "server.dll",
           "name": "method_82",
-          "rva": "0x817280"
+          "rva": "0x816DC0"
         },
         {
           "index": 83,
           "module": "server.dll",
           "name": "method_83",
-          "rva": "0x817570"
+          "rva": "0x817100"
         },
         {
           "index": 84,
           "module": "server.dll",
           "name": "method_84",
-          "rva": "0x8172D0"
+          "rva": "0x816E50"
         },
         {
           "index": 85,
           "module": "server.dll",
           "name": "method_85",
-          "rva": "0x18C720"
+          "rva": "0x18C050"
         },
         {
           "index": 86,
           "module": "server.dll",
           "name": "method_86",
-          "rva": "0x817480"
+          "rva": "0x817010"
         },
         {
           "index": 87,
           "module": "server.dll",
           "name": "method_87",
-          "rva": "0xFB6920"
+          "rva": "0xFB9520"
         },
         {
           "index": 88,
           "module": "server.dll",
           "name": "method_88",
-          "rva": "0xFB7040"
+          "rva": "0xFB9C40"
         },
         {
           "index": 89,
           "module": "server.dll",
           "name": "method_89",
-          "rva": "0x8175D0"
+          "rva": "0x8172C0"
         },
         {
           "index": 90,
           "module": "server.dll",
           "name": "method_90",
-          "rva": "0x8176F0"
+          "rva": "0x8175D0"
         },
         {
           "index": 91,
           "module": "server.dll",
           "name": "method_91",
-          "rva": "0x8175F0"
+          "rva": "0x8175C0"
         },
         {
           "index": 92,
           "module": "server.dll",
           "name": "method_92",
-          "rva": "0x197A428"
+          "rva": "0x197D3F8"
         },
         {
           "index": 93,
           "module": "server.dll",
           "name": "method_93",
-          "rva": "0xCE6BF0"
+          "rva": "0xCE8FD0"
         },
         {
           "index": 94,
           "module": "server.dll",
           "name": "method_94",
-          "rva": "0xBDBEF0"
+          "rva": "0xBDE540"
         },
         {
           "index": 95,
           "module": "server.dll",
           "name": "method_95",
-          "rva": "0xBDBEE0"
+          "rva": "0xBDE530"
         },
         {
           "index": 96,
           "module": "server.dll",
           "name": "method_96",
-          "rva": "0xBDBF00"
+          "rva": "0xBDE550"
         },
         {
           "index": 97,
           "module": "server.dll",
           "name": "method_97",
-          "rva": "0xBDBF50"
+          "rva": "0xBDE5A0"
         },
         {
           "index": 98,
           "module": "server.dll",
           "name": "method_98",
-          "rva": "0x197A548"
+          "rva": "0x197D518"
         },
         {
           "index": 99,
           "module": "server.dll",
           "name": "method_99",
-          "rva": "0xCE64C4"
+          "rva": "0xCE88E4"
         },
         {
           "index": 100,
           "module": "server.dll",
           "name": "method_100",
-          "rva": "0xFB63D0"
+          "rva": "0xFB8FD0"
         },
         {
           "index": 101,
           "module": "server.dll",
           "name": "method_101",
-          "rva": "0x78CE20"
+          "rva": "0x78CFE0"
         },
         {
           "index": 102,
           "module": "server.dll",
           "name": "method_102",
-          "rva": "0x78CF20"
+          "rva": "0x78D0C0"
         },
         {
           "index": 103,
           "module": "server.dll",
           "name": "method_103",
-          "rva": "0x78CF50"
+          "rva": "0x78D0E0"
         },
         {
           "index": 104,
           "module": "server.dll",
           "name": "method_104",
-          "rva": "0xFB6400"
+          "rva": "0xFB9000"
         },
         {
           "index": 105,
           "module": "server.dll",
           "name": "method_105",
-          "rva": "0xFB5830"
+          "rva": "0xFB8430"
         },
         {
           "index": 106,
           "module": "server.dll",
           "name": "method_106",
-          "rva": "0x78CF60"
+          "rva": "0x78D0F0"
         },
         {
           "index": 107,
           "module": "server.dll",
           "name": "method_107",
-          "rva": "0x78D180"
+          "rva": "0x78D2C0"
         },
         {
           "index": 108,
           "module": "server.dll",
           "name": "method_108",
-          "rva": "0x78CFD0"
+          "rva": "0x78D110"
         },
         {
           "index": 109,
           "module": "server.dll",
           "name": "method_109",
-          "rva": "0x18C720"
+          "rva": "0x18C050"
         },
         {
           "index": 110,
           "module": "server.dll",
           "name": "method_110",
-          "rva": "0x78D110"
+          "rva": "0x78D250"
         },
         {
           "index": 111,
           "module": "server.dll",
           "name": "method_111",
-          "rva": "0xFB6920"
+          "rva": "0xFB9520"
         },
         {
           "index": 112,
           "module": "server.dll",
           "name": "method_112",
-          "rva": "0xFB7040"
+          "rva": "0xFB9C40"
         },
         {
           "index": 113,
           "module": "server.dll",
           "name": "method_113",
-          "rva": "0x78D200"
+          "rva": "0x78D360"
         },
         {
           "index": 114,
           "module": "server.dll",
           "name": "method_114",
-          "rva": "0x78DBF0"
+          "rva": "0x78D380"
         },
         {
           "index": 115,
           "module": "server.dll",
           "name": "method_115",
-          "rva": "0x78D980"
+          "rva": "0x78D370"
         },
         {
           "index": 116,
           "module": "server.dll",
           "name": "method_116",
-          "rva": "0x197A570"
+          "rva": "0x197D540"
         },
         {
           "index": 117,
           "module": "server.dll",
           "name": "method_117",
-          "rva": "0xCE6570"
+          "rva": "0xCE8990"
         },
         {
           "index": 118,
           "module": "server.dll",
           "name": "method_118",
-          "rva": "0x836890"
+          "rva": "0x8348F0"
         },
         {
           "index": 119,
           "module": "server.dll",
           "name": "method_119",
-          "rva": "0x836880"
+          "rva": "0x8348E0"
         },
         {
           "index": 120,
           "module": "server.dll",
           "name": "method_120",
-          "rva": "0x8368A0"
+          "rva": "0x834900"
         },
         {
           "index": 121,
           "module": "server.dll",
           "name": "method_121",
-          "rva": "0x8368F0"
+          "rva": "0x834950"
         },
         {
           "index": 122,
           "module": "server.dll",
           "name": "method_122",
-          "rva": "0x197A690"
+          "rva": "0x197D660"
         },
         {
           "index": 123,
           "module": "server.dll",
           "name": "method_123",
-          "rva": "0xCE647C"
+          "rva": "0xCE889C"
         },
         {
           "index": 124,
           "module": "server.dll",
           "name": "method_124",
-          "rva": "0xFB63D0"
+          "rva": "0xFB8FD0"
         },
         {
           "index": 125,
           "module": "server.dll",
           "name": "method_125",
-          "rva": "0x6BBF50"
+          "rva": "0x6BB280"
         },
         {
           "index": 126,
           "module": "server.dll",
           "name": "method_126",
-          "rva": "0x6BC0C0"
+          "rva": "0x6BB440"
         },
         {
           "index": 127,
           "module": "server.dll",
           "name": "method_127",
-          "rva": "0x6BC100"
+          "rva": "0x6BB490"
         },
         {
           "index": 128,
           "module": "server.dll",
           "name": "method_128",
-          "rva": "0xFB6400"
+          "rva": "0xFB9000"
         },
         {
           "index": 129,
           "module": "server.dll",
           "name": "method_129",
-          "rva": "0xFB5830"
+          "rva": "0xFB8430"
         },
         {
           "index": 130,
           "module": "server.dll",
           "name": "method_130",
-          "rva": "0x6BC120"
+          "rva": "0x6BB4E0"
         },
         {
           "index": 131,
           "module": "server.dll",
           "name": "method_131",
-          "rva": "0x6BC390"
+          "rva": "0x6BB980"
         },
         {
           "index": 132,
           "module": "server.dll",
           "name": "method_132",
-          "rva": "0x6BC1B0"
+          "rva": "0x6BB6E0"
         },
         {
           "index": 133,
           "module": "server.dll",
           "name": "method_133",
-          "rva": "0x18C720"
+          "rva": "0x18C050"
         },
         {
           "index": 134,
           "module": "server.dll",
           "name": "method_134",
-          "rva": "0x6BC320"
+          "rva": "0x6BB910"
         },
         {
           "index": 135,
           "module": "server.dll",
           "name": "method_135",
-          "rva": "0xFB6920"
+          "rva": "0xFB9520"
         },
         {
           "index": 136,
           "module": "server.dll",
           "name": "method_136",
-          "rva": "0xFB7040"
+          "rva": "0xFB9C40"
         },
         {
           "index": 137,
           "module": "server.dll",
           "name": "method_137",
-          "rva": "0x6BC870"
+          "rva": "0x6BB9B0"
         },
         {
           "index": 138,
           "module": "server.dll",
           "name": "method_138",
-          "rva": "0x6BCEF0"
+          "rva": "0x6BBD50"
         },
         {
           "index": 139,
           "module": "server.dll",
           "name": "method_139",
-          "rva": "0x6BCEE0"
+          "rva": "0x6BBD00"
         },
         {
           "index": 140,
           "module": "server.dll",
           "name": "method_140",
-          "rva": "0x1979A88"
+          "rva": "0x197CAF0"
         },
         {
           "index": 141,
           "module": "server.dll",
           "name": "method_141",
-          "rva": "0xCEEFF0"
+          "rva": "0xCF1300"
         },
         {
           "index": 142,
           "module": "server.dll",
           "name": "method_142",
-          "rva": "0xCEF470"
+          "rva": "0xCF1760"
         },
         {
           "index": 143,
           "module": "server.dll",
           "name": "method_143",
-          "rva": "0xCF9F80"
+          "rva": "0xCFBF00"
         },
         {
           "index": 144,
           "module": "server.dll",
           "name": "method_144",
-          "rva": "0xCEED80"
+          "rva": "0xCF1090"
         },
         {
           "index": 145,
           "module": "server.dll",
           "name": "method_145",
-          "rva": "0xCEED90"
+          "rva": "0xCF10A0"
         },
         {
           "index": 146,
           "module": "server.dll",
           "name": "method_146",
-          "rva": "0xCEE980"
+          "rva": "0xCF0CA0"
         },
         {
           "index": 147,
           "module": "server.dll",
           "name": "method_147",
-          "rva": "0xCE7700"
+          "rva": "0xCE9AE0"
         },
         {
           "index": 148,
           "module": "server.dll",
           "name": "method_148",
-          "rva": "0xCF3020"
+          "rva": "0xCF5010"
         },
         {
           "index": 149,
           "module": "server.dll",
           "name": "method_149",
-          "rva": "0xCF0F20"
+          "rva": "0xCF3010"
         },
         {
           "index": 150,
           "module": "server.dll",
           "name": "method_150",
-          "rva": "0x197A6B8"
+          "rva": "0x197D688"
         },
         {
           "index": 151,
           "module": "server.dll",
           "name": "method_151",
-          "rva": "0xCEF730"
+          "rva": "0xCF1A20"
         },
         {
           "index": 152,
           "module": "server.dll",
           "name": "method_152",
-          "rva": "0x18C9D0"
+          "rva": "0x18C300"
         },
         {
           "index": 153,
           "module": "server.dll",
           "name": "method_153",
-          "rva": "0xCF7580"
+          "rva": "0xCF9500"
         },
         {
           "index": 154,
           "module": "server.dll",
           "name": "method_154",
-          "rva": "0x184420"
+          "rva": "0x183D50"
         },
         {
           "index": 155,
           "module": "server.dll",
           "name": "method_155",
-          "rva": "0xCEE5A0"
+          "rva": "0xCF08C0"
         },
         {
           "index": 156,
           "module": "server.dll",
           "name": "method_156",
-          "rva": "0x184430"
+          "rva": "0x183D60"
         },
         {
           "index": 157,
           "module": "server.dll",
           "name": "method_157",
-          "rva": "0x184440"
+          "rva": "0x183D70"
         },
         {
           "index": 158,
           "module": "server.dll",
           "name": "method_158",
-          "rva": "0x1820A0"
+          "rva": "0x1819D0"
         },
         {
           "index": 159,
           "module": "server.dll",
           "name": "method_159",
-          "rva": "0x1843C0"
+          "rva": "0x183CF0"
         },
         {
           "index": 160,
           "module": "server.dll",
           "name": "method_160",
-          "rva": "0x182310"
+          "rva": "0x181C40"
         },
         {
           "index": 161,
           "module": "server.dll",
           "name": "method_161",
-          "rva": "0x182300"
+          "rva": "0x181C30"
         },
         {
           "index": 162,
           "module": "server.dll",
           "name": "method_162",
-          "rva": "0x1822F0"
+          "rva": "0x181C20"
         },
         {
           "index": 163,
           "module": "server.dll",
           "name": "method_163",
-          "rva": "0x1843D0"
+          "rva": "0x183D00"
         },
         {
           "index": 164,
           "module": "server.dll",
           "name": "method_164",
-          "rva": "0x18F420"
+          "rva": "0x18ED50"
         },
         {
           "index": 165,
           "module": "server.dll",
           "name": "method_165",
-          "rva": "0x18F430"
+          "rva": "0x18ED60"
         },
         {
           "index": 166,
           "module": "server.dll",
           "name": "method_166",
-          "rva": "0x18CA90"
+          "rva": "0x18C3C0"
         },
         {
           "index": 167,
           "module": "server.dll",
           "name": "method_167",
-          "rva": "0xCF3CA0"
+          "rva": "0xCF5C90"
         },
         {
           "index": 168,
           "module": "server.dll",
           "name": "method_168",
-          "rva": "0x18CAA0"
+          "rva": "0x18C3D0"
         },
         {
           "index": 169,
           "module": "server.dll",
           "name": "method_169",
-          "rva": "0x18CA10"
+          "rva": "0x18C340"
         },
         {
           "index": 170,
           "module": "server.dll",
           "name": "method_170",
-          "rva": "0x181290"
+          "rva": "0x180BC0"
         },
         {
           "index": 171,
           "module": "server.dll",
           "name": "method_171",
-          "rva": "0x18C9C0"
+          "rva": "0x18C2F0"
         },
         {
           "index": 172,
           "module": "server.dll",
           "name": "method_172",
-          "rva": "0x18CA60"
+          "rva": "0x18C390"
         },
         {
           "index": 173,
           "module": "server.dll",
           "name": "method_173",
-          "rva": "0x18CA80"
+          "rva": "0x18C3B0"
         },
         {
           "index": 174,
           "module": "server.dll",
           "name": "method_174",
-          "rva": "0x18CA40"
+          "rva": "0x18C370"
         },
         {
           "index": 175,
           "module": "server.dll",
           "name": "method_175",
-          "rva": "0x183B30"
+          "rva": "0x183460"
         },
         {
           "index": 176,
           "module": "server.dll",
           "name": "method_176",
-          "rva": "0x18CA70"
+          "rva": "0x18C3A0"
         },
         {
           "index": 177,
           "module": "server.dll",
           "name": "method_177",
-          "rva": "0x182320"
+          "rva": "0x181C50"
         },
         {
           "index": 178,
           "module": "server.dll",
           "name": "method_178",
-          "rva": "0x182330"
+          "rva": "0x181C60"
         },
         {
           "index": 179,
           "module": "server.dll",
           "name": "method_179",
-          "rva": "0x18F8D0"
+          "rva": "0x18F200"
         },
         {
           "index": 180,
           "module": "server.dll",
           "name": "method_180",
-          "rva": "0x184380"
+          "rva": "0x183CB0"
         },
         {
           "index": 181,
           "module": "server.dll",
           "name": "method_181",
-          "rva": "0x18C9F0"
+          "rva": "0x18C320"
         },
         {
           "index": 182,
           "module": "server.dll",
           "name": "method_182",
-          "rva": "0x1843B0"
+          "rva": "0x183CE0"
         },
         {
           "index": 183,
           "module": "server.dll",
           "name": "method_183",
-          "rva": "0xCEE4E0"
+          "rva": "0xCF0800"
         },
         {
           "index": 184,
           "module": "server.dll",
           "name": "method_184",
-          "rva": "0x1843A0"
+          "rva": "0x183CD0"
         },
         {
           "index": 185,
           "module": "server.dll",
           "name": "method_185",
-          "rva": "0x18CA20"
+          "rva": "0x18C350"
         },
         {
           "index": 186,
           "module": "server.dll",
           "name": "method_186",
-          "rva": "0x18C870"
+          "rva": "0x18C1A0"
         },
         {
           "index": 187,
           "module": "server.dll",
           "name": "method_187",
-          "rva": "0x18C6C0"
+          "rva": "0x18BFF0"
         },
         {
           "index": 188,
           "module": "server.dll",
           "name": "method_188",
-          "rva": "0x18C8C0"
+          "rva": "0x18C1F0"
         },
         {
           "index": 189,
           "module": "server.dll",
           "name": "method_189",
-          "rva": "0x18C6E0"
+          "rva": "0x18C010"
         },
         {
           "index": 190,
           "module": "server.dll",
           "name": "method_190",
-          "rva": "0x18C8B0"
+          "rva": "0x18C1E0"
         },
         {
           "index": 191,
           "module": "server.dll",
           "name": "method_191",
-          "rva": "0x18C6D0"
+          "rva": "0x18C000"
         },
         {
           "index": 192,
           "module": "server.dll",
           "name": "method_192",
-          "rva": "0x18C890"
+          "rva": "0x18C1C0"
         },
         {
           "index": 193,
           "module": "server.dll",
           "name": "method_193",
-          "rva": "0x18C8A0"
+          "rva": "0x18C1D0"
         },
         {
           "index": 194,
           "module": "server.dll",
           "name": "method_194",
-          "rva": "0x18C880"
+          "rva": "0x18C1B0"
         },
         {
           "index": 195,
           "module": "server.dll",
           "name": "method_195",
-          "rva": "0x18C6A0"
+          "rva": "0x18BFD0"
         },
         {
           "index": 196,
           "module": "server.dll",
           "name": "method_196",
-          "rva": "0x18C6F0"
+          "rva": "0x18C020"
         },
         {
           "index": 197,
           "module": "server.dll",
           "name": "method_197",
-          "rva": "0x18C6B0"
+          "rva": "0x18BFE0"
         },
         {
           "index": 198,
           "module": "server.dll",
           "name": "method_198",
-          "rva": "0x184370"
+          "rva": "0x183CA0"
         },
         {
           "index": 199,
           "module": "server.dll",
           "name": "method_199",
-          "rva": "0x18C990"
+          "rva": "0x18C2C0"
         },
         {
           "index": 200,
           "module": "server.dll",
           "name": "method_200",
-          "rva": "0x18EBD0"
+          "rva": "0x18E500"
         },
         {
           "index": 201,
           "module": "server.dll",
           "name": "method_201",
-          "rva": "0x18E0A0"
+          "rva": "0x18D9D0"
         },
         {
           "index": 202,
           "module": "server.dll",
           "name": "method_202",
-          "rva": "0x18F050"
+          "rva": "0x18E980"
         },
         {
           "index": 203,
           "module": "server.dll",
           "name": "method_203",
-          "rva": "0x18FC10"
+          "rva": "0x18F540"
         },
         {
           "index": 204,
           "module": "server.dll",
           "name": "method_204",
-          "rva": "0x18FC20"
+          "rva": "0x18F550"
         },
         {
           "index": 205,
           "module": "server.dll",
           "name": "method_205",
-          "rva": "0x18CA50"
+          "rva": "0x18C380"
         },
         {
           "index": 206,
           "module": "server.dll",
           "name": "method_206",
-          "rva": "0x18C9E0"
+          "rva": "0x18C310"
         },
         {
           "index": 207,
           "module": "server.dll",
           "name": "method_207",
-          "rva": "0x18C730"
+          "rva": "0x18C060"
         },
         {
           "index": 208,
           "module": "server.dll",
           "name": "method_208",
-          "rva": "0x18C8D0"
+          "rva": "0x18C200"
         },
         {
           "index": 209,
           "module": "server.dll",
           "name": "method_209",
-          "rva": "0x185590"
+          "rva": "0x184EC0"
         },
         {
           "index": 210,
           "module": "server.dll",
           "name": "method_210",
-          "rva": "0xCF6CD0"
+          "rva": "0xCF8C70"
         },
         {
           "index": 211,
           "module": "server.dll",
           "name": "method_211",
-          "rva": "0x18EF20"
+          "rva": "0x18E850"
         },
         {
           "index": 212,
           "module": "server.dll",
           "name": "method_212",
-          "rva": "0xCECDC0"
+          "rva": "0xCEF190"
         },
         {
           "index": 213,
           "module": "server.dll",
           "name": "method_213",
-          "rva": "0xCE66B0"
+          "rva": "0xCE8AD0"
         },
         {
           "index": 214,
           "module": "server.dll",
           "name": "method_214",
-          "rva": "0xCFB120"
+          "rva": "0xCFD0A0"
         },
         {
           "index": 215,
           "module": "server.dll",
           "name": "method_215",
-          "rva": "0x197A740"
+          "rva": "0x197D710"
         },
         {
           "index": 216,
           "module": "server.dll",
           "name": "method_216",
-          "rva": "0xCE6C80"
+          "rva": "0xCE9060"
         },
         {
           "index": 217,
           "module": "server.dll",
           "name": "method_217",
-          "rva": "0xB1B190"
+          "rva": "0xB1E3D0"
         },
         {
           "index": 218,
           "module": "server.dll",
           "name": "method_218",
-          "rva": "0xB1B180"
+          "rva": "0xB1E3C0"
         },
         {
           "index": 219,
           "module": "server.dll",
           "name": "method_219",
-          "rva": "0xB1B1A0"
+          "rva": "0xB1E3E0"
         },
         {
           "index": 220,
           "module": "server.dll",
           "name": "method_220",
-          "rva": "0xB1B1F0"
+          "rva": "0xB1E430"
         },
         {
           "index": 221,
           "module": "server.dll",
           "name": "method_221",
-          "rva": "0x197A7E0"
+          "rva": "0x197D7B0"
         },
         {
           "index": 222,
           "module": "server.dll",
           "name": "method_222",
-          "rva": "0xCE64D0"
+          "rva": "0xCE88F0"
         },
         {
           "index": 223,
           "module": "server.dll",
           "name": "method_223",
-          "rva": "0xFB63D0"
+          "rva": "0xFB8FD0"
         },
         {
           "index": 224,
           "module": "server.dll",
           "name": "method_224",
-          "rva": "0x725E30"
+          "rva": "0x725120"
         },
         {
           "index": 225,
           "module": "server.dll",
           "name": "method_225",
-          "rva": "0x725F90"
+          "rva": "0x725270"
         },
         {
           "index": 226,
           "module": "server.dll",
           "name": "method_226",
-          "rva": "0x726010"
+          "rva": "0x7252F0"
         },
         {
           "index": 227,
           "module": "server.dll",
           "name": "method_227",
-          "rva": "0xFB6400"
+          "rva": "0xFB9000"
         },
         {
           "index": 228,
           "module": "server.dll",
           "name": "method_228",
-          "rva": "0xFB5830"
+          "rva": "0xFB8430"
         },
         {
           "index": 229,
           "module": "server.dll",
           "name": "method_229",
-          "rva": "0x726020"
+          "rva": "0x725300"
         },
         {
           "index": 230,
           "module": "server.dll",
           "name": "method_230",
-          "rva": "0x726340"
+          "rva": "0x725660"
         },
         {
           "index": 231,
           "module": "server.dll",
           "name": "method_231",
-          "rva": "0x7260D0"
+          "rva": "0x725430"
         },
         {
           "index": 232,
           "module": "server.dll",
           "name": "method_232",
-          "rva": "0x18C720"
+          "rva": "0x18C050"
         },
         {
           "index": 233,
           "module": "server.dll",
           "name": "method_233",
-          "rva": "0x7262B0"
+          "rva": "0x7255D0"
         },
         {
           "index": 234,
           "module": "server.dll",
           "name": "method_234",
-          "rva": "0xFB6920"
+          "rva": "0xFB9520"
         },
         {
           "index": 235,
           "module": "server.dll",
           "name": "method_235",
-          "rva": "0xFB7040"
+          "rva": "0xFB9C40"
         },
         {
           "index": 236,
           "module": "server.dll",
           "name": "method_236",
-          "rva": "0x726350"
+          "rva": "0x725670"
         },
         {
           "index": 237,
           "module": "server.dll",
           "name": "method_237",
-          "rva": "0x726420"
+          "rva": "0x725740"
         },
         {
           "index": 238,
           "module": "server.dll",
           "name": "method_238",
-          "rva": "0x726410"
+          "rva": "0x725730"
         },
         {
           "index": 239,
           "module": "server.dll",
           "name": "method_239",
-          "rva": "0x1979BB0"
+          "rva": "0x197CC18"
         },
         {
           "index": 240,
           "module": "server.dll",
           "name": "method_240",
-          "rva": "0xCE6C50"
+          "rva": "0xCE9030"
         },
         {
           "index": 241,
           "module": "server.dll",
           "name": "method_241",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 242,
           "module": "server.dll",
           "name": "method_242",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 243,
           "module": "server.dll",
           "name": "method_243",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 244,
           "module": "server.dll",
           "name": "method_244",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 245,
           "module": "server.dll",
           "name": "method_245",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 246,
           "module": "server.dll",
           "name": "method_246",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 247,
           "module": "server.dll",
           "name": "method_247",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 248,
           "module": "server.dll",
           "name": "method_248",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 249,
           "module": "server.dll",
           "name": "method_249",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 250,
           "module": "server.dll",
           "name": "method_250",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 251,
           "module": "server.dll",
           "name": "method_251",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 252,
           "module": "server.dll",
           "name": "method_252",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 253,
           "module": "server.dll",
           "name": "method_253",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 254,
           "module": "server.dll",
           "name": "method_254",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         },
         {
           "index": 255,
           "module": "server.dll",
           "name": "method_255",
-          "rva": "0x14F486C"
+          "rva": "0x14F746C"
         }
       ],
       "rtti_class": "CSource2GameClients",
       "vtable_module": "server.dll",
-      "vtable_rva": "0x178DF68"
+      "vtable_rva": "0x1790E48"
     },
     "Source2GameDirector001": {
       "method_count": 19,
@@ -33431,120 +34037,120 @@
           "index": 0,
           "module": "server.dll",
           "name": "method_0",
-          "rva": "0x1DD5B8"
+          "rva": "0x1DCE68"
         },
         {
           "index": 1,
           "module": "server.dll",
           "name": "method_1",
-          "rva": "0xCF0E80"
+          "rva": "0xCF2F70"
         },
         {
           "index": 2,
           "module": "server.dll",
           "name": "method_2",
-          "rva": "0x1DC9D0"
+          "rva": "0x1DC190"
         },
         {
           "index": 3,
           "module": "server.dll",
           "name": "method_3",
-          "rva": "0xCF4B70"
+          "rva": "0xCF6B40"
         },
         {
           "index": 4,
           "module": "server.dll",
           "name": "method_4",
-          "rva": "0xCEEE80"
+          "rva": "0xCF1190"
         },
         {
           "index": 5,
           "module": "server.dll",
           "name": "method_5",
-          "rva": "0xCEEE40"
+          "rva": "0xCF1150"
         },
         {
           "index": 6,
           "module": "server.dll",
           "name": "method_6",
-          "rva": "0xCEEC80"
+          "rva": "0xCF0F90"
         },
         {
           "index": 7,
           "module": "server.dll",
           "name": "method_7",
-          "rva": "0xCEF0F0"
+          "rva": "0xCF1400"
         },
         {
           "index": 8,
           "module": "server.dll",
           "name": "method_8",
-          "rva": "0xCEF110"
+          "rva": "0xCF1420"
         },
         {
           "index": 9,
           "module": "server.dll",
           "name": "method_9",
-          "rva": "0xCEEC60"
+          "rva": "0xCF0F70"
         },
         {
           "index": 10,
           "module": "server.dll",
           "name": "method_10",
-          "rva": "0x1DC9C0"
+          "rva": "0x1DC180"
         },
         {
           "index": 11,
           "module": "server.dll",
           "name": "method_11",
-          "rva": "0xCF3AD0"
+          "rva": "0xCF5AC0"
         },
         {
           "index": 12,
           "module": "server.dll",
           "name": "method_12",
-          "rva": "0xCF3C60"
+          "rva": "0xCF5C50"
         },
         {
           "index": 13,
           "module": "server.dll",
           "name": "method_13",
-          "rva": "0x1DC670"
+          "rva": "0x1DD4E0"
         },
         {
           "index": 14,
           "module": "server.dll",
           "name": "method_14",
-          "rva": "0xCE8AD0"
+          "rva": "0xCEAEB0"
         },
         {
           "index": 15,
           "module": "server.dll",
           "name": "method_15",
-          "rva": "0xCEC520"
+          "rva": "0xCEE8F0"
         },
         {
           "index": 16,
           "module": "server.dll",
           "name": "method_16",
-          "rva": "0xCF38B0"
+          "rva": "0xCF58A0"
         },
         {
           "index": 17,
           "module": "server.dll",
           "name": "method_17",
-          "rva": "0xCF37B0"
+          "rva": "0xCF57A0"
         },
         {
           "index": 18,
           "module": "server.dll",
           "name": "method_18",
-          "rva": "0x1DCED0"
+          "rva": "0x1DC690"
         }
       ],
       "rtti_class": "CCSHLTVDirector",
       "vtable_module": "server.dll",
-      "vtable_rva": "0x15A67B8"
+      "vtable_rva": "0x15A91E8"
     },
     "Source2GameEntities001": {
       "method_count": 23,
@@ -33553,752 +34159,818 @@
           "index": 0,
           "module": "server.dll",
           "name": "method_0",
-          "rva": "0xCDE5D0"
+          "rva": "0xCE0B70"
         },
         {
           "index": 1,
           "module": "server.dll",
           "name": "method_1",
-          "rva": "0xCDE630"
+          "rva": "0xCE0BD0"
         },
         {
           "index": 2,
           "module": "server.dll",
           "name": "method_2",
-          "rva": "0xCDE4E0"
+          "rva": "0xCE0A80"
         },
         {
           "index": 3,
           "module": "server.dll",
           "name": "method_3",
-          "rva": "0xCDE5A0"
+          "rva": "0xCE0B40"
         },
         {
           "index": 4,
           "module": "server.dll",
           "name": "method_4",
-          "rva": "0xCDF600"
+          "rva": "0xCE1BA0"
         },
         {
           "index": 5,
           "module": "server.dll",
           "name": "method_5",
-          "rva": "0xCDE4F0"
+          "rva": "0xCE0A90"
         },
         {
           "index": 6,
           "module": "server.dll",
           "name": "method_6",
-          "rva": "0xCDE500"
+          "rva": "0xCE0AA0"
         },
         {
           "index": 7,
           "module": "server.dll",
           "name": "method_7",
-          "rva": "0xCDE5C0"
+          "rva": "0xCE0B60"
         },
         {
           "index": 8,
           "module": "server.dll",
           "name": "method_8",
-          "rva": "0xCDE670"
+          "rva": "0xCE0C10"
         },
         {
           "index": 9,
           "module": "server.dll",
           "name": "method_9",
-          "rva": "0xCDE510"
+          "rva": "0xCE0AB0"
         },
         {
           "index": 10,
           "module": "server.dll",
           "name": "method_10",
-          "rva": "0xCDE520"
+          "rva": "0xCE0AC0"
         },
         {
           "index": 11,
           "module": "server.dll",
           "name": "method_11",
-          "rva": "0xCDF640"
+          "rva": "0xCE1BE0"
         },
         {
           "index": 12,
           "module": "server.dll",
           "name": "method_12",
-          "rva": "0xCDE980"
+          "rva": "0xCE0F20"
         },
         {
           "index": 13,
           "module": "server.dll",
           "name": "method_13",
-          "rva": "0xCDF280"
+          "rva": "0xCE1820"
         },
         {
           "index": 14,
           "module": "server.dll",
           "name": "method_14",
-          "rva": "0xCDF2B0"
+          "rva": "0xCE1850"
         },
         {
           "index": 15,
           "module": "server.dll",
           "name": "method_15",
-          "rva": "0xCDF430"
+          "rva": "0xCE19D0"
         },
         {
           "index": 16,
           "module": "server.dll",
           "name": "method_16",
-          "rva": "0xCDF490"
+          "rva": "0xCE1A30"
         },
         {
           "index": 17,
           "module": "server.dll",
           "name": "method_17",
-          "rva": "0xCDF350"
+          "rva": "0xCE18F0"
         },
         {
           "index": 18,
           "module": "server.dll",
           "name": "method_18",
-          "rva": "0x1978CD0"
+          "rva": "0x197C960"
         },
         {
           "index": 19,
           "module": "server.dll",
           "name": "method_19",
-          "rva": "0x1FF1A0"
+          "rva": "0x1FEA70"
         },
         {
           "index": 20,
           "module": "server.dll",
           "name": "method_20",
-          "rva": "0xCDF510"
+          "rva": "0xCE1AB0"
         },
         {
           "index": 21,
           "module": "server.dll",
           "name": "method_21",
-          "rva": "0xCDF5A0"
+          "rva": "0xCE1B40"
         },
         {
           "index": 22,
           "module": "server.dll",
           "name": "method_22",
-          "rva": "0x1FF290"
+          "rva": "0x1FEB60"
         }
       ],
       "rtti_class": "CSource2GameEntities",
       "vtable_module": "server.dll",
-      "vtable_rva": "0x178C278"
+      "vtable_rva": "0x178F260"
     },
     "Source2Server001": {
-      "method_count": 100,
+      "method_count": 111,
       "methods": [
         {
           "index": 0,
           "module": "server.dll",
           "name": "method_0",
-          "rva": "0xCDF710"
+          "rva": "0xCE1CB0"
         },
         {
           "index": 1,
           "module": "server.dll",
           "name": "method_1",
-          "rva": "0xCDFB90"
+          "rva": "0xCE2130"
         },
         {
           "index": 2,
           "module": "server.dll",
           "name": "method_2",
-          "rva": "0xCDFBE0"
+          "rva": "0xCE2180"
         },
         {
           "index": 3,
           "module": "server.dll",
           "name": "method_3",
-          "rva": "0xCDFBF0"
+          "rva": "0xCE2190"
         },
         {
           "index": 4,
           "module": "server.dll",
           "name": "method_4",
-          "rva": "0xCDFDF0"
+          "rva": "0xCE2390"
         },
         {
           "index": 5,
           "module": "server.dll",
           "name": "method_5",
-          "rva": "0xCDFEB0"
+          "rva": "0xCE2450"
         },
         {
           "index": 6,
           "module": "server.dll",
           "name": "method_6",
-          "rva": "0xCDFBD0"
+          "rva": "0xCE2170"
         },
         {
           "index": 7,
           "module": "server.dll",
           "name": "method_7",
-          "rva": "0xCDF6A0"
+          "rva": "0xCE1C40"
         },
         {
           "index": 8,
           "module": "server.dll",
           "name": "method_8",
-          "rva": "0xCDF6B0"
+          "rva": "0xCE1C50"
         },
         {
           "index": 9,
           "module": "server.dll",
           "name": "method_9",
-          "rva": "0xCDF680"
+          "rva": "0xCE1C20"
         },
         {
           "index": 10,
           "module": "server.dll",
           "name": "method_10",
-          "rva": "0xCDF690"
+          "rva": "0xCE1C30"
         },
         {
           "index": 11,
           "module": "server.dll",
           "name": "method_11",
-          "rva": "0x1D8A50"
+          "rva": "0x1D8380"
         },
         {
           "index": 12,
           "module": "server.dll",
           "name": "method_12",
-          "rva": "0xCDFF30"
+          "rva": "0xCE24D0"
         },
         {
           "index": 13,
           "module": "server.dll",
           "name": "method_13",
-          "rva": "0xCDFF70"
+          "rva": "0xCE2510"
         },
         {
           "index": 14,
           "module": "server.dll",
           "name": "method_14",
-          "rva": "0xCE0000"
+          "rva": "0xCE25A0"
         },
         {
           "index": 15,
           "module": "server.dll",
           "name": "method_15",
-          "rva": "0xCE0100"
+          "rva": "0xCE26A0"
         },
         {
           "index": 16,
           "module": "server.dll",
           "name": "method_16",
-          "rva": "0xCE01E0"
+          "rva": "0xCE2780"
         },
         {
           "index": 17,
           "module": "server.dll",
           "name": "method_17",
-          "rva": "0xCE0200"
+          "rva": "0xCE27A0"
         },
         {
           "index": 18,
           "module": "server.dll",
           "name": "method_18",
-          "rva": "0x1D3300"
+          "rva": "0x1D2C30"
         },
         {
           "index": 19,
           "module": "server.dll",
           "name": "method_19",
-          "rva": "0xCE0300"
+          "rva": "0xCE28A0"
         },
         {
           "index": 20,
           "module": "server.dll",
           "name": "method_20",
-          "rva": "0xCE09A0"
+          "rva": "0xCE2F40"
         },
         {
           "index": 21,
           "module": "server.dll",
           "name": "method_21",
-          "rva": "0xCE09B0"
+          "rva": "0xCE2F50"
         },
         {
           "index": 22,
           "module": "server.dll",
           "name": "method_22",
-          "rva": "0xCE09C0"
+          "rva": "0xCE2F60"
         },
         {
           "index": 23,
           "module": "server.dll",
           "name": "method_23",
-          "rva": "0xCE09D0"
+          "rva": "0xCE2F70"
         },
         {
           "index": 24,
           "module": "server.dll",
           "name": "method_24",
-          "rva": "0x1D6150"
+          "rva": "0x1D5A80"
         },
         {
           "index": 25,
           "module": "server.dll",
           "name": "method_25",
-          "rva": "0xCE09E0"
+          "rva": "0xCE2F80"
         },
         {
           "index": 26,
           "module": "server.dll",
           "name": "method_26",
-          "rva": "0xCE0A00"
+          "rva": "0xCE2FA0"
         },
         {
           "index": 27,
           "module": "server.dll",
           "name": "method_27",
-          "rva": "0xCE0A20"
+          "rva": "0xCE2FC0"
         },
         {
           "index": 28,
           "module": "server.dll",
           "name": "method_28",
-          "rva": "0xCE0A80"
+          "rva": "0xCE3020"
         },
         {
           "index": 29,
           "module": "server.dll",
           "name": "method_29",
-          "rva": "0xCE0AA0"
+          "rva": "0xCE3040"
         },
         {
           "index": 30,
           "module": "server.dll",
           "name": "method_30",
-          "rva": "0xCE0AC0"
+          "rva": "0xCE3060"
         },
         {
           "index": 31,
           "module": "server.dll",
           "name": "method_31",
-          "rva": "0xCE0B00"
+          "rva": "0xCE30A0"
         },
         {
           "index": 32,
           "module": "server.dll",
           "name": "method_32",
-          "rva": "0xCE0B20"
+          "rva": "0xCE30C0"
         },
         {
           "index": 33,
           "module": "server.dll",
           "name": "method_33",
-          "rva": "0xCE0B30"
+          "rva": "0xCE30D0"
         },
         {
           "index": 34,
           "module": "server.dll",
           "name": "method_34",
-          "rva": "0xCE0B40"
+          "rva": "0xCE30E0"
         },
         {
           "index": 35,
           "module": "server.dll",
           "name": "method_35",
-          "rva": "0xCE0B50"
+          "rva": "0xCE30F0"
         },
         {
           "index": 36,
           "module": "server.dll",
           "name": "method_36",
-          "rva": "0xCE0B60"
+          "rva": "0xCE3100"
         },
         {
           "index": 37,
           "module": "server.dll",
           "name": "method_37",
-          "rva": "0xCE0B80"
+          "rva": "0xCE3120"
         },
         {
           "index": 38,
           "module": "server.dll",
           "name": "method_38",
-          "rva": "0xCE0B90"
+          "rva": "0xCE3130"
         },
         {
           "index": 39,
           "module": "server.dll",
           "name": "method_39",
-          "rva": "0xCE0BA0"
+          "rva": "0xCE3140"
         },
         {
           "index": 40,
           "module": "server.dll",
           "name": "method_40",
-          "rva": "0xCE0D30"
+          "rva": "0xCE32D0"
         },
         {
           "index": 41,
           "module": "server.dll",
           "name": "method_41",
-          "rva": "0xCE0D40"
+          "rva": "0xCE32E0"
         },
         {
           "index": 42,
           "module": "server.dll",
           "name": "method_42",
-          "rva": "0xCE0D80"
+          "rva": "0xCE3320"
         },
         {
           "index": 43,
           "module": "server.dll",
           "name": "method_43",
-          "rva": "0xCE0DD0"
+          "rva": "0xCE3370"
         },
         {
           "index": 44,
           "module": "server.dll",
           "name": "method_44",
-          "rva": "0xCE0F90"
+          "rva": "0xCE3530"
         },
         {
           "index": 45,
           "module": "server.dll",
           "name": "method_45",
-          "rva": "0xCE0FB0"
+          "rva": "0xCE3550"
         },
         {
           "index": 46,
           "module": "server.dll",
           "name": "method_46",
-          "rva": "0xCE10C0"
+          "rva": "0xCE3660"
         },
         {
           "index": 47,
           "module": "server.dll",
           "name": "method_47",
-          "rva": "0xCE10D0"
+          "rva": "0xCE3670"
         },
         {
           "index": 48,
           "module": "server.dll",
           "name": "method_48",
-          "rva": "0xCE14D0"
+          "rva": "0xCE39C0"
         },
         {
           "index": 49,
           "module": "server.dll",
           "name": "method_49",
-          "rva": "0xCE1950"
+          "rva": "0xCE3D40"
         },
         {
           "index": 50,
           "module": "server.dll",
           "name": "method_50",
-          "rva": "0xCE1B00"
+          "rva": "0xCE3EF0"
         },
         {
           "index": 51,
           "module": "server.dll",
           "name": "method_51",
-          "rva": "0xCE1BA0"
+          "rva": "0xCE3F90"
         },
         {
           "index": 52,
           "module": "server.dll",
           "name": "method_52",
-          "rva": "0xCE0220"
+          "rva": "0xCE27C0"
         },
         {
           "index": 53,
           "module": "server.dll",
           "name": "method_53",
-          "rva": "0xCE02E0"
+          "rva": "0xCE2880"
         },
         {
           "index": 54,
           "module": "server.dll",
           "name": "method_54",
-          "rva": "0xCE0950"
+          "rva": "0xCE2EF0"
         },
         {
           "index": 55,
           "module": "server.dll",
           "name": "method_55",
-          "rva": "0xCE1340"
+          "rva": "0xCE38E0"
         },
         {
           "index": 56,
           "module": "server.dll",
           "name": "method_56",
-          "rva": "0xCE13B0"
+          "rva": "0xCE3950"
         },
         {
           "index": 57,
           "module": "server.dll",
           "name": "method_57",
-          "rva": "0xCE1840"
+          "rva": "0xCE3C50"
         },
         {
           "index": 58,
           "module": "server.dll",
           "name": "method_58",
-          "rva": "0xCE18A0"
+          "rva": "0xCE3CB0"
         },
         {
           "index": 59,
           "module": "server.dll",
           "name": "method_59",
-          "rva": "0xCE1910"
+          "rva": "0xCE3D10"
         },
         {
           "index": 60,
           "module": "server.dll",
           "name": "method_60",
-          "rva": "0xCE18E0"
+          "rva": "0xCE3CE0"
         },
         {
           "index": 61,
           "module": "server.dll",
           "name": "method_61",
-          "rva": "0xCE1C10"
+          "rva": "0xCE4000"
         },
         {
           "index": 62,
           "module": "server.dll",
           "name": "method_62",
-          "rva": "0xCE1C80"
+          "rva": "0xCE4070"
         },
         {
           "index": 63,
           "module": "server.dll",
           "name": "method_63",
-          "rva": "0xCE1D00"
+          "rva": "0xCE40F0"
         },
         {
           "index": 64,
           "module": "server.dll",
           "name": "method_64",
-          "rva": "0xCE1D80"
+          "rva": "0xCE4180"
         },
         {
           "index": 65,
           "module": "server.dll",
           "name": "method_65",
-          "rva": "0xCE1DA0"
+          "rva": "0xCE41D0"
         },
         {
           "index": 66,
           "module": "server.dll",
           "name": "method_66",
-          "rva": "0xCE1DE0"
+          "rva": "0xCE4210"
         },
         {
           "index": 67,
           "module": "server.dll",
           "name": "method_67",
-          "rva": "0xCE1E00"
+          "rva": "0xCE4230"
         },
         {
           "index": 68,
           "module": "server.dll",
           "name": "method_68",
-          "rva": "0x1DB230"
+          "rva": "0x1DAB60"
         },
         {
           "index": 69,
           "module": "server.dll",
           "name": "method_69",
-          "rva": "0xCE1DC0"
+          "rva": "0xCE41F0"
         },
         {
           "index": 70,
           "module": "server.dll",
           "name": "method_70",
-          "rva": "0xCE1E20"
+          "rva": "0xCE4250"
         },
         {
           "index": 71,
           "module": "server.dll",
           "name": "method_71",
-          "rva": "0x1D9A80"
+          "rva": "0x1D93B0"
         },
         {
           "index": 72,
           "module": "server.dll",
           "name": "method_72",
-          "rva": "0xCE1090"
+          "rva": "0xCE3630"
         },
         {
           "index": 73,
           "module": "server.dll",
           "name": "method_73",
-          "rva": "0xCE10B0"
+          "rva": "0xCE3650"
         },
         {
           "index": 74,
           "module": "server.dll",
           "name": "method_74",
-          "rva": "0xCE1E50"
+          "rva": "0xCE4300"
         },
         {
           "index": 75,
           "module": "server.dll",
           "name": "method_75",
-          "rva": "0xCE1E90"
+          "rva": "0xCE43F0"
         },
         {
           "index": 76,
           "module": "server.dll",
           "name": "method_76",
-          "rva": "0xCE1EA0"
+          "rva": "0xCE4420"
         },
         {
           "index": 77,
           "module": "server.dll",
           "name": "method_77",
-          "rva": "0x1DA6C0"
+          "rva": "0x1D9FF0"
         },
         {
           "index": 78,
           "module": "server.dll",
           "name": "method_78",
-          "rva": "0xCE1F20"
+          "rva": "0xCE44C0"
         },
         {
           "index": 79,
           "module": "server.dll",
           "name": "method_79",
-          "rva": "0xCE1F30"
+          "rva": "0xCE4520"
         },
         {
           "index": 80,
           "module": "server.dll",
           "name": "method_80",
-          "rva": "0xCE2080"
+          "rva": "0xCE46B0"
         },
         {
           "index": 81,
           "module": "server.dll",
           "name": "method_81",
-          "rva": "0xCE20B0"
+          "rva": "0xCE4700"
         },
         {
           "index": 82,
           "module": "server.dll",
           "name": "method_82",
-          "rva": "0xCE20E0"
+          "rva": "0xCE4750"
         },
         {
           "index": 83,
           "module": "server.dll",
           "name": "method_83",
-          "rva": "0xCE2530"
+          "rva": "0xCE4BE0"
         },
         {
           "index": 84,
           "module": "server.dll",
           "name": "method_84",
-          "rva": "0x1D6B00"
+          "rva": "0x1D6430"
         },
         {
           "index": 85,
           "module": "server.dll",
           "name": "method_85",
-          "rva": "0x1DA290"
+          "rva": "0x1D9BC0"
         },
         {
           "index": 86,
           "module": "server.dll",
           "name": "method_86",
-          "rva": "0x1D3C20"
+          "rva": "0x1D3550"
         },
         {
           "index": 87,
           "module": "server.dll",
           "name": "method_87",
-          "rva": "0x1DA6F0"
+          "rva": "0x1DA020"
         },
         {
           "index": 88,
           "module": "server.dll",
           "name": "method_88",
-          "rva": "0x1D4680"
+          "rva": "0x1D3FB0"
         },
         {
           "index": 89,
           "module": "server.dll",
           "name": "method_89",
-          "rva": "0x1D8D10"
+          "rva": "0x1D8640"
         },
         {
           "index": 90,
           "module": "server.dll",
           "name": "method_90",
-          "rva": "0xCE2540"
+          "rva": "0xCE4C50"
         },
         {
           "index": 91,
           "module": "server.dll",
           "name": "method_91",
-          "rva": "0xCE2550"
+          "rva": "0xCE4D00"
         },
         {
           "index": 92,
           "module": "server.dll",
           "name": "method_92",
-          "rva": "0xCE2560"
+          "rva": "0xCE4D10"
         },
         {
           "index": 93,
           "module": "server.dll",
           "name": "method_93",
-          "rva": "0xCE2570"
+          "rva": "0xCE4D20"
         },
         {
           "index": 94,
           "module": "server.dll",
           "name": "method_94",
-          "rva": "0xCE2580"
+          "rva": "0xCE4D70"
         },
         {
           "index": 95,
           "module": "server.dll",
           "name": "method_95",
-          "rva": "0xCE2670"
+          "rva": "0xCE4E60"
         },
         {
           "index": 96,
           "module": "server.dll",
           "name": "method_96",
-          "rva": "0xCE26C0"
+          "rva": "0xCE4EB0"
         },
         {
           "index": 97,
           "module": "server.dll",
           "name": "method_97",
-          "rva": "0xCE2700"
+          "rva": "0xCE4EF0"
         },
         {
           "index": 98,
           "module": "server.dll",
           "name": "method_98",
-          "rva": "0x1979120"
+          "rva": "0x197BC90"
         },
         {
           "index": 99,
           "module": "server.dll",
           "name": "method_99",
-          "rva": "0xCE2590"
+          "rva": "0xCE4D80"
+        },
+        {
+          "index": 100,
+          "module": "server.dll",
+          "name": "method_100",
+          "rva": "0x197C198"
+        },
+        {
+          "index": 101,
+          "module": "server.dll",
+          "name": "method_101",
+          "rva": "0xCE5000"
+        },
+        {
+          "index": 102,
+          "module": "server.dll",
+          "name": "method_102",
+          "rva": "0xCE5010"
+        },
+        {
+          "index": 103,
+          "module": "server.dll",
+          "name": "method_103",
+          "rva": "0xCE5020"
+        },
+        {
+          "index": 104,
+          "module": "server.dll",
+          "name": "method_104",
+          "rva": "0xCE5040"
+        },
+        {
+          "index": 105,
+          "module": "server.dll",
+          "name": "method_105",
+          "rva": "0xCE50A0"
+        },
+        {
+          "index": 106,
+          "module": "server.dll",
+          "name": "method_106",
+          "rva": "0xCE50E0"
+        },
+        {
+          "index": 107,
+          "module": "server.dll",
+          "name": "method_107",
+          "rva": "0xCE5030"
+        },
+        {
+          "index": 108,
+          "module": "server.dll",
+          "name": "method_108",
+          "rva": "0xCE50F0"
+        },
+        {
+          "index": 109,
+          "module": "server.dll",
+          "name": "method_109",
+          "rva": "0xCE5100"
+        },
+        {
+          "index": 110,
+          "module": "server.dll",
+          "name": "method_110",
+          "rva": "0xCE5110"
         }
       ],
       "rtti_class": "CSource2Server",
       "vtable_module": "server.dll",
-      "vtable_rva": "0x178C3C8"
+      "vtable_rva": "0x178F7A8"
     },
     "Source2ServerConfig001": {
       "method_count": 29,
@@ -34307,180 +34979,180 @@
           "index": 0,
           "module": "server.dll",
           "name": "method_0",
-          "rva": "0x85C4B4"
+          "rva": "0x85CD1C"
         },
         {
           "index": 1,
           "module": "server.dll",
           "name": "method_1",
-          "rva": "0x85C4C0"
+          "rva": "0x85CD28"
         },
         {
           "index": 2,
           "module": "server.dll",
           "name": "method_2",
-          "rva": "0x85C4CC"
+          "rva": "0x85CD34"
         },
         {
           "index": 3,
           "module": "server.dll",
           "name": "method_3",
-          "rva": "0x85CE0C"
+          "rva": "0x85A0FC"
         },
         {
           "index": 4,
           "module": "server.dll",
           "name": "method_4",
-          "rva": "0x85C4D8"
+          "rva": "0x85CD40"
         },
         {
           "index": 5,
           "module": "server.dll",
           "name": "method_5",
-          "rva": "0x85C4E4"
+          "rva": "0x85CD4C"
         },
         {
           "index": 6,
           "module": "server.dll",
           "name": "method_6",
-          "rva": "0x85C4F0"
+          "rva": "0x85CD58"
         },
         {
           "index": 7,
           "module": "server.dll",
           "name": "method_7",
-          "rva": "0x85C4FC"
+          "rva": "0x85A0C0"
         },
         {
           "index": 8,
           "module": "server.dll",
           "name": "method_8",
-          "rva": "0x85C508"
+          "rva": "0x85A0CC"
         },
         {
           "index": 9,
           "module": "server.dll",
           "name": "method_9",
-          "rva": "0x85C514"
+          "rva": "0x85A0D8"
         },
         {
           "index": 10,
           "module": "server.dll",
           "name": "method_10",
-          "rva": "0x85C520"
+          "rva": "0x85A0E4"
         },
         {
           "index": 11,
           "module": "server.dll",
           "name": "method_11",
-          "rva": "0x85DA70"
+          "rva": "0x85BC80"
         },
         {
           "index": 12,
           "module": "server.dll",
           "name": "method_12",
-          "rva": "0x85E260"
+          "rva": "0x85C470"
         },
         {
           "index": 13,
           "module": "server.dll",
           "name": "method_13",
-          "rva": "0x85DAA0"
+          "rva": "0x85BCB0"
         },
         {
           "index": 14,
           "module": "server.dll",
           "name": "method_14",
-          "rva": "0x85C52C"
+          "rva": "0x85A0F0"
         },
         {
           "index": 15,
           "module": "server.dll",
           "name": "method_15",
-          "rva": "0xB55FF0"
+          "rva": "0xB584D0"
         },
         {
           "index": 16,
           "module": "server.dll",
           "name": "method_16",
-          "rva": "0xB3B7E0"
+          "rva": "0xB3DCC0"
         },
         {
           "index": 17,
           "module": "server.dll",
           "name": "method_17",
-          "rva": "0x85D900"
+          "rva": "0x85B8F0"
         },
         {
           "index": 18,
           "module": "server.dll",
           "name": "method_18",
-          "rva": "0x85E0B0"
+          "rva": "0x85C2C0"
         },
         {
           "index": 19,
           "module": "server.dll",
           "name": "method_19",
-          "rva": "0xB3B7D0"
+          "rva": "0xB3DCB0"
         },
         {
           "index": 20,
           "module": "server.dll",
           "name": "method_20",
-          "rva": "0xB54CB0"
+          "rva": "0xB57190"
         },
         {
           "index": 21,
           "module": "server.dll",
           "name": "method_21",
-          "rva": "0xB3B7F0"
+          "rva": "0xB3DCD0"
         },
         {
           "index": 22,
           "module": "server.dll",
           "name": "method_22",
-          "rva": "0xB7DE40"
+          "rva": "0xB80320"
         },
         {
           "index": 23,
           "module": "server.dll",
           "name": "method_23",
-          "rva": "0x85E200"
+          "rva": "0x85C410"
         },
         {
           "index": 24,
           "module": "server.dll",
           "name": "method_24",
-          "rva": "0x85E230"
+          "rva": "0x85C440"
         },
         {
           "index": 25,
           "module": "server.dll",
           "name": "method_25",
-          "rva": "0x85E250"
+          "rva": "0x85C460"
         },
         {
           "index": 26,
           "module": "server.dll",
           "name": "method_26",
-          "rva": "0x85E2E0"
+          "rva": "0x85C4F0"
         },
         {
           "index": 27,
           "module": "server.dll",
           "name": "method_27",
-          "rva": "0x85D950"
+          "rva": "0x85B940"
         },
         {
           "index": 28,
           "module": "server.dll",
           "name": "method_28",
-          "rva": "0xB41E70"
+          "rva": "0xB44350"
         }
       ],
       "rtti_class": "CCSGameConfiguration",
       "vtable_module": "server.dll",
-      "vtable_rva": "0x16C0350"
+      "vtable_rva": "0x16C2AB0"
     },
     "customnavsystem001": {
       "method_count": 14,
@@ -34489,90 +35161,90 @@
           "index": 0,
           "module": "server.dll",
           "name": "method_0",
-          "rva": "0x39B6C0"
+          "rva": "0x399730"
         },
         {
           "index": 1,
           "module": "server.dll",
           "name": "method_1",
-          "rva": "0x39B760"
+          "rva": "0x3997D0"
         },
         {
           "index": 2,
           "module": "server.dll",
           "name": "method_2",
-          "rva": "0x39B660"
+          "rva": "0x3996D0"
         },
         {
           "index": 3,
           "module": "server.dll",
           "name": "method_3",
-          "rva": "0x39B740"
+          "rva": "0x3997B0"
         },
         {
           "index": 4,
           "module": "server.dll",
           "name": "method_4",
-          "rva": "0x39B6B0"
+          "rva": "0x399720"
         },
         {
           "index": 5,
           "module": "server.dll",
           "name": "method_5",
-          "rva": "0x39B670"
+          "rva": "0x3996E0"
         },
         {
           "index": 6,
           "module": "server.dll",
           "name": "method_6",
-          "rva": "0x39B680"
+          "rva": "0x3996F0"
         },
         {
           "index": 7,
           "module": "server.dll",
           "name": "method_7",
-          "rva": "0x39B7A0"
+          "rva": "0x399810"
         },
         {
           "index": 8,
           "module": "server.dll",
           "name": "method_8",
-          "rva": "0x39B700"
+          "rva": "0x399770"
         },
         {
           "index": 9,
           "module": "server.dll",
           "name": "method_9",
-          "rva": "0x39B690"
+          "rva": "0x399700"
         },
         {
           "index": 10,
           "module": "server.dll",
           "name": "method_10",
-          "rva": "0x39B6A0"
+          "rva": "0x399710"
         },
         {
           "index": 11,
           "module": "server.dll",
           "name": "method_11",
-          "rva": "0x39B7B0"
+          "rva": "0x399820"
         },
         {
           "index": 12,
           "module": "server.dll",
           "name": "method_12",
-          "rva": "0x39B870"
+          "rva": "0x3998E0"
         },
         {
           "index": 13,
           "module": "server.dll",
           "name": "method_13",
-          "rva": "0x39B900"
+          "rva": "0x399970"
         }
       ],
       "rtti_class": "CCustomNavGenSystem",
       "vtable_module": "server.dll",
-      "vtable_rva": "0x15DFE78"
+      "vtable_rva": "0x15E2E68"
     }
   },
   "soundsystem.dll": {
