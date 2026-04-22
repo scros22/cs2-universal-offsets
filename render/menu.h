@@ -352,15 +352,15 @@ namespace Menu
         ImGui::PushID(label);
         ImDrawList* dl = ImGui::GetWindowDrawList();
         const float w  = ImGui::GetContentRegionAvail().x;
-        const float h  = 28.f;
+        const float h  = 24.f;
         ImVec2 pos     = ImGui::GetCursorScreenPos();
 
-        const float pillW = 40.f, pillH = 20.f;
+        const float pillW = 36.f, pillH = 18.f;
         ImVec2 pillTL = { pos.x + w - pillW, pos.y + (h - pillH) * 0.5f };
         ImVec2 pillBR = { pos.x + w,          pos.y + (h + pillH) * 0.5f };
 
         ImU32 pillBg = *v ? kCheckOn : kElemBg;
-        float cx     = pillTL.x + (*v ? 28.f : 12.f);
+        float cx     = pillTL.x + (*v ? 26.f : 10.f);
         float cy     = (pillTL.y + pillBR.y) * 0.5f;
         ImU32 cirC   = *v ? EvoAccent(220) : kCircleOff;
 
@@ -369,7 +369,7 @@ namespace Menu
         dl->AddText({ pos.x + 2.f, ty }, *v ? kTextBrt : kTextDim, lblChk);
 
         dl->AddRectFilled(pillTL, pillBR, pillBg, 100.f);
-        dl->AddCircleFilled({ cx, cy }, 6.f, cirC);
+        dl->AddCircleFilled({ cx, cy }, 5.5f, cirC);
 
         ImGui::Dummy({ w, h });
         bool changed = false;
@@ -385,10 +385,10 @@ namespace Menu
         ImGui::PushID(label);
         ImDrawList* dl = ImGui::GetWindowDrawList();
         const float w  = ImGui::GetContentRegionAvail().x;
-        const float h  = 28.f;
+        const float h  = 24.f;
         ImVec2 pos     = ImGui::GetCursorScreenPos();
 
-        const float sW = 55.f, sH = 18.f;
+        const float sW = 50.f, sH = 16.f;
         ImVec2 sMin = { pos.x + w - sW, pos.y + (h - sH) * 0.5f };
         ImVec2 sMax = { pos.x + w,       pos.y + (h + sH) * 0.5f };
         float  cy   = (sMin.y + sMax.y) * 0.5f;
@@ -437,10 +437,10 @@ namespace Menu
         ImGui::PushID(label);
         ImDrawList* dl = ImGui::GetWindowDrawList();
         const float w  = ImGui::GetContentRegionAvail().x;
-        const float h  = 28.f;
+        const float h  = 24.f;
         ImVec2 pos     = ImGui::GetCursorScreenPos();
 
-        const float sW = 55.f, sH = 18.f;
+        const float sW = 50.f, sH = 16.f;
         ImVec2 sMin = { pos.x + w - sW, pos.y + (h - sH) * 0.5f };
         ImVec2 sMax = { pos.x + w,       pos.y + (h + sH) * 0.5f };
         float  cy   = (sMin.y + sMax.y) * 0.5f;
@@ -555,7 +555,7 @@ namespace Menu
         // Tighter inner padding (was 8/4) — the cards now have a 1px outline
         // so we don't need extra breathing room inside.
         ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(14, 12, 22, 90));
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 10.f, 7.f });
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 9.f, 6.f });
         ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 5.f);
         ImGui::BeginChild(id,
             { ImGui::GetContentRegionAvail().x, 0.f },
@@ -577,7 +577,7 @@ namespace Menu
         ImGui::EndChild();
         ImGui::PopStyleVar(2);
         ImGui::PopStyleColor(1);
-        ImGui::Dummy({ 0.f, 6.f });
+        ImGui::Dummy({ 0.f, 4.f });
     }
 
 
