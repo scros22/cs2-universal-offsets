@@ -241,6 +241,20 @@ namespace WorldEffects
     inline bool         fovHooked      = false;
     inline void*        pFovHookTarget = nullptr;
 
+    // Re-entrancy guard. The engine's DrawSkyboxArray internally queries
+    // GetWorldFov to build the sky projection; if we return our high
+    // user-FOV from inside that path the sun-angle floats at +0xF8..+0x104
+    // (right next to where we patch RGB at +0xE8) compute out-of-range
+    // and the skybox object NaN-poisons after a few seconds. Setting this
+    // flag for the duration of the skybox call forces hkGetWorldFov to
+    // pass through to the original so the skybox math sees the real FOV
+    // while gameplay still sees our overridden value.
+    //
+    // DrawSkyboxArray and the FOV query both run on the render thread, so
+    // a plain inline bool is sufficient (no thread_local — that path can
+    // trip TLS-callback issues in some manually-mapped injection setups).
+    inline bool g_inSkyboxDraw = false;
+
     // Third-person ConVar value addresses (offset +0x40 into CS2 ConVar struct)
     inline uintptr_t pCV_c_thirdpersonshoulder      = 0;
     inline uintptr_t pCV_cam_idealdist              = 0;
@@ -253,13 +267,21 @@ namespace WorldEffects
     {
         float orig = oGetWorldFov ? oGetWorldFov(rcx) : 90.f;
         if (!cfg.fovEnabled) return orig;
+        // Never override FOV during skybox setup — see g_inSkyboxDraw note.
+        if (g_inSkyboxDraw) return orig;
         __try {
             if (!GameState::clientBase) return orig;
             uintptr_t lp = GameState::GetLocalPawn();
             if (!lp) return orig;
             bool scoped = Mem::Read<bool>(lp + Offsets::m_bIsScoped);
             if (scoped) return orig;
-            return cfg.fovValue;
+            // Clamp to sane range. Going past ~160 widens the frustum enough
+            // that scenesystem culls in light/particle objects that aren't
+            // expected on the render path and occasionally crashes.
+            float v = cfg.fovValue;
+            if (v < 1.f)   v = 1.f;
+            if (v > 160.f) v = 160.f;
+            return v;
         } __except (EXCEPTION_EXECUTE_HANDLER) { return orig; }
     }
 
@@ -290,7 +312,10 @@ namespace WorldEffects
     inline void __fastcall hkDrawSkyboxArray(void* a1, void* a2, void* drawPrimitive,
                                               int count, void* a5, void* a6, void* a7)
     {
-        if (cfg.skyEnabled && drawPrimitive && count > 0 && count < 100)
+        // Tighter bound: real skybox draws have count <= 8. The previous
+        // < 100 cap was permissive enough to scribble into unrelated
+        // primitive slots on cubemap-rebuild calls.
+        if (cfg.skyEnabled && drawPrimitive && count > 0 && count <= 16)
         {
             __try {
                 size_t offset = (size_t)(count * 0x68) - 0x50;
@@ -323,7 +348,15 @@ namespace WorldEffects
                 }
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
         }
-        if (oDrawSkyboxArray) oDrawSkyboxArray(a1, a2, drawPrimitive, count, a5, a6, a7);
+        // Hold the re-entrancy guard across the original call — the engine
+        // queries FOV from inside this function for sky projection setup.
+        // Wrap with SEH so a fault inside the original can't leave the flag
+        // stuck true (which would permanently disable our FOV override).
+        g_inSkyboxDraw = true;
+        __try {
+            if (oDrawSkyboxArray) oDrawSkyboxArray(a1, a2, drawPrimitive, count, a5, a6, a7);
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        g_inSkyboxDraw = false;
     }
 
     // ---------------------------------------------------------------
@@ -800,47 +833,24 @@ namespace WorldEffects
     }
 
     // ---------------------------------------------------------------
-    // Fullbright — toggles mat_fullbright ConVar (lives in
-    // scenesystem.dll, registered in the global tier0 CCvar). When 1
-    // the renderer skips lighting and draws all surfaces at their
-    // unlit base color. Single int write per ~500ms.
+    // Fullbright — DISABLED on build 14153.
+    //
+    // The Source 2 ConVar layout (cvar+0x30 flags, cvar+0x40 legacy slot,
+    // cvar+0x58 modern ConVar<T> value) appears to have shifted on this
+    // build. Our FindCvarValue still resolves the cvar by name, but the
+    // +0x30/+0x40/+0x58 offsets we write to no longer line up — meaning
+    // every "write fullbright" call was scribbling into a *neighbouring*
+    // ConVar's data, corrupting random engine state minutes later.
+    //
+    // The public dumper already marks `mat_fullbright` as broken on this
+    // build for the same reason. Until the new layout is reverse-engineered
+    // we no-op here and force the cfg flag off so the toggle in the menu
+    // can't re-arm the corruption. Renderer brightness is still available
+    // via the tonemap path (Brightness slider).
     // ---------------------------------------------------------------
     inline void RunFullbright()
     {
-        // Always run while enabled (engine may re-stamp flags). When the
-        // user toggles OFF, we explicitly write 0 back ONCE.
-        static int lastDesired = -1;
-        int desired = cfg.fullbright ? 1 : 0;
-
-        // Skip entirely when we've already restored to 0 and stayed there.
-        if (desired == 0 && lastDesired == 0) return;
-
-        __try {
-            if (pCV_mat_fullbright) {
-                // CS2 Source-2 ConVar layout (verified IDA scenesystem.dll
-                // sub_1804ACB70):
-                //   cvar+0x30 : flags (DWORD) — FCVAR_CHEAT=0x400, PERTHREAD=0x8000
-                //   cvar+0x58 : value storage (returned by sub_1804ACB70)
-                // Our FindCvarValue returns cvar+0x40 which is the *legacy*
-                // value union; modern ConVar<T> uses +0x58. Write BOTH so we
-                // cover every read path the engine might take.
-                uintptr_t cvarBase   = pCV_mat_fullbright - 0x40;
-                uintptr_t flagsAddr  = cvarBase + 0x30;
-                uintptr_t valueAddr  = cvarBase + 0x58;
-
-                __try {
-                    uint32_t flags = Mem::Read<uint32_t>(flagsAddr);
-                    // Clear FCVAR_CHEAT (0x400) and FCVAR_DEVELOPMENTONLY (0x4000)
-                    uint32_t clean = flags & ~0x4400u;
-                    if (clean != flags)
-                        Mem::SmartWrite<uint32_t>(flagsAddr, clean);
-                } __except (EXCEPTION_EXECUTE_HANDLER) {}
-
-                Mem::SmartWrite<int>(pCV_mat_fullbright, desired); // legacy slot
-                Mem::SmartWrite<int>(valueAddr,         desired); // modern slot
-            }
-            lastDesired = desired;
-        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        if (cfg.fullbright) cfg.fullbright = false;
     }
 
     // ---------------------------------------------------------------
