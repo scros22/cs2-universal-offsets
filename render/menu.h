@@ -1919,14 +1919,6 @@ namespace Menu
         int sidA = (int)(menuAlpha * 220.f);   // sidebar — slightly darker than panel
         int borA = (int)(menuAlpha * 175.f);
 
-        // Soft outer drop shadow (4 layers, only visible against bright bgs)
-        for (int i = 6; i > 0; --i) {
-            dl->AddRect({ wp.x - i, wp.y - i + 1 },
-                        { wp.x + ws.x + i, wp.y + ws.y + i + 1 },
-                        IM_COL32(0, 0, 0, (int)((10 + (6 - i) * 4) * menuAlpha)),
-                        12.f + i, 0, 1.f);
-        }
-
         // Main window glass fill + inner highlight rim
         dl->AddRectFilled(wp, { wp.x + ws.x, wp.y + ws.y },
             IM_COL32(13, 13, 18, bgA), 12.f);
