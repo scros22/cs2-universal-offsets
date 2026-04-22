@@ -1883,24 +1883,29 @@ namespace Menu
         if (menuAlpha > 1.f) menuAlpha = 1.f;
         if (menuAlpha <= 0.001f) return;
 
-        // Layout (menu 19: 840x630, sidebar 110px)
-        const float W      = 840.f;
-        const float H      = 630.f;
-        const float SIDE_W = 110.f;
-        const float PAD    = 15.f;
-        const float COL_Y  = 20.f;
-        const float COL_H  = H - COL_Y - PAD;               // 595
-        const float COL_X  = SIDE_W + PAD;                  // 125
-        const float COL_W  = (W - COL_X - PAD - 10.f) * 0.5f; // 345
+        // ----------------------------------------------------------------
+        //  LAYOUT  (v2 — bottom dock)
+        //  Whole menu scaled ~7%. Sidebar is gone; tab strip lives in a
+        //  centered "iOS island" dock floating below the content card.
+        // ----------------------------------------------------------------
+        const float W        = 780.f;            // 840 → 780
+        const float DOCK_H   = 48.f;
+        const float DOCK_GAP = 12.f;
+        const float PAD      = 12.f;             // 15 → 12
+        const float COL_Y    = 14.f;
+        // content height stops above the dock; full window height adds room for it
+        const float CONTENT_H = 520.f;           // visual content card height
+        const float H        = COL_Y + CONTENT_H + DOCK_GAP + DOCK_H + PAD; // 14+520+12+48+12 = 606
+        const float COL_X    = PAD;
+        const float COL_W    = (W - PAD * 2.f - 8.f) * 0.5f;
+        const float COL_H    = CONTENT_H;
 
         ImGui::SetNextWindowSize({ W, H }, ImGuiCond_Once);
-        ImGui::SetNextWindowPos({ 100.f, 80.f }, ImGuiCond_Once);
+        ImGui::SetNextWindowPos({ 120.f, 90.f }, ImGuiCond_Once);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding,    { 0.f, 0.f });
         ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.f);
         ImGui::PushStyleVar(ImGuiStyleVar_Alpha,            menuAlpha);
 
-        // NoBackground: ImGui won't fill the window rect — we draw our own rounded
-        // frosted-glass rect via DrawList, so corner areas stay transparent.
         ImGui::Begin("##lucid19", nullptr,
             ImGuiWindowFlags_NoTitleBar    | ImGuiWindowFlags_NoResize          |
             ImGuiWindowFlags_NoScrollbar   | ImGuiWindowFlags_NoScrollWithMouse |
@@ -1910,6 +1915,194 @@ namespace Menu
         ImVec2 wp  = ImGui::GetWindowPos();
         ImVec2 ws  = ImGui::GetWindowSize();
         ImDrawList* dl = ImGui::GetWindowDrawList();
+
+        const int panA = (int)(menuAlpha * 210.f);
+        const int sidA = (int)(menuAlpha * 222.f);
+        const int borA = (int)(menuAlpha * 175.f);
+
+        // ----------------------------------------------------------------
+        //  CONTENT CARD  — full-width panel that holds the two columns.
+        //  Same depth treatment as before (gradient + glossy top sliver +
+        //  hairline highlight + 1px outline) but spans the whole window
+        //  now that the sidebar has moved out.
+        // ----------------------------------------------------------------
+        ImVec2 panTL = { wp.x,           wp.y                     };
+        ImVec2 panBR = { wp.x + ws.x,    wp.y + COL_Y + CONTENT_H + 6.f };
+        dl->AddRectFilled(panTL, panBR, IM_COL32(16, 16, 24, panA), 10.f);
+        dl->AddRectFilledMultiColor(panTL, panBR,
+            IM_COL32(28, 26, 44, (int)(50 * menuAlpha)),
+            IM_COL32(28, 26, 44, (int)(50 * menuAlpha)),
+            IM_COL32(0,  0,  0,  (int)(35 * menuAlpha)),
+            IM_COL32(0,  0,  0,  (int)(35 * menuAlpha)));
+        // glossy top sliver
+        dl->AddRectFilledMultiColor(
+            { panTL.x + 10, panTL.y + 1.f },
+            { panBR.x - 10, panTL.y + 2.5f },
+            IM_COL32(255, 255, 255, 0),
+            IM_COL32(255, 255, 255, (int)(70 * menuAlpha)),
+            IM_COL32(255, 255, 255, (int)(70 * menuAlpha)),
+            IM_COL32(255, 255, 255, 0));
+        dl->AddRect(panTL, panBR, IM_COL32(255, 255, 255, (int)(menuAlpha * 14.f)), 10.f, 0, 1.f);
+        dl->AddRect(panTL, panBR, IM_COL32(40, 38, 60, borA), 10.f, 0, 1.f);
+
+        // ----------------------------------------------------------------
+        //  BOTTOM DOCK — iOS-style floating island with LUCID brand,
+        //  horizontal tab row, and the RGB v1.5 tag.
+        // ----------------------------------------------------------------
+        ImGui::PushFont(nullptr); // ensure default font for size measure
+        const float dockFs   = ImGui::GetFontSize();
+        const ImVec2 lucSz   = ImGui::CalcTextSize("LUCID");
+        const ImVec2 verSz   = ImGui::CalcTextSize("v1.5");
+        ImGui::PopFont();
+
+        const float tabSz   = 36.f;
+        const float tabGap  = 4.f;
+        const float dockPad = 14.f;
+        const float dockSep = 12.f;     // gap between brand / tabs / version
+        const float tabsW   = kTabCount * tabSz + (kTabCount - 1) * tabGap;
+        const float dockW   = dockPad + lucSz.x + dockSep + tabsW + dockSep + verSz.x + dockPad;
+        const float dockX   = wp.x + (ws.x - dockW) * 0.5f;
+        const float dockY   = panBR.y + DOCK_GAP;
+        ImVec2 dockTL = { dockX,         dockY };
+        ImVec2 dockBR = { dockX + dockW, dockY + DOCK_H };
+
+        // dock backdrop — same depth recipe, fully rounded "pill"
+        const float dockR = DOCK_H * 0.5f;
+        dl->AddRectFilled(dockTL, dockBR, IM_COL32(11, 10, 18, sidA), dockR);
+        dl->AddRectFilledMultiColor(dockTL, dockBR,
+            IM_COL32(28, 26, 44, (int)(70 * menuAlpha)),
+            IM_COL32(28, 26, 44, (int)(70 * menuAlpha)),
+            IM_COL32(0,  0,  0,  (int)(40 * menuAlpha)),
+            IM_COL32(0,  0,  0,  (int)(40 * menuAlpha)));
+        dl->AddRectFilledMultiColor(
+            { dockTL.x + 12, dockTL.y + 1.5f },
+            { dockBR.x - 12, dockTL.y + 3.f },
+            IM_COL32(255, 255, 255, 0),
+            IM_COL32(255, 255, 255, (int)(80 * menuAlpha)),
+            IM_COL32(255, 255, 255, (int)(80 * menuAlpha)),
+            IM_COL32(255, 255, 255, 0));
+        dl->AddRect(dockTL, dockBR,
+            IM_COL32(255, 255, 255, (int)(menuAlpha * 18.f)), dockR, 0, 1.f);
+        dl->AddRect(dockTL, dockBR, IM_COL32(40, 38, 60, borA), dockR, 0, 1.f);
+
+        const float dockMidY = (dockTL.y + dockBR.y) * 0.5f;
+
+        // ---- LUCID brand on the left (with halo) ----
+        {
+            float lx = dockTL.x + dockPad;
+            float ly = dockMidY - lucSz.y * 0.5f;
+            const ImU32 col  = EvoAccent((int)(250 * menuAlpha));
+            const ImU32 halo = EvoAccent((int)(75  * menuAlpha));
+            dl->AddText({ lx - 1.f, ly      }, halo, "LUCID");
+            dl->AddText({ lx + 1.f, ly      }, halo, "LUCID");
+            dl->AddText({ lx,       ly - 1.f}, halo, "LUCID");
+            dl->AddText({ lx,       ly + 1.f}, halo, "LUCID");
+            dl->AddText({ lx, ly }, col, "LUCID");
+        }
+
+        // ---- vertical hairline separator ----
+        {
+            float sx = dockTL.x + dockPad + lucSz.x + dockSep * 0.5f;
+            dl->AddRectFilled({ sx, dockTL.y + 12.f }, { sx + 1.f, dockBR.y - 12.f },
+                IM_COL32(60, 56, 86, (int)(160 * menuAlpha)));
+        }
+
+        // ---- horizontal tab row ----
+        const float tabsX = dockTL.x + dockPad + lucSz.x + dockSep;
+        const float tabsY = dockMidY - tabSz * 0.5f;
+        for (int i = 0; i < kTabCount; ++i)
+        {
+            float tx = tabsX + (float)i * (tabSz + tabGap);
+            float ty = tabsY;
+            bool  sel = (activeTab == i);
+
+            ImGui::SetCursorScreenPos({ tx, ty });
+            ImGui::PushID(i + 50000);
+            const bool clicked = ImGui::InvisibleButton("##tab", { tabSz, tabSz });
+            const bool hovered = ImGui::IsItemHovered();
+            ImGui::PopID();
+            if (clicked) activeTab = i;
+
+            if (sel)
+            {
+                const ImU32 selTop = IM_COL32(
+                    (int)(primaryColor[0] * 255 * 0.32f),
+                    (int)(primaryColor[1] * 255 * 0.32f),
+                    (int)(primaryColor[2] * 255 * 0.32f),
+                    (int)(220 * menuAlpha));
+                const ImU32 selBot = IM_COL32(
+                    (int)(primaryColor[0] * 255 * 0.16f),
+                    (int)(primaryColor[1] * 255 * 0.16f),
+                    (int)(primaryColor[2] * 255 * 0.16f),
+                    (int)(180 * menuAlpha));
+                dl->AddRectFilledMultiColor(
+                    { tx, ty }, { tx + tabSz, ty + tabSz },
+                    selTop, selTop, selBot, selBot);
+                dl->AddRect({ tx, ty }, { tx + tabSz, ty + tabSz },
+                    EvoAccent((int)(180 * menuAlpha)), 8.f, 0, 1.f);
+            }
+            else if (hovered)
+            {
+                dl->AddRectFilled({ tx, ty }, { tx + tabSz, ty + tabSz },
+                    IM_COL32(255, 255, 255, (int)(16 * menuAlpha)), 8.f);
+            }
+
+            ImU32 iconCol = sel
+                ? EvoAccent((int)(245 * menuAlpha))
+                : (hovered ? IM_COL32(190, 190, 205, (int)(235 * menuAlpha))
+                           : IM_COL32(115, 115, 135, (int)(220 * menuAlpha)));
+            DrawTabIcon(dl, i, { tx + tabSz * 0.5f, ty + tabSz * 0.5f }, iconCol);
+        }
+
+        // ---- right hairline separator ----
+        {
+            float sx = tabsX + tabsW + dockSep * 0.5f;
+            dl->AddRectFilled({ sx, dockTL.y + 12.f }, { sx + 1.f, dockBR.y - 12.f },
+                IM_COL32(60, 56, 86, (int)(160 * menuAlpha)));
+        }
+
+        // ---- v1.5 RGB tag on the right (illuminated, no chip) ----
+        {
+            const char* ver = "v1.5";
+            float vx = tabsX + tabsW + dockSep;
+            float vy = dockMidY - verSz.y * 0.5f;
+
+            const float t      = (float)ImGui::GetTime();
+            const float cycle  = 0.16f;
+            const float spread = 0.09f;
+
+            float cx = vx;
+            for (int i = 0; ver[i]; ++i)
+            {
+                char ch[2] = { ver[i], '\0' };
+                ImVec2 chs = ImGui::CalcTextSize(ch);
+                float hue = fmodf(t * cycle + (float)i * spread, 1.f);
+                float r, g, b;
+                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
+                ImU32 col  = IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), (int)(255 * menuAlpha));
+                ImU32 glow = IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), (int)(110 * menuAlpha));
+                ImVec2 cp{ cx, vy };
+                dl->AddText({ cp.x - 1.f, cp.y      }, glow, ch);
+                dl->AddText({ cp.x + 1.f, cp.y      }, glow, ch);
+                dl->AddText({ cp.x,       cp.y - 1.f}, glow, ch);
+                dl->AddText({ cp.x,       cp.y + 1.f}, glow, ch);
+                dl->AddText(cp, col, ch);
+                cx += chs.x;
+            }
+            // sweep underline beneath the version
+            const int segs = 14;
+            for (int s = 0; s < segs; ++s)
+            {
+                float u0 = (float)s / segs, u1 = (float)(s + 1) / segs;
+                float hue = fmodf(t * cycle + u0 * 0.4f, 1.f);
+                float r, g, b;
+                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
+                dl->AddRectFilled(
+                    { vx + u0 * verSz.x, vy + verSz.y + 1.5f },
+                    { vx + u1 * verSz.x, vy + verSz.y + 2.7f },
+                    IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), (int)(195 * menuAlpha)));
+            }
+        }
 
         // --- Frosted-glass backgrounds ---
         // Bumped opacity ~18% across the board (was 192/172/155 → 228/210/195)
