@@ -2847,13 +2847,24 @@ namespace Menu
             }
         }
 
-        // ── glossy top sliver (inset to avoid corner bleed) ──
-        dl->AddRectFilledMultiColor(
-            { p0.x + 16.f, p0.y + 1.f }, { p1.x - 16.f, p0.y + 2.6f },
-            IM_COL32(255,255,255,0),
-            IM_COL32(255,255,255,(int)(78 * menuAlpha)),
-            IM_COL32(255,255,255,(int)(78 * menuAlpha)),
-            IM_COL32(255,255,255,0));
+        // ── glossy top sliver ── two halves that fade INTO the center,
+        //  brighter near the corners, dimmer in the middle (≈25% less alpha).
+        {
+            const int   midA = (int)(58 * menuAlpha);   // was 78 (≈ -25%)
+            const float yA   = p0.y + 1.f;
+            const float yB   = p0.y + 2.4f;
+            const float xL   = p0.x + 16.f;
+            const float xR   = p1.x - 16.f;
+            const float xMid = (xL + xR) * 0.5f;
+            // left half: 0 → midA → 0
+            dl->AddRectFilledMultiColor({ xL, yA }, { xMid, yB },
+                IM_COL32(255,255,255,0),       IM_COL32(255,255,255,midA),
+                IM_COL32(255,255,255,midA),    IM_COL32(255,255,255,0));
+            // right half: midA → 0 → 0 → midA  (mirror)
+            dl->AddRectFilledMultiColor({ xMid, yA }, { xR, yB },
+                IM_COL32(255,255,255,midA),    IM_COL32(255,255,255,0),
+                IM_COL32(255,255,255,0),       IM_COL32(255,255,255,midA));
+        }
 
         // ── outline ──
         ImU32 outline = isOn
@@ -2903,8 +2914,8 @@ namespace Menu
             IM_COL32(238, 238, 248, (int)(248 * menuAlpha)), f.name);
         if (f.subtitle && *f.subtitle) {
             ImVec2 stSz = ImGui::CalcTextSize(f.subtitle);
-            float padX = 8.f, padY = 2.f;
-            float chipY0 = nameY + nmSz.y + 5.f;
+            const float padX = 7.f, padY = 1.f;             // ~10% smaller chip
+            float chipY0 = nameY + nmSz.y + 4.f;
             float chipY1 = chipY0 + stSz.y + padY * 2.f;
             float chipX0 = (p0.x + p1.x - stSz.x) * 0.5f - padX;
             float chipX1 = (p0.x + p1.x + stSz.x) * 0.5f + padX;
@@ -2919,8 +2930,8 @@ namespace Menu
                 ? EvoAccent((int)((110 + hAnim * 40) * menuAlpha))
                 : IM_COL32(70, 66, 100, (int)((150 + hAnim * 50) * menuAlpha));
             dl->AddRect({ chipX0, chipY0 }, { chipX1, chipY1 }, chipEdge, chipR, 0, 1.f);
-            // text
-            dl->AddText({ chipX0 + padX, chipY0 + padY },
+            // text — nudged up 2px so it sits visually centred (font baseline bias)
+            dl->AddText({ chipX0 + padX, chipY0 + padY - 2.f },
                 isOn ? IM_COL32(232, 230, 245, (int)(232 * menuAlpha))
                      : IM_COL32(150, 150, 170, (int)(218 * menuAlpha)),
                 f.subtitle);
@@ -2964,14 +2975,8 @@ namespace Menu
                 IM_COL32(64, 60, 92, (int)((180 + bA * 60) * menuAlpha)), 7.f, 0, 1.f);
             const char* lbl = "OPTIONS";
             ImVec2 lSz = ImGui::CalcTextSize(lbl);
-            // chevron + label, both centred as a unit so the label looks balanced
-            float chevW = 7.f;       // chevron + gap width
-            float groupW = lSz.x + chevW;
-            float gx0 = (dTL.x + dBR.x - groupW) * 0.5f;
-            float chy = (dTL.y + dBR.y) * 0.5f;
-            dl->AddLine({ gx0,        chy - 3.5f }, { gx0 + 4.f, chy }, IM_COL32(220,220,235,(int)(220*menuAlpha)), 1.4f);
-            dl->AddLine({ gx0 + 4.f,  chy        }, { gx0,        chy + 3.5f }, IM_COL32(220,220,235,(int)(220*menuAlpha)), 1.4f);
-            dl->AddText({ gx0 + chevW, (dTL.y + dBR.y - lSz.y) * 0.5f },
+            // No chevron — clean centred label only
+            dl->AddText({ (dTL.x + dBR.x - lSz.x) * 0.5f, (dTL.y + dBR.y - lSz.y) * 0.5f },
                 IM_COL32(220, 220, 235, (int)(228 * menuAlpha)), lbl);
             if (clicked) clickedOptions = true;
         }
@@ -3321,12 +3326,44 @@ namespace Menu
             { panTL.x + 22, panTL.y + 1.5f },
             { panBR.x - 22, panTL.y + 3.f },
             IM_COL32(255, 255, 255, 0),
-            IM_COL32(255, 255, 255, (int)(85 * menuAlpha)),
-            IM_COL32(255, 255, 255, (int)(85 * menuAlpha)),
+            IM_COL32(255, 255, 255, (int)(78 * menuAlpha)),
+            IM_COL32(255, 255, 255, (int)(78 * menuAlpha)),
             IM_COL32(255, 255, 255, 0));
 
         // 1px outline
         dl->AddRect(panTL, panBR, IM_COL32(46, 44, 68, borA), CARD_R, 0, 1.f);
+
+        // ── OUTER RGB illuminating strip ABOVE the panel (subtle glow bar) ──
+        {
+            const float t      = (float)ImGui::GetTime();
+            const float cycle  = 0.16f;
+            const float inset  = CARD_R * 1.4f;
+            const float swX0   = panTL.x + inset;
+            const float swX1   = panBR.x - inset;
+            const float swY    = panTL.y - 4.f;     // sits above the panel
+            const int   segs   = 110;
+            const float swW    = swX1 - swX0;
+            for (int s = 0; s < segs; ++s)
+            {
+                float u0 = (float)s / segs, u1 = (float)(s + 1) / segs;
+                float hue = fmodf(t * cycle + u0 * 0.5f, 1.f);
+                float r, g, b;
+                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
+                float edgeFade = 1.f;
+                if (u0 < 0.18f)        edgeFade = u0 / 0.18f;
+                else if (u0 > 0.82f)   edgeFade = (1.f - u0) / 0.18f;
+                int aCore = (int)(180 * menuAlpha * edgeFade);
+                int aGlow = (int)( 55 * menuAlpha * edgeFade);
+                ImU32 cCore = IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), aCore);
+                ImU32 cGlow = IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), aGlow);
+                // soft halo above
+                dl->AddRectFilled({ swX0 + u0 * swW, swY - 4.f },
+                                  { swX0 + u1 * swW, swY        }, cGlow);
+                // crisp 1px line
+                dl->AddRectFilled({ swX0 + u0 * swW, swY        },
+                                  { swX0 + u1 * swW, swY + 1.2f }, cCore);
+            }
+        }
 
         // RGB sweep along the top inner edge — mirrors the v1.5 sweep
         {
@@ -3448,8 +3485,8 @@ namespace Menu
             { dockTL.x + 18, dockTL.y + 1.5f },
             { dockBR.x - 18, dockTL.y + 3.f },
             IM_COL32(255, 255, 255, 0),
-            IM_COL32(255, 255, 255, (int)(85 * menuAlpha)),
-            IM_COL32(255, 255, 255, (int)(85 * menuAlpha)),
+            IM_COL32(255, 255, 255, (int)(78 * menuAlpha)),
+            IM_COL32(255, 255, 255, (int)(78 * menuAlpha)),
             IM_COL32(255, 255, 255, 0));
         dl->AddRect(dockTL, dockBR, IM_COL32(46, 44, 68, borA), dockR, 0, 1.f);
 
@@ -3478,6 +3515,39 @@ namespace Menu
                     { swX0 + u0 * swW, swY },
                     { swX0 + u1 * swW, swY + 1.f },
                     IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), a));
+            }
+        }
+
+        // ── OUTER RGB illuminating strip BELOW the dock ──
+        {
+            const float t      = (float)ImGui::GetTime();
+            const float cycle  = 0.16f;
+            const float inset  = dockR * 1.2f;
+            const float swX0   = dockTL.x + inset;
+            const float swX1   = dockBR.x - inset;
+            const float swY    = dockBR.y + 4.f;    // sits below the dock
+            const int   segs   = 90;
+            const float swW    = swX1 - swX0;
+            for (int s = 0; s < segs; ++s)
+            {
+                float u0 = (float)s / segs, u1 = (float)(s + 1) / segs;
+                float hue = fmodf(-t * cycle + u0 * 0.5f, 1.f);
+                if (hue < 0.f) hue += 1.f;
+                float r, g, b;
+                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
+                float edgeFade = 1.f;
+                if (u0 < 0.20f)        edgeFade = u0 / 0.20f;
+                else if (u0 > 0.80f)   edgeFade = (1.f - u0) / 0.20f;
+                int aCore = (int)(180 * menuAlpha * edgeFade);
+                int aGlow = (int)( 55 * menuAlpha * edgeFade);
+                ImU32 cCore = IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), aCore);
+                ImU32 cGlow = IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), aGlow);
+                // crisp line
+                dl->AddRectFilled({ swX0 + u0 * swW, swY        },
+                                  { swX0 + u1 * swW, swY + 1.2f }, cCore);
+                // soft halo below
+                dl->AddRectFilled({ swX0 + u0 * swW, swY + 1.2f },
+                                  { swX0 + u1 * swW, swY + 5.2f }, cGlow);
             }
         }
 
