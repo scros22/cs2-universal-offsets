@@ -354,11 +354,7 @@ float4 main(float4 p:SV_Position):SV_Target{
 
                     for (int i = 1; i <= 64; ++i)
                     {
-                        uintptr_t chunk = Mem::Read<uintptr_t>(
-                            entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
-                        if (!chunk) continue;
-                        uintptr_t ctrl = Mem::Read<uintptr_t>(
-                            chunk + GameState::kEntityStride * (i & 0x1FF));
+                        uintptr_t ctrl = GameState::GetEntityByIndex(i);
                         if (!ctrl) continue;
                         if (!Mem::Read<bool>(ctrl + Offsets::m_bPawnIsAlive)) continue;
                         uint32_t ph = Mem::Read<uint32_t>(ctrl + Offsets::m_hPlayerPawn);
@@ -375,8 +371,8 @@ float4 main(float4 p:SV_Position):SV_Target{
                             pawn + Offsets::m_pGameSceneNode);
                         if (sceneNode)
                         {
-                            GameState::originalDormant[i] = Mem::Read<bool>(sceneNode + 0x10B);
-                            Mem::SmartWrite<bool>(sceneNode + 0x10B, false);
+                            GameState::originalDormant[i] = Mem::Read<bool>(sceneNode + Offsets::SceneNode::kDormant);
+                            Mem::SmartWrite<bool>(sceneNode + Offsets::SceneNode::kDormant, false);
                         }
                     }
                 }

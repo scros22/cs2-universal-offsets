@@ -107,9 +107,7 @@ namespace RankRevealer
         for (int i = 1; i <= 64 && count < 64; ++i)
         {
             __try {
-                uintptr_t chunk = Mem::Read<uintptr_t>(entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
-                if (!chunk) continue;
-                uintptr_t ctrl = Mem::Read<uintptr_t>(chunk + 0x70 * (i & 0x1FF));
+                uintptr_t ctrl = GameState::GetEntityByIndex(i);
                 if (!ctrl) continue;
 
                 PlayerRank rk = GetRank(ctrl);

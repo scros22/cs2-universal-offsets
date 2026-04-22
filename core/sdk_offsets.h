@@ -29,6 +29,30 @@ namespace Offsets
         using namespace cs2_dumper::buttons;
     }
 
+    // ---- Entity-system primitives (CGameEntitySystem layout) ----
+    // These are reverse-engineered constants — not in the schema dump —
+    // but stable across CS2 builds. Use these instead of bare magic
+    // numbers so a future layout change can be patched in one place.
+    namespace EntitySys
+    {
+        constexpr std::ptrdiff_t kChunkArrayBase   = 0x10;   // first chunk pointer slot
+        constexpr std::ptrdiff_t kChunkPtrStride   = 0x8;    // sizeof(void*)
+        constexpr std::ptrdiff_t kChunkEntryStride = 0x70;   // bytes between entity slots inside a chunk
+        constexpr uint32_t       kSlotIndexMask    = 0x1FF;  // 512 entries per chunk
+        constexpr uint32_t       kHandleIndexMask  = 0x7FFF; // CHandle index bits
+
+        // Per-entity: CEntityInstance layout
+        constexpr std::ptrdiff_t kInstanceToIdentity = 0x10; // CEntityInstance + 0x10 -> CEntityIdentity*
+        // CEntityIdentity layout
+        constexpr std::ptrdiff_t kIdentityDesignerName = 0x20; // CUtlSymbolLarge -> char*
+    }
+
+    // ---- CGameSceneNode hand-RE'd offsets (not in schema dump) ----
+    namespace SceneNode
+    {
+        constexpr std::ptrdiff_t kDormant = 0x10B;  // bool m_bDormant (chams/ESP rely on this)
+    }
+
     // ---- Entity schema offsets ----
     // These are tied to CS2 build and should be re-confirmed with each
     // major update. Dumper generates schemas in client_dll.hpp but
@@ -73,29 +97,38 @@ namespace Offsets
     constexpr std::ptrdiff_t m_unMusicID           = 0x58;
 
     // C_CSPlayerPawn
-    constexpr std::ptrdiff_t m_bNeedToReApplyGloves = 0x1695;
-    constexpr std::ptrdiff_t m_EconGloves          = 0x1698;
-    constexpr std::ptrdiff_t m_hHudModelArms       = 0x1B98;
+    constexpr std::ptrdiff_t m_bNeedToReApplyGloves = 0x1655;  // 14153 a2x
+    constexpr std::ptrdiff_t m_EconGloves          = 0x1658;   // 14153 a2x
+    // NOTE: post-shift fields below verified against a2x/cs2-dumper 2026-04-22
+    // (build 14152). Many were off by +0x40 vs the actual schema.
+    constexpr std::ptrdiff_t m_hHudModelArms       = 0x1B58;
     // m_pClippingWeapon: schema field removed in build 14152 (Animgraph 2).
     // Skinchanger features that depended on it should derive the active weapon
     // pointer from m_hActiveWeapon via the entity list instead.
     constexpr std::ptrdiff_t m_pClippingWeapon     = 0x0;
-    constexpr std::ptrdiff_t m_nEconGlovesChanged  = 0x1B08;
-    constexpr std::ptrdiff_t m_iShotsFired         = 0x1C9C;
-    constexpr std::ptrdiff_t m_aimPunchAngle       = 0x14D4;
+    constexpr std::ptrdiff_t m_nEconGlovesChanged  = 0x1AC8;   // 14153 a2x
+    constexpr std::ptrdiff_t m_iShotsFired         = 0x1C5C;
+    // 14153: m_aimPunchAngle no longer exists on the pawn directly.
+    // The punch QAngle now lives inside CCSPlayer_AimPunchServices, pointed to
+    // by m_pAimPunchServices on the pawn. Helper accessors live in features that
+    // need it. Kept as legacy alias = 0 so any stale write is a no-op (safe).
+    constexpr std::ptrdiff_t m_aimPunchAngle       = 0x0;      // DEPRECATED — use indirection
+    constexpr std::ptrdiff_t m_pAimPunchServices   = 0x1490;   // CCSPlayer_AimPunchServices*
+    constexpr std::ptrdiff_t m_predictableBaseAngle_inAimPunch = 0x50; // QAngle inside services
+    constexpr std::ptrdiff_t m_vecCsViewPunchAngle_inCamSvc    = 0x48; // QAngle inside m_pCameraServices
     // v_angle on C_BasePlayerPawn — final view angles AFTER punch is applied.
     // Per recent reversing notes, useful as an alternative read path on builds
     // where m_angEyeAngles drifts. We keep both available.
     constexpr std::ptrdiff_t v_angle               = 0x1298;
-    constexpr std::ptrdiff_t m_angEyeAngles        = 0x3340;
-    constexpr std::ptrdiff_t m_ArmorValue          = 0x1CB4;
-    constexpr std::ptrdiff_t m_bGunGameImmunity    = 0x32B8;
-    constexpr std::ptrdiff_t m_iIDEntIndex         = 0x341C;
+    constexpr std::ptrdiff_t m_angEyeAngles        = 0x3300;
+    constexpr std::ptrdiff_t m_ArmorValue          = 0x1C74;
+    constexpr std::ptrdiff_t m_bGunGameImmunity    = 0x3278;  // unverified, was 0x32B8 (-0x40)
+    constexpr std::ptrdiff_t m_iIDEntIndex         = 0x33DC;
     constexpr std::ptrdiff_t m_flFlashDuration     = 0x1400;
     constexpr std::ptrdiff_t m_flFlashMaxAlpha     = 0x13FC;
     constexpr std::ptrdiff_t m_flLastSmokeOverlayAlpha = 0x1420;
-    constexpr std::ptrdiff_t m_bIsScoped           = 0x1C88;
-    constexpr std::ptrdiff_t m_entitySpottedState   = 0x1C70;
+    constexpr std::ptrdiff_t m_bIsScoped           = 0x1C48;
+    constexpr std::ptrdiff_t m_entitySpottedState   = 0x1C30;  // was 0x1C70 (-0x40)
 
     // C_BaseModelEntity — alpha property
     constexpr std::ptrdiff_t m_pClientAlphaProperty = 0xF50;
@@ -124,8 +157,9 @@ namespace Offsets
     constexpr std::ptrdiff_t m_hZoomOwner          = 0x2A0;   // CHandle
     constexpr std::ptrdiff_t m_flLastShotFOV       = 0x2A4;   // float32
 
-    // C_CSPlayerPawnBase / C_BasePlayerPawn — desired-FOV (player wants this FOV)
-    constexpr std::ptrdiff_t m_iDesiredFOV         = 0x784;   // uint32 (build 14152)
+    // CBasePlayerController — desired-FOV (lives on the CONTROLLER, not the pawn).
+    // Writing this on the pawn corrupts random fields and crashes the game.
+    constexpr std::ptrdiff_t m_iDesiredFOV_OnController = 0x784;   // uint32 (build 14152)
 
     // C_EnvSky (renamed in 14152: m_flSkyBrightnessScale -> m_flBrightnessScale)
     constexpr std::ptrdiff_t m_vTintColor          = 0xFB9;   // Color (RGBA bytes)

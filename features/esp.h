@@ -14,6 +14,7 @@
 #include "../core/sdk_offsets.h"
 #include "../core/math.h"
 #include "world_effects.h"   // for WorldEffects::*Hooked diagnostic flags
+#include "aimbot.h"          // for Aimbot::diag_* live counters
 #include "../core/memory.h"
 #include "../core/stealth.h"
 #include "../vendor/imgui/imgui.h"
@@ -632,7 +633,11 @@ namespace ESP
             dl->AddText({10.f, 10.f}, IM_COL32(255,255,0,255), buf);
 
             // Second diagnostic line: hooks installed + live view-angles.
-            Math::QAngle va = Mem::Read<Math::QAngle>(GameState::clientBase + GameState::RVA_dwViewAngles());
+            Math::QAngle va{0,0,0};
+            __try {
+                if (GameState::clientBase)
+                    va = Mem::Read<Math::QAngle>(GameState::clientBase + GameState::RVA_dwViewAngles());
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
             char buf2[400];
             snprintf(buf2, sizeof(buf2),
                 "  HOOKS: fov=%d sky=%d ovr=%d | viewAng pitch=%.1f yaw=%.1f roll=%.1f",
@@ -641,6 +646,73 @@ namespace ESP
                 WorldEffects::overrideViewHooked ? 1 : 0,
                 va.pitch, va.yaw, va.roll);
             dl->AddText({10.f, 26.f}, IM_COL32(0,255,0,255), buf2);
+
+            // Aimbot live state — diagnoses why the bot isn't moving the mouse.
+            DWORD now = GetTickCount();
+            auto agoMs = [&](DWORD t)->int { return t == 0 ? -1 : (int)(now - t); };
+            char buf3[480];
+            snprintf(buf3, sizeof(buf3),
+                "  AIM: en=%d slt=%d ak=%d cm=%d ins=%d/err=%d insAddr=%p tickAgo=%d keyAgo=%d tgtAgo=%d sentAgo=%d ent=%d fov=%.1f bail=%d lastDx=%ld lastDy=%ld direct=%d  crash=%d reachedAgo=%d",
+                Aimbot::cfg.enabled ? 1 : 0,
+                Aimbot::cfg.silentAim ? 1 : 0,
+                Aimbot::cfg.aimKey,
+                Aimbot::SilentAim::pCreateMoveHook ? 1 : 0,
+                Aimbot::diag_installResult,
+                Aimbot::diag_installSubErr,
+                (void*)Aimbot::diag_installAddr,
+                agoMs(Aimbot::diag_lastTick),
+                agoMs(Aimbot::diag_lastKeyDown),
+                agoMs(Aimbot::diag_lastTarget),
+                agoMs(Aimbot::diag_lastSent),
+                Aimbot::diag_targetEnt,
+                Aimbot::diag_lastFov,
+                Aimbot::diag_lastBail,
+                Aimbot::diag_lastDx, Aimbot::diag_lastDy,
+                Aimbot::useDirectSendInput ? 1 : 0,
+                Aimbot::diag_lastCrash,
+                agoMs(Aimbot::diag_lastReached));
+            dl->AddText({10.f, 42.f}, IM_COL32(255,160,80,255), buf3);
+
+            // Why no target? Per-reject breakdown from FindBestTarget.
+            char buf4[400];
+            snprintf(buf4, sizeof(buf4),
+                "  TGT-REJ: seen=%d dead=%d team=%d valid=%d bone=%d fov=%d vis=%d smoke=%d  cfg(team=%d vis=%d smoke=%d fov=%.1f bone=%d hp=%d) bArrOff=0x%X",
+                Aimbot::diag_seen, Aimbot::diag_rDead, Aimbot::diag_rTeam, Aimbot::diag_rValid,
+                Aimbot::diag_rBone, Aimbot::diag_rFov, Aimbot::diag_rVis, Aimbot::diag_rSmoke,
+                Aimbot::cfg.teamCheck?1:0, Aimbot::cfg.visCheck?1:0, Aimbot::cfg.smokeCheck?1:0,
+                Aimbot::cfg.fov, Aimbot::cfg.targetBone, Aimbot::cfg.headPriority?1:0,
+                GameState::detectedBoneArrayOffset);
+            dl->AddText({10.f, 58.f}, IM_COL32(255,80,80,255), buf4);
+
+            // SilentAim hook stage counters — pinpoints where the hook bails.
+            // enter=hook called, punch=passed punch block, lag=passed fakelag,
+            // armed=hasTarget+entries valid, applied=actually wrote angles,
+            // bail=last bail reason (1=disabled,2=noArr,3=cnt<=0,4=!hasTgt,5=SEH).
+            char buf5[300];
+            snprintf(buf5, sizeof(buf5),
+                "  SLT-HK: enter=%lu punch=%lu lag=%lu armed=%lu applied=%lu bail=%lu  hasTgt=%d aimP=%.1f aimY=%.1f",
+                (unsigned long)Aimbot::diag_silentEnter,
+                (unsigned long)Aimbot::diag_silentPunch,
+                (unsigned long)Aimbot::diag_silentLag,
+                (unsigned long)Aimbot::diag_silentArmed,
+                (unsigned long)Aimbot::diag_silentApplied,
+                (unsigned long)Aimbot::diag_silentBailReason,
+                Aimbot::SilentAim::hasTarget ? 1 : 0,
+                Aimbot::SilentAim::aimPitch,
+                Aimbot::SilentAim::aimYaw);
+            dl->AddText({10.f, 74.f}, IM_COL32(120,200,255,255), buf5);
+
+            // WriteSubtick hook (per-subtick cmd writer @ sub_180C54450)
+            // wsIns: 1=hooked, -1=no sig, -2=CreateHook fail, -3=EnableHook fail
+            // wsCalls = total invocations (any), wsRedir = ticks where angles actually rewritten
+            char buf6[300];
+            snprintf(buf6, sizeof(buf6),
+                "  WS-HK: ins=%d/err=%d addr=%p calls=%lu redir=%lu",
+                Aimbot::diag_wsInstall, Aimbot::diag_wsSubErr,
+                (void*)Aimbot::diag_wsAddr,
+                (unsigned long)Aimbot::diag_wsCalls,
+                (unsigned long)Aimbot::diag_wsRedirected);
+            dl->AddText({10.f, 90.f}, IM_COL32(180,255,160,255), buf6);
         };
 
         if (!localPawn || !localCtrl || !entList) { drawDbg(); return; }
@@ -653,12 +725,11 @@ namespace ESP
 
         for (int i = 1; i <= 64; ++i)
         {
-            uintptr_t chunkPtr = Mem::Read<uintptr_t>(entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
-            if (!chunkPtr) continue;
+            uintptr_t ctrl = GameState::GetEntityByIndex(i);
+            if (!ctrl) continue;
             ++dbg_chunks;
-            uintptr_t ctrl = Mem::Read<uintptr_t>(chunkPtr + 0x70 * (i & 0x1FF));
-            if (!ctrl || ctrl == localCtrl) continue;
             ++dbg_ctrls;
+            if (ctrl == localCtrl) continue;
 
             bool alive = Mem::Read<bool>(ctrl + Offsets::m_bPawnIsAlive);
 
@@ -844,10 +915,7 @@ namespace ESP
         {
             for (int i = 65; i < 2048; ++i)
             {
-                uintptr_t chunkPtr = Mem::Read<uintptr_t>(entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
-                if (!chunkPtr) continue;
-                
-                uintptr_t entity = Mem::Read<uintptr_t>(chunkPtr + 0x70 * (i & 0x1FF));
+                uintptr_t entity = GameState::GetEntityByIndex(i);
                 if (!entity) continue;
 
                 // Get entity class name using GameState helper

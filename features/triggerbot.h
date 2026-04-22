@@ -116,11 +116,7 @@ namespace Triggerbot
         }
 
         // Resolve entity
-        uintptr_t entList = GameState::GetEntityList();
-        if (!entList) return;
-        uintptr_t chunk = Mem::Read<uintptr_t>(entList + 0x8 * (entIdx >> 9) + 0x10);
-        if (!chunk) return;
-        uintptr_t ctrl = Mem::Read<uintptr_t>(chunk + GameState::kEntityStride * (entIdx & 0x1FF));
+        uintptr_t ctrl = GameState::GetEntityByIndex(entIdx);
         if (!ctrl) return;
 
         uint32_t pH = Mem::Read<uint32_t>(ctrl + Offsets::m_hPlayerPawn);

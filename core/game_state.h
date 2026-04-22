@@ -107,16 +107,15 @@ namespace GameState
         if (auto p = Mem::FindPattern(L"client.dll", "48 8B 15 ? ? ? ? 41 FF C0 48 8D 4C 24"))
             resolved_dwPlantedC4 = detail::RipRel32(p, 3, 7);
 
-        // dwCSGOInput:  48 89 05 ?? ?? ?? ?? 0F 57 C0 0F 11 05 ?? ?? ?? ??
-        // The second 7-byte RIP-rel (0F 11 05 …) points to dwViewAngles.
-        if (auto p = Mem::FindPattern(L"client.dll",
-            "48 89 05 ? ? ? ? 0F 57 C0 0F 11 05 ? ? ? ?"))
-        {
-            resolved_dwCSGOInput  = detail::RipRel32(p,      3, 7);
-            // The 0F 11 05 lives at +10; its disp32 starts at +13 and the
-            // instruction is 7 bytes long (so insLen=7 from the +10 anchor).
-            resolved_dwViewAngles = detail::RipRel32(p + 10, 3, 7);
-        }
+        // dwCSGOInput / dwViewAngles:
+        // The historical pattern `48 89 05 ? ? ? ? 0F 57 C0 0F 11 05 …`
+        // matched the CCSGOInput constructor, but in 14153+ that constructor
+        // zero-initializes an internal field that is NOT the live view-angles
+        // global. Using its address gave a write target the renderer never
+        // reads, breaking aim. Until a reliable pattern is verified for this
+        // build, prefer the dumper constants from sdk/offsets.hpp.
+        // (Leaving resolved_dwCSGOInput / resolved_dwViewAngles at 0 means
+        // RVA_dwViewAngles()/RVA_dwCSGOInput() fall back to the SDK values.)
     }
 
     inline bool Init()
@@ -130,7 +129,9 @@ namespace GameState
     // ---------------------------------------------------------------
     // Entity system primitives
     // ---------------------------------------------------------------
-    constexpr uintptr_t kEntityStride = 0x70; // sizeof(CEntityIdentity)
+    // Re-export the EntitySys stride so callers using the old name keep
+    // compiling. Prefer Offsets::EntitySys::kChunkEntryStride in new code.
+    constexpr uintptr_t kEntityStride = Offsets::EntitySys::kChunkEntryStride;
 
     inline uintptr_t GetLocalPawn()
     {
@@ -170,22 +171,34 @@ namespace GameState
     inline std::ptrdiff_t RVA_dwCSGOInput()
     { return resolved_dwCSGOInput ? resolved_dwCSGOInput : Offsets::Global::dwCSGOInput; }
 
+    // Look up an entity slot by integer index (1..N). Returns 0 if the
+    // slot is empty or the entity list isn't reachable. Centralizes the
+    // chunked entity-list lookup so feature code never re-derives it.
+    inline uintptr_t GetEntityByIndex(int idx)
+    {
+        if (idx < 0) return 0;
+        uintptr_t list = GetEntityList();
+        if (!list) return 0;
+        uint32_t  i = (uint32_t)idx & Offsets::EntitySys::kHandleIndexMask;
+        uintptr_t chunk = Mem::Read<uintptr_t>(
+            list + Offsets::EntitySys::kChunkArrayBase
+                 + Offsets::EntitySys::kChunkPtrStride * (i >> 9));
+        if (!chunk) return 0;
+        return Mem::Read<uintptr_t>(
+            chunk + Offsets::EntitySys::kChunkEntryStride * (i & Offsets::EntitySys::kSlotIndexMask));
+    }
+
     // Cache local player's controller entity index (1-64).
     // Call once per frame. Scans entity list for matching controller pointer.
     inline void UpdateLocalPlayerIndex()
     {
         uintptr_t localCtrl = GetLocalController();
         if (!localCtrl) { localPlayerIndex = -1; return; }
-        uintptr_t entList = GetEntityList();
-        if (!entList) { localPlayerIndex = -1; return; }
 
         for (int i = 1; i <= 64; ++i)
         {
             __try {
-                uintptr_t chunk = Mem::Read<uintptr_t>(entList + 0x8 * (i >> 9) + 0x10);
-                if (!chunk) continue;
-                uintptr_t ctrl = Mem::Read<uintptr_t>(chunk + kEntityStride * (i & 0x1FF));
-                if (ctrl == localCtrl) { localPlayerIndex = i; return; }
+                if (GetEntityByIndex(i) == localCtrl) { localPlayerIndex = i; return; }
             } __except (EXCEPTION_EXECUTE_HANDLER) { continue; }
         }
         localPlayerIndex = -1;
@@ -206,32 +219,22 @@ namespace GameState
     }
 
     // Resolves a CHandle to an entity pointer via the global entity list.
-    // Entity list is a chunked array with 512 entries per chunk.
-    // Each entry is kEntityStride (0x70) bytes, entity pointer at offset 0x00.
+    // Entity list is a chunked array with 512 entries per chunk; each
+    // entry is kChunkEntryStride bytes, entity pointer at offset 0.
     inline uintptr_t ResolveHandle(uint32_t handle)
     {
         if (!handle || handle == 0xFFFFFFFF) return 0;
-        uintptr_t list = GetEntityList();
-        if (!list) return 0;
-
-        uint32_t idx = handle & 0x7FFF;
-
-        uintptr_t chunkBase = Mem::Read<uintptr_t>(list + 8 * (idx >> 9) + 0x10);
-        if (!chunkBase) return 0;
-
-        return Mem::Read<uintptr_t>(chunkBase + kEntityStride * (idx & 0x1FF));
+        return GetEntityByIndex((int)(handle & Offsets::EntitySys::kHandleIndexMask));
     }
 
     // Gets the designer name (e.g. "cs_player_controller") directly from
-    // the CEntityIdentity's m_designerName field (CUtlSymbolLarge at +0x20).
+    // the CEntityIdentity's m_designerName field.
     inline std::string GetDesignerName(uintptr_t ent)
     {
         if (!ent) return "";
-        // CEntityInstance.m_pEntity = 0x10 → CEntityIdentity*
-        uintptr_t identity = Mem::Read<uintptr_t>(ent + 0x10);
+        uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
         if (!identity) return "";
-        // CEntityIdentity.m_designerName = 0x20 → CUtlSymbolLarge (pointer to string)
-        uintptr_t namePtr = Mem::Read<uintptr_t>(identity + 0x20);
+        uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
         if (!namePtr) return "";
         struct Buf { char d[64]; };
         Buf b = Mem::Read<Buf>(namePtr);
@@ -243,7 +246,7 @@ namespace GameState
     inline std::string GetDesignerNameFromIdentity(uintptr_t identAddr)
     {
         if (!identAddr) return "";
-        uintptr_t namePtr = Mem::Read<uintptr_t>(identAddr + 0x20);
+        uintptr_t namePtr = Mem::Read<uintptr_t>(identAddr + Offsets::EntitySys::kIdentityDesignerName);
         if (!namePtr) return "";
         struct Buf { char d[64]; };
         Buf b = Mem::Read<Buf>(namePtr);
@@ -286,6 +289,10 @@ namespace GameState
         return Mem::Read<Math::Vec3>(node + Offsets::m_vecAbsOrigin);
     }
 
+    // Detected bone-array offset inside CModelState (set lazily by GetBonePos).
+    // Exposed for diagnostic overlays so we can verify auto-detect succeeded.
+    inline int detectedBoneArrayOffset = 0;
+
     inline Math::Vec3 GetBonePos(uintptr_t pawn, int bone)
     {
         if (bone < 0 || bone > 128) return {}; // sanity clamp
@@ -294,7 +301,7 @@ namespace GameState
 
         // Bone-array offset inside CModelState shifts between CS2 builds.
         // Auto-detect once by probing a short list of candidates and picking
-        // the one whose bone[6] (head) sits within ~120 units of the entity
+        // the one whose bone[0] (root) sits within ~80 units of the entity
         // origin. Sticky after first hit.
         static int s_boneArrayOffset = 0;
         struct BoneData { float px, py, pz, pad, qx, qy, qz, qw; };
@@ -303,26 +310,63 @@ namespace GameState
         {
             Math::Vec3 origin = Mem::Read<Math::Vec3>(node + Offsets::m_vecAbsOrigin);
             if (origin.IsZero()) return {};
+            // Build 14152+ uses 0x1D0 (verified UC intel Apr 2026).
+            // Probe in order of likelihood — newest first — so we settle on
+            // the live offset on the first pass instead of a coincidental match.
             static const int kCandidates[] = {
-                0x80, 0x28, 0x40, 0x60, 0xA0, 0xC0, 0xE0, 0x100, 0x140, 0x180, 0x1C0
+                0x1D0, 0x80, 0x28, 0x40, 0x60, 0xA0, 0xC0, 0xE0,
+                0x100, 0x140, 0x180, 0x1C0, 0x1E0, 0x200, 0x220
             };
+            // Pick the BEST candidate (smallest distance to origin) instead
+            // of the first that passes a loose 80u test. Old logic locked
+            // onto 0x80 in build 14152+ because some unrelated float trio
+            // there happened to land within 80u of origin, even though the
+            // actual bone array lives at 0x1D0. Demand <= 30u and pick the
+            // tightest match across the whole candidate list.
+            //
+            // ADDITIONAL VALIDATOR: bone data also contains a quaternion at
+            // +0x10 (qx,qy,qz,qw). Random memory won't have unit-length
+            // quaternions; real bones do. Probe bones[0] AND bones[1] AND
+            // require both pass position + quaternion sanity.
+            auto probeOk = [](const BoneData& b, const Math::Vec3& org, float maxDistSq) -> bool {
+                if (isnan(b.px) || isinf(b.px)) return false;
+                if (isnan(b.py) || isinf(b.py)) return false;
+                if (isnan(b.pz) || isinf(b.pz)) return false;
+                if (isnan(b.qx) || isinf(b.qx)) return false;
+                if (isnan(b.qw) || isinf(b.qw)) return false;
+                float dx = b.px - org.x, dy = b.py - org.y, dz = b.pz - org.z;
+                if (dx*dx + dy*dy + dz*dz > maxDistSq) return false;
+                // Unit quaternion check: |q|² should be ~1.0
+                float qlen = b.qx*b.qx + b.qy*b.qy + b.qz*b.qz + b.qw*b.qw;
+                if (qlen < 0.85f || qlen > 1.15f) return false;
+                return true;
+            };
+            int   bestCand   = 0;
+            float bestDistSq = 900.f; // 30u squared
             for (int cand : kCandidates)
             {
                 uintptr_t arrTry = Mem::Read<uintptr_t>(
                     node + Offsets::m_modelState + cand);
                 if (!arrTry || arrTry < 0x10000) continue;
-                BoneData probe = Mem::Read<BoneData>(arrTry + 6 * sizeof(BoneData));
-                if (isnan(probe.px) || isinf(probe.px)) continue;
-                float dx = probe.px - origin.x;
-                float dy = probe.py - origin.y;
-                float dz = probe.pz - origin.z;
+                BoneData b0 = Mem::Read<BoneData>(arrTry);
+                BoneData b1 = Mem::Read<BoneData>(arrTry + sizeof(BoneData));
+                // bone[0] within 30u of origin, bone[1] within 80u (pelvis ~ origin, next bone close)
+                if (!probeOk(b0, origin, 900.f))   continue;
+                if (!probeOk(b1, origin, 6400.f)) continue;
+                float dx = b0.px - origin.x;
+                float dy = b0.py - origin.y;
+                float dz = b0.pz - origin.z;
                 float d2 = dx*dx + dy*dy + dz*dz;
-                // head should be within ~120 units of entity origin
-                if (d2 > 1.f && d2 < 14400.f)
+                if (d2 < bestDistSq)
                 {
-                    s_boneArrayOffset = cand;
-                    break;
+                    bestDistSq = d2;
+                    bestCand   = cand;
                 }
+            }
+            if (bestCand)
+            {
+                s_boneArrayOffset = bestCand;
+                detectedBoneArrayOffset = bestCand;
             }
             if (!s_boneArrayOffset) return {};
         }

@@ -125,17 +125,15 @@ namespace WorldEffects
             for (int i = 64; i < 1024; ++i) // skip player slots
             {
                 __try {
-                    uintptr_t chunk = Mem::Read<uintptr_t>(entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
-                    if (!chunk) continue;
-                    uintptr_t ent = Mem::Read<uintptr_t>(chunk + 0x70 * (i & 0x1FF));
+                    uintptr_t ent = GameState::GetEntityByIndex(i);
                     if (!ent) continue;
 
-                    // Read CEntityIdentity (ent + 0x10)
-                    uintptr_t identity = Mem::Read<uintptr_t>(ent + 0x10);
+                    // Read CEntityIdentity
+                    uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
                     if (!identity) continue;
 
                     // Read designer name pointer (CUtlSymbolLarge = const char*)
-                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + 0x20);
+                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
                     if (!namePtr) continue;
 
                     // Read first 16 bytes of name — enough to check "smokegrenade_pro"
@@ -187,16 +185,14 @@ namespace WorldEffects
 
             for (int i = 0; i < 2048; ++i)
             {
-                uintptr_t chunk = Mem::Read<uintptr_t>(entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
-                if (!chunk) continue;
-                uintptr_t ent = Mem::Read<uintptr_t>(chunk + 0x70 * (i & 0x1FF));
+                uintptr_t ent = GameState::GetEntityByIndex(i);
                 if (!ent) continue;
 
                 __try {
                     // Identify inferno by designer name (cheap pointer checks first)
-                    uintptr_t identity = Mem::Read<uintptr_t>(ent + 0x10);
+                    uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
                     if (!identity) continue;
-                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + 0x20);
+                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
                     if (!namePtr) continue;
                     char name[32]{};
                     for (int c = 0; c < 31; ++c)
@@ -323,15 +319,13 @@ namespace WorldEffects
 
             for (int i = 0; i < 8192; ++i)
             {
-                uintptr_t chunk = Mem::Read<uintptr_t>(entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
-                if (!chunk) continue;
-                uintptr_t ent = Mem::Read<uintptr_t>(chunk + 0x70 * (i & 0x1FF));
+                uintptr_t ent = GameState::GetEntityByIndex(i);
                 if (!ent) continue;
 
                 __try {
-                    uintptr_t identity = Mem::Read<uintptr_t>(ent + 0x10);
+                    uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
                     if (!identity) continue;
-                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + 0x20);
+                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
                     if (!namePtr) continue;
                     struct NB { char d[64]; };
                     NB nb = Mem::Read<NB>(namePtr);
@@ -389,15 +383,13 @@ namespace WorldEffects
 
             for (int i = 0; i < 8192; ++i)
             {
-                uintptr_t chunk = Mem::Read<uintptr_t>(entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
-                if (!chunk) continue;
-                uintptr_t ent = Mem::Read<uintptr_t>(chunk + 0x70 * (i & 0x1FF));
+                uintptr_t ent = GameState::GetEntityByIndex(i);
                 if (!ent) continue;
 
                 __try {
-                    uintptr_t identity = Mem::Read<uintptr_t>(ent + 0x10);
+                    uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
                     if (!identity) continue;
-                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + 0x20);
+                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
                     if (!namePtr) continue;
                     struct NB { char d[64]; };
                     NB nb = Mem::Read<NB>(namePtr);
@@ -470,15 +462,13 @@ namespace WorldEffects
 
             for (int i = 0; i < 2048; ++i)
             {
-                uintptr_t chunk = Mem::Read<uintptr_t>(entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
-                if (!chunk) continue;
-                uintptr_t ent = Mem::Read<uintptr_t>(chunk + 0x70 * (i & 0x1FF));
+                uintptr_t ent = GameState::GetEntityByIndex(i);
                 if (!ent) continue;
 
                 __try {
-                    uintptr_t identity = Mem::Read<uintptr_t>(ent + 0x10);
+                    uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
                     if (!identity) continue;
-                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + 0x20);
+                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
                     if (!namePtr) continue;
                     struct NB { char d[64]; };
                     NB nb = Mem::Read<NB>(namePtr);
@@ -507,13 +497,12 @@ namespace WorldEffects
     inline void RunFOV()
     {
         if (!cfg.fovEnabled || !GameState::clientBase) return;
-        // We always write to m_iFOV / m_iDesiredFOV every tick, even when the
-        // GetWorldFov hook is active — the renderer caches FOV from the camera
-        // services struct at the START of each frame (before our hook fires),
-        // so without these writes the value briefly reverts to default and
-        // produces a visible flicker / "reverting to default" feel.
+        // Per a2x dumper (14152): m_iDesiredFOV is on CBasePlayerController at 0x784.
+        // Writing both camera-services FOV and the controller's desired-FOV every
+        // tick prevents the game's per-frame reset from clobbering our value.
         __try {
             uintptr_t lp = GameState::GetLocalPawn();
+            uintptr_t lc = GameState::GetLocalController();
             if (!lp) return;
             bool scoped = Mem::Read<bool>(lp + Offsets::m_bIsScoped);
             if (scoped) return; // don't override while scoped
@@ -524,10 +513,12 @@ namespace WorldEffects
                 Mem::SmartWrite<uint32_t>(camSvc + Offsets::m_iFOV,      desired);
                 Mem::SmartWrite<uint32_t>(camSvc + Offsets::m_iFOVStart, desired);
             }
-            // Pawn-level desired-FOV (the value the game's camera-update
-            // path reads back into m_iFOV every tick). Without writing this
-            // the camera services value gets clobbered immediately.
-            Mem::SmartWrite<uint32_t>(lp + Offsets::m_iDesiredFOV, desired);
+            // Controller-level desired-FOV (the canonical source the renderer
+            // reads from at the start of each frame). This is the field that
+            // gets reset back to default when missing.
+            if (lc) {
+                Mem::SmartWrite<uint32_t>(lc + Offsets::m_iDesiredFOV_OnController, desired);
+            }
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
     }
 
@@ -552,15 +543,13 @@ namespace WorldEffects
 
             for (int i = 0; i < 1024; ++i)
             {
-                uintptr_t chunk = Mem::Read<uintptr_t>(entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
-                if (!chunk) continue;
-                uintptr_t ent = Mem::Read<uintptr_t>(chunk + 0x70 * (i & 0x1FF));
+                uintptr_t ent = GameState::GetEntityByIndex(i);
                 if (!ent) continue;
 
                 __try {
-                    uintptr_t identity = Mem::Read<uintptr_t>(ent + 0x10);
+                    uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
                     if (!identity) continue;
-                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + 0x20);
+                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
                     if (!namePtr) continue;
                     struct NB { char d[64]; };
                     NB nb = Mem::Read<NB>(namePtr);

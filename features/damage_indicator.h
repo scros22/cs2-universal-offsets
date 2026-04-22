@@ -130,9 +130,7 @@ namespace DamageIndicator
 
                 for (int i = 1; i <= 64; ++i)
                 {
-                    uintptr_t chunk = Mem::Read<uintptr_t>(entList + 0x8 * (i >> 9) + 0x10);
-                    if (!chunk) continue;
-                    uintptr_t ctrl = Mem::Read<uintptr_t>(chunk + GameState::kEntityStride * (i & 0x1FF));
+                    uintptr_t ctrl = GameState::GetEntityByIndex(i);
                     if (!ctrl) continue;
                     uint32_t pH = Mem::Read<uint32_t>(ctrl + Offsets::m_hPlayerPawn);
                     if (!pH || pH == 0xFFFFFFFF) continue;
@@ -187,9 +185,7 @@ namespace DamageIndicator
 
             for (int i = 1; i <= 64; ++i)
             {
-                uintptr_t chunk = Mem::Read<uintptr_t>(entList + 0x8 * (i >> 9) + 0x10);
-                if (!chunk) { tracked[i] = {}; continue; }
-                uintptr_t ctrl = Mem::Read<uintptr_t>(chunk + GameState::kEntityStride * (i & 0x1FF));
+                uintptr_t ctrl = GameState::GetEntityByIndex(i);
                 if (!ctrl) { tracked[i] = {}; continue; }
 
                 uint32_t pH = Mem::Read<uint32_t>(ctrl + Offsets::m_hPlayerPawn);

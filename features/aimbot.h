@@ -64,12 +64,12 @@ namespace Aimbot
         bool  headPriority    = true;        // try head first, fallback to configured
         bool  noRecoil        = true;        // compensate weapon recoil
         bool  teamCheck       = true;
-        bool  visCheck        = true;        // visibility check (toggle — disable to lock through walls)
+        bool  visCheck        = false;       // 14152: trace plumbing unreliable — default off
         bool  velPredict      = true;        // lead moving targets
         float velPredictScale = 1.0f;        // prediction multiplier
         bool  multiBone       = true;        // scan multiple bones for best hit
         float humanization    = 0.28f;       // 0â€“1 hand tremor intensity
-        bool  smokeCheck      = true;        // never aim through smoke
+        bool  smokeCheck      = false;       // 14152: smoke detection unreliable — default off
         bool  showFovCircle   = true;
         float fovCircleColor[4] = { 1.f, 1.f, 1.f, 0.14f };
         bool  jumpShot        = true;
@@ -252,9 +252,7 @@ namespace Aimbot
             for (int i = 1; i <= 64; ++i)
             {
                 __try {
-                    uintptr_t chunk = Mem::Read<uintptr_t>(entList + 0x8 * (i >> 9) + 0x10);
-                    if (!chunk) continue;
-                    uintptr_t ctrl = Mem::Read<uintptr_t>(chunk + GameState::kEntityStride * (i & 0x1FF));
+                    uintptr_t ctrl = GameState::GetEntityByIndex(i);
                     if (!ctrl) continue;
                     uint32_t pH = Mem::Read<uint32_t>(ctrl + Offsets::m_hPlayerPawn);
                     if (!pH || pH == 0xFFFFFFFF) continue;
@@ -314,9 +312,7 @@ namespace Aimbot
         for (int i = 64; i < 1024; ++i)
         {
             __try {
-                uintptr_t chunk = Mem::Read<uintptr_t>(entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
-                if (!chunk) continue;
-                uintptr_t ent = Mem::Read<uintptr_t>(chunk + 0x70 * (i & 0x1FF));
+                uintptr_t ent = GameState::GetEntityByIndex(i);
                 if (!ent) continue;
 
                 bool didSmoke = Mem::Read<bool>(ent + Offsets::m_bDidSmokeEffect);
@@ -326,9 +322,9 @@ namespace Aimbot
                 if (tickBegin <= 0) continue;
 
                 // Verify this is actually a smoke grenade entity
-                uintptr_t identity = Mem::Read<uintptr_t>(ent + 0x10);
+                uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
                 if (!identity) continue;
-                uintptr_t namePtr = Mem::Read<uintptr_t>(identity + 0x20);
+                uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
                 if (!namePtr) continue;
                 char nameBuf[32] = {};
                 for (int c = 0; c < 31; ++c) {
@@ -591,6 +587,59 @@ namespace Aimbot
     // SendInput fallback: if SpoofCall crashes, switch to direct permanently
     inline bool  useDirectSendInput   = false;
 
+    // Toggle detection: cleanly reset transient state when silent-aim flag flips,
+    // so a stuck mid-engagement state machine doesn't survive into the new mode.
+    // Also tracks the last successfully-acquired target angles, so the bullet
+    // redirector can keep using them through brief target-loss windows
+    // (smoke/glitch flickers) instead of dropping shots.
+    inline bool  prevSilentAim         = true;
+    inline bool  haveLastValidAim      = false;
+    inline float lastValidAimPitch     = 0.f;
+    inline float lastValidAimYaw       = 0.f;
+    inline DWORD lastValidAimTick      = 0;
+
+    // -- Live diagnostic counters (consumed by ESP overlay) --
+    inline DWORD diag_lastTick      = 0;   // GetTickCount of last Tick() entry
+    inline DWORD diag_lastKeyDown   = 0;   // last tick the aim key was held
+    inline DWORD diag_lastTarget    = 0;   // last tick a target was returned
+    inline DWORD diag_lastSent      = 0;   // last tick we issued a non-zero mouse delta
+    inline long  diag_lastDx        = 0;
+    inline long  diag_lastDy        = 0;
+    inline int   diag_targetEnt     = 0;   // entity index of last locked target
+    inline int   diag_lastBail      = 0;   // 0=ok,1=noLP,2=noClient,3=NaN,4=eyeZero,5=key,6=fov,7=skipTick,8=noTgt,9=blind,10=crashBackoff,11=govSkip
+    inline int   diag_lastCrash     = 0;   // total SEH crashes in Tick()
+    inline DWORD diag_lastCrashTime = 0;
+    inline DWORD diag_lastReached   = 0;   // last tick we hit tickDone label
+    inline float diag_lastFov       = 0.f;
+    // SilentAim install diagnostics (so we know why cm=0)
+    // 0=not run, 1=ok, -1=no pattern match, -2=MH_CreateHook failed, -3=MH_EnableHook failed
+    inline int   diag_installResult = 0;
+    inline int   diag_installSubErr = 0;   // MH_STATUS code on failure
+    inline uintptr_t diag_installAddr = 0; // address pattern resolved to
+    // SilentAim runtime diagnostics — incremented inside hkCreateMove
+    inline DWORD diag_silentEnter   = 0;   // hook called (per tick)
+    inline DWORD diag_silentPunch   = 0;   // passed punch services block
+    inline DWORD diag_silentLag     = 0;   // passed fake-lag block
+    inline DWORD diag_silentArmed   = 0;   // hasTarget && safeCount>0 → about to write
+    inline DWORD diag_silentApplied = 0;   // ticks where angles were actually overwritten
+    inline DWORD diag_silentBailReason = 0;// 1=disabled,2=no entryArray,3=safeCount<=0,4=!hasTarget,5=SEH
+    // WriteSubtick (per-subtick cmd writer) hook diagnostics.
+    // wsInstall: 0=not run, 1=ok, -1=no pattern, -2=CreateHook fail, -3=EnableHook fail
+    inline int       diag_wsInstall    = 0;
+    inline int       diag_wsSubErr     = 0;
+    inline uintptr_t diag_wsAddr       = 0;
+    inline DWORD     diag_wsCalls      = 0;   // EVERY call (even passthrough)
+    inline DWORD     diag_wsRedirected = 0;   // calls where we actually rewrote angles
+    // FindBestTarget reject counters (reset each call)
+    inline int   diag_seen          = 0;
+    inline int   diag_rDead         = 0;
+    inline int   diag_rTeam         = 0;
+    inline int   diag_rBone         = 0;
+    inline int   diag_rFov          = 0;
+    inline int   diag_rVis          = 0;
+    inline int   diag_rSmoke        = 0;
+    inline int   diag_rValid        = 0;
+
     // Session-level engagement variance (slowly drifts)
     inline float sessionSpeedBias  = 1.0f;  // [0.85â€“1.15] varies over engagements
             inline int   engagementCount   = 0;
@@ -771,7 +820,7 @@ namespace Aimbot
     {
         uintptr_t node = Mem::Read<uintptr_t>(pawn + Offsets::m_pGameSceneNode);
         if (!node) return true;
-        bool liveDormant = Mem::Read<bool>(node + 0x10B);
+        bool liveDormant = Mem::Read<bool>(node + Offsets::SceneNode::kDormant);
 
         if (!liveDormant) return false;
 
@@ -798,7 +847,7 @@ namespace Aimbot
     {
         uintptr_t sceneNode = Mem::Read<uintptr_t>(pawn + Offsets::m_pGameSceneNode);
         if (!sceneNode) return false;
-        bool liveDormant = Mem::Read<bool>(sceneNode + 0x10B);
+        bool liveDormant = Mem::Read<bool>(sceneNode + Offsets::SceneNode::kDormant);
 
         if (!liveDormant)
         {
@@ -837,7 +886,7 @@ namespace Aimbot
         else
         {
             uintptr_t node = Mem::Read<uintptr_t>(pawn + Offsets::m_pGameSceneNode);
-            if (node && Mem::Read<bool>(node + 0x10B))
+            if (node && Mem::Read<bool>(node + Offsets::SceneNode::kDormant))
                 return false; // Dormant
         }
 
@@ -1052,13 +1101,22 @@ namespace Aimbot
     // ---------------------------------------------------------------
     inline Math::QAngle GetAimPunch(uintptr_t pawn)
     {
-        Math::Vec3 punch = Mem::Read<Math::Vec3>(pawn + Offsets::m_aimPunchAngle);
-        if (isnan(punch.x) || isnan(punch.y) || isinf(punch.x) || isinf(punch.y))
+        // 14153 schema: punch QAngle now lives inside CCSPlayer_AimPunchServices
+        // pointed to by m_pAimPunchServices. Reading from the old direct offset
+        // returns garbage and poisons aimAngle (silent aimbot killer).
+        __try {
+            uintptr_t svc = Mem::Read<uintptr_t>(pawn + Offsets::m_pAimPunchServices);
+            if (!svc) return { 0.f, 0.f, 0.f };
+            Math::Vec3 punch = Mem::Read<Math::Vec3>(svc + Offsets::m_predictableBaseAngle_inAimPunch);
+            if (isnan(punch.x) || isnan(punch.y) || isinf(punch.x) || isinf(punch.y))
+                return { 0.f, 0.f, 0.f };
+            if (fabsf(punch.x) > 89.f || fabsf(punch.y) > 180.f)
+                return { 0.f, 0.f, 0.f };
+            float compScale = 2.0f + RandRange(-0.20f, 0.20f);
+            return { punch.x * compScale, punch.y * compScale, 0.f };
+        } __except (EXCEPTION_EXECUTE_HANDLER) {
             return { 0.f, 0.f, 0.f };
-        if (fabsf(punch.x) > 89.f || fabsf(punch.y) > 180.f)
-            return { 0.f, 0.f, 0.f };
-        float compScale = 2.0f + RandRange(-0.20f, 0.20f);
-        return { punch.x * compScale, punch.y * compScale, 0.f };
+        }
     }
 
     // ---------------------------------------------------------------
@@ -1068,6 +1126,7 @@ namespace Aimbot
     inline Target FindBestTarget(const Math::Vec3& eye, const Math::QAngle& view, float gameTime)
     {
         Target best;
+        diag_seen = diag_rDead = diag_rTeam = diag_rBone = diag_rFov = diag_rVis = diag_rSmoke = diag_rValid = 0;
         uintptr_t localCtrl = GameState::GetLocalController();
         if (!localCtrl) return best;
         uint32_t localH = Mem::Read<uint32_t>(localCtrl + Offsets::m_hPlayerPawn);
@@ -1080,25 +1139,29 @@ namespace Aimbot
 
         for (int i = 1; i <= 64; ++i)
         {
-            uintptr_t chunk = Mem::Read<uintptr_t>(entList + 0x8 * (i >> 9) + 0x10);
-            if (!chunk) continue;
-            uintptr_t ctrl = Mem::Read<uintptr_t>(chunk + GameState::kEntityStride * (i & 0x1FF));
-            if (!ctrl) continue;
+            // Mirror ESP iteration exactly (alive-on-controller).
+            uintptr_t ctrl = GameState::GetEntityByIndex(i);
+            if (!ctrl || ctrl == localCtrl) continue;
+
+            // Cheap alive check on the controller — same as ESP.
+            bool alive = Mem::Read<bool>(ctrl + Offsets::m_bPawnIsAlive);
+            if (!alive) { ++diag_rDead; continue; }
+
             uint32_t pH = Mem::Read<uint32_t>(ctrl + Offsets::m_hPlayerPawn);
             if (!pH || pH == 0xFFFFFFFF) continue;
             uintptr_t pawn = GameState::ResolveHandle(pH);
             if (!pawn || pawn == localPawn) continue;
+            ++diag_seen;
             int hp = Mem::Read<int32_t>(pawn + Offsets::m_iHealth);
-            uint8_t life = Mem::Read<uint8_t>(pawn + Offsets::m_lifeState);
-            if (hp <= 0 || life != 0) continue;
+            if (hp <= 0) { ++diag_rDead; continue; }
 
-            if (!IsEntityValid(pawn, i)) continue;
-            if (!IsEntityFresh(pawn, gameTime)) continue;
+            if (!IsEntityValid(pawn, i)) { ++diag_rValid; continue; }
+            if (!IsEntityFresh(pawn, gameTime)) { ++diag_rValid; continue; }
 
             if (cfg.teamCheck)
             {
                 int team = Mem::Read<uint8_t>(pawn + Offsets::m_iTeamNum);
-                if (team == localTeam) continue;
+                if (team == localTeam) { ++diag_rTeam; continue; }
             }
 
             // Head priority: always try head first
@@ -1107,22 +1170,33 @@ namespace Aimbot
 
             int selectedBone = primaryBone;
             Math::Vec3 bone = GetBestBonePos(pawn, primaryBone, eye, view, selectedBone);
-            if (bone.IsZero()) continue;
+            // Bone fallback: head/neck → chest → pelvis → origin so we never
+            // discard a live, visible enemy just because one bone returned zero.
+            if (bone.IsZero()) {
+                static const int kFallback[] = {6, 4, 2, 1, 0};
+                for (int fb : kFallback) {
+                    if (fb == primaryBone) continue;
+                    selectedBone = fb;
+                    bone = GetBestBonePos(pawn, fb, eye, view, selectedBone);
+                    if (!bone.IsZero()) break;
+                }
+            }
+            if (bone.IsZero()) { ++diag_rBone; continue; }
 
             Math::QAngle ang = Math::CalcAngle(eye, bone);
             float fovVal = Math::AngleFov(view, ang);
-            if (fovVal > EffectiveFov()) continue;
+            if (fovVal > EffectiveFov()) { ++diag_rFov; continue; }
 
             // Visibility check
             if (cfg.visCheck)
             {
                 bool isVis = IsVisible(pawn, localPawn, i);
-                if (!isVis) continue;
+                if (!isVis) { ++diag_rVis; continue; }
             }
 
             // Smoke check â€” VACnet flags smoke kills hard
             if (cfg.smokeCheck && IsLineThroughSmoke(eye, bone))
-                continue;
+            { ++diag_rSmoke; continue; }
 
             // Score: FOV distance + slight distance bias
             Math::Vec3 delta = bone - eye;
@@ -1268,6 +1342,11 @@ namespace Aimbot
         mouseAccumX -= (float)dx;
         mouseAccumY -= (float)dy;
         SendMouseDelta(dx, dy);
+        if (dx != 0 || dy != 0) {
+            diag_lastSent = GetTickCount();
+            diag_lastDx = dx;
+            diag_lastDy = dy;
+        }
     }
 
     // ---------------------------------------------------------------
@@ -1292,24 +1371,83 @@ namespace Aimbot
     // ---------------------------------------------------------------
     namespace SilentAim
     {
-        // Frame history layout within CCSGOInput object
+        // Frame history layout within CCSGOInput object — VERIFIED 14153 via IDA
+        // (CCSGOInput::CreateMove @ client.dll!0x180c5c8e0, ReadFrameInput @ 0x180C600D0)
         constexpr int FRAME_HISTORY_COUNT = 0xBC8;  // int: entry count
         constexpr int FRAME_HISTORY_ARRAY = 0xBD0;  // uintptr_t: pointer to entries
-        constexpr int FRAME_ENTRY_SIZE    = 96;      // 0x60 bytes per entry
-        constexpr int PITCH_IN_ENTRY      = 0x10;    // float: pitch within entry
-        constexpr int YAW_IN_ENTRY        = 0x14;    // float: yaw within entry
+        constexpr int FRAME_ENTRY_SIZE    = 96;     // 0x60 bytes per entry
+        // Each entry holds TWO QAngles. ReadFrameInput populates both unconditionally;
+        // CreateMove copies VIEW to cmd+24 sub-msg unconditionally and SHOOT to cmd+64
+        // sub-msg gated by a ConVar. The server uses SHOOT angles for hit verification —
+        // writing only VIEW (as previous builds did) leaves bullets going to the original
+        // direction, so silent aim must redirect BOTH blocks.
+        constexpr int VIEW_PITCH_IN_ENTRY  = 0x10;  // float: view-angles pitch
+        constexpr int VIEW_YAW_IN_ENTRY    = 0x14;  // float: view-angles yaw
+        constexpr int VIEW_ROLL_IN_ENTRY   = 0x18;  // float: view-angles roll
+        constexpr int SHOOT_PITCH_IN_ENTRY = 0x1C;  // float: shoot-angles pitch
+        constexpr int SHOOT_YAW_IN_ENTRY   = 0x20;  // float: shoot-angles yaw
+        constexpr int SHOOT_ROLL_IN_ENTRY  = 0x24;  // float: shoot-angles roll
 
         using CreateMoveFn = double(__fastcall*)(__int64, unsigned int, __int64);
         inline CreateMoveFn oCreateMove = nullptr;
         inline void*        pCreateMoveHook = nullptr;  // for cleanup
+
+        // sub_180C54450 — CCSGOInput::WriteSubtickFromEntry (build 14153).
+        // Called per-subtick by CCSGOInput::CreateMove with (entry*, msgPtr, ...)
+        // and copies entry+0x10..0x18 (view angles) into msg field 6/7/8 of the
+        // outgoing CUserCmd subtick. Hooking THIS lets us redirect every
+        // subtick after ReadFrameInput has appended the live-angle entry.
+        using WriteSubtickFn = __int64(__fastcall*)(uintptr_t, __int64, char, double, int, __int64);
+        inline WriteSubtickFn oWriteSubtick = nullptr;
+        inline void*          pWriteSubtickHook = nullptr;
 
         // Shared state: Tick() writes the desired aim angle, CreateMove reads it
         inline volatile bool   hasTarget    = false;
         inline volatile float  aimPitch     = 0.f;
         inline volatile float  aimYaw       = 0.f;
 
+        inline __int64 __fastcall hkWriteSubtick(uintptr_t entry, __int64 msg, char a3,
+                                                 double a4, int a5, __int64 a6)
+        {
+            diag_wsCalls++;
+            // Aim active in either silent OR visible mode → redirect bullet path.
+            // (We always redirect when we have a target so normal-aim shots land too.)
+            if (!hasTarget || !cfg.enabled)
+                return oWriteSubtick(entry, msg, a3, a4, a5, a6);
+
+            __try {
+                float fakePitch = aimPitch;
+                float fakeYaw   = aimYaw;
+                if (fakePitch >  89.f) fakePitch =  89.f;
+                if (fakePitch < -89.f) fakePitch = -89.f;
+                while (fakeYaw >  180.f) fakeYaw -= 360.f;
+                while (fakeYaw < -180.f) fakeYaw += 360.f;
+
+                // entry layout (verified via IDA decompile of sub_180C54450):
+                //   entry+0x10/0x14/0x18 = view-angle proto fields 6/7/8
+                //   entry+0x1C/0x20/0x24 = shoot-angle proto fields
+                float* fe = reinterpret_cast<float*>(entry);
+                float saved[6] = { fe[4], fe[5], fe[6], fe[7], fe[8], fe[9] };
+
+                fe[4] = fakePitch; fe[5] = fakeYaw; fe[6] = 0.f;
+                fe[7] = fakePitch; fe[8] = fakeYaw; fe[9] = 0.f;
+
+                __int64 result = oWriteSubtick(entry, msg, a3, a4, a5, a6);
+                diag_wsRedirected++;
+                diag_silentApplied++;
+
+                fe[4] = saved[0]; fe[5] = saved[1]; fe[6] = saved[2];
+                fe[7] = saved[3]; fe[8] = saved[4]; fe[9] = saved[5];
+                return result;
+            }
+            __except (EXCEPTION_EXECUTE_HANDLER) {
+                return oWriteSubtick(entry, msg, a3, a4, a5, a6);
+            }
+        }
+
         inline double __fastcall hkCreateMove(__int64 a1, unsigned int a2, __int64 a3)
         {
+            diag_silentEnter++;
             // Bhop: process button state via CCSGOInput (a1)
             __try {
                 Bhop::OnCreateMove(a1);
@@ -1321,78 +1459,70 @@ namespace Aimbot
                     uintptr_t lp = GameState::GetLocalPawn();
                     if (lp) {
                         Math::Vec3 zero = { 0.f, 0.f, 0.f };
-                        Mem::Write<Math::Vec3>(lp + Offsets::m_aimPunchAngle, zero);
-                        Mem::Write<Math::Vec3>(lp + Offsets::m_aimPunchAngle + 0xC, zero); // m_aimPunchAngleVel
+                        uintptr_t svc = Mem::Read<uintptr_t>(lp + Offsets::m_pAimPunchServices);
+                        if (svc) {
+                            Mem::Write<Math::Vec3>(svc + Offsets::m_predictableBaseAngle_inAimPunch, zero);
+                            Mem::Write<Math::Vec3>(svc + Offsets::m_predictableBaseAngle_inAimPunch + 0xC, zero);
+                        }
+                        // Also clear visual punch on camera services so view doesn't kick.
+                        uintptr_t camSvc = Mem::Read<uintptr_t>(lp + Offsets::m_pCameraServices);
+                        if (camSvc)
+                            Mem::Write<Math::Vec3>(camSvc + Offsets::m_vecCsViewPunchAngle_inCamSvc, zero);
                     }
                 }
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            diag_silentPunch++;
 
             // Fake lag: choke this tick's command if requested
             __try {
                 if (FakeLag::OnCreateMove())
                     return 0.0; // suppress this tick's command (choke)
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            diag_silentLag++;
 
             // Passthrough when disabled
             if (!cfg.enabled || !cfg.silentAim)
             {
+                diag_silentBailReason = 1;
                 return oCreateMove(a1, a2, a3);
             }
 
-            __try {
-                int entryCount = *reinterpret_cast<int*>(a1 + FRAME_HISTORY_COUNT);
-                uintptr_t entryArray = *reinterpret_cast<uintptr_t*>(a1 + FRAME_HISTORY_ARRAY);
-                int safeCount = (entryCount > 0 && entryCount <= 64) ? entryCount : 0;
-
-                if (!entryArray || safeCount <= 0 || !hasTarget)
-                    return oCreateMove(a1, a2, a3);
-
-                // Save original angles, set to target angle directly
-                struct SavedEntry { float pitch; float yaw; };
-                SavedEntry saved[64] = {};
-
-                for (int i = 0; i < safeCount; i++)
-                {
-                    uintptr_t entry = entryArray + FRAME_ENTRY_SIZE * i;
-                    float* pP = reinterpret_cast<float*>(entry + PITCH_IN_ENTRY);
-                    float* pY = reinterpret_cast<float*>(entry + YAW_IN_ENTRY);
-                    saved[i].pitch = *pP;
-                    saved[i].yaw   = *pY;
-
-                    // Set directly to target angle — instant correction
-                    float newP = aimPitch;
-                    float newY = aimYaw;
-                    if (newP >  89.f) newP =  89.f;
-                    if (newP < -89.f) newP = -89.f;
-                    *pP = newP;
-                    *pY = newY;
-                }
-
-                // Call original — server receives corrected angles
-                double result = oCreateMove(a1, a2, a3);
-
-                // Restore original — client camera unchanged
-                for (int i = 0; i < safeCount; i++)
-                {
-                    uintptr_t entry = entryArray + FRAME_ENTRY_SIZE * i;
-                    *reinterpret_cast<float*>(entry + PITCH_IN_ENTRY) = saved[i].pitch;
-                    *reinterpret_cast<float*>(entry + YAW_IN_ENTRY)   = saved[i].yaw;
-                }
-
-                return result;
-            }
-            __except (EXCEPTION_EXECUTE_HANDLER)
-            {
-                return oCreateMove(a1, a2, a3);
-            }
+            // -----------------------------------------------------------
+            // SILENT AIM is implemented in hkWriteSubtick (a separate
+            // hook on sub_180C54450 — the per-subtick cmd writer).
+            // We can't safely overwrite frame-history entries here
+            // because CCSGOInput::CreateMove calls ReadFrameInput
+            // (sub_180C600D0) FIRST, which appends a fresh entry
+            // containing the live view angles — anything we wrote
+            // before oCreateMove is bypassed by that new entry.
+            // The hkWriteSubtick hook intercepts each entry as it's
+            // about to be stamped into the cmd, so it catches every
+            // subtick (including the freshly-appended one).
+            // -----------------------------------------------------------
+            return oCreateMove(a1, a2, a3);
         }
 
         inline bool Install()
         {
-            uintptr_t addr = Mem::FindPattern(L"client.dll", Signatures::CreateMove);
+            // Try multiple patterns in order — CCSGOInput::CreateMove changes
+            // each major build, so we keep a fallback list of historically
+            // valid byte sequences to maximize hook success rate.
+            static const char* candidates[] = {
+                Signatures::CreateMove,
+                "48 8B C4 4C 89 48 ? 4C 89 40 ? 48 89 50 ? 55 53 41 54 41 55 41 56 41 57 48 8D 68",
+                "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B F2 41 8B F9",
+                "48 8B C4 48 89 58 ? 48 89 70 ? 48 89 78 ? 4C 89 60 ? 4C 89 68 ? 4C 89 70 ? 4C 89 78 ? 55 41 56 41 57",
+            };
+            uintptr_t addr = 0;
+            for (const char* sig : candidates) {
+                addr = Mem::FindPattern(L"client.dll", sig);
+                if (addr) { AimLog("[SilentAim] CreateMove matched candidate at 0x%p", (void*)addr); break; }
+            }
+            diag_installAddr = addr;
             if (!addr)
             {
-                AimLog("[SilentAim] CreateMove pattern NOT FOUND");
+                AimLog("[SilentAim] CreateMove NOT FOUND across all candidate patterns");
+                diag_installResult = -1;
                 return false;
             }
 
@@ -1403,6 +1533,8 @@ namespace Aimbot
             if (st != MH_OK)
             {
                 AimLog("[SilentAim] MH_CreateHook failed: %d", st);
+                diag_installResult = -2;
+                diag_installSubErr = (int)st;
                 return false;
             }
 
@@ -1410,16 +1542,70 @@ namespace Aimbot
             if (st != MH_OK)
             {
                 AimLog("[SilentAim] MH_EnableHook failed: %d", st);
+                diag_installResult = -3;
+                diag_installSubErr = (int)st;
                 return false;
             }
 
             pCreateMoveHook = reinterpret_cast<void*>(addr);
             AimLog("[SilentAim] CreateMove hooked at 0x%p", (void*)addr);
+            diag_installResult = 1;
+
+            // -----------------------------------------------------------
+            // sub_180C54450 — per-subtick cmd writer. Hooking this is
+            // what actually makes silent aim land hits in build 14153,
+            // because it runs AFTER ReadFrameInput appends the live
+            // frame entry, so we redirect the angles in the entry that
+            // is currently being copied into the outgoing CUserCmd.
+            // -----------------------------------------------------------
+            static const char* writeSubtickSigs[] = {
+                // Build 14153 prologue:
+                // 48 89 5C 24 08 55 57 41 56 48 8D 6C 24 C9 48 81 EC B0 00 00 00 8B 01 ...
+                "48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00 8B 01",
+                "48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00",
+            };
+            uintptr_t wsAddr = 0;
+            for (const char* sig : writeSubtickSigs) {
+                wsAddr = Mem::FindPattern(L"client.dll", sig);
+                if (wsAddr) { AimLog("[SilentAim] WriteSubtick matched at 0x%p", (void*)wsAddr); break; }
+            }
+            diag_wsAddr = wsAddr;
+            if (wsAddr)
+            {
+                MH_STATUS ws = MH_CreateHook(
+                    reinterpret_cast<void*>(wsAddr),
+                    &hkWriteSubtick,
+                    reinterpret_cast<void**>(&oWriteSubtick));
+                if (ws != MH_OK) {
+                    AimLog("[SilentAim] WriteSubtick CreateHook FAILED status=%d", ws);
+                    diag_wsInstall = -2; diag_wsSubErr = (int)ws;
+                } else {
+                    MH_STATUS we = MH_EnableHook(reinterpret_cast<void*>(wsAddr));
+                    if (we != MH_OK) {
+                        AimLog("[SilentAim] WriteSubtick EnableHook FAILED status=%d", we);
+                        diag_wsInstall = -3; diag_wsSubErr = (int)we;
+                    } else {
+                        pWriteSubtickHook = reinterpret_cast<void*>(wsAddr);
+                        AimLog("[SilentAim] WriteSubtick hooked at 0x%p", (void*)wsAddr);
+                        diag_wsInstall = 1;
+                    }
+                }
+            } else {
+                AimLog("[SilentAim] WriteSubtick pattern NOT FOUND \u2014 silent aim will not redirect bullets");
+                diag_wsInstall = -1;
+            }
             return true;
         }
 
         inline void Uninstall()
         {
+            if (pWriteSubtickHook)
+            {
+                MH_DisableHook(pWriteSubtickHook);
+                MH_RemoveHook(pWriteSubtickHook);
+                pWriteSubtickHook = nullptr;
+                oWriteSubtick = nullptr;
+            }
             if (pCreateMoveHook)
             {
                 MH_DisableHook(pCreateMoveHook);
@@ -1437,7 +1623,8 @@ namespace Aimbot
     // ---------------------------------------------------------------
     inline void Tick()
     {
-        if (!GameState::clientBase) return;
+        diag_lastTick = GetTickCount();
+        if (!GameState::clientBase) { diag_lastBail = 2; return; }
 
         // Visual no-recoil runs even when aimbot is disabled
         if (cfg.noRecoil) {
@@ -1445,8 +1632,14 @@ namespace Aimbot
                 uintptr_t lp = GameState::GetLocalPawn();
                 if (lp) {
                     Math::Vec3 zero = { 0.f, 0.f, 0.f };
-                    Mem::Write<Math::Vec3>(lp + Offsets::m_aimPunchAngle, zero);
-                    Mem::Write<Math::Vec3>(lp + Offsets::m_aimPunchAngle + 0xC, zero);
+                    uintptr_t svc = Mem::Read<uintptr_t>(lp + Offsets::m_pAimPunchServices);
+                    if (svc) {
+                        Mem::Write<Math::Vec3>(svc + Offsets::m_predictableBaseAngle_inAimPunch, zero);
+                        Mem::Write<Math::Vec3>(svc + Offsets::m_predictableBaseAngle_inAimPunch + 0xC, zero);
+                    }
+                    uintptr_t camSvc = Mem::Read<uintptr_t>(lp + Offsets::m_pCameraServices);
+                    if (camSvc)
+                        Mem::Write<Math::Vec3>(camSvc + Offsets::m_vecCsViewPunchAngle_inCamSvc, zero);
                 }
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
         }
@@ -1457,6 +1650,24 @@ namespace Aimbot
 
         if (!rngState) SeedRng();
 
+        // ----- Silent-aim toggle detection -----
+        // When the user flips the silent-aim checkbox, transient state from the
+        // previous mode (state.phase mid-attack, mouse accumulators, stale
+        // hasTarget) can leak across the boundary and cause the first burst of
+        // shots after the toggle to miss. Reset the humanizer cleanly so the
+        // next tick starts from a known-good baseline. WriteSubtick stays armed
+        // via haveLastValidAim so bullets land while the new state warms up.
+        if (cfg.silentAim != prevSilentAim)
+        {
+            prevSilentAim = cfg.silentAim;
+            ResetState();
+            mouseAccumX = mouseAccumY = 0.f;
+            prevMoveDp  = prevMoveDy  = 0.f;
+            skipTicksRemaining = 0;
+            // Keep SilentAim::hasTarget at whatever it currently is —
+            // last valid angle is still a much better aim point than zero.
+        }
+
         // Crash backoff: if we crashed many ticks in a row, wait before retrying.
         // This prevents burning CPU on a crash loop and gives the game time to stabilize.
         if (crashBackoffTicks > 0)
@@ -1464,11 +1675,12 @@ namespace Aimbot
             crashBackoffTicks--;
             if (crashBackoffTicks == 0)
                 consecutiveCrashes = 0; // Give a clean start after backoff
+            diag_lastBail = 10;
             return;
         }
 
         uintptr_t localPawn = GameState::GetLocalPawn();
-        if (!localPawn) return;
+        if (!localPawn) { diag_lastBail = 1; return; }
 
         // Periodic NaN decontamination: purge poisoned state every tick
         SanitizeAimState();
@@ -1479,7 +1691,12 @@ namespace Aimbot
         // IsEntityFresh() provides an independent staleness check via simTime.
         memset(GameState::originalDormant, 0, sizeof(GameState::originalDormant));
 
-        uintptr_t vaAddr    = GameState::clientBase + GameState::RVA_dwViewAngles();
+        // m_angEyeAngles on the local pawn is the LIVE view-angles field.
+        // The legacy `dwViewAngles` global has zero IDA xrefs in 14153+,
+        // so reads return stale junk and writes do nothing. Use the
+        // schema offset (Offsets::m_angEyeAngles = 0x3300 for 14152+) so
+        // we don't drift when Valve shifts the pawn layout.
+        uintptr_t vaAddr    = localPawn + Offsets::m_angEyeAngles;
         Math::QAngle viewAng = Mem::Read<Math::QAngle>(vaAddr);
 
         // NaN guard: game writes garbage during round transitions/halftime.
@@ -1487,14 +1704,16 @@ namespace Aimbot
         if (!IsFinite(viewAng.pitch) || !IsFinite(viewAng.yaw))
         {
             SanitizeAimState();
+            diag_lastBail = 3;
             return;
         }
 
         Math::Vec3 eye = EyePosition(localPawn);
-        if (eye.IsZero()) return;
+        if (eye.IsZero()) { diag_lastBail = 4; return; }
         if (!IsFinite(eye.x) || !IsFinite(eye.y) || !IsFinite(eye.z))
         {
             SanitizeAimState();
+            diag_lastBail = 4;
             return;
         }
 
@@ -1548,14 +1767,16 @@ namespace Aimbot
                 SHORT s = GetAsyncKeyState(vk);
                 return (s & 0x8000) != 0;
             };
-            // Aim key modes: 0 = auto (mouse1), 1 = mouse2, 2 = always on
+            // Aim key modes: 0 = auto (mouse1), 1 = mouse2, anything else (>=2) = always on.
+            // Defensive: any unexpected value is treated as always-on so a stale/garbled
+            // config can't silently disable the aimbot.
             bool shouldAim = false;
             if (cfg.aimKey == 0)
                 shouldAim = CheckKey(VK_LBUTTON);
             else if (cfg.aimKey == 1)
                 shouldAim = CheckKey(VK_RBUTTON);
-            else if (cfg.aimKey == 2)
-                shouldAim = true; // always active when enabled
+            else
+                shouldAim = true; // 2 or anything else => always active when enabled
 
             if (!shouldAim)
             {
@@ -1565,8 +1786,10 @@ namespace Aimbot
                 prevMoveDp = prevMoveDy = 0.f;
                 skipTicksRemaining = 0;
                 SilentAim::hasTarget = false;
+                diag_lastBail = 5;
                 goto tickDone;
             }
+            diag_lastKeyDown = GetTickCount();
 
             // ----- Anti-detection: random tick skipping -----
             // Rare micro-pauses (~1%) — keeps pattern non-deterministic
@@ -1627,7 +1850,22 @@ namespace Aimbot
                 // spotting system glitches for a single frame.
                 if (state.lockedTarget != 0 && noTargetTicks <= 14)
                 {
-                    SilentAim::hasTarget = false;
+                    // Keep WriteSubtick armed with the last good angles so a
+                    // shot fired during the flicker still lands instead of
+                    // flying straight uncorrected. Stale-angle bullets at
+                    // worst nick the player; cleared-target bullets miss
+                    // outright and sometimes lose the kill.
+                    if (haveLastValidAim &&
+                        (GetTickCount() - lastValidAimTick) < 400)
+                    {
+                        SilentAim::aimPitch  = lastValidAimPitch;
+                        SilentAim::aimYaw    = lastValidAimYaw;
+                        SilentAim::hasTarget = true;
+                    }
+                    else
+                    {
+                        SilentAim::hasTarget = false;
+                    }
                     goto tickDone;  // hold phase/lockedTarget, try again next tick
                 }
 
@@ -1637,6 +1875,7 @@ namespace Aimbot
                 govLastTarget = 0;
                 mouseAccumX = mouseAccumY = 0.f;
                 SilentAim::hasTarget = false;
+                haveLastValidAim = false;  // full reset → drop stale angle too
                 goto tickDone;
             }
 
@@ -1700,7 +1939,7 @@ namespace Aimbot
                         if (!oldDead)
                         {
                             uintptr_t oldNode = Mem::Read<uintptr_t>(state.lockedTarget + Offsets::m_pGameSceneNode);
-                            if (oldNode) oldDormant = Mem::Read<bool>(oldNode + 0x10B);
+                            if (oldNode) oldDormant = Mem::Read<bool>(oldNode + Offsets::SceneNode::kDormant);
 
                             if (!oldDormant)
                             {
@@ -1794,6 +2033,13 @@ namespace Aimbot
                 SilentAim::aimYaw    = aimAngle.yaw;
                 SilentAim::hasTarget = true;
 
+                // Cache last valid angle so the grace-period path can keep
+                // bullets corrected through brief target-loss windows.
+                lastValidAimPitch = aimAngle.pitch;
+                lastValidAimYaw   = aimAngle.yaw;
+                lastValidAimTick  = GetTickCount();
+                haveLastValidAim  = true;
+
                 // Bullet tracer from aim angle (not view angle)
                 if (shotFired)
                     BulletTracer::AddTraceFromAngles(eye.x, eye.y, eye.z,
@@ -1802,7 +2048,21 @@ namespace Aimbot
             }
 
             // Clear silent aim target when using mouse mode
-            SilentAim::hasTarget = false;
+            // SilentAim::hasTarget = false;  // INTENTIONALLY KEEP TRUE
+            // Even for normal aim, arm the WriteSubtick hook so bullets land
+            // on target while the camera is being moved by the SendInput path.
+            // (CS2 raw-input ignores SendInput → camera may not move, but bullets
+            //  must still go to target so the player can hit-confirm.)
+            SilentAim::aimPitch  = aimAngle.pitch;
+            SilentAim::aimYaw    = aimAngle.yaw;
+            SilentAim::hasTarget = true;
+
+            // Same caching as the silent-aim branch — keeps bullets corrected
+            // through brief target-loss flickers in normal-aim mode too.
+            lastValidAimPitch = aimAngle.pitch;
+            lastValidAimYaw   = aimAngle.yaw;
+            lastValidAimTick  = GetTickCount();
+            haveLastValidAim  = true;
 
             // ===========================================================
             // VISIBLE AIM via MOUSE INPUT
@@ -2000,6 +2260,52 @@ namespace Aimbot
                 moveDy *= shotDisruptScale;
             }
 
+            // Mark target found for diagnostic
+            diag_lastTarget = GetTickCount();
+            diag_targetEnt = (int)(t.pawn & 0xFFFF);
+            diag_lastFov = t.fov;
+            diag_lastBail = 0;
+
+            // ===========================================================
+            // NORMAL AIM PATH: Direct view-angle write.
+            // CS2 raw input discards SendInput, so the only reliable way
+            // to move the view in normal (non-silent) mode is to write
+            // dwViewAngles directly. Silent aim writes the frame-history
+            // entry instead via the CreateMove hook — they are MUTUALLY
+            // EXCLUSIVE: never run both in the same tick or the camera
+            // visibly snaps.
+            // ===========================================================
+            if (!cfg.silentAim)
+            {
+                __try {
+                    Math::QAngle snap = aimAngle;
+                    if (snap.pitch >  89.f) snap.pitch =  89.f;
+                    if (snap.pitch < -89.f) snap.pitch = -89.f;
+                    while (snap.yaw >  180.f) snap.yaw -= 360.f;
+                    while (snap.yaw < -180.f) snap.yaw += 360.f;
+                    if (IsFinite(snap.pitch) && IsFinite(snap.yaw)) {
+                        float maxStep = 6.0f / (cfg.smoothing * 0.05f + 1.f);
+                        Math::QAngle cur = Mem::Read<Math::QAngle>(vaAddr);
+                        float ddp = snap.pitch - cur.pitch;
+                        float ddy = snap.yaw   - cur.yaw;
+                        while (ddy > 180.f)  ddy -= 360.f;
+                        while (ddy < -180.f) ddy += 360.f;
+                        float mag = sqrtf(ddp*ddp + ddy*ddy);
+                        if (mag > maxStep) {
+                            float k = maxStep / mag;
+                            ddp *= k; ddy *= k;
+                        }
+                        Math::QAngle out;
+                        out.pitch = cur.pitch + ddp;
+                        out.yaw   = cur.yaw   + ddy;
+                        out.roll  = 0.f;
+                        if (out.pitch >  89.f) out.pitch =  89.f;
+                        if (out.pitch < -89.f) out.pitch = -89.f;
+                        Mem::Write<Math::QAngle>(vaAddr, out);
+                    }
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+                // INTENTIONALLY NO goto — let SendInput humanization run too.
+            }
             // Send the computed delta as mouse input (genuine hardware-level)
             if ((moveDp != 0.f || moveDy != 0.f) && IsFinite(moveDp) && IsFinite(moveDy))
                 SendMouseDeltaSmooth(moveDp, moveDy);
@@ -2010,6 +2316,7 @@ namespace Aimbot
         }
 
     tickDone:;
+        diag_lastReached = GetTickCount();
         consecutiveCrashes = 0; // Reached end of tick without crashing
         } __except (EXCEPTION_EXECUTE_HANDLER) {
             // Crash recovery: ALWAYS reset to clean state so next tick starts fresh.
@@ -2023,6 +2330,8 @@ namespace Aimbot
             skipTicksRemaining = 0;
             SilentAim::hasTarget = false;
             consecutiveCrashes++;
+            diag_lastCrash = consecutiveCrashes;
+            diag_lastCrashTime = GetTickCount();
             // Exponential backoff: after repeated crashes, wait longer before retrying.
             // 1-2 crashes: instant retry (transient glitch)
             // 3-9 crashes: skip 30 ticks (~500ms, lets round transition settle)
@@ -2049,13 +2358,9 @@ namespace Aimbot
             return false;
         }
 
-        uintptr_t vaAddr = GameState::clientBase + GameState::RVA_dwViewAngles();
-        Math::QAngle testAng = Mem::Read<Math::QAngle>(vaAddr);
-
         AimLog("[Aimbot] Mouse-input aimbot init");
         AimLog("[Aimbot]   clientBase = 0x%p", (void*)GameState::clientBase);
-        AimLog("[Aimbot]   dwViewAngles @ 0x%p (pitch=%.1f yaw=%.1f)",
-               (void*)vaAddr, testAng.pitch, testAng.yaw);
+        AimLog("[Aimbot]   view angles source: localPawn + 0x%X (m_angEyeAngles)", (unsigned)Offsets::m_angEyeAngles);
         AimLog("[Aimbot]   sensitivity = %.3f", GetGameSensitivity());
         AimLog("[Aimbot]   mode: READ-ONLY + SendInput mouse (no hooks, no mem writes)");
 

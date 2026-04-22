@@ -731,13 +731,13 @@ namespace Menu
         Aimbot::cfg.targetBone    = 23;
         Aimbot::cfg.aimKey        = 0;
         Aimbot::cfg.teamCheck     = true;
-        Aimbot::cfg.visCheck      = true;
+        Aimbot::cfg.visCheck      = false;  // 14153: trace plumbing unreliable
         Aimbot::cfg.showFovCircle = false;
         Aimbot::cfg.jumpShot      = false;
         Aimbot::cfg.velPredict    = false;
         Aimbot::cfg.multiBone     = false;
         Aimbot::cfg.headPriority  = false;
-        Aimbot::cfg.smokeCheck    = true;
+        Aimbot::cfg.smokeCheck    = false;  // 14153: smoke detection unreliable
         Aimbot::ResetState();
         ESP::cfg.enabled          = false;
         BulletTracer::cfg.enabled = false;
@@ -772,18 +772,19 @@ namespace Menu
     inline void ApplyPreset_SilentAim()
     {
         Aimbot::cfg.enabled       = true;
+        Aimbot::cfg.silentAim     = true;   // <-- the whole point of this preset
         Aimbot::cfg.fov           = 2.3f;
         Aimbot::cfg.smoothing     = 43.f;
         Aimbot::cfg.humanization  = 0.50f;
         Aimbot::cfg.targetBone    =  7;
         Aimbot::cfg.aimKey        = 0;
         Aimbot::cfg.teamCheck     = true;
-        Aimbot::cfg.visCheck      = true;
+        Aimbot::cfg.visCheck      = false;  // 14153: trace plumbing unreliable
         Aimbot::cfg.showFovCircle = true;
         Aimbot::cfg.velPredict    = true;
         Aimbot::cfg.multiBone     = true;
         Aimbot::cfg.headPriority  = true;
-        Aimbot::cfg.smokeCheck    = true;
+        Aimbot::cfg.smokeCheck    = false;  // 14153: smoke detection unreliable
         Aimbot::ResetState();
         ESP::cfg.enabled   = true;
         ESP::cfg.box       = true;
@@ -799,13 +800,14 @@ namespace Menu
     inline void ApplyPreset_Rage()
     {
         Aimbot::cfg.enabled           = true;
+        Aimbot::cfg.silentAim         = true;   // Rage = silent + wide
         Aimbot::cfg.fov               = 10.f;
         Aimbot::cfg.smoothing         = 8.f;
         Aimbot::cfg.humanization      = 0.15f;
         Aimbot::cfg.targetBone        =  7;
-        Aimbot::cfg.aimKey            = 0;
+        Aimbot::cfg.aimKey            = 2;   // Rage = always-on, no key required
         Aimbot::cfg.teamCheck         = true;
-        Aimbot::cfg.visCheck          = true;
+        Aimbot::cfg.visCheck          = false;  // 14153: trace plumbing unreliable
         Aimbot::cfg.showFovCircle     = false;
         Aimbot::cfg.jumpShot          = true;
         Aimbot::cfg.jumpApexOnly      = true;
@@ -813,7 +815,7 @@ namespace Menu
         Aimbot::cfg.velPredict        = true;
         Aimbot::cfg.multiBone         = true;
         Aimbot::cfg.headPriority      = true;
-        Aimbot::cfg.smokeCheck        = true;
+        Aimbot::cfg.smokeCheck        = false;  // 14153: smoke detection unreliable
         Aimbot::ResetState();
         ESP::cfg.enabled   = true;
         ESP::cfg.box       = true;

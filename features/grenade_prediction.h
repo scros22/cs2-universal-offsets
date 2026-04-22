@@ -292,9 +292,9 @@ namespace GrenadePrediction
         // Read designer name to identify grenades
         char dname[64] = {};
         {
-            uintptr_t identity = Mem::Read<uintptr_t>(ent + 0x10);
+            uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
             if (!identity) return false;
-            uintptr_t namePtr = Mem::Read<uintptr_t>(identity + 0x20);
+            uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
             if (!namePtr) return false;
             struct Buf { char d[64]; };
             Buf b = Mem::Read<Buf>(namePtr);
@@ -416,9 +416,7 @@ namespace GrenadePrediction
         for (int i = 64; i <= maxIdx; ++i)
         {
             __try {
-                uintptr_t chunk = Mem::Read<uintptr_t>(entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
-                if (!chunk) continue;
-                uintptr_t ent = Mem::Read<uintptr_t>(chunk + 0x70 * (i & 0x1FF));
+                uintptr_t ent = GameState::GetEntityByIndex(i);
                 if (!ent) continue;
 
                 ProcessEntity(dl, scrW, scrH, ent, gameTime);
