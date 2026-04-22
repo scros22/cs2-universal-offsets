@@ -552,24 +552,33 @@ namespace Menu
     //   * a very low-alpha fill so labels still pop against the menu bg.
     inline void SynthBeginSection(const char* id)
     {
-        // Tighter inner padding (was 8/4) — the cards now have a 1px outline
-        // so we don't need extra breathing room inside.
-        ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(14, 12, 22, 90));
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 9.f, 6.f });
-        ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 5.f);
+        // Section sub-cards: same single-tone treatment as the parent
+        // card so corners stay clean. Subtle inner highlight + glossy
+        // top sliver + accent stripe for hierarchy.
+        ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(16, 14, 26, 130));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 11.f, 7.f });
+        ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 9.f);
         ImGui::BeginChild(id,
             { ImGui::GetContentRegionAvail().x, 0.f },
             ImGuiChildFlags_AutoResizeY | ImGuiChildFlags_Borders,
             ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
-        // Left accent stripe — drawn after BeginChild so it lands inside the
-        // child's clip rect.
         ImDrawList* dl = ImGui::GetWindowDrawList();
         ImVec2 p0 = ImGui::GetWindowPos();
         ImVec2 sz = ImGui::GetWindowSize();
+
+        // glossy top sliver (inset to avoid corner bleed)
+        dl->AddRectFilledMultiColor(
+            { p0.x + 12.f,        p0.y + 1.f },
+            { p0.x + sz.x - 12.f, p0.y + 2.2f },
+            IM_COL32(255, 255, 255, 0),
+            IM_COL32(255, 255, 255, 55),
+            IM_COL32(255, 255, 255, 55),
+            IM_COL32(255, 255, 255, 0));
+        // accent stripe (left)
         dl->AddRectFilled(
-            { p0.x + 1.f,        p0.y + 6.f },
-            { p0.x + 2.5f,       p0.y + sz.y - 6.f },
+            { p0.x + 1.f,  p0.y + 6.f },
+            { p0.x + 2.5f, p0.y + sz.y - 6.f },
             EvoAccent(170), 1.f);
     }
     inline void SynthEndSection()
@@ -577,7 +586,7 @@ namespace Menu
         ImGui::EndChild();
         ImGui::PopStyleVar(2);
         ImGui::PopStyleColor(1);
-        ImGui::Dummy({ 0.f, 4.f });
+        ImGui::Dummy({ 0.f, 6.f });
     }
 
 
@@ -1890,12 +1899,13 @@ namespace Menu
         // ----------------------------------------------------------------
         const float W        = 780.f;            // 840 → 780
         const float DOCK_H   = 48.f;
-        const float DOCK_GAP = 12.f;
+        const float DOCK_GAP = 14.f;
         const float PAD      = 12.f;             // 15 → 12
-        const float COL_Y    = 14.f;
+        const float HDR_H    = 34.f;             // header strip height
+        const float COL_Y    = HDR_H + 6.f;      // content starts below header
         // content height stops above the dock; full window height adds room for it
         const float CONTENT_H = 520.f;           // visual content card height
-        const float H        = COL_Y + CONTENT_H + DOCK_GAP + DOCK_H + PAD; // 14+520+12+48+12 = 606
+        const float H        = COL_Y + CONTENT_H + DOCK_GAP + DOCK_H + PAD + 6.f;
         const float COL_X    = PAD;
         const float COL_W    = (W - PAD * 2.f - 8.f) * 0.5f;
         const float COL_H    = CONTENT_H;
@@ -1921,29 +1931,125 @@ namespace Menu
         const int borA = (int)(menuAlpha * 175.f);
 
         // ----------------------------------------------------------------
-        //  CONTENT CARD  — full-width panel that holds the two columns.
-        //  Same depth treatment as before (gradient + glossy top sliver +
-        //  hairline highlight + 1px outline) but spans the whole window
-        //  now that the sidebar has moved out.
+        //  CONTENT CARD  — redesigned upper surface.
+        //   - soft drop shadow underneath (3 stacked rounded rects)
+        //   - flat tinted base (no multicolor gradient → no corner bleed)
+        //   - inset top "glass" sliver
+        //   - header strip with tab name + breadcrumb + accent dot
+        //   - hairline divider between header and content
         // ----------------------------------------------------------------
+        const float CARD_R = 16.f;
         ImVec2 panTL = { wp.x,           wp.y                     };
         ImVec2 panBR = { wp.x + ws.x,    wp.y + COL_Y + CONTENT_H + 6.f };
-        dl->AddRectFilled(panTL, panBR, IM_COL32(16, 16, 24, panA), 10.f);
-        dl->AddRectFilledMultiColor(panTL, panBR,
-            IM_COL32(28, 26, 44, (int)(50 * menuAlpha)),
-            IM_COL32(28, 26, 44, (int)(50 * menuAlpha)),
-            IM_COL32(0,  0,  0,  (int)(35 * menuAlpha)),
-            IM_COL32(0,  0,  0,  (int)(35 * menuAlpha)));
-        // glossy top sliver
+
+        // drop shadow stack
+        for (int s = 0; s < 4; ++s)
+        {
+            float ofs   = 2.f + (float)s * 2.5f;
+            int   alpha = (int)((30 - s * 6) * menuAlpha);
+            if (alpha <= 0) continue;
+            dl->AddRectFilled(
+                { panTL.x - 1.f, panTL.y + ofs },
+                { panBR.x + 1.f, panBR.y + ofs },
+                IM_COL32(0, 0, 0, alpha), CARD_R + 2.f);
+        }
+
+        // base fill (single tone — no multicolor bleed past rounded corners)
+        dl->AddRectFilled(panTL, panBR, IM_COL32(13, 12, 20, sidA), CARD_R);
+
+        // inner subtle vertical lift: a slightly lighter rounded rect inset by 1px
+        dl->AddRect(
+            { panTL.x + 0.5f, panTL.y + 0.5f },
+            { panBR.x - 0.5f, panBR.y - 0.5f },
+            IM_COL32(255, 255, 255, (int)(menuAlpha * 10.f)), CARD_R - 0.5f, 0, 1.f);
+
+        // glossy top sliver (well inside rounding, no bleed)
         dl->AddRectFilledMultiColor(
-            { panTL.x + 10, panTL.y + 1.f },
-            { panBR.x - 10, panTL.y + 2.5f },
+            { panTL.x + 22, panTL.y + 1.5f },
+            { panBR.x - 22, panTL.y + 3.f },
             IM_COL32(255, 255, 255, 0),
-            IM_COL32(255, 255, 255, (int)(70 * menuAlpha)),
-            IM_COL32(255, 255, 255, (int)(70 * menuAlpha)),
+            IM_COL32(255, 255, 255, (int)(85 * menuAlpha)),
+            IM_COL32(255, 255, 255, (int)(85 * menuAlpha)),
             IM_COL32(255, 255, 255, 0));
-        dl->AddRect(panTL, panBR, IM_COL32(255, 255, 255, (int)(menuAlpha * 14.f)), 10.f, 0, 1.f);
-        dl->AddRect(panTL, panBR, IM_COL32(40, 38, 60, borA), 10.f, 0, 1.f);
+
+        // 1px outline
+        dl->AddRect(panTL, panBR, IM_COL32(46, 44, 68, borA), CARD_R, 0, 1.f);
+
+        // ---------- HEADER STRIP ----------
+        {
+            const float hX0 = panTL.x + 18.f;
+            const float hX1 = panBR.x - 18.f;
+            const float hY  = panTL.y + 10.f;
+            const float hYB = panTL.y + HDR_H;
+
+            // accent dot + tab name (large)
+            const char* tabName = kTabLabels[activeTab];
+            ImGui::PushFont(nullptr);
+            ImVec2 nmSz = ImGui::CalcTextSize(tabName);
+            ImGui::PopFont();
+
+            float dotR = 3.5f;
+            float dotX = hX0 + dotR;
+            float dotY = hY + nmSz.y * 0.5f;
+            // halo + dot
+            dl->AddCircleFilled({ dotX, dotY }, dotR + 2.f, EvoAccent((int)(60 * menuAlpha)));
+            dl->AddCircleFilled({ dotX, dotY }, dotR,        EvoAccent((int)(245 * menuAlpha)));
+
+            // tab name
+            float nmX = dotX + dotR + 8.f;
+            dl->AddText({ nmX, hY }, IM_COL32(235, 235, 245, (int)(245 * menuAlpha)), tabName);
+
+            // breadcrumb — small dim subtitle right after
+            const char* sub = nullptr;
+            switch (activeTab) {
+                case 0: sub = "Aim assist & feel";        break;
+                case 1: sub = "World visuals";            break;
+                case 2: sub = "Skin loadout";             break;
+                case 3: sub = "Movement & utility";       break;
+                case 4: sub = "Profiles & system";        break;
+                default: sub = "";                         break;
+            }
+            if (sub && *sub)
+            {
+                ImVec2 subSz = ImGui::CalcTextSize(sub);
+                float sepX = nmX + nmSz.x + 9.f;
+                // tiny vertical separator
+                dl->AddRectFilled({ sepX, hY + 3.f }, { sepX + 1.f, hY + nmSz.y - 2.f },
+                    IM_COL32(70, 66, 96, (int)(150 * menuAlpha)));
+                dl->AddText({ sepX + 7.f, hY }, IM_COL32(130, 130, 150, (int)(200 * menuAlpha)), sub);
+            }
+
+            // right side: tiny status pill "READY"
+            {
+                const char* st = "READY";
+                ImVec2 stSz = ImGui::CalcTextSize(st);
+                float pH = nmSz.y + 4.f;
+                float pW = stSz.x + 14.f;
+                ImVec2 pTL = { hX1 - pW, hY - 2.f };
+                ImVec2 pBR = { hX1,      hY - 2.f + pH };
+                dl->AddRectFilled(pTL, pBR, IM_COL32(22, 20, 34, (int)(200 * menuAlpha)), pH * 0.5f);
+                dl->AddRect(pTL, pBR, EvoAccent((int)(120 * menuAlpha)), pH * 0.5f, 0, 1.f);
+                // small glow dot inside
+                float gdR = 2.2f;
+                float gdX = pTL.x + 7.f;
+                float gdY = (pTL.y + pBR.y) * 0.5f;
+                dl->AddCircleFilled({ gdX, gdY }, gdR + 1.5f, EvoAccent((int)(70 * menuAlpha)));
+                dl->AddCircleFilled({ gdX, gdY }, gdR, EvoAccent((int)(245 * menuAlpha)));
+                dl->AddText({ gdX + gdR + 4.f, pTL.y + (pH - stSz.y) * 0.5f },
+                    IM_COL32(220, 220, 235, (int)(230 * menuAlpha)), st);
+            }
+
+            // hairline divider beneath the header
+            dl->AddRectFilled(
+                { panTL.x + 14.f, hYB },
+                { panBR.x - 14.f, hYB + 1.f },
+                IM_COL32(60, 56, 86, (int)(110 * menuAlpha)));
+            // accent micro-segment on the divider, under the dot
+            dl->AddRectFilled(
+                { panTL.x + 14.f, hYB },
+                { panTL.x + 14.f + 28.f, hYB + 1.f },
+                EvoAccent((int)(180 * menuAlpha)));
+        }
 
         // ----------------------------------------------------------------
         //  BOTTOM DOCK — iOS-style floating island with LUCID brand,
@@ -1966,24 +2072,32 @@ namespace Menu
         ImVec2 dockTL = { dockX,         dockY };
         ImVec2 dockBR = { dockX + dockW, dockY + DOCK_H };
 
-        // dock backdrop — same depth recipe, fully rounded "pill"
+        // dock backdrop — single-tone fill (no multicolor bleed), pill-rounded
         const float dockR = DOCK_H * 0.5f;
-        dl->AddRectFilled(dockTL, dockBR, IM_COL32(11, 10, 18, sidA), dockR);
-        dl->AddRectFilledMultiColor(dockTL, dockBR,
-            IM_COL32(28, 26, 44, (int)(70 * menuAlpha)),
-            IM_COL32(28, 26, 44, (int)(70 * menuAlpha)),
-            IM_COL32(0,  0,  0,  (int)(40 * menuAlpha)),
-            IM_COL32(0,  0,  0,  (int)(40 * menuAlpha)));
+        // shadow under the dock
+        for (int s = 0; s < 3; ++s)
+        {
+            float ofs   = 2.f + (float)s * 2.5f;
+            int   alpha = (int)((28 - s * 7) * menuAlpha);
+            if (alpha <= 0) continue;
+            dl->AddRectFilled(
+                { dockTL.x - 1.f, dockTL.y + ofs },
+                { dockBR.x + 1.f, dockBR.y + ofs },
+                IM_COL32(0, 0, 0, alpha), dockR + 2.f);
+        }
+        dl->AddRectFilled(dockTL, dockBR, IM_COL32(13, 12, 20, sidA), dockR);
+        dl->AddRect(
+            { dockTL.x + 0.5f, dockTL.y + 0.5f },
+            { dockBR.x - 0.5f, dockBR.y - 0.5f },
+            IM_COL32(255, 255, 255, (int)(menuAlpha * 12.f)), dockR - 0.5f, 0, 1.f);
         dl->AddRectFilledMultiColor(
-            { dockTL.x + 12, dockTL.y + 1.5f },
-            { dockBR.x - 12, dockTL.y + 3.f },
+            { dockTL.x + 18, dockTL.y + 1.5f },
+            { dockBR.x - 18, dockTL.y + 3.f },
             IM_COL32(255, 255, 255, 0),
-            IM_COL32(255, 255, 255, (int)(80 * menuAlpha)),
-            IM_COL32(255, 255, 255, (int)(80 * menuAlpha)),
+            IM_COL32(255, 255, 255, (int)(85 * menuAlpha)),
+            IM_COL32(255, 255, 255, (int)(85 * menuAlpha)),
             IM_COL32(255, 255, 255, 0));
-        dl->AddRect(dockTL, dockBR,
-            IM_COL32(255, 255, 255, (int)(menuAlpha * 18.f)), dockR, 0, 1.f);
-        dl->AddRect(dockTL, dockBR, IM_COL32(40, 38, 60, borA), dockR, 0, 1.f);
+        dl->AddRect(dockTL, dockBR, IM_COL32(46, 44, 68, borA), dockR, 0, 1.f);
 
         const float dockMidY = (dockTL.y + dockBR.y) * 0.5f;
 
@@ -2108,8 +2222,8 @@ namespace Menu
 
         // Two-column content
         ImGui::PushStyleColor(ImGuiCol_ChildBg,  { 0.f, 0.f, 0.f, 0.f });
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 6.f, 6.f });
-        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing,   { 6.f, 4.f });
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 10.f, 8.f });
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing,   { 8.f, 5.f });
 
         // Left column
         ImGui::SetCursorPos({ COL_X, COL_Y });
