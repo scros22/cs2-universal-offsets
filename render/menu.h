@@ -34,6 +34,8 @@
 #include <cmath>
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <algorithm>
 #include <wincodec.h>
 // WinHTTP is loaded at runtime (see SteamAvatarThread) — NOT statically linked.
 // Windowscodecs.lib likewise avoided; WIC is accessed via COM + local GUIDs.
@@ -48,6 +50,28 @@ namespace Menu
     inline float menuAlpha    = 0.f;
     inline ImFont* fonts[3]   = { nullptr, nullptr, nullptr };
     inline ImFont* espFont    = nullptr;
+
+    // ---- Card grid navigation state (per-tab feature page index, -1 = grid) ----
+    inline int   pageStack[5]   = { -1, -1, -1, -1, -1 };
+    inline int   prevPage[5]    = { -1, -1, -1, -1, -1 };
+    inline float pageAnim       = 1.f;     // 0..1 transition progress
+    inline int   pageAnimTab    = 0;       // which tab is animating
+    inline int   pageDir        = 1;       // +1 = entering page, -1 = backing out
+
+    // simple animation map: address -> 0..1 progress
+    inline std::unordered_map<const void*, float> g_anim;
+    inline float& Anim(const void* key) {
+        auto it = g_anim.find(key);
+        if (it == g_anim.end()) it = g_anim.emplace(key, 0.f).first;
+        return it->second;
+    }
+    inline float AnimStep(const void* key, bool toward, float speed, float dt) {
+        float& a = Anim(key);
+        float target = toward ? 1.f : 0.f;
+        float k = speed * dt; if (k > 1.f) k = 1.f;
+        a += (target - a) * k;
+        return a;
+    }
 
     // HUD Steam avatar — downloaded once on startup via background thread
     inline ID3D11Device*             g_pDevice      = nullptr;  // assigned from hooks.h
@@ -552,34 +576,18 @@ namespace Menu
     //   * a very low-alpha fill so labels still pop against the menu bg.
     inline void SynthBeginSection(const char* id)
     {
-        // Section sub-cards: same single-tone treatment as the parent
-        // card so corners stay clean. Subtle inner highlight + glossy
-        // top sliver + accent stripe for hierarchy.
+        // Section sub-cards: borderless, single-tone fill so AIMBOT/BUNNY
+        // HOP etc. read as soft groupings without a hard top hairline.
+        // Accent stripe on the left provides hierarchy.
         ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(16, 14, 26, 130));
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 11.f, 7.f });
         ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 9.f);
         ImGui::BeginChild(id,
             { ImGui::GetContentRegionAvail().x, 0.f },
-            ImGuiChildFlags_AutoResizeY | ImGuiChildFlags_Borders,
+            ImGuiChildFlags_AutoResizeY,
             ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
-        ImDrawList* dl = ImGui::GetWindowDrawList();
-        ImVec2 p0 = ImGui::GetWindowPos();
-        ImVec2 sz = ImGui::GetWindowSize();
-
-        // glossy top sliver (inset to avoid corner bleed)
-        dl->AddRectFilledMultiColor(
-            { p0.x + 12.f,        p0.y + 1.f },
-            { p0.x + sz.x - 12.f, p0.y + 2.2f },
-            IM_COL32(255, 255, 255, 0),
-            IM_COL32(255, 255, 255, 55),
-            IM_COL32(255, 255, 255, 55),
-            IM_COL32(255, 255, 255, 0));
-        // accent stripe (left)
-        dl->AddRectFilled(
-            { p0.x + 1.f,  p0.y + 6.f },
-            { p0.x + 2.5f, p0.y + sz.y - 6.f },
-            EvoAccent(170), 1.f);
+        // (no accent stripe — keep sections clean)
     }
     inline void SynthEndSection()
     {
@@ -1879,6 +1887,1112 @@ namespace Menu
     }
 
     // ============================================================
+    //  FEATURE CARD GRID  ─  iOS-style mod menu
+    //  Each tab shows a 3-col grid of cards. Click OPTIONS on a
+    //  card to navigate into that feature's page.
+    // ============================================================
+
+    enum FeatureIcon {
+        FI_CROSSHAIR, FI_TRIGGER, FI_JUMP, FI_REWIND, FI_ROTATE, FI_BOLT,
+        FI_BOX, FI_SILHOUETTE, FI_TRACER, FI_DROP, FI_EYE, FI_BADGE,
+        FI_GRENADE, FI_TARGET, FI_SPEAKER,
+        FI_PAINT, FI_KNIFE, FI_GLOVE,
+        FI_SUN, FI_FLAME, FI_FOV, FI_MOON, FI_BULB, FI_CAMERA, FI_CHECK,
+        FI_GEAR, FI_WAND, FI_PALETTE, FI_HUD, FI_FLOPPY,
+        FI_NONE
+    };
+
+    inline void DrawFeatureIcon(ImDrawList* dl, int id, ImVec2 c, float scale, ImU32 col)
+    {
+        const float s = scale;        // base radius
+        const float t = (s * 0.10f) > 1.2f ? (s * 0.10f) : 1.2f;   // stroke
+        switch (id)
+        {
+        case FI_CROSSHAIR:
+            dl->AddCircle(c, s * 0.55f, col, 28, t);
+            dl->AddCircleFilled(c, s * 0.13f, col);
+            dl->AddLine({c.x, c.y - s*0.92f}, {c.x, c.y - s*0.74f}, col, t);
+            dl->AddLine({c.x, c.y + s*0.74f}, {c.x, c.y + s*0.92f}, col, t);
+            dl->AddLine({c.x - s*0.92f, c.y}, {c.x - s*0.74f, c.y}, col, t);
+            dl->AddLine({c.x + s*0.74f, c.y}, {c.x + s*0.92f, c.y}, col, t);
+            break;
+        case FI_TRIGGER: {
+            // crosshair box with center dot
+            float r = s * 0.65f;
+            dl->AddRect({c.x - r, c.y - r}, {c.x + r, c.y + r}, col, 2.f, 0, t);
+            dl->AddCircleFilled(c, s * 0.18f, col);
+            dl->AddLine({c.x - r - s*0.25f, c.y}, {c.x - r, c.y}, col, t);
+            dl->AddLine({c.x + r, c.y}, {c.x + r + s*0.25f, c.y}, col, t);
+            dl->AddLine({c.x, c.y - r - s*0.25f}, {c.x, c.y - r}, col, t);
+            dl->AddLine({c.x, c.y + r}, {c.x, c.y + r + s*0.25f}, col, t);
+            break; }
+        case FI_JUMP: {
+            // upward arc with arrowhead
+            float w = s * 0.85f;
+            dl->AddBezierCubic(
+                {c.x - w, c.y + s*0.5f}, {c.x - w*0.3f, c.y - s*0.9f},
+                {c.x + w*0.3f, c.y - s*0.9f}, {c.x + w, c.y + s*0.5f}, col, t, 24);
+            dl->AddTriangleFilled(
+                {c.x + w - s*0.18f, c.y + s*0.35f},
+                {c.x + w + s*0.18f, c.y + s*0.35f},
+                {c.x + w, c.y + s*0.7f}, col);
+            break; }
+        case FI_REWIND: {
+            // circular arrow counter-clockwise
+            float r = s * 0.7f;
+            int segs = 28;
+            for (int i = 0; i < segs; ++i) {
+                float a0 = -1.7f + ((float)i / segs) * 5.0f;
+                float a1 = -1.7f + ((float)(i+1) / segs) * 5.0f;
+                dl->AddLine(
+                    {c.x + cosf(a0) * r, c.y + sinf(a0) * r},
+                    {c.x + cosf(a1) * r, c.y + sinf(a1) * r}, col, t);
+            }
+            // arrowhead at end (top-left)
+            float ea = -1.7f;
+            ImVec2 ep{ c.x + cosf(ea) * r, c.y + sinf(ea) * r };
+            dl->AddLine(ep, {ep.x + s*0.3f, ep.y - s*0.05f}, col, t);
+            dl->AddLine(ep, {ep.x + s*0.05f, ep.y + s*0.3f}, col, t);
+            break; }
+        case FI_ROTATE: {
+            // two opposing curved arrows
+            float r = s * 0.65f;
+            for (int half = 0; half < 2; ++half) {
+                float base = half * 3.14159f;
+                int segs = 14;
+                for (int i = 0; i < segs; ++i) {
+                    float a0 = base + 0.3f + ((float)i / segs) * 2.3f;
+                    float a1 = base + 0.3f + ((float)(i+1) / segs) * 2.3f;
+                    dl->AddLine(
+                        {c.x + cosf(a0) * r, c.y + sinf(a0) * r},
+                        {c.x + cosf(a1) * r, c.y + sinf(a1) * r}, col, t);
+                }
+                float ea = base + 2.6f;
+                ImVec2 ep{ c.x + cosf(ea) * r, c.y + sinf(ea) * r };
+                ImVec2 perp{ -sinf(ea), cosf(ea) };
+                dl->AddTriangleFilled(
+                    {ep.x + perp.x * s*0.18f, ep.y + perp.y * s*0.18f},
+                    {ep.x - perp.x * s*0.18f, ep.y - perp.y * s*0.18f},
+                    {ep.x + cosf(ea) * s*0.3f, ep.y + sinf(ea) * s*0.3f}, col);
+            }
+            break; }
+        case FI_BOLT: {
+            ImVec2 pts[6] = {
+                {c.x - s*0.15f, c.y - s*0.85f},
+                {c.x + s*0.45f, c.y - s*0.85f},
+                {c.x + s*0.05f, c.y - s*0.05f},
+                {c.x + s*0.55f, c.y - s*0.05f},
+                {c.x - s*0.25f, c.y + s*0.85f},
+                {c.x + s*0.10f, c.y + s*0.10f},
+            };
+            dl->AddConvexPolyFilled(pts, 6, col);
+            break; }
+        case FI_BOX: {
+            // dashed box
+            float r = s * 0.75f;
+            float seg = s * 0.3f;
+            // top
+            dl->AddLine({c.x - r, c.y - r}, {c.x - r + seg, c.y - r}, col, t);
+            dl->AddLine({c.x + r - seg, c.y - r}, {c.x + r, c.y - r}, col, t);
+            // bottom
+            dl->AddLine({c.x - r, c.y + r}, {c.x - r + seg, c.y + r}, col, t);
+            dl->AddLine({c.x + r - seg, c.y + r}, {c.x + r, c.y + r}, col, t);
+            // sides
+            dl->AddLine({c.x - r, c.y - r}, {c.x - r, c.y - r + seg}, col, t);
+            dl->AddLine({c.x - r, c.y + r - seg}, {c.x - r, c.y + r}, col, t);
+            dl->AddLine({c.x + r, c.y - r}, {c.x + r, c.y - r + seg}, col, t);
+            dl->AddLine({c.x + r, c.y + r - seg}, {c.x + r, c.y + r}, col, t);
+            break; }
+        case FI_SILHOUETTE: {
+            // simple person bust
+            dl->AddCircleFilled({c.x, c.y - s*0.4f}, s*0.28f, col);
+            ImVec2 pts[4] = {
+                {c.x - s*0.55f, c.y + s*0.85f},
+                {c.x - s*0.55f, c.y + s*0.25f},
+                {c.x + s*0.55f, c.y + s*0.25f},
+                {c.x + s*0.55f, c.y + s*0.85f},
+            };
+            // rounded shoulders via bezier
+            dl->PathLineTo(pts[0]);
+            dl->PathBezierCubicCurveTo(
+                {c.x - s*0.55f, c.y - s*0.05f},
+                {c.x - s*0.35f, c.y - s*0.05f},
+                {c.x, c.y - s*0.05f}, 12);
+            dl->PathBezierCubicCurveTo(
+                {c.x + s*0.35f, c.y - s*0.05f},
+                {c.x + s*0.55f, c.y - s*0.05f},
+                pts[3], 12);
+            dl->PathLineTo(pts[3]);
+            dl->PathFillConvex(col);
+            break; }
+        case FI_TRACER: {
+            // diagonal line with dots at ends
+            ImVec2 a{c.x - s*0.7f, c.y + s*0.7f};
+            ImVec2 b{c.x + s*0.7f, c.y - s*0.7f};
+            dl->AddLine(a, b, col, t * 1.3f);
+            dl->AddCircleFilled(a, s*0.18f, col);
+            dl->AddCircleFilled(b, s*0.10f, col);
+            break; }
+        case FI_DROP: {
+            // teardrop
+            int segs = 24;
+            dl->PathLineTo({c.x, c.y - s*0.85f});
+            for (int i = 0; i <= segs; ++i) {
+                float a = -1.5708f + (float)i / segs * 3.14159f * 1.3f - 0.5f;
+                dl->PathLineTo({c.x + cosf(a) * s*0.55f, c.y + s*0.25f + sinf(a) * s*0.55f});
+            }
+            dl->PathFillConvex(col);
+            break; }
+        case FI_EYE: {
+            const float ew = s * 0.85f, ctrl = s * 0.6f;
+            dl->AddBezierCubic({c.x - ew, c.y}, {c.x - ew*0.5f, c.y - ctrl},
+                {c.x + ew*0.5f, c.y - ctrl}, {c.x + ew, c.y}, col, t);
+            dl->AddBezierCubic({c.x + ew, c.y}, {c.x + ew*0.5f, c.y + ctrl},
+                {c.x - ew*0.5f, c.y + ctrl}, {c.x - ew, c.y}, col, t);
+            dl->AddCircleFilled(c, s * 0.25f, col);
+            break; }
+        case FI_BADGE: {
+            // 5-point star
+            ImVec2 pts[10];
+            for (int i = 0; i < 10; ++i) {
+                float ang = -1.5708f + (float)i * 0.6283f;
+                float r   = (i & 1) ? s * 0.36f : s * 0.85f;
+                pts[i] = { c.x + cosf(ang) * r, c.y + sinf(ang) * r };
+            }
+            dl->AddConvexPolyFilled(pts, 10, col);
+            break; }
+        case FI_GRENADE: {
+            // circle + small handle on top
+            dl->AddCircle({c.x, c.y + s*0.15f}, s*0.55f, col, 24, t);
+            dl->AddRect({c.x - s*0.15f, c.y - s*0.55f}, {c.x + s*0.15f, c.y - s*0.35f}, col, 1.f, 0, t);
+            dl->AddLine({c.x, c.y - s*0.35f}, {c.x, c.y - s*0.4f}, col, t);
+            // pin ring
+            dl->AddCircle({c.x + s*0.35f, c.y - s*0.55f}, s*0.13f, col, 12, t);
+            break; }
+        case FI_TARGET: {
+            dl->AddCircle(c, s*0.85f, col, 28, t);
+            dl->AddCircle(c, s*0.5f,  col, 24, t);
+            dl->AddCircleFilled(c, s*0.18f, col);
+            break; }
+        case FI_SPEAKER: {
+            // speaker cone
+            ImVec2 pts[5] = {
+                {c.x - s*0.7f, c.y - s*0.25f},
+                {c.x - s*0.25f, c.y - s*0.25f},
+                {c.x + s*0.35f, c.y - s*0.65f},
+                {c.x + s*0.35f, c.y + s*0.65f},
+                {c.x - s*0.25f, c.y + s*0.25f},
+            };
+            // body
+            dl->AddTriangleFilled(pts[0], pts[1], pts[4], col);
+            dl->AddRectFilled({pts[0].x, pts[0].y}, {pts[1].x, pts[4].y}, col);
+            dl->AddTriangleFilled(pts[1], pts[2], pts[3], col);
+            dl->AddTriangleFilled(pts[1], pts[3], pts[4], col);
+            // sound waves
+            dl->AddBezierCubic({c.x + s*0.55f, c.y - s*0.4f}, {c.x + s*0.85f, c.y - s*0.2f},
+                {c.x + s*0.85f, c.y + s*0.2f}, {c.x + s*0.55f, c.y + s*0.4f}, col, t);
+            break; }
+        case FI_PAINT: {
+            // paint roller / dropper
+            dl->AddRect({c.x - s*0.55f, c.y - s*0.7f}, {c.x + s*0.55f, c.y - s*0.3f}, col, 2.f, 0, t);
+            dl->AddRect({c.x - s*0.35f, c.y - s*0.3f}, {c.x + s*0.35f, c.y - s*0.05f}, col, 1.f, 0, t);
+            dl->AddRect({c.x - s*0.12f, c.y - s*0.05f}, {c.x + s*0.12f, c.y + s*0.85f}, col, 1.f, 0, t);
+            break; }
+        case FI_KNIFE: {
+            // blade + handle
+            ImVec2 blade[4] = {
+                {c.x - s*0.9f, c.y + s*0.25f},
+                {c.x + s*0.1f, c.y - s*0.85f},
+                {c.x + s*0.25f, c.y - s*0.7f},
+                {c.x - s*0.75f, c.y + s*0.4f},
+            };
+            dl->AddConvexPolyFilled(blade, 4, col);
+            // handle
+            dl->AddRectFilled({c.x + s*0.1f, c.y + s*0.15f}, {c.x + s*0.85f, c.y + s*0.5f}, col, 2.f);
+            break; }
+        case FI_GLOVE: {
+            // mitten silhouette
+            dl->AddRectFilled({c.x - s*0.4f, c.y - s*0.8f}, {c.x + s*0.4f, c.y + s*0.5f}, col, s*0.3f);
+            // thumb
+            dl->AddCircleFilled({c.x + s*0.55f, c.y - s*0.05f}, s*0.22f, col);
+            // cuff
+            dl->AddRectFilled({c.x - s*0.5f, c.y + s*0.5f}, {c.x + s*0.5f, c.y + s*0.85f}, col, s*0.15f);
+            break; }
+        case FI_SUN: {
+            dl->AddCircleFilled(c, s * 0.35f, col);
+            for (int i = 0; i < 8; ++i) {
+                float a = (float)i * 0.7854f;
+                dl->AddLine(
+                    {c.x + cosf(a) * s*0.55f, c.y + sinf(a) * s*0.55f},
+                    {c.x + cosf(a) * s*0.85f, c.y + sinf(a) * s*0.85f}, col, t);
+            }
+            break; }
+        case FI_FLAME: {
+            int segs = 20;
+            dl->PathLineTo({c.x, c.y - s*0.95f});
+            for (int i = 0; i <= segs; ++i) {
+                float u = (float)i / segs;
+                float a = -1.5708f + u * 3.14159f * 2.f;
+                float r = s * (0.55f + 0.15f * sinf(u * 6.28f));
+                dl->PathLineTo({c.x + cosf(a) * r, c.y + s*0.15f + sinf(a) * r * 0.85f});
+            }
+            dl->PathFillConvex(col);
+            break; }
+        case FI_FOV: {
+            // diverging lines (cone)
+            dl->AddLine({c.x - s*0.7f, c.y + s*0.7f}, {c.x, c.y - s*0.55f}, col, t);
+            dl->AddLine({c.x + s*0.7f, c.y + s*0.7f}, {c.x, c.y - s*0.55f}, col, t);
+            // arc at bottom
+            int segs = 14;
+            for (int i = 0; i < segs; ++i) {
+                float u0 = (float)i / segs, u1 = (float)(i+1) / segs;
+                float a0 = 3.14159f + 0.6f + u0 * (3.14159f - 1.2f);
+                float a1 = 3.14159f + 0.6f + u1 * (3.14159f - 1.2f);
+                dl->AddLine(
+                    {c.x + cosf(a0) * s*0.95f, c.y - s*0.55f + sinf(a0) * s*1.25f},
+                    {c.x + cosf(a1) * s*0.95f, c.y - s*0.55f + sinf(a1) * s*1.25f}, col, t);
+            }
+            break; }
+        case FI_MOON: {
+            // crescent: filled circle minus offset circle (approximated with paths)
+            int segs = 32;
+            dl->PathClear();
+            for (int i = 0; i <= segs; ++i) {
+                float a = -1.5708f + (float)i / segs * 3.14159f;
+                dl->PathLineTo({c.x + cosf(a) * s*0.85f, c.y + sinf(a) * s*0.85f});
+            }
+            for (int i = segs; i >= 0; --i) {
+                float a = -1.5708f + (float)i / segs * 3.14159f;
+                dl->PathLineTo({c.x + s*0.3f + cosf(a) * s*0.7f, c.y + sinf(a) * s*0.7f});
+            }
+            dl->PathFillConvex(col);
+            break; }
+        case FI_BULB: {
+            dl->AddCircleFilled({c.x, c.y - s*0.15f}, s*0.5f, col);
+            dl->AddRectFilled({c.x - s*0.3f, c.y + s*0.3f}, {c.x + s*0.3f, c.y + s*0.55f}, col);
+            dl->AddRectFilled({c.x - s*0.22f, c.y + s*0.55f}, {c.x + s*0.22f, c.y + s*0.78f}, col);
+            // base contact
+            dl->AddRectFilled({c.x - s*0.12f, c.y + s*0.78f}, {c.x + s*0.12f, c.y + s*0.95f}, col);
+            break; }
+        case FI_CAMERA: {
+            dl->AddRect({c.x - s*0.85f, c.y - s*0.45f}, {c.x + s*0.85f, c.y + s*0.55f}, col, 2.f, 0, t);
+            dl->AddRectFilled({c.x - s*0.25f, c.y - s*0.7f}, {c.x + s*0.25f, c.y - s*0.45f}, col);
+            dl->AddCircle({c.x, c.y + s*0.05f}, s*0.3f, col, 20, t);
+            dl->AddCircleFilled({c.x, c.y + s*0.05f}, s*0.12f, col);
+            break; }
+        case FI_CHECK: {
+            // checkmark in circle
+            dl->AddCircle(c, s*0.85f, col, 28, t);
+            dl->AddLine({c.x - s*0.4f, c.y + s*0.05f}, {c.x - s*0.05f, c.y + s*0.4f}, col, t * 1.4f);
+            dl->AddLine({c.x - s*0.05f, c.y + s*0.4f}, {c.x + s*0.45f, c.y - s*0.3f}, col, t * 1.4f);
+            break; }
+        case FI_GEAR: {
+            int teeth = 8;
+            float rOuter = s * 0.85f, rInner = s * 0.6f;
+            for (int i = 0; i < teeth; ++i) {
+                float a = (float)i * 6.2832f / teeth;
+                float ax = cosf(a), ay = sinf(a);
+                float perpx = -ay, perpy = ax;
+                ImVec2 p0{ c.x + (ax * rInner) + perpx * s*0.12f, c.y + (ay * rInner) + perpy * s*0.12f };
+                ImVec2 p1{ c.x + (ax * rOuter) + perpx * s*0.12f, c.y + (ay * rOuter) + perpy * s*0.12f };
+                ImVec2 p2{ c.x + (ax * rOuter) - perpx * s*0.12f, c.y + (ay * rOuter) - perpy * s*0.12f };
+                ImVec2 p3{ c.x + (ax * rInner) - perpx * s*0.12f, c.y + (ay * rInner) - perpy * s*0.12f };
+                dl->AddQuadFilled(p0, p1, p2, p3, col);
+            }
+            dl->AddCircleFilled(c, rInner, col);
+            dl->AddCircleFilled(c, s * 0.25f, IM_COL32(0, 0, 0, 200));
+            break; }
+        case FI_WAND: {
+            // diagonal wand with sparkle
+            dl->AddLine({c.x - s*0.7f, c.y + s*0.7f}, {c.x + s*0.4f, c.y - s*0.4f}, col, t * 1.5f);
+            // sparkle
+            float sx = c.x + s*0.55f, sy = c.y - s*0.55f;
+            dl->AddLine({sx - s*0.25f, sy}, {sx + s*0.25f, sy}, col, t);
+            dl->AddLine({sx, sy - s*0.25f}, {sx, sy + s*0.25f}, col, t);
+            dl->AddLine({sx - s*0.18f, sy - s*0.18f}, {sx + s*0.18f, sy + s*0.18f}, col, t * 0.7f);
+            dl->AddLine({sx + s*0.18f, sy - s*0.18f}, {sx - s*0.18f, sy + s*0.18f}, col, t * 0.7f);
+            break; }
+        case FI_PALETTE: {
+            // palette blob
+            int segs = 24;
+            dl->PathClear();
+            for (int i = 0; i <= segs; ++i) {
+                float a = (float)i / segs * 6.2832f;
+                float r = s * (0.75f + 0.10f * sinf(a * 3.f));
+                dl->PathLineTo({c.x + cosf(a) * r, c.y + sinf(a) * r});
+            }
+            dl->PathFillConvex(col);
+            // thumb hole
+            dl->AddCircleFilled({c.x - s*0.35f, c.y + s*0.05f}, s*0.18f, IM_COL32(0,0,0,200));
+            // dots
+            dl->AddCircleFilled({c.x + s*0.25f, c.y - s*0.25f}, s*0.10f, IM_COL32(0,0,0,180));
+            dl->AddCircleFilled({c.x + s*0.45f, c.y + s*0.10f}, s*0.10f, IM_COL32(0,0,0,180));
+            dl->AddCircleFilled({c.x + s*0.10f, c.y + s*0.40f}, s*0.10f, IM_COL32(0,0,0,180));
+            break; }
+        case FI_HUD: {
+            // mini display with chip
+            dl->AddRect({c.x - s*0.85f, c.y - s*0.55f}, {c.x + s*0.85f, c.y + s*0.55f}, col, 3.f, 0, t);
+            dl->AddRectFilled({c.x - s*0.6f, c.y - s*0.3f}, {c.x + s*0.0f, c.y - s*0.1f}, col, 1.f);
+            dl->AddRectFilled({c.x - s*0.6f, c.y + s*0.05f}, {c.x + s*0.45f, c.y + s*0.25f}, col, 1.f);
+            dl->AddCircleFilled({c.x + s*0.55f, c.y - s*0.2f}, s*0.12f, col);
+            break; }
+        case FI_FLOPPY: {
+            dl->AddRect({c.x - s*0.75f, c.y - s*0.75f}, {c.x + s*0.75f, c.y + s*0.75f}, col, 3.f, 0, t);
+            dl->AddRectFilled({c.x - s*0.45f, c.y - s*0.75f}, {c.x + s*0.45f, c.y - s*0.3f}, col);
+            dl->AddRectFilled({c.x - s*0.55f, c.y + s*0.05f}, {c.x + s*0.55f, c.y + s*0.6f}, col, 1.f);
+            // notch
+            dl->AddRectFilled({c.x + s*0.15f, c.y - s*0.7f}, {c.x + s*0.35f, c.y - s*0.45f}, IM_COL32(0,0,0,200));
+            break; }
+        default: break;
+        }
+    }
+
+    // ============================================================
+    //  PAGE RENDERERS  (one per existing section; called from grid)
+    // ============================================================
+
+    // ── AIM tab ────────────────────────────────────────────────
+    inline void Pg_Aimbot()
+    {
+        EvoCheckbox("Enable", &Aimbot::cfg.enabled);
+        SynthSep();
+        const char* akn[] = { "Auto (Mouse1)", "Right Click", "Always On" };
+        EvoCombo("Aim Key##ak", &Aimbot::cfg.aimKey, akn, 3);
+        SynthSep();
+        EvoCheckbox("Team Check",    &Aimbot::cfg.teamCheck);
+        SynthSep();
+        EvoCheckbox("Head Priority", &Aimbot::cfg.headPriority);
+        SynthSep();
+        EvoCheckbox("Smoke Check",   &Aimbot::cfg.smokeCheck);
+        SynthSep();
+        EvoCheckbox("Vis Check",     &Aimbot::cfg.visCheck);
+        SynthSep();
+        EvoCheckbox("Silent Aim",    &Aimbot::cfg.silentAim);
+        if (Aimbot::cfg.silentAim) { SynthSep(); EvoSliderFloat("Max Delta##sd", &Aimbot::cfg.silentMaxDelta, 0.5f, 5.f, "%.1f"); }
+        SynthSep();
+        EvoSliderFloat("FOV",          &Aimbot::cfg.fov,          0.5f, 30.f,  "%.1f");
+        SynthSep();
+        EvoSliderFloat("Smoothing",    &Aimbot::cfg.smoothing,    1.f,  100.f, "%.0f");
+        SynthSep();
+        EvoSliderFloat("Humanization", &Aimbot::cfg.humanization, 0.f,  1.f,   "%.2f");
+        SynthSep();
+        EvoCheckbox("No Recoil",       &Aimbot::cfg.noRecoil);
+        SynthSep();
+        const char* bones[]   = { "Head","Neck","Chest","Pelvis" };
+        const int   boneIds[] = { 7, 6, 23, 1 };
+        int bIdx = 0;
+        for (int i = 0; i < 4; ++i) if (boneIds[i] == Aimbot::cfg.targetBone) bIdx = i;
+        if (EvoCombo("Hitbox##hb", &bIdx, bones, 4)) Aimbot::cfg.targetBone = boneIds[bIdx];
+        SynthSep();
+        EvoCheckbox("Multi-Bone Scan",  &Aimbot::cfg.multiBone);
+        SynthSep();
+        EvoCheckbox("Velocity Predict", &Aimbot::cfg.velPredict);
+        if (Aimbot::cfg.velPredict) { SynthSep(); EvoSliderFloat("Predict Scale##ps", &Aimbot::cfg.velPredictScale, 0.1f, 3.f, "%.2f"); }
+        SynthSep();
+        EvoCheckbox("Show FOV Circle",  &Aimbot::cfg.showFovCircle);
+        SynthSep();
+        EvoCheckbox("Jump Shot",        &Aimbot::cfg.jumpShot);
+        if (Aimbot::cfg.jumpShot) { SynthSep(); EvoCheckbox("Apex Only##jo", &Aimbot::cfg.jumpApexOnly); }
+        SynthSep();
+        EvoCheckbox("No Spread",        &Aimbot::cfg.noSpread);
+        SynthSep();
+        EvoCheckbox("Stat Governor##gov", &Aimbot::Governor::gcfg.enabled);
+        if (Aimbot::Governor::gcfg.enabled)
+        {
+            SynthSep(); EvoSliderFloat("Intensity##gi",  &Aimbot::Governor::gcfg.intensity,    0.f,  1.f, "%.2f");
+            SynthSep(); EvoSliderFloat("HS Cap %%##ghc", &Aimbot::Governor::gcfg.hsCapPercent, 30.f, 80.f, "%.0f");
+            SynthSep(); if (EvoButton("Reset Session##gr")) Aimbot::Governor::ResetSession();
+        }
+    }
+    inline void Pg_Triggerbot()
+    {
+        EvoCheckbox("Enable##trig",      &Triggerbot::cfg.enabled);
+        if (Triggerbot::cfg.enabled)
+        {
+            SynthSep(); EvoCheckbox("Team Check##ttc",   &Triggerbot::cfg.teamCheck);
+            SynthSep(); EvoCheckbox("Smoke Check##tsc",  &Triggerbot::cfg.smokeCheck);
+            SynthSep(); EvoCheckbox("Scope Only##tso",   &Triggerbot::cfg.scopeOnly);
+            SynthSep(); ImGui::SliderInt("Min Delay##tmd", &Triggerbot::cfg.minDelayMs, 0, 200);
+            SynthSep(); ImGui::SliderInt("Max Delay##txd", &Triggerbot::cfg.maxDelayMs, 0, 300);
+        }
+    }
+    inline void Pg_Bhop()
+    {
+        EvoCheckbox("Enable##bhop", &Bhop::cfg.enabled);
+        if (Bhop::cfg.enabled) {
+            SynthSep(); EvoSliderFloat("Max Speed##bms", &Bhop::cfg.maxSpeed, 200.f, 500.f, "%.0f");
+            SynthSep(); EvoSliderFloat("Min Speed##bns", &Bhop::cfg.minSpeed,  10.f, 120.f, "%.0f");
+            SynthSep(); EvoCheckbox("Auto Strafe##bs",   &Bhop::cfg.autoStrafe);
+        }
+        SynthSep(); EvoCheckbox("Velocity Display##bvd", &Bhop::cfg.showVelocity);
+    }
+    inline void Pg_Backtrack()
+    {
+        EvoCheckbox("Enable##bt", &Backtrack::cfg.enabled);
+        if (Backtrack::cfg.enabled) {
+            SynthSep(); ImGui::SliderInt("Max Ticks##btmt", &Backtrack::cfg.maxTicksBack, 1, 20);
+            SynthSep(); EvoCheckbox("Draw History##btdh", &Backtrack::cfg.drawHistory);
+        }
+    }
+    inline void Pg_AntiAim()
+    {
+        EvoCheckbox("Enable##aa", &AntiAim::cfg.enabled);
+        if (AntiAim::cfg.enabled) {
+            static const char* pitchModes[] = { "Off", "Down", "Up", "Zero" };
+            static const char* yawModes[]   = { "Off", "Spin", "Jitter", "Desync" };
+            SynthSep(); ImGui::Combo("Pitch##aap", &AntiAim::cfg.pitchMode, pitchModes, 4);
+            SynthSep(); ImGui::Combo("Yaw##aay",   &AntiAim::cfg.yawMode,   yawModes,   4);
+            if (AntiAim::cfg.yawMode == 1) { SynthSep(); EvoSliderFloat("Speed##aas", &AntiAim::cfg.spinSpeed, 1.f, 45.f, "%.0f"); }
+            if (AntiAim::cfg.yawMode == 3) { SynthSep(); EvoSliderFloat("Delta##aad", &AntiAim::cfg.desyncDelta, 10.f, 58.f, "%.0f"); }
+        }
+    }
+    inline void Pg_FakeLag()
+    {
+        EvoCheckbox("Enable##fl", &FakeLag::cfg.enabled);
+        if (FakeLag::cfg.enabled) {
+            static const char* flModes[] = { "Fixed", "Dynamic", "On Key" };
+            SynthSep(); ImGui::Combo("Mode##flm", &FakeLag::cfg.mode, flModes, 3);
+            SynthSep(); ImGui::SliderInt("Max Choke##flmc", &FakeLag::cfg.maxChoke, 1, 14);
+        }
+    }
+
+    // ── VIS tab ────────────────────────────────────────────────
+    inline void Pg_ESP()
+    {
+        EvoCheckbox("Enable ESP", &ESP::cfg.enabled);
+        if (!ESP::cfg.enabled) return;
+        SynthSep(); EvoCheckbox("Box",       &ESP::cfg.box);
+        if (ESP::cfg.box) { SynthSep(); const char* bst[]={"Normal","Corners"}; EvoCombo("Style##bs",&ESP::cfg.boxStyle,bst,2); }
+        SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::ColorEdit4("Box Color##bc", ESP::cfg.boxColor, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+        SynthSep(); EvoCheckbox("Skeleton",   &ESP::cfg.skeleton);
+        SynthSep(); EvoCheckbox("Health Bar", &ESP::cfg.healthBar);
+        SynthSep(); EvoCheckbox("Name",       &ESP::cfg.name);
+        SynthSep(); EvoCheckbox("Distance",   &ESP::cfg.distance);
+        SynthSep(); EvoCheckbox("Weapon",     &ESP::cfg.weapon);
+        if (ESP::cfg.weapon) { SynthSep(); EvoCheckbox("Use Weapon Icons##wi",&ESP::cfg.weaponIcon); }
+        SynthSep(); EvoCheckbox("Team Check##etm", &ESP::cfg.teamCheck);
+        SynthSep(); EvoCheckbox("Bomb Timer", &ESP::cfg.bombTimer);
+        if (ESP::cfg.bombTimer) { SynthSep(); const char* bts[]={"Classic","Vivid","Compact"}; EvoCombo("Bomb Style##bts",&ESP::cfg.bombTimerStyle,bts,3); }
+        SynthSep(); EvoCheckbox("Vis Color",  &ESP::cfg.visColorEnabled);
+        if (ESP::cfg.visColorEnabled) {
+            SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::ColorEdit4("Visible##vc", ESP::cfg.visibleColor, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+            SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::ColorEdit4("Hidden##hc",  ESP::cfg.hiddenColor,  ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+        }
+    }
+    inline void Pg_Chams()
+    {
+        EvoCheckbox("Enable Chams", &Chams::cfg.enabled);
+        if (!Chams::cfg.enabled) return;
+        SynthSep(); EvoCheckbox("Wallhack##cw", &Chams::cfg.wallhack);
+        auto SlotW = [](const char* n, Chams::SlotStyle& sl) {
+            ImGui::PushID(n);
+            if (sl.material < 0 || sl.material >= Chams::MAT_COUNT) sl.material = Chams::MAT_NONE;
+            ImGui::Text("  %s", n); ImGui::SameLine();
+            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x - 30);
+            if (ImGui::BeginCombo("##m", Chams::MaterialNames[sl.material])) {
+                for (int i = 0; i < Chams::MAT_COUNT; ++i) {
+                    bool sel = (sl.material == i);
+                    if (ImGui::Selectable(Chams::MaterialNames[i], sel)) sl.material = i;
+                    if (sel) ImGui::SetItemDefaultFocus();
+                }
+                ImGui::EndCombo();
+            }
+            if (sl.material != Chams::MAT_NONE) {
+                ImGui::SameLine();
+                ImGui::ColorEdit4("##cc", sl.color, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+            }
+            ImGui::PopID();
+        };
+        SynthSep(); SlotW("Visible", Chams::cfg.playerVis);
+        if (Chams::cfg.wallhack) { SynthSep(); SlotW("Walls", Chams::cfg.playerHid); }
+        SynthSep(); EvoCheckbox("Hand Chams##hc", &Chams::cfg.handsEnabled);
+        if (Chams::cfg.handsEnabled) { SynthSep(); SlotW("Hands", Chams::cfg.hands); }
+        SynthSep(); EvoCheckbox("Weapon Chams##wc", &Chams::cfg.weaponsEnabled);
+        if (Chams::cfg.weaponsEnabled) { SynthSep(); SlotW("Weapons", Chams::cfg.weapons); }
+    }
+    inline void Pg_Tracers()    { EvoCheckbox("Enable", &BulletTracer::cfg.enabled); }
+    inline void Pg_DamageInd()
+    {
+        EvoCheckbox("Enable", &DamageIndicator::cfg.enabled);
+        if (DamageIndicator::cfg.enabled) {
+            SynthSep(); const char* dp[]={"Left","Right"}; const char* ds[]={"Classic","Minimal","Bold"};
+            EvoCombo("Position##dp", &DamageIndicator::cfg.position, dp, 2);
+            SynthSep(); EvoCombo("Style##ds",    &DamageIndicator::cfg.style,    ds, 3);
+        }
+    }
+    inline void Pg_Spectators()
+    {
+        EvoCheckbox("Spectator List", &ESP::cfg.spectators);
+        if (ESP::cfg.spectators) { SynthSep(); const char* sps[]={"Classic","Stealth","Minimal"};
+            EvoCombo("List Style##sls", &ESP::cfg.spectatorStyle, sps, 3); }
+    }
+    inline void Pg_RankReveal() { EvoCheckbox("Enable", &RankRevealer::cfg.enabled); }
+    inline void Pg_NadePred()
+    {
+        EvoCheckbox("Enable##gp", &GrenadePrediction::cfg.enabled);
+        if (GrenadePrediction::cfg.enabled) {
+            SynthSep(); EvoCheckbox("Show Trail##gt",   &GrenadePrediction::cfg.showTrail);
+            SynthSep(); EvoCheckbox("Show Landing##gl", &GrenadePrediction::cfg.showLanding);
+            SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::ColorEdit4("Trail##tc", GrenadePrediction::cfg.trailColor, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+        }
+    }
+    inline void Pg_NadeHelper()
+    {
+        EvoCheckbox("Enable##nh", &NadeHelper::cfg.enabled);
+        if (NadeHelper::cfg.enabled) {
+            SynthSep(); EvoSliderFloat("Trigger Dist##nt", &NadeHelper::cfg.triggerDist,  50.f, 300.f, "%.0f");
+            SynthSep(); EvoSliderFloat("Aim Tol##na",      &NadeHelper::cfg.aimTolerance,  1.f,  10.f, "%.1f");
+        }
+    }
+    inline void Pg_SoundESP()
+    {
+        EvoCheckbox("Enable##sesp", &SoundESP::cfg.enabled);
+        if (SoundESP::cfg.enabled) {
+            SynthSep(); EvoCheckbox("Footstep Marks##sfm", &SoundESP::cfg.showFootsteps);
+            SynthSep(); EvoSliderFloat("Max Dist##smd",  &SoundESP::cfg.maxDistance, 500.f, 4000.f, "%.0f");
+            SynthSep(); EvoSliderFloat("Ring Size##srs", &SoundESP::cfg.ringRadius,   30.f, 150.f, "%.0f");
+            SynthSep(); EvoSliderFloat("Arrow Size##sas",&SoundESP::cfg.indicatorSize,15.f,  80.f, "%.0f");
+        }
+    }
+
+    // ── SKN tab ────────────────────────────────────────────────
+    inline void Pg_SkinChanger()
+    {
+        EvoCheckbox("Enable Skin Changer", &SkinChanger::cfg.enabled);
+        if (!SkinChanger::cfg.enabled) return;
+        SynthSep(); if (EvoButton("Randomize All##ra")) SkinChanger::RandomizeAll();
+        SynthSep(); if (EvoButton("Force Update##fu")) {
+            SkinChanger::ForceFullUpdate();
+            SkinChanger::lastKnifeDefIdx = 0;
+            SkinChanger::lastGloveSpawnTime = 0.f;
+            SkinChanger::gloveRefreshFrames = 0;
+        }
+        SynthSep(); if (EvoButton("Inject Locker Items##ili")) InventoryChanger::ResetAutoInject();
+
+        SynthSep();
+        static const char* wn[SkinChanger::kWeaponCount]{};
+        static bool wnInit = false;
+        if (!wnInit) { for (int i = 0; i < SkinChanger::kWeaponCount; ++i) wn[i] = SkinChanger::kWeapons[i].name; wnInit = true; }
+        ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::Combo("##wsel", &SkinChanger::cfg.activeWeaponSlot, wn, SkinChanger::kWeaponCount);
+        int ws = SkinChanger::cfg.activeWeaponSlot;
+        if (ws >= 0 && ws < SkinChanger::kWeaponCount) {
+            auto& skin = SkinChanger::cfg.weapons[ws];
+            SynthSep(); EvoCheckbox("Enable##wp", &skin.enabled);
+            if (skin.enabled) {
+                SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+                ImGui::InputInt("Paint Kit##wpk", &skin.paintKit);
+                if (skin.paintKit < 0) skin.paintKit = 0;
+                SynthSep(); EvoSliderFloat("Wear##ww", &skin.wear, 0.f, 1.f, "%.4f");
+                SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+                ImGui::InputInt("StatTrak##wst", &skin.statTrak);
+            }
+        }
+    }
+    inline void Pg_Knife()
+    {
+        EvoCheckbox("Enable##kc", &SkinChanger::cfg.knifeEnabled);
+        if (!SkinChanger::cfg.knifeEnabled) return;
+        SynthSep();
+        static const char* kn[SkinChanger::kKnifeCount]{};
+        static bool knInit = false;
+        if (!knInit) { for (int i = 0; i < SkinChanger::kKnifeCount; ++i) kn[i] = SkinChanger::kKnives[i].name; knInit = true; }
+        ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        if (ImGui::Combo("Model##km", &SkinChanger::cfg.knifeModel, kn, SkinChanger::kKnifeCount))
+            SkinChanger::ForceFullUpdate();
+        SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::InputInt("Paint Kit##kpk", &SkinChanger::cfg.knifePaintKit);
+        if (SkinChanger::cfg.knifePaintKit < 0) SkinChanger::cfg.knifePaintKit = 0;
+        SynthSep(); EvoSliderFloat("Wear##kw", &SkinChanger::cfg.knifeWear, 0.f, 1.f, "%.4f");
+    }
+    inline void Pg_Glove()
+    {
+        EvoCheckbox("Enable##gc", &SkinChanger::cfg.gloveEnabled);
+        if (!SkinChanger::cfg.gloveEnabled) return;
+        SynthSep();
+        static const char* gn[SkinChanger::kGloveCount]{};
+        static bool gnInit = false;
+        if (!gnInit) { for (int i = 0; i < SkinChanger::kGloveCount; ++i) gn[i] = SkinChanger::kGloves[i].name; gnInit = true; }
+        ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        if (ImGui::Combo("Model##gm", &SkinChanger::cfg.gloveModel, gn, SkinChanger::kGloveCount))
+            SkinChanger::ForceFullUpdate();
+        SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::InputInt("Paint Kit##gpk", &SkinChanger::cfg.glovePaintKit);
+        if (SkinChanger::cfg.glovePaintKit < 0) SkinChanger::cfg.glovePaintKit = 0;
+        SynthSep(); EvoSliderFloat("Wear##gw", &SkinChanger::cfg.gloveWear, 0.f, 1.f, "%.4f");
+    }
+
+    // ── WLD tab ────────────────────────────────────────────────
+    inline void Pg_Sky()
+    {
+        EvoCheckbox("Sky Override##so", &WorldEffects::cfg.skyEnabled);
+        if (WorldEffects::cfg.skyEnabled) {
+            SynthSep(); EvoCheckbox("Rainbow Sky##rs", &WorldEffects::cfg.skyRainbow);
+            SynthSep();
+            if (WorldEffects::cfg.skyRainbow)
+                EvoSliderFloat("Speed##rss", &WorldEffects::cfg.skyRainbowSpeed, 0.05f, 2.f, "%.2f");
+            else {
+                ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+                ImGui::ColorEdit4("Sky Color##scc", WorldEffects::cfg.skyColor, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+            }
+            SynthSep(); EvoSliderFloat("Brightness##sb", &WorldEffects::cfg.skyBrightness, 0.1f, 5.f, "%.1f");
+        }
+    }
+    inline void Pg_FlashSmoke()
+    {
+        EvoCheckbox("No Flash##nf", &WorldEffects::cfg.noFlash);
+        if (WorldEffects::cfg.noFlash) { SynthSep(); EvoSliderFloat("Max Alpha##mfa", &WorldEffects::cfg.maxFlashAlpha, 0.f, 255.f, "%.0f"); }
+        SynthSep(); EvoCheckbox("No Smoke##ns", &WorldEffects::cfg.noSmoke);
+        SynthSep(); EvoCheckbox("Smoke Color##smoC", &WorldEffects::cfg.smokeColor);
+        if (WorldEffects::cfg.smokeColor) {
+            SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::ColorEdit4("Smoke##st", WorldEffects::cfg.smokeCol, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+        }
+    }
+    inline void Pg_Fire()
+    {
+        EvoCheckbox("Fire Color##fco", &WorldEffects::cfg.fireColor);
+        if (WorldEffects::cfg.fireColor) {
+            SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::ColorEdit4("Fire##fc", WorldEffects::cfg.fireCol, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+        }
+    }
+    inline void Pg_FOV()
+    {
+        EvoCheckbox("FOV Override##fovc", &WorldEffects::cfg.fovEnabled);
+        if (WorldEffects::cfg.fovEnabled) { SynthSep(); EvoSliderFloat("FOV Value##fv", &WorldEffects::cfg.fovValue, 60.f, 150.f, "%.0f"); }
+    }
+    inline void Pg_NightAsus()
+    {
+        const char* nm[] = { "Off","Night","Midnight","Sunset","Blood Moon","Aurora","Cyberpunk","Vaporwave","Hellfire" };
+        EvoCombo("Night Mode##nm", &WorldEffects::cfg.nightMode, nm, IM_ARRAYSIZE(nm));
+        SynthSep();
+        const char* am[] = { "Off","Lime","Hot Pink","Cyan","Red","Yellow" };
+        EvoCombo("Asus Mode##am", &WorldEffects::cfg.asusMode, am, IM_ARRAYSIZE(am));
+    }
+    inline void Pg_Visibility()
+    {
+        EvoCheckbox("Fullbright##fbm",          &WorldEffects::cfg.fullbright);
+        SynthSep(); EvoCheckbox("Anti-Fog##af", &WorldEffects::cfg.antiFog);
+        SynthSep(); EvoCheckbox("No Shadows##nsh", &WorldEffects::cfg.noShadows);
+        SynthSep(); EvoCheckbox("No Color Correction##ncc", &WorldEffects::cfg.noColorCorrection);
+        SynthSep(); EvoCheckbox("Custom Fog##cf", &WorldEffects::cfg.fogEnabled);
+        if (WorldEffects::cfg.fogEnabled) {
+            SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::ColorEdit3("Fog Color##fgc", WorldEffects::cfg.fogColor, ImGuiColorEditFlags_NoInputs);
+            SynthSep(); EvoSliderFloat("Start##fs",   &WorldEffects::cfg.fogStart,    0.f,    2000.f, "%.0f");
+            SynthSep(); EvoSliderFloat("End##fe",     &WorldEffects::cfg.fogEnd,    500.f,   20000.f, "%.0f");
+            SynthSep(); EvoSliderFloat("Density##fd", &WorldEffects::cfg.fogDensity,  0.f,       1.f, "%.2f");
+        }
+        SynthSep(); EvoCheckbox("Brightness Override##bo", &WorldEffects::cfg.brightnessEnabled);
+        if (WorldEffects::cfg.brightnessEnabled) {
+            SynthSep(); EvoSliderFloat("Min Exp##me", &WorldEffects::cfg.exposureMin, 0.1f, 5.f, "%.2f");
+            SynthSep(); EvoSliderFloat("Max Exp##xe", &WorldEffects::cfg.exposureMax, 0.1f, 5.f, "%.2f");
+            SynthSep(); if (EvoButton("Fullbright##fb")) WorldEffects::cfg.exposureMin = WorldEffects::cfg.exposureMax = 3.f;
+        }
+    }
+    inline void Pg_ThirdPerson()
+    {
+        EvoCheckbox("Enable##tp", &WorldEffects::cfg.thirdPerson);
+        if (WorldEffects::cfg.thirdPerson) { SynthSep(); EvoSliderFloat("Distance##tpd", &WorldEffects::cfg.thirdPersonDist, 50.f, 300.f, "%.0f"); }
+    }
+    inline void Pg_Wireframe()
+    {
+        EvoCheckbox("Enable##wv", &WireframeHands::cfg.enabled);
+        if (WireframeHands::cfg.enabled) {
+            SynthSep(); EvoCheckbox("Hands Only##wh", &WireframeHands::cfg.handsOnly);
+            SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::ColorEdit4("Wire Color##wc", WireframeHands::cfg.color, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+        }
+    }
+    inline void Pg_AutoAccept()
+    {
+        EvoCheckbox("Enable##aa", &AutoAccept::cfg.enabled);
+        if (AutoAccept::cfg.enabled) { SynthSep(); EvoSliderFloat("Delay##aad", &AutoAccept::cfg.delay, 0.1f, 3.f, "%.1f"); }
+    }
+
+    // ── CFG tab ────────────────────────────────────────────────
+    inline void Pg_UIMode()  { EvoCheckbox("Advanced Mode", &advancedMode); }
+    inline void Pg_Presets()
+    {
+        ImGui::TextColored({ 0.4f,1.f,0.4f,1.f }, "  Safe");
+        ImGui::Dummy({ 0.f, 2.f });
+        if (EvoButton("Undetected##pu"))  ApplyPreset_Undetected();
+        SynthSep(); if (EvoButton("Legit Aim##pla"))  ApplyPreset_LegitAim();
+        ImGui::Dummy({ 0.f, 4.f }); ImGui::TextColored({ 1.f,0.7f,0.3f,1.f }, "  Risky"); ImGui::Dummy({ 0.f, 2.f });
+        if (EvoButton("Aggressive##pal")) ApplyPreset_SilentAim();
+        ImGui::Dummy({ 0.f, 4.f }); ImGui::TextColored({ 1.f,0.4f,0.4f,1.f }, "  Danger"); ImGui::Dummy({ 0.f, 2.f });
+        if (EvoButton("Rage##pr"))        ApplyPreset_Rage();
+        SynthSep(); if (EvoButton("All Off##pao")) ApplyPreset_Off();
+    }
+    inline void Pg_Accent()
+    {
+        ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        if (ImGui::ColorEdit4("##pri", primaryColor,
+                ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar|ImGuiColorEditFlags_PickerHueWheel))
+            themeApplied = false;
+    }
+    inline void Pg_HUDStyle()
+    {
+        const char* huds[] = { "Pill", "Clean", "Ghost" };
+        EvoCombo("Style##huds", &Menu::hudStyle, huds, 3);
+    }
+    inline void Pg_Configs()
+    {
+        LoadSlotNames();
+        for (int i = 0; i < kMaxSlots; ++i) {
+            ImGui::PushID(i);
+            bool exists = SlotExists(i);
+            ImGui::TextColored(exists ? ImVec4{0.80f,0.90f,0.80f,1.f} : ImVec4{0.40f,0.42f,0.44f,1.f},
+                "%s%s", slotNames[i], exists ? "" : "  (empty)");
+            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::InputText("##rn", slotNames[i], sizeof(slotNames[i]));
+            float bw = (ImGui::GetContentRegionAvail().x - 6.f) * 0.5f;
+            if (EvoButton("Save##sv", { bw, 22.f })) { SaveConfig(i); SaveSlotNames(); }
+            ImGui::SameLine(0, 6.f);
+            if (exists) { if (EvoButton("Load##ld", { bw, 22.f })) LoadConfig(i); }
+            else { ImGui::BeginDisabled(); EvoButton("Load##ld", { bw, 22.f }); ImGui::EndDisabled(); }
+            if (i < kMaxSlots - 1) SynthSep();
+            ImGui::PopID();
+        }
+    }
+
+    // ── Feature catalog ───────────────────────────────────────
+    struct FeatureDef {
+        const char* name;
+        const char* subtitle;
+        int         icon;
+        bool*       enabled;       // nullptr = no toggle
+        void      (*render)();
+    };
+
+    inline FeatureDef kFeat_Aim[] = {
+        { "Aimbot",     "Targeting & feel",     FI_CROSSHAIR, &Aimbot::cfg.enabled,        Pg_Aimbot     },
+        { "Triggerbot", "Auto-fire on target",  FI_TRIGGER,   &Triggerbot::cfg.enabled,    Pg_Triggerbot },
+        { "Bunny Hop",  "Auto bhop & strafe",   FI_JUMP,      &Bhop::cfg.enabled,          Pg_Bhop       },
+        { "Backtrack",  "Rewind enemy ticks",   FI_REWIND,    &Backtrack::cfg.enabled,     Pg_Backtrack  },
+        { "Anti-Aim",   "Pitch & yaw modes",    FI_ROTATE,    &AntiAim::cfg.enabled,       Pg_AntiAim    },
+        { "Fake Lag",   "Choke outgoing pkts",  FI_BOLT,      &FakeLag::cfg.enabled,       Pg_FakeLag    },
+    };
+    inline FeatureDef kFeat_Vis[] = {
+        { "ESP",         "Player visuals",       FI_BOX,        &ESP::cfg.enabled,             Pg_ESP         },
+        { "Chams",       "Material overrides",   FI_SILHOUETTE, &Chams::cfg.enabled,           Pg_Chams       },
+        { "Tracers",     "Bullet trails",        FI_TRACER,     &BulletTracer::cfg.enabled,    Pg_Tracers     },
+        { "Damage Ind.", "Hitmarker indicator",  FI_DROP,       &DamageIndicator::cfg.enabled, Pg_DamageInd   },
+        { "Spectators",  "Who's watching you",   FI_EYE,        &ESP::cfg.spectators,          Pg_Spectators  },
+        { "Rank Reveal", "Show enemy ranks",     FI_BADGE,      &RankRevealer::cfg.enabled,    Pg_RankReveal  },
+        { "Nade Predict","Trajectory preview",   FI_GRENADE,    &GrenadePrediction::cfg.enabled,Pg_NadePred  },
+        { "Nade Helper", "Auto-aim grenades",    FI_TARGET,     &NadeHelper::cfg.enabled,      Pg_NadeHelper  },
+        { "Sound ESP",   "Footstep markers",     FI_SPEAKER,    &SoundESP::cfg.enabled,        Pg_SoundESP    },
+    };
+    inline FeatureDef kFeat_Skn[] = {
+        { "Skin Changer","Weapon paintkits",     FI_PAINT, &SkinChanger::cfg.enabled,      Pg_SkinChanger },
+        { "Knife",       "Custom knife model",   FI_KNIFE, &SkinChanger::cfg.knifeEnabled, Pg_Knife       },
+        { "Gloves",      "Custom glove model",   FI_GLOVE, &SkinChanger::cfg.gloveEnabled, Pg_Glove       },
+    };
+    inline FeatureDef kFeat_Wld[] = {
+        { "Sky",         "Sky color & rainbow",  FI_SUN,    &WorldEffects::cfg.skyEnabled,    Pg_Sky         },
+        { "Flash/Smoke", "No flash & smoke",     FI_BULB,   &WorldEffects::cfg.noFlash,       Pg_FlashSmoke  },
+        { "Fire",        "Molotov color",        FI_FLAME,  &WorldEffects::cfg.fireColor,     Pg_Fire        },
+        { "FOV",         "Field of view",        FI_FOV,    &WorldEffects::cfg.fovEnabled,    Pg_FOV         },
+        { "Atmosphere",  "Night & ASUS modes",   FI_MOON,   nullptr,                          Pg_NightAsus   },
+        { "Visibility",  "Fullbright, fog, exp", FI_EYE,    &WorldEffects::cfg.fullbright,    Pg_Visibility  },
+        { "Third Person","3P camera view",       FI_CAMERA, &WorldEffects::cfg.thirdPerson,   Pg_ThirdPerson },
+        { "Wireframe",   "Hands wireframe view", FI_BOX,    &WireframeHands::cfg.enabled,     Pg_Wireframe   },
+        { "Auto-Accept", "Auto match accept",    FI_CHECK,  &AutoAccept::cfg.enabled,         Pg_AutoAccept  },
+    };
+    inline FeatureDef kFeat_Cfg[] = {
+        { "UI Mode",     "Advanced controls",    FI_GEAR,    &advancedMode, Pg_UIMode   },
+        { "Presets",     "Quick-apply configs",  FI_WAND,    nullptr,       Pg_Presets  },
+        { "Accent",      "Theme accent color",   FI_PALETTE, nullptr,       Pg_Accent   },
+        { "HUD Style",   "Top-right HUD layout", FI_HUD,     nullptr,       Pg_HUDStyle },
+        { "Configs",     "Save & load slots",    FI_FLOPPY,  nullptr,       Pg_Configs  },
+    };
+
+    inline FeatureDef* GetTabFeatures(int tab, int& count)
+    {
+        switch (tab) {
+            case 0: count = (int)IM_ARRAYSIZE(kFeat_Aim); return kFeat_Aim;
+            case 1: count = (int)IM_ARRAYSIZE(kFeat_Vis); return kFeat_Vis;
+            case 2: count = (int)IM_ARRAYSIZE(kFeat_Skn); return kFeat_Skn;
+            case 3: count = (int)IM_ARRAYSIZE(kFeat_Wld); return kFeat_Wld;
+            case 4: count = (int)IM_ARRAYSIZE(kFeat_Cfg); return kFeat_Cfg;
+        }
+        count = 0; return nullptr;
+    }
+
+    // ── Card renderer ─────────────────────────────────────────
+    inline bool DrawFeatureCard(const FeatureDef& f, ImVec2 sz, float dt)
+    {
+        ImDrawList* dl  = ImGui::GetWindowDrawList();
+        ImVec2 p0       = ImGui::GetCursorScreenPos();
+        ImVec2 p1       = { p0.x + sz.x, p0.y + sz.y };
+        const float R   = 12.f;
+
+        // hover detection (full-card hover for shadow + lift)
+        ImGui::PushID(&f);
+        ImGui::SetCursorScreenPos(p0);
+        ImGui::InvisibleButton("##cardhit", sz);
+        bool hovered = ImGui::IsItemHovered();
+        ImGui::PopID();
+
+        float hAnim = AnimStep(&f, hovered, 14.f, dt);
+
+        // shadow (grows on hover)
+        for (int s = 0; s < 3; ++s) {
+            float ofs   = 1.5f + (float)s * 2.f + hAnim * 1.5f;
+            int   alpha = (int)((24 - s * 7 + hAnim * 10) * menuAlpha);
+            if (alpha <= 0) continue;
+            dl->AddRectFilled({ p0.x - 1.f, p0.y + ofs }, { p1.x + 1.f, p1.y + ofs },
+                IM_COL32(0, 0, 0, alpha), R + 2.f);
+        }
+
+        // base fill (lighter on hover)
+        ImU32 baseFill = IM_COL32(
+            18 + (int)(hAnim * 4),
+            16 + (int)(hAnim * 4),
+            28 + (int)(hAnim * 6),
+            (int)((215 + hAnim * 25) * menuAlpha));
+        dl->AddRectFilled(p0, p1, baseFill, R);
+
+        // glossy top sliver
+        dl->AddRectFilledMultiColor(
+            { p0.x + 14.f, p0.y + 1.f }, { p1.x - 14.f, p0.y + 2.4f },
+            IM_COL32(255,255,255,0),
+            IM_COL32(255,255,255,(int)(70 * menuAlpha)),
+            IM_COL32(255,255,255,(int)(70 * menuAlpha)),
+            IM_COL32(255,255,255,0));
+        // outline
+        dl->AddRect(p0, p1,
+            IM_COL32(48 + (int)(hAnim * 30),
+                     46 + (int)(hAnim * 30),
+                     74 + (int)(hAnim * 50),
+                     (int)((175 + hAnim * 50) * menuAlpha)),
+            R, 0, 1.f);
+        // hairline highlight
+        dl->AddRect({ p0.x + 0.5f, p0.y + 0.5f }, { p1.x - 0.5f, p1.y - 0.5f },
+            IM_COL32(255, 255, 255, (int)(menuAlpha * (10 + hAnim * 8))), R - 0.5f, 0, 1.f);
+
+        // ── icon area (top-center) ──
+        const float iconY = p0.y + 26.f;
+        const float iconR = 22.f;
+        ImVec2 iconC{ (p0.x + p1.x) * 0.5f, iconY + iconR * 0.4f };
+
+        bool isOn = (f.enabled && *f.enabled);
+        // accent halo if enabled
+        if (isOn) {
+            float pulse = 0.5f + 0.5f * sinf((float)ImGui::GetTime() * 2.4f);
+            for (int g = 0; g < 3; ++g) {
+                float gr = iconR + 6.f + g * 4.f + pulse * 2.f;
+                int   ga = (int)((30 - g * 9) * menuAlpha);
+                dl->AddCircleFilled(iconC, gr, EvoAccent(ga));
+            }
+        }
+        // icon plate
+        ImU32 plateFill = isOn
+            ? EvoAccent((int)((38 + hAnim * 22) * menuAlpha))
+            : IM_COL32(28, 26, 42, (int)((180 + hAnim * 30) * menuAlpha));
+        dl->AddCircleFilled(iconC, iconR, plateFill, 32);
+        dl->AddCircle(iconC, iconR,
+            isOn ? EvoAccent((int)(220 * menuAlpha))
+                 : IM_COL32(60, 56, 86, (int)(200 * menuAlpha)),
+            32, 1.f);
+
+        ImU32 iconCol = isOn
+            ? EvoAccent((int)(245 * menuAlpha))
+            : IM_COL32(180, 180, 200, (int)((220 + hAnim * 30) * menuAlpha));
+        DrawFeatureIcon(dl, f.icon, iconC, 14.f, iconCol);
+
+        // ── name ──
+        ImVec2 nmSz = ImGui::CalcTextSize(f.name);
+        float  nameY = iconY + iconR * 2.f + 8.f;
+        dl->AddText({ (p0.x + p1.x - nmSz.x) * 0.5f, nameY },
+            IM_COL32(232, 232, 245, (int)(245 * menuAlpha)), f.name);
+
+        // subtitle
+        if (f.subtitle && *f.subtitle) {
+            ImVec2 stSz = ImGui::CalcTextSize(f.subtitle);
+            dl->AddText({ (p0.x + p1.x - stSz.x) * 0.5f, nameY + nmSz.y + 2.f },
+                IM_COL32(120, 120, 140, (int)(200 * menuAlpha)), f.subtitle);
+        }
+
+        // ── bottom action row: OPTIONS button (left) + toggle (right) ──
+        const float rowH  = 30.f;
+        const float rowY0 = p1.y - rowH - 10.f;
+        const float rowY1 = p1.y - 10.f;
+        const float rowMx = (p0.x + p1.x) * 0.5f;
+        bool clickedOptions = false;
+
+        // OPTIONS button (left half)
+        {
+            ImVec2 bTL{ p0.x + 10.f, rowY0 };
+            ImVec2 bBR{ rowMx - 4.f, rowY1 };
+            ImGui::SetCursorScreenPos(bTL);
+            ImGui::PushID((int)(intptr_t)f.name);
+            bool clicked = ImGui::InvisibleButton("##opt",
+                { bBR.x - bTL.x, bBR.y - bTL.y });
+            bool bh = ImGui::IsItemHovered();
+            ImGui::PopID();
+            float bA = AnimStep((const void*)((const char*)f.name + 1), bh, 16.f, dt);
+            ImU32 bFill = IM_COL32(28 + (int)(bA * 8), 26 + (int)(bA * 8),
+                42 + (int)(bA * 14), (int)((200 + bA * 30) * menuAlpha));
+            dl->AddRectFilled(bTL, bBR, bFill, 7.f);
+            dl->AddRect(bTL, bBR,
+                IM_COL32(60, 56, 86, (int)((180 + bA * 50) * menuAlpha)), 7.f, 0, 1.f);
+            const char* lbl = "OPTIONS";
+            ImVec2 lSz = ImGui::CalcTextSize(lbl);
+            dl->AddText({ (bTL.x + bBR.x - lSz.x) * 0.5f, (bTL.y + bBR.y - lSz.y) * 0.5f },
+                IM_COL32(220, 220, 235, (int)(225 * menuAlpha)), lbl);
+            if (clicked) clickedOptions = true;
+        }
+
+        // Toggle pill (right half) — only if feature has bool*
+        if (f.enabled)
+        {
+            ImVec2 tTL{ rowMx + 4.f, rowY0 };
+            ImVec2 tBR{ p1.x - 10.f, rowY1 };
+            ImGui::SetCursorScreenPos(tTL);
+            ImGui::PushID((int)(intptr_t)f.name + 99);
+            bool clicked = ImGui::InvisibleButton("##tog",
+                { tBR.x - tTL.x, tBR.y - tTL.y });
+            bool bh = ImGui::IsItemHovered();
+            ImGui::PopID();
+            if (clicked) *f.enabled = !*f.enabled;
+
+            float onA = AnimStep((const void*)((const char*)f.name + 2), *f.enabled, 12.f, dt);
+            // colored fill: red→green via accent (but use red/green for the mod-menu vibe)
+            ImU32 redFill   = IM_COL32(140, 38, 50,  (int)((215 + bh * 25) * menuAlpha));
+            ImU32 greenFill = EvoAccent((int)((215 + bh * 25) * menuAlpha));
+            // lerp colors via channel mix
+            int rR = 140 + (int)((((primaryColor[0] * 255) - 140) * onA));
+            int gG =  38 + (int)((((primaryColor[1] * 255) -  38) * onA));
+            int bB =  50 + (int)((((primaryColor[2] * 255) -  50) * onA));
+            ImU32 fill = IM_COL32(rR, gG, bB, (int)((215 + bh * 25) * menuAlpha));
+            dl->AddRectFilled(tTL, tBR, fill, 7.f);
+            // top sliver
+            dl->AddRectFilledMultiColor(
+                { tTL.x + 8.f, tTL.y + 1.f }, { tBR.x - 8.f, tTL.y + 2.2f },
+                IM_COL32(255,255,255,0),
+                IM_COL32(255,255,255,(int)(80 * menuAlpha)),
+                IM_COL32(255,255,255,(int)(80 * menuAlpha)),
+                IM_COL32(255,255,255,0));
+            dl->AddRect(tTL, tBR,
+                IM_COL32(255, 255, 255, (int)((30 + bh * 30) * menuAlpha)), 7.f, 0, 1.f);
+
+            const char* lbl = *f.enabled ? "ENABLED" : "DISABLED";
+            ImVec2 lSz = ImGui::CalcTextSize(lbl);
+            dl->AddText({ (tTL.x + tBR.x - lSz.x) * 0.5f, (tTL.y + tBR.y - lSz.y) * 0.5f },
+                IM_COL32(255, 255, 255, (int)(245 * menuAlpha)), lbl);
+        }
+
+        // restore cursor to bottom of card (consumed)
+        ImGui::SetCursorScreenPos({ p0.x, p1.y });
+        return clickedOptions;
+    }
+
+    // ── Grid renderer ─────────────────────────────────────────
+    inline void DrawFeatureGrid(int tab, float dt, ImVec2 areaSz)
+    {
+        int count = 0;
+        FeatureDef* feats = GetTabFeatures(tab, count);
+        if (!feats || count == 0) return;
+
+        const int   COLS    = 3;
+        const float COL_GAP = 10.f;
+        const float ROW_GAP = 10.f;
+        const float CARD_H  = 165.f;
+        const float CARD_W  = (areaSz.x - COL_GAP * (COLS - 1)) / (float)COLS;
+
+        ImVec2 origin = ImGui::GetCursorScreenPos();
+        for (int i = 0; i < count; ++i) {
+            int col = i % COLS;
+            int row = i / COLS;
+            ImVec2 cp{ origin.x + col * (CARD_W + COL_GAP),
+                       origin.y + row * (CARD_H + ROW_GAP) };
+            ImGui::SetCursorScreenPos(cp);
+            if (DrawFeatureCard(feats[i], { CARD_W, CARD_H }, dt)) {
+                prevPage[tab]  = pageStack[tab];
+                pageStack[tab] = i;
+                pageAnim       = 0.f;
+                pageAnimTab    = tab;
+            }
+        }
+    }
+
+    // ── Feature page renderer ────────────────────────────────
+    inline void DrawFeaturePage(int tab, float dt, ImVec2 areaSz)
+    {
+        int count = 0;
+        FeatureDef* feats = GetTabFeatures(tab, count);
+        if (!feats || pageStack[tab] < 0 || pageStack[tab] >= count) {
+            pageStack[tab] = -1; return;
+        }
+        const FeatureDef& f = feats[pageStack[tab]];
+        ImDrawList* dl = ImGui::GetWindowDrawList();
+        ImVec2 origin  = ImGui::GetCursorScreenPos();
+
+        // ── header ──
+        const float HDR = 38.f;
+        ImVec2 hTL = origin;
+        ImVec2 hBR = { origin.x + areaSz.x, origin.y + HDR };
+
+        // back button
+        ImVec2 bTL{ hTL.x, hTL.y + 4.f };
+        ImVec2 bBR{ hTL.x + 70.f, hTL.y + HDR - 4.f };
+        ImGui::SetCursorScreenPos(bTL);
+        bool backClicked = ImGui::InvisibleButton("##back", { bBR.x - bTL.x, bBR.y - bTL.y });
+        bool bh = ImGui::IsItemHovered();
+        float bA = AnimStep((const void*)"##back", bh, 16.f, dt);
+        dl->AddRectFilled(bTL, bBR,
+            IM_COL32(28 + (int)(bA*8), 26 + (int)(bA*8), 44 + (int)(bA*14),
+                (int)((200 + bA*30) * menuAlpha)), 7.f);
+        dl->AddRect(bTL, bBR,
+            IM_COL32(60, 56, 86, (int)((180 + bA*50) * menuAlpha)), 7.f, 0, 1.f);
+        // back arrow
+        float ax = bTL.x + 14.f, ay = (bTL.y + bBR.y) * 0.5f;
+        dl->AddLine({ ax + 6.f, ay - 5.f }, { ax, ay }, IM_COL32(220,220,235,(int)(230*menuAlpha)), 1.6f);
+        dl->AddLine({ ax + 6.f, ay + 5.f }, { ax, ay }, IM_COL32(220,220,235,(int)(230*menuAlpha)), 1.6f);
+        dl->AddText({ ax + 14.f, ay - ImGui::GetFontSize() * 0.5f },
+            IM_COL32(220, 220, 235, (int)(230 * menuAlpha)), "BACK");
+
+        if (backClicked) { prevPage[tab] = pageStack[tab]; pageStack[tab] = -1; pageAnim = 0.f; pageAnimTab = tab; }
+
+        // mini icon + name (right of back button)
+        float ix = bBR.x + 14.f;
+        float iy = (hTL.y + hBR.y) * 0.5f;
+        DrawFeatureIcon(dl, f.icon, { ix + 9.f, iy }, 9.f, EvoAccent((int)(245 * menuAlpha)));
+        dl->AddText({ ix + 26.f, iy - ImGui::GetFontSize() * 0.5f },
+            IM_COL32(235, 235, 245, (int)(245 * menuAlpha)), f.name);
+
+        // hairline divider
+        dl->AddRectFilled({ hTL.x + 4.f, hBR.y },
+            { hBR.x - 4.f, hBR.y + 1.f },
+            IM_COL32(60, 56, 86, (int)(110 * menuAlpha)));
+
+        // ── content (scrollable child) ──
+        ImVec2 cTL{ origin.x, hBR.y + 8.f };
+        ImGui::SetCursorScreenPos(cTL);
+        ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(0, 0, 0, 0));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 8.f, 6.f });
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing,   { 8.f, 5.f });
+        if (ImGui::BeginChild("##fpgcnt",
+                { areaSz.x, areaSz.y - HDR - 8.f }, false))
+        {
+            ImGuiErrorRecoveryState rs;
+            ImGui::ErrorRecoveryStoreState(&rs);
+            __try { f.render(); } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            ImGui::ErrorRecoveryTryToRecoverState(&rs);
+        }
+        ImGui::EndChild();
+        ImGui::PopStyleVar(2);
+        ImGui::PopStyleColor();
+    }
+
+    // ============================================================
     //  MAIN RENDER  -  Menu 19 "framework" chrome
     // ============================================================
     inline void Render(bool& showMenu)
@@ -1897,14 +3011,14 @@ namespace Menu
         //  Whole menu scaled ~7%. Sidebar is gone; tab strip lives in a
         //  centered "iOS island" dock floating below the content card.
         // ----------------------------------------------------------------
-        const float W        = 780.f;            // 840 → 780
+        const float W        = 880.f;            // wider for 3-col grid
         const float DOCK_H   = 48.f;
         const float DOCK_GAP = 14.f;
         const float PAD      = 12.f;             // 15 → 12
         const float HDR_H    = 34.f;             // header strip height
         const float COL_Y    = HDR_H + 6.f;      // content starts below header
         // content height stops above the dock; full window height adds room for it
-        const float CONTENT_H = 520.f;           // visual content card height
+        const float CONTENT_H = 560.f;           // taller for 3-row grid
         const float H        = COL_Y + CONTENT_H + DOCK_GAP + DOCK_H + PAD + 6.f;
         const float COL_X    = PAD;
         const float COL_W    = (W - PAD * 2.f - 8.f) * 0.5f;
@@ -1975,6 +3089,34 @@ namespace Menu
         // 1px outline
         dl->AddRect(panTL, panBR, IM_COL32(46, 44, 68, borA), CARD_R, 0, 1.f);
 
+        // RGB sweep along the top inner edge — mirrors the v1.5 sweep
+        {
+            const float t      = (float)ImGui::GetTime();
+            const float cycle  = 0.16f;
+            const float inset  = CARD_R * 0.55f;       // hug the corners
+            const float swX0   = panTL.x + inset;
+            const float swX1   = panBR.x - inset;
+            const float swY    = panTL.y + 1.2f;
+            const int   segs   = 96;
+            const float swW    = swX1 - swX0;
+            for (int s = 0; s < segs; ++s)
+            {
+                float u0 = (float)s / segs, u1 = (float)(s + 1) / segs;
+                float hue = fmodf(t * cycle + u0 * 0.5f, 1.f);
+                float r, g, b;
+                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
+                // wider edge fade so corners blend rather than clip
+                float edgeFade = 1.f;
+                if (u0 < 0.12f)        edgeFade = u0 / 0.12f;
+                else if (u0 > 0.88f)   edgeFade = (1.f - u0) / 0.12f;
+                int a = (int)(170 * menuAlpha * edgeFade);
+                dl->AddRectFilled(
+                    { swX0 + u0 * swW, swY },
+                    { swX0 + u1 * swW, swY + 1.f },
+                    IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), a));
+            }
+        }
+
         // ---------- HEADER STRIP ----------
         {
             const float hX0 = panTL.x + 18.f;
@@ -2019,36 +3161,9 @@ namespace Menu
                 dl->AddText({ sepX + 7.f, hY }, IM_COL32(130, 130, 150, (int)(200 * menuAlpha)), sub);
             }
 
-            // right side: tiny status pill "READY"
-            {
-                const char* st = "READY";
-                ImVec2 stSz = ImGui::CalcTextSize(st);
-                float pH = nmSz.y + 4.f;
-                float pW = stSz.x + 14.f;
-                ImVec2 pTL = { hX1 - pW, hY - 2.f };
-                ImVec2 pBR = { hX1,      hY - 2.f + pH };
-                dl->AddRectFilled(pTL, pBR, IM_COL32(22, 20, 34, (int)(200 * menuAlpha)), pH * 0.5f);
-                dl->AddRect(pTL, pBR, EvoAccent((int)(120 * menuAlpha)), pH * 0.5f, 0, 1.f);
-                // small glow dot inside
-                float gdR = 2.2f;
-                float gdX = pTL.x + 7.f;
-                float gdY = (pTL.y + pBR.y) * 0.5f;
-                dl->AddCircleFilled({ gdX, gdY }, gdR + 1.5f, EvoAccent((int)(70 * menuAlpha)));
-                dl->AddCircleFilled({ gdX, gdY }, gdR, EvoAccent((int)(245 * menuAlpha)));
-                dl->AddText({ gdX + gdR + 4.f, pTL.y + (pH - stSz.y) * 0.5f },
-                    IM_COL32(220, 220, 235, (int)(230 * menuAlpha)), st);
-            }
+            // (status badge removed)
 
-            // hairline divider beneath the header
-            dl->AddRectFilled(
-                { panTL.x + 14.f, hYB },
-                { panBR.x - 14.f, hYB + 1.f },
-                IM_COL32(60, 56, 86, (int)(110 * menuAlpha)));
-            // accent micro-segment on the divider, under the dot
-            dl->AddRectFilled(
-                { panTL.x + 14.f, hYB },
-                { panTL.x + 14.f + 28.f, hYB + 1.f },
-                EvoAccent((int)(180 * menuAlpha)));
+            // (no divider beneath header — keep upper area clean)
         }
 
         // ----------------------------------------------------------------
@@ -2099,6 +3214,34 @@ namespace Menu
             IM_COL32(255, 255, 255, 0));
         dl->AddRect(dockTL, dockBR, IM_COL32(46, 44, 68, borA), dockR, 0, 1.f);
 
+        // RGB sweep along the BOTTOM inner edge of the dock — mirror image
+        // of the content card’s top sweep so the two islands bracket the UI.
+        {
+            const float t      = (float)ImGui::GetTime();
+            const float cycle  = 0.16f;
+            const float inset  = dockR * 0.55f;
+            const float swX0   = dockTL.x + inset;
+            const float swX1   = dockBR.x - inset;
+            const float swY    = dockBR.y - 2.2f;
+            const int   segs   = 80;
+            const float swW    = swX1 - swX0;
+            for (int s = 0; s < segs; ++s)
+            {
+                float u0 = (float)s / segs, u1 = (float)(s + 1) / segs;
+                float hue = fmodf(t * cycle + u0 * 0.5f, 1.f);
+                float r, g, b;
+                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
+                float edgeFade = 1.f;
+                if (u0 < 0.14f)        edgeFade = u0 / 0.14f;
+                else if (u0 > 0.86f)   edgeFade = (1.f - u0) / 0.14f;
+                int a = (int)(170 * menuAlpha * edgeFade);
+                dl->AddRectFilled(
+                    { swX0 + u0 * swW, swY },
+                    { swX0 + u1 * swW, swY + 1.f },
+                    IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), a));
+            }
+        }
+
         const float dockMidY = (dockTL.y + dockBR.y) * 0.5f;
 
         // ---- LUCID brand on the left (with halo) ----
@@ -2135,7 +3278,10 @@ namespace Menu
             const bool clicked = ImGui::InvisibleButton("##tab", { tabSz, tabSz });
             const bool hovered = ImGui::IsItemHovered();
             ImGui::PopID();
-            if (clicked) activeTab = i;
+            if (clicked) {
+                if (activeTab != i) { pageAnim = 0.f; pageAnimTab = i; }
+                activeTab = i;
+            }
 
             if (sel)
             {
@@ -2220,46 +3366,30 @@ namespace Menu
 
         // (no outer window border — cards stand on their own)
 
-        // Two-column content
+        // ----------------------------------------------------------------
+        //  CONTENT AREA  ─  feature card grid OR feature page (back-able)
+        // ----------------------------------------------------------------
+        // page transition fade
+        if (pageAnim < 1.f) { pageAnim += dt * 7.f; if (pageAnim > 1.f) pageAnim = 1.f; }
         ImGui::PushStyleColor(ImGuiCol_ChildBg,  { 0.f, 0.f, 0.f, 0.f });
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 10.f, 8.f });
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 8.f, 6.f });
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing,   { 8.f, 5.f });
 
-        // Left column
-        ImGui::SetCursorPos({ COL_X, COL_Y });
-        if (ImGui::BeginChild("##lc19", { COL_W, COL_H }, false))
+        // outer scroll container spans both former columns
+        const float CONTENT_X = PAD;
+        const float CONTENT_W = ws.x - PAD * 2.f;
+        ImGui::SetCursorPos({ CONTENT_X, COL_Y });
+        if (ImGui::BeginChild("##content19", { CONTENT_W, COL_H }, false,
+                ImGuiWindowFlags_NoScrollbar))
         {
+            ImVec2 areaSz{ CONTENT_W - 8.f, COL_H - 4.f };
             ImGuiErrorRecoveryState rs;
             ImGui::ErrorRecoveryStoreState(&rs);
             __try {
-                switch (activeTab)
-                {
-                case 0: Left_Aim(); break;
-                case 1: Left_Vis(); break;
-                case 2: Left_Skn(); break;
-                case 3: Left_Wld(); break;
-                case 4: Left_Cfg(); break;
-                }
-            } __except(EXCEPTION_EXECUTE_HANDLER) {}
-            ImGui::ErrorRecoveryTryToRecoverState(&rs);
-        }
-        ImGui::EndChild();
-
-        // Right column
-        ImGui::SetCursorPos({ COL_X + COL_W + 10.f, COL_Y });
-        if (ImGui::BeginChild("##rc19", { COL_W, COL_H }, false))
-        {
-            ImGuiErrorRecoveryState rs;
-            ImGui::ErrorRecoveryStoreState(&rs);
-            __try {
-                switch (activeTab)
-                {
-                case 0: Right_Aim(); break;
-                case 1: Right_Vis(); break;
-                case 2: Right_Skn(); break;
-                case 3: Right_Wld(); break;
-                case 4: Right_Cfg(); break;
-                }
+                if (pageStack[activeTab] < 0)
+                    DrawFeatureGrid(activeTab, dt, areaSz);
+                else
+                    DrawFeaturePage(activeTab, dt, areaSz);
             } __except(EXCEPTION_EXECUTE_HANDLER) {}
             ImGui::ErrorRecoveryTryToRecoverState(&rs);
         }
