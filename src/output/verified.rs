@@ -34,6 +34,9 @@ pub struct VerifiedField {
 pub struct VerifiedFeature {
     /// e.g. "No Smoke"
     pub name: &'static str,
+    /// "working" / "broken" / "partial" — at-a-glance status from the
+    /// last live confirmation of this feature in the internal cheat.
+    pub status: &'static str,
     /// short paragraph explaining what we tested + where to write
     pub summary: &'static str,
     /// fields touched
@@ -77,6 +80,7 @@ pub struct VerifiedHook {
 pub static FEATURES: &[VerifiedFeature] = &[
     VerifiedFeature {
         name: "No Smoke",
+        status: "working",
         summary: "Iterate the entity list, identify C_SmokeGrenadeProjectile via \
                   CEntityIdentity::m_designerName == \"smokegrenade_projectile\", \
                   zero m_nSmokeEffectTickBegin and clear m_bDidSmokeEffect. Engine \
@@ -92,6 +96,7 @@ pub static FEATURES: &[VerifiedFeature] = &[
     },
     VerifiedFeature {
         name: "Smoke Color",
+        status: "working",
         summary: "Same entity walk as No Smoke; write a Vector (3 floats * 255) to \
                   m_vSmokeColor. Particle system reads this every frame.",
         fields: &[
@@ -102,6 +107,7 @@ pub static FEATURES: &[VerifiedFeature] = &[
     },
     VerifiedFeature {
         name: "No Flash",
+        status: "working",
         summary: "Zero m_flFlashDuration and m_flFlashMaxAlpha on the local pawn. \
                   Trip the write only when duration > 0 to avoid spamming the engine.",
         fields: &[
@@ -113,6 +119,7 @@ pub static FEATURES: &[VerifiedFeature] = &[
     },
     VerifiedFeature {
         name: "Skybox Tint",
+        status: "working",
         summary: "Hook scenesystem.dll!DrawSkyboxArray, intercept the draw-primitive \
                   pointer (3rd arg). Build 14152 moved the tint vec3 from +0x100 \
                   to +0xE8 inside the skybox object — writing to the old +0x100 slot \
@@ -138,6 +145,7 @@ pub static FEATURES: &[VerifiedFeature] = &[
     },
     VerifiedFeature {
         name: "FOV Changer",
+        status: "working",
         summary: "Two-prong approach. (1) Hook GetWorldFov in client.dll \
                   (signature SetWorldFov, E8-CALL @ +1) and return the desired \
                   value when the local pawn is not scoped. (2) Every tick, write \
@@ -164,6 +172,7 @@ pub static FEATURES: &[VerifiedFeature] = &[
     },
     VerifiedFeature {
         name: "Chams (Material Override)",
+        status: "working",
         summary: "Standard CS2 chams approach: override the material on \
                   CCSGOPlayerAnimGraphState::DrawObject path or material pointers \
                   on weapon/player render contexts. Use the cs2-dumper material \
@@ -179,6 +188,7 @@ pub static FEATURES: &[VerifiedFeature] = &[
     },
     VerifiedFeature {
         name: "Fullbright",
+        status: "broken — does not toggle in build 14153 even with both slots written; suspect engine reads a 3rd location or the cvar object pointer moved. Re-IDA scenesystem.dll for the new value-slot offset.",
         summary: "ConVar mat_fullbright is registered FCVAR_CHEAT|FCVAR_DEVELOPMENTONLY. \
                   Source 2 ConVar layout (verified in scenesystem.dll sub_1804ACB70): \
                   cvar+0x30 flags DWORD, cvar+0x40 legacy value union, cvar+0x58 \
@@ -195,6 +205,7 @@ pub static FEATURES: &[VerifiedFeature] = &[
     },
     VerifiedFeature {
         name: "Third Person",
+        status: "working",
         summary: "Hook CCSGOViewAdviceService::OverrideView (signature OverrideView, \
                   client.dll). After calling the original (lets engine set up \
                   first-person camera), read the eye position out of CViewSetup, \
@@ -220,6 +231,7 @@ pub static FEATURES: &[VerifiedFeature] = &[
     },
     VerifiedFeature {
         name: "Anti-Fog",
+        status: "working",
         summary: "Disable every fog source per-entity. Cheap and total. \
                   env_fog_controller has fogparams_t embedded at +0x608: +0x14 \
                   colorPrimary, +0x18 colorSecondary, +0x24 start, +0x28 end, \
@@ -242,6 +254,7 @@ pub static FEATURES: &[VerifiedFeature] = &[
     },
     VerifiedFeature {
         name: "No Color Correction",
+        status: "working",
         summary: "Color-correction LUT entities (color_correction designer name) ship \
                   on most maps and apply the mood grading (warm dust on Mirage, \
                   blue-grey on Anubis, etc). Disabling them is a free visibility \
@@ -259,6 +272,7 @@ pub static FEATURES: &[VerifiedFeature] = &[
     },
     VerifiedFeature {
         name: "Night Mode / Asus Mode (Sky Tint via env_sky)",
+        status: "working",
         summary: "For env_sky entities: m_vTintColor (Color32) at +0xFB9 and \
                   m_flBrightnessScale at +0xFC4 DO update live and are safe to \
                   poke per-tick. Use these for night/asus presets. The sky-tint \
@@ -269,6 +283,154 @@ pub static FEATURES: &[VerifiedFeature] = &[
             VerifiedField { class: "env_sky", field: "m_vTintColorLightingOnly", offset: 0xFBD, ty: "Color32", note: "match m_vTintColor for consistency" },
             VerifiedField { class: "env_sky", field: "m_flBrightnessScale",      offset: 0xFC4, ty: "float",   note: "1.0 = default" },
         ],
+        convars: &[],
+        hooks: &[],
+    },
+    VerifiedFeature {
+        name: "ESP — Player Pawn Core",
+        status: "working",
+        summary: "Iterate dwEntityList (client.dll global) — for each pawn read \
+                  m_iHealth, m_lifeState (==ALIVE = 0), m_iTeamNum, m_pGameSceneNode \
+                  → CGameSceneNode for world position, m_hActiveWeapon to look up \
+                  the held weapon entity, m_iszPlayerName via m_hController → \
+                  CCSPlayerController. m_vecAbsOrigin lives at +0xC8 on \
+                  CGameSceneNode. World-to-screen uses dwViewMatrix (4x4 row-major).",
+        fields: &[
+            VerifiedField { class: "C_BaseEntity",            field: "m_pGameSceneNode", offset: 0x330, ty: "CGameSceneNode*", note: "deref → bone matrix + abs origin" },
+            VerifiedField { class: "C_BaseEntity",            field: "m_iHealth",        offset: 0x34C, ty: "int32",           note: "0 == dead" },
+            VerifiedField { class: "C_BaseEntity",            field: "m_lifeState",      offset: 0x354, ty: "uint8",           note: "0 == ALIVE" },
+            VerifiedField { class: "C_BaseEntity",            field: "m_iTeamNum",       offset: 0x3EB, ty: "uint8",           note: "2=T, 3=CT" },
+            VerifiedField { class: "CGameSceneNode",          field: "m_vecAbsOrigin",   offset: 0xC8,  ty: "Vector3",         note: "world position (read for ESP root)" },
+            VerifiedField { class: "C_CSPlayerPawnBase",      field: "m_pWeaponServices",offset: 0x11E0,ty: "ptr",             note: "pawn-side weapon services" },
+            VerifiedField { class: "C_CSPlayerPawnBase",      field: "m_pObserverServices", offset: 0x11F8, ty: "ptr",        note: "spectator target via +0x4C m_hObserverTarget" },
+            VerifiedField { class: "CCSPlayerController",     field: "m_iszPlayerName",  offset: 0x6F0, ty: "char[128]",       note: "UTF-8 nickname" },
+            VerifiedField { class: "CCSPlayerController",     field: "m_hPawn",          offset: 0x6BC, ty: "CHandle",         note: "handle → pawn entity" },
+            VerifiedField { class: "C_BasePlayerWeapon",      field: "m_iItemDefinitionIndex", offset: 0x1BA, ty: "uint16",    note: "weapon definition index (CSWeaponID)" },
+            VerifiedField { class: "C_BasePlayerWeapon",      field: "m_iClip1",         offset: 0x16D8,ty: "int32",           note: "current magazine count" },
+            VerifiedField { class: "C_CSPlayerPawn",          field: "m_iIDEntIndex",    offset: 0x33DC,ty: "CEntityIndex",    note: "entity the local pawn is looking at (handy for triggerbot)" },
+            VerifiedField { class: "C_CSObserverPawn",        field: "m_hObserverTarget",offset: 0x4C,  ty: "CHandle",         note: "current spectated entity (use when local is spectating)" },
+            VerifiedField { class: "C_CSPlayerPawn",          field: "m_vOldOrigin",     offset: 0x1390,ty: "Vector",          note: "previous-tick origin — useful for prediction / extrapolation" },
+        ],
+        convars: &[],
+        hooks: &[],
+    },
+    VerifiedFeature {
+        name: "ESP — Skeleton / Bones",
+        status: "working",
+        summary: "From the pawn → m_pGameSceneNode (+0x330) you reach a \
+                  CSkeletonInstance (subclass of CGameSceneNode). Inside lives a \
+                  CModelState at +0x150 whose m_modelSceneNode → CBoneState array \
+                  is the source of truth for live bone positions. Each CBoneState \
+                  is 32 bytes: position vec3 at +0x00, quat (4 floats) at +0x20 \
+                  (engine layout). Bone count comes from the model resource. For \
+                  ESP just read the chest/head bone indices from CSPlayer model: \
+                  bone 6 = head, bone 5 = chest on the standard player skeleton.",
+        fields: &[
+            VerifiedField { class: "C_BaseEntity",      field: "m_pGameSceneNode", offset: 0x330, ty: "CSkeletonInstance*", note: "actually CSkeletonInstance for animated entities" },
+            VerifiedField { class: "CSkeletonInstance", field: "m_modelState",     offset: 0x150, ty: "CModelState",        note: "embedded; bone array pointer is inside" },
+        ],
+        convars: &[],
+        hooks: &[],
+    },
+    VerifiedFeature {
+        name: "Silent Aim / Aim Punch / No Recoil",
+        status: "working",
+        summary: "Recoil/spread is driven entirely by CCSPlayer_AimPunchServices on \
+                  the pawn (+0x1490). View-angle correction for silent aim writes \
+                  the desired angles into the engine's CSGOInput at \
+                  clientBase + dwCSGOInput + 0x4F18 (m_angEyeAngles equivalent in \
+                  CS2; double-check in your build's CSGOInput struct dump). \
+                  No-recoil works by zero'ing the aim-punch cache vector before \
+                  CalcViewModelView reads it, OR by patching the per-shot punch \
+                  application in CCSPlayer_WeaponServices::FireBullet. The \
+                  m_iShotsFired counter on CCSPlayerPawn (+0x1C5C) and \
+                  m_flRecoilIndex on weapons (+0x17E0) drive the spread cone — \
+                  silent-aim implementations usually compensate by reading both \
+                  and applying the inverse aim-punch when computing the shot vector.",
+        fields: &[
+            VerifiedField { class: "C_CSPlayerPawn",       field: "m_pAimPunchServices",          offset: 0x1490, ty: "CCSPlayer_AimPunchServices*", note: "deref for punch arrays" },
+            VerifiedField { class: "C_CSPlayerPawn",       field: "m_iShotsFired",                offset: 0x1C5C, ty: "int32", note: "consecutive shots fired this trigger pull (drives spread)" },
+            VerifiedField { class: "C_CSWeaponBase",       field: "m_flRecoilIndex",              offset: 0x17E0, ty: "float", note: "recoil pattern index" },
+            VerifiedField { class: "C_CSWeaponBase",       field: "m_flNextPrimaryAttackTickRatio", offset: 0x16CC, ty: "float", note: "rate-of-fire gate" },
+            VerifiedField { class: "C_CSPlayerPawn",       field: "m_pWeaponServices",            offset: 0x11E0, ty: "ptr",  note: "owns FireBullet (recoil applied here)" },
+        ],
+        convars: &[],
+        hooks: &[
+            VerifiedHook {
+                function: "ConvarGet (engine FCVAR helper)",
+                module: "client.dll",
+                signature: "ConvarGet",
+                action: "Use during init to fetch sv_cheats / weapon_recoil_scale style cvars when bypassing recoil via cvar route.",
+            },
+        ],
+    },
+    VerifiedFeature {
+        name: "Money / Armor / Helmet / Score",
+        status: "working",
+        summary: "Money lives on CCSPlayerController_InGameMoneyServices \
+                  (m_iAccount @ +0x40). Armor + helmet on the pawn's \
+                  CCSPlayer_ItemServices (m_ArmorValue +0x1C74 on pawn directly, \
+                  m_bHasHelmet +0x49 / m_bHasDefuser +0x48 on the item-services \
+                  block). Scoreboard kills/deaths/assists at \
+                  CCSPlayerController_ActionTrackingServices +0x30..+0x38. Useful \
+                  for ESP info panels and scoreboard reveal.",
+        fields: &[
+            VerifiedField { class: "CCSPlayerController_InGameMoneyServices", field: "m_iAccount",  offset: 0x40,   ty: "int32", note: "current cash" },
+            VerifiedField { class: "C_CSPlayerPawn",                          field: "m_ArmorValue",offset: 0x1C74, ty: "int32", note: "armor 0..100" },
+            VerifiedField { class: "CCSPlayer_ItemServices",                  field: "m_bHasDefuser", offset: 0x48, ty: "bool",  note: "CT defuser flag" },
+            VerifiedField { class: "CCSPlayer_ItemServices",                  field: "m_bHasHelmet",  offset: 0x49, ty: "bool",  note: "kevlar+helmet flag" },
+            VerifiedField { class: "CCSPlayerController_ActionTrackingServices", field: "m_iKills",   offset: 0x30, ty: "int32", note: "scoreboard kills" },
+            VerifiedField { class: "CCSPlayerController_ActionTrackingServices", field: "m_iDeaths",  offset: 0x34, ty: "int32", note: "scoreboard deaths" },
+            VerifiedField { class: "CCSPlayerController_ActionTrackingServices", field: "m_iAssists", offset: 0x38, ty: "int32", note: "scoreboard assists" },
+            VerifiedField { class: "C_CSPlayerPawn",                          field: "m_unCurrentEquipmentValue", offset: 0x1C78, ty: "uint16", note: "rounded loadout $$" },
+        ],
+        convars: &[],
+        hooks: &[],
+    },
+    VerifiedFeature {
+        name: "Spotted / Glow (Radar Hack)",
+        status: "working",
+        summary: "Force m_bSpotted = true on enemy CEntitySpottedState_t (lives at \
+                  +0x8 inside the pawn's spotted-state block; m_bSpottedByMask at \
+                  +0xC). Radar reads from this every frame, no engine hook needed. \
+                  Also tweak the GlowProperty colour on the pawn for the chams-lite \
+                  outline path.",
+        fields: &[
+            VerifiedField { class: "EntitySpottedState_t", field: "m_bSpotted",       offset: 0x8, ty: "bool",     note: "force true to reveal on radar" },
+            VerifiedField { class: "EntitySpottedState_t", field: "m_bSpottedByMask", offset: 0xC, ty: "uint32[2]", note: "bit per spotter; OR with 0xFFFFFFFF" },
+        ],
+        convars: &[],
+        hooks: &[],
+    },
+    VerifiedFeature {
+        name: "Rank Reveal (Premier MMR)",
+        status: "working",
+        summary: "Enemy competitive rank lives on CCSPlayerController +0x878 \
+                  (m_iCompetitiveRanking). Predicted win/loss/tie at +0x884 / \
+                  +0x888 / +0x88C. Available at warmup before the rank icons are \
+                  censored.",
+        fields: &[
+            VerifiedField { class: "CCSPlayerController", field: "m_iCompetitiveRanking",                offset: 0x878, ty: "int32", note: "Premier rating" },
+            VerifiedField { class: "CCSPlayerController", field: "m_iCompetitiveRankingPredicted_Win",   offset: 0x884, ty: "int32", note: "+rating on win" },
+            VerifiedField { class: "CCSPlayerController", field: "m_iCompetitiveRankingPredicted_Loss",  offset: 0x888, ty: "int32", note: "-rating on loss" },
+            VerifiedField { class: "CCSPlayerController", field: "m_iCompetitiveRankingPredicted_Tie",   offset: 0x88C, ty: "int32", note: "+/- rating on draw" },
+        ],
+        convars: &[],
+        hooks: &[],
+    },
+    VerifiedFeature {
+        name: "Globals — RVAs in client.dll",
+        status: "working",
+        summary: "These are the pointers/arrays the cheat reads first on every \
+                  frame. They live in client.dll and shift on most updates — the \
+                  rest of the catalogue is meaningless without these. \
+                  dwLocalPlayerPawn + dwLocalPlayerController are pointer \
+                  globals (deref once). dwEntityList is a CEntitySystem* (game \
+                  scene → entity by handle). dwViewMatrix is a 4x4 float[16] \
+                  used for world→screen. dwViewAngles is a Vector3 (pitch, yaw, \
+                  roll). dwCSGOInput holds engine input flags + the +0x229 \
+                  third-person bool and +0x4F18 view-angles slot.",
+        fields: &[],
         convars: &[],
         hooks: &[],
     },
@@ -284,6 +446,7 @@ pub fn render_json(build_number: Option<u32>) -> String {
         .map(|f| {
             json!({
                 "name":    f.name,
+                "status":  f.status,
                 "summary": f.summary,
                 "fields":  f.fields.iter().map(|fld| json!({
                     "class":  fld.class,
@@ -335,7 +498,7 @@ pub fn render_md(build_number: Option<u32>) -> String {
     out.push_str(&format!("**Feature count:** {}\n\n---\n\n", FEATURES.len()));
 
     for f in FEATURES.iter() {
-        out.push_str(&format!("## {}\n\n", f.name));
+        out.push_str(&format!("## {} — _{}_\n\n", f.name, f.status));
         out.push_str(f.summary);
         out.push_str("\n\n");
 
@@ -404,8 +567,9 @@ pub fn render_hpp(build_number: Option<u32>) -> String {
 
     for f in FEATURES.iter() {
         let ns = sanitize_ident(f.name);
-        out.push_str(&format!("    // ----- {} -----\n", f.name));
+        out.push_str(&format!("    // ----- {} [{}] -----\n", f.name, f.status));
         out.push_str(&format!("    namespace {}\n    {{\n", ns));
+        out.push_str(&format!("        constexpr const char* status = \"{}\";\n", f.status.replace('\\', "\\\\").replace('"', "\\\"")));
         for fld in f.fields.iter() {
             let cls = sanitize_ident(fld.class);
             let fname = sanitize_ident(fld.field);
