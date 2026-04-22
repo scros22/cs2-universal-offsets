@@ -13,6 +13,7 @@
 #include "../core/game_state.h"
 #include "../core/sdk_offsets.h"
 #include "../core/math.h"
+#include "world_effects.h"   // for WorldEffects::*Hooked diagnostic flags
 #include "../core/memory.h"
 #include "../core/stealth.h"
 #include "../vendor/imgui/imgui.h"
@@ -366,15 +367,26 @@ namespace ESP
     }
 
     // ---------------------------------------------------------------
-    // Skeleton bones
+    // Skeleton bones (CS2 build 14152 — Animgraph 2 indices)
+    //   0  ORIGIN     1  PELVIS    2  SPINE0    3  SPINE1   4  SPINE2
+    //   6  NECK       7  HEAD      8  CLAV_L    9  SHO_L   10  ELB_L
+    //  11  HAND_L    12  CLAV_R   13  SHO_R    14  ELB_R   15  HAND_R
+    //  17  HIP_L     18  KNEE_L   19  HEEL_L   20  HIP_R   21  KNEE_R
+    //  22  HEEL_R    23  CHEST    24  GUN      25  EYE_L   26  EYE_R
+    //  27  VIEW_ANGLE (per UC — tracks aim direction; useful for resolver)
     // ---------------------------------------------------------------
     struct BonePair { int a, b; };
     inline const BonePair kSkeleton[] = {
-        {6,5},{5,4},{4,0},
-        {5,8},{8,9},{9,10},
-        {5,13},{13,14},{14,15},
-        {0,22},{22,23},{23,24},
-        {0,25},{25,26},{26,27}
+        // Spine
+        {1, 3}, {3, 4}, {4, 23}, {23, 6}, {6, 7},
+        // Left arm
+        {6, 9}, {9, 10}, {10, 11},
+        // Right arm
+        {6, 13}, {13, 14}, {14, 15},
+        // Left leg
+        {1, 17}, {17, 18}, {18, 19},
+        // Right leg
+        {1, 20}, {20, 21}, {21, 22},
     };
 
     // ---------------------------------------------------------------
@@ -444,7 +456,7 @@ namespace ESP
 
             // Method A: dwPlantedC4 → pointer → entity pointer (raw pointer chain)
             uintptr_t bombGlobal = Mem::Read<uintptr_t>(
-                GameState::clientBase + Offsets::Global::dwPlantedC4);
+                GameState::clientBase + GameState::RVA_dwPlantedC4());
             if (bombGlobal > 0x10000)
             {
                 uintptr_t candidate = Mem::Read<uintptr_t>(bombGlobal);
@@ -456,9 +468,9 @@ namespace ESP
             if (!bomb && bombGlobal)
             {
                 int32_t count = Mem::Read<int32_t>(
-                    GameState::clientBase + Offsets::Global::dwPlantedC4);
+                    GameState::clientBase + GameState::RVA_dwPlantedC4());
                 uintptr_t dataPtr = Mem::Read<uintptr_t>(
-                    GameState::clientBase + Offsets::Global::dwPlantedC4 + 0x8);
+                    GameState::clientBase + GameState::RVA_dwPlantedC4() + 0x8);
                 if (count > 0 && count < 8 && dataPtr > 0x10000)
                 {
                     uint32_t handle = Mem::Read<uint32_t>(dataPtr);
@@ -598,7 +610,40 @@ namespace ESP
         uintptr_t localPawn = GameState::GetLocalPawn();
         uintptr_t localCtrl = GameState::GetLocalController();
         uintptr_t entList   = GameState::GetEntityList();
-        if (!localPawn || !localCtrl || !entList) return;
+
+        // ---- DIAGNOSTIC overlay (top-left). Always-on while we debug 14152. ----
+        // Shows exactly where the ESP loop bails so we can fix offsets blind.
+        int dbg_chunks = 0, dbg_ctrls = 0, dbg_alive = 0, dbg_enemy = 0, dbg_w2s_ok = 0, dbg_w2s_fail = 0;
+        Math::ViewMatrix dbgVM = GameState::GetViewMatrix();
+        bool dbgVMok = dbgVM.m[3][0] != 0.f || dbgVM.m[3][1] != 0.f || dbgVM.m[3][2] != 0.f;
+
+        auto drawDbg = [&]() {
+            char buf[480];
+            snprintf(buf, sizeof(buf),
+                "ESP DIAG: cb=%llx | resLP=%llx resLC=%llx resEL=%llx resVM=%llx resVA=%llx | lp=%llx lc=%llx el=%llx | chunks=%d ctrls=%d alive=%d enemy=%d | w2s ok=%d fail=%d | VM ok=%d",
+                (unsigned long long)GameState::clientBase,
+                (unsigned long long)GameState::resolved_dwLocalPlayerPawn,
+                (unsigned long long)GameState::resolved_dwLocalPlayerController,
+                (unsigned long long)GameState::resolved_dwEntityList,
+                (unsigned long long)GameState::resolved_dwViewMatrix,
+                (unsigned long long)GameState::resolved_dwViewAngles,
+                (unsigned long long)localPawn, (unsigned long long)localCtrl, (unsigned long long)entList,
+                dbg_chunks, dbg_ctrls, dbg_alive, dbg_enemy, dbg_w2s_ok, dbg_w2s_fail, dbgVMok ? 1 : 0);
+            dl->AddText({10.f, 10.f}, IM_COL32(255,255,0,255), buf);
+
+            // Second diagnostic line: hooks installed + live view-angles.
+            Math::QAngle va = Mem::Read<Math::QAngle>(GameState::clientBase + GameState::RVA_dwViewAngles());
+            char buf2[400];
+            snprintf(buf2, sizeof(buf2),
+                "  HOOKS: fov=%d sky=%d ovr=%d | viewAng pitch=%.1f yaw=%.1f roll=%.1f",
+                WorldEffects::fovHooked ? 1 : 0,
+                WorldEffects::skyHooked ? 1 : 0,
+                WorldEffects::overrideViewHooked ? 1 : 0,
+                va.pitch, va.yaw, va.roll);
+            dl->AddText({10.f, 26.f}, IM_COL32(0,255,0,255), buf2);
+        };
+
+        if (!localPawn || !localCtrl || !entList) { drawDbg(); return; }
 
         uint32_t localH = Mem::Read<uint32_t>(localCtrl + Offsets::m_hPlayerPawn);
         int localTeam = Mem::Read<uint8_t>(localPawn + Offsets::m_iTeamNum);
@@ -610,8 +655,10 @@ namespace ESP
         {
             uintptr_t chunkPtr = Mem::Read<uintptr_t>(entList + 8 * ((i & 0x7FFF) >> 9) + 0x10);
             if (!chunkPtr) continue;
+            ++dbg_chunks;
             uintptr_t ctrl = Mem::Read<uintptr_t>(chunkPtr + 0x70 * (i & 0x1FF));
             if (!ctrl || ctrl == localCtrl) continue;
+            ++dbg_ctrls;
 
             bool alive = Mem::Read<bool>(ctrl + Offsets::m_bPawnIsAlive);
 
@@ -646,6 +693,7 @@ namespace ESP
                 continue;
             }
             if (!alive) continue;
+            ++dbg_alive;
 
             uint32_t pawnH = Mem::Read<uint32_t>(ctrl + Offsets::m_hPlayerPawn);
             if (!pawnH) continue;
@@ -659,17 +707,25 @@ namespace ESP
                 int team = Mem::Read<uint8_t>(pawn + Offsets::m_iTeamNum);
                 if (team == localTeam) continue;
             }
+            ++dbg_enemy;
 
             Math::Vec3 feet = GameState::GetEntityOrigin(pawn);
-            Math::Vec3 head = GameState::GetBonePos(pawn, 6);
-            if (feet.IsZero() || head.IsZero()) continue;
-            head.z += 8.f;
+            if (feet.IsZero()) continue;
+            // Animgraph 2 (build 14152): HEAD bone is index 7, NECK is 6.
+            Math::Vec3 head = GameState::GetBonePos(pawn, 7);
+            // Bone array offset can drift between builds; if the head bone
+            // is unavailable, estimate it from feet so boxes still draw.
+            if (head.IsZero())
+                head = { feet.x, feet.y, feet.z + 72.f };
+            else
+                head.z += 8.f;
 
             float feetX, feetY, headX, headY;
             float fp[3] = {feet.x,feet.y,feet.z};
             float hp3[3] = {head.x,head.y,head.z};
-            if (!GameState::WorldToScreen(fp, feetX, feetY, scrW, scrH)) continue;
-            if (!GameState::WorldToScreen(hp3, headX, headY, scrW, scrH)) continue;
+            if (!GameState::WorldToScreen(fp, feetX, feetY, scrW, scrH)) { ++dbg_w2s_fail; continue; }
+            if (!GameState::WorldToScreen(hp3, headX, headY, scrW, scrH)) { ++dbg_w2s_fail; continue; }
+            ++dbg_w2s_ok;
 
             float boxH = feetY - headY;
             float boxW = boxH * 0.45f;
@@ -875,5 +931,8 @@ namespace ESP
         }
 
         Draw::SpectatorPanel(dl, scrW, spectatorNames, cfg.spectatorStyle);
+
+        // Diagnostic readout — top-left, yellow.
+        drawDbg();
     }
 }

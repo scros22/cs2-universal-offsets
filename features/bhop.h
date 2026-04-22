@@ -123,7 +123,7 @@ namespace Bhop
         Mem::Write<uint32_t>(base + ButtonOffsets::back, 256);
 
         float curYaw = Mem::Read<Math::QAngle>(
-            GameState::clientBase + Offsets::Global::dwViewAngles).yaw;
+            GameState::clientBase + GameState::RVA_dwViewAngles()).yaw;
 
         if (!yawInit)
         {

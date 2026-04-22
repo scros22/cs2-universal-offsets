@@ -117,10 +117,10 @@ namespace WorldEffects
             uintptr_t entList = GameState::GetEntityList();
             if (!entList) return;
 
-            // Smoke grenade projectile offsets (from dumper: C_SmokeGrenadeProjectile)
-            constexpr std::ptrdiff_t kSmokeEffectTickBegin = 0x1450;
-            constexpr std::ptrdiff_t kDidSmokeEffect       = 0x1454;
-            constexpr std::ptrdiff_t kSmokeColor           = 0x145C; // Vector (3 floats)
+            // Smoke grenade projectile offsets (from dumper: C_SmokeGrenadeProjectile, build 14152)
+            constexpr std::ptrdiff_t kSmokeEffectTickBegin = 0x1250;
+            constexpr std::ptrdiff_t kDidSmokeEffect       = 0x1254;
+            constexpr std::ptrdiff_t kSmokeColor           = 0x125C; // Vector (3 floats)
 
             for (int i = 64; i < 1024; ++i) // skip player slots
             {
@@ -506,18 +506,28 @@ namespace WorldEffects
     // ---------------------------------------------------------------
     inline void RunFOV()
     {
-        if (fovHooked) return;  // GetWorldFov hook handles it cleanly
         if (!cfg.fovEnabled || !GameState::clientBase) return;
+        // We always write to m_iFOV / m_iDesiredFOV every tick, even when the
+        // GetWorldFov hook is active — the renderer caches FOV from the camera
+        // services struct at the START of each frame (before our hook fires),
+        // so without these writes the value briefly reverts to default and
+        // produces a visible flicker / "reverting to default" feel.
         __try {
             uintptr_t lp = GameState::GetLocalPawn();
             if (!lp) return;
             bool scoped = Mem::Read<bool>(lp + Offsets::m_bIsScoped);
             if (scoped) return; // don't override while scoped
-            uintptr_t camSvc = Mem::Read<uintptr_t>(lp + Offsets::m_pCameraServices);
-            if (!camSvc) return;
             uint32_t desired = (uint32_t)cfg.fovValue;
-            Mem::SmartWrite<uint32_t>(camSvc + Offsets::m_iFOV, desired);
-            Mem::SmartWrite<uint32_t>(camSvc + Offsets::m_iFOVStart, desired);
+
+            uintptr_t camSvc = Mem::Read<uintptr_t>(lp + Offsets::m_pCameraServices);
+            if (camSvc) {
+                Mem::SmartWrite<uint32_t>(camSvc + Offsets::m_iFOV,      desired);
+                Mem::SmartWrite<uint32_t>(camSvc + Offsets::m_iFOVStart, desired);
+            }
+            // Pawn-level desired-FOV (the value the game's camera-update
+            // path reads back into m_iFOV every tick). Without writing this
+            // the camera services value gets clobbered immediately.
+            Mem::SmartWrite<uint32_t>(lp + Offsets::m_iDesiredFOV, desired);
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
     }
 
@@ -607,7 +617,7 @@ namespace WorldEffects
 
                 // Enable engine third-person input flag
                 Mem::SmartWrite<bool>(
-                    GameState::clientBase + Offsets::Global::dwCSGOInput + 0x229, true);
+                    GameState::clientBase + GameState::RVA_dwCSGOInput() + 0x229, true);
 
                 // Use the game's built-in shoulder camera ConVars.
                 // Setting c_thirdpersonshoulder=1 and cam_idealdist lets the engine
@@ -637,7 +647,7 @@ namespace WorldEffects
             if (GameState::clientBase)
             {
                 Mem::SmartWrite<bool>(
-                    GameState::clientBase + Offsets::Global::dwCSGOInput + 0x229, false);
+                    GameState::clientBase + GameState::RVA_dwCSGOInput() + 0x229, false);
                 if (pCV_c_thirdpersonshoulder)
                     *reinterpret_cast<int*>(pCV_c_thirdpersonshoulder) = 0;
                 if (pCV_cam_idealdist)
@@ -818,7 +828,7 @@ namespace WorldEffects
         {
             __try {
                 Mem::SmartWrite<bool>(
-                    GameState::clientBase + Offsets::Global::dwCSGOInput + 0x229, false);
+                    GameState::clientBase + GameState::RVA_dwCSGOInput() + 0x229, false);
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
         }
 

@@ -143,7 +143,7 @@ namespace SoundESP
 
             // Get view angles for direction calculation
             Math::QAngle viewAng = Mem::Read<Math::QAngle>(
-                GameState::clientBase + Offsets::Global::dwViewAngles);
+                GameState::clientBase + GameState::RVA_dwViewAngles());
             float viewYawRad = viewAng.yaw * 0.01745329f; // deg to rad
 
             uintptr_t entList = GameState::GetEntityList();

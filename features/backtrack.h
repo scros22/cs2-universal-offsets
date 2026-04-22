@@ -100,7 +100,7 @@ namespace Backtrack
                     if (simTime == lastRecordTime[idx]) continue;
                     lastRecordTime[idx] = simTime;
 
-                    Math::Vec3 head = GameState::GetBonePos(pawn, 6);
+                    Math::Vec3 head = GameState::GetBonePos(pawn, 7);
                     if (head.x == 0.f && head.y == 0.f && head.z == 0.f) continue;
 
                     Math::Vec3 origin = GameState::GetEntityOrigin(pawn);
@@ -128,7 +128,7 @@ namespace Backtrack
             if (!localPawn) { hasBestTarget = false; return; }
 
             Math::QAngle viewAng = Mem::Read<Math::QAngle>(
-                GameState::clientBase + Offsets::Global::dwViewAngles);
+                GameState::clientBase + GameState::RVA_dwViewAngles());
 
             Math::Vec3 eyePos = GameState::GetEntityOrigin(localPawn);
             Math::Vec3 viewOff = Mem::Read<Math::Vec3>(localPawn + Offsets::m_vecViewOffset);

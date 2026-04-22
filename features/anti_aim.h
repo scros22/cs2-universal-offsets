@@ -57,7 +57,7 @@ namespace AntiAim
 
             // Read current real view angles
             Math::QAngle viewAng = Mem::Read<Math::QAngle>(
-                GameState::clientBase + Offsets::Global::dwViewAngles);
+                GameState::clientBase + GameState::RVA_dwViewAngles());
 
             float fakePitch = viewAng.pitch;
             float fakeYaw   = viewAng.yaw;

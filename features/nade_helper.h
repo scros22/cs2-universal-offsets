@@ -97,7 +97,7 @@ namespace NadeHelper
     inline std::string GetCurrentMap()
     {
         uintptr_t gv = Mem::Read<uintptr_t>(
-            GameState::clientBase + Offsets::Global::dwGlobalVars);
+            GameState::clientBase + GameState::RVA_dwGlobalVars());
         if (!gv) return "";
 
         // CGlobalVarsBase::m_pMapName is a const char* at offset 0x188
@@ -149,7 +149,7 @@ namespace NadeHelper
         // Read view angles for aim comparison
         float viewPitch = 0.f, viewYaw = 0.f;
         {
-            uintptr_t vaAddr = GameState::clientBase + Offsets::Global::dwViewAngles;
+            uintptr_t vaAddr = GameState::clientBase + GameState::RVA_dwViewAngles();
             viewPitch = Mem::Read<float>(vaAddr);
             viewYaw   = Mem::Read<float>(vaAddr + 4);
         }

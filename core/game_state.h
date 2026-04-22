@@ -30,10 +30,100 @@ namespace GameState
     // Used by aimbot to check m_bSpottedByMask for OUR specific bit.
     inline int localPlayerIndex = -1;
 
+    // ---------------------------------------------------------------
+    // Live-resolved global RVAs.
+    // The dumper occasionally produces stale RVAs after game updates
+    // because its anchor patterns drift. To keep the internal working
+    // across mid-build patches without re-dumping, we pattern-scan the
+    // canonical write/read sites in client.dll at Init() and prefer
+    // those values over the constants in sdk/offsets.hpp.
+    // ---------------------------------------------------------------
+    inline std::ptrdiff_t resolved_dwEntityList            = 0;
+    inline std::ptrdiff_t resolved_dwLocalPlayerController = 0;
+    inline std::ptrdiff_t resolved_dwLocalPlayerPawn       = 0;
+    inline std::ptrdiff_t resolved_dwViewMatrix            = 0;
+    inline std::ptrdiff_t resolved_dwGlobalVars            = 0;
+    inline std::ptrdiff_t resolved_dwGameRules             = 0;
+    inline std::ptrdiff_t resolved_dwPlantedC4             = 0;
+    inline std::ptrdiff_t resolved_dwViewAngles            = 0;
+    inline std::ptrdiff_t resolved_dwCSGOInput             = 0;
+
+    namespace detail
+    {
+        // Resolve a 7-byte RIP-relative instruction (e.g. 48 89 0D xx xx xx xx)
+        //  -> returns the RVA of the global it references in client.dll.
+        inline std::ptrdiff_t RipRel32(uintptr_t insAddr, int dispOff, int insLen)
+        {
+            if (!insAddr || !clientBase) return 0;
+            int32_t rel = *(int32_t*)(insAddr + dispOff);
+            uintptr_t target = insAddr + insLen + rel;
+            return (std::ptrdiff_t)(target - clientBase);
+        }
+    }
+
+    inline void ResolveGlobals()
+    {
+        if (!clientBase) return;
+
+        // dwEntityList:  48 89 0D ?? ?? ?? ?? E9 ?? ?? ?? ?? CC
+        if (auto p = Mem::FindPattern(L"client.dll", "48 89 0D ? ? ? ? E9 ? ? ? ? CC"))
+            resolved_dwEntityList = detail::RipRel32(p, 3, 7);
+
+        // dwLocalPlayerController:  48 8B 05 ?? ?? ?? ?? 41 89 BE
+        if (auto p = Mem::FindPattern(L"client.dll", "48 8B 05 ? ? ? ? 41 89 BE"))
+            resolved_dwLocalPlayerController = detail::RipRel32(p, 3, 7);
+
+        // dwPrediction:  48 8D 05 ?? ?? ?? ?? C3 (8x CC) 40 53 56 41 54
+        // Then dwLocalPlayerPawn = dwPrediction + disp32 from `4C 39 B6 ?? ?? ?? ?? 74 ?? 44 88 BE`
+        std::ptrdiff_t predRva = 0;
+        if (auto p = Mem::FindPattern(L"client.dll",
+            "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 40 53 56 41 54"))
+            predRva = detail::RipRel32(p, 3, 7);
+        // Fallback: dumper's dwPrediction RVA (may also be stale, but worth trying).
+        if (!predRva) predRva = (std::ptrdiff_t)Offsets::Global::dwPrediction;
+        if (auto p = Mem::FindPattern(L"client.dll", "4C 39 B6 ? ? ? ? 74 ? 44 88 BE"))
+        {
+            uint32_t disp = *(uint32_t*)(p + 3);
+            if (predRva) resolved_dwLocalPlayerPawn = predRva + (std::ptrdiff_t)disp;
+        }
+        // Last-ditch fallback: if both scans miss, dwLocalPlayerPawn ≈ dwPrediction + 0xF0
+        // (relationship has been stable across 2024-2026 builds).
+        if (!resolved_dwLocalPlayerPawn && predRva)
+            resolved_dwLocalPlayerPawn = predRva + 0xF0;
+
+        // dwViewMatrix:  48 8D 0D ?? ?? ?? ?? 48 C1 E0 06
+        if (auto p = Mem::FindPattern(L"client.dll", "48 8D 0D ? ? ? ? 48 C1 E0 06"))
+            resolved_dwViewMatrix = detail::RipRel32(p, 3, 7);
+
+        // dwGlobalVars:  48 89 15 ?? ?? ?? ?? 48 89 42
+        if (auto p = Mem::FindPattern(L"client.dll", "48 89 15 ? ? ? ? 48 89 42"))
+            resolved_dwGlobalVars = detail::RipRel32(p, 3, 7);
+
+        // dwGameRules:  48 8D 05 ?? ?? ?? ?? 48 89 06 48 8D 4E 44
+        if (auto p = Mem::FindPattern(L"client.dll", "48 8D 05 ? ? ? ? 48 89 06 48 8D 4E 44"))
+            resolved_dwGameRules = detail::RipRel32(p, 3, 7);
+
+        // dwPlantedC4:  48 8B 15 ?? ?? ?? ?? 41 FF C0 48 8D 4C 24
+        if (auto p = Mem::FindPattern(L"client.dll", "48 8B 15 ? ? ? ? 41 FF C0 48 8D 4C 24"))
+            resolved_dwPlantedC4 = detail::RipRel32(p, 3, 7);
+
+        // dwCSGOInput:  48 89 05 ?? ?? ?? ?? 0F 57 C0 0F 11 05 ?? ?? ?? ??
+        // The second 7-byte RIP-rel (0F 11 05 …) points to dwViewAngles.
+        if (auto p = Mem::FindPattern(L"client.dll",
+            "48 89 05 ? ? ? ? 0F 57 C0 0F 11 05 ? ? ? ?"))
+        {
+            resolved_dwCSGOInput  = detail::RipRel32(p,      3, 7);
+            // The 0F 11 05 lives at +10; its disp32 starts at +13 and the
+            // instruction is 7 bytes long (so insLen=7 from the +10 anchor).
+            resolved_dwViewAngles = detail::RipRel32(p + 10, 3, 7);
+        }
+    }
+
     inline bool Init()
     {
         clientBase  = Mem::GetModBase(L"client.dll");
         engine2Base = Mem::GetModBase(L"engine2.dll");
+        ResolveGlobals();
         return clientBase != 0;
     }
 
@@ -44,18 +134,41 @@ namespace GameState
 
     inline uintptr_t GetLocalPawn()
     {
-        return Mem::Read<uintptr_t>(clientBase + Offsets::Global::dwLocalPlayerPawn);
+        std::ptrdiff_t off = resolved_dwLocalPlayerPawn ? resolved_dwLocalPlayerPawn
+                                                        : Offsets::Global::dwLocalPlayerPawn;
+        return Mem::Read<uintptr_t>(clientBase + off);
     }
 
     inline uintptr_t GetLocalController()
     {
-        return Mem::Read<uintptr_t>(clientBase + Offsets::Global::dwLocalPlayerController);
+        std::ptrdiff_t off = resolved_dwLocalPlayerController ? resolved_dwLocalPlayerController
+                                                              : Offsets::Global::dwLocalPlayerController;
+        return Mem::Read<uintptr_t>(clientBase + off);
     }
 
     inline uintptr_t GetEntityList()
     {
-        return Mem::Read<uintptr_t>(clientBase + Offsets::Global::dwEntityList);
+        std::ptrdiff_t off = resolved_dwEntityList ? resolved_dwEntityList
+                                                   : Offsets::Global::dwEntityList;
+        return Mem::Read<uintptr_t>(clientBase + off);
     }
+
+    // ---------------------------------------------------------------
+    // RVA accessors that prefer the live-resolved value, falling back
+    // to the dumper constant from sdk/offsets.hpp.
+    // Use these instead of `Offsets::Global::dwXxx` for the runtime
+    // self-healing offset to take effect.
+    // ---------------------------------------------------------------
+    inline std::ptrdiff_t RVA_dwViewAngles()
+    { return resolved_dwViewAngles ? resolved_dwViewAngles : Offsets::Global::dwViewAngles; }
+    inline std::ptrdiff_t RVA_dwGlobalVars()
+    { return resolved_dwGlobalVars ? resolved_dwGlobalVars : Offsets::Global::dwGlobalVars; }
+    inline std::ptrdiff_t RVA_dwGameRules()
+    { return resolved_dwGameRules ? resolved_dwGameRules : Offsets::Global::dwGameRules; }
+    inline std::ptrdiff_t RVA_dwPlantedC4()
+    { return resolved_dwPlantedC4 ? resolved_dwPlantedC4 : Offsets::Global::dwPlantedC4; }
+    inline std::ptrdiff_t RVA_dwCSGOInput()
+    { return resolved_dwCSGOInput ? resolved_dwCSGOInput : Offsets::Global::dwCSGOInput; }
 
     // Cache local player's controller entity index (1-64).
     // Call once per frame. Scans entity list for matching controller pointer.
@@ -81,7 +194,7 @@ namespace GameState
     // Current game time from CGlobalVarsBase
     inline float GetGameTime()
     {
-        uintptr_t gv = Mem::Read<uintptr_t>(clientBase + Offsets::Global::dwGlobalVars);
+        uintptr_t gv = Mem::Read<uintptr_t>(clientBase + GameState::RVA_dwGlobalVars());
         if (!gv) return 0.f;
         // Try 0x2C first (m_flCurTime in most CS2 builds)
         float t = Mem::Read<float>(gv + 0x2C);
@@ -178,11 +291,46 @@ namespace GameState
         if (bone < 0 || bone > 128) return {}; // sanity clamp
         uintptr_t node = Mem::Read<uintptr_t>(pawn + Offsets::m_pGameSceneNode);
         if (!node) return {};
+
+        // Bone-array offset inside CModelState shifts between CS2 builds.
+        // Auto-detect once by probing a short list of candidates and picking
+        // the one whose bone[6] (head) sits within ~120 units of the entity
+        // origin. Sticky after first hit.
+        static int s_boneArrayOffset = 0;
+        struct BoneData { float px, py, pz, pad, qx, qy, qz, qw; };
+
+        if (!s_boneArrayOffset)
+        {
+            Math::Vec3 origin = Mem::Read<Math::Vec3>(node + Offsets::m_vecAbsOrigin);
+            if (origin.IsZero()) return {};
+            static const int kCandidates[] = {
+                0x80, 0x28, 0x40, 0x60, 0xA0, 0xC0, 0xE0, 0x100, 0x140, 0x180, 0x1C0
+            };
+            for (int cand : kCandidates)
+            {
+                uintptr_t arrTry = Mem::Read<uintptr_t>(
+                    node + Offsets::m_modelState + cand);
+                if (!arrTry || arrTry < 0x10000) continue;
+                BoneData probe = Mem::Read<BoneData>(arrTry + 6 * sizeof(BoneData));
+                if (isnan(probe.px) || isinf(probe.px)) continue;
+                float dx = probe.px - origin.x;
+                float dy = probe.py - origin.y;
+                float dz = probe.pz - origin.z;
+                float d2 = dx*dx + dy*dy + dz*dz;
+                // head should be within ~120 units of entity origin
+                if (d2 > 1.f && d2 < 14400.f)
+                {
+                    s_boneArrayOffset = cand;
+                    break;
+                }
+            }
+            if (!s_boneArrayOffset) return {};
+        }
+
         uintptr_t arr = Mem::Read<uintptr_t>(
-            node + Offsets::m_modelState + Offsets::m_BoneArray);
+            node + Offsets::m_modelState + s_boneArrayOffset);
         if (!arr) return {};
 
-        struct BoneData { float px, py, pz, pad, qx, qy, qz, qw; };
         BoneData b = Mem::Read<BoneData>(arr + bone * sizeof(BoneData));
         // Reject NaN/Inf results (corrupted/uninitialized bone data)
         if (isnan(b.px) || isnan(b.py) || isnan(b.pz)) return {};
@@ -195,8 +343,9 @@ namespace GameState
     // ---------------------------------------------------------------
     inline Math::ViewMatrix GetViewMatrix()
     {
-        return Mem::Read<Math::ViewMatrix>(
-            clientBase + Offsets::Global::dwViewMatrix);
+        std::ptrdiff_t off = resolved_dwViewMatrix ? resolved_dwViewMatrix
+                                                   : Offsets::Global::dwViewMatrix;
+        return Mem::Read<Math::ViewMatrix>(clientBase + off);
     }
 
     inline bool WorldToScreen(const float* world, float& sx, float& sy,

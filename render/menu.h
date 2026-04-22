@@ -728,7 +728,7 @@ namespace Menu
         Aimbot::cfg.fov           = 1.5f;
         Aimbot::cfg.smoothing     = 65.f;
         Aimbot::cfg.humanization  = 0.65f;
-        Aimbot::cfg.targetBone    = 4;
+        Aimbot::cfg.targetBone    = 23;
         Aimbot::cfg.aimKey        = 0;
         Aimbot::cfg.teamCheck     = true;
         Aimbot::cfg.visCheck      = true;
@@ -750,7 +750,7 @@ namespace Menu
         Aimbot::cfg.fov           = 2.0f;
         Aimbot::cfg.smoothing     = 50.f;
         Aimbot::cfg.humanization  = 0.55f;
-        Aimbot::cfg.targetBone    = 6;
+        Aimbot::cfg.targetBone    =  7;
         Aimbot::cfg.aimKey        = 0;
         Aimbot::cfg.teamCheck     = true;
         Aimbot::cfg.visCheck      = true;
@@ -775,7 +775,7 @@ namespace Menu
         Aimbot::cfg.fov           = 2.3f;
         Aimbot::cfg.smoothing     = 43.f;
         Aimbot::cfg.humanization  = 0.50f;
-        Aimbot::cfg.targetBone    = 6;
+        Aimbot::cfg.targetBone    =  7;
         Aimbot::cfg.aimKey        = 0;
         Aimbot::cfg.teamCheck     = true;
         Aimbot::cfg.visCheck      = true;
@@ -802,7 +802,7 @@ namespace Menu
         Aimbot::cfg.fov               = 10.f;
         Aimbot::cfg.smoothing         = 8.f;
         Aimbot::cfg.humanization      = 0.15f;
-        Aimbot::cfg.targetBone        = 6;
+        Aimbot::cfg.targetBone        =  7;
         Aimbot::cfg.aimKey            = 0;
         Aimbot::cfg.teamCheck         = true;
         Aimbot::cfg.visCheck          = true;
@@ -893,7 +893,7 @@ namespace Menu
             EvoLabel("TARGETING");
             {
                 const char* bones[]   = { "Head","Neck","Chest","Pelvis" };
-                const int   boneIds[] = { 6, 5, 4, 3 };
+                const int   boneIds[] = { 7, 6, 23, 1 };
                 int bIdx = 0;
                 for (int i = 0; i < 4; ++i) if (boneIds[i] == Aimbot::cfg.targetBone) bIdx = i;
                 if (EvoCombo("Hitbox##hb", &bIdx, bones, 4))

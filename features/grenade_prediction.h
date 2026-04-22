@@ -42,23 +42,23 @@ namespace GrenadePrediction
     constexpr float kFriction   = 0.45f;
     constexpr float kElasticity = 0.45f;
 
-    // C_BaseCSGrenadeProjectile offsets
+    // C_BaseCSGrenadeProjectile + C_SmokeGrenadeProjectile offsets (build 14152)
     namespace Off
     {
-        constexpr std::ptrdiff_t m_vInitialPosition                    = 0x13A0;
-        constexpr std::ptrdiff_t m_vInitialVelocity                    = 0x13AC;
-        constexpr std::ptrdiff_t m_nBounces                            = 0x13B8;
-        constexpr std::ptrdiff_t m_nExplodeEffectTickBegin             = 0x13C8;
-        constexpr std::ptrdiff_t m_flSpawnTime                         = 0x13D8;
-        constexpr std::ptrdiff_t m_bExplodeEffectBegan                 = 0x13EC;
-        constexpr std::ptrdiff_t m_arrTrajectoryTrailPoints            = 0x1400; // CUtlVector<Vector>
-        constexpr std::ptrdiff_t m_arrTrajectoryTrailPointCreationTimes = 0x1418; // CUtlVector<float>
-        // Smoke-specific
-        constexpr std::ptrdiff_t m_nSmokeEffectTickBegin               = 0x1450;
-        constexpr std::ptrdiff_t m_bDidSmokeEffect                     = 0x1454;
-        constexpr std::ptrdiff_t m_vSmokeDetonationPos                 = 0x1468;
-        // Molotov-specific
-        constexpr std::ptrdiff_t m_bIsIncGrenade                       = 0x1438;
+        constexpr std::ptrdiff_t m_vInitialPosition                    = 0x11A0;
+        constexpr std::ptrdiff_t m_vInitialVelocity                    = 0x11AC;
+        constexpr std::ptrdiff_t m_nBounces                            = 0x11B8;
+        constexpr std::ptrdiff_t m_nExplodeEffectTickBegin             = 0x11C8;
+        constexpr std::ptrdiff_t m_flSpawnTime                         = 0x11D8;
+        constexpr std::ptrdiff_t m_bExplodeEffectBegan                 = 0x11EC;
+        constexpr std::ptrdiff_t m_arrTrajectoryTrailPoints            = 0x1200; // CUtlVector<Vector>
+        constexpr std::ptrdiff_t m_arrTrajectoryTrailPointCreationTimes = 0x1218; // CUtlVector<float>
+        // Smoke-specific (C_SmokeGrenadeProjectile)
+        constexpr std::ptrdiff_t m_nSmokeEffectTickBegin               = 0x1250;
+        constexpr std::ptrdiff_t m_bDidSmokeEffect                     = 0x1254;
+        constexpr std::ptrdiff_t m_vSmokeDetonationPos                 = 0x1268;
+        // Molotov-specific (C_MolotovProjectile.m_bIsIncGrenade unconfirmed; tentative -0x200 shift)
+        constexpr std::ptrdiff_t m_bIsIncGrenade                       = 0x1238;
     };
 
     // Grenade type enumeration

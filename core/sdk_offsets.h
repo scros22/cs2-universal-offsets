@@ -35,79 +35,86 @@ namespace Offsets
     // we define them here as constants for quick access without
     // parsing the full schema namespace at every callsite.
 
-    // C_BaseEntity
-    constexpr std::ptrdiff_t m_pGameSceneNode      = 0x338;
-    constexpr std::ptrdiff_t m_nSubclassID         = 0x388;
-    constexpr std::ptrdiff_t m_hOwnerEntity        = 0x528;
-    constexpr std::ptrdiff_t m_iHealth             = 0x354;
-    constexpr std::ptrdiff_t m_lifeState           = 0x35C;
-    constexpr std::ptrdiff_t m_iTeamNum            = 0x3F3;
-    constexpr std::ptrdiff_t m_flSimulationTime    = 0x3C0;
-    constexpr std::ptrdiff_t m_fFlags              = 0x400;
+    // C_BaseEntity (build 14152)
+    constexpr std::ptrdiff_t m_pGameSceneNode      = 0x330;
+    constexpr std::ptrdiff_t m_nSubclassID         = 0x380;
+    constexpr std::ptrdiff_t m_hOwnerEntity        = 0x520;
+    constexpr std::ptrdiff_t m_iHealth             = 0x34C;
+    constexpr std::ptrdiff_t m_lifeState           = 0x354;
+    constexpr std::ptrdiff_t m_iTeamNum            = 0x3EB;
+    constexpr std::ptrdiff_t m_flSimulationTime    = 0x3B8;
+    constexpr std::ptrdiff_t m_fFlags              = 0x3F8;
 
     // C_BasePlayerPawn
-    constexpr std::ptrdiff_t m_pWeaponServices     = 0x13D8;
-    constexpr std::ptrdiff_t m_vecViewOffset        = 0xD58;
-    constexpr std::ptrdiff_t m_pObserverServices   = 0x13F0;
-    constexpr std::ptrdiff_t m_pCameraServices     = 0x1410;
+    constexpr std::ptrdiff_t m_pWeaponServices     = 0x11E0;
+    constexpr std::ptrdiff_t m_vecViewOffset        = 0xE70;
+    constexpr std::ptrdiff_t m_pObserverServices   = 0x11F8;
+    constexpr std::ptrdiff_t m_pCameraServices     = 0x1218;
 
     // CPlayer_WeaponServices
     constexpr std::ptrdiff_t m_hMyWeapons          = 0x48;
     constexpr std::ptrdiff_t m_hActiveWeapon       = 0x60;
 
     // C_BaseCombatCharacter
-    constexpr std::ptrdiff_t m_hMyWearables        = 0x1350;
+    constexpr std::ptrdiff_t m_hMyWearables        = 0x1158;
 
     // CPlayer_ObserverServices
     constexpr std::ptrdiff_t m_hObserverTarget     = 0x4C;
     constexpr std::ptrdiff_t m_iObserverMode       = 0x48;
 
     // CCSPlayerController
-    constexpr std::ptrdiff_t m_pInventoryServices  = 0x810;
-    constexpr std::ptrdiff_t m_sSanitizedPlayerName = 0x860;
-    constexpr std::ptrdiff_t m_hPlayerPawn         = 0x90C;
-    constexpr std::ptrdiff_t m_bPawnIsAlive        = 0x914;
-    constexpr std::ptrdiff_t m_hObserverPawn       = 0x910;
+    constexpr std::ptrdiff_t m_pInventoryServices  = 0x808;
+    constexpr std::ptrdiff_t m_sSanitizedPlayerName = 0x858;
+    constexpr std::ptrdiff_t m_hPlayerPawn         = 0x904;
+    constexpr std::ptrdiff_t m_bPawnIsAlive        = 0x90C;
+    constexpr std::ptrdiff_t m_hObserverPawn       = 0x908;
 
     // CCSPlayerController_InventoryServices
     constexpr std::ptrdiff_t m_unMusicID           = 0x58;
 
     // C_CSPlayerPawn
-    constexpr std::ptrdiff_t m_bNeedToReApplyGloves = 0x188D;
-    constexpr std::ptrdiff_t m_EconGloves          = 0x1890;
-    constexpr std::ptrdiff_t m_hHudModelArms       = 0x2400;
-    constexpr std::ptrdiff_t m_pClippingWeapon     = 0x3DC0;
-    constexpr std::ptrdiff_t m_nEconGlovesChanged  = 0x1D00;
-    constexpr std::ptrdiff_t m_iShotsFired         = 0x270C;
-    constexpr std::ptrdiff_t m_aimPunchAngle       = 0x16CC;
-    constexpr std::ptrdiff_t m_angEyeAngles        = 0x3DD0;
-    constexpr std::ptrdiff_t m_ArmorValue          = 0x272C;
-    constexpr std::ptrdiff_t m_bGunGameImmunity    = 0x3D74;
-    constexpr std::ptrdiff_t m_iIDEntIndex         = 0x3EAC;
-    constexpr std::ptrdiff_t m_flFlashDuration     = 0x15F8;
-    constexpr std::ptrdiff_t m_flFlashMaxAlpha     = 0x15F4;
-    constexpr std::ptrdiff_t m_flLastSmokeOverlayAlpha = 0x1618;
-    constexpr std::ptrdiff_t m_bIsScoped           = 0x26F8;
-    constexpr std::ptrdiff_t m_entitySpottedState   = 0x26E0;
+    constexpr std::ptrdiff_t m_bNeedToReApplyGloves = 0x1695;
+    constexpr std::ptrdiff_t m_EconGloves          = 0x1698;
+    constexpr std::ptrdiff_t m_hHudModelArms       = 0x1B98;
+    // m_pClippingWeapon: schema field removed in build 14152 (Animgraph 2).
+    // Skinchanger features that depended on it should derive the active weapon
+    // pointer from m_hActiveWeapon via the entity list instead.
+    constexpr std::ptrdiff_t m_pClippingWeapon     = 0x0;
+    constexpr std::ptrdiff_t m_nEconGlovesChanged  = 0x1B08;
+    constexpr std::ptrdiff_t m_iShotsFired         = 0x1C9C;
+    constexpr std::ptrdiff_t m_aimPunchAngle       = 0x14D4;
+    // v_angle on C_BasePlayerPawn — final view angles AFTER punch is applied.
+    // Per recent reversing notes, useful as an alternative read path on builds
+    // where m_angEyeAngles drifts. We keep both available.
+    constexpr std::ptrdiff_t v_angle               = 0x1298;
+    constexpr std::ptrdiff_t m_angEyeAngles        = 0x3340;
+    constexpr std::ptrdiff_t m_ArmorValue          = 0x1CB4;
+    constexpr std::ptrdiff_t m_bGunGameImmunity    = 0x32B8;
+    constexpr std::ptrdiff_t m_iIDEntIndex         = 0x341C;
+    constexpr std::ptrdiff_t m_flFlashDuration     = 0x1400;
+    constexpr std::ptrdiff_t m_flFlashMaxAlpha     = 0x13FC;
+    constexpr std::ptrdiff_t m_flLastSmokeOverlayAlpha = 0x1420;
+    constexpr std::ptrdiff_t m_bIsScoped           = 0x1C88;
+    constexpr std::ptrdiff_t m_entitySpottedState   = 0x1C70;
 
     // C_BaseModelEntity — alpha property
-    constexpr std::ptrdiff_t m_pClientAlphaProperty = 0xE38;
+    constexpr std::ptrdiff_t m_pClientAlphaProperty = 0xF50;
 
     // CClientAlphaProperty
     constexpr std::ptrdiff_t m_nAlpha              = 0x17;
 
     // CSmokeGrenadeProjectile
-    constexpr std::ptrdiff_t m_nSmokeEffectTickBegin = 0x1450;
-    constexpr std::ptrdiff_t m_bDidSmokeEffect     = 0x1454;
-    constexpr std::ptrdiff_t m_vSmokeColor         = 0x145C;  // Vector (3 floats)
-    constexpr std::ptrdiff_t m_bSmokeEffectSpawned = 0x1499;
+    constexpr std::ptrdiff_t m_nSmokeEffectTickBegin = 0x1250;
+    constexpr std::ptrdiff_t m_bDidSmokeEffect     = 0x1254;
+    constexpr std::ptrdiff_t m_vSmokeColor         = 0x125C;  // Vector (3 floats)
+    constexpr std::ptrdiff_t m_bSmokeEffectSpawned = 0x1299;
 
     // C_Inferno
-    constexpr std::ptrdiff_t m_fireCount           = 0x1838;
-    constexpr std::ptrdiff_t m_nFireEffectTickBegin = 0x184C;
+    constexpr std::ptrdiff_t m_fireCount           = 0x1958;
+    constexpr std::ptrdiff_t m_nFireEffectTickBegin = 0x196C;
 
     // C_BaseEntity velocity
-    constexpr std::ptrdiff_t m_vecVelocity         = 0x438;
+    constexpr std::ptrdiff_t m_vecVelocity         = 0x430;
 
     // CPlayer_CameraServices
     constexpr std::ptrdiff_t m_iFOV                = 0x290;   // uint32, NOT float
@@ -117,37 +124,40 @@ namespace Offsets
     constexpr std::ptrdiff_t m_hZoomOwner          = 0x2A0;   // CHandle
     constexpr std::ptrdiff_t m_flLastShotFOV       = 0x2A4;   // float32
 
-    // C_EnvSky
-    constexpr std::ptrdiff_t m_vTintColor          = 0xE99;   // Color (RGBA bytes)
-    constexpr std::ptrdiff_t m_vTintColorLightingOnly = 0xE9D; // Color
-    constexpr std::ptrdiff_t m_flSkyBrightnessScale = 0xEA4;  // float32
-    constexpr std::ptrdiff_t m_bSkyEnabled         = 0xEBC;   // bool (m_bEnabled on C_EnvSky)
+    // C_CSPlayerPawnBase / C_BasePlayerPawn — desired-FOV (player wants this FOV)
+    constexpr std::ptrdiff_t m_iDesiredFOV         = 0x784;   // uint32 (build 14152)
+
+    // C_EnvSky (renamed in 14152: m_flSkyBrightnessScale -> m_flBrightnessScale)
+    constexpr std::ptrdiff_t m_vTintColor          = 0xFB9;   // Color (RGBA bytes)
+    constexpr std::ptrdiff_t m_vTintColorLightingOnly = 0xFBD; // Color
+    constexpr std::ptrdiff_t m_flSkyBrightnessScale = 0xFC4;  // float32 (m_flBrightnessScale)
+    constexpr std::ptrdiff_t m_bSkyEnabled         = 0xFDC;   // bool (m_bEnabled on C_EnvSky)
 
     // CGameSceneNode
-    constexpr std::ptrdiff_t m_vecAbsOrigin        = 0xD0;
+    constexpr std::ptrdiff_t m_vecAbsOrigin        = 0xC8;
 
     // C_BaseEntity — viewmodel detection
-    constexpr std::ptrdiff_t m_bRenderWithViewModels = 0x572;
+    constexpr std::ptrdiff_t m_bRenderWithViewModels = 0x56A;
 
     // C_TonemapController2 — exposure control
-    constexpr std::ptrdiff_t m_flAutoExposureMin   = 0x608;
-    constexpr std::ptrdiff_t m_flAutoExposureMax   = 0x60C;
+    constexpr std::ptrdiff_t m_flAutoExposureMin   = 0x600;
+    constexpr std::ptrdiff_t m_flAutoExposureMax   = 0x604;
 
     // CSkeletonInstance
-    constexpr std::ptrdiff_t m_materialGroup       = 0x434;
-    constexpr std::ptrdiff_t m_modelState          = 0x160;
+    constexpr std::ptrdiff_t m_materialGroup       = 0x3C4;
+    constexpr std::ptrdiff_t m_modelState          = 0x150;
 
-    // CModelState
-    constexpr std::ptrdiff_t m_MeshGroupMask       = 0x220;
+    // CModelState (m_BoneArray is hand-RE'd, not in schema)
+    constexpr std::ptrdiff_t m_MeshGroupMask       = 0x1C8;
     constexpr std::ptrdiff_t m_BoneArray           = 0x80;
 
     // C_BaseModelEntity (render / visual)
-    constexpr std::ptrdiff_t m_nRenderMode         = 0xB60;
-    constexpr std::ptrdiff_t m_clrRender           = 0xB80;
-    constexpr std::ptrdiff_t m_Glow                = 0xCC0;
-    constexpr std::ptrdiff_t m_flGlowBackfaceMult  = 0xD18;
-    constexpr std::ptrdiff_t m_ClientOverrideTint  = 0xE40;
-    constexpr std::ptrdiff_t m_bUseClientOverrideTint = 0xE44;
+    constexpr std::ptrdiff_t m_nRenderMode         = 0xC78;
+    constexpr std::ptrdiff_t m_clrRender           = 0xC98;
+    constexpr std::ptrdiff_t m_Glow                = 0xDD8;
+    constexpr std::ptrdiff_t m_flGlowBackfaceMult  = 0xE30;
+    constexpr std::ptrdiff_t m_ClientOverrideTint  = 0xF58;
+    constexpr std::ptrdiff_t m_bUseClientOverrideTint = 0xF5C;
 
     // CGlowProperty
     constexpr std::ptrdiff_t m_bGlowing            = 0x51;
@@ -159,13 +169,13 @@ namespace Offsets
     constexpr std::ptrdiff_t m_flGlowStartTime     = 0x4C;
 
     // C_EconEntity
-    constexpr std::ptrdiff_t m_AttributeManager    = 0x1378;
-    constexpr std::ptrdiff_t m_OriginalOwnerXuidLow  = 0x1848;
-    constexpr std::ptrdiff_t m_OriginalOwnerXuidHigh = 0x184C;
-    constexpr std::ptrdiff_t m_nFallbackPaintKit   = 0x1850;
-    constexpr std::ptrdiff_t m_nFallbackSeed       = 0x1854;
-    constexpr std::ptrdiff_t m_flFallbackWear      = 0x1858;
-    constexpr std::ptrdiff_t m_nFallbackStatTrak   = 0x185C;
+    constexpr std::ptrdiff_t m_AttributeManager    = 0x13B8;
+    constexpr std::ptrdiff_t m_OriginalOwnerXuidLow  = 0x1650;
+    constexpr std::ptrdiff_t m_OriginalOwnerXuidHigh = 0x1654;
+    constexpr std::ptrdiff_t m_nFallbackPaintKit   = 0x1658;
+    constexpr std::ptrdiff_t m_nFallbackSeed       = 0x165C;
+    constexpr std::ptrdiff_t m_flFallbackWear      = 0x1660;
+    constexpr std::ptrdiff_t m_nFallbackStatTrak   = 0x1664;
 
     // C_AttributeContainer
     constexpr std::ptrdiff_t m_Item                = 0x50;
@@ -196,9 +206,9 @@ namespace Offsets
     constexpr std::ptrdiff_t m_bSetBonus           = 0x40;
 
     // C_PlantedC4
-    constexpr std::ptrdiff_t m_bBombTicking        = 0x1170;
-    constexpr std::ptrdiff_t m_flC4Blow            = 0x11A0;
-    constexpr std::ptrdiff_t m_bBombDefused        = 0x11C4;
-    constexpr std::ptrdiff_t m_flDefuseCountDown   = 0x11C0;
-    constexpr std::ptrdiff_t m_flDefuseLength      = 0x11BC;
+    constexpr std::ptrdiff_t m_bBombTicking        = 0x1160;
+    constexpr std::ptrdiff_t m_flC4Blow            = 0x1190;
+    constexpr std::ptrdiff_t m_bBombDefused        = 0x11B4;
+    constexpr std::ptrdiff_t m_flDefuseCountDown   = 0x11B0;
+    constexpr std::ptrdiff_t m_flDefuseLength      = 0x11AC;
 }

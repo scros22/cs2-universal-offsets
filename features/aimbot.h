@@ -60,7 +60,7 @@ namespace Aimbot
         int   aimKey          = 0;           // 0 = auto (mouse1), 1 = mouse2, 2 = always on
         float fov             = 5.5f;        // degrees (1â€“180)
         float smoothing       = 22.0f;       // 1â€“100 (1 = instant, 100 = max drag)
-        int   targetBone      = 6;           // 6=head, 5=neck, 4=chest, 3=pelvis
+        int   targetBone      = 7;           // build 14152: 7=head, 6=neck, 23=chest, 1=pelvis
         bool  headPriority    = true;        // try head first, fallback to configured
         bool  noRecoil        = true;        // compensate weapon recoil
         bool  teamCheck       = true;
@@ -876,7 +876,7 @@ namespace Aimbot
         Math::Vec3   pos;
         Math::QAngle angle;
         float        fov = FLT_MAX;
-        int          bone = 6;
+        int          bone = 7;
     };
 
     // ---------------------------------------------------------------
@@ -912,7 +912,9 @@ namespace Aimbot
     {
         Math::Vec3 origin = GameState::GetEntityOrigin(pawn);
 
-        static const int kBones[] = { 6, 5, 4, 3, 0, 7, 8 };
+        // Animgraph 2 (build 14152) bone indices, ordered roughly head-down:
+        //   7 head, 25 eye-L, 26 eye-R, 6 neck, 23 chest, 4 spine2, 3 spine1, 1 pelvis
+        static const int kBones[] = { 7, 25, 26, 6, 23, 4, 3, 1 };
         constexpr int kNumBones = sizeof(kBones) / sizeof(kBones[0]);
 
         Math::Vec3 bestPos;
@@ -1101,7 +1103,7 @@ namespace Aimbot
 
             // Head priority: always try head first
             int primaryBone = cfg.targetBone;
-            if (cfg.headPriority) primaryBone = 6;
+            if (cfg.headPriority) primaryBone = 7;
 
             int selectedBone = primaryBone;
             Math::Vec3 bone = GetBestBonePos(pawn, primaryBone, eye, view, selectedBone);
@@ -1477,7 +1479,7 @@ namespace Aimbot
         // IsEntityFresh() provides an independent staleness check via simTime.
         memset(GameState::originalDormant, 0, sizeof(GameState::originalDormant));
 
-        uintptr_t vaAddr    = GameState::clientBase + Offsets::Global::dwViewAngles;
+        uintptr_t vaAddr    = GameState::clientBase + GameState::RVA_dwViewAngles();
         Math::QAngle viewAng = Mem::Read<Math::QAngle>(vaAddr);
 
         // NaN guard: game writes garbage during round transitions/halftime.
@@ -2047,7 +2049,7 @@ namespace Aimbot
             return false;
         }
 
-        uintptr_t vaAddr = GameState::clientBase + Offsets::Global::dwViewAngles;
+        uintptr_t vaAddr = GameState::clientBase + GameState::RVA_dwViewAngles();
         Math::QAngle testAng = Mem::Read<Math::QAngle>(vaAddr);
 
         AimLog("[Aimbot] Mouse-input aimbot init");

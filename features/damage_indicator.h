@@ -373,7 +373,7 @@ namespace DamageIndicator
             float age = now - f.spawnTime;
             if (age > 1.5f) continue;
 
-            Math::Vec3 head = GameState::GetBonePos(f.pawn, 6);
+            Math::Vec3 head = GameState::GetBonePos(f.pawn, 7);
             if (head.IsZero()) continue;
 
             // Float upward over time
