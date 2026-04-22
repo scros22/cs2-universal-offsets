@@ -28,6 +28,7 @@ pub mod ident;
 pub mod interfaces_sdk;
 pub mod netvars;
 pub mod sdk_classes;
+pub mod verified;
 pub mod vtables;
 
 enum Item<'a> {
@@ -191,6 +192,25 @@ impl<'a> Output<'a> {
         fs::write(
             self.out_dir.join("cs2sdk.rs"),
             amalgamation::render_rs(true, build_number),
+        )?;
+
+        // 6. hand-curated "verified working features" catalogue.
+        // Lives next to the auto-generated outputs so cheat developers
+        // can copy a single file (.md / .hpp / .json) and know which
+        // offsets are confirmed working in a live internal cheat plus
+        // the gotchas (skybox tint moved to +0xE8, mat_fullbright needs
+        // both ConVar slots written, etc).
+        fs::write(
+            self.out_dir.join("verified_features.json"),
+            verified::render_json(build_number),
+        )?;
+        fs::write(
+            self.out_dir.join("verified_features.md"),
+            verified::render_md(build_number),
+        )?;
+        fs::write(
+            self.out_dir.join("verified_features.hpp"),
+            verified::render_hpp(build_number),
         )?;
 
         Ok(())

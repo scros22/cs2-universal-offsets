@@ -1,0 +1,2703 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+pub const cs2_dumper = struct {
+    pub const schemas = struct {
+        // Module: particles.dll
+        // Class count: 501
+        // Enum count: 76
+        pub const particles_dll = struct {
+            // Alignment: 4
+            // Member count: 2
+            pub const PulseBestOutflowRules_t = enum(u32) {
+                SORT_BY_NUMBER_OF_VALID_CRITERIA = 0x0,
+                SORT_BY_OUTFLOW_INDEX = 0x1
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const PulseCursorCancelPriority_t = enum(u32) {
+                None = 0x0,
+                CancelOnSucceeded = 0x1,
+                SoftCancel = 0x2,
+                HardCancel = 0x3
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const PulseMethodCallMode_t = enum(u32) {
+                SYNC_WAIT_FOR_COMPLETION = 0x0,
+                ASYNC_FIRE_AND_FORGET = 0x1
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const Detail2Combo_t = enum(u32) {
+                DETAIL_2_COMBO_UNINITIALIZED = 0xFFFFFFFF,
+                DETAIL_2_COMBO_OFF = 0x0,
+                DETAIL_2_COMBO_ADD = 0x1,
+                DETAIL_2_COMBO_ADD_SELF_ILLUM = 0x2,
+                DETAIL_2_COMBO_MOD2X = 0x3,
+                DETAIL_2_COMBO_MUL = 0x4,
+                DETAIL_2_COMBO_CROSSFADE = 0x5
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const MissingParentInheritBehavior_t = enum(u32) {
+                MISSING_PARENT_DO_NOTHING = 0xFFFFFFFF,
+                MISSING_PARENT_KILL = 0x0,
+                MISSING_PARENT_FIND_NEW = 0x1,
+                MISSING_PARENT_SAME_INDEX = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleTraceMissBehavior_t = enum(u32) {
+                PARTICLE_TRACE_MISS_BEHAVIOR_NONE = 0x0,
+                PARTICLE_TRACE_MISS_BEHAVIOR_KILL = 0x1,
+                PARTICLE_TRACE_MISS_BEHAVIOR_TRACE_END = 0x2
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const PFuncVisualizationType_t = enum(u32) {
+                PFUNC_VISUALIZATION_SPHERE_WIREFRAME = 0x0,
+                PFUNC_VISUALIZATION_SPHERE_SOLID = 0x1,
+                PFUNC_VISUALIZATION_BOX = 0x2,
+                PFUNC_VISUALIZATION_RING = 0x3,
+                PFUNC_VISUALIZATION_PLANE = 0x4,
+                PFUNC_VISUALIZATION_LINE = 0x5,
+                PFUNC_VISUALIZATION_CYLINDER = 0x6
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ParticleVRHandChoiceList_t = enum(u32) {
+                PARTICLE_VRHAND_LEFT = 0x0,
+                PARTICLE_VRHAND_RIGHT = 0x1,
+                PARTICLE_VRHAND_CP = 0x2,
+                PARTICLE_VRHAND_CP_OBJECT = 0x3
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ParticleReplicationMode_t = enum(u32) {
+                PARTICLE_REPLICATIONMODE_NONE = 0x0,
+                PARTICLE_REPLICATIONMODE_REPLICATE_FOR_EACH_PARENT_PARTICLE = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleEntityPos_t = enum(u32) {
+                PARTICLE_ABS_ORIGIN = 0x0,
+                PARTICLE_WORLDSPACE_CENTER = 0x1,
+                PARTICLE_EYES = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleFanType_t = enum(u32) {
+                PARTICLE_FAN_TYPE_FAN = 0x0,
+                PARTICLE_FAN_TYPE_ROTOR_WASH = 0x1,
+                PARTICLE_FAN_TYPE_RADIAL = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const PetGroundType_t = enum(u32) {
+                PET_GROUND_NONE = 0x0,
+                PET_GROUND_GRID = 0x1,
+                PET_GROUND_PLANE = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const InheritableBoolType_t = enum(u32) {
+                INHERITABLE_BOOL_INHERIT = 0x0,
+                INHERITABLE_BOOL_FALSE = 0x1,
+                INHERITABLE_BOOL_TRUE = 0x2
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const ParticlePostProcessPriorityGroup_t = enum(u32) {
+                PARTICLE_POST_PROCESS_PRIORITY_LEVEL_VOLUME = 0x0,
+                PARTICLE_POST_PROCESS_PRIORITY_LEVEL_OVERRIDE = 0x1,
+                PARTICLE_POST_PROCESS_PRIORITY_GAMEPLAY_EFFECT = 0x2,
+                PARTICLE_POST_PROCESS_PRIORITY_GAMEPLAY_STATE_LOW = 0x3,
+                PARTICLE_POST_PROCESS_PRIORITY_GAMEPLAY_STATE_HIGH = 0x4,
+                PARTICLE_POST_PROCESS_PRIORITY_GLOBAL_UI = 0x5
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const ParticleCollisionGroup_t = enum(u32) {
+                PARTICLE_COLLISION_GROUP_DEFAULT = 0x4,
+                PARTICLE_COLLISION_GROUP_DEBRIS = 0x5,
+                PARTICLE_COLLISION_GROUP_INTERACTIVE = 0x7,
+                PARTICLE_COLLISION_GROUP_PLAYER = 0x8,
+                PARTICLE_COLLISION_GROUP_VEHICLE = 0xA,
+                PARTICLE_COLLISION_GROUP_NPC = 0xC,
+                PARTICLE_COLLISION_GROUP_PROPS = 0x18
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const DetailCombo_t = enum(u32) {
+                DETAIL_COMBO_OFF = 0x0,
+                DETAIL_COMBO_ADD = 0x1,
+                DETAIL_COMBO_ADD_SELF_ILLUM = 0x2,
+                DETAIL_COMBO_MOD2X = 0x3
+            };
+            // Alignment: 4
+            // Member count: 12
+            pub const ScalarExpressionType_t = enum(u32) {
+                SCALAR_EXPRESSION_UNINITIALIZED = 0xFFFFFFFF,
+                SCALAR_EXPRESSION_ADD = 0x0,
+                SCALAR_EXPRESSION_SUBTRACT = 0x1,
+                SCALAR_EXPRESSION_MUL = 0x2,
+                SCALAR_EXPRESSION_DIVIDE = 0x3,
+                SCALAR_EXPRESSION_INPUT_1 = 0x4,
+                SCALAR_EXPRESSION_MIN = 0x5,
+                SCALAR_EXPRESSION_MAX = 0x6,
+                SCALAR_EXPRESSION_MOD = 0x7,
+                SCALAR_EXPRESSION_EQUAL = 0x8,
+                SCALAR_EXPRESSION_GT = 0x9,
+                SCALAR_EXPRESSION_LT = 0xA
+            };
+            // Alignment: 4
+            // Member count: 14
+            pub const SpriteCardPerParticleScale_t = enum(u32) {
+                SPRITECARD_TEXTURE_PP_SCALE_NONE = 0x0,
+                SPRITECARD_TEXTURE_PP_SCALE_PARTICLE_AGE = 0x1,
+                SPRITECARD_TEXTURE_PP_SCALE_ANIMATION_FRAME = 0x2,
+                SPRITECARD_TEXTURE_PP_SCALE_SHADER_EXTRA_DATA1 = 0x3,
+                SPRITECARD_TEXTURE_PP_SCALE_SHADER_EXTRA_DATA2 = 0x4,
+                SPRITECARD_TEXTURE_PP_SCALE_PARTICLE_ALPHA = 0x5,
+                SPRITECARD_TEXTURE_PP_SCALE_SHADER_RADIUS = 0x6,
+                SPRITECARD_TEXTURE_PP_SCALE_ROLL = 0x7,
+                SPRITECARD_TEXTURE_PP_SCALE_YAW = 0x8,
+                SPRITECARD_TEXTURE_PP_SCALE_PITCH = 0x9,
+                SPRITECARD_TEXTURE_PP_SCALE_RANDOM = 0xA,
+                SPRITECARD_TEXTURE_PP_SCALE_NEG_RANDOM = 0xB,
+                SPRITECARD_TEXTURE_PP_SCALE_RANDOM_TIME = 0xC,
+                SPRITECARD_TEXTURE_PP_SCALE_NEG_RANDOM_TIME = 0xD
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const BlurFilterType_t = enum(u32) {
+                BLURFILTER_GAUSSIAN = 0x0,
+                BLURFILTER_BOX = 0x1
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const StandardLightingAttenuationStyle_t = enum(u32) {
+                LIGHT_STYLE_OLD = 0x0,
+                LIGHT_STYLE_NEW = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleParentSetMode_t = enum(u32) {
+                PARTICLE_SET_PARENT_NO = 0x0,
+                PARTICLE_SET_PARENT_IMMEDIATE = 0x1,
+                PARTICLE_SET_PARENT_ROOT = 0x2
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const ParticleLightingQuality_t = enum(u32) {
+                PARTICLE_LIGHTING_PER_PARTICLE = 0x0,
+                PARTICLE_LIGHTING_PER_VERTEX = 0x1,
+                PARTICLE_LIGHTING_PER_PIXEL = 0xFFFFFFFF,
+                PARTICLE_LIGHTING_OVERRIDE_POSITION = 0x2,
+                PARTICLE_LIGHTING_OVERRIDE_COLOR = 0x3,
+                PARTICLE_LIGHTING_ADD_EXTRA_LIGHT = 0x4
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ParticleVolumetricSmokeCreationType_t = enum(u32) {
+                PARTICLE_VOLUMETRIC_SMOKE_TYPE_CONTINUOUS = 0x0,
+                PARTICLE_VOLUMETRIC_SMOKE_TYPE_IMPULSE = 0x1
+            };
+            // Alignment: 4
+            // Member count: 8
+            pub const SetStatisticExpressionType_t = enum(u32) {
+                SET_EXPRESSION_UNINITIALIZED = 0xFFFFFFFF,
+                SET_EXPRESSION_SUM = 0x0,
+                SET_EXPRESSION_MEAN = 0x1,
+                SET_EXPRESSION_MEDIAN = 0x2,
+                SET_EXPRESSION_MODE = 0x3,
+                SET_EXPRESSION_STANDARD_DEVIATION = 0x4,
+                SET_EXPRESSION_MIN = 0x5,
+                SET_EXPRESSION_MAX = 0x6
+            };
+            // Alignment: 4
+            // Member count: 11
+            pub const EventTypeSelection_t = enum(u32) {
+                PARTICLE_EVENT_TYPE_MASK_NONE = 0x0,
+                PARTICLE_EVENT_TYPE_MASK_SPAWNED = 0x1,
+                PARTICLE_EVENT_TYPE_MASK_KILLED = 0x2,
+                PARTICLE_EVENT_TYPE_MASK_COLLISION = 0x4,
+                PARTICLE_EVENT_TYPE_MASK_FIRST_COLLISION = 0x8,
+                PARTICLE_EVENT_TYPE_MASK_COLLISION_STOPPED = 0x10,
+                PARTICLE_EVENT_TYPE_MASK_KILLED_ON_COLLISION = 0x20,
+                PARTICLE_EVENT_TYPE_MASK_USER_1 = 0x40,
+                PARTICLE_EVENT_TYPE_MASK_USER_2 = 0x80,
+                PARTICLE_EVENT_TYPE_MASK_USER_3 = 0x100,
+                PARTICLE_EVENT_TYPE_MASK_USER_4 = 0x200
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ParticleMassMode_t = enum(u32) {
+                PARTICLE_MASSMODE_RADIUS_CUBED = 0x0,
+                PARTICLE_MASSMODE_RADIUS_SQUARED = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ParticleHitboxBiasType_t = enum(u32) {
+                PARTICLE_HITBOX_BIAS_ENTITY = 0x0,
+                PARTICLE_HITBOX_BIAS_HITBOX = 0x1
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const ParticleControlPointAxis_t = enum(u32) {
+                PARTICLE_CP_AXIS_X = 0x0,
+                PARTICLE_CP_AXIS_Y = 0x1,
+                PARTICLE_CP_AXIS_Z = 0x2,
+                PARTICLE_CP_AXIS_NEGATIVE_X = 0x3,
+                PARTICLE_CP_AXIS_NEGATIVE_Y = 0x4,
+                PARTICLE_CP_AXIS_NEGATIVE_Z = 0x5
+            };
+            // Alignment: 4
+            // Member count: 12
+            pub const ParticlePinDistance_t = enum(u32) {
+                PARTICLE_PIN_DISTANCE_NONE = 0xFFFFFFFF,
+                PARTICLE_PIN_DISTANCE_NEIGHBOR = 0x0,
+                PARTICLE_PIN_DISTANCE_FARTHEST = 0x1,
+                PARTICLE_PIN_DISTANCE_FIRST = 0x2,
+                PARTICLE_PIN_DISTANCE_LAST = 0x3,
+                PARTICLE_PIN_DISTANCE_CENTER = 0x5,
+                PARTICLE_PIN_DISTANCE_CP = 0x6,
+                PARTICLE_PIN_DISTANCE_CP_PAIR_EITHER = 0x7,
+                PARTICLE_PIN_DISTANCE_CP_PAIR_BOTH = 0x8,
+                PARTICLE_PIN_SPEED = 0x9,
+                PARTICLE_PIN_COLLECTION_AGE = 0xA,
+                PARTICLE_PIN_FLOAT_VALUE = 0xB
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const VectorFloatExpressionType_t = enum(u32) {
+                VECTOR_FLOAT_EXPRESSION_UNINITIALIZED = 0xFFFFFFFF,
+                VECTOR_FLOAT_EXPRESSION_DOTPRODUCT = 0x0,
+                VECTOR_FLOAT_EXPRESSION_DISTANCE = 0x1,
+                VECTOR_FLOAT_EXPRESSION_DISTANCESQR = 0x2,
+                VECTOR_FLOAT_EXPRESSION_INPUT1_LENGTH = 0x3,
+                VECTOR_FLOAT_EXPRESSION_INPUT1_LENGTHSQR = 0x4,
+                VECTOR_FLOAT_EXPRESSION_INPUT1_NOISE = 0x5
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleFogType_t = enum(u32) {
+                PARTICLE_FOG_GAME_DEFAULT = 0x0,
+                PARTICLE_FOG_ENABLED = 0x1,
+                PARTICLE_FOG_DISABLED = 0x2
+            };
+            // Alignment: 4
+            // Member count: 10
+            pub const VectorExpressionType_t = enum(u32) {
+                VECTOR_EXPRESSION_UNINITIALIZED = 0xFFFFFFFF,
+                VECTOR_EXPRESSION_ADD = 0x0,
+                VECTOR_EXPRESSION_SUBTRACT = 0x1,
+                VECTOR_EXPRESSION_MUL = 0x2,
+                VECTOR_EXPRESSION_DIVIDE = 0x3,
+                VECTOR_EXPRESSION_INPUT_1 = 0x4,
+                VECTOR_EXPRESSION_MIN = 0x5,
+                VECTOR_EXPRESSION_MAX = 0x6,
+                VECTOR_EXPRESSION_CROSSPRODUCT = 0x7,
+                VECTOR_EXPRESSION_LERP = 0x8
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ParticleMultiSegmentInputSelection_t = enum(u32) {
+                PARTICLE_MULTISEGMENT_SELECTION_FLOAT = 0x0,
+                PARTICLE_MULTISEGMENT_SELECTION_STRING = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleRotationLockType_t = enum(u32) {
+                PARTICLE_ROTATION_LOCK_NONE = 0x0,
+                PARTICLE_ROTATION_LOCK_ROTATIONS = 0x1,
+                PARTICLE_ROTATION_LOCK_NORMAL = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const HitboxLerpType_t = enum(u32) {
+                HITBOX_LERP_LIFETIME = 0x0,
+                HITBOX_LERP_CONSTANT = 0x1
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const ParticleAttrBoxFlags_t = enum(u32) {
+                PARTICLE_ATTR_BOX_FLAGS_NONE = 0x0,
+                PARTICLE_ATTR_BOX_FLAGS_WATER = 0x1,
+                PARTICLE_ATTR_BOX_FLAGS_ON_FIRE = 0x2,
+                PARTICLE_ATTR_BOX_FLAGS_ELECTRIFIED = 0x4,
+                PARTICLE_ATTR_BOX_FLAGS_ASLEEP = 0x8,
+                PARTICLE_ATTR_BOX_FLAGS_FROZEN = 0x10,
+                PARTICLE_ATTR_BOX_FLAGS_TIMED_DECAY = 0x20
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const ParticleTopology_t = enum(u32) {
+                PARTICLE_TOPOLOGY_POINTS = 0x0,
+                PARTICLE_TOPOLOGY_LINES = 0x1,
+                PARTICLE_TOPOLOGY_TRIS = 0x2,
+                PARTICLE_TOPOLOGY_QUADS = 0x3,
+                PARTICLE_TOPOLOGY_CUBES = 0x4
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleLightBehaviorChoiceList_t = enum(u32) {
+                PARTICLE_LIGHT_BEHAVIOR_FOLLOW_DIRECTION = 0x0,
+                PARTICLE_LIGHT_BEHAVIOR_ROPE = 0x1,
+                PARTICLE_LIGHT_BEHAVIOR_TRAILS = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ModelHitboxType_t = enum(u32) {
+                MODEL_HITBOX_TYPE_STANDARD = 0x0,
+                MODEL_HITBOX_TYPE_RAW_BONES = 0x1,
+                MODEL_HITBOX_TYPE_RENDERBOUNDS = 0x2,
+                MODEL_HITBOX_TYPE_SNAPSHOT = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleMultiSegmentCountSelection_t = enum(u32) {
+                PARTICLE_MULTISEGMENT_SEG_COUNT_7 = 0x7,
+                PARTICLE_MULTISEGMENT_SEG_COUNT_14 = 0xE,
+                PARTICLE_MULTISEGMENT_SEG_COUNT_16 = 0x10
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ParticleOrientationType_t = enum(u32) {
+                PARTICLE_ORIENTATION_NONE = 0x0,
+                PARTICLE_ORIENTATION_VELOCITY = 0x1,
+                PARTICLE_ORIENTATION_NORMAL = 0x2,
+                PARTICLE_ORIENTATION_ROTATION = 0x4
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ParticleTraceSet_t = enum(u32) {
+                PARTICLE_TRACE_SET_ALL = 0x0,
+                PARTICLE_TRACE_SET_STATIC = 0x1,
+                PARTICLE_TRACE_SET_STATIC_AND_KEYFRAMED = 0x2,
+                PARTICLE_TRACE_SET_DYNAMIC = 0x3
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const ParticleTextureLayerBlendType_t = enum(u32) {
+                SPRITECARD_TEXTURE_BLEND_MULTIPLY = 0x0,
+                SPRITECARD_TEXTURE_BLEND_MOD2X = 0x1,
+                SPRITECARD_TEXTURE_BLEND_REPLACE = 0x2,
+                SPRITECARD_TEXTURE_BLEND_ADD = 0x3,
+                SPRITECARD_TEXTURE_BLEND_SUBTRACT = 0x4,
+                SPRITECARD_TEXTURE_BLEND_AVERAGE = 0x5,
+                SPRITECARD_TEXTURE_BLEND_LUMINANCE = 0x6
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleSelection_t = enum(u32) {
+                PARTICLE_SELECTION_FIRST = 0x0,
+                PARTICLE_SELECTION_LAST = 0x1,
+                PARTICLE_SELECTION_NUMBER = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleToolsState_t = enum(u32) {
+                PARTICLE_TOOLS_STATE_ALWAYS_ON = 0xFFFFFFFF,
+                PARTICLE_TOOLS_STATE_TOOLS_ONLY = 0x0,
+                PARTICLE_TOOLS_STATE_GAME_ONLY = 0x1
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const SnapshotIndexType_t = enum(u32) {
+                SNAPSHOT_INDEX_INCREMENT = 0x0,
+                SNAPSHOT_INDEX_DIRECT = 0x1
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const ParticleOutputBlendMode_t = enum(u32) {
+                PARTICLE_OUTPUT_BLEND_MODE_ALPHA = 0x0,
+                PARTICLE_OUTPUT_BLEND_MODE_ADD = 0x1,
+                PARTICLE_OUTPUT_BLEND_MODE_BLEND_ADD = 0x2,
+                PARTICLE_OUTPUT_BLEND_MODE_HALF_BLEND_ADD = 0x3,
+                PARTICLE_OUTPUT_BLEND_MODE_NEG_HALF_BLEND_ADD = 0x4,
+                PARTICLE_OUTPUT_BLEND_MODE_MOD2X = 0x5,
+                PARTICLE_OUTPUT_BLEND_MODE_LIGHTEN = 0x6
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ParticleLightnintBranchBehavior_t = enum(u32) {
+                PARTICLE_LIGHTNING_BRANCH_CURRENT_DIR = 0x0,
+                PARTICLE_LIGHTNING_BRANCH_ENDPOINT_DIR = 0x1
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const MaterialProxyType_t = enum(u32) {
+                MATERIAL_PROXY_STATUS_EFFECT = 0x0,
+                MATERIAL_PROXY_TINT = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleDepthFeatheringMode_t = enum(u32) {
+                PARTICLE_DEPTH_FEATHERING_OFF = 0x0,
+                PARTICLE_DEPTH_FEATHERING_ON_OPTIONAL = 0x1,
+                PARTICLE_DEPTH_FEATHERING_ON_REQUIRED = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ParticleLightUnitChoiceList_t = enum(u32) {
+                PARTICLE_LIGHT_UNIT_CANDELAS = 0x0,
+                PARTICLE_LIGHT_UNIT_LUMENS = 0x1
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ParticleMultiSegmentSpecialCharacter_t = enum(u32) {
+                PARTICLE_MULTISEGMENT_SPECIAL_NONE = 0xFFFFFFFF,
+                PARTICLE_MULTISEGMENT_SPECIAL_DECIMAL = 0x0,
+                PARTICLE_MULTISEGMENT_SPECIAL_COLON = 0x1,
+                PARTICLE_MULTISEGMENT_SPECIAL_DEGREES = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleFalloffFunction_t = enum(u32) {
+                PARTICLE_FALLOFF_CONSTANT = 0x0,
+                PARTICLE_FALLOFF_LINEAR = 0x1,
+                PARTICLE_FALLOFF_EXPONENTIAL = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleSequenceCropOverride_t = enum(u32) {
+                PARTICLE_SEQUENCE_CROP_OVERRIDE_DEFAULT = 0xFFFFFFFF,
+                PARTICLE_SEQUENCE_CROP_OVERRIDE_FORCE_OFF = 0x0,
+                PARTICLE_SEQUENCE_CROP_OVERRIDE_FORCE_ON = 0x1
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ParticleDetailLevel_t = enum(u32) {
+                PARTICLEDETAIL_LOW = 0x0,
+                PARTICLEDETAIL_MEDIUM = 0x1,
+                PARTICLEDETAIL_HIGH = 0x2,
+                PARTICLEDETAIL_ULTRA = 0x3
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const BBoxVolumeType_t = enum(u32) {
+                BBOX_VOLUME = 0x0,
+                BBOX_DIMENSIONS = 0x1,
+                BBOX_MINS_MAXS = 0x2,
+                BBOX_RADIUS = 0x3
+            };
+            // Alignment: 4
+            // Member count: 12
+            pub const SpriteCardTextureType_t = enum(u32) {
+                SPRITECARD_TEXTURE_DIFFUSE = 0x0,
+                SPRITECARD_TEXTURE_ZOOM = 0x1,
+                SPRITECARD_TEXTURE_1D_COLOR_LOOKUP = 0x2,
+                SPRITECARD_TEXTURE_UVDISTORTION = 0x3,
+                SPRITECARD_TEXTURE_UVDISTORTION_ZOOM = 0x4,
+                SPRITECARD_TEXTURE_NORMALMAP = 0x5,
+                SPRITECARD_TEXTURE_ANIMMOTIONVEC = 0x6,
+                SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_A = 0x7,
+                SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_B = 0x8,
+                SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_C = 0x9,
+                SPRITECARD_TEXTURE_DEPTH = 0xA,
+                SPRITECARD_TEXTURE_ILLUMINATION_GRADIENT = 0xB
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ParticleAlphaReferenceType_t = enum(u32) {
+                PARTICLE_ALPHA_REFERENCE_ALPHA_ALPHA = 0x0,
+                PARTICLE_ALPHA_REFERENCE_OPAQUE_ALPHA = 0x1,
+                PARTICLE_ALPHA_REFERENCE_ALPHA_OPAQUE = 0x2,
+                PARTICLE_ALPHA_REFERENCE_OPAQUE_OPAQUE = 0x3
+            };
+            // Alignment: 4
+            // Member count: 15
+            pub const SpriteCardTextureChannel_t = enum(u32) {
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGB = 0x0,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGBA = 0x1,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_A = 0x2,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_A = 0x3,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_ALPHAMASK = 0x4,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_RGBMASK = 0x5,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGBA_RGBALPHA = 0x6,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_A_RGBALPHA = 0x7,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_A_RGBALPHA = 0x8,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_R = 0x9,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_G = 0xA,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_B = 0xB,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RALPHA = 0xC,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_GALPHA = 0xD,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_BALPHA = 0xE
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleVolumetricSmokeType_t = enum(u32) {
+                PARTICLE_VOLUMETRIC_SMOKE_TYPE_EMISSION = 0x0,
+                PARTICLE_VOLUMETRIC_SMOKE_TYPE_SINK = 0x1,
+                PARTICLE_VOLUMETRIC_SMOKE_TYPE_REPEL = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const RenderModelSubModelFieldType_t = enum(u32) {
+                SUBMODEL_AS_BODYGROUP_SUBMODEL = 0x0,
+                SUBMODEL_AS_MESHGROUP_INDEX = 0x1,
+                SUBMODEL_AS_MESHGROUP_MASK = 0x2,
+                SUBMODEL_IGNORED_USE_MODEL_DEFAULT_MESHGROUP_MASK = 0x3
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ParticleHitboxDataSelection_t = enum(u32) {
+                PARTICLE_HITBOX_AVERAGE_SPEED = 0x0,
+                PARTICLE_HITBOX_COUNT = 0x1
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const ParticleOrientationChoiceList_t = enum(u32) {
+                PARTICLE_ORIENTATION_SCREEN_ALIGNED = 0x0,
+                PARTICLE_ORIENTATION_SCREEN_Z_ALIGNED = 0x1,
+                PARTICLE_ORIENTATION_WORLD_Z_ALIGNED = 0x2,
+                PARTICLE_ORIENTATION_ALIGN_TO_PARTICLE_NORMAL = 0x3,
+                PARTICLE_ORIENTATION_SCREENALIGN_TO_PARTICLE_NORMAL = 0x4,
+                PARTICLE_ORIENTATION_FULL_3AXIS_ROTATION = 0x5
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const ParticleCollisionMode_t = enum(u32) {
+                COLLISION_MODE_PER_PARTICLE_TRACE = 0x3,
+                COLLISION_MODE_USE_NEAREST_TRACE = 0x2,
+                COLLISION_MODE_PER_FRAME_PLANESET = 0x1,
+                COLLISION_MODE_INITIAL_TRACE_DOWN = 0x0,
+                COLLISION_MODE_DISABLED = 0xFFFFFFFF
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ParticleSortingChoiceList_t = enum(u32) {
+                PARTICLE_SORTING_NEAREST = 0x0,
+                PARTICLE_SORTING_CREATION_TIME = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleEndcapMode_t = enum(u32) {
+                PARTICLE_ENDCAP_ALWAYS_ON = 0xFFFFFFFF,
+                PARTICLE_ENDCAP_ENDCAP_OFF = 0x0,
+                PARTICLE_ENDCAP_ENDCAP_ON = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ClosestPointTestType_t = enum(u32) {
+                PARTICLE_CLOSEST_TYPE_BOX = 0x0,
+                PARTICLE_CLOSEST_TYPE_CAPSULE = 0x1,
+                PARTICLE_CLOSEST_TYPE_HYBRID = 0x2
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const ParticleImpulseType_t = enum(u32) {
+                IMPULSE_TYPE_NONE = 0x0,
+                IMPULSE_TYPE_GENERIC = 0x1,
+                IMPULSE_TYPE_ROPE = 0x2,
+                IMPULSE_TYPE_EXPLOSION = 0x4,
+                IMPULSE_TYPE_EXPLOSION_UNDERWATER = 0x8,
+                IMPULSE_TYPE_PARTICLE_SYSTEM = 0x10
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleLiquidContents_t = enum(u32) {
+                PARTICLE_LIQUID_NONE = 0x0,
+                PARTICLE_LIQUID_OIL = 0x1,
+                PARTICLE_LIQUID_WATER = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const SpriteCardShaderType_t = enum(u32) {
+                SPRITECARD_SHADER_BASE = 0x0,
+                SPRITECARD_SHADER_CUSTOM = 0x1
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ParticleOmni2LightTypeChoiceList_t = enum(u32) {
+                PARTICLE_OMNI2_LIGHT_TYPE_POINT = 0x0,
+                PARTICLE_OMNI2_LIGHT_TYPE_SPHERE = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ParticleLightFogLightingMode_t = enum(u32) {
+                PARTICLE_LIGHT_FOG_LIGHTING_MODE_NONE = 0x0,
+                PARTICLE_LIGHT_FOG_LIGHTING_MODE_DYNAMIC = 0x2,
+                PARTICLE_LIGHT_FOG_LIGHTING_MODE_DYNAMIC_NOSHADOWS = 0x4
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ParticleLightTypeChoiceList_t = enum(u32) {
+                PARTICLE_LIGHT_TYPE_POINT = 0x0,
+                PARTICLE_LIGHT_TYPE_SPOT = 0x1,
+                PARTICLE_LIGHT_TYPE_FX = 0x2,
+                PARTICLE_LIGHT_TYPE_CAPSULE = 0x3
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ParticleOrientationSetMode_t = enum(u32) {
+                PARTICLE_ORIENTATION_SET_NONE = 0xFFFFFFFF,
+                PARTICLE_ORIENTATION_SET_FROM_VELOCITY = 0x0,
+                PARTICLE_ORIENTATION_SET_FROM_NORMAL = 0x1,
+                PARTICLE_ORIENTATION_SET_FROM_ROTATIONS = 0x2
+            };
+            // Alignment: 8
+            // Member count: 10
+            pub const ParticleCollisionMask_t = enum(u64) {
+                PARTICLE_MASK_ALL = 0xFFFFFFFFFFFFFFFF,
+                PARTICLE_MASK_SOLID = 0xC3001,
+                PARTICLE_MASK_WATER = 0x18000,
+                PARTICLE_MASK_SOLID_WATER = 0xDB001,
+                PARTICLE_MASK_SHOT = 0x1C1003,
+                PARTICLE_MASK_SHOT_BRUSHONLY = 0x101001,
+                PARTICLE_MASK_SHOT_HULL = 0x1C3001,
+                PARTICLE_MASK_OPAQUE = 0x80,
+                PARTICLE_MASK_DEFAULTPLAYERSOLID = 0xC3011,
+                PARTICLE_MASK_NPCSOLID = 0xC3021
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const TextureRepetitionMode_t = enum(u32) {
+                TEXTURE_REPETITION_PARTICLE = 0x0,
+                TEXTURE_REPETITION_PATH = 0x1
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForCursorsWithTag = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Base = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulse_ResumePoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_PickBestOutflowSelector = struct {
+            };
+            // Parent: particleslib
+            // Field count: 0
+            pub const CParticleBindingRealPulse = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForObservable = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulse_OutflowConnection = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseGraphDef = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_FireCursors = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Timeline__TimelineEvent_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_IntervalTimer__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseRequirement = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_BaseState = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const OutflowWithRequirements_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_IsRequirementValid = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Value_Gradient = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCursorFuncs = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseNodeDynamicOutflows_t__DynamicOutflow_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePulseGraphInstance = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_GraphHook = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SignatureOutflow_Resume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_BaseEntrypoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForCursorsWithTagBase = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulse_InvokeBinding = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_IntervalTimer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseTestScriptLib = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseLerp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_Curve = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_EventHandler = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseFlow = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_CycleShuffled__InstanceState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_BaseLerp__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForCursorsWithTagBase__CursorState_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseArraylib = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SignatureOutflow_Continue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Timeline = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_EntOutputHandler = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_CycleOrdered__InstanceState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CParticleCollectionBindingInstance = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_LimitCount__InstanceState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Step_DebugLog = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseYieldingInflow = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseNodeDynamicOutflows_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_IsRequirementValid__Criteria_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_ObservableVariableListener = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Outflow_CycleOrdered = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseSelectorOutflowList_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_Wait = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Outflow_CycleShuffled = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_Method = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseValue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_BooleanSwitchState = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_Yield = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseMathlib = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Unknown = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Outflow_CycleRandom = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Step_PublicOutput = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulse_BlackboardReference = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_RandomInt = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulse_CallInfo = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_InlineNodeSkipSelector = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_LimitCount = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Step_CallExternalMethod = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseObservableBoolExpression_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_LimitCount__Criteria_t = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_CursorQueue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_RandomFloat = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseExecCursor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IParticleCollection = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ParticleAttributeIndex_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapGravityToVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_Decay = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderDeferredLight = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapSpeedtoCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapTransformToVelocity = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CollisionGroupContext_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CParticleFunctionPreEmission = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_FadeOutSimple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SpringToVectorConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderRopes = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_StatusEffectCitadel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderSound = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CParticleVisibilityInputs = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointsToParticle = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapCPVelocityToVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_PointVectorAtNextParticle = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const ParticlePreviewBodyGroup_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_OscillateScalarSimple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_StatusEffect = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_INIT_RtEnvCull = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_ConstrainDistance = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_InitialVelocityNoise = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ParticleChildrenInfo_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapScalarOnceTimed = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomNamedModelSequence = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_PlaneCull = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_INIT_VelocityRandom = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ModelDampenMovement = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_TwistAroundAxis = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_TeleportBeam = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapExternalWindToCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseRendererSource2 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSpinUpdateBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_OrientTo2dDirection = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_RemapDotProductToCP = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_INIT_RemapParticleCountToNamedModelElementScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderTrails = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointPositionToTimeOfDayValue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_DecayMaintainCount = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_INIT_RandomModelSequence = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ExternalGameImpulseForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapAverageHitboxSpeedtoCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomAlpha = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_NormalizeVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_FadeInSimple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RepeatedTriggerChildGroup = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapVelocityToVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_SetHitboxToClosest = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RingWave = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomTrailLength = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_DistanceBetweenTransforms = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_DecayOffscreen = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateSequentialPath = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_EndCapTimedDecay = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_RemapDistanceToLineSegmentBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ContinuousEmitter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_OscillateVectorSimple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_SequenceLifeTime = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_MoveBetweenPoints = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetUserEvent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_QuantizeFloat = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_BasicMovement = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomNamedModelElement = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_InitFromParentKilled = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_Callback = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CParticleFunction = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_GlobalLight = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_OffsetVectorToVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetPerChildControlPointFromAttribute = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetParentControlPointsToChildCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_BoxConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreatePhyllotaxis = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_AttractToControlPoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomLifeTime = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapParticleCountToNamedModelSequenceScalar = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_INIT_VelocityRadialRandom = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomRadius = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_Orient2DRelToCP = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const TextureControls_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const ControlPointReference_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_SetControlPointToVectorExpression = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LightningSnapshotGenerator = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_RemapNamedModelMeshGroupOnceTimed = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapQAnglesToRotation = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_PositionWarp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointFieldToScalarExpression = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_CreateParticleSystemRenderer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CParticleFunctionForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomVectorComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_InheritFromParentParticles = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_SetVectorAttributeToVectorExpression = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapTransformVisibilityToVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_DirectionBetweenVecsToVec = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_MovementLoopInsideSphere = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderSimpleModelCollection = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_QuantizeCPComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_PlayEndCapWhenFinished = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_InitFloatCollection = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathParameters = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapScalarEndCap = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_INIT_CreateFromPlaneCache = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LazyCullCompareFloat = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ControlPointToRadialScreenSpace = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SpinUpdate = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_NormalOffset = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapDistanceToLineSegmentToVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderAsModels = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreationNoise = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_Spin = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_GameLiquidSpill = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_InstantaneousEmitter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ConstrainLineLength = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_LifespanFromVelocity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseTrailRenderer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_VelocityFromCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointOrientation = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_MovementSkinnedPositionFromCPSnapshot = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_MultiSegmentDisplaySnapshotGenerator = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_OscillateVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_PositionLock = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderVRHapticEvent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointToImpactPoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_InterpolateRadius = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_ReinitializeScalarEndCap = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_TurbulenceForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapNamedModelElementOnceTimed = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointToPlayer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_EndCapTimedFreeze = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderGpuImplicit = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetRandomControlPointPosition = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_RenderVolumetricEmitter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapTransformVisibilityToScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapControlPointDirectionToVector = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_ScreenSpacePositionOfTarget = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CParticleFunctionOperator = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_DragRelativeToPlane = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetCPtoVector = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_INIT_RandomYaw = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SnapshotRigidSkinToBones = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetSingleControlPointPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_DistanceToNeighborCull = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_RemapCPtoScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CParticleFunctionRenderer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CParticleSystemDefinition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapNamedModelMeshGroupEndCap = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_PercentageBetweenTransformsVector = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_RenderScreenVelocityRotate = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_UpdateLightSource = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateWithinBox = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ChooseRandomChildrenInGroup = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ControlpointLight = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_VectorFieldSnapshot = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_CylindricalDistanceToTransform = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_PositionPlaceOnGround = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderPostProcessing = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_WorldTraceConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderBlobs = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_OscillateScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_FadeOut = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_WaterImpulseRenderer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomSequence = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_RampScalarSplineSimple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_DistanceCull = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_CollideWithParentParticles = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_InitFromVectorFieldSnapshot = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetVectorAttributeToVectorExpression = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_AddVectorToVector = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_INIT_RemapInitialVisibilityScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapTransformOrientationToYaw = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderStatusEffect = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_RandomForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapParticleCountOnScalarEndCap = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const ParticlePreviewState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LocalAccelerationForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ModelCull = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetFloat = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapTransformToVector = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_ScreenSpaceDistanceToEdge = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapDistanceToLineSegmentToScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapVectortoCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetFromCPSnapshot = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_DistanceBetweenCPsToCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointToHand = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ConstrainDistanceToPath = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_DistanceCull = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateAlongPath = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_GameDecalRenderer = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_SetControlPointsToModelParticles = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ColorInterpolateRandom = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapNamedModelSequenceToScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderLights = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_DecayClampCount = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CRandomNumberGeneratorParameters = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_ColorLitPerParticle = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderPoints = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_INIT_SetAttributeToScalarExpression = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateOnGrid = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RampCPLinearRandom = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_VelocityMatchingForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomAlphaWindowThreshold = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_INIT_CreateOnModelAtHeight = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_ModelSurfaceSnapshotGenerator = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RestartAfterDuration = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderClothForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapVisibilityScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateSequentialPathV2 = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VecInputMaterialVariable_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapInitialDirectionToTransformToVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LockToSavedSequentialPathV2 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_NormalLock = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapTransformOrientationToRotations = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_Cull = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomYawFlip = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const SequenceWeightedList_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ReadFromNeighboringParticle = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_RenderText = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LerpToInitialPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomRotation = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LerpEndCapVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_VelocityDecay = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetCPOrientationToPointAtCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LockToPointList = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_MovementPlaceOnGround = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_SetCPOrientationToDirection = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapCrossProductOfTwoVectorsToVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapTransformOrientationToRotations = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomRotationSpeed = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_InheritFromParentParticlesV2 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomSecondSequence = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetFloatCollection = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PointDefinition_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointPositionToRandomActiveCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_Diffusion = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_AgeNoise = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapVectorComponentToScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGeneralRandomRotation = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_DistanceBetweenVecs = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_DampenToCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_CalculateVectorAttribute = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LockToBone = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapNamedModelBodyPartOnceTimed = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ScreenSpaceRotateTowardTarget = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_MovementMaintainOffset = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateWithinCapsuleTransform = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetVec = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateFromParentParticles = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CheckParticleForWater = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomNamedModelBodyPart = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderOmni2Light = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ConnectParentParticleToNearest = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPAssignment_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapParticleCountToNamedModelBodyPartScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_InitSkinnedPositionFromCPSnapshot = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_LagCompensation = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_CollideWithSelf = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_Noise = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_FadeAndKillForTracers = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ColorAdjustHSL = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CParticleMassCalculationParameters = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SequenceFromModel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_AlphaDecay = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapDensityGradientToVectorAttribute = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_InitVec = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_SetHitboxToModel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_MovementMoveAlongSkinnedCPSnapshot = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LerpScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_InitialRepulsionVelocity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ClampScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointToHMD = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_DifferencePreviousParticle = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointFieldFromVectorExpression = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_PercentageBetweenTransforms = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_PlaneCull = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapNamedModelSequenceEndCap = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_InitFromCPSnapshot = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderCables = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_INIT_InheritVelocity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointToWaterSurface = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_PositionOffset = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_INIT_NormalAlignToCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ShapeMatchingConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetChildControlPoints = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ChladniWave = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapDirectionToCPToVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_DriveCPFromGlobalSoundFloat = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_ScreenSpacePositionOfTarget = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RtEnvCull = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_PinParticleToCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapCPtoVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateParticleImpulse = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_DensityForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateInEpitrochoid = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ConstrainDistanceToUserSpecifiedPath = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_SetControlPointPositions = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetFloatAttributeToVectorExpression = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_MovementRotateParticleAroundAxis = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_IntraParticleForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_InitFloat = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateOnModel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_InheritFromPeerSystem = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_PerParticleForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomNamedModelMeshGroup = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderProjected = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_MaxVelocity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_VelocityFromNormal = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_MaintainEmitter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_PositionOffsetToCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapInitialTransformDirectionToRotation = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_FadeAndKill = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ColorInterpolate = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RampScalarSpline = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapNamedModelSequenceOnceTimed = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointFromObjectScale = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_MaintainSequentialPath = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapNamedModelBodyPartEndCap = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_StopAfterCPDuration = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGeneralSpin = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LockToSavedSequentialPath = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapNamedModelElementToScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ClampVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderStatusEffectCitadel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IParticleSystemDefinition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_WindForce = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_SetVariable = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderStandardLight = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_DistanceToTransform = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_RemapControlPointOrientationToRotation = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointToCenter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapAverageScalarValuetoCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapDotProductToScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapCPtoCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointRotation = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_CurlNoiseForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_Orient2DRelToCP = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_SetSimulationRate = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_FadeIn = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderScreenShake = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapBoundingVolumetoCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_HSVShiftToCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapVectorToRotations = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_GlobalScale = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RadiusFromCPObject = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_INIT_InitialVelocityFromHitbox = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LerpVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointFieldToWater = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const TextureGroup_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_TimeVaryingForce = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_SetCPOrientationToGroundNormal = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SnapshotSkinToBones = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateWithinSphereTransform = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RadiusDecay = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapNamedModelBodyPartToScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapScalarToVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_InitialSequenceFromModel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_NoiseEmitter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CParticleFunctionInitializer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SelectivelyEnableChildren = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const ModelReference_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_PlanarConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateFromCPs = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LockPoints = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_CreateSpiralSphere = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_CPVelocityForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapNamedModelElementEndCap = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_ScaleVelocity = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_MoveToHitbox = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_PinRopeSegmentParticleToParent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_PointList = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LerpToOtherAttribute = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RandomColor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetGravityToCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapParticleCountToScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_InheritFromParentParticles = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RampScalarLinearSimple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_ChaoticAttractor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_MovementRigidAttachToCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderFlattenGrass = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderLightBeam = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_EnableChildrenFromParentParticleCount = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_DistanceToCPInit = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CReplicationParameters = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_EndCapDecay = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_OP_ForceBasedOnDistanceToPlane = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapDensityToVector = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const ParticleControlPointConfiguration_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_SetRigidAttachment = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const MaterialVariable_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CParticleFunctionConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapSpeed = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderModels = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderClientPhysicsImpulse = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CParticleFunctionEmitter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapNamedModelMeshGroupToScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointOrientationToCPVelocity = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_RopeSpringConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_PositionWarpScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ForceControlPointStub = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_VectorNoise = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_RemapParticleCountToScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_QuantizeFloat = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RemapModelVolumetoCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetToCP = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const ParticleControlPointDriver_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ParentVortices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetControlPointToCPVelocity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ClientPhysics = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SpinYaw = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const PointDefinitionWithTimeValues_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RenderProjectedMaterial_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_INIT_SetFloatAttributeToVectorExpression = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_ExternalWindForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_ModelCull = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderSprites = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_PercentageBetweenTransformLerpCPs = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetPerChildControlPoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderTreeShake = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_WorldCollideConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_SetAttributeToScalarExpression = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_OP_CycleScalar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RenderMaterialProxy = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FloatInputMaterialVariable_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RampScalarLinear = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_RotateVector = struct {
+            };
+            // Parent: particles
+            // Field count: 0
+            pub const C_INIT_InitVecCollection = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_INIT_RemapParticleCountToNamedModelMeshGroupScalar = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_INIT_SequenceFromCP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_CPOffsetToPercentageBetweenCPs = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OP_LerpEndCapScalar = struct {
+            };
+        };
+    };
+};

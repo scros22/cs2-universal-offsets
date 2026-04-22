@@ -1,0 +1,196 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+namespace CS2Dumper.Schemas {
+    // Module: worldrenderer.dll
+    // Class count: 32
+    // Enum count: 3
+    public static class WorldrendererDll {
+        // Alignment: 1
+        // Member count: 2
+        public enum RTProxyInstanceFlags_t : byte {
+            RTPROXY_INSTANCE_FLAG_NONE = 0x0,
+            RTPROXY_INSTANCE_UNIQUE_MESH = 0x1
+        }
+        // Alignment: 4
+        // Member count: 16
+        public enum ObjectTypeFlags_t : uint {
+            OBJECT_TYPE_NONE = 0x0,
+            OBJECT_TYPE_MODEL = 0x8,
+            OBJECT_TYPE_BLOCK_LIGHT = 0x10,
+            OBJECT_TYPE_NO_SHADOWS = 0x20,
+            OBJECT_TYPE_WORLDSPACE_TEXURE_BLEND = 0x40,
+            OBJECT_TYPE_DISABLED_IN_LOW_QUALITY = 0x80,
+            OBJECT_TYPE_RENDER_WITH_DYNAMIC = 0x200,
+            OBJECT_TYPE_RENDER_TO_CUBEMAPS = 0x400,
+            OBJECT_TYPE_MODEL_HAS_LODS = 0x800,
+            OBJECT_TYPE_OVERLAY = 0x2000,
+            OBJECT_TYPE_PRECOMPUTED_VISMEMBERS = 0x4000,
+            OBJECT_TYPE_STATIC_CUBE_MAP = 0x8000,
+            OBJECT_TYPE_DISABLE_VIS_CULLING = 0x10000,
+            OBJECT_TYPE_BAKED_GEOMETRY = 0x20000,
+            OBJECT_TYPE_NEEDS_DYNAMIC_SHADOWS = 0x40000,
+            OBJECT_TYPE_HAS_AGGREGATE_RTPROXY = 0x80000
+        }
+        // Alignment: 1
+        // Member count: 4
+        public enum AggregateInstanceStream_t : byte {
+            AGGREGATE_INSTANCE_STREAM_NONE = 0x0,
+            AGGREGATE_INSTANCE_STREAM_LIGHTMAPUV_UNORM16 = 0x1,
+            AGGREGATE_INSTANCE_STREAM_VERTEXTINT_UNORM8 = 0x2,
+            AGGREGATE_INSTANCE_STREAM_VERTEXBLEND_UNORM8 = 0x4
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CEntityInstance {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CEntityComponent {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CScriptComponent {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CEntityIdentity {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RTProxyInstanceInfo_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class AggregateVertexAlbedoStreamOnDiskData_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class SceneObject_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class AggregateLODSetup_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: xL___
+        // Field count: 0
+        public static class ExtraVertexStreamOverride_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class ClutterTile_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class AggregateSceneObject_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class NodeData_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class VMapResourceData_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class AggregateInstanceStreamOnDiskData_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RTProxyBLAS_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class ClutterSceneObject_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class WorldBuilderParams_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class PermEntityLumpData_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class WorldNode_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class BaseSceneObjectOverride_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class EntityIOConnectionData_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class BakedLightingInfo_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VoxelVisBlockOffset_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeVMapResourceData_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class WorldNodeOnDiskBufferData_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class AggregateMeshInfo_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class World_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class BakedLightingInfo_t__BakedShadowAssignment_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: xL___
+        // Field count: 0
+        public static class MaterialOverride_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class AggregateRTProxySceneObject_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class EntityKeyValueData_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVoxelVisibility {
+            public const nint  = 0x0; // 
+        }
+    }
+}

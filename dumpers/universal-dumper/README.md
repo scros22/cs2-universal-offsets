@@ -68,6 +68,12 @@ dumps/
       cs2sdk.rs                     # Rust amalgamation module
       netvars.(json|hpp|cs)         # split networked-field offsets
       interfaces_sdk.(hpp|cs)       # typed accessor stubs
+      verified_features.(md|json|hpp) # hand-curated catalogue of features
+                                      # confirmed working in a live internal
+                                      # cheat (no smoke / no flash / smoke
+                                      # color / skybox tint / FOV / chams /
+                                      # fullbright / third-person / anti-fog
+                                      # / no color correction / night mode)
       sdk/
         cs2sdk_macros.hpp           # SCHEMA_FIELD macro family
         client_dll.hpp              # typed schema classes (one per module)

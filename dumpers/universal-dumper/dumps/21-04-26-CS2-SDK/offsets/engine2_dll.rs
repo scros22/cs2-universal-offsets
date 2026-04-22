@@ -1,0 +1,256 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+#![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
+
+pub mod cs2_dumper {
+    pub mod schemas {
+        // Module: engine2.dll
+        // Class count: 56
+        // Enum count: 2
+        pub mod engine2_dll {
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum EntityDormancyType_t {
+                ENTITY_NOT_DORMANT = 0x0,
+                ENTITY_DORMANT = 0x1,
+                ENTITY_SUSPENDED = 0x2
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum EntityIOTargetType_t {
+                ENTITY_IO_TARGET_INVALID = u32::MAX,
+                ENTITY_IO_TARGET_ENTITYNAME = 0x2,
+                ENTITY_IO_TARGET_EHANDLE = 0x6,
+                ENTITY_IO_TARGET_ENTITYNAME_OR_CLASSNAME = 0x7
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEntityInstance {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEntityComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CScriptComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEntityIdentity {
+            }
+            // Parent: engine2
+            // Field count: 0
+            pub mod EventClientPostSimulate_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventSimpleLoopFrameUpdate_t {
+            }
+            // Parent: engine2
+            // Field count: 0
+            pub mod EventPostAdvanceTick_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEntityIOOutput {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventClientSceneSystemThreadStateChange_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventClientOutput_t {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod EventServerPostSimulate_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEntityComponentHelper {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod GameTime_t {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod EventServerBeginSimulate_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod EntityIOQueuePrioritizedEvent_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventServerEndAsyncPostTickWork_t {
+            }
+            // Parent: engine2
+            // Field count: 0
+            pub mod EventClientAdvanceTick_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EntInput_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CNetworkVarChainer {
+            }
+            // Parent: engine2
+            // Field count: 0
+            pub mod EventClientSimulate_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventClientPostOutput_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod GameTick_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventClientPollInput_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventPreDataUpdate_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventClientProcessGameInput_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventFrameBoundary_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventAppShutdown_t {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod EventServerPostAdvanceTick_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventProfileStorageAvailable_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventPostDataUpdate_t {
+            }
+            // Parent: engine2
+            // Field count: 0
+            pub mod EventClientPreSimulate_t {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod EventClientPauseSimulate_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventClientProcessNetworking_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEntityAttributeTable {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod EventClientPreOutputParallelWithServer_t {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod EventAdvanceTick_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventSplitScreenStateChanged_t {
+            }
+            // Parent: engine2
+            // Field count: 0
+            pub mod EventClientPostAdvanceTick_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CVariantDefaultAllocator {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventModInitialized_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventClientPreOutput_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventClientFrameSimulate_t {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod EventServerAdvanceTick_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventSetTime_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventSimulate_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEntityKeyValues {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventClientAdvanceNonRenderedFrame_t {
+            }
+            // Parent: engine2
+            // Field count: 0
+            pub mod EventServerProcessNetworking_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CEmptyEntityInstance {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EntComponentInfo_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EngineLoopState_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventClientPollNetworking_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventServerBeginAsyncPostTickWork_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventClientProcessInput_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod EventServerEndSimulate_t {
+            }
+            // Parent: engine2
+            // Field count: 0
+            pub mod EventServerPollNetworking_t {
+            }
+        }
+    }
+}

@@ -1,0 +1,890 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+namespace CS2Dumper.Schemas {
+    // Module: soundsystem.dll
+    // Class count: 136
+    // Enum count: 26
+    public static class SoundsystemDll {
+        // Alignment: 4
+        // Member count: 3
+        public enum SndSeqInstrumentType_t : uint {
+            eSndSeqInstNull = 0x0,
+            eSndSeqInstSndEvt = 0x1,
+            eSndSeqInstMidiSampler = 0x2
+        }
+        // Alignment: 4
+        // Member count: 2
+        public enum EMode_t : uint {
+            Peak = 0x0,
+            RMS = 0x1
+        }
+        // Alignment: 4
+        // Member count: 39
+        public enum VMixGraphCommandID_t : uint {
+            CMD_INVALID = unchecked((uint)-1),
+            CMD_CONTROL_INPUT_STORE = 0x1,
+            CMD_CONTROL_INPUT_STORE_DB = 0x2,
+            CMD_CONTROL_TRANSIENT_INPUT_STORE = 0x3,
+            CMD_CONTROL_TRANSIENT_INPUT_RESET = 0x4,
+            CMD_CONTROL_OUTPUT_STORE = 0x5,
+            CMD_CONTROL_EVALUATE_CURVE = 0x6,
+            CMD_CONTROL_COPY = 0x7,
+            CMD_CONTROL_COND_COPY_IF_NEGATIVE = 0x8,
+            CMD_CONTROL_REMAP_LINEAR = 0x9,
+            CMD_CONTROL_REMAP_SINE = 0xA,
+            CMD_CONTROL_REMAP_LOGLINEAR = 0xB,
+            CMD_CONTROL_MAX = 0xC,
+            CMD_CONTROL_RESET_TIMER = 0xD,
+            CMD_CONTROL_INCREMENT_TIMER = 0xE,
+            CMD_CONTROL_EVAL_ENVELOPE = 0xF,
+            CMD_CONTROL_SINE_BLEND = 0x10,
+            CMD_PROCESSOR_SET_CONTROL_VALUE = 0x11,
+            CMD_PROCESSOR_SET_NAME_INPUT = 0x12,
+            CMD_PROCESSOR_SET_CONTROL_ARRAYVALUE = 0x13,
+            CMD_PROCESSOR_STORE_CONTROL_VALUE = 0x14,
+            CMD_PROCESSOR_SET_VSND_VALUE = 0x15,
+            CMD_SUBMIX_PROCESS = 0x16,
+            CMD_SUBMIX_GENERATE = 0x17,
+            CMD_SUBMIX_GENERATE_SIDECHAIN = 0x18,
+            CMD_SUBMIX_DEBUG = 0x19,
+            CMD_SUBMIX_MIX2x1 = 0x1A,
+            CMD_SUBMIX_OUTPUT = 0x1B,
+            CMD_SUBMIX_OUTPUTx2 = 0x1C,
+            CMD_SUBMIX_COPY = 0x1D,
+            CMD_SUBMIX_ACCUMULATE = 0x1E,
+            CMD_SUBMIX_METER = 0x1F,
+            CMD_SUBMIX_METER_SPECTRUM = 0x20,
+            CMD_IMPULSERESPONSE_INPUT_STORE = 0x21,
+            CMD_PROCESSOR_SET_IMPULSERESPONSE_VALUE = 0x22,
+            CMD_REMAP_VSND_TO_IMPULSERESPONSE = 0x23,
+            CMD_IMPULSERESPONSE_RESET = 0x24,
+            CMD_BLEND_VSNDS_TO_IMPULSERESPONSE = 0x25,
+            CMD_IMPULSERESPONSE_DELAY = 0x26
+        }
+        // Alignment: 1
+        // Member count: 5
+        public enum EWaveform : byte {
+            Sine = 0x0,
+            Square = 0x1,
+            Saw = 0x2,
+            Triangle = 0x3,
+            Noise = 0x4
+        }
+        // Alignment: 4
+        // Member count: 5
+        public enum VMixLFOShape_t : uint {
+            LFO_SHAPE_SINE = 0x0,
+            LFO_SHAPE_SQUARE = 0x1,
+            LFO_SHAPE_TRI = 0x2,
+            LFO_SHAPE_SAW = 0x3,
+            LFO_SHAPE_NOISE = 0x4
+        }
+        // Alignment: 2
+        // Member count: 10
+        public enum VMixFilterType_t : ushort {
+            FILTER_UNKNOWN = unchecked((ushort)-1),
+            FILTER_LOWPASS = 0x0,
+            FILTER_HIGHPASS = 0x1,
+            FILTER_BANDPASS = 0x2,
+            FILTER_NOTCH = 0x3,
+            FILTER_PEAKING_EQ = 0x4,
+            FILTER_LOW_SHELF = 0x5,
+            FILTER_HIGH_SHELF = 0x6,
+            FILTER_ALLPASS = 0x7,
+            FILTER_PASSTHROUGH = 0x8
+        }
+        // Alignment: 4
+        // Member count: 3
+        public enum SosActionStopType_t : uint {
+            SOS_STOPTYPE_NONE = 0x0,
+            SOS_STOPTYPE_TIME = 0x1,
+            SOS_STOPTYPE_OPVAR = 0x2
+        }
+        // Alignment: 4
+        // Member count: 2
+        public enum SndSeqTrackPlaybackType_t : uint {
+            eSndSeqTrackPlaybackTypeStep = 0x0,
+            eSndSeqTrackPlaybackTypeFwd = 0x1
+        }
+        // Alignment: 4
+        // Member count: 6
+        public enum SosEditItemType_t : uint {
+            SOS_EDIT_ITEM_TYPE_SOUNDEVENTS = 0x0,
+            SOS_EDIT_ITEM_TYPE_SOUNDEVENT = 0x1,
+            SOS_EDIT_ITEM_TYPE_LIBRARYSTACKS = 0x2,
+            SOS_EDIT_ITEM_TYPE_STACK = 0x3,
+            SOS_EDIT_ITEM_TYPE_OPERATOR = 0x4,
+            SOS_EDIT_ITEM_TYPE_FIELD = 0x5
+        }
+        // Alignment: 4
+        // Member count: 7
+        public enum SndSeqQuantizeType_t : uint {
+            eSndSeqQuantizeInvalid = unchecked((uint)-1),
+            eSndSeqQuantizeNone = 0x0,
+            eSndSeqQuantizeBeat = 0x1,
+            eSndSeqQuantizeBar = 0x2,
+            eSndSeqQuantizeSequence = 0x3,
+            eSndSeqQuantizeSeek = 0x4,
+            eSndSeqQuantizeReset = 0x5
+        }
+        // Alignment: 4
+        // Member count: 5
+        public enum PlayBackMode_t : uint {
+            Random = 0x0,
+            RandomNoRepeats = 0x1,
+            RandomAvoidLast = 0x2,
+            Sequential = 0x3,
+            RandomWeights = 0x4
+        }
+        // Alignment: 4
+        // Member count: 3
+        public enum SosGroupFieldBehavior_t : uint {
+            kIgnore = 0x0,
+            kBranch = 0x1,
+            kMatch = 0x2
+        }
+        // Alignment: 4
+        // Member count: 3
+        public enum SndSeqSyncType_t : uint {
+            eSndSeqSyncTypeNone = 0x0,
+            eSndSeqSyncTypeWait = 0x1,
+            eSndSeqSyncTypeSeek = 0x2
+        }
+        // Alignment: 4
+        // Member count: 30
+        public enum soundlevel_t : uint {
+            SNDLVL_NONE = 0x0,
+            SNDLVL_20dB = 0x14,
+            SNDLVL_25dB = 0x19,
+            SNDLVL_30dB = 0x1E,
+            SNDLVL_35dB = 0x23,
+            SNDLVL_40dB = 0x28,
+            SNDLVL_45dB = 0x2D,
+            SNDLVL_50dB = 0x32,
+            SNDLVL_55dB = 0x37,
+            SNDLVL_IDLE = 0x3C,
+            SNDLVL_60dB = 0x3C,
+            SNDLVL_65dB = 0x41,
+            SNDLVL_STATIC = 0x42,
+            SNDLVL_70dB = 0x46,
+            SNDLVL_NORM = 0x4B,
+            SNDLVL_75dB = 0x4B,
+            SNDLVL_80dB = 0x50,
+            SNDLVL_TALKING = 0x50,
+            SNDLVL_85dB = 0x55,
+            SNDLVL_90dB = 0x5A,
+            SNDLVL_95dB = 0x5F,
+            SNDLVL_100dB = 0x64,
+            SNDLVL_105dB = 0x69,
+            SNDLVL_110dB = 0x6E,
+            SNDLVL_120dB = 0x78,
+            SNDLVL_130dB = 0x82,
+            SNDLVL_GUNFIRE = 0x8C,
+            SNDLVL_140dB = 0x8C,
+            SNDLVL_150dB = 0x96,
+            SNDLVL_180dB = 0xB4
+        }
+        // Alignment: 4
+        // Member count: 2
+        public enum VMixPannerType_t : uint {
+            PANNER_TYPE_LINEAR = 0x0,
+            PANNER_TYPE_EQUAL_POWER = 0x1
+        }
+        // Alignment: 4
+        // Member count: 6
+        public enum VMixChannelOperation_t : uint {
+            VMIX_CHAN_STEREO = 0x0,
+            VMIX_CHAN_LEFT = 0x1,
+            VMIX_CHAN_RIGHT = 0x2,
+            VMIX_CHAN_SWAP = 0x3,
+            VMIX_CHAN_MONO = 0x4,
+            VMIX_CHAN_MID_SIDE = 0x5
+        }
+        // Alignment: 1
+        // Member count: 13
+        public enum EMidiNote : byte {
+            C = 0x0,
+            C_Sharp = 0x1,
+            D = 0x2,
+            D_Sharp = 0x3,
+            E = 0x4,
+            F = 0x5,
+            F_Sharp = 0x6,
+            G = 0x7,
+            G_Sharp = 0x8,
+            A = 0x9,
+            A_Sharp = 0xA,
+            B = 0xB,
+            Count = 0xC
+        }
+        // Alignment: 4
+        // Member count: 3
+        public enum SndSeqRegionType_t : uint {
+            eSndSeqRegionTypeNull = 0x0,
+            eSndSeqRegionTypeSndEvt = 0x1,
+            eSndSeqRegionTypeMidiSeq = 0x2
+        }
+        // Alignment: 1
+        // Member count: 4
+        public enum CVSoundFormat_t : byte {
+            PCM16 = 0x0,
+            PCM8 = 0x1,
+            MP3 = 0x2,
+            ADPCM = 0x3
+        }
+        // Alignment: 1
+        // Member count: 9
+        public enum VMixFilterSlope_t : byte {
+            FILTER_SLOPE_1POLE_6dB = 0x0,
+            FILTER_SLOPE_1POLE_12dB = 0x1,
+            FILTER_SLOPE_1POLE_18dB = 0x2,
+            FILTER_SLOPE_1POLE_24dB = 0x3,
+            FILTER_SLOPE_12dB = 0x4,
+            FILTER_SLOPE_24dB = 0x5,
+            FILTER_SLOPE_36dB = 0x6,
+            FILTER_SLOPE_48dB = 0x7,
+            FILTER_SLOPE_MAX = 0x7
+        }
+        // Alignment: 4
+        // Member count: 3
+        public enum SndSeqPlayerType_t : uint {
+            eSndSeqPlayerNull = 0x0,
+            eSndSeqPlayerSndEvt = 0x1,
+            eSndSeqPlayerMidiSeq = 0x2
+        }
+        // Alignment: 4
+        // Member count: 2
+        public enum SosActionLimitSortType_t : uint {
+            SOS_LIMIT_SORTTYPE_HIGHEST = 0x0,
+            SOS_LIMIT_SORTTYPE_LOWEST = 0x1
+        }
+        // Alignment: 4
+        // Member count: 3
+        public enum VMixSubgraphSwitchInterpolationType_t : uint {
+            SUBGRAPH_INTERPOLATION_TEMPORAL_CROSSFADE = 0x0,
+            SUBGRAPH_INTERPOLATION_TEMPORAL_FADE_OUT = 0x1,
+            SUBGRAPH_INTERPOLATION_KEEP_LAST_SUBGRAPH_RUNNING = 0x2
+        }
+        // Alignment: 4
+        // Member count: 2
+        public enum SosGroupType_t : uint {
+            SOS_GROUPTYPE_DYNAMIC = 0x0,
+            SOS_GROUPTYPE_STATIC = 0x1
+        }
+        // Alignment: 4
+        // Member count: 2
+        public enum SosActionSetParamSortType_t : uint {
+            SOS_SETPARAM_SORTTYPE_HIGHEST = 0x0,
+            SOS_SETPARAM_SORTTYPE_LOWEST = 0x1
+        }
+        // Alignment: 4
+        // Member count: 7
+        public enum SndSeqMidiStatusType_t : uint {
+            SndSeqMidiStatusNoteOff = 0x8,
+            SndSeqMidiStatusNoteOn = 0x9,
+            SndSeqMidiStatusKeyPressure = 0xA,
+            SndSeqMidiStatusCtrlChange = 0xB,
+            SndSeqMidiStatusProgramChange = 0xC,
+            SndSeqMidiStatusChannelPressure = 0xD,
+            SndSeqMidiStatusPitchBend = 0xE
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVMixInputBase {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerBlender {
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixPitchShiftProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixFreeverbDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVoiceContainerStaticAdditiveSynth__CHarmonic {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVoiceContainerStaticAdditiveSynth__CTone {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CSosGroupActionOcclusionSchema {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerRandomSampler {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixSteamAudioDirectProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixSteamAudioHRTFProcessorDesc {
+        }
+        // Parent: soundsystem_voicecontainers
+        // Field count: 0
+        public static class CVoiceContainerDefault {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVSound {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CDSPPresetMixgroupModifierTable {
+            public const nint  = 0x0; // 
+        }
+        // Parent: xL___
+        // Field count: 0
+        public static class CSosGroupActionSoundeventClusterSchema {
+        }
+        // Parent: xL___
+        // Field count: 0
+        public static class CSosGroupActionSetSoundeventParameterSchema {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSoundContainerReference {
+            public const nint  = 0x0; // 
+        }
+        // Parent: soundsystem_voicecontainers
+        // Field count: 0
+        public static class CVoiceContainerNull {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixSubgraphSwitchDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVoiceContainerAnalysisBase {
+            public const nint  = 0x0; // 
+        }
+        // Parent: xL___
+        // Field count: 0
+        public static class CSosGroupActionSoundeventMinMaxValuesSchema {
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixEnvelopeProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVMixCommand {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class SamplerVoice_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixControlInput {
+        }
+        // Parent: _B_e__
+        // Field count: 0
+        public static class CVMixBoxverbProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixDynamicsCompressorProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixPannerDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: xL___
+        // Field count: 0
+        public static class CSosGroupActionSoundeventPrioritySchema {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerRealtimeFMSineWave {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class SelectedEditItemInfo_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixModDelayDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: xL___
+        // Field count: 0
+        public static class CSndSeqInstSndEvtSchema {
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixNameInputMeter {
+        }
+        // Parent: xL___
+        // Field count: 0
+        public static class CSndSeqInstruments {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixDynamics3BandProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixBoxverbDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CSosGroupActionSchema {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSosSoundEventGroupSchema {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CSndSeqInstMidiSampler {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CSndSeqInstBaseSchema {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixDynamics3BandDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixEQ8ProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CDSPMixgroupModifier {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CAudioMorphData {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixDualCompressorDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerStaticAdditiveSynth {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerShapedNoise {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CDspPresetModifierList {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerBase {
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixDiffusorProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixUtilityProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerGranulator {
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixPresetDSPProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixDelayDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixEQ8Desc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixDynamicsProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVMixGraphDescData {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerLoopXFade {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixPresetDSPDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CAudioPhonemeTag {
+            public const nint  = 0x0; // 
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixControlInputArray {
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixNameInput {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CSosGroupActionSoundeventCountSchema {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerEnvelopeAnalyzer {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixBaseProcessorDesc {
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixImpulseResponseInput {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixSteamAudioHybridReverbProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSoundEventMetaData {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixPitchShiftDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixControlOutput {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixModDelayProcessorDesc {
+        }
+        // Parent: _B_e__
+        // Field count: 0
+        public static class CVMixShaperProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVMixAutomaticControlInput {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CAudioEmphasisSample {
+            public const nint  = 0x0; // 
+        }
+        // Parent: _B_e__
+        // Field count: 0
+        public static class CVMixOscProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVMixCurveHeader {
+            public const nint  = 0x0; // 
+        }
+        // Parent: soundsystem_voicecontainers
+        // Field count: 0
+        public static class CVoiceContainerGenerator {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerSet {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixConvolutionDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVoiceContainerSetElement {
+            public const nint  = 0x0; // 
+        }
+        // Parent: soundsystem_voicecontainers
+        // Field count: 0
+        public static class CVoiceContainerAsyncGenerator {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSoundInfoHeader {
+            public const nint  = 0x100; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class SosEditItemInfo_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixFlangerProcessorDesc {
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixEffectChainProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class KeyGroup_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixFreeverbProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixPlateverbDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixConvolutionProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSoundContainerReferenceArray {
+            public const nint  = 0x0; // 
+        }
+        // Parent: _B_e__
+        // Field count: 0
+        public static class CVMixFilterProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVMixAdditionalOutput {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerTapePlayer {
+        }
+        // Parent: _B_e__
+        // Field count: 0
+        public static class CVMixSubgraphSwitchProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixDiffusorDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixSteamAudioPathingProcessorDesc {
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixPannerProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixDynamicsCompressorDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixStereoDelayProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixShaperDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixEnvelopeDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CAudioSentence {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerParameterBlender {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVMixAudioMeter {
+            public const nint  = 0x0; // 
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixVocoderProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CSosGroupActionLimitSchema {
+        }
+        // Parent: soundsystem_voicecontainers
+        // Field count: 0
+        public static class CVoiceContainerAmpedDecayingSineWave {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerEnvelope {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixAutoFilterDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixDynamicsBand_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixEffectChainDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: _B_e__
+        // Field count: 0
+        public static class CVMixPlateReverbProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerMultiBlender {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixVsndInput {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CVoiceContainerStaticAdditiveSynth__CGainScalePerInstance {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class VelocityZone_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerSelector {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CSosGroupActionTimeBlockLimitSchema {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CSosGroupActionMemberCountEnvelopeSchema {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixDualCompressorProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerSwitch {
+        }
+        // Parent: soundsystem_lowlevel
+        // Field count: 0
+        public static class CVMixControlMeter {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerEnum {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CSosGroupActionTimeLimitSchema {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixVocoderDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixUtilityDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerLoopTrigger {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVoiceContainerDecayingSineWave {
+        }
+        // Parent: xL___
+        // Field count: 0
+        public static class CVMixDelayProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CVMixBoxverb2ProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixFilterDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixOscDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: MGetKV3ClassDefaults
+        // Field count: 0
+        public static class CVMixAutoFilterProcessorDesc {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class ISndSeqInstruments {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixFlangerDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VMixDynamicsDesc_t {
+            public const nint  = 0x0; // 
+        }
+    }
+}

@@ -1,0 +1,563 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+pub const cs2_dumper = struct {
+    pub const schemas = struct {
+        // Module: vphysics2.dll
+        // Class count: 110
+        // Enum count: 5
+        pub const vphysics2_dll = struct {
+            // Alignment: 4
+            // Member count: 3
+            pub const JointMotion_t = enum(u32) {
+                JOINT_MOTION_FREE = 0x0,
+                JOINT_MOTION_LOCKED = 0x1,
+                JOINT_MOTION_COUNT = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const JointAxis_t = enum(u32) {
+                JOINT_AXIS_X = 0x0,
+                JOINT_AXIS_Y = 0x1,
+                JOINT_AXIS_Z = 0x2,
+                JOINT_AXIS_COUNT = 0x3
+            };
+            // Alignment: 1
+            // Member count: 3
+            pub const DynamicContinuousContactBehavior_t = enum(u8) {
+                DYNAMIC_CONTINUOUS_ALLOW_IF_REQUESTED_BY_OTHER_BODY = 0x0,
+                DYNAMIC_CONTINUOUS_ALWAYS = 0x1,
+                DYNAMIC_CONTINUOUS_NEVER = 0x2
+            };
+            // Alignment: 4
+            // Member count: 8
+            pub const PhysInterfaceId_t = enum(u32) {
+                PIID_UNKNOWN = 0x0,
+                PIID_IPHYSICSBODY = 0x1,
+                PIID_IPHYSAGGREGATE = 0x2,
+                PIID_IPHYSICSJOINT = 0x3,
+                PIID_IPHYSICSMOTIONCONTROLLER = 0x4,
+                PIID_IPHYSICSPARTICLEROPE = 0x5,
+                PIID_IPHYSICSRAGDOLLCONTROL = 0x6,
+                PIID_NUM_TYPES = 0x7
+            };
+            // Alignment: 1
+            // Member count: 5
+            pub const PhysGenericShapeType_t = enum(u8) {
+                GENERIC_SHAPE_POINT = 0x0,
+                GENERIC_SHAPE_SPHERE = 0x1,
+                GENERIC_SHAPE_AABB = 0x2,
+                GENERIC_SHAPE_CAPSULE = 0x3,
+                GENERIC_SHAPE_HULL = 0x4
+            };
+            // Parent: physicslib
+            // Field count: 0
+            pub const RnSphereDesc_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnSoftbodyParticle_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: physicslib
+            // Field count: 0
+            pub const RnHullDesc_t = struct {
+            };
+            // Parent: physicslib
+            // Field count: 0
+            pub const RnCapsuleDesc_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PhysFeModelDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: physicslib
+            // Field count: 0
+            pub const RnMeshDesc_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnSoftbodySpring_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnSoftbodyCapsule_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const vphysics_save_cphysicsbody_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeBuildBoxRigid_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CFeIndexedJiggleBone = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const IPhysAggregateInstance = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeBandBendLimit_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeTaperedCapsuleStretch_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const constraint_axislimit_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeSimdRodConstraintAnim_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeSimdRodConstraint_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IPhysicsParticleRope = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const constraint_hingeparams_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IPhysicsBodyList = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeBuildSphereRigid_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeSimdAnimStrayRadius_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnTriangle_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeProxyVertexMap_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeNodeIntegrator_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnCapsule_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFeNamedJiggleBone = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeAntiTunnelProbeBuild_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnBodyDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const OldFeEdge_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeFollowNode_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnMesh_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const VertexPositionNormal_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IPhysicsRagdollControl = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeBuildSDFRigid_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const RnBlendVertex_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CFeMorphLayer = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeCtrlSoftOffset_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeVertexMapDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeTaperedCapsuleRigid_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeAnimStrayRadius_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IPhysicsJoint = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeEdgeDesc_t = struct {
+                pub const @"": usize = 0x1; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeNodeStrayBox_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeNodeReverseOffset_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnPlane_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeSDFRigid_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CFeJiggleBone = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CRegionSVM = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeWorldCollisionParams_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGenericShapeProxy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const RnNode_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeFitMatrix_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeSimdQuad_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeSimdSpringIntegrator_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeSimdNodeBase_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeQuad_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeHingeLimit_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnWing_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeWeightedNode_t = struct {
+                pub const @"": usize = 0x1; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CollisionDetailLayerInfo_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeEffectDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeSpringIntegrator_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FourVectors2D = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeKelagerBend2_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CastSphereSATParams_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const vphysics_save_ragdoll_control_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeRigidColliderIndices_t = struct {
+                pub const @"": usize = 0x1; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeCollisionPlane_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeStiffHingeBuild_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeBoxRigid_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeMorphLayerDepr_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeCtrlOffset_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IPhysicsPlayerController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeNodeBase_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeVertexMapBuild_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CFeVertexMapBuildArray = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeTri_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnHull_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeModelSelfCollisionLayer_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeAntiTunnelGroupBuild_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CovMatrix3 = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const PhysicsParticleId_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnVertex_t = struct {
+                pub const @"": usize = 0x100; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IPhysicsMotionController = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const Dop26_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeDynKinLink_t = struct {
+                pub const @"": usize = 0x1; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnFace_t = struct {
+                pub const @"": usize = 0x100; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeCtrlOsOffset_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeAntiTunnelProbe_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeSourceEdge_t = struct {
+                pub const @"": usize = 0x1; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeTwistConstraint_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeNodeWindBase_t = struct {
+                pub const @"": usize = 0x1; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeAxialEdgeBend_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FourCovMatrices3 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const constraint_breakableparams_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeSphereRigid_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CollisionDetailLayerInfo_t__Name_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeBuildTaperedCapsuleRigid_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IPhysicsBody = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeSoftParent_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnShapeDesc_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeTreeChildren_t = struct {
+                pub const @"": usize = 0x1; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeRodConstraint_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeFitWeight_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RnHalfEdge_t = struct {
+                pub const @"": usize = 0x100; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FeSimdTri_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const VertexPositionColor_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeFitInfluence_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const FeHingeLimitBuild_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+        };
+    };
+};

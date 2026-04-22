@@ -1,0 +1,462 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+pub const cs2_dumper = struct {
+    pub const schemas = struct {
+        // Module: pulse_system.dll
+        // Class count: 99
+        // Enum count: 5
+        pub const pulse_system_dll = struct {
+            // Alignment: 4
+            // Member count: 2
+            pub const PulseBestOutflowRules_t = enum(u32) {
+                SORT_BY_NUMBER_OF_VALID_CRITERIA = 0x0,
+                SORT_BY_OUTFLOW_INDEX = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const PulseTestEnumShape_t = enum(u32) {
+                CIRCLE = 0x64,
+                SQUARE = 0xC8,
+                TRIANGLE = 0x12C
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const PulseCursorCancelPriority_t = enum(u32) {
+                None = 0x0,
+                CancelOnSucceeded = 0x1,
+                SoftCancel = 0x2,
+                HardCancel = 0x3
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const PulseMethodCallMode_t = enum(u32) {
+                SYNC_WAIT_FOR_COMPLETION = 0x0,
+                ASYNC_FIRE_AND_FORGET = 0x1
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const PulseTestEnumColor_t = enum(u32) {
+                BLACK = 0x0,
+                WHITE = 0x1,
+                RED = 0x2,
+                GREEN = 0x3,
+                BLUE = 0x4
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Step_TestDomainDestroyFakeEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForCursorsWithTag = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Test_NoInflow = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseGraphInstance_TestDomain_FakeEntityOwner = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Base = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulse_ResumePoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTestDomainDerived_Cursor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_PickBestOutflowSelector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseTestFuncs_LibraryA = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForObservable = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulse_OutflowConnection = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseGraphDef = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseGraphInstance_TestDomain_UseReadOnlyBlackboardView = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_FireCursors = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Timeline__TimelineEvent_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_IntervalTimer__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseRequirement = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_BaseState = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const OutflowWithRequirements_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_IsRequirementValid = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Value_Gradient = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCursorFuncs = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseNodeDynamicOutflows_t__DynamicOutflow_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Test_MultiOutflow_WithParams = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePulseGraphInstance = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_GraphHook = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SignatureOutflow_Resume = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Test_MultiOutflow_WithParams_Yielding__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseTurtleGraphicsCursor = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_TestWaitWithCursorState__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_BaseEntrypoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Test_MultiInflow_NoDefault = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForCursorsWithTagBase = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulse_InvokeBinding = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_IntervalTimer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseTestScriptLib = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseLerp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_TestValue50 = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Test_MultiOutflow_WithParams_Yielding = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const TestComponent_tAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_Curve = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_EventHandler = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseFlow = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Step_TestDomainTracepoint = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_CycleShuffled__InstanceState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_BaseLerp__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseGraphInstance_TestDomain_Derived = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForCursorsWithTagBase__CursorState_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseArraylib = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseGraphInstance_TestDomain = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SignatureOutflow_Continue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Timeline = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_EntOutputHandler = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Outflow_TestExplicitYesNo = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Outflow_TestRandomYesNo = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_CycleOrdered__InstanceState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_LimitCount__InstanceState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FakeEntity_tAPI = struct {
+            };
+            // Parent: pulse_system
+            // Field count: 0
+            pub const CPulseCell_Test_MultiInflow_WithDefault = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Step_DebugLog = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseYieldingInflow = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseNodeDynamicOutflows_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_IsRequirementValid__Criteria_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_ObservableVariableListener = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Outflow_CycleOrdered = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseSelectorOutflowList_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseGraphInstance_TurtleGraphics = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Val_TestDomainGetEntityName = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_Wait = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_TestWaitWithCursorState = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Outflow_CycleShuffled = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_Method = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseValue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_BooleanSwitchState = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FakeEntityDerivedB_tAPI = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_Yield = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseMathlib = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Unknown = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Outflow_CycleRandom = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Step_PublicOutput = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Val_TestDomainFindEntityByName = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulse_BlackboardReference = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_RandomInt = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Step_TestDomainEntFire = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FakeEntityDerivedA_tAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_ExampleSelector = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulse_CallInfo = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_InlineNodeSkipSelector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_ExampleCriteria__Criteria_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_ExampleCriteria = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_LimitCount = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Step_CallExternalMethod = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseObservableBoolExpression_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_LimitCount__Criteria_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Step_TestDomainCreateFakeEntity = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_CursorQueue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_RandomFloat = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseExecCursor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const TestComponent_t = struct {
+            };
+        };
+    };
+};
