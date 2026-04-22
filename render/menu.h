@@ -1902,347 +1902,459 @@ namespace Menu
         FI_NONE
     };
 
+    // ============================================================
+    //  LUCIDE-STYLE ICONS  ─  24x24 grid, ~1.7px stroke, rounded
+    //  Drawn around center `c` with logical radius `s`.
+    // ============================================================
     inline void DrawFeatureIcon(ImDrawList* dl, int id, ImVec2 c, float scale, ImU32 col)
     {
-        const float s = scale;        // base radius
-        const float t = (s * 0.10f) > 1.2f ? (s * 0.10f) : 1.2f;   // stroke
+        const float s = scale;                       // logical "12" = half of 24
+        const float t = scale * 0.13f + 0.4f;        // ~1.7 px stroke at scale 14
+        auto Cap = [&](ImVec2 p) { dl->AddCircleFilled(p, t * 0.5f, col, 8); };
+        auto Ln  = [&](ImVec2 a, ImVec2 b) { dl->AddLine(a, b, col, t); Cap(a); Cap(b); };
+
         switch (id)
         {
-        case FI_CROSSHAIR:
-            dl->AddCircle(c, s * 0.55f, col, 28, t);
-            dl->AddCircleFilled(c, s * 0.13f, col);
-            dl->AddLine({c.x, c.y - s*0.92f}, {c.x, c.y - s*0.74f}, col, t);
-            dl->AddLine({c.x, c.y + s*0.74f}, {c.x, c.y + s*0.92f}, col, t);
-            dl->AddLine({c.x - s*0.92f, c.y}, {c.x - s*0.74f, c.y}, col, t);
-            dl->AddLine({c.x + s*0.74f, c.y}, {c.x + s*0.92f, c.y}, col, t);
-            break;
+        // ── crosshair (lucide: crosshair) ──
+        case FI_CROSSHAIR: {
+            dl->AddCircle(c, s * 0.78f, col, 32, t);
+            Ln({c.x, c.y - s*1.05f}, {c.x, c.y - s*0.55f});
+            Ln({c.x, c.y + s*0.55f}, {c.x, c.y + s*1.05f});
+            Ln({c.x - s*1.05f, c.y}, {c.x - s*0.55f, c.y});
+            Ln({c.x + s*0.55f, c.y}, {c.x + s*1.05f, c.y});
+            dl->AddCircleFilled(c, s * 0.10f, col, 12);
+            break; }
+
+        // ── triggerbot (lucide: target with center) ──
         case FI_TRIGGER: {
-            // crosshair box with center dot
-            float r = s * 0.65f;
-            dl->AddRect({c.x - r, c.y - r}, {c.x + r, c.y + r}, col, 2.f, 0, t);
-            dl->AddCircleFilled(c, s * 0.18f, col);
-            dl->AddLine({c.x - r - s*0.25f, c.y}, {c.x - r, c.y}, col, t);
-            dl->AddLine({c.x + r, c.y}, {c.x + r + s*0.25f, c.y}, col, t);
-            dl->AddLine({c.x, c.y - r - s*0.25f}, {c.x, c.y - r}, col, t);
-            dl->AddLine({c.x, c.y + r}, {c.x, c.y + r + s*0.25f}, col, t);
+            dl->AddCircle(c, s * 0.95f, col, 32, t);
+            dl->AddCircle(c, s * 0.55f, col, 28, t);
+            dl->AddCircleFilled(c, s * 0.18f, col, 16);
             break; }
+
+        // ── jump (lucide: arrow-up) ──
         case FI_JUMP: {
-            // upward arc with arrowhead
-            float w = s * 0.85f;
-            dl->AddBezierCubic(
-                {c.x - w, c.y + s*0.5f}, {c.x - w*0.3f, c.y - s*0.9f},
-                {c.x + w*0.3f, c.y - s*0.9f}, {c.x + w, c.y + s*0.5f}, col, t, 24);
-            dl->AddTriangleFilled(
-                {c.x + w - s*0.18f, c.y + s*0.35f},
-                {c.x + w + s*0.18f, c.y + s*0.35f},
-                {c.x + w, c.y + s*0.7f}, col);
+            Ln({c.x, c.y + s*0.95f}, {c.x, c.y - s*0.95f});
+            Ln({c.x, c.y - s*0.95f}, {c.x - s*0.55f, c.y - s*0.4f});
+            Ln({c.x, c.y - s*0.95f}, {c.x + s*0.55f, c.y - s*0.4f});
             break; }
+
+        // ── rewind (lucide: rotate-ccw) ──
         case FI_REWIND: {
-            // circular arrow counter-clockwise
-            float r = s * 0.7f;
-            int segs = 28;
-            for (int i = 0; i < segs; ++i) {
-                float a0 = -1.7f + ((float)i / segs) * 5.0f;
-                float a1 = -1.7f + ((float)(i+1) / segs) * 5.0f;
+            int seg = 24; float r = s * 0.85f;
+            for (int i = 0; i < seg; ++i) {
+                float a0 = -2.6f + ((float)i / seg) * 5.0f;
+                float a1 = -2.6f + ((float)(i+1) / seg) * 5.0f;
                 dl->AddLine(
-                    {c.x + cosf(a0) * r, c.y + sinf(a0) * r},
-                    {c.x + cosf(a1) * r, c.y + sinf(a1) * r}, col, t);
+                    { c.x + cosf(a0)*r, c.y + sinf(a0)*r },
+                    { c.x + cosf(a1)*r, c.y + sinf(a1)*r }, col, t);
             }
-            // arrowhead at end (top-left)
-            float ea = -1.7f;
-            ImVec2 ep{ c.x + cosf(ea) * r, c.y + sinf(ea) * r };
-            dl->AddLine(ep, {ep.x + s*0.3f, ep.y - s*0.05f}, col, t);
-            dl->AddLine(ep, {ep.x + s*0.05f, ep.y + s*0.3f}, col, t);
+            // arrowhead at start (top-left)
+            float ea = -2.6f;
+            ImVec2 ep{ c.x + cosf(ea)*r, c.y + sinf(ea)*r };
+            Ln(ep, { ep.x - s*0.05f, ep.y + s*0.55f });
+            Ln(ep, { ep.x + s*0.55f, ep.y + s*0.05f });
             break; }
+
+        // ── rotate (lucide: refresh-cw / two arrows) ──
         case FI_ROTATE: {
-            // two opposing curved arrows
-            float r = s * 0.65f;
+            float r = s * 0.78f;
+            int seg = 18;
             for (int half = 0; half < 2; ++half) {
-                float base = half * 3.14159f;
-                int segs = 14;
-                for (int i = 0; i < segs; ++i) {
-                    float a0 = base + 0.3f + ((float)i / segs) * 2.3f;
-                    float a1 = base + 0.3f + ((float)(i+1) / segs) * 2.3f;
+                float base = half ? 0.f : 3.14159f;
+                for (int i = 0; i < seg; ++i) {
+                    float a0 = base + 0.3f + ((float)i / seg) * 2.2f;
+                    float a1 = base + 0.3f + ((float)(i+1) / seg) * 2.2f;
                     dl->AddLine(
-                        {c.x + cosf(a0) * r, c.y + sinf(a0) * r},
-                        {c.x + cosf(a1) * r, c.y + sinf(a1) * r}, col, t);
+                        { c.x + cosf(a0)*r, c.y + sinf(a0)*r },
+                        { c.x + cosf(a1)*r, c.y + sinf(a1)*r }, col, t);
                 }
-                float ea = base + 2.6f;
-                ImVec2 ep{ c.x + cosf(ea) * r, c.y + sinf(ea) * r };
+                float ea = base + 0.3f + 2.2f;
+                ImVec2 ep{ c.x + cosf(ea)*r, c.y + sinf(ea)*r };
                 ImVec2 perp{ -sinf(ea), cosf(ea) };
-                dl->AddTriangleFilled(
-                    {ep.x + perp.x * s*0.18f, ep.y + perp.y * s*0.18f},
-                    {ep.x - perp.x * s*0.18f, ep.y - perp.y * s*0.18f},
-                    {ep.x + cosf(ea) * s*0.3f, ep.y + sinf(ea) * s*0.3f}, col);
+                Ln(ep, { ep.x + perp.x * s*0.45f, ep.y + perp.y * s*0.45f });
+                Ln(ep, { ep.x + cosf(ea) * s*0.4f, ep.y + sinf(ea) * s*0.4f });
             }
             break; }
+
+        // ── bolt (lucide: zap, filled) ──
         case FI_BOLT: {
             ImVec2 pts[6] = {
-                {c.x - s*0.15f, c.y - s*0.85f},
-                {c.x + s*0.45f, c.y - s*0.85f},
-                {c.x + s*0.05f, c.y - s*0.05f},
-                {c.x + s*0.55f, c.y - s*0.05f},
-                {c.x - s*0.25f, c.y + s*0.85f},
-                {c.x + s*0.10f, c.y + s*0.10f},
+                { c.x - s*0.05f, c.y - s*1.0f },
+                { c.x + s*0.55f, c.y - s*1.0f },
+                { c.x + s*0.10f, c.y - s*0.05f },
+                { c.x + s*0.55f, c.y - s*0.05f },
+                { c.x - s*0.30f, c.y + s*1.0f },
+                { c.x + s*0.05f, c.y + s*0.10f },
             };
-            dl->AddConvexPolyFilled(pts, 6, col);
+            dl->PathClear();
+            for (int i = 0; i < 6; ++i) dl->PathLineTo(pts[i]);
+            dl->PathFillConvex(col);
             break; }
+
+        // ── box (lucide: square) ──
         case FI_BOX: {
-            // dashed box
-            float r = s * 0.75f;
-            float seg = s * 0.3f;
-            // top
-            dl->AddLine({c.x - r, c.y - r}, {c.x - r + seg, c.y - r}, col, t);
-            dl->AddLine({c.x + r - seg, c.y - r}, {c.x + r, c.y - r}, col, t);
-            // bottom
-            dl->AddLine({c.x - r, c.y + r}, {c.x - r + seg, c.y + r}, col, t);
-            dl->AddLine({c.x + r - seg, c.y + r}, {c.x + r, c.y + r}, col, t);
-            // sides
-            dl->AddLine({c.x - r, c.y - r}, {c.x - r, c.y - r + seg}, col, t);
-            dl->AddLine({c.x - r, c.y + r - seg}, {c.x - r, c.y + r}, col, t);
-            dl->AddLine({c.x + r, c.y - r}, {c.x + r, c.y - r + seg}, col, t);
-            dl->AddLine({c.x + r, c.y + r - seg}, {c.x + r, c.y + r}, col, t);
+            float r = s * 0.85f;
+            dl->AddRect({ c.x - r, c.y - r }, { c.x + r, c.y + r }, col, 3.f, 0, t);
             break; }
+
+        // ── silhouette (lucide: user) ──
         case FI_SILHOUETTE: {
-            // simple person bust
-            dl->AddCircleFilled({c.x, c.y - s*0.4f}, s*0.28f, col);
-            ImVec2 pts[4] = {
-                {c.x - s*0.55f, c.y + s*0.85f},
-                {c.x - s*0.55f, c.y + s*0.25f},
-                {c.x + s*0.55f, c.y + s*0.25f},
-                {c.x + s*0.55f, c.y + s*0.85f},
-            };
-            // rounded shoulders via bezier
-            dl->PathLineTo(pts[0]);
-            dl->PathBezierCubicCurveTo(
-                {c.x - s*0.55f, c.y - s*0.05f},
-                {c.x - s*0.35f, c.y - s*0.05f},
-                {c.x, c.y - s*0.05f}, 12);
-            dl->PathBezierCubicCurveTo(
-                {c.x + s*0.35f, c.y - s*0.05f},
-                {c.x + s*0.55f, c.y - s*0.05f},
-                pts[3], 12);
-            dl->PathLineTo(pts[3]);
-            dl->PathFillConvex(col);
+            dl->AddCircle({ c.x, c.y - s*0.4f }, s * 0.34f, col, 24, t);
+            int seg = 14;
+            float w = s * 0.7f;
+            // shoulders arc
+            for (int i = 0; i <= seg; ++i) {
+                float u0 = (float)i / seg, u1 = (float)(i+1) / seg;
+                if (i == seg) break;
+                float a0 = 3.14159f + u0 * 3.14159f;
+                float a1 = 3.14159f + u1 * 3.14159f;
+                dl->AddLine(
+                    { c.x + cosf(a0)*w, c.y + s*0.85f + sinf(a0)*s*0.55f },
+                    { c.x + cosf(a1)*w, c.y + s*0.85f + sinf(a1)*s*0.55f }, col, t);
+            }
             break; }
+
+        // ── tracer (lucide: move-up-right diag) ──
         case FI_TRACER: {
-            // diagonal line with dots at ends
-            ImVec2 a{c.x - s*0.7f, c.y + s*0.7f};
-            ImVec2 b{c.x + s*0.7f, c.y - s*0.7f};
-            dl->AddLine(a, b, col, t * 1.3f);
-            dl->AddCircleFilled(a, s*0.18f, col);
-            dl->AddCircleFilled(b, s*0.10f, col);
+            ImVec2 a{ c.x - s*0.85f, c.y + s*0.85f };
+            ImVec2 b{ c.x + s*0.85f, c.y - s*0.85f };
+            Ln(a, b);
+            // arrowhead at b
+            Ln(b, { b.x - s*0.55f, b.y });
+            Ln(b, { b.x, b.y + s*0.55f });
             break; }
+
+        // ── droplet (lucide: droplet) ──
         case FI_DROP: {
-            // teardrop
-            int segs = 24;
-            dl->PathLineTo({c.x, c.y - s*0.85f});
-            for (int i = 0; i <= segs; ++i) {
-                float a = -1.5708f + (float)i / segs * 3.14159f * 1.3f - 0.5f;
-                dl->PathLineTo({c.x + cosf(a) * s*0.55f, c.y + s*0.25f + sinf(a) * s*0.55f});
+            int seg = 26;
+            dl->PathClear();
+            dl->PathLineTo({ c.x, c.y - s*0.95f });
+            for (int i = 0; i <= seg; ++i) {
+                float u = (float)i / seg;
+                float a = -1.5708f + u * 6.2832f * 0.62f - 0.6f;
+                dl->PathLineTo({ c.x + cosf(a)*s*0.65f, c.y + s*0.25f + sinf(a)*s*0.65f });
             }
-            dl->PathFillConvex(col);
+            dl->PathStroke(col, ImDrawFlags_Closed, t);
             break; }
+
+        // ── eye (lucide: eye) ──
         case FI_EYE: {
-            const float ew = s * 0.85f, ctrl = s * 0.6f;
-            dl->AddBezierCubic({c.x - ew, c.y}, {c.x - ew*0.5f, c.y - ctrl},
-                {c.x + ew*0.5f, c.y - ctrl}, {c.x + ew, c.y}, col, t);
-            dl->AddBezierCubic({c.x + ew, c.y}, {c.x + ew*0.5f, c.y + ctrl},
-                {c.x - ew*0.5f, c.y + ctrl}, {c.x - ew, c.y}, col, t);
-            dl->AddCircleFilled(c, s * 0.25f, col);
+            const float w = s * 1.0f, h = s * 0.55f;
+            dl->PathClear();
+            dl->PathLineTo({ c.x - w, c.y });
+            dl->PathBezierCubicCurveTo({ c.x - w*0.6f, c.y - h }, { c.x + w*0.6f, c.y - h }, { c.x + w, c.y }, 18);
+            dl->PathStroke(col, 0, t);
+            dl->PathClear();
+            dl->PathLineTo({ c.x + w, c.y });
+            dl->PathBezierCubicCurveTo({ c.x + w*0.6f, c.y + h }, { c.x - w*0.6f, c.y + h }, { c.x - w, c.y }, 18);
+            dl->PathStroke(col, 0, t);
+            dl->AddCircle(c, s * 0.32f, col, 20, t);
+            dl->AddCircleFilled(c, s * 0.12f, col, 12);
             break; }
+
+        // ── badge / award (lucide: award) ──
         case FI_BADGE: {
-            // 5-point star
-            ImVec2 pts[10];
-            for (int i = 0; i < 10; ++i) {
-                float ang = -1.5708f + (float)i * 0.6283f;
-                float r   = (i & 1) ? s * 0.36f : s * 0.85f;
-                pts[i] = { c.x + cosf(ang) * r, c.y + sinf(ang) * r };
-            }
-            dl->AddConvexPolyFilled(pts, 10, col);
+            dl->AddCircle({ c.x, c.y - s*0.15f }, s * 0.55f, col, 28, t);
+            // ribbons
+            Ln({ c.x - s*0.32f, c.y + s*0.30f }, { c.x - s*0.55f, c.y + s*1.0f });
+            Ln({ c.x - s*0.55f, c.y + s*1.0f }, { c.x - s*0.18f, c.y + s*0.78f });
+            Ln({ c.x - s*0.18f, c.y + s*0.78f }, { c.x + s*0.05f, c.y + s*1.0f });
+            Ln({ c.x + s*0.05f, c.y + s*1.0f }, { c.x + s*0.42f, c.y + s*0.30f });
             break; }
+
+        // ── grenade (circle + safety lever) ──
         case FI_GRENADE: {
-            // circle + small handle on top
-            dl->AddCircle({c.x, c.y + s*0.15f}, s*0.55f, col, 24, t);
-            dl->AddRect({c.x - s*0.15f, c.y - s*0.55f}, {c.x + s*0.15f, c.y - s*0.35f}, col, 1.f, 0, t);
-            dl->AddLine({c.x, c.y - s*0.35f}, {c.x, c.y - s*0.4f}, col, t);
+            dl->AddCircle({ c.x, c.y + s*0.18f }, s * 0.62f, col, 28, t);
+            // top cap
+            Ln({ c.x - s*0.18f, c.y - s*0.55f }, { c.x + s*0.18f, c.y - s*0.55f });
+            Ln({ c.x - s*0.18f, c.y - s*0.55f }, { c.x - s*0.18f, c.y - s*0.40f });
+            Ln({ c.x + s*0.18f, c.y - s*0.55f }, { c.x + s*0.18f, c.y - s*0.40f });
             // pin ring
-            dl->AddCircle({c.x + s*0.35f, c.y - s*0.55f}, s*0.13f, col, 12, t);
+            dl->AddCircle({ c.x + s*0.45f, c.y - s*0.55f }, s * 0.12f, col, 12, t);
+            Ln({ c.x + s*0.18f, c.y - s*0.48f }, { c.x + s*0.36f, c.y - s*0.50f });
             break; }
+
+        // ── target / focus (lucide: focus) ──
         case FI_TARGET: {
-            dl->AddCircle(c, s*0.85f, col, 28, t);
-            dl->AddCircle(c, s*0.5f,  col, 24, t);
-            dl->AddCircleFilled(c, s*0.18f, col);
+            dl->AddCircleFilled(c, s * 0.18f, col, 16);
+            // L-corners
+            float r = s * 0.85f;
+            Ln({ c.x - r, c.y - r*0.55f }, { c.x - r, c.y - r });
+            Ln({ c.x - r, c.y - r }, { c.x - r*0.55f, c.y - r });
+            Ln({ c.x + r*0.55f, c.y - r }, { c.x + r, c.y - r });
+            Ln({ c.x + r, c.y - r }, { c.x + r, c.y - r*0.55f });
+            Ln({ c.x + r, c.y + r*0.55f }, { c.x + r, c.y + r });
+            Ln({ c.x + r, c.y + r }, { c.x + r*0.55f, c.y + r });
+            Ln({ c.x - r*0.55f, c.y + r }, { c.x - r, c.y + r });
+            Ln({ c.x - r, c.y + r }, { c.x - r, c.y + r*0.55f });
             break; }
+
+        // ── speaker (lucide: volume-2) ──
         case FI_SPEAKER: {
-            // speaker cone
             ImVec2 pts[5] = {
-                {c.x - s*0.7f, c.y - s*0.25f},
-                {c.x - s*0.25f, c.y - s*0.25f},
-                {c.x + s*0.35f, c.y - s*0.65f},
-                {c.x + s*0.35f, c.y + s*0.65f},
-                {c.x - s*0.25f, c.y + s*0.25f},
+                { c.x - s*0.85f, c.y - s*0.30f },
+                { c.x - s*0.30f, c.y - s*0.30f },
+                { c.x + s*0.20f, c.y - s*0.75f },
+                { c.x + s*0.20f, c.y + s*0.75f },
+                { c.x - s*0.30f, c.y + s*0.30f },
             };
-            // body
-            dl->AddTriangleFilled(pts[0], pts[1], pts[4], col);
-            dl->AddRectFilled({pts[0].x, pts[0].y}, {pts[1].x, pts[4].y}, col);
-            dl->AddTriangleFilled(pts[1], pts[2], pts[3], col);
-            dl->AddTriangleFilled(pts[1], pts[3], pts[4], col);
+            for (int i = 0; i < 5; ++i) Ln(pts[i], pts[(i+1)%5]);
             // sound waves
-            dl->AddBezierCubic({c.x + s*0.55f, c.y - s*0.4f}, {c.x + s*0.85f, c.y - s*0.2f},
-                {c.x + s*0.85f, c.y + s*0.2f}, {c.x + s*0.55f, c.y + s*0.4f}, col, t);
+            int seg = 10;
+            for (int w = 0; w < 2; ++w) {
+                float r = s * (0.40f + w * 0.35f);
+                for (int i = 0; i < seg; ++i) {
+                    float u0 = (float)i / seg, u1 = (float)(i+1) / seg;
+                    float a0 = -0.9f + u0 * 1.8f, a1 = -0.9f + u1 * 1.8f;
+                    dl->AddLine(
+                        { c.x + s*0.35f + cosf(a0)*r, c.y + sinf(a0)*r },
+                        { c.x + s*0.35f + cosf(a1)*r, c.y + sinf(a1)*r }, col, t);
+                }
+            }
             break; }
+
+        // ── paint / brush (lucide: paintbrush) ──
         case FI_PAINT: {
-            // paint roller / dropper
-            dl->AddRect({c.x - s*0.55f, c.y - s*0.7f}, {c.x + s*0.55f, c.y - s*0.3f}, col, 2.f, 0, t);
-            dl->AddRect({c.x - s*0.35f, c.y - s*0.3f}, {c.x + s*0.35f, c.y - s*0.05f}, col, 1.f, 0, t);
-            dl->AddRect({c.x - s*0.12f, c.y - s*0.05f}, {c.x + s*0.12f, c.y + s*0.85f}, col, 1.f, 0, t);
+            // brush head
+            dl->AddRect({ c.x - s*0.35f, c.y - s*0.95f }, { c.x + s*0.55f, c.y - s*0.30f }, col, 3.f, 0, t);
+            // ferrule
+            Ln({ c.x - s*0.20f, c.y - s*0.30f }, { c.x + s*0.40f, c.y - s*0.30f });
+            Ln({ c.x - s*0.20f, c.y - s*0.30f }, { c.x - s*0.20f, c.y - s*0.10f });
+            Ln({ c.x + s*0.40f, c.y - s*0.30f }, { c.x + s*0.40f, c.y - s*0.10f });
+            // handle taper
+            Ln({ c.x - s*0.20f, c.y - s*0.10f }, { c.x - s*0.55f, c.y + s*0.95f });
+            Ln({ c.x + s*0.40f, c.y - s*0.10f }, { c.x + s*0.05f, c.y + s*0.95f });
+            Ln({ c.x - s*0.55f, c.y + s*0.95f }, { c.x + s*0.05f, c.y + s*0.95f });
             break; }
+
+        // ── knife / sword (lucide: sword) ──
         case FI_KNIFE: {
-            // blade + handle
-            ImVec2 blade[4] = {
-                {c.x - s*0.9f, c.y + s*0.25f},
-                {c.x + s*0.1f, c.y - s*0.85f},
-                {c.x + s*0.25f, c.y - s*0.7f},
-                {c.x - s*0.75f, c.y + s*0.4f},
-            };
-            dl->AddConvexPolyFilled(blade, 4, col);
-            // handle
-            dl->AddRectFilled({c.x + s*0.1f, c.y + s*0.15f}, {c.x + s*0.85f, c.y + s*0.5f}, col, 2.f);
+            // blade
+            Ln({ c.x - s*0.95f, c.y + s*0.30f }, { c.x + s*0.20f, c.y - s*0.85f });
+            Ln({ c.x + s*0.20f, c.y - s*0.85f }, { c.x + s*0.55f, c.y - s*0.85f });
+            Ln({ c.x + s*0.55f, c.y - s*0.85f }, { c.x + s*0.55f, c.y - s*0.50f });
+            Ln({ c.x + s*0.55f, c.y - s*0.50f }, { c.x - s*0.60f, c.y + s*0.60f });
+            Ln({ c.x - s*0.60f, c.y + s*0.60f }, { c.x - s*0.95f, c.y + s*0.30f });
+            // guard
+            Ln({ c.x - s*0.75f, c.y + s*0.45f }, { c.x - s*0.45f, c.y + s*0.75f });
+            // hilt
+            Ln({ c.x - s*0.45f, c.y + s*0.75f }, { c.x - s*0.85f, c.y + s*0.95f });
+            Ln({ c.x - s*0.95f, c.y + s*0.45f }, { c.x - s*0.75f, c.y + s*0.85f });
             break; }
+
+        // ── glove / hand (lucide: hand) ──
         case FI_GLOVE: {
-            // mitten silhouette
-            dl->AddRectFilled({c.x - s*0.4f, c.y - s*0.8f}, {c.x + s*0.4f, c.y + s*0.5f}, col, s*0.3f);
-            // thumb
-            dl->AddCircleFilled({c.x + s*0.55f, c.y - s*0.05f}, s*0.22f, col);
-            // cuff
-            dl->AddRectFilled({c.x - s*0.5f, c.y + s*0.5f}, {c.x + s*0.5f, c.y + s*0.85f}, col, s*0.15f);
+            // palm
+            float pl = c.x - s*0.45f, pr = c.x + s*0.45f;
+            float pt = c.y - s*0.30f, pb = c.y + s*0.65f;
+            dl->AddRect({ pl, pt }, { pr, pb }, col, s*0.25f, 0, t);
+            // fingers (3 rounded)
+            for (int i = 0; i < 3; ++i) {
+                float fx = pl + s*0.18f + i * s*0.30f;
+                Ln({ fx - s*0.10f, pt }, { fx - s*0.10f, c.y - s*0.85f });
+                Ln({ fx + s*0.10f, pt }, { fx + s*0.10f, c.y - s*0.85f });
+                int seg = 6;
+                for (int k = 0; k < seg; ++k) {
+                    float u0 = (float)k / seg, u1 = (float)(k+1) / seg;
+                    float a0 = 3.14159f + u0 * 3.14159f, a1 = 3.14159f + u1 * 3.14159f;
+                    dl->AddLine(
+                        { fx + cosf(a0)*s*0.10f, c.y - s*0.85f + sinf(a0)*s*0.10f },
+                        { fx + cosf(a1)*s*0.10f, c.y - s*0.85f + sinf(a1)*s*0.10f }, col, t);
+                }
+            }
+            // thumb on right
+            Ln({ pr, c.y - s*0.10f }, { c.x + s*0.85f, c.y + s*0.20f });
+            Ln({ pr, c.y + s*0.30f }, { c.x + s*0.85f, c.y + s*0.45f });
+            int seg = 8;
+            for (int k = 0; k < seg; ++k) {
+                float u0 = (float)k / seg, u1 = (float)(k+1) / seg;
+                float a0 = -1.5708f + u0 * 3.14159f, a1 = -1.5708f + u1 * 3.14159f;
+                dl->AddLine(
+                    { c.x + s*0.85f + cosf(a0)*s*0.13f, c.y + s*0.32f + sinf(a0)*s*0.13f },
+                    { c.x + s*0.85f + cosf(a1)*s*0.13f, c.y + s*0.32f + sinf(a1)*s*0.13f }, col, t);
+            }
             break; }
+
+        // ── sun (lucide: sun) ──
         case FI_SUN: {
-            dl->AddCircleFilled(c, s * 0.35f, col);
+            dl->AddCircle(c, s * 0.42f, col, 24, t);
             for (int i = 0; i < 8; ++i) {
                 float a = (float)i * 0.7854f;
-                dl->AddLine(
-                    {c.x + cosf(a) * s*0.55f, c.y + sinf(a) * s*0.55f},
-                    {c.x + cosf(a) * s*0.85f, c.y + sinf(a) * s*0.85f}, col, t);
+                Ln({ c.x + cosf(a)*s*0.65f, c.y + sinf(a)*s*0.65f },
+                   { c.x + cosf(a)*s*0.95f, c.y + sinf(a)*s*0.95f });
             }
             break; }
+
+        // ── flame (lucide: flame) ──
         case FI_FLAME: {
-            int segs = 20;
-            dl->PathLineTo({c.x, c.y - s*0.95f});
-            for (int i = 0; i <= segs; ++i) {
-                float u = (float)i / segs;
-                float a = -1.5708f + u * 3.14159f * 2.f;
-                float r = s * (0.55f + 0.15f * sinf(u * 6.28f));
-                dl->PathLineTo({c.x + cosf(a) * r, c.y + s*0.15f + sinf(a) * r * 0.85f});
-            }
-            dl->PathFillConvex(col);
-            break; }
-        case FI_FOV: {
-            // diverging lines (cone)
-            dl->AddLine({c.x - s*0.7f, c.y + s*0.7f}, {c.x, c.y - s*0.55f}, col, t);
-            dl->AddLine({c.x + s*0.7f, c.y + s*0.7f}, {c.x, c.y - s*0.55f}, col, t);
-            // arc at bottom
-            int segs = 14;
-            for (int i = 0; i < segs; ++i) {
-                float u0 = (float)i / segs, u1 = (float)(i+1) / segs;
-                float a0 = 3.14159f + 0.6f + u0 * (3.14159f - 1.2f);
-                float a1 = 3.14159f + 0.6f + u1 * (3.14159f - 1.2f);
-                dl->AddLine(
-                    {c.x + cosf(a0) * s*0.95f, c.y - s*0.55f + sinf(a0) * s*1.25f},
-                    {c.x + cosf(a1) * s*0.95f, c.y - s*0.55f + sinf(a1) * s*1.25f}, col, t);
-            }
-            break; }
-        case FI_MOON: {
-            // crescent: filled circle minus offset circle (approximated with paths)
-            int segs = 32;
             dl->PathClear();
-            for (int i = 0; i <= segs; ++i) {
-                float a = -1.5708f + (float)i / segs * 3.14159f;
-                dl->PathLineTo({c.x + cosf(a) * s*0.85f, c.y + sinf(a) * s*0.85f});
-            }
-            for (int i = segs; i >= 0; --i) {
-                float a = -1.5708f + (float)i / segs * 3.14159f;
-                dl->PathLineTo({c.x + s*0.3f + cosf(a) * s*0.7f, c.y + sinf(a) * s*0.7f});
-            }
-            dl->PathFillConvex(col);
+            dl->PathLineTo({ c.x, c.y - s*0.95f });
+            dl->PathBezierCubicCurveTo(
+                { c.x + s*0.85f, c.y - s*0.30f },
+                { c.x + s*0.95f, c.y + s*0.55f },
+                { c.x, c.y + s*0.95f }, 16);
+            dl->PathBezierCubicCurveTo(
+                { c.x - s*0.95f, c.y + s*0.55f },
+                { c.x - s*0.55f, c.y + s*0.05f },
+                { c.x - s*0.20f, c.y - s*0.10f }, 16);
+            dl->PathBezierCubicCurveTo(
+                { c.x - s*0.05f, c.y - s*0.30f },
+                { c.x - s*0.30f, c.y - s*0.65f },
+                { c.x, c.y - s*0.95f }, 16);
+            dl->PathStroke(col, ImDrawFlags_Closed, t);
             break; }
+
+        // ── FOV (lucide: scan / corners) ──
+        case FI_FOV: {
+            float r = s * 0.95f;
+            // four corner brackets
+            Ln({ c.x - r, c.y - r*0.45f }, { c.x - r, c.y - r });
+            Ln({ c.x - r, c.y - r },       { c.x - r*0.45f, c.y - r });
+            Ln({ c.x + r*0.45f, c.y - r }, { c.x + r, c.y - r });
+            Ln({ c.x + r, c.y - r },       { c.x + r, c.y - r*0.45f });
+            Ln({ c.x + r, c.y + r*0.45f }, { c.x + r, c.y + r });
+            Ln({ c.x + r, c.y + r },       { c.x + r*0.45f, c.y + r });
+            Ln({ c.x - r*0.45f, c.y + r }, { c.x - r, c.y + r });
+            Ln({ c.x - r, c.y + r },       { c.x - r, c.y + r*0.45f });
+            // center scan line
+            Ln({ c.x - r*0.55f, c.y }, { c.x + r*0.55f, c.y });
+            break; }
+
+        // ── moon (lucide: moon) ──
+        case FI_MOON: {
+            // crescent via two-arc closed path
+            int seg = 28;
+            dl->PathClear();
+            for (int i = 0; i <= seg; ++i) {
+                float a = -1.4f + (float)i / seg * 3.5f;
+                dl->PathLineTo({ c.x + cosf(a) * s*0.92f, c.y + sinf(a) * s*0.92f });
+            }
+            for (int i = seg; i >= 0; --i) {
+                float a = -1.4f + (float)i / seg * 3.5f;
+                dl->PathLineTo({ c.x + s*0.35f + cosf(a) * s*0.78f, c.y - s*0.05f + sinf(a) * s*0.78f });
+            }
+            dl->PathStroke(col, ImDrawFlags_Closed, t);
+            break; }
+
+        // ── lightbulb (lucide: lightbulb) ──
         case FI_BULB: {
-            dl->AddCircleFilled({c.x, c.y - s*0.15f}, s*0.5f, col);
-            dl->AddRectFilled({c.x - s*0.3f, c.y + s*0.3f}, {c.x + s*0.3f, c.y + s*0.55f}, col);
-            dl->AddRectFilled({c.x - s*0.22f, c.y + s*0.55f}, {c.x + s*0.22f, c.y + s*0.78f}, col);
-            // base contact
-            dl->AddRectFilled({c.x - s*0.12f, c.y + s*0.78f}, {c.x + s*0.12f, c.y + s*0.95f}, col);
+            // bulb (circle with bottom flat)
+            int seg = 22;
+            dl->PathClear();
+            for (int i = 0; i <= seg; ++i) {
+                float a = -2.6f + (float)i / seg * 5.2f;
+                dl->PathLineTo({ c.x + cosf(a) * s*0.55f, c.y - s*0.20f + sinf(a) * s*0.55f });
+            }
+            dl->PathStroke(col, 0, t);
+            // base lines
+            Ln({ c.x - s*0.30f, c.y + s*0.40f }, { c.x + s*0.30f, c.y + s*0.40f });
+            Ln({ c.x - s*0.25f, c.y + s*0.60f }, { c.x + s*0.25f, c.y + s*0.60f });
+            Ln({ c.x - s*0.18f, c.y + s*0.80f }, { c.x + s*0.18f, c.y + s*0.80f });
+            // filament hint
+            Ln({ c.x - s*0.20f, c.y - s*0.10f }, { c.x + s*0.20f, c.y - s*0.10f });
             break; }
+
+        // ── camera (lucide: camera) ──
         case FI_CAMERA: {
-            dl->AddRect({c.x - s*0.85f, c.y - s*0.45f}, {c.x + s*0.85f, c.y + s*0.55f}, col, 2.f, 0, t);
-            dl->AddRectFilled({c.x - s*0.25f, c.y - s*0.7f}, {c.x + s*0.25f, c.y - s*0.45f}, col);
-            dl->AddCircle({c.x, c.y + s*0.05f}, s*0.3f, col, 20, t);
-            dl->AddCircleFilled({c.x, c.y + s*0.05f}, s*0.12f, col);
+            dl->AddRect({ c.x - s*0.95f, c.y - s*0.45f }, { c.x + s*0.95f, c.y + s*0.65f }, col, 3.f, 0, t);
+            // top notch
+            Ln({ c.x - s*0.30f, c.y - s*0.45f }, { c.x - s*0.20f, c.y - s*0.70f });
+            Ln({ c.x + s*0.30f, c.y - s*0.45f }, { c.x + s*0.20f, c.y - s*0.70f });
+            Ln({ c.x - s*0.20f, c.y - s*0.70f }, { c.x + s*0.20f, c.y - s*0.70f });
+            // lens
+            dl->AddCircle({ c.x, c.y + s*0.10f }, s * 0.32f, col, 24, t);
             break; }
+
+        // ── check (lucide: check-circle) ──
         case FI_CHECK: {
-            // checkmark in circle
-            dl->AddCircle(c, s*0.85f, col, 28, t);
-            dl->AddLine({c.x - s*0.4f, c.y + s*0.05f}, {c.x - s*0.05f, c.y + s*0.4f}, col, t * 1.4f);
-            dl->AddLine({c.x - s*0.05f, c.y + s*0.4f}, {c.x + s*0.45f, c.y - s*0.3f}, col, t * 1.4f);
+            dl->AddCircle(c, s * 0.95f, col, 32, t);
+            Ln({ c.x - s*0.42f, c.y + s*0.05f }, { c.x - s*0.05f, c.y + s*0.42f });
+            Ln({ c.x - s*0.05f, c.y + s*0.42f }, { c.x + s*0.50f, c.y - s*0.30f });
             break; }
+
+        // ── gear (lucide: settings) ──
         case FI_GEAR: {
             int teeth = 8;
-            float rOuter = s * 0.85f, rInner = s * 0.6f;
+            float rO = s * 0.95f, rI = s * 0.70f;
             for (int i = 0; i < teeth; ++i) {
-                float a = (float)i * 6.2832f / teeth;
-                float ax = cosf(a), ay = sinf(a);
-                float perpx = -ay, perpy = ax;
-                ImVec2 p0{ c.x + (ax * rInner) + perpx * s*0.12f, c.y + (ay * rInner) + perpy * s*0.12f };
-                ImVec2 p1{ c.x + (ax * rOuter) + perpx * s*0.12f, c.y + (ay * rOuter) + perpy * s*0.12f };
-                ImVec2 p2{ c.x + (ax * rOuter) - perpx * s*0.12f, c.y + (ay * rOuter) - perpy * s*0.12f };
-                ImVec2 p3{ c.x + (ax * rInner) - perpx * s*0.12f, c.y + (ay * rInner) - perpy * s*0.12f };
-                dl->AddQuadFilled(p0, p1, p2, p3, col);
+                float a   = (float)i * 6.2832f / teeth;
+                float ax  = cosf(a), ay = sinf(a);
+                float pX  = -ay * s * 0.13f, pY = ax * s * 0.13f;
+                ImVec2 q[4] = {
+                    { c.x + ax*rI + pX, c.y + ay*rI + pY },
+                    { c.x + ax*rO + pX, c.y + ay*rO + pY },
+                    { c.x + ax*rO - pX, c.y + ay*rO - pY },
+                    { c.x + ax*rI - pX, c.y + ay*rI - pY },
+                };
+                for (int k = 0; k < 4; ++k) dl->AddLine(q[k], q[(k+1)%4], col, t);
             }
-            dl->AddCircleFilled(c, rInner, col);
-            dl->AddCircleFilled(c, s * 0.25f, IM_COL32(0, 0, 0, 200));
+            // body ring
+            dl->AddCircle(c, rI, col, 32, t);
+            // center hole
+            dl->AddCircle(c, s * 0.28f, col, 18, t);
             break; }
+
+        // ── wand / sparkles (lucide: sparkles) ──
         case FI_WAND: {
-            // diagonal wand with sparkle
-            dl->AddLine({c.x - s*0.7f, c.y + s*0.7f}, {c.x + s*0.4f, c.y - s*0.4f}, col, t * 1.5f);
-            // sparkle
-            float sx = c.x + s*0.55f, sy = c.y - s*0.55f;
-            dl->AddLine({sx - s*0.25f, sy}, {sx + s*0.25f, sy}, col, t);
-            dl->AddLine({sx, sy - s*0.25f}, {sx, sy + s*0.25f}, col, t);
-            dl->AddLine({sx - s*0.18f, sy - s*0.18f}, {sx + s*0.18f, sy + s*0.18f}, col, t * 0.7f);
-            dl->AddLine({sx + s*0.18f, sy - s*0.18f}, {sx - s*0.18f, sy + s*0.18f}, col, t * 0.7f);
+            // big star
+            auto Star = [&](ImVec2 cc, float sz) {
+                Ln({ cc.x, cc.y - sz }, { cc.x, cc.y + sz });
+                Ln({ cc.x - sz, cc.y }, { cc.x + sz, cc.y });
+                Ln({ cc.x - sz*0.65f, cc.y - sz*0.65f }, { cc.x + sz*0.65f, cc.y + sz*0.65f });
+                Ln({ cc.x + sz*0.65f, cc.y - sz*0.65f }, { cc.x - sz*0.65f, cc.y + sz*0.65f });
+            };
+            Star({ c.x - s*0.10f, c.y }, s * 0.55f);
+            Star({ c.x + s*0.65f, c.y - s*0.55f }, s * 0.25f);
+            Star({ c.x + s*0.55f, c.y + s*0.65f }, s * 0.20f);
             break; }
+
+        // ── palette (lucide: palette) ──
         case FI_PALETTE: {
-            // palette blob
-            int segs = 24;
+            // outline blob
+            int seg = 28;
             dl->PathClear();
-            for (int i = 0; i <= segs; ++i) {
-                float a = (float)i / segs * 6.2832f;
-                float r = s * (0.75f + 0.10f * sinf(a * 3.f));
-                dl->PathLineTo({c.x + cosf(a) * r, c.y + sinf(a) * r});
+            for (int i = 0; i <= seg; ++i) {
+                float a = (float)i / seg * 6.2832f;
+                float r = s * 0.92f;
+                dl->PathLineTo({ c.x + cosf(a)*r, c.y + sinf(a)*r });
             }
-            dl->PathFillConvex(col);
-            // thumb hole
-            dl->AddCircleFilled({c.x - s*0.35f, c.y + s*0.05f}, s*0.18f, IM_COL32(0,0,0,200));
-            // dots
-            dl->AddCircleFilled({c.x + s*0.25f, c.y - s*0.25f}, s*0.10f, IM_COL32(0,0,0,180));
-            dl->AddCircleFilled({c.x + s*0.45f, c.y + s*0.10f}, s*0.10f, IM_COL32(0,0,0,180));
-            dl->AddCircleFilled({c.x + s*0.10f, c.y + s*0.40f}, s*0.10f, IM_COL32(0,0,0,180));
+            dl->PathStroke(col, ImDrawFlags_Closed, t);
+            // notch on right
+            dl->AddCircle({ c.x + s*0.55f, c.y + s*0.10f }, s * 0.14f, col, 14, t);
+            // paint dots
+            dl->AddCircleFilled({ c.x - s*0.45f, c.y - s*0.20f }, s * 0.10f, col, 12);
+            dl->AddCircleFilled({ c.x - s*0.05f, c.y - s*0.55f }, s * 0.10f, col, 12);
+            dl->AddCircleFilled({ c.x + s*0.30f, c.y - s*0.40f }, s * 0.10f, col, 12);
+            dl->AddCircleFilled({ c.x - s*0.40f, c.y + s*0.35f }, s * 0.10f, col, 12);
             break; }
+
+        // ── HUD / layout (lucide: layout-dashboard) ──
         case FI_HUD: {
-            // mini display with chip
-            dl->AddRect({c.x - s*0.85f, c.y - s*0.55f}, {c.x + s*0.85f, c.y + s*0.55f}, col, 3.f, 0, t);
-            dl->AddRectFilled({c.x - s*0.6f, c.y - s*0.3f}, {c.x + s*0.0f, c.y - s*0.1f}, col, 1.f);
-            dl->AddRectFilled({c.x - s*0.6f, c.y + s*0.05f}, {c.x + s*0.45f, c.y + s*0.25f}, col, 1.f);
-            dl->AddCircleFilled({c.x + s*0.55f, c.y - s*0.2f}, s*0.12f, col);
+            float r = s * 0.92f;
+            // big cell top-left
+            dl->AddRect({ c.x - r, c.y - r }, { c.x - s*0.10f, c.y - s*0.10f }, col, 2.5f, 0, t);
+            // tall cell right
+            dl->AddRect({ c.x + s*0.10f, c.y - r }, { c.x + r, c.y + s*0.20f }, col, 2.5f, 0, t);
+            // bar bottom-left
+            dl->AddRect({ c.x - r, c.y + s*0.10f }, { c.x - s*0.10f, c.y + r }, col, 2.5f, 0, t);
+            // small bottom-right
+            dl->AddRect({ c.x + s*0.10f, c.y + s*0.40f }, { c.x + r, c.y + r }, col, 2.5f, 0, t);
             break; }
+
+        // ── floppy / save (lucide: save) ──
         case FI_FLOPPY: {
-            dl->AddRect({c.x - s*0.75f, c.y - s*0.75f}, {c.x + s*0.75f, c.y + s*0.75f}, col, 3.f, 0, t);
-            dl->AddRectFilled({c.x - s*0.45f, c.y - s*0.75f}, {c.x + s*0.45f, c.y - s*0.3f}, col);
-            dl->AddRectFilled({c.x - s*0.55f, c.y + s*0.05f}, {c.x + s*0.55f, c.y + s*0.6f}, col, 1.f);
-            // notch
-            dl->AddRectFilled({c.x + s*0.15f, c.y - s*0.7f}, {c.x + s*0.35f, c.y - s*0.45f}, IM_COL32(0,0,0,200));
+            float r = s * 0.92f;
+            dl->AddRect({ c.x - r, c.y - r }, { c.x + r, c.y + r }, col, 3.f, 0, t);
+            // top metal slider
+            Ln({ c.x - r*0.55f, c.y - r }, { c.x - r*0.55f, c.y - s*0.30f });
+            Ln({ c.x + r*0.55f, c.y - r }, { c.x + r*0.55f, c.y - s*0.30f });
+            Ln({ c.x - r*0.55f, c.y - s*0.30f }, { c.x + r*0.55f, c.y - s*0.30f });
+            Ln({ c.x + r*0.30f, c.y - r }, { c.x + r*0.30f, c.y - s*0.55f });
+            // label area
+            dl->AddRect({ c.x - r*0.65f, c.y + s*0.05f }, { c.x + r*0.65f, c.y + r*0.85f }, col, 1.5f, 0, t);
             break; }
+
         default: break;
         }
     }
@@ -2725,176 +2837,201 @@ namespace Menu
         count = 0; return nullptr;
     }
 
-    // ── Card renderer ─────────────────────────────────────────
+    // ── Card renderer ────────────────────────────────────────
+    //  Submits OPTIONS + toggle as REAL items (so clicks register).
+    //  Hover for the whole card uses a non-blocking rect-test.
     inline bool DrawFeatureCard(const FeatureDef& f, ImVec2 sz, float dt)
     {
-        ImDrawList* dl  = ImGui::GetWindowDrawList();
-        ImVec2 p0       = ImGui::GetCursorScreenPos();
-        ImVec2 p1       = { p0.x + sz.x, p0.y + sz.y };
-        const float R   = 12.f;
+        ImDrawList* dl   = ImGui::GetWindowDrawList();
+        const ImVec2 p0  = ImGui::GetCursorScreenPos();
+        const ImVec2 p1  = { p0.x + sz.x, p0.y + sz.y };
+        const float  R   = 13.f;
+        const bool   isOn = (f.enabled && *f.enabled);
 
-        // hover detection (full-card hover for shadow + lift)
-        ImGui::PushID(&f);
-        ImGui::SetCursorScreenPos(p0);
-        ImGui::InvisibleButton("##cardhit", sz);
-        bool hovered = ImGui::IsItemHovered();
-        ImGui::PopID();
+        // Non-blocking hover detection (does NOT consume clicks)
+        const bool hovered = ImGui::IsWindowHovered() && ImGui::IsMouseHoveringRect(p0, p1);
+        const float hAnim  = AnimStep(&f, hovered, 16.f, dt);
 
-        float hAnim = AnimStep(&f, hovered, 14.f, dt);
-
-        // shadow (grows on hover)
-        for (int s = 0; s < 3; ++s) {
-            float ofs   = 1.5f + (float)s * 2.f + hAnim * 1.5f;
-            int   alpha = (int)((24 - s * 7 + hAnim * 10) * menuAlpha);
+        // ── shadow (lifts on hover) ──
+        for (int s = 0; s < 4; ++s) {
+            float ofs   = 2.0f + (float)s * 2.4f + hAnim * 2.5f;
+            int   alpha = (int)((26 - s * 6 + hAnim * 12) * menuAlpha);
             if (alpha <= 0) continue;
-            dl->AddRectFilled({ p0.x - 1.f, p0.y + ofs }, { p1.x + 1.f, p1.y + ofs },
+            dl->AddRectFilled(
+                { p0.x - 1.f, p0.y + ofs },
+                { p1.x + 1.f, p1.y + ofs },
                 IM_COL32(0, 0, 0, alpha), R + 2.f);
         }
 
-        // base fill (lighter on hover)
+        // ── base fill ──
         ImU32 baseFill = IM_COL32(
-            18 + (int)(hAnim * 4),
-            16 + (int)(hAnim * 4),
-            28 + (int)(hAnim * 6),
-            (int)((215 + hAnim * 25) * menuAlpha));
+            19 + (int)(hAnim * 5),
+            17 + (int)(hAnim * 5),
+            29 + (int)(hAnim * 7),
+            (int)((220 + hAnim * 25) * menuAlpha));
         dl->AddRectFilled(p0, p1, baseFill, R);
 
-        // glossy top sliver
+        // ── enabled accent tint (subtle wash from top) ──
+        if (isOn) {
+            ImU32 a0 = EvoAccent((int)(28 * menuAlpha));
+            ImU32 a1 = EvoAccent(0);
+            dl->AddRectFilledMultiColor(p0, { p1.x, p0.y + sz.y * 0.55f },
+                a0, a0, a1, a1);
+        }
+
+        // ── glossy top sliver (inset to avoid corner bleed) ──
         dl->AddRectFilledMultiColor(
-            { p0.x + 14.f, p0.y + 1.f }, { p1.x - 14.f, p0.y + 2.4f },
+            { p0.x + 16.f, p0.y + 1.f }, { p1.x - 16.f, p0.y + 2.6f },
             IM_COL32(255,255,255,0),
-            IM_COL32(255,255,255,(int)(70 * menuAlpha)),
-            IM_COL32(255,255,255,(int)(70 * menuAlpha)),
+            IM_COL32(255,255,255,(int)(78 * menuAlpha)),
+            IM_COL32(255,255,255,(int)(78 * menuAlpha)),
             IM_COL32(255,255,255,0));
-        // outline
-        dl->AddRect(p0, p1,
-            IM_COL32(48 + (int)(hAnim * 30),
-                     46 + (int)(hAnim * 30),
-                     74 + (int)(hAnim * 50),
-                     (int)((175 + hAnim * 50) * menuAlpha)),
-            R, 0, 1.f);
-        // hairline highlight
+
+        // ── outline ──
+        ImU32 outline = isOn
+            ? EvoAccent((int)((140 + hAnim * 60) * menuAlpha))
+            : IM_COL32(50 + (int)(hAnim * 28),
+                       48 + (int)(hAnim * 28),
+                       76 + (int)(hAnim * 44),
+                       (int)((180 + hAnim * 50) * menuAlpha));
+        dl->AddRect(p0, p1, outline, R, 0, 1.f);
+        // hairline
         dl->AddRect({ p0.x + 0.5f, p0.y + 0.5f }, { p1.x - 0.5f, p1.y - 0.5f },
-            IM_COL32(255, 255, 255, (int)(menuAlpha * (10 + hAnim * 8))), R - 0.5f, 0, 1.f);
+            IM_COL32(255, 255, 255, (int)(menuAlpha * (10 + hAnim * 6))), R - 0.5f, 0, 1.f);
 
-        // ── icon area (top-center) ──
-        const float iconY = p0.y + 26.f;
+        // ── icon plate (top-center) ──
         const float iconR = 22.f;
-        ImVec2 iconC{ (p0.x + p1.x) * 0.5f, iconY + iconR * 0.4f };
+        ImVec2 iconC{ (p0.x + p1.x) * 0.5f, p0.y + 32.f };
 
-        bool isOn = (f.enabled && *f.enabled);
-        // accent halo if enabled
         if (isOn) {
             float pulse = 0.5f + 0.5f * sinf((float)ImGui::GetTime() * 2.4f);
             for (int g = 0; g < 3; ++g) {
-                float gr = iconR + 6.f + g * 4.f + pulse * 2.f;
-                int   ga = (int)((30 - g * 9) * menuAlpha);
-                dl->AddCircleFilled(iconC, gr, EvoAccent(ga));
+                float gr = iconR + 6.f + g * 4.5f + pulse * 2.5f;
+                int   ga = (int)((34 - g * 10) * menuAlpha);
+                dl->AddCircleFilled(iconC, gr, EvoAccent(ga), 32);
             }
         }
-        // icon plate
         ImU32 plateFill = isOn
-            ? EvoAccent((int)((38 + hAnim * 22) * menuAlpha))
-            : IM_COL32(28, 26, 42, (int)((180 + hAnim * 30) * menuAlpha));
+            ? EvoAccent((int)((48 + hAnim * 22) * menuAlpha))
+            : IM_COL32(28, 26, 42, (int)((190 + hAnim * 30) * menuAlpha));
         dl->AddCircleFilled(iconC, iconR, plateFill, 32);
         dl->AddCircle(iconC, iconR,
-            isOn ? EvoAccent((int)(220 * menuAlpha))
-                 : IM_COL32(60, 56, 86, (int)(200 * menuAlpha)),
+            isOn ? EvoAccent((int)(225 * menuAlpha))
+                 : IM_COL32(64, 60, 92, (int)(210 * menuAlpha)),
             32, 1.f);
 
         ImU32 iconCol = isOn
-            ? EvoAccent((int)(245 * menuAlpha))
-            : IM_COL32(180, 180, 200, (int)((220 + hAnim * 30) * menuAlpha));
-        DrawFeatureIcon(dl, f.icon, iconC, 14.f, iconCol);
+            ? IM_COL32(255, 255, 255, (int)(245 * menuAlpha))
+            : IM_COL32(178, 178, 200, (int)((220 + hAnim * 30) * menuAlpha));
+        DrawFeatureIcon(dl, f.icon, iconC, 13.f, iconCol);
 
-        // ── name ──
-        ImVec2 nmSz = ImGui::CalcTextSize(f.name);
-        float  nameY = iconY + iconR * 2.f + 8.f;
+        // ── name + subtitle ──
+        ImVec2 nmSz   = ImGui::CalcTextSize(f.name);
+        const float nameY = iconC.y + iconR + 10.f;
         dl->AddText({ (p0.x + p1.x - nmSz.x) * 0.5f, nameY },
-            IM_COL32(232, 232, 245, (int)(245 * menuAlpha)), f.name);
-
-        // subtitle
+            IM_COL32(238, 238, 248, (int)(248 * menuAlpha)), f.name);
         if (f.subtitle && *f.subtitle) {
             ImVec2 stSz = ImGui::CalcTextSize(f.subtitle);
-            dl->AddText({ (p0.x + p1.x - stSz.x) * 0.5f, nameY + nmSz.y + 2.f },
-                IM_COL32(120, 120, 140, (int)(200 * menuAlpha)), f.subtitle);
+            dl->AddText({ (p0.x + p1.x - stSz.x) * 0.5f, nameY + nmSz.y + 1.f },
+                IM_COL32(126, 126, 146, (int)(210 * menuAlpha)), f.subtitle);
         }
 
-        // ── bottom action row: OPTIONS button (left) + toggle (right) ──
-        const float rowH  = 30.f;
-        const float rowY0 = p1.y - rowH - 10.f;
-        const float rowY1 = p1.y - 10.f;
+        // ── bottom action row ──
+        const float rowH  = 28.f;
+        const float rowY0 = p1.y - rowH - 9.f;
+        const float rowY1 = p1.y - 9.f;
         const float rowMx = (p0.x + p1.x) * 0.5f;
         bool clickedOptions = false;
 
-        // OPTIONS button (left half)
+        // Use a stable ID scope per-card so children don't collide across cards
+        ImGui::PushID((const void*)&f);
+
+        // OPTIONS button (left half) ─ submitted FIRST so it owns its rect
         {
-            ImVec2 bTL{ p0.x + 10.f, rowY0 };
+            ImVec2 bTL{ p0.x + 9.f, rowY0 };
             ImVec2 bBR{ rowMx - 4.f, rowY1 };
             ImGui::SetCursorScreenPos(bTL);
-            ImGui::PushID((int)(intptr_t)f.name);
-            bool clicked = ImGui::InvisibleButton("##opt",
-                { bBR.x - bTL.x, bBR.y - bTL.y });
-            bool bh = ImGui::IsItemHovered();
-            ImGui::PopID();
-            float bA = AnimStep((const void*)((const char*)f.name + 1), bh, 16.f, dt);
-            ImU32 bFill = IM_COL32(28 + (int)(bA * 8), 26 + (int)(bA * 8),
-                42 + (int)(bA * 14), (int)((200 + bA * 30) * menuAlpha));
-            dl->AddRectFilled(bTL, bBR, bFill, 7.f);
-            dl->AddRect(bTL, bBR,
-                IM_COL32(60, 56, 86, (int)((180 + bA * 50) * menuAlpha)), 7.f, 0, 1.f);
+            bool clicked = ImGui::InvisibleButton("opt", { bBR.x - bTL.x, bBR.y - bTL.y });
+            bool bh      = ImGui::IsItemHovered();
+            bool bd      = ImGui::IsItemActive();
+            float bA     = AnimStep((const void*)((const char*)&f + 1), bh, 18.f, dt);
+            float pressShift = bd ? 1.f : 0.f;
+            ImVec2 dTL{ bTL.x, bTL.y + pressShift };
+            ImVec2 dBR{ bBR.x, bBR.y + pressShift };
+            ImU32 bFill = IM_COL32(30 + (int)(bA * 10), 28 + (int)(bA * 10),
+                46 + (int)(bA * 16), (int)((210 + bA * 30) * menuAlpha));
+            dl->AddRectFilled(dTL, dBR, bFill, 7.f);
+            dl->AddRect(dTL, dBR,
+                IM_COL32(64, 60, 92, (int)((180 + bA * 60) * menuAlpha)), 7.f, 0, 1.f);
+            // tiny chevron + label
+            float chx = dTL.x + 12.f, chy = (dTL.y + dBR.y) * 0.5f;
+            dl->AddLine({ chx,        chy - 3.5f }, { chx + 4.f, chy }, IM_COL32(220,220,235,(int)(220*menuAlpha)), 1.4f);
+            dl->AddLine({ chx + 4.f,  chy        }, { chx,        chy + 3.5f }, IM_COL32(220,220,235,(int)(220*menuAlpha)), 1.4f);
             const char* lbl = "OPTIONS";
             ImVec2 lSz = ImGui::CalcTextSize(lbl);
-            dl->AddText({ (bTL.x + bBR.x - lSz.x) * 0.5f, (bTL.y + bBR.y - lSz.y) * 0.5f },
-                IM_COL32(220, 220, 235, (int)(225 * menuAlpha)), lbl);
+            dl->AddText({ (dTL.x + dBR.x - lSz.x) * 0.5f + 5.f, (dTL.y + dBR.y - lSz.y) * 0.5f },
+                IM_COL32(220, 220, 235, (int)(228 * menuAlpha)), lbl);
             if (clicked) clickedOptions = true;
         }
 
-        // Toggle pill (right half) — only if feature has bool*
+        // Toggle pill (right half)
         if (f.enabled)
         {
             ImVec2 tTL{ rowMx + 4.f, rowY0 };
-            ImVec2 tBR{ p1.x - 10.f, rowY1 };
+            ImVec2 tBR{ p1.x - 9.f, rowY1 };
             ImGui::SetCursorScreenPos(tTL);
-            ImGui::PushID((int)(intptr_t)f.name + 99);
-            bool clicked = ImGui::InvisibleButton("##tog",
-                { tBR.x - tTL.x, tBR.y - tTL.y });
-            bool bh = ImGui::IsItemHovered();
-            ImGui::PopID();
+            bool clicked = ImGui::InvisibleButton("tog", { tBR.x - tTL.x, tBR.y - tTL.y });
+            bool bh      = ImGui::IsItemHovered();
+            bool bd      = ImGui::IsItemActive();
             if (clicked) *f.enabled = !*f.enabled;
 
-            float onA = AnimStep((const void*)((const char*)f.name + 2), *f.enabled, 12.f, dt);
-            // colored fill: red→green via accent (but use red/green for the mod-menu vibe)
-            ImU32 redFill   = IM_COL32(140, 38, 50,  (int)((215 + bh * 25) * menuAlpha));
-            ImU32 greenFill = EvoAccent((int)((215 + bh * 25) * menuAlpha));
-            // lerp colors via channel mix
-            int rR = 140 + (int)((((primaryColor[0] * 255) - 140) * onA));
-            int gG =  38 + (int)((((primaryColor[1] * 255) -  38) * onA));
-            int bB =  50 + (int)((((primaryColor[2] * 255) -  50) * onA));
-            ImU32 fill = IM_COL32(rR, gG, bB, (int)((215 + bh * 25) * menuAlpha));
-            dl->AddRectFilled(tTL, tBR, fill, 7.f);
-            // top sliver
+            float onA = AnimStep((const void*)((const char*)&f + 2), *f.enabled, 14.f, dt);
+            float pressShift = bd ? 1.f : 0.f;
+            ImVec2 dTL{ tTL.x, tTL.y + pressShift };
+            ImVec2 dBR{ tBR.x, tBR.y + pressShift };
+            // off → muted red, on → primaryColor
+            int rR = 132 + (int)((((primaryColor[0] * 255) - 132) * onA));
+            int gG =  42 + (int)((((primaryColor[1] * 255) -  42) * onA));
+            int bB =  54 + (int)((((primaryColor[2] * 255) -  54) * onA));
+            int aA = (int)((215 + (bh ? 25 : 0)) * menuAlpha);
+            ImU32 fill = IM_COL32(rR, gG, bB, aA);
+            dl->AddRectFilled(dTL, dBR, fill, 7.f);
+            // glossy sliver on top
             dl->AddRectFilledMultiColor(
-                { tTL.x + 8.f, tTL.y + 1.f }, { tBR.x - 8.f, tTL.y + 2.2f },
+                { dTL.x + 8.f, dTL.y + 1.f }, { dBR.x - 8.f, dTL.y + 2.4f },
                 IM_COL32(255,255,255,0),
-                IM_COL32(255,255,255,(int)(80 * menuAlpha)),
-                IM_COL32(255,255,255,(int)(80 * menuAlpha)),
+                IM_COL32(255,255,255,(int)(90 * menuAlpha)),
+                IM_COL32(255,255,255,(int)(90 * menuAlpha)),
                 IM_COL32(255,255,255,0));
-            dl->AddRect(tTL, tBR,
-                IM_COL32(255, 255, 255, (int)((30 + bh * 30) * menuAlpha)), 7.f, 0, 1.f);
+            dl->AddRect(dTL, dBR,
+                IM_COL32(255, 255, 255, (int)((34 + bh * 30) * menuAlpha)), 7.f, 0, 1.f);
 
-            const char* lbl = *f.enabled ? "ENABLED" : "DISABLED";
+            // small dot indicator (slides from left=off to right=on)
+            float dotR  = 4.f;
+            float padX  = 9.f;
+            float dotX  = dTL.x + padX + dotR + (dBR.x - dTL.x - padX*2.f - dotR*2.f) * onA;
+            float dotY  = (dTL.y + dBR.y) * 0.5f;
+            dl->AddCircleFilled({ dotX, dotY }, dotR, IM_COL32(255,255,255,(int)(245*menuAlpha)), 14);
+            dl->AddCircle      ({ dotX, dotY }, dotR + 0.6f, IM_COL32(0,0,0,(int)(60*menuAlpha)), 14, 1.f);
+
+            const char* lbl = *f.enabled ? "ON" : "OFF";
             ImVec2 lSz = ImGui::CalcTextSize(lbl);
-            dl->AddText({ (tTL.x + tBR.x - lSz.x) * 0.5f, (tTL.y + tBR.y - lSz.y) * 0.5f },
+            // place label opposite to dot
+            float lblX = *f.enabled
+                ? dTL.x + padX + 4.f
+                : dBR.x - padX - 4.f - lSz.x;
+            dl->AddText({ lblX, (dTL.y + dBR.y - lSz.y) * 0.5f },
                 IM_COL32(255, 255, 255, (int)(245 * menuAlpha)), lbl);
         }
 
-        // restore cursor to bottom of card (consumed)
+        ImGui::PopID();
+
+        // restore cursor to bottom of card (so layout flows)
         ImGui::SetCursorScreenPos({ p0.x, p1.y });
         return clickedOptions;
     }
 
-    // ── Grid renderer ─────────────────────────────────────────
+    // ── Grid renderer (with slide-in animation) ──────────────
     inline void DrawFeatureGrid(int tab, float dt, ImVec2 areaSz)
     {
         int count = 0;
@@ -2902,16 +3039,31 @@ namespace Menu
         if (!feats || count == 0) return;
 
         const int   COLS    = 3;
-        const float COL_GAP = 10.f;
-        const float ROW_GAP = 10.f;
-        const float CARD_H  = 165.f;
+        const float COL_GAP = 11.f;
+        const float ROW_GAP = 11.f;
+        const float CARD_H  = 168.f;
         const float CARD_W  = (areaSz.x - COL_GAP * (COLS - 1)) / (float)COLS;
+
+        // Slide offset: when leaving page (pageDir=-1), grid slides in from left.
+        // When loading tab (no transition needed) anim is 1.
+        float slide = 0.f;
+        if (pageAnim < 1.f && tab == pageAnimTab && pageDir < 0) {
+            float u = 1.f - pageAnim;
+            // ease-out
+            u = 1.f - (1.f - u) * (1.f - u);
+            slide = -u * areaSz.x * 0.35f;
+        }
 
         ImVec2 origin = ImGui::GetCursorScreenPos();
         for (int i = 0; i < count; ++i) {
             int col = i % COLS;
             int row = i / COLS;
-            ImVec2 cp{ origin.x + col * (CARD_W + COL_GAP),
+            // staggered fade: each card fades in slightly later
+            float cardDelay = (float)(row * 0.04f + col * 0.02f);
+            float cardA = pageAnim - cardDelay;
+            if (cardA < 0.f) cardA = 0.f;
+            if (cardA > 1.f) cardA = 1.f;
+            ImVec2 cp{ origin.x + col * (CARD_W + COL_GAP) + slide,
                        origin.y + row * (CARD_H + ROW_GAP) };
             ImGui::SetCursorScreenPos(cp);
             if (DrawFeatureCard(feats[i], { CARD_W, CARD_H }, dt)) {
@@ -2919,6 +3071,7 @@ namespace Menu
                 pageStack[tab] = i;
                 pageAnim       = 0.f;
                 pageAnimTab    = tab;
+                pageDir        = +1;
             }
         }
     }
@@ -2933,54 +3086,127 @@ namespace Menu
         }
         const FeatureDef& f = feats[pageStack[tab]];
         ImDrawList* dl = ImGui::GetWindowDrawList();
-        ImVec2 origin  = ImGui::GetCursorScreenPos();
 
-        // ── header ──
-        const float HDR = 38.f;
+        // Slide-in offset (page enters from right)
+        float slide = 0.f;
+        if (pageAnim < 1.f && tab == pageAnimTab && pageDir > 0) {
+            float u = 1.f - pageAnim;
+            u = 1.f - (1.f - u) * (1.f - u);
+            slide = u * areaSz.x * 0.35f;
+        }
+        ImVec2 origin = ImGui::GetCursorScreenPos();
+        origin.x += slide;
+        ImGui::SetCursorScreenPos(origin);
+
+        // ── header card ──
+        const float HDR = 46.f;
         ImVec2 hTL = origin;
         ImVec2 hBR = { origin.x + areaSz.x, origin.y + HDR };
+        // header background
+        dl->AddRectFilled(hTL, hBR,
+            IM_COL32(20, 18, 32, (int)(220 * menuAlpha)), 12.f);
+        dl->AddRect(hTL, hBR,
+            IM_COL32(54, 50, 80, (int)(180 * menuAlpha)), 12.f, 0, 1.f);
+        // glossy sliver
+        dl->AddRectFilledMultiColor(
+            { hTL.x + 16.f, hTL.y + 1.f }, { hBR.x - 16.f, hTL.y + 2.6f },
+            IM_COL32(255,255,255,0),
+            IM_COL32(255,255,255,(int)(75 * menuAlpha)),
+            IM_COL32(255,255,255,(int)(75 * menuAlpha)),
+            IM_COL32(255,255,255,0));
 
         // back button
-        ImVec2 bTL{ hTL.x, hTL.y + 4.f };
-        ImVec2 bBR{ hTL.x + 70.f, hTL.y + HDR - 4.f };
+        ImVec2 bTL{ hTL.x + 8.f, hTL.y + 8.f };
+        ImVec2 bBR{ hTL.x + 78.f, hBR.y - 8.f };
         ImGui::SetCursorScreenPos(bTL);
         bool backClicked = ImGui::InvisibleButton("##back", { bBR.x - bTL.x, bBR.y - bTL.y });
         bool bh = ImGui::IsItemHovered();
-        float bA = AnimStep((const void*)"##back", bh, 16.f, dt);
-        dl->AddRectFilled(bTL, bBR,
-            IM_COL32(28 + (int)(bA*8), 26 + (int)(bA*8), 44 + (int)(bA*14),
-                (int)((200 + bA*30) * menuAlpha)), 7.f);
-        dl->AddRect(bTL, bBR,
-            IM_COL32(60, 56, 86, (int)((180 + bA*50) * menuAlpha)), 7.f, 0, 1.f);
-        // back arrow
-        float ax = bTL.x + 14.f, ay = (bTL.y + bBR.y) * 0.5f;
-        dl->AddLine({ ax + 6.f, ay - 5.f }, { ax, ay }, IM_COL32(220,220,235,(int)(230*menuAlpha)), 1.6f);
-        dl->AddLine({ ax + 6.f, ay + 5.f }, { ax, ay }, IM_COL32(220,220,235,(int)(230*menuAlpha)), 1.6f);
+        bool bd = ImGui::IsItemActive();
+        float bA = AnimStep((const void*)"##back", bh, 18.f, dt);
+        float ps = bd ? 1.f : 0.f;
+        ImVec2 dTL{ bTL.x, bTL.y + ps }, dBR{ bBR.x, bBR.y + ps };
+        dl->AddRectFilled(dTL, dBR,
+            IM_COL32(30 + (int)(bA*10), 28 + (int)(bA*10), 46 + (int)(bA*16),
+                (int)((210 + bA*30) * menuAlpha)), 7.f);
+        dl->AddRect(dTL, dBR,
+            IM_COL32(64, 60, 92, (int)((180 + bA*60) * menuAlpha)), 7.f, 0, 1.f);
+        // chevron + label
+        float ax = dTL.x + 14.f, ay = (dTL.y + dBR.y) * 0.5f;
+        dl->AddLine({ ax + 5.f, ay - 4.5f }, { ax, ay }, IM_COL32(220,220,235,(int)(230*menuAlpha)), 1.6f);
+        dl->AddLine({ ax + 5.f, ay + 4.5f }, { ax, ay }, IM_COL32(220,220,235,(int)(230*menuAlpha)), 1.6f);
         dl->AddText({ ax + 14.f, ay - ImGui::GetFontSize() * 0.5f },
-            IM_COL32(220, 220, 235, (int)(230 * menuAlpha)), "BACK");
+            IM_COL32(220, 220, 235, (int)(232 * menuAlpha)), "BACK");
 
-        if (backClicked) { prevPage[tab] = pageStack[tab]; pageStack[tab] = -1; pageAnim = 0.f; pageAnimTab = tab; }
+        if (backClicked) {
+            prevPage[tab] = pageStack[tab];
+            pageStack[tab] = -1;
+            pageAnim = 0.f;
+            pageAnimTab = tab;
+            pageDir = -1;
+        }
 
-        // mini icon + name (right of back button)
-        float ix = bBR.x + 14.f;
-        float iy = (hTL.y + hBR.y) * 0.5f;
-        DrawFeatureIcon(dl, f.icon, { ix + 9.f, iy }, 9.f, EvoAccent((int)(245 * menuAlpha)));
-        dl->AddText({ ix + 26.f, iy - ImGui::GetFontSize() * 0.5f },
-            IM_COL32(235, 235, 245, (int)(245 * menuAlpha)), f.name);
+        // mini icon plate + name (next to back button)
+        bool isOn = (f.enabled && *f.enabled);
+        float ix  = bBR.x + 14.f;
+        float iy  = (hTL.y + hBR.y) * 0.5f;
+        float pR  = 13.f;
+        ImU32 plateFill = isOn
+            ? EvoAccent((int)(58 * menuAlpha))
+            : IM_COL32(28, 26, 42, (int)(200 * menuAlpha));
+        dl->AddCircleFilled({ ix + pR, iy }, pR, plateFill, 24);
+        dl->AddCircle({ ix + pR, iy }, pR,
+            isOn ? EvoAccent((int)(220 * menuAlpha))
+                 : IM_COL32(64, 60, 92, (int)(200 * menuAlpha)), 24, 1.f);
+        DrawFeatureIcon(dl, f.icon, { ix + pR, iy }, 8.f,
+            isOn ? IM_COL32(255,255,255,(int)(245*menuAlpha))
+                 : IM_COL32(180,180,200,(int)(225*menuAlpha)));
 
-        // hairline divider
-        dl->AddRectFilled({ hTL.x + 4.f, hBR.y },
-            { hBR.x - 4.f, hBR.y + 1.f },
-            IM_COL32(60, 56, 86, (int)(110 * menuAlpha)));
+        // name + subtitle
+        float txtX = ix + pR * 2.f + 12.f;
+        dl->AddText({ txtX, iy - ImGui::GetFontSize() - 1.f },
+            IM_COL32(238, 238, 248, (int)(248 * menuAlpha)), f.name);
+        if (f.subtitle && *f.subtitle) {
+            dl->AddText({ txtX, iy + 2.f },
+                IM_COL32(126, 126, 146, (int)(210 * menuAlpha)), f.subtitle);
+        }
 
-        // ── content (scrollable child) ──
-        ImVec2 cTL{ origin.x, hBR.y + 8.f };
-        ImGui::SetCursorScreenPos(cTL);
+        // status pill on right
+        if (f.enabled) {
+            const char* st = *f.enabled ? "ENABLED" : "DISABLED";
+            ImVec2 sSz = ImGui::CalcTextSize(st);
+            float sw = sSz.x + 18.f, sh = 22.f;
+            ImVec2 sTL{ hBR.x - sw - 10.f, iy - sh * 0.5f };
+            ImVec2 sBR{ hBR.x - 10.f, iy + sh * 0.5f };
+            int rR2 = *f.enabled ? (int)(primaryColor[0] * 255) : 132;
+            int gG2 = *f.enabled ? (int)(primaryColor[1] * 255) :  42;
+            int bB2 = *f.enabled ? (int)(primaryColor[2] * 255) :  54;
+            dl->AddRectFilled(sTL, sBR, IM_COL32(rR2, gG2, bB2, (int)(220 * menuAlpha)), 6.f);
+            dl->AddRect(sTL, sBR, IM_COL32(255,255,255,(int)(34*menuAlpha)), 6.f, 0, 1.f);
+            dl->AddText({ (sTL.x + sBR.x - sSz.x) * 0.5f, (sTL.y + sBR.y - sSz.y) * 0.5f },
+                IM_COL32(255,255,255,(int)(245*menuAlpha)), st);
+        }
+
+        // ── content card ──
+        ImVec2 cTL{ origin.x, hBR.y + 10.f };
+        ImVec2 cBR{ origin.x + areaSz.x, origin.y + areaSz.y };
+        // bg
+        dl->AddRectFilled(cTL, cBR,
+            IM_COL32(18, 16, 28, (int)(180 * menuAlpha)), 12.f);
+        dl->AddRect(cTL, cBR,
+            IM_COL32(50, 46, 74, (int)(150 * menuAlpha)), 12.f, 0, 1.f);
+        dl->AddRectFilledMultiColor(
+            { cTL.x + 16.f, cTL.y + 1.f }, { cBR.x - 16.f, cTL.y + 2.4f },
+            IM_COL32(255,255,255,0),
+            IM_COL32(255,255,255,(int)(60 * menuAlpha)),
+            IM_COL32(255,255,255,(int)(60 * menuAlpha)),
+            IM_COL32(255,255,255,0));
+
+        ImGui::SetCursorScreenPos({ cTL.x + 4.f, cTL.y + 4.f });
         ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(0, 0, 0, 0));
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 8.f, 6.f });
-        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing,   { 8.f, 5.f });
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 14.f, 12.f });
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing,   { 8.f, 6.f });
         if (ImGui::BeginChild("##fpgcnt",
-                { areaSz.x, areaSz.y - HDR - 8.f }, false))
+                { areaSz.x - 8.f, areaSz.y - HDR - 18.f }, false))
         {
             ImGuiErrorRecoveryState rs;
             ImGui::ErrorRecoveryStoreState(&rs);
