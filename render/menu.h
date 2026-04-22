@@ -2366,8 +2366,6 @@ namespace Menu
     // ── AIM tab ────────────────────────────────────────────────
     inline void Pg_Aimbot()
     {
-        EvoCheckbox("Enable", &Aimbot::cfg.enabled);
-        SynthSep();
         const char* akn[] = { "Auto (Mouse1)", "Right Click", "Always On" };
         EvoCombo("Aim Key##ak", &Aimbot::cfg.aimKey, akn, 3);
         SynthSep();
@@ -2418,62 +2416,44 @@ namespace Menu
     }
     inline void Pg_Triggerbot()
     {
-        EvoCheckbox("Enable##trig",      &Triggerbot::cfg.enabled);
-        if (Triggerbot::cfg.enabled)
-        {
-            SynthSep(); EvoCheckbox("Team Check##ttc",   &Triggerbot::cfg.teamCheck);
-            SynthSep(); EvoCheckbox("Smoke Check##tsc",  &Triggerbot::cfg.smokeCheck);
-            SynthSep(); EvoCheckbox("Scope Only##tso",   &Triggerbot::cfg.scopeOnly);
-            SynthSep(); ImGui::SliderInt("Min Delay##tmd", &Triggerbot::cfg.minDelayMs, 0, 200);
-            SynthSep(); ImGui::SliderInt("Max Delay##txd", &Triggerbot::cfg.maxDelayMs, 0, 300);
-        }
+        EvoCheckbox("Team Check##ttc",   &Triggerbot::cfg.teamCheck);
+        SynthSep(); EvoCheckbox("Smoke Check##tsc",  &Triggerbot::cfg.smokeCheck);
+        SynthSep(); EvoCheckbox("Scope Only##tso",   &Triggerbot::cfg.scopeOnly);
+        SynthSep(); ImGui::SliderInt("Min Delay##tmd", &Triggerbot::cfg.minDelayMs, 0, 200);
+        SynthSep(); ImGui::SliderInt("Max Delay##txd", &Triggerbot::cfg.maxDelayMs, 0, 300);
     }
     inline void Pg_Bhop()
     {
-        EvoCheckbox("Enable##bhop", &Bhop::cfg.enabled);
-        if (Bhop::cfg.enabled) {
-            SynthSep(); EvoSliderFloat("Max Speed##bms", &Bhop::cfg.maxSpeed, 200.f, 500.f, "%.0f");
-            SynthSep(); EvoSliderFloat("Min Speed##bns", &Bhop::cfg.minSpeed,  10.f, 120.f, "%.0f");
-            SynthSep(); EvoCheckbox("Auto Strafe##bs",   &Bhop::cfg.autoStrafe);
-        }
+        EvoSliderFloat("Max Speed##bms", &Bhop::cfg.maxSpeed, 200.f, 500.f, "%.0f");
+        SynthSep(); EvoSliderFloat("Min Speed##bns", &Bhop::cfg.minSpeed,  10.f, 120.f, "%.0f");
+        SynthSep(); EvoCheckbox("Auto Strafe##bs",   &Bhop::cfg.autoStrafe);
         SynthSep(); EvoCheckbox("Velocity Display##bvd", &Bhop::cfg.showVelocity);
     }
     inline void Pg_Backtrack()
     {
-        EvoCheckbox("Enable##bt", &Backtrack::cfg.enabled);
-        if (Backtrack::cfg.enabled) {
-            SynthSep(); ImGui::SliderInt("Max Ticks##btmt", &Backtrack::cfg.maxTicksBack, 1, 20);
-            SynthSep(); EvoCheckbox("Draw History##btdh", &Backtrack::cfg.drawHistory);
-        }
+        ImGui::SliderInt("Max Ticks##btmt", &Backtrack::cfg.maxTicksBack, 1, 20);
+        SynthSep(); EvoCheckbox("Draw History##btdh", &Backtrack::cfg.drawHistory);
     }
     inline void Pg_AntiAim()
     {
-        EvoCheckbox("Enable##aa", &AntiAim::cfg.enabled);
-        if (AntiAim::cfg.enabled) {
-            static const char* pitchModes[] = { "Off", "Down", "Up", "Zero" };
-            static const char* yawModes[]   = { "Off", "Spin", "Jitter", "Desync" };
-            SynthSep(); ImGui::Combo("Pitch##aap", &AntiAim::cfg.pitchMode, pitchModes, 4);
-            SynthSep(); ImGui::Combo("Yaw##aay",   &AntiAim::cfg.yawMode,   yawModes,   4);
-            if (AntiAim::cfg.yawMode == 1) { SynthSep(); EvoSliderFloat("Speed##aas", &AntiAim::cfg.spinSpeed, 1.f, 45.f, "%.0f"); }
-            if (AntiAim::cfg.yawMode == 3) { SynthSep(); EvoSliderFloat("Delta##aad", &AntiAim::cfg.desyncDelta, 10.f, 58.f, "%.0f"); }
-        }
+        static const char* pitchModes[] = { "Off", "Down", "Up", "Zero" };
+        static const char* yawModes[]   = { "Off", "Spin", "Jitter", "Desync" };
+        ImGui::Combo("Pitch##aap", &AntiAim::cfg.pitchMode, pitchModes, 4);
+        SynthSep(); ImGui::Combo("Yaw##aay",   &AntiAim::cfg.yawMode,   yawModes,   4);
+        if (AntiAim::cfg.yawMode == 1) { SynthSep(); EvoSliderFloat("Speed##aas", &AntiAim::cfg.spinSpeed, 1.f, 45.f, "%.0f"); }
+        if (AntiAim::cfg.yawMode == 3) { SynthSep(); EvoSliderFloat("Delta##aad", &AntiAim::cfg.desyncDelta, 10.f, 58.f, "%.0f"); }
     }
     inline void Pg_FakeLag()
     {
-        EvoCheckbox("Enable##fl", &FakeLag::cfg.enabled);
-        if (FakeLag::cfg.enabled) {
-            static const char* flModes[] = { "Fixed", "Dynamic", "On Key" };
-            SynthSep(); ImGui::Combo("Mode##flm", &FakeLag::cfg.mode, flModes, 3);
-            SynthSep(); ImGui::SliderInt("Max Choke##flmc", &FakeLag::cfg.maxChoke, 1, 14);
-        }
+        static const char* flModes[] = { "Fixed", "Dynamic", "On Key" };
+        ImGui::Combo("Mode##flm", &FakeLag::cfg.mode, flModes, 3);
+        SynthSep(); ImGui::SliderInt("Max Choke##flmc", &FakeLag::cfg.maxChoke, 1, 14);
     }
 
     // ── VIS tab ────────────────────────────────────────────────
     inline void Pg_ESP()
     {
-        EvoCheckbox("Enable ESP", &ESP::cfg.enabled);
-        if (!ESP::cfg.enabled) return;
-        SynthSep(); EvoCheckbox("Box",       &ESP::cfg.box);
+        EvoCheckbox("Box",       &ESP::cfg.box);
         if (ESP::cfg.box) { SynthSep(); const char* bst[]={"Normal","Corners"}; EvoCombo("Style##bs",&ESP::cfg.boxStyle,bst,2); }
         SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
         ImGui::ColorEdit4("Box Color##bc", ESP::cfg.boxColor, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
@@ -2496,9 +2476,7 @@ namespace Menu
     }
     inline void Pg_Chams()
     {
-        EvoCheckbox("Enable Chams", &Chams::cfg.enabled);
-        if (!Chams::cfg.enabled) return;
-        SynthSep(); EvoCheckbox("Wallhack##cw", &Chams::cfg.wallhack);
+        EvoCheckbox("Wallhack##cw", &Chams::cfg.wallhack);
         auto SlotW = [](const char* n, Chams::SlotStyle& sl) {
             ImGui::PushID(n);
             if (sl.material < 0 || sl.material >= Chams::MAT_COUNT) sl.material = Chams::MAT_NONE;
@@ -2525,15 +2503,16 @@ namespace Menu
         SynthSep(); EvoCheckbox("Weapon Chams##wc", &Chams::cfg.weaponsEnabled);
         if (Chams::cfg.weaponsEnabled) { SynthSep(); SlotW("Weapons", Chams::cfg.weapons); }
     }
-    inline void Pg_Tracers()    { EvoCheckbox("Enable", &BulletTracer::cfg.enabled); }
+    inline void Pg_Tracers()
+    {
+        ImGui::TextColored({0.7f,0.7f,0.8f,0.85f}, "No additional options.");
+        ImGui::TextColored({0.55f,0.55f,0.65f,0.7f}, "Use the toggle on the card to enable.");
+    }
     inline void Pg_DamageInd()
     {
-        EvoCheckbox("Enable", &DamageIndicator::cfg.enabled);
-        if (DamageIndicator::cfg.enabled) {
-            SynthSep(); const char* dp[]={"Left","Right"}; const char* ds[]={"Classic","Minimal","Bold"};
-            EvoCombo("Position##dp", &DamageIndicator::cfg.position, dp, 2);
-            SynthSep(); EvoCombo("Style##ds",    &DamageIndicator::cfg.style,    ds, 3);
-        }
+        const char* dp[]={"Left","Right"}; const char* ds[]={"Classic","Minimal","Bold"};
+        EvoCombo("Position##dp", &DamageIndicator::cfg.position, dp, 2);
+        SynthSep(); EvoCombo("Style##ds",    &DamageIndicator::cfg.style,    ds, 3);
     }
     inline void Pg_Spectators()
     {
@@ -2541,42 +2520,35 @@ namespace Menu
         if (ESP::cfg.spectators) { SynthSep(); const char* sps[]={"Classic","Stealth","Minimal"};
             EvoCombo("List Style##sls", &ESP::cfg.spectatorStyle, sps, 3); }
     }
-    inline void Pg_RankReveal() { EvoCheckbox("Enable", &RankRevealer::cfg.enabled); }
+    inline void Pg_RankReveal()
+    {
+        ImGui::TextColored({0.7f,0.7f,0.8f,0.85f}, "No additional options.");
+        ImGui::TextColored({0.55f,0.55f,0.65f,0.7f}, "Use the toggle on the card to enable.");
+    }
     inline void Pg_NadePred()
     {
-        EvoCheckbox("Enable##gp", &GrenadePrediction::cfg.enabled);
-        if (GrenadePrediction::cfg.enabled) {
-            SynthSep(); EvoCheckbox("Show Trail##gt",   &GrenadePrediction::cfg.showTrail);
-            SynthSep(); EvoCheckbox("Show Landing##gl", &GrenadePrediction::cfg.showLanding);
-            SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-            ImGui::ColorEdit4("Trail##tc", GrenadePrediction::cfg.trailColor, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
-        }
+        EvoCheckbox("Show Trail##gt",   &GrenadePrediction::cfg.showTrail);
+        SynthSep(); EvoCheckbox("Show Landing##gl", &GrenadePrediction::cfg.showLanding);
+        SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::ColorEdit4("Trail##tc", GrenadePrediction::cfg.trailColor, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
     }
     inline void Pg_NadeHelper()
     {
-        EvoCheckbox("Enable##nh", &NadeHelper::cfg.enabled);
-        if (NadeHelper::cfg.enabled) {
-            SynthSep(); EvoSliderFloat("Trigger Dist##nt", &NadeHelper::cfg.triggerDist,  50.f, 300.f, "%.0f");
-            SynthSep(); EvoSliderFloat("Aim Tol##na",      &NadeHelper::cfg.aimTolerance,  1.f,  10.f, "%.1f");
-        }
+        EvoSliderFloat("Trigger Dist##nt", &NadeHelper::cfg.triggerDist,  50.f, 300.f, "%.0f");
+        SynthSep(); EvoSliderFloat("Aim Tol##na",      &NadeHelper::cfg.aimTolerance,  1.f,  10.f, "%.1f");
     }
     inline void Pg_SoundESP()
     {
-        EvoCheckbox("Enable##sesp", &SoundESP::cfg.enabled);
-        if (SoundESP::cfg.enabled) {
-            SynthSep(); EvoCheckbox("Footstep Marks##sfm", &SoundESP::cfg.showFootsteps);
-            SynthSep(); EvoSliderFloat("Max Dist##smd",  &SoundESP::cfg.maxDistance, 500.f, 4000.f, "%.0f");
-            SynthSep(); EvoSliderFloat("Ring Size##srs", &SoundESP::cfg.ringRadius,   30.f, 150.f, "%.0f");
-            SynthSep(); EvoSliderFloat("Arrow Size##sas",&SoundESP::cfg.indicatorSize,15.f,  80.f, "%.0f");
-        }
+        EvoCheckbox("Footstep Marks##sfm", &SoundESP::cfg.showFootsteps);
+        SynthSep(); EvoSliderFloat("Max Dist##smd",  &SoundESP::cfg.maxDistance, 500.f, 4000.f, "%.0f");
+        SynthSep(); EvoSliderFloat("Ring Size##srs", &SoundESP::cfg.ringRadius,   30.f, 150.f, "%.0f");
+        SynthSep(); EvoSliderFloat("Arrow Size##sas",&SoundESP::cfg.indicatorSize,15.f,  80.f, "%.0f");
     }
 
     // ── SKN tab ────────────────────────────────────────────────
     inline void Pg_SkinChanger()
     {
-        EvoCheckbox("Enable Skin Changer", &SkinChanger::cfg.enabled);
-        if (!SkinChanger::cfg.enabled) return;
-        SynthSep(); if (EvoButton("Randomize All##ra")) SkinChanger::RandomizeAll();
+        if (EvoButton("Randomize All##ra")) SkinChanger::RandomizeAll();
         SynthSep(); if (EvoButton("Force Update##fu")) {
             SkinChanger::ForceFullUpdate();
             SkinChanger::lastKnifeDefIdx = 0;
@@ -2607,9 +2579,6 @@ namespace Menu
     }
     inline void Pg_Knife()
     {
-        EvoCheckbox("Enable##kc", &SkinChanger::cfg.knifeEnabled);
-        if (!SkinChanger::cfg.knifeEnabled) return;
-        SynthSep();
         static const char* kn[SkinChanger::kKnifeCount]{};
         static bool knInit = false;
         if (!knInit) { for (int i = 0; i < SkinChanger::kKnifeCount; ++i) kn[i] = SkinChanger::kKnives[i].name; knInit = true; }
@@ -2623,9 +2592,6 @@ namespace Menu
     }
     inline void Pg_Glove()
     {
-        EvoCheckbox("Enable##gc", &SkinChanger::cfg.gloveEnabled);
-        if (!SkinChanger::cfg.gloveEnabled) return;
-        SynthSep();
         static const char* gn[SkinChanger::kGloveCount]{};
         static bool gnInit = false;
         if (!gnInit) { for (int i = 0; i < SkinChanger::kGloveCount; ++i) gn[i] = SkinChanger::kGloves[i].name; gnInit = true; }
@@ -2709,22 +2675,17 @@ namespace Menu
     }
     inline void Pg_ThirdPerson()
     {
-        EvoCheckbox("Enable##tp", &WorldEffects::cfg.thirdPerson);
-        if (WorldEffects::cfg.thirdPerson) { SynthSep(); EvoSliderFloat("Distance##tpd", &WorldEffects::cfg.thirdPersonDist, 50.f, 300.f, "%.0f"); }
+        EvoSliderFloat("Distance##tpd", &WorldEffects::cfg.thirdPersonDist, 50.f, 300.f, "%.0f");
     }
     inline void Pg_Wireframe()
     {
-        EvoCheckbox("Enable##wv", &WireframeHands::cfg.enabled);
-        if (WireframeHands::cfg.enabled) {
-            SynthSep(); EvoCheckbox("Hands Only##wh", &WireframeHands::cfg.handsOnly);
-            SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-            ImGui::ColorEdit4("Wire Color##wc", WireframeHands::cfg.color, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
-        }
+        EvoCheckbox("Hands Only##wh", &WireframeHands::cfg.handsOnly);
+        SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::ColorEdit4("Wire Color##wc", WireframeHands::cfg.color, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
     }
     inline void Pg_AutoAccept()
     {
-        EvoCheckbox("Enable##aa", &AutoAccept::cfg.enabled);
-        if (AutoAccept::cfg.enabled) { SynthSep(); EvoSliderFloat("Delay##aad", &AutoAccept::cfg.delay, 0.1f, 3.f, "%.1f"); }
+        EvoSliderFloat("Delay##aad", &AutoAccept::cfg.delay, 0.1f, 3.f, "%.1f");
     }
 
     // ── CFG tab ────────────────────────────────────────────────
@@ -2871,12 +2832,19 @@ namespace Menu
             (int)((220 + hAnim * 25) * menuAlpha));
         dl->AddRectFilled(p0, p1, baseFill, R);
 
-        // ── enabled accent tint (subtle wash from top) ──
+        // ── enabled accent wash (smooth radial centred on icon, no hard line) ──
         if (isOn) {
-            ImU32 a0 = EvoAccent((int)(28 * menuAlpha));
-            ImU32 a1 = EvoAccent(0);
-            dl->AddRectFilledMultiColor(p0, { p1.x, p0.y + sz.y * 0.55f },
-                a0, a0, a1, a1);
+            float cx = (p0.x + p1.x) * 0.5f;
+            float cy = p0.y + 44.f;
+            float maxR = sz.x * 0.85f;
+            // Many faint concentric rings → smooth gradient fall-off
+            for (int g = 0; g < 14; ++g) {
+                float t  = (float)g / 13.f;          // 0..1
+                float rr = maxR * (0.18f + t * 0.82f);
+                int   ga = (int)((28.f * (1.f - t) * (1.f - t)) * menuAlpha);
+                if (ga <= 0) continue;
+                dl->AddCircleFilled({ cx, cy }, rr, EvoAccent(ga), 40);
+            }
         }
 
         // ── glossy top sliver (inset to avoid corner bleed) ──
@@ -2899,41 +2867,63 @@ namespace Menu
         dl->AddRect({ p0.x + 0.5f, p0.y + 0.5f }, { p1.x - 0.5f, p1.y - 0.5f },
             IM_COL32(255, 255, 255, (int)(menuAlpha * (10 + hAnim * 6))), R - 0.5f, 0, 1.f);
 
-        // ── icon plate (top-center) ──
-        const float iconR = 22.f;
-        ImVec2 iconC{ (p0.x + p1.x) * 0.5f, p0.y + 32.f };
+        // ── icon plate (centred more — sits a bit lower) ──
+        const float iconR = 23.f;
+        ImVec2 iconC{ (p0.x + p1.x) * 0.5f, p0.y + 44.f };
 
         if (isOn) {
+            // Smooth pulse halo (many faint rings, no banding)
             float pulse = 0.5f + 0.5f * sinf((float)ImGui::GetTime() * 2.4f);
-            for (int g = 0; g < 3; ++g) {
-                float gr = iconR + 6.f + g * 4.5f + pulse * 2.5f;
-                int   ga = (int)((34 - g * 10) * menuAlpha);
-                dl->AddCircleFilled(iconC, gr, EvoAccent(ga), 32);
+            for (int g = 0; g < 8; ++g) {
+                float t  = (float)g / 7.f;
+                float gr = iconR + 2.f + t * (14.f + pulse * 4.f);
+                int   ga = (int)((34.f * (1.f - t) * (1.f - t)) * menuAlpha);
+                if (ga <= 0) continue;
+                dl->AddCircleFilled(iconC, gr, EvoAccent(ga), 36);
             }
         }
         ImU32 plateFill = isOn
-            ? EvoAccent((int)((48 + hAnim * 22) * menuAlpha))
+            ? EvoAccent((int)((58 + hAnim * 22) * menuAlpha))
             : IM_COL32(28, 26, 42, (int)((190 + hAnim * 30) * menuAlpha));
-        dl->AddCircleFilled(iconC, iconR, plateFill, 32);
+        dl->AddCircleFilled(iconC, iconR, plateFill, 36);
         dl->AddCircle(iconC, iconR,
             isOn ? EvoAccent((int)(225 * menuAlpha))
                  : IM_COL32(64, 60, 92, (int)(210 * menuAlpha)),
-            32, 1.f);
+            36, 1.f);
 
         ImU32 iconCol = isOn
-            ? IM_COL32(255, 255, 255, (int)(245 * menuAlpha))
+            ? IM_COL32(255, 255, 255, (int)(248 * menuAlpha))
             : IM_COL32(178, 178, 200, (int)((220 + hAnim * 30) * menuAlpha));
-        DrawFeatureIcon(dl, f.icon, iconC, 13.f, iconCol);
+        DrawFeatureIcon(dl, f.icon, iconC, 13.5f, iconCol);
 
-        // ── name + subtitle ──
+        // ── name + subtitle (subtitle wrapped in a soft pill badge) ──
         ImVec2 nmSz   = ImGui::CalcTextSize(f.name);
-        const float nameY = iconC.y + iconR + 10.f;
+        const float nameY = iconC.y + iconR + 11.f;
         dl->AddText({ (p0.x + p1.x - nmSz.x) * 0.5f, nameY },
             IM_COL32(238, 238, 248, (int)(248 * menuAlpha)), f.name);
         if (f.subtitle && *f.subtitle) {
             ImVec2 stSz = ImGui::CalcTextSize(f.subtitle);
-            dl->AddText({ (p0.x + p1.x - stSz.x) * 0.5f, nameY + nmSz.y + 1.f },
-                IM_COL32(126, 126, 146, (int)(210 * menuAlpha)), f.subtitle);
+            float padX = 8.f, padY = 2.f;
+            float chipY0 = nameY + nmSz.y + 5.f;
+            float chipY1 = chipY0 + stSz.y + padY * 2.f;
+            float chipX0 = (p0.x + p1.x - stSz.x) * 0.5f - padX;
+            float chipX1 = (p0.x + p1.x + stSz.x) * 0.5f + padX;
+            float chipR  = (chipY1 - chipY0) * 0.5f;
+            // chip background
+            ImU32 chipFill = isOn
+                ? EvoAccent((int)((26 + hAnim * 8) * menuAlpha))
+                : IM_COL32(30, 28, 46, (int)((155 + hAnim * 25) * menuAlpha));
+            dl->AddRectFilled({ chipX0, chipY0 }, { chipX1, chipY1 }, chipFill, chipR);
+            // chip border
+            ImU32 chipEdge = isOn
+                ? EvoAccent((int)((110 + hAnim * 40) * menuAlpha))
+                : IM_COL32(70, 66, 100, (int)((150 + hAnim * 50) * menuAlpha));
+            dl->AddRect({ chipX0, chipY0 }, { chipX1, chipY1 }, chipEdge, chipR, 0, 1.f);
+            // text
+            dl->AddText({ chipX0 + padX, chipY0 + padY },
+                isOn ? IM_COL32(232, 230, 245, (int)(232 * menuAlpha))
+                     : IM_COL32(150, 150, 170, (int)(218 * menuAlpha)),
+                f.subtitle);
         }
 
         // ── bottom action row ──
@@ -2941,15 +2931,24 @@ namespace Menu
         const float rowY0 = p1.y - rowH - 9.f;
         const float rowY1 = p1.y - 9.f;
         const float rowMx = (p0.x + p1.x) * 0.5f;
+        const bool  hasToggle = (f.enabled != nullptr);
         bool clickedOptions = false;
 
         // Use a stable ID scope per-card so children don't collide across cards
         ImGui::PushID((const void*)&f);
 
-        // OPTIONS button (left half) ─ submitted FIRST so it owns its rect
+        // OPTIONS button — left half if there's also a toggle; centred-wide otherwise
         {
-            ImVec2 bTL{ p0.x + 9.f, rowY0 };
-            ImVec2 bBR{ rowMx - 4.f, rowY1 };
+            ImVec2 bTL, bBR;
+            if (hasToggle) {
+                bTL = { p0.x + 9.f, rowY0 };
+                bBR = { rowMx - 4.f, rowY1 };
+            } else {
+                float w = (p1.x - p0.x) * 0.6f;
+                float cx = (p0.x + p1.x) * 0.5f;
+                bTL = { cx - w * 0.5f, rowY0 };
+                bBR = { cx + w * 0.5f, rowY1 };
+            }
             ImGui::SetCursorScreenPos(bTL);
             bool clicked = ImGui::InvisibleButton("opt", { bBR.x - bTL.x, bBR.y - bTL.y });
             bool bh      = ImGui::IsItemHovered();
@@ -2963,13 +2962,16 @@ namespace Menu
             dl->AddRectFilled(dTL, dBR, bFill, 7.f);
             dl->AddRect(dTL, dBR,
                 IM_COL32(64, 60, 92, (int)((180 + bA * 60) * menuAlpha)), 7.f, 0, 1.f);
-            // tiny chevron + label
-            float chx = dTL.x + 12.f, chy = (dTL.y + dBR.y) * 0.5f;
-            dl->AddLine({ chx,        chy - 3.5f }, { chx + 4.f, chy }, IM_COL32(220,220,235,(int)(220*menuAlpha)), 1.4f);
-            dl->AddLine({ chx + 4.f,  chy        }, { chx,        chy + 3.5f }, IM_COL32(220,220,235,(int)(220*menuAlpha)), 1.4f);
             const char* lbl = "OPTIONS";
             ImVec2 lSz = ImGui::CalcTextSize(lbl);
-            dl->AddText({ (dTL.x + dBR.x - lSz.x) * 0.5f + 5.f, (dTL.y + dBR.y - lSz.y) * 0.5f },
+            // chevron + label, both centred as a unit so the label looks balanced
+            float chevW = 7.f;       // chevron + gap width
+            float groupW = lSz.x + chevW;
+            float gx0 = (dTL.x + dBR.x - groupW) * 0.5f;
+            float chy = (dTL.y + dBR.y) * 0.5f;
+            dl->AddLine({ gx0,        chy - 3.5f }, { gx0 + 4.f, chy }, IM_COL32(220,220,235,(int)(220*menuAlpha)), 1.4f);
+            dl->AddLine({ gx0 + 4.f,  chy        }, { gx0,        chy + 3.5f }, IM_COL32(220,220,235,(int)(220*menuAlpha)), 1.4f);
+            dl->AddText({ gx0 + chevW, (dTL.y + dBR.y - lSz.y) * 0.5f },
                 IM_COL32(220, 220, 235, (int)(228 * menuAlpha)), lbl);
             if (clicked) clickedOptions = true;
         }
@@ -3074,6 +3076,11 @@ namespace Menu
                 pageDir        = +1;
             }
         }
+        // Tell parent window the real content extent (we used SetCursorScreenPos
+        // to lay out cards absolutely; without this ImGui logs a debug warning).
+        int rows = (count + COLS - 1) / COLS;
+        ImGui::SetCursorScreenPos(origin);
+        ImGui::Dummy({ areaSz.x, rows * CARD_H + (rows - 1) * ROW_GAP });
     }
 
     // ── Feature page renderer ────────────────────────────────
@@ -3095,6 +3102,7 @@ namespace Menu
             slide = u * areaSz.x * 0.35f;
         }
         ImVec2 origin = ImGui::GetCursorScreenPos();
+        ImVec2 baseOrigin = origin;
         origin.x += slide;
         ImGui::SetCursorScreenPos(origin);
 
@@ -3216,6 +3224,11 @@ namespace Menu
         ImGui::EndChild();
         ImGui::PopStyleVar(2);
         ImGui::PopStyleColor();
+
+        // Reserve the full page area in the parent so SetCursorScreenPos
+        // calls above don't trip ImGui's "extending window boundaries" assert.
+        ImGui::SetCursorScreenPos(baseOrigin);
+        ImGui::Dummy({ areaSz.x, areaSz.y });
     }
 
     // ============================================================
