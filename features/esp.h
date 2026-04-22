@@ -130,65 +130,77 @@ namespace ESP
         }
 
         inline void HealthBar(ImDrawList* dl, float x, float y, float h,
-                              int hp, float barW = 4.5f, float gap = 6.f)
+                              int hp, float barW = 2.4f, float gap = 5.f)
         {
+            // Silk redesign — thin (2.4 px), full rounding, gradient sheen,
+            // soft outer halo for separation against bright pixels. No hard
+            // outline. HP number floats as a tiny chip above the fill cap.
             float frac = (float)hp / 100.f;
             if (frac > 1.f) frac = 1.f;
-            float barH = h * frac;
-            float bx = x - gap - barW;
-            float rnd = 2.5f;
+            if (frac < 0.f) frac = 0.f;
+            const float barH  = h * frac;
+            const float bx    = x - gap - barW;
+            const float rnd   = barW * 0.5f;     // capsule
 
-            // Outer dark backdrop with subtle glow
-            dl->AddRectFilled(ImVec2(bx - 1.5f, y - 1.5f),
-                              ImVec2(bx + barW + 1.5f, y + h + 1.5f),
-                              IM_COL32(0, 0, 0, 180), rnd + 1.f);
+            // Soft outer halo (no hard edge)
+            dl->AddRectFilled(ImVec2(bx - 1.2f, y - 1.2f),
+                              ImVec2(bx + barW + 1.2f, y + h + 1.2f),
+                              IM_COL32(0, 0, 0, 110), rnd + 1.2f);
 
-            // Inner glass trough — translucent dark with faint border
+            // Trough — translucent slate
             dl->AddRectFilled(ImVec2(bx, y), ImVec2(bx + barW, y + h),
-                              IM_COL32(12, 14, 20, 160), rnd);
-            dl->AddRect(ImVec2(bx, y), ImVec2(bx + barW, y + h),
-                        IM_COL32(255, 255, 255, 18), rnd, 0, 0.8f);
+                              IM_COL32(14, 16, 22, 175), rnd);
 
-            // Health colour gradient — brighter green→yellow→red
+            // Health colour — green→yellow→red, slightly desaturated for "silk"
             float cr, cg;
-            if (hp > 50) { float t = (hp - 50) / 50.f; cr = 1.f - t; cg = 0.55f + t * 0.45f; }
-            else { float t = hp / 50.f; cr = 1.f; cg = t * 0.55f; }
+            if (hp > 50) { float t = (hp - 50) / 50.f; cr = 1.f - t * 0.95f; cg = 0.78f + t * 0.18f; }
+            else         { float t = hp / 50.f;        cr = 1.f;             cg = 0.18f + t * 0.60f; }
 
-            ImU32 topC = IM_COL32((int)(cr * 255), (int)(cg * 255), 15, 230);
-            ImU32 botC = IM_COL32((int)(cr * 200), (int)(cg * 200), 5, 200);
+            const ImU32 fillTopC = IM_COL32((int)(cr * 255), (int)(cg * 255), 60, 245);
+            const ImU32 fillBotC = IM_COL32((int)(cr * 195), (int)(cg * 195), 30, 230);
 
-            float fillTop = y + (h - barH);
-            // Main health fill
-            dl->AddRectFilled(ImVec2(bx + 0.5f, fillTop),
-                              ImVec2(bx + barW - 0.5f, y + h - 0.5f),
-                              botC, rnd - 0.5f);
-            dl->AddRectFilledMultiColor(ImVec2(bx + 0.5f, fillTop),
-                                        ImVec2(bx + barW - 0.5f, y + h - 0.5f),
-                                        topC, topC, botC, botC);
-
-            // Liquid-glass specular highlight — bright strip on left 40%
-            if (barH > 4.f)
+            const float fillY = y + (h - barH);
+            if (barH > 0.5f)
             {
-                float hlW = barW * 0.38f;
-                dl->AddRectFilled(
-                    ImVec2(bx + 1.f, fillTop + 1.f),
-                    ImVec2(bx + 1.f + hlW, y + h - 1.f),
-                    IM_COL32(255, 255, 255, 55), rnd - 1.f);
+                // Vertical gradient fill
+                dl->AddRectFilledMultiColor(
+                    ImVec2(bx, fillY), ImVec2(bx + barW, y + h),
+                    fillTopC, fillTopC, fillBotC, fillBotC);
+                // Re-round the top cap
+                dl->AddRectFilled(ImVec2(bx, fillY),
+                                  ImVec2(bx + barW, fillY + rnd * 2.f),
+                                  fillTopC, rnd, ImDrawFlags_RoundCornersTop);
+                // Re-round the bottom cap
+                dl->AddRectFilled(ImVec2(bx, y + h - rnd * 2.f),
+                                  ImVec2(bx + barW, y + h),
+                                  fillBotC, rnd, ImDrawFlags_RoundCornersBottom);
+
+                // Silk highlight — 1 px sheen down the left of the fill
+                if (barH > 3.f)
+                {
+                    dl->AddLine(
+                        ImVec2(bx + 0.6f, fillY + 1.2f),
+                        ImVec2(bx + 0.6f, y + h - 1.2f),
+                        IM_COL32(255, 255, 255, 90), 0.8f);
+                }
+
+                // Tiny bright cap dot at the top of the current fill — gives
+                // the bar a "filled to here" focal point.
+                dl->AddCircleFilled(
+                    ImVec2(bx + barW * 0.5f, fillY + 0.6f),
+                    rnd + 0.4f,
+                    IM_COL32(255, 255, 255, 150), 8);
             }
 
-            // Top gloss arc — small bright line at very top of fill
-            if (barH > 2.f)
+            // HP number when not full — small dim chip above cap
+            if (hp < 100)
             {
-                dl->AddLine(ImVec2(bx + 1.5f, fillTop + 0.8f),
-                            ImVec2(bx + barW - 1.5f, fillTop + 0.8f),
-                            IM_COL32(255, 255, 255, 70), 1.f);
-            }
-
-            // HP text when not full
-            if (hp < 100) {
                 char buf[8]; snprintf(buf, sizeof(buf), "%d", hp);
                 ImVec2 sz = ImGui::CalcTextSize(buf);
-                Text(dl, ImVec2(bx + barW * 0.5f, fillTop - sz.y - 2), IM_COL32(255, 255, 255, 210), buf, true, 9.f);
+                const float tx = bx + barW * 0.5f;
+                const float ty = fillY - sz.y - 1.f;
+                Text(dl, ImVec2(tx, ty),
+                     IM_COL32(245, 245, 250, 220), buf, true, 9.f);
             }
         }
 

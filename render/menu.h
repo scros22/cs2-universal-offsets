@@ -545,23 +545,39 @@ namespace Menu
         return current;
     }
 
-    // Auto-height section — no nested border box, content flows cleanly
+    // Auto-height section — wraps content in a subtle "card":
+    //   * 1px hairline outline so each section visibly separates from the
+    //     next without heavy backgrounds,
+    //   * a thin accent stripe down the left edge for a hierarchical feel,
+    //   * a very low-alpha fill so labels still pop against the menu bg.
     inline void SynthBeginSection(const char* id)
     {
-        ImGui::PushStyleColor(ImGuiCol_ChildBg, { 0.f, 0.f, 0.f, 0.f });
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 8.f, 4.f });
-        ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 0.f);
+        // Tighter inner padding (was 8/4) — the cards now have a 1px outline
+        // so we don't need extra breathing room inside.
+        ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(14, 12, 22, 90));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 10.f, 7.f });
+        ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 5.f);
         ImGui::BeginChild(id,
             { ImGui::GetContentRegionAvail().x, 0.f },
-            ImGuiChildFlags_AutoResizeY,
+            ImGuiChildFlags_AutoResizeY | ImGuiChildFlags_Borders,
             ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+
+        // Left accent stripe — drawn after BeginChild so it lands inside the
+        // child's clip rect.
+        ImDrawList* dl = ImGui::GetWindowDrawList();
+        ImVec2 p0 = ImGui::GetWindowPos();
+        ImVec2 sz = ImGui::GetWindowSize();
+        dl->AddRectFilled(
+            { p0.x + 1.f,        p0.y + 6.f },
+            { p0.x + 2.5f,       p0.y + sz.y - 6.f },
+            EvoAccent(170), 1.f);
     }
     inline void SynthEndSection()
     {
         ImGui::EndChild();
         ImGui::PopStyleVar(2);
         ImGui::PopStyleColor(1);
-        ImGui::Dummy({ 0.f, 8.f });
+        ImGui::Dummy({ 0.f, 6.f });
     }
 
 
@@ -1060,8 +1076,21 @@ namespace Menu
             EvoCheckbox("Distance",   &ESP::cfg.distance);
             SynthSep();
             EvoCheckbox("Weapon",     &ESP::cfg.weapon);
+            if (advancedMode && ESP::cfg.weapon)
+            {
+                SynthSep();
+                EvoCheckbox("Use Weapon Icons##wi", &ESP::cfg.weaponIcon);
+            }
             SynthSep();
             EvoCheckbox("Team Check##etm", &ESP::cfg.teamCheck);
+            SynthSep();
+            EvoCheckbox("Bomb Timer", &ESP::cfg.bombTimer);
+            if (advancedMode && ESP::cfg.bombTimer)
+            {
+                SynthSep();
+                const char* bts[] = { "Classic", "Vivid", "Compact" };
+                EvoCombo("Bomb Style##bts", &ESP::cfg.bombTimerStyle, bts, 3);
+            }
             if (advancedMode)
             {
                 SynthSep();
@@ -1657,7 +1686,10 @@ namespace Menu
         const float avR  = avD * 0.5f;
         const float padX = 12.f;                          // horizontal padding inside pill
         const float gap  = 9.f;                           // gap between text segments
-        const float divW = 10.f;                          // total width consumed by hairline divider (gap+1+gap)
+        // Hairline divider footprint = gap + 1px line + gap. The math used to
+        // fall short by 9px per divider which clipped the FPS value off the
+        // right edge — keep this in sync with HairDivider() below.
+        const float divW = gap + 1.f + gap;
         const float radius = bh * 0.5f;                   // fully rounded ends → capsule
 
         ImVec2 szL  = ImGui::CalcTextSize("LUCID");
@@ -1668,9 +1700,29 @@ namespace Menu
 
         const float avSpace  = hudAvatarSRV ? (avD + 8.f) : 0.f;
         const float fpsInner = 5.f; // spacing between "FPS" label and value
-        // total: leftAccentBar(4) + padX + avatar + LUCID + div + name + div + time + div + FPS + fpsInner + value + padX
-        float totalW = 4.f + padX + avSpace + szL.x + divW + szN.x + divW + szT.x + divW
-                     + szFL.x + fpsInner + szFV.x + padX;
+
+        // Left inset is style-dependent: pill/clean draw a 2px accent bar at
+        // bx+4..bx+6 so content starts at bx+6+padX; ghost has no accent bar
+        // and starts at bx+padX. Compute totalW per style.
+        const float pillInset  = 6.f;     // accent bar width
+        const float ghostInset = 0.f;
+        const float leftInset  = (hudStyle == 2) ? ghostInset : pillInset;
+
+        // Trailing margin so FPS value doesn't kiss the rounded right edge.
+        const float trailPad = padX;
+        // Note: ghost has 3 dividers (between every segment), pill/clean
+        // currently render either 3 (pill) or 0 (clean). Compute per style.
+        int dividers = 0;
+        if (hudStyle == 0 || hudStyle == 2) dividers = 3;  // pill/ghost: hairlines
+        // clean style: no dividers, but we add small inter-segment gaps
+        const float cleanGap = (hudStyle == 1) ? (gap + 4.f) : 0.f;
+
+        float totalW = leftInset + padX + avSpace
+                     + szL.x  + (dividers ? divW : cleanGap)
+                     + szN.x  + (dividers ? divW : cleanGap)
+                     + szT.x  + (dividers ? divW : cleanGap)
+                     + szFL.x + fpsInner + szFV.x
+                     + trailPad;
 
         const float bx = io.DisplaySize.x - totalW - 14.f;
         const float by = 12.f;
@@ -1685,26 +1737,38 @@ namespace Menu
         };
 
         // ------------------------------------------------------------------
-        //  STYLE 2 — GHOST  (translucent, no chrome)
+        //  STYLE 2 — GHOST  (truly minimal: low-alpha capsule, no chrome,
+        //  no dividers, dot separators only)
         // ------------------------------------------------------------------
         if (hudStyle == 2)
         {
-            fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, IM_COL32(8, 8, 14, 90), radius);
-            float cx = bx + 4.f + padX;
+            // Very subtle backdrop — barely there, no border, no accent bar.
+            fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, IM_COL32(8, 8, 14, 110), radius);
+
+            float cx = bx + padX;
             if (hudAvatarSRV) {
                 fl->AddImageRounded((ImTextureID)(intptr_t)hudAvatarSRV,
                     { cx, cy - avR }, { cx + avD, cy + avR },
                     { 0.f, 0.f }, { 1.f, 1.f },
-                    IM_COL32(255, 255, 255, 175), avR);
+                    IM_COL32(255, 255, 255, 165), avR);
                 cx += avD + 8.f;
             }
-            fl->AddText({ cx, ty }, EvoAccent(200),                "LUCID");   cx += szL.x;
-            HairDivider(cx, IM_COL32(80, 80, 95, 70));
-            fl->AddText({ cx, ty }, IM_COL32(180,180,190,170),     name);      cx += szN.x;
-            HairDivider(cx, IM_COL32(80, 80, 95, 70));
-            fl->AddText({ cx, ty }, IM_COL32(140,140,150,150),     timeBuf);   cx += szT.x;
-            HairDivider(cx, IM_COL32(80, 80, 95, 70));
-            fl->AddText({ cx, ty }, IM_COL32(110,110,120,140),     "FPS");     cx += szFL.x + fpsInner;
+
+            // Dot separator instead of vertical hairline — softer, more "ghost"
+            const ImU32 cDot = IM_COL32(150, 150, 165, 110);
+            auto Dot = [&](float& x) {
+                x += gap;
+                fl->AddCircleFilled({ x + 1.f, cy }, 1.4f, cDot, 8);
+                x += 2.f + gap;
+            };
+
+            fl->AddText({ cx, ty }, EvoAccent(195),                "LUCID");   cx += szL.x;
+            Dot(cx);
+            fl->AddText({ cx, ty }, IM_COL32(190, 190, 200, 180),  name);      cx += szN.x;
+            Dot(cx);
+            fl->AddText({ cx, ty }, IM_COL32(150, 150, 160, 155),  timeBuf);   cx += szT.x;
+            Dot(cx);
+            fl->AddText({ cx, ty }, IM_COL32(120, 120, 130, 145),  "FPS");     cx += szFL.x + fpsInner;
             fl->AddText({ cx, ty }, EvoAccent(180),                fpsBuf);
             return;
         }
@@ -1730,7 +1794,7 @@ namespace Menu
                     { 0.f, 0.f }, { 1.f, 1.f },
                     IM_COL32(255, 255, 255, 255), avR);
                 fl->AddCircle({ cx + avR, cy }, avR + 0.8f, EvoAccent(140), 36, 1.4f);
-                cx += avD + 10.f;
+                cx += avD + 8.f;
             }
             fl->AddText({ cx, ty }, EvoAccent(255),               "LUCID");   cx += szL.x + gap + 4.f;
             fl->AddText({ cx, ty }, kTextBrt,                     name);      cx += szN.x + gap + 4.f;
@@ -1790,11 +1854,17 @@ namespace Menu
             cx += avD + 8.f;
         }
 
-        const ImU32 cDivider = IM_COL32(60, 56, 86, 180);
+        // Clean separators — small soft dot between segments instead of
+        // hairline rules (those were reading as defects in light maps).
+        auto Sep = [&](float& cx) {
+            fl->AddCircleFilled({ cx + divW * 0.5f, cy + 0.5f }, 1.3f,
+                                IM_COL32(150, 145, 175, 150), 8);
+            cx += divW;
+        };
 
-        fl->AddText({ cx, ty }, EvoAccent(245), "LUCID");   cx += szL.x;  HairDivider(cx, cDivider);
-        fl->AddText({ cx, ty }, kTextBrt,        name);      cx += szN.x;  HairDivider(cx, cDivider);
-        fl->AddText({ cx, ty }, kTextMid,        timeBuf);   cx += szT.x;  HairDivider(cx, cDivider);
+        fl->AddText({ cx, ty }, EvoAccent(245), "LUCID");   cx += szL.x;  Sep(cx);
+        fl->AddText({ cx, ty }, kTextBrt,        name);      cx += szN.x;  Sep(cx);
+        fl->AddText({ cx, ty }, kTextMid,        timeBuf);   cx += szT.x;  Sep(cx);
         fl->AddText({ cx, ty }, IM_COL32(108,108,122,200), "FPS"); cx += szFL.x + fpsInner;
         fl->AddText({ cx, ty }, EvoAccent(225),  fpsBuf);
     }
@@ -1841,52 +1911,192 @@ namespace Menu
         ImVec2 ws  = ImGui::GetWindowSize();
         ImDrawList* dl = ImGui::GetWindowDrawList();
 
-        // --- Frosted-glass backgrounds (alpha < 255 = game world visible through window) ---
-        int bgA  = (int)(menuAlpha * 192.f);  // main window ~75% opacity
-        int panA = (int)(menuAlpha * 172.f);  // content panel ~67% opacity
-        int borA = (int)(menuAlpha * 155.f);
+        // --- Frosted-glass backgrounds ---
+        // Bumped opacity ~18% across the board (was 192/172/155 → 228/210/195)
+        // — the menu had become too see-through against bright maps.
+        int bgA  = (int)(menuAlpha * 228.f);
+        int panA = (int)(menuAlpha * 210.f);
+        int sidA = (int)(menuAlpha * 220.f);   // sidebar — slightly darker than panel
+        int borA = (int)(menuAlpha * 175.f);
 
-        // Main window glass fill + inner highlight rim (iPhone liquid-glass effect)
+        // Soft outer drop shadow (4 layers, only visible against bright bgs)
+        for (int i = 6; i > 0; --i) {
+            dl->AddRect({ wp.x - i, wp.y - i + 1 },
+                        { wp.x + ws.x + i, wp.y + ws.y + i + 1 },
+                        IM_COL32(0, 0, 0, (int)((10 + (6 - i) * 4) * menuAlpha)),
+                        12.f + i, 0, 1.f);
+        }
+
+        // Main window glass fill + inner highlight rim
         dl->AddRectFilled(wp, { wp.x + ws.x, wp.y + ws.y },
             IM_COL32(13, 13, 18, bgA), 12.f);
         dl->AddRect(wp, { wp.x + ws.x, wp.y + ws.y },
-            IM_COL32(255, 255, 255, (int)(menuAlpha * 20.f)), 12.f, 0, 1.2f);
+            IM_COL32(255, 255, 255, (int)(menuAlpha * 22.f)), 12.f, 0, 1.2f);
         dl->AddRect(wp, { wp.x + ws.x, wp.y + ws.y },
             IM_COL32(42, 40, 62, borA), 12.f, 0, 1.f);
+
+        // ---------------------------------------------------------------
+        // SIDEBAR — clean card matching the right-panel design.
+        // No accent stripe (was passing through the LUCID glyphs and
+        // looked like a defect). Depth comes from a layered drop shadow,
+        // a top→bottom inner gradient, and a glossy top highlight.
+        // ---------------------------------------------------------------
+        ImVec2 sideTL = { wp.x + PAD * 0.45f, wp.y + PAD };
+        ImVec2 sideBR = { wp.x + SIDE_W - 4.f, wp.y + ws.y - PAD };
+
+        // inner drop shadow for depth
+        for (int i = 4; i > 0; --i) {
+            dl->AddRect({ sideTL.x - i, sideTL.y - i + 1 },
+                        { sideBR.x + i, sideBR.y + i + 1 },
+                        IM_COL32(0, 0, 0, (int)((10 + (4 - i) * 6) * menuAlpha)),
+                        8.f + i, 0, 1.f);
+        }
+        // base fill
+        dl->AddRectFilled(sideTL, sideBR, IM_COL32(11, 10, 18, sidA), 8.f);
+        // vertical gradient overlay (lighter at top, darker at bottom) — depth
+        dl->AddRectFilledMultiColor(
+            sideTL, sideBR,
+            IM_COL32(28, 26, 44, (int)(70 * menuAlpha)),
+            IM_COL32(28, 26, 44, (int)(70 * menuAlpha)),
+            IM_COL32(0,  0,  0,  (int)(40 * menuAlpha)),
+            IM_COL32(0,  0,  0,  (int)(40 * menuAlpha)));
+        // glossy top highlight (1.5px sliver, fades horizontally)
+        dl->AddRectFilledMultiColor(
+            { sideTL.x + 6, sideTL.y + 1.f },
+            { sideBR.x - 6, sideTL.y + 2.5f },
+            IM_COL32(255, 255, 255, 0),
+            IM_COL32(255, 255, 255, (int)(70 * menuAlpha)),
+            IM_COL32(255, 255, 255, (int)(70 * menuAlpha)),
+            IM_COL32(255, 255, 255, 0));
+        // hairline highlight + outer border
+        dl->AddRect(sideTL, sideBR,
+            IM_COL32(255, 255, 255, (int)(menuAlpha * 16.f)), 8.f, 0, 1.f);
+        dl->AddRect(sideTL, sideBR, IM_COL32(40, 38, 60, borA), 8.f, 0, 1.f);
 
         // Right content panel
         ImVec2 panTL = { wp.x + SIDE_W, wp.y + PAD };
         ImVec2 panBR = { wp.x + ws.x - PAD, wp.y + ws.y - PAD };
         dl->AddRectFilled(panTL, panBR, IM_COL32(16, 16, 24, panA), 8.f);
+        // matching gradient depth on right panel
+        dl->AddRectFilledMultiColor(
+            panTL, panBR,
+            IM_COL32(28, 26, 44, (int)(45 * menuAlpha)),
+            IM_COL32(28, 26, 44, (int)(45 * menuAlpha)),
+            IM_COL32(0,  0,  0,  (int)(30 * menuAlpha)),
+            IM_COL32(0,  0,  0,  (int)(30 * menuAlpha)));
+        // glossy top highlight
+        dl->AddRectFilledMultiColor(
+            { panTL.x + 8, panTL.y + 1.f },
+            { panBR.x - 8, panTL.y + 2.5f },
+            IM_COL32(255, 255, 255, 0),
+            IM_COL32(255, 255, 255, (int)(60 * menuAlpha)),
+            IM_COL32(255, 255, 255, (int)(60 * menuAlpha)),
+            IM_COL32(255, 255, 255, 0));
         dl->AddRect(panTL, panBR,
-            IM_COL32(255, 255, 255, (int)(menuAlpha * 10.f)), 8.f, 0, 1.f);
-        dl->AddRect(panTL, panBR, IM_COL32(42, 40, 62, (int)(menuAlpha * 120.f)), 8.f);
+            IM_COL32(255, 255, 255, (int)(menuAlpha * 14.f)), 8.f, 0, 1.f);
+        dl->AddRect(panTL, panBR, IM_COL32(42, 40, 62, (int)(menuAlpha * 140.f)), 8.f);
 
         // Gradient accent lines (top + bottom edges, menu 19 exact)
         float midX = wp.x + ws.x * 0.5f;
-        ImU32 a20  = EvoAccent((int)(51.f * menuAlpha));
+        ImU32 a20  = EvoAccent((int)(60.f * menuAlpha));
         ImU32 a0   = EvoAccent(0);
         dl->AddRectFilledMultiColor({ midX,  wp.y              }, { wp.x+ws.x, wp.y+1.f        }, a20, a0,  a0,  a20);
         dl->AddRectFilledMultiColor({ wp.x,  wp.y              }, { midX,      wp.y+1.f        }, a0,  a20, a20, a0 );
         dl->AddRectFilledMultiColor({ midX,  wp.y+ws.y - 1.f  }, { wp.x+ws.x, wp.y+ws.y       }, a20, a0,  a0,  a20);
         dl->AddRectFilledMultiColor({ wp.x,  wp.y+ws.y - 1.f  }, { midX,      wp.y+ws.y       }, a0,  a20, a20, a0 );
 
-        // "LUCID" stacked letters (gradient alpha, centred in sidebar)
+        // ---------------------------------------------------------------
+        // SIDEBAR BRANDING — vertical "LUCID" wordmark.
+        // No background rail — kept clean. Each glyph gets a soft accent
+        // halo for the same smooth-edge treatment as ESP text.
+        // ---------------------------------------------------------------
         static const char lts[] = "LUCID";
         const float lcx = wp.x + 55.f;
-        const float lyS = wp.y + 22.f;
+        const float lyS = wp.y + 26.f;
+        const float lstep = 22.f;
+
         for (int i = 0; i < 5; ++i)
         {
             char ch[2] = { lts[i], '\0' };
             ImVec2 csz = ImGui::CalcTextSize(ch);
             float  d   = fabsf((float)(i - 2));
-            int    al  = (int)(255.f * (1.f - d * 0.35f) * menuAlpha);
-            int    alMin = (int)(70.f * menuAlpha);
+            int    al  = (int)(255.f * (1.f - d * 0.18f) * menuAlpha);
+            int    alMin = (int)(135.f * menuAlpha);
             if (al < alMin) al = alMin;
-            dl->AddText({ lcx - csz.x * 0.5f, lyS + (float)i * 18.f }, EvoAccent(al), ch);
+
+            ImVec2 lp{ lcx - csz.x * 0.5f, lyS + (float)i * lstep };
+
+            // soft accent halo
+            const ImU32 halo = EvoAccent((int)(al * 0.30f));
+            dl->AddText({ lp.x - 1.f, lp.y      }, halo, ch);
+            dl->AddText({ lp.x + 1.f, lp.y      }, halo, ch);
+            dl->AddText({ lp.x,       lp.y - 1.f}, halo, ch);
+            dl->AddText({ lp.x,       lp.y + 1.f}, halo, ch);
+            dl->AddText(lp, EvoAccent(al), ch);
         }
 
-        // Tab buttons (5 x 50px, centred vertically in sidebar)
+        // ---------------------------------------------------------------
+        // VERSION TAG — Razer-style RGB sweep along the bottom of sidebar.
+        // Per-character hue offset, full HSV cycle every ~6 seconds.
+        // Subtle glow halo behind for the "illuminated" feel.
+        // ---------------------------------------------------------------
+        {
+            const char* ver = "v1.5";
+            ImVec2 vsz = ImGui::CalcTextSize(ver);
+            float vx = wp.x + (SIDE_W - vsz.x) * 0.5f;
+            float vy = sideBR.y - vsz.y - 10.f;
+
+            const float t = (float)ImGui::GetTime();
+            const float cycle = 0.16f;       // hue advance per second (≈6s/loop)
+            const float spread = 0.09f;      // hue offset between glyphs
+
+            // No backing chip — illumination floats directly on the sidebar.
+            float cx = vx;
+            for (int i = 0; ver[i]; ++i)
+            {
+                char ch[2] = { ver[i], '\0' };
+                ImVec2 chs = ImGui::CalcTextSize(ch);
+
+                float hue = fmodf(t * cycle + (float)i * spread, 1.f);
+                float r, g, b;
+                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
+                ImU32 col = IM_COL32((int)(r * 255), (int)(g * 255), (int)(b * 255),
+                                     (int)(255 * menuAlpha));
+                ImU32 glow = IM_COL32((int)(r * 255), (int)(g * 255), (int)(b * 255),
+                                      (int)(110 * menuAlpha));
+
+                ImVec2 cp{ cx, vy };
+                // 4-way glow then crisp glyph
+                dl->AddText({ cp.x - 1.f, cp.y      }, glow, ch);
+                dl->AddText({ cp.x + 1.f, cp.y      }, glow, ch);
+                dl->AddText({ cp.x,       cp.y - 1.f}, glow, ch);
+                dl->AddText({ cp.x,       cp.y + 1.f}, glow, ch);
+                dl->AddText(cp, col, ch);
+
+                cx += chs.x;
+            }
+
+            // subtle illuminated underline that sweeps with the same hue
+            const int segs = 16;
+            for (int s = 0; s < segs; ++s)
+            {
+                float u0 = (float)s / segs;
+                float u1 = (float)(s + 1) / segs;
+                float hue = fmodf(t * cycle + u0 * 0.4f, 1.f);
+                float r, g, b;
+                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
+                dl->AddRectFilled(
+                    { vx - 6.f + u0 * (vsz.x + 12.f), vy + vsz.y + 2.5f },
+                    { vx - 6.f + u1 * (vsz.x + 12.f), vy + vsz.y + 3.8f },
+                    IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), (int)(190 * menuAlpha)));
+                (void)hue;
+            }
+        }
+
+        // Tab buttons (5 x 50px, centred vertically in sidebar).
+        // Selected tab is now a proper "chip" with subtle gradient + accent
+        // ring matching the right-panel card treatment. Hovered tab gets a
+        // soft fill so it reads as interactive.
         const float tW    = 50.f, tH = 50.f, tSp = 6.f;
         const float totH  = kTabCount * tH + (kTabCount - 1) * tSp;
         const float tY0   = wp.y + (ws.y - totH) * 0.5f;
@@ -1898,26 +2108,49 @@ namespace Menu
             float tx  = tX0;
             bool  sel = (activeTab == i);
 
+            // Hit-test first so we can paint hover state.
+            ImGui::SetCursorScreenPos({ tx, ty });
+            ImGui::PushID(i + 50000);
+            const bool clicked = ImGui::InvisibleButton("##tab", { tW, tH });
+            const bool hovered = ImGui::IsItemHovered();
+            ImGui::PopID();
+            if (clicked) activeTab = i;
+
             if (sel)
             {
+                // gradient fill (top → bottom, accent-tinted)
+                const ImU32 selTop = IM_COL32(
+                    (int)(primaryColor[0] * 255 * 0.32f),
+                    (int)(primaryColor[1] * 255 * 0.32f),
+                    (int)(primaryColor[2] * 255 * 0.32f),
+                    (int)(210 * menuAlpha));
+                const ImU32 selBot = IM_COL32(
+                    (int)(primaryColor[0] * 255 * 0.16f),
+                    (int)(primaryColor[1] * 255 * 0.16f),
+                    (int)(primaryColor[2] * 255 * 0.16f),
+                    (int)(180 * menuAlpha));
+                dl->AddRectFilledMultiColor(
+                    { tx, ty }, { tx + tW, ty + tH },
+                    selTop, selTop, selBot, selBot);
+                // accent outline
+                dl->AddRect({ tx, ty }, { tx + tW, ty + tH },
+                    EvoAccent((int)(170 * menuAlpha)), 6.f, 0, 1.f);
+                // left accent bar (ties into the sidebar accent stripe)
+                dl->AddRectFilled({ tx + 1.f, ty + 9.f }, { tx + 3.f, ty + tH - 9.f },
+                    EvoAccent((int)(230 * menuAlpha)), 1.5f);
+            }
+            else if (hovered)
+            {
                 dl->AddRectFilled({ tx, ty }, { tx + tW, ty + tH },
-                    IM_COL32((int)(primaryColor[0]*255*0.15f),
-                             (int)(primaryColor[1]*255*0.15f),
-                             (int)(primaryColor[2]*255*0.15f), 180), 4.f);
-                // left accent bar
-                dl->AddRectFilled({ tx, ty + 10.f }, { tx + 2.5f, ty + tH - 10.f },
-                    EvoAccent(200), 1.f);
+                    IM_COL32(255, 255, 255, (int)(14 * menuAlpha)), 6.f);
             }
 
             // Lucide-style icon — perfectly centred, no text label
-            DrawTabIcon(dl, i, { tx + tW * 0.5f, ty + tH * 0.5f },
-                sel ? EvoAccent((int)(230 * menuAlpha))
-                    : IM_COL32(49, 49, 61, (int)(210 * menuAlpha)));
-
-            ImGui::SetCursorScreenPos({ tx, ty });
-            ImGui::PushID(i + 50000);
-            if (ImGui::InvisibleButton("##tab", { tW, tH })) activeTab = i;
-            ImGui::PopID();
+            ImU32 iconCol = sel
+                ? EvoAccent((int)(245 * menuAlpha))
+                : (hovered ? IM_COL32(180, 180, 195, (int)(230 * menuAlpha))
+                           : IM_COL32(95,  95,  115, (int)(220 * menuAlpha)));
+            DrawTabIcon(dl, i, { tx + tW * 0.5f, ty + tH * 0.5f }, iconCol);
         }
 
         // Outer border on foreground draw list (always on top)
