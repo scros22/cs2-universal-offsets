@@ -1,0 +1,2781 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+#![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
+
+pub mod cs2_dumper {
+    pub mod schemas {
+        // Module: particles.dll
+        // Class count: 501
+        // Enum count: 76
+        pub mod particles_dll {
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum PulseBestOutflowRules_t {
+                SORT_BY_NUMBER_OF_VALID_CRITERIA = 0x0,
+                SORT_BY_OUTFLOW_INDEX = 0x1
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum PulseCursorCancelPriority_t {
+                None = 0x0,
+                CancelOnSucceeded = 0x1,
+                SoftCancel = 0x2,
+                HardCancel = 0x3
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum PulseMethodCallMode_t {
+                SYNC_WAIT_FOR_COMPLETION = 0x0,
+                ASYNC_FIRE_AND_FORGET = 0x1
+            }
+            // Alignment: 4
+            // Member count: 7
+            #[repr(u32)]
+            pub enum Detail2Combo_t {
+                DETAIL_2_COMBO_UNINITIALIZED = u32::MAX,
+                DETAIL_2_COMBO_OFF = 0x0,
+                DETAIL_2_COMBO_ADD = 0x1,
+                DETAIL_2_COMBO_ADD_SELF_ILLUM = 0x2,
+                DETAIL_2_COMBO_MOD2X = 0x3,
+                DETAIL_2_COMBO_MUL = 0x4,
+                DETAIL_2_COMBO_CROSSFADE = 0x5
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum MissingParentInheritBehavior_t {
+                MISSING_PARENT_DO_NOTHING = u32::MAX,
+                MISSING_PARENT_KILL = 0x0,
+                MISSING_PARENT_FIND_NEW = 0x1,
+                MISSING_PARENT_SAME_INDEX = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleTraceMissBehavior_t {
+                PARTICLE_TRACE_MISS_BEHAVIOR_NONE = 0x0,
+                PARTICLE_TRACE_MISS_BEHAVIOR_KILL = 0x1,
+                PARTICLE_TRACE_MISS_BEHAVIOR_TRACE_END = 0x2
+            }
+            // Alignment: 4
+            // Member count: 7
+            #[repr(u32)]
+            pub enum PFuncVisualizationType_t {
+                PFUNC_VISUALIZATION_SPHERE_WIREFRAME = 0x0,
+                PFUNC_VISUALIZATION_SPHERE_SOLID = 0x1,
+                PFUNC_VISUALIZATION_BOX = 0x2,
+                PFUNC_VISUALIZATION_RING = 0x3,
+                PFUNC_VISUALIZATION_PLANE = 0x4,
+                PFUNC_VISUALIZATION_LINE = 0x5,
+                PFUNC_VISUALIZATION_CYLINDER = 0x6
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ParticleVRHandChoiceList_t {
+                PARTICLE_VRHAND_LEFT = 0x0,
+                PARTICLE_VRHAND_RIGHT = 0x1,
+                PARTICLE_VRHAND_CP = 0x2,
+                PARTICLE_VRHAND_CP_OBJECT = 0x3
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ParticleReplicationMode_t {
+                PARTICLE_REPLICATIONMODE_NONE = 0x0,
+                PARTICLE_REPLICATIONMODE_REPLICATE_FOR_EACH_PARENT_PARTICLE = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleEntityPos_t {
+                PARTICLE_ABS_ORIGIN = 0x0,
+                PARTICLE_WORLDSPACE_CENTER = 0x1,
+                PARTICLE_EYES = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleFanType_t {
+                PARTICLE_FAN_TYPE_FAN = 0x0,
+                PARTICLE_FAN_TYPE_ROTOR_WASH = 0x1,
+                PARTICLE_FAN_TYPE_RADIAL = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum PetGroundType_t {
+                PET_GROUND_NONE = 0x0,
+                PET_GROUND_GRID = 0x1,
+                PET_GROUND_PLANE = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum InheritableBoolType_t {
+                INHERITABLE_BOOL_INHERIT = 0x0,
+                INHERITABLE_BOOL_FALSE = 0x1,
+                INHERITABLE_BOOL_TRUE = 0x2
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum ParticlePostProcessPriorityGroup_t {
+                PARTICLE_POST_PROCESS_PRIORITY_LEVEL_VOLUME = 0x0,
+                PARTICLE_POST_PROCESS_PRIORITY_LEVEL_OVERRIDE = 0x1,
+                PARTICLE_POST_PROCESS_PRIORITY_GAMEPLAY_EFFECT = 0x2,
+                PARTICLE_POST_PROCESS_PRIORITY_GAMEPLAY_STATE_LOW = 0x3,
+                PARTICLE_POST_PROCESS_PRIORITY_GAMEPLAY_STATE_HIGH = 0x4,
+                PARTICLE_POST_PROCESS_PRIORITY_GLOBAL_UI = 0x5
+            }
+            // Alignment: 4
+            // Member count: 7
+            #[repr(u32)]
+            pub enum ParticleCollisionGroup_t {
+                PARTICLE_COLLISION_GROUP_DEFAULT = 0x4,
+                PARTICLE_COLLISION_GROUP_DEBRIS = 0x5,
+                PARTICLE_COLLISION_GROUP_INTERACTIVE = 0x7,
+                PARTICLE_COLLISION_GROUP_PLAYER = 0x8,
+                PARTICLE_COLLISION_GROUP_VEHICLE = 0xA,
+                PARTICLE_COLLISION_GROUP_NPC = 0xC,
+                PARTICLE_COLLISION_GROUP_PROPS = 0x18
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum DetailCombo_t {
+                DETAIL_COMBO_OFF = 0x0,
+                DETAIL_COMBO_ADD = 0x1,
+                DETAIL_COMBO_ADD_SELF_ILLUM = 0x2,
+                DETAIL_COMBO_MOD2X = 0x3
+            }
+            // Alignment: 4
+            // Member count: 12
+            #[repr(u32)]
+            pub enum ScalarExpressionType_t {
+                SCALAR_EXPRESSION_UNINITIALIZED = u32::MAX,
+                SCALAR_EXPRESSION_ADD = 0x0,
+                SCALAR_EXPRESSION_SUBTRACT = 0x1,
+                SCALAR_EXPRESSION_MUL = 0x2,
+                SCALAR_EXPRESSION_DIVIDE = 0x3,
+                SCALAR_EXPRESSION_INPUT_1 = 0x4,
+                SCALAR_EXPRESSION_MIN = 0x5,
+                SCALAR_EXPRESSION_MAX = 0x6,
+                SCALAR_EXPRESSION_MOD = 0x7,
+                SCALAR_EXPRESSION_EQUAL = 0x8,
+                SCALAR_EXPRESSION_GT = 0x9,
+                SCALAR_EXPRESSION_LT = 0xA
+            }
+            // Alignment: 4
+            // Member count: 14
+            #[repr(u32)]
+            pub enum SpriteCardPerParticleScale_t {
+                SPRITECARD_TEXTURE_PP_SCALE_NONE = 0x0,
+                SPRITECARD_TEXTURE_PP_SCALE_PARTICLE_AGE = 0x1,
+                SPRITECARD_TEXTURE_PP_SCALE_ANIMATION_FRAME = 0x2,
+                SPRITECARD_TEXTURE_PP_SCALE_SHADER_EXTRA_DATA1 = 0x3,
+                SPRITECARD_TEXTURE_PP_SCALE_SHADER_EXTRA_DATA2 = 0x4,
+                SPRITECARD_TEXTURE_PP_SCALE_PARTICLE_ALPHA = 0x5,
+                SPRITECARD_TEXTURE_PP_SCALE_SHADER_RADIUS = 0x6,
+                SPRITECARD_TEXTURE_PP_SCALE_ROLL = 0x7,
+                SPRITECARD_TEXTURE_PP_SCALE_YAW = 0x8,
+                SPRITECARD_TEXTURE_PP_SCALE_PITCH = 0x9,
+                SPRITECARD_TEXTURE_PP_SCALE_RANDOM = 0xA,
+                SPRITECARD_TEXTURE_PP_SCALE_NEG_RANDOM = 0xB,
+                SPRITECARD_TEXTURE_PP_SCALE_RANDOM_TIME = 0xC,
+                SPRITECARD_TEXTURE_PP_SCALE_NEG_RANDOM_TIME = 0xD
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum BlurFilterType_t {
+                BLURFILTER_GAUSSIAN = 0x0,
+                BLURFILTER_BOX = 0x1
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum StandardLightingAttenuationStyle_t {
+                LIGHT_STYLE_OLD = 0x0,
+                LIGHT_STYLE_NEW = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleParentSetMode_t {
+                PARTICLE_SET_PARENT_NO = 0x0,
+                PARTICLE_SET_PARENT_IMMEDIATE = 0x1,
+                PARTICLE_SET_PARENT_ROOT = 0x2
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum ParticleLightingQuality_t {
+                PARTICLE_LIGHTING_PER_PARTICLE = 0x0,
+                PARTICLE_LIGHTING_PER_VERTEX = 0x1,
+                PARTICLE_LIGHTING_PER_PIXEL = u32::MAX,
+                PARTICLE_LIGHTING_OVERRIDE_POSITION = 0x2,
+                PARTICLE_LIGHTING_OVERRIDE_COLOR = 0x3,
+                PARTICLE_LIGHTING_ADD_EXTRA_LIGHT = 0x4
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ParticleVolumetricSmokeCreationType_t {
+                PARTICLE_VOLUMETRIC_SMOKE_TYPE_CONTINUOUS = 0x0,
+                PARTICLE_VOLUMETRIC_SMOKE_TYPE_IMPULSE = 0x1
+            }
+            // Alignment: 4
+            // Member count: 8
+            #[repr(u32)]
+            pub enum SetStatisticExpressionType_t {
+                SET_EXPRESSION_UNINITIALIZED = u32::MAX,
+                SET_EXPRESSION_SUM = 0x0,
+                SET_EXPRESSION_MEAN = 0x1,
+                SET_EXPRESSION_MEDIAN = 0x2,
+                SET_EXPRESSION_MODE = 0x3,
+                SET_EXPRESSION_STANDARD_DEVIATION = 0x4,
+                SET_EXPRESSION_MIN = 0x5,
+                SET_EXPRESSION_MAX = 0x6
+            }
+            // Alignment: 4
+            // Member count: 11
+            #[repr(u32)]
+            pub enum EventTypeSelection_t {
+                PARTICLE_EVENT_TYPE_MASK_NONE = 0x0,
+                PARTICLE_EVENT_TYPE_MASK_SPAWNED = 0x1,
+                PARTICLE_EVENT_TYPE_MASK_KILLED = 0x2,
+                PARTICLE_EVENT_TYPE_MASK_COLLISION = 0x4,
+                PARTICLE_EVENT_TYPE_MASK_FIRST_COLLISION = 0x8,
+                PARTICLE_EVENT_TYPE_MASK_COLLISION_STOPPED = 0x10,
+                PARTICLE_EVENT_TYPE_MASK_KILLED_ON_COLLISION = 0x20,
+                PARTICLE_EVENT_TYPE_MASK_USER_1 = 0x40,
+                PARTICLE_EVENT_TYPE_MASK_USER_2 = 0x80,
+                PARTICLE_EVENT_TYPE_MASK_USER_3 = 0x100,
+                PARTICLE_EVENT_TYPE_MASK_USER_4 = 0x200
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ParticleMassMode_t {
+                PARTICLE_MASSMODE_RADIUS_CUBED = 0x0,
+                PARTICLE_MASSMODE_RADIUS_SQUARED = 0x2
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ParticleHitboxBiasType_t {
+                PARTICLE_HITBOX_BIAS_ENTITY = 0x0,
+                PARTICLE_HITBOX_BIAS_HITBOX = 0x1
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum ParticleControlPointAxis_t {
+                PARTICLE_CP_AXIS_X = 0x0,
+                PARTICLE_CP_AXIS_Y = 0x1,
+                PARTICLE_CP_AXIS_Z = 0x2,
+                PARTICLE_CP_AXIS_NEGATIVE_X = 0x3,
+                PARTICLE_CP_AXIS_NEGATIVE_Y = 0x4,
+                PARTICLE_CP_AXIS_NEGATIVE_Z = 0x5
+            }
+            // Alignment: 4
+            // Member count: 12
+            #[repr(u32)]
+            pub enum ParticlePinDistance_t {
+                PARTICLE_PIN_DISTANCE_NONE = u32::MAX,
+                PARTICLE_PIN_DISTANCE_NEIGHBOR = 0x0,
+                PARTICLE_PIN_DISTANCE_FARTHEST = 0x1,
+                PARTICLE_PIN_DISTANCE_FIRST = 0x2,
+                PARTICLE_PIN_DISTANCE_LAST = 0x3,
+                PARTICLE_PIN_DISTANCE_CENTER = 0x5,
+                PARTICLE_PIN_DISTANCE_CP = 0x6,
+                PARTICLE_PIN_DISTANCE_CP_PAIR_EITHER = 0x7,
+                PARTICLE_PIN_DISTANCE_CP_PAIR_BOTH = 0x8,
+                PARTICLE_PIN_SPEED = 0x9,
+                PARTICLE_PIN_COLLECTION_AGE = 0xA,
+                PARTICLE_PIN_FLOAT_VALUE = 0xB
+            }
+            // Alignment: 4
+            // Member count: 7
+            #[repr(u32)]
+            pub enum VectorFloatExpressionType_t {
+                VECTOR_FLOAT_EXPRESSION_UNINITIALIZED = u32::MAX,
+                VECTOR_FLOAT_EXPRESSION_DOTPRODUCT = 0x0,
+                VECTOR_FLOAT_EXPRESSION_DISTANCE = 0x1,
+                VECTOR_FLOAT_EXPRESSION_DISTANCESQR = 0x2,
+                VECTOR_FLOAT_EXPRESSION_INPUT1_LENGTH = 0x3,
+                VECTOR_FLOAT_EXPRESSION_INPUT1_LENGTHSQR = 0x4,
+                VECTOR_FLOAT_EXPRESSION_INPUT1_NOISE = 0x5
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleFogType_t {
+                PARTICLE_FOG_GAME_DEFAULT = 0x0,
+                PARTICLE_FOG_ENABLED = 0x1,
+                PARTICLE_FOG_DISABLED = 0x2
+            }
+            // Alignment: 4
+            // Member count: 10
+            #[repr(u32)]
+            pub enum VectorExpressionType_t {
+                VECTOR_EXPRESSION_UNINITIALIZED = u32::MAX,
+                VECTOR_EXPRESSION_ADD = 0x0,
+                VECTOR_EXPRESSION_SUBTRACT = 0x1,
+                VECTOR_EXPRESSION_MUL = 0x2,
+                VECTOR_EXPRESSION_DIVIDE = 0x3,
+                VECTOR_EXPRESSION_INPUT_1 = 0x4,
+                VECTOR_EXPRESSION_MIN = 0x5,
+                VECTOR_EXPRESSION_MAX = 0x6,
+                VECTOR_EXPRESSION_CROSSPRODUCT = 0x7,
+                VECTOR_EXPRESSION_LERP = 0x8
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ParticleMultiSegmentInputSelection_t {
+                PARTICLE_MULTISEGMENT_SELECTION_FLOAT = 0x0,
+                PARTICLE_MULTISEGMENT_SELECTION_STRING = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleRotationLockType_t {
+                PARTICLE_ROTATION_LOCK_NONE = 0x0,
+                PARTICLE_ROTATION_LOCK_ROTATIONS = 0x1,
+                PARTICLE_ROTATION_LOCK_NORMAL = 0x2
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum HitboxLerpType_t {
+                HITBOX_LERP_LIFETIME = 0x0,
+                HITBOX_LERP_CONSTANT = 0x1
+            }
+            // Alignment: 4
+            // Member count: 7
+            #[repr(u32)]
+            pub enum ParticleAttrBoxFlags_t {
+                PARTICLE_ATTR_BOX_FLAGS_NONE = 0x0,
+                PARTICLE_ATTR_BOX_FLAGS_WATER = 0x1,
+                PARTICLE_ATTR_BOX_FLAGS_ON_FIRE = 0x2,
+                PARTICLE_ATTR_BOX_FLAGS_ELECTRIFIED = 0x4,
+                PARTICLE_ATTR_BOX_FLAGS_ASLEEP = 0x8,
+                PARTICLE_ATTR_BOX_FLAGS_FROZEN = 0x10,
+                PARTICLE_ATTR_BOX_FLAGS_TIMED_DECAY = 0x20
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum ParticleTopology_t {
+                PARTICLE_TOPOLOGY_POINTS = 0x0,
+                PARTICLE_TOPOLOGY_LINES = 0x1,
+                PARTICLE_TOPOLOGY_TRIS = 0x2,
+                PARTICLE_TOPOLOGY_QUADS = 0x3,
+                PARTICLE_TOPOLOGY_CUBES = 0x4
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleLightBehaviorChoiceList_t {
+                PARTICLE_LIGHT_BEHAVIOR_FOLLOW_DIRECTION = 0x0,
+                PARTICLE_LIGHT_BEHAVIOR_ROPE = 0x1,
+                PARTICLE_LIGHT_BEHAVIOR_TRAILS = 0x2
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ModelHitboxType_t {
+                MODEL_HITBOX_TYPE_STANDARD = 0x0,
+                MODEL_HITBOX_TYPE_RAW_BONES = 0x1,
+                MODEL_HITBOX_TYPE_RENDERBOUNDS = 0x2,
+                MODEL_HITBOX_TYPE_SNAPSHOT = 0x3
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleMultiSegmentCountSelection_t {
+                PARTICLE_MULTISEGMENT_SEG_COUNT_7 = 0x7,
+                PARTICLE_MULTISEGMENT_SEG_COUNT_14 = 0xE,
+                PARTICLE_MULTISEGMENT_SEG_COUNT_16 = 0x10
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ParticleOrientationType_t {
+                PARTICLE_ORIENTATION_NONE = 0x0,
+                PARTICLE_ORIENTATION_VELOCITY = 0x1,
+                PARTICLE_ORIENTATION_NORMAL = 0x2,
+                PARTICLE_ORIENTATION_ROTATION = 0x4
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ParticleTraceSet_t {
+                PARTICLE_TRACE_SET_ALL = 0x0,
+                PARTICLE_TRACE_SET_STATIC = 0x1,
+                PARTICLE_TRACE_SET_STATIC_AND_KEYFRAMED = 0x2,
+                PARTICLE_TRACE_SET_DYNAMIC = 0x3
+            }
+            // Alignment: 4
+            // Member count: 7
+            #[repr(u32)]
+            pub enum ParticleTextureLayerBlendType_t {
+                SPRITECARD_TEXTURE_BLEND_MULTIPLY = 0x0,
+                SPRITECARD_TEXTURE_BLEND_MOD2X = 0x1,
+                SPRITECARD_TEXTURE_BLEND_REPLACE = 0x2,
+                SPRITECARD_TEXTURE_BLEND_ADD = 0x3,
+                SPRITECARD_TEXTURE_BLEND_SUBTRACT = 0x4,
+                SPRITECARD_TEXTURE_BLEND_AVERAGE = 0x5,
+                SPRITECARD_TEXTURE_BLEND_LUMINANCE = 0x6
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleSelection_t {
+                PARTICLE_SELECTION_FIRST = 0x0,
+                PARTICLE_SELECTION_LAST = 0x1,
+                PARTICLE_SELECTION_NUMBER = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleToolsState_t {
+                PARTICLE_TOOLS_STATE_ALWAYS_ON = u32::MAX,
+                PARTICLE_TOOLS_STATE_TOOLS_ONLY = 0x0,
+                PARTICLE_TOOLS_STATE_GAME_ONLY = 0x1
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum SnapshotIndexType_t {
+                SNAPSHOT_INDEX_INCREMENT = 0x0,
+                SNAPSHOT_INDEX_DIRECT = 0x1
+            }
+            // Alignment: 4
+            // Member count: 7
+            #[repr(u32)]
+            pub enum ParticleOutputBlendMode_t {
+                PARTICLE_OUTPUT_BLEND_MODE_ALPHA = 0x0,
+                PARTICLE_OUTPUT_BLEND_MODE_ADD = 0x1,
+                PARTICLE_OUTPUT_BLEND_MODE_BLEND_ADD = 0x2,
+                PARTICLE_OUTPUT_BLEND_MODE_HALF_BLEND_ADD = 0x3,
+                PARTICLE_OUTPUT_BLEND_MODE_NEG_HALF_BLEND_ADD = 0x4,
+                PARTICLE_OUTPUT_BLEND_MODE_MOD2X = 0x5,
+                PARTICLE_OUTPUT_BLEND_MODE_LIGHTEN = 0x6
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ParticleLightnintBranchBehavior_t {
+                PARTICLE_LIGHTNING_BRANCH_CURRENT_DIR = 0x0,
+                PARTICLE_LIGHTNING_BRANCH_ENDPOINT_DIR = 0x1
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum MaterialProxyType_t {
+                MATERIAL_PROXY_STATUS_EFFECT = 0x0,
+                MATERIAL_PROXY_TINT = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleDepthFeatheringMode_t {
+                PARTICLE_DEPTH_FEATHERING_OFF = 0x0,
+                PARTICLE_DEPTH_FEATHERING_ON_OPTIONAL = 0x1,
+                PARTICLE_DEPTH_FEATHERING_ON_REQUIRED = 0x2
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ParticleLightUnitChoiceList_t {
+                PARTICLE_LIGHT_UNIT_CANDELAS = 0x0,
+                PARTICLE_LIGHT_UNIT_LUMENS = 0x1
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ParticleMultiSegmentSpecialCharacter_t {
+                PARTICLE_MULTISEGMENT_SPECIAL_NONE = u32::MAX,
+                PARTICLE_MULTISEGMENT_SPECIAL_DECIMAL = 0x0,
+                PARTICLE_MULTISEGMENT_SPECIAL_COLON = 0x1,
+                PARTICLE_MULTISEGMENT_SPECIAL_DEGREES = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleFalloffFunction_t {
+                PARTICLE_FALLOFF_CONSTANT = 0x0,
+                PARTICLE_FALLOFF_LINEAR = 0x1,
+                PARTICLE_FALLOFF_EXPONENTIAL = 0x2
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleSequenceCropOverride_t {
+                PARTICLE_SEQUENCE_CROP_OVERRIDE_DEFAULT = u32::MAX,
+                PARTICLE_SEQUENCE_CROP_OVERRIDE_FORCE_OFF = 0x0,
+                PARTICLE_SEQUENCE_CROP_OVERRIDE_FORCE_ON = 0x1
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ParticleDetailLevel_t {
+                PARTICLEDETAIL_LOW = 0x0,
+                PARTICLEDETAIL_MEDIUM = 0x1,
+                PARTICLEDETAIL_HIGH = 0x2,
+                PARTICLEDETAIL_ULTRA = 0x3
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum BBoxVolumeType_t {
+                BBOX_VOLUME = 0x0,
+                BBOX_DIMENSIONS = 0x1,
+                BBOX_MINS_MAXS = 0x2,
+                BBOX_RADIUS = 0x3
+            }
+            // Alignment: 4
+            // Member count: 12
+            #[repr(u32)]
+            pub enum SpriteCardTextureType_t {
+                SPRITECARD_TEXTURE_DIFFUSE = 0x0,
+                SPRITECARD_TEXTURE_ZOOM = 0x1,
+                SPRITECARD_TEXTURE_1D_COLOR_LOOKUP = 0x2,
+                SPRITECARD_TEXTURE_UVDISTORTION = 0x3,
+                SPRITECARD_TEXTURE_UVDISTORTION_ZOOM = 0x4,
+                SPRITECARD_TEXTURE_NORMALMAP = 0x5,
+                SPRITECARD_TEXTURE_ANIMMOTIONVEC = 0x6,
+                SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_A = 0x7,
+                SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_B = 0x8,
+                SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_C = 0x9,
+                SPRITECARD_TEXTURE_DEPTH = 0xA,
+                SPRITECARD_TEXTURE_ILLUMINATION_GRADIENT = 0xB
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ParticleAlphaReferenceType_t {
+                PARTICLE_ALPHA_REFERENCE_ALPHA_ALPHA = 0x0,
+                PARTICLE_ALPHA_REFERENCE_OPAQUE_ALPHA = 0x1,
+                PARTICLE_ALPHA_REFERENCE_ALPHA_OPAQUE = 0x2,
+                PARTICLE_ALPHA_REFERENCE_OPAQUE_OPAQUE = 0x3
+            }
+            // Alignment: 4
+            // Member count: 15
+            #[repr(u32)]
+            pub enum SpriteCardTextureChannel_t {
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGB = 0x0,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGBA = 0x1,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_A = 0x2,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_A = 0x3,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_ALPHAMASK = 0x4,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_RGBMASK = 0x5,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGBA_RGBALPHA = 0x6,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_A_RGBALPHA = 0x7,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_A_RGBALPHA = 0x8,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_R = 0x9,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_G = 0xA,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_B = 0xB,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_RALPHA = 0xC,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_GALPHA = 0xD,
+                SPRITECARD_TEXTURE_CHANNEL_MIX_BALPHA = 0xE
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleVolumetricSmokeType_t {
+                PARTICLE_VOLUMETRIC_SMOKE_TYPE_EMISSION = 0x0,
+                PARTICLE_VOLUMETRIC_SMOKE_TYPE_SINK = 0x1,
+                PARTICLE_VOLUMETRIC_SMOKE_TYPE_REPEL = 0x2
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum RenderModelSubModelFieldType_t {
+                SUBMODEL_AS_BODYGROUP_SUBMODEL = 0x0,
+                SUBMODEL_AS_MESHGROUP_INDEX = 0x1,
+                SUBMODEL_AS_MESHGROUP_MASK = 0x2,
+                SUBMODEL_IGNORED_USE_MODEL_DEFAULT_MESHGROUP_MASK = 0x3
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ParticleHitboxDataSelection_t {
+                PARTICLE_HITBOX_AVERAGE_SPEED = 0x0,
+                PARTICLE_HITBOX_COUNT = 0x1
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum ParticleOrientationChoiceList_t {
+                PARTICLE_ORIENTATION_SCREEN_ALIGNED = 0x0,
+                PARTICLE_ORIENTATION_SCREEN_Z_ALIGNED = 0x1,
+                PARTICLE_ORIENTATION_WORLD_Z_ALIGNED = 0x2,
+                PARTICLE_ORIENTATION_ALIGN_TO_PARTICLE_NORMAL = 0x3,
+                PARTICLE_ORIENTATION_SCREENALIGN_TO_PARTICLE_NORMAL = 0x4,
+                PARTICLE_ORIENTATION_FULL_3AXIS_ROTATION = 0x5
+            }
+            // Alignment: 4
+            // Member count: 5
+            #[repr(u32)]
+            pub enum ParticleCollisionMode_t {
+                COLLISION_MODE_PER_PARTICLE_TRACE = 0x3,
+                COLLISION_MODE_USE_NEAREST_TRACE = 0x2,
+                COLLISION_MODE_PER_FRAME_PLANESET = 0x1,
+                COLLISION_MODE_INITIAL_TRACE_DOWN = 0x0,
+                COLLISION_MODE_DISABLED = u32::MAX
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ParticleSortingChoiceList_t {
+                PARTICLE_SORTING_NEAREST = 0x0,
+                PARTICLE_SORTING_CREATION_TIME = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleEndcapMode_t {
+                PARTICLE_ENDCAP_ALWAYS_ON = u32::MAX,
+                PARTICLE_ENDCAP_ENDCAP_OFF = 0x0,
+                PARTICLE_ENDCAP_ENDCAP_ON = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ClosestPointTestType_t {
+                PARTICLE_CLOSEST_TYPE_BOX = 0x0,
+                PARTICLE_CLOSEST_TYPE_CAPSULE = 0x1,
+                PARTICLE_CLOSEST_TYPE_HYBRID = 0x2
+            }
+            // Alignment: 4
+            // Member count: 6
+            #[repr(u32)]
+            pub enum ParticleImpulseType_t {
+                IMPULSE_TYPE_NONE = 0x0,
+                IMPULSE_TYPE_GENERIC = 0x1,
+                IMPULSE_TYPE_ROPE = 0x2,
+                IMPULSE_TYPE_EXPLOSION = 0x4,
+                IMPULSE_TYPE_EXPLOSION_UNDERWATER = 0x8,
+                IMPULSE_TYPE_PARTICLE_SYSTEM = 0x10
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleLiquidContents_t {
+                PARTICLE_LIQUID_NONE = 0x0,
+                PARTICLE_LIQUID_OIL = 0x1,
+                PARTICLE_LIQUID_WATER = 0x2
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum SpriteCardShaderType_t {
+                SPRITECARD_SHADER_BASE = 0x0,
+                SPRITECARD_SHADER_CUSTOM = 0x1
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum ParticleOmni2LightTypeChoiceList_t {
+                PARTICLE_OMNI2_LIGHT_TYPE_POINT = 0x0,
+                PARTICLE_OMNI2_LIGHT_TYPE_SPHERE = 0x1
+            }
+            // Alignment: 4
+            // Member count: 3
+            #[repr(u32)]
+            pub enum ParticleLightFogLightingMode_t {
+                PARTICLE_LIGHT_FOG_LIGHTING_MODE_NONE = 0x0,
+                PARTICLE_LIGHT_FOG_LIGHTING_MODE_DYNAMIC = 0x2,
+                PARTICLE_LIGHT_FOG_LIGHTING_MODE_DYNAMIC_NOSHADOWS = 0x4
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ParticleLightTypeChoiceList_t {
+                PARTICLE_LIGHT_TYPE_POINT = 0x0,
+                PARTICLE_LIGHT_TYPE_SPOT = 0x1,
+                PARTICLE_LIGHT_TYPE_FX = 0x2,
+                PARTICLE_LIGHT_TYPE_CAPSULE = 0x3
+            }
+            // Alignment: 4
+            // Member count: 4
+            #[repr(u32)]
+            pub enum ParticleOrientationSetMode_t {
+                PARTICLE_ORIENTATION_SET_NONE = u32::MAX,
+                PARTICLE_ORIENTATION_SET_FROM_VELOCITY = 0x0,
+                PARTICLE_ORIENTATION_SET_FROM_NORMAL = 0x1,
+                PARTICLE_ORIENTATION_SET_FROM_ROTATIONS = 0x2
+            }
+            // Alignment: 8
+            // Member count: 10
+            #[repr(u64)]
+            pub enum ParticleCollisionMask_t {
+                PARTICLE_MASK_ALL = u64::MAX,
+                PARTICLE_MASK_SOLID = 0xC3001,
+                PARTICLE_MASK_WATER = 0x18000,
+                PARTICLE_MASK_SOLID_WATER = 0xDB001,
+                PARTICLE_MASK_SHOT = 0x1C1003,
+                PARTICLE_MASK_SHOT_BRUSHONLY = 0x101001,
+                PARTICLE_MASK_SHOT_HULL = 0x1C3001,
+                PARTICLE_MASK_OPAQUE = 0x80,
+                PARTICLE_MASK_DEFAULTPLAYERSOLID = 0xC3011,
+                PARTICLE_MASK_NPCSOLID = 0xC3021
+            }
+            // Alignment: 4
+            // Member count: 2
+            #[repr(u32)]
+            pub enum TextureRepetitionMode_t {
+                TEXTURE_REPETITION_PARTICLE = 0x0,
+                TEXTURE_REPETITION_PATH = 0x1
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_WaitForCursorsWithTag {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Base {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulse_ResumePoint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_PickBestOutflowSelector {
+            }
+            // Parent: particleslib
+            // Field count: 0
+            pub mod CParticleBindingRealPulse {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_WaitForObservable {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulse_OutflowConnection {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseGraphDef {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_FireCursors {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Timeline__TimelineEvent_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_IntervalTimer__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseRequirement {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_BaseState {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod OutflowWithRequirements_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_IsRequirementValid {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Value_Gradient {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCursorFuncs {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseNodeDynamicOutflows_t__DynamicOutflow_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBasePulseGraphInstance {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Inflow_GraphHook {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SignatureOutflow_Resume {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Inflow_BaseEntrypoint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_WaitForCursorsWithTagBase {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulse_InvokeBinding {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_IntervalTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseTestScriptLib {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseLerp {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Value_Curve {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Inflow_EventHandler {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseFlow {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Outflow_CycleShuffled__InstanceState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_BaseLerp__CursorState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_WaitForCursorsWithTagBase__CursorState_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseArraylib {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod SignatureOutflow_Continue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Timeline {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Inflow_EntOutputHandler {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_Outflow_CycleOrdered__InstanceState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CParticleCollectionBindingInstance {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulseCell_LimitCount__InstanceState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Step_DebugLog {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseYieldingInflow {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseNodeDynamicOutflows_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_IsRequirementValid__Criteria_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Inflow_ObservableVariableListener {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Outflow_CycleOrdered {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseSelectorOutflowList_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Inflow_Wait {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Outflow_CycleShuffled {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Inflow_Method {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_BaseValue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_BooleanSwitchState {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Inflow_Yield {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseMathlib {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Unknown {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Outflow_CycleRandom {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_Step_PublicOutput {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulse_BlackboardReference {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Value_RandomInt {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPulse_CallInfo {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_InlineNodeSkipSelector {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_LimitCount {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Step_CallExternalMethod {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PulseObservableBoolExpression_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_LimitCount__Criteria_t {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub mod CPulseCell_CursorQueue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseCell_Value_RandomFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPulseExecCursor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod IParticleCollection {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ParticleAttributeIndex_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapGravityToVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_Decay {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderDeferredLight {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapSpeedtoCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapTransformToVelocity {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CollisionGroupContext_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CParticleFunctionPreEmission {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_FadeOutSimple {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SpringToVectorConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderRopes {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_StatusEffectCitadel {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderSound {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CParticleVisibilityInputs {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointsToParticle {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapCPVelocityToVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_PointVectorAtNextParticle {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod ParticlePreviewBodyGroup_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_OscillateScalarSimple {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_StatusEffect {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_INIT_RtEnvCull {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_ConstrainDistance {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_InitialVelocityNoise {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod ParticleChildrenInfo_t {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapScalarOnceTimed {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomNamedModelSequence {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_PlaneCull {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_INIT_VelocityRandom {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ModelDampenMovement {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_TwistAroundAxis {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_TeleportBeam {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapExternalWindToCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseRendererSource2 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CSpinUpdateBase {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_OrientTo2dDirection {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_RemapDotProductToCP {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_INIT_RemapParticleCountToNamedModelElementScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderTrails {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointPositionToTimeOfDayValue {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_DecayMaintainCount {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_INIT_RandomModelSequence {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ExternalGameImpulseForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapAverageHitboxSpeedtoCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomAlpha {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_NormalizeVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_FadeInSimple {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RepeatedTriggerChildGroup {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapVelocityToVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_SetHitboxToClosest {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RingWave {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomTrailLength {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_DistanceBetweenTransforms {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_DecayOffscreen {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateSequentialPath {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_EndCapTimedDecay {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_RemapDistanceToLineSegmentBase {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ContinuousEmitter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_OscillateVectorSimple {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_SequenceLifeTime {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_MoveBetweenPoints {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetUserEvent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_QuantizeFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_BasicMovement {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomNamedModelElement {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_InitFromParentKilled {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_Callback {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CParticleFunction {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_GlobalLight {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_OffsetVectorToVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetPerChildControlPointFromAttribute {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetParentControlPointsToChildCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_BoxConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreatePhyllotaxis {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_AttractToControlPoint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomLifeTime {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapParticleCountToNamedModelSequenceScalar {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_INIT_VelocityRadialRandom {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomRadius {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_Orient2DRelToCP {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod TextureControls_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod ControlPointReference_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_SetControlPointToVectorExpression {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LightningSnapshotGenerator {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_RemapNamedModelMeshGroupOnceTimed {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapQAnglesToRotation {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_PositionWarp {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointFieldToScalarExpression {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_CreateParticleSystemRenderer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CParticleFunctionForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomVectorComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_InheritFromParentParticles {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_SetVectorAttributeToVectorExpression {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapTransformVisibilityToVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_DirectionBetweenVecsToVec {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_MovementLoopInsideSphere {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderSimpleModelCollection {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_QuantizeCPComponent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_PlayEndCapWhenFinished {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_InitFloatCollection {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CPathParameters {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapScalarEndCap {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_INIT_CreateFromPlaneCache {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LazyCullCompareFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ControlPointToRadialScreenSpace {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SpinUpdate {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_NormalOffset {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapDistanceToLineSegmentToVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderAsModels {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreationNoise {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_Spin {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_GameLiquidSpill {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_InstantaneousEmitter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ConstrainLineLength {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_LifespanFromVelocity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CBaseTrailRenderer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_VelocityFromCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointOrientation {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_MovementSkinnedPositionFromCPSnapshot {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_MultiSegmentDisplaySnapshotGenerator {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_OscillateVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_PositionLock {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderVRHapticEvent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointToImpactPoint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_InterpolateRadius {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_ReinitializeScalarEndCap {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_TurbulenceForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapNamedModelElementOnceTimed {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointToPlayer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_EndCapTimedFreeze {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderGpuImplicit {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetRandomControlPointPosition {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_RenderVolumetricEmitter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapTransformVisibilityToScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapControlPointDirectionToVector {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_ScreenSpacePositionOfTarget {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CParticleFunctionOperator {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_DragRelativeToPlane {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetCPtoVector {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_INIT_RandomYaw {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SnapshotRigidSkinToBones {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetSingleControlPointPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_DistanceToNeighborCull {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_RemapCPtoScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CParticleFunctionRenderer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CParticleSystemDefinition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapNamedModelMeshGroupEndCap {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_PercentageBetweenTransformsVector {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_RenderScreenVelocityRotate {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_UpdateLightSource {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateWithinBox {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ChooseRandomChildrenInGroup {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ControlpointLight {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_VectorFieldSnapshot {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_CylindricalDistanceToTransform {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_PositionPlaceOnGround {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderPostProcessing {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_WorldTraceConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderBlobs {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_OscillateScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_FadeOut {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_WaterImpulseRenderer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomSequence {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_RampScalarSplineSimple {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_DistanceCull {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_CollideWithParentParticles {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_InitFromVectorFieldSnapshot {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetVectorAttributeToVectorExpression {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_AddVectorToVector {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_INIT_RemapInitialVisibilityScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapTransformOrientationToYaw {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderStatusEffect {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_RandomForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapParticleCountOnScalarEndCap {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod ParticlePreviewState_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LocalAccelerationForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ModelCull {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapTransformToVector {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_ScreenSpaceDistanceToEdge {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapDistanceToLineSegmentToScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapVectortoCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetFromCPSnapshot {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_DistanceBetweenCPsToCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointToHand {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ConstrainDistanceToPath {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_DistanceCull {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateAlongPath {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_GameDecalRenderer {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_SetControlPointsToModelParticles {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ColorInterpolateRandom {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapNamedModelSequenceToScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderLights {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_DecayClampCount {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CRandomNumberGeneratorParameters {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_ColorLitPerParticle {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderPoints {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_INIT_SetAttributeToScalarExpression {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateOnGrid {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RampCPLinearRandom {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_VelocityMatchingForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomAlphaWindowThreshold {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_INIT_CreateOnModelAtHeight {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_ModelSurfaceSnapshotGenerator {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RestartAfterDuration {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderClothForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapVisibilityScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateSequentialPathV2 {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod VecInputMaterialVariable_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapInitialDirectionToTransformToVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LockToSavedSequentialPathV2 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_NormalLock {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapTransformOrientationToRotations {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_Cull {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomYawFlip {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod SequenceWeightedList_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ReadFromNeighboringParticle {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_RenderText {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LerpToInitialPosition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomRotation {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LerpEndCapVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_VelocityDecay {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetCPOrientationToPointAtCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LockToPointList {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_MovementPlaceOnGround {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_SetCPOrientationToDirection {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapCrossProductOfTwoVectorsToVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapTransformOrientationToRotations {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomRotationSpeed {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_InheritFromParentParticlesV2 {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomSecondSequence {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetFloatCollection {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod PointDefinition_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointPositionToRandomActiveCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_Diffusion {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_AgeNoise {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapVectorComponentToScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGeneralRandomRotation {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_DistanceBetweenVecs {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_DampenToCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_CalculateVectorAttribute {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LockToBone {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapNamedModelBodyPartOnceTimed {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ScreenSpaceRotateTowardTarget {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_MovementMaintainOffset {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateWithinCapsuleTransform {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetVec {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateFromParentParticles {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CheckParticleForWater {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomNamedModelBodyPart {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderOmni2Light {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ConnectParentParticleToNearest {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CPAssignment_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapParticleCountToNamedModelBodyPartScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_InitSkinnedPositionFromCPSnapshot {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_LagCompensation {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_CollideWithSelf {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_Noise {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_FadeAndKillForTracers {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ColorAdjustHSL {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CParticleMassCalculationParameters {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SequenceFromModel {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_AlphaDecay {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapDensityGradientToVectorAttribute {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_InitVec {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_SetHitboxToModel {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_MovementMoveAlongSkinnedCPSnapshot {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LerpScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_InitialRepulsionVelocity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ClampScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointToHMD {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_DifferencePreviousParticle {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointFieldFromVectorExpression {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_PercentageBetweenTransforms {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_PlaneCull {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapNamedModelSequenceEndCap {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_InitFromCPSnapshot {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderCables {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_INIT_InheritVelocity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointToWaterSurface {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_PositionOffset {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_INIT_NormalAlignToCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ShapeMatchingConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetChildControlPoints {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ChladniWave {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapDirectionToCPToVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_DriveCPFromGlobalSoundFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_ScreenSpacePositionOfTarget {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RtEnvCull {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_PinParticleToCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapCPtoVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateParticleImpulse {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_DensityForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateInEpitrochoid {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ConstrainDistanceToUserSpecifiedPath {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_SetControlPointPositions {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetFloatAttributeToVectorExpression {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_MovementRotateParticleAroundAxis {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_IntraParticleForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_InitFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateOnModel {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_InheritFromPeerSystem {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_PerParticleForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomNamedModelMeshGroup {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderProjected {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_MaxVelocity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_VelocityFromNormal {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_MaintainEmitter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_PositionOffsetToCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapInitialTransformDirectionToRotation {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_FadeAndKill {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ColorInterpolate {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RampScalarSpline {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapNamedModelSequenceOnceTimed {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointFromObjectScale {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_MaintainSequentialPath {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapNamedModelBodyPartEndCap {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_StopAfterCPDuration {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CGeneralSpin {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LockToSavedSequentialPath {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapNamedModelElementToScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ClampVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderStatusEffectCitadel {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod IParticleSystemDefinition {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_WindForce {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_SetVariable {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderStandardLight {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_DistanceToTransform {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_RemapControlPointOrientationToRotation {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointToCenter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapAverageScalarValuetoCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapDotProductToScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapCPtoCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointRotation {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_CurlNoiseForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_Orient2DRelToCP {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_SetSimulationRate {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_FadeIn {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderScreenShake {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapBoundingVolumetoCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_HSVShiftToCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapVectorToRotations {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_GlobalScale {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RadiusFromCPObject {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_INIT_InitialVelocityFromHitbox {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LerpVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointFieldToWater {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod TextureGroup_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_TimeVaryingForce {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_SetCPOrientationToGroundNormal {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SnapshotSkinToBones {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateWithinSphereTransform {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RadiusDecay {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapNamedModelBodyPartToScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapScalarToVector {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_InitialSequenceFromModel {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_NoiseEmitter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CParticleFunctionInitializer {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SelectivelyEnableChildren {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod ModelReference_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_PlanarConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateFromCPs {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LockPoints {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_CreateSpiralSphere {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_CPVelocityForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapNamedModelElementEndCap {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_ScaleVelocity {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_MoveToHitbox {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_PinRopeSegmentParticleToParent {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_PointList {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LerpToOtherAttribute {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RandomColor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetGravityToCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapParticleCountToScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_InheritFromParentParticles {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RampScalarLinearSimple {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_ChaoticAttractor {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_MovementRigidAttachToCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderFlattenGrass {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderLightBeam {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_EnableChildrenFromParentParticleCount {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_DistanceToCPInit {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod CReplicationParameters {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_EndCapDecay {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_OP_ForceBasedOnDistanceToPlane {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapDensityToVector {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod ParticleControlPointConfiguration_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_SetRigidAttachment {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod MaterialVariable_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CParticleFunctionConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapSpeed {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderModels {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderClientPhysicsImpulse {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod CParticleFunctionEmitter {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapNamedModelMeshGroupToScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointOrientationToCPVelocity {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_RopeSpringConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_PositionWarpScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ForceControlPointStub {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_VectorNoise {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_RemapParticleCountToScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_QuantizeFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RemapModelVolumetoCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetToCP {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod ParticleControlPointDriver_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ParentVortices {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetControlPointToCPVelocity {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ClientPhysics {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SpinYaw {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod PointDefinitionWithTimeValues_t {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod RenderProjectedMaterial_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_INIT_SetFloatAttributeToVectorExpression {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_ExternalWindForce {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_ModelCull {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderSprites {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_PercentageBetweenTransformLerpCPs {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetPerChildControlPoint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderTreeShake {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_WorldCollideConstraint {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_SetAttributeToScalarExpression {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_OP_CycleScalar {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RenderMaterialProxy {
+            }
+            // Parent: None
+            // Field count: 1
+            pub mod FloatInputMaterialVariable_t {
+                pub const : usize = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RampScalarLinear {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_RotateVector {
+            }
+            // Parent: particles
+            // Field count: 0
+            pub mod C_INIT_InitVecCollection {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_INIT_RemapParticleCountToNamedModelMeshGroupScalar {
+            }
+            // Parent: xL___
+            // Field count: 0
+            pub mod C_INIT_SequenceFromCP {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_CPOffsetToPercentageBetweenCPs {
+            }
+            // Parent: None
+            // Field count: 0
+            pub mod C_OP_LerpEndCapScalar {
+            }
+        }
+    }
+}

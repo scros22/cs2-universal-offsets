@@ -1,0 +1,198 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+pub const cs2_dumper = struct {
+    pub const schemas = struct {
+        // Module: worldrenderer.dll
+        // Class count: 32
+        // Enum count: 3
+        pub const worldrenderer_dll = struct {
+            // Alignment: 1
+            // Member count: 2
+            pub const RTProxyInstanceFlags_t = enum(u8) {
+                RTPROXY_INSTANCE_FLAG_NONE = 0x0,
+                RTPROXY_INSTANCE_UNIQUE_MESH = 0x1
+            };
+            // Alignment: 4
+            // Member count: 16
+            pub const ObjectTypeFlags_t = enum(u32) {
+                OBJECT_TYPE_NONE = 0x0,
+                OBJECT_TYPE_MODEL = 0x8,
+                OBJECT_TYPE_BLOCK_LIGHT = 0x10,
+                OBJECT_TYPE_NO_SHADOWS = 0x20,
+                OBJECT_TYPE_WORLDSPACE_TEXURE_BLEND = 0x40,
+                OBJECT_TYPE_DISABLED_IN_LOW_QUALITY = 0x80,
+                OBJECT_TYPE_RENDER_WITH_DYNAMIC = 0x200,
+                OBJECT_TYPE_RENDER_TO_CUBEMAPS = 0x400,
+                OBJECT_TYPE_MODEL_HAS_LODS = 0x800,
+                OBJECT_TYPE_OVERLAY = 0x2000,
+                OBJECT_TYPE_PRECOMPUTED_VISMEMBERS = 0x4000,
+                OBJECT_TYPE_STATIC_CUBE_MAP = 0x8000,
+                OBJECT_TYPE_DISABLE_VIS_CULLING = 0x10000,
+                OBJECT_TYPE_BAKED_GEOMETRY = 0x20000,
+                OBJECT_TYPE_NEEDS_DYNAMIC_SHADOWS = 0x40000,
+                OBJECT_TYPE_HAS_AGGREGATE_RTPROXY = 0x80000
+            };
+            // Alignment: 1
+            // Member count: 4
+            pub const AggregateInstanceStream_t = enum(u8) {
+                AGGREGATE_INSTANCE_STREAM_NONE = 0x0,
+                AGGREGATE_INSTANCE_STREAM_LIGHTMAPUV_UNORM16 = 0x1,
+                AGGREGATE_INSTANCE_STREAM_VERTEXTINT_UNORM8 = 0x2,
+                AGGREGATE_INSTANCE_STREAM_VERTEXBLEND_UNORM8 = 0x4
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityInstance = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CScriptComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityIdentity = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RTProxyInstanceInfo_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const AggregateVertexAlbedoStreamOnDiskData_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const SceneObject_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const AggregateLODSetup_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const ExtraVertexStreamOverride_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const ClutterTile_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const AggregateSceneObject_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const NodeData_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const VMapResourceData_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const AggregateInstanceStreamOnDiskData_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const RTProxyBLAS_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const ClutterSceneObject_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const WorldBuilderParams_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PermEntityLumpData_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const WorldNode_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const BaseSceneObjectOverride_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const EntityIOConnectionData_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const BakedLightingInfo_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const VoxelVisBlockOffset_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const InfoForResourceTypeVMapResourceData_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const WorldNodeOnDiskBufferData_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const AggregateMeshInfo_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const World_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const BakedLightingInfo_t__BakedShadowAssignment_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const MaterialOverride_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const AggregateRTProxySceneObject_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const EntityKeyValueData_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CVoxelVisibility = struct {
+                pub const @"": usize = 0x0; // 
+            };
+        };
+    };
+};

@@ -1,0 +1,12 @@
+{
+  "networksystem.dll": {
+    "classes": {
+      "ChangeAccessorFieldPathIndex_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      }
+    },
+    "enums": {}
+  }
+}

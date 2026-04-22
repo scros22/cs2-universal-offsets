@@ -1,0 +1,2311 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+pub const cs2_dumper = struct {
+    pub const schemas = struct {
+        // Module: client.dll
+        // Class count: 534
+        // Enum count: 12
+        pub const client_dll = struct {
+            // Alignment: 4
+            // Member count: 5
+            pub const C_BaseCombatCharacter__WaterWakeMode_t = enum(u32) {
+                WATER_WAKE_NONE = 0x0,
+                WATER_WAKE_IDLE = 0x1,
+                WATER_WAKE_WALKING = 0x2,
+                WATER_WAKE_RUNNING = 0x3,
+                WATER_WAKE_WATER_OVERHEAD = 0x4
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const PulseBestOutflowRules_t = enum(u32) {
+                SORT_BY_NUMBER_OF_VALID_CRITERIA = 0x0,
+                SORT_BY_OUTFLOW_INDEX = 0x1
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const PulseCursorCancelPriority_t = enum(u32) {
+                None = 0x0,
+                CancelOnSucceeded = 0x1,
+                SoftCancel = 0x2,
+                HardCancel = 0x3
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const PulseMethodCallMode_t = enum(u32) {
+                SYNC_WAIT_FOR_COMPLETION = 0x0,
+                ASYNC_FIRE_AND_FORGET = 0x1
+            };
+            // Alignment: 4
+            // Member count: 15
+            pub const CompositeMaterialInputLooseVariableType_t = enum(u32) {
+                LOOSE_VARIABLE_TYPE_BOOLEAN = 0x0,
+                LOOSE_VARIABLE_TYPE_INTEGER1 = 0x1,
+                LOOSE_VARIABLE_TYPE_INTEGER2 = 0x2,
+                LOOSE_VARIABLE_TYPE_INTEGER3 = 0x3,
+                LOOSE_VARIABLE_TYPE_INTEGER4 = 0x4,
+                LOOSE_VARIABLE_TYPE_FLOAT1 = 0x5,
+                LOOSE_VARIABLE_TYPE_FLOAT2 = 0x6,
+                LOOSE_VARIABLE_TYPE_FLOAT3 = 0x7,
+                LOOSE_VARIABLE_TYPE_FLOAT4 = 0x8,
+                LOOSE_VARIABLE_TYPE_COLOR4 = 0x9,
+                LOOSE_VARIABLE_TYPE_STRING = 0xA,
+                LOOSE_VARIABLE_TYPE_SYSTEMVAR = 0xB,
+                LOOSE_VARIABLE_TYPE_RESOURCE_MATERIAL = 0xC,
+                LOOSE_VARIABLE_TYPE_RESOURCE_TEXTURE = 0xD,
+                LOOSE_VARIABLE_TYPE_PANORAMA_RENDER = 0xE
+            };
+            // Alignment: 4
+            // Member count: 8
+            pub const CompositeMaterialInputTextureType_t = enum(u32) {
+                INPUT_TEXTURE_TYPE_DEFAULT = 0x0,
+                INPUT_TEXTURE_TYPE_NORMALMAP = 0x1,
+                INPUT_TEXTURE_TYPE_COLOR = 0x2,
+                INPUT_TEXTURE_TYPE_MASKS = 0x3,
+                INPUT_TEXTURE_TYPE_ROUGHNESS = 0x4,
+                INPUT_TEXTURE_TYPE_PEARLESCENCE_MASK = 0x5,
+                INPUT_TEXTURE_TYPE_AO = 0x6,
+                INPUT_TEXTURE_TYPE_POSITION = 0x7
+            };
+            // Alignment: 4
+            // Member count: 9
+            pub const InventoryNodeType_t = enum(u32) {
+                NODE_TYPE_INVALID = 0x0,
+                VIRTUAL_NODE_SCHEMA_PREFAB = 0x1,
+                VIRTUAL_NODE_SCHEMA_ITEMDEF = 0x2,
+                VIRTUAL_NODE_SCHEMA_STICKER = 0x3,
+                VIRTUAL_NODE_SCHEMA_KEYCHAIN = 0x4,
+                CONCRETE_NODE_SCHEMA_PREFAB = 0x5,
+                CONCRETE_NODE_SCHEMA_ITEMDEF = 0x6,
+                CONCRETE_NODE_SCHEMA_STICKER = 0x7,
+                CONCRETE_NODE_SCHEMA_KEYCHAIN = 0x8
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const CompositeMaterialInputContainerSourceType_t = enum(u32) {
+                CONTAINER_SOURCE_TYPE_TARGET_MATERIAL = 0x0,
+                CONTAINER_SOURCE_TYPE_MATERIAL_FROM_TARGET_ATTR = 0x1,
+                CONTAINER_SOURCE_TYPE_SPECIFIC_MATERIAL = 0x2,
+                CONTAINER_SOURCE_TYPE_LOOSE_VARIABLES = 0x3,
+                CONTAINER_SOURCE_TYPE_VARIABLE_FROM_TARGET_ATTR = 0x4,
+                CONTAINER_SOURCE_TYPE_TARGET_INSTANCE_MATERIAL = 0x5
+            };
+            // Alignment: 4
+            // Member count: 10
+            pub const CompMatPropertyMutatorType_t = enum(u32) {
+                COMP_MAT_PROPERTY_MUTATOR_INIT = 0x0,
+                COMP_MAT_PROPERTY_MUTATOR_COPY_MATCHING_KEYS = 0x1,
+                COMP_MAT_PROPERTY_MUTATOR_COPY_KEYS_WITH_SUFFIX = 0x2,
+                COMP_MAT_PROPERTY_MUTATOR_COPY_PROPERTY = 0x3,
+                COMP_MAT_PROPERTY_MUTATOR_SET_VALUE = 0x4,
+                COMP_MAT_PROPERTY_MUTATOR_GENERATE_TEXTURE = 0x5,
+                COMP_MAT_PROPERTY_MUTATOR_CONDITIONAL_MUTATORS = 0x6,
+                COMP_MAT_PROPERTY_MUTATOR_POP_INPUT_QUEUE = 0x7,
+                COMP_MAT_PROPERTY_MUTATOR_DRAW_TEXT = 0x8,
+                COMP_MAT_PROPERTY_MUTATOR_RANDOM_ROLL_INPUT_VARIABLES = 0x9
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const CompositeMaterialVarSystemVar_t = enum(u32) {
+                COMPMATSYSVAR_COMPOSITETIME = 0x0,
+                COMPMATSYSVAR_EMPTY_RESOURCE_SPACER = 0x1
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const CompositeMaterialMatchFilterType_t = enum(u32) {
+                MATCH_FILTER_MATERIAL_ATTRIBUTE_EXISTS = 0x0,
+                MATCH_FILTER_MATERIAL_SHADER = 0x1,
+                MATCH_FILTER_MATERIAL_NAME_SUBSTR = 0x2,
+                MATCH_FILTER_MATERIAL_ATTRIBUTE_EQUALS = 0x3,
+                MATCH_FILTER_MATERIAL_PROPERTY_EXISTS = 0x4,
+                MATCH_FILTER_MATERIAL_PROPERTY_EQUALS = 0x5
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const CompMatPropertyMutatorConditionType_t = enum(u32) {
+                COMP_MAT_MUTATOR_CONDITION_INPUT_CONTAINER_EXISTS = 0x0,
+                COMP_MAT_MUTATOR_CONDITION_INPUT_CONTAINER_VALUE_EXISTS = 0x1,
+                COMP_MAT_MUTATOR_CONDITION_INPUT_CONTAINER_VALUE_EQUALS = 0x2
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_TeamIntroCharacterPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_FireCrackerBlast = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_WingmanIntroCounterTerroristPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForCursorsWithTag = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SceneEntity__QueuedEvents_t = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CCSPlayer_PingServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEconItemAttribute = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseTriggerAPI = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CFuncRetakeBarrier = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvWindShared = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const C_SkyCamera = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Base = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: _
+            // Field count: 0
+            pub const C_FuncRotating = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_SoundOpvarSetPointBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvCubemapFog = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_CSGO_TeamSelectTerroristPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvParticleGlow = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCS_PortraitWorldCallbackHandler = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerController_InventoryServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerModernJump = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EconEntity__AttachedModelData_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulse_ResumePoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerFan = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_HostageCarriableProp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BulletHitModel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_FuncElectrifiedVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_MapVetoPickController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvVolumetricFogVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_EndOfMatchCharacterPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_PlaySequence = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BaseEntityAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BarnLight = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const CPulseCell_LerpCameraSettings = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointOffScreenIndicatorUi = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSObserver_UseServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PostProcessingVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_UseServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BaseModelEntity__Emphasized_Phoneme = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_CounterTerroristWingmanIntroCamera = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_PickBestOutflowSelector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoFan = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_VoteController = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_C4 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSPlayerPawnBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BreakableProp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_WingmanIntroTerroristPosition = struct {
+            };
+            // Parent: MNotSaved
+            // Field count: 0
+            pub const CPrecipitationVData = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_RetakeGameRules = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForObservable = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundAreaEntitySphere = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const CPulseCell_Step_EntFire = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponAWP = struct {
+            };
+            // Parent: __QX__
+            // Field count: 0
+            pub const C_BaseButton = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSObserver_ObserverServices = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const CHitboxComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ServerAuthoritativeWeaponSlot_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSMinimapBoundary = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPathQueryComponent = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_Precipitation = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicRelay = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SequenceHistory_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_ItemServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulse_OutflowConnection = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponUMP45 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponG3SG1 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SpotlightEnd = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_Fish = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponFamas = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvVolumetricFogController = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseGraphDef = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvDetailController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvWindVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePlayerControllerAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHostageRescueZoneShim = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const CEnvSoundscapeAlias_snd_soundscape = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_HostageServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_GameRulesProxy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRenderComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_Team = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PathParticleRopeAlias_path_particle_rope_clientside = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointChildModifier = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerLegacyJump = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponNOVA = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_DEagle = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CS2HudModelAddon = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_TriggerMultiple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_TeamPreviewCamera = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_ColorCorrectionVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_MovementServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoDynamicShadowHintBox = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseAnimGraphController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_ColorCorrection = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const AnimGraph2SerializedPoseRecipeSlot_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBuoyancyHelper = struct {
+            };
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub const C_PhysBox = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_CameraServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterMultiple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_FireCursors = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSoundscape = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundEventEntityAlias_snd_event_point = struct {
+            };
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub const C_FogController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundOpvarSetOBBWindEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_MolotovGrenade = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_NetTestBaseCombatCharacter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBodyComponentPoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponM4A1Silencer = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const C_EconItemView = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Timeline__TimelineEvent_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_IntervalTimer__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseRequirement = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_BaseState = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const OutflowWithRequirements_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_IsRequirementValid = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundEventPathCornerEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_InfoVisibilityBox = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_ItemServices = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Value_Gradient = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IntervalTimer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const audioparams_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PathParticleRope = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_DecoyProjectile = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_AttributeContainer = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_CSWeaponBase = struct {
+            };
+            // Parent: __RX__
+            // Field count: 0
+            pub const CTimeline = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCursorFuncs = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_TonemapController2 = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CountdownTimer = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseNodeDynamicOutflows_t__DynamicOutflow_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponMag7 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const WeaponPurchaseCount_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePulseGraphInstance = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FilterHealth = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PointClientUIHUD = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_GraphHook = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SignatureOutflow_Resume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathSimpleAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_InfoLadderDismount = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PointCommentaryNode = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSpriteOriented = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const shard_model_desc_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_KeychainModule = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncWater = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const CCSPlayer_GlowServices = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CCSGameModeRules = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: WPN_ANIMSTATE_UNINITIALIZED
+            // Field count: 0
+            pub const C_Flashbang = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PointClientUIWorldTextPanel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_WaterServices = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_CSObserverPawn = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ViewAngleServerChange_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_FuncLadder = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponMP5SD = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_World = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const C_CSGO_TeamSelectCounterTerroristPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponGalilAR = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerBase_CameraServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_TeamplayRules = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_BaseEntrypoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponSG556 = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const C_CSPlayerPawn = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_TeamIntroTerroristPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForCursorsWithTagBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_Hostage = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_fogplayerparams_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGameSceneNode = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_ObserverServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCashStack = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundAreaEntityBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PlayerVisibility = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAttributeManager__cached_attribute_float_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BasePlayerWeapon = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRagdollManager = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_HEGrenade = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvSky = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulse_InvokeBinding = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvWindController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_GameRules = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponMAC10 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_MapPreviewCameraPath = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PointWorldText = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_RopeKeyframe = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_BaseToggle = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvCubemapBox = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvCombinedLightProbeVolumeAlias_func_combined_light_probe_volume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_RopeKeyframe__CPhysicsDelegate = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoDynamicShadowHint = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CPathNode = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_FuncMoveLinear = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CServerOnlyModelEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_TeamSelectCamera = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_IntervalTimer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponXM1014 = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_WorldModelGloves = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PhysicsPropMultiplayer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundEventOBBEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseTestScriptLib = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseLerp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponAug = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_BasePropDoor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CChoreoInfoTarget = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTakeDamageResultAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNetworkedSequenceOperation = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_Item_Healthshot = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityInstance = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_BaseModelEntity = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CCSPlayer_BulletServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundOpvarSetAutoRoomEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvCombinedLightProbeVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_EndOfMatchLineupEnd = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_MultiplayRules = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_AutoaimServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_LightDirectionalEntity = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_BaseEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ActiveModelConfig_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponSSG08 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_Curve = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const C_Chicken = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_BasePlayerPawn = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundOpvarSetAABBEntity = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_WeaponBizon = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_StattrakModule = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSObserver_CameraServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSoundscapeProxy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundEventEntity = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_EventHandler = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_LightOrthoEntity = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseFlow = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBombTarget = struct {
+            };
+            // Parent: _SH___H__H______H___Z__H__H_____________________SH___H__H______H___XZ__H__H________H__X_
+            // Field count: 0
+            pub const C_Knife = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_TerroristWingmanIntroCamera = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSkeletonInstance = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_ItemDogtags = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_LateUpdatedAnimating = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_CycleShuffled__InstanceState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_BaseLerp__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseAnimFuncs = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BaseClientUIEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForCursorsWithTagBase__CursorState_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseArraylib = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_WeaponUSPSilencer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_MolotovProjectile = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_TriggerLerpObject = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointTemplateAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponRevolver = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponElite = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_DynamicPropAlias_cable_dynamic = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseProp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoOffscreenPanoramaTexture = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSWeaponBaseVData = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAttributeManager = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SignatureOutflow_Continue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoTarget = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_CameraServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Timeline = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_EntOutputHandler = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BaseCSGrenade = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CScenePayloadVData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterAttributeInt = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const CPointTemplate = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_FlashlightServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_TeamIntroCounterTerroristPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_PreviewModel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_TeamSelectCharacterPosition = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_CycleOrdered__InstanceState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundEventAABBEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_MovementServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SellbackPurchaseEntry_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_TintController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponBaseItem = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWaterSplasher = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_FuncBrush = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PhysicsRagdollPose_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPropDataComponent = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_LimitCount__InstanceState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponCZ75a = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_DynamicLight = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCS2PawnGraphController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EngineCountdownTimer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundEventSphereEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerController_DamageServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_TeamPreviewModel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_TonemapController2Alias_env_tonemap_controller2 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_Inferno = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterLOS = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointOrient = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_GlobalLight = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvWindClientside = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const sky3dparams_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_FlashbangProjectile = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundEventConeEntity = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CDestructiblePartsComponent = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponP90 = struct {
+            };
+            // Parent: MNotSaved
+            // Field count: 0
+            pub const C_EnvWind = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_TerroristTeamIntroCamera = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Step_DebugLog = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerController_ActionTrackingServices = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CBodyComponentBaseAnimGraph = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_PreviewModelAlias_csgo_item_previewmodel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_InfoInstructorHintHostageRescueZone = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseYieldingInflow = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseNodeDynamicOutflows_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_TriggerBuoyancy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_MovementServices_Humanoid = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_IsRequirementValid__Criteria_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponTec9 = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_PhysPropClientside = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BaseDoor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSMatchStats_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EntityRenderAttribute_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_ObservableVariableListener = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterMultipleAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHostageRescueZone = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CModelState = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const CPulseCell_LerpCameraSettings__CursorState_t = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Outflow_CycleOrdered = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSWeaponBaseGun = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_CSGameRulesProxy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCollisionProperty = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponP250 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_ShatterGlassShardPhysics = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterMassGreater = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EntityDissolve = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundOpvarSetOBBEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGameModeRules_ArmsRace = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const C_FuncMonitor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_ClientRagdoll = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseSelectorOutflowList_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_PlaySequence__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBodyComponentSkeletonInstance = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_CS2WeaponModuleBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_TeamPreviewCharacterPosition = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_SmokeGrenadeProjectile = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CScriptComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_BuyServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PortraitWorldCallbackHandler = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_DynamicProp = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_CSTeam = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CS2HudModelWeapon = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_TextureBasedAnimatable = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_LightEnvironmentEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const DestructiblePartDamageRequestAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicRelayAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_TriggerPhysics = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PropDoorRotating = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_HandleTest = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoWorldLayer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBodyComponentBaseModelEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_Multimeter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BaseTrigger = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FilterDamageType = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAttributeList = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_Wait = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterProximity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCS2WeaponGraphController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEffectData = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_ParticleSystem = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Outflow_CycleShuffled = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponSCAR20 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_FuncMover = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerController_InventoryServices__NetworkedLoadoutSlot_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLightComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_DecoyGrenade = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WaterBullet = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_ActionTrackingServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvCubemap = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSObserver_MovementServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBodyComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_Method = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BaseCombatCharacter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGlowProperty = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PointClientUIDialog = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseValue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponHKP2000 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_FootstepControl = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCitadelSoundOpvarSetOBB = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_EndOfMatchLineupStart = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_WaterServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_BooleanSwitchState = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CDamageRecord = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const VPhysicsCollisionAttribute_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_DynamicPropAlias_dynamic_prop = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSoundscapeProxyAlias_snd_soundscape_proxy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_OmniLight = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SceneEntity = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_Yield = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseMathlib = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_NametagModule = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const C_EconEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_UseServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PointValueRemapper = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGameSceneNodeHandle = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Unknown = struct {
+            };
+            // Parent: ___W__
+            // Field count: 0
+            pub const C_WeaponMP7 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSPerRoundStats_t = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Outflow_CycleRandom = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Step_PublicOutput = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CS2HudModelBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGameRules = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGrenadeTracer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGameModeRules_Noop = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulse_BlackboardReference = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BaseCSGrenadeProjectile = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_GradientFog = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerController_InGameMoneyServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_HEGrenadeProjectile = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterModel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundAreaEntityOrientedBox = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundOpvarSetPointEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseGameBlackboard = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CChoreoComponent = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_RandomInt = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_CSWeaponBaseShotgun = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_RagdollPropAttached = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_ModelPointEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_PreviewPlayer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_RectLight = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathSimple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_FuncTrackTrain = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EconWearable = struct {
+            };
+            // Parent: MEntityAllowsPortraitWorldSpawn
+            // Field count: 0
+            pub const C_EnvDecal = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EntitySpottedState_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const fogparams_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponM4A1 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_Item = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSPetPlacement = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_Beam = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EnvLightProbeVolume = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CExplosionTypeData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_FuncConveyor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_WeaponServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PhysMagnet = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSoundscapeTriggerableAlias_snd_soundscape_triggerable = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_Breakable = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const C_PlantedC4 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_WingmanIntroCharacterPosition = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CFilterName = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_RagdollProp = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulse_CallInfo = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_MapPreviewParticleSystem = struct {
+            };
+            // Parent: MNotSaved
+            // Field count: 0
+            pub const CBaseAnimGraph = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_InlineNodeSkipSelector = struct {
+            };
+            // Parent: MNotSaved
+            // Field count: 0
+            pub const C_LightEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponM249 = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_LocalTempEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponTaser = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PointEntity = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const C_SingleplayRules = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const CLogicalEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PrecipitationBlocker = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_CounterTerroristTeamIntroCamera = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SoundOpvarSetPathCornerEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_WeaponServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponNegev = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponFiveSeven = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponSawedoff = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_TriggerVolume = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_LimitCount = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Step_CallExternalMethod = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponMP9 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_DynamicPropAlias_prop_dynamic_override = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSoundscapeTriggerable = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PlayerPing = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_AK47 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_MapPreviewCameraPathNode = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSPlayerResource = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSkyboxReference = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_IncendiaryGrenade = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterClass = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PointCameraVFOV = struct {
+            };
+            // Parent: MEntityAllowsPortraitWorldSpawn
+            // Field count: 0
+            pub const C_PointCamera = struct {
+            };
+            // Parent: client
+            // Field count: 0
+            pub const CPathWithDynamicNodes = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseFilter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const WeaponPurchaseTracker_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseObservableBoolExpression_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMapInfo = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_EndOfMatchCamera = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_BaseGrenade = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PlayerSprayDecal = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityIdentity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_LimitCount__Criteria_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CS2HudModelArms = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePlayerVData = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_LightSpotEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGameModeRules_Deathmatch = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_CursorQueue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_RandomFloat = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseExecCursor = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const C_Sprite = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CsmFovOverride = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_WeaponGlock = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PhysicsProp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterTeam = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePlayerWeaponVData = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoInteraction = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_SmokeGrenade = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_PreviewPlayerAlias_csgo_player_previewmodel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoParticleTarget = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_DamageReactServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_PointClientUIWorldPanel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_EntityFlame = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePlayerController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CSGO_EndOfMatchLineupEndpoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const GeneratedTextureHandle_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CompositeMaterialInputContainer_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CompositeMaterialAssemblyProcedure_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CompositeMaterialInputLooseVariable_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const screenshake_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCS2UIPawnGraphController = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const inv_image_light_barn_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const inv_image_map_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const inv_image_light_fill_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInterpolatedValue = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const inv_image_item_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const TimedEvent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFlashlightEffect = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const inv_image_camera_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CInventoryImageData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const inv_image_clearcolor_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_CommandContext = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CompositeMaterialEditorPoint_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayerSprayDecalRenderHelper = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const C_IronSightController = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CompMatMutatorCondition_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const inv_image_data_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CompMatPropertyMutator_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CCompositeMaterialEditorDoc = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CClientAlphaProperty = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const screenfade_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGlobalLightBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IClientAlphaProperty = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const inv_image_light_sun_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CompositeMaterialMatchFilter_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CompositeMaterial_t = struct {
+            };
+        };
+    };
+};

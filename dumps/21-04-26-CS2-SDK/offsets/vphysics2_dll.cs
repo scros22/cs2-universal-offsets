@@ -1,0 +1,561 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+namespace CS2Dumper.Schemas {
+    // Module: vphysics2.dll
+    // Class count: 110
+    // Enum count: 5
+    public static class Vphysics2Dll {
+        // Alignment: 4
+        // Member count: 3
+        public enum JointMotion_t : uint {
+            JOINT_MOTION_FREE = 0x0,
+            JOINT_MOTION_LOCKED = 0x1,
+            JOINT_MOTION_COUNT = 0x2
+        }
+        // Alignment: 4
+        // Member count: 4
+        public enum JointAxis_t : uint {
+            JOINT_AXIS_X = 0x0,
+            JOINT_AXIS_Y = 0x1,
+            JOINT_AXIS_Z = 0x2,
+            JOINT_AXIS_COUNT = 0x3
+        }
+        // Alignment: 1
+        // Member count: 3
+        public enum DynamicContinuousContactBehavior_t : byte {
+            DYNAMIC_CONTINUOUS_ALLOW_IF_REQUESTED_BY_OTHER_BODY = 0x0,
+            DYNAMIC_CONTINUOUS_ALWAYS = 0x1,
+            DYNAMIC_CONTINUOUS_NEVER = 0x2
+        }
+        // Alignment: 4
+        // Member count: 8
+        public enum PhysInterfaceId_t : uint {
+            PIID_UNKNOWN = 0x0,
+            PIID_IPHYSICSBODY = 0x1,
+            PIID_IPHYSAGGREGATE = 0x2,
+            PIID_IPHYSICSJOINT = 0x3,
+            PIID_IPHYSICSMOTIONCONTROLLER = 0x4,
+            PIID_IPHYSICSPARTICLEROPE = 0x5,
+            PIID_IPHYSICSRAGDOLLCONTROL = 0x6,
+            PIID_NUM_TYPES = 0x7
+        }
+        // Alignment: 1
+        // Member count: 5
+        public enum PhysGenericShapeType_t : byte {
+            GENERIC_SHAPE_POINT = 0x0,
+            GENERIC_SHAPE_SPHERE = 0x1,
+            GENERIC_SHAPE_AABB = 0x2,
+            GENERIC_SHAPE_CAPSULE = 0x3,
+            GENERIC_SHAPE_HULL = 0x4
+        }
+        // Parent: physicslib
+        // Field count: 0
+        public static class RnSphereDesc_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnSoftbodyParticle_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: physicslib
+        // Field count: 0
+        public static class RnHullDesc_t {
+        }
+        // Parent: physicslib
+        // Field count: 0
+        public static class RnCapsuleDesc_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class PhysFeModelDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: physicslib
+        // Field count: 0
+        public static class RnMeshDesc_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnSoftbodySpring_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnSoftbodyCapsule_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: xL___
+        // Field count: 0
+        public static class vphysics_save_cphysicsbody_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeBuildBoxRigid_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CFeIndexedJiggleBone {
+            public const nint  = 0x0; // 
+        }
+        // Parent: xL___
+        // Field count: 0
+        public static class IPhysAggregateInstance {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeBandBendLimit_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeTaperedCapsuleStretch_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class constraint_axislimit_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeSimdRodConstraintAnim_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeSimdRodConstraint_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class IPhysicsParticleRope {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class constraint_hingeparams_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class IPhysicsBodyList {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeBuildSphereRigid_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeSimdAnimStrayRadius_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnTriangle_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeProxyVertexMap_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeNodeIntegrator_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnCapsule_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CFeNamedJiggleBone {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeAntiTunnelProbeBuild_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnBodyDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class OldFeEdge_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeFollowNode_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnMesh_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class VertexPositionNormal_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class IPhysicsRagdollControl {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeBuildSDFRigid_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class RnBlendVertex_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CFeMorphLayer {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeCtrlSoftOffset_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeVertexMapDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeTaperedCapsuleRigid_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeAnimStrayRadius_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class IPhysicsJoint {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeEdgeDesc_t {
+            public const nint  = 0x1; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeNodeStrayBox_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeNodeReverseOffset_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnPlane_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeSDFRigid_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CFeJiggleBone {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CRegionSVM {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeWorldCollisionParams_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class CGenericShapeProxy {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class RnNode_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeFitMatrix_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeSimdQuad_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeSimdSpringIntegrator_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeSimdNodeBase_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeQuad_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeHingeLimit_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnWing_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeWeightedNode_t {
+            public const nint  = 0x1; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CollisionDetailLayerInfo_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeEffectDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeSpringIntegrator_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FourVectors2D {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeKelagerBend2_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CastSphereSATParams_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class vphysics_save_ragdoll_control_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeRigidColliderIndices_t {
+            public const nint  = 0x1; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeCollisionPlane_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeStiffHingeBuild_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeBoxRigid_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeMorphLayerDepr_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeCtrlOffset_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class IPhysicsPlayerController {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeNodeBase_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeVertexMapBuild_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CFeVertexMapBuildArray {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeTri_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnHull_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeModelSelfCollisionLayer_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeAntiTunnelGroupBuild_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CovMatrix3 {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class PhysicsParticleId_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnVertex_t {
+            public const nint  = 0x100; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class IPhysicsMotionController {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class Dop26_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeDynKinLink_t {
+            public const nint  = 0x1; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnFace_t {
+            public const nint  = 0x100; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeCtrlOsOffset_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeAntiTunnelProbe_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeSourceEdge_t {
+            public const nint  = 0x1; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeTwistConstraint_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeNodeWindBase_t {
+            public const nint  = 0x1; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeAxialEdgeBend_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FourCovMatrices3 {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class constraint_breakableparams_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeSphereRigid_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CollisionDetailLayerInfo_t__Name_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeBuildTaperedCapsuleRigid_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class IPhysicsBody {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeSoftParent_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnShapeDesc_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeTreeChildren_t {
+            public const nint  = 0x1; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeRodConstraint_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeFitWeight_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class RnHalfEdge_t {
+            public const nint  = 0x100; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FeSimdTri_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class VertexPositionColor_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeFitInfluence_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FeHingeLimitBuild_t {
+            public const nint  = 0x0; // 
+        }
+    }
+}

@@ -1,0 +1,95 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+namespace CS2Dumper.Schemas {
+    // Module: steamaudio.dll
+    // Class count: 17
+    // Enum count: 0
+    public static class SteamaudioDll {
+        // Parent: None
+        // Field count: 1
+        public static class SteamAudioReverbClusteringSettings_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class SteamAudioCustomDataDimensionsSettings_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class SteamAudioPathSettings_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSteamAudioAmbisonicsField {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSteamAudioBakedPathingData {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class SteamAudioReverbSettings_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSteamAudioProbeData {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class SteamAudioReverbCompressionSettings_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSteamAudioBakedMaterialsData {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSteamAudioBakedOcclusionData {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSteamAudioBakedReverbData {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSteamAudioProbeLineSegment {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class SteamAudioCustomDataOcclusionSettings_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSteamAudioBakedDimensionsData {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSteamAudioSceneData {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSteamAudioProbeGrid {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CSteamAudioCompressedReverb {
+            public const nint  = 0x0; // 
+        }
+    }
+}

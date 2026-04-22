@@ -1,0 +1,101 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+pub const cs2_dumper = struct {
+    pub const schemas = struct {
+        // Module: scenesystem.dll
+        // Class count: 9
+        // Enum count: 5
+        pub const scenesystem_dll = struct {
+            // Alignment: 4
+            // Member count: 7
+            pub const ESceneViewDebugOverlaysListenerDataType_t = enum(u32) {
+                k_ESceneViewDebugOverlaysListenerDataType_Unknown = 0x0,
+                k_ESceneViewDebugOverlaysListenerDataType_Sphere = 0x1,
+                k_ESceneViewDebugOverlaysListenerDataType_Capsule = 0x2,
+                k_ESceneViewDebugOverlaysListenerDataType_BoxAngles = 0x3,
+                k_ESceneViewDebugOverlaysListenerDataType_Line = 0x4,
+                k_ESceneViewDebugOverlaysListenerDataType_SolidBoxAngles = 0x5,
+                k_ESceneViewDebugOverlaysListenerDataType_Text3D = 0x6
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ESilhouetteType_t = enum(u32) {
+                SILHOUETTE_NONE = 0x0,
+                SILHOUETTE_LIGHT = 0x1,
+                SILHOUETTE_ENVMAP = 0x2,
+                SILHOUETTE_LPV = 0x4
+            };
+            // Alignment: 1
+            // Member count: 5
+            pub const DisableShadows_t = enum(u8) {
+                kDisableShadows_None = 0x0,
+                kDisableShadows_All = 0x1,
+                kDisableShadows_Baked = 0x2,
+                kDisableShadows_Realtime = 0x3,
+                kDisableShadows_ReallyNone = 0x4
+            };
+            // Alignment: 1
+            // Member count: 6
+            pub const DecalRtEncoding_t = enum(u8) {
+                kDecalInvalid = 0xFF,
+                kDecalMin = 0x0,
+                kDecalCloak = 0x1,
+                kDecalMax = 0x2
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const ESceneObjectVisualization = enum(u32) {
+                SCENEOBJECT_VIS_NONE = 0x0,
+                SCENEOBJECT_VIS_OBJECT = 0x1,
+                SCENEOBJECT_VIS_MATERIAL = 0x2,
+                SCENEOBJECT_VIS_TEXTURE_SIZE = 0x3,
+                SCENEOBJECT_VIS_LOD = 0x4,
+                SCENEOBJECT_VIS_INSTANCING = 0x5
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSSDSMsg_ViewTarget = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const SceneViewId_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSSDSEndFrameViewInfo = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: scenesystem
+            // Field count: 0
+            pub const CSSDSMsg_PostLayer = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSSDSMsg_LayerBase = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSSDSMsg_PreLayer = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSSDSMsg_ViewTargetList = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSSDSMsg_ViewRender = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSSDSMsg_EndFrame = struct {
+                pub const @"": usize = 0x0; // 
+            };
+        };
+    };
+};

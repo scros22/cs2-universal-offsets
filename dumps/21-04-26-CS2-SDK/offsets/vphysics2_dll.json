@@ -1,0 +1,747 @@
+{
+  "vphysics2.dll": {
+    "classes": {
+      "CFeIndexedJiggleBone": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CFeJiggleBone": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CFeMorphLayer": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CFeNamedJiggleBone": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CFeVertexMapBuildArray": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CGenericShapeProxy": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "CRegionSVM": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CastSphereSATParams_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CollisionDetailLayerInfo_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CollisionDetailLayerInfo_t__Name_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CovMatrix3": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "Dop26_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeAnimStrayRadius_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeAntiTunnelGroupBuild_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeAntiTunnelProbeBuild_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeAntiTunnelProbe_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeAxialEdgeBend_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeBandBendLimit_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeBoxRigid_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeBuildBoxRigid_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeBuildSDFRigid_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeBuildSphereRigid_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeBuildTaperedCapsuleRigid_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeCollisionPlane_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeCtrlOffset_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeCtrlOsOffset_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeCtrlSoftOffset_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeDynKinLink_t": {
+        "fields": {
+          "": 1
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeEdgeDesc_t": {
+        "fields": {
+          "": 1
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeEffectDesc_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeFitInfluence_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeFitMatrix_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeFitWeight_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeFollowNode_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeHingeLimitBuild_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeHingeLimit_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeKelagerBend2_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeModelSelfCollisionLayer_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeMorphLayerDepr_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeNodeBase_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeNodeIntegrator_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeNodeReverseOffset_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeNodeStrayBox_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeNodeWindBase_t": {
+        "fields": {
+          "": 1
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeProxyVertexMap_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeQuad_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeRigidColliderIndices_t": {
+        "fields": {
+          "": 1
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeRodConstraint_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeSDFRigid_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeSimdAnimStrayRadius_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeSimdNodeBase_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeSimdQuad_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeSimdRodConstraintAnim_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeSimdRodConstraint_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeSimdSpringIntegrator_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeSimdTri_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeSoftParent_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeSourceEdge_t": {
+        "fields": {
+          "": 1
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeSphereRigid_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeSpringIntegrator_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeStiffHingeBuild_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeTaperedCapsuleRigid_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FeTaperedCapsuleStretch_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeTreeChildren_t": {
+        "fields": {
+          "": 1
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeTri_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeTwistConstraint_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeVertexMapBuild_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeVertexMapDesc_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeWeightedNode_t": {
+        "fields": {
+          "": 1
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FeWorldCollisionParams_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "FourCovMatrices3": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "FourVectors2D": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "IPhysAggregateInstance": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "IPhysicsBody": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "IPhysicsBodyList": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "IPhysicsJoint": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "IPhysicsMotionController": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "IPhysicsParticleRope": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "IPhysicsPlayerController": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "IPhysicsRagdollControl": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "OldFeEdge_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "PhysFeModelDesc_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "PhysicsParticleId_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "RnBlendVertex_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "RnBodyDesc_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnCapsuleDesc_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "physicslib"
+      },
+      "RnCapsule_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnFace_t": {
+        "fields": {
+          "": 256
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnHalfEdge_t": {
+        "fields": {
+          "": 256
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnHullDesc_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "physicslib"
+      },
+      "RnHull_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnMeshDesc_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "physicslib"
+      },
+      "RnMesh_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnNode_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "RnPlane_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnShapeDesc_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnSoftbodyCapsule_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnSoftbodyParticle_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnSoftbodySpring_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnSphereDesc_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "physicslib"
+      },
+      "RnTriangle_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnVertex_t": {
+        "fields": {
+          "": 256
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "RnWing_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "VertexPositionColor_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "VertexPositionNormal_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "constraint_axislimit_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "constraint_breakableparams_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "constraint_hingeparams_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "vphysics_save_cphysicsbody_t": {
+        "fields": {},
+        "metadata": [],
+        "parent": "xL��"
+      },
+      "vphysics_save_ragdoll_control_t": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      }
+    },
+    "enums": {
+      "DynamicContinuousContactBehavior_t": {
+        "alignment": 1,
+        "members": {
+          "DYNAMIC_CONTINUOUS_ALLOW_IF_REQUESTED_BY_OTHER_BODY": 0,
+          "DYNAMIC_CONTINUOUS_ALWAYS": 1,
+          "DYNAMIC_CONTINUOUS_NEVER": 2
+        },
+        "type": "uint8"
+      },
+      "JointAxis_t": {
+        "alignment": 4,
+        "members": {
+          "JOINT_AXIS_COUNT": 3,
+          "JOINT_AXIS_X": 0,
+          "JOINT_AXIS_Y": 1,
+          "JOINT_AXIS_Z": 2
+        },
+        "type": "uint32"
+      },
+      "JointMotion_t": {
+        "alignment": 4,
+        "members": {
+          "JOINT_MOTION_COUNT": 2,
+          "JOINT_MOTION_FREE": 0,
+          "JOINT_MOTION_LOCKED": 1
+        },
+        "type": "uint32"
+      },
+      "PhysGenericShapeType_t": {
+        "alignment": 1,
+        "members": {
+          "GENERIC_SHAPE_AABB": 2,
+          "GENERIC_SHAPE_CAPSULE": 3,
+          "GENERIC_SHAPE_HULL": 4,
+          "GENERIC_SHAPE_POINT": 0,
+          "GENERIC_SHAPE_SPHERE": 1
+        },
+        "type": "uint8"
+      },
+      "PhysInterfaceId_t": {
+        "alignment": 4,
+        "members": {
+          "PIID_IPHYSAGGREGATE": 2,
+          "PIID_IPHYSICSBODY": 1,
+          "PIID_IPHYSICSJOINT": 3,
+          "PIID_IPHYSICSMOTIONCONTROLLER": 4,
+          "PIID_IPHYSICSPARTICLEROPE": 5,
+          "PIID_IPHYSICSRAGDOLLCONTROL": 6,
+          "PIID_NUM_TYPES": 7,
+          "PIID_UNKNOWN": 0
+        },
+        "type": "uint32"
+      }
+    }
+  }
+}

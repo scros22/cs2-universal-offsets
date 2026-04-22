@@ -1,0 +1,267 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+namespace CS2Dumper.Schemas {
+    // Module: resourcesystem.dll
+    // Class count: 58
+    // Enum count: 2
+    public static class ResourcesystemDll {
+        // Alignment: 1
+        // Member count: 9
+        public enum FuseVariableType_t : byte {
+            INVALID = 0x0,
+            BOOL = 0x1,
+            INT8 = 0x2,
+            INT16 = 0x3,
+            INT32 = 0x4,
+            UINT8 = 0x5,
+            UINT16 = 0x6,
+            UINT32 = 0x7,
+            FLOAT32 = 0x8
+        }
+        // Alignment: 1
+        // Member count: 2
+        public enum FuseVariableAccess_t : byte {
+            WRITABLE = 0x0,
+            READ_ONLY = 0x1
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCResponseRulesList {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCDotaItemDefinitionResource {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCMorphSetData {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCVSoundStackScriptList {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class PackedAABB_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCVPhysXSurfacePropertiesList {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeManifestTestResource_t {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class ConstantInfo_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FuseFunctionIndex_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCGcExportableExternalData {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeIAnimGraphModelBinding {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCJavaScriptResource {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CFuseSymbolTable {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCRenderMesh {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCVoxelVisibility {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCPhysAggregateData {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCNmClip {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeWorld_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeProceduralTestResource_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class AABB_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCPostProcessingResource {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class VariableInfo_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeIParticleSnapshot {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FourQuaternions {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCPanoramaLayout {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCTypeScriptResource {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCChoreoSceneResource {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCNmSkeleton {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCTestResourceData {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCAnimationGroup {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCVSoundEventScriptList {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCVoiceContainerBase {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCPanoramaStyle {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCWorldNode {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCSurfaceGraph {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCCSGOEconItem {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCNmGraphDefinition {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCSmartProp {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class CFuseProgram {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCCompositeMaterialKit {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCVMixListResource {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCAnimData {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeIMaterial2 {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeIVectorGraphic {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCPanoramaDynamicImages {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeIPulseGraphDef {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCVDataItemDefs {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class FunctionInfo_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCVDataResource {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCModel {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCDOTANovelsList {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCTextureBase {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class FuseVariableIndex_t {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeIParticleSystemDefinition {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCSequenceGroupData {
+        }
+        // Parent: None
+        // Field count: 1
+        public static class ManifestTestResource_t {
+            public const nint  = 0x0; // 
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCEntityLump {
+        }
+        // Parent: None
+        // Field count: 0
+        public static class InfoForResourceTypeCDOTAPatchNotesList {
+        }
+    }
+}

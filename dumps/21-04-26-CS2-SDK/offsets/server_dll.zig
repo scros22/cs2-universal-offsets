@@ -1,0 +1,5851 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+pub const cs2_dumper = struct {
+    pub const schemas = struct {
+        // Module: server.dll
+        // Class count: 943
+        // Enum count: 179
+        pub const server_dll = struct {
+            // Alignment: 4
+            // Member count: 4
+            pub const CLogicBranchList__LogicBranchListenerLastState_t = enum(u32) {
+                LOGIC_BRANCH_LISTENER_NOT_INIT = 0x0,
+                LOGIC_BRANCH_LISTENER_ALL_TRUE = 0x1,
+                LOGIC_BRANCH_LISTENER_ALL_FALSE = 0x2,
+                LOGIC_BRANCH_LISTENER_MIXED = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const CFuncMover__Move_t = enum(u32) {
+                MOVE_LOOP = 0x0,
+                MOVE_OSCILLATE = 0x1,
+                MOVE_STOP_AT_END = 0x2
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const CFuncRotator__Rotate_t = enum(u32) {
+                ROTATE_LOOP = 0x0,
+                ROTATE_OSCILLATE = 0x1,
+                ROTATE_STOP_AT_END = 0x2,
+                ROTATE_LOOK_AT_TARGET = 0x3,
+                ROTATE_LOOK_AT_TARGET_ONLY_YAW = 0x4,
+                ROTATE_RETURN_TO_INITIAL_ORIENTATION = 0x5
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const PulseBestOutflowRules_t = enum(u32) {
+                SORT_BY_NUMBER_OF_VALID_CRITERIA = 0x0,
+                SORT_BY_OUTFLOW_INDEX = 0x1
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const CPhysicsProp__CrateType_t = enum(u32) {
+                CRATE_SPECIFIC_ITEM = 0x0,
+                CRATE_TYPE_COUNT = 0x1
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const PulseCursorCancelPriority_t = enum(u32) {
+                None = 0x0,
+                CancelOnSucceeded = 0x1,
+                SoftCancel = 0x2,
+                HardCancel = 0x3
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const PulseMethodCallMode_t = enum(u32) {
+                SYNC_WAIT_FOR_COMPLETION = 0x0,
+                ASYNC_FIRE_AND_FORGET = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const CFuncMover__FollowConstraint_t = enum(u32) {
+                FOLLOW_CONSTRAINT_DISTANCE = 0x0,
+                FOLLOW_CONSTRAINT_SPRING = 0x1,
+                FOLLOW_CONSTRAINT_RATIO = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const CFuncMover__FollowEntityDirection_t = enum(u32) {
+                FOLLOW_ENTITY_BIDIRECTIONAL = 0x0,
+                FOLLOW_ENTITY_FORWARD = 0x1,
+                FOLLOW_ENTITY_REVERSE = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const CFuncMover__TransitionToPathNodeAction_t = enum(u32) {
+                TRANSITION_TO_PATH_NODE_ACTION_NONE = 0x0,
+                TRANSITION_TO_PATH_NODE_ACTION_START_FORWARD = 0x1,
+                TRANSITION_TO_PATH_NODE_ACTION_START_REVERSE = 0x2,
+                TRANSITION_TO_PATH_NODE_TRANSITIONING = 0x3
+            };
+            // Alignment: 4
+            // Member count: 9
+            pub const CFuncMover__OrientationUpdate_t = enum(u32) {
+                ORIENTATION_FORWARD_PATH = 0x0,
+                ORIENTATION_FORWARD_PATH_AND_FIXED_PITCH = 0x1,
+                ORIENTATION_FORWARD_PATH_AND_UP_CONTROL_POINT = 0x2,
+                ORIENTATION_MATCH_CONTROL_POINT = 0x3,
+                ORIENTATION_FIXED = 0x4,
+                ORIENTATION_FACE_PLAYER = 0x5,
+                ORIENTATION_FORWARD_MOVEMENT_DIRECTION = 0x6,
+                ORIENTATION_FORWARD_MOVEMENT_DIRECTION_AND_UP_CONTROL_POINT = 0x7,
+                ORIENTATION_FACE_ENTITY = 0x8
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const PropDoorRotatingOpenDirection_e = enum(u32) {
+                DOOR_ROTATING_OPEN_BOTH_WAYS = 0x0,
+                DOOR_ROTATING_OPEN_FORWARD = 0x1,
+                DOOR_ROTATING_OPEN_BACKWARD = 0x2
+            };
+            // Alignment: 4
+            // Member count: 1
+            pub const PulseCollisionGroup_t = enum(u32) {
+                DEFAULT = 0x0
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const SceneOnPlayerDeath_t = enum(u32) {
+                SCENE_ONPLAYERDEATH_DO_NOTHING = 0x0,
+                SCENE_ONPLAYERDEATH_CANCEL = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const LessonPanelLayoutFileTypes_t = enum(u32) {
+                LAYOUT_HAND_DEFAULT = 0x0,
+                LAYOUT_WORLD_DEFAULT = 0x1,
+                LAYOUT_CUSTOM = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const TimelineCompression_t = enum(u32) {
+                TIMELINE_COMPRESSION_SUM = 0x0,
+                TIMELINE_COMPRESSION_COUNT_PER_INTERVAL = 0x1,
+                TIMELINE_COMPRESSION_AVERAGE = 0x2,
+                TIMELINE_COMPRESSION_AVERAGE_BLEND = 0x3,
+                TIMELINE_COMPRESSION_TOTAL = 0x4
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const SubclassVDataChangeType_t = enum(u32) {
+                SUBCLASS_VDATA_CREATED = 0x0,
+                SUBCLASS_VDATA_SUBCLASS_CHANGED = 0x1,
+                SUBCLASS_VDATA_RELOADED = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const C4LightEffect_t = enum(u32) {
+                eLightEffectNone = 0x0,
+                eLightEffectDropped = 0x1,
+                eLightEffectThirdPersonHeld = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const StanceType_t = enum(u32) {
+                STANCE_CURRENT = 0xFFFFFFFF,
+                STANCE_DEFAULT = 0x0,
+                STANCE_CROUCHING = 0x1,
+                STANCE_PRONE = 0x2,
+                NUM_STANCES = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const Explosions = enum(u32) {
+                expRandom = 0x0,
+                expDirected = 0x1,
+                expUsePrecise = 0x2
+            };
+            // Alignment: 4
+            // Member count: 11
+            pub const PreviewCharacterMode = enum(u32) {
+                INVALID = 0xFFFFFFFF,
+                DIORAMA = 0x0,
+                MAIN_MENU = 0x1,
+                BUY_MENU = 0x2,
+                TEAM_SELECT = 0x3,
+                END_OF_MATCH = 0x4,
+                INVENTORY_INSPECT = 0x5,
+                WALKING = 0x6,
+                TEAM_INTRO = 0x7,
+                WINGMAN_INTRO = 0x8,
+                BANNER = 0x9
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ObserverInterpState_t = enum(u32) {
+                OBSERVER_INTERP_NONE = 0x0,
+                OBSERVER_INTERP_STARTING = 0x1,
+                OBSERVER_INTERP_TRAVELING = 0x2,
+                OBSERVER_INTERP_SETTLING = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const WorldTextPanelOrientation_t = enum(u32) {
+                WORLDTEXT_ORIENTATION_DEFAULT = 0x0,
+                WORLDTEXT_ORIENTATION_FACEUSER = 0x1,
+                WORLDTEXT_ORIENTATION_FACEUSER_UPRIGHT = 0x2
+            };
+            // Alignment: 4
+            // Member count: 8
+            pub const EDestructibleParts_DestroyParameterFlags = enum(u32) {
+                None = 0x0,
+                GenerateBreakpieces = 0x1,
+                SetBodyGroupAndCollisionState = 0x2,
+                EnableFlinches = 0x4,
+                ForceDamageApply = 0x8,
+                IgnoreKillEntityFlag = 0x10,
+                IgnoreHealthCheck = 0x20,
+                Default = 0x7
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const WorldTextPanelHorizontalAlign_t = enum(u32) {
+                WORLDTEXT_HORIZONTAL_ALIGN_LEFT = 0x0,
+                WORLDTEXT_HORIZONTAL_ALIGN_CENTER = 0x1,
+                WORLDTEXT_HORIZONTAL_ALIGN_RIGHT = 0x2
+            };
+            // Alignment: 1
+            // Member count: 3
+            pub const SequenceFinishNotifyState_t = enum(u8) {
+                eDoNotNotify = 0x0,
+                eNotifyWhenFinished = 0x1,
+                eNotifyTriggered = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const SoundEventStartType_t = enum(u32) {
+                SOUNDEVENT_START_PLAYER = 0x0,
+                SOUNDEVENT_START_WORLD = 0x1,
+                SOUNDEVENT_START_ENTITY = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const soundcommands_t = enum(u32) {
+                SOUNDCTRL_CHANGE_VOLUME = 0x0,
+                SOUNDCTRL_CHANGE_PITCH = 0x1,
+                SOUNDCTRL_STOP = 0x2,
+                SOUNDCTRL_DESTROY = 0x3,
+                SOUNDCTRL_FADEOUT = 0x4
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const AnimGraphDebugDrawType_t = enum(u32) {
+                None = 0x0,
+                WsPosition = 0x1,
+                MsPosition = 0x2,
+                WsDirection = 0x3,
+                MsDirection = 0x4
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const TrainOrientationType_t = enum(u32) {
+                TrainOrientation_Fixed = 0x0,
+                TrainOrientation_AtPathTracks = 0x1,
+                TrainOrientation_LinearBlend = 0x2,
+                TrainOrientation_EaseInEaseOut = 0x3
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const CInfoChoreoLocatorShapeType_t = enum(u32) {
+                POINT = 0x0,
+                LINE = 0x1,
+                COUNT = 0x2,
+                NONE = 0x3
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const CSWeaponCategory = enum(u32) {
+                WEAPONCATEGORY_OTHER = 0x0,
+                WEAPONCATEGORY_MELEE = 0x1,
+                WEAPONCATEGORY_SECONDARY = 0x2,
+                WEAPONCATEGORY_SMG = 0x3,
+                WEAPONCATEGORY_RIFLE = 0x4,
+                WEAPONCATEGORY_HEAVY = 0x5,
+                WEAPONCATEGORY_COUNT = 0x6
+            };
+            // Alignment: 1
+            // Member count: 2
+            pub const BeginDeathLifeStateTransition_t = enum(u8) {
+                TRANSITION_TO_LIFESTATE_DYING = 0x0,
+                TRANSITION_TO_LIFESTATE_DEAD = 0x1
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const PointOrientGoalDirectionType_t = enum(u32) {
+                eAbsOrigin = 0x0,
+                eCenter = 0x1,
+                eHead = 0x2,
+                eForward = 0x3,
+                eEyesForward = 0x4
+            };
+            // Alignment: 1
+            // Member count: 9
+            pub const ItemFlagTypes_t = enum(u8) {
+                ITEM_FLAG_NONE = 0x0,
+                ITEM_FLAG_CAN_SELECT_WITHOUT_AMMO = 0x1,
+                ITEM_FLAG_NOAUTORELOAD = 0x2,
+                ITEM_FLAG_NOAUTOSWITCHEMPTY = 0x4,
+                ITEM_FLAG_LIMITINWORLD = 0x8,
+                ITEM_FLAG_EXHAUSTIBLE = 0x10,
+                ITEM_FLAG_DOHITLOCATIONDMG = 0x20,
+                ITEM_FLAG_NOAMMOPICKUPS = 0x40,
+                ITEM_FLAG_NOITEMPICKUP = 0x80
+            };
+            // Alignment: 1
+            // Member count: 10
+            pub const SurroundingBoundsType_t = enum(u8) {
+                USE_OBB_COLLISION_BOUNDS = 0x0,
+                USE_BEST_COLLISION_BOUNDS = 0x1,
+                USE_HITBOXES = 0x2,
+                USE_SPECIFIED_BOUNDS = 0x3,
+                USE_GAME_CODE = 0x4,
+                USE_ROTATION_EXPANDED_BOUNDS = 0x5,
+                USE_ROTATION_EXPANDED_ORIENTED_BOUNDS = 0x6,
+                USE_COLLISION_BOUNDS_NEVER_VPHYSICS = 0x7,
+                USE_ROTATION_EXPANDED_SEQUENCE_BOUNDS = 0x8
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const LifeState_t = enum(u32) {
+                LIFE_ALIVE = 0x0,
+                LIFE_DYING = 0x1,
+                LIFE_DEAD = 0x2,
+                LIFE_RESPAWNABLE = 0x3,
+                LIFE_RESPAWNING = 0x4,
+                NUM_LIFESTATES = 0x5
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const PointOrientConstraint_t = enum(u32) {
+                eNone = 0x0,
+                ePreserveUpAxis = 0x1
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const NPCFollowFormation_t = enum(u32) {
+                Default = 0xFFFFFFFF,
+                CloseCircle = 0x0,
+                WideCircle = 0x1,
+                MediumCircle = 0x5,
+                Sidekick = 0x6
+            };
+            // Alignment: 1
+            // Member count: 3
+            pub const GLOBALESTATE = enum(u8) {
+                GLOBAL_OFF = 0x0,
+                GLOBAL_ON = 0x1,
+                GLOBAL_DEAD = 0x2
+            };
+            // Alignment: 1
+            // Member count: 6
+            pub const AnimationAlgorithm_t = enum(u8) {
+                eInvalid = 0xFF,
+                eNone = 0x0,
+                eSequence = 0x1,
+                eAnimGraph2 = 0x2,
+                eAnimGraph2Secondary = 0x3,
+                eCount = 0x4
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const CSWeaponMode = enum(u32) {
+                Primary_Mode = 0x0,
+                Secondary_Mode = 0x1,
+                WeaponMode_MAX = 0x2
+            };
+            // Alignment: 1
+            // Member count: 3
+            pub const OnFrame = enum(u8) {
+                ONFRAME_UNKNOWN = 0x0,
+                ONFRAME_TRUE = 0x1,
+                ONFRAME_FALSE = 0x2
+            };
+            // Alignment: 4
+            // Member count: 12
+            pub const Materials = enum(u32) {
+                matGlass = 0x0,
+                matWood = 0x1,
+                matMetal = 0x2,
+                matFlesh = 0x3,
+                matCinderBlock = 0x4,
+                matCeilingTile = 0x5,
+                matComputer = 0x6,
+                matUnbreakableGlass = 0x7,
+                matRocks = 0x8,
+                matWeb = 0x9,
+                matNone = 0xA,
+                matLastMaterial = 0xB
+            };
+            // Alignment: 4
+            // Member count: 9
+            pub const BloodType = enum(u32) {
+                None = 0xFFFFFFFF,
+                ColorRed = 0x0,
+                ColorYellow = 0x1,
+                ColorGreen = 0x2,
+                ColorRedLVL2 = 0x3,
+                ColorRedLVL3 = 0x4,
+                ColorRedLVL4 = 0x5,
+                ColorRedLVL5 = 0x6,
+                ColorRedLVL6 = 0x7
+            };
+            // Alignment: 1
+            // Member count: 5
+            pub const NavScope_t = enum(u8) {
+                eGround = 0x0,
+                eAir = 0x1,
+                eCount = 0x2,
+                eInvalid = 0xFF
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const BreakableContentsType_t = enum(u32) {
+                BC_DEFAULT = 0x0,
+                BC_EMPTY = 0x1,
+                BC_PROP_GROUP_OVERRIDE = 0x2,
+                BC_PARTICLE_SYSTEM_OVERRIDE = 0x3
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const AnimLoopMode_t = enum(u32) {
+                ANIM_LOOP_MODE_INVALID = 0xFFFFFFFF,
+                ANIM_LOOP_MODE_NOT_LOOPING = 0x0,
+                ANIM_LOOP_MODE_LOOPING = 0x1,
+                ANIM_LOOP_MODE_USE_SEQUENCE_SETTINGS = 0x2,
+                ANIM_LOOP_MODE_COUNT = 0x3
+            };
+            // Alignment: 4
+            // Member count: 14
+            pub const Class_T = enum(u32) {
+                CLASS_NONE = 0x0,
+                CLASS_PLAYER = 0x1,
+                CLASS_PLAYER_ALLY = 0x2,
+                CLASS_C4_FOR_RADAR = 0x3,
+                CLASS_FOOT_CONTACT_SHADOW = 0x4,
+                CLASS_WEAPON = 0x5,
+                CLASS_WATER_SPLASHER = 0x6,
+                CLASS_HUDMODEL_WEAPON = 0x7,
+                CLASS_HUDMODEL_ARMS = 0x8,
+                CLASS_HUDMODEL_ADDON = 0x9,
+                CLASS_WORLDMODEL_GLOVES = 0xA,
+                CLASS_DOOR = 0xB,
+                CLASS_PLANTED_C4 = 0xC,
+                NUM_CLASSIFY_CLASSES = 0xD
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const filter_t = enum(u32) {
+                FILTER_AND = 0x0,
+                FILTER_OR = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const CSWeaponSilencerType = enum(u32) {
+                WEAPONSILENCER_NONE = 0x0,
+                WEAPONSILENCER_DETACHABLE = 0x1,
+                WEAPONSILENCER_INTEGRATED = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const EProceduralRagdollWeightIndexPropagationMethod = enum(u32) {
+                Bone = 0x0,
+                BoneAndChildren = 0x1
+            };
+            // Alignment: 4
+            // Member count: 37
+            pub const GameAnimEventIndex_t = enum(u32) {
+                AE_EMPTY = 0x0,
+                AE_CL_PLAYSOUND = 0x1,
+                AE_CL_PLAYSOUND_ATTACHMENT = 0x2,
+                AE_CL_PLAYSOUND_POSITION = 0x3,
+                AE_SV_PLAYSOUND = 0x4,
+                AE_CL_STOPSOUND = 0x5,
+                AE_CL_PLAYSOUND_LOOPING = 0x6,
+                AE_CL_CREATE_PARTICLE_EFFECT = 0x7,
+                AE_CL_STOP_PARTICLE_EFFECT = 0x8,
+                AE_CL_CREATE_PARTICLE_EFFECT_CFG = 0x9,
+                AE_SV_CREATE_PARTICLE_EFFECT_CFG = 0xA,
+                AE_SV_STOP_PARTICLE_EFFECT = 0xB,
+                AE_FOOTSTEP = 0xC,
+                AE_CL_STOP_RAGDOLL_CONTROL = 0xD,
+                AE_CL_ENABLE_BODYGROUP = 0xE,
+                AE_CL_DISABLE_BODYGROUP = 0xF,
+                AE_BODYGROUP_SET_VALUE = 0x10,
+                AE_WEAPON_PERFORM_ATTACK = 0x11,
+                AE_FIRE_INPUT = 0x12,
+                AE_CL_CLOTH_ATTR = 0x13,
+                AE_CL_CLOTH_GROUND_OFFSET = 0x14,
+                AE_CL_CLOTH_STIFFEN = 0x15,
+                AE_CL_CLOTH_EFFECT = 0x16,
+                AE_CL_CREATE_ANIM_SCOPE_PROP = 0x17,
+                AE_SV_IKLOCK = 0x18,
+                AE_PULSE_GRAPH = 0x19,
+                AE_DISABLE_PLATFORM = 0x1A,
+                AE_ENABLE_PLATFORM_PLAYER_FOLLOWS_YAW = 0x1B,
+                AE_ENABLE_PLATFORM_PLAYER_IGNORES_YAW = 0x1C,
+                AE_DESTRUCTIBLE_PART_DESTROY = 0x1D,
+                AE_CL_WEAPON_TRANSITION_INTO_HAND = 0x1E,
+                AE_SV_ATTACH_SILENCER_COMPLETE = 0x1F,
+                AE_SV_DETACH_SILENCER_COMPLETE = 0x20,
+                AE_CL_EJECT_MAG = 0x21,
+                AE_WPN_COMPLETE_RELOAD = 0x22,
+                AE_WPN_HEALTHSHOT_INJECT = 0x23,
+                AE_GRENADE_THROW_COMPLETE = 0x24
+            };
+            // Alignment: 1
+            // Member count: 3
+            pub const FixAngleSet_t = enum(u8) {
+                None = 0x0,
+                Absolute = 0x1,
+                Relative = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const IChoreoServices__ScriptState_t = enum(u32) {
+                SCRIPT_PLAYING = 0x0,
+                SCRIPT_WAIT = 0x1,
+                SCRIPT_POST_IDLE = 0x2,
+                SCRIPT_CLEANUP = 0x3,
+                SCRIPT_MOVE_TO_MARK = 0x4
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const Touch_t = enum(u32) {
+                touch_none = 0x0,
+                touch_player_only = 0x1,
+                touch_npc_only = 0x2,
+                touch_player_or_npc = 0x3,
+                touch_player_or_npc_or_physicsprop = 0x4
+            };
+            // Alignment: 1
+            // Member count: 4
+            pub const CCSPlayerAnimationState__MoveType_t = enum(u8) {
+                None = 0x0,
+                Ground = 0x1,
+                Air = 0x2,
+                Ladder = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const TrainVelocityType_t = enum(u32) {
+                TrainVelocity_Instantaneous = 0x0,
+                TrainVelocity_LinearBlend = 0x1,
+                TrainVelocity_EaseInEaseOut = 0x2
+            };
+            // Alignment: 4
+            // Member count: 13
+            pub const CSWeaponType = enum(u32) {
+                WEAPONTYPE_KNIFE = 0x0,
+                WEAPONTYPE_PISTOL = 0x1,
+                WEAPONTYPE_SUBMACHINEGUN = 0x2,
+                WEAPONTYPE_RIFLE = 0x3,
+                WEAPONTYPE_SHOTGUN = 0x4,
+                WEAPONTYPE_SNIPER_RIFLE = 0x5,
+                WEAPONTYPE_MACHINEGUN = 0x6,
+                WEAPONTYPE_C4 = 0x7,
+                WEAPONTYPE_TASER = 0x8,
+                WEAPONTYPE_GRENADE = 0x9,
+                WEAPONTYPE_EQUIPMENT = 0xA,
+                WEAPONTYPE_STACKABLEITEM = 0xB,
+                WEAPONTYPE_UNKNOWN = 0xC
+            };
+            // Alignment: 1
+            // Member count: 4
+            pub const NavScopeFlags_t = enum(u8) {
+                eGround = 0x1,
+                eAir = 0x2,
+                eAll = 0x3,
+                eNone = 0x0
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const EntFinderMethod_t = enum(u32) {
+                ENT_FIND_METHOD_NEAREST = 0x0,
+                ENT_FIND_METHOD_FARTHEST = 0x1,
+                ENT_FIND_METHOD_RANDOM = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const TestInputOutputCombinationsEnum_t = enum(u32) {
+                ZERO = 0x0,
+                ONE = 0x1,
+                TWO = 0x2
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const FuncMoverMovementSummaryFlags_t = enum(u32) {
+                eNone = 0x0,
+                eMovementBegin = 0x1,
+                eStopBegin = 0x2,
+                eStopComplete = 0x4,
+                eReversing = 0x8,
+                eEventsDispatched = 0x10
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const PropDoorRotatingSpawnPos_t = enum(u32) {
+                DOOR_SPAWN_CLOSED = 0x0,
+                DOOR_SPAWN_OPEN_FORWARD = 0x1,
+                DOOR_SPAWN_OPEN_BACK = 0x2,
+                DOOR_SPAWN_AJAR = 0x3
+            };
+            // Alignment: 1
+            // Member count: 2
+            pub const ShardSolid_t = enum(u8) {
+                SHARD_SOLID = 0x0,
+                SHARD_DEBRIS = 0x1
+            };
+            // Alignment: 1
+            // Member count: 3
+            pub const EntityPlatformTypes_t = enum(u8) {
+                ENTITY_NOT_PLATFORM = 0x0,
+                ENTITY_PLATFORM_PLAYER_FOLLOWS_YAW = 0x1,
+                ENTITY_PLATFORM_PLAYER_IGNORES_YAW = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const PulseNPCCondition_t = enum(u32) {
+                COND_SEE_PLAYER = 0x1,
+                COND_LOST_PLAYER = 0x2,
+                COND_HEAR_PLAYER = 0x3,
+                COND_PLAYER_PUSHING = 0x4,
+                COND_NO_PRIMARY_AMMO = 0x5
+            };
+            // Alignment: 1
+            // Member count: 4
+            pub const RenderMode_t = enum(u8) {
+                kRenderNormal = 0x0,
+                kRenderTransAlpha = 0x1,
+                kRenderNone = 0x2,
+                kRenderModeCount = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ForcedCrouchState_t = enum(u32) {
+                FORCEDCROUCH_NONE = 0x0,
+                FORCEDCROUCH_CROUCHED = 0x1,
+                FORCEDCROUCH_UNCROUCHED = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const PerformanceMode_t = enum(u32) {
+                PM_NORMAL = 0x0,
+                PM_NO_GIBS = 0x1
+            };
+            // Alignment: 4
+            // Member count: 8
+            pub const TOGGLE_STATE = enum(u32) {
+                TS_AT_TOP = 0x0,
+                TS_AT_BOTTOM = 0x1,
+                TS_GOING_UP = 0x2,
+                TS_GOING_DOWN = 0x3
+            };
+            // Alignment: 4
+            // Member count: 74
+            pub const loadout_slot_t = enum(u32) {
+                LOADOUT_SLOT_PROMOTED = 0xFFFFFFFE,
+                LOADOUT_SLOT_INVALID = 0xFFFFFFFF,
+                LOADOUT_SLOT_MELEE = 0x0,
+                LOADOUT_SLOT_C4 = 0x1,
+                LOADOUT_SLOT_SECONDARY0 = 0x2,
+                LOADOUT_SLOT_SECONDARY1 = 0x3,
+                LOADOUT_SLOT_SECONDARY2 = 0x4,
+                LOADOUT_SLOT_SECONDARY3 = 0x5,
+                LOADOUT_SLOT_SECONDARY4 = 0x6,
+                LOADOUT_SLOT_SECONDARY5 = 0x7,
+                LOADOUT_SLOT_SMG0 = 0x8,
+                LOADOUT_SLOT_SMG1 = 0x9,
+                LOADOUT_SLOT_SMG2 = 0xA,
+                LOADOUT_SLOT_SMG3 = 0xB,
+                LOADOUT_SLOT_SMG4 = 0xC,
+                LOADOUT_SLOT_SMG5 = 0xD,
+                LOADOUT_SLOT_RIFLE0 = 0xE,
+                LOADOUT_SLOT_RIFLE1 = 0xF,
+                LOADOUT_SLOT_RIFLE2 = 0x10,
+                LOADOUT_SLOT_RIFLE3 = 0x11,
+                LOADOUT_SLOT_RIFLE4 = 0x12,
+                LOADOUT_SLOT_RIFLE5 = 0x13,
+                LOADOUT_SLOT_HEAVY0 = 0x14,
+                LOADOUT_SLOT_HEAVY1 = 0x15,
+                LOADOUT_SLOT_HEAVY2 = 0x16,
+                LOADOUT_SLOT_HEAVY3 = 0x17,
+                LOADOUT_SLOT_HEAVY4 = 0x18,
+                LOADOUT_SLOT_HEAVY5 = 0x19,
+                LOADOUT_SLOT_FIRST_WHEEL_GRENADE = 0x1A,
+                LOADOUT_SLOT_GRENADE1 = 0x1B,
+                LOADOUT_SLOT_GRENADE2 = 0x1C,
+                LOADOUT_SLOT_GRENADE3 = 0x1D,
+                LOADOUT_SLOT_GRENADE4 = 0x1E,
+                LOADOUT_SLOT_GRENADE5 = 0x1F,
+                LOADOUT_SLOT_EQUIPMENT0 = 0x20,
+                LOADOUT_SLOT_EQUIPMENT1 = 0x21,
+                LOADOUT_SLOT_EQUIPMENT2 = 0x22,
+                LOADOUT_SLOT_EQUIPMENT3 = 0x23,
+                LOADOUT_SLOT_EQUIPMENT4 = 0x24,
+                LOADOUT_SLOT_EQUIPMENT5 = 0x25,
+                LOADOUT_SLOT_CLOTHING_CUSTOMPLAYER = 0x26,
+                LOADOUT_SLOT_CLOTHING_CUSTOMHEAD = 0x27,
+                LOADOUT_SLOT_CLOTHING_FACEMASK = 0x28,
+                LOADOUT_SLOT_CLOTHING_HANDS = 0x29,
+                LOADOUT_SLOT_CLOTHING_EYEWEAR = 0x2A,
+                LOADOUT_SLOT_CLOTHING_HAT = 0x2B,
+                LOADOUT_SLOT_CLOTHING_LOWERBODY = 0x2C,
+                LOADOUT_SLOT_CLOTHING_TORSO = 0x2D,
+                LOADOUT_SLOT_CLOTHING_APPEARANCE = 0x2E,
+                LOADOUT_SLOT_MISC0 = 0x2F,
+                LOADOUT_SLOT_MISC1 = 0x30,
+                LOADOUT_SLOT_MISC2 = 0x31,
+                LOADOUT_SLOT_MISC3 = 0x32,
+                LOADOUT_SLOT_MISC4 = 0x33,
+                LOADOUT_SLOT_MISC5 = 0x34,
+                LOADOUT_SLOT_MISC6 = 0x35,
+                LOADOUT_SLOT_MUSICKIT = 0x36,
+                LOADOUT_SLOT_FLAIR0 = 0x37,
+                LOADOUT_SLOT_SPRAY0 = 0x38,
+                LOADOUT_SLOT_COUNT = 0x39
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const EDestructiblePartDamagePassThroughType = enum(u32) {
+                Normal = 0x0,
+                Absorb = 0x1,
+                InvincibleAbsorb = 0x2,
+                InvinciblePassthrough = 0x3
+            };
+            // Alignment: 8
+            // Member count: 20
+            pub const NavAttributeEnum = enum(u64) {
+                NAV_MESH_AVOID = 0x80,
+                NAV_MESH_STAIRS = 0x1000,
+                NAV_MESH_NON_ZUP = 0x8000,
+                NAV_MESH_CROUCH_HEIGHT = 0x10000,
+                NAV_MESH_NON_ZUP_TRANSITION = 0x20000,
+                NAV_MESH_CRAWL_HEIGHT = 0x40000,
+                NAV_MESH_JUMP = 0x2,
+                NAV_MESH_NO_JUMP = 0x8,
+                NAV_MESH_STOP = 0x10,
+                NAV_MESH_RUN = 0x20,
+                NAV_MESH_WALK = 0x40,
+                NAV_MESH_TRANSIENT = 0x100,
+                NAV_MESH_DONT_HIDE = 0x200,
+                NAV_MESH_STAND = 0x400,
+                NAV_MESH_NO_HOSTAGES = 0x800,
+                NAV_MESH_NO_MERGE = 0x2000,
+                NAV_MESH_OBSTACLE_TOP = 0x4000,
+                NAV_ATTR_FIRST_GAME_INDEX = 0x13,
+                NAV_ATTR_LAST_INDEX = 0x3F
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const MoveLinearAuthoredPos_t = enum(u32) {
+                MOVELINEAR_AUTHORED_AT_START_POSITION = 0x0,
+                MOVELINEAR_AUTHORED_AT_OPEN_POSITION = 0x1,
+                MOVELINEAR_AUTHORED_AT_CLOSED_POSITION = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const InteractionPassive_t = enum(u32) {
+                INTERACT_PASSIVE_NONE = 0x0,
+                INTERACT_PASSIVE_LOOKAT = 0x1,
+                INTERACT_PASSIVE_SPEAK = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ValueRemapperMomentumType_t = enum(u32) {
+                MomentumType_None = 0x0,
+                MomentumType_Friction = 0x1,
+                MomentumType_SpringTowardSnapValue = 0x2,
+                MomentumType_SpringAwayFromSnapValue = 0x3
+            };
+            // Alignment: 4
+            // Member count: 12
+            pub const Hull_t = enum(u32) {
+                HULL_HUMAN = 0x0,
+                HULL_SMALL_CENTERED = 0x1,
+                HULL_WIDE_HUMAN = 0x2,
+                HULL_TINY = 0x3,
+                HULL_MEDIUM = 0x4,
+                HULL_TINY_CENTERED = 0x5,
+                HULL_LARGE = 0x6,
+                HULL_LARGE_CENTERED = 0x7,
+                HULL_MEDIUM_TALL = 0x8,
+                HULL_SMALL = 0x9,
+                NUM_HULLS = 0xA,
+                HULL_NONE = 0xB
+            };
+            // Alignment: 1
+            // Member count: 3
+            pub const ExternalAnimGraphInactiveBehavior_t = enum(u8) {
+                eNone = 0x0,
+                eUnbind = 0x1,
+                eUnbindAndDelete = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const BodySectionAuthority_t = enum(u32) {
+                eNone = 0x0,
+                eLowerBody = 0x1,
+                eUpperBody = 0x2,
+                eFullBody = 0x3
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ESceneRequestState_t = enum(u32) {
+                INACTIVE = 0x0,
+                ACTIVE = 0x1,
+                FINISHED = 0x2,
+                FAILED = 0x3
+            };
+            // Alignment: 1
+            // Member count: 7
+            pub const CCSPlayerAnimationState__GroundMoveState_t = enum(u8) {
+                None = 0x0,
+                Idle = 0x1,
+                Start = 0x2,
+                Move = 0x3,
+                TurnOnSpot = 0x4,
+                TurnOnSpotLoop = 0x5,
+                PlantAndTurn = 0x6
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const PreviewWeaponState = enum(u32) {
+                DROPPED = 0x0,
+                HOLSTERED = 0x1,
+                DEPLOYED = 0x2,
+                PLANTED = 0x3,
+                INSPECT = 0x4,
+                ICON = 0x5
+            };
+            // Alignment: 4
+            // Member count: 9
+            pub const EInButtonState = enum(u32) {
+                IN_BUTTON_UP = 0x0,
+                IN_BUTTON_DOWN = 0x1,
+                IN_BUTTON_DOWN_UP = 0x2,
+                IN_BUTTON_UP_DOWN = 0x3,
+                IN_BUTTON_UP_DOWN_UP = 0x4,
+                IN_BUTTON_DOWN_UP_DOWN = 0x5,
+                IN_BUTTON_DOWN_UP_DOWN_UP = 0x6,
+                IN_BUTTON_UP_DOWN_UP_DOWN = 0x7,
+                IN_BUTTON_STATE_COUNT = 0x8
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const BeamClipStyle_t = enum(u32) {
+                kNOCLIP = 0x0,
+                kGEOCLIP = 0x1,
+                kMODELCLIP = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const WeaponAttackType_t = enum(u32) {
+                eInvalid = 0xFFFFFFFF,
+                ePrimary = 0x0,
+                eSecondary = 0x1,
+                eCount = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const CDebugOverlayFilterTextType_t = enum(u32) {
+                FILTER_TEXT_NONE = 0x0,
+                MATCH = 0x1,
+                HIERARCHY = 0x2,
+                COUNT = 0x3
+            };
+            // Alignment: 4
+            // Member count: 8
+            pub const CSPlayerBlockingUseAction_t = enum(u32) {
+                k_CSPlayerBlockingUseAction_None = 0x0,
+                k_CSPlayerBlockingUseAction_DefusingDefault = 0x1,
+                k_CSPlayerBlockingUseAction_DefusingWithKit = 0x2,
+                k_CSPlayerBlockingUseAction_HostageGrabbing = 0x3,
+                k_CSPlayerBlockingUseAction_HostageDropping = 0x4,
+                k_CSPlayerBlockingUseAction_MapLongUseEntity_Pickup = 0x5,
+                k_CSPlayerBlockingUseAction_MapLongUseEntity_Place = 0x6,
+                k_CSPlayerBlockingUseAction_MaxCount = 0x7
+            };
+            // Alignment: 1
+            // Member count: 5
+            pub const ShatterDamageCause = enum(u8) {
+                SHATTERDAMAGE_BULLET = 0x0,
+                SHATTERDAMAGE_MELEE = 0x1,
+                SHATTERDAMAGE_THROWN = 0x2,
+                SHATTERDAMAGE_SCRIPT = 0x3,
+                SHATTERDAMAGE_EXPLOSIVE = 0x4
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ScriptedOnDeath_t = enum(u32) {
+                SS_ONDEATH_NOT_APPLICABLE = 0xFFFFFFFF,
+                SS_ONDEATH_UNDEFINED = 0x0,
+                SS_ONDEATH_RAGDOLL = 0x1,
+                SS_ONDEATH_ANIMATED_DEATH = 0x2
+            };
+            // Alignment: 4
+            // Member count: 66
+            pub const CSWeaponNameID = enum(u32) {
+                WEAPONID_GLOCK = 0x0,
+                WEAPONID_HKP2000 = 0x1,
+                WEAPONID_CZ75A = 0x2,
+                WEAPONID_ELITE = 0x3,
+                WEAPONID_DEAGLE = 0x4,
+                WEAPONID_FIVESEVEN = 0x5,
+                WEAPONID_P250 = 0x6,
+                WEAPONID_REVOLVER = 0x7,
+                WEAPONID_TEC9 = 0x8,
+                WEAPONID_USP_SILENCER = 0x9,
+                WEAPONID_AK47 = 0xA,
+                WEAPONID_M4A1 = 0xB,
+                WEAPONID_M4A1_SILENCER = 0xC,
+                WEAPONID_FAMAS = 0xD,
+                WEAPONID_GALILAR = 0xE,
+                WEAPONID_AUG = 0xF,
+                WEAPONID_SG556 = 0x10,
+                WEAPONID_BIZON = 0x11,
+                WEAPONID_MAC10 = 0x12,
+                WEAPONID_MP5SD = 0x13,
+                WEAPONID_MP7 = 0x14,
+                WEAPONID_MP9 = 0x15,
+                WEAPONID_P90 = 0x16,
+                WEAPONID_UMP45 = 0x17,
+                WEAPONID_MAG7 = 0x18,
+                WEAPONID_NOVA = 0x19,
+                WEAPONID_SAWEDOFF = 0x1A,
+                WEAPONID_XM1014 = 0x1B,
+                WEAPONID_AWP = 0x1C,
+                WEAPONID_SSG08 = 0x1D,
+                WEAPONID_G3SG1 = 0x1E,
+                WEAPONID_SCAR20 = 0x1F,
+                WEAPONID_M249 = 0x20,
+                WEAPONID_NEGEV = 0x21,
+                WEAPONID_TASER = 0x22,
+                WEAPONID_DECOY = 0x23,
+                WEAPONID_FLASHBANG = 0x24,
+                WEAPONID_HEGRENADE = 0x25,
+                WEAPONID_INCGRENADE = 0x26,
+                WEAPONID_MOLOTOV = 0x27,
+                WEAPONID_SMOKEGRENADE = 0x28,
+                WEAPONID_C4 = 0x29,
+                WEAPONID_HEALTHSHOT = 0x2A,
+                WEAPONID_KNIFE = 0x2B,
+                WEAPONID_KNIFE_T = 0x2C,
+                WEAPONID_KNIFE_CSS = 0x2D,
+                WEAPONID_KNIFE_FLIP = 0x2E,
+                WEAPONID_KNIFE_GUT = 0x2F,
+                WEAPONID_KNIFE_KARAMBIT = 0x30,
+                WEAPONID_BAYONET = 0x31,
+                WEAPONID_KNIFE_M9_BAYONET = 0x32,
+                WEAPONID_KNIFE_TACTICAL = 0x33,
+                WEAPONID_KNIFE_FALCHION = 0x34,
+                WEAPONID_KNIFE_SURVIVAL_BOWIE = 0x35,
+                WEAPONID_KNIFE_BUTTERFLY = 0x36,
+                WEAPONID_KNIFE_PUSH = 0x37,
+                WEAPONID_KNIFE_CORD = 0x38,
+                WEAPONID_KNIFE_CANIS = 0x39,
+                WEAPONID_KNIFE_URSUS = 0x3A,
+                WEAPONID_KNIFE_GYPSY_JACKKNIFE = 0x3B,
+                WEAPONID_KNIFE_OUTDOOR = 0x3C,
+                WEAPONID_KNIFE_STILETTO = 0x3D,
+                WEAPONID_KNIFE_WIDOWMAKER = 0x3E,
+                WEAPONID_KNIFE_SKELETON = 0x3F,
+                WEAPONID_KNIFE_KUKRI = 0x40,
+                WEAPONID_UNKNOWN = 0x41
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ChoreoLookAtSpeed_t = enum(u32) {
+                eInvalid = 0xFFFFFFFF,
+                eSlow = 0x0,
+                eMedium = 0x1,
+                eFast = 0x2
+            };
+            // Alignment: 4
+            // Member count: 17
+            pub const gear_slot_t = enum(u32) {
+                GEAR_SLOT_INVALID = 0xFFFFFFFF,
+                GEAR_SLOT_RIFLE = 0x0,
+                GEAR_SLOT_PISTOL = 0x1,
+                GEAR_SLOT_KNIFE = 0x2,
+                GEAR_SLOT_GRENADES = 0x3,
+                GEAR_SLOT_C4 = 0x4,
+                GEAR_SLOT_RESERVED_SLOT6 = 0x5,
+                GEAR_SLOT_RESERVED_SLOT7 = 0x6,
+                GEAR_SLOT_RESERVED_SLOT8 = 0x7,
+                GEAR_SLOT_RESERVED_SLOT9 = 0x8,
+                GEAR_SLOT_RESERVED_SLOT10 = 0x9,
+                GEAR_SLOT_RESERVED_SLOT11 = 0xA,
+                GEAR_SLOT_BOOSTS = 0xB,
+                GEAR_SLOT_UTILITY = 0xC,
+                GEAR_SLOT_COUNT = 0xD
+            };
+            // Alignment: 4
+            // Member count: 10
+            pub const CSPlayerState = enum(u32) {
+                STATE_ACTIVE = 0x0,
+                STATE_WELCOME = 0x1,
+                STATE_PICKINGTEAM = 0x2,
+                STATE_PICKINGCLASS = 0x3,
+                STATE_DEATH_ANIM = 0x4,
+                STATE_DEATH_WAIT_FOR_KEY = 0x5,
+                STATE_OBSERVER_MODE = 0x6,
+                STATE_GUNGAME_RESPAWN = 0x7,
+                STATE_DORMANT = 0x8,
+                NUM_PLAYER_STATES = 0x9
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ScriptedConflictResponse_t = enum(u32) {
+                SS_CONFLICT_ENQUEUE = 0x0,
+                SS_CONFLICT_INTERRUPT = 0x1
+            };
+            // Alignment: 1
+            // Member count: 7
+            pub const WaterLevel_t = enum(u8) {
+                WL_NotInWater = 0x0,
+                WL_Feet = 0x1,
+                WL_Knees = 0x2,
+                WL_Waist = 0x3,
+                WL_Chest = 0x4,
+                WL_FullyUnderwater = 0x5,
+                WL_Count = 0x6
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const WorldTextPanelVerticalAlign_t = enum(u32) {
+                WORLDTEXT_VERTICAL_ALIGN_TOP = 0x0,
+                WORLDTEXT_VERTICAL_ALIGN_CENTER = 0x1,
+                WORLDTEXT_VERTICAL_ALIGN_BOTTOM = 0x2
+            };
+            // Alignment: 1
+            // Member count: 4
+            pub const RelativeLocationType_t = enum(u8) {
+                WORLD_SPACE_POSITION = 0x0,
+                RELATIVE_TO_ENTITY_IN_LOCAL_SPACE = 0x1,
+                RELATIVE_TO_ENTITY_YAW_ONLY = 0x2,
+                RELATIVE_TO_ENTITY_IN_WORLD_SPACE = 0x3
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const AmmoPosition_t = enum(u32) {
+                AMMO_POSITION_INVALID = 0xFFFFFFFF,
+                AMMO_POSITION_PRIMARY = 0x0,
+                AMMO_POSITION_SECONDARY = 0x1,
+                AMMO_POSITION_COUNT = 0x2
+            };
+            // Alignment: 4
+            // Member count: 11
+            pub const CDebugOverlayFilterType_t = enum(u32) {
+                NONE = 0x0,
+                TEXT = 0x1,
+                ENTITY = 0x2,
+                COUNT = 0x3,
+                TACTICAL_SEARCH = 0x4,
+                AI_SCHEDULE = 0x5,
+                AI_TASK = 0x6,
+                AI_EVENT = 0x7,
+                AI_PATHFINDING = 0x8,
+                END_SIM_HISTORY_TYPES = 0x9,
+                COMBINED = 0xFFFFFFFF
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ENPCBehaviorOverride_t = enum(u32) {
+                eKeepExisting = 0x0,
+                eTakeOver = 0x1
+            };
+            // Alignment: 4
+            // Member count: 24
+            pub const PreviewEOMCelebration = enum(u32) {
+                INVALID = 0xFFFFFFFF,
+                WALKUP = 0x0,
+                PUNCHING = 0x1,
+                SWAGGER = 0x2,
+                DROPDOWN = 0x3,
+                STRETCH = 0x4,
+                SWAT_FEMALE = 0x5,
+                MASK_F = 0x6,
+                GUERILLA = 0x7,
+                GUERILLA02 = 0x8,
+                GENDARMERIE = 0x9,
+                SCUBA_FEMALE = 0xA,
+                SCUBA_MALE = 0xB,
+                AVA_DEFEAT = 0xC,
+                GENDARMERIE_DEFEAT = 0xD,
+                MAE_DEFEAT = 0xE,
+                RICKSAW_DEFEAT = 0xF,
+                SCUBA_FEMALE_DEFEAT = 0x10,
+                SCUBA_MALE_DEFEAT = 0x11,
+                CRASSWATER_DEFEAT = 0x12,
+                DARRYL_DEFEAT = 0x13,
+                DOCTOR_DEFEAT = 0x14,
+                MUHLIK_DEFEAT = 0x15,
+                VYPA_DEFEAT = 0x16
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const EntityDisolveType_t = enum(u32) {
+                ENTITY_DISSOLVE_INVALID = 0xFFFFFFFF,
+                ENTITY_DISSOLVE_NORMAL = 0x0,
+                ENTITY_DISSOLVE_ELECTRICAL = 0x1,
+                ENTITY_DISSOLVE_ELECTRICAL_LIGHT = 0x2,
+                ENTITY_DISSOLVE_CORE = 0x3
+            };
+            // Alignment: 4
+            // Member count: 22
+            pub const SaveRestoreTableFlags_t = enum(u32) {
+                FENTTABLE_NONE = 0x0,
+                FENTTABLE_PLAYER = 0x80000000,
+                FENTTABLE_REMOVED = 0x40000000,
+                FENTTABLE_MOVEABLE = 0x20000000,
+                FENTTABLE_GLOBAL = 0x10000000,
+                FENTTABLE_PLAYERCHILD = 0x8000000,
+                LEVELMASK_BIT_0 = 0x1,
+                LEVELMASK_BIT_1 = 0x2,
+                LEVELMASK_BIT_2 = 0x4,
+                LEVELMASK_BIT_3 = 0x8,
+                LEVELMASK_BIT_4 = 0x10,
+                LEVELMASK_BIT_5 = 0x20,
+                LEVELMASK_BIT_6 = 0x40,
+                LEVELMASK_BIT_7 = 0x80,
+                LEVELMASK_BIT_8 = 0x100,
+                LEVELMASK_BIT_9 = 0x200,
+                LEVELMASK_BIT_10 = 0x400,
+                LEVELMASK_BIT_11 = 0x800,
+                LEVELMASK_BIT_12 = 0x1000,
+                LEVELMASK_BIT_13 = 0x2000,
+                LEVELMASK_BIT_14 = 0x4000,
+                LEVELMASK_BIT_15 = 0x8000
+            };
+            // Alignment: 8
+            // Member count: 21
+            pub const InputBitMask_t = enum(u64) {
+                IN_NONE = 0x0,
+                IN_ALL = 0xFFFFFFFFFFFFFFFF,
+                IN_ATTACK = 0x1,
+                IN_JUMP = 0x2,
+                IN_DUCK = 0x4,
+                IN_FORWARD = 0x8,
+                IN_BACK = 0x10,
+                IN_USE = 0x20,
+                IN_TURNLEFT = 0x80,
+                IN_TURNRIGHT = 0x100,
+                IN_MOVELEFT = 0x200,
+                IN_MOVERIGHT = 0x400,
+                IN_ATTACK2 = 0x800,
+                IN_RELOAD = 0x2000,
+                IN_SPEED = 0x10000,
+                IN_JOYAUTOSPRINT = 0x20000,
+                IN_FIRST_MOD_SPECIFIC_BIT = 0x100000000,
+                IN_SCORE = 0x200000000,
+                IN_ZOOM = 0x400000000,
+                IN_LOOK_AT_WEAPON = 0x800000000
+            };
+            // Alignment: 4
+            // Member count: 14
+            pub const HitGroup_t = enum(u32) {
+                HITGROUP_INVALID = 0xFFFFFFFF,
+                HITGROUP_GENERIC = 0x0,
+                HITGROUP_HEAD = 0x1,
+                HITGROUP_CHEST = 0x2,
+                HITGROUP_STOMACH = 0x3,
+                HITGROUP_LEFTARM = 0x4,
+                HITGROUP_RIGHTARM = 0x5,
+                HITGROUP_LEFTLEG = 0x6,
+                HITGROUP_RIGHTLEG = 0x7,
+                HITGROUP_NECK = 0x8,
+                HITGROUP_UNUSED = 0x9,
+                HITGROUP_GEAR = 0xA,
+                HITGROUP_SPECIAL = 0xB,
+                HITGROUP_COUNT = 0xC
+            };
+            // Alignment: 4
+            // Member count: 11
+            pub const ChickenActivity = enum(u32) {
+                IDLE = 0x0,
+                SQUAT = 0x1,
+                WALK = 0x2,
+                RUN = 0x3,
+                GLIDE = 0x4,
+                LAND = 0x5,
+                PANIC = 0x6,
+                TRICK = 0x7,
+                TURN_IN_PLACE = 0x8,
+                FEED = 0x9,
+                SLEEP = 0xA
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const PointWorldTextReorientMode_t = enum(u32) {
+                POINT_WORLD_TEXT_REORIENT_NONE = 0x0,
+                POINT_WORLD_TEXT_REORIENT_AROUND_UP = 0x1
+            };
+            // Alignment: 8
+            // Member count: 40
+            pub const DebugOverlayBits_t = enum(u64) {
+                OVERLAY_TEXT_BIT = 0x1,
+                OVERLAY_NAME_BIT = 0x2,
+                OVERLAY_BBOX_BIT = 0x4,
+                OVERLAY_PIVOT_BIT = 0x8,
+                OVERLAY_MESSAGE_BIT = 0x10,
+                OVERLAY_ABSBOX_BIT = 0x20,
+                OVERLAY_RBOX_BIT = 0x40,
+                OVERLAY_SHOW_BLOCKSLOS = 0x80,
+                OVERLAY_ATTACHMENTS_BIT = 0x100,
+                OVERLAY_INTERPOLATED_ATTACHMENTS_BIT = 0x200,
+                OVERLAY_INTERPOLATED_PIVOT_BIT = 0x400,
+                OVERLAY_SKELETON_BIT = 0x800,
+                OVERLAY_INTERPOLATED_SKELETON_BIT = 0x1000,
+                OVERLAY_TRIGGER_BOUNDS_BIT = 0x2000,
+                OVERLAY_HITBOX_BIT = 0x4000,
+                OVERLAY_INTERPOLATED_HITBOX_BIT = 0x8000,
+                OVERLAY_AUTOAIM_BIT = 0x10000,
+                OVERLAY_NPC_SELECTED_BIT = 0x20000,
+                OVERLAY_JOINT_INFO_BIT = 0x40000,
+                OVERLAY_NPC_ROUTE_BIT = 0x80000,
+                OVERLAY_VISIBILITY_TRACES_BIT = 0x100000,
+                OVERLAY_NPC_ENEMIES_BIT = 0x400000,
+                OVERLAY_NPC_CONDITIONS_BIT = 0x800000,
+                OVERLAY_NPC_COMBAT_BIT = 0x1000000,
+                OVERLAY_NPC_TASK_BIT = 0x2000000,
+                OVERLAY_NPC_BODYLOCATIONS = 0x4000000,
+                OVERLAY_NPC_VIEWCONE_BIT = 0x8000000,
+                OVERLAY_NPC_KILL_BIT = 0x10000000,
+                OVERLAY_BUDDHA_MODE = 0x40000000,
+                OVERLAY_NPC_STEERING_REGULATIONS = 0x80000000,
+                OVERLAY_NPC_TASK_TEXT_BIT = 0x100000000,
+                OVERLAY_PROP_DEBUG = 0x200000000,
+                OVERLAY_NPC_RELATION_BIT = 0x400000000,
+                OVERLAY_VIEWOFFSET = 0x800000000,
+                OVERLAY_VCOLLIDE_WIREFRAME_BIT = 0x1000000000,
+                OVERLAY_NPC_SCRIPTED_COMMANDS_BIT = 0x2000000000,
+                OVERLAY_ACTORNAME_BIT = 0x4000000000,
+                OVERLAY_NPC_CONDITIONS_TEXT_BIT = 0x8000000000,
+                OVERLAY_NPC_ABILITY_RANGE_DEBUG_BIT = 0x10000000000,
+                OVERLAY_MINIMAL_TEXT = 0x20000000000
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const AmmoFlags_t = enum(u32) {
+                AMMO_FORCE_DROP_IF_CARRIED = 0x1,
+                AMMO_RESERVE_STAYS_WITH_WEAPON = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const DecalFlags_t = enum(u32) {
+                eNone = 0x0,
+                eCannotClear = 0x1,
+                eDecalProjectToBackfaces = 0x2,
+                eAll = 0xFFFFFFFF,
+                eAllButCannotClear = 0xFFFFFFFE
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const HierarchyType_t = enum(u32) {
+                HIERARCHY_NONE = 0x0,
+                HIERARCHY_BONE_MERGE = 0x1,
+                HIERARCHY_ATTACHMENT = 0x2,
+                HIERARCHY_ABSORIGIN = 0x3,
+                HIERARCHY_BONE = 0x4,
+                HIERARCHY_TYPE_COUNT = 0x5
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const doorCheck_e = enum(u32) {
+                DOOR_CHECK_FORWARD = 0x0,
+                DOOR_CHECK_BACKWARD = 0x1,
+                DOOR_CHECK_FULL = 0x2
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const BeamType_t = enum(u32) {
+                BEAM_INVALID = 0x0,
+                BEAM_POINTS = 0x1,
+                BEAM_ENTPOINT = 0x2,
+                BEAM_ENTS = 0x3,
+                BEAM_HOSE = 0x4,
+                BEAM_SPLINE = 0x5,
+                BEAM_LASER = 0x6
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const EntitySubclassScope_t = enum(u32) {
+                SUBCLASS_SCOPE_NONE = 0xFFFFFFFF,
+                SUBCLASS_SCOPE_PRECIPITATION = 0x0,
+                SUBCLASS_SCOPE_PLAYER_WEAPONS = 0x1,
+                SUBCLASS_SCOPE_COUNT = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const PointTemplateClientOnlyEntityBehavior_t = enum(u32) {
+                CREATE_FOR_CURRENTLY_CONNECTED_CLIENTS_ONLY = 0x0,
+                CREATE_FOR_CLIENTS_WHO_CONNECT_LATER = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const CDebugOverlayCombinedTypes_t = enum(u32) {
+                ALL = 0x0,
+                ANY = 0x1,
+                COUNT = 0x2
+            };
+            // Alignment: 1
+            // Member count: 4
+            pub const ShatterGlassStressType = enum(u8) {
+                SHATTERGLASS_BLUNT = 0x0,
+                SHATTERGLASS_BALLISTIC = 0x1,
+                SHATTERGLASS_PULSE = 0x2,
+                SHATTERGLASS_EXPLOSIVE = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const TrackOrientationType_t = enum(u32) {
+                TrackOrientation_Fixed = 0x0,
+                TrackOrientation_FacePath = 0x1,
+                TrackOrientation_FacePathAngles = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const WeaponSwitchReason_t = enum(u32) {
+                eDrawn = 0x0,
+                eEquipped = 0x1,
+                eUserInitiatedSwitchToLast = 0x2,
+                eUserInitiatedUIKeyPress = 0x3,
+                eUserInitiatedSwitchHands = 0x4
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ValueRemapperRatchetType_t = enum(u32) {
+                RatchetType_Absolute = 0x0,
+                RatchetType_EachEngage = 0x1
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const NavDirType = enum(u32) {
+                NORTH = 0x0,
+                EAST = 0x1,
+                SOUTH = 0x2,
+                WEST = 0x3,
+                NUM_NAV_DIR_TYPE_DIRECTIONS = 0x4
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const CRR_Response__ResponseEnum_t = enum(u32) {
+                MAX_RESPONSE_NAME = 0xC0,
+                MAX_RULE_NAME = 0x80
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const MoveMountingAmount_t = enum(u32) {
+                MOVE_MOUNT_NONE = 0x0,
+                MOVE_MOUNT_LOW = 0x1,
+                MOVE_MOUNT_HIGH = 0x2,
+                MOVE_MOUNT_MAXCOUNT = 0x3
+            };
+            // Alignment: 1
+            // Member count: 3
+            pub const HoverPoseFlags_t = enum(u8) {
+                eNone = 0x0,
+                ePosition = 0x1,
+                eAngles = 0x2
+            };
+            // Alignment: 1
+            // Member count: 18
+            pub const RenderFx_t = enum(u8) {
+                kRenderFxNone = 0x0,
+                kRenderFxPulseSlow = 0x1,
+                kRenderFxPulseFast = 0x2,
+                kRenderFxPulseSlowWide = 0x3,
+                kRenderFxPulseFastWide = 0x4,
+                kRenderFxFadeSlow = 0x5,
+                kRenderFxFadeFast = 0x6,
+                kRenderFxSolidSlow = 0x7,
+                kRenderFxSolidFast = 0x8,
+                kRenderFxStrobeSlow = 0x9,
+                kRenderFxStrobeFast = 0xA,
+                kRenderFxStrobeFaster = 0xB,
+                kRenderFxFlickerSlow = 0xC,
+                kRenderFxFlickerFast = 0xD,
+                kRenderFxFadeOut = 0xE,
+                kRenderFxFadeIn = 0xF,
+                kRenderFxPulseFastWider = 0x10,
+                kRenderFxMax = 0x11
+            };
+            // Alignment: 4
+            // Member count: 35
+            pub const vote_create_failed_t = enum(u32) {
+                VOTE_FAILED_GENERIC = 0x0,
+                VOTE_FAILED_TRANSITIONING_PLAYERS = 0x1,
+                VOTE_FAILED_RATE_EXCEEDED = 0x2,
+                VOTE_FAILED_YES_MUST_EXCEED_NO = 0x3,
+                VOTE_FAILED_QUORUM_FAILURE = 0x4,
+                VOTE_FAILED_ISSUE_DISABLED = 0x5,
+                VOTE_FAILED_MAP_NOT_FOUND = 0x6,
+                VOTE_FAILED_MAP_NAME_REQUIRED = 0x7,
+                VOTE_FAILED_FAILED_RECENTLY = 0x8,
+                VOTE_FAILED_TEAM_CANT_CALL = 0x9,
+                VOTE_FAILED_WAITINGFORPLAYERS = 0xA,
+                VOTE_FAILED_PLAYERNOTFOUND = 0xB,
+                VOTE_FAILED_CANNOT_KICK_ADMIN = 0xC,
+                VOTE_FAILED_SCRAMBLE_IN_PROGRESS = 0xD,
+                VOTE_FAILED_SPECTATOR = 0xE,
+                VOTE_FAILED_FAILED_RECENT_KICK = 0xF,
+                VOTE_FAILED_FAILED_RECENT_CHANGEMAP = 0x10,
+                VOTE_FAILED_FAILED_RECENT_SWAPTEAMS = 0x11,
+                VOTE_FAILED_FAILED_RECENT_SCRAMBLETEAMS = 0x12,
+                VOTE_FAILED_FAILED_RECENT_RESTART = 0x13,
+                VOTE_FAILED_SWAP_IN_PROGRESS = 0x14,
+                VOTE_FAILED_DISABLED = 0x15,
+                VOTE_FAILED_NEXTLEVEL_SET = 0x16,
+                VOTE_FAILED_TOO_EARLY_SURRENDER = 0x17,
+                VOTE_FAILED_MATCH_PAUSED = 0x18,
+                VOTE_FAILED_MATCH_NOT_PAUSED = 0x19,
+                VOTE_FAILED_NOT_IN_WARMUP = 0x1A,
+                VOTE_FAILED_NOT_10_PLAYERS = 0x1B,
+                VOTE_FAILED_TIMEOUT_ACTIVE = 0x1C,
+                VOTE_FAILED_TIMEOUT_INACTIVE = 0x1D,
+                VOTE_FAILED_TIMEOUT_EXHAUSTED = 0x1E,
+                VOTE_FAILED_CANT_ROUND_END = 0x1F,
+                VOTE_FAILED_REMATCH = 0x20,
+                VOTE_FAILED_CONTINUE = 0x21,
+                VOTE_FAILED_MAX = 0x22
+            };
+            // Alignment: 4
+            // Member count: 27
+            pub const RumbleEffect_t = enum(u32) {
+                RUMBLE_INVALID = 0xFFFFFFFF,
+                RUMBLE_STOP_ALL = 0x0,
+                RUMBLE_PISTOL = 0x1,
+                RUMBLE_357 = 0x2,
+                RUMBLE_SMG1 = 0x3,
+                RUMBLE_AR2 = 0x4,
+                RUMBLE_SHOTGUN_SINGLE = 0x5,
+                RUMBLE_SHOTGUN_DOUBLE = 0x6,
+                RUMBLE_AR2_ALT_FIRE = 0x7,
+                RUMBLE_RPG_MISSILE = 0x8,
+                RUMBLE_CROWBAR_SWING = 0x9,
+                RUMBLE_AIRBOAT_GUN = 0xA,
+                RUMBLE_JEEP_ENGINE_LOOP = 0xB,
+                RUMBLE_FLAT_LEFT = 0xC,
+                RUMBLE_FLAT_RIGHT = 0xD,
+                RUMBLE_FLAT_BOTH = 0xE,
+                RUMBLE_DMG_LOW = 0xF,
+                RUMBLE_DMG_MED = 0x10,
+                RUMBLE_DMG_HIGH = 0x11,
+                RUMBLE_FALL_LONG = 0x12,
+                RUMBLE_FALL_SHORT = 0x13,
+                RUMBLE_PHYSCANNON_OPEN = 0x14,
+                RUMBLE_PHYSCANNON_PUNT = 0x15,
+                RUMBLE_PHYSCANNON_LOW = 0x16,
+                RUMBLE_PHYSCANNON_MEDIUM = 0x17,
+                RUMBLE_PHYSCANNON_HIGH = 0x18,
+                NUM_RUMBLE_EFFECTS = 0x19
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const LatchDirtyPermission_t = enum(u32) {
+                LATCH_DIRTY_DISALLOW = 0x0,
+                LATCH_DIRTY_SERVER_CONTROLLED = 0x1,
+                LATCH_DIRTY_CLIENT_SIMULATED = 0x2,
+                LATCH_DIRTY_PREDICTION = 0x3,
+                LATCH_DIRTY_FRAMESIMULATE = 0x4,
+                LATCH_DIRTY_PARTICLE_SIMULATE = 0x5
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const DoorState_t = enum(u32) {
+                DOOR_STATE_CLOSED = 0x0,
+                DOOR_STATE_OPENING = 0x1,
+                DOOR_STATE_OPEN = 0x2,
+                DOOR_STATE_CLOSING = 0x3,
+                DOOR_STATE_AJAR = 0x4
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ChoreoLookAtMode_t = enum(u32) {
+                eInvalid = 0xFFFFFFFF,
+                eChest = 0x0,
+                eHead = 0x1,
+                eEyesOnly = 0x2
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const ChatIgnoreType_t = enum(u32) {
+                CHAT_IGNORE_NONE = 0x0,
+                CHAT_IGNORE_ALL = 0x1,
+                CHAT_IGNORE_TEAM = 0x2
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const PlayerConnectedState = enum(u32) {
+                NeverConnected = 0xFFFFFFFF,
+                Connected = 0x0,
+                Connecting = 0x1,
+                Reconnecting = 0x2,
+                Disconnecting = 0x3,
+                Disconnected = 0x4,
+                Reserved = 0x5
+            };
+            // Alignment: 4
+            // Member count: 29
+            pub const PreviewCharacterBannerAnimation = enum(u32) {
+                INVALID = 0xFFFFFFFF,
+                IDLE_OFFSCREEN = 0x0,
+                BANNER_AWP_ACE_GUN = 0x1,
+                BANNER_AWP_ACE_A = 0x2,
+                BANNER_AWP_ACE_B = 0x3,
+                BANNER_AWP_ACE_C = 0x4,
+                BANNER_AWP_ACE_D = 0x5,
+                BANNER_AWP_ACE_E = 0x6,
+                BANNER_PISTOL3SHOT = 0x7,
+                BANNER_3SHOT_A = 0x8,
+                BANNER_3SHOT_B = 0x9,
+                BANNER_3SHOT_C = 0xA,
+                BANNER_PISTOL4SHOT = 0xB,
+                BANNER_4SHOT_A = 0xC,
+                BANNER_4SHOT_B = 0xD,
+                BANNER_4SHOT_C = 0xE,
+                BANNER_4SHOT_D = 0xF,
+                CELEBRATE_STRETCH_NOWEAP_IDLE0 = 0x10,
+                BANNER_BOMB_PLANT = 0x11,
+                BANNER_BOMB_DEFUSAL_VER = 0x12,
+                BANNER_FIRE = 0x13,
+                BANNER_BOMB_BLAST_TOSS = 0x14,
+                BANNER_BOMB_BLAST01 = 0x15,
+                BANNER_BOMB_BLAST02 = 0x16,
+                BANNER_BOMB_BLAST03 = 0x17,
+                BANNER_CELEBRATE_01 = 0x18,
+                BANNER_CELEBRATE_02 = 0x19,
+                BANNER_CELEBRATE_03 = 0x1A,
+                BANNER_CELEBRATE_04 = 0x1B
+            };
+            // Alignment: 4
+            // Member count: 1
+            pub const navproperties_t = enum(u32) {
+                NAV_IGNORE = 0x1
+            };
+            // Alignment: 2
+            // Member count: 7
+            pub const EntityEffects_t = enum(u16) {
+                DEPRICATED_EF_NOINTERP = 0x8,
+                EF_NOSHADOW = 0x10,
+                EF_NODRAW = 0x20,
+                EF_NORECEIVESHADOW = 0x40,
+                EF_PARENT_ANIMATES = 0x200,
+                EF_NODRAW_BUT_TRANSMIT = 0x400,
+                EF_MAX_BITS = 0xA
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const ChoreoExternalAnimgraphControlState_t = enum(u32) {
+                eNone = 0x0,
+                eBegin = 0x1,
+                eLooping = 0x2,
+                eExit = 0x3,
+                eAbort = 0x4,
+                eCount = 0x5
+            };
+            // Alignment: 1
+            // Member count: 9
+            pub const SolidType_t = enum(u8) {
+                SOLID_NONE = 0x0,
+                SOLID_BSP = 0x1,
+                SOLID_BBOX = 0x2,
+                SOLID_OBB = 0x3,
+                SOLID_SPHERE = 0x4,
+                SOLID_POINT = 0x5,
+                SOLID_VPHYSICS = 0x6,
+                SOLID_CAPSULE = 0x7,
+                SOLID_LAST = 0x8
+            };
+            // Alignment: 4
+            // Member count: 22
+            pub const DamageTypes_t = enum(u32) {
+                DMG_GENERIC = 0x0,
+                DMG_CRUSH = 0x1,
+                DMG_BULLET = 0x2,
+                DMG_SLASH = 0x4,
+                DMG_BURN = 0x8,
+                DMG_VEHICLE = 0x10,
+                DMG_FALL = 0x20,
+                DMG_BLAST = 0x40,
+                DMG_CLUB = 0x80,
+                DMG_SHOCK = 0x100,
+                DMG_SONIC = 0x200,
+                DMG_ENERGYBEAM = 0x400,
+                DMG_BUCKSHOT = 0x800,
+                DMG_BLAST_SURFACE = 0x1000,
+                DMG_DISSOLVE = 0x2000,
+                DMG_DROWN = 0x4000,
+                DMG_POISON = 0x8000,
+                DMG_RADIATION = 0x10000,
+                DMG_DROWNRECOVER = 0x20000,
+                DMG_ACID = 0x40000,
+                DMG_HEADSHOT = 0x80000
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const PointWorldTextJustifyVertical_t = enum(u32) {
+                POINT_WORLD_TEXT_JUSTIFY_VERTICAL_BOTTOM = 0x0,
+                POINT_WORLD_TEXT_JUSTIFY_VERTICAL_CENTER = 0x1,
+                POINT_WORLD_TEXT_JUSTIFY_VERTICAL_TOP = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const attributeprovidertypes_t = enum(u32) {
+                PROVIDER_GENERIC = 0x0,
+                PROVIDER_WEAPON = 0x1
+            };
+            // Alignment: 1
+            // Member count: 6
+            pub const MoveCollide_t = enum(u8) {
+                MOVECOLLIDE_DEFAULT = 0x0,
+                MOVECOLLIDE_FLY_BOUNCE = 0x1,
+                MOVECOLLIDE_FLY_CUSTOM = 0x2,
+                MOVECOLLIDE_FLY_SLIDE = 0x3,
+                MOVECOLLIDE_COUNT = 0x4
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const IChoreoServices__ChoreoState_t = enum(u32) {
+                STATE_PRE_SCRIPT = 0x0,
+                STATE_WAIT_FOR_SCRIPT = 0x1,
+                STATE_WALK_TO_MARK = 0x2,
+                STATE_SYNCHRONIZE_SCRIPT = 0x3,
+                STATE_PLAY_SCRIPT = 0x4,
+                STATE_PLAY_SCRIPT_POST_IDLE = 0x5,
+                STATE_PLAY_SCRIPT_POST_IDLE_DONE = 0x6
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const ValueRemapperOutputType_t = enum(u32) {
+                OutputType_AnimationCycle = 0x0,
+                OutputType_RotationX = 0x1,
+                OutputType_RotationY = 0x2,
+                OutputType_RotationZ = 0x3
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const INavObstacle__NavObstacleType_t = enum(u32) {
+                NAV_OBSTACLE_TYPE_INVALID = 0xFFFFFFFF,
+                NAV_OBSTACLE_TYPE_NONE = 0x0,
+                NAV_OBSTACLE_TYPE_AVOID = 0x1,
+                NAV_OBSTACLE_TYPE_CONN = 0x2,
+                NAV_OBSTACLE_TYPE_BLOCK = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const PointTemplateOwnerSpawnGroupType_t = enum(u32) {
+                INSERT_INTO_POINT_TEMPLATE_SPAWN_GROUP = 0x0,
+                INSERT_INTO_CURRENTLY_ACTIVE_SPAWN_GROUP = 0x1,
+                INSERT_INTO_NEWLY_CREATED_SPAWN_GROUP = 0x2
+            };
+            // Alignment: 1
+            // Member count: 3
+            pub const EContributionScoreFlag_t = enum(u8) {
+                k_EContributionScoreFlag_Default = 0x0,
+                k_EContributionScoreFlag_Objective = 0x1,
+                k_EContributionScoreFlag_Bullets = 0x2
+            };
+            // Alignment: 1
+            // Member count: 9
+            pub const CCSPlayerAnimationState__Direction_t = enum(u8) {
+                None = 0x0,
+                N = 0x1,
+                NE = 0x2,
+                E = 0x3,
+                SE = 0x4,
+                S = 0x5,
+                SW = 0x6,
+                W = 0x7,
+                NW = 0x8
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const eSplinePushType = enum(u32) {
+                k_eSplinePushAlong = 0x0,
+                k_eSplinePushAway = 0x1,
+                k_eSplinePushTowards = 0x2
+            };
+            // Alignment: 2
+            // Member count: 29
+            pub const WeaponGameplayAnimState = enum(u16) {
+                WPN_ANIMSTATE_UNINITIALIZED = 0x0,
+                WPN_ANIMSTATE_DROPPED = 0x1,
+                WPN_ANIMSTATE_HOLSTERED = 0xA,
+                WPN_ANIMSTATE_DEPLOY = 0xB,
+                WPN_ANIMSTATE_IDLE = 0x32,
+                WPN_ANIMSTATE_SHOOT_PRIMARY = 0x64,
+                WPN_ANIMSTATE_SHOOT_SECONDARY = 0x65,
+                WPN_ANIMSTATE_SHOOT_DRYFIRE = 0x66,
+                WPN_ANIMSTATE_CHARGE = 0x67,
+                WPN_ANIMSTATE_GRENADE_PULL_PIN = 0xC8,
+                WPN_ANIMSTATE_GRENADE_READY = 0xC9,
+                WPN_ANIMSTATE_GRENADE_THROW = 0xCA,
+                WPN_ANIMSTATE_C4_PLANT = 0x12C,
+                WPN_ANIMSTATE_HEALTHSHOT_INJECT = 0x190,
+                WPN_ANIMSTATE_KNIFE_PRIMARY_HIT = 0x1F4,
+                WPN_ANIMSTATE_KNIFE_PRIMARY_MISS = 0x1F5,
+                WPN_ANIMSTATE_KNIFE_SECONDARY_HIT = 0x1F6,
+                WPN_ANIMSTATE_KNIFE_SECONDARY_MISS = 0x1F7,
+                WPN_ANIMSTATE_KNIFE_PRIMARY_STAB = 0x1F8,
+                WPN_ANIMSTATE_KNIFE_SECONDARY_STAB = 0x1F9,
+                WPN_ANIMSTATE_SILENCER_APPLY = 0x258,
+                WPN_ANIMSTATE_SILENCER_REMOVE = 0x259,
+                WPN_ANIMSTATE_RELOAD = 0x320,
+                WPN_ANIMSTATE_RELOAD_OUTRO = 0x321,
+                WPN_ANIMSTATE_INSPECT = 0x3E8,
+                WPN_ANIMSTATE_INSPECT_OUTRO = 0x3E9,
+                WPN_ANIMSTATE_INVENTORY_UI_TUMBLE = 0x5DC,
+                WPN_ANIMSTATE_INVENTORY_UI_KEYCHAIN_APPLY = 0x5DD,
+                WPN_ANIMSTATE_END_VALID = 0x7D0
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const EDestructiblePartRadiusDamageApplyType = enum(u32) {
+                ScaleByExplosionRadius = 0x0,
+                PrioritizeClosestPart = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const EntityDistanceMode_t = enum(u32) {
+                eOriginToOrigin = 0x0,
+                eCenterToCenter = 0x1,
+                eAxisToAxis = 0x2
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const PulseTraceContents_t = enum(u32) {
+                STATIC_LEVEL = 0x0,
+                SOLID = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const PointWorldTextJustifyHorizontal_t = enum(u32) {
+                POINT_WORLD_TEXT_JUSTIFY_HORIZONTAL_LEFT = 0x0,
+                POINT_WORLD_TEXT_JUSTIFY_HORIZONTAL_CENTER = 0x1,
+                POINT_WORLD_TEXT_JUSTIFY_HORIZONTAL_RIGHT = 0x2
+            };
+            // Alignment: 4
+            // Member count: 7
+            pub const ShakeCommand_t = enum(u32) {
+                SHAKE_START = 0x0,
+                SHAKE_STOP = 0x1,
+                SHAKE_AMPLITUDE = 0x2,
+                SHAKE_FREQUENCY = 0x3,
+                SHAKE_START_RUMBLEONLY = 0x4,
+                SHAKE_START_NORUMBLE = 0x5,
+                SHAKE_DURATION = 0x6
+            };
+            // Alignment: 4
+            // Member count: 23
+            pub const Flags_t = enum(u32) {
+                FL_ONGROUND = 0x1,
+                FL_DUCKING = 0x2,
+                FL_WATERJUMP = 0x4,
+                FL_BOT = 0x10,
+                FL_FROZEN = 0x20,
+                FL_ATCONTROLS = 0x40,
+                FL_CLIENT = 0x80,
+                FL_FAKECLIENT = 0x100,
+                FL_FLY = 0x400,
+                FL_SUPPRESS_SAVE = 0x800,
+                FL_IN_VEHICLE = 0x1000,
+                FL_GODMODE = 0x4000,
+                FL_NOTARGET = 0x8000,
+                FL_AIMTARGET = 0x10000,
+                FL_GRENADE = 0x100000,
+                FL_DONTTOUCH = 0x400000,
+                FL_BASEVELOCITY = 0x800000,
+                FL_CONVEYOR = 0x1000000,
+                FL_OBJECT = 0x2000000,
+                FL_ONFIRE = 0x8000000,
+                FL_DISSOLVING = 0x10000000,
+                FL_TRANSRAGDOLL = 0x20000000,
+                FL_UNBLOCKABLE_BY_PLAYER = 0x40000000
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const TRAIN_CODE = enum(u32) {
+                TRAIN_SAFE = 0x0,
+                TRAIN_BLOCKING = 0x1,
+                TRAIN_FOLLOWING = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const DestructiblePartDestructionDeathBehavior_t = enum(u32) {
+                eDoNotKill = 0x0,
+                eKill = 0x1,
+                eGib = 0x2,
+                eRemove = 0x3
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const BrushSolidities_e = enum(u32) {
+                BRUSHSOLID_TOGGLE = 0x0,
+                BRUSHSOLID_NEVER = 0x1,
+                BRUSHSOLID_ALWAYS = 0x2
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const InteractionPriority_t = enum(u32) {
+                INTERACT_PRIORITY_NONE = 0x0,
+                INTERACT_PRIORITY_PASSIVE = 0x1,
+                INTERACT_PRIORITY_LOW = 0x2,
+                INTERACT_PRIORITY_MED = 0x3,
+                INTERACT_PRIORITY_HIGH = 0x4
+            };
+            // Alignment: 4
+            // Member count: 13
+            pub const QuestProgress__Reason = enum(u32) {
+                QUEST_NONINITIALIZED = 0x0,
+                QUEST_OK = 0x1,
+                QUEST_NOT_ENOUGH_PLAYERS = 0x2,
+                QUEST_WARMUP = 0x3,
+                QUEST_NOT_CONNECTED_TO_STEAM = 0x4,
+                QUEST_NONOFFICIAL_SERVER = 0x5,
+                QUEST_NO_ENTITLEMENT = 0x6,
+                QUEST_NO_QUEST = 0x7,
+                QUEST_PLAYER_IS_BOT = 0x8,
+                QUEST_WRONG_MAP = 0x9,
+                QUEST_WRONG_MODE = 0xA,
+                QUEST_NOT_SYNCED_WITH_SERVER = 0xB,
+                QUEST_REASON_MAX = 0xC
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ModifyDamageReturn_t = enum(u32) {
+                CONTINUE_TO_APPLY_DAMAGE = 0x0,
+                ABORT_DO_NOT_APPLY_DAMAGE = 0x1
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ShadowType_t = enum(u32) {
+                SHADOWS_NONE = 0x0,
+                SHADOWS_SIMPLE = 0x1
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const GrenadeType_t = enum(u32) {
+                GRENADE_TYPE_EXPLOSIVE = 0x0,
+                GRENADE_TYPE_FLASH = 0x1,
+                GRENADE_TYPE_FIRE = 0x2,
+                GRENADE_TYPE_DECOY = 0x3,
+                GRENADE_TYPE_SMOKE = 0x4,
+                GRENADE_TYPE_TOTAL = 0x5
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ValueRemapperInputType_t = enum(u32) {
+                InputType_PlayerShootPosition = 0x0,
+                InputType_PlayerShootPositionAroundAxis = 0x1
+            };
+            // Alignment: 1
+            // Member count: 8
+            pub const EKillTypes_t = enum(u8) {
+                KILL_NONE = 0x0,
+                KILL_DEFAULT = 0x1,
+                KILL_HEADSHOT = 0x2,
+                KILL_BLAST = 0x3,
+                KILL_BURN = 0x4,
+                KILL_SLASH = 0x5,
+                KILL_SHOCK = 0x6,
+                KILLTYPE_COUNT = 0x7
+            };
+            // Alignment: 4
+            // Member count: 25
+            pub const WeaponSound_t = enum(u32) {
+                WEAPON_SOUND_EMPTY = 0x0,
+                WEAPON_SOUND_SECONDARY_EMPTY = 0x1,
+                WEAPON_SOUND_SINGLE = 0x2,
+                WEAPON_SOUND_SECONDARY_ATTACK = 0x3,
+                WEAPON_SOUND_MELEE_MISS = 0x4,
+                WEAPON_SOUND_MELEE_HIT = 0x5,
+                WEAPON_SOUND_MELEE_HIT_WORLD = 0x6,
+                WEAPON_SOUND_MELEE_HIT_PLAYER = 0x7,
+                WEAPON_SOUND_MELEE_HIT_NPC = 0x8,
+                WEAPON_SOUND_SPECIAL1 = 0x9,
+                WEAPON_SOUND_SPECIAL2 = 0xA,
+                WEAPON_SOUND_SPECIAL3 = 0xB,
+                WEAPON_SOUND_NEARLYEMPTY = 0xC,
+                WEAPON_SOUND_IMPACT = 0xD,
+                WEAPON_SOUND_REFLECT = 0xE,
+                WEAPON_SOUND_SECONDARY_IMPACT = 0xF,
+                WEAPON_SOUND_SECONDARY_REFLECT = 0x10,
+                WEAPON_SOUND_RELOAD = 0x11,
+                WEAPON_SOUND_SINGLE_ACCURATE = 0x12,
+                WEAPON_SOUND_ZOOM_IN = 0x13,
+                WEAPON_SOUND_ZOOM_OUT = 0x14,
+                WEAPON_SOUND_MOUSE_PRESSED = 0x15,
+                WEAPON_SOUND_DROP = 0x16,
+                WEAPON_SOUND_RADIO_USE = 0x17,
+                WEAPON_SOUND_NUM_TYPES = 0x18
+            };
+            // Alignment: 8
+            // Member count: 22
+            pub const TakeDamageFlags_t = enum(u64) {
+                DFLAG_NONE = 0x0,
+                DFLAG_SUPPRESS_HEALTH_CHANGES = 0x1,
+                DFLAG_SUPPRESS_PHYSICS_FORCE = 0x2,
+                DFLAG_SUPPRESS_EFFECTS = 0x4,
+                DFLAG_PREVENT_DEATH = 0x8,
+                DFLAG_FORCE_DEATH = 0x10,
+                DFLAG_ALWAYS_GIB = 0x20,
+                DFLAG_NEVER_GIB = 0x40,
+                DFLAG_REMOVE_NO_RAGDOLL = 0x80,
+                DFLAG_SUPPRESS_DAMAGE_MODIFICATION = 0x100,
+                DFLAG_ALWAYS_FIRE_DAMAGE_EVENTS = 0x200,
+                DFLAG_RADIUS_DMG = 0x400,
+                DFLAG_FORCEREDUCEARMOR_DMG = 0x800,
+                DFLAG_SUPPRESS_INTERRUPT_FLINCH = 0x1000,
+                DFLAG_IGNORE_DESTRUCTIBLE_PARTS = 0x2000,
+                DFLAG_SUPPRESS_BREAKABLES = 0x4000,
+                DFLAG_FORCE_PHYSICS_FORCE = 0x8000,
+                DFLAG_SUPPRESS_SCREENSPACE_DAMAGE_FX = 0x10000,
+                DFLAG_ALLOW_NON_AUTHORITATIVE = 0x20000,
+                DFLAG_IGNORE_ARMOR = 0x40000,
+                DFLAG_SUPPRESS_UTILREMOVE = 0x80000
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const ValueRemapperHapticsType_t = enum(u32) {
+                HaticsType_Default = 0x0,
+                HaticsType_None = 0x1
+            };
+            // Alignment: 4
+            // Member count: 10
+            pub const Disposition_t = enum(u32) {
+                D_ER = 0x0,
+                D_HT = 0x1,
+                D_FR = 0x2,
+                D_LI = 0x3,
+                D_NU = 0x4
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const RotatorTargetSpace_t = enum(u32) {
+                ROTATOR_TARGET_WORLDSPACE = 0x0,
+                ROTATOR_TARGET_LOCALSPACE = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const CanPlaySequence_t = enum(u32) {
+                CANNOT_PLAY = 0x0,
+                CAN_PLAY_NOW = 0x1,
+                CAN_PLAY_ENQUEUED = 0x2
+            };
+            // Alignment: 1
+            // Member count: 4
+            pub const CCSPlayerAnimationState__AirAction_t = enum(u8) {
+                None = 0x0,
+                Jump = 0x1,
+                StartFall = 0x2,
+                Land = 0x3
+            };
+            // Alignment: 4
+            // Member count: 5
+            pub const MedalRank_t = enum(u32) {
+                MEDAL_RANK_NONE = 0x0,
+                MEDAL_RANK_BRONZE = 0x1,
+                MEDAL_RANK_SILVER = 0x2,
+                MEDAL_RANK_GOLD = 0x3,
+                MEDAL_RANK_COUNT = 0x4
+            };
+            // Alignment: 4
+            // Member count: 6
+            pub const ObserverMode_t = enum(u32) {
+                OBS_MODE_NONE = 0x0,
+                OBS_MODE_FIXED = 0x1,
+                OBS_MODE_IN_EYE = 0x2,
+                OBS_MODE_CHASE = 0x3,
+                OBS_MODE_ROAMING = 0x4,
+                NUM_OBSERVER_MODES = 0x5
+            };
+            // Alignment: 4
+            // Member count: 2
+            pub const FuncDoorSpawnPos_t = enum(u32) {
+                FUNC_DOOR_SPAWN_CLOSED = 0x0,
+                FUNC_DOOR_SPAWN_OPEN = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            pub const EOverrideBlockLOS_t = enum(u32) {
+                BLOCK_LOS_DEFAULT = 0x0,
+                BLOCK_LOS_FORCE_FALSE = 0x1,
+                BLOCK_LOS_FORCE_TRUE = 0x2
+            };
+            // Alignment: 4
+            // Member count: 4
+            pub const EntityAttachmentType_t = enum(u32) {
+                eAbsOrigin = 0x0,
+                eCenter = 0x1,
+                eEyes = 0x2,
+                eAttachment = 0x3
+            };
+            // Alignment: 1
+            // Member count: 14
+            pub const MoveType_t = enum(u8) {
+                MOVETYPE_NONE = 0x0,
+                MOVETYPE_OBSOLETE = 0x1,
+                MOVETYPE_WALK = 0x2,
+                MOVETYPE_FLY = 0x3,
+                MOVETYPE_FLYGRAVITY = 0x4,
+                MOVETYPE_VPHYSICS = 0x5,
+                MOVETYPE_PUSH = 0x6,
+                MOVETYPE_NOCLIP = 0x7,
+                MOVETYPE_OBSERVER = 0x8,
+                MOVETYPE_LADDER = 0x9,
+                MOVETYPE_CUSTOM = 0xA,
+                MOVETYPE_LAST = 0xB
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CWeaponNOVA = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointWorldText = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAmbientGeneric = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvEntityMaker = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPulseGraphInstance_GameBlackboard = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterEnemy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_WingmanIntroCounterTerroristPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForCursorsWithTag = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncTrackAuto = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CScriptedSequence = struct {
+            };
+            // Parent: MNotSaved
+            // Field count: 0
+            pub const CFogTrigger = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoTeleportDestination = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointBroadcastClientCommand = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_PingServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHEGrenade = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysicsSpring = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvMuzzleFlash = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEconItemAttribute = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseTriggerAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponRevolver = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncTrainControls = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBtActionCombatPositioning = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncRetakeBarrier = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerBuoyancy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTonemapController2Alias_env_tonemap_controller2 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathTrack = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_EndOfMatchLineupEndpoint = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Base = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerProximity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTankTrainAI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGameText = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGameEnd = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoDeathmatchSpawn = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerController_InventoryServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerModernJump = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulse_ResumePoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerFan = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysHingeAlias_phys_hinge_local = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CLogicCase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Outflow_PlayVOLine = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoGameEventProxy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTestPulseIOComponent_DerivedAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponBizon = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CGamePlayerZone = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseToggle = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseServerCursor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_PlaySequence = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CInferno = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTouchExpansionComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Outflow_PlaySceneBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_LerpCameraSettings = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponSCAR20 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncInteractionLayerClip = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSObserver_UseServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerDetectBulletFire = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_UseServices = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CWeaponAWP = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_PickBestOutflowSelector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoFan = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGameRules = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFish = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSBot = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHandleTest = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicNPCCounter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_RadioServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponSG556 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRagdollConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncVehicleClip = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CDEagle = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponFamas = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSplash = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPointCameraVFOV = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_WingmanIntroTerroristPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTestPulseIOAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSWeaponBaseShotgun = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPrecipitationVData = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncMoveLinear = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysMotorAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForObservable = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CScriptItem = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CDynamicPropAlias_prop_dynamic_override = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseTrigger = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointPush = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPulseCell_Step_EntFire = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSObserver_ObserverServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayerPing = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHitboxComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRopeKeyframe = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CSmokeGrenade = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CBaseCombatCharacter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ServerAuthoritativeWeaponSlot_t = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPathQueryComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicRelay = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SequenceHistory_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_ItemServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulse_OutflowConnection = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTestPulseIO = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponUMP45 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGamePlayerEquip = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPointEntityFinder = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseGraphDef = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CKnife = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CLogicPlayerProxy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_TeamIntroCharacterPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePlayerControllerAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHostageRescueZoneShim = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSimpleMarkupVolumeTagged = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSoundscapeAlias_snd_soundscape = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_HostageServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRenderComponent = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CWaterBullet = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerSoundscape = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_PlayVOLine__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointTeleportAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHostageExpresserShim = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointChildModifier = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerLegacyJump = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponHKP2000 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CShatterGlassShardPhysics = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathParticleRope = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCredits = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponFiveSeven = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFishPool = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_MovementServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRagdollPropAlias_physics_prop_ragdoll = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBreakableProp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLightEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoDynamicShadowHintBox = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseAnimGraphController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const AnimGraph2SerializedPoseRecipeSlot_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBuoyancyHelper = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const COrnamentProp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_CameraServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CModelPointEntity = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CRectLight = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterMultiple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerResource = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_FireCursors = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncNavBlocker = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMoverPathNode = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CEnvSoundscape = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncBrush = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBodyComponentPoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysBox = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundEventAABBEntity = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CItemSoda = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Timeline__TimelineEvent_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: MEntityAllowsPortraitWorldSpawn
+            // Field count: 0
+            pub const COmniLight = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBtNodeCondition = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_IntervalTimer__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseRequirement = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvExplosion = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_BaseState = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const OutflowWithRequirements_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CTestPulseIO__ThreeStringArgs_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_IsRequirementValid = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFootstepControl = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_ItemServices = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Value_Gradient = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CParticleSystem = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerBrush = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IntervalTimer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const audioparams_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundAreaEntityBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponM4A1Silencer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTimeline = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCursorFuncs = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CTestPulseIO__FloatStringArgs_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CountdownTimer = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseNodeDynamicOutflows_t__DynamicOutflow_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CItemAssaultSuit = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBeam = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicEventListener = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_TeamSelectTerroristPosition = struct {
+            };
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub const CInfoData = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponNegev = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CWeaponElite = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePlayerPawn = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const WeaponPurchaseCount_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePulseGraphInstance = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FilterHealth = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSSprite = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMathColorBlend = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CShower = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_GraphHook = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CScriptNavBlocker = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityBlocker = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SignatureOutflow_Resume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathSimpleAPI = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CCSObserverPawn = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerActiveWeaponDetect = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CFuncLadderAlias_func_useableladder = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSpriteOriented = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointServerCommand = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const shard_model_desc_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayerSprayDecal = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncWater = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CCSGameModeRules = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointPrefabAPI = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_PlayVCD__VCDRequirementInfo_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CEconEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTankTargetChange = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_WaterServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicDistanceCheck = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvCombinedLightProbeVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ViewAngleServerChange_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicDistanceAutosave = struct {
+            };
+            // Parent: _i_Z__
+            // Field count: 0
+            pub const CLogicBranch = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Outflow_ScriptedSequence = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CFuncTrackChange = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncTrackTrain = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvInstructorHint = struct {
+            };
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub const CEnvWind = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundEventPathCornerEntity = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CCSPlayerBase_CameraServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_BaseEntrypoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CDynamicNavConnectionsVolume = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CConstraintAnchor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForCursorsWithTagBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerPawn = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CEnvLightProbeVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SpawnPoint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncMoverAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGameSceneNode = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponM249 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRopeKeyframeAlias_move_rope = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseServerFuncs_Sounds = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulsePhysicsConstraintsFuncs = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_ObserverServices = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CCashStack = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CLogicScript = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAttributeManager__cached_attribute_float_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseGraphInstance_ServerEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSceneEntityAlias_logic_choreographed_scene = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRagdollManager = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPostProcessingVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointProximitySensor = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulse_InvokeBinding = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerLook = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Outflow_PlayVCD = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMultiplayRules = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMolotovGrenade = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysTorque = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMultiSource = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseCSGrenade = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicAuto = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPhysicsWire = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CFuncIllusionary = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoDynamicShadowHint = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CMarkupVolume = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPathNode = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_TeamSelectCounterTerroristPosition = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CTriggerRemove = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicGameEventListener = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CServerOnlyModelEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_IntervalTimer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMarkupVolumeTagged_Nav = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoPlayerTerrorist = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicAutosave = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_TeamIntroTerroristPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseTestScriptLib = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSingleplayRules = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvWindShared = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointPrefab = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseLerp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvInstructorVRHint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGameRulesProxy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPrecipitation = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCommentaryViewPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvGlobal = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CLogicNPCCounterOBB = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlatTrigger = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSceneEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CChoreoInfoTarget = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CTonemapController2 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMapSharedEnvironment = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTakeDamageResultAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNetworkedSequenceOperation = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysMagnet = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityInstance = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CGameGibManager = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHandleDummy = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CFuncWallToggle = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_BulletServices = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CSkyCamera = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_EndOfMatchLineupEnd = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPlayer_AutoaimServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CItemDefuserAlias_item_defuser = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathCornerCrash = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysPulley = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPetPlacement = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponMP5SD = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponBaseItem = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCommentaryAuto = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_ListenForEntityOutput__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ActiveModelConfig_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponUSPSilencer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundStackSave = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_Curve = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponMag7 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicMeasureMovement = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CC4 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHostageCarriableProp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CDynamicPropAlias_cable_dynamic = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSObserver_CameraServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvDetailController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerPawnBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSoundscapeProxy = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_EventHandler = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPointScriptEntity = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseFlow = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBombTarget = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRuleEntity = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CPhysThruster = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoPlayerStart = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityFlame = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSkeletonInstance = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityComponent = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CBasePlatTrain = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointTeleport = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerGameEvent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMessageEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvEntityIgniter = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_CycleShuffled__InstanceState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_BaseLerp__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CMarkupVolumeTagged_NavGame = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMultiLightProxy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponM4A1 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerHostageReset = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseAnimFuncs = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEconWearable = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_WaitForCursorsWithTagBase__CursorState_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseArraylib = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponMAC10 = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CFuncLadder = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFogController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointTemplateAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CItem = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CTriggerPush = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseProp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoOffscreenPanoramaTexture = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointAngularVelocitySensor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayerVisibility = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Step_FollowEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFlashbang = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePlayerWeapon = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSWeaponBaseVData = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysForce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAttributeManager = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SignatureOutflow_Continue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoTarget = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_CameraServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Timeline = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_EntOutputHandler = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseFuncs_GameParticleManager = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CScenePayloadVData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterAttributeInt = struct {
+            };
+            // Parent: MPropertyAttributeSuggestionName
+            // Field count: 0
+            pub const CKeepUpright = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointTemplate = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvVolumetricFogController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBot = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPulseCell_Step_SetAnimGraphParam = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_FlashlightServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysLength = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CTeam = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicNPCCounterAABB = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_CycleOrdered__InstanceState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CChicken = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysicsPropRespawnable = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CEnvBeam = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CLightSpotEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponSawedoff = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CTonemapTrigger = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvShake = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_MovementServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SellbackPurchaseEntry_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CTestPulseIO__EntityNameStringArgs_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerCallback = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundOpvarSetAutoRoomEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Outflow_ListenForEntityOutput = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPushable = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRotatorTarget = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPhysicsEntitySolver = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicCollisionPair = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTestEffect = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_ScriptedSequence__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPropDoorRotating = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvParticleGlow = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMathRemap = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundOpvarSetOBBWindEntity = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PhysicsRagdollPose_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPropDataComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CScriptTriggerOnce = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLightOrthoEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoInstructorHintHostageRescueZone = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_LimitCount__InstanceState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerTeleport = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CFuncWall = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBtActionAim = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_TeamPreviewCharacterPosition = struct {
+            };
+            // Parent: ___Z__
+            // Field count: 0
+            pub const CGameRulesProxy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoLadderDismount = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseServerFuncs = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMessage = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointVelocitySensor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCS2PawnGraphController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EngineCountdownTimer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseModelEntityAPI = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CScriptTriggerMultiple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHostage = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSpark = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerController_DamageServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvCombinedLightProbeVolumeAlias_func_combined_light_probe_volume = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CBaseModelEntity__OnDamageLevelChangedArgs_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterLOS = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointOrient = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const sky3dparams_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponP250 = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CDestructiblePartsComponent = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CChangeLevel = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CBaseButton = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPulseCell_SoundEventStart = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Step_DebugLog = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CItem_Healthshot = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseGrenade = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CColorCorrectionVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerController_ActionTrackingServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBodyComponentBaseAnimGraph = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseYieldingInflow = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseNodeDynamicOutflows_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFogVolume = struct {
+            };
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub const CFuncRotating = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTimerEntity = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CBtActionMoveTo = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_MovementServices_Humanoid = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseEntityAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_IsRequirementValid__Criteria_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponG3SG1 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerOnce = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CSMatchStats_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EntityRenderAttribute_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_ObservableVariableListener = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CFuncMonitor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoVisibilityBox = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGunTarget = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CSoundEventConeEntity = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CSoundOpvarSetOBBEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterMultipleAPI = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CDecoyProjectile = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPrecipitationBlocker = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundOpvarSetPathCornerEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointClientCommand = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHostageRescueZone = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWorld = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathMoverEntitySpawner = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CModelState = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_LerpCameraSettings__CursorState_t = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Outflow_CycleOrdered = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponGlock = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHEGrenadeProjectile = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CTriggerGravity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCollisionProperty = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CWeaponGalilAR = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterMassGreater = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponMP7 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSWeaponBaseGun = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnableMotionFixup = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicActiveAutosave = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMathCounter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGameModeRules_ArmsRace = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAttributeContainer = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CCSPlace = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseSelectorOutflowList_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CFilterContext = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLightEnvironmentEntity = struct {
+            };
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub const CEnvDecal = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvVolumetricFogVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CServerOnlyEntity = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_PlaySequence__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBodyComponentSkeletonInstance = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CItemGeneric = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointValueRemapper = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBtNodeConditionInactive = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_TeamIntroCounterTerroristPosition = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CRagdollProp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CScriptComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncTrain = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAI_ChangeHintGroup = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_BuyServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponAug = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysHinge = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBuyZone = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoChoreoAnchor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const DestructiblePartDamageRequestAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponSSG08 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicRelayAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoWorldLayer = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CBodyComponentBaseModelEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicProximity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointGiveAmmo = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_EndOfMatchLineupStart = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FilterDamageType = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointCamera = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAttributeList = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_Wait = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterProximity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCS2WeaponGraphController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEffectData = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CEntityDissolve = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CCSGameRules = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Outflow_CycleShuffled = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseCSGrenadeProjectile = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicAchievement = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerController_InventoryServices__NetworkedLoadoutSlot_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLightComponent = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CCSWeaponBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointClientUIDialog = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicLineToEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundAreaEntitySphere = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_ActionTrackingServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTestPulseIOComponent_API = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysicalButton = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoSpawnGroupLoadUnload = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundAreaEntityOrientedBox = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSObserver_MovementServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Outflow_ListenForAnimgraphTag = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBodyComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Inflow_Method = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CDecoyGrenade = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEconItemView = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CIncendiaryGrenade = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseDMStart = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CBaseModelEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const fogplayerparams_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGlowProperty = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInstancedSceneEntity = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_BaseValue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCitadelSoundOpvarSetOBB = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundEventParameter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_WaterServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_BooleanSwitchState = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRotButton = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvViewPunch = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CDamageRecord = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const VPhysicsCollisionAttribute_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CItemKevlar = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncShatterglass = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNavWalkable = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPlantedC4 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSoundscapeProxyAlias_snd_soundscape_proxy = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVoteController = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Inflow_Yield = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseMathlib = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysImpact = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CBaseEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_UseServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGameSceneNodeHandle = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CMarkupVolumeWithRef = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_TeamSelectCharacterPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Unknown = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncPlatRot = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRagdollMagnet = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoInstructorHintTarget = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CSpriteAlias_env_glow = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CFireCrackerBlast = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSpotlightEnd = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSky = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CInfoSpawnGroupLandmark = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointAngleSensor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvWindController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSPerRoundStats_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGenericConstraint = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Outflow_CycleRandom = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_Step_PublicOutput = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvLaser = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundOpvarSetEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvBeverage = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CPhysMotor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicGameEvent = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPhysicsPropMultiplayer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysExplosion = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSplineConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicCompare = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGameModeRules_Noop = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulse_BlackboardReference = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncTankTrain = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointClientUIWorldPanel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundEventSphereEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerController_InGameMoneyServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRuleBrushEntity = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CMapVetoPickController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncPropRespawnZone = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterModel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponP90 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNavSpaceInfo = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysSlideConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseGameBlackboard = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundEventEntityAlias_snd_event_point = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CChoreoComponent = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_RandomInt = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointGamestatsCounter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTextureBasedAnimatable = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSprite = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseMoveBehavior = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CDynamicLight = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponTaser = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvCubemapBox = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CRotDoor = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPathMover = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncVPhysicsClip = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysFixed = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicNavigation = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CPathSimple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathParticleRopeAlias_path_particle_rope_clientside = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPointPulseAPI = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvWindVolume = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CFuncElectrifiedVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSMinimapBoundary = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const EntitySpottedState_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const fogparams_t = struct {
+            };
+            // Parent: entity2
+            // Field count: 0
+            pub const CSoundEventOBBEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFlashbangProjectile = struct {
+            };
+            // Parent: p__Z__
+            // Field count: 0
+            pub const CTriggerMultiple = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysBallSocket = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CDebugHistory = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundOpvarSetPointBase = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CExplosionTypeData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathKeyFrame = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CWeaponCZ75a = struct {
+            };
+            // Parent: _
+            // Field count: 0
+            pub const CScriptTriggerPush = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRevertSaved = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerBombReset = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerHurt = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayer_WeaponServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRetakeGameRules = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSoundscapeTriggerableAlias_snd_soundscape_triggerable = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CInfoInstructorHintBombTargetA = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CTeamplayRules = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CScriptTriggerHurt = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGO_WingmanIntroCharacterPosition = struct {
+            };
+            // Parent: Primary_Mode
+            // Field count: 0
+            pub const CWeaponMP9 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerDetectExplosion = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterName = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSmokeGrenadeProjectile = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBlood = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CCSTeam = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRulePointEntity = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulse_CallInfo = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncMoveLinearAlias_momentary_door = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseAnimGraph = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvCubemapFog = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_InlineNodeSkipSelector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseDoor = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CServerOnlyPointEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGameMoney = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CEnvHudHint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNullEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLogicalEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CItemDefuser = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CItemGenericTriggerHelper = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayer_WeaponServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRagdollPropAttached = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CItemDogtags = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncPlat = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBarnLight = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInstructorEventEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponTec9 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathCorner = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerSndSosOpvar = struct {
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_LimitCount = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Step_CallExternalMethod = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPointCommentaryNode = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMomentaryRotButton = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSceneListManager = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvTilt = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEnvSoundscapeTriggerable = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncMover = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysicsProp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncNavObstruction = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysWheelConstraint = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSkyboxReference = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointPulse = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMolotovProjectile = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterClass = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerToggleSave = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathWithDynamicNodes = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CColorCorrection = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPropDoorRotatingBreakable = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CLightDirectionalEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseClientUIEntity = struct {
+            };
+            // Parent: expRandom
+            // Field count: 0
+            pub const CBreakable = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CInfoLandmark = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseFilter = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const WeaponPurchaseTracker_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPulseCell_Outflow_PlaySceneBase__CursorState_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseObservableBoolExpression_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMapInfo = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGradientFog = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundOpvarSetAABBEntity = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPulseCell_Outflow_PlaySequence = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CPointClientUIWorldTextPanel = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEntityIdentity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_LimitCount__Criteria_t = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CFuncRotator = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundEventEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoPlayerCounterterrorist = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CEnvFade = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePlayerVData = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerImpact = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSGameModeRules_Deathmatch = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CTestPulseIO__EntityHandleIntArgs_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            pub const CPulseCell_CursorQueue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseCell_Value_RandomFloat = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPulseExecCursor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePropDoor = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CLogicBranchList = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBtActionParachutePositioning = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAK47 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CDynamicProp = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHostageAlias_info_hostage_spawn = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFilterTeam = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncConveyor = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerPhysics = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoInstructorHintBombTargetB = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFuncTimescale = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePlayerWeaponVData = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoInteraction = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSoundOpvarSetPointEntity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoTargetServerOnly = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CServerRagdollTrigger = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CDynamicPropAlias_dynamic_prop = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMarkupVolumeTagged = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoParticleTarget = struct {
+            };
+            // Parent: MGetKV3ClassDefaults
+            // Field count: 0
+            pub const CEnvCubemap = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CCSPlayer_DamageReactServices = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWeaponXM1014 = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerLerpObject = struct {
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const CPhysicsPropOverride = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTriggerSave = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPointHurt = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBasePlayerController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRangeFloat = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CDestructiblePart = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAnimEventQueueListener = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PhysBlockHeader_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const RelationshipOverride_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const AutoRoomDoorwayPairs_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const NavHull_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CDebugSnapshotData_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRemapFloat = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHintMessage = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ParticleNode_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFootstepTableHandle = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CDecalGroupVData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNmSnapWeaponTask = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayerControllerComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CResponseQueue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CodeGenAABB_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CScriptUniformRandomStream = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const lerpdata_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const WrappedPhysicsJoint_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SimpleConstraintSoundProfile = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSimpleSimTimer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const AI_BaseNPCAnimGraph_DebugSnapshotData_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPhysicsBodyGameMarkupData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const SoundCommand_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const modifiedconvars_t = struct {
+                pub const @"": usize = 0x100; // 
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CTestPulseIOComponent_Derived = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SAVE_HEADER = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSkillDamage = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const DebugSnapshotBaseStructuredData_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const AI_DefaultNPC_DebugSnapshotData_t__PathQuery_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const AI_Motor_DebugSnapshotData_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFloatExponentialMovingAverage = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const physics_save_sphere_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const GAME_HEADER = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAnimEventListenerBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const AI_BaseNPC_DebugSnapshotData_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CDebugDrawHistoryData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNmEventConsumer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNetworkViewOffsetVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const AmmoIndex_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const SceneRequestTargetMapPair_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CDestructiblePartsSystemData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRopeOverlapHit = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ResponseContext_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNavVolumeSphericalShell = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPlayerPawnComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const AI_Navigator_DebugSnapshotData_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CDecalInstance = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CGameScriptedMoveData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSkeletonAnimationController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNavVolumeMarkupVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CResponseCriteriaSet = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAI_Expresser = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IChoreoServices = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CNmEventConsumerAttributes = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CStopwatch = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ResponseParams = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SPAWNGROUP_HEADER = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const globalentity_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SceneInterestTags_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ConstraintSoundInfo = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CPhysicsBodyGameMarkup = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PointCameraSettings_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: xL___
+            // Field count: 0
+            pub const DebugDrawBoneTransforms_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVectorMovingAverage = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const AI_MotorGroundAnimgraph_DebugSnapshotData_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSoundEnvelope = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const dynpitchvol_base_t = struct {
+            };
+            // Parent: CONTINUE_TO_APPLY_DAMAGE
+            // Field count: 0
+            pub const CStopwatchBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SceneRequestHandle_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNavVolumeVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const NavGravity_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PulseScriptedSequenceData_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const RotatorQueueEntry_t = struct {
+            };
+            // Parent: Base_entity_with_model
+            // Field count: 0
+            pub const CBaseAnimGraphDestructibleParts_GraphController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ExternalAnimGraphHandle_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPhysicsShake = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInfoChoreoAnchorPosition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const VelocitySampler = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CTakeDamageResult = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SceneEventId_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ExternalAnimGraph_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CCommentarySystem = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ResponseFollowup = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const AmmoTypeInfo_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNetworkTransmitComponent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CPathQueryUtil = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const RagdollCreationParams_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRelativeTransform = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRangeInt = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CWorldCompositionChunkReferenceElement_t = struct {
+            };
+            // Parent: MNotSaved
+            // Field count: 0
+            pub const CRandStopwatch = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMovementStatsProperty = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGameChoreoServices = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PhysObjectHeader_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: _f_Z__
+            // Field count: 0
+            pub const CSimpleStopwatch = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CShatterGlassShard = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ragdollelement_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CGameScriptedMoveDef_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNetworkOriginCellCoordQuantizedVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseAnimGraphVariationUserData = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const DynamicVolumeDef_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNetworkOriginQuantizedVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const magnetted_objects_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CHintMessageQueue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSkillInt = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const thinkfunc_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CNavHullPresetVData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSkillFloat = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const WaterWheelFrictionScale_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ragdollhierarchyjoint_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSceneEventInfo = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SoundeventPathCornerPairNetworked_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CSoundPatch = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSceneOpportunity = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCS2ChickenGraphController = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const levellist_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const locksound_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const DecalGroupOption_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBtNode = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAnimGraphControllerManager = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFiringModeFloat = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CCopyRecipientFilter = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFloatMovingAverage = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const FuncMoverMovementSummary_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSmoothFunc = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IHasAttributes = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ragdoll_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const HullFlags_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ISkeletonAnimationController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const RotatorHistoryEntry_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const GameAmmoTypeInfo_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMotorController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSimTimer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBaseIssue = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SummaryTakeDamageInfo_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const INavObstacle = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSceneRequest = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const entitytable_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SceneOpportunityActor_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRR_Response = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CVectorExponentialMovingAverage = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNmAimCSNode__CDefinition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CConstantForceController = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const WaterWheelDrag_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CTakeDamageInfo = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CRandSimTimer = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBtNodeComposite = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CRelativeLocation = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const Extent = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const sndopvarlatchdata_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const PrecipitationFilter_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IEconItemInterface = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const PathMoverEntitySpawn = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CMultiplayer_Expresser = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNavVolume = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const QuestProgress = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNmAimCSTask = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ParticleIndex_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAI_ExpresserWithFollowup = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CTakeDamageSummaryScopeGuard = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CIronSightController = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CNmEventConsumerSound = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CNmEventConsumerLegacy = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const DestructiblePartDamageRequest_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CInButtonState = struct {
+            };
+            // Parent: server
+            // Field count: 0
+            pub const CNmEventConsumerParticle = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CNavHullVData = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const AI_DefaultNPC_DebugSnapshotData_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNmSnapWeaponNode__CDefinition = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SoundOpvarTraceResult_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAnimEventListener = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNavVolumeCalculatedVector = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CFiringModeInt = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBtNodeDecorator = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSAdditionalPerRoundStats_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CEmptyGraphController = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const ModelConfigHandle_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CEntitySubclassVDataBase = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CBreakableStageHelper = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const AI_MotorGroundAnimgraph_DebugSnapshotData_t__Event_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNavVolumeBreadthFirstSearch = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const SceneOpportunityHandle_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const dynpitchvol_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSAdditionalMatchStats_t = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const AI_Navigator_DebugSnapshotData_t__Waypoint_t = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CSceneCriteria = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CTestPulseIOComponent = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const IRagdoll = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CCSPlayerAnimationState = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const hudtextparms_t = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CAnimGraphControllerBase = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNetworkVelocityVector = struct {
+            };
+            // Parent: None
+            // Field count: 1
+            pub const CDestructiblePart_DamageLevel = struct {
+                pub const @"": usize = 0x0; // 
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNavVolumeAll = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const CNavVolumeSphere = struct {
+            };
+            // Parent: None
+            // Field count: 0
+            pub const Relationship_t = struct {
+            };
+        };
+    };
+};

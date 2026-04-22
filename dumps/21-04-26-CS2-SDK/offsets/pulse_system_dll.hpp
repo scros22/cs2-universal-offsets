@@ -1,0 +1,467 @@
+// Generated using https://github.com/a2x/cs2-dumper
+// 2026-04-21 22:47:42.668580400 UTC
+
+#pragma once
+
+#include <cstddef>
+#include <cstdint>
+
+namespace cs2_dumper {
+    namespace schemas {
+        // Module: pulse_system.dll
+        // Class count: 99
+        // Enum count: 5
+        namespace pulse_system_dll {
+            // Alignment: 4
+            // Member count: 2
+            enum class PulseBestOutflowRules_t : uint32_t {
+                SORT_BY_NUMBER_OF_VALID_CRITERIA = 0x0,
+                SORT_BY_OUTFLOW_INDEX = 0x1
+            };
+            // Alignment: 4
+            // Member count: 3
+            enum class PulseTestEnumShape_t : uint32_t {
+                CIRCLE = 0x64,
+                SQUARE = 0xC8,
+                TRIANGLE = 0x12C
+            };
+            // Alignment: 4
+            // Member count: 4
+            enum class PulseCursorCancelPriority_t : uint32_t {
+                None = 0x0,
+                CancelOnSucceeded = 0x1,
+                SoftCancel = 0x2,
+                HardCancel = 0x3
+            };
+            // Alignment: 4
+            // Member count: 2
+            enum class PulseMethodCallMode_t : uint32_t {
+                SYNC_WAIT_FOR_COMPLETION = 0x0,
+                ASYNC_FIRE_AND_FORGET = 0x1
+            };
+            // Alignment: 4
+            // Member count: 5
+            enum class PulseTestEnumColor_t : uint32_t {
+                BLACK = 0x0,
+                WHITE = 0x1,
+                RED = 0x2,
+                GREEN = 0x3,
+                BLUE = 0x4
+            };
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Step_TestDomainDestroyFakeEntity {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_WaitForCursorsWithTag {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Test_NoInflow {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseGraphInstance_TestDomain_FakeEntityOwner {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Base {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulse_ResumePoint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CTestDomainDerived_Cursor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_PickBestOutflowSelector {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseTestFuncs_LibraryA {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_WaitForObservable {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulse_OutflowConnection {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseGraphDef {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseGraphInstance_TestDomain_UseReadOnlyBlackboardView {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_FireCursors {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Timeline__TimelineEvent_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_IntervalTimer__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseRequirement {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_BaseState {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace OutflowWithRequirements_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_IsRequirementValid {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Value_Gradient {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCursorFuncs {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseNodeDynamicOutflows_t__DynamicOutflow_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Test_MultiOutflow_WithParams {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CBasePulseGraphInstance {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Inflow_GraphHook {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SignatureOutflow_Resume {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Test_MultiOutflow_WithParams_Yielding__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseTurtleGraphicsCursor {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_TestWaitWithCursorState__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Inflow_BaseEntrypoint {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Test_MultiInflow_NoDefault {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_WaitForCursorsWithTagBase {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulse_InvokeBinding {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_IntervalTimer {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseTestScriptLib {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseLerp {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Value_TestValue50 {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Test_MultiOutflow_WithParams_Yielding {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace TestComponent_tAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Value_Curve {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Inflow_EventHandler {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseFlow {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Step_TestDomainTracepoint {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Outflow_CycleShuffled__InstanceState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_BaseLerp__CursorState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseGraphInstance_TestDomain_Derived {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_WaitForCursorsWithTagBase__CursorState_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseArraylib {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseGraphInstance_TestDomain {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace SignatureOutflow_Continue {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Timeline {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Inflow_EntOutputHandler {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Outflow_TestExplicitYesNo {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Outflow_TestRandomYesNo {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_Outflow_CycleOrdered__InstanceState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulseCell_LimitCount__InstanceState_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FakeEntity_tAPI {
+            }
+            // Parent: pulse_system
+            // Field count: 0
+            namespace CPulseCell_Test_MultiInflow_WithDefault {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Step_DebugLog {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseYieldingInflow {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseNodeDynamicOutflows_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_IsRequirementValid__Criteria_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Inflow_ObservableVariableListener {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Outflow_CycleOrdered {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseSelectorOutflowList_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseGraphInstance_TurtleGraphics {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Val_TestDomainGetEntityName {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Inflow_Wait {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_TestWaitWithCursorState {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Outflow_CycleShuffled {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Inflow_Method {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_BaseValue {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_BooleanSwitchState {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FakeEntityDerivedB_tAPI {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Inflow_Yield {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseMathlib {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Unknown {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Outflow_CycleRandom {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Step_PublicOutput {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_Val_TestDomainFindEntityByName {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulse_BlackboardReference {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Value_RandomInt {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Step_TestDomainEntFire {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace FakeEntityDerivedA_tAPI {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_ExampleSelector {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace CPulse_CallInfo {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_InlineNodeSkipSelector {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_ExampleCriteria__Criteria_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_ExampleCriteria {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_LimitCount {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Step_CallExternalMethod {
+            }
+            // Parent: None
+            // Field count: 1
+            namespace PulseObservableBoolExpression_t {
+                constexpr std::ptrdiff_t  = 0x0; // 
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_LimitCount__Criteria_t {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Step_TestDomainCreateFakeEntity {
+            }
+            // Parent: pulse_runtime_lib
+            // Field count: 0
+            namespace CPulseCell_CursorQueue {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseCell_Value_RandomFloat {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace CPulseExecCursor {
+            }
+            // Parent: None
+            // Field count: 0
+            namespace TestComponent_t {
+            }
+        }
+    }
+}
