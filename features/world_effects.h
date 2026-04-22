@@ -13,6 +13,7 @@
 #include <cstdint>
 #include <cmath>
 #include <cstring>
+#include "../core/math.h"
 #include "../core/game_state.h"
 #include "../core/sdk_offsets.h"
 #include "../core/memory.h"
@@ -53,7 +54,27 @@ namespace WorldEffects
         float exposureMax       = 1.0f;   // default game: ~8.0
 
         // Night mode — darkens sky, lowers exposure, adds fog tint
-        int   nightMode         = 0;       // 0=off, 1=night, 2=midnight, 3=sunset, 4=bloodmoon
+        int   nightMode         = 0;       // 0=off, 1=night, 2=midnight, 3=sunset, 4=bloodmoon,
+                                           // 5=aurora, 6=cyberpunk, 7=vaporwave, 8=hellfire
+
+        // Asus Mode — solid bright sky color for max enemy silhouette
+        // (overrides skyEnabled when on; uses fixed presets, not free color)
+        int   asusMode          = 0;       // 0=off, 1=lime, 2=hot pink, 3=cyan, 4=red, 5=yellow
+
+        // Anti-Fog — disables ALL map fog (huge visibility gain)
+        bool  antiFog           = false;
+
+        // No Shadows — kills env_global_light cascade shadows
+        bool  noShadows         = false;
+
+        // No Color Correction — disables map's mood color grading
+        // (often dramatic visibility improvement on dark/dusty maps)
+        bool  noColorCorrection = false;
+
+        // Fullbright — mat_fullbright ConVar (scenesystem.dll). Disables
+        // all lighting calculation, shows everything at base albedo.
+        // Devastating visibility upgrade on dark maps.
+        bool  fullbright        = false;
 
         // Fog override
         bool  fogEnabled        = false;
@@ -276,7 +297,15 @@ namespace WorldEffects
                 void** skyboxObjPtr = (void**)((char*)drawPrimitive + offset);
                 if (skyboxObjPtr && *skyboxObjPtr)
                 {
-                    float* colorPtr = (float*)((char*)(*skyboxObjPtr) + 0x100);
+                    // Build 14152+: skybox tint Vector3 moved from +0x100 → +0xE8.
+                    // The old +0x100 slot is now a sun-angle float fed to V_sinf();
+                    // writing RGB there poisons the renderer with NaN and crashes
+                    // after ~60s. Layout (verified via scenesystem.dll decompile of
+                    // sub_18014FB90 a.k.a. DrawSkyboxArray):
+                    //   +0xE8 .. +0xF0  vec3 tint  (RGB, 3 floats)
+                    //   +0xF4           int   mode  (1 or 2)
+                    //   +0xF8 .. +0x104 four sun-angle floats (V_sinf inputs)
+                    float* colorPtr = (float*)((char*)(*skyboxObjPtr) + 0xE8);
 
                     if (cfg.skyRainbow)
                     {
@@ -371,10 +400,14 @@ namespace WorldEffects
             { 5, 5, 15, 0.05f, 0.03f, 0.06f, 5, 5, 15, 50.f, 4000.f, 0.7f },         // 2: Midnight
             { 255, 140, 50, 0.6f, 0.5f, 0.8f, 180, 100, 50, 500.f, 12000.f, 0.3f },  // 3: Sunset
             { 120, 10, 10, 0.2f, 0.1f, 0.2f, 80, 10, 10, 100.f, 6000.f, 0.6f },      // 4: Blood Moon
+            { 10, 30, 50, 0.25f, 0.15f, 0.3f, 20, 90, 60, 200.f, 9000.f, 0.4f },     // 5: Aurora — deep blue + green
+            { 80, 20, 100, 0.3f, 0.2f, 0.4f, 150, 30, 180, 150.f, 7000.f, 0.5f },    // 6: Cyberpunk — purple + magenta
+            { 230, 90, 200, 0.45f, 0.3f, 0.55f, 90, 200, 220, 300.f, 10000.f, 0.4f },// 7: Vaporwave — pink + cyan
+            { 200, 50, 5, 0.55f, 0.4f, 0.7f, 220, 90, 20, 200.f, 8000.f, 0.5f },     // 8: Hellfire — red + orange
         };
 
         int idx = cfg.nightMode;
-        if (idx < 1 || idx > 4) return;
+        if (idx < 1 || idx > 8) return;
         const NightPreset& p = presets[idx];
 
         __try {
@@ -589,60 +622,330 @@ namespace WorldEffects
 
     inline void __fastcall hkOverrideView(void* thisPtr, void* viewSetup)
     {
-        // Call original first — let engine set up default camera
+        // Call original first — let engine set up default first-person camera
         if (oOverrideView)
             oOverrideView(thisPtr, viewSetup);
 
-        if (!GameState::clientBase) return;
+        if (!cfg.thirdPerson || !viewSetup || !GameState::clientBase) return;
 
-        if (cfg.thirdPerson)
+        __try {
+            uintptr_t lp = GameState::GetLocalPawn();
+            if (!lp) return;
+
+            int hp = Mem::Read<int>(lp + Offsets::m_iHealth);
+            if (hp <= 0) return;
+
+            // Enable engine third-person input flag — required so the local
+            // model actually renders (otherwise we see headless camera floating).
+            Mem::SmartWrite<bool>(
+                GameState::clientBase + GameState::RVA_dwCSGOInput() + 0x229, true);
+
+            // Read the eye position the engine just wrote into CViewSetup.
+            uint8_t* vs = reinterpret_cast<uint8_t*>(viewSetup);
+            Math::Vec3   eyePos   = *reinterpret_cast<Math::Vec3*>(vs + ViewSetupOffsets::Origin);
+            Math::QAngle viewAng  = *reinterpret_cast<Math::QAngle*>(vs + ViewSetupOffsets::Angles);
+
+            // Build forward vector from view angles. Source uses
+            //   pitch = X (down +), yaw = Y, roll = Z (degrees)
+            constexpr float kDeg2Rad = 3.14159265358979323846f / 180.f;
+            float p  = viewAng.pitch * kDeg2Rad;
+            float y  = viewAng.yaw   * kDeg2Rad;
+            float cp = cosf(p), sp = sinf(p);
+            float cy = cosf(y), sy = sinf(y);
+
+            Math::Vec3 forward{ cp * cy, cp * sy, -sp };
+
+            // Push camera backward from the eye position by user-configured
+            // distance, then nudge it slightly upward so we look over the
+            // shoulder/head instead of through it.
+            float dist = cfg.thirdPersonDist;
+            Math::Vec3 newOrigin{
+                eyePos.x - forward.x * dist,
+                eyePos.y - forward.y * dist,
+                eyePos.z - forward.z * dist + 8.f
+            };
+
+            *reinterpret_cast<Math::Vec3*>(vs + ViewSetupOffsets::Origin) = newOrigin;
+            // Keep angles unchanged — we still want to look the same direction.
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+    }
+
+    // Disable third person flag when turned off (called from Tick)
+    inline void RunThirdPerson()
+    {
+        static bool wasOn = false;
+        if (!cfg.thirdPerson)
         {
-            __try {
-                uintptr_t lp = GameState::GetLocalPawn();
-                if (!lp) return;
-
-                int hp = Mem::Read<int>(lp + Offsets::m_iHealth);
-                if (hp <= 0) return;
-
-                // Enable engine third-person input flag
-                Mem::SmartWrite<bool>(
-                    GameState::clientBase + GameState::RVA_dwCSGOInput() + 0x229, true);
-
-                // Use the game's built-in shoulder camera ConVars.
-                // Setting c_thirdpersonshoulder=1 and cam_idealdist lets the engine
-                // properly position the camera behind the player with collision.
-                if (pCV_c_thirdpersonshoulder)
-                    *reinterpret_cast<int*>(pCV_c_thirdpersonshoulder) = 1;
-                if (pCV_cam_idealdist)
-                    *reinterpret_cast<float*>(pCV_cam_idealdist) = cfg.thirdPersonDist;
-                if (pCV_thirdpersonshoulderaimdist)
-                    *reinterpret_cast<float*>(pCV_thirdpersonshoulderaimdist) = 0.f;
-                if (pCV_thirdpersonshoulderdist)
-                    *reinterpret_cast<float*>(pCV_thirdpersonshoulderdist) = 0.f;
-                if (pCV_thirdpersonshoulderheight)
-                    *reinterpret_cast<float*>(pCV_thirdpersonshoulderheight) = 0.f;
-                if (pCV_thirdpersonshoulderoffset)
-                    *reinterpret_cast<float*>(pCV_thirdpersonshoulderoffset) = 0.f;
-
-            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            if (wasOn && GameState::clientBase)
+            {
+                __try {
+                    Mem::SmartWrite<bool>(
+                        GameState::clientBase + GameState::RVA_dwCSGOInput() + 0x229, false);
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            }
+            wasOn = false;
+        }
+        else
+        {
+            wasOn = true;
         }
     }
 
-    // Disable third person flag and reset ConVars when turned off (called from Tick)
-    inline void RunThirdPerson()
+    // ---------------------------------------------------------------
+    // Anti-Fog — disables every env_fog_controller and env_cubemap_fog
+    // entity in the world. Massive visibility upgrade on foggy maps
+    // (Ancient, Anubis, Vertigo). Cheaper than custom fog because we
+    // only flip one bool per ent.
+    // ---------------------------------------------------------------
+    inline void RunAntiFog()
     {
-        if (!cfg.thirdPerson)
-        {
-            if (GameState::clientBase)
+        if (!cfg.antiFog || !GameState::clientBase) return;
+
+        static UINT64 lastTick = 0;
+        UINT64 now = GetTickCount64();
+        if (now - lastTick < 250) return;
+        lastTick = now;
+
+        __try {
+            uintptr_t entList = GameState::GetEntityList();
+            if (!entList) return;
+
+            for (int i = 0; i < 2048; ++i)
             {
-                Mem::SmartWrite<bool>(
-                    GameState::clientBase + GameState::RVA_dwCSGOInput() + 0x229, false);
-                if (pCV_c_thirdpersonshoulder)
-                    *reinterpret_cast<int*>(pCV_c_thirdpersonshoulder) = 0;
-                if (pCV_cam_idealdist)
-                    *reinterpret_cast<float*>(pCV_cam_idealdist) = 130.f;
+                uintptr_t ent = GameState::GetEntityByIndex(i);
+                if (!ent) continue;
+
+                __try {
+                    uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
+                    if (!identity) continue;
+                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
+                    if (!namePtr) continue;
+                    struct NB { char d[64]; };
+                    NB nb = Mem::Read<NB>(namePtr);
+                    nb.d[63] = '\0';
+
+                    if (strstr(nb.d, "env_fog_controller"))
+                    {
+                        constexpr std::ptrdiff_t kFog = 0x608;
+                        Mem::SmartWrite<bool>(ent + kFog + 0x64, false);   // m_bEnable = false
+                        Mem::SmartWrite<float>(ent + kFog + 0x30, 0.f);    // m_flMaxDensity = 0
+                        Mem::SmartWrite<float>(ent + kFog + 0x28, 99999.f);// m_flEnd huge
+                    }
+                    else if (strstr(nb.d, "env_cubemap_fog"))
+                    {
+                        Mem::SmartWrite<bool>(ent + 0x62C, false); // m_bActive = false
+                        Mem::SmartWrite<float>(ent + 0x630, 0.f);  // m_flFogMaxOpacity = 0
+                    }
+                    else if (strstr(nb.d, "env_volumetric_fog_controller"))
+                    {
+                        // C_EnvVolumetricFogController (cs2-dumper schema):
+                        //   m_flScattering   = 0x600
+                        //   m_flDrawDistance = 0x610
+                        //   m_bActive        = 0x64C
+                        //   m_bStartDisabled = 0x674
+                        Mem::SmartWrite<bool>(ent + 0x64C, false);  // m_bActive
+                        Mem::SmartWrite<bool>(ent + 0x674, true);   // m_bStartDisabled
+                        Mem::SmartWrite<float>(ent + 0x600, 0.f);   // m_flScattering
+                        Mem::SmartWrite<float>(ent + 0x610, 0.f);   // m_flDrawDistance
+                    }
+                    else if (strstr(nb.d, "env_volumetric_fog_volume"))
+                    {
+                        // C_EnvVolumetricFogVolume:
+                        //   m_bActive   = 0x600
+                        //   m_flStrength= 0x620
+                        Mem::SmartWrite<bool>(ent + 0x600, false);
+                        Mem::SmartWrite<float>(ent + 0x620, 0.f);
+                    }
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
             }
-        }
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+    }
+
+    // ---------------------------------------------------------------
+    // No Shadows — toggles known shadow ConVars via the global CCvar
+    // value pointers cached at Setup(). ConVar route is safer than
+    // schema poking on C_GlobalLight (whose embedded CLightComponent
+    // offset is not reliably exposed by the public schema).
+    // Cached at Setup(); harmless no-op if the ConVar isn't found.
+    // ---------------------------------------------------------------
+    inline uintptr_t pCV_r_shadows           = 0;
+    inline uintptr_t pCV_cl_csm_enabled      = 0;
+    inline uintptr_t pCV_cl_csm_world_shadows= 0;
+    inline uintptr_t pCV_cl_csm_static_props = 0;
+    inline uintptr_t pCV_cl_csm_rope_shadows = 0;
+    inline uintptr_t pCV_cl_csm_sprite_shadows = 0;
+    inline uintptr_t pCV_mat_fullbright      = 0;
+
+    inline void RunNoShadows()
+    {
+        if (!cfg.noShadows) return;
+        // Throttled — ConVars are sticky once set, but a few sub-systems
+        // re-read them every frame, so periodically re-stamp.
+        static UINT64 lastTick = 0;
+        UINT64 now = GetTickCount64();
+        if (now - lastTick < 500) return;
+        lastTick = now;
+
+        __try {
+            auto setInt = [](uintptr_t p, int v) {
+                if (p) Mem::SmartWrite<int>(p, v);
+            };
+            setInt(pCV_r_shadows,            0);
+            setInt(pCV_cl_csm_enabled,       0);
+            setInt(pCV_cl_csm_world_shadows, 0);
+            setInt(pCV_cl_csm_static_props,  0);
+            setInt(pCV_cl_csm_rope_shadows,  0);
+            setInt(pCV_cl_csm_sprite_shadows,0);
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+    }
+
+    // ---------------------------------------------------------------
+    // Fullbright — toggles mat_fullbright ConVar (lives in
+    // scenesystem.dll, registered in the global tier0 CCvar). When 1
+    // the renderer skips lighting and draws all surfaces at their
+    // unlit base color. Single int write per ~500ms.
+    // ---------------------------------------------------------------
+    inline void RunFullbright()
+    {
+        // Always run while enabled (engine may re-stamp flags). When the
+        // user toggles OFF, we explicitly write 0 back ONCE.
+        static int lastDesired = -1;
+        int desired = cfg.fullbright ? 1 : 0;
+
+        // Skip entirely when we've already restored to 0 and stayed there.
+        if (desired == 0 && lastDesired == 0) return;
+
+        __try {
+            if (pCV_mat_fullbright) {
+                // CS2 Source-2 ConVar layout (verified IDA scenesystem.dll
+                // sub_1804ACB70):
+                //   cvar+0x30 : flags (DWORD) — FCVAR_CHEAT=0x400, PERTHREAD=0x8000
+                //   cvar+0x58 : value storage (returned by sub_1804ACB70)
+                // Our FindCvarValue returns cvar+0x40 which is the *legacy*
+                // value union; modern ConVar<T> uses +0x58. Write BOTH so we
+                // cover every read path the engine might take.
+                uintptr_t cvarBase   = pCV_mat_fullbright - 0x40;
+                uintptr_t flagsAddr  = cvarBase + 0x30;
+                uintptr_t valueAddr  = cvarBase + 0x58;
+
+                __try {
+                    uint32_t flags = Mem::Read<uint32_t>(flagsAddr);
+                    // Clear FCVAR_CHEAT (0x400) and FCVAR_DEVELOPMENTONLY (0x4000)
+                    uint32_t clean = flags & ~0x4400u;
+                    if (clean != flags)
+                        Mem::SmartWrite<uint32_t>(flagsAddr, clean);
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+
+                Mem::SmartWrite<int>(pCV_mat_fullbright, desired); // legacy slot
+                Mem::SmartWrite<int>(valueAddr,         desired); // modern slot
+            }
+            lastDesired = desired;
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+    }
+
+    // ---------------------------------------------------------------
+    // No Color Correction — most CS2 maps ship with one or more
+    // color_correction entities that apply a LUT (warm dust on
+    // Mirage, blue-grey on Anubis, etc). Disabling them is a
+    // dramatic free visibility upgrade. We zero m_flMaxWeight,
+    // clear m_bEnabled, and toggle m_bEnabledOnClient[0].
+    // ---------------------------------------------------------------
+    inline void RunNoColorCorrection()
+    {
+        if (!cfg.noColorCorrection || !GameState::clientBase) return;
+
+        static UINT64 lastTick = 0;
+        UINT64 now = GetTickCount64();
+        if (now - lastTick < 300) return;
+        lastTick = now;
+
+        __try {
+            for (int i = 0; i < 2048; ++i)
+            {
+                uintptr_t ent = GameState::GetEntityByIndex(i);
+                if (!ent) continue;
+
+                __try {
+                    uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
+                    if (!identity) continue;
+                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
+                    if (!namePtr) continue;
+                    struct NB { char d[64]; };
+                    NB nb = Mem::Read<NB>(namePtr);
+                    nb.d[63] = '\0';
+
+                    if (strstr(nb.d, "color_correction"))
+                    {
+                        // C_ColorCorrection (offsets from sdk):
+                        //   m_flMaxWeight        = 0x61C
+                        //   m_flCurWeight        = 0x620
+                        //   m_bEnabled           = 0x824
+                        //   m_bEnabledOnClient[0]= 0x828
+                        //   m_flCurWeightOnClient= 0x82C
+                        Mem::SmartWrite<float>(ent + 0x61C, 0.f);
+                        Mem::SmartWrite<float>(ent + 0x620, 0.f);
+                        Mem::SmartWrite<bool>(ent + 0x824, false);
+                        Mem::SmartWrite<bool>(ent + 0x828, false);
+                        Mem::SmartWrite<float>(ent + 0x82C, 0.f);
+                    }
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            }
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+    }
+
+    // ---------------------------------------------------------------
+    // Asus Mode — locks the sky to one of a few high-contrast solid
+    // colors classically used to make enemy silhouettes pop. Mutually
+    // exclusive with skyEnabled (this one wins) — applies via the
+    // exact same env_sky path so it's stable.
+    // ---------------------------------------------------------------
+    inline void RunAsusMode()
+    {
+        if (cfg.asusMode == 0 || !GameState::clientBase) return;
+
+        static UINT64 lastTick = 0;
+        UINT64 now = GetTickCount64();
+        if (now - lastTick < 250) return;
+        lastTick = now;
+
+        struct AsusPreset { uint8_t r, g, b; float bright; };
+        static const AsusPreset presets[] = {
+            { 0,   0,   0,   0.0f }, // 0 unused
+            { 80,  255, 30,  1.5f }, // 1 Lime
+            { 255, 30,  200, 1.5f }, // 2 Hot Pink
+            { 30,  220, 255, 1.5f }, // 3 Cyan
+            { 255, 30,  30,  1.5f }, // 4 Red
+            { 255, 240, 50,  1.6f }, // 5 Yellow
+        };
+        int idx = cfg.asusMode;
+        if (idx < 1 || idx > 5) return;
+        const AsusPreset& p = presets[idx];
+
+        __try {
+            for (int i = 0; i < 1024; ++i)
+            {
+                uintptr_t ent = GameState::GetEntityByIndex(i);
+                if (!ent) continue;
+                __try {
+                    uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
+                    if (!identity) continue;
+                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
+                    if (!namePtr) continue;
+                    struct NB { char d[64]; };
+                    NB nb = Mem::Read<NB>(namePtr);
+                    nb.d[63] = '\0';
+
+                    if (strstr(nb.d, "env_sky"))
+                    {
+                        uint32_t c = (uint32_t)p.r | ((uint32_t)p.g << 8)
+                                   | ((uint32_t)p.b << 16) | (255u << 24);
+                        Mem::SmartWrite<uint32_t>(ent + Offsets::m_vTintColor, c);
+                        Mem::SmartWrite<uint32_t>(ent + Offsets::m_vTintColorLightingOnly, c);
+                        Mem::SmartWrite<float>(ent + Offsets::m_flSkyBrightnessScale, p.bright);
+                    }
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            }
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
     }
 
     // ---------------------------------------------------------------
@@ -655,7 +958,12 @@ namespace WorldEffects
         RunFireColor();
         RunSkyBrightness();
         RunNightMode();
+        RunAsusMode();
         RunFogOverride();
+        RunAntiFog();
+        RunNoShadows();
+        RunNoColorCorrection();
+        RunFullbright();
         RunBrightness();
         RunFOV();
         RunThirdPerson();
@@ -805,6 +1113,16 @@ namespace WorldEffects
             pCV_thirdpersonshoulderdist    = FindCvarValue(pCCvar, "c_thirdpersonshoulderdist");
             pCV_thirdpersonshoulderheight  = FindCvarValue(pCCvar, "c_thirdpersonshoulderheight");
             pCV_thirdpersonshoulderoffset  = FindCvarValue(pCCvar, "c_thirdpersonshoulderoffset");
+
+            // Shadow ConVars (No Shadows feature). Any/all may not exist on
+            // every build; FindCvarValue returns 0 in that case which is fine.
+            pCV_r_shadows             = FindCvarValue(pCCvar, "r_shadows");
+            pCV_cl_csm_enabled        = FindCvarValue(pCCvar, "cl_csm_enabled");
+            pCV_cl_csm_world_shadows  = FindCvarValue(pCCvar, "cl_csm_world_shadows");
+            pCV_cl_csm_static_props   = FindCvarValue(pCCvar, "cl_csm_static_props");
+            pCV_cl_csm_rope_shadows   = FindCvarValue(pCCvar, "cl_csm_rope_shadows");
+            pCV_cl_csm_sprite_shadows = FindCvarValue(pCCvar, "cl_csm_sprite_shadows");
+            pCV_mat_fullbright        = FindCvarValue(pCCvar, "mat_fullbright");
         }
 
         return overrideViewHooked || skyHooked;

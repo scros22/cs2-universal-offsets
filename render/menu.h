@@ -1405,8 +1405,23 @@ namespace Menu
     {
         SynthBeginSection("##wld_r1");
         EvoLabel("NIGHT MODE");
-        const char* nm[] = { "Off","Night","Midnight","Sunset","Blood Moon" };
-        EvoCombo("Mode##nm", &WorldEffects::cfg.nightMode, nm, 5);
+        const char* nm[] = { "Off","Night","Midnight","Sunset","Blood Moon","Aurora","Cyberpunk","Vaporwave","Hellfire" };
+        EvoCombo("Mode##nm", &WorldEffects::cfg.nightMode, nm, IM_ARRAYSIZE(nm));
+        SynthSep();
+        EvoLabel("ASUS MODE");
+        const char* am[] = { "Off","Lime","Hot Pink","Cyan","Red","Yellow" };
+        EvoCombo("Color##am", &WorldEffects::cfg.asusMode, am, IM_ARRAYSIZE(am));
+        SynthEndSection();
+
+        SynthBeginSection("##wld_visibility");
+        EvoLabel("VISIBILITY");
+        EvoCheckbox("Fullbright##fbm",         &WorldEffects::cfg.fullbright);
+        SynthSep();
+        EvoCheckbox("Anti-Fog##af",            &WorldEffects::cfg.antiFog);
+        SynthSep();
+        EvoCheckbox("No Shadows##nsh",         &WorldEffects::cfg.noShadows);
+        SynthSep();
+        EvoCheckbox("No Color Correction##ncc",&WorldEffects::cfg.noColorCorrection);
         SynthEndSection();
 
         if (advancedMode)
