@@ -129,6 +129,17 @@ namespace Offsets
     constexpr std::ptrdiff_t m_flLastSmokeOverlayAlpha = 0x1420;
     constexpr std::ptrdiff_t m_bIsScoped           = 0x1C48;
     constexpr std::ptrdiff_t m_entitySpottedState   = 0x1C30;  // was 0x1C70 (-0x40)
+    // EntitySpottedState_t::m_bSpottedByMask — uint32[2] bitmask of player
+    // slots currently looking at this entity. Anti-detection uses this to
+    // soften silent aim when an enemy has us in their PVS / on screen.
+    constexpr std::ptrdiff_t m_bSpottedByMask_inSpottedState = 0xC;
+
+    // C_CSGameRules — m_bIsValveDS = true on Valve official matchmaking
+    // dedicated servers (the only place Overwatch demos are pulled from
+    // and where VAC Live actively scrutinizes input). Anti-detection uses
+    // this to throttle silent aim flicks far harder on official servers.
+    constexpr std::ptrdiff_t m_bIsValveDS          = 0xA4;
+    constexpr std::ptrdiff_t m_bHasMatchStarted    = 0xB0;
 
     // C_BaseModelEntity — alpha property
     constexpr std::ptrdiff_t m_pClientAlphaProperty = 0xF50;
@@ -238,6 +249,13 @@ namespace Offsets
     constexpr std::ptrdiff_t m_flInitialValue      = 0x38;
     constexpr std::ptrdiff_t m_nRefundableCurrency = 0x3C;
     constexpr std::ptrdiff_t m_bSetBonus           = 0x40;
+
+    // C_CSWeaponBase — server-replicated firing state.
+    // Used by the seeded triggerbot to predict whether the next shot
+    // will land inside the target's hitbox cone before pulling the
+    // trigger. Verified against build 14152 schema dump.
+    constexpr std::ptrdiff_t m_fAccuracyPenalty    = 0x17D0;  // float — cumulative inaccuracy
+    constexpr std::ptrdiff_t m_flRecoilIndex       = 0x17E0;  // float — current recoil step
 
     // C_PlantedC4
     constexpr std::ptrdiff_t m_bBombTicking        = 0x1160;

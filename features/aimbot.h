@@ -1418,6 +1418,40 @@ namespace Aimbot
         inline volatile float  aimPitch     = 0.f;
         inline volatile float  aimYaw       = 0.f;
 
+        // ---- VAC anti-detection: per-subtick rate cap on rewrites -----
+        // VACNet trains on the (view, shoot) angle delta between
+        // consecutive subticks. A jump of "any angle → headbox in one
+        // subtick" is the canonical silent-aim signature. We cap the
+        // rewritten angle's distance from the entry's REAL view angle
+        // so the server sees at most a humanly plausible flick instead
+        // of an impossible teleport. Tunable from the menu.
+        inline float maxFlickPerSubtickDeg = 28.0f; // hard cap (impossible above ~35°)
+        inline float maxAimDeltaFromViewDeg = 60.0f; // skip rewrite if target is behind us
+
+        // ---- Anti-detection: observer awareness (cached per Tick) -----
+        // Set from Aimbot::Tick() once per frame so the WriteSubtick hook
+        // doesn't pay the entity-list scan cost per subtick.
+        // observerCount = number of alive players currently spectating us.
+        // localSpotted  = at least one enemy currently has us in PVS.
+        // onValveDS     = true on Valve official MM dedicated servers
+        //                 (the only environment where Overwatch demos are
+        //                 pulled from and where VAC Live actively scans).
+        // localCrosshairPawn = the pawn pointer that local's crosshair
+        //                 currently rests on, derived from m_iIDEntIndex
+        //                 (server-validated). When this matches our locked
+        //                 silent-aim target's pawn pointer, the engine
+        //                 already considers us hovering them — a flick
+        //                 here is indistinguishable from a normal click.
+        // targetPawn    = pointer to currently locked silent-aim target.
+        // localHSpeedSq = local pawn's horizontal speed squared (units/s)^2.
+        //                 Aimbots fire reliably while sprinting; humans don't.
+        inline volatile int  observerCount     = 0;
+        inline volatile bool localSpotted      = false;
+        inline volatile bool onValveDS         = false;
+        inline volatile uintptr_t localCrosshairPawn = 0;
+        inline volatile uintptr_t targetPawn   = 0;
+        inline volatile float localHSpeedSq    = 0.f;
+
         inline __int64 __fastcall hkWriteSubtick(uintptr_t entry, __int64 msg, char a3,
                                                  double a4, int a5, __int64 a6)
         {
@@ -1430,43 +1464,141 @@ namespace Aimbot
             if (!hasTarget || !cfg.enabled || !cfg.silentAim)
                 return oWriteSubtick(entry, msg, a3, a4, a5, a6);
 
+            // ---- Anti-detection guard 0: ATTACK-ONLY subticks ----------
+            // Reverse-engineered from sub_180C53DB0 (build 14152): the
+            // server only consults the predicted-attack angle group
+            // (a1[7..9]) when a3 != 0 AND the sv_subtick_attacks_use_aim_
+            // history convar is enabled. On non-attack subticks our writes
+            // are ignored anyway, AND any modification of a1[4..6] (the
+            // REAL view-angle stream) gets unconditionally serialized to
+            // every spectator/demo/Overwatch reviewer — that's the exact
+            // signature VACNet trains on. Bail out on non-attack subticks
+            // entirely so we never touch the view stream on idle frames.
+            if (a3 == 0)
+                return oWriteSubtick(entry, msg, a3, a4, a5, a6);
+
             __try {
-                // Per-shot wobble: add a tiny independent jitter to every
-                // subtick write so consecutive bullets in the same
-                // engagement land on slightly different pixels of the
-                // chosen hitbox. Range ±0.10° — inside any bone, but
-                // wide enough to give VACNet's per-atom velocity profile
-                // natural variance instead of machine-identical impacts.
-                // Cheap LCG keyed on the entry pointer + tick count so it
-                // varies per subtick without needing extra RNG state.
+                // entry layout (verified via IDA decompile of sub_180C53DB0
+                // in build 14152):
+                //   a1[4..6] = view angles (pitch/yaw/roll) — always written
+                //   a1[7..9] = aim/shoot angles — only consulted when the
+                //              "predicted attack" feature byte is set
+                float* fe = reinterpret_cast<float*>(entry);
+                float realViewP = fe[4];
+                float realViewY = fe[5];
+
+                // ---- Anti-detection guard 1: behind-the-back skip ----
+                // Compute angular distance from current real view to target.
+                // If target is more than maxAimDeltaFromViewDeg away
+                // (e.g. behind player), DO NOT rewrite — a 180° snap is the
+                // most obvious silent-aim signature there is.
+                float ddP = aimPitch - realViewP;
+                float ddY = aimYaw   - realViewY;
+                while (ddY >  180.f) ddY -= 360.f;
+                while (ddY < -180.f) ddY += 360.f;
+                float dist = sqrtf(ddP * ddP + ddY * ddY);
+                if (dist > maxAimDeltaFromViewDeg) {
+                    diag_silentBailReason = 6; // "too far from view"
+                    return oWriteSubtick(entry, msg, a3, a4, a5, a6);
+                }
+
+                // ---- Anti-detection guard 2: per-subtick rate cap ----
+                // Even when target is in front, never rewrite to more than
+                // maxFlickPerSubtickDeg away from the real view angle.
+                // This converts "instant snap" silent into "1-tick flick"
+                // silent — server sees at most one humanly-plausible flick
+                // per shot instead of an impossible teleport.
+                float capP = ddP, capY = ddY;
+                if (dist > maxFlickPerSubtickDeg && dist > 0.001f) {
+                    float k = maxFlickPerSubtickDeg / dist;
+                    capP *= k; capY *= k;
+                }
+
+                // ---- Anti-detection guard 3: observer-aware tightening --
+                // Silent aim is overwhelmingly reported by SPECTATORS,
+                // not the target being shot. When anyone is observing us,
+                // halve the allowed flick magnitude so the desync between
+                // the player's real view and the server's shoot direction
+                // becomes too small for casual observation to flag.
+                // When ALSO spotted (enemy currently has us in their PVS),
+                // tighten further — these are the highest-detection ticks.
+                int obsCount = observerCount;
+                bool spotted = localSpotted;
+                bool valveDS = onValveDS;
+
+                // ---- Anti-detection guard 4: crosshair-ID alignment ----
+                // The engine reports the entity index of whatever the local
+                // pawn's crosshair is currently over via m_iIDEntIndex.
+                // When this matches our locked target's index, the server
+                // already considers us hovering them — a silent flick here
+                // is indistinguishable from a normal "click on the guy I
+                // was already looking at" shot. Skip the observer/valveDS
+                // throttle in that case so semi-rage hits stay clean.
+                bool crosshairAligned =
+                    (localCrosshairPawn != 0) &&
+                    (localCrosshairPawn == targetPawn);
+
+                // ---- Anti-detection guard 5: speed-aware throttle ------
+                // Humans miss while sprint-strafing; aimbots don't. Big
+                // contributor to the "running gunner" pattern VACNet flags.
+                //   <80 u/s : no extra throttle (walking / counter-strafe)
+                //   80-180  : linear ramp 1.0 -> 0.5
+                //   >180    : 0.5 (capped)
+                float spdScale = 1.f;
+                {
+                    float v = localHSpeedSq;
+                    if (v > 80.f * 80.f) {
+                        float s = sqrtf(v);
+                        if (s > 180.f) spdScale = 0.5f;
+                        else           spdScale = 1.f - 0.5f * ((s - 80.f) / 100.f);
+                    }
+                }
+
+                if (!crosshairAligned && (obsCount > 0 || spotted || valveDS)) {
+                    float scale = 1.0f;
+                    // Stack the throttles multiplicatively so each
+                    // independent risk factor compounds the suppression.
+                    if (valveDS)               scale *= 0.55f; // VAC Live + Overwatch ingestion
+                    if (obsCount > 0)          scale *= 0.55f; // any spectator at all
+                    if (spotted && obsCount>0) scale *= 0.65f; // observed AND in enemy PVS
+                    capP *= scale; capY *= scale;
+                }
+                capP *= spdScale; capY *= spdScale;
+
+                // Per-shot wobble: ±0.10° independent jitter so consecutive
+                // bullets in the same engagement don't pixel-cluster.
                 uint32_t seed = (uint32_t)(entry ^ (uintptr_t)GetTickCount());
                 seed = seed * 1664525u + 1013904223u;
                 float jp = (((seed >> 16) & 0xFFFF) / 65535.f - 0.5f) * 0.20f;
                 seed = seed * 1664525u + 1013904223u;
                 float jy = (((seed >> 16) & 0xFFFF) / 65535.f - 0.5f) * 0.20f;
 
-                float fakePitch = aimPitch + jp;
-                float fakeYaw   = aimYaw   + jy;
+                float fakePitch = realViewP + capP + jp;
+                float fakeYaw   = realViewY + capY + jy;
                 if (fakePitch >  89.f) fakePitch =  89.f;
                 if (fakePitch < -89.f) fakePitch = -89.f;
                 while (fakeYaw >  180.f) fakeYaw -= 360.f;
                 while (fakeYaw < -180.f) fakeYaw += 360.f;
 
-                // entry layout (verified via IDA decompile of sub_180C54450):
-                //   entry+0x10/0x14/0x18 = view-angle proto fields 6/7/8
-                //   entry+0x1C/0x20/0x24 = shoot-angle proto fields
-                float* fe = reinterpret_cast<float*>(entry);
-                float saved[6] = { fe[4], fe[5], fe[6], fe[7], fe[8], fe[9] };
+                float saved[3] = { fe[7], fe[8], fe[9] };
 
-                fe[4] = fakePitch; fe[5] = fakeYaw; fe[6] = 0.f;
+                // ---- Anti-detection: REAL VIEW STREAM PRESERVATION -----
+                // We deliberately DO NOT touch fe[4..6] (the real-view
+                // angle stream the server replays for spectators / demos
+                // / Overwatch). Only fe[7..9] (the predicted-attack /
+                // shoot-angle group) is rewritten, and only on attack
+                // subticks (gated by a3 != 0 above). Result: the demo
+                // reviewer sees the player's actual mouse path play back
+                // smoothly, while the bullet trace itself fires from the
+                // capped flick angle. Massive reduction in the desync
+                // signature VACNet's spectator-perspective model trains on.
                 fe[7] = fakePitch; fe[8] = fakeYaw; fe[9] = 0.f;
 
                 __int64 result = oWriteSubtick(entry, msg, a3, a4, a5, a6);
                 diag_wsRedirected++;
                 diag_silentApplied++;
 
-                fe[4] = saved[0]; fe[5] = saved[1]; fe[6] = saved[2];
-                fe[7] = saved[3]; fe[8] = saved[4]; fe[9] = saved[5];
+                fe[7] = saved[0]; fe[8] = saved[1]; fe[9] = saved[2];
                 return result;
             }
             __except (EXCEPTION_EXECUTE_HANDLER) {
@@ -1625,8 +1757,13 @@ namespace Aimbot
             // is currently being copied into the outgoing CUserCmd.
             // -----------------------------------------------------------
             static const char* writeSubtickSigs[] = {
-                // Build 14153 prologue:
-                // 48 89 5C 24 08 55 57 41 56 48 8D 6C 24 C9 48 81 EC B0 00 00 00 8B 01 ...
+                // Build 14152 — uniquely matches sub_180C53DB0
+                // (CCSGOInput::WriteSubtickFromEntry). Includes the
+                // characteristic `mov eax,[rcx]; mov rdi,rcx; or [rdx+10h],200h`
+                // sequence that distinguishes the real target from the
+                // similarly-prologued networksystem stub at 0x1812BD710.
+                "48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00 8B 01 48 8B F9 81 4A 10 00 02",
+                // Legacy fallbacks (build <= 14150)
                 "48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00 8B 01",
                 "48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00",
             };
@@ -1751,6 +1888,54 @@ namespace Aimbot
         // Periodic NaN decontamination: purge poisoned state every tick
         SanitizeAimState();
 
+        // Refresh observer/spotted cache once per tick so the per-subtick
+        // hkWriteSubtick can throttle silent-aim aggressiveness when
+        // anyone is watching us — without paying the entity-list scan
+        // cost on every subtick. (Reverse-engineered from client.dll —
+        // CPlayer_ObserverServices @ +0x11F8, m_iObserverMode @ +0x48.)
+        SilentAim::observerCount = GameState::CountObserversWatchingLocal();
+        SilentAim::localSpotted  = GameState::IsLocalPawnSpotted();
+        SilentAim::onValveDS     = GameState::IsValveOfficialServer();
+
+        // Cache local crosshair-pawn + horizontal speed for the per-subtick
+        // hkWriteSubtick throttle — both reads cost a single deref each
+        // but would be paid per subtick (4-16x per cmd) without caching.
+        {
+            uintptr_t lp = GameState::GetLocalPawn();
+            if (lp) {
+                __try {
+                    int id = Mem::Read<int32_t>(lp + Offsets::m_iIDEntIndex);
+                    uintptr_t xpawn = 0;
+                    if (id > 0 && id < 65536) {
+                        // m_iIDEntIndex on a player pawn points at whatever
+                        // entity is under the crosshair — for a player target
+                        // that's the OTHER player's pawn, not the controller.
+                        // GetEntityByIndex returns the controller for player
+                        // slots, so we resolve to pawn via m_hPlayerPawn for
+                        // slots 1..64; for non-player ents we just use the
+                        // entity pointer directly.
+                        uintptr_t ent = GameState::GetEntityByIndex(id);
+                        if (ent && id <= 64) {
+                            uint32_t pawnH = Mem::Read<uint32_t>(ent + Offsets::m_hPlayerPawn);
+                            uintptr_t pp = GameState::ResolveHandle(pawnH);
+                            xpawn = pp ? pp : ent;
+                        } else {
+                            xpawn = ent;
+                        }
+                    }
+                    SilentAim::localCrosshairPawn = xpawn;
+                    Math::Vec3 v = Mem::Read<Math::Vec3>(lp + Offsets::m_vecVelocity);
+                    SilentAim::localHSpeedSq = v.x * v.x + v.y * v.y;
+                } __except (EXCEPTION_EXECUTE_HANDLER) {
+                    SilentAim::localCrosshairPawn = 0;
+                    SilentAim::localHSpeedSq = 0.f;
+                }
+            } else {
+                SilentAim::localCrosshairPawn = 0;
+                SilentAim::localHSpeedSq = 0.f;
+            }
+        }
+
         // Clear originalDormant so stale chams data from the previous frame
         // can't block enemies. Aimbot runs BEFORE chams in the render loop,
         // so without this, we read last frame's (potentially stale) dormancy.
@@ -1825,10 +2010,23 @@ namespace Aimbot
                 ZeroWeaponInaccuracy(localPawn);
 
             bool inAir = IsInAir(localPawn);
-            // noSpread implies jumpShot (no point zeroing spread if aimbot skips air)
-            if (inAir && !cfg.jumpShot && !cfg.noSpread) goto tickDone;
-            if (inAir && cfg.jumpApexOnly && !cfg.noSpread && !IsAtJumpApex(localPawn))
-                goto tickDone;
+            // Jump-shot policy:
+            //   * jumpShot OFF              → never aim while airborne (default safe).
+            //   * jumpShot ON               → only aim at the JUMP APEX (vz≈0)
+            //                                 where bullet inaccuracy is at its
+            //                                 local minimum, so shots actually land.
+            //                                 The old "fire freely while in air
+            //                                 because noSpread is on" path was
+            //                                 useless: the server still applies
+            //                                 air-spread and the client-side
+            //                                 inaccuracy write is detectable.
+            //   * jumpApexOnly checkbox     → kept as a redundant gate for
+            //                                 explicit user control.
+            if (inAir)
+            {
+                if (!cfg.jumpShot) goto tickDone;
+                if (!IsAtJumpApex(localPawn)) goto tickDone;
+            }
 
             // Don't aim while fully blinded
             float flashAlpha = Mem::Read<float>(localPawn + Offsets::m_flFlashMaxAlpha);
@@ -1858,6 +2056,7 @@ namespace Aimbot
                 mouseAccumX = mouseAccumY = 0.f;
                 prevMoveDp = prevMoveDy = 0.f;
                 skipTicksRemaining = 0;
+                SilentAim::targetPawn = 0;
                 SilentAim::hasTarget = false;
                 diag_lastBail = 5;
                 goto tickDone;
@@ -1933,10 +2132,12 @@ namespace Aimbot
                     {
                         SilentAim::aimPitch  = lastValidAimPitch;
                         SilentAim::aimYaw    = lastValidAimYaw;
+                        SilentAim::targetPawn = state.lockedTarget;
                         SilentAim::hasTarget = true;
                     }
                     else
                     {
+                        SilentAim::targetPawn = 0;
                         SilentAim::hasTarget = false;
                     }
                     goto tickDone;  // hold phase/lockedTarget, try again next tick
@@ -1947,6 +2148,7 @@ namespace Aimbot
                 state.lockedTarget = 0;
                 govLastTarget = 0;
                 mouseAccumX = mouseAccumY = 0.f;
+                SilentAim::targetPawn = 0;
                 SilentAim::hasTarget = false;
                 haveLastValidAim = false;  // full reset → drop stale angle too
                 goto tickDone;
@@ -2107,6 +2309,7 @@ namespace Aimbot
                 float biasedYaw   = aimAngle.yaw   + state.engAimBiasY;
                 SilentAim::aimPitch  = biasedPitch;
                 SilentAim::aimYaw    = biasedYaw;
+                SilentAim::targetPawn = t.pawn;
                 SilentAim::hasTarget = true;
 
                 // Cache last valid angle so the grace-period path can keep
@@ -2133,6 +2336,7 @@ namespace Aimbot
             float biasedYaw2   = aimAngle.yaw   + state.engAimBiasY;
             SilentAim::aimPitch  = biasedPitch2;
             SilentAim::aimYaw    = biasedYaw2;
+            SilentAim::targetPawn = t.pawn;
             SilentAim::hasTarget = true;
 
             // Same caching as the silent-aim branch — keeps bullets corrected
@@ -2406,6 +2610,7 @@ namespace Aimbot
             mouseAccumX = mouseAccumY = 0.f;
             prevMoveDp = prevMoveDy = 0.f;
             skipTicksRemaining = 0;
+            SilentAim::targetPawn = 0;
             SilentAim::hasTarget = false;
             consecutiveCrashes++;
             diag_lastCrash = consecutiveCrashes;

@@ -274,6 +274,94 @@ namespace GameState
     }
 
     // ---------------------------------------------------------------
+    // Anti-detection: observer awareness
+    //
+    // Reverse-engineered from client.dll @ build 14152 — silent aim and
+    // angle-rewriting features are overwhelmingly reported by SPECTATORS,
+    // not the target being shot. (Spectators see the player's *real*
+    // view angle stream and the *server's* shoot-angle stream, so any
+    // disagreement is glaring on their POV.) Counting the number of
+    // alive players currently observing our local controller lets the
+    // aimbot / anti-aim soften behavior when anyone is watching.
+    //
+    // Also reads the EntitySpottedState_t::m_bSpottedByMask bitmask on
+    // the local pawn — non-zero means at least one enemy currently has
+    // us in their PVS (we're "spotted"), so flicks are visible to them.
+    // ---------------------------------------------------------------
+    inline int CountObserversWatchingLocal()
+    {
+        uintptr_t localCtrl = GetLocalController();
+        if (!localCtrl) return 0;
+        int count = 0;
+        for (int i = 1; i <= 64; ++i) {
+            __try {
+                uintptr_t ctrl = GetEntityByIndex(i);
+                if (!ctrl || ctrl == localCtrl) continue;
+                uint32_t pawnH = Mem::Read<uint32_t>(ctrl + Offsets::m_hPlayerPawn);
+                uintptr_t pawn = ResolveHandle(pawnH);
+                if (!pawn) continue;
+                int hp = Mem::Read<int32_t>(pawn + Offsets::m_iHealth);
+                if (hp > 0) continue; // alive players aren't spectating
+                uintptr_t obs = Mem::Read<uintptr_t>(pawn + Offsets::m_pObserverServices);
+                if (!obs) continue;
+                uint8_t mode = Mem::Read<uint8_t>(obs + Offsets::m_iObserverMode);
+                if (mode == 0) continue; // OBS_MODE_NONE
+                uint32_t targetH = Mem::Read<uint32_t>(obs + Offsets::m_hObserverTarget);
+                uintptr_t target = ResolveHandle(targetH);
+                // ObserverTarget can be either the controller or the pawn
+                // depending on observer mode — accept either.
+                if (target == localCtrl || target == GetLocalPawn())
+                    ++count;
+            } __except (EXCEPTION_EXECUTE_HANDLER) { continue; }
+        }
+        return count;
+    }
+
+    inline bool IsLocalPawnSpotted()
+    {
+        uintptr_t pawn = GetLocalPawn();
+        if (!pawn) return false;
+        __try {
+            uintptr_t state = pawn + Offsets::m_entitySpottedState;
+            uint32_t lo = Mem::Read<uint32_t>(state + Offsets::m_bSpottedByMask_inSpottedState);
+            uint32_t hi = Mem::Read<uint32_t>(state + Offsets::m_bSpottedByMask_inSpottedState + 4);
+            return (lo | hi) != 0;
+        } __except (EXCEPTION_EXECUTE_HANDLER) { return false; }
+    }
+
+    // ---------------------------------------------------------------
+    // IsValveOfficialServer — reads C_CSGameRules::m_bIsValveDS.
+    //
+    // VAC Live and the Overwatch reviewer system only ingest demos from
+    // Valve's official matchmaking dedicated servers (Premier, Competitive,
+    // Wingman, Casual, DM on Valve infra). Community servers, FACEIT,
+    // ESEA, local listen servers, and most workshop maps return false.
+    //
+    // Used as the master throttle gate for silent aim — on Valve servers
+    // we cap flicks much harder and skip more often, on community servers
+    // we let the full configured strength through.
+    // ---------------------------------------------------------------
+    inline bool IsValveOfficialServer()
+    {
+        if (!clientBase) return true;  // assume worst-case until resolved
+        uintptr_t rules = Mem::Read<uintptr_t>(clientBase + RVA_dwGameRules());
+        if (!rules) return false;       // no rules = main menu / loading
+        __try {
+            return Mem::Read<bool>(rules + Offsets::m_bIsValveDS);
+        } __except (EXCEPTION_EXECUTE_HANDLER) { return true; }
+    }
+
+    inline bool HasMatchStarted()
+    {
+        if (!clientBase) return false;
+        uintptr_t rules = Mem::Read<uintptr_t>(clientBase + RVA_dwGameRules());
+        if (!rules) return false;
+        __try {
+            return Mem::Read<bool>(rules + Offsets::m_bHasMatchStarted);
+        } __except (EXCEPTION_EXECUTE_HANDLER) { return false; }
+    }
+
+    // ---------------------------------------------------------------
     // Weapon enumeration
     // ---------------------------------------------------------------
     inline std::vector<uintptr_t> GetWeapons(uintptr_t pawn)

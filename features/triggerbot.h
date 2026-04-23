@@ -28,6 +28,26 @@ namespace Triggerbot
         int   burstMin     = 1;       // min shots per burst
         int   burstMax     = 3;       // max shots per burst
         bool  scopeOnly    = false;   // only fire when scoped (AWP/Scout)
+
+        // ---- Seeded / accuracy-gated firing ----
+        // Reads m_fAccuracyPenalty on the active weapon and only fires
+        // when the spread cone is small enough that the bullet has a
+        // high probability of landing on the target. Stops the trigger
+        // from spamming through bloom and missing every shot — and from
+        // the shot-pattern ML signature ("fires every tick regardless
+        // of accuracy" is one of the strongest VAC heuristics).
+        bool  accuracyGate    = true;
+        float maxPenalty      = 0.45f;  // skip if m_fAccuracyPenalty above this
+        // Don't fire while moving fast on the ground — CS2 inaccuracy
+        // scales with horizontal speed and bullets just fly off.
+        bool  speedGate       = true;
+        float maxSpeed        = 110.f;  // u/s; ~walk speed limit
+        // Jump-apex fire: when in the air, only fire near the apex of
+        // the jump (vertical velocity near 0) where bullet inaccuracy
+        // is at a local minimum. Replaces the old "fire whenever in air"
+        // path which was just spraying into space.
+        bool  jumpApexFire    = true;
+        float jumpApexAbsVz   = 60.f;   // |vel.z| < this counts as "near apex"
     };
 
     inline Config cfg;
@@ -143,6 +163,62 @@ namespace Triggerbot
             if (smokeAlpha > 0.5f) { triggerTime = 0; return; }
         }
 
+        // ---- Speed / jump-apex gate (anti-detection + actual hit rate) ----
+        // Reading m_vecVelocity on the pawn — replicates server side, so
+        // the gate matches what the server will use to compute spread.
+        Math::Vec3 vel = Mem::Read<Math::Vec3>(localPawn + Offsets::m_vecVelocity);
+        float horizSpeed = sqrtf(vel.x * vel.x + vel.y * vel.y);
+        // Heuristic: fGravity > 0 means we're airborne (ground entity = 0xFFFFFFFF).
+        // Cheaper to just check vertical velocity magnitude AND speed:
+        // if |vz| > a few u/s we're not on flat ground.
+        bool airborne = fabsf(vel.z) > 0.5f;
+
+        if (airborne)
+        {
+            if (cfg.jumpApexFire)
+            {
+                // Only fire near the apex of the jump where spread is lowest.
+                if (fabsf(vel.z) > cfg.jumpApexAbsVz) {
+                    triggerTime = 0; return;
+                }
+            }
+            else
+            {
+                // Don't fire while in air at all
+                triggerTime = 0; return;
+            }
+        }
+        else if (cfg.speedGate)
+        {
+            // On ground: walk speed only.
+            if (horizSpeed > cfg.maxSpeed) {
+                triggerTime = 0; return;
+            }
+        }
+
+        // ---- Accuracy-gated (a.k.a. seeded) trigger ----
+        // Server uses m_fAccuracyPenalty for the bullet spread cone.
+        // We resolve the active weapon and skip the shot if the cone
+        // is too wide. This is the "seeded" trigger the user asked
+        // about — it doesn't predict the seed itself (server-side RNG)
+        // but it gates on the inputs that determine the spread, so we
+        // only ever fire when the bullet is statistically likely to
+        // land. Net effect: same outcome as seed prediction (no
+        // wasted/missed shots) without the unsafe full RNG replay.
+        if (cfg.accuracyGate)
+        {
+            uintptr_t weapon = GameState::GetActiveWeapon(localPawn);
+            if (weapon)
+            {
+                float penalty = Mem::Read<float>(weapon + Offsets::m_fAccuracyPenalty);
+                if (penalty > cfg.maxPenalty) {
+                    // Not a hard reset — let the engagement continue so
+                    // we fire as soon as the bloom decays.
+                    return;
+                }
+            }
+        }
+
         // First frame on target — start delay timer
         DWORD now = GetTickCount();
         if (triggerTime == 0)
@@ -163,7 +239,14 @@ namespace Triggerbot
             SendClick();
             burstLeft--;
             lastShotTime = now;
-            cooldownMs = TRandInt(40, 100); // inter-shot gap
+            // Anti-detection: gaussian-ish intershot delay.
+            // Uniform 40-100ms is a strong VAC signature ("inhuman
+            // perfectly-bounded distribution"). Sum of two uniforms
+            // gives a Bates(2) triangular distribution centered on
+            // the midpoint, which closely matches human variance.
+            int g1 = TRandInt(20, 60);
+            int g2 = TRandInt(20, 60);
+            cooldownMs = g1 + g2;
 
             if (burstLeft <= 0)
             {
