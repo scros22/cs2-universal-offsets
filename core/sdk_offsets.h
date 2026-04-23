@@ -140,6 +140,43 @@ namespace Offsets
     // this to throttle silent aim flicks far harder on official servers.
     constexpr std::ptrdiff_t m_bIsValveDS          = 0xA4;
     constexpr std::ptrdiff_t m_bHasMatchStarted    = 0xB0;
+    // C_CSGameRules — freeze/warmup gates. Silent aim during freeze time
+    // (round-start "armory" where attacks are disabled by the server) is
+    // an absolutely free server-side bot-detection signal: the angle write
+    // is still serialised even though no shot can fire. Skip rewrites
+    // entirely while either flag is set.
+    constexpr std::ptrdiff_t m_bFreezePeriod       = 0x40;
+    constexpr std::ptrdiff_t m_bWarmupPeriod       = 0x41;
+
+    // C_CSPlayerPawn — m_bWaitForNoAttack is set true by the server
+    // immediately after weapon switch / respawn / round-restart and stays
+    // true until the player RELEASES attack and re-presses it. Silent
+    // firing while this is set produces "fired before client could have
+    // pressed M1 again" — pure bot signature, zero false-positive rate.
+    constexpr std::ptrdiff_t m_bWaitForNoAttack    = 0x1CA8;
+
+    // C_CSWeaponBaseGun — m_zoomLevel: 0 = unscoped, 1 = first zoom,
+    // 2 = second zoom (AWP only). No-scope silent-fire on AWP/SSG
+    // is one of the loudest reportable patterns in the game; no human
+    // hits no-scopes consistently. Refuse silent-aim rewrites while
+    // holding a sniper that isn't currently scoped.
+    constexpr std::ptrdiff_t m_zoomLevel           = 0x1CB0;
+
+    // C_EconEntity (parent of C_BasePlayerWeapon) — attribute container
+    // chain to the item definition index.  m_iItemDefinitionIndex sits
+    // inside m_AttributeManager.m_Item, so the absolute offset on a
+    // weapon entity is 0x13B8 (m_AttributeManager) + 0x50 (m_Item) +
+    // 0x1BA (m_iItemDefinitionIndex) = 0x15C2.
+    // (m_AttributeManager / m_Item / m_iItemDefinitionIndex are defined
+    //  later in this file under C_AttributeContainer / C_EconItemView.)
+    constexpr std::ptrdiff_t kWeaponItemDefIndexOffset = 0x13B8 + 0x50 + 0x1BA; // 0x15C2
+
+    // CS2 sniper weapon item-definition indices (stable since 2014).
+    // Used by anti-detection to refuse silent firing while no-scoped.
+    constexpr uint16_t kItemDefAWP    = 9;
+    constexpr uint16_t kItemDefSSG08  = 40;
+    constexpr uint16_t kItemDefG3SG1  = 11;
+    constexpr uint16_t kItemDefSCAR20 = 38;
 
     // C_BaseModelEntity — alpha property
     constexpr std::ptrdiff_t m_pClientAlphaProperty = 0xF50;

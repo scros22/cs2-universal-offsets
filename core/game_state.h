@@ -362,6 +362,51 @@ namespace GameState
     }
 
     // ---------------------------------------------------------------
+    // IsFreezeOrWarmup — returns true when the server is in any state
+    // where attack inputs are dropped before they reach FireBullet:
+    //   * m_bFreezePeriod  — round-start armory window
+    //   * m_bWarmupPeriod  — pre-match warmup
+    // Silent angle rewrites during these states cannot fire a bullet
+    // but the angle desync is still serialised to the demo, so we
+    // suppress them entirely. Free win, zero downside.
+    // ---------------------------------------------------------------
+    inline bool IsFreezeOrWarmup()
+    {
+        if (!clientBase) return false;
+        uintptr_t rules = Mem::Read<uintptr_t>(clientBase + RVA_dwGameRules());
+        if (!rules) return false;
+        __try {
+            bool fz = Mem::Read<bool>(rules + Offsets::m_bFreezePeriod);
+            bool wu = Mem::Read<bool>(rules + Offsets::m_bWarmupPeriod);
+            return fz || wu;
+        } __except (EXCEPTION_EXECUTE_HANDLER) { return false; }
+    }
+
+    // ---------------------------------------------------------------
+    // IsSniperItemDef — true for AWP / SSG-08 / G3SG1 / SCAR-20.
+    // Used by anti-detection to refuse silent firing while no-scoped.
+    // ---------------------------------------------------------------
+    inline bool IsSniperItemDef(uint16_t def)
+    {
+        return def == Offsets::kItemDefAWP    ||
+               def == Offsets::kItemDefSSG08  ||
+               def == Offsets::kItemDefG3SG1  ||
+               def == Offsets::kItemDefSCAR20;
+    }
+
+    // ---------------------------------------------------------------
+    // ReadWeaponItemDef — reads m_AttributeManager.m_Item.m_iItemDef
+    // from a weapon entity. Returns 0 on failure.
+    // ---------------------------------------------------------------
+    inline uint16_t ReadWeaponItemDef(uintptr_t weapon)
+    {
+        if (!weapon) return 0;
+        __try {
+            return Mem::Read<uint16_t>(weapon + Offsets::kWeaponItemDefIndexOffset);
+        } __except (EXCEPTION_EXECUTE_HANDLER) { return 0; }
+    }
+
+    // ---------------------------------------------------------------
     // Weapon enumeration
     // ---------------------------------------------------------------
     inline std::vector<uintptr_t> GetWeapons(uintptr_t pawn)

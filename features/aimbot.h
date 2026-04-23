@@ -1445,12 +1445,17 @@ namespace Aimbot
         // targetPawn    = pointer to currently locked silent-aim target.
         // localHSpeedSq = local pawn's horizontal speed squared (units/s)^2.
         //                 Aimbots fire reliably while sprinting; humans don't.
+        // suppressFire  = master gate: HARD-SKIP every angle write this
+        //                 tick. Set true on freeze/warmup/wait-for-no-attack
+        //                 or unscoped-sniper states where silent firing is
+        //                 either impossible or a free bot signal.
         inline volatile int  observerCount     = 0;
         inline volatile bool localSpotted      = false;
         inline volatile bool onValveDS         = false;
         inline volatile uintptr_t localCrosshairPawn = 0;
         inline volatile uintptr_t targetPawn   = 0;
         inline volatile float localHSpeedSq    = 0.f;
+        inline volatile bool suppressFire      = false;
 
         inline __int64 __fastcall hkWriteSubtick(uintptr_t entry, __int64 msg, char a3,
                                                  double a4, int a5, __int64 a6)
@@ -1475,6 +1480,22 @@ namespace Aimbot
             // signature VACNet trains on. Bail out on non-attack subticks
             // entirely so we never touch the view stream on idle frames.
             if (a3 == 0)
+                return oWriteSubtick(entry, msg, a3, a4, a5, a6);
+
+            // ---- Anti-detection guard 0b: HARD-SUPPRESS gate -----------
+            // Set by Tick() when any of:
+            //   * m_bFreezePeriod / m_bWarmupPeriod   (server drops attack)
+            //   * m_bWaitForNoAttack                  (post-switch / respawn
+            //                                          guard — firing here
+            //                                          is impossible for a
+            //                                          human in the same
+            //                                          frame as the cause)
+            //   * holding AWP/SSG-08/G3SG1/SCAR-20 unscoped (no-scope
+            //                                          silent = top-tier
+            //                                          spectator-flag)
+            // is true. In every case the angle desync is pure liability
+            // because no bullet can fire from it anyway, so we skip.
+            if (suppressFire)
                 return oWriteSubtick(entry, msg, a3, a4, a5, a6);
 
             __try {
@@ -1896,6 +1917,40 @@ namespace Aimbot
         SilentAim::observerCount = GameState::CountObserversWatchingLocal();
         SilentAim::localSpotted  = GameState::IsLocalPawnSpotted();
         SilentAim::onValveDS     = GameState::IsValveOfficialServer();
+
+        // Hard-suppress evaluation. ANY of these makes the angle write
+        // either impossible to convert into a bullet (freeze/warmup) or
+        // a free bot signal in the demo (wait-for-no-attack, no-scope
+        // sniper). All three are reverse-engineered, server-authoritative
+        // booleans — flipping our behavior on them is exactly what the
+        // server expects of a real player.
+        {
+            bool suppress = false;
+            if (GameState::IsFreezeOrWarmup())
+                suppress = true;
+            uintptr_t lpHard = GameState::GetLocalPawn();
+            if (!suppress && lpHard) {
+                __try {
+                    if (Mem::Read<bool>(lpHard + Offsets::m_bWaitForNoAttack))
+                        suppress = true;
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            }
+            if (!suppress && lpHard) {
+                uintptr_t wep = GetActiveWeapon(lpHard);
+                if (wep) {
+                    uint16_t def = GameState::ReadWeaponItemDef(wep);
+                    if (GameState::IsSniperItemDef(def)) {
+                        __try {
+                            int zoom = Mem::Read<int32_t>(wep + Offsets::m_zoomLevel);
+                            if (zoom <= 0) suppress = true; // no-scope
+                        } __except (EXCEPTION_EXECUTE_HANDLER) {
+                            suppress = true; // unknown zoom = err on safe
+                        }
+                    }
+                }
+            }
+            SilentAim::suppressFire = suppress;
+        }
 
         // Cache local crosshair-pawn + horizontal speed for the per-subtick
         // hkWriteSubtick throttle — both reads cost a single deref each
