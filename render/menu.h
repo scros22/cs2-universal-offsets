@@ -2366,25 +2366,31 @@ namespace Menu
     // ── AIM tab ────────────────────────────────────────────────
     inline void Pg_Aimbot()
     {
+        EvoCheckbox("Safety Governor##gov", &Aimbot::Governor::gcfg.enabled);
+        if (Aimbot::Governor::gcfg.enabled) {
+            char hsBuf[32]; sprintf(hsBuf, "HS %%: %.1f", Aimbot::Governor::GetHSPercent());
+            SynthSep();
+            EvoSliderFloat("Max HS %%##ghc", &Aimbot::Governor::gcfg.hsCapPercent, 25.f, 65.f, "%.0f");
+            SynthSep();
+            ImGui::TextDisabled("  Current %s", hsBuf);
+        }
+        SynthSep();
         const char* akn[] = { "Auto (Mouse1)", "Right Click", "Always On" };
         EvoCombo("Aim Key##ak", &Aimbot::cfg.aimKey, akn, 3);
         SynthSep();
-        EvoCheckbox("Team Check",    &Aimbot::cfg.teamCheck);
+        EvoSliderFloat("FOV",          &Aimbot::cfg.fov,          0.5f, 15.f,  "%.1f");
         SynthSep();
-        EvoCheckbox("Head Priority", &Aimbot::cfg.headPriority);
+        EvoSliderFloat("Smoothing",    &Aimbot::cfg.smoothing,    30.f, 100.f, "%.0f");
         SynthSep();
-        EvoCheckbox("Smoke Check",   &Aimbot::cfg.smokeCheck);
-        SynthSep();
-        EvoCheckbox("Vis Check",     &Aimbot::cfg.visCheck);
+        EvoSliderFloat("Humanization", &Aimbot::cfg.humanization, 0.4f, 1.f,   "%.2f");
         SynthSep();
         EvoCheckbox("Silent Aim",    &Aimbot::cfg.silentAim);
-        if (Aimbot::cfg.silentAim) { SynthSep(); EvoSliderFloat("Max Delta##sd", &Aimbot::cfg.silentMaxDelta, 0.5f, 5.f, "%.1f"); }
+        if (Aimbot::cfg.silentAim) {
+            SynthSep();
+            EvoSliderFloat("Max Delta##sd", &Aimbot::cfg.silentMaxDelta, 0.5f, 3.f, "%.1f");
+        }
         SynthSep();
-        EvoSliderFloat("FOV",          &Aimbot::cfg.fov,          0.5f, 30.f,  "%.1f");
-        SynthSep();
-        EvoSliderFloat("Smoothing",    &Aimbot::cfg.smoothing,    1.f,  100.f, "%.0f");
-        SynthSep();
-        EvoSliderFloat("Humanization", &Aimbot::cfg.humanization, 0.f,  1.f,   "%.2f");
+        EvoCheckbox("Team Check",    &Aimbot::cfg.teamCheck);
         SynthSep();
         EvoCheckbox("No Recoil",       &Aimbot::cfg.noRecoil);
         SynthSep();
@@ -2397,22 +2403,14 @@ namespace Menu
         EvoCheckbox("Multi-Bone Scan",  &Aimbot::cfg.multiBone);
         SynthSep();
         EvoCheckbox("Velocity Predict", &Aimbot::cfg.velPredict);
-        if (Aimbot::cfg.velPredict) { SynthSep(); EvoSliderFloat("Predict Scale##ps", &Aimbot::cfg.velPredictScale, 0.1f, 3.f, "%.2f"); }
         SynthSep();
-        EvoCheckbox("Show FOV Circle",  &Aimbot::cfg.showFovCircle);
+        EvoCheckbox("Vis Check",     &Aimbot::cfg.visCheck);
+        SynthSep();
+        EvoCheckbox("Smoke Check",   &Aimbot::cfg.smokeCheck);
         SynthSep();
         EvoCheckbox("Jump Shot",        &Aimbot::cfg.jumpShot);
-        if (Aimbot::cfg.jumpShot) { SynthSep(); EvoCheckbox("Apex Only##jo", &Aimbot::cfg.jumpApexOnly); }
         SynthSep();
         EvoCheckbox("No Spread",        &Aimbot::cfg.noSpread);
-        SynthSep();
-        EvoCheckbox("Stat Governor##gov", &Aimbot::Governor::gcfg.enabled);
-        if (Aimbot::Governor::gcfg.enabled)
-        {
-            SynthSep(); EvoSliderFloat("Intensity##gi",  &Aimbot::Governor::gcfg.intensity,    0.f,  1.f, "%.2f");
-            SynthSep(); EvoSliderFloat("HS Cap %%##ghc", &Aimbot::Governor::gcfg.hsCapPercent, 30.f, 80.f, "%.0f");
-            SynthSep(); if (EvoButton("Reset Session##gr")) Aimbot::Governor::ResetSession();
-        }
     }
     inline void Pg_Triggerbot()
     {

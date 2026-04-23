@@ -58,8 +58,8 @@ namespace Aimbot
     {
         bool  enabled         = true;
         int   aimKey          = 0;           // 0 = auto (mouse1), 1 = mouse2, 2 = always on
-        float fov             = 5.5f;        // degrees (1â€“180)
-        float smoothing       = 22.0f;       // 1â€“100 (1 = instant, 100 = max drag)
+        float fov             = 1.8f;        // 14153: 1.8 is well below 2.3 ban line
+        float smoothing       = 55.0f;       // 14153: 55 is well above 43 ban line
         int   targetBone      = 7;           // build 14152: 7=head, 6=neck, 23=chest, 1=pelvis
         bool  headPriority    = true;        // try head first, fallback to configured
         bool  noRecoil        = true;        // compensate weapon recoil
@@ -68,7 +68,7 @@ namespace Aimbot
         bool  velPredict      = true;        // lead moving targets
         float velPredictScale = 1.0f;        // prediction multiplier
         bool  multiBone       = true;        // scan multiple bones for best hit
-        float humanization    = 0.28f;       // 0â€“1 hand tremor intensity
+        float humanization    = 0.60f;       // 14153: 0.60 is above 0.50 floor
         bool  smokeCheck      = false;       // 14152: smoke detection unreliable — default off
         bool  showFovCircle   = true;
         float fovCircleColor[4] = { 1.f, 1.f, 1.f, 0.14f };
@@ -77,10 +77,10 @@ namespace Aimbot
         float jumpApexThreshold = 30.f;
         bool  noSpread        = false;       // zero weapon inaccuracy (perfect jump shots)
         float smokeRadius     = 144.0f;      // CS2 smoke sphere radius
-        bool  silentAim       = true;       // silent aim via CreateMove frame history
-        float silentHitChance = 80.f;        // % of shots that get corrected (rest fire naturally)
-        float silentSpread    = 0.2f;        // degrees of random scatter added to aim angle
-        float silentMaxDelta  = 5.0f;        // max degrees of correction (skip if crosshair is further)
+        bool  silentAim       = false;       // default OFF for safety
+        float silentHitChance = 42.f;        // 42% is pro-level "lucky" shot correction
+        float silentSpread    = 0.08f;       // tighter scatter for subtick redirection
+        float silentMaxDelta  = 1.8f;        // match FOV for seamless transition
     };
 
     inline Config cfg;
@@ -98,13 +98,12 @@ namespace Aimbot
     {
         struct GovernorConfig
         {
-            bool  enabled          = false;
-            float intensity        = 0.35f;    // 0â€“1 how aggressive throttling is
-            float hsCapPercent     = 55.0f;    // start forcing body after this HS%
+            bool  enabled          = true;     // default ON for safety
+            float intensity        = 0.55f;    // mid-high throttle
+            float hsCapPercent     = 48.0f;    // match 14153 pro average ceiling
             int   multiKillWindow  = 4;        // kills within this many seconds = multi-kill
-            int   multiKillCap     = 4;        // max rapid kills before brief pause
+            int   multiKillCap     = 3;        // tighter cap for rapid kills
         };
-
         inline GovernorConfig gcfg;
 
         // Session stats (reset on round start detection)
@@ -565,6 +564,13 @@ namespace Aimbot
 
         // Engagement staleness safety valve
         DWORD     engagementStartTime = 0;
+
+        // Per-engagement angular bias (anti-VACNet "atom variance == 0")
+        // Small constant offset added to silent-aim publish angle so all
+        // shots in the engagement cluster around the bone instead of all
+        // landing on pixel-perfect bone center.
+        float     engAimBiasP = 0.f;
+        float     engAimBiasY = 0.f;
     };
 
     inline AimState state;
@@ -741,6 +747,12 @@ namespace Aimbot
         state.engagementStartTime = GetTickCount();
         state.lastKillTime = 0;
         state.postKillDelayMs = 0;
+
+        // Per-engagement aim bias: ±0.18° pitch, ±0.22° yaw. Tight enough
+        // that bullets still hit head, wide enough that shot-to-shot atoms
+        // have natural variance instead of being machine-identical.
+        state.engAimBiasP = RandRange(-0.18f, 0.18f);
+        state.engAimBiasY = RandRange(-0.22f, 0.22f);
 
         // --- Per-engagement randomization ---
         // These make every flick unique to the neural network.
@@ -1410,14 +1422,31 @@ namespace Aimbot
                                                  double a4, int a5, __int64 a6)
         {
             diag_wsCalls++;
-            // Aim active in either silent OR visible mode → redirect bullet path.
-            // (We always redirect when we have a target so normal-aim shots land too.)
-            if (!hasTarget || !cfg.enabled)
+            // Only redirect subtick proto angles when SILENT aim is on.
+            // In normal-aim mode the camera/view-angles are moved visibly
+            // (via hkCreateMove + SendInput) so the cmd already carries the
+            // correct shoot direction — rewriting it here would create the
+            // exact view/shoot desync VAC flags. Pass through cleanly.
+            if (!hasTarget || !cfg.enabled || !cfg.silentAim)
                 return oWriteSubtick(entry, msg, a3, a4, a5, a6);
 
             __try {
-                float fakePitch = aimPitch;
-                float fakeYaw   = aimYaw;
+                // Per-shot wobble: add a tiny independent jitter to every
+                // subtick write so consecutive bullets in the same
+                // engagement land on slightly different pixels of the
+                // chosen hitbox. Range ±0.10° — inside any bone, but
+                // wide enough to give VACNet's per-atom velocity profile
+                // natural variance instead of machine-identical impacts.
+                // Cheap LCG keyed on the entry pointer + tick count so it
+                // varies per subtick without needing extra RNG state.
+                uint32_t seed = (uint32_t)(entry ^ (uintptr_t)GetTickCount());
+                seed = seed * 1664525u + 1013904223u;
+                float jp = (((seed >> 16) & 0xFFFF) / 65535.f - 0.5f) * 0.20f;
+                seed = seed * 1664525u + 1013904223u;
+                float jy = (((seed >> 16) & 0xFFFF) / 65535.f - 0.5f) * 0.20f;
+
+                float fakePitch = aimPitch + jp;
+                float fakeYaw   = aimYaw   + jy;
                 if (fakePitch >  89.f) fakePitch =  89.f;
                 if (fakePitch < -89.f) fakePitch = -89.f;
                 while (fakeYaw >  180.f) fakeYaw -= 360.f;
@@ -1480,7 +1509,44 @@ namespace Aimbot
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
             diag_silentLag++;
 
-            // Passthrough when disabled
+            // Normal (visible) aim: write the target view-angles into
+            // m_angEyeAngles inside CreateMove — this is the only point in
+            // the input pipeline where view-angle writes actually stick
+            // (writes from the render thread get clobbered by the next
+            // ReadFrameInput). We still let oCreateMove run normally; the
+            // SendInput humanization layer continues to provide visible
+            // mouse motion so the camera curve looks human.
+            __try {
+                if (cfg.enabled && !cfg.silentAim && hasTarget) {
+                    uintptr_t lp = GameState::GetLocalPawn();
+                    if (lp) {
+                        uintptr_t va = lp + Offsets::m_angEyeAngles;
+                        Math::QAngle cur = Mem::Read<Math::QAngle>(va);
+                        if (IsFinite(cur.pitch) && IsFinite(cur.yaw)) {
+                            // Step toward target with the same per-tick cap as Tick()
+                            float maxStep = 6.0f / (cfg.smoothing * 0.05f + 1.f);
+                            float ddp = aimPitch - cur.pitch;
+                            float ddy = aimYaw   - cur.yaw;
+                            while (ddy >  180.f) ddy -= 360.f;
+                            while (ddy < -180.f) ddy += 360.f;
+                            float mag = sqrtf(ddp*ddp + ddy*ddy);
+                            if (mag > maxStep && mag > 0.f) {
+                                float k = maxStep / mag;
+                                ddp *= k; ddy *= k;
+                            }
+                            Math::QAngle out;
+                            out.pitch = cur.pitch + ddp;
+                            out.yaw   = cur.yaw   + ddy;
+                            out.roll  = 0.f;
+                            if (out.pitch >  89.f) out.pitch =  89.f;
+                            if (out.pitch < -89.f) out.pitch = -89.f;
+                            Mem::Write<Math::QAngle>(va, out);
+                        }
+                    }
+                }
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+
+            // Passthrough when silent-aim path is not active
             if (!cfg.enabled || !cfg.silentAim)
             {
                 diag_silentBailReason = 1;
@@ -1727,6 +1793,13 @@ namespace Aimbot
         {
             shotDisruptUntil = GetTickCount() + (DWORD)RandInt(10, 25);
             shotDisruptScale = RandRange(0.93f, 0.98f);
+
+            // Re-roll per-engagement aim bias on every shot so the bullet
+            // cluster center drifts across the chosen hitbox between
+            // consecutive shots in the same spray. Combined with the
+            // per-subtick wobble, no two shots land on the same pixel.
+            state.engAimBiasP = RandRange(-0.18f, 0.18f);
+            state.engAimBiasY = RandRange(-0.22f, 0.22f);
         }
 
         float gameTime = GameState::GetGameTime();
@@ -2028,15 +2101,18 @@ namespace Aimbot
             // ===========================================================
             if (cfg.silentAim && SilentAim::oCreateMove)
             {
-                // Set target angle directly — CreateMove hook will apply it
-                SilentAim::aimPitch  = aimAngle.pitch;
-                SilentAim::aimYaw    = aimAngle.yaw;
+                // Set target angle directly — CreateMove hook will apply it.
+                // Per-engagement bias breaks pixel-perfect bone clustering.
+                float biasedPitch = aimAngle.pitch + state.engAimBiasP;
+                float biasedYaw   = aimAngle.yaw   + state.engAimBiasY;
+                SilentAim::aimPitch  = biasedPitch;
+                SilentAim::aimYaw    = biasedYaw;
                 SilentAim::hasTarget = true;
 
                 // Cache last valid angle so the grace-period path can keep
                 // bullets corrected through brief target-loss windows.
-                lastValidAimPitch = aimAngle.pitch;
-                lastValidAimYaw   = aimAngle.yaw;
+                lastValidAimPitch = biasedPitch;
+                lastValidAimYaw   = biasedYaw;
                 lastValidAimTick  = GetTickCount();
                 haveLastValidAim  = true;
 
@@ -2053,14 +2129,16 @@ namespace Aimbot
             // on target while the camera is being moved by the SendInput path.
             // (CS2 raw-input ignores SendInput → camera may not move, but bullets
             //  must still go to target so the player can hit-confirm.)
-            SilentAim::aimPitch  = aimAngle.pitch;
-            SilentAim::aimYaw    = aimAngle.yaw;
+            float biasedPitch2 = aimAngle.pitch + state.engAimBiasP;
+            float biasedYaw2   = aimAngle.yaw   + state.engAimBiasY;
+            SilentAim::aimPitch  = biasedPitch2;
+            SilentAim::aimYaw    = biasedYaw2;
             SilentAim::hasTarget = true;
 
             // Same caching as the silent-aim branch — keeps bullets corrected
             // through brief target-loss flickers in normal-aim mode too.
-            lastValidAimPitch = aimAngle.pitch;
-            lastValidAimYaw   = aimAngle.yaw;
+            lastValidAimPitch = biasedPitch2;
+            lastValidAimYaw   = biasedYaw2;
             lastValidAimTick  = GetTickCount();
             haveLastValidAim  = true;
 

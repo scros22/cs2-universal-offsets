@@ -152,6 +152,19 @@ namespace Hooks
         if (msg == WM_KEYDOWN && wp == VK_INSERT)
         {
             showMenu = !showMenu;
+            // Track how many times we bumped the OS cursor counter so we
+            // can put it back exactly where we found it on close — never
+            // hide CS2's own cursor (pause menu / scoreboard / buy menu).
+            static int cursorBumps = 0;
+            if (showMenu)
+            {
+                while (ShowCursor(TRUE) < 0) { ++cursorBumps; }
+                ClipCursor(nullptr);
+            }
+            else
+            {
+                while (cursorBumps > 0) { ShowCursor(FALSE); --cursorBumps; }
+            }
             return 0;
         }
 
@@ -163,6 +176,11 @@ namespace Hooks
 
         if (showMenu)
         {
+            // CS2 reads mouse movement via raw input (WM_INPUT), bypassing
+            // WantCaptureMouse. Eat raw input + standard mouse messages so
+            // moving the cursor across the menu doesn't rotate the camera.
+            if (msg == WM_INPUT) return 0;
+
             if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wp, lp))
                 return true;
 
@@ -172,9 +190,10 @@ namespace Hooks
             case WM_RBUTTONDOWN: case WM_RBUTTONUP:
             case WM_MBUTTONDOWN: case WM_MBUTTONUP:
             case WM_MOUSEWHEEL:  case WM_MOUSEMOVE:
-                if (ImGui::GetIO().WantCaptureMouse) return 0;
-                break;
+            case WM_NCMOUSEMOVE: case WM_MOUSEACTIVATE:
+                return 0;  // never let game see mouse events while menu is up
             case WM_KEYDOWN: case WM_KEYUP: case WM_CHAR:
+            case WM_SYSKEYDOWN: case WM_SYSKEYUP:
                 if (ImGui::GetIO().WantCaptureKeyboard) return 0;
                 break;
             }
@@ -705,6 +724,10 @@ namespace Hooks
             ImGui_ImplDX11_NewFrame();
             ImGui_ImplWin32_NewFrame();
             ImGui::NewFrame();
+            // Force a software cursor while menu is open: in fullscreen
+            // exclusive mode the OS cursor is suppressed, so without this
+            // the user sees no pointer to aim at controls.
+            ImGui::GetIO().MouseDrawCursor = showMenu;
         } __except (EXCEPTION_EXECUTE_HANDLER) {
             Log("[PresentCore] ImGui NewFrame EXCEPTION");
             return;

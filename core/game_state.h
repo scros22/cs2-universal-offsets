@@ -255,6 +255,25 @@ namespace GameState
     }
 
     // ---------------------------------------------------------------
+    // Resolve the local player's currently-equipped weapon entity.
+    // Build 14152+ removed the schema field m_pClippingWeapon, so the
+    // skinchanger / knife code must derive the active weapon through the
+    // weapon-services chain instead:
+    //   pawn -> m_pWeaponServices -> m_hActiveWeapon -> EntityList
+    // Returns 0 if anything along the chain is null/invalid.
+    // ---------------------------------------------------------------
+    inline uintptr_t GetActiveWeapon(uintptr_t pawn)
+    {
+        if (!pawn) return 0;
+        __try {
+            uintptr_t svc = Mem::Read<uintptr_t>(pawn + Offsets::m_pWeaponServices);
+            if (!svc) return 0;
+            uint32_t h = Mem::Read<uint32_t>(svc + Offsets::m_hActiveWeapon);
+            return ResolveHandle(h);
+        } __except (EXCEPTION_EXECUTE_HANDLER) { return 0; }
+    }
+
+    // ---------------------------------------------------------------
     // Weapon enumeration
     // ---------------------------------------------------------------
     inline std::vector<uintptr_t> GetWeapons(uintptr_t pawn)

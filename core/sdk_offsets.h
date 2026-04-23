@@ -97,8 +97,8 @@ namespace Offsets
     constexpr std::ptrdiff_t m_unMusicID           = 0x58;
 
     // C_CSPlayerPawn
-    constexpr std::ptrdiff_t m_bNeedToReApplyGloves = 0x1655;  // 14153 a2x
-    constexpr std::ptrdiff_t m_EconGloves          = 0x1658;   // 14153 a2x
+    constexpr std::ptrdiff_t m_bNeedToReApplyGloves = 0x1695;  // 14152 dump 22-04-26
+    constexpr std::ptrdiff_t m_EconGloves          = 0x1698;   // 14152 dump 22-04-26
     // NOTE: post-shift fields below verified against a2x/cs2-dumper 2026-04-22
     // (build 14152). Many were off by +0x40 vs the actual schema.
     constexpr std::ptrdiff_t m_hHudModelArms       = 0x1B58;

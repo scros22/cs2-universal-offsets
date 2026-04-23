@@ -369,8 +369,12 @@ namespace SkinChanger
             SetModel = reinterpret_cast<SetModelFn>(setModelAddr);
         }
         
-        // SetMeshGroupMask signature - EXACT from your friend
-        const char* meshMaskSig = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8D 99";
+        // SetMeshGroupMask signature — IDA confirmed sub_180A2C390:
+        //   lea rbx, [rcx+150h]   ; m_modelState
+        //   cmp [rbx+1C8h], rdx   ; m_MeshGroupMask
+        // Unique 28-byte prologue (avoids the 2-match false positive from
+        // the older 18-byte pattern).
+        const char* meshMaskSig = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8D 99 50 01 00 00";
         uintptr_t meshMaskAddr = Mem::FindPatternInModule(GameState::clientBase, meshMaskSig);
         if (meshMaskAddr) {
             SetMeshGroupMask = reinterpret_cast<SetMeshGroupMaskFn>(meshMaskAddr);
@@ -398,11 +402,14 @@ namespace SkinChanger
             UpdateComposite = reinterpret_cast<UpdateCompositeFn>(updateCompositeAddr);
         }
 
-        // CBaseModelEntity::SetBodygroup(int group, int value)
-        // Ghidra-verified @ 0x1808E0610 (CS2, April 2026). The 23-byte prologue
-        // signature below is unique in client.dll. Per Raphilaa (UC, March 2026)
-        // this call is mandatory for the engine to refresh the rendered mesh
-        // after we change a knife/glove def-index + model.
+        // CBaseModelEntity::SetBodygroup(int, int) — best-effort. The schema
+        // string "SetBodygroup" lives in C_BaseModelEntity's metadata table and
+        // does NOT directly resolve to an executable export; in build 14152 it
+        // is most likely an inline that resolves the bodygroup index then
+        // updates the mesh-group mask. Since SetMeshGroupMask above already
+        // refreshes the rendered mesh, this call is non-critical — if the
+        // pattern fails to resolve we just skip it and rely on the mesh-mask
+        // write to refresh the visual.
         const char* setBodyGroupSig =
             "85 D2 0F 88 ? ? ? ? 53 55 56 48 83 EC 70 41 8B F0 8B DA 48 8B E9";
         uintptr_t setBodyGroupAddr = Mem::FindPatternInModule(GameState::clientBase, setBodyGroupSig);
@@ -587,13 +594,12 @@ namespace SkinChanger
         if (!modelPath) return;
 
         __try {
-            // IDA: m_EconGloves@0x1890 is an EMBEDDED CEconItemView struct, not a
+            // IDA: m_EconGloves@0x1698 is an EMBEDDED CEconItemView struct, not a
             // pointer/handle. The actual glove ENTITY lives in m_hMyWearables
-            // (CNetworkUtlVectorBase<CHandle<C_EconWearable>> @ pawn+0x1350).
-            // Walk the list and pick the first wearable whose def-index is a
-            // glove (5027..5035).
+            // (CNetworkUtlVectorBase<CHandle<C_EconWearable>>). Walk the list
+            // and pick the first wearable whose def-index is a glove (5027..5035).
             uintptr_t glove = 0;
-            uintptr_t wearablesBase = localPawn + 0x1350;
+            uintptr_t wearablesBase = localPawn + Offsets::m_hMyWearables;
             int32_t   wCount = Mem::Read<int32_t>(wearablesBase + 0x00);
             uintptr_t wData  = Mem::Read<uintptr_t>(wearablesBase + 0x08);
             if (wCount > 0 && wCount < 16 && wData) {
@@ -673,8 +679,8 @@ namespace SkinChanger
     inline void ApplyGloveSkin(uintptr_t localPawn, int paintKit, float wear)
     {
         __try {
-            // m_hMyWearables is CNetworkUtlVectorBase<CHandle> at pawn + 0x1350
-            uintptr_t wearablesBase = localPawn + 0x1350;
+            // m_hMyWearables is CNetworkUtlVectorBase<CHandle> on C_BaseCombatCharacter
+            uintptr_t wearablesBase = localPawn + Offsets::m_hMyWearables;
             int32_t wearableCount = Mem::Read<int32_t>(wearablesBase + 0x00);
             uintptr_t wearablesData = Mem::Read<uintptr_t>(wearablesBase + 0x08);
 
@@ -802,7 +808,9 @@ namespace SkinChanger
         // ---------------------------------------------------------------
         // WEAPON/KNIFE CHANGER
         // ---------------------------------------------------------------
-        uintptr_t activeWeapon = Mem::Read<uintptr_t>(localPawn + Offsets::m_pClippingWeapon);
+        // Build 14152+ removed m_pClippingWeapon. Resolve the active weapon
+        // via WeaponServices->m_hActiveWeapon (centralised in game_state.h).
+        uintptr_t activeWeapon = GameState::GetActiveWeapon(localPawn);
         if (!activeWeapon) return;
 
         uintptr_t item = activeWeapon + Offsets::m_AttributeManager + Offsets::m_Item;

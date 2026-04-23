@@ -110,8 +110,8 @@ namespace KnifeGloveManager
         }
         
         __try {
-            // Get active weapon
-            uintptr_t activeWeapon = Mem::Read<uintptr_t>(localPawn + Offsets::m_pClippingWeapon);
+            // Get active weapon via WeaponServices indirection
+            uintptr_t activeWeapon = GameState::GetActiveWeapon(localPawn);
             if (!activeWeapon || activeWeapon < 0x10000) return;
             
             // Get item data
