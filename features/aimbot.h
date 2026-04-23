@@ -1947,6 +1947,42 @@ namespace Aimbot
                             suppress = true; // unknown zoom = err on safe
                         }
                     }
+
+                    // ---- Reload / empty-clip gate ----------------------
+                    // Silent firing while m_bInReload == true or m_iClip1
+                    // == 0 cannot produce a bullet — the server-side fire
+                    // path bails on both before the bullet is created. The
+                    // angle write IS still serialised, though, so skip.
+                    __try {
+                        if (Mem::Read<bool>(wep + Offsets::m_bInReload))
+                            suppress = true;
+                        if (!suppress) {
+                            int32_t clip = Mem::Read<int32_t>(wep + Offsets::m_iClip1);
+                            if (clip == 0) suppress = true;
+                        }
+                    } __except (EXCEPTION_EXECUTE_HANDLER) {}
+
+                    // ---- Next-attack-tick gate ---------------------------
+                    // Read m_nNextPrimaryAttackTick on the active weapon
+                    // and compare to the local controller's m_nTickBase.
+                    // While currentTick < nextAttackTick the server cannot
+                    // produce a bullet from any attack input — but our
+                    // angle write IS still serialised to the demo. That's
+                    // pure liability (silent flick with no shot), so skip.
+                    // Tolerate 1 tick of slop to avoid edge-case timing
+                    // wins being lost to caching latency.
+                    __try {
+                        uintptr_t lc = GameState::GetLocalController();
+                        if (lc) {
+                            int32_t tickBase = Mem::Read<int32_t>(lc + Offsets::m_nTickBase);
+                            int32_t nextAtk  = Mem::Read<int32_t>(wep + Offsets::m_nNextPrimaryAttackTick);
+                            if (tickBase > 0 && nextAtk > 0 &&
+                                (nextAtk - tickBase) > 1)
+                            {
+                                suppress = true;
+                            }
+                        }
+                    } __except (EXCEPTION_EXECUTE_HANDLER) {}
                 }
             }
             SilentAim::suppressFire = suppress;

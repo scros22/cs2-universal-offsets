@@ -162,6 +162,43 @@ namespace Offsets
     // holding a sniper that isn't currently scoped.
     constexpr std::ptrdiff_t m_zoomLevel           = 0x1CB0;
 
+    // C_BasePlayerWeapon — m_nNextPrimaryAttackTick is the absolute
+    // server tick at which the weapon is next allowed to fire. Compare
+    // against CBasePlayerController::m_nTickBase to know whether a
+    // silent shot can actually convert into a bullet THIS tick. Firing
+    // silently before this tick reaches its value cannot produce a
+    // bullet (the server discards the attack) but the angle desync IS
+    // still serialised to the demo — pure liability, suppress.
+    constexpr std::ptrdiff_t m_nNextPrimaryAttackTick      = 0x16C8;
+    constexpr std::ptrdiff_t m_flNextPrimaryAttackTickRatio = 0x16CC;
+
+    // C_BasePlayerWeapon — m_iClip1: bullets currently loaded. Silent
+    // firing with clip == 0 is a guaranteed bot signal; the server
+    // discards the attack but the angle desync still hits the demo.
+    constexpr std::ptrdiff_t m_iClip1                       = 0x16D8;
+
+    // C_CSWeaponBase — m_bInReload: weapon is mid-reload animation.
+    // No bullet can leave the gun until reload completes; silent
+    // angle writes during this window are pure liability.
+    constexpr std::ptrdiff_t m_bInReload                    = 0x17F4;
+
+    // CBasePlayerController — m_nTickBase: the local tick counter the
+    // server uses for all of the player's weapon/movement timers.
+    constexpr std::ptrdiff_t m_nTickBase            = 0x6B8;
+
+    // C_CSPlayerPawn — m_iShotsFired increments per bullet (auto-spray)
+    // and is reset by the server when the player stops shooting AND
+    // recoil decays. Useful for: post-shot suppression timing, rate-of-
+    // fire sanity (firing > magazine size in <X ticks = bot signal).
+    // (Already defined as 0x1C5C earlier in this header — value here is
+    //  cross-checked against the schema dump @ 0x1C9C; the prior entry
+    //  is the live one. Anti-detection code uses Offsets::m_iShotsFired.)
+
+    // C_CSWeaponBase — m_iRecoilIndex is the server-tracked shot count
+    // in the current burst (pair to m_flRecoilIndex defined later).
+    // Server-vs-client divergence here is a known anti-cheat heuristic.
+    constexpr std::ptrdiff_t m_iRecoilIndex         = 0x17DC;
+
     // C_EconEntity (parent of C_BasePlayerWeapon) — attribute container
     // chain to the item definition index.  m_iItemDefinitionIndex sits
     // inside m_AttributeManager.m_Item, so the absolute offset on a
