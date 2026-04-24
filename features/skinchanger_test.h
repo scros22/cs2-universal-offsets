@@ -623,6 +623,42 @@ namespace SkinChanger
             //    Ghidra @ 0x1808E0610: void CBaseModelEntity::SetBodygroup(int,int)
             if (SetBodyGroup) SetBodyGroup(weapon, 0, 0);
 
+            // 7. Viewmodel-attachment best-effort.
+            //    C_EconEntity has a m_hViewmodelAttachment @ 0x1688 pointing at
+            //    the third-person attached mesh entity used while inspecting/
+            //    holstering. Forcing SetModel on it picks up the new vmdl too,
+            //    which fixes the "knife flips like a Karambit but stays default
+            //    in the holster" half of the prior bug. The actual first-person
+            //    viewmodel is owned by CCSPlayer_ViewModelServices and only
+            //    rebinds its mesh on a fresh Deploy — see step 8.
+            constexpr std::ptrdiff_t kViewmodelAttachment = 0x1688; // C_EconEntity::m_hViewmodelAttachment
+            uint32_t vmaHandle = Mem::Read<uint32_t>(weapon + kViewmodelAttachment);
+            if (vmaHandle && vmaHandle != 0xFFFFFFFFu) {
+                uintptr_t vma = GameState::ResolveHandle(vmaHandle);
+                if (vma && vma > 0x10000) {
+                    SetModel(vma, modelPath);
+                    uintptr_t vmaScene = Mem::Read<uintptr_t>(vma + Offsets::m_pGameSceneNode);
+                    if (vmaScene) SetMeshGroupMask(vmaScene, 1ull);
+                    if (SetBodyGroup) SetBodyGroup(vma, 0, 0);
+                }
+            }
+
+            // 8. Trigger a fresh viewmodel deploy.
+            //    The first-person viewmodel mesh is bound at deploy-time from
+            //    the weapon's VData → m_szWorldModel chain. Just SetModel'ing
+            //    the weapon entity does NOT rebind the FPV mesh — that's why
+            //    the player's hand still shows the default knife while the
+            //    inspect animation matches the new knife. Setting
+            //    m_bRestoreCustomMaterialAfterPrecache=true on the item (done
+            //    above in step 1) signals the renderer to re-precache the
+            //    custom material on next deploy. That cycle happens naturally
+            //    on slot-switch; we don't fake one here to avoid input drift.
+            //
+            //    If you (the player) want the FPV mesh to update RIGHT NOW,
+            //    cycle weapons (Q to last-weapon, then Q back). The next
+            //    deploy will pick up the spoofed identity and bind the new
+            //    knife mesh in your hand.
+
             char buf[160];
             wsprintfA(buf, "[SkinChanger] knife model swap: def=%d path=%s scene=0x%llX\n",
                 targetDefIndex, modelPath, (unsigned long long)sceneNode);
@@ -635,22 +671,76 @@ namespace SkinChanger
     }
 
     // ---------------------------------------------------------------
-    // Force-load glove model on the equipped glove wearable entity.
+    // Force-load glove model on the local pawn (build 14154 approach).
+    //
+    // ROOT CAUSE OF PRIOR BREAKAGE:
+    // The visible glove on your hands is NOT the wearable in m_hMyWearables.
+    // It is a *dynamically spawned* C_WorldModelGloves entity that is
+    // bonemerged onto the pawn each time pawn->m_bNeedToReApplyGloves
+    // flips true. The code that does the spawn (sub_180BBFAA0) reads
+    // the GLOVE IDENTITY from the EMBEDDED CEconItemView at pawn+0x1658
+    // (m_EconGloves) — NOT from any wearable entity.
+    //
+    // So the correct (and only reliable) way to swap gloves is:
+    //   1. Write the desired def-index into pawn + m_EconGloves + 0x1BA
+    //      (m_iItemDefinitionIndex inside the embedded EconItemView).
+    //   2. Set the identity-spoof flags on that embedded view so the
+    //      game treats it as a real owned item.
+    //   3. Set pawn[m_bNeedToReApplyGloves] = true.
+    //   4. Do NOTHING else. Next tick, the game's per-tick orchestrator
+    //      (sub_180BC2620 → sub_180BBFAA0) will:
+    //        - destroy any existing C_WorldModelGloves
+    //        - read the new def-index from m_EconGloves
+    //        - resolve gloves/paints/<...>.vmdl path
+    //        - spawn a fresh C_WorldModelGloves with parentName=<pawn>,
+    //          parentAttachmentName="!bonemerge", useLocalOffset=true
+    //        - apply g_flWearAmount, g_nRandomSeed, g_nRandomSeedAlt,
+    //          econ_instance material params
+    //
+    // We also still walk m_hMyWearables and update any pre-existing
+    // wearable entity's def-index for consistency (so that any code
+    // reading the wearable list sees the new identity), but the
+    // visible mesh comes from the spawn pipeline above.
     // ---------------------------------------------------------------
     inline void ApplyGloveModelSwap(uintptr_t localPawn, int targetDefIndex)
     {
         if (!localPawn || targetDefIndex <= 0) return;
-        if (!SetModel || !UpdateSubclass || !SetMeshGroupMask) return;
-
-        const char* modelPath = GetGloveModelPath(targetDefIndex);
-        if (!modelPath) return;
 
         __try {
-            // IDA: m_EconGloves@0x1698 is an EMBEDDED CEconItemView struct, not a
-            // pointer/handle. The actual glove ENTITY lives in m_hMyWearables
-            // (CNetworkUtlVectorBase<CHandle<C_EconWearable>>). Walk the list
-            // and pick the first wearable whose def-index is a glove (5027..5035).
-            uintptr_t glove = 0;
+            // Layout inside the embedded CEconItemView at pawn + m_EconGloves:
+            //   +0x1BA  m_iItemDefinitionIndex   (uint16)
+            //   +0x1B8  m_bRestoreCustomMaterialAfterPrecache
+            //   +0x1D0  m_iItemIDHigh
+            //   +0x1D8  m_iAccountID
+            //   +0x1E8  m_bInitialized
+            //   +0x208  m_AttributeList (for paint kit attributes)
+            uintptr_t econGloves = localPawn + Offsets::m_EconGloves;
+
+            // Write target glove identity directly into the embedded view.
+            Mem::Write<uint16_t>(econGloves + Offsets::m_iItemDefinitionIndex, (uint16_t)targetDefIndex);
+            Mem::Write<int32_t>(econGloves + Offsets::m_iEntityQuality, 3);
+            Mem::Write<uint64_t>(econGloves + Offsets::m_iItemID,
+                                 0xF000000000000000ull | (uint64_t)targetDefIndex);
+            Mem::Write<uint32_t>(econGloves + Offsets::m_iItemIDHigh, 0xFFFFFFFFu);
+            Mem::Write<uint32_t>(econGloves + Offsets::m_iItemIDLow,  0xFFFFFFFFu);
+
+            uint32_t accountId = Mem::Read<uint32_t>(econGloves + Offsets::m_iAccountID);
+            if (!accountId) accountId = 0xFFFFFFFFu;
+            Mem::Write<uint32_t>(econGloves + Offsets::m_iAccountID, accountId);
+            Mem::Write<bool>(econGloves + Offsets::m_bRestoreCustomMaterialAfterPrecache, true);
+            Mem::Write<bool>(econGloves + Offsets::m_bDisallowSOC, false);
+            Mem::Write<bool>(econGloves + Offsets::m_bInitialized, true);
+
+            // Trigger flag — game's per-tick orchestrator (sub_180BBFAA0)
+            // reads this byte, destroys the old C_WorldModelGloves entity,
+            // and spawns a fresh one bonemerged to the pawn using the
+            // identity we just wrote above.
+            Mem::Write<uint8_t>(localPawn + Offsets::m_bNeedToReApplyGloves, 1);
+
+            // ALSO update any wearable entity in m_hMyWearables so any
+            // code reading the list sees the new identity. The wearable
+            // is NOT what's rendered (the spawned C_WorldModelGloves is)
+            // but keeping them in sync avoids server-side desync warnings.
             uintptr_t wearablesBase = localPawn + Offsets::m_hMyWearables;
             int32_t   wCount = Mem::Read<int32_t>(wearablesBase + 0x00);
             uintptr_t wData  = Mem::Read<uintptr_t>(wearablesBase + 0x08);
@@ -661,71 +751,29 @@ namespace SkinChanger
                     if (!e || e < 0x10000) continue;
                     uintptr_t it = e + Offsets::m_AttributeManager + Offsets::m_Item;
                     uint16_t  d  = Mem::Read<uint16_t>(it + Offsets::m_iItemDefinitionIndex);
-                    // Accept any glove def OR the first wearable if list has only one
-                    if ((d >= 5027 && d <= 5035) || wCount == 1) { glove = e; break; }
+                    bool isGlove = (d >= 5027 && d <= 5035);
+                    if (isGlove) {
+                        Mem::Write<uint16_t>(it + Offsets::m_iItemDefinitionIndex, (uint16_t)targetDefIndex);
+                        Mem::Write<int32_t>(it  + Offsets::m_iEntityQuality, 3);
+                        Mem::Write<uint64_t>(it + Offsets::m_iItemID,
+                                             0xF000000000000000ull | (uint64_t)targetDefIndex);
+                        Mem::Write<uint32_t>(it + Offsets::m_iItemIDHigh, 0xFFFFFFFFu);
+                        Mem::Write<uint32_t>(it + Offsets::m_iAccountID, accountId);
+                        Mem::Write<bool>(it + Offsets::m_bInitialized, true);
+                        break;
+                    }
                 }
             }
-            if (!glove || glove < 0x10000) {
-                static int s_noGloveLog = 0;
-                if (s_noGloveLog < 3) {
-                    SkLog("[Glove] no wearable found: pawn=0x%llX wCount=%d wData=0x%llX",
-                        (unsigned long long)localPawn, wCount, (unsigned long long)wData);
-                    s_noGloveLog++;
-                }
-                return;
-            }
-
-            uintptr_t item = glove + Offsets::m_AttributeManager + Offsets::m_Item;
-
-            // Pull local player's account id from the glove's existing owner XUID
-            uint32_t accountId = Mem::Read<uint32_t>(glove + Offsets::m_OriginalOwnerXuidLow);
-            if (!accountId) accountId = 0xFFFFFFFFu;
-
-            // Mirror the (working) knife identity-spoof exactly
-            Mem::Write<uint16_t>(item + Offsets::m_iItemDefinitionIndex, (uint16_t)targetDefIndex);
-            Mem::Write<int32_t>(item  + Offsets::m_iEntityQuality, 3);
-            Mem::Write<uint64_t>(item + Offsets::m_iItemID,     0xF000000000000000ull | (uint64_t)targetDefIndex);
-            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0xFFFFFFFFu);
-            Mem::Write<uint32_t>(item + Offsets::m_iItemIDLow,  0xFFFFFFFFu);
-            Mem::Write<uint32_t>(item + Offsets::m_iAccountID,  accountId);
-            Mem::Write<bool>(item + Offsets::m_bRestoreCustomMaterialAfterPrecache, true);
-            Mem::Write<bool>(item + Offsets::m_bDisallowSOC,    false);
-            Mem::Write<bool>(item + Offsets::m_bInitialized,    true);
-            Mem::Write<uint32_t>(glove + Offsets::m_nSubclassID, (uint32_t)targetDefIndex);
-
-            SetModel(glove, modelPath);
-
-            uintptr_t sceneNode = Mem::Read<uintptr_t>(glove + Offsets::m_pGameSceneNode);
-            if (sceneNode)
-                SetMeshGroupMask(sceneNode, 1ull);
-
-            // UpdateSubclass takes the ENTITY (glove), not the item ptr.
-            UpdateSubclass(glove);
-
-            // Mandatory mesh refresh — see knife path. For gloves we hit BOTH
-            // the wearable entity AND the pawn (per Raphilaa's working code:
-            // pLocalPawn->SetBodyGroup() is what actually refreshes the hands).
-            if (SetBodyGroup) {
-                SetBodyGroup(glove, 0, 0);
-                SetBodyGroup(localPawn, 0, 0);
-            }
-
-            Mem::Write<bool>(localPawn + Offsets::m_bNeedToReApplyGloves, true);
 
             static int s_gloveSwapLog = 0;
             if (s_gloveSwapLog < 5) {
-                SkLog("[Glove] swap: glove=0x%llX def=%d path=%s scene=0x%llX newDef=%u",
-                    (unsigned long long)glove, targetDefIndex, modelPath,
-                    (unsigned long long)sceneNode,
-                    (unsigned)Mem::Read<uint16_t>(item + Offsets::m_iItemDefinitionIndex));
+                SkLog("[Glove] m_EconGloves write: pawn=0x%llX def=%d (m_bNeedToReApplyGloves set)",
+                      (unsigned long long)localPawn, targetDefIndex);
                 s_gloveSwapLog++;
             }
-
-            char buf[160];
-            wsprintfA(buf, "[SkinChanger] glove model swap: def=%d path=%s scene=0x%llX\n",
-                targetDefIndex, modelPath, (unsigned long long)sceneNode);
-            OutputDebugStringA(buf);
-        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        } __except (EXCEPTION_EXECUTE_HANDLER) {
+            SkLog("[Glove] EXCEPTION in ApplyGloveModelSwap");
+        }
     }
 
     inline void ApplyGloveSkin(uintptr_t localPawn, int paintKit, float wear)
