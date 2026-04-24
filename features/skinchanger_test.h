@@ -335,26 +335,69 @@ namespace SkinChanger
         Mem::Write<CPtrGameVector>(attrListAddr, empty);
     }
 
-    inline void InitRegen() {
-        if (regenAddr != 0) return;
-        if (!GameState::clientBase) return;
-        
-        const char* sig = "48 83 EC ? E8 ? ? ? ? 48 85 C0 0F 84 ? ? ? ? 48 8B 10";
-        uintptr_t found = Mem::FindPatternInModule(GameState::clientBase, sig);
-        
-        if (found) {
-            regenAddr = found;
-            uint16_t combinedOffset = static_cast<uint16_t>(
-                Offsets::m_AttributeManager + Offsets::m_Item +
-                Offsets::m_AttributeList + Offsets::m_Attributes
-            );
+    // ---------------------------------------------------------------
+    // RegenerateWeaponSkin direct resolver (build 14154+).
+    //
+    // Previously this patched +0x52 of an outer wrapper to fix up an
+    // attribute-list offset — fragile across builds and broken in 14154.
+    //
+    // Reverse-engineered via IDA on client.dll build 14154:
+    //   sub_18078C050 = void RegenerateWeaponSkin(C_BasePlayerWeapon*, bool)
+    // Verified by universal-dumper signatures.hpp (RVA 0x78C050).
+    //
+    // We resolve the function directly by RVA — no code patching needed.
+    // The fallback fields (m_nFallbackPaintKit/Seed/Wear/StatTrak) and
+    // m_iItemIDHigh=0xFFFFFFFF must already be set on the weapon entity
+    // before calling. The function reads those, builds a paint material
+    // via materialsystem2, and binds it to the weapon's render slots.
+    // ---------------------------------------------------------------
+    using RegenerateWeaponSkinFn = void(__fastcall*)(uintptr_t weapon, bool refresh);
+    inline RegenerateWeaponSkinFn RegenerateWeaponSkin = nullptr;
 
-            DWORD oldProtect;
-            if (VirtualProtect(reinterpret_cast<void*>(regenAddr + 0x52), 2, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-                *reinterpret_cast<uint16_t*>(regenAddr + 0x52) = combinedOffset;
-                VirtualProtect(reinterpret_cast<void*>(regenAddr + 0x52), 2, oldProtect, &oldProtect);
-                regenPatched = true;
+    // Build 14154 RVA from dumpers/universal-dumper/dumps/latest/offsets/signatures.hpp
+    // Keep this in sync with each build; backup sig is the unique 8-byte prologue
+    // captured by IDA: "48 8B C4 48 89 58 ? 48 89 70 ? 48 89 78 ? 4C 89 60 ? 4C 89 68 ? 4C 89 70 ? 4C 89 78 ? 48 81 EC ? ? ? ? 48 8B 99"
+    inline constexpr std::ptrdiff_t kRegenerateWeaponSkin_RVA = 0x78C050;
+
+    inline void InitRegen() {
+        if (RegenerateWeaponSkin != nullptr) return;
+        if (!GameState::clientBase) return;
+
+        // Primary path: direct RVA from build's signatures.hpp.
+        uintptr_t addr = GameState::clientBase + kRegenerateWeaponSkin_RVA;
+
+        // Sanity check: real function prologue starts with 48 8B C4 (mov rax, rsp)
+        // — RegenerateWeaponSkin saves all volatile regs and reserves a big
+        //   shadow space. If the byte pattern doesn't match, the RVA is stale
+        //   and we fall back to a strict signature scan below.
+        __try {
+            uint8_t p0 = *reinterpret_cast<uint8_t*>(addr);
+            uint8_t p1 = *reinterpret_cast<uint8_t*>(addr + 1);
+            uint8_t p2 = *reinterpret_cast<uint8_t*>(addr + 2);
+            if (!(p0 == 0x48 && p1 == 0x8B && p2 == 0xC4)) {
+                addr = 0; // RVA stale — fall through to sig scan
             }
+        } __except (EXCEPTION_EXECUTE_HANDLER) {
+            addr = 0;
+        }
+
+        if (!addr) {
+            // Fallback signature — taken from the same function's prologue.
+            // 48 8B C4 48 89 58 ?? 48 89 70 ?? 48 89 78 ?? — unique enough.
+            const char* sig =
+                "48 8B C4 48 89 58 ? 48 89 70 ? 48 89 78 ? 4C 89 60 ? 4C 89 68 ? 4C 89 70 ?";
+            addr = Mem::FindPatternInModule(GameState::clientBase, sig);
+        }
+
+        if (addr) {
+            RegenerateWeaponSkin = reinterpret_cast<RegenerateWeaponSkinFn>(addr);
+            regenAddr = addr;          // legacy state var, kept for compat
+            regenPatched = true;       // no patch needed but downstream checks this flag
+            SkLog("[Init] RegenerateWeaponSkin resolved @ 0x%llX (RVA 0x%llX)",
+                  (unsigned long long)addr,
+                  (unsigned long long)(addr - GameState::clientBase));
+        } else {
+            SkLog("[Init] FAILED to resolve RegenerateWeaponSkin");
         }
     }
 
@@ -434,39 +477,48 @@ namespace SkinChanger
         OutputDebugStringA(buf);
     }
 
-    inline void CallRegen() {
-        if (!regenAddr || !regenPatched) return;
-        
+    // ---------------------------------------------------------------
+    // Direct call to RegenerateWeaponSkin(weapon, false).
+    //
+    // The caller MUST have set up the weapon's fallback fields and
+    // m_iItemIDHigh = 0xFFFFFFFF before invoking. The function is
+    // self-contained — it walks the weapon's paint data, resolves the
+    // vmdl/vcompmat path via materialsystem2, builds the composite
+    // material, and binds it to the weapon's render slots.
+    //
+    // Bypasses the bulk-iterator gate at weapon[0xAA8]/[0xAC0] which
+    // would otherwise skip our weapon (those flags are only set on
+    // genuinely-owned items by the inventory system).
+    // ---------------------------------------------------------------
+    inline void CallRegen(uintptr_t weapon = 0) {
+        if (!RegenerateWeaponSkin || !weapon) return;
         __try {
-            typedef void(__fastcall* RegenFn)();
-            auto fn = reinterpret_cast<RegenFn>(regenAddr);
-            fn();
+            RegenerateWeaponSkin(weapon, false);
+        } __except (EXCEPTION_EXECUTE_HANDLER) {
+            SkLog("[Regen] EXCEPTION calling RegenerateWeaponSkin on 0x%llX",
+                  (unsigned long long)weapon);
         }
-        __except (EXCEPTION_EXECUTE_HANDLER) {}
     }
 
     inline void ApplyAndRegen(uintptr_t weapon, const SkinConfig& skin, uint16_t targetDefIndex) {
         uintptr_t item = weapon + Offsets::m_AttributeManager + Offsets::m_Item;
 
-        if (regenAddr && regenPatched) {
-            // Flash approach: write → regen → cleanup
-            uint32_t origItemIDHigh = Mem::Read<uint32_t>(item + Offsets::m_iItemIDHigh);
-
+        if (RegenerateWeaponSkin) {
+            // Direct-call path (build 14154+): write fallbacks, regen, leave them in place.
+            //
+            // Unlike the old "patch + flash + cleanup" approach, the fallback fields
+            // are PERSISTENT — m_iItemIDHigh=0xFFFFFFFF tells the renderer to read
+            // m_nFallbackPaintKit/Seed/Wear/StatTrak directly. Cleaning them up after
+            // regen would just put the weapon back into "no skin" state on the next
+            // tick. So we leave them set; ApplyGloveSkin / weapon iteration ensures
+            // they are re-written when the user picks a different paint.
             Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0xFFFFFFFF);
             Mem::Write<int32_t>(weapon + Offsets::m_nFallbackPaintKit, skin.paintKit);
             Mem::Write<float>(weapon + Offsets::m_flFallbackWear, skin.wear);
             Mem::Write<int32_t>(weapon + Offsets::m_nFallbackSeed, skin.seed);
             Mem::Write<int32_t>(weapon + Offsets::m_nFallbackStatTrak, skin.statTrak);
 
-            CreateAttributes(item, skin.paintKit, skin.seed, skin.wear);
-            CallRegen();
-
-            RemoveAttributes(item);
-            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, origItemIDHigh);
-            Mem::Write<int32_t>(weapon + Offsets::m_nFallbackPaintKit, 0);
-            Mem::Write<float>(weapon + Offsets::m_flFallbackWear, 0.0f);
-            Mem::Write<int32_t>(weapon + Offsets::m_nFallbackSeed, 0);
-            Mem::Write<int32_t>(weapon + Offsets::m_nFallbackStatTrak, -1);
+            CallRegen(weapon);
         } else {
             // Persistent fallback approach: keep values written
             // Works without regen — game reads fallbacks when m_iItemIDHigh == 0xFFFFFFFF
