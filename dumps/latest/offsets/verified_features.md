@@ -301,9 +301,9 @@ On top of that, every gate below is a server-authoritative bool the engine itsel
 | `C_CSGameRules` | `m_bWarmupPeriod` | `0x41` | `bool` | warmup — no attacks possible; suppress |
 | `C_CSGameRules` | `m_bIsValveDS` | `0xA4` | `bool` | TRUE on Valve official MM (where Overwatch + VAC Live actually run) — soft-throttle to 0.55x |
 | `C_CSGameRules` | `m_bHasMatchStarted` | `0xB0` | `bool` | match-state gate; useful for warmup-only conservative profile |
-| `C_CSPlayerPawn` | `m_bWaitForNoAttack` | `0x1CA8` | `bool` | TRUE after respawn / weapon switch / round-restart until attack is RELEASED then re-pressed; suppress (firing through this is a textbook bot tell) |
-| `C_CSPlayerPawn` | `m_bIsDefusing` | `0x1C8A` | `bool` | server forbids attack while defusing; angle flick is worst possible signature |
-| `C_CSPlayerPawn` | `m_bIsGrabbingHostage` | `0x1C8B` | `bool` | server forbids attack while grabbing hostage; suppress |
+| `C_CSPlayerPawn` | `m_bWaitForNoAttack` | `0x1C68` | `bool` | TRUE after respawn / weapon switch / round-restart until attack is RELEASED then re-pressed; suppress (firing through this is a textbook bot tell) |
+| `C_CSPlayerPawn` | `m_bIsDefusing` | `0x1C4A` | `bool` | server forbids attack while defusing; angle flick is worst possible signature |
+| `C_CSPlayerPawn` | `m_bIsGrabbingHostage` | `0x1C4B` | `bool` | server forbids attack while grabbing hostage; suppress |
 | `C_BaseEntity` | `m_MoveType` | `0x525` | `uint8 (MoveType_t)` | only 2 (WALK) and 4 (FLYGRAVITY) are normal play; LADDER=9 / NOCLIP=7 / OBSERVER=8 / NONE=0 ⇒ suppress |
 | `C_CSWeaponBaseGun` | `m_zoomLevel` | `0x1CB0` | `int32` | 0=unscoped, 1/2=scoped — refuse silent-fire on AWP/SSG/G3SG1/SCAR-20 when zoom == 0 (no-scope detection signal) |
 | `C_CSWeaponBaseGun` | `m_bNeedsBoltAction` | `0x1CCD` | `bool` | AWP/SSG/Scout post-shot bolt-cycle lockout — server discards attacks until false |

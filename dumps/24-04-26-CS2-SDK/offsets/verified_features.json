@@ -691,21 +691,21 @@
           "class": "C_CSPlayerPawn",
           "field": "m_bWaitForNoAttack",
           "note": "TRUE after respawn / weapon switch / round-restart until attack is RELEASED then re-pressed; suppress (firing through this is a textbook bot tell)",
-          "offset": "0x1CA8",
+          "offset": "0x1C68",
           "type": "bool"
         },
         {
           "class": "C_CSPlayerPawn",
           "field": "m_bIsDefusing",
           "note": "server forbids attack while defusing; angle flick is worst possible signature",
-          "offset": "0x1C8A",
+          "offset": "0x1C4A",
           "type": "bool"
         },
         {
           "class": "C_CSPlayerPawn",
           "field": "m_bIsGrabbingHostage",
           "note": "server forbids attack while grabbing hostage; suppress",
-          "offset": "0x1C8B",
+          "offset": "0x1C4B",
           "type": "bool"
         },
         {
