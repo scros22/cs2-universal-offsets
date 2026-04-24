@@ -153,13 +153,20 @@ namespace Offsets
     // true until the player RELEASES attack and re-presses it. Silent
     // firing while this is set produces "fired before client could have
     // pressed M1 again" — pure bot signature, zero false-positive rate.
-    constexpr std::ptrdiff_t m_bWaitForNoAttack    = 0x1CA8;
+    // VERIFIED via IDA schema-registration sub_180BB0AB0 @ build 14154:
+    // mov [rcx+10h], 1C68h immediately after lea "m_bWaitForNoAttack".
+    // Previous value (0x1CA8) was +0x40 high — same drift we already
+    // fixed for m_entitySpottedState. Universal-dumper + IDA agree.
+    constexpr std::ptrdiff_t m_bWaitForNoAttack    = 0x1C68;
 
     // C_CSPlayerPawn — defuse / hostage-rescue locks. Server forbids
     // attack inputs while either bool is true; angle desync alone
     // during a defuse is the worst possible silent-aim signature.
-    constexpr std::ptrdiff_t m_bIsDefusing         = 0x1C8A;
-    constexpr std::ptrdiff_t m_bIsGrabbingHostage  = 0x1C8B;
+    // VERIFIED via IDA schema-registration sub_180BB0AB0 @ build 14154:
+    // mov [rcx+10h], 1C4Ah / 1C4Bh after the respective string lea.
+    // Previously had 0x1C8A / 0x1C8B (+0x40 drift, same as spotted-state).
+    constexpr std::ptrdiff_t m_bIsDefusing         = 0x1C4A;
+    constexpr std::ptrdiff_t m_bIsGrabbingHostage  = 0x1C4B;
 
     // C_BaseEntity — m_MoveType. MoveType_t::WALK = 2 (normal),
     // FLYGRAVITY = 4 (airborne due to gravity). Anything else
