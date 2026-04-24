@@ -1935,6 +1935,37 @@ namespace Aimbot
                         suppress = true;
                 } __except (EXCEPTION_EXECUTE_HANDLER) {}
             }
+
+            // ---- Defuse / hostage-grab gate ------------------------
+            // Server forbids attack while either is in progress. An
+            // angle flick from a defusing player is a textbook bot
+            // tell — every legit player has both hands on the kit.
+            if (!suppress && lpHard) {
+                __try {
+                    if (Mem::Read<bool>(lpHard + Offsets::m_bIsDefusing))
+                        suppress = true;
+                    if (!suppress &&
+                        Mem::Read<bool>(lpHard + Offsets::m_bIsGrabbingHostage))
+                        suppress = true;
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            }
+
+            // ---- MoveType gate -------------------------------------
+            // Only WALK (2) and FLYGRAVITY (4 — airborne) are normal
+            // human play. LADDER / NOCLIP / OBSERVER / NONE either
+            // can't fire at all or produce a bullet from a position
+            // that screams "scripted". Skip the angle write.
+            if (!suppress && lpHard) {
+                __try {
+                    uint8_t mt = Mem::Read<uint8_t>(lpHard + Offsets::m_MoveType);
+                    if (mt != Offsets::MOVETYPE_WALK &&
+                        mt != Offsets::MOVETYPE_FLYGRAVITY)
+                    {
+                        suppress = true;
+                    }
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            }
+
             if (!suppress && lpHard) {
                 uintptr_t wep = GetActiveWeapon(lpHard);
                 if (wep) {
@@ -1946,6 +1977,12 @@ namespace Aimbot
                         } __except (EXCEPTION_EXECUTE_HANDLER) {
                             suppress = true; // unknown zoom = err on safe
                         }
+                        // Bolt-action lockout (AWP/SSG/Scout). While the
+                        // bolt is cycling the server discards attacks.
+                        __try {
+                            if (Mem::Read<bool>(wep + Offsets::m_bNeedsBoltAction))
+                                suppress = true;
+                        } __except (EXCEPTION_EXECUTE_HANDLER) {}
                     }
 
                     // ---- Reload / empty-clip gate ----------------------
