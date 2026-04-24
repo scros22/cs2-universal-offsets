@@ -164,20 +164,21 @@ namespace Triggerbot
         }
 
         // ---- Speed / jump-apex gate (anti-detection + actual hit rate) ----
-        // Reading m_vecVelocity on the pawn — replicates server side, so
-        // the gate matches what the server will use to compute spread.
+        // Use FL_ONGROUND from m_fFlags rather than guessing from vel.z
+        // — vel.z bounces between -0.5 and +0.5 on slopes/stairs even
+        // when the player is grounded, which made the old heuristic
+        // mis-classify and skip legitimate shots.
         Math::Vec3 vel = Mem::Read<Math::Vec3>(localPawn + Offsets::m_vecVelocity);
         float horizSpeed = sqrtf(vel.x * vel.x + vel.y * vel.y);
-        // Heuristic: fGravity > 0 means we're airborne (ground entity = 0xFFFFFFFF).
-        // Cheaper to just check vertical velocity magnitude AND speed:
-        // if |vz| > a few u/s we're not on flat ground.
-        bool airborne = fabsf(vel.z) > 0.5f;
+        uint32_t flFlags = Mem::Read<uint32_t>(localPawn + Offsets::m_fFlags);
+        bool airborne = (flFlags & (1u << 0)) == 0;  // FL_ONGROUND = 1<<0
 
         if (airborne)
         {
             if (cfg.jumpApexFire)
             {
                 // Only fire near the apex of the jump where spread is lowest.
+                // CS2 inaccuracy_jump kicks in proportional to |vz| / 250.
                 if (fabsf(vel.z) > cfg.jumpApexAbsVz) {
                     triggerTime = 0; return;
                 }
@@ -197,23 +198,26 @@ namespace Triggerbot
         }
 
         // ---- Accuracy-gated (a.k.a. seeded) trigger ----
-        // Server uses m_fAccuracyPenalty for the bullet spread cone.
-        // We resolve the active weapon and skip the shot if the cone
-        // is too wide. This is the "seeded" trigger the user asked
-        // about — it doesn't predict the seed itself (server-side RNG)
-        // but it gates on the inputs that determine the spread, so we
-        // only ever fire when the bullet is statistically likely to
-        // land. Net effect: same outcome as seed prediction (no
-        // wasted/missed shots) without the unsafe full RNG replay.
+        // Server uses m_fAccuracyPenalty for the bullet spread cone
+        // and m_flTurningInaccuracy as a separate additive cone applied
+        // when the view angles change quickly (snap-aim spike).  Both
+        // must be small for the shot to land.  This pair is what the
+        // community calls "seeded" trigger — we don't predict the
+        // server-side RNG seed, we just refuse to fire until the
+        // resolved cone width is small enough that the bullet is
+        // virtually guaranteed to hit.  Net effect matches a seed
+        // predictor without the detection signature of one.
         if (cfg.accuracyGate)
         {
             uintptr_t weapon = GameState::GetActiveWeapon(localPawn);
             if (weapon)
             {
                 float penalty = Mem::Read<float>(weapon + Offsets::m_fAccuracyPenalty);
-                if (penalty > cfg.maxPenalty) {
-                    // Not a hard reset — let the engagement continue so
-                    // we fire as soon as the bloom decays.
+                float turning = Mem::Read<float>(weapon + Offsets::m_flTurningInaccuracy);
+                // Combined cone proxy.  Empirically, sum > maxPenalty
+                // means > 1° spread which is enough to miss a body box
+                // at mid-range.
+                if ((penalty + turning) > cfg.maxPenalty) {
                     return;
                 }
             }

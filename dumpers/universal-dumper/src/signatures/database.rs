@@ -512,4 +512,98 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     Signature { name: "CNetworkGameServer",                    module: "engine2.dll", needle: "CNetworkGameServer",                    resolve: STRREF, extra_off: 0 },
     Signature { name: "CGameEventManager",                     module: "engine2.dll", needle: "CGameEventManager",                     resolve: STRREF, extra_off: 0 },
     Signature { name: "CSplitScreenSlot",                      module: "engine2.dll", needle: "CSplitScreenSlot",                      resolve: STRREF, extra_off: 0 },
+
+    // ==================================================================
+    // NUVORA APR-26-2026 EXPANSION  v0.6.0
+    // ------------------------------------------------------------------
+    // Functions reverse-engineered while building the CS2 cosmetics +
+    // third-person internals on build 14154.  Every pattern below was
+    // verified UNIQUE (single match) on client.dll 14154 via IDA Pro,
+    // captured at the function entry, and uses literal byte runs that
+    // are structurally stable (instruction selectors, not register
+    // colourings).  These are the exact functions our internal calls
+    // into directly — community use cases include drop-in skin/glove
+    // changers and a console-quality third-person camera.
+    // ==================================================================
+
+    // -- Cosmetics: skin / knife / glove direct-call pipeline ----------
+    // RegenerateWeaponSkin(weapon, bForce) — 0x18078C050 on 14154.
+    // Bypasses the bulk-iterator gate at weapon+0xAA8/+0xAC0 so a
+    // cheat can apply skins without spawning a fake EconItem first.
+    Signature {
+        name: "RegenerateWeaponSkin_v2",
+        module: "client.dll",
+        needle: "40 55 53 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 44 0F B6 FA 48 8B D9 BA ? ? ? ? 48 8D 0D ? ? ? ? E8",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // GloveApply orchestrator — sub_180BBFAA0 — runs every spawner tick
+    // inside sub_180BC2620.  Reads m_EconGloves (embedded view at
+    // pawn+0x1658), checks m_bNeedToReApplyGloves @ pawn+0x1655,
+    // destroys old C_WorldModelGloves, spawns new bonemerged glove
+    // entity with paint params written from the embedded view.
+    Signature {
+        name: "GloveApply_PerTick",
+        module: "client.dll",
+        needle: "40 55 56 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B B9 A0 00 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // Spawner orchestrator — sub_180BC2620 — checks pawn+0x13B1 each
+    // tick to drive GloveApply_PerTick.  Useful for entities/loadout
+    // refresh hooks.
+    Signature {
+        name: "Spawner_PerTickOrchestrator",
+        module: "client.dll",
+        needle: "48 8B C4 55 53 48 8D A8 ? ? ? ? 48 81 EC ? ? ? ? 80 B9 B1 13 00 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // Bulk regen iterator — sub_18078E320 — iterates all C_CSWeaponBase,
+    // gates per-weapon on weapon[0xAA8] || weapon[0xAC0], calls
+    // RegenerateWeaponSkin.  Knowing this gate is the reason custom
+    // skins are silently dropped without setting the fallback fields.
+    Signature {
+        name: "BulkRegenIterator",
+        module: "client.dll",
+        needle: "57 48 83 EC 40 0F B6 F9 E8 ? ? ? ? 48 85 C0 0F 84",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // -- Third-person: native ConCommand handlers ----------------------
+    // sub_180AC8BD0 — `thirdperson` ConCommand handler.  Calling this
+    // directly is identical to typing `thirdperson` in console: sets
+    // CInput+0x229=1, seeds camera anchor at CInput+0x230..+0x238,
+    // calls localPawn->vtable[+0x9C8](true) so the local pawn
+    // renders.  ConCommand flags = 0x20002080 (NOT FCVAR_CHEAT).
+    Signature {
+        name: "ConCommand_thirdperson",
+        module: "client.dll",
+        needle: "48 83 EC 38 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 0F 85 ? ? ? ? 4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // sub_180AC8AF0 — `firstperson` ConCommand handler.  Sister of the
+    // above: clears CInput+0x229, calls localPawn->vtable[+0x9C8](false)
+    // and broadcasts viewmodel/HUD reset.
+    Signature {
+        name: "ConCommand_firstperson",
+        module: "client.dll",
+        needle: "48 83 EC 28 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 75 ? 48 8B 05 ? ? ? ? C6 80 29 02 00 00 00 C7 80 A8 06 00 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // CInput global pointer slot — `off_1820613C0` in IDA.  This is the
+    // ACTUAL CInput pointer (deref the qword at this RVA).  The
+    // cs2-dumper `dwCSGOInput = 0x23386E0` value points to a separate
+    // C_Item entity reservoir and is NOT useful for camera flags.
+    // RIP-relative load pattern; rel32 disp lives at +3 of the match.
+    Signature {
+        name: "CInputPtrGlobal",
+        module: "client.dll",
+        needle: "4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00 85 C0",
+        resolve: RIPREL_3,
+        extra_off: 0,
+    },
 ];

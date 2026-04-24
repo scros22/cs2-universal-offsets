@@ -806,10 +806,10 @@ namespace ESP
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
             char buf2[400];
             snprintf(buf2, sizeof(buf2),
-                "  HOOKS: fov=%d sky=%d ovr=%d | viewAng pitch=%.1f yaw=%.1f roll=%.1f",
+                "  HOOKS: fov=%d sky=%d 3p=%d | viewAng pitch=%.1f yaw=%.1f roll=%.1f",
                 WorldEffects::fovHooked ? 1 : 0,
                 WorldEffects::skyHooked ? 1 : 0,
-                WorldEffects::overrideViewHooked ? 1 : 0,
+                (WorldEffects::pThirdPersonOn && WorldEffects::pThirdPersonOff) ? 1 : 0,
                 va.pitch, va.yaw, va.roll);
             dl->AddText({10.f, 26.f}, IM_COL32(0,255,0,255), buf2);
 

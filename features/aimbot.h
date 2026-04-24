@@ -1069,9 +1069,11 @@ namespace Aimbot
         return GameState::ResolveHandle(h);
     }
 
-    // Weapon inaccuracy offsets (from C_CSWeaponBase schema)
-    constexpr std::ptrdiff_t kWeapAccuracyPenalty    = 0x19C0; // m_fAccuracyPenalty (float)
-    constexpr std::ptrdiff_t kWeapTurningInaccuracy  = 0x19BC; // m_flTurningInaccuracy (float)
+    // Weapon inaccuracy offsets — use canonical Offsets:: values.
+    // (Old hardcoded 0x19C0/0x19BC drifted by -0x1F0 vs 14154 schema;
+    //  reads/writes were silently hitting unrelated weapon fields.)
+    //  m_fAccuracyPenalty   = Offsets::m_fAccuracyPenalty   (0x17D0)
+    //  m_flTurningInaccuracy = Offsets::m_flTurningInaccuracy (0x17CC)
 
     // ---------------------------------------------------------------
     // No Spread — zero weapon inaccuracy each tick.
@@ -1085,13 +1087,13 @@ namespace Aimbot
         if (!weapon) return;
 
         // Only zero if values are non-zero (avoid unnecessary writes)
-        float penalty = Mem::Read<float>(weapon + kWeapAccuracyPenalty);
+        float penalty = Mem::Read<float>(weapon + Offsets::m_fAccuracyPenalty);
         if (penalty != 0.f)
-            Mem::Write<float>(weapon + kWeapAccuracyPenalty, 0.f);
+            Mem::Write<float>(weapon + Offsets::m_fAccuracyPenalty, 0.f);
 
-        float turning = Mem::Read<float>(weapon + kWeapTurningInaccuracy);
+        float turning = Mem::Read<float>(weapon + Offsets::m_flTurningInaccuracy);
         if (turning != 0.f)
-            Mem::Write<float>(weapon + kWeapTurningInaccuracy, 0.f);
+            Mem::Write<float>(weapon + Offsets::m_flTurningInaccuracy, 0.f);
     }
 
     inline float GetVerticalVelocity(uintptr_t pawn)
@@ -1404,7 +1406,10 @@ namespace Aimbot
         inline CreateMoveFn oCreateMove = nullptr;
         inline void*        pCreateMoveHook = nullptr;  // for cleanup
 
-        // sub_180C54450 — CCSGOInput::WriteSubtickFromEntry (build 14153).
+        // sub_180C53DB0 — CCSGOInput::WriteSubtickFromEntry (build 14154,
+        // verified Apr 2026). Sig still unique:
+        //   48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00
+        //   8B 01 48 8B F9 81 4A 10 00 02
         // Called per-subtick by CCSGOInput::CreateMove with (entry*, msgPtr, ...)
         // and copies entry+0x10..0x18 (view angles) into msg field 6/7/8 of the
         // outgoing CUserCmd subtick. Hooking THIS lets us redirect every

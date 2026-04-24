@@ -632,95 +632,161 @@ namespace WorldEffects
     }
 
     // ---------------------------------------------------------------
-    // Third person — OverrideView hook on CCSGOViewAdviceService.
-    // Hooks the camera setup function in client.dll and offsets the
-    // camera behind/above the player while also setting the engine's
-    // third-person input flag so the local model renders reliably.
-    // Toggled via middle mouse click (handled in WndProc).
+    // Third person — invoke the game's native `thirdperson` /
+    // `firstperson` ConCommand handlers directly. This routes through
+    // the engine's own camera pipeline (sub_180AC6CA0 / sub_180AC6EC0)
+    // so we get smooth interpolation, world collision, view-model
+    // hiding, and proper local-pawn rendering for free — no hook,
+    // no signature, no per-frame origin math.
+    //
+    // Reverse engineered (build 14154):
+    //   sub_180AC8BD0 ("thirdperson" cmd handler)  RVA 0x00AC8BD0
+    //     - sets *(pInput + 0x229) = 1            // enable flag
+    //     - saves eye origin into pInput[+0x230]  // camera anchor
+    //     - calls localPawn->vtable[+2504](true)  // render local pawn
+    //   sub_180AC8AF0 ("firstperson" cmd handler) RVA 0x00AC8AF0
+    //     - clears *(pInput + 0x229) = 0
+    //     - calls localPawn->vtable[+2504](false) // hide local pawn
+    //     - broadcasts cleanup
+    //
+    // The CInput global (`off_1820613C0` in IDA) lives at
+    //   *(uintptr_t*)(clientBase + 0x20613C0)
+    // i.e. it is a POINTER, not the embedded struct (the cs2-dumper
+    // `dwCSGOInput = 0x23386E0` value is unrelated — points to a
+    // C_Item entity reservoir).
     // ---------------------------------------------------------------
 
-    // CViewSetup field offsets (Source 2 / CS2 — validated March 2026)
-    namespace ViewSetupOffsets
+    using ThirdPersonCmdFn = void(__fastcall*)();
+    inline ThirdPersonCmdFn pThirdPersonOn  = nullptr;
+    inline ThirdPersonCmdFn pThirdPersonOff = nullptr;
+
+    constexpr std::ptrdiff_t kThirdPersonOn_RVA  = 0xAC8BD0;
+    constexpr std::ptrdiff_t kThirdPersonOff_RVA = 0xAC8AF0;
+    constexpr std::ptrdiff_t kCInputPtr_RVA      = 0x20613C0;
+    constexpr std::ptrdiff_t kCInput_ThirdPerson = 0x229;
+
+    // Get the live CInput struct (deref the global pointer). Returns 0 if
+    // the global hasn't been populated yet (early in process startup) or
+    // if the dereferenced pointer obviously points at unmapped memory.
+    inline uintptr_t GetCInput()
     {
-        constexpr size_t Origin = 0x490; // Vec3 (x, y, z)
-        constexpr size_t Angles = 0x4A0; // QAngle (pitch, yaw, roll)
-        constexpr size_t Fov    = 0x230; // float
-    }
-
-    // Hook function type: void __fastcall OverrideView(void* thisPtr, void* viewSetup)
-    using OverrideViewFn = void(__fastcall*)(void*, void*);
-    inline OverrideViewFn oOverrideView = nullptr;
-    inline void*          pOverrideViewTarget = nullptr;
-    inline bool           overrideViewHooked = false;
-
-    inline void __fastcall hkOverrideView(void* thisPtr, void* viewSetup)
-    {
-        // Call original first — let engine set up default first-person camera
-        if (oOverrideView)
-            oOverrideView(thisPtr, viewSetup);
-
-        if (!cfg.thirdPerson || !viewSetup || !GameState::clientBase) return;
-
+        if (!GameState::clientBase) return 0;
         __try {
-            uintptr_t lp = GameState::GetLocalPawn();
-            if (!lp) return;
-
-            int hp = Mem::Read<int>(lp + Offsets::m_iHealth);
-            if (hp <= 0) return;
-
-            // Enable engine third-person input flag — required so the local
-            // model actually renders (otherwise we see headless camera floating).
-            Mem::SmartWrite<bool>(
-                GameState::clientBase + GameState::RVA_dwCSGOInput() + 0x229, true);
-
-            // Read the eye position the engine just wrote into CViewSetup.
-            uint8_t* vs = reinterpret_cast<uint8_t*>(viewSetup);
-            Math::Vec3   eyePos   = *reinterpret_cast<Math::Vec3*>(vs + ViewSetupOffsets::Origin);
-            Math::QAngle viewAng  = *reinterpret_cast<Math::QAngle*>(vs + ViewSetupOffsets::Angles);
-
-            // Build forward vector from view angles. Source uses
-            //   pitch = X (down +), yaw = Y, roll = Z (degrees)
-            constexpr float kDeg2Rad = 3.14159265358979323846f / 180.f;
-            float p  = viewAng.pitch * kDeg2Rad;
-            float y  = viewAng.yaw   * kDeg2Rad;
-            float cp = cosf(p), sp = sinf(p);
-            float cy = cosf(y), sy = sinf(y);
-
-            Math::Vec3 forward{ cp * cy, cp * sy, -sp };
-
-            // Push camera backward from the eye position by user-configured
-            // distance, then nudge it slightly upward so we look over the
-            // shoulder/head instead of through it.
-            float dist = cfg.thirdPersonDist;
-            Math::Vec3 newOrigin{
-                eyePos.x - forward.x * dist,
-                eyePos.y - forward.y * dist,
-                eyePos.z - forward.z * dist + 8.f
-            };
-
-            *reinterpret_cast<Math::Vec3*>(vs + ViewSetupOffsets::Origin) = newOrigin;
-            // Keep angles unchanged — we still want to look the same direction.
-        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            uintptr_t p = Mem::Read<uintptr_t>(GameState::clientBase + kCInputPtr_RVA);
+            // Cheap sanity: user-mode allocations on x64 sit between
+            // 0x00010000 and 0x00007FFFFFFFFFFF. Reject obvious garbage
+            // (NULL, low canonical, kernel-half) before the caller pokes it.
+            if (p < 0x10000ULL || p > 0x00007FFFFFFFFFFFULL) return 0;
+            return p;
+        } __except (EXCEPTION_EXECUTE_HANDLER) { return 0; }
     }
 
-    // Disable third person flag when turned off (called from Tick)
+    // Resolve the engine's thirdperson/firstperson handlers (idempotent).
+    // Strategy:
+    //   1) Try the known RVA and validate the prologue is `48 83 EC ??`
+    //      (sub rsp, imm8) — both handlers start that way.
+    //   2) Fall back to a unique signature scan on client.dll if the RVA
+    //      moves on a future patch. Sig matches the precondition gate +
+    //      flag write, which is structurally stable across builds.
+    inline void ResolveThirdPersonHandlers()
+    {
+        if (pThirdPersonOn && pThirdPersonOff) return;
+        if (!GameState::clientBase) return;
+
+        auto validatePrologue = [](uintptr_t ea) -> bool {
+            __try {
+                uint32_t hdr = Mem::Read<uint32_t>(ea);
+                // 48 83 EC ??  (sub rsp, imm8)  — low 24 bits = 00 EC 83 48 LE
+                return (hdr & 0x00FFFFFF) == 0x00EC8348;
+            } __except (EXCEPTION_EXECUTE_HANDLER) { return false; }
+        };
+
+        // --- ON handler ---
+        if (!pThirdPersonOn)
+        {
+            uintptr_t ea = GameState::clientBase + kThirdPersonOn_RVA;
+            if (validatePrologue(ea))
+                pThirdPersonOn = reinterpret_cast<ThirdPersonCmdFn>(ea);
+            else
+            {
+                uintptr_t found = Mem::FindPattern(L"client.dll", Signatures::ThirdPersonOnHandler);
+                if (found && validatePrologue(found))
+                    pThirdPersonOn = reinterpret_cast<ThirdPersonCmdFn>(found);
+            }
+        }
+
+        // --- OFF handler ---
+        if (!pThirdPersonOff)
+        {
+            uintptr_t ea = GameState::clientBase + kThirdPersonOff_RVA;
+            if (validatePrologue(ea))
+                pThirdPersonOff = reinterpret_cast<ThirdPersonCmdFn>(ea);
+            else
+            {
+                uintptr_t found = Mem::FindPattern(L"client.dll", Signatures::ThirdPersonOffHandler);
+                if (found && validatePrologue(found))
+                    pThirdPersonOff = reinterpret_cast<ThirdPersonCmdFn>(found);
+            }
+        }
+    }
+
+    // Forward declare ConVar value pointer (defined above for shoulder cvars)
+    // so RunThirdPerson can write the live camera distance each tick.
+    extern uintptr_t pCV_cam_idealdist;
+
+    // Called from Tick — drives the toggle through the engine's own path
+    // and keeps cam_idealdist in sync with the user's slider.
     inline void RunThirdPerson()
     {
         static bool wasOn = false;
-        if (!cfg.thirdPerson)
+        if (!GameState::clientBase) { wasOn = false; return; }
+
+        ResolveThirdPersonHandlers();
+
+        // Live distance push regardless of state transition — lets the
+        // user drag the slider while in 3p and see it apply instantly.
+        if (cfg.thirdPerson && pCV_cam_idealdist)
         {
-            if (wasOn && GameState::clientBase)
-            {
-                __try {
-                    Mem::SmartWrite<bool>(
-                        GameState::clientBase + GameState::RVA_dwCSGOInput() + 0x229, false);
-                } __except (EXCEPTION_EXECUTE_HANDLER) {}
-            }
-            wasOn = false;
+            __try {
+                Mem::SmartWrite<float>(pCV_cam_idealdist, cfg.thirdPersonDist);
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        }
+
+        if (cfg.thirdPerson == wasOn) return; // no transition
+
+        if (cfg.thirdPerson)
+        {
+            // Only enable if alive — calling the engine handler while
+            // dead/spectating produces a sticky stuck-camera state.
+            __try {
+                uintptr_t lp = GameState::GetLocalPawn();
+                if (!lp) return;
+                int hp = Mem::Read<int>(lp + Offsets::m_iHealth);
+                if (hp <= 0) return;
+            } __except (EXCEPTION_EXECUTE_HANDLER) { return; }
+
+            __try {
+                if (pThirdPersonOn) { pThirdPersonOn(); }
+                else
+                {
+                    // Fallback — flip the flag manually if handler resolution failed.
+                    uintptr_t pInput = GetCInput();
+                    if (pInput) Mem::SmartWrite<uint8_t>(pInput + kCInput_ThirdPerson, 1);
+                }
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            wasOn = true;
         }
         else
         {
-            wasOn = true;
+            __try {
+                if (pThirdPersonOff) { pThirdPersonOff(); }
+                else
+                {
+                    uintptr_t pInput = GetCInput();
+                    if (pInput) Mem::SmartWrite<uint8_t>(pInput + kCInput_ThirdPerson, 0);
+                }
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            wasOn = false;
         }
     }
 
@@ -1059,24 +1125,11 @@ namespace WorldEffects
             }
         }
 
-        // --- OverrideView hook (client.dll) via MinHook ---
-        // Hooks CCSGOViewAdviceService::OverrideView to control the camera
-        // for third person. Much more reliable than byte-patching the
-        // camera-reset branch since it gives us direct camera control.
-        uintptr_t ovAddr = Mem::FindPattern(L"client.dll", Signatures::OverrideView);
-        if (ovAddr)
-        {
-            pOverrideViewTarget = reinterpret_cast<void*>(ovAddr);
-            MH_STATUS st = MH_CreateHook(
-                pOverrideViewTarget,
-                &hkOverrideView,
-                reinterpret_cast<void**>(&oOverrideView));
-            if (st == MH_OK || st == MH_ERROR_ALREADY_CREATED)
-            {
-                st = MH_EnableHook(pOverrideViewTarget);
-                overrideViewHooked = (st == MH_OK || st == MH_ERROR_ENABLED);
-            }
-        }
+        // --- Third person handlers (RVA-bound, no signature scan) ---
+        // Resolve the engine's `thirdperson` / `firstperson` ConCommand
+        // handlers so RunThirdPerson() can call them directly. Failure is
+        // non-fatal — RunThirdPerson falls back to a manual flag flip.
+        ResolveThirdPersonHandlers();
 
         // --- DrawSkyboxArray hook (scenesystem.dll) via MinHook ---
         // Entity writes to m_vTintColor don't work (renderer caches at setup).
@@ -1135,29 +1188,27 @@ namespace WorldEffects
             pCV_mat_fullbright        = FindCvarValue(pCCvar, "mat_fullbright");
         }
 
-        return overrideViewHooked || skyHooked;
+        return skyHooked;
     }
 
     inline void Shutdown()
     {
-        // Disable third person input flag
-        if (GameState::clientBase)
+        // Disable third person — call the engine's native firstperson
+        // handler so the local pawn render flag and broadcast cleanup
+        // happen the same way the game does it.
+        if (cfg.thirdPerson && pThirdPersonOff)
         {
+            __try { pThirdPersonOff(); } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        }
+        else if (GameState::clientBase)
+        {
+            // Fallback flag clear via the deref'd CInput pointer.
             __try {
-                Mem::SmartWrite<bool>(
-                    GameState::clientBase + GameState::RVA_dwCSGOInput() + 0x229, false);
+                uintptr_t pInput = GetCInput();
+                if (pInput) Mem::SmartWrite<uint8_t>(pInput + kCInput_ThirdPerson, 0);
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
         }
-
-        // Remove OverrideView hook
-        if (overrideViewHooked && pOverrideViewTarget)
-        {
-            MH_DisableHook(pOverrideViewTarget);
-            MH_RemoveHook(pOverrideViewTarget);
-            oOverrideView = nullptr;
-            pOverrideViewTarget = nullptr;
-            overrideViewHooked = false;
-        }
+        cfg.thirdPerson = false;
 
         if (skyHooked && pSkyHookTarget)
         {

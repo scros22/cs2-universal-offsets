@@ -23,13 +23,18 @@
 #include "../core/signatures.h"
 #include "../vendor/minhook/include/MinHook.h"
 
-// Button command offsets from client.dll (from dumper: buttons.hpp)
+// Button command offsets are pulled from sdk/buttons.hpp via
+// Offsets::Buttons (refreshed from live dumper, build 14154).
+// Pre-fix: bhop hardcoded jump=0x2066C70, drift +0x18D40 from live
+// 0x204DF30 — every press/release was hitting unrelated client.dll
+// memory and bhop only "worked" because the user holds Space manually.
 namespace ButtonOffsets {
-    constexpr std::ptrdiff_t jump    = 0x2066C70;
-    constexpr std::ptrdiff_t left    = 0x2066AC0;  // +moveleft
-    constexpr std::ptrdiff_t right   = 0x2066B50;  // +moveright
-    constexpr std::ptrdiff_t forward = 0x20669A0;  // +forward
-    constexpr std::ptrdiff_t back    = 0x2066A30;  // +back
+    constexpr std::ptrdiff_t jump    = Offsets::Buttons::jump;
+    constexpr std::ptrdiff_t left    = Offsets::Buttons::left;     // +moveleft
+    constexpr std::ptrdiff_t right   = Offsets::Buttons::right;    // +moveright
+    constexpr std::ptrdiff_t forward = Offsets::Buttons::forward;  // +forward
+    constexpr std::ptrdiff_t back    = Offsets::Buttons::back;     // +back
+    constexpr std::ptrdiff_t duck    = Offsets::Buttons::duck;     // +duck (for jumpshot crouch-air)
 }
 
 constexpr std::uint32_t FL_ONGROUND = (1 << 0);
@@ -57,12 +62,18 @@ namespace Bhop
     inline bool  jumpToggle      = false;  // alternates jump press/release
     inline bool  inAutoStrafe    = false;  // true while we're controlling strafe keys in air
 
-    // Movement services offsets
-    constexpr std::ptrdiff_t m_pMovementServices      = 0x1418;
-    constexpr std::ptrdiff_t m_flStamina              = 0x518;
-    constexpr std::ptrdiff_t m_flStaminaAtJumpStart   = 0x528;
-    constexpr std::ptrdiff_t m_flAccumulatedJumpError = 0x530;
-    constexpr std::ptrdiff_t m_flVelocityModifier     = 0x2714;
+    // Movement services offsets — canonical, sourced from
+    // dumps/latest/offsets/sdk/client_dll.hpp on build 14154.
+    // PRE-14154 these were 0x518/0x528/0x530/0x2714 with the services
+    // pointer at pawn+0x1418; writing those values now silently lands
+    // on unrelated fields and bhop never resets stamina, killing the
+    // strafe speed gain.
+    using Offsets::m_pMovementServices_pawn;
+    using Offsets::m_flStamina_movement;
+    using Offsets::m_flStaminaAtJumpStart_movement;
+    using Offsets::m_flAccumulatedJumpError_mov;
+    using Offsets::m_flLastJumpVelocityZ_movement;
+    using Offsets::m_flVelocityModifier_pawn;
 
     inline bool hookInstalled = false;
 
@@ -220,15 +231,31 @@ namespace Bhop
         uintptr_t localPawn = GameState::GetLocalPawn();
         if (!localPawn) return;
 
-        Mem::Write<float>(localPawn + m_flVelocityModifier, 1.0f);
+        Mem::Write<float>(localPawn + m_flVelocityModifier_pawn, 1.0f);
 
-        uintptr_t moveSvc = Mem::Read<uintptr_t>(localPawn + m_pMovementServices);
+        uintptr_t moveSvc = Mem::Read<uintptr_t>(localPawn + m_pMovementServices_pawn);
         if (moveSvc)
         {
-            Mem::Write<float>(moveSvc + m_flStamina, 0.f);
-            Mem::Write<float>(moveSvc + m_flStaminaAtJumpStart, 0.f);
-            Mem::Write<float>(moveSvc + m_flAccumulatedJumpError, 0.f);
+            Mem::Write<float>(moveSvc + m_flStamina_movement,           0.f);
+            Mem::Write<float>(moveSvc + m_flStaminaAtJumpStart_movement, 0.f);
+            Mem::Write<float>(moveSvc + m_flAccumulatedJumpError_mov,    0.f);
         }
+    }
+
+    // ---------------------------------------------------------------
+    // GetLastJumpVelZ — reads m_flLastJumpVelocityZ from the movement
+    // services block.  Aimbot's jumpshot/triggerbot use this to find
+    // the actual apex of the current jump rather than guessing from
+    // the noisy live m_vecVelocity.z (which oscillates because the
+    // physics integrator updates between client+server ticks).
+    // ---------------------------------------------------------------
+    inline float GetLastJumpVelZ()
+    {
+        uintptr_t localPawn = GameState::GetLocalPawn();
+        if (!localPawn) return 0.f;
+        uintptr_t moveSvc = Mem::Read<uintptr_t>(localPawn + m_pMovementServices_pawn);
+        if (!moveSvc) return 0.f;
+        return Mem::Read<float>(moveSvc + m_flLastJumpVelocityZ_movement);
     }
 
     // ---------------------------------------------------------------

@@ -30,8 +30,27 @@ namespace Signatures
         "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8D 99";
 
     // OverrideView (CCSGOViewAdviceService) — camera FOV/angles
+    // NOTE: This sig is DEAD on build 14154 (returns 0 hits). Kept for
+    // archaeology. Third-person no longer relies on it — see
+    // ThirdPersonOnHandler / ThirdPersonOffHandler below.
     constexpr const char* OverrideView =
         "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B FA E8";
+
+    // ConCommand handler for `thirdperson` (sub_180AC8BD0 on 14154).
+    // Pattern keys on the `mov [r8+229h], 1` flag write + the unique
+    // `mov dword [r8+6A8h], 0` transition reset that follows. Verified
+    // unique across client.dll on 14154.
+    constexpr const char* ThirdPersonOnHandler =
+        "48 83 EC 38 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 "
+        "83 7C 24 ? 00 0F 85 ? ? ? ? 4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00";
+
+    // ConCommand handler for `firstperson` (sub_180AC8AF0 on 14154).
+    // Sister of the above; keys on `mov [rax+229h], 0` + transition
+    // reset. Verified unique across client.dll on 14154.
+    constexpr const char* ThirdPersonOffHandler =
+        "48 83 EC 28 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 "
+        "83 7C 24 ? 00 75 ? 48 8B 05 ? ? ? ? C6 80 29 02 00 00 00 "
+        "C7 80 A8 06 00 00 00";
 
     // SetWorldFov — E8-CALL to world-FOV setter
     constexpr const char* SetWorldFov =

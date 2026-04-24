@@ -361,9 +361,35 @@ namespace Offsets
     // C_CSWeaponBase — server-replicated firing state.
     // Used by the seeded triggerbot to predict whether the next shot
     // will land inside the target's hitbox cone before pulling the
-    // trigger. Verified against build 14152 schema dump.
-    constexpr std::ptrdiff_t m_fAccuracyPenalty    = 0x17D0;  // float — cumulative inaccuracy
-    constexpr std::ptrdiff_t m_flRecoilIndex       = 0x17E0;  // float — current recoil step
+    // trigger. Verified against build 14154 schema dump (Apr 2026).
+    // Schema reg site: sub_18078F9B0 (client.dll). Cross-checked
+    // against dumps/latest/offsets/sdk/client_dll.hpp.
+    constexpr std::ptrdiff_t m_flTurningInaccuracyDelta = 0x17BC; // float
+    constexpr std::ptrdiff_t m_flTurningInaccuracy      = 0x17CC; // float — extra cone from view turn rate
+    constexpr std::ptrdiff_t m_fAccuracyPenalty         = 0x17D0; // float — cumulative inaccuracy
+    constexpr std::ptrdiff_t m_flLastAccuracyUpdateTime = 0x17D4; // GameTime_t
+    constexpr std::ptrdiff_t m_fAccuracySmoothedForZoom = 0x17D8; // float
+    constexpr std::ptrdiff_t m_flRecoilIndex            = 0x17E0; // float — current recoil step
+    constexpr std::ptrdiff_t m_flPostponeFireReadyFrac  = 0x17F0; // float — between-shot delay frac
+
+    // CCSPlayer_MovementServices — bhop / autostrafe critical fields.
+    // The pawn-side pointer to this services block is m_pMovementServices
+    // at pawn+0x1220 (was 0x1418 pre-14154, now drifted -0x1F8). Writing
+    // stamina to the wrong block silently nukes bhop without any obvious
+    // symptom — the speed reset just doesn't take effect.
+    constexpr std::ptrdiff_t m_pMovementServices_pawn       = 0x1220; // CCSPlayer_MovementServices*
+    constexpr std::ptrdiff_t m_bDucked_movement             = 0x3E0;  // bool
+    constexpr std::ptrdiff_t m_flDuckAmount_movement        = 0x3E4;  // float
+    constexpr std::ptrdiff_t m_bDucking_movement            = 0x3EE;  // bool
+    constexpr std::ptrdiff_t m_flStamina_movement           = 0x674;  // float — bhop kills speed if non-zero
+    constexpr std::ptrdiff_t m_flStaminaAtJumpStart_movement = 0x684; // float
+    constexpr std::ptrdiff_t m_flAccumulatedJumpError_mov   = 0x68C;  // float
+    constexpr std::ptrdiff_t m_flLastJumpFrac_movement      = 0x6E4;  // float
+    constexpr std::ptrdiff_t m_flLastJumpVelocityZ_movement = 0x6E8;  // float — for jumpshot apex detection
+    // Pawn-direct (not via services pointer):
+    constexpr std::ptrdiff_t m_flVelocityModifier_pawn      = 0x1C64; // float — server caps speed via this
+    constexpr std::ptrdiff_t m_iShotsFired_pawn             = 0x1C5C; // int — increments per bullet
+    constexpr std::ptrdiff_t m_flFallVelocity_pawn          = 0x25C;  // float
 
     // C_PlantedC4 — full timing block. m_flC4Blow / m_flDefuseCountDown
     // are GameTime_t (server-clock seconds since epoch); subtract local
