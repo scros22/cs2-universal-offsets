@@ -155,6 +155,31 @@ namespace Offsets
     // pressed M1 again" — pure bot signature, zero false-positive rate.
     constexpr std::ptrdiff_t m_bWaitForNoAttack    = 0x1CA8;
 
+    // C_CSPlayerPawn — defuse / hostage-rescue locks. Server forbids
+    // attack inputs while either bool is true; angle desync alone
+    // during a defuse is the worst possible silent-aim signature.
+    constexpr std::ptrdiff_t m_bIsDefusing         = 0x1C8A;
+    constexpr std::ptrdiff_t m_bIsGrabbingHostage  = 0x1C8B;
+
+    // C_BaseEntity — m_MoveType. MoveType_t::WALK = 2 (normal),
+    // FLYGRAVITY = 4 (airborne due to gravity). Anything else
+    // (LADDER=9, NOCLIP=7, OBSERVER=8, NONE=0) means attack inputs
+    // either don't reach FireBullet or are obvious bot signals.
+    constexpr std::ptrdiff_t m_MoveType            = 0x525;
+    enum MoveType_t : uint8_t {
+        MOVETYPE_NONE       = 0,
+        MOVETYPE_WALK       = 2,
+        MOVETYPE_FLYGRAVITY = 4,
+        MOVETYPE_NOCLIP     = 7,
+        MOVETYPE_OBSERVER   = 8,
+        MOVETYPE_LADDER     = 9,
+    };
+
+    // C_CSWeaponBaseGun — m_bNeedsBoltAction: AWP / SSG-08 / Scout
+    // post-shot animation lockout while the bolt cycles. Server drops
+    // any attack until this flips back to false. Suppress.
+    constexpr std::ptrdiff_t m_bNeedsBoltAction    = 0x1CCD;
+
     // C_CSWeaponBaseGun — m_zoomLevel: 0 = unscoped, 1 = first zoom,
     // 2 = second zoom (AWP only). No-scope silent-fire on AWP/SSG
     // is one of the loudest reportable patterns in the game; no human
