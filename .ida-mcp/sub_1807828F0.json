@@ -1,0 +1,5287 @@
+{
+  "addr": "0x1807828F0",
+  "asm": {
+    "name": "sub_1807828F0",
+    "start_ea": "0x1807828f0",
+    "segment": ".text",
+    "lines": [
+      {
+        "addr": "1807828f0",
+        "instruction": "sub rsp, 28h"
+      },
+      {
+        "addr": "1807828f4",
+        "instruction": "mov ecx, cs:TlsIndex"
+      },
+      {
+        "addr": "1807828fa",
+        "instruction": "mov rax, gs:58h"
+      },
+      {
+        "addr": "180782903",
+        "instruction": "mov edx, 98h"
+      },
+      {
+        "addr": "180782908",
+        "instruction": "mov rax, [rax+rcx*8]"
+      },
+      {
+        "addr": "18078290c",
+        "instruction": "mov eax, [rdx+rax]"
+      },
+      {
+        "addr": "18078290f",
+        "instruction": "cmp cs:dword_1822AEC50, eax"
+      },
+      {
+        "addr": "180782915",
+        "instruction": "jg loc_180783F38"
+      },
+      {
+        "addr": "18078291b",
+        "instruction": "cmp cs:qword_1822AEC18, 0"
+      },
+      {
+        "addr": "180782923",
+        "instruction": "jnz loc_180783F2C"
+      },
+      {
+        "addr": "180782929",
+        "instruction": "lea rax, aCCsweaponbase; \"C_CSWeaponBase\""
+      },
+      {
+        "addr": "180782930",
+        "instruction": "mov [rsp+28h+arg_8], rbp"
+      },
+      {
+        "addr": "180782935",
+        "instruction": "mov cs:qword_1822AEC18, rax"
+      },
+      {
+        "addr": "18078293c",
+        "instruction": "mov [rsp+28h+arg_10], rsi"
+      },
+      {
+        "addr": "180782941",
+        "instruction": "call sub_1808B7790"
+      },
+      {
+        "addr": "180782946",
+        "instruction": "movsxd rcx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "18078294d",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782953",
+        "instruction": "mov r8d, ecx"
+      },
+      {
+        "addr": "180782956",
+        "instruction": "mov cs:qword_1822AEC20, rax"
+      },
+      {
+        "addr": "18078295d",
+        "instruction": "cmp ecx, 1Ah"
+      },
+      {
+        "addr": "180782960",
+        "instruction": "jge short loc_1807829C1"
+      },
+      {
+        "addr": "180782962",
+        "instruction": "mov r8d, edx"
+      },
+      {
+        "addr": "180782965",
+        "instruction": "and r8d, 0C0000000h"
+      },
+      {
+        "addr": "18078296c",
+        "instruction": "test r8d, 7FFFFFFFh"
+      },
+      {
+        "addr": "180782973",
+        "instruction": "jnz short loc_1807829BE"
+      },
+      {
+        "addr": "180782975",
+        "instruction": "imul r9, rcx, 68h ; 'h'"
+      },
+      {
+        "addr": "180782979",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180782980",
+        "instruction": "test r8d, r8d"
+      },
+      {
+        "addr": "180782983",
+        "instruction": "mov r8d, 0A90h"
+      },
+      {
+        "addr": "180782989",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "18078298c",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "180782992",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782998",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "18078299f",
+        "instruction": "test edx, 0C0000000h"
+      },
+      {
+        "addr": "1807829a5",
+        "instruction": "jz short loc_1807829B3"
+      },
+      {
+        "addr": "1807829a7",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "1807829ad",
+        "instruction": "mov cs:dword_1822AEC4C, edx"
+      },
+      {
+        "addr": "1807829b3",
+        "instruction": "mov ecx, 1Ah"
+      },
+      {
+        "addr": "1807829b8",
+        "instruction": "mov cs:dword_1822AEC48, ecx"
+      },
+      {
+        "addr": "1807829be",
+        "instruction": "mov r8d, ecx"
+      },
+      {
+        "addr": "1807829c1",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "1807829c8",
+        "instruction": "mov ebp, 1"
+      },
+      {
+        "addr": "1807829cd",
+        "instruction": "mov [rsp+28h+arg_0], rbx"
+      },
+      {
+        "addr": "1807829d2",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "1807829d5",
+        "instruction": "mov [rsp+28h+var_8], rdi"
+      },
+      {
+        "addr": "1807829da",
+        "instruction": "cmp eax, r8d"
+      },
+      {
+        "addr": "1807829dd",
+        "instruction": "jnz loc_180782AA5"
+      },
+      {
+        "addr": "1807829e3",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "1807829e7",
+        "instruction": "jb loc_180782AA5"
+      },
+      {
+        "addr": "1807829ed",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "1807829f3",
+        "instruction": "jle short loc_180782A09"
+      },
+      {
+        "addr": "1807829f5",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "1807829f7",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "1807829fd",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782a03",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782a09",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "180782a0c",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180782a12",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "180782a15",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "180782a1b",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "180782a21",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180782a23",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180782a25",
+        "instruction": "jge short loc_180782A4E"
+      },
+      {
+        "addr": "180782a27",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "180782a29",
+        "instruction": "jnz short loc_180782A40"
+      },
+      {
+        "addr": "180782a2b",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180782a2e",
+        "instruction": "jg short loc_180782A40"
+      },
+      {
+        "addr": "180782a30",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180782a35",
+        "instruction": "jmp short loc_180782A4E"
+      },
+      {
+        "addr": "180782a40",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "180782a43",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "180782a44",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "180782a46",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "180782a48",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180782a4a",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180782a4c",
+        "instruction": "jl short loc_180782A40"
+      },
+      {
+        "addr": "180782a4e",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782a55",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180782a5c",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180782a60",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "180782a6a",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "180782a6d",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "180782a70",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180782a74",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "180782a7a",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "180782a81",
+        "instruction": "mov eax, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782a87",
+        "instruction": "test eax, 0C0000000h"
+      },
+      {
+        "addr": "180782a8c",
+        "instruction": "jz short loc_180782A99"
+      },
+      {
+        "addr": "180782a8e",
+        "instruction": "and eax, 3FFFFFFFh"
+      },
+      {
+        "addr": "180782a93",
+        "instruction": "mov cs:dword_1822AEC4C, eax"
+      },
+      {
+        "addr": "180782a99",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180782a9f",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "180782aa5",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180782aa8",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "180782aaa",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "180782ab0",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "180782ab2",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "180782ab6",
+        "instruction": "add rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180782abd",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "180782ac0",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "180782ac4",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "180782ac8",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "180782acc",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "180782ad0",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "180782ad4",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "180782ad8",
+        "instruction": "lea rax, aMIweapongamepl; \"m_iWeaponGameplayAnimState\""
+      },
+      {
+        "addr": "180782adf",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "180782ae3",
+        "instruction": "mov byte ptr [rcx], 7"
+      },
+      {
+        "addr": "180782ae6",
+        "instruction": "mov dword ptr [rcx+10h], 1758h"
+      },
+      {
+        "addr": "180782aed",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "180782af1",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "180782af8",
+        "instruction": "mov dword ptr [rcx+40h], 2"
+      },
+      {
+        "addr": "180782aff",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180782b06",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782b0c",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "180782b0f",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "180782b11",
+        "instruction": "jnz loc_180782BDD"
+      },
+      {
+        "addr": "180782b17",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782b1d",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "180782b21",
+        "instruction": "jb loc_180782BDD"
+      },
+      {
+        "addr": "180782b27",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "180782b2d",
+        "instruction": "jle short loc_180782B43"
+      },
+      {
+        "addr": "180782b2f",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "180782b31",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "180782b37",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782b3d",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782b43",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "180782b46",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180782b4c",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "180782b4f",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "180782b55",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "180782b5b",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180782b5d",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180782b5f",
+        "instruction": "jge short loc_180782B7F"
+      },
+      {
+        "addr": "180782b61",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "180782b63",
+        "instruction": "jnz short loc_180782B71"
+      },
+      {
+        "addr": "180782b65",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180782b68",
+        "instruction": "jg short loc_180782B71"
+      },
+      {
+        "addr": "180782b6a",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180782b6f",
+        "instruction": "jmp short loc_180782B7F"
+      },
+      {
+        "addr": "180782b71",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "180782b74",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "180782b75",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "180782b77",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "180782b79",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180782b7b",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180782b7d",
+        "instruction": "jl short loc_180782B71"
+      },
+      {
+        "addr": "180782b7f",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782b86",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180782b8d",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180782b91",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "180782b9b",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "180782b9e",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "180782ba1",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180782ba5",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "180782bab",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782bb1",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "180782bb4",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "180782bbb",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "180782bc1",
+        "instruction": "jz short loc_180782BCF"
+      },
+      {
+        "addr": "180782bc3",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180782bc9",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "180782bcf",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180782bd5",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "180782bdb",
+        "instruction": "jmp short loc_180782BE4"
+      },
+      {
+        "addr": "180782bdd",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180782be4",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180782be7",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "180782be9",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "180782bef",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "180782bf1",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "180782bf5",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "180782bf8",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "180782bfb",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "180782bff",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "180782c03",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "180782c07",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "180782c0b",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "180782c0f",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "180782c13",
+        "instruction": "lea rax, aMFlweapongamep; \"m_flWeaponGameplayAnimStateTimestamp\""
+      },
+      {
+        "addr": "180782c1a",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "180782c1e",
+        "instruction": "mov byte ptr [rcx], 0Fh"
+      },
+      {
+        "addr": "180782c21",
+        "instruction": "mov dword ptr [rcx+10h], 175Ch"
+      },
+      {
+        "addr": "180782c28",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "180782c2c",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "180782c33",
+        "instruction": "mov dword ptr [rcx+40h], 4"
+      },
+      {
+        "addr": "180782c3a",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180782c41",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782c47",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "180782c4a",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "180782c4c",
+        "instruction": "jnz loc_180782D1C"
+      },
+      {
+        "addr": "180782c52",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782c58",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "180782c5c",
+        "instruction": "jb loc_180782D1C"
+      },
+      {
+        "addr": "180782c62",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "180782c68",
+        "instruction": "jle short loc_180782C7E"
+      },
+      {
+        "addr": "180782c6a",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "180782c6c",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "180782c72",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782c78",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782c7e",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "180782c81",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180782c87",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "180782c8a",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "180782c90",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "180782c96",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180782c98",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180782c9a",
+        "instruction": "jge short loc_180782CBE"
+      },
+      {
+        "addr": "180782c9c",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "180782c9e",
+        "instruction": "jnz short loc_180782CB0"
+      },
+      {
+        "addr": "180782ca0",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180782ca3",
+        "instruction": "jg short loc_180782CB0"
+      },
+      {
+        "addr": "180782ca5",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180782caa",
+        "instruction": "jmp short loc_180782CBE"
+      },
+      {
+        "addr": "180782cb0",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "180782cb3",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "180782cb4",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "180782cb6",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "180782cb8",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180782cba",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180782cbc",
+        "instruction": "jl short loc_180782CB0"
+      },
+      {
+        "addr": "180782cbe",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782cc5",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180782ccc",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180782cd0",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "180782cda",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "180782cdd",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "180782ce0",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180782ce4",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "180782cea",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782cf0",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "180782cf3",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "180782cfa",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "180782d00",
+        "instruction": "jz short loc_180782D0E"
+      },
+      {
+        "addr": "180782d02",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180782d08",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "180782d0e",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180782d14",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "180782d1a",
+        "instruction": "jmp short loc_180782D23"
+      },
+      {
+        "addr": "180782d1c",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180782d23",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180782d26",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "180782d28",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "180782d2e",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "180782d30",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "180782d34",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "180782d37",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "180782d3a",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "180782d3e",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "180782d42",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "180782d46",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "180782d4a",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "180782d4e",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "180782d52",
+        "instruction": "lea rax, aMFlinspectcanc; \"m_flInspectCancelCompleteTime\""
+      },
+      {
+        "addr": "180782d59",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "180782d5d",
+        "instruction": "mov byte ptr [rcx], 0Fh"
+      },
+      {
+        "addr": "180782d60",
+        "instruction": "mov dword ptr [rcx+10h], 1760h"
+      },
+      {
+        "addr": "180782d67",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "180782d6b",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "180782d72",
+        "instruction": "mov dword ptr [rcx+40h], 4"
+      },
+      {
+        "addr": "180782d79",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180782d80",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782d86",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "180782d89",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "180782d8b",
+        "instruction": "jnz loc_180782E5C"
+      },
+      {
+        "addr": "180782d91",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782d97",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "180782d9b",
+        "instruction": "jb loc_180782E5C"
+      },
+      {
+        "addr": "180782da1",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "180782da7",
+        "instruction": "jle short loc_180782DBD"
+      },
+      {
+        "addr": "180782da9",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "180782dab",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "180782db1",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782db7",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782dbd",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "180782dc0",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180782dc6",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "180782dc9",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "180782dcf",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "180782dd5",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180782dd7",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180782dd9",
+        "instruction": "jge short loc_180782DFE"
+      },
+      {
+        "addr": "180782ddb",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "180782ddd",
+        "instruction": "jnz short loc_180782DF0"
+      },
+      {
+        "addr": "180782ddf",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180782de2",
+        "instruction": "jg short loc_180782DF0"
+      },
+      {
+        "addr": "180782de4",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180782de9",
+        "instruction": "jmp short loc_180782DFE"
+      },
+      {
+        "addr": "180782df0",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "180782df3",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "180782df4",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "180782df6",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "180782df8",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180782dfa",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180782dfc",
+        "instruction": "jl short loc_180782DF0"
+      },
+      {
+        "addr": "180782dfe",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782e05",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180782e0c",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180782e10",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "180782e1a",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "180782e1d",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "180782e20",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180782e24",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "180782e2a",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782e30",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "180782e33",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "180782e3a",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "180782e40",
+        "instruction": "jz short loc_180782E4E"
+      },
+      {
+        "addr": "180782e42",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180782e48",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "180782e4e",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180782e54",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "180782e5a",
+        "instruction": "jmp short loc_180782E63"
+      },
+      {
+        "addr": "180782e5c",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180782e63",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180782e66",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "180782e68",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "180782e6e",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "180782e70",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "180782e74",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "180782e77",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "180782e7a",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "180782e7e",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "180782e82",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "180782e86",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "180782e8a",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "180782e8e",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "180782e92",
+        "instruction": "lea rax, aMBinspectpendi; \"m_bInspectPending\""
+      },
+      {
+        "addr": "180782e99",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "180782e9d",
+        "instruction": "mov byte ptr [rcx], 6"
+      },
+      {
+        "addr": "180782ea0",
+        "instruction": "mov dword ptr [rcx+10h], 1764h"
+      },
+      {
+        "addr": "180782ea7",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "180782eab",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "180782eb2",
+        "instruction": "mov [rcx+40h], ebp"
+      },
+      {
+        "addr": "180782eb5",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180782ebc",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782ec2",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "180782ec5",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "180782ec7",
+        "instruction": "jnz loc_180782F9C"
+      },
+      {
+        "addr": "180782ecd",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782ed3",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "180782ed7",
+        "instruction": "jb loc_180782F9C"
+      },
+      {
+        "addr": "180782edd",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "180782ee3",
+        "instruction": "jle short loc_180782EF9"
+      },
+      {
+        "addr": "180782ee5",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "180782ee7",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "180782eed",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782ef3",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782ef9",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "180782efc",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180782f02",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "180782f05",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "180782f0b",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "180782f11",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180782f13",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180782f15",
+        "instruction": "jge short loc_180782F3E"
+      },
+      {
+        "addr": "180782f17",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "180782f19",
+        "instruction": "jnz short loc_180782F30"
+      },
+      {
+        "addr": "180782f1b",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180782f1e",
+        "instruction": "jg short loc_180782F30"
+      },
+      {
+        "addr": "180782f20",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180782f25",
+        "instruction": "jmp short loc_180782F3E"
+      },
+      {
+        "addr": "180782f30",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "180782f33",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "180782f34",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "180782f36",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "180782f38",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180782f3a",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180782f3c",
+        "instruction": "jl short loc_180782F30"
+      },
+      {
+        "addr": "180782f3e",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180782f45",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180782f4c",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180782f50",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "180782f5a",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "180782f5d",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "180782f60",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180782f64",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "180782f6a",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180782f70",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "180782f73",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "180782f7a",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "180782f80",
+        "instruction": "jz short loc_180782F8E"
+      },
+      {
+        "addr": "180782f82",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180782f88",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "180782f8e",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180782f94",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "180782f9a",
+        "instruction": "jmp short loc_180782FA3"
+      },
+      {
+        "addr": "180782f9c",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180782fa3",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180782fa6",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "180782fa8",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "180782fae",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "180782fb0",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "180782fb4",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "180782fb7",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "180782fba",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "180782fbe",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "180782fc2",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "180782fc6",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "180782fca",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "180782fce",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "180782fd2",
+        "instruction": "lea rax, aMBinspectshoul; \"m_bInspectShouldLoop\""
+      },
+      {
+        "addr": "180782fd9",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "180782fdd",
+        "instruction": "mov byte ptr [rcx], 6"
+      },
+      {
+        "addr": "180782fe0",
+        "instruction": "mov dword ptr [rcx+10h], 1765h"
+      },
+      {
+        "addr": "180782fe7",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "180782feb",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "180782ff2",
+        "instruction": "mov [rcx+40h], ebp"
+      },
+      {
+        "addr": "180782ff5",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180782ffc",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180783002",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "180783005",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "180783007",
+        "instruction": "jnz loc_1807830DC"
+      },
+      {
+        "addr": "18078300d",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783013",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "180783017",
+        "instruction": "jb loc_1807830DC"
+      },
+      {
+        "addr": "18078301d",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "180783023",
+        "instruction": "jle short loc_180783039"
+      },
+      {
+        "addr": "180783025",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "180783027",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "18078302d",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783033",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180783039",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "18078303c",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180783042",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "180783045",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "18078304b",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "180783051",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180783053",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180783055",
+        "instruction": "jge short loc_18078307E"
+      },
+      {
+        "addr": "180783057",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "180783059",
+        "instruction": "jnz short loc_180783070"
+      },
+      {
+        "addr": "18078305b",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "18078305e",
+        "instruction": "jg short loc_180783070"
+      },
+      {
+        "addr": "180783060",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180783065",
+        "instruction": "jmp short loc_18078307E"
+      },
+      {
+        "addr": "180783070",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "180783073",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "180783074",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "180783076",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "180783078",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "18078307a",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "18078307c",
+        "instruction": "jl short loc_180783070"
+      },
+      {
+        "addr": "18078307e",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180783085",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "18078308c",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783090",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "18078309a",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "18078309d",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "1807830a0",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "1807830a4",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "1807830aa",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "1807830b0",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "1807830b3",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "1807830ba",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "1807830c0",
+        "instruction": "jz short loc_1807830CE"
+      },
+      {
+        "addr": "1807830c2",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "1807830c8",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "1807830ce",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "1807830d4",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "1807830da",
+        "instruction": "jmp short loc_1807830E3"
+      },
+      {
+        "addr": "1807830dc",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "1807830e3",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "1807830e6",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "1807830e8",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "1807830ee",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "1807830f0",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "1807830f4",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "1807830f7",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "1807830fa",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "1807830fe",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "180783102",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "180783106",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "18078310a",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "18078310e",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "180783112",
+        "instruction": "lea rax, aMBfireonempty; \"m_bFireOnEmpty\""
+      },
+      {
+        "addr": "180783119",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "18078311d",
+        "instruction": "mov byte ptr [rcx], 6"
+      },
+      {
+        "addr": "180783120",
+        "instruction": "mov dword ptr [rcx+10h], 179Ch"
+      },
+      {
+        "addr": "180783127",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "18078312b",
+        "instruction": "mov [rcx+40h], ebp"
+      },
+      {
+        "addr": "18078312e",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180783135",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "18078313b",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "18078313e",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "180783140",
+        "instruction": "jnz loc_18078320C"
+      },
+      {
+        "addr": "180783146",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "18078314c",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "180783150",
+        "instruction": "jb loc_18078320C"
+      },
+      {
+        "addr": "180783156",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "18078315c",
+        "instruction": "jle short loc_180783172"
+      },
+      {
+        "addr": "18078315e",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "180783160",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "180783166",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "18078316c",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180783172",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "180783175",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "18078317b",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "18078317e",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "180783184",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "18078318a",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "18078318c",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "18078318e",
+        "instruction": "jge short loc_1807831AE"
+      },
+      {
+        "addr": "180783190",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "180783192",
+        "instruction": "jnz short loc_1807831A0"
+      },
+      {
+        "addr": "180783194",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180783197",
+        "instruction": "jg short loc_1807831A0"
+      },
+      {
+        "addr": "180783199",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "18078319e",
+        "instruction": "jmp short loc_1807831AE"
+      },
+      {
+        "addr": "1807831a0",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "1807831a3",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "1807831a4",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "1807831a6",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "1807831a8",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "1807831aa",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "1807831ac",
+        "instruction": "jl short loc_1807831A0"
+      },
+      {
+        "addr": "1807831ae",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "1807831b5",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "1807831bc",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "1807831c0",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "1807831ca",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "1807831cd",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "1807831d0",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "1807831d4",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "1807831da",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "1807831e0",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "1807831e3",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "1807831ea",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "1807831f0",
+        "instruction": "jz short loc_1807831FE"
+      },
+      {
+        "addr": "1807831f2",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "1807831f8",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "1807831fe",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180783204",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "18078320a",
+        "instruction": "jmp short loc_180783213"
+      },
+      {
+        "addr": "18078320c",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180783213",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783216",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "180783218",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "18078321e",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "180783220",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "180783224",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "180783227",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "18078322a",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "18078322e",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "180783232",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "180783236",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "18078323a",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "18078323e",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "180783242",
+        "instruction": "lea rax, aMWeaponmode; \"m_weaponMode\""
+      },
+      {
+        "addr": "180783249",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "18078324d",
+        "instruction": "mov byte ptr [rcx], 5"
+      },
+      {
+        "addr": "180783250",
+        "instruction": "mov dword ptr [rcx+10h], 17B8h"
+      },
+      {
+        "addr": "180783257",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "18078325b",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "180783262",
+        "instruction": "mov dword ptr [rcx+40h], 4"
+      },
+      {
+        "addr": "180783269",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180783270",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180783276",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "180783279",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "18078327b",
+        "instruction": "jnz loc_18078334C"
+      },
+      {
+        "addr": "180783281",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783287",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "18078328b",
+        "instruction": "jb loc_18078334C"
+      },
+      {
+        "addr": "180783291",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "180783297",
+        "instruction": "jle short loc_1807832AD"
+      },
+      {
+        "addr": "180783299",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "18078329b",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "1807832a1",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "1807832a7",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "1807832ad",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "1807832b0",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "1807832b6",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "1807832b9",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "1807832bf",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "1807832c5",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "1807832c7",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "1807832c9",
+        "instruction": "jge short loc_1807832EE"
+      },
+      {
+        "addr": "1807832cb",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "1807832cd",
+        "instruction": "jnz short loc_1807832E0"
+      },
+      {
+        "addr": "1807832cf",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "1807832d2",
+        "instruction": "jg short loc_1807832E0"
+      },
+      {
+        "addr": "1807832d4",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "1807832d9",
+        "instruction": "jmp short loc_1807832EE"
+      },
+      {
+        "addr": "1807832e0",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "1807832e3",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "1807832e4",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "1807832e6",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "1807832e8",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "1807832ea",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "1807832ec",
+        "instruction": "jl short loc_1807832E0"
+      },
+      {
+        "addr": "1807832ee",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "1807832f5",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "1807832fc",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783300",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "18078330a",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "18078330d",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "180783310",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783314",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "18078331a",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783320",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "180783323",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "18078332a",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "180783330",
+        "instruction": "jz short loc_18078333E"
+      },
+      {
+        "addr": "180783332",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180783338",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "18078333e",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180783344",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "18078334a",
+        "instruction": "jmp short loc_180783353"
+      },
+      {
+        "addr": "18078334c",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180783353",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783356",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "180783358",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "18078335e",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "180783360",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "180783364",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "180783367",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "18078336a",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "18078336e",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "180783372",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "180783376",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "18078337a",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "18078337e",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "180783382",
+        "instruction": "lea rax, aMFaccuracypena; \"m_fAccuracyPenalty\""
+      },
+      {
+        "addr": "180783389",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "18078338d",
+        "instruction": "mov [rcx], bpl"
+      },
+      {
+        "addr": "180783390",
+        "instruction": "mov dword ptr [rcx+10h], 17D0h"
+      },
+      {
+        "addr": "180783397",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "18078339b",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "1807833a2",
+        "instruction": "mov dword ptr [rcx+40h], 4"
+      },
+      {
+        "addr": "1807833a9",
+        "instruction": "mov dword ptr [rcx+44h], 3A83126Fh"
+      },
+      {
+        "addr": "1807833b0",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "1807833b7",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "1807833bd",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "1807833c0",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "1807833c2",
+        "instruction": "jnz loc_18078348E"
+      },
+      {
+        "addr": "1807833c8",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "1807833ce",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "1807833d2",
+        "instruction": "jb loc_18078348E"
+      },
+      {
+        "addr": "1807833d8",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "1807833de",
+        "instruction": "jle short loc_1807833F4"
+      },
+      {
+        "addr": "1807833e0",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "1807833e2",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "1807833e8",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "1807833ee",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "1807833f4",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "1807833f7",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "1807833fd",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "180783400",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "180783406",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "18078340c",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "18078340e",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180783410",
+        "instruction": "jge short loc_180783430"
+      },
+      {
+        "addr": "180783412",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "180783414",
+        "instruction": "jnz short loc_180783422"
+      },
+      {
+        "addr": "180783416",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180783419",
+        "instruction": "jg short loc_180783422"
+      },
+      {
+        "addr": "18078341b",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180783420",
+        "instruction": "jmp short loc_180783430"
+      },
+      {
+        "addr": "180783422",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "180783425",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "180783426",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "180783428",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "18078342a",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "18078342c",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "18078342e",
+        "instruction": "jl short loc_180783422"
+      },
+      {
+        "addr": "180783430",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180783437",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "18078343e",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783442",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "18078344c",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "18078344f",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "180783452",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783456",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "18078345c",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783462",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "180783465",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "18078346c",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "180783472",
+        "instruction": "jz short loc_180783480"
+      },
+      {
+        "addr": "180783474",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "18078347a",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "180783480",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180783486",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "18078348c",
+        "instruction": "jmp short loc_180783495"
+      },
+      {
+        "addr": "18078348e",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180783495",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783498",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "18078349a",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "1807834a0",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "1807834a2",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "1807834a6",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "1807834a9",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "1807834ac",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "1807834b0",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "1807834b4",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "1807834b8",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "1807834bc",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "1807834c0",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "1807834c4",
+        "instruction": "lea rax, aMIrecoilindex; \"m_iRecoilIndex\""
+      },
+      {
+        "addr": "1807834cb",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "1807834cf",
+        "instruction": "mov byte ptr [rcx], 5"
+      },
+      {
+        "addr": "1807834d2",
+        "instruction": "mov dword ptr [rcx+10h], 17DCh"
+      },
+      {
+        "addr": "1807834d9",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "1807834dd",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "1807834e4",
+        "instruction": "mov dword ptr [rcx+40h], 4"
+      },
+      {
+        "addr": "1807834eb",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "1807834f2",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "1807834f8",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "1807834fb",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "1807834fd",
+        "instruction": "jnz loc_1807835CC"
+      },
+      {
+        "addr": "180783503",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783509",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "18078350d",
+        "instruction": "jb loc_1807835CC"
+      },
+      {
+        "addr": "180783513",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "180783519",
+        "instruction": "jle short loc_18078352F"
+      },
+      {
+        "addr": "18078351b",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "18078351d",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "180783523",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783529",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "18078352f",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "180783532",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180783538",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "18078353b",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "180783541",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "180783547",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180783549",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "18078354b",
+        "instruction": "jge short loc_18078356E"
+      },
+      {
+        "addr": "18078354d",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "18078354f",
+        "instruction": "jnz short loc_180783560"
+      },
+      {
+        "addr": "180783551",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180783554",
+        "instruction": "jg short loc_180783560"
+      },
+      {
+        "addr": "180783556",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "18078355b",
+        "instruction": "jmp short loc_18078356E"
+      },
+      {
+        "addr": "180783560",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "180783563",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "180783564",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "180783566",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "180783568",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "18078356a",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "18078356c",
+        "instruction": "jl short loc_180783560"
+      },
+      {
+        "addr": "18078356e",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180783575",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "18078357c",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783580",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "18078358a",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "18078358d",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "180783590",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783594",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "18078359a",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "1807835a0",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "1807835a3",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "1807835aa",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "1807835b0",
+        "instruction": "jz short loc_1807835BE"
+      },
+      {
+        "addr": "1807835b2",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "1807835b8",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "1807835be",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "1807835c4",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "1807835ca",
+        "instruction": "jmp short loc_1807835D3"
+      },
+      {
+        "addr": "1807835cc",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "1807835d3",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "1807835d6",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "1807835d8",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "1807835de",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "1807835e0",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "1807835e4",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "1807835e7",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "1807835ea",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "1807835ee",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "1807835f2",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "1807835f6",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "1807835fa",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "1807835fe",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "180783602",
+        "instruction": "lea rax, aMFlrecoilindex; \"m_flRecoilIndex\""
+      },
+      {
+        "addr": "180783609",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "18078360d",
+        "instruction": "mov [rcx], bpl"
+      },
+      {
+        "addr": "180783610",
+        "instruction": "mov dword ptr [rcx+10h], 17E0h"
+      },
+      {
+        "addr": "180783617",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "18078361b",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "180783622",
+        "instruction": "mov dword ptr [rcx+40h], 4"
+      },
+      {
+        "addr": "180783629",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180783630",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180783636",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "180783639",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "18078363b",
+        "instruction": "jnz loc_18078370C"
+      },
+      {
+        "addr": "180783641",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783647",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "18078364b",
+        "instruction": "jb loc_18078370C"
+      },
+      {
+        "addr": "180783651",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "180783657",
+        "instruction": "jle short loc_18078366D"
+      },
+      {
+        "addr": "180783659",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "18078365b",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "180783661",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783667",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "18078366d",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "180783670",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180783676",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "180783679",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "18078367f",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "180783685",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180783687",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180783689",
+        "instruction": "jge short loc_1807836AE"
+      },
+      {
+        "addr": "18078368b",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "18078368d",
+        "instruction": "jnz short loc_1807836A0"
+      },
+      {
+        "addr": "18078368f",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180783692",
+        "instruction": "jg short loc_1807836A0"
+      },
+      {
+        "addr": "180783694",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180783699",
+        "instruction": "jmp short loc_1807836AE"
+      },
+      {
+        "addr": "1807836a0",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "1807836a3",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "1807836a4",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "1807836a6",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "1807836a8",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "1807836aa",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "1807836ac",
+        "instruction": "jl short loc_1807836A0"
+      },
+      {
+        "addr": "1807836ae",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "1807836b5",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "1807836bc",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "1807836c0",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "1807836ca",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "1807836cd",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "1807836d0",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "1807836d4",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "1807836da",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "1807836e0",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "1807836e3",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "1807836ea",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "1807836f0",
+        "instruction": "jz short loc_1807836FE"
+      },
+      {
+        "addr": "1807836f2",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "1807836f8",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "1807836fe",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180783704",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "18078370a",
+        "instruction": "jmp short loc_180783713"
+      },
+      {
+        "addr": "18078370c",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180783713",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783716",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "180783718",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "18078371e",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "180783720",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "180783724",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "180783727",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "18078372a",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "18078372e",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "180783732",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "180783736",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "18078373a",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "18078373e",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "180783742",
+        "instruction": "lea rax, aMBburstmode; \"m_bBurstMode\""
+      },
+      {
+        "addr": "180783749",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "18078374d",
+        "instruction": "mov byte ptr [rcx], 6"
+      },
+      {
+        "addr": "180783750",
+        "instruction": "mov dword ptr [rcx+10h], 17E4h"
+      },
+      {
+        "addr": "180783757",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "18078375b",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "180783762",
+        "instruction": "mov [rcx+40h], ebp"
+      },
+      {
+        "addr": "180783765",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "18078376c",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180783772",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "180783775",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "180783777",
+        "instruction": "jnz loc_18078384C"
+      },
+      {
+        "addr": "18078377d",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783783",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "180783787",
+        "instruction": "jb loc_18078384C"
+      },
+      {
+        "addr": "18078378d",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "180783793",
+        "instruction": "jle short loc_1807837A9"
+      },
+      {
+        "addr": "180783795",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "180783797",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "18078379d",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "1807837a3",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "1807837a9",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "1807837ac",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "1807837b2",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "1807837b5",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "1807837bb",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "1807837c1",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "1807837c3",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "1807837c5",
+        "instruction": "jge short loc_1807837EE"
+      },
+      {
+        "addr": "1807837c7",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "1807837c9",
+        "instruction": "jnz short loc_1807837E0"
+      },
+      {
+        "addr": "1807837cb",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "1807837ce",
+        "instruction": "jg short loc_1807837E0"
+      },
+      {
+        "addr": "1807837d0",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "1807837d5",
+        "instruction": "jmp short loc_1807837EE"
+      },
+      {
+        "addr": "1807837e0",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "1807837e3",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "1807837e4",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "1807837e6",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "1807837e8",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "1807837ea",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "1807837ec",
+        "instruction": "jl short loc_1807837E0"
+      },
+      {
+        "addr": "1807837ee",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "1807837f5",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "1807837fc",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783800",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "18078380a",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "18078380d",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "180783810",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783814",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "18078381a",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783820",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "180783823",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "18078382a",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "180783830",
+        "instruction": "jz short loc_18078383E"
+      },
+      {
+        "addr": "180783832",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180783838",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "18078383e",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180783844",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "18078384a",
+        "instruction": "jmp short loc_180783853"
+      },
+      {
+        "addr": "18078384c",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180783853",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783856",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "180783858",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "18078385e",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "180783860",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "180783864",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "180783867",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "18078386a",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "18078386e",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "180783872",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "180783876",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "18078387a",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "18078387e",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "180783882",
+        "instruction": "lea rax, aMNpostponefire; \"m_nPostponeFireReadyTicks\""
+      },
+      {
+        "addr": "180783889",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "18078388d",
+        "instruction": "mov byte ptr [rcx], 5"
+      },
+      {
+        "addr": "180783890",
+        "instruction": "mov dword ptr [rcx+10h], 17ECh"
+      },
+      {
+        "addr": "180783897",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "18078389b",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "1807838a2",
+        "instruction": "mov dword ptr [rcx+40h], 4"
+      },
+      {
+        "addr": "1807838a9",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "1807838b0",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "1807838b6",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "1807838b9",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "1807838bb",
+        "instruction": "jnz loc_18078398C"
+      },
+      {
+        "addr": "1807838c1",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "1807838c7",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "1807838cb",
+        "instruction": "jb loc_18078398C"
+      },
+      {
+        "addr": "1807838d1",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "1807838d7",
+        "instruction": "jle short loc_1807838ED"
+      },
+      {
+        "addr": "1807838d9",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "1807838db",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "1807838e1",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "1807838e7",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "1807838ed",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "1807838f0",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "1807838f6",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "1807838f9",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "1807838ff",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "180783905",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180783907",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180783909",
+        "instruction": "jge short loc_18078392E"
+      },
+      {
+        "addr": "18078390b",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "18078390d",
+        "instruction": "jnz short loc_180783920"
+      },
+      {
+        "addr": "18078390f",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180783912",
+        "instruction": "jg short loc_180783920"
+      },
+      {
+        "addr": "180783914",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180783919",
+        "instruction": "jmp short loc_18078392E"
+      },
+      {
+        "addr": "180783920",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "180783923",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "180783924",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "180783926",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "180783928",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "18078392a",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "18078392c",
+        "instruction": "jl short loc_180783920"
+      },
+      {
+        "addr": "18078392e",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180783935",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "18078393c",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783940",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "18078394a",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "18078394d",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "180783950",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783954",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "18078395a",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783960",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "180783963",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "18078396a",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "180783970",
+        "instruction": "jz short loc_18078397E"
+      },
+      {
+        "addr": "180783972",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180783978",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "18078397e",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180783984",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "18078398a",
+        "instruction": "jmp short loc_180783993"
+      },
+      {
+        "addr": "18078398c",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180783993",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783996",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "180783998",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "18078399e",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "1807839a0",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "1807839a4",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "1807839a7",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "1807839aa",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "1807839ae",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "1807839b2",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "1807839b6",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "1807839ba",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "1807839be",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "1807839c2",
+        "instruction": "lea rax, aMFlpostponefir; \"m_flPostponeFireReadyFrac\""
+      },
+      {
+        "addr": "1807839c9",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "1807839cd",
+        "instruction": "mov [rcx], bpl"
+      },
+      {
+        "addr": "1807839d0",
+        "instruction": "mov dword ptr [rcx+10h], 17F0h"
+      },
+      {
+        "addr": "1807839d7",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "1807839db",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "1807839e2",
+        "instruction": "mov dword ptr [rcx+40h], 4"
+      },
+      {
+        "addr": "1807839e9",
+        "instruction": "movsxd rax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "1807839f0",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "1807839f6",
+        "instruction": "mov rsi, rax"
+      },
+      {
+        "addr": "1807839f9",
+        "instruction": "cmp eax, ecx"
+      },
+      {
+        "addr": "1807839fb",
+        "instruction": "jnz loc_180783ACC"
+      },
+      {
+        "addr": "180783a01",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783a07",
+        "instruction": "bt edx, 1Eh"
+      },
+      {
+        "addr": "180783a0b",
+        "instruction": "jb loc_180783ACC"
+      },
+      {
+        "addr": "180783a11",
+        "instruction": "cmp ecx, 7FFFFFFEh"
+      },
+      {
+        "addr": "180783a17",
+        "instruction": "jle short loc_180783A2D"
+      },
+      {
+        "addr": "180783a19",
+        "instruction": "mov edx, ebp"
+      },
+      {
+        "addr": "180783a1b",
+        "instruction": "call cs:UtlVectorMemory_FailedAllocation"
+      },
+      {
+        "addr": "180783a21",
+        "instruction": "mov edx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783a27",
+        "instruction": "mov ecx, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180783a2d",
+        "instruction": "lea edi, [rcx+1]"
+      },
+      {
+        "addr": "180783a30",
+        "instruction": "and edx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180783a36",
+        "instruction": "mov r8d, edi"
+      },
+      {
+        "addr": "180783a39",
+        "instruction": "mov r9d, 68h ; 'h'"
+      },
+      {
+        "addr": "180783a3f",
+        "instruction": "call cs:UtlVectorMemory_CalcNewAllocationCount"
+      },
+      {
+        "addr": "180783a45",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180783a47",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180783a49",
+        "instruction": "jge short loc_180783A6E"
+      },
+      {
+        "addr": "180783a4b",
+        "instruction": "test eax, eax"
+      },
+      {
+        "addr": "180783a4d",
+        "instruction": "jnz short loc_180783A60"
+      },
+      {
+        "addr": "180783a4f",
+        "instruction": "cmp edi, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180783a52",
+        "instruction": "jg short loc_180783A60"
+      },
+      {
+        "addr": "180783a54",
+        "instruction": "mov ebx, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180783a59",
+        "instruction": "jmp short loc_180783A6E"
+      },
+      {
+        "addr": "180783a60",
+        "instruction": "lea eax, [rbx+rdi]"
+      },
+      {
+        "addr": "180783a63",
+        "instruction": "cdq"
+      },
+      {
+        "addr": "180783a64",
+        "instruction": "sub eax, edx"
+      },
+      {
+        "addr": "180783a66",
+        "instruction": "sar eax, 1"
+      },
+      {
+        "addr": "180783a68",
+        "instruction": "mov ebx, eax"
+      },
+      {
+        "addr": "180783a6a",
+        "instruction": "cmp eax, edi"
+      },
+      {
+        "addr": "180783a6c",
+        "instruction": "jl short loc_180783A60"
+      },
+      {
+        "addr": "180783a6e",
+        "instruction": "movsxd rax, cs:dword_1822AEC48"
+      },
+      {
+        "addr": "180783a75",
+        "instruction": "mov rcx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180783a7c",
+        "instruction": "imul r9, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783a80",
+        "instruction": "test cs:dword_1822AEC4C, 0C0000000h"
+      },
+      {
+        "addr": "180783a8a",
+        "instruction": "movsxd rax, ebx"
+      },
+      {
+        "addr": "180783a8d",
+        "instruction": "setz dl"
+      },
+      {
+        "addr": "180783a90",
+        "instruction": "imul r8, rax, 68h ; 'h'"
+      },
+      {
+        "addr": "180783a94",
+        "instruction": "call cs:UtlVectorMemory_Alloc"
+      },
+      {
+        "addr": "180783a9a",
+        "instruction": "mov ecx, cs:dword_1822AEC4C"
+      },
+      {
+        "addr": "180783aa0",
+        "instruction": "mov rdx, rax"
+      },
+      {
+        "addr": "180783aa3",
+        "instruction": "mov cs:qword_1822AEC40, rax"
+      },
+      {
+        "addr": "180783aaa",
+        "instruction": "test ecx, 0C0000000h"
+      },
+      {
+        "addr": "180783ab0",
+        "instruction": "jz short loc_180783ABE"
+      },
+      {
+        "addr": "180783ab2",
+        "instruction": "and ecx, 3FFFFFFFh"
+      },
+      {
+        "addr": "180783ab8",
+        "instruction": "mov cs:dword_1822AEC4C, ecx"
+      },
+      {
+        "addr": "180783abe",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180783ac4",
+        "instruction": "mov cs:dword_1822AEC48, ebx"
+      },
+      {
+        "addr": "180783aca",
+        "instruction": "jmp short loc_180783AD3"
+      },
+      {
+        "addr": "180783acc",
+        "instruction": "mov rdx, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180783ad3",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783ad6",
+        "instruction": "inc eax"
+      },
+      {
+        "addr": "180783ad8",
+        "instruction": "mov cs:dword_1822AEC38, eax"
+      },
+      {
+        "addr": "180783ade",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "addr": "180783ae0",
+        "instruction": "imul rcx, rsi, 68h ; 'h'"
+      },
+      {
+        "addr": "180783ae4",
+        "instruction": "add rcx, rdx"
+      },
+      {
+        "addr": "180783ae7",
+        "instruction": "movups xmmword ptr [rcx], xmm0"
+      },
+      {
+        "addr": "180783aea",
+        "instruction": "movups xmmword ptr [rcx+10h], xmm0"
+      },
+      {
+        "addr": "180783aee",
+        "instruction": "movups xmmword ptr [rcx+20h], xmm0"
+      },
+      {
+        "addr": "180783af2",
+        "instruction": "movups xmmword ptr [rcx+30h], xmm0"
+      },
+      {
+        "addr": "180783af6",
+        "instruction": "movups xmmword ptr [rcx+40h], xmm0"
+      },
+      {
+        "addr": "180783afa",
+        "instruction": "movups xmmword ptr [rcx+50h], xmm0"
+      },
+      {
+        "addr": "180783afe",
+        "instruction": "mov [rcx+60h], rax"
+      },
+      {
+        "addr": "180783b02",
+        "instruction": "lea rax, aMBinreload; \"m_bInReload\""
+      },
+      {
+        "addr": "180783b09",
+        "instruction": "mov [rcx+8], rax"
+      },
+      {
+        "addr": "180783b0d",
+        "instruction": "mov byte ptr [rcx], 6"
+      },
+      {
+        "addr": "180783b10",
+        "instruction": "mov dword ptr [rcx+10h], 17F4h"
+      },
+      {
+        "addr": "180783b17",
+        "instruction": "mov [rcx+14h], bp"
+      },
+      {
+        "addr": "180783b1b",
+        "instruction": "mov dword ptr [rcx+18h], 100h"
+      },
+      {
+        "addr": "180783b22",
+        "instruction": "mov [rcx+40h], ebp"
+      },
+      {
+        "addr": "180783b25",
+        "instruction": "lea rcx, dword_1822AEC38"
+      },
+      {
+        "addr": "180783b2c",
+        "instruction": "call sub_1802E3CB0"
+      },
+      {
+        "addr": "180783b31",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783b34",
+        "instruction": "xor ecx, ecx"
+      },
+      {
+        "addr": "180783b36",
+        "instruction": "movups xmmword ptr [rax], xmm0"
+      },
+      {
+        "addr": "180783b39",
+        "instruction": "movups xmmword ptr [rax+10h], xmm0"
+      },
+      {
+        "addr": "180783b3d",
+        "instruction": "movups xmmword ptr [rax+20h], xmm0"
+      },
+      {
+        "addr": "180783b41",
+        "instruction": "movups xmmword ptr [rax+30h], xmm0"
+      },
+      {
+        "addr": "180783b45",
+        "instruction": "movups xmmword ptr [rax+40h], xmm0"
+      },
+      {
+        "addr": "180783b49",
+        "instruction": "movups xmmword ptr [rax+50h], xmm0"
+      },
+      {
+        "addr": "180783b4d",
+        "instruction": "mov [rax+60h], rcx"
+      },
+      {
+        "addr": "180783b51",
+        "instruction": "lea rcx, aMNdeploytick; \"m_nDeployTick\""
+      },
+      {
+        "addr": "180783b58",
+        "instruction": "mov [rax+8], rcx"
+      },
+      {
+        "addr": "180783b5c",
+        "instruction": "lea rcx, dword_1822AEC38"
+      },
+      {
+        "addr": "180783b63",
+        "instruction": "mov byte ptr [rax], 5"
+      },
+      {
+        "addr": "180783b66",
+        "instruction": "mov dword ptr [rax+10h], 17F8h"
+      },
+      {
+        "addr": "180783b6d",
+        "instruction": "mov [rax+14h], bp"
+      },
+      {
+        "addr": "180783b71",
+        "instruction": "mov dword ptr [rax+18h], 100h"
+      },
+      {
+        "addr": "180783b78",
+        "instruction": "mov dword ptr [rax+40h], 4"
+      },
+      {
+        "addr": "180783b7f",
+        "instruction": "call sub_1802E3CB0"
+      },
+      {
+        "addr": "180783b84",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783b87",
+        "instruction": "xor ecx, ecx"
+      },
+      {
+        "addr": "180783b89",
+        "instruction": "movups xmmword ptr [rax], xmm0"
+      },
+      {
+        "addr": "180783b8c",
+        "instruction": "movups xmmword ptr [rax+10h], xmm0"
+      },
+      {
+        "addr": "180783b90",
+        "instruction": "movups xmmword ptr [rax+20h], xmm0"
+      },
+      {
+        "addr": "180783b94",
+        "instruction": "movups xmmword ptr [rax+30h], xmm0"
+      },
+      {
+        "addr": "180783b98",
+        "instruction": "movups xmmword ptr [rax+40h], xmm0"
+      },
+      {
+        "addr": "180783b9c",
+        "instruction": "movups xmmword ptr [rax+50h], xmm0"
+      },
+      {
+        "addr": "180783ba0",
+        "instruction": "mov [rax+60h], rcx"
+      },
+      {
+        "addr": "180783ba4",
+        "instruction": "lea rcx, aMBishauledback; \"m_bIsHauledBack\""
+      },
+      {
+        "addr": "180783bab",
+        "instruction": "mov [rax+8], rcx"
+      },
+      {
+        "addr": "180783baf",
+        "instruction": "lea rcx, dword_1822AEC38"
+      },
+      {
+        "addr": "180783bb6",
+        "instruction": "mov byte ptr [rax], 6"
+      },
+      {
+        "addr": "180783bb9",
+        "instruction": "mov dword ptr [rax+10h], 1804h"
+      },
+      {
+        "addr": "180783bc0",
+        "instruction": "mov [rax+14h], bp"
+      },
+      {
+        "addr": "180783bc4",
+        "instruction": "mov dword ptr [rax+18h], 100h"
+      },
+      {
+        "addr": "180783bcb",
+        "instruction": "mov [rax+40h], ebp"
+      },
+      {
+        "addr": "180783bce",
+        "instruction": "call sub_1802E3CB0"
+      },
+      {
+        "addr": "180783bd3",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783bd6",
+        "instruction": "xor ecx, ecx"
+      },
+      {
+        "addr": "180783bd8",
+        "instruction": "movups xmmword ptr [rax], xmm0"
+      },
+      {
+        "addr": "180783bdb",
+        "instruction": "movups xmmword ptr [rax+10h], xmm0"
+      },
+      {
+        "addr": "180783bdf",
+        "instruction": "movups xmmword ptr [rax+20h], xmm0"
+      },
+      {
+        "addr": "180783be3",
+        "instruction": "movups xmmword ptr [rax+30h], xmm0"
+      },
+      {
+        "addr": "180783be7",
+        "instruction": "movups xmmword ptr [rax+40h], xmm0"
+      },
+      {
+        "addr": "180783beb",
+        "instruction": "movups xmmword ptr [rax+50h], xmm0"
+      },
+      {
+        "addr": "180783bef",
+        "instruction": "mov [rax+60h], rcx"
+      },
+      {
+        "addr": "180783bf3",
+        "instruction": "lea rcx, aMFltimesilence; \"m_flTimeSilencerSwitchComplete\""
+      },
+      {
+        "addr": "180783bfa",
+        "instruction": "mov [rax+8], rcx"
+      },
+      {
+        "addr": "180783bfe",
+        "instruction": "lea rcx, dword_1822AEC38"
+      },
+      {
+        "addr": "180783c05",
+        "instruction": "mov byte ptr [rax], 0Fh"
+      },
+      {
+        "addr": "180783c08",
+        "instruction": "mov dword ptr [rax+10h], 1808h"
+      },
+      {
+        "addr": "180783c0f",
+        "instruction": "mov [rax+14h], bp"
+      },
+      {
+        "addr": "180783c13",
+        "instruction": "mov dword ptr [rax+18h], 100h"
+      },
+      {
+        "addr": "180783c1a",
+        "instruction": "mov dword ptr [rax+40h], 4"
+      },
+      {
+        "addr": "180783c21",
+        "instruction": "call sub_1802E3CB0"
+      },
+      {
+        "addr": "180783c26",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783c29",
+        "instruction": "xor ecx, ecx"
+      },
+      {
+        "addr": "180783c2b",
+        "instruction": "movups xmmword ptr [rax], xmm0"
+      },
+      {
+        "addr": "180783c2e",
+        "instruction": "movups xmmword ptr [rax+10h], xmm0"
+      },
+      {
+        "addr": "180783c32",
+        "instruction": "movups xmmword ptr [rax+20h], xmm0"
+      },
+      {
+        "addr": "180783c36",
+        "instruction": "movups xmmword ptr [rax+30h], xmm0"
+      },
+      {
+        "addr": "180783c3a",
+        "instruction": "movups xmmword ptr [rax+40h], xmm0"
+      },
+      {
+        "addr": "180783c3e",
+        "instruction": "movups xmmword ptr [rax+50h], xmm0"
+      },
+      {
+        "addr": "180783c42",
+        "instruction": "mov [rax+60h], rcx"
+      },
+      {
+        "addr": "180783c46",
+        "instruction": "lea rcx, aMFlweaponactio; \"m_flWeaponActionPlaybackRate\""
+      },
+      {
+        "addr": "180783c4d",
+        "instruction": "mov [rax+8], rcx"
+      },
+      {
+        "addr": "180783c51",
+        "instruction": "lea rcx, dword_1822AEC38"
+      },
+      {
+        "addr": "180783c58",
+        "instruction": "mov [rax], bpl"
+      },
+      {
+        "addr": "180783c5b",
+        "instruction": "mov dword ptr [rax+10h], 180Ch"
+      },
+      {
+        "addr": "180783c62",
+        "instruction": "mov [rax+14h], bp"
+      },
+      {
+        "addr": "180783c66",
+        "instruction": "mov dword ptr [rax+18h], 100h"
+      },
+      {
+        "addr": "180783c6d",
+        "instruction": "mov dword ptr [rax+40h], 4"
+      },
+      {
+        "addr": "180783c74",
+        "instruction": "call sub_1802E3CB0"
+      },
+      {
+        "addr": "180783c79",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783c7c",
+        "instruction": "xor ecx, ecx"
+      },
+      {
+        "addr": "180783c7e",
+        "instruction": "movups xmmword ptr [rax], xmm0"
+      },
+      {
+        "addr": "180783c81",
+        "instruction": "movups xmmword ptr [rax+10h], xmm0"
+      },
+      {
+        "addr": "180783c85",
+        "instruction": "movups xmmword ptr [rax+20h], xmm0"
+      },
+      {
+        "addr": "180783c89",
+        "instruction": "movups xmmword ptr [rax+30h], xmm0"
+      },
+      {
+        "addr": "180783c8d",
+        "instruction": "movups xmmword ptr [rax+40h], xmm0"
+      },
+      {
+        "addr": "180783c91",
+        "instruction": "movups xmmword ptr [rax+50h], xmm0"
+      },
+      {
+        "addr": "180783c95",
+        "instruction": "mov [rax+60h], rcx"
+      },
+      {
+        "addr": "180783c99",
+        "instruction": "lea rcx, aMNextprevowner; \"m_nextPrevOwnerUseTime\""
+      },
+      {
+        "addr": "180783ca0",
+        "instruction": "mov [rax+8], rcx"
+      },
+      {
+        "addr": "180783ca4",
+        "instruction": "lea rcx, dword_1822AEC38"
+      },
+      {
+        "addr": "180783cab",
+        "instruction": "mov byte ptr [rax], 0Fh"
+      },
+      {
+        "addr": "180783cae",
+        "instruction": "mov dword ptr [rax+10h], 18C8h"
+      },
+      {
+        "addr": "180783cb5",
+        "instruction": "mov [rax+14h], bp"
+      },
+      {
+        "addr": "180783cb9",
+        "instruction": "mov dword ptr [rax+18h], 8000500h"
+      },
+      {
+        "addr": "180783cc0",
+        "instruction": "mov dword ptr [rax+40h], 4"
+      },
+      {
+        "addr": "180783cc7",
+        "instruction": "call sub_1802E3CB0"
+      },
+      {
+        "addr": "180783ccc",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783ccf",
+        "instruction": "xor ecx, ecx"
+      },
+      {
+        "addr": "180783cd1",
+        "instruction": "movups xmmword ptr [rax], xmm0"
+      },
+      {
+        "addr": "180783cd4",
+        "instruction": "movups xmmword ptr [rax+10h], xmm0"
+      },
+      {
+        "addr": "180783cd8",
+        "instruction": "movups xmmword ptr [rax+20h], xmm0"
+      },
+      {
+        "addr": "180783cdc",
+        "instruction": "movups xmmword ptr [rax+30h], xmm0"
+      },
+      {
+        "addr": "180783ce0",
+        "instruction": "movups xmmword ptr [rax+40h], xmm0"
+      },
+      {
+        "addr": "180783ce4",
+        "instruction": "movups xmmword ptr [rax+50h], xmm0"
+      },
+      {
+        "addr": "180783ce8",
+        "instruction": "mov [rax+60h], rcx"
+      },
+      {
+        "addr": "180783cec",
+        "instruction": "lea rcx, aMHprevowner; \"m_hPrevOwner\""
+      },
+      {
+        "addr": "180783cf3",
+        "instruction": "mov [rax+8], rcx"
+      },
+      {
+        "addr": "180783cf7",
+        "instruction": "lea rcx, dword_1822AEC38"
+      },
+      {
+        "addr": "180783cfe",
+        "instruction": "mov byte ptr [rax], 0Dh"
+      },
+      {
+        "addr": "180783d01",
+        "instruction": "mov dword ptr [rax+10h], 18CCh"
+      },
+      {
+        "addr": "180783d08",
+        "instruction": "mov [rax+14h], bp"
+      },
+      {
+        "addr": "180783d0c",
+        "instruction": "mov dword ptr [rax+18h], 100h"
+      },
+      {
+        "addr": "180783d13",
+        "instruction": "mov dword ptr [rax+40h], 4"
+      },
+      {
+        "addr": "180783d1a",
+        "instruction": "call sub_1802E3CB0"
+      },
+      {
+        "addr": "180783d1f",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783d22",
+        "instruction": "xor ecx, ecx"
+      },
+      {
+        "addr": "180783d24",
+        "instruction": "movups xmmword ptr [rax], xmm0"
+      },
+      {
+        "addr": "180783d27",
+        "instruction": "movups xmmword ptr [rax+10h], xmm0"
+      },
+      {
+        "addr": "180783d2b",
+        "instruction": "movups xmmword ptr [rax+20h], xmm0"
+      },
+      {
+        "addr": "180783d2f",
+        "instruction": "movups xmmword ptr [rax+30h], xmm0"
+      },
+      {
+        "addr": "180783d33",
+        "instruction": "movups xmmword ptr [rax+40h], xmm0"
+      },
+      {
+        "addr": "180783d37",
+        "instruction": "movups xmmword ptr [rax+50h], xmm0"
+      },
+      {
+        "addr": "180783d3b",
+        "instruction": "mov [rax+60h], rcx"
+      },
+      {
+        "addr": "180783d3f",
+        "instruction": "lea rcx, aMNdroptick; \"m_nDropTick\""
+      },
+      {
+        "addr": "180783d46",
+        "instruction": "mov [rax+8], rcx"
+      },
+      {
+        "addr": "180783d4a",
+        "instruction": "lea rcx, dword_1822AEC38"
+      },
+      {
+        "addr": "180783d51",
+        "instruction": "mov byte ptr [rax], 5"
+      },
+      {
+        "addr": "180783d54",
+        "instruction": "mov dword ptr [rax+10h], 18D0h"
+      },
+      {
+        "addr": "180783d5b",
+        "instruction": "mov [rax+14h], bp"
+      },
+      {
+        "addr": "180783d5f",
+        "instruction": "mov dword ptr [rax+18h], 8000500h"
+      },
+      {
+        "addr": "180783d66",
+        "instruction": "mov dword ptr [rax+40h], 4"
+      },
+      {
+        "addr": "180783d6d",
+        "instruction": "call sub_1802E3CB0"
+      },
+      {
+        "addr": "180783d72",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783d75",
+        "instruction": "xor ecx, ecx"
+      },
+      {
+        "addr": "180783d77",
+        "instruction": "movups xmmword ptr [rax], xmm0"
+      },
+      {
+        "addr": "180783d7a",
+        "instruction": "movups xmmword ptr [rax+10h], xmm0"
+      },
+      {
+        "addr": "180783d7e",
+        "instruction": "movups xmmword ptr [rax+20h], xmm0"
+      },
+      {
+        "addr": "180783d82",
+        "instruction": "movups xmmword ptr [rax+30h], xmm0"
+      },
+      {
+        "addr": "180783d86",
+        "instruction": "movups xmmword ptr [rax+40h], xmm0"
+      },
+      {
+        "addr": "180783d8a",
+        "instruction": "movups xmmword ptr [rax+50h], xmm0"
+      },
+      {
+        "addr": "180783d8e",
+        "instruction": "mov [rax+60h], rcx"
+      },
+      {
+        "addr": "180783d92",
+        "instruction": "lea rcx, aMBwasactivewea; \"m_bWasActiveWeaponWhenDropped\""
+      },
+      {
+        "addr": "180783d99",
+        "instruction": "mov [rax+8], rcx"
+      },
+      {
+        "addr": "180783d9d",
+        "instruction": "mov byte ptr [rax], 6"
+      },
+      {
+        "addr": "180783da0",
+        "instruction": "mov dword ptr [rax+10h], 18D4h"
+      },
+      {
+        "addr": "180783da7",
+        "instruction": "mov [rax+14h], bp"
+      },
+      {
+        "addr": "180783dab",
+        "instruction": "lea rcx, dword_1822AEC38"
+      },
+      {
+        "addr": "180783db2",
+        "instruction": "mov dword ptr [rax+18h], 100h"
+      },
+      {
+        "addr": "180783db9",
+        "instruction": "mov [rax+40h], ebp"
+      },
+      {
+        "addr": "180783dbc",
+        "instruction": "call sub_1802E3CB0"
+      },
+      {
+        "addr": "180783dc1",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783dc4",
+        "instruction": "xor ecx, ecx"
+      },
+      {
+        "addr": "180783dc6",
+        "instruction": "movups xmmword ptr [rax], xmm0"
+      },
+      {
+        "addr": "180783dc9",
+        "instruction": "movups xmmword ptr [rax+10h], xmm0"
+      },
+      {
+        "addr": "180783dcd",
+        "instruction": "movups xmmword ptr [rax+20h], xmm0"
+      },
+      {
+        "addr": "180783dd1",
+        "instruction": "movups xmmword ptr [rax+30h], xmm0"
+      },
+      {
+        "addr": "180783dd5",
+        "instruction": "movups xmmword ptr [rax+40h], xmm0"
+      },
+      {
+        "addr": "180783dd9",
+        "instruction": "movups xmmword ptr [rax+50h], xmm0"
+      },
+      {
+        "addr": "180783ddd",
+        "instruction": "mov [rax+60h], rcx"
+      },
+      {
+        "addr": "180783de1",
+        "instruction": "lea rcx, aMFlastshottime; \"m_fLastShotTime\""
+      },
+      {
+        "addr": "180783de8",
+        "instruction": "mov [rax+8], rcx"
+      },
+      {
+        "addr": "180783dec",
+        "instruction": "lea rcx, dword_1822AEC38"
+      },
+      {
+        "addr": "180783df3",
+        "instruction": "mov byte ptr [rax], 0Fh"
+      },
+      {
+        "addr": "180783df6",
+        "instruction": "mov dword ptr [rax+10h], 18F8h"
+      },
+      {
+        "addr": "180783dfd",
+        "instruction": "mov [rax+14h], bp"
+      },
+      {
+        "addr": "180783e01",
+        "instruction": "mov dword ptr [rax+18h], 100h"
+      },
+      {
+        "addr": "180783e08",
+        "instruction": "mov dword ptr [rax+40h], 4"
+      },
+      {
+        "addr": "180783e0f",
+        "instruction": "call sub_1802E3CB0"
+      },
+      {
+        "addr": "180783e14",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783e17",
+        "instruction": "xor ecx, ecx"
+      },
+      {
+        "addr": "180783e19",
+        "instruction": "movups xmmword ptr [rax], xmm0"
+      },
+      {
+        "addr": "180783e1c",
+        "instruction": "movups xmmword ptr [rax+10h], xmm0"
+      },
+      {
+        "addr": "180783e20",
+        "instruction": "movups xmmword ptr [rax+20h], xmm0"
+      },
+      {
+        "addr": "180783e24",
+        "instruction": "movups xmmword ptr [rax+30h], xmm0"
+      },
+      {
+        "addr": "180783e28",
+        "instruction": "movups xmmword ptr [rax+40h], xmm0"
+      },
+      {
+        "addr": "180783e2c",
+        "instruction": "movups xmmword ptr [rax+50h], xmm0"
+      },
+      {
+        "addr": "180783e30",
+        "instruction": "mov [rax+60h], rcx"
+      },
+      {
+        "addr": "180783e34",
+        "instruction": "lea rcx, aMIronsightcont; \"m_IronSightController\""
+      },
+      {
+        "addr": "180783e3b",
+        "instruction": "mov [rax+8], rcx"
+      },
+      {
+        "addr": "180783e3f",
+        "instruction": "lea rcx, qword_182017FA0"
+      },
+      {
+        "addr": "180783e46",
+        "instruction": "mov [rax+38h], rcx"
+      },
+      {
+        "addr": "180783e4a",
+        "instruction": "lea rcx, dword_1822AEC38"
+      },
+      {
+        "addr": "180783e51",
+        "instruction": "mov byte ptr [rax], 0Ah"
+      },
+      {
+        "addr": "180783e54",
+        "instruction": "mov dword ptr [rax+10h], 1960h"
+      },
+      {
+        "addr": "180783e5b",
+        "instruction": "mov [rax+14h], bp"
+      },
+      {
+        "addr": "180783e5f",
+        "instruction": "call sub_1802E3CB0"
+      },
+      {
+        "addr": "180783e64",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783e67",
+        "instruction": "lea rcx, dword_1822AEC38"
+      },
+      {
+        "addr": "180783e6e",
+        "instruction": "xor edx, edx"
+      },
+      {
+        "addr": "180783e70",
+        "instruction": "movups xmmword ptr [rax], xmm0"
+      },
+      {
+        "addr": "180783e73",
+        "instruction": "movups xmmword ptr [rax+10h], xmm0"
+      },
+      {
+        "addr": "180783e77",
+        "instruction": "movups xmmword ptr [rax+20h], xmm0"
+      },
+      {
+        "addr": "180783e7b",
+        "instruction": "movups xmmword ptr [rax+30h], xmm0"
+      },
+      {
+        "addr": "180783e7f",
+        "instruction": "movups xmmword ptr [rax+40h], xmm0"
+      },
+      {
+        "addr": "180783e83",
+        "instruction": "movups xmmword ptr [rax+50h], xmm0"
+      },
+      {
+        "addr": "180783e87",
+        "instruction": "mov [rax+60h], rdx"
+      },
+      {
+        "addr": "180783e8b",
+        "instruction": "lea rdx, aMIironsightmod; \"m_iIronSightMode\""
+      },
+      {
+        "addr": "180783e92",
+        "instruction": "mov [rax+8], rdx"
+      },
+      {
+        "addr": "180783e96",
+        "instruction": "mov byte ptr [rax], 5"
+      },
+      {
+        "addr": "180783e99",
+        "instruction": "mov dword ptr [rax+10h], 1A10h"
+      },
+      {
+        "addr": "180783ea0",
+        "instruction": "mov [rax+14h], bp"
+      },
+      {
+        "addr": "180783ea4",
+        "instruction": "mov dword ptr [rax+18h], 100h"
+      },
+      {
+        "addr": "180783eab",
+        "instruction": "mov dword ptr [rax+40h], 4"
+      },
+      {
+        "addr": "180783eb2",
+        "instruction": "call sub_1802E3CB0"
+      },
+      {
+        "addr": "180783eb7",
+        "instruction": "mov rdi, [rsp+28h+var_8]"
+      },
+      {
+        "addr": "180783ebc",
+        "instruction": "xorps xmm0, xmm0"
+      },
+      {
+        "addr": "180783ebf",
+        "instruction": "mov rsi, [rsp+28h+arg_10]"
+      },
+      {
+        "addr": "180783ec4",
+        "instruction": "xor ecx, ecx"
+      },
+      {
+        "addr": "180783ec6",
+        "instruction": "movups xmmword ptr [rax], xmm0"
+      },
+      {
+        "addr": "180783ec9",
+        "instruction": "movups xmmword ptr [rax+10h], xmm0"
+      },
+      {
+        "addr": "180783ecd",
+        "instruction": "movups xmmword ptr [rax+20h], xmm0"
+      },
+      {
+        "addr": "180783ed1",
+        "instruction": "movups xmmword ptr [rax+30h], xmm0"
+      },
+      {
+        "addr": "180783ed5",
+        "instruction": "movups xmmword ptr [rax+40h], xmm0"
+      },
+      {
+        "addr": "180783ed9",
+        "instruction": "movups xmmword ptr [rax+50h], xmm0"
+      },
+      {
+        "addr": "180783edd",
+        "instruction": "mov [rax+60h], rcx"
+      },
+      {
+        "addr": "180783ee1",
+        "instruction": "lea rcx, aMFlwattickoffs; \"m_flWatTickOffset\""
+      },
+      {
+        "addr": "180783ee8",
+        "instruction": "mov [rax], bpl"
+      },
+      {
+        "addr": "180783eeb",
+        "instruction": "mov [rax+14h], bp"
+      },
+      {
+        "addr": "180783eef",
+        "instruction": "mov rbp, [rsp+28h+arg_8]"
+      },
+      {
+        "addr": "180783ef4",
+        "instruction": "mov [rax+8], rcx"
+      },
+      {
+        "addr": "180783ef8",
+        "instruction": "mov dword ptr [rax+10h], 1AE8h"
+      },
+      {
+        "addr": "180783eff",
+        "instruction": "mov dword ptr [rax+18h], 100h"
+      },
+      {
+        "addr": "180783f06",
+        "instruction": "mov dword ptr [rax+40h], 4"
+      },
+      {
+        "addr": "180783f0d",
+        "instruction": "mov rax, cs:qword_1822AEC40"
+      },
+      {
+        "addr": "180783f14",
+        "instruction": "mov cs:qword_1822AEC08, rax"
+      },
+      {
+        "addr": "180783f1b",
+        "instruction": "mov eax, cs:dword_1822AEC38"
+      },
+      {
+        "addr": "180783f21",
+        "instruction": "mov cs:dword_1822AEC10, eax"
+      },
+      {
+        "addr": "180783f27",
+        "instruction": "mov rbx, [rsp+28h+arg_0]"
+      },
+      {
+        "addr": "180783f2c",
+        "instruction": "lea rax, qword_1822AEC08"
+      },
+      {
+        "addr": "180783f33",
+        "instruction": "add rsp, 28h"
+      },
+      {
+        "addr": "180783f37",
+        "instruction": "retn"
+      },
+      {
+        "addr": "180783f38",
+        "instruction": "lea rcx, dword_1822AEC50"
+      },
+      {
+        "addr": "180783f3f",
+        "instruction": "call sub_18185B158"
+      },
+      {
+        "addr": "180783f44",
+        "instruction": "cmp cs:dword_1822AEC50, 0FFFFFFFFh"
+      },
+      {
+        "addr": "180783f4b",
+        "instruction": "jnz loc_18078291B"
+      },
+      {
+        "addr": "180783f51",
+        "instruction": "lea rcx, sub_1818D88A0; void (__cdecl *)()"
+      },
+      {
+        "addr": "180783f58",
+        "instruction": "call atexit"
+      },
+      {
+        "addr": "180783f5d",
+        "instruction": "lea rcx, dword_1822AEC50"
+      },
+      {
+        "addr": "180783f64",
+        "instruction": "call sub_18185B0EC"
+      },
+      {
+        "addr": "180783f69",
+        "instruction": "jmp loc_18078291B"
+      }
+    ],
+    "stack_frame": [
+      {
+        "name": "var_8",
+        "offset": "0x20",
+        "size": "0x8",
+        "type": "_QWORD"
+      },
+      {
+        "name": "__return_address",
+        "offset": "0x28",
+        "size": "0x8",
+        "type": "_UNKNOWN *"
+      },
+      {
+        "name": "arg_0",
+        "offset": "0x30",
+        "size": "0x8",
+        "type": "_QWORD"
+      },
+      {
+        "name": "arg_8",
+        "offset": "0x38",
+        "size": "0x8",
+        "type": "_QWORD"
+      },
+      {
+        "name": "arg_10",
+        "offset": "0x40",
+        "size": "0x8",
+        "type": "_QWORD"
+      }
+    ]
+  },
+  "instruction_count": 1310,
+  "total_instructions": null,
+  "cursor": {
+    "done": true
+  }
+}

@@ -97,8 +97,10 @@ namespace Offsets
     constexpr std::ptrdiff_t m_unMusicID           = 0x58;
 
     // C_CSPlayerPawn
-    constexpr std::ptrdiff_t m_bNeedToReApplyGloves = 0x1695;  // 14152 dump 22-04-26
-    constexpr std::ptrdiff_t m_EconGloves          = 0x1698;   // 14152 dump 22-04-26
+    // 14154: glove block shifted -0x40 (same drift family as spotted-state).
+    // Verified against universal-dumper 2026-04-24 dump (build 14154).
+    constexpr std::ptrdiff_t m_bNeedToReApplyGloves = 0x1655;  // 14154 dump 24-04-26
+    constexpr std::ptrdiff_t m_EconGloves          = 0x1658;   // 14154 dump 24-04-26
     // NOTE: post-shift fields below verified against a2x/cs2-dumper 2026-04-22
     // (build 14152). Many were off by +0x40 vs the actual schema.
     constexpr std::ptrdiff_t m_hHudModelArms       = 0x1B58;
@@ -363,10 +365,66 @@ namespace Offsets
     constexpr std::ptrdiff_t m_fAccuracyPenalty    = 0x17D0;  // float — cumulative inaccuracy
     constexpr std::ptrdiff_t m_flRecoilIndex       = 0x17E0;  // float — current recoil step
 
-    // C_PlantedC4
+    // C_PlantedC4 — full timing block. m_flC4Blow / m_flDefuseCountDown
+    // are GameTime_t (server-clock seconds since epoch); subtract local
+    // GlobalVars::curtime to get a remaining-seconds countdown.
     constexpr std::ptrdiff_t m_bBombTicking        = 0x1160;
-    constexpr std::ptrdiff_t m_flC4Blow            = 0x1190;
-    constexpr std::ptrdiff_t m_bBombDefused        = 0x11B4;
-    constexpr std::ptrdiff_t m_flDefuseCountDown   = 0x11B0;
-    constexpr std::ptrdiff_t m_flDefuseLength      = 0x11AC;
+    constexpr std::ptrdiff_t m_flC4Blow            = 0x1190;  // GameTime_t — when bomb explodes
+    constexpr std::ptrdiff_t m_bBeingDefused       = 0x119C;  // bool — defuse in progress
+    constexpr std::ptrdiff_t m_flDefuseLength      = 0x11AC;  // float — total seconds for current defuser (5 nokit / 10 kit)
+    constexpr std::ptrdiff_t m_flDefuseCountDown   = 0x11B0;  // GameTime_t — when defuse completes
+    constexpr std::ptrdiff_t m_bBombDefused        = 0x11B4;  // bool — defused (post-completion)
+    constexpr std::ptrdiff_t m_hBombDefuser        = 0x11B8;  // CHandle<C_CSPlayerPawn>
+
+    // C_CSGameRules — round/match clocks. Used for round-time HUD and
+    // for the freeze-aware silent-aim suppression we already do.
+    // m_iRoundTime is the round duration in SECONDS. m_fRoundStartTime
+    // is the GameTime_t when the live phase began (round_start). Time
+    // remaining = (m_fRoundStartTime + m_iRoundTime) - curtime.
+    constexpr std::ptrdiff_t m_iRoundTime          = 0x68;
+    constexpr std::ptrdiff_t m_fMatchStartTime     = 0x6C;
+    constexpr std::ptrdiff_t m_fRoundStartTime     = 0x70;
+    constexpr std::ptrdiff_t m_gamePhase           = 0x84;  // 0=init,1=pregame,2=startgame,3=preround,4=teamwin,5=restart,6=stalemate,7=gameover
+    constexpr std::ptrdiff_t m_totalRoundsPlayed   = 0x88;
+    constexpr std::ptrdiff_t m_iRoundWinStatus     = 0x9AC;
+
+    // C_Inferno — molotov / incendiary fire entity.
+    // m_BurnNormal is up to 64 vec3 fire-spawn world positions; pair with
+    // m_fireCount (typically right next to it) to know how many slots
+    // are populated. Used by world_effects to render the danger area
+    // so the player can see safe paths through fire.
+    constexpr std::ptrdiff_t m_BurnNormal          = 0x1658;  // Vector[64]
+
+    // C_CSPlayerPawn — server-tracked damage state. These are READ-ONLY
+    // values the server uses to gate aim accuracy server-side; using them
+    // as soft-throttle multipliers on silent-aim flick magnitude makes
+    // our behaviour line up exactly with what the server already expects:
+    //   * m_flFlinchStack       — 0..N stacks of flinch (decays per tick).
+    //                             Bot-perfect aim while > 0 is one of the
+    //                             cleanest detection signals.
+    //   * m_flVelocityModifier  — 0.0..1.0 multiplier the server applies
+    //                             to the local pawn's max speed for ~1s
+    //                             after taking damage. < 1.0 means we
+    //                             were just shot.
+    //   * m_flTimeOfLastInjury  — GameTime_t of the last damage event.
+    //                             curtime - this < 0.5s = still recovering.
+    constexpr std::ptrdiff_t m_flFlinchStack         = 0x1C60;
+    constexpr std::ptrdiff_t m_flVelocityModifier    = 0x1C64;
+    constexpr std::ptrdiff_t m_flTimeOfLastInjury    = 0x14E4;
+
+    // CCSPlayer_AimPunchServices @ pawn + 0x1490. The server keeps the
+    // aim-punch state here as a *predictable* base (recoil-pattern based,
+    // applied on FireBullet) plus an *unpredictable* base (damage punch).
+    // Reading m_predictableBaseAngle every tick lets us:
+    //   1) Subtract it from our silent-aim shoot-angles → bullets fly
+    //      to the *uncompensated* aim point even mid-spray.
+    //   2) Render an inverse-recoil HUD crosshair so the player can
+    //      see where the gun is *actually* pointing.
+    constexpr std::ptrdiff_t m_predictableBaseTick           = 0x48;
+    constexpr std::ptrdiff_t m_predictableBaseTickInterpAmount = 0x4C;
+    constexpr std::ptrdiff_t m_predictableBaseAngle          = 0x50;  // QAngle (pitch,yaw,roll)
+    constexpr std::ptrdiff_t m_predictableBaseAngleVel       = 0x5C;  // QAngle
+    constexpr std::ptrdiff_t m_unpredictableBaseTick         = 0xA0;
+    constexpr std::ptrdiff_t m_unpredictableBaseAngle        = 0xA4;  // QAngle (damage punch)
+    // m_pAimPunchServices already defined earlier (0x1490).
 }

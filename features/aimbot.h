@@ -1456,6 +1456,13 @@ namespace Aimbot
         inline volatile uintptr_t targetPawn   = 0;
         inline volatile float localHSpeedSq    = 0.f;
         inline volatile bool suppressFire      = false;
+        // Server-tracked damage state. m_flFlinchStack is the post-hit
+        // recoil-twitch stack the server applies to weapon spread; humans
+        // miss bot-snap shots while flinching. m_flVelocityModifier drops
+        // <1.0 for ~1s after taking damage. Cached every Tick() so the
+        // per-subtick path doesn't re-read the pawn 4-16x per cmd.
+        inline volatile float localFlinchStack    = 0.f;
+        inline volatile float localVelocityMod    = 1.f;
 
         inline __int64 __fastcall hkWriteSubtick(uintptr_t entry, __int64 msg, char a3,
                                                  double a4, int a5, __int64 a6)
@@ -1585,6 +1592,31 @@ namespace Aimbot
                     capP *= scale; capY *= scale;
                 }
                 capP *= spdScale; capY *= spdScale;
+
+                // ---- Anti-detection guard 6: damage-state throttle -----
+                // While flinching from incoming fire OR while the server
+                // has cut our speed for a recent hit, real players can't
+                // bot-snap. The server already applies extra spread for
+                // both states, so a perfectly accurate flick during them
+                // is a unique fingerprint. Same throttle bypassed when
+                // the crosshair is already on target (legit mouse work).
+                if (!crosshairAligned) {
+                    float dmgScale = 1.0f;
+                    float fs = SilentAim::localFlinchStack;
+                    if (fs > 0.05f) {
+                        // 1 stack ~= -25%, capped at -60% (linear).
+                        float drop = fs * 0.25f;
+                        if (drop > 0.60f) drop = 0.60f;
+                        dmgScale *= (1.0f - drop);
+                    }
+                    float vm = SilentAim::localVelocityMod;
+                    if (vm < 0.95f) {
+                        // Velocity modifier 0..1; fully halve flick at 0.
+                        // Linear: 1.0 -> 1.0x, 0.0 -> 0.5x.
+                        dmgScale *= (0.5f + 0.5f * vm);
+                    }
+                    capP *= dmgScale; capY *= dmgScale;
+                }
 
                 // Per-shot wobble: ±0.10° independent jitter so consecutive
                 // bullets in the same engagement don't pixel-cluster.
@@ -2054,13 +2086,26 @@ namespace Aimbot
                     SilentAim::localCrosshairPawn = xpawn;
                     Math::Vec3 v = Mem::Read<Math::Vec3>(lp + Offsets::m_vecVelocity);
                     SilentAim::localHSpeedSq = v.x * v.x + v.y * v.y;
+                    // Damage-state cache. Both fields live on the pawn and
+                    // are server-replicated — reading them is identical to
+                    // any other ESP read.
+                    float fs = Mem::Read<float>(lp + Offsets::m_flFlinchStack);
+                    float vm = Mem::Read<float>(lp + Offsets::m_flVelocityModifier);
+                    if (!(fs >= 0.f && fs < 32.f)) fs = 0.f;
+                    if (!(vm >= 0.f && vm <= 1.f)) vm = 1.f;
+                    SilentAim::localFlinchStack = fs;
+                    SilentAim::localVelocityMod = vm;
                 } __except (EXCEPTION_EXECUTE_HANDLER) {
                     SilentAim::localCrosshairPawn = 0;
                     SilentAim::localHSpeedSq = 0.f;
+                    SilentAim::localFlinchStack = 0.f;
+                    SilentAim::localVelocityMod = 1.f;
                 }
             } else {
                 SilentAim::localCrosshairPawn = 0;
                 SilentAim::localHSpeedSq = 0.f;
+                SilentAim::localFlinchStack = 0.f;
+                SilentAim::localVelocityMod = 1.f;
             }
         }
 
