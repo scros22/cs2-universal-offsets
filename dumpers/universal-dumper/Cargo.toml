@@ -1,6 +1,6 @@
 [package]
 name = "cs2-universal-dumper"
-version = "1.0.0"
+version = "1.5.3"
 edition = "2024"
 description = "All-in-one external offset + signature dumper for Counter-Strike 2."
 
