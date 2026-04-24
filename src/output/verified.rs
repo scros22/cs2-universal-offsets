@@ -434,6 +434,71 @@ pub static FEATURES: &[VerifiedFeature] = &[
         convars: &[],
         hooks: &[],
     },
+    VerifiedFeature {
+        name: "Silent Aim — Anti-Detection Gate Stack (CS2 14152)",
+        status: "working",
+        summary: "Full reverse-engineered server-trust gate set for hooked \
+                  CSGOInputHistoryEntry::WriteSubtick (signature \
+                  `48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00 \
+                  8B 01 48 8B F9 81 4A 10 00 02`, unique match @ 0x180C53DB0 in \
+                  build 14152). KEY DISCOVERY: the WriteSubtick entry is 12 \
+                  floats in two halves — fe[4..6] is the REAL view-angle stream \
+                  the server replays for spectators / GOTV / Overwatch, while \
+                  fe[7..9] is the per-subtick shoot angles read ONLY on attack \
+                  subticks (a3 != 0). Public internals overwrite both → flagged. \
+                  Touching ONLY fe[7..9] AND ONLY when a3 != 0 keeps the demo \
+                  identical to a legit player while still bending the bullet. \
+                  \n\nOn top of that, every gate below is a server-authoritative \
+                  bool the engine itself reads to decide whether the attack \
+                  produces a bullet. If we still write the angle while any of \
+                  these are tripped, we get the desync in the demo with NO \
+                  matching shot — pure liability. The full hard-suppress set: \
+                  freeze/warmup, m_bWaitForNoAttack (post-respawn / weapon-switch \
+                  attack-release lockout), no-scope sniper, m_bNeedsBoltAction \
+                  (AWP/SSG bolt cycle), m_bInReload, m_iClip1==0, \
+                  m_nNextPrimaryAttackTick > tickBase+1, m_bIsDefusing, \
+                  m_bIsGrabbingHostage, MoveType not WALK/FLYGRAVITY. Soft \
+                  throttle (multiplicative scale of the 28°/subtick flick cap): \
+                  m_bIsValveDS * 0.55, observerCount * 0.55, m_bSpotted+observers \
+                  * 0.65, horiz-speed > 80u/s linear-ramps to 0.5 (>180u/s caps), \
+                  ±0.10° LCG jitter. Crosshair-aligned bypass: when local \
+                  m_iIDEntIndex resolves (via slot→controller→m_hPlayerPawn) to \
+                  the same pawn as the silent-aim target, the throttle is \
+                  bypassed (the player legitimately had the crosshair on them).",
+        fields: &[
+            // Hard-suppress gates (any true ⇒ skip the angle write).
+            VerifiedField { class: "C_CSGameRules",            field: "m_bFreezePeriod",          offset: 0x40,   ty: "bool",     note: "round freeze — no attacks possible; suppress" },
+            VerifiedField { class: "C_CSGameRules",            field: "m_bWarmupPeriod",          offset: 0x41,   ty: "bool",     note: "warmup — no attacks possible; suppress" },
+            VerifiedField { class: "C_CSGameRules",            field: "m_bIsValveDS",             offset: 0xA4,   ty: "bool",     note: "TRUE on Valve official MM (where Overwatch + VAC Live actually run) — soft-throttle to 0.55x" },
+            VerifiedField { class: "C_CSGameRules",            field: "m_bHasMatchStarted",       offset: 0xB0,   ty: "bool",     note: "match-state gate; useful for warmup-only conservative profile" },
+            VerifiedField { class: "C_CSPlayerPawn",           field: "m_bWaitForNoAttack",       offset: 0x1CA8, ty: "bool",     note: "TRUE after respawn / weapon switch / round-restart until attack is RELEASED then re-pressed; suppress (firing through this is a textbook bot tell)" },
+            VerifiedField { class: "C_CSPlayerPawn",           field: "m_bIsDefusing",            offset: 0x1C8A, ty: "bool",     note: "server forbids attack while defusing; angle flick is worst possible signature" },
+            VerifiedField { class: "C_CSPlayerPawn",           field: "m_bIsGrabbingHostage",     offset: 0x1C8B, ty: "bool",     note: "server forbids attack while grabbing hostage; suppress" },
+            VerifiedField { class: "C_BaseEntity",             field: "m_MoveType",               offset: 0x525,  ty: "uint8 (MoveType_t)", note: "only 2 (WALK) and 4 (FLYGRAVITY) are normal play; LADDER=9 / NOCLIP=7 / OBSERVER=8 / NONE=0 ⇒ suppress" },
+            VerifiedField { class: "C_CSWeaponBaseGun",        field: "m_zoomLevel",              offset: 0x1CB0, ty: "int32",    note: "0=unscoped, 1/2=scoped — refuse silent-fire on AWP/SSG/G3SG1/SCAR-20 when zoom == 0 (no-scope detection signal)" },
+            VerifiedField { class: "C_CSWeaponBaseGun",        field: "m_bNeedsBoltAction",       offset: 0x1CCD, ty: "bool",     note: "AWP/SSG/Scout post-shot bolt-cycle lockout — server discards attacks until false" },
+            VerifiedField { class: "C_CSWeaponBase",           field: "m_bInReload",              offset: 0x17F4, ty: "bool",     note: "weapon mid-reload — no bullet possible; suppress" },
+            VerifiedField { class: "C_BasePlayerWeapon",       field: "m_iClip1",                 offset: 0x16D8, ty: "int32",    note: "clip count — silent fire with clip == 0 is server-discarded but angle still serialises; suppress" },
+            VerifiedField { class: "C_BasePlayerWeapon",       field: "m_nNextPrimaryAttackTick", offset: 0x16C8, ty: "int32",    note: "absolute server tick when next attack allowed; suppress when (nextTick - tickBase) > 1" },
+            VerifiedField { class: "C_BasePlayerWeapon",       field: "m_flNextPrimaryAttackTickRatio", offset: 0x16CC, ty: "float", note: "fractional component of next-attack tick" },
+            VerifiedField { class: "CBasePlayerController",    field: "m_nTickBase",              offset: 0x6B8,  ty: "int32",    note: "local tick counter the server uses for weapon timers (compare against m_nNextPrimaryAttackTick)" },
+            // Soft-throttle inputs (scale the per-subtick max-flick cap).
+            VerifiedField { class: "EntitySpottedState_t",     field: "m_bSpottedByMask",         offset: 0xC,    ty: "uint32[2]", note: "bit per spotter slot — when a real enemy has us in PVS, throttle silent flick to 0.65x (their POV demo will replay our suspicious aim snap)" },
+            VerifiedField { class: "C_CSPlayerPawn",           field: "m_iIDEntIndex",            offset: 0x33DC, ty: "int32",    note: "entity index local crosshair currently rests on — resolve via slot→controller→m_hPlayerPawn for slots 1..64; if it matches silent-aim target pawn, BYPASS the throttle (player legitimately aimed there)" },
+            VerifiedField { class: "C_BaseEntity",             field: "m_vecVelocity",            offset: 0x430,  ty: "Vector3",  note: "soft throttle scales (1.0 → 0.5 linear from 80u/s → 180u/s horizontal speed)" },
+            // Weapon classification for sniper-specific gates (no-scope, bolt-action).
+            VerifiedField { class: "C_EconEntity",             field: "m_iItemDefinitionIndex (abs)", offset: 0x15C2, ty: "uint16", note: "absolute on weapon entity = m_AttributeManager (0x13B8) + m_Item (0x50) + 0x1BA. Sniper IDs: AWP=9, SSG08=40, G3SG1=11, SCAR20=38" },
+        ],
+        convars: &[],
+        hooks: &[
+            VerifiedHook {
+                function: "CSGOInputHistoryEntry::WriteSubtick",
+                module: "client.dll",
+                signature: "48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00 8B 01 48 8B F9 81 4A 10 00 02",
+                action: "Per-subtick angle override. (1) BAIL if a3 (attack-flag arg) == 0 — non-attack subticks must NOT touch angles. (2) NEVER touch fe[4..6] (real view-angle stream replayed in demos). (3) Save fe[7..9], evaluate hard-suppress set; if any gate true call original unmodified, otherwise apply target-angles + soft-throttle scale + ±0.10° LCG jitter to fe[7..9] only, call original, restore fe[7..9].",
+            },
+        ],
+    },
 ];
 
 // ----------------------------------------------------------------------
