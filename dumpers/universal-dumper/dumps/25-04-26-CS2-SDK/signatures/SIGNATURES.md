@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**254/300 signatures resolved across 10 module(s).**
+**262/308 signatures resolved across 10 module(s).**
 
 ## `animationsystem.dll`
 
@@ -62,6 +62,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CGameEntitySystem::OnAddEntity` | `raw` | `0x7FFC00056F30` | `0x966F30` | `48 89 74 24 ? 57 48 83 EC ? 41 B9 ? ? ? ? 41 8B C0 41 23 C1 48 8B F2 41 83 F8 ? 48 8B F9 44 0F 45 C8 41 81 F9 ? ? ? ? 73 ? FF 81` |
 | `CGameEntitySystem::OnRemoveEntity` | `raw` | `0x7FFC00057790` | `0x967790` | `48 89 74 24 ? 57 48 83 EC ? 41 B9 ? ? ? ? 41 8B C0 41 23 C1 48 8B F2 41 83 F8 ? 48 8B F9 44 0F 45 C8 41 81 F9 ? ? ? ? 73 ? FF 89` |
 | `CGameSceneNode` | `stringref` | `0x7FFBFF893840` | `0x1A3840` | `"CGameSceneNode"` |
+| `CGameSceneNode_BuildBoneMergeWork` | `raw` | `0x7FFC0002E3C0` | `0x93E3C0` | `40 55 56 57 41 54 41 55 41 56 41 57 48 83 EC 50 48 8D 6C 24 50 80 A1 06 01 00 00 FB 4C 8B F9 80` |
+| `CGameSceneNode_StartHierarchicalAttachment` | `raw` | `0x7FFC0007AE80` | `0x98AE80` | `48 89 5C 24 10 48 89 6C 24 18 48 89 74 24 20 57 41 54 41 55 41 56 41 57 48 83 EC 30 48 8B F9 8B` |
 | `CGlowProperty` | `stringref` | `0x7FFBFF9D10F0` | `0x2E10F0` | `"CGlowProperty"` |
 | `CHEGrenadeProjectile` | `stringref` | `0x7FFC006CDBD0` | `0xFDDBD0` | `"CHEGrenadeProjectile"` |
 | `CInputPtrGlobal` | `riprel` | `0x7FFC017513C0` | `0x20613C0` | `4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00 85 C0` |
@@ -120,6 +122,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `FlashOverlay` | `raw` | `0x7FFC00498C10` | `0xDA8C10` | `85 D2 0F 88 ? ? ? ? 48 89 4C 24` |
 | `ForceButtonsDown` | `raw` | `0x7FFC000BE9D0` | `0x9CE9D0` | `40 53 57 41 56 48 81 EC ? ? ? ? 48 83 79` |
 | `GameEntitySystemPtr` | `riprel` | `0x7FFC01BBED50` | `0x24CED50` | `48 8B 1D ? ? ? ? 48 89 1D ? ? ? ?` |
+| `GameEventManager_AddListener` | `raw` | `0x7FFC00028970` | `0x938970` | `48 89 5C 24 10 48 89 6C 24 18 56 57 41 56 48 83 EC 50 41 0F B6 E9 48 8D 99 E0 00 00 00 49 8B F0` |
+| `GameEventManager_UnserializeEvent` | `raw` | `0x7FFC000811A0` | `0x9911A0` | `48 8B C4 48 89 50 10 55 41 54 41 55 41 56 48 8D 68 D8 48 81 EC 08 01 00 00 48 89 58 D8 4C 8D B1` |
 | `GameRules_ptr` | `riprel` | `0x7FFC01A18F38` | `0x2328F38` | `48 8B 1D ? ? ? ? 48 8D 54 24 ? 0F 28 D0 48 8D 4C 24 ?` |
 | `GetBBox_ptr` | `riprel` | `0x7FFC01A18F38` | `0x2328F38` | `48 8B 0D ? ? ? ? 48 85 C9 74 ? ? ? ? 48 FF A0 ? ? ? ? 48 8D 05` |
 | `GetBaseEntity` | `raw` | `0x7FFC00055EF0` | `0x965EF0` | `4C 8D 49 ? 81 FA` |
@@ -248,7 +252,11 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `Engine_Disconnect_main` | `raw` | `0x7FFC12E41510` | `0x1D1510` | `48 89 5C 24 20 55 57 41 54 48 8B EC 48 83 EC 70 45 33 E4 48 C7 05` |
 | `Engine_HLTVClient_ExecuteStringCommand` | `raw` | `0x7FFC12D90D70` | `0x120D70` | `40 53 56 48 81 EC 48 07 00 00 48 8B F1 48 8B DA 48 8B 4A 48 48 83 E1 FC 48 83 79 18 0F 76 03 48` |
 | `Engine_HostStateMgr_QueueNewRequest` | `raw` | `0x7FFC12E8AFC0` | `0x21AFC0` | `48 89 6C 24 18 48 89 7C 24 20 41 56 48 83 EC 30 48 8B EA 48 8B F9 8B 0D ? ? ? ? BA 02 00 00` |
+| `Engine_LoadGameInfo` | `raw` | `0x7FFC12DFD760` | `0x18D760` | `40 55 56 41 56 48 8D 6C 24 F0 48 81 EC 10 01 00 00 4C 8B F1 C7 44 24 40 00 00 00 00 48 8B CA 48` |
+| `Engine_MountAddon` | `raw` | `0x7FFC12E03440` | `0x193440` | `48 85 D2 0F 84 DA 0A 00 00 48 8B C4 44 88 40 18 55 57 41 54 41 57 48 8D A8 C8 FC FF FF 48 81 EC` |
 | `Engine_NetTimeoutDisconnect` | `raw` | `0x7FFC12CD9780` | `0x69780` | `40 53 55 56 57 41 56 48 81 EC 80 00 00 00 0F 29 74 24 70 49 8B F8` |
+| `Engine_NetworkGameClient_Connect` | `raw` | `0x7FFC12CEF400` | `0x7F400` | `48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 48 83 EC 40 44 89 81 3C 02 00 00 49 8B E9 44 8B` |
+| `Engine_NetworkGameClient_SetSignonState` | `raw` | `0x7FFC12CD0F80` | `0x60F80` | `44 89 44 24 18 89 54 24 10 55 53 56 57 41 55 41 56 41 57 48 8D 6C 24 D9 48 81 EC D0 00 00 00 8B` |
 | `Engine_RegisterConCommand` | `raw` | `0x7FFC1306D270` | `0x3FD270` | `48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 48 83 EC 60 44 8B 15` |
 | `Engine_RegisterConVar` | `raw` | `0x7FFC1306C080` | `0x3FC080` | `48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 54 41 56 41 57 48 81 EC D0 00 00` |
 

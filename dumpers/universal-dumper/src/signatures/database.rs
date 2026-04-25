@@ -1010,4 +1010,130 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
+
+    // ==================================================================
+    // NUVORA APR-26-2026 EXPANSION v4 (build 14155 — events/scene/net)
+    // ------------------------------------------------------------------
+    // Round 4: hooks for the game-event system (incoming server events
+    // + client-side dispatch), the scene-node bone hierarchy (chams /
+    // ESP bone-screen projection), entity team-number lookup, plus the
+    // engine signon-state path (the canonical "we are now in-game"
+    // moment used by every cheat for late-init).
+    // ==================================================================
+
+    // -- client.dll ----------------------------------------------------
+
+    // CGameEventManager::AddListener — sub_180938970. Refs the
+    // "CGameEventManager::AddListener: event '%s' unknown." log.
+    // The function to call to register a client-side game-event
+    // listener (round_start / player_death / item_purchase / bomb_*
+    // etc.) without touching IGameEventManager2 vtable directly.
+    // PRIMARY anchor for damage_indicator, kill-feed, auto-buy.
+    Signature {
+        name: "GameEventManager_AddListener",
+        module: "client.dll",
+        needle: "48 89 5C 24 10 48 89 6C 24 18 56 57 41 56 48 83 EC 50 41 0F B6 E9 48 8D 99 E0 00 00 00 49 8B F0",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CGameEventManager::UnserializeEvent — sub_1809911A0. Refs the
+    // "CGameEventManager::UnserializeEvent:: unknown event id %i."
+    // log. Where every server-pushed game event is reconstructed on
+    // the client. Hook here to inspect/drop server events server-side
+    // before any listener fires (e.g. block round_end clutter,
+    // auto-skip warmup notifications).
+    Signature {
+        name: "GameEventManager_UnserializeEvent",
+        module: "client.dll",
+        needle: "48 8B C4 48 89 50 10 55 41 54 41 55 41 56 48 8D 68 D8 48 81 EC 08 01 00 00 48 89 58 D8 4C 8D B1",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CGameSceneNode::BuildBoneMergeWork — sub_18093E3C0. Refs the
+    // "CGameSceneNode::BuildBoneMergeWork: Invalid use of
+    // bonemerge-based hierarchy" log. Walks the bone hierarchy when
+    // an entity is parented bone-to-bone (weapons, attachments).
+    // Useful anchor for: weapon ESP, finding attached entities, and
+    // detecting parent->child bone-merge relationships.
+    Signature {
+        name: "CGameSceneNode_BuildBoneMergeWork",
+        module: "client.dll",
+        needle: "40 55 56 57 41 54 41 55 41 56 41 57 48 83 EC 50 48 8D 6C 24 50 80 A1 06 01 00 00 FB 4C 8B F9 80",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CGameSceneNode::StartHierarchicalAttachment — sub_18098AE80.
+    // Refs "CGameSceneNode::StartHierarchicalAttachment: Cannot start
+    // hierarchical attachment on a skeleton instance that has no
+    // owner!". Resolves attachment-name strings to bone indices —
+    // the function ESP/chams use to locate (e.g.) "muzzle_flash" or
+    // "head" attachments on a model.
+    Signature {
+        name: "CGameSceneNode_StartHierarchicalAttachment",
+        module: "client.dll",
+        needle: "48 89 5C 24 10 48 89 6C 24 18 48 89 74 24 20 57 41 54 41 55 41 56 41 57 48 83 EC 30 48 8B F9 8B",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // -- engine2.dll ---------------------------------------------------
+
+    // Application::LoadGameInfo — engine2!sub_18018D760. Refs
+    // "Application unable to load gameinfo.gi file from directory".
+    // Parses gameinfo.gi at startup. Useful as a very early init
+    // hook (this fires before signon, before client.dll loads its
+    // entity factories) — gives a deterministic place to install
+    // engine-level VMT hooks before anything sees them.
+    Signature {
+        name: "Engine_LoadGameInfo",
+        module: "engine2.dll",
+        needle: "40 55 56 41 56 48 8D 6C 24 F0 48 81 EC 10 01 00 00 4C 8B F1 C7 44 24 40 00 00 00 00 48 8B CA 48",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CNetworkGameClient::SetSignonState — engine2!sub_180060F80.
+    // Refs "CNetworkGameClient::SetSignonState: start %i" / "end %i".
+    // The function that drives the connection state machine
+    // (NONE -> CHALLENGE -> CONNECTED -> NEW -> PRESPAWN -> SPAWN ->
+    // FULL). When state == FULL we are in-game; when state drops
+    // below CONNECTED we've disconnected. ESSENTIAL for late-init,
+    // mid-round detach, and re-init-on-reconnect logic.
+    Signature {
+        name: "Engine_NetworkGameClient_SetSignonState",
+        module: "engine2.dll",
+        needle: "44 89 44 24 18 89 54 24 10 55 53 56 57 41 55 41 56 41 57 48 8D 6C 24 D9 48 81 EC D0 00 00 00 8B",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CNetworkGameClientBase::Connect — engine2!sub_18007F400. Refs
+    // "CL: CNetworkGameClientBase::Connect() calling
+    // SetSignonState( SIGNONSTATE_CONNECTED )". The function that
+    // *initiates* a connection to a server. Hook to: log/whitelist
+    // server IPs, force-reject connections to certain sv_addresses,
+    // or kick off pre-connect setup (e.g. grab the new netchan).
+    Signature {
+        name: "Engine_NetworkGameClient_Connect",
+        module: "engine2.dll",
+        needle: "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 48 83 EC 40 44 89 81 3C 02 00 00 49 8B E9 44 8B",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // MountAddon — engine2!sub_180193440. Refs "MountAddon: Failed
+    // to find ADDONS search path." (single hit, 0xAE4 byte function).
+    // Programmatic addon-mounting entry. Useful for workshop-map /
+    // custom-content tooling — and as a hook target if you want to
+    // intercept which addons CS2 actually loads.
+    Signature {
+        name: "Engine_MountAddon",
+        module: "engine2.dll",
+        needle: "48 85 D2 0F 84 DA 0A 00 00 48 8B C4 44 88 40 18 55 57 41 54 41 57 48 8D A8 C8 FC FF FF 48 81 EC",
+        resolve: NONE,
+        extra_off: 0,
+    },
 ];

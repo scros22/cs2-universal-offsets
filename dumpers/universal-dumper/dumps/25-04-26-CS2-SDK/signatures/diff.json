@@ -227,6 +227,16 @@
       "va": 140720300701760
     },
     {
+      "name": "CGameSceneNode_BuildBoneMergeWork",
+      "module": "client.dll",
+      "va": 140720308675520
+    },
+    {
+      "name": "CGameSceneNode_StartHierarchicalAttachment",
+      "module": "client.dll",
+      "va": 140720308989568
+    },
+    {
       "name": "CGlowProperty",
       "module": "client.dll",
       "va": 140720302002416
@@ -515,6 +525,16 @@
       "name": "GameEntitySystemPtr",
       "module": "client.dll",
       "va": 140720337579344
+    },
+    {
+      "name": "GameEventManager_AddListener",
+      "module": "client.dll",
+      "va": 140720308652400
+    },
+    {
+      "name": "GameEventManager_UnserializeEvent",
+      "module": "client.dll",
+      "va": 140720309014944
     },
     {
       "name": "GameRules_ptr",
@@ -1132,9 +1152,29 @@
       "va": 140720625725376
     },
     {
+      "name": "Engine_LoadGameInfo",
+      "module": "engine2.dll",
+      "va": 140720625145696
+    },
+    {
+      "name": "Engine_MountAddon",
+      "module": "engine2.dll",
+      "va": 140720625169472
+    },
+    {
       "name": "Engine_NetTimeoutDisconnect",
       "module": "engine2.dll",
       "va": 140720623949696
+    },
+    {
+      "name": "Engine_NetworkGameClient_Connect",
+      "module": "engine2.dll",
+      "va": 140720624038912
+    },
+    {
+      "name": "Engine_NetworkGameClient_SetSignonState",
+      "module": "engine2.dll",
+      "va": 140720623914880
     },
     {
       "name": "Engine_RegisterConCommand",
