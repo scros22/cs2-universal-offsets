@@ -71,6 +71,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CPaintKitDefinitions_FindOrCreateByName = 0x7FFC00747DD0; // rva 0x1057DD0
         inline constexpr std::uintptr_t CPaintKitDefinitions_LoadDefaultKit = 0x7FFC00719EA0; // rva 0x1029EA0
         inline constexpr std::uintptr_t CPostProcessingVolume = 0x7FFBFF993CB0; // rva 0x2A3CB0
+        inline constexpr std::uintptr_t CS2ItemEditor_BuildTemplateMaterialFromFile = 0x7FFC00AAA1E0; // rva 0x13BA1E0
         inline constexpr std::uintptr_t CSBaseGunFireData_fn = 0x7FFC00BD58D0; // rva 0x14E58D0
         inline constexpr std::uintptr_t CSGOInput_ptr = 0x7FFC017513C0; // rva 0x20613C0
         inline constexpr std::uintptr_t CSGOInput_resolved = 0x7FFC017513C7; // rva 0x20613C7
@@ -84,6 +85,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CSkeletonInstance_SetMeshGroupMask = 0x7FFC00113D20; // rva 0xA23D20
         inline constexpr std::uintptr_t CSmokeGrenadeProjectile = 0x7FFBFFE3E320; // rva 0x74E320
         inline constexpr std::uintptr_t CTonemapController2 = 0x7FFBFF947BE0; // rva 0x257BE0
+        inline constexpr std::uintptr_t CUtlVector_CompositeMaterialInput_AddToTail = 0x7FFBFFE79A00; // rva 0x789A52
         inline constexpr std::uintptr_t C_AttributeContainer = 0x7FFC003065E0; // rva 0xC165E0
         inline constexpr std::uintptr_t C_BaseEntity = 0x7FFBFF73E260; // rva 0x4E260
         inline constexpr std::uintptr_t C_BaseModelEntity = 0x7FFBFF847F60; // rva 0x157F60
@@ -92,8 +94,10 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t C_CSPlayerPawn = 0x7FFBFFDB2380; // rva 0x6C2380
         inline constexpr std::uintptr_t C_CSPlayerPawnBase = 0x7FFC002C57C0; // rva 0xBD57C0
         inline constexpr std::uintptr_t C_CSWeaponBase = 0x7FFBFFE32030; // rva 0x742030
+        inline constexpr std::uintptr_t C_EconEntity_BuildLegacyGloveSkinMaterial = 0x7FFC002AFB00; // rva 0xBBFB00
         inline constexpr std::uintptr_t C_EconEntity_BuildLegacyWeaponSkinMaterial = 0x7FFBFFE7C050; // rva 0x78C050
         inline constexpr std::uintptr_t C_EconEntity_BuildModernWeaponSkinMaterial = 0x7FFC004728E0; // rva 0xD828E0
+        inline constexpr std::uintptr_t C_EconEntity_BuildNametagOverlayMaterial = 0x7FFBFFE7AE20; // rva 0x78AE20
         inline constexpr std::uintptr_t C_EconItemView = 0x7FFBFFDFB400; // rva 0x70B400
         inline constexpr std::uintptr_t C_EconWearable_OnNewCustomMaterials = 0x7FFC007A67D0; // rva 0x10B67D0
         inline constexpr std::uintptr_t C_Hostage = 0x7FFBFF7D73D0; // rva 0xE73D0
@@ -172,6 +176,8 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t HandleEntityList = 0x7FFBFF8B3650; // rva 0x1C3650
         inline constexpr std::uintptr_t HandleTeamIntro = 0x7FFBFFDF3E00; // rva 0x703E00
         inline constexpr std::uintptr_t HudChatPrintf = 0x7FFC007AE830; // rva 0x10BE830
+        inline constexpr std::uintptr_t InfoForResourceTypeCCompositeMaterialKit_TypeManager = 0x7FFC00AC6840; // rva 0x13D6840
+        inline constexpr std::uintptr_t InfoForResourceTypeCCompositeMaterial_TypeManager = 0x7FFC00AC6D90; // rva 0x13D6D90
         inline constexpr std::uintptr_t InitFilter = 0x7FFBFFA1BB40; // rva 0x32BB40
         inline constexpr std::uintptr_t InitPlayerMovementTraceFilter = 0x7FFBFFF2F270; // rva 0x83F270
         inline constexpr std::uintptr_t InitTraceInfo = 0x7FFC00CE9A30; // rva 0x15F9A30

@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**311/357 signatures resolved across 11 module(s).**
+**317/363 signatures resolved across 11 module(s).**
 
 ## `animationsystem.dll`
 
@@ -78,6 +78,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 "` |
 | `CPaintKitDefinitions_LoadDefaultKit` | `stringref` | `0x7FFC00719EA0` | `0x1029EA0` | `"Unable to find "default" paint kit in "paint_kits_rarity""` |
 | `CPostProcessingVolume` | `stringref` | `0x7FFBFF993CB0` | `0x2A3CB0` | `"CPostProcessingVolume"` |
+| `CS2ItemEditor_BuildTemplateMaterialFromFile` | `raw` | `0x7FFC00AAA1E0` | `0x13BA1E0` | `48 89 54 24 10 55 53 41 55 41 57 48 8D AC 24 18 F9 FF FF 48 81 EC E8 07 00 00 4C 8B FA 48 85 D2` |
 | `CSBaseGunFireData_fn` | `raw` | `0x7FFC00BD58D0` | `0x14E58D0` | `48 8B C4 55 53 56 57 41 54 41 55 41 56 41 57 48 8D 68 A8 48 81 EC ? ? ? ? 4C 8B 69` |
 | `CSGOInput_ptr` | `riprel` | `0x7FFC017513C0` | `0x20613C0` | `48 8B 0D ? ? ? ? 4C 8B C6 8B 10 E8` |
 | `CSGOInput_resolved` | `riprel` | `0x7FFC017513C7` | `0x20613C7` | `48 8B 0D ? ? ? ? 8B 10 E8 ? ? ? ? 45 32 FF` |
@@ -91,6 +92,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CSkeletonInstance_SetMeshGroupMask` | `raw` | `0x7FFC00113D20` | `0xA23D20` | `48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 49 8B 00 49 8B F8 48 8B F2 48 8B D9 48 39 81 C8 01` |
 | `CSmokeGrenadeProjectile` | `stringref` | `0x7FFBFFE3E320` | `0x74E320` | `"CSmokeGrenadeProjectile"` |
 | `CTonemapController2` | `stringref` | `0x7FFBFF947BE0` | `0x257BE0` | `"CTonemapController2"` |
+| `CUtlVector_CompositeMaterialInput_AddToTail` | `raw` | `0x7FFBFFE79A00` | `0x789A52` | `41 B9 88 02 00 00 8B 57 14 81 E2 FF FF FF 3F 8D 71 01 44 8B C6 FF 15` |
 | `C_AttributeContainer` | `stringref` | `0x7FFC003065E0` | `0xC165E0` | `"C_AttributeContainer"` |
 | `C_BaseEntity` | `stringref` | `0x7FFBFF73E260` | `0x4E260` | `"C_BaseEntity"` |
 | `C_BaseModelEntity` | `stringref` | `0x7FFBFF847F60` | `0x157F60` | `"C_BaseModelEntity"` |
@@ -99,8 +101,10 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `C_CSPlayerPawn` | `stringref` | `0x7FFBFFDB2380` | `0x6C2380` | `"C_CSPlayerPawn"` |
 | `C_CSPlayerPawnBase` | `stringref` | `0x7FFC002C57C0` | `0xBD57C0` | `"C_CSPlayerPawnBase"` |
 | `C_CSWeaponBase` | `stringref` | `0x7FFBFFE32030` | `0x742030` | `"C_CSWeaponBase"` |
+| `C_EconEntity_BuildLegacyGloveSkinMaterial` | `stringref` | `0x7FFC002AFB00` | `0xBBFB00` | `"MapPlayerPreview gloves"` |
 | `C_EconEntity_BuildLegacyWeaponSkinMaterial` | `stringref` | `0x7FFBFFE7C050` | `0x78C050` | `"workshop preview weapon"` |
 | `C_EconEntity_BuildModernWeaponSkinMaterial` | `raw` | `0x7FFC004728E0` | `0xD828E0` | `48 85 C9 0F 84 ? ? 00 00 48 8B C4 48 89 50 10 48 89 48 08 55 41 54 41 56 41 57 48 8D A8 B8 FA` |
+| `C_EconEntity_BuildNametagOverlayMaterial` | `stringref` | `0x7FFBFFE7AE20` | `0x78AE20` | `"low-res nametag"` |
 | `C_EconItemView` | `stringref` | `0x7FFBFFDFB400` | `0x70B400` | `"C_EconItemView"` |
 | `C_EconWearable_OnNewCustomMaterials` | `stringref` | `0x7FFC007A67D0` | `0x10B67D0` | `"Invalid EconItemView -- Can't create custom materials for wearable, debug this.
 "` |
@@ -180,6 +184,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `HandleEntityList` | `rel32` | `0x7FFBFF8B3650` | `0x1C3650` | `E8 ? ? ? ? 84 C0 74 ? 48 63 03` |
 | `HandleTeamIntro` | `raw` | `0x7FFBFFDF3E00` | `0x703E00` | `48 83 EC ? ? ? ? ? 44 38 89` |
 | `HudChatPrintf` | `rel32` | `0x7FFC007AE830` | `0x10BE830` | `E8 ? ? ? ? 49 8B 4E 20 BA ? ? ? ?` |
+| `InfoForResourceTypeCCompositeMaterialKit_TypeManager` | `stringref` | `0x7FFC00AC6840` | `0x13D6840` | `"InfoForResourceTypeCCompositeMaterialKit"` |
+| `InfoForResourceTypeCCompositeMaterial_TypeManager` | `raw` | `0x7FFC00AC6D90` | `0x13D6D90` | `40 55 41 56 48 83 EC 68 48 8B EA 83 F9 06 0F 87 B4 02 00 00` |
 | `InitFilter` | `raw` | `0x7FFBFFA1BB40` | `0x32BB40` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 0F B6 41 ? 33 FF 24 C9 C7 41 ?` |
 | `InitPlayerMovementTraceFilter` | `raw` | `0x7FFBFFF2F270` | `0x83F270` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 0F B6 41 ? 33 FF C7 41 ?` |
 | `InitTraceInfo` | `raw` | `0x7FFC00CE9A30` | `0x15F9A30` | `40 55 41 55 41 57 48 83 EC` |

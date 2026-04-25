@@ -73,6 +73,7 @@ public static class Signatures
         public const ulong CPaintKitDefinitions_FindOrCreateByName = 0x7FFC00747DD0UL; // rva 0x1057DD0
         public const ulong CPaintKitDefinitions_LoadDefaultKit = 0x7FFC00719EA0UL; // rva 0x1029EA0
         public const ulong CPostProcessingVolume = 0x7FFBFF993CB0UL; // rva 0x2A3CB0
+        public const ulong CS2ItemEditor_BuildTemplateMaterialFromFile = 0x7FFC00AAA1E0UL; // rva 0x13BA1E0
         public const ulong CSBaseGunFireData_fn = 0x7FFC00BD58D0UL; // rva 0x14E58D0
         public const ulong CSGOInput_ptr = 0x7FFC017513C0UL; // rva 0x20613C0
         public const ulong CSGOInput_resolved = 0x7FFC017513C7UL; // rva 0x20613C7
@@ -86,6 +87,7 @@ public static class Signatures
         public const ulong CSkeletonInstance_SetMeshGroupMask = 0x7FFC00113D20UL; // rva 0xA23D20
         public const ulong CSmokeGrenadeProjectile = 0x7FFBFFE3E320UL; // rva 0x74E320
         public const ulong CTonemapController2 = 0x7FFBFF947BE0UL; // rva 0x257BE0
+        public const ulong CUtlVector_CompositeMaterialInput_AddToTail = 0x7FFBFFE79A00UL; // rva 0x789A52
         public const ulong C_AttributeContainer = 0x7FFC003065E0UL; // rva 0xC165E0
         public const ulong C_BaseEntity = 0x7FFBFF73E260UL; // rva 0x4E260
         public const ulong C_BaseModelEntity = 0x7FFBFF847F60UL; // rva 0x157F60
@@ -94,8 +96,10 @@ public static class Signatures
         public const ulong C_CSPlayerPawn = 0x7FFBFFDB2380UL; // rva 0x6C2380
         public const ulong C_CSPlayerPawnBase = 0x7FFC002C57C0UL; // rva 0xBD57C0
         public const ulong C_CSWeaponBase = 0x7FFBFFE32030UL; // rva 0x742030
+        public const ulong C_EconEntity_BuildLegacyGloveSkinMaterial = 0x7FFC002AFB00UL; // rva 0xBBFB00
         public const ulong C_EconEntity_BuildLegacyWeaponSkinMaterial = 0x7FFBFFE7C050UL; // rva 0x78C050
         public const ulong C_EconEntity_BuildModernWeaponSkinMaterial = 0x7FFC004728E0UL; // rva 0xD828E0
+        public const ulong C_EconEntity_BuildNametagOverlayMaterial = 0x7FFBFFE7AE20UL; // rva 0x78AE20
         public const ulong C_EconItemView = 0x7FFBFFDFB400UL; // rva 0x70B400
         public const ulong C_EconWearable_OnNewCustomMaterials = 0x7FFC007A67D0UL; // rva 0x10B67D0
         public const ulong C_Hostage = 0x7FFBFF7D73D0UL; // rva 0xE73D0
@@ -174,6 +178,8 @@ public static class Signatures
         public const ulong HandleEntityList = 0x7FFBFF8B3650UL; // rva 0x1C3650
         public const ulong HandleTeamIntro = 0x7FFBFFDF3E00UL; // rva 0x703E00
         public const ulong HudChatPrintf = 0x7FFC007AE830UL; // rva 0x10BE830
+        public const ulong InfoForResourceTypeCCompositeMaterialKit_TypeManager = 0x7FFC00AC6840UL; // rva 0x13D6840
+        public const ulong InfoForResourceTypeCCompositeMaterial_TypeManager = 0x7FFC00AC6D90UL; // rva 0x13D6D90
         public const ulong InitFilter = 0x7FFBFFA1BB40UL; // rva 0x32BB40
         public const ulong InitPlayerMovementTraceFilter = 0x7FFBFFF2F270UL; // rva 0x83F270
         public const ulong InitTraceInfo = 0x7FFC00CE9A30UL; // rva 0x15F9A30

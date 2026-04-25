@@ -302,6 +302,11 @@
       "va": 140720301751472
     },
     {
+      "name": "CS2ItemEditor_BuildTemplateMaterialFromFile",
+      "module": "client.dll",
+      "va": 140720319668704
+    },
+    {
       "name": "CSBaseGunFireData_fn",
       "module": "client.dll",
       "va": 140720320895184
@@ -367,6 +372,11 @@
       "va": 140720301439968
     },
     {
+      "name": "CUtlVector_CompositeMaterialInput_AddToTail",
+      "module": "client.dll",
+      "va": 140720306887168
+    },
+    {
       "name": "C_AttributeContainer",
       "module": "client.dll",
       "va": 140720311657952
@@ -407,6 +417,11 @@
       "va": 140720306593840
     },
     {
+      "name": "C_EconEntity_BuildLegacyGloveSkinMaterial",
+      "module": "client.dll",
+      "va": 140720311302912
+    },
+    {
       "name": "C_EconEntity_BuildLegacyWeaponSkinMaterial",
       "module": "client.dll",
       "va": 140720306896976
@@ -415,6 +430,11 @@
       "name": "C_EconEntity_BuildModernWeaponSkinMaterial",
       "module": "client.dll",
       "va": 140720313149664
+    },
+    {
+      "name": "C_EconEntity_BuildNametagOverlayMaterial",
+      "module": "client.dll",
+      "va": 140720306892320
     },
     {
       "name": "C_EconItemView",
@@ -800,6 +820,16 @@
       "name": "HudChatPrintf",
       "module": "client.dll",
       "va": 140720316540976
+    },
+    {
+      "name": "InfoForResourceTypeCCompositeMaterialKit_TypeManager",
+      "module": "client.dll",
+      "va": 140720319785024
+    },
+    {
+      "name": "InfoForResourceTypeCCompositeMaterial_TypeManager",
+      "module": "client.dll",
+      "va": 140720319786384
     },
     {
       "name": "InitFilter",

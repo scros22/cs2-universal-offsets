@@ -2149,4 +2149,216 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: STRREF,
         extra_off: 0,
     },
+
+    // ====================================================================
+    // NUVORA APR-25-2026 EXPANSION v13 (build 14155 — composite-material
+    // DEEP DIVE — completes the Galaxy-camo recipe started in v12 by
+    // pinning the central shader-var injector, ALL three variant builders
+    // (weapon / glove / nametag), the schema-callback registrars that
+    // describe CCompositeMaterialKit + CompositeMaterial_t at runtime,
+    // and the CS2ItemEditor template-material parser — i.e. every door
+    // a graphics engineer needs to OWN the kit pipeline end-to-end).
+    //
+    // Why this round matters (success-rate vs. v12 surface):
+    //
+    //   * v12 anchored 7 entry points scattered around the Galaxy-camo
+    //     code path.  v13 adds the choke-point: AddCompositeMaterialInput
+    //     funnels EVERY shader-variable the engine ever pushes into a
+    //     kit (g_flWearAmount / g_nRandomSeed / g_vColor* / g_tPattern
+    //     ...).  Hook it once and you trivially observe AND mutate the
+    //     full per-instance kit recipe — for ALL variants (weapon,
+    //     glove, nametag, sticker, agent) simultaneously.
+    //
+    //   * v13 also exposes the SCHEMA layer: the type-manager callbacks
+    //     for `InfoForResourceTypeCCompositeMaterialKit` and
+    //     `InfoForResourceTypeCCompositeMaterial` enumerate every
+    //     CUtlVector field the kit/material structs contain at runtime,
+    //     so a runtime kit-dump tool can crawl the entire object tree
+    //     without hard-coded offsets — survives every CS2 patch.
+    //
+    //   * The template-material parser (CS2ItemEditor) is the OFFICIAL
+    //     KV-driven param exposer Valve themselves use to describe what
+    //     a shader exposes to the kit system (g_v* / g_fl* / g_b* /
+    //     Texture).  Knowing its layout = knowing exactly how to author
+    //     a custom .vcompmat that the engine will accept.
+    //
+    // Schema sizes confirmed via the type-manager registrars:
+    //
+    //   CompositeMaterialMatchFilter_t        =  32 B
+    //   CompositeMaterialAssemblyProcedure_t  =  96 B   (160 B incl. wrap)
+    //   CompositeMaterial_t                   = 160 B
+    //   CompositeMaterialInputContainer_t     = 312 B   (reflected POD)
+    //                                         = 648 B   (full runtime
+    //                                                    container, the
+    //                                                    delta = scratch
+    //                                                    + render state)
+    //   CompMatPropertyMutator_t              = 912 B   (per-property
+    //                                                    runtime mutator)
+    //   CResourceNameTyped<CWeakHandle<...>>  = 224 B   (resource handle
+    //                                                    wrapper)
+    //
+    // Glove-asymmetry note:  the glove builder pushes BOTH
+    // `g_nRandomSeed` and `g_nRandomSeedAlt` (alt = seed+1) so left- and
+    // right-hand glove patterns are deterministically offset — a detail
+    // a custom glove kit MUST reproduce or both gloves will look
+    // identical.
+    //
+    // Variant scope tags (the string set in `a1[28]`):
+    //   "low-res weapon"          — viewmodel / world-model PBR
+    //   "low-res gloves"          — viewmodel gloves
+    //   "low-res nametag"         — engraved nametag overlay (512x32)
+    //   "workshop preview weapon" — full-quality preview (loadout)
+    //
+    // ====================================================================
+
+    // CUtlVector<CompositeMaterialInput_t>::AddToTail — client.dll!
+    // sub_180789A00 (~0x158).  Has NO unique string of its own (it is a
+    // small templated container helper) so anchored by its 28-byte
+    // function prologue. 11 code xrefs from the kit-build path
+    // (BuildLegacyWeaponSkinMaterial x2, BuildModernWeaponSkinMaterial
+    // x5, BuildLegacyGloveSkinMaterial x3, BuildNametagOverlayMaterial
+    // x1).  Element size in the push = 648 bytes (full runtime
+    // CompositeMaterialInputContainer_t).
+    //
+    // SINGLE MOST IMPACTFUL HOOK in the entire pipeline: every shader-
+    // variable the engine ever injects (g_flWearAmount, g_nRandomSeed,
+    // g_nRandomSeedAlt, g_vColor*, g_tPattern, g_tNormalMap, ...) for
+    // EVERY variant flows through here.
+    //   - LOG mode:  dump (kit_path, key, value_type, value) on every
+    //                call to enumerate the live paintkit recipe at
+    //                runtime — fully patch-proof kit dumper.
+    //   - INTERCEPT: rewrite g_vColor1..4 in-place to ship a Galaxy
+    //                purple-blue gradient on top of any base kit
+    //                without ever touching disk.
+    Signature {
+        name: "CUtlVector_CompositeMaterialInput_AddToTail",
+        module: "client.dll",
+        // Generic AddToTail<T> prologue collides with 20+ other CUtlVector
+        // template instantiations.  Anchor instead by the mid-body
+        // sequence that hard-codes the element size 0x288 (=648 B = full
+        // CompositeMaterialInputContainer_t) followed by the UtlMemory
+        // 0x3FFFFFFF mask — unique to this single instantiation. We then
+        // back up by -0x52 to land on the function start.
+        needle: "41 B9 88 02 00 00 8B 57 14 81 E2 FF FF FF 3F 8D 71 01 44 8B C6 FF 15",
+        resolve: NONE,
+        extra_off: -0x52,
+    },
+
+    // C_EconEntity::BuildLegacyGloveSkinMaterial — client.dll!sub_180BBFB00
+    // (~0x9E7).  Refs the unique string "MapPlayerPreview gloves"
+    // (1 xref).  The glove-specific sibling of BuildLegacyWeaponSkinMaterial
+    // (already shipped v12).  Reads the prefix "gloves/paints/" from the
+    // econ item, builds a CompositeMaterialKit request scoped
+    // "low-res gloves" (512x512), then pushes via AddCompositeMaterialInput:
+    //   - g_flWearAmount
+    //   - g_nRandomSeed     (= econ seed)
+    //   - g_nRandomSeedAlt  (= econ seed + 1, drives left/right asymmetry)
+    // The "econ_instance" KV is then handed to sub_18071A140 which feeds
+    // the C_WorldModelGloves entity.  Hook this to ship a custom glove
+    // kit (CCompositeMaterialKit override) onto the player's hands with
+    // independent left/right pattern offsets.
+    Signature {
+        name: "C_EconEntity_BuildLegacyGloveSkinMaterial",
+        module: "client.dll",
+        needle: "MapPlayerPreview gloves",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // C_EconEntity::BuildNametagOverlayMaterial — client.dll!sub_18078AE20
+    // (~0x969).  Refs the unique scope tag "low-res nametag" (1 xref).
+    // Builds a 512x32 composite material from the .vcompmat
+    // "weapons/models/shared/nametag/nametag_default.vcompmat" with the
+    // user-supplied nametag string pushed as the "label" input — the
+    // engraved-text overlay you see on stickered weapons.  Hook to ship
+    // a custom nametag font / pattern, or to inject a multi-line
+    // animated overlay (the underlying material supports any param the
+    // shader exposes; nametag_default.vcompmat just happens to expose a
+    // single string slot today).
+    Signature {
+        name: "C_EconEntity_BuildNametagOverlayMaterial",
+        module: "client.dll",
+        needle: "low-res nametag",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // InfoForResourceTypeCCompositeMaterialKit::TypeManagerCallback —
+    // client.dll!sub_1813D6840 (~0x370). Refs the unique RTTI string
+    // "InfoForResourceTypeCCompositeMaterialKit" (1 xref).  Vftable-style
+    // dispatch (cases 0/2/3/4/5/6 = Init/Construct/Destruct/Reset/
+    // Cleanup/RTTI) registered with the resource system as the
+    // CCompositeMaterialKit type manager.  The case-0 branch declares
+    // every CUtlVector field of the kit struct via the schema reflector,
+    // revealing exact runtime layout:
+    //
+    //   +08  CUtlVector<CResourceNameTyped<CWeakHandle<CompositeMaterialKit>>>
+    //                                                        elem 224 B
+    //   +xx  CUtlVector<CompositeMaterialMatchFilter_t>      elem  32 B
+    //   +xx  CUtlVector<CompositeMaterialInputContainer_t>   elem 312 B
+    //   +xx  CUtlVector<CompMatPropertyMutator_t>            elem 912 B
+    //
+    // Hook for runtime kit-tree introspection that survives patches.
+    Signature {
+        name: "InfoForResourceTypeCCompositeMaterialKit_TypeManager",
+        module: "client.dll",
+        needle: "InfoForResourceTypeCCompositeMaterialKit",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // InfoForResourceTypeCCompositeMaterial::TypeManagerCallback —
+    // client.dll!sub_1813D6D90 (~0x2F0).  No unique 1-xref string of
+    // its own (uses "InfoForResourceTypeCModel" + "CompositeMaterial_t"
+    // + "CompositeMaterialAssemblyProcedure_t" — none singletons), so
+    // anchored by 20-byte function prologue.  Sibling of the kit
+    // type-manager: declares the FINAL CompositeMaterial_t struct
+    // schema:
+    //
+    //   +08  CResourceNameTyped<CWeakHandle<CModel>>         224 B
+    //   +xx  CResourceNameTyped<CWeakHandle<CModel>>         224 B
+    //   +xx  CUtlVector<CompositeMaterialAssemblyProcedure_t> elem  96 B
+    //   +xx  CUtlVector<CompositeMaterial_t>                  elem 160 B
+    //
+    // Hook to enumerate the assembly-procedure list of every materialised
+    // composite (= the "recipe" Valve actually ran to bake the final
+    // PBR material the GPU will sample).
+    Signature {
+        name: "InfoForResourceTypeCCompositeMaterial_TypeManager",
+        module: "client.dll",
+        needle: "40 55 41 56 48 83 EC 68 48 8B EA 83 F9 06 0F 87 B4 02 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CS2ItemEditor::BuildTemplateMaterialFromFile — client.dll!sub_1813BA1E0
+    // (~0x1445).  No 1-xref string anchor (uses generic logging strings
+    // and the literal "CS2ItemEditor" 4x as a KV-dict key), so anchored
+    // by 32-byte function prologue.  This is the OFFICIAL .vmt template
+    // -material parser Valve ships in client.dll: it loads a KV file
+    // via IFileSystem ("CONTENT" search path), iterates the `Attributes`
+    // block, and for each `exposed_param_*` key classifies the var by
+    // name prefix:
+    //
+    //   "g_b*"        -> bool      (type 0)
+    //   "g_fl*" "g_f*" -> float    (type 5)
+    //   "g_v*"        -> vec3      (type 6)
+    //   "g_vColor*"   -> color/vec4 (type 9)
+    //   "Texture*"    -> resource  (type 13)
+    //
+    // and emits a KV3 `template_material` block tagged "CS2ItemEditor"
+    // with each var's (path, name, friendlyname, group, alert_when_true,
+    // alert_helpid, type, typename, value, range_min, range_max).
+    //
+    // = the GROUND TRUTH for "what can a custom .vcompmat expose?".  To
+    // ship a Galaxy gradient we author a template_material that exposes
+    // 4 g_vColor slots + a Texture for the noise pattern, then drive
+    // them via CompositeMaterialInputContainer_t at runtime.
+    Signature {
+        name: "CS2ItemEditor_BuildTemplateMaterialFromFile",
+        module: "client.dll",
+        needle: "48 89 54 24 10 55 53 41 55 41 57 48 8D AC 24 18 F9 FF FF 48 81 EC E8 07 00 00 4C 8B FA 48 85 D2",
+        resolve: NONE,
+        extra_off: 0,
+    },
 ];
