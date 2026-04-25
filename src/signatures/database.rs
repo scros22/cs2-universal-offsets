@@ -1866,6 +1866,20 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
+    // Static combo merge/validation worker — materialsystem2!sub_1800BDAE0
+    // (~0x1B89). Called by ComputeWorkItemsToSetupStaticCombosForMode and
+    // funnels through sub_1800AE950 (cache gate wrapper) for combo fetch.
+    // The unique warning below fires when shader attributes diverge across
+    // shaders in one feature combo, making this a high-value observability
+    // hook for custom VFX/VCS compatibility debugging.
+    Signature {
+        name: "CVfxProgramData_FindOrLoadStaticComboData",
+        module: "materialsystem2.dll",
+        needle: "Shader %s attribute \"%s\" has inconsistent value or type across multiple shaders of a feature combo! [",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
     // CMaterial::SetVariableAndRenderState — materialsystem2!sub_18002F9B0
     // (~0x8A4).  Refs the unique
     // "SetRenderStateValueFromVariable(1172): Unsupported render state

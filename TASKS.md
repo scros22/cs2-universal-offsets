@@ -29,6 +29,7 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [x] **v1.3.1:** `bytes` field on every found signature (24-byte prologue snapshot, paste-ready IDA pattern even for StringRef entries)
 - [x] **v1.4:** MSVC RTTI walk — every interface vtable carries the demangled C++ class name (`CSource2Client`, `CGameEventSystem`, ...)
 - [x] Source2 VFX/VCS pipeline reconnaissance (runtime HLSL compile path vs static-combo/VCS cache path) with MCP-verified call chains
+- [x] Source2 static-combo path deepening: mapped `sub_180015BC0 -> sub_1800BDAE0 -> sub_1800AE950 -> sub_1800AE220` and documented queue callers for `sub_18003A200`
 
 ## Scanner
 
@@ -39,6 +40,7 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [ ] Per-sig confidence score (uniqueness in section)
 - [ ] Optional `--strict` flag that fails the run on any ambiguous (`matches > 1`) hit
 - [ ] Add two-stage shader-pipeline report mode: (1) compile-queue batch events, (2) static-combo cache outcomes (`FindOrCreateStaticComboDataInCache`)
+- [ ] Add robust signature for `sub_1800AE950` (static-combo cache gate wrapper) once a stable unique anchor is validated
 
 ## Output
 
@@ -56,6 +58,7 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [ ] GameEvent registry dumper (CGameEventManager → name + field schema)
 - [ ] Interface-version drift detector (flag any `XXX_VERSIONXXX` change)
 - [ ] Map resourcesystem extension->type registration for Source2 material assets (`vmat_c`/`vfx`/`vcs` family) to document compiled-asset load contract
+- [~] Resolve resourcesystem descriptor consumer path around `aVcompmat` table entries (descriptor blocks identified; dispatch walker still pending)
 
 ## Memory / backend
 
