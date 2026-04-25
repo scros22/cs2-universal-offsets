@@ -161,6 +161,8 @@ pub mod client {
     pub const CalcViewmodel: usize = 0x7FFBFFF3E040;
     /// rva 0x7A2460
     pub const CalcViewmodelTransform_v2: usize = 0x7FFBFFE92460;
+    /// rva 0xC699D0
+    pub const CalcViewmodelView: usize = 0x7FFC003599D0;
     /// rva 0x14C5600
     pub const CalculateInterpolation: usize = 0x7FFC00BB5600;
     /// rva 0xA09910
@@ -245,8 +247,12 @@ pub mod client {
     pub const GetInventoryManager: usize = 0x7FFBFFEB6370;
     /// rva 0x8DF9F0
     pub const GetLocalControllerById: usize = 0x7FFBFFFCF9F0;
+    /// rva 0x379150
+    pub const GetLocalPlayer_dispatcher: usize = 0x7FFBFFA69150;
     /// rva 0x169BA0
     pub const GetMatrixForView: usize = 0x7FFBFF859BA0;
+    /// rva 0xEFE180
+    pub const GetPlayerByIndex_export: usize = 0x7FFC005EE180;
     /// rva 0x8B7DE0
     pub const GetPlayerInterp: usize = 0x7FFBFFFA7DE0;
     /// rva 0x84C2F0
@@ -325,6 +331,8 @@ pub mod client {
     pub const ReportHit: usize = 0x7FFBFFCF21E0;
     /// rva 0x9DA390
     pub const RunCommand: usize = 0x7FFC000CA390;
+    /// rva 0x9DA390
+    pub const RunCommand_processor: usize = 0x7FFC000CA390;
     /// rva 0x85BFF0
     pub const Scope_callsite: usize = 0x7FFBFFF4BFF0;
     /// rva 0x10BE830
@@ -369,6 +377,8 @@ pub mod client {
     pub const TracePlayerBBox: usize = 0x7FFC0025F6D0;
     /// rva 0x98D340
     pub const TraceShape: usize = 0x7FFC0007D340;
+    /// rva 0x98D340
+    pub const TraceShape_Client: usize = 0x7FFC0007D340;
     /// rva 0x804400
     pub const TraceToExit: usize = 0x7FFBFFEF4400;
     /// rva 0xF1F6A0
@@ -454,13 +464,21 @@ pub mod engine2 {
     pub const Engine__RunPrediction: usize = 0x7FFC12CD6490;
     /// rva 0x1D1510
     pub const Engine_Disconnect_main: usize = 0x7FFC12E41510;
+    /// rva 0x120D70
+    pub const Engine_HLTVClient_ExecuteStringCommand: usize = 0x7FFC12D90D70;
+    /// rva 0x21AFC0
+    pub const Engine_HostStateMgr_QueueNewRequest: usize = 0x7FFC12E8AFC0;
     /// rva 0x69780
     pub const Engine_NetTimeoutDisconnect: usize = 0x7FFC12CD9780;
     /// rva 0x3FD270
     pub const Engine_RegisterConCommand: usize = 0x7FFC1306D270;
+    /// rva 0x3FC080
+    pub const Engine_RegisterConVar: usize = 0x7FFC1306C080;
 }
 
 pub mod materialsystem2 {
+    /// rva 0x10040
+    pub const CMaterial2_LoadShadersAndSetupModes: usize = 0x7FFC11940040;
     /// rva 0x11E30
     pub const FindParameter: usize = 0x7FFC11941E30;
     /// rva 0x11BE0
@@ -483,6 +501,15 @@ pub mod particles {
     pub const Particles__FindKeyVar: usize = 0x7FFC09E6A650;
     /// rva 0x9D8D0
     pub const Particles__SetMaterialShaderType: usize = 0x7FFC09ECD8D0;
+}
+
+pub mod rendersystemdx11 {
+    /// rva 0x34650
+    pub const RenderSystemDx11_QueuePresentAndWait: usize = 0x7FFC125A4650;
+    /// rva 0x3F790
+    pub const RenderSystemDx11_SetHardwareGammaRamp: usize = 0x7FFC125AF790;
+    /// rva 0x399E0
+    pub const RenderSystemDx11_SetMode: usize = 0x7FFC125A99E0;
 }
 
 pub mod scenesystem {

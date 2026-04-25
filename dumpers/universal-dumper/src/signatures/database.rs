@@ -824,4 +824,190 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
+
+    // ==================================================================
+    // NUVORA APR-26-2026 EXPANSION v3 (build 14155 — feature-focused)
+    // ------------------------------------------------------------------
+    // Sigs hand-picked for direct utility in internal/external feature
+    // code: usercmd processing, world traces, local-player accessors,
+    // viewmodel calc, console-command/cvar registration, the engine
+    // command-buffer dispatcher, host-state transitions, the material
+    // shader-loader, and the DX11 device entry points (SetMode / Present
+    // wait / gamma ramp). All anchored from log strings (most stable
+    // across CS2 patches) and verified UNIQUE on respective DLLs.
+    // ==================================================================
+
+    // -- client.dll: combat/usercmd/world ------------------------------
+
+    // RunCommand processor — sub_1809DA390. Refs the per-tick log
+    // "runcommand:%04d,tick:%u". Single anchor for the function CS2
+    // calls *before* prediction runs each subtick — useful as the
+    // canonical entry to inject anti-aim / fake-lag manipulation
+    // because angles in m_pCmd are still mutable here.
+    Signature {
+        name: "RunCommand_processor",
+        module: "client.dll",
+        needle: "48 8B C4 48 81 EC C8 00 00 00 48 89 58 10 48 89 68 18 48 8B EA 48 89 70 20 48 8B F1 48 89 78 F8",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // TraceShape (Client) — sub_18098D340. Refs the
+    // "Physics/TraceShape (Client)" perfetto category. The client-side
+    // raycast/sweep entry every visibility check funnels through.
+    // ESSENTIAL for: aimbot visibility filter, autowall, no-spread
+    // bullet path simulation, prediction-aware grenade lines.
+    Signature {
+        name: "TraceShape_Client",
+        module: "client.dll",
+        needle: "48 89 5C 24 20 48 89 4C 24 08 55 57 41 54 41 55 41 56 48 8D AC 24 10 E0 FF FF B8 F0 20 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // GetLocalPlayer accessor — sub_180379150. Refs *both*
+    // "GetLocalPlayerPawn" and "GetLocalPlayerController" interface
+    // export strings (single dispatcher). The cleanest, version-stable
+    // way to fetch the local controller/pawn without poking the entity
+    // list directly. Hook target also lets you "spoof" who is local
+    // for spectator-cam / replay tooling.
+    Signature {
+        name: "GetLocalPlayer_dispatcher",
+        module: "client.dll",
+        needle: "48 83 EC 38 48 8B 05 ? ? ? ? 48 85 C0 0F 85 14 06 00 00 48 89 5C 24 40 B9 50 00 00 00 48 89",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // GetPlayerByIndex export — sub_180F02D60. Refs the
+    // "GetPlayerByIndex" interface export string. Server-authoritative
+    // controller lookup by entity index (1..maxclients). Useful for
+    // ESP/aimbot enumeration when you don't want to walk the entity
+    // list raw.
+    Signature {
+        name: "GetPlayerByIndex_export",
+        module: "client.dll",
+        needle: "48 83 EC 28 4C 8D 05 ? ? ? ? 48 8D 15 ? ? ? ? 48 8D 0D ? ? ? ? E8 ? ? ? ? 4C 8D",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CalcViewmodelView — sub_180C699D0. Reads m_flFOVSensitivityAdjust
+    // and the viewmodel_offset_{x,y,z} convars to build the viewmodel
+    // transform. Hook target for: viewmodel FOV override (to match
+    // world FOV without the sensitivity penalty), custom viewmodel
+    // position, "true left-hand" mode swap.
+    Signature {
+        name: "CalcViewmodelView",
+        module: "client.dll",
+        needle: "40 53 48 83 EC 60 48 8B 41 08 49 8B D8 8B 48 30 48 C1 E9 0C F6 C1 01 0F 85 48 01 00 00 41 B8 07",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // -- engine2.dll: cvar / command / host-state ----------------------
+
+    // RegisterConVar impl — engine2!sub_1803FC080. Refs the
+    // "RegisterConVar: Unknown error registering convar" log. Direct
+    // entry for *registering* a custom ConVar from inside a cheat
+    // (mirrors RegisterConCommand). Combine with the existing
+    // Engine_RegisterConCommand sig to give your menu console-bindable
+    // settings.
+    Signature {
+        name: "Engine_RegisterConVar",
+        module: "engine2.dll",
+        needle: "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 54 41 56 41 57 48 81 EC D0 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CHLTVClient::ExecuteStringCommand — engine2!sub_180120D70. Refs
+    // "CHLTVClient::ExecuteStringCommand: Unknown command %s.". The
+    // server-side string-command dispatcher used while in HLTV/GOTV
+    // demo playback. Useful for replay/demo tooling, and for pushing
+    // custom HLTV commands (e.g. forced spec-target switch).
+    Signature {
+        name: "Engine_HLTVClient_ExecuteStringCommand",
+        module: "engine2.dll",
+        needle: "40 53 56 48 81 EC 48 07 00 00 48 8B F1 48 8B DA 48 8B 4A 48 48 83 E1 FC 48 83 79 18 0F 76 03 48",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CHostStateMgr::QueueNewRequest — engine2!sub_18021AFC0. Refs
+    // the "CHostStateMgr::QueueNewRequest( %s, %u )" log. Single entry
+    // for transitioning host state (HSR_GAME / HSR_QUIT / HSR_IDLE /
+    // HSR_SOURCETV_RELAY). Useful for VAC watchdog clean-eject (queue
+    // HSR_IDLE before unhooking) and for "rejoin last server" / map
+    // change automation.
+    Signature {
+        name: "Engine_HostStateMgr_QueueNewRequest",
+        module: "engine2.dll",
+        needle: "48 89 6C 24 18 48 89 7C 24 20 41 56 48 83 EC 30 48 8B EA 48 8B F9 8B 0D ? ? ? ? BA 02 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // -- materialsystem2.dll -------------------------------------------
+
+    // CMaterial2::LoadShadersAndSetupModes — materialsystem2!
+    // sub_180010040. Refs the "Error creating shader %s for material
+    // %s!" log block (multiple anchors). The function CS2 calls when
+    // a material is loaded and its shader passes are compiled.
+    // Useful for: chams (swap shader at load time so the override is
+    // baked-in instead of swapped per-frame), shader-error diagnosis,
+    // forcing a specific shader fallback for unsupported materials.
+    Signature {
+        name: "CMaterial2_LoadShadersAndSetupModes",
+        module: "materialsystem2.dll",
+        needle: "44 89 44 24 18 48 89 54 24 10 53 56 41 54 41 55 48 81 EC 88 00 00 00 4C 8B E9 48 C7 44 24 60",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // -- rendersystemdx11.dll ------------------------------------------
+
+    // CRenderDeviceDx11::SetMode — rendersystemdx11!sub_1800399E0.
+    // Refs "CRenderDeviceDx11::SetMode: Previous mode has not been
+    // shut down!". The HUGE (0x2183 byte) function that
+    // creates/recreates the swapchain + RTVs whenever resolution /
+    // fullscreen / refresh-rate changes. Hook target to react to
+    // resolution change (re-init D3D11 ImGui backend, recreate cham
+    // textures sized to the new RT).
+    Signature {
+        name: "RenderSystemDx11_SetMode",
+        module: "rendersystemdx11.dll",
+        needle: "44 89 4C 24 20 44 89 44 24 18 89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 81 EC D8 02 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CSwapChainBase::QueuePresentAndWait — rendersystemdx11!
+    // sub_180034650. Refs the "CSwapChainBase::QueuePresentAndWait()
+    // looped for %d iterations without a present event" warning.
+    // The wrapper around IDXGISwapChain::Present that CS2 actually
+    // funnels every frame through. PRIMARY hook anchor for ImGui
+    // overlay / external menu rendering when not hooking the vtable
+    // directly. Fires exactly once per frame.
+    Signature {
+        name: "RenderSystemDx11_QueuePresentAndWait",
+        module: "rendersystemdx11.dll",
+        needle: "40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CRenderDeviceDx11::SetHardwareGammaRamp — rendersystemdx11!
+    // sub_18003F790. Refs "CRenderDeviceDx11::SetHardwareGammaRamp:
+    // Unable to set gamma controls!". Lets you set/read the live
+    // gamma ramp — useful for nightmode/wallhack-style global
+    // brightness boost without touching shaders, and for restoring
+    // gamma cleanly on detach.
+    Signature {
+        name: "RenderSystemDx11_SetHardwareGammaRamp",
+        module: "rendersystemdx11.dll",
+        needle: "48 89 5C 24 18 57 B8 B0 40 00 00 E8 ? ? ? ? 48 2B E0 0F 29 BC 24 90 40 00 00 0F 57 C9 0F 28",
+        resolve: NONE,
+        extra_off: 0,
+    },
 ];

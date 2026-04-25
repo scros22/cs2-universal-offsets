@@ -87,6 +87,7 @@ public static class Signatures
         public const ulong CalcSpread = 0x7FFC0036C6F0UL; // rva 0xC7C6F0
         public const ulong CalcViewmodel = 0x7FFBFFF3E040UL; // rva 0x84E040
         public const ulong CalcViewmodelTransform_v2 = 0x7FFBFFE92460UL; // rva 0x7A2460
+        public const ulong CalcViewmodelView = 0x7FFC003599D0UL; // rva 0xC699D0
         public const ulong CalculateInterpolation = 0x7FFC00BB5600UL; // rva 0x14C5600
         public const ulong CalculateWorldSpaceBones = 0x7FFC000F9910UL; // rva 0xA09910
         public const ulong ClearHUDWeaponIcon = 0x7FFC004DB720UL; // rva 0xDEB720
@@ -129,7 +130,9 @@ public static class Signatures
         public const ulong GetInt2_Event = 0x7FFBFFB9AA90UL; // rva 0x4AAA90
         public const ulong GetInventoryManager = 0x7FFBFFEB6370UL; // rva 0x7C6370
         public const ulong GetLocalControllerById = 0x7FFBFFFCF9F0UL; // rva 0x8DF9F0
+        public const ulong GetLocalPlayer_dispatcher = 0x7FFBFFA69150UL; // rva 0x379150
         public const ulong GetMatrixForView = 0x7FFBFF859BA0UL; // rva 0x169BA0
+        public const ulong GetPlayerByIndex_export = 0x7FFC005EE180UL; // rva 0xEFE180
         public const ulong GetPlayerInterp = 0x7FFBFFFA7DE0UL; // rva 0x8B7DE0
         public const ulong GetRemovedAimPunch_E8 = 0x7FFBFFF3C2F0UL; // rva 0x84C2F0
         public const ulong GetRemovedAimpunch = 0x7FFBFF802897UL; // rva 0x112897
@@ -169,6 +172,7 @@ public static class Signatures
         public const ulong RegenerateWeaponSkins = 0x7FFBFFEA0CB0UL; // rva 0x7B0CB0
         public const ulong ReportHit = 0x7FFBFFCF21E0UL; // rva 0x6021E0
         public const ulong RunCommand = 0x7FFC000CA390UL; // rva 0x9DA390
+        public const ulong RunCommand_processor = 0x7FFC000CA390UL; // rva 0x9DA390
         public const ulong Scope_callsite = 0x7FFBFFF4BFF0UL; // rva 0x85BFF0
         public const ulong SendChatMessage = 0x7FFC007AE830UL; // rva 0x10BE830
         public const ulong SetAbsOrigin_Pawn = 0x7FFBFF90EEA0UL; // rva 0x21EEA0
@@ -191,6 +195,7 @@ public static class Signatures
         public const ulong TestSurfaces = 0x7FFBFFEF6290UL; // rva 0x806290
         public const ulong TracePlayerBBox = 0x7FFC0025F6D0UL; // rva 0xB6F6D0
         public const ulong TraceShape = 0x7FFC0007D340UL; // rva 0x98D340
+        public const ulong TraceShape_Client = 0x7FFC0007D340UL; // rva 0x98D340
         public const ulong TraceToExit = 0x7FFBFFEF4400UL; // rva 0x804400
         public const ulong UpdatePostProcessing = 0x7FFC0060F6A0UL; // rva 0xF1F6A0
         public const ulong UpdateSubClass = 0x7FFBFF8EA88BUL; // rva 0x1FA88B
@@ -235,11 +240,15 @@ public static class Signatures
         public const ulong Engine__PVSManager_ptr = 0x7FFC132833F0UL; // rva 0x6133F0
         public const ulong Engine__RunPrediction = 0x7FFC12CD6490UL; // rva 0x66490
         public const ulong Engine_Disconnect_main = 0x7FFC12E41510UL; // rva 0x1D1510
+        public const ulong Engine_HLTVClient_ExecuteStringCommand = 0x7FFC12D90D70UL; // rva 0x120D70
+        public const ulong Engine_HostStateMgr_QueueNewRequest = 0x7FFC12E8AFC0UL; // rva 0x21AFC0
         public const ulong Engine_NetTimeoutDisconnect = 0x7FFC12CD9780UL; // rva 0x69780
         public const ulong Engine_RegisterConCommand = 0x7FFC1306D270UL; // rva 0x3FD270
+        public const ulong Engine_RegisterConVar = 0x7FFC1306C080UL; // rva 0x3FC080
     }
     public static class materialsystem2
     {
+        public const ulong CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040UL; // rva 0x10040
         public const ulong FindParameter = 0x7FFC11941E30UL; // rva 0x11E30
         public const ulong MatSys__PrepareSceneMaterial = 0x7FFC11941BE0UL; // rva 0x11BE0
         public const ulong UpdateParameter = 0x7FFC11942370UL; // rva 0x12370
@@ -254,6 +263,12 @@ public static class Signatures
         public const ulong Particles__DrawArray = 0x7FFC09E520B0UL; // rva 0x220B0
         public const ulong Particles__FindKeyVar = 0x7FFC09E6A650UL; // rva 0x3A650
         public const ulong Particles__SetMaterialShaderType = 0x7FFC09ECD8D0UL; // rva 0x9D8D0
+    }
+    public static class rendersystemdx11
+    {
+        public const ulong RenderSystemDx11_QueuePresentAndWait = 0x7FFC125A4650UL; // rva 0x34650
+        public const ulong RenderSystemDx11_SetHardwareGammaRamp = 0x7FFC125AF790UL; // rva 0x3F790
+        public const ulong RenderSystemDx11_SetMode = 0x7FFC125A99E0UL; // rva 0x399E0
     }
     public static class scenesystem
     {
