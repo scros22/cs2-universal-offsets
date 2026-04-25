@@ -18,6 +18,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CAttributeStringFill = 0x7FFC0059C570; // rva 0xEAC570
         inline constexpr std::uintptr_t CAttributeStringInit = 0x7FFBFFCE8600; // rva 0x5F8600
         inline constexpr std::uintptr_t CBaseEntity_TakeDamageOld = 0x7FFBFF913C70; // rva 0x223C70
+        inline constexpr std::uintptr_t CBaseModelEntity_SetBodygroup = 0x7FFBFFFC87F0; // rva 0x8D87F0
         inline constexpr std::uintptr_t CBodyComponent = 0x7FFBFF8AC0B0; // rva 0x1BC0B0
         inline constexpr std::uintptr_t CBodyComponentSkeletonInstance = 0x7FFBFF8B2F90; // rva 0x1C2F90
         inline constexpr std::uintptr_t CBufferStringInit = 0x7FFC00ED0160; // rva 0x17E0160
@@ -62,6 +63,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CGameSceneNode_StartHierarchicalAttachment = 0x7FFC0007AE80; // rva 0x98AE80
         inline constexpr std::uintptr_t CGameTrace_TraceShape_Client = 0x7FFC0007D340; // rva 0x98D340
         inline constexpr std::uintptr_t CGlowProperty = 0x7FFBFF9D10F0; // rva 0x2E10F0
+        inline constexpr std::uintptr_t CGlowProperty_OnDataChanged = 0x7FFBFF9D10F0; // rva 0x2E10F0
         inline constexpr std::uintptr_t CHEGrenadeProjectile = 0x7FFC006CDBD0; // rva 0xFDDBD0
         inline constexpr std::uintptr_t CInputPtrGlobal = 0x7FFC017513C0; // rva 0x20613C0
         inline constexpr std::uintptr_t CMolotovProjectile = 0x7FFBFFE3E280; // rva 0x74E280
@@ -71,6 +73,9 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CSGOInput_resolved = 0x7FFC017513C7; // rva 0x20613C7
         inline constexpr std::uintptr_t CSkeletonInstance = 0x7FFBFF893970; // rva 0x1A3970
         inline constexpr std::uintptr_t CSkeletonInstance__SetMeshGroupMask = 0x7FFC0011C3F0; // rva 0xA2C3F0
+        inline constexpr std::uintptr_t CSkeletonInstance_GetTransformsForHitboxList = 0x7FFC00108F60; // rva 0xA18F60
+        inline constexpr std::uintptr_t CSkeletonInstance_PostDataUpdate = 0x7FFC00114D50; // rva 0xA24D50
+        inline constexpr std::uintptr_t CSkeletonInstance_SetMaterialGroup = 0x7FFBFF8AC0B0; // rva 0x1BC0B0
         inline constexpr std::uintptr_t CSmokeGrenadeProjectile = 0x7FFBFFE3E320; // rva 0x74E320
         inline constexpr std::uintptr_t CTonemapController2 = 0x7FFBFF947BE0; // rva 0x257BE0
         inline constexpr std::uintptr_t C_AttributeContainer = 0x7FFC003065E0; // rva 0xC165E0

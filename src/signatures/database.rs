@@ -1443,4 +1443,120 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v9 (build 14155 — chams / glow / skin)
+    //
+    // Notes for "real metal / gold / silver" chams looking like a real
+    // PBR material instead of a flat colour swap:
+    //
+    //   The Source 2 path for an entity-bound model is:
+    //     C_BaseModelEntity (m_clrRender / m_nRenderMode / m_nRenderFX)
+    //         -> CSkeletonInstance (m_materialGroup / m_MeshGroupMask)
+    //              -> CMaterial2 (the actual shader: csgo_character.vfx
+    //                 with PBR slots: g_flMetalness, g_flRoughness,
+    //                 MetalnessTexture, NormalMap, AmbientOcclusion).
+    //
+    //   To produce a believable "gold" chams you do NOT just override
+    //   `m_clrRender` — that only multiplies vertex colour. You need
+    //   to swap `m_materialGroup` (CSkeletonInstance::SetMaterialGroup
+    //   below) onto a custom `csgo_character` material whose shader
+    //   params are set to:
+    //       g_flMetalness        = 1.0     (full metal)
+    //       g_flRoughness        = 0.05    (mirror polish for gold)
+    //       g_vReflectanceColor  = (1.0, 0.766, 0.336)  // gold F0
+    //       g_flAOStrength       = 0.0
+    //       Selfillum            = 0       (kill emissive haze)
+    //       NormalMap            = preserved from original (keeps cloth weave)
+    //
+    //   Then drive that override every frame inside a hook on
+    //   CGameSceneNode::SetMaterialGroup so it survives net-state
+    //   resets.  For a depth-test "x-ray" pass, draw the same model
+    //   a second time with depth-test disabled inside the
+    //   SceneSystem_Thread_RenderSceneDrawList layer hook (already
+    //   exposed in v1.11.0).
+    //
+    //   The CGlowProperty path (m_glowColor / m_iGlowType) drives the
+    //   outline post-process — useful as an outline-only mode but
+    //   NOT what produces the metal-look itself.
+    // ====================================================================
+
+    // CSkeletonInstance::SetMaterialGroup — client!sub_1801BC0B0
+    // (~0xADF). The single function that references the unique
+    // "SetMaterialGroup" symbol string (CDataMap entry); this is
+    // the live setter for swapping a model's entire material list
+    // to a different material-group-symbol.  THE primary hook for
+    // proper chams: replace the symbol with one pointing at your
+    // custom csgo_character material variant (gold/silver/etc.).
+    Signature {
+        name: "CSkeletonInstance_SetMaterialGroup",
+        module: "client.dll",
+        needle: "48 83 EC 38 48 8B 05 ? ? ? ? 48 85 C0 0F 85 C6 0A 00 00 48 89 5C 24 40 B9 50 00 00 00 48 89",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CSkeletonInstance::PostDataUpdate — client!sub_180A24D50
+    // (~0xDFB).  Fires after every server net-state update for a
+    // skeleton-bound entity (player / weapon / hostage). Refs
+    // "CSkeletonInstance::PostDataUpdate".  Best place to re-apply
+    // material-group / mesh-group / skin overrides after the server
+    // resets them — without this hook your chams flicker on every
+    // entity update.
+    Signature {
+        name: "CSkeletonInstance_PostDataUpdate",
+        module: "client.dll",
+        needle: "48 8B C4 4C 89 40 18 89 50 10 55 57 48 8D A8 68 FE FF FF 48 81 EC 88 02 00 00 48 89 70 E0 48 8B",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CSkeletonInstance::GetTransformsForHitboxList — client!
+    // sub_180A18F60. Refs the unique "CSkeletonInstance::
+    // GetTransformsForHitboxList" string. Per-hitbox bone
+    // transform fetch — the canonical source for hitbox ESP /
+    // skeleton ESP / aimbot bone targets, and the matching
+    // bone-space frame for chams (so per-hitbox material masks
+    // stay aligned to limbs).
+    Signature {
+        name: "CSkeletonInstance_GetTransformsForHitboxList",
+        module: "client.dll",
+        needle: "48 89 5C 24 18 55 56 57 41 55 41 57 48 81 EC A0 00 00 00 49 63 28 4D 8B F8 48 8B FA 48 8B D9 85",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CGlowProperty::OnDataChanged — client!sub_1802E10F0 (~0xB7).
+    // Compact dispatcher referenced by both "OnGlowTypeChanged"
+    // and "OnGlowColorChanged" prediction-field hooks (single
+    // function). Hook here to:
+    //   * force m_bGlowing = true on every entity you want
+    //     outlined,
+    //   * override m_fGlowColor to your team-friendly/enemy
+    //     palette,
+    //   * keep m_iGlowType = 3 (visible-through-walls outline)
+    //     regardless of network state.
+    // Pairs with chams material-swap to give the classic
+    // "gold model + coloured outline" look.
+    Signature {
+        name: "CGlowProperty_OnDataChanged",
+        module: "client.dll",
+        needle: "48 83 EC 58 83 F9 01 0F 85 A5 00 00 00 48 8D 05 ? ? ? ? C7 44 24 30 00 00 00 80 89 4C 24 28",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CBaseModelEntity::SetBodygroup — client!sub_1808D87F0 (~0x1D4).
+    // Refs "CBaseModelEntity::SetBodygroup(%d,%d) failed:
+    // CBaseModelEntity has no model!". Lets you mask off mesh
+    // parts (e.g. drop the player's vest mesh so chams shows the
+    // base body silhouette only, or hide weapon scope mesh for
+    // clearer x-ray).  Useful complement to material-group swap.
+    Signature {
+        name: "CBaseModelEntity_SetBodygroup",
+        module: "client.dll",
+        needle: "85 D2 0F 88 CB 01 00 00 55 53 56 41 56 48 8B EC 48 83 EC 78 45 8B F0 8B DA 48 8B F1 E8 ? ? ?",
+        resolve: NONE,
+        extra_off: 0,
+    },
 ];

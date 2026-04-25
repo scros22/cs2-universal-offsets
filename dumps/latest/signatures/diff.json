@@ -57,6 +57,11 @@
       "va": 140720301227120
     },
     {
+      "name": "CBaseModelEntity_SetBodygroup",
+      "module": "client.dll",
+      "va": 140720308258800
+    },
+    {
       "name": "CBodyComponent",
       "module": "client.dll",
       "va": 140720300802224
@@ -257,6 +262,11 @@
       "va": 140720302002416
     },
     {
+      "name": "CGlowProperty_OnDataChanged",
+      "module": "client.dll",
+      "va": 140720302002416
+    },
+    {
       "name": "CHEGrenadeProjectile",
       "module": "client.dll",
       "va": 140720315620304
@@ -300,6 +310,21 @@
       "name": "CSkeletonInstance::SetMeshGroupMask",
       "module": "client.dll",
       "va": 140720309650416
+    },
+    {
+      "name": "CSkeletonInstance_GetTransformsForHitboxList",
+      "module": "client.dll",
+      "va": 140720309571424
+    },
+    {
+      "name": "CSkeletonInstance_PostDataUpdate",
+      "module": "client.dll",
+      "va": 140720309620048
+    },
+    {
+      "name": "CSkeletonInstance_SetMaterialGroup",
+      "module": "client.dll",
+      "va": 140720300802224
     },
     {
       "name": "CSmokeGrenadeProjectile",
