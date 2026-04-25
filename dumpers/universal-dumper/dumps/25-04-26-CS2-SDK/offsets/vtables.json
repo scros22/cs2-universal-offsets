@@ -23100,7 +23100,7 @@
         {
           "index": 3,
           "module": "materialsystem2.dll",
-          "name": "method_3",
+          "name": "CMaterialSystem2_Init",
           "rva": "0x36E40"
         },
         {
