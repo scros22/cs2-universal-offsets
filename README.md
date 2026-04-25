@@ -45,6 +45,13 @@ This tool stands on the shoulders of two excellent open-source projects:
 Huge thanks to both. Without their work this would not exist; this repo is essentially
 the union of the two, glued together with a smooth UI and a shared memory pipeline.
 
+Additional community credit:
+
+- **kauht** &mdash; shared a practical standalone `GeneratePrimitives` chams
+  implementation that helped validate and tighten our scenesystem/
+  materialsystem2/tier0 signature coverage for runtime material creation
+  and substitution paths.
+
 ## Output layout
 
 Every run produces a dated session folder named `DD-MM-YY-CS2-SDK`:

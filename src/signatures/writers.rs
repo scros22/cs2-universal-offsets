@@ -45,6 +45,14 @@ fn module_ident(module: &str) -> String {
     ident(module.trim_end_matches(".dll"))
 }
 
+fn markdown_cell(value: &str) -> String {
+    value
+        .replace('\r', "")
+        .replace('\n', "\\n")
+        .replace('|', "\\|")
+        .replace('`', "'")
+}
+
 /// C# `static class` per module under a `Signatures` namespace.
 pub fn render_cs(hits: &[SignatureHit]) -> String {
     let mut s = String::new();
@@ -137,11 +145,11 @@ pub fn render_markdown(hits: &[SignatureHit]) -> String {
         for h in items {
             s.push_str(&format!(
                 "| `{}` | `{}` | `0x{:X}` | `0x{:X}` | `{}` |\n",
-                h.name,
-                h.resolve,
+                markdown_cell(&h.name),
+                markdown_cell(&h.resolve),
                 h.va.unwrap_or(0),
                 h.rva.unwrap_or(0),
-                h.pattern.replace('|', "\\|"),
+                markdown_cell(&h.pattern),
             ));
         }
         s.push('\n');
