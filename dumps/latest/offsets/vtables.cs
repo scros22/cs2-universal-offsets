@@ -4140,7 +4140,7 @@ public static class VTables
             public const nint method_17                                        =   17; // materialsystem2.dll + 0x38A60
             public const nint method_18                                        =   18; // materialsystem2.dll + 0x38B10
             public const nint method_19                                        =   19; // materialsystem2.dll + 0x38B30
-            public const nint method_20                                        =   20; // materialsystem2.dll + 0x3BAC0
+            public const nint CMaterialSystem2_FrameUpdate                     =   20; // materialsystem2.dll + 0x3BAC0
             public const nint method_21                                        =   21; // materialsystem2.dll + 0x39670
             public const nint method_22                                        =   22; // materialsystem2.dll + 0x384D0
             public const nint method_23                                        =   23; // materialsystem2.dll + 0x3CFD0

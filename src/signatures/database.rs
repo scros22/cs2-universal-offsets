@@ -1293,4 +1293,96 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v7 (build 14155 — material/net/damage)
+    // ====================================================================
+
+    // CMaterialSystem2::FrameUpdate — materialsystem2!sub_18003BAC0.
+    // Refs the unique "CMaterialSystem2::FrameUpdate" job-name
+    // string. Per-frame material state advance — fires before every
+    // scene render, useful as an alternate render-pacing hook for
+    // material patches (chams refresh, override-mode reset).
+    Signature {
+        name: "CMaterialSystem2_FrameUpdate",
+        module: "materialsystem2.dll",
+        needle: "48 89 4C 24 08 55 53 56 57 41 54 41 56 48 8B EC 48 83 EC 68 48 8D 05 ? ? ? ? 48 C7 45 C0",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CNetChan::ProcessMessages — networksystem!sub_1800BB280. Refs
+    // the literal "CNetChan::ProcessMessages" string + two timing
+    // log-format strings (single function). Where every received
+    // network message dispatches to its handler. PRIME hook for
+    // packet inspection / message logging / fakelag analysis.
+    Signature {
+        name: "CNetChan_ProcessMessages",
+        module: "networksystem.dll",
+        needle: "48 8B C4 53 57 41 54 41 56 48 81 EC A8 00 00 00 48 89 70 D0 45 33 E4 4C 89 68 C8 48 8B D9 48 89",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CNetChan::SendNetMessage — networksystem!sub_1800BD670. Refs
+    // three "CNetChan::SendNetMessage:" diagnostic strings (invalid
+    // category / buffer full / SerializeAbstract). The outbound
+    // counterpart — every netmessage you send (CMsg, RCON, voice,
+    // user-cmd) flows through here. Hook for traffic shaping /
+    // pre-send mutation / packet drop.
+    Signature {
+        name: "CNetChan_SendNetMessage",
+        module: "networksystem.dll",
+        needle: "48 89 5C 24 10 48 89 6C 24 18 56 57 41 56 48 83 EC 40 41 0F B6 F0 48 8D 99 F8 73 00 00 4C 8B F2",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v7 (build 14155 — client gameplay)
+    // ====================================================================
+
+    // CBaseEntity::TakeDamageOld — client!sub_180223C70. Refs both
+    // "CBaseEntity::TakeDamageOld: damagetype %d with info.
+    // GetDamageForce() == Vector::vZero" and the ...vector::vZero
+    // counterpart. The legacy (still-used) damage-application
+    // entry — hook for damage-indicator, hit-marker, mini-aimbot
+    // damage-prediction, and god-mode patches.
+    Signature {
+        name: "CBaseEntity_TakeDamageOld",
+        module: "client.dll",
+        needle: "40 55 53 56 57 41 54 48 8D 6C 24 E0 48 81 EC 20 01 00 00 4D 8B E0 48 8B FA 48 8B F1 E8",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CGameTrace dispatcher — client!sub_18098D340. Refs the unique
+    // "Physics/TraceShape (Client)" profile-zone string. Wraps
+    // every client-side trace (TraceLine / TraceHull) into the
+    // physics system. Hook for visibility checks, autowall, head-
+    // shot eligibility, custom no-trace sources.
+    Signature {
+        name: "CGameTrace_TraceShape_Client",
+        module: "client.dll",
+        needle: "48 89 5C 24 20 48 89 4C 24 08 55 57 41 54 41 55 41 56 48 8D AC 24 10 E0 FF FF B8 F0 20 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v7 (build 14155 — entity factory)
+    // ====================================================================
+
+    // DispatchSpawn entry — client!sub_1814D32A0. Single string-
+    // ref "DispatchSpawn". Spawns / re-initialises any entity on
+    // the client (called in waves on round-start, map-load,
+    // late-create). Hook to intercept new entities (auto-tag
+    // weapons, attach overrides, log spawns).
+    Signature {
+        name: "Client_DispatchSpawn",
+        module: "client.dll",
+        needle: "4C 8B DC 55 56 48 83 EC 78 49 8B 68 08 48 8B F1 48 85 ED 0F 84 72 01 00 00 49 89 5B 08 49 8D 4B",
+        resolve: NONE,
+        extra_off: 0,
+    },
 ];

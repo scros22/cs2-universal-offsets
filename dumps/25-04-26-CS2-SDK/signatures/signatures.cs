@@ -19,6 +19,7 @@ public static class Signatures
         public const ulong CAM_ThinkReturn = 0x7FFBFFA0A44FUL; // rva 0x31A44F
         public const ulong CAttributeStringFill = 0x7FFC0059C570UL; // rva 0xEAC570
         public const ulong CAttributeStringInit = 0x7FFBFFCE8600UL; // rva 0x5F8600
+        public const ulong CBaseEntity_TakeDamageOld = 0x7FFBFF913C70UL; // rva 0x223C70
         public const ulong CBodyComponent = 0x7FFBFF8AC0B0UL; // rva 0x1BC0B0
         public const ulong CBodyComponentSkeletonInstance = 0x7FFBFF8B2F90UL; // rva 0x1C2F90
         public const ulong CBufferStringInit = 0x7FFC00ED0160UL; // rva 0x17E0160
@@ -61,6 +62,7 @@ public static class Signatures
         public const ulong CGameSceneNode = 0x7FFBFF893840UL; // rva 0x1A3840
         public const ulong CGameSceneNode_BuildBoneMergeWork = 0x7FFC0002E3C0UL; // rva 0x93E3C0
         public const ulong CGameSceneNode_StartHierarchicalAttachment = 0x7FFC0007AE80UL; // rva 0x98AE80
+        public const ulong CGameTrace_TraceShape_Client = 0x7FFC0007D340UL; // rva 0x98D340
         public const ulong CGlowProperty = 0x7FFBFF9D10F0UL; // rva 0x2E10F0
         public const ulong CHEGrenadeProjectile = 0x7FFC006CDBD0UL; // rva 0xFDDBD0
         public const ulong CInputPtrGlobal = 0x7FFC017513C0UL; // rva 0x20613C0
@@ -96,6 +98,7 @@ public static class Signatures
         public const ulong ClearHUDWeaponIcon = 0x7FFC004DB720UL; // rva 0xDEB720
         public const ulong ClientModeCSNormal_OnEvent = 0x7FFC0034A110UL; // rva 0xC5A110
         public const ulong ClientMode_ptr = 0x7FFC01A2BA60UL; // rva 0x233BA60
+        public const ulong Client_DispatchSpawn = 0x7FFC00BC32A0UL; // rva 0x14D32A0
         public const ulong ConCommand_firstperson = 0x7FFC001B8B50UL; // rva 0xAC8B50
         public const ulong ConCommand_thirdperson = 0x7FFC001B8C30UL; // rva 0xAC8C30
         public const ulong ConvarGet = 0x7FFBFFFADF82UL; // rva 0x8BDF82
@@ -264,12 +267,15 @@ public static class Signatures
     public static class materialsystem2
     {
         public const ulong CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040UL; // rva 0x10040
+        public const ulong CMaterialSystem2_FrameUpdate = 0x7FFC1196BAC0UL; // rva 0x3BAC0
         public const ulong FindParameter = 0x7FFC11941E30UL; // rva 0x11E30
         public const ulong MatSys__PrepareSceneMaterial = 0x7FFC11941BE0UL; // rva 0x11BE0
         public const ulong UpdateParameter = 0x7FFC11942370UL; // rva 0x12370
     }
     public static class networksystem
     {
+        public const ulong CNetChan_ProcessMessages = 0x7FFC0FC1B280UL; // rva 0xBB280
+        public const ulong CNetChan_SendNetMessage = 0x7FFC0FC1D670UL; // rva 0xBD670
         public const ulong NetSystem_CNetChan_ProcessMessages = 0x7FFC0FC1B280UL; // rva 0xBB280
         public const ulong NetSystem_CNetChan_SendNetMessage = 0x7FFC0FC1D670UL; // rva 0xBD670
     }

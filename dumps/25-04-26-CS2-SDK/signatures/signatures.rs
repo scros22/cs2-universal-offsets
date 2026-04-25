@@ -25,6 +25,8 @@ pub mod client {
     pub const CAttributeStringFill: usize = 0x7FFC0059C570;
     /// rva 0x5F8600
     pub const CAttributeStringInit: usize = 0x7FFBFFCE8600;
+    /// rva 0x223C70
+    pub const CBaseEntity_TakeDamageOld: usize = 0x7FFBFF913C70;
     /// rva 0x1BC0B0
     pub const CBodyComponent: usize = 0x7FFBFF8AC0B0;
     /// rva 0x1C2F90
@@ -109,6 +111,8 @@ pub mod client {
     pub const CGameSceneNode_BuildBoneMergeWork: usize = 0x7FFC0002E3C0;
     /// rva 0x98AE80
     pub const CGameSceneNode_StartHierarchicalAttachment: usize = 0x7FFC0007AE80;
+    /// rva 0x98D340
+    pub const CGameTrace_TraceShape_Client: usize = 0x7FFC0007D340;
     /// rva 0x2E10F0
     pub const CGlowProperty: usize = 0x7FFBFF9D10F0;
     /// rva 0xFDDBD0
@@ -179,6 +183,8 @@ pub mod client {
     pub const ClientModeCSNormal_OnEvent: usize = 0x7FFC0034A110;
     /// rva 0x233BA60
     pub const ClientMode_ptr: usize = 0x7FFC01A2BA60;
+    /// rva 0x14D32A0
+    pub const Client_DispatchSpawn: usize = 0x7FFC00BC32A0;
     /// rva 0xAC8B50
     pub const ConCommand_firstperson: usize = 0x7FFC001B8B50;
     /// rva 0xAC8C30
@@ -509,6 +515,8 @@ pub mod engine2 {
 pub mod materialsystem2 {
     /// rva 0x10040
     pub const CMaterial2_LoadShadersAndSetupModes: usize = 0x7FFC11940040;
+    /// rva 0x3BAC0
+    pub const CMaterialSystem2_FrameUpdate: usize = 0x7FFC1196BAC0;
     /// rva 0x11E30
     pub const FindParameter: usize = 0x7FFC11941E30;
     /// rva 0x11BE0
@@ -518,6 +526,10 @@ pub mod materialsystem2 {
 }
 
 pub mod networksystem {
+    /// rva 0xBB280
+    pub const CNetChan_ProcessMessages: usize = 0x7FFC0FC1B280;
+    /// rva 0xBD670
+    pub const CNetChan_SendNetMessage: usize = 0x7FFC0FC1D670;
     /// rva 0xBB280
     pub const NetSystem_CNetChan_ProcessMessages: usize = 0x7FFC0FC1B280;
     /// rva 0xBD670

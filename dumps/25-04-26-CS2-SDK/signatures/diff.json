@@ -52,6 +52,11 @@
       "va": 140720305243648
     },
     {
+      "name": "CBaseEntity_TakeDamageOld",
+      "module": "client.dll",
+      "va": 140720301227120
+    },
+    {
       "name": "CBodyComponent",
       "module": "client.dll",
       "va": 140720300802224
@@ -242,6 +247,11 @@
       "va": 140720308989568
     },
     {
+      "name": "CGameTrace_TraceShape_Client",
+      "module": "client.dll",
+      "va": 140720308998976
+    },
+    {
       "name": "CGlowProperty",
       "module": "client.dll",
       "va": 140720302002416
@@ -415,6 +425,11 @@
       "name": "ClientMode_ptr",
       "module": "client.dll",
       "va": 140720335927904
+    },
+    {
+      "name": "Client_DispatchSpawn",
+      "module": "client.dll",
+      "va": 140720320819872
     },
     {
       "name": "ConCommand_firstperson",
@@ -1222,6 +1237,11 @@
       "va": 140720603398208
     },
     {
+      "name": "CMaterialSystem2_FrameUpdate",
+      "module": "materialsystem2.dll",
+      "va": 140720603577024
+    },
+    {
       "name": "FindParameter",
       "module": "materialsystem2.dll",
       "va": 140720603405872
@@ -1235,6 +1255,16 @@
       "name": "UpdateParameter",
       "module": "materialsystem2.dll",
       "va": 140720603407216
+    },
+    {
+      "name": "CNetChan_ProcessMessages",
+      "module": "networksystem.dll",
+      "va": 140720572838528
+    },
+    {
+      "name": "CNetChan_SendNetMessage",
+      "module": "networksystem.dll",
+      "va": 140720572847728
     },
     {
       "name": "NetSystem_CNetChan_ProcessMessages",

@@ -23202,7 +23202,7 @@
         {
           "index": 20,
           "module": "materialsystem2.dll",
-          "name": "method_20",
+          "name": "CMaterialSystem2_FrameUpdate",
           "rva": "0x3BAC0"
         },
         {

@@ -17,6 +17,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CAM_ThinkReturn = 0x7FFBFFA0A44F; // rva 0x31A44F
         inline constexpr std::uintptr_t CAttributeStringFill = 0x7FFC0059C570; // rva 0xEAC570
         inline constexpr std::uintptr_t CAttributeStringInit = 0x7FFBFFCE8600; // rva 0x5F8600
+        inline constexpr std::uintptr_t CBaseEntity_TakeDamageOld = 0x7FFBFF913C70; // rva 0x223C70
         inline constexpr std::uintptr_t CBodyComponent = 0x7FFBFF8AC0B0; // rva 0x1BC0B0
         inline constexpr std::uintptr_t CBodyComponentSkeletonInstance = 0x7FFBFF8B2F90; // rva 0x1C2F90
         inline constexpr std::uintptr_t CBufferStringInit = 0x7FFC00ED0160; // rva 0x17E0160
@@ -59,6 +60,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CGameSceneNode = 0x7FFBFF893840; // rva 0x1A3840
         inline constexpr std::uintptr_t CGameSceneNode_BuildBoneMergeWork = 0x7FFC0002E3C0; // rva 0x93E3C0
         inline constexpr std::uintptr_t CGameSceneNode_StartHierarchicalAttachment = 0x7FFC0007AE80; // rva 0x98AE80
+        inline constexpr std::uintptr_t CGameTrace_TraceShape_Client = 0x7FFC0007D340; // rva 0x98D340
         inline constexpr std::uintptr_t CGlowProperty = 0x7FFBFF9D10F0; // rva 0x2E10F0
         inline constexpr std::uintptr_t CHEGrenadeProjectile = 0x7FFC006CDBD0; // rva 0xFDDBD0
         inline constexpr std::uintptr_t CInputPtrGlobal = 0x7FFC017513C0; // rva 0x20613C0
@@ -94,6 +96,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t ClearHUDWeaponIcon = 0x7FFC004DB720; // rva 0xDEB720
         inline constexpr std::uintptr_t ClientModeCSNormal_OnEvent = 0x7FFC0034A110; // rva 0xC5A110
         inline constexpr std::uintptr_t ClientMode_ptr = 0x7FFC01A2BA60; // rva 0x233BA60
+        inline constexpr std::uintptr_t Client_DispatchSpawn = 0x7FFC00BC32A0; // rva 0x14D32A0
         inline constexpr std::uintptr_t ConCommand_firstperson = 0x7FFC001B8B50; // rva 0xAC8B50
         inline constexpr std::uintptr_t ConCommand_thirdperson = 0x7FFC001B8C30; // rva 0xAC8C30
         inline constexpr std::uintptr_t ConvarGet = 0x7FFBFFFADF82; // rva 0x8BDF82
@@ -260,11 +263,14 @@ namespace cs2::signatures {
     }
     namespace materialsystem2 {
         inline constexpr std::uintptr_t CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040; // rva 0x10040
+        inline constexpr std::uintptr_t CMaterialSystem2_FrameUpdate = 0x7FFC1196BAC0; // rva 0x3BAC0
         inline constexpr std::uintptr_t FindParameter = 0x7FFC11941E30; // rva 0x11E30
         inline constexpr std::uintptr_t MatSys__PrepareSceneMaterial = 0x7FFC11941BE0; // rva 0x11BE0
         inline constexpr std::uintptr_t UpdateParameter = 0x7FFC11942370; // rva 0x12370
     }
     namespace networksystem {
+        inline constexpr std::uintptr_t CNetChan_ProcessMessages = 0x7FFC0FC1B280; // rva 0xBB280
+        inline constexpr std::uintptr_t CNetChan_SendNetMessage = 0x7FFC0FC1D670; // rva 0xBD670
         inline constexpr std::uintptr_t NetSystem_CNetChan_ProcessMessages = 0x7FFC0FC1B280; // rva 0xBB280
         inline constexpr std::uintptr_t NetSystem_CNetChan_SendNetMessage = 0x7FFC0FC1D670; // rva 0xBD670
     }
