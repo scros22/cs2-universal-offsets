@@ -496,6 +496,8 @@ pub mod engine2 {
     pub const Engine_HLTVClient_ExecuteStringCommand: usize = 0x7FFC12D90D70;
     /// rva 0x21AFC0
     pub const Engine_HostStateMgr_QueueNewRequest: usize = 0x7FFC12E8AFC0;
+    /// rva 0x21AFC0
+    pub const Engine_HostStateMgr_QueueNewRequest: usize = 0x7FFC12E8AFC0;
     /// rva 0x18D760
     pub const Engine_LoadGameInfo: usize = 0x7FFC12DFD760;
     /// rva 0x193440
@@ -556,6 +558,15 @@ pub mod rendersystemdx11 {
     pub const RenderSystemDx11_SetHardwareGammaRamp: usize = 0x7FFC125AF790;
     /// rva 0x399E0
     pub const RenderSystemDx11_SetMode: usize = 0x7FFC125A99E0;
+}
+
+pub mod resourcesystem {
+    /// rva 0x17360
+    pub const ResourceSystem_BlockingLoadResourceByName: usize = 0x7FFC5B0A7360;
+    /// rva 0x16D80
+    pub const ResourceSystem_FindOrRegisterResourceByName: usize = 0x7FFC5B0A6D80;
+    /// rva 0x1C010
+    pub const ResourceSystem_FrameUpdate: usize = 0x7FFC5B0AC010;
 }
 
 pub mod scenesystem {

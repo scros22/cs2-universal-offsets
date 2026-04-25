@@ -1317,6 +1317,21 @@
       "va": 140720616413664
     },
     {
+      "name": "ResourceSystem_BlockingLoadResourceByName",
+      "module": "resourcesystem.dll",
+      "va": 140721835897696
+    },
+    {
+      "name": "ResourceSystem_FindOrRegisterResourceByName",
+      "module": "resourcesystem.dll",
+      "va": 140721835896192
+    },
+    {
+      "name": "ResourceSystem_FrameUpdate",
+      "module": "resourcesystem.dll",
+      "va": 140721835917328
+    },
+    {
       "name": "CSceneAnimatableObject::GeneratePrimitives",
       "module": "scenesystem.dll",
       "va": 140720483087648

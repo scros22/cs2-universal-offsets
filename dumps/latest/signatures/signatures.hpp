@@ -253,6 +253,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t Engine_Disconnect_main = 0x7FFC12E41510; // rva 0x1D1510
         inline constexpr std::uintptr_t Engine_HLTVClient_ExecuteStringCommand = 0x7FFC12D90D70; // rva 0x120D70
         inline constexpr std::uintptr_t Engine_HostStateMgr_QueueNewRequest = 0x7FFC12E8AFC0; // rva 0x21AFC0
+        inline constexpr std::uintptr_t Engine_HostStateMgr_QueueNewRequest = 0x7FFC12E8AFC0; // rva 0x21AFC0
         inline constexpr std::uintptr_t Engine_LoadGameInfo = 0x7FFC12DFD760; // rva 0x18D760
         inline constexpr std::uintptr_t Engine_MountAddon = 0x7FFC12E03440; // rva 0x193440
         inline constexpr std::uintptr_t Engine_NetTimeoutDisconnect = 0x7FFC12CD9780; // rva 0x69780
@@ -285,6 +286,11 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t RenderSystemDx11_QueuePresentAndWait = 0x7FFC125A4650; // rva 0x34650
         inline constexpr std::uintptr_t RenderSystemDx11_SetHardwareGammaRamp = 0x7FFC125AF790; // rva 0x3F790
         inline constexpr std::uintptr_t RenderSystemDx11_SetMode = 0x7FFC125A99E0; // rva 0x399E0
+    }
+    namespace resourcesystem {
+        inline constexpr std::uintptr_t ResourceSystem_BlockingLoadResourceByName = 0x7FFC5B0A7360; // rva 0x17360
+        inline constexpr std::uintptr_t ResourceSystem_FindOrRegisterResourceByName = 0x7FFC5B0A6D80; // rva 0x16D80
+        inline constexpr std::uintptr_t ResourceSystem_FrameUpdate = 0x7FFC5B0AC010; // rva 0x1C010
     }
     namespace scenesystem {
         inline constexpr std::uintptr_t CSceneAnimatableObject__GeneratePrimitives = 0x7FFC0A683520; // rva 0x73520

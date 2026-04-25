@@ -1385,4 +1385,62 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v8 (build 14155 — resources / hoststate)
+    // ====================================================================
+
+    // CResourceSystem::FindOrRegisterResourceByName_Internal —
+    // resourcesystem!sub_180016D80. Refs the unique
+    // "CResourceSystem::FindOrRegisterResourceByName_Internal"
+    // string. Every model / material / sound / particle path
+    // resolves through here. Hook for resource-load logging,
+    // path overrides, asset replacement (custom skins/models).
+    Signature {
+        name: "ResourceSystem_FindOrRegisterResourceByName",
+        module: "resourcesystem.dll",
+        needle: "48 89 5C 24 18 48 89 74 24 20 57 48 81 EC A0 00 00 00 F7 02 FF FF FF 3F 41 0F B6 F8 48 8B DA 48",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CResourceSystem::BlockingLoadResourceByNameIntoJustInTimeManifest —
+    // resourcesystem!sub_180017360. Refs that string. Synchronous
+    // resource-load entry. Hook to detect or block on-demand asset
+    // streaming, prefetch overrides, custom asset injection.
+    Signature {
+        name: "ResourceSystem_BlockingLoadResourceByName",
+        module: "resourcesystem.dll",
+        needle: "40 53 55 57 48 81 EC 80 00 00 00 48 8B 01 49 8B E8 48 8B FA 48 8B D9 FF 90 98 01 00 00 83 F8 03",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CResourceSystem::FrameUpdate — resourcesystem!sub_18001C010.
+    // Refs both the unique "ResourceSystemWaitingForFutureWork"
+    // tracing string and "Idle (ResourceSystemSleep)" inside the
+    // same ~0xC83 byte function. Per-frame resource-system tick.
+    // Hook to inject custom resource bookkeeping or measure load
+    // pressure.
+    Signature {
+        name: "ResourceSystem_FrameUpdate",
+        module: "resourcesystem.dll",
+        needle: "44 88 4C 24 20 44 89 44 24 18 89 54 24 10 55 56 41 54 41 55 41 56 48 8D 6C 24 A0 48 81 EC 60 01",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CHostStateMgr::QueueNewRequest — engine2!sub_18021AFC0. Refs
+    // the unique "CHostStateMgr::QueueNewRequest( %s, %u )" log
+    // string. The engine's host-state transition queue (map
+    // change, disconnect, demo playback, restart). Hook to
+    // intercept / log every map-state change and reset hooks
+    // safely between maps.
+    Signature {
+        name: "Engine_HostStateMgr_QueueNewRequest",
+        module: "engine2.dll",
+        needle: "48 89 6C 24 18 48 89 7C 24 20 41 56 48 83 EC 30 48 8B EA 48 8B F9 8B 0D ? ? ? ? BA 02 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
 ];

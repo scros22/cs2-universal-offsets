@@ -5002,7 +5002,7 @@ public static class VTables
             public const nint method_38                                        =   38; // resourcesystem.dll + 0x1F510
             public const nint method_39                                        =   39; // resourcesystem.dll + 0x16870
             public const nint method_40                                        =   40; // resourcesystem.dll + 0x171C0
-            public const nint method_41                                        =   41; // resourcesystem.dll + 0x17360
+            public const nint ResourceSystem_BlockingLoadResourceByName        =   41; // resourcesystem.dll + 0x17360
             public const nint method_42                                        =   42; // resourcesystem.dll + 0x177B0
             public const nint method_43                                        =   43; // resourcesystem.dll + 0x17830
             public const nint method_44                                        =   44; // resourcesystem.dll + 0x17840
@@ -5040,7 +5040,7 @@ public static class VTables
             public const nint method_76                                        =   76; // resourcesystem.dll + 0x1980
             public const nint method_77                                        =   77; // resourcesystem.dll + 0x1980
             public const nint method_78                                        =   78; // resourcesystem.dll + 0x1A420
-            public const nint method_79                                        =   79; // resourcesystem.dll + 0x16D80
+            public const nint ResourceSystem_FindOrRegisterResourceByName      =   79; // resourcesystem.dll + 0x16D80
             public const nint method_80                                        =   80; // resourcesystem.dll + 0x14B30
             public const nint method_81                                        =   81; // resourcesystem.dll + 0x66EE8
             public const nint method_82                                        =   82; // resourcesystem.dll + 0x140C0

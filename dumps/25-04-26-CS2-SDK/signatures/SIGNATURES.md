@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**279/325 signatures resolved across 10 module(s).**
+**283/329 signatures resolved across 11 module(s).**
 
 ## `animationsystem.dll`
 
@@ -262,6 +262,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `Engine_Disconnect_main` | `raw` | `0x7FFC12E41510` | `0x1D1510` | `48 89 5C 24 20 55 57 41 54 48 8B EC 48 83 EC 70 45 33 E4 48 C7 05` |
 | `Engine_HLTVClient_ExecuteStringCommand` | `raw` | `0x7FFC12D90D70` | `0x120D70` | `40 53 56 48 81 EC 48 07 00 00 48 8B F1 48 8B DA 48 8B 4A 48 48 83 E1 FC 48 83 79 18 0F 76 03 48` |
 | `Engine_HostStateMgr_QueueNewRequest` | `raw` | `0x7FFC12E8AFC0` | `0x21AFC0` | `48 89 6C 24 18 48 89 7C 24 20 41 56 48 83 EC 30 48 8B EA 48 8B F9 8B 0D ? ? ? ? BA 02 00 00` |
+| `Engine_HostStateMgr_QueueNewRequest` | `raw` | `0x7FFC12E8AFC0` | `0x21AFC0` | `48 89 6C 24 18 48 89 7C 24 20 41 56 48 83 EC 30 48 8B EA 48 8B F9 8B 0D ? ? ? ? BA 02 00 00` |
 | `Engine_LoadGameInfo` | `raw` | `0x7FFC12DFD760` | `0x18D760` | `40 55 56 41 56 48 8D 6C 24 F0 48 81 EC 10 01 00 00 4C 8B F1 C7 44 24 40 00 00 00 00 48 8B CA 48` |
 | `Engine_MountAddon` | `raw` | `0x7FFC12E03440` | `0x193440` | `48 85 D2 0F 84 DA 0A 00 00 48 8B C4 44 88 40 18 55 57 41 54 41 57 48 8D A8 C8 FC FF FF 48 81 EC` |
 | `Engine_NetTimeoutDisconnect` | `raw` | `0x7FFC12CD9780` | `0x69780` | `40 53 55 56 57 41 56 48 81 EC 80 00 00 00 0F 29 74 24 70 49 8B F8` |
@@ -306,6 +307,14 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `RenderSystemDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
 | `RenderSystemDx11_SetHardwareGammaRamp` | `raw` | `0x7FFC125AF790` | `0x3F790` | `48 89 5C 24 18 57 B8 B0 40 00 00 E8 ? ? ? ? 48 2B E0 0F 29 BC 24 90 40 00 00 0F 57 C9 0F 28` |
 | `RenderSystemDx11_SetMode` | `raw` | `0x7FFC125A99E0` | `0x399E0` | `44 89 4C 24 20 44 89 44 24 18 89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 81 EC D8 02 00` |
+
+## `resourcesystem.dll`
+
+| Name | Resolve | VA | RVA | Pattern |
+| --- | --- | --- | --- | --- |
+| `ResourceSystem_BlockingLoadResourceByName` | `raw` | `0x7FFC5B0A7360` | `0x17360` | `40 53 55 57 48 81 EC 80 00 00 00 48 8B 01 49 8B E8 48 8B FA 48 8B D9 FF 90 98 01 00 00 83 F8 03` |
+| `ResourceSystem_FindOrRegisterResourceByName` | `raw` | `0x7FFC5B0A6D80` | `0x16D80` | `48 89 5C 24 18 48 89 74 24 20 57 48 81 EC A0 00 00 00 F7 02 FF FF FF 3F 41 0F B6 F8 48 8B DA 48` |
+| `ResourceSystem_FrameUpdate` | `raw` | `0x7FFC5B0AC010` | `0x1C010` | `44 88 4C 24 20 44 89 44 24 18 89 54 24 10 55 56 41 54 41 55 41 56 48 8D 6C 24 A0 48 81 EC 60 01` |
 
 ## `scenesystem.dll`
 

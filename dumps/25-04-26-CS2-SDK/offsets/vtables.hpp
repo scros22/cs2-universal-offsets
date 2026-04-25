@@ -4916,7 +4916,7 @@ namespace cs2::vtables {
             inline constexpr std::ptrdiff_t method_38                                        =   38; // resourcesystem.dll + 0x1F510
             inline constexpr std::ptrdiff_t method_39                                        =   39; // resourcesystem.dll + 0x16870
             inline constexpr std::ptrdiff_t method_40                                        =   40; // resourcesystem.dll + 0x171C0
-            inline constexpr std::ptrdiff_t method_41                                        =   41; // resourcesystem.dll + 0x17360
+            inline constexpr std::ptrdiff_t ResourceSystem_BlockingLoadResourceByName        =   41; // resourcesystem.dll + 0x17360
             inline constexpr std::ptrdiff_t method_42                                        =   42; // resourcesystem.dll + 0x177B0
             inline constexpr std::ptrdiff_t method_43                                        =   43; // resourcesystem.dll + 0x17830
             inline constexpr std::ptrdiff_t method_44                                        =   44; // resourcesystem.dll + 0x17840
@@ -4954,7 +4954,7 @@ namespace cs2::vtables {
             inline constexpr std::ptrdiff_t method_76                                        =   76; // resourcesystem.dll + 0x1980
             inline constexpr std::ptrdiff_t method_77                                        =   77; // resourcesystem.dll + 0x1980
             inline constexpr std::ptrdiff_t method_78                                        =   78; // resourcesystem.dll + 0x1A420
-            inline constexpr std::ptrdiff_t method_79                                        =   79; // resourcesystem.dll + 0x16D80
+            inline constexpr std::ptrdiff_t ResourceSystem_FindOrRegisterResourceByName      =   79; // resourcesystem.dll + 0x16D80
             inline constexpr std::ptrdiff_t method_80                                        =   80; // resourcesystem.dll + 0x14B30
             inline constexpr std::ptrdiff_t method_81                                        =   81; // resourcesystem.dll + 0x66EE8
             inline constexpr std::ptrdiff_t method_82                                        =   82; // resourcesystem.dll + 0x140C0

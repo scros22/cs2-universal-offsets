@@ -256,6 +256,7 @@ public static class Signatures
         public const ulong Engine_Disconnect_main = 0x7FFC12E41510UL; // rva 0x1D1510
         public const ulong Engine_HLTVClient_ExecuteStringCommand = 0x7FFC12D90D70UL; // rva 0x120D70
         public const ulong Engine_HostStateMgr_QueueNewRequest = 0x7FFC12E8AFC0UL; // rva 0x21AFC0
+        public const ulong Engine_HostStateMgr_QueueNewRequest = 0x7FFC12E8AFC0UL; // rva 0x21AFC0
         public const ulong Engine_LoadGameInfo = 0x7FFC12DFD760UL; // rva 0x18D760
         public const ulong Engine_MountAddon = 0x7FFC12E03440UL; // rva 0x193440
         public const ulong Engine_NetTimeoutDisconnect = 0x7FFC12CD9780UL; // rva 0x69780
@@ -292,6 +293,12 @@ public static class Signatures
         public const ulong RenderSystemDx11_QueuePresentAndWait = 0x7FFC125A4650UL; // rva 0x34650
         public const ulong RenderSystemDx11_SetHardwareGammaRamp = 0x7FFC125AF790UL; // rva 0x3F790
         public const ulong RenderSystemDx11_SetMode = 0x7FFC125A99E0UL; // rva 0x399E0
+    }
+    public static class resourcesystem
+    {
+        public const ulong ResourceSystem_BlockingLoadResourceByName = 0x7FFC5B0A7360UL; // rva 0x17360
+        public const ulong ResourceSystem_FindOrRegisterResourceByName = 0x7FFC5B0A6D80UL; // rva 0x16D80
+        public const ulong ResourceSystem_FrameUpdate = 0x7FFC5B0AC010UL; // rva 0x1C010
     }
     public static class scenesystem
     {
