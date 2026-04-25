@@ -1948,4 +1948,205 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: STRREF,
         extra_off: 0,
     },
+
+    // ====================================================================
+    // NUVORA APR-25-2026 EXPANSION v12 (build 14155 — WEAPON PAINT KIT /
+    // CCompositeMaterialKit pipeline — "Galaxy-camo" custom-skin reversing)
+    //
+    // GOAL: trace the full code path that turns a `paint kit id + seed +
+    // wear` triple on a `C_EconItemView` into a runtime-composited PBR
+    // material that gets bound to the weapon viewmodel — so we can
+    // INJECT a custom `.vcompmat` (or override the input shader-vars
+    // directly) and ship a fully custom Galaxy-style camo on any weapon.
+    //
+    // CS2's weapon-skin system is a layered shader-compositing engine
+    // (functionally identical to Fortnite skin-compositing, Valve just
+    // calls it `CCompositeMaterialKit`). The runtime recipe:
+    //
+    //   .vcompmat (kit definition)        -- e.g. weapons/paints/legacy/
+    //                                        missing_paintkit.vcompmat
+    //     |
+    //     +-- list of `CompositeMaterialAssemblyProcedure_t`
+    //     |       (each = "take input vmat A, blend into output vmat B
+    //     |        using mask M and shader-vars V")
+    //     +-- final output material  (the one bound to the model)
+    //
+    //   CompositeMaterialInputContainer_t  (per-instance)
+    //     +-- g_flWearAmount  (scratch / scuff intensity)
+    //     +-- g_nRandomSeed   (per-pattern offset)
+    //     +-- g_vColor*       (4 colour slots — what we override for
+    //                          a Galaxy purple-blue gradient)
+    //     +-- g_tNormalMap, g_tPattern, g_tMaskWear, g_flMetalness,
+    //         g_flRoughness, g_vReflectanceColor (PBR slots)
+    //
+    // The legacy-weapons pipeline (these sigs target the LEGACY path,
+    // because that is the one CS2 still uses for every weapon shipped
+    // before the workshop-2.0 era — i.e. ALL of them currently):
+    //
+    //   1. game tick: viewmodel becomes visible
+    //   2. sub_18011C6D0  registers `cl_paintkit_override` ConVar
+    //      (already-shipped earlier — paintkit override hot-swap entry)
+    //   3. C_EconWearable_OnNewCustomMaterials (sub_1810B67D0)
+    //        --> "[Wearables] Creating new wearable (%d)" log
+    //        --> calls sub_180A4CE30 with sub_180164704 callback
+    //            = the per-wearable composite-material build kickoff
+    //   4. C_EconEntity_BuildLegacyWeaponSkinMaterial (sub_18078C050)
+    //        --> reads paintkit name from off_182013BB0[(seed + N) % 34]
+    //            (the 34-entry legacy paintkit name table)
+    //        --> calls sub_180789A00 to push every shader-variable into
+    //            a CompositeMaterialInputContainer_t with key strings
+    //            "g_flWearAmount" then "g_nRandomSeed"
+    //        --> sets the .vcompmat resource path to
+    //            "weapons/paints/legacy/missing_paintkit.vcompmat" as
+    //            the FALLBACK if no kit was matched
+    //        --> tags the request "low-res weapon" or "workshop
+    //            preview weapon" depending on render scope
+    //        --> dispatches via vtable+8 of the composite-material
+    //            manager
+    //   5. CompositeMaterialPanoramaPanel_Init (sub_180B8FB00) /
+    //      CCompositeMaterialManager_AddNewPanoramaPanelRenderRequest
+    //      (called from sub_1813B8DD0) — feed the kit through the
+    //      panorama-render path so the inventory thumbnail rebuilds
+    //      whenever the user previews a skin
+    //   6. CMaterialLayer::CreateCommandBuffer (already shipped v1.17.0)
+    //      records the actual GPU bind sequence
+    //   7. CMaterial::SetVariableAndRenderState (already shipped v1.17.0)
+    //      writes our g_vColor / g_flMetalness into the cbuf upload
+    //
+    // CUSTOM-CAMO HOOK STRATEGY (for future feature impl):
+    //   A. Hook (4) C_EconEntity_BuildLegacyWeaponSkinMaterial:
+    //      - replace the .vcompmat path with our own bundled kit
+    //      - add extra `sub_180789A00(...)` calls injecting per-channel
+    //        Galaxy colours (e.g. g_vColor1=(0.31,0.18,0.85), g_vColor2=
+    //        (0.85,0.30,0.95), g_flMetalness=1.0, g_flRoughness=0.15,
+    //        g_tPattern -> our custom .vtex)
+    //   B. Or hook (7) CMaterial::SetVariableAndRenderState directly
+    //      and rewrite the cbuf upload at draw-time (no resource files
+    //      needed — pure in-memory swap, but per-draw cost).
+    //
+    // All 7 sigs below are STRREF-anchored on log / resource strings
+    // each with EXACTLY ONE xref to its target function (verified via
+    // mcp_ida-pro-mcp_xref_query on instance 13337 / client.dll).
+    // ====================================================================
+
+    // C_EconWearable::OnNewCustomMaterials — client.dll!sub_1810B67D0
+    // (~0xF5).  Refs the unique error string "Invalid EconItemView --
+    // Can't create custom materials for wearable, debug this." (1 xref).
+    // The per-wearable composite-material build kickoff. Schedules the
+    // per-frame composite-material recipe build (calls sub_180A4CE30
+    // with sub_180164704 callback). Hook here to gate which weapons
+    // receive a custom kit.
+    Signature {
+        name: "C_EconWearable_OnNewCustomMaterials",
+        module: "client.dll",
+        needle: "Invalid EconItemView -- Can't create custom materials for wearable, debug this.\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CPaintKitDefinitions::FindOrCreateByName — client.dll!sub_181057DD0
+    // (~0x328).  Refs the unique error string "Kit \"[%s]\" specified,
+    // but doesn't exist!! You're probably missing an entry in
+    // items_paintkits.txt or items_stickerkits.txt or need to run with
+    // -use_local_item_data" (1 xref). Translates a paint-kit name (or
+    // m_nFallbackPaintKit id) into a `CPaintKit*` definition. Hook to
+    // inject our custom kit name -> custom CPaintKit (which can in
+    // turn point at a custom .vcompmat).
+    Signature {
+        name: "CPaintKitDefinitions_FindOrCreateByName",
+        module: "client.dll",
+        needle: "Kit \"[%s]\" specified, but doesn't exist!! You're probably missing an entry in items_paintkits.txt or items_stickerkits.txt or need to run with -use_local_item_data\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CPaintKitDefinitions::LoadDefaultKit — client.dll!sub_181029EA0
+    // (~0x37D).  Refs the unique error string "Unable to find \"default\"
+    // paint kit in \"paint_kits_rarity\"" (1 xref).  One-shot loader
+    // run during econ-schema init that establishes the rarity-bucketed
+    // default paintkit table. Hook to inject custom-rarity-bucket entries.
+    Signature {
+        name: "CPaintKitDefinitions_LoadDefaultKit",
+        module: "client.dll",
+        needle: "Unable to find \"default\" paint kit in \"paint_kits_rarity\"",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // C_EconEntity::BuildLegacyWeaponSkinMaterial — client.dll!sub_18078C050
+    // (~0x810).  ★ THE GOLD-MINE FUNCTION FOR CUSTOM CAMO ★
+    // Refs the unique scope-tag string "workshop preview weapon"
+    // (1 xref). Decompile reveals the full per-weapon kit-build
+    // recipe: reads paintkit name from off_182013BB0[(seed+N) % 34]
+    // (the 34-entry legacy-paintkit name table — NOTE: pattern offset
+    // also appears in `*((_DWORD*)off_1820496A0 + 17)`); pushes
+    // CompositeMaterialInputContainer_t entries via sub_180789A00
+    // (`AddCompositeMaterialInput`) with keys "g_flWearAmount" and
+    // "g_nRandomSeed"; sets the .vcompmat resource path (default
+    // fallback `weapons/paints/legacy/missing_paintkit.vcompmat`);
+    // tags scope "low-res weapon" (512) or "workshop preview weapon"
+    // (2048); dispatches via composite-material-manager vtable +8.
+    // Hook to swap the .vcompmat path for our custom Galaxy kit AND
+    // inject extra g_vColor*/g_flMetalness/g_tPattern entries into the
+    // input container before dispatch.
+    Signature {
+        name: "C_EconEntity_BuildLegacyWeaponSkinMaterial",
+        module: "client.dll",
+        needle: "workshop preview weapon",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // C_EconEntity::BuildModernWeaponSkinMaterial — client.dll!sub_180D828E0
+    // (~0x13BD — large).  Modern (post-workshop-2.0) sibling of the
+    // legacy builder above.  Anchored via raw prologue bytes because
+    // it shares the `g_flWearAmount` / `missing_paintkit.vcompmat`
+    // strings with sub_18078C050 (no STRREF uniqueness possible
+    // without decompiling for a sub-region anchor).  Prologue:
+    //   48 85 C9              test  rcx, rcx
+    //   0F 84 60 13 00 00     jz    +0x1360                (early-out
+    //                                                       to function
+    //                                                       end — note
+    //                                                       0x1360 is
+    //                                                       fragile vs
+    //                                                       future patch)
+    //   48 8B C4              mov   rax, rsp
+    //   48 89 50 10 / 48 8D A8 B8 FA  unique stack frame
+    Signature {
+        name: "C_EconEntity_BuildModernWeaponSkinMaterial",
+        module: "client.dll",
+        needle: "48 85 C9 0F 84 ? ? 00 00 48 8B C4 48 89 50 10 48 89 48 08 55 41 54 41 56 41 57 48 8D A8 B8 FA",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CompositeMaterialPanoramaPanel_t::Init — client.dll!sub_180B8FB00
+    // (~0x4DC).  Refs the unique RTTI/log string
+    // "CompositeMaterialPanoramaPanel_t::Init" (1 xref). Initialiser
+    // that wires a Panorama UI panel to a composite-material render
+    // request — used for inventory previews, store thumbnails, weapon-
+    // inspect screens. Hook to drive a Panorama-rendered preview of
+    // our custom kit before the user equips it.
+    Signature {
+        name: "CompositeMaterialPanoramaPanel_Init",
+        module: "client.dll",
+        needle: "CompositeMaterialPanoramaPanel_t::Init",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CCompositeMaterialManager::AddNewPanoramaPanelRenderRequest_Caller —
+    // client.dll!sub_1813B8DD0 (~0x388). Refs the unique log string
+    // "CCompositeMaterialManager::AddNewPanoramaPanelRenderRequest"
+    // (1 xref).  The caller-side wrapper around the manager's
+    // render-request enqueue. Hook to log every kit-build request
+    // (great for runtime kit discovery / dumping the live paintkit
+    // table during a match).
+    Signature {
+        name: "CCompositeMaterialManager_AddPanoramaPanelRenderRequest_Caller",
+        module: "client.dll",
+        needle: "CCompositeMaterialManager::AddNewPanoramaPanelRenderRequest",
+        resolve: STRREF,
+        extra_off: 0,
+    },
 ];

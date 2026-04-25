@@ -202,6 +202,11 @@
       "va": 140720302001888
     },
     {
+      "name": "CCompositeMaterialManager_AddPanoramaPanelRenderRequest_Caller",
+      "module": "client.dll",
+      "va": 140720319664228
+    },
+    {
       "name": "CDecoyProjectile",
       "module": "client.dll",
       "va": 140720306643104
@@ -280,6 +285,16 @@
       "name": "CMolotovProjectile",
       "module": "client.dll",
       "va": 140720306643584
+    },
+    {
+      "name": "CPaintKitDefinitions_FindOrCreateByName",
+      "module": "client.dll",
+      "va": 140720316120528
+    },
+    {
+      "name": "CPaintKitDefinitions_LoadDefaultKit",
+      "module": "client.dll",
+      "va": 140720315932320
     },
     {
       "name": "CPostProcessingVolume",
@@ -392,9 +407,24 @@
       "va": 140720306593840
     },
     {
+      "name": "C_EconEntity_BuildLegacyWeaponSkinMaterial",
+      "module": "client.dll",
+      "va": 140720306896976
+    },
+    {
+      "name": "C_EconEntity_BuildModernWeaponSkinMaterial",
+      "module": "client.dll",
+      "va": 140720313149664
+    },
+    {
       "name": "C_EconItemView",
       "module": "client.dll",
       "va": 140720306369536
+    },
+    {
+      "name": "C_EconWearable_OnNewCustomMaterials",
+      "module": "client.dll",
+      "va": 140720316508112
     },
     {
       "name": "C_Hostage",
@@ -470,6 +500,11 @@
       "name": "Client_DispatchSpawn",
       "module": "client.dll",
       "va": 140720320819872
+    },
+    {
+      "name": "CompositeMaterialPanoramaPanel_Init",
+      "module": "client.dll",
+      "va": 140720311106304
     },
     {
       "name": "ConCommand_firstperson",

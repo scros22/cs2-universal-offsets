@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**304/350 signatures resolved across 11 module(s).**
+**311/357 signatures resolved across 11 module(s).**
 
 ## `animationsystem.dll`
 
@@ -57,6 +57,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CCSWeaponBaseGun` | `stringref` | `0x7FFBFFE6F300` | `0x77F300` | `"CCSWeaponBaseGun"` |
 | `CCSWeaponBaseVData` | `stringref` | `0x7FFBFFE4A170` | `0x75A170` | `"CCSWeaponBaseVData"` |
 | `CCollisionProperty` | `stringref` | `0x7FFBFF9D0EE0` | `0x2E0EE0` | `"CCollisionProperty"` |
+| `CCompositeMaterialManager_AddPanoramaPanelRenderRequest_Caller` | `stringref` | `0x7FFC00AA9064` | `0x13B9064` | `"CCompositeMaterialManager::AddNewPanoramaPanelRenderRequest"` |
 | `CDecoyProjectile` | `stringref` | `0x7FFBFFE3E0A0` | `0x74E0A0` | `"CDecoyProjectile"` |
 | `CEconItemSchema::GetAttributeDefinitionByName` | `raw` | `0x7FFC0073A5E0` | `0x104A5E0` | `48 89 5C 24 10 48 89 6C 24 18 57 41 56 41 57 48 83 EC 60 48 8D 05` |
 | `CEconItemView::GetCustomPaintKitIndex` | `raw` | `0x7FFBFFFA9C70` | `0x8B9C70` | `48 89 5C 24 ? 57 48 83 EC ? 8B 15 ? ? ? ? 48 8B F9 65 48 8B 04 25` |
@@ -73,6 +74,9 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CHEGrenadeProjectile` | `stringref` | `0x7FFC006CDBD0` | `0xFDDBD0` | `"CHEGrenadeProjectile"` |
 | `CInputPtrGlobal` | `riprel` | `0x7FFC017513C0` | `0x20613C0` | `4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00 85 C0` |
 | `CMolotovProjectile` | `stringref` | `0x7FFBFFE3E280` | `0x74E280` | `"CMolotovProjectile"` |
+| `CPaintKitDefinitions_FindOrCreateByName` | `stringref` | `0x7FFC00747DD0` | `0x1057DD0` | `"Kit "[%s]" specified, but doesn't exist!! You're probably missing an entry in items_paintkits.txt or items_stickerkits.txt or need to run with -use_local_item_data
+"` |
+| `CPaintKitDefinitions_LoadDefaultKit` | `stringref` | `0x7FFC00719EA0` | `0x1029EA0` | `"Unable to find "default" paint kit in "paint_kits_rarity""` |
 | `CPostProcessingVolume` | `stringref` | `0x7FFBFF993CB0` | `0x2A3CB0` | `"CPostProcessingVolume"` |
 | `CSBaseGunFireData_fn` | `raw` | `0x7FFC00BD58D0` | `0x14E58D0` | `48 8B C4 55 53 56 57 41 54 41 55 41 56 41 57 48 8D 68 A8 48 81 EC ? ? ? ? 4C 8B 69` |
 | `CSGOInput_ptr` | `riprel` | `0x7FFC017513C0` | `0x20613C0` | `48 8B 0D ? ? ? ? 4C 8B C6 8B 10 E8` |
@@ -95,7 +99,11 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `C_CSPlayerPawn` | `stringref` | `0x7FFBFFDB2380` | `0x6C2380` | `"C_CSPlayerPawn"` |
 | `C_CSPlayerPawnBase` | `stringref` | `0x7FFC002C57C0` | `0xBD57C0` | `"C_CSPlayerPawnBase"` |
 | `C_CSWeaponBase` | `stringref` | `0x7FFBFFE32030` | `0x742030` | `"C_CSWeaponBase"` |
+| `C_EconEntity_BuildLegacyWeaponSkinMaterial` | `stringref` | `0x7FFBFFE7C050` | `0x78C050` | `"workshop preview weapon"` |
+| `C_EconEntity_BuildModernWeaponSkinMaterial` | `raw` | `0x7FFC004728E0` | `0xD828E0` | `48 85 C9 0F 84 ? ? 00 00 48 8B C4 48 89 50 10 48 89 48 08 55 41 54 41 56 41 57 48 8D A8 B8 FA` |
 | `C_EconItemView` | `stringref` | `0x7FFBFFDFB400` | `0x70B400` | `"C_EconItemView"` |
+| `C_EconWearable_OnNewCustomMaterials` | `stringref` | `0x7FFC007A67D0` | `0x10B67D0` | `"Invalid EconItemView -- Can't create custom materials for wearable, debug this.
+"` |
 | `C_Hostage` | `stringref` | `0x7FFBFF7D73D0` | `0xE73D0` | `"C_Hostage"` |
 | `C_Inferno` | `stringref` | `0x7FFBFF7E7390` | `0xF7390` | `"C_Inferno"` |
 | `C_PlantedC4` | `stringref` | `0x7FFBFF7E06F0` | `0xF06F0` | `"C_PlantedC4"` |
@@ -111,6 +119,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `ClientModeCSNormal_OnEvent` | `raw` | `0x7FFC0034A110` | `0xC5A110` | `40 53 57 48 81 EC 78 02 00 00 48 8B CA 48 8B FA` |
 | `ClientMode_ptr` | `riprel` | `0x7FFC01A2BA60` | `0x233BA60` | `48 8D 0D ? ? ? ? 48 69 C0 ? ? ? ? 48 03 C1 C3 CC CC` |
 | `Client_DispatchSpawn` | `raw` | `0x7FFC00BC32A0` | `0x14D32A0` | `4C 8B DC 55 56 48 83 EC 78 49 8B 68 08 48 8B F1 48 85 ED 0F 84 72 01 00 00 49 89 5B 08 49 8D 4B` |
+| `CompositeMaterialPanoramaPanel_Init` | `stringref` | `0x7FFC0027FB00` | `0xB8FB00` | `"CompositeMaterialPanoramaPanel_t::Init"` |
 | `ConCommand_firstperson` | `raw` | `0x7FFC001B8B50` | `0xAC8B50` | `48 83 EC 28 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 75 ? 48 8B 05 ? ? ? ? C6 80 29 02 00 00 00 C7 80 A8 06 00 00 00` |
 | `ConCommand_thirdperson` | `raw` | `0x7FFC001B8C30` | `0xAC8C30` | `48 83 EC 38 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 0F 85 ? ? ? ? 4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00` |
 | `ConvarGet` | `raw` | `0x7FFBFFFADF82` | `0x8BDF82` | `8B D0 48 8D 0D ? ? ? ? E8 ? ? ? ? 0F 10 45 ? 83 F0 74` |

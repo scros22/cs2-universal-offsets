@@ -51,6 +51,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CCSWeaponBaseGun = 0x7FFBFFE6F300; // rva 0x77F300
         inline constexpr std::uintptr_t CCSWeaponBaseVData = 0x7FFBFFE4A170; // rva 0x75A170
         inline constexpr std::uintptr_t CCollisionProperty = 0x7FFBFF9D0EE0; // rva 0x2E0EE0
+        inline constexpr std::uintptr_t CCompositeMaterialManager_AddPanoramaPanelRenderRequest_Caller = 0x7FFC00AA9064; // rva 0x13B9064
         inline constexpr std::uintptr_t CDecoyProjectile = 0x7FFBFFE3E0A0; // rva 0x74E0A0
         inline constexpr std::uintptr_t CEconItemSchema__GetAttributeDefinitionByName = 0x7FFC0073A5E0; // rva 0x104A5E0
         inline constexpr std::uintptr_t CEconItemView__GetCustomPaintKitIndex = 0x7FFBFFFA9C70; // rva 0x8B9C70
@@ -67,6 +68,8 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CHEGrenadeProjectile = 0x7FFC006CDBD0; // rva 0xFDDBD0
         inline constexpr std::uintptr_t CInputPtrGlobal = 0x7FFC017513C0; // rva 0x20613C0
         inline constexpr std::uintptr_t CMolotovProjectile = 0x7FFBFFE3E280; // rva 0x74E280
+        inline constexpr std::uintptr_t CPaintKitDefinitions_FindOrCreateByName = 0x7FFC00747DD0; // rva 0x1057DD0
+        inline constexpr std::uintptr_t CPaintKitDefinitions_LoadDefaultKit = 0x7FFC00719EA0; // rva 0x1029EA0
         inline constexpr std::uintptr_t CPostProcessingVolume = 0x7FFBFF993CB0; // rva 0x2A3CB0
         inline constexpr std::uintptr_t CSBaseGunFireData_fn = 0x7FFC00BD58D0; // rva 0x14E58D0
         inline constexpr std::uintptr_t CSGOInput_ptr = 0x7FFC017513C0; // rva 0x20613C0
@@ -89,7 +92,10 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t C_CSPlayerPawn = 0x7FFBFFDB2380; // rva 0x6C2380
         inline constexpr std::uintptr_t C_CSPlayerPawnBase = 0x7FFC002C57C0; // rva 0xBD57C0
         inline constexpr std::uintptr_t C_CSWeaponBase = 0x7FFBFFE32030; // rva 0x742030
+        inline constexpr std::uintptr_t C_EconEntity_BuildLegacyWeaponSkinMaterial = 0x7FFBFFE7C050; // rva 0x78C050
+        inline constexpr std::uintptr_t C_EconEntity_BuildModernWeaponSkinMaterial = 0x7FFC004728E0; // rva 0xD828E0
         inline constexpr std::uintptr_t C_EconItemView = 0x7FFBFFDFB400; // rva 0x70B400
+        inline constexpr std::uintptr_t C_EconWearable_OnNewCustomMaterials = 0x7FFC007A67D0; // rva 0x10B67D0
         inline constexpr std::uintptr_t C_Hostage = 0x7FFBFF7D73D0; // rva 0xE73D0
         inline constexpr std::uintptr_t C_Inferno = 0x7FFBFF7E7390; // rva 0xF7390
         inline constexpr std::uintptr_t C_PlantedC4 = 0x7FFBFF7E06F0; // rva 0xF06F0
@@ -105,6 +111,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t ClientModeCSNormal_OnEvent = 0x7FFC0034A110; // rva 0xC5A110
         inline constexpr std::uintptr_t ClientMode_ptr = 0x7FFC01A2BA60; // rva 0x233BA60
         inline constexpr std::uintptr_t Client_DispatchSpawn = 0x7FFC00BC32A0; // rva 0x14D32A0
+        inline constexpr std::uintptr_t CompositeMaterialPanoramaPanel_Init = 0x7FFC0027FB00; // rva 0xB8FB00
         inline constexpr std::uintptr_t ConCommand_firstperson = 0x7FFC001B8B50; // rva 0xAC8B50
         inline constexpr std::uintptr_t ConCommand_thirdperson = 0x7FFC001B8C30; // rva 0xAC8C30
         inline constexpr std::uintptr_t ConvarGet = 0x7FFBFFFADF82; // rva 0x8BDF82

@@ -93,6 +93,8 @@ pub mod client {
     pub const CCSWeaponBaseVData: usize = 0x7FFBFFE4A170;
     /// rva 0x2E0EE0
     pub const CCollisionProperty: usize = 0x7FFBFF9D0EE0;
+    /// rva 0x13B9064
+    pub const CCompositeMaterialManager_AddPanoramaPanelRenderRequest_Caller: usize = 0x7FFC00AA9064;
     /// rva 0x74E0A0
     pub const CDecoyProjectile: usize = 0x7FFBFFE3E0A0;
     /// rva 0x104A5E0
@@ -125,6 +127,10 @@ pub mod client {
     pub const CInputPtrGlobal: usize = 0x7FFC017513C0;
     /// rva 0x74E280
     pub const CMolotovProjectile: usize = 0x7FFBFFE3E280;
+    /// rva 0x1057DD0
+    pub const CPaintKitDefinitions_FindOrCreateByName: usize = 0x7FFC00747DD0;
+    /// rva 0x1029EA0
+    pub const CPaintKitDefinitions_LoadDefaultKit: usize = 0x7FFC00719EA0;
     /// rva 0x2A3CB0
     pub const CPostProcessingVolume: usize = 0x7FFBFF993CB0;
     /// rva 0x14E58D0
@@ -169,8 +175,14 @@ pub mod client {
     pub const C_CSPlayerPawnBase: usize = 0x7FFC002C57C0;
     /// rva 0x742030
     pub const C_CSWeaponBase: usize = 0x7FFBFFE32030;
+    /// rva 0x78C050
+    pub const C_EconEntity_BuildLegacyWeaponSkinMaterial: usize = 0x7FFBFFE7C050;
+    /// rva 0xD828E0
+    pub const C_EconEntity_BuildModernWeaponSkinMaterial: usize = 0x7FFC004728E0;
     /// rva 0x70B400
     pub const C_EconItemView: usize = 0x7FFBFFDFB400;
+    /// rva 0x10B67D0
+    pub const C_EconWearable_OnNewCustomMaterials: usize = 0x7FFC007A67D0;
     /// rva 0xE73D0
     pub const C_Hostage: usize = 0x7FFBFF7D73D0;
     /// rva 0xF7390
@@ -201,6 +213,8 @@ pub mod client {
     pub const ClientMode_ptr: usize = 0x7FFC01A2BA60;
     /// rva 0x14D32A0
     pub const Client_DispatchSpawn: usize = 0x7FFC00BC32A0;
+    /// rva 0xB8FB00
+    pub const CompositeMaterialPanoramaPanel_Init: usize = 0x7FFC0027FB00;
     /// rva 0xAC8B50
     pub const ConCommand_firstperson: usize = 0x7FFC001B8B50;
     /// rva 0xAC8C30

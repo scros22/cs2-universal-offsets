@@ -1,5 +1,5 @@
 // Generated using https://github.com/a2x/cs2-dumper
-// 2026-04-25 14:20:26.695843900 UTC
+// 2026-04-25 14:28:20.373228800 UTC
 
 pub const signatures = struct {
     // Module: client.dll
