@@ -287,6 +287,8 @@ namespace cs2::signatures {
     namespace materialsystem2 {
         inline constexpr std::uintptr_t CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile = 0x7FFC11943FA0; // rva 0x13FA0
         inline constexpr std::uintptr_t CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040; // rva 0x10040
+        inline constexpr std::uintptr_t CMaterialLayer_ApplyMaterialVarsForBatch = 0x7FFC11948B80; // rva 0x18B80
+        inline constexpr std::uintptr_t CMaterialLayer_BuildPassCommandData = 0x7FFC11948F80; // rva 0x18F80
         inline constexpr std::uintptr_t CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode = 0x7FFC11945F3C; // rva 0x15F3C
         inline constexpr std::uintptr_t CMaterialLayer_CreateCommandBuffer = 0x7FFC11949820; // rva 0x19820
         inline constexpr std::uintptr_t CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState = 0x7FFC119A0000; // rva 0x70000
@@ -314,6 +316,7 @@ namespace cs2::signatures {
     namespace rendersystemdx11 {
         inline constexpr std::uintptr_t CRenderDeviceBase_CreateConstantBuffer = 0x7FFC1259F500; // rva 0x2F500
         inline constexpr std::uintptr_t CRenderDeviceDx11_BeginSubmittingDisplayLists = 0x7FFC125AC4E0; // rva 0x3C4E0
+        inline constexpr std::uintptr_t CRenderDeviceDx11_CompileShaderSourceMain = 0x7FFC125AFAF0; // rva 0x3FAF0
         inline constexpr std::uintptr_t CSwapChainDx11_QueuePresentAndWait = 0x7FFC125A4650; // rva 0x34650
         inline constexpr std::uintptr_t CSwapChainDx11_ResizeBuffers = 0x7FFC125ADD20; // rva 0x3DD20
         inline constexpr std::uintptr_t RenderSystemDx11_QueuePresentAndWait = 0x7FFC125A4650; // rva 0x34650
@@ -327,6 +330,7 @@ namespace cs2::signatures {
     }
     namespace scenesystem {
         inline constexpr std::uintptr_t CSceneAnimatableObject__GeneratePrimitives = 0x7FFC0A683520; // rva 0x73520
+        inline constexpr std::uintptr_t CSceneSkyBoxObject_DrawSkyboxArray = 0x7FFC0A75FB90; // rva 0x14FB90
         inline constexpr std::uintptr_t CSceneSystem_RenderViewLayer_Dispatch = 0x7FFC0A6FDD80; // rva 0xEDD80
         inline constexpr std::uintptr_t CSceneSystem_Thread_CullView = 0x7FFC0A6F92F0; // rva 0xE92F0
         inline constexpr std::uintptr_t DrawObject_legacy = 0x7FFC0A665BC0; // rva 0x55BC0

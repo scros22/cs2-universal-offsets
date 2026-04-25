@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**317/363 signatures resolved across 11 module(s).**
+**321/367 signatures resolved across 11 module(s).**
 
 ## `animationsystem.dll`
 
@@ -301,6 +301,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | --- | --- | --- | --- | --- |
 | `CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile` | `stringref` | `0x7FFC11943FA0` | `0x13FA0` | `"CompileComboAndGetVariables_DynamicShaderCompile(), C:\buildworker\csgo_rel_win64\build\src\materialsystem2\material2.cpp:2786"` |
 | `CMaterial2_LoadShadersAndSetupModes` | `raw` | `0x7FFC11940040` | `0x10040` | `44 89 44 24 18 48 89 54 24 10 53 56 41 54 41 55 48 81 EC 88 00 00 00 4C 8B E9 48 C7 44 24 60` |
+| `CMaterialLayer_ApplyMaterialVarsForBatch` | `raw` | `0x7FFC11948B80` | `0x18B80` | `4C 89 4C 24 20 4C 89 44 24 18 48 89 54 24 10 53 55 56 57 41 54 41 55 41 56 41 57 48 83 EC 78` |
+| `CMaterialLayer_BuildPassCommandData` | `raw` | `0x7FFC11948F80` | `0x18F80` | `89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 58 FE FF FF 48 81 EC A8 02 00 00` |
 | `CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode` | `stringref` | `0x7FFC11945F3C` | `0x15F3C` | `"CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3154): Failed call to FindOrLoadStaticComboData()!
 "` |
 | `CMaterialLayer_CreateCommandBuffer` | `stringref` | `0x7FFC11949820` | `0x19820` | `"
@@ -346,6 +348,8 @@ CMaterialLayer::CreateCommandBuffer(4446): Find a graphics programmer! Trying to
 | --- | --- | --- | --- | --- |
 | `CRenderDeviceBase_CreateConstantBuffer` | `stringref` | `0x7FFC1259F500` | `0x2F500` | `"CRenderDeviceBase::CreateConstantBuffer(1571): "` |
 | `CRenderDeviceDx11_BeginSubmittingDisplayLists` | `stringref` | `0x7FFC125AC4E0` | `0x3C4E0` | `"CRenderDeviceDx11::BeginSubmittingDisplayLists(1162): "` |
+| `CRenderDeviceDx11_CompileShaderSourceMain` | `stringref` | `0x7FFC125AFAF0` | `0x3FAF0` | `"Shader compilation failed! Reported no errors.
+"` |
 | `CSwapChainDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
 | `CSwapChainDx11_ResizeBuffers` | `raw` | `0x7FFC125ADD20` | `0x3DD20` | `48 8B C4 55 53 56 57 41 54 48 8B EC 48 83 EC 70 4C 89 68 10 4D 8B E0 4C 89 70 18 4C 8B EA 4C 89` |
 | `RenderSystemDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
@@ -365,6 +369,7 @@ CMaterialLayer::CreateCommandBuffer(4446): Find a graphics programmer! Trying to
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
 | `CSceneAnimatableObject::GeneratePrimitives` | `raw` | `0x7FFC0A683520` | `0x73520` | `48 8B C4 48 89 58 08 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ?` |
+| `CSceneSkyBoxObject_DrawSkyboxArray` | `raw` | `0x7FFC0A75FB90` | `0x14FB90` | `45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55 41 56 49 8D AB 58 FC FF FF 48 81 EC 98 04 00 00` |
 | `CSceneSystem_RenderViewLayer_Dispatch` | `raw` | `0x7FFC0A6FDD80` | `0xEDD80` | `48 8B C4 48 89 48 08 55 53 56 57 41 54 41 55 41 56 41 57 48 8D A8 B8 FE FF FF 48 81 EC 08 02 00` |
 | `CSceneSystem_Thread_CullView` | `stringref` | `0x7FFC0A6F92F0` | `0xE92F0` | `"CSceneSystem::Thread_CullView(), C:\buildworker\csgo_rel_win64\build\src\scenesystem\scenesystem.cpp:3312"` |
 | `DrawObject_legacy` | `raw` | `0x7FFC0A665BC0` | `0x55BC0` | `48 8B C4 53 57 41 54 48 81 EC D0 00 00 00 49 63 F9 49` |

@@ -2361,4 +2361,80 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
+
+    // ====================================================================
+    // NUVORA APR-25-2026 EXPANSION v20 (build 14155 — GLOBAL material /
+    // shader injection path: not weapon-only)
+    //
+    // v12/v13 locked the econ/composite side. This block pins the broader
+    // renderer/material path used by anything that has a material state:
+    // world geometry, player models, skybox layers, props, particles.
+    //
+    // Practical model:
+    //   - Valve VMAT/VFX path (materialsystem2/scenesystem): stable and
+    //     semantically rich (material vars + render states + pass context)
+    //   - Direct D3D path (rendersystemdx11): strongest for arbitrary HLSL
+    //     replacement and custom bytecode injection.
+    //
+    // With these anchors we can bridge both worlds and target "anything
+    // with a material" instead of only econ paintkit entities.
+    // ====================================================================
+
+    // CMaterialLayer::ApplyMaterialVarsForBatch — materialsystem2!
+    // sub_180018B80 (~0x24C).  Raw prologue anchor.  Mid-level per-batch
+    // dispatcher that iterates draw surfaces/material entries and calls
+    // CMaterial::SetVariableAndRenderState (sub_18002F9B0) for each
+    // relevant var binding.  This is where material vars stop being
+    // "definition data" and start becoming per-draw GPU state.
+    Signature {
+        name: "CMaterialLayer_ApplyMaterialVarsForBatch",
+        module: "materialsystem2.dll",
+        needle: "4C 89 4C 24 20 4C 89 44 24 18 48 89 54 24 10 53 55 56 57 41 54 41 55 41 56 41 57 48 83 EC 78",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CMaterialLayer::BuildPassCommandData — materialsystem2!sub_180018F80
+    // (~0x89C).  Raw prologue anchor.  Higher-level pass builder that
+    // allocates/records per-surface command data and repeatedly invokes
+    // CMaterialLayer::CreateCommandBuffer (sub_180019820).  Good global
+    // interception point for "all materialized surfaces this frame",
+    // regardless of whether they are player, world, prop, or FX.
+    Signature {
+        name: "CMaterialLayer_BuildPassCommandData",
+        module: "materialsystem2.dll",
+        needle: "89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 58 FE FF FF 48 81 EC A8 02 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CSceneSkyBoxObject::DrawSkyboxArray — scenesystem!sub_18014FB90
+    // (~0x6F9).  Raw prologue (already production-proven in project hook).
+    // Render-time sky pass used by map sky/cubemap flow. Hook here for
+    // global sky material/tint changes without touching entity netvars.
+    Signature {
+        name: "CSceneSkyBoxObject_DrawSkyboxArray",
+        module: "scenesystem.dll",
+        needle: "45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55 41 56 49 8D AB 58 FC FF FF 48 81 EC 98 04 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CRenderDeviceDx11::CompileShaderSourceMain — rendersystemdx11!
+    // sub_18003FAF0 (~0x171). Refs the unique compile-failure string
+    // "Shader compilation failed! Reported no errors." (1 xref).
+    // This wrapper calls D3DCompile(source, size, ..., "main", profile,
+    // 0x1200, ...) and returns a shader blob object.
+    //
+    // Critical implication: in-process custom HLSL compilation is real
+    // and not limited to Valve's precompiled blobs. Combined with draw/
+    // material interception, this is the practical anchor for custom
+    // pixel-shader injection on any materialized surface.
+    Signature {
+        name: "CRenderDeviceDx11_CompileShaderSourceMain",
+        module: "rendersystemdx11.dll",
+        needle: "Shader compilation failed! Reported no errors.\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
 ];

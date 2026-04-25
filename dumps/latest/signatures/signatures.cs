@@ -291,6 +291,8 @@ public static class Signatures
     {
         public const ulong CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile = 0x7FFC11943FA0UL; // rva 0x13FA0
         public const ulong CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040UL; // rva 0x10040
+        public const ulong CMaterialLayer_ApplyMaterialVarsForBatch = 0x7FFC11948B80UL; // rva 0x18B80
+        public const ulong CMaterialLayer_BuildPassCommandData = 0x7FFC11948F80UL; // rva 0x18F80
         public const ulong CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode = 0x7FFC11945F3CUL; // rva 0x15F3C
         public const ulong CMaterialLayer_CreateCommandBuffer = 0x7FFC11949820UL; // rva 0x19820
         public const ulong CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState = 0x7FFC119A0000UL; // rva 0x70000
@@ -321,6 +323,7 @@ public static class Signatures
     {
         public const ulong CRenderDeviceBase_CreateConstantBuffer = 0x7FFC1259F500UL; // rva 0x2F500
         public const ulong CRenderDeviceDx11_BeginSubmittingDisplayLists = 0x7FFC125AC4E0UL; // rva 0x3C4E0
+        public const ulong CRenderDeviceDx11_CompileShaderSourceMain = 0x7FFC125AFAF0UL; // rva 0x3FAF0
         public const ulong CSwapChainDx11_QueuePresentAndWait = 0x7FFC125A4650UL; // rva 0x34650
         public const ulong CSwapChainDx11_ResizeBuffers = 0x7FFC125ADD20UL; // rva 0x3DD20
         public const ulong RenderSystemDx11_QueuePresentAndWait = 0x7FFC125A4650UL; // rva 0x34650
@@ -336,6 +339,7 @@ public static class Signatures
     public static class scenesystem
     {
         public const ulong CSceneAnimatableObject__GeneratePrimitives = 0x7FFC0A683520UL; // rva 0x73520
+        public const ulong CSceneSkyBoxObject_DrawSkyboxArray = 0x7FFC0A75FB90UL; // rva 0x14FB90
         public const ulong CSceneSystem_RenderViewLayer_Dispatch = 0x7FFC0A6FDD80UL; // rva 0xEDD80
         public const ulong CSceneSystem_Thread_CullView = 0x7FFC0A6F92F0UL; // rva 0xE92F0
         public const ulong DrawObject_legacy = 0x7FFC0A665BC0UL; // rva 0x55BC0

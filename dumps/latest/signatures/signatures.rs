@@ -563,6 +563,10 @@ pub mod materialsystem2 {
     pub const CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile: usize = 0x7FFC11943FA0;
     /// rva 0x10040
     pub const CMaterial2_LoadShadersAndSetupModes: usize = 0x7FFC11940040;
+    /// rva 0x18B80
+    pub const CMaterialLayer_ApplyMaterialVarsForBatch: usize = 0x7FFC11948B80;
+    /// rva 0x18F80
+    pub const CMaterialLayer_BuildPassCommandData: usize = 0x7FFC11948F80;
     /// rva 0x15F3C
     pub const CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode: usize = 0x7FFC11945F3C;
     /// rva 0x19820
@@ -614,6 +618,8 @@ pub mod rendersystemdx11 {
     pub const CRenderDeviceBase_CreateConstantBuffer: usize = 0x7FFC1259F500;
     /// rva 0x3C4E0
     pub const CRenderDeviceDx11_BeginSubmittingDisplayLists: usize = 0x7FFC125AC4E0;
+    /// rva 0x3FAF0
+    pub const CRenderDeviceDx11_CompileShaderSourceMain: usize = 0x7FFC125AFAF0;
     /// rva 0x34650
     pub const CSwapChainDx11_QueuePresentAndWait: usize = 0x7FFC125A4650;
     /// rva 0x3DD20
@@ -638,6 +644,8 @@ pub mod resourcesystem {
 pub mod scenesystem {
     /// rva 0x73520
     pub const CSceneAnimatableObject__GeneratePrimitives: usize = 0x7FFC0A683520;
+    /// rva 0x14FB90
+    pub const CSceneSkyBoxObject_DrawSkyboxArray: usize = 0x7FFC0A75FB90;
     /// rva 0xEDD80
     pub const CSceneSystem_RenderViewLayer_Dispatch: usize = 0x7FFC0A6FDD80;
     /// rva 0xE92F0

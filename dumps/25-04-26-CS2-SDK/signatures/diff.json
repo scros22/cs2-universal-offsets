@@ -1352,6 +1352,16 @@
       "va": 140720603398208
     },
     {
+      "name": "CMaterialLayer_ApplyMaterialVarsForBatch",
+      "module": "materialsystem2.dll",
+      "va": 140720603433856
+    },
+    {
+      "name": "CMaterialLayer_BuildPassCommandData",
+      "module": "materialsystem2.dll",
+      "va": 140720603434880
+    },
+    {
       "name": "CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode",
       "module": "materialsystem2.dll",
       "va": 140720603422524
@@ -1457,6 +1467,11 @@
       "va": 140720616424672
     },
     {
+      "name": "CRenderDeviceDx11_CompileShaderSourceMain",
+      "module": "rendersystemdx11.dll",
+      "va": 140720616438512
+    },
+    {
       "name": "CSwapChainDx11_QueuePresentAndWait",
       "module": "rendersystemdx11.dll",
       "va": 140720616392272
@@ -1500,6 +1515,11 @@
       "name": "CSceneAnimatableObject::GeneratePrimitives",
       "module": "scenesystem.dll",
       "va": 140720483087648
+    },
+    {
+      "name": "CSceneSkyBoxObject_DrawSkyboxArray",
+      "module": "scenesystem.dll",
+      "va": 140720483990416
     },
     {
       "name": "CSceneSystem_RenderViewLayer_Dispatch",
