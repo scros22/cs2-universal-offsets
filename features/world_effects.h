@@ -904,7 +904,9 @@ namespace WorldEffects
     inline uintptr_t pCV_cl_csm_static_props = 0;
     inline uintptr_t pCV_cl_csm_rope_shadows = 0;
     inline uintptr_t pCV_cl_csm_sprite_shadows = 0;
-    inline uintptr_t pCV_mat_fullbright      = 0;
+    inline uintptr_t pCV_mat_fullbright      = 0;  // legacy +0x40 slot (kept for compat with old code paths)
+    inline uintptr_t pCV_mat_fullbright_obj  = 0;  // cvar object pointer (for WriteCvarInt)
+    inline int       lastFullbrightWritten   = -1; // throttle to avoid per-frame writes
 
     inline void RunNoShadows()
     {
@@ -930,24 +932,31 @@ namespace WorldEffects
     }
 
     // ---------------------------------------------------------------
-    // Fullbright — DISABLED on build 14153.
+    // Fullbright — RE-ENABLED on build 14154 (2026-04-25).
     //
-    // The Source 2 ConVar layout (cvar+0x30 flags, cvar+0x40 legacy slot,
-    // cvar+0x58 modern ConVar<T> value) appears to have shifted on this
-    // build. Our FindCvarValue still resolves the cvar by name, but the
-    // +0x30/+0x40/+0x58 offsets we write to no longer line up — meaning
-    // every "write fullbright" call was scribbling into a *neighbouring*
-    // ConVar's data, corrupting random engine state minutes later.
+    // Root cause of the prior breakage (now understood): the previous
+    // implementation wrote to cv+0x40 only, but the renderer reads from
+    // cv+0x58 via Source 2's canonical resolver `sub_1804ACB70`. mat_
+    // fullbright is also registered FCVAR_CHEAT (0x400), so the gate
+    // `(flags & 0x400) == 0` in scenesystem.dll sub_180187150 skipped the
+    // fullbright branch even when our value landed.
     //
-    // The public dumper already marks `mat_fullbright` as broken on this
-    // build for the same reason. Until the new layout is reverse-engineered
-    // we no-op here and force the cfg flag off so the toggle in the menu
-    // can't re-arm the corruption. Renderer brightness is still available
-    // via the tonemap path (Brightness slider).
+    // Verified in IDA on scenesystem.dll build 14154:
+    //   - Reader: sub_180187150 (xref to "mat_fullbright" string).
+    //     Gate: `if (cv && (cv[+0x30] & 0x400) == 0) { v=resolve(cv); ... }`
+    //   - Resolver sub_1804ACB70: returns `cv + 88` (= cv + 0x58) for
+    //     non-indexed cvars (mat_fullbright has no 0x8000 bit).
+    //
+    // WriteCvarInt strips both FCVAR_CHEAT and FCVAR_DEVELOPMENTONLY at
+    // cv+0x30, then writes cv+0x58 (modern) AND cv+0x40 (legacy mirror).
     // ---------------------------------------------------------------
     inline void RunFullbright()
     {
-        if (cfg.fullbright) cfg.fullbright = false;
+        if (!pCV_mat_fullbright_obj) return;
+        const int desired = cfg.fullbright ? 1 : 0;
+        if (desired == lastFullbrightWritten) return; // throttle
+        WriteCvarInt(pCV_mat_fullbright_obj, desired);
+        lastFullbrightWritten = desired;
     }
 
     // ---------------------------------------------------------------
@@ -1128,13 +1137,82 @@ namespace WorldEffects
                     {
                         const char* n = *reinterpret_cast<const char**>(cv); // name at +0
                         if (n && strcmp(n, name) == 0)
-                            return reinterpret_cast<uintptr_t>(cv) + 0x40;  // value at +0x40
+                            return reinterpret_cast<uintptr_t>(cv) + 0x40;  // value at +0x40 (legacy mirror; works for bool cvars)
                     }
                 } __except (EXCEPTION_EXECUTE_HANDLER) {}
                 i = *reinterpret_cast<uint16_t*>(ep + 10); // next index
             }
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
         return 0;
+    }
+
+    // ---------------------------------------------------------------
+    // FindCvar — returns the ConVar object pointer (NOT the value slot).
+    //
+    // Reverse-engineered from scenesystem.dll build 14154 sub_1804ACB70
+    // (the canonical Source 2 ConVar value resolver):
+    //   cv+0x00  const char*  name
+    //   cv+0x08  void*        default-value-block (resolver fallback)
+    //   cv+0x28  int16        indexed stride table key
+    //   cv+0x30  uint32       flags  (FCVAR_CHEAT=0x400, DEVONLY=0x4000,
+    //                                  per-user/indexed=0x8000)
+    //   cv+0x58  T            primary value slot for non-indexed cvars
+    //                          (resolver: return v2 + 88 when 0x8000 unset)
+    //
+    // For FCVAR_CHEAT cvars we MUST strip the cheat flag at cv+0x30
+    // before writing or the renderer's gate `(flags & 0x400) == 0`
+    // skips our value entirely — this is exactly why mat_fullbright
+    // appeared not to work even after both +0x40 and +0x58 writes.
+    // ---------------------------------------------------------------
+    inline uintptr_t FindCvar(void* pCCvar, const char* name)
+    {
+        if (!pCCvar || !name) return 0;
+        __try {
+            uintptr_t lb    = reinterpret_cast<uintptr_t>(pCCvar) + 0x40;
+            void*     elems = *reinterpret_cast<void**>(lb);
+            uint16_t  head  = *reinterpret_cast<uint16_t*>(lb + 0x10);
+            if (!elems || head == 0xFFFF) return 0;
+
+            int guard = 8192;
+            for (uint16_t i = head; i != 0xFFFF && guard-- > 0; )
+            {
+                uint8_t* ep = reinterpret_cast<uint8_t*>(elems) + (uintptr_t)i * 16;
+                __try {
+                    auto* cv = *reinterpret_cast<void**>(ep);
+                    if (cv)
+                    {
+                        const char* n = *reinterpret_cast<const char**>(cv);
+                        if (n && strcmp(n, name) == 0)
+                            return reinterpret_cast<uintptr_t>(cv);
+                    }
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+                i = *reinterpret_cast<uint16_t*>(ep + 10);
+            }
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        return 0;
+    }
+
+    // Write an int to a ConVar object (NOT a value slot). Strips
+    // FCVAR_CHEAT (0x400) and FCVAR_DEVELOPMENTONLY (0x4000) at cv+0x30
+    // first so the renderer's flag gate doesn't skip us, then writes the
+    // value to BOTH the modern slot (cv+0x58 — what sub_1804ACB70 returns)
+    // AND the legacy slot (cv+0x40 — some bool cvars still read here).
+    inline void WriteCvarInt(uintptr_t cv, int value)
+    {
+        if (!cv) return;
+        __try {
+            // Strip cheat-gate bits so the renderer's `(flags & 0x400) == 0`
+            // check passes. Leave all other bits intact.
+            uint32_t* pFlags = reinterpret_cast<uint32_t*>(cv + 0x30);
+            uint32_t  cur    = *pFlags;
+            uint32_t  next   = cur & ~(uint32_t)(0x400 | 0x4000);
+            if (next != cur) Mem::SmartWrite<uint32_t>(reinterpret_cast<uintptr_t>(pFlags), next);
+
+            // Modern Source 2 value slot (primary).
+            Mem::SmartWrite<int>(cv + 0x58, value);
+            // Legacy union mirror (bool cvars, some reader paths).
+            Mem::SmartWrite<int>(cv + 0x40, value);
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
     }
 
     inline bool Setup()
@@ -1217,6 +1295,7 @@ namespace WorldEffects
             pCV_cl_csm_rope_shadows   = FindCvarValue(pCCvar, "cl_csm_rope_shadows");
             pCV_cl_csm_sprite_shadows = FindCvarValue(pCCvar, "cl_csm_sprite_shadows");
             pCV_mat_fullbright        = FindCvarValue(pCCvar, "mat_fullbright");
+            pCV_mat_fullbright_obj    = FindCvar(pCCvar, "mat_fullbright");
         }
 
         return skyHooked;
