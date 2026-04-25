@@ -71,6 +71,8 @@ pub mod client {
     pub const CCSPlayer_MovementServices: usize = 0x7FFBFFF2CAF0;
     /// rva 0x850920
     pub const CCSPlayer_PingServices: usize = 0x7FFBFFF40920;
+    /// rva 0x9DA390
+    pub const CCSPlayer_RunCommand_Context: usize = 0x7FFC000CA390;
     /// rva 0x880B50
     pub const CCSPlayer_UseServices: usize = 0x7FFBFFF70B50;
     /// rva 0x875DE0
@@ -207,6 +209,8 @@ pub mod client {
     pub const DrawScopeOverlay: usize = 0x7FFBFFF4BFF0;
     /// rva 0xC78D90
     pub const DrawSmokeVertex: usize = 0x7FFC00368D90;
+    /// rva 0xC7BE80
+    pub const FX_FireBullets: usize = 0x7FFC0036BE80;
     /// rva 0xC7BE80
     pub const FX_FireBullets: usize = 0x7FFC0036BE80;
     /// rva 0xDBF7E8
@@ -462,8 +466,18 @@ pub mod client {
 }
 
 pub mod engine2 {
+    /// rva 0x3FD710
+    pub const CCommand_Tokenize: usize = 0x7FFC1306D710;
+    /// rva 0xA1240
+    pub const CGameClient_ClientCommand: usize = 0x7FFC12D11240;
+    /// rva 0x120D70
+    pub const CHLTVClient_ExecuteStringCommand: usize = 0x7FFC12D90D70;
     /// rva 0x24A250
     pub const CSplitScreenSlot: usize = 0x7FFC12EBA250;
+    /// rva 0x3FD270
+    pub const Cvar_RegisterConCommand: usize = 0x7FFC1306D270;
+    /// rva 0x3FC080
+    pub const Cvar_RegisterConVar: usize = 0x7FFC1306C080;
     /// rva 0x769D0
     pub const Engine__GetScreenAspectRatio: usize = 0x7FFC12CE69D0;
     /// rva 0x6133F0

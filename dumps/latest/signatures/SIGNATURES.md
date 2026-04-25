@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**262/308 signatures resolved across 10 module(s).**
+**269/315 signatures resolved across 10 module(s).**
 
 ## `animationsystem.dll`
 
@@ -46,6 +46,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CCSPlayer_MovementServices` | `stringref` | `0x7FFBFFF2CAF0` | `0x83CAF0` | `"CCSPlayer_MovementServices"` |
 | `CCSPlayer_MovementServices` | `stringref` | `0x7FFBFFF2CAF0` | `0x83CAF0` | `"CCSPlayer_MovementServices"` |
 | `CCSPlayer_PingServices` | `stringref` | `0x7FFBFFF40920` | `0x850920` | `"CCSPlayer_PingServices"` |
+| `CCSPlayer_RunCommand_Context` | `raw` | `0x7FFC000CA390` | `0x9DA390` | `48 8B C4 48 81 EC C8 00 00 00 48 89 58 10 48 89 68 18 48 8B EA 48 89 70 20 48 8B F1 48 89 78 F8` |
 | `CCSPlayer_UseServices` | `stringref` | `0x7FFBFFF70B50` | `0x880B50` | `"CCSPlayer_UseServices"` |
 | `CCSPlayer_WaterServices` | `stringref` | `0x7FFBFFF65DE0` | `0x875DE0` | `"CCSPlayer_WaterServices"` |
 | `CCSPlayer_WeaponServices` | `stringref` | `0x7FFBFFF66190` | `0x876190` | `"CCSPlayer_WeaponServices"` |
@@ -115,6 +116,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `DrawScopeOverlay` | `raw` | `0x7FFBFFF4BFF0` | `0x85BFF0` | `48 8B C4 53 57 48 83 EC ? 48 8B FA` |
 | `DrawSmokeVertex` | `raw` | `0x7FFC00368D90` | `0xC78D90` | `48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B 9C 24 ? ? ? ? 4D 8B F8` |
 | `FX_FireBullets` | `raw` | `0x7FFC0036BE80` | `0xC7BE80` | `48 8B C4 4C 89 48 20 48 89 50 10 55 53 57 41 54 41 55 48 8D A8 58 FB FF FF 48 81 EC A0 05` |
+| `FX_FireBullets` | `raw` | `0x7FFC0036BE80` | `0xC7BE80` | `48 8B C4 4C 89 48 20 48 89 50 10 55 53 57 41 54 41 55 48 8D A8 58 FB FF FF 48 81 EC A0 05 00 00` |
 | `FindHudElement` | `raw` | `0x7FFC004AF7E8` | `0xDBF7E8` | `48 8D 15 ? ? ? ? 45 33 C0 B9 ? ? ? ? FF 15 ? ? ? ? EB ? 48 8B 15` |
 | `FindHudElement_panorama` | `raw` | `0x7FFC004B17C0` | `0xDC17C0` | `4C 8B DC 53 48 83 EC 50 48 8B 05` |
 | `FindSOCache` | `raw` | `0x7FFC00F0C810` | `0x181C810` | `48 89 5C 24 08 57 48 83 EC 30 4C 8B 52 08 48 8B D9 8B 0A` |
@@ -245,7 +247,12 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
+| `CCommand_Tokenize` | `raw` | `0x7FFC1306D710` | `0x3FD710` | `48 89 6C 24 20 4C 89 44 24 18 56 57 41 54 41 56 41 57 48 83 EC 70 48 8B F2 49 8B E8 8B 51 08 4C` |
+| `CGameClient_ClientCommand` | `raw` | `0x7FFC12D11240` | `0xA1240` | `48 8B C4 4C 89 40 18 4C 89 48 20 55 53 57 48 8D 68 A1 48 81 EC C0 00 00 00 33 FF 48 63 DA 48 39` |
+| `CHLTVClient_ExecuteStringCommand` | `raw` | `0x7FFC12D90D70` | `0x120D70` | `40 53 56 48 81 EC 48 07 00 00 48 8B F1 48 8B DA 48 8B 4A 48 48 83 E1 FC 48 83 79 18 0F 76 03 48` |
 | `CSplitScreenSlot` | `stringref` | `0x7FFC12EBA250` | `0x24A250` | `"CSplitScreenSlot"` |
+| `Cvar_RegisterConCommand` | `raw` | `0x7FFC1306D270` | `0x3FD270` | `48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 48 83 EC 60 44 8B 15 ? ? ? ? 48 8B D9 65 48` |
+| `Cvar_RegisterConVar` | `raw` | `0x7FFC1306C080` | `0x3FC080` | `48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 54 41 56 41 57 48 81 EC D0 00 00` |
 | `Engine::GetScreenAspectRatio` | `raw` | `0x7FFC12CE69D0` | `0x769D0` | `48 89 5C 24 08 57 48 83 EC 20 8B FA 48 8D 0D` |
 | `Engine::PVSManager_ptr` | `riprel` | `0x7FFC132833F0` | `0x6133F0` | `48 8D 0D ? ? ? ? 33 D2 FF 50` |
 | `Engine::RunPrediction` | `raw` | `0x7FFC12CD6490` | `0x66490` | `40 55 41 56 48 83 EC ? 80 B9` |

@@ -42,6 +42,7 @@ public static class Signatures
         public const ulong CCSPlayer_MovementServices = 0x7FFBFFF2CAF0UL; // rva 0x83CAF0
         public const ulong CCSPlayer_MovementServices = 0x7FFBFFF2CAF0UL; // rva 0x83CAF0
         public const ulong CCSPlayer_PingServices = 0x7FFBFFF40920UL; // rva 0x850920
+        public const ulong CCSPlayer_RunCommand_Context = 0x7FFC000CA390UL; // rva 0x9DA390
         public const ulong CCSPlayer_UseServices = 0x7FFBFFF70B50UL; // rva 0x880B50
         public const ulong CCSPlayer_WaterServices = 0x7FFBFFF65DE0UL; // rva 0x875DE0
         public const ulong CCSPlayer_WeaponServices = 0x7FFBFFF66190UL; // rva 0x876190
@@ -110,6 +111,7 @@ public static class Signatures
         public const ulong DrawOverHead = 0x7FFC00155590UL; // rva 0xA65590
         public const ulong DrawScopeOverlay = 0x7FFBFFF4BFF0UL; // rva 0x85BFF0
         public const ulong DrawSmokeVertex = 0x7FFC00368D90UL; // rva 0xC78D90
+        public const ulong FX_FireBullets = 0x7FFC0036BE80UL; // rva 0xC7BE80
         public const ulong FX_FireBullets = 0x7FFC0036BE80UL; // rva 0xC7BE80
         public const ulong FindHudElement = 0x7FFC004AF7E8UL; // rva 0xDBF7E8
         public const ulong FindHudElement_panorama = 0x7FFC004B17C0UL; // rva 0xDC17C0
@@ -239,7 +241,12 @@ public static class Signatures
     }
     public static class engine2
     {
+        public const ulong CCommand_Tokenize = 0x7FFC1306D710UL; // rva 0x3FD710
+        public const ulong CGameClient_ClientCommand = 0x7FFC12D11240UL; // rva 0xA1240
+        public const ulong CHLTVClient_ExecuteStringCommand = 0x7FFC12D90D70UL; // rva 0x120D70
         public const ulong CSplitScreenSlot = 0x7FFC12EBA250UL; // rva 0x24A250
+        public const ulong Cvar_RegisterConCommand = 0x7FFC1306D270UL; // rva 0x3FD270
+        public const ulong Cvar_RegisterConVar = 0x7FFC1306C080UL; // rva 0x3FC080
         public const ulong Engine__GetScreenAspectRatio = 0x7FFC12CE69D0UL; // rva 0x769D0
         public const ulong Engine__PVSManager_ptr = 0x7FFC132833F0UL; // rva 0x6133F0
         public const ulong Engine__RunPrediction = 0x7FFC12CD6490UL; // rva 0x66490

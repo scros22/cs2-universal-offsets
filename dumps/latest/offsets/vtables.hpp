@@ -2537,7 +2537,7 @@ namespace cs2::vtables {
             inline constexpr std::ptrdiff_t method_43                                        =   43; // engine2.dll + 0xA11E0
             inline constexpr std::ptrdiff_t method_44                                        =   44; // engine2.dll + 0xA1120
             inline constexpr std::ptrdiff_t method_45                                        =   45; // engine2.dll + 0xA1220
-            inline constexpr std::ptrdiff_t method_46                                        =   46; // engine2.dll + 0xA1240
+            inline constexpr std::ptrdiff_t CGameClient_ClientCommand                        =   46; // engine2.dll + 0xA1240
             inline constexpr std::ptrdiff_t method_47                                        =   47; // engine2.dll + 0xA1900
             inline constexpr std::ptrdiff_t method_48                                        =   48; // engine2.dll + 0xA0E50
             inline constexpr std::ptrdiff_t method_49                                        =   49; // engine2.dll + 0x76A80

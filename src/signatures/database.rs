@@ -1136,4 +1136,104 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v5 (build 14155 — convars / commands)
+    // ====================================================================
+
+    // ConVar registration — engine2!sub_1803FC080. The internal
+    // CCvar::RegisterConVar entry; refs "RegisterConVar: Unknown
+    // error registering convar \"%s\"!". Hook here to enumerate /
+    // patch every ConVar at registration time, or block creation
+    // of unwanted dev-only convars. Used by every ConVar in CS2.
+    Signature {
+        name: "Cvar_RegisterConVar",
+        module: "engine2.dll",
+        needle: "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 54 41 56 41 57 48 81 EC D0 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ConCommand registration — engine2!sub_1803FD270. The internal
+    // CCvar::RegisterConCommand entry; refs "RegisterConCommand:
+    // Unknown error registering con command \"%s\"!". Hook to
+    // enumerate / patch / hide console commands at startup.
+    Signature {
+        name: "Cvar_RegisterConCommand",
+        module: "engine2.dll",
+        needle: "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 48 83 EC 60 44 8B 15 ? ? ? ? 48 8B D9 65 48",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CCommand::Tokenize — engine2!sub_1803FD710. Refs "CCommand::
+    // Tokenize: Encountered command which overflows the tokenizer
+    // buffer.. Skipping!". Every console command (typed, alias,
+    // exec, RCON, scripted) flows through here before dispatch.
+    // Hook for command logging / blocking / rewriting.
+    Signature {
+        name: "CCommand_Tokenize",
+        module: "engine2.dll",
+        needle: "48 89 6C 24 20 4C 89 44 24 18 56 57 41 54 41 56 41 57 48 83 EC 70 48 8B F2 49 8B E8 8B 51 08 4C",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CGameClient::ClientCommand — engine2!sub_1800A1240. Refs
+    // "ClientCommand, 0 length string supplied.". Server-side
+    // dispatcher for stringcmds received from clients (e.g.
+    // "buy", "menuselect", "kill"). Useful for server-tooling
+    // anti-cheat hooks and command-flood detection.
+    Signature {
+        name: "CGameClient_ClientCommand",
+        module: "engine2.dll",
+        needle: "48 8B C4 4C 89 40 18 4C 89 48 20 55 53 57 48 8D 68 A1 48 81 EC C0 00 00 00 33 FF 48 63 DA 48 39",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CHLTVClient::ExecuteStringCommand — engine2!sub_180120D70.
+    // Refs "CHLTVClient::ExecuteStringCommand: Unknown command %s.".
+    // GOTV / HLTV-side stringcmd dispatcher. Useful for HLTV
+    // bot tooling and demo-recorder hooks.
+    Signature {
+        name: "CHLTVClient_ExecuteStringCommand",
+        module: "engine2.dll",
+        needle: "40 53 56 48 81 EC 48 07 00 00 48 8B F1 48 8B DA 48 8B 4A 48 48 83 E1 FC 48 83 79 18 0F 76 03 48",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v5 (build 14155 — client gameplay)
+    // ====================================================================
+
+    // FX_FireBullets — client!sub_180C7BE80. Refs "FX_FireBullets:
+    // GetItemDefinition failed", "...GetWeaponEconDataFromItem failed
+    // for weapon %s", "...GetCSWeaponDataFromItem failed for weapon
+    // %s" — three unique strings inside a single ~0x869 byte
+    // function. Client-side bullet-fire effect / tracer / decal /
+    // event dispatcher. PRIME hook target for tracers, hit markers,
+    // bullet impact replay, recoil-reset detection.
+    Signature {
+        name: "FX_FireBullets",
+        module: "client.dll",
+        needle: "48 8B C4 4C 89 48 20 48 89 50 10 55 53 57 41 54 41 55 48 8D A8 58 FB FF FF 48 81 EC A0 05 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // RunCommand context — client!sub_1809DA390. Refs "runcommand:
+    // %04d,tick:%u" log format. The per-tick CSPlayer movement
+    // RunCommand wrapper that drives prediction, where CUserCmd is
+    // applied. KEY hook for movement cheats (auto-strafe, perfect
+    // bhop), no-recoil compensators, fake-lag, and prediction
+    // observability. Pairs with the existing CCSGOInput_CreateMove.
+    Signature {
+        name: "CCSPlayer_RunCommand_Context",
+        module: "client.dll",
+        needle: "48 8B C4 48 81 EC C8 00 00 00 48 89 58 10 48 89 68 18 48 8B EA 48 89 70 20 48 8B F1 48 89 78 F8",
+        resolve: NONE,
+        extra_off: 0,
+    },
 ];

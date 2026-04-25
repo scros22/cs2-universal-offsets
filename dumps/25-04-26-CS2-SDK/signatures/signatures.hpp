@@ -40,6 +40,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CCSPlayer_MovementServices = 0x7FFBFFF2CAF0; // rva 0x83CAF0
         inline constexpr std::uintptr_t CCSPlayer_MovementServices = 0x7FFBFFF2CAF0; // rva 0x83CAF0
         inline constexpr std::uintptr_t CCSPlayer_PingServices = 0x7FFBFFF40920; // rva 0x850920
+        inline constexpr std::uintptr_t CCSPlayer_RunCommand_Context = 0x7FFC000CA390; // rva 0x9DA390
         inline constexpr std::uintptr_t CCSPlayer_UseServices = 0x7FFBFFF70B50; // rva 0x880B50
         inline constexpr std::uintptr_t CCSPlayer_WaterServices = 0x7FFBFFF65DE0; // rva 0x875DE0
         inline constexpr std::uintptr_t CCSPlayer_WeaponServices = 0x7FFBFFF66190; // rva 0x876190
@@ -108,6 +109,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t DrawOverHead = 0x7FFC00155590; // rva 0xA65590
         inline constexpr std::uintptr_t DrawScopeOverlay = 0x7FFBFFF4BFF0; // rva 0x85BFF0
         inline constexpr std::uintptr_t DrawSmokeVertex = 0x7FFC00368D90; // rva 0xC78D90
+        inline constexpr std::uintptr_t FX_FireBullets = 0x7FFC0036BE80; // rva 0xC7BE80
         inline constexpr std::uintptr_t FX_FireBullets = 0x7FFC0036BE80; // rva 0xC7BE80
         inline constexpr std::uintptr_t FindHudElement = 0x7FFC004AF7E8; // rva 0xDBF7E8
         inline constexpr std::uintptr_t FindHudElement_panorama = 0x7FFC004B17C0; // rva 0xDC17C0
@@ -236,7 +238,12 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t view_matrix_ptr = 0x7FFC01A1EAC0; // rva 0x232EAC0
     }
     namespace engine2 {
+        inline constexpr std::uintptr_t CCommand_Tokenize = 0x7FFC1306D710; // rva 0x3FD710
+        inline constexpr std::uintptr_t CGameClient_ClientCommand = 0x7FFC12D11240; // rva 0xA1240
+        inline constexpr std::uintptr_t CHLTVClient_ExecuteStringCommand = 0x7FFC12D90D70; // rva 0x120D70
         inline constexpr std::uintptr_t CSplitScreenSlot = 0x7FFC12EBA250; // rva 0x24A250
+        inline constexpr std::uintptr_t Cvar_RegisterConCommand = 0x7FFC1306D270; // rva 0x3FD270
+        inline constexpr std::uintptr_t Cvar_RegisterConVar = 0x7FFC1306C080; // rva 0x3FC080
         inline constexpr std::uintptr_t Engine__GetScreenAspectRatio = 0x7FFC12CE69D0; // rva 0x769D0
         inline constexpr std::uintptr_t Engine__PVSManager_ptr = 0x7FFC132833F0; // rva 0x6133F0
         inline constexpr std::uintptr_t Engine__RunPrediction = 0x7FFC12CD6490; // rva 0x66490

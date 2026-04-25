@@ -14494,7 +14494,7 @@
         {
           "index": 46,
           "module": "engine2.dll",
-          "name": "method_46",
+          "name": "CGameClient_ClientCommand",
           "rva": "0xA1240"
         },
         {

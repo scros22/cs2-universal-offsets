@@ -2564,7 +2564,7 @@ public static class VTables
             public const nint method_43                                        =   43; // engine2.dll + 0xA11E0
             public const nint method_44                                        =   44; // engine2.dll + 0xA1120
             public const nint method_45                                        =   45; // engine2.dll + 0xA1220
-            public const nint method_46                                        =   46; // engine2.dll + 0xA1240
+            public const nint CGameClient_ClientCommand                        =   46; // engine2.dll + 0xA1240
             public const nint method_47                                        =   47; // engine2.dll + 0xA1900
             public const nint method_48                                        =   48; // engine2.dll + 0xA0E50
             public const nint method_49                                        =   49; // engine2.dll + 0x76A80

@@ -152,6 +152,11 @@
       "va": 140720307702048
     },
     {
+      "name": "CCSPlayer_RunCommand_Context",
+      "module": "client.dll",
+      "va": 140720309314448
+    },
+    {
       "name": "CCSPlayer_UseServices",
       "module": "client.dll",
       "va": 140720307899216
@@ -1117,9 +1122,34 @@
       "va": 140720335874752
     },
     {
+      "name": "CCommand_Tokenize",
+      "module": "engine2.dll",
+      "va": 140720627701520
+    },
+    {
+      "name": "CGameClient_ClientCommand",
+      "module": "engine2.dll",
+      "va": 140720624177728
+    },
+    {
+      "name": "CHLTVClient_ExecuteStringCommand",
+      "module": "engine2.dll",
+      "va": 140720624700784
+    },
+    {
       "name": "CSplitScreenSlot",
       "module": "engine2.dll",
       "va": 140720625918544
+    },
+    {
+      "name": "Cvar_RegisterConCommand",
+      "module": "engine2.dll",
+      "va": 140720627700336
+    },
+    {
+      "name": "Cvar_RegisterConVar",
+      "module": "engine2.dll",
+      "va": 140720627695744
     },
     {
       "name": "Engine::GetScreenAspectRatio",
