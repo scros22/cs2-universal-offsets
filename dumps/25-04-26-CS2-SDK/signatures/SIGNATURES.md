@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**321/367 signatures resolved across 11 module(s).**
+**326/372 signatures resolved across 11 module(s).**
 
 ## `animationsystem.dll`
 
@@ -298,18 +298,23 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
 | `CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile` | `stringref` | `0x7FFC11943FA0` | `0x13FA0` | `"CompileComboAndGetVariables_DynamicShaderCompile(), C:\buildworker\csgo_rel_win64\build\src\materialsystem2\material2.cpp:2786"` |
+| `CMaterial2_GetVertexShaderInputSignature` | `stringref` | `0x7FFC1193C8C0` | `0xC8C0` | `"CMaterial2::GetVertexShaderInputSignature(767): Error! Material "%s" doesn't have any valid layers to get the CVsInputSignatureVector from!\n"` |
 | `CMaterial2_LoadShadersAndSetupModes` | `raw` | `0x7FFC11940040` | `0x10040` | `44 89 44 24 18 48 89 54 24 10 53 56 41 54 41 55 48 81 EC 88 00 00 00 4C 8B E9 48 C7 44 24 60` |
 | `CMaterialLayer_ApplyMaterialVarsForBatch` | `raw` | `0x7FFC11948B80` | `0x18B80` | `4C 89 4C 24 20 4C 89 44 24 18 48 89 54 24 10 53 55 56 57 41 54 41 55 41 56 41 57 48 83 EC 78` |
 | `CMaterialLayer_BuildPassCommandData` | `raw` | `0x7FFC11948F80` | `0x18F80` | `89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 58 FE FF FF 48 81 EC A8 02 00 00` |
 | `CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode` | `stringref` | `0x7FFC11945F3C` | `0x15F3C` | `"CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3154): Failed call to FindOrLoadStaticComboData()!\n"` |
 | `CMaterialLayer_CreateCommandBuffer` | `stringref` | `0x7FFC11949820` | `0x19820` | `"\nCMaterialLayer::CreateCommandBuffer(4446): Find a graphics programmer! Trying to bind a "%s" shader that doesn't exist! for %s\n"` |
 | `CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState` | `stringref` | `0x7FFC119A0000` | `0x70000` | `"BindIdentityInstanceIDBufferAndSetRenderState: GetMode == NULL? Can't Render\n"` |
+| `CMaterialSystem2_DynamicShaderCompile_ProcessQueue` | `stringref` | `0x7FFC1196A5E0` | `0x3A5E0` | `"Compiling %i shaders:"` |
+| `CMaterialSystem2_DynamicShaderCompile_ReloadAndSync` | `raw` | `0x7FFC119655C1` | `0x355C2` | `48 83 EC 20 48 8B 35 ? ? ? ? 48 8B CE E8 ? ? ? ? 48 8B CE E8 ? ? ? ? 80 BE A0 03 00 00 00 74 ?` |
 | `CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials` | `stringref` | `0x7FFC11969AA0` | `0x39AA0` | `"CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials(1084): ERROR!!! Shaders not freed before shader reload! (See spew above)\n\n"` |
 | `CMaterialSystem2_FrameUpdate` | `raw` | `0x7FFC1196BAC0` | `0x3BAC0` | `48 89 4C 24 08 55 53 56 57 41 54 41 56 48 8B EC 48 83 EC 68 48 8D 05 ? ? ? ? 48 C7 45 C0` |
 | `CMaterialSystem2_GetErrorMaterial` | `stringref` | `0x7FFC119474D7` | `0x174D7` | `"CMaterialSystem2::GetErrorMaterial(529): GetErrorMaterial() called when m_pMaterialTypeManager == NULL!\n"` |
 | `CMaterialSystem2_Init` | `stringref` | `0x7FFC11966E40` | `0x36E40` | `"MaterialSystem2"` |
 | `CMaterial_SetVariableAndRenderState` | `stringref` | `0x7FFC1195F9B0` | `0x2F9B0` | `"SetRenderStateValueFromVariable(1172): Unsupported render state type in material "%s"!\n"` |
 | `CVfxProgramData_FindOrCreateStaticComboDataInCache` | `stringref` | `0x7FFC119DE0E0` | `0xAE0E0` | `"CVfxProgramData::FindOrCreateStaticComboDataInCache(4448): Error! Ref count !=0 for static combo data cache entry!\n"` |
+| `CVfxProgramData_FindOrCreateStaticComboData_CacheGate` | `raw` | `0x7FFC119DE950` | `0xAE950` | `48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 41 57 48 83 EC 60 80 39 00 45 8B D9` |
+| `CVfxProgramData_FindOrLoadStaticComboData` | `stringref` | `0x7FFC119EDAE0` | `0xBDAE0` | `"Shader %s attribute "%s" has inconsistent value or type across multiple shaders of a feature combo! ["` |
 | `FindParameter` | `raw` | `0x7FFC11941E30` | `0x11E30` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8B 59 20 48` |
 | `MatSys::PrepareSceneMaterial` | `raw` | `0x7FFC11941BE0` | `0x11BE0` | `48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 30 48 8B 59 ? 48 8B F2 48 63 79 ? 48 C1 E7 06` |
 | `UpdateParameter` | `raw` | `0x7FFC11942370` | `0x12370` | `48 89 7C 24 ? 41 56 48 83 EC ? 8B 81` |

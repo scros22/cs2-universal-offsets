@@ -290,18 +290,23 @@ public static class Signatures
     public static class materialsystem2
     {
         public const ulong CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile = 0x7FFC11943FA0UL; // rva 0x13FA0
+        public const ulong CMaterial2_GetVertexShaderInputSignature = 0x7FFC1193C8C0UL; // rva 0xC8C0
         public const ulong CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040UL; // rva 0x10040
         public const ulong CMaterialLayer_ApplyMaterialVarsForBatch = 0x7FFC11948B80UL; // rva 0x18B80
         public const ulong CMaterialLayer_BuildPassCommandData = 0x7FFC11948F80UL; // rva 0x18F80
         public const ulong CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode = 0x7FFC11945F3CUL; // rva 0x15F3C
         public const ulong CMaterialLayer_CreateCommandBuffer = 0x7FFC11949820UL; // rva 0x19820
         public const ulong CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState = 0x7FFC119A0000UL; // rva 0x70000
+        public const ulong CMaterialSystem2_DynamicShaderCompile_ProcessQueue = 0x7FFC1196A5E0UL; // rva 0x3A5E0
+        public const ulong CMaterialSystem2_DynamicShaderCompile_ReloadAndSync = 0x7FFC119655C1UL; // rva 0x355C2
         public const ulong CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials = 0x7FFC11969AA0UL; // rva 0x39AA0
         public const ulong CMaterialSystem2_FrameUpdate = 0x7FFC1196BAC0UL; // rva 0x3BAC0
         public const ulong CMaterialSystem2_GetErrorMaterial = 0x7FFC119474D7UL; // rva 0x174D7
         public const ulong CMaterialSystem2_Init = 0x7FFC11966E40UL; // rva 0x36E40
         public const ulong CMaterial_SetVariableAndRenderState = 0x7FFC1195F9B0UL; // rva 0x2F9B0
         public const ulong CVfxProgramData_FindOrCreateStaticComboDataInCache = 0x7FFC119DE0E0UL; // rva 0xAE0E0
+        public const ulong CVfxProgramData_FindOrCreateStaticComboData_CacheGate = 0x7FFC119DE950UL; // rva 0xAE950
+        public const ulong CVfxProgramData_FindOrLoadStaticComboData = 0x7FFC119EDAE0UL; // rva 0xBDAE0
         public const ulong FindParameter = 0x7FFC11941E30UL; // rva 0x11E30
         public const ulong MatSys__PrepareSceneMaterial = 0x7FFC11941BE0UL; // rva 0x11BE0
         public const ulong UpdateParameter = 0x7FFC11942370UL; // rva 0x12370

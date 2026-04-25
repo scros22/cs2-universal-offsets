@@ -7,6 +7,7 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 
 ## Recently shipped
 
+- [x] Research freeze checkpoint (Apr 25, 2026): VFX/VCS chain documented; continue only when internal-fix work resumes
 - [x] One-binary merger (offsets + signatures)
 - [x] Dated session folder layout (`DD-MM-YY-CS2-SDK/`)
 - [x] PE/section-aware IDA-style scanner with `Rel32` / `RipRel` / `StringRef`

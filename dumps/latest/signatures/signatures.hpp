@@ -286,18 +286,23 @@ namespace cs2::signatures {
     }
     namespace materialsystem2 {
         inline constexpr std::uintptr_t CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile = 0x7FFC11943FA0; // rva 0x13FA0
+        inline constexpr std::uintptr_t CMaterial2_GetVertexShaderInputSignature = 0x7FFC1193C8C0; // rva 0xC8C0
         inline constexpr std::uintptr_t CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040; // rva 0x10040
         inline constexpr std::uintptr_t CMaterialLayer_ApplyMaterialVarsForBatch = 0x7FFC11948B80; // rva 0x18B80
         inline constexpr std::uintptr_t CMaterialLayer_BuildPassCommandData = 0x7FFC11948F80; // rva 0x18F80
         inline constexpr std::uintptr_t CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode = 0x7FFC11945F3C; // rva 0x15F3C
         inline constexpr std::uintptr_t CMaterialLayer_CreateCommandBuffer = 0x7FFC11949820; // rva 0x19820
         inline constexpr std::uintptr_t CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState = 0x7FFC119A0000; // rva 0x70000
+        inline constexpr std::uintptr_t CMaterialSystem2_DynamicShaderCompile_ProcessQueue = 0x7FFC1196A5E0; // rva 0x3A5E0
+        inline constexpr std::uintptr_t CMaterialSystem2_DynamicShaderCompile_ReloadAndSync = 0x7FFC119655C1; // rva 0x355C2
         inline constexpr std::uintptr_t CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials = 0x7FFC11969AA0; // rva 0x39AA0
         inline constexpr std::uintptr_t CMaterialSystem2_FrameUpdate = 0x7FFC1196BAC0; // rva 0x3BAC0
         inline constexpr std::uintptr_t CMaterialSystem2_GetErrorMaterial = 0x7FFC119474D7; // rva 0x174D7
         inline constexpr std::uintptr_t CMaterialSystem2_Init = 0x7FFC11966E40; // rva 0x36E40
         inline constexpr std::uintptr_t CMaterial_SetVariableAndRenderState = 0x7FFC1195F9B0; // rva 0x2F9B0
         inline constexpr std::uintptr_t CVfxProgramData_FindOrCreateStaticComboDataInCache = 0x7FFC119DE0E0; // rva 0xAE0E0
+        inline constexpr std::uintptr_t CVfxProgramData_FindOrCreateStaticComboData_CacheGate = 0x7FFC119DE950; // rva 0xAE950
+        inline constexpr std::uintptr_t CVfxProgramData_FindOrLoadStaticComboData = 0x7FFC119EDAE0; // rva 0xBDAE0
         inline constexpr std::uintptr_t FindParameter = 0x7FFC11941E30; // rva 0x11E30
         inline constexpr std::uintptr_t MatSys__PrepareSceneMaterial = 0x7FFC11941BE0; // rva 0x11BE0
         inline constexpr std::uintptr_t UpdateParameter = 0x7FFC11942370; // rva 0x12370

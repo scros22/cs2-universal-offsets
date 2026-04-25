@@ -561,6 +561,8 @@ pub mod engine2 {
 pub mod materialsystem2 {
     /// rva 0x13FA0
     pub const CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile: usize = 0x7FFC11943FA0;
+    /// rva 0xC8C0
+    pub const CMaterial2_GetVertexShaderInputSignature: usize = 0x7FFC1193C8C0;
     /// rva 0x10040
     pub const CMaterial2_LoadShadersAndSetupModes: usize = 0x7FFC11940040;
     /// rva 0x18B80
@@ -573,6 +575,10 @@ pub mod materialsystem2 {
     pub const CMaterialLayer_CreateCommandBuffer: usize = 0x7FFC11949820;
     /// rva 0x70000
     pub const CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState: usize = 0x7FFC119A0000;
+    /// rva 0x3A5E0
+    pub const CMaterialSystem2_DynamicShaderCompile_ProcessQueue: usize = 0x7FFC1196A5E0;
+    /// rva 0x355C2
+    pub const CMaterialSystem2_DynamicShaderCompile_ReloadAndSync: usize = 0x7FFC119655C1;
     /// rva 0x39AA0
     pub const CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials: usize = 0x7FFC11969AA0;
     /// rva 0x3BAC0
@@ -585,6 +591,10 @@ pub mod materialsystem2 {
     pub const CMaterial_SetVariableAndRenderState: usize = 0x7FFC1195F9B0;
     /// rva 0xAE0E0
     pub const CVfxProgramData_FindOrCreateStaticComboDataInCache: usize = 0x7FFC119DE0E0;
+    /// rva 0xAE950
+    pub const CVfxProgramData_FindOrCreateStaticComboData_CacheGate: usize = 0x7FFC119DE950;
+    /// rva 0xBDAE0
+    pub const CVfxProgramData_FindOrLoadStaticComboData: usize = 0x7FFC119EDAE0;
     /// rva 0x11E30
     pub const FindParameter: usize = 0x7FFC11941E30;
     /// rva 0x11BE0
