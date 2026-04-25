@@ -54,6 +54,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
     Signature {
+        // NOTE: DEAD on build 14154 (0 hits, IDA-verified 2026-04-25).
+        // Use `GetWorldFovResolver` instead — see entry near bottom of
+        // this file. Kept here so the dumper diff still surfaces 0/N
+        // hits as a regression signal if a future build resurrects it.
         name: "SetWorldFov",
         module: "client.dll",
         // E8 disp32 at start of the match -> resolve as call target
@@ -604,6 +608,220 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         module: "client.dll",
         needle: "4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00 85 C0",
         resolve: RIPREL_3,
+        extra_off: 0,
+    },
+
+    // ==================================================================
+    // NUVORA APR-25-2026 EXPANSION  (build 14154 audit pass)
+    // ------------------------------------------------------------------
+    // Functions hooked / referenced by the live internal that were
+    // missing from the dumper catalog. All UNIQUE on client.dll 14154,
+    // verified via 8-instance IDA Pro MCP (ports 13337-13344).
+    // ==================================================================
+
+    // GetWorldFov resolver — sub_18080BE50. Renderer's actual FOV-read
+    // entry point. Replaces the now-dead `SetWorldFov` E8 callsite
+    // (which has 0 hits on 14154 — see comment block at top of section
+    // around line 57). The resolver:
+    //   1. Honours fov_cs_debug ConVar override.
+    //   2. Calls camera-services vfunc[33] for base world FOV.
+    //   3. Applies weapon-zoom / desired-FOV math.
+    //   4. Returns final view FOV float.
+    // Hooking here is the clean way to globally override view FOV
+    // without writing m_iFOV every tick. Pattern keys on prologue +
+    // distinctive tail-call jmp opcode that wraps the cleanup.
+    Signature {
+        name: "GetWorldFovResolver",
+        module: "client.dll",
+        needle: "40 53 48 83 EC 50 48 8B D9 E8 ? ? ? ? 48 85 C0 74 ? 48 8B C8 48 83 C4 50 5B E9",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CCSGOInput::WriteSubtickFromEntry — sub_180C53DB0 (drifted to
+    // 0x180C53E10 on 14154 — sig auto-resolves either way). Per-subtick
+    // writer that copies CInput entry+0x10..+0x18 (view angles) and
+    // entry+0x1C..+0x24 (shoot angles) into outgoing CUserCmd subtick
+    // message fields. Hooked by the silent-aim path to redirect BOTH
+    // view and shoot blocks per subtick (server uses shoot angles for
+    // hit-verification — view-only rewrite leaves bullets going to the
+    // original aim direction).
+    Signature {
+        name: "WriteSubtickFromEntry",
+        module: "client.dll",
+        needle: "48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00 8B 01 48 8B F9 81 4A 10 00 02",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ClientModeCSNormal::OnEvent — sub_180C5A0B0 (drifted +0x60 to
+    // 0x180C5A110 on 14154; sig still unique). The dispatcher CS2 uses
+    // for VAC/untrusted disconnect events. Inspects KeyValues::GetName
+    // and branches on:
+    //   "OnClientInsecureBlocked"        — VAC kicked us
+    //   "OnClientUntrustedLaunch"        — unsigned/injected module
+    //   "OnClientUntrustedSystemFiles"   — tampered files / cheat
+    //   "OnClientUntrustedDisallowed"    — disallowed launch
+    //   "OnTrustedLaunchFailed"          — trusted-mode init failed
+    //   "OnClientPureFileStateDirty"     — sv_pure mismatch
+    // Hooked by the watchdog so cleanup runs BEFORE the dialog renders.
+    Signature {
+        name: "ClientModeCSNormal_OnEvent",
+        module: "client.dll",
+        needle: "40 53 57 48 81 EC 78 02 00 00 48 8B CA 48 8B FA",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ==================================================================
+    // NUVORA APR-25-2026 EXPANSION v2 (build 14155)
+    // ------------------------------------------------------------------
+    // Cross-module deep-dive across 8 IDA instances (client/scenesystem
+    // /engine2/networksystem/materialsystem2/resourcesystem
+    // /animationsystem/rendersystemdx11). All UNIQUE on respective DLLs,
+    // anchored from log-string xrefs (most resilient anchor type).
+    // ==================================================================
+
+    // -- client.dll: combat / world ------------------------------------
+
+    // FX_FireBullets — sub_180C7BE80. Refs the "FX_FireBullets:
+    // GetItemDefinition failed" / "GetWeaponEconDataFromItem failed"
+    // / "GetCSWeaponDataFromItem failed" log strings. Single anchor
+    // function for all client-side bullet trace effects (tracers,
+    // impact decals, hit-feedback). Hook here for custom tracer or
+    // bullet-impact features without touching the actual fire path.
+    Signature {
+        name: "FX_FireBullets",
+        module: "client.dll",
+        needle: "48 8B C4 4C 89 48 20 48 89 50 10 55 53 57 41 54 41 55 48 8D A8 58 FB FF FF 48 81 EC A0 05",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // DispatchSpawn caller — sub_1814D32A0. Iterates the pending-spawn
+    // queue and calls per-entity DispatchSpawn vfunc. Refs the
+    // "DispatchSpawn" string. Useful as a "wait until entity is
+    // spawned" hook anchor for features that need post-spawn state
+    // (e.g. inventory_changer applies after this fires).
+    Signature {
+        name: "DispatchSpawn_caller",
+        module: "client.dll",
+        needle: "4C 8B DC 55 56 48 83 EC 78 49 8B 68 08 48 8B F1 48 85 ED 0F 84 72 01 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // m_bNoClipEnabled OnChange — sub_1808ADB40. Schema OnChange
+    // callback for noclip flag (loads m_bNoClipEnabled string by lea
+    // immediately at prologue). Useful if implementing client-side
+    // noclip for spectator demos / map exploration.
+    Signature {
+        name: "NoClipOnChange",
+        module: "client.dll",
+        needle: "48 89 5C 24 10 48 89 74 24 18 48 89 7C 24 20 55 48 8B EC 48 83 EC 30 48 8D 05",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // SpectatorInput — sub_1807D9130. Refs "spec_next" / "spec_prev"
+    // / "spec_player %d" — handles the spec_* ConCommand input. Useful
+    // for spectator-list UI / coach-cam features.
+    Signature {
+        name: "SpectatorInput",
+        module: "client.dll",
+        needle: "48 89 5C 24 10 55 56 57 41 56 41 57 48 8B EC 48 83 EC 60 48 8B 01 41 8B F8 48 8B DA 48 8B F1 FF",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ViewModel HideZoomed handler — sub_1807A03D0. Refs
+    // m_bHideViewModelWhenZoomed; the function that gates viewmodel
+    // visibility on zoom state. Hook to force viewmodel-on-while-scoped
+    // (or always-hidden viewmodel for a clean screen).
+    Signature {
+        name: "ViewModelHideZoomed",
+        module: "client.dll",
+        needle: "48 89 5C 24 20 55 56 57 41 54 41 56 48 8B EC 48 83 EC 50 48 8D 05",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CalcViewmodelTransform v2 — sub_1807A2460. The much larger
+    // (0x1E8E byte) viewmodel-transform calculator. Hook for
+    // viewmodel offset / FOV / hand-position customisation.
+    Signature {
+        name: "CalcViewmodelTransform_v2",
+        module: "client.dll",
+        needle: "48 89 5C 24 20 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 80 48 81 EC 80 01 00 00 48 8B FA",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // -- engine2.dll ---------------------------------------------------
+
+    // RegisterConCommand impl — engine2!sub_1803FD270. Refs the
+    // "RegisterConCommand: Unknown error..." log string. The function
+    // to call directly to register a custom ConCommand from inside a
+    // cheat (lets you bind cheat features to console commands).
+    Signature {
+        name: "Engine_RegisterConCommand",
+        module: "engine2.dll",
+        needle: "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 48 83 EC 60 44 8B 15",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // Client-side Disconnect_main — engine2!sub_1801D1510. Primary
+    // disconnect handler (0x751 bytes), refs "disconnect" string and
+    // "CL: SendStringCmd(disconnect)". Used by VAC watchdog as a
+    // clean-eject path: invoke this before tearing down hooks so the
+    // game cleanly reports "user disconnected" instead of crashing.
+    Signature {
+        name: "Engine_Disconnect_main",
+        module: "engine2.dll",
+        needle: "48 89 5C 24 20 55 57 41 54 48 8B EC 48 83 EC 70 45 33 E4 48 C7 05",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // Netchan timeout disconnect — engine2!sub_180069780. Refs
+    // "CL: Disconnected - Client delta ticks out of order!". Fires
+    // when the netchan detects desync. Hook to suppress / log these
+    // events (anti-VAC heuristic — desyncs from cheat hooks can
+    // trigger this).
+    Signature {
+        name: "Engine_NetTimeoutDisconnect",
+        module: "engine2.dll",
+        needle: "40 53 55 56 57 41 56 48 81 EC 80 00 00 00 0F 29 74 24 70 49 8B F8",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // -- networksystem.dll ---------------------------------------------
+
+    // CNetChan::ProcessMessages impl — networksystem!sub_1800BB280.
+    // Refs "CNetChan::ProcessMessages" log string. NOTE: distinct from
+    // the client.dll string-anchored entry of the same name which
+    // resolves a thunk; this is the actual impl. Hook here for
+    // wholesale net-message inspection (anti-cheat detection bypass /
+    // per-message logging / message-drop).
+    Signature {
+        name: "NetSystem_CNetChan_ProcessMessages",
+        module: "networksystem.dll",
+        needle: "48 8B C4 53 57 41 54 41 56 48 81 EC A8 00 00 00 48 89 70 D0 45 33 E4 4C 89 68 C8 48 8B D9 48 89",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CNetChan::SendNetMessage impl — networksystem!sub_1800BD670.
+    // Refs all 3 SendNetMessage error log strings ("invalid category
+    // for this channel", "buffer is full", "SerializeAbstract failed").
+    // Send-side counterpart for outgoing protobuf monitoring/blocking.
+    Signature {
+        name: "NetSystem_CNetChan_SendNetMessage",
+        module: "networksystem.dll",
+        needle: "48 89 5C 24 10 48 89 6C 24 18 56 57 41 56 48 83 EC 40 41 0F B6 F0 48 8D 99 F8 73 00 00 4C 8B F2",
+        resolve: NONE,
         extra_off: 0,
     },
 ];
