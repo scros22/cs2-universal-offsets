@@ -90,8 +90,8 @@ public static class Signatures
         public const ulong CalculateWorldSpaceBones = 0x7FFEDBCC98B0UL; // rva 0xA098B0
         public const ulong ClearHUDWeaponIcon = 0x7FFEDC0AB6C0UL; // rva 0xDEB6C0
         public const ulong ClientMode_ptr = 0x7FFEDD5FBA60UL; // rva 0x233BA60
-        public const ulong ConCommand_firstperson = 0x7FFEDBD88AF0UL; // rva 0xAC8AF0
-        public const ulong ConCommand_thirdperson = 0x7FFEDBD88BD0UL; // rva 0xAC8BD0
+        public const ulong ConCommand_firstperson = 0x7FFEDBD88B50UL; // rva 0xAC8B50
+        public const ulong ConCommand_thirdperson = 0x7FFEDBD88C30UL; // rva 0xAC8C30
         public const ulong ConvarGet = 0x7FFEDBB7DF82UL; // rva 0x8BDF82
         public const ulong CreateBaseTypeCache = 0x7FFEDC7CE5D0UL; // rva 0x150E5D0
         public const ulong CreateEntityByClassName = 0x7FFEDC8C2376UL; // rva 0x1602376

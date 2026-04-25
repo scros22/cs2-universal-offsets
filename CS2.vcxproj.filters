@@ -42,6 +42,9 @@
     <ClInclude Include="core\stealth.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="core\vac_watchdog.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
     <!-- Features -->
     <ClInclude Include="features\aimbot.h">
       <Filter>Header Files\Features</Filter>

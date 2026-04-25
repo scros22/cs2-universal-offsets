@@ -354,38 +354,40 @@ namespace SkinChanger
     using RegenerateWeaponSkinFn = void(__fastcall*)(uintptr_t weapon, bool refresh);
     inline RegenerateWeaponSkinFn RegenerateWeaponSkin = nullptr;
 
-    // Build 14154 RVA from dumpers/universal-dumper/dumps/latest/offsets/signatures.hpp
-    // Keep this in sync with each build; backup sig is the unique 8-byte prologue
-    // captured by IDA: "48 8B C4 48 89 58 ? 48 89 70 ? 48 89 78 ? 4C 89 60 ? 4C 89 68 ? 4C 89 70 ? 4C 89 78 ? 48 81 EC ? ? ? ? 48 8B 99"
+    // RVA is unchanged (post-14154 build, IDA-verified 2026-04-25).
+    // Backup sig captures the unique current-build prologue:
+    //   40 55 53 41 57 48 8D AC 24 00 FE FF FF 48 81 EC
+    //   = push rbp/rbx/r15; lea rbp,[rsp-1F8h]; sub rsp,...
+    // Old prologue check (48 8B C4) was for a DIFFERENT compiler build of
+    // this function and silently failed on every current build, leaving
+    // RegenerateWeaponSkin = nullptr and ALL skins/knife paint not applying.
     inline constexpr std::ptrdiff_t kRegenerateWeaponSkin_RVA = 0x78C050;
 
     inline void InitRegen() {
         if (RegenerateWeaponSkin != nullptr) return;
         if (!GameState::clientBase) return;
 
-        // Primary path: direct RVA from build's signatures.hpp.
+        // Primary path: direct RVA. Validate prologue first — if drifted,
+        // sig scan recovers.
         uintptr_t addr = GameState::clientBase + kRegenerateWeaponSkin_RVA;
-
-        // Sanity check: real function prologue starts with 48 8B C4 (mov rax, rsp)
-        // — RegenerateWeaponSkin saves all volatile regs and reserves a big
-        //   shadow space. If the byte pattern doesn't match, the RVA is stale
-        //   and we fall back to a strict signature scan below.
         __try {
-            uint8_t p0 = *reinterpret_cast<uint8_t*>(addr);
-            uint8_t p1 = *reinterpret_cast<uint8_t*>(addr + 1);
-            uint8_t p2 = *reinterpret_cast<uint8_t*>(addr + 2);
-            if (!(p0 == 0x48 && p1 == 0x8B && p2 == 0xC4)) {
-                addr = 0; // RVA stale — fall through to sig scan
-            }
+            // Current-build prologue: 40 55 53 41 57 48 8D AC 24 00 FE FF FF
+            uint8_t b0 = *reinterpret_cast<uint8_t*>(addr + 0);
+            uint8_t b1 = *reinterpret_cast<uint8_t*>(addr + 1);
+            uint8_t b2 = *reinterpret_cast<uint8_t*>(addr + 2);
+            uint8_t b3 = *reinterpret_cast<uint8_t*>(addr + 3);
+            uint8_t b4 = *reinterpret_cast<uint8_t*>(addr + 4);
+            bool prologueOk = (b0 == 0x40 && b1 == 0x55 && b2 == 0x53 &&
+                                b3 == 0x41 && b4 == 0x57);
+            if (!prologueOk) addr = 0;
         } __except (EXCEPTION_EXECUTE_HANDLER) {
             addr = 0;
         }
 
         if (!addr) {
-            // Fallback signature — taken from the same function's prologue.
-            // 48 8B C4 48 89 58 ?? 48 89 70 ?? 48 89 78 ?? — unique enough.
+            // Fallback sig — current-build prologue, IDA-verified unique.
             const char* sig =
-                "48 8B C4 48 89 58 ? 48 89 70 ? 48 89 78 ? 4C 89 60 ? 4C 89 68 ? 4C 89 70 ?";
+                "40 55 53 41 57 48 8D AC 24 00 FE FF FF 48 81 EC";
             addr = Mem::FindPatternInModule(GameState::clientBase, sig);
         }
 
@@ -422,12 +424,14 @@ namespace SkinChanger
         if (meshMaskAddr) {
             SetMeshGroupMask = reinterpret_cast<SetMeshGroupMaskFn>(meshMaskAddr);
         }        
-        // UpdateSubclass signature - EXACT from your friend (IDA verified: 0x1801e9a70)
-        const char* updateSubclassSig = "4C 8B DC 53 48 81 EC ? ? ? ? 48 8B 41";
-        uintptr_t updateSubclassAddr = Mem::FindPatternInModule(GameState::clientBase, updateSubclassSig);
-        if (updateSubclassAddr) {
-            UpdateSubclass = reinterpret_cast<UpdateSubclassFn>(updateSubclassAddr);
-        }
+        // UpdateSubclass — INTENTIONALLY UNRESOLVED.
+        // The historic sig (4C 8B DC 53 48 81 EC ?? ?? ?? ?? 48 8B 41)
+        // matches sub_1801FA880 in current build, which is the
+        // "missing subclass data" error logger (calls sub_180364720 with
+        // entity-deletion side effects). Calling it on a knife will
+        // wipe the weapon. We leave UpdateSubclass = nullptr so callers
+        // skip it. ApplyKnifeModelSwap no longer requires it.
+        UpdateSubclass = nullptr;
         
         // UpdateWeaponData - NEW! This is what we're missing
         // Signature from forum post analysis
@@ -572,7 +576,12 @@ namespace SkinChanger
     inline void ApplyKnifeModelSwap(uintptr_t weapon, int targetDefIndex)
     {
         if (!weapon || targetDefIndex <= 0) return;
-        if (!SetModel || !UpdateSubclass || !SetMeshGroupMask) return;
+        // UpdateSubclass is OPTIONAL — the published "UpdateSubclass" sig
+        // (4C 8B DC 53 48 81 EC ...) actually resolves to a subclass-data
+        // ERROR LOGGER (sub_1801FA880 in current build) that can DELETE
+        // the entity. We refuse to gate on it. SetModel + SetMeshGroupMask
+        // alone are sufficient for the world-mesh swap.
+        if (!SetModel || !SetMeshGroupMask) return;
 
         const char* modelPath = GetKnifeModelPath(targetDefIndex);
         if (!modelPath) return;
@@ -609,11 +618,16 @@ namespace SkinChanger
             if (sceneNode)
                 SetMeshGroupMask(sceneNode, 1ull);
 
-            // 5. UpdateSubclass(weapon) — refresh derived state.
-            //    NOTE: takes the ENTITY pointer (vtable + m_nSubclassID@0x388),
-            //    NOT the item ptr. Verified via IDA on caller sub_180204820 in
-            //    client.dll — passing item ptr causes a guaranteed SEH crash.
-            UpdateSubclass(weapon);
+            // 5. UpdateSubclass — DELIBERATELY SKIPPED. The previously-used
+            //    sig resolved to sub_1801FA880, a "subclass data missing"
+            //    error logger that calls sub_180364410/sub_180364720 with
+            //    side effects that can DELETE the weapon entity. The real
+            //    subclass updater isn't named in the binary; without ground
+            //    truth, calling the sig-resolved fn is unsafe. The model
+            //    swap works without it: SetModel binds the new vmdl,
+            //    SetMeshGroupMask refreshes the rendered mesh, and the
+            //    animgraph picks up the new subclass id from the
+            //    m_nSubclassID write at step 2.
 
             // 6. SetBodygroup(weapon, 0, 0) — forces the renderer to drop the
             //    cached mesh from the previous def-index and rebind to the new

@@ -19,6 +19,7 @@
 #include "vendor/minhook/include/MinHook.h"
 #include "core/xorstr.h"
 #include "core/stealth.h"
+#include "core/vac_watchdog.h"
 #include "core/syscall.h"
 #include "core/spoof_call.h"
 #include "core/game_state.h"
@@ -299,10 +300,20 @@ static void EntryThread(HMODULE hModule)
         Bhop::Shutdown();
         WorldEffects::Shutdown();
         Hooks::Shutdown();
+        VacWatchdog::Shutdown();
         MH_Uninitialize();
         DirectSyscall::Shutdown();
         SpoofCall::Shutdown();
     });
+
+    // Arm VAC untrusted-event watchdog (IDA-verified hook on
+    // ClientModeCSNormal::OnEvent — sub_180C5A0B0 build 14154).  If
+    // tier0.dll / client.dll aren't fully resolved yet, the heartbeat
+    // will retry every ~2s.
+    if (VacWatchdog::Install())
+        DllLog("[EntryThread] VacWatchdog armed");
+    else
+        DllLog("[EntryThread] VacWatchdog deferred (will retry on heartbeat)");
 
     DllLog("[EntryThread] Calling Aimbot::Setup");
     if (Aimbot::Setup())
@@ -455,6 +466,13 @@ static void EntryThread(HMODULE hModule)
         }
 
         DllLog("[MainLoop] Calling Heartbeat");
+        VacWatchdog::Tick();
+        if (VacWatchdog::tripped.load())
+        {
+            DllLog("[EntryThread] EXIT: VacWatchdog tripped reason=%d (loop=%d)",
+                   VacWatchdog::tripReason.load(), loopCount);
+            break;
+        }
         if (!Stealth::Heartbeat())
         {
             DllLog("[EntryThread] EXIT: Heartbeat failed (loop=%d cleanupDone=%d)", 
@@ -480,6 +498,7 @@ static void EntryThread(HMODULE hModule)
     WorldEffects::Shutdown();
     Aimbot::Shutdown();
     Hooks::Shutdown();
+    VacWatchdog::Shutdown();
     MH_Uninitialize();
     SpoofCall::SpoofedSleep(200);  // wait for hook unhooks to propagate
     DirectSyscall::Shutdown();

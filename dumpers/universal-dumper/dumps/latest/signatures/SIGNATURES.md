@@ -94,8 +94,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CalculateWorldSpaceBones` | `raw` | `0x7FFEDBCC98B0` | `0xA098B0` | `48 89 4C 24 ? 55 53 56 57 41 54 41 55 41 56 41 57 B8 ? ? ? ? E8 ? ? ? ? 48 2B E0 48 8D 6C 24 ? 48 8B 81` |
 | `ClearHUDWeaponIcon` | `rel32` | `0x7FFEDC0AB6C0` | `0xDEB6C0` | `E8 ? ? ? ? 8B F8 C6 84 24 ? ? ? ? ?` |
 | `ClientMode_ptr` | `riprel` | `0x7FFEDD5FBA60` | `0x233BA60` | `48 8D 0D ? ? ? ? 48 69 C0 ? ? ? ? 48 03 C1 C3 CC CC` |
-| `ConCommand_firstperson` | `raw` | `0x7FFEDBD88AF0` | `0xAC8AF0` | `48 83 EC 28 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 75 ? 48 8B 05 ? ? ? ? C6 80 29 02 00 00 00 C7 80 A8 06 00 00 00` |
-| `ConCommand_thirdperson` | `raw` | `0x7FFEDBD88BD0` | `0xAC8BD0` | `48 83 EC 38 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 0F 85 ? ? ? ? 4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00` |
+| `ConCommand_firstperson` | `raw` | `0x7FFEDBD88B50` | `0xAC8B50` | `48 83 EC 28 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 75 ? 48 8B 05 ? ? ? ? C6 80 29 02 00 00 00 C7 80 A8 06 00 00 00` |
+| `ConCommand_thirdperson` | `raw` | `0x7FFEDBD88C30` | `0xAC8C30` | `48 83 EC 38 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 0F 85 ? ? ? ? 4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00` |
 | `ConvarGet` | `raw` | `0x7FFEDBB7DF82` | `0x8BDF82` | `8B D0 48 8D 0D ? ? ? ? E8 ? ? ? ? 0F 10 45 ? 83 F0 74` |
 | `CreateBaseTypeCache` | `raw` | `0x7FFEDC7CE5D0` | `0x150E5D0` | `40 53 48 83 EC ? 4C 8B 49 ? 44 8B D2` |
 | `CreateEntityByClassName` | `raw` | `0x7FFEDC8C2376` | `0x1602376` | `4C 8D 05 ? ? ? ? 4C 8B CF BA 03 00 00 00 FF 15 ? ? ? ? EB ? 0F B7 C8 48` |

@@ -639,15 +639,22 @@ namespace WorldEffects
     // hiding, and proper local-pawn rendering for free — no hook,
     // no signature, no per-frame origin math.
     //
-    // Reverse engineered (build 14154):
-    //   sub_180AC8BD0 ("thirdperson" cmd handler)  RVA 0x00AC8BD0
+    // Reverse engineered (current build, IDA-validated 2026-04-25):
+    //   sub_180AC8C30 ("thirdperson" cmd handler)  RVA 0x00AC8C30
     //     - sets *(pInput + 0x229) = 1            // enable flag
     //     - saves eye origin into pInput[+0x230]  // camera anchor
-    //     - calls localPawn->vtable[+2504](true)  // render local pawn
-    //   sub_180AC8AF0 ("firstperson" cmd handler) RVA 0x00AC8AF0
+    //     - writes 30.0f to pInput[+0x238]
+    //     - clears pInput[+0x6A8] transition flag
+    //     - calls localPawn->vtable[+0x9C8](true) // render local pawn
+    //   sub_180AC8B50 ("firstperson" cmd handler) RVA 0x00AC8B50
     //     - clears *(pInput + 0x229) = 0
-    //     - calls localPawn->vtable[+2504](false) // hide local pawn
+    //     - clears pInput[+0x6A8]
+    //     - calls localPawn->vtable[+0x9C8](false) // hide local pawn
     //     - broadcasts cleanup
+    // Build 14154 RVAs were 0xAC8BD0 / 0xAC8AF0 (drift +0x60).
+    // Both addresses are validated by prologue check; if the cached RVA
+    // points elsewhere, ResolveThirdPersonHandlers falls back to the
+    // signature scan (sigs in core/signatures.h are still valid).
     //
     // The CInput global (`off_1820613C0` in IDA) lives at
     //   *(uintptr_t*)(clientBase + 0x20613C0)
@@ -660,10 +667,11 @@ namespace WorldEffects
     inline ThirdPersonCmdFn pThirdPersonOn  = nullptr;
     inline ThirdPersonCmdFn pThirdPersonOff = nullptr;
 
-    constexpr std::ptrdiff_t kThirdPersonOn_RVA  = 0xAC8BD0;
-    constexpr std::ptrdiff_t kThirdPersonOff_RVA = 0xAC8AF0;
-    constexpr std::ptrdiff_t kCInputPtr_RVA      = 0x20613C0;
-    constexpr std::ptrdiff_t kCInput_ThirdPerson = 0x229;
+    constexpr std::ptrdiff_t kThirdPersonOn_RVA  = 0xAC8C30;   // updated 2026-04-25
+    constexpr std::ptrdiff_t kThirdPersonOff_RVA = 0xAC8B50;   // updated 2026-04-25
+    constexpr std::ptrdiff_t kCInputPtr_RVA      = 0x20613C0;  // off_1820613C0 — unchanged
+    constexpr std::ptrdiff_t kCInput_ThirdPerson = 0x229;      // pInput +553 enable flag
+    constexpr std::ptrdiff_t kCInput_TransitionA = 0x6A8;      // pInput +0x6A8 transition reset
 
     // Get the live CInput struct (deref the global pointer). Returns 0 if
     // the global hasn't been populated yet (early in process startup) or
@@ -734,8 +742,11 @@ namespace WorldEffects
     // so RunThirdPerson can write the live camera distance each tick.
     extern uintptr_t pCV_cam_idealdist;
 
-    // Called from Tick — drives the toggle through the engine's own path
-    // and keeps cam_idealdist in sync with the user's slider.
+    // Called from Tick. Drives the toggle through the engine's own path
+    // (smooth interp, collision, viewmodel hide), keeps cam_idealdist in
+    // sync with the slider, AND re-stamps the enable flag every tick when
+    // on so engine-side resets (round restart, respawn, map change, kill)
+    // can't silently turn 3p back off without us noticing.
     inline void RunThirdPerson()
     {
         static bool wasOn = false;
@@ -743,8 +754,7 @@ namespace WorldEffects
 
         ResolveThirdPersonHandlers();
 
-        // Live distance push regardless of state transition — lets the
-        // user drag the slider while in 3p and see it apply instantly.
+        // Live distance push regardless of state transition.
         if (cfg.thirdPerson && pCV_cam_idealdist)
         {
             __try {
@@ -752,31 +762,52 @@ namespace WorldEffects
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
         }
 
-        if (cfg.thirdPerson == wasOn) return; // no transition
-
+        // ON state: re-stamp the flag every tick (engine clears it on
+        // map load / respawn / disconnect — without this our edge-trigger
+        // stayed "wasOn=true" while the engine had already gone first-person).
         if (cfg.thirdPerson)
         {
-            // Only enable if alive — calling the engine handler while
-            // dead/spectating produces a sticky stuck-camera state.
             __try {
                 uintptr_t lp = GameState::GetLocalPawn();
                 if (!lp) return;
                 int hp = Mem::Read<int>(lp + Offsets::m_iHealth);
-                if (hp <= 0) return;
-            } __except (EXCEPTION_EXECUTE_HANDLER) { return; }
+                if (hp <= 0) { wasOn = false; return; }
 
-            __try {
-                if (pThirdPersonOn) { pThirdPersonOn(); }
+                if (!wasOn)
+                {
+                    // Transition — full handler call (does anchor + vtable flip).
+                    if (pThirdPersonOn) { pThirdPersonOn(); }
+                    else
+                    {
+                        uintptr_t pInput = GetCInput();
+                        if (pInput) Mem::SmartWrite<uint8_t>(pInput + kCInput_ThirdPerson, 1);
+                    }
+                    wasOn = true;
+                }
                 else
                 {
-                    // Fallback — flip the flag manually if handler resolution failed.
+                    // Already on — bare flag re-stamp (cheap, idempotent,
+                    // recovers from engine resets without re-firing the
+                    // anchor/vtable side effects of the full handler).
                     uintptr_t pInput = GetCInput();
-                    if (pInput) Mem::SmartWrite<uint8_t>(pInput + kCInput_ThirdPerson, 1);
+                    if (pInput)
+                    {
+                        uint8_t cur = Mem::Read<uint8_t>(pInput + kCInput_ThirdPerson);
+                        if (cur == 0)
+                        {
+                            // Engine reset us — re-run the full handler so the
+                            // camera anchor + vtable flag are re-set too.
+                            if (pThirdPersonOn) { pThirdPersonOn(); }
+                            else                  Mem::SmartWrite<uint8_t>(pInput + kCInput_ThirdPerson, 1);
+                        }
+                    }
                 }
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
-            wasOn = true;
+            return;
         }
-        else
+
+        // OFF state: only fire on transition.
+        if (wasOn)
         {
             __try {
                 if (pThirdPersonOff) { pThirdPersonOff(); }

@@ -110,6 +110,7 @@
     <ClInclude Include="core\game_state.h" />
     <ClInclude Include="core\vtable_swap.h" />
     <ClInclude Include="core\stealth.h" />
+    <ClInclude Include="core\vac_watchdog.h" />
     <!-- Features -->
     <ClInclude Include="features\aimbot.h" />
     <ClInclude Include="features\esp.h" />

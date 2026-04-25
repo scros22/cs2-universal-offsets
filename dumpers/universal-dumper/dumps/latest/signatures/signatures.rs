@@ -167,10 +167,10 @@ pub mod client {
     pub const ClearHUDWeaponIcon: usize = 0x7FFEDC0AB6C0;
     /// rva 0x233BA60
     pub const ClientMode_ptr: usize = 0x7FFEDD5FBA60;
-    /// rva 0xAC8AF0
-    pub const ConCommand_firstperson: usize = 0x7FFEDBD88AF0;
-    /// rva 0xAC8BD0
-    pub const ConCommand_thirdperson: usize = 0x7FFEDBD88BD0;
+    /// rva 0xAC8B50
+    pub const ConCommand_firstperson: usize = 0x7FFEDBD88B50;
+    /// rva 0xAC8C30
+    pub const ConCommand_thirdperson: usize = 0x7FFEDBD88C30;
     /// rva 0x8BDF82
     pub const ConvarGet: usize = 0x7FFEDBB7DF82;
     /// rva 0x150E5D0

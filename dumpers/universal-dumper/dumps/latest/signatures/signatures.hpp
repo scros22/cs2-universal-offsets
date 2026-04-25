@@ -88,8 +88,8 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CalculateWorldSpaceBones = 0x7FFEDBCC98B0; // rva 0xA098B0
         inline constexpr std::uintptr_t ClearHUDWeaponIcon = 0x7FFEDC0AB6C0; // rva 0xDEB6C0
         inline constexpr std::uintptr_t ClientMode_ptr = 0x7FFEDD5FBA60; // rva 0x233BA60
-        inline constexpr std::uintptr_t ConCommand_firstperson = 0x7FFEDBD88AF0; // rva 0xAC8AF0
-        inline constexpr std::uintptr_t ConCommand_thirdperson = 0x7FFEDBD88BD0; // rva 0xAC8BD0
+        inline constexpr std::uintptr_t ConCommand_firstperson = 0x7FFEDBD88B50; // rva 0xAC8B50
+        inline constexpr std::uintptr_t ConCommand_thirdperson = 0x7FFEDBD88C30; // rva 0xAC8C30
         inline constexpr std::uintptr_t ConvarGet = 0x7FFEDBB7DF82; // rva 0x8BDF82
         inline constexpr std::uintptr_t CreateBaseTypeCache = 0x7FFEDC7CE5D0; // rva 0x150E5D0
         inline constexpr std::uintptr_t CreateEntityByClassName = 0x7FFEDC8C2376; // rva 0x1602376

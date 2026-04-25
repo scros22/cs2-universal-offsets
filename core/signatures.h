@@ -19,11 +19,17 @@ namespace Signatures
     constexpr const char* ThirdPersonReset =
         "48 8B 40 08 44 38 20 75 10 44 88 67 01";
 
-    // RegenerateWeaponSkins
+    // RegenerateWeaponSkin — sub_18078C050 (RVA 0x78C050, current build,
+    // IDA-verified 2026-04-25). Call directly with (weapon, false) AFTER
+    // writing m_nFallbackPaintKit/Seed/Wear/StatTrak and m_iItemIDHigh.
+    // OLD sig (48 83 EC ? E8 ? ? ? ? 48 85 C0 0F 84 ? ? ? ? 48 8B 10) is
+    // DEAD on current build — it was a wrapper that no longer exists.
     constexpr const char* RegenWeaponSkins =
-        "48 83 EC ? E8 ? ? ? ? 48 85 C0 0F 84 ? ? ? ? 48 8B 10";
+        "40 55 53 41 57 48 8D AC 24 00 FE FF FF 48 81 EC";
 
-    // SetMeshGroupMask — CSkeletonInstance method for fixing weapon mesh rendering
+    // SetMeshGroupMask — CSkeletonInstance method for fixing weapon mesh
+    // rendering (sub_180A2C3F0, RVA 0xA2C3F0, IDA-verified 2026-04-25,
+    // drift +0x60 from build 14154). Call on entity->m_pGameSceneNode.
     // Called on skeleton instance (entity + m_pGameSceneNode)
     // Param: uint64 mask — 2 = Legacy, 1 = !Legacy
     constexpr const char* SetMeshGroupMask =
@@ -36,17 +42,19 @@ namespace Signatures
     constexpr const char* OverrideView =
         "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B FA E8";
 
-    // ConCommand handler for `thirdperson` (sub_180AC8BD0 on 14154).
+    // ConCommand handler for `thirdperson` (sub_180AC8C30 on current build,
+    // was sub_180AC8BD0 on 14154 — drift +0x60).
     // Pattern keys on the `mov [r8+229h], 1` flag write + the unique
     // `mov dword [r8+6A8h], 0` transition reset that follows. Verified
-    // unique across client.dll on 14154.
+    // unique across client.dll (IDA 2026-04-25).
     constexpr const char* ThirdPersonOnHandler =
         "48 83 EC 38 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 "
         "83 7C 24 ? 00 0F 85 ? ? ? ? 4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00";
 
-    // ConCommand handler for `firstperson` (sub_180AC8AF0 on 14154).
+    // ConCommand handler for `firstperson` (sub_180AC8B50 on current build,
+    // was sub_180AC8AF0 on 14154 — drift +0x60).
     // Sister of the above; keys on `mov [rax+229h], 0` + transition
-    // reset. Verified unique across client.dll on 14154.
+    // reset. Verified unique across client.dll (IDA 2026-04-25).
     constexpr const char* ThirdPersonOffHandler =
         "48 83 EC 28 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 "
         "83 7C 24 ? 00 75 ? 48 8B 05 ? ? ? ? C6 80 29 02 00 00 00 "
@@ -84,11 +92,13 @@ namespace Signatures
     constexpr const char* SetBodyGroup =
         "85 D2 0F 88 5C";
 
-    // CCSPlayerInventory::GetItemInLoadout
+    // CCSPlayerInventory::GetItemInLoadout (sub_1807C3CB0, drift -0x40
+    // from build 14154, IDA-verified 2026-04-25)
     constexpr const char* GetItemInLoadout =
         "40 55 48 83 EC ? 49 63 E8";
 
-    // CCSInventoryManager::EquipItemInLoadout
+    // CCSInventoryManager::EquipItemInLoadout (sub_1807C2090, drift -0x40
+    // from build 14154, IDA-verified 2026-04-25)
     constexpr const char* EquipItemInLoadout =
         "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 89 54 24 ? 57 41 54 41 55 41 56 41 57 48 83 EC ? 0F B7 FA";
 
