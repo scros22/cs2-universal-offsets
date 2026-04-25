@@ -537,6 +537,12 @@ pub mod materialsystem2 {
     pub const CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile: usize = 0x7FFC11943FA0;
     /// rva 0x10040
     pub const CMaterial2_LoadShadersAndSetupModes: usize = 0x7FFC11940040;
+    /// rva 0x15F3C
+    pub const CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode: usize = 0x7FFC11945F3C;
+    /// rva 0x19820
+    pub const CMaterialLayer_CreateCommandBuffer: usize = 0x7FFC11949820;
+    /// rva 0x70000
+    pub const CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState: usize = 0x7FFC119A0000;
     /// rva 0x39AA0
     pub const CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials: usize = 0x7FFC11969AA0;
     /// rva 0x3BAC0
@@ -545,6 +551,8 @@ pub mod materialsystem2 {
     pub const CMaterialSystem2_GetErrorMaterial: usize = 0x7FFC119474D7;
     /// rva 0x36E40
     pub const CMaterialSystem2_Init: usize = 0x7FFC11966E40;
+    /// rva 0x2F9B0
+    pub const CMaterial_SetVariableAndRenderState: usize = 0x7FFC1195F9B0;
     /// rva 0xAE0E0
     pub const CVfxProgramData_FindOrCreateStaticComboDataInCache: usize = 0x7FFC119DE0E0;
     /// rva 0x11E30
@@ -576,6 +584,10 @@ pub mod particles {
 }
 
 pub mod rendersystemdx11 {
+    /// rva 0x2F500
+    pub const CRenderDeviceBase_CreateConstantBuffer: usize = 0x7FFC1259F500;
+    /// rva 0x3C4E0
+    pub const CRenderDeviceDx11_BeginSubmittingDisplayLists: usize = 0x7FFC125AC4E0;
     /// rva 0x34650
     pub const CSwapChainDx11_QueuePresentAndWait: usize = 0x7FFC125A4650;
     /// rva 0x3DD20
@@ -602,6 +614,8 @@ pub mod scenesystem {
     pub const CSceneAnimatableObject__GeneratePrimitives: usize = 0x7FFC0A683520;
     /// rva 0xEDD80
     pub const CSceneSystem_RenderViewLayer_Dispatch: usize = 0x7FFC0A6FDD80;
+    /// rva 0xE92F0
+    pub const CSceneSystem_Thread_CullView: usize = 0x7FFC0A6F92F0;
     /// rva 0x55BC0
     pub const DrawObject_legacy: usize = 0x7FFC0A665BC0;
     /// rva 0x14FB90

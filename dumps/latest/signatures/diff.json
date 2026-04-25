@@ -1287,6 +1287,21 @@
       "va": 140720603398208
     },
     {
+      "name": "CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode",
+      "module": "materialsystem2.dll",
+      "va": 140720603422524
+    },
+    {
+      "name": "CMaterialLayer_CreateCommandBuffer",
+      "module": "materialsystem2.dll",
+      "va": 140720603437088
+    },
+    {
+      "name": "CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState",
+      "module": "materialsystem2.dll",
+      "va": 140720603791360
+    },
+    {
       "name": "CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials",
       "module": "materialsystem2.dll",
       "va": 140720603568800
@@ -1305,6 +1320,11 @@
       "name": "CMaterialSystem2_Init",
       "module": "materialsystem2.dll",
       "va": 140720603557440
+    },
+    {
+      "name": "CMaterial_SetVariableAndRenderState",
+      "module": "materialsystem2.dll",
+      "va": 140720603527600
     },
     {
       "name": "CVfxProgramData_FindOrCreateStaticComboDataInCache",
@@ -1362,6 +1382,16 @@
       "va": 140720475003088
     },
     {
+      "name": "CRenderDeviceBase_CreateConstantBuffer",
+      "module": "rendersystemdx11.dll",
+      "va": 140720616371456
+    },
+    {
+      "name": "CRenderDeviceDx11_BeginSubmittingDisplayLists",
+      "module": "rendersystemdx11.dll",
+      "va": 140720616424672
+    },
+    {
       "name": "CSwapChainDx11_QueuePresentAndWait",
       "module": "rendersystemdx11.dll",
       "va": 140720616392272
@@ -1410,6 +1440,11 @@
       "name": "CSceneSystem_RenderViewLayer_Dispatch",
       "module": "scenesystem.dll",
       "va": 140720483589504
+    },
+    {
+      "name": "CSceneSystem_Thread_CullView",
+      "module": "scenesystem.dll",
+      "va": 140720483570416
     },
     {
       "name": "DrawObject_legacy",

@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**297/343 signatures resolved across 11 module(s).**
+**304/350 signatures resolved across 11 module(s).**
 
 ## `animationsystem.dll`
 
@@ -286,6 +286,13 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | --- | --- | --- | --- | --- |
 | `CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile` | `stringref` | `0x7FFC11943FA0` | `0x13FA0` | `"CompileComboAndGetVariables_DynamicShaderCompile(), C:\buildworker\csgo_rel_win64\build\src\materialsystem2\material2.cpp:2786"` |
 | `CMaterial2_LoadShadersAndSetupModes` | `raw` | `0x7FFC11940040` | `0x10040` | `44 89 44 24 18 48 89 54 24 10 53 56 41 54 41 55 48 81 EC 88 00 00 00 4C 8B E9 48 C7 44 24 60` |
+| `CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode` | `stringref` | `0x7FFC11945F3C` | `0x15F3C` | `"CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3154): Failed call to FindOrLoadStaticComboData()!
+"` |
+| `CMaterialLayer_CreateCommandBuffer` | `stringref` | `0x7FFC11949820` | `0x19820` | `"
+CMaterialLayer::CreateCommandBuffer(4446): Find a graphics programmer! Trying to bind a "%s" shader that doesn't exist! for %s
+"` |
+| `CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState` | `stringref` | `0x7FFC119A0000` | `0x70000` | `"BindIdentityInstanceIDBufferAndSetRenderState: GetMode == NULL? Can't Render
+"` |
 | `CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials` | `stringref` | `0x7FFC11969AA0` | `0x39AA0` | `"CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials(1084): ERROR!!! Shaders not freed before shader reload! (See spew above)
 
 "` |
@@ -293,6 +300,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CMaterialSystem2_GetErrorMaterial` | `stringref` | `0x7FFC119474D7` | `0x174D7` | `"CMaterialSystem2::GetErrorMaterial(529): GetErrorMaterial() called when m_pMaterialTypeManager == NULL!
 "` |
 | `CMaterialSystem2_Init` | `stringref` | `0x7FFC11966E40` | `0x36E40` | `"MaterialSystem2"` |
+| `CMaterial_SetVariableAndRenderState` | `stringref` | `0x7FFC1195F9B0` | `0x2F9B0` | `"SetRenderStateValueFromVariable(1172): Unsupported render state type in material "%s"!
+"` |
 | `CVfxProgramData_FindOrCreateStaticComboDataInCache` | `stringref` | `0x7FFC119DE0E0` | `0xAE0E0` | `"CVfxProgramData::FindOrCreateStaticComboDataInCache(4448): Error! Ref count !=0 for static combo data cache entry!
 "` |
 | `FindParameter` | `raw` | `0x7FFC11941E30` | `0x11E30` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8B 59 20 48` |
@@ -320,6 +329,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
+| `CRenderDeviceBase_CreateConstantBuffer` | `stringref` | `0x7FFC1259F500` | `0x2F500` | `"CRenderDeviceBase::CreateConstantBuffer(1571): "` |
+| `CRenderDeviceDx11_BeginSubmittingDisplayLists` | `stringref` | `0x7FFC125AC4E0` | `0x3C4E0` | `"CRenderDeviceDx11::BeginSubmittingDisplayLists(1162): "` |
 | `CSwapChainDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
 | `CSwapChainDx11_ResizeBuffers` | `raw` | `0x7FFC125ADD20` | `0x3DD20` | `48 8B C4 55 53 56 57 41 54 48 8B EC 48 83 EC 70 4C 89 68 10 4D 8B E0 4C 89 70 18 4C 8B EA 4C 89` |
 | `RenderSystemDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
@@ -340,6 +351,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | --- | --- | --- | --- | --- |
 | `CSceneAnimatableObject::GeneratePrimitives` | `raw` | `0x7FFC0A683520` | `0x73520` | `48 8B C4 48 89 58 08 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ?` |
 | `CSceneSystem_RenderViewLayer_Dispatch` | `raw` | `0x7FFC0A6FDD80` | `0xEDD80` | `48 8B C4 48 89 48 08 55 53 56 57 41 54 41 55 41 56 41 57 48 8D A8 B8 FE FF FF 48 81 EC 08 02 00` |
+| `CSceneSystem_Thread_CullView` | `stringref` | `0x7FFC0A6F92F0` | `0xE92F0` | `"CSceneSystem::Thread_CullView(), C:\buildworker\csgo_rel_win64\build\src\scenesystem\scenesystem.cpp:3312"` |
 | `DrawObject_legacy` | `raw` | `0x7FFC0A665BC0` | `0x55BC0` | `48 8B C4 53 57 41 54 48 81 EC D0 00 00 00 49 63 F9 49` |
 | `DrawSkyboxArray` | `raw` | `0x7FFC0A75FB90` | `0x14FB90` | `45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55` |
 | `SceneSystem::DrawAggeregateObject` | `raw` | `0x7FFC0A73CF50` | `0x12CF50` | `48 8B C4 4C 89 48 20 4C 89 40 ? 48 89 50 ? 55 53 41 57 48 8D A8` |

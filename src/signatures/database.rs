@@ -1776,4 +1776,176 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: STRREF,
         extra_off: 0,
     },
+
+    // ====================================================================
+    // NUVORA MAY-02-2026 EXPANSION v11 (build 14155 — GPU-pipeline / drawcall layer)
+    //
+    // v10 covered material PARSE / LOAD / COMPILE. v11 covers the layer
+    // BELOW that — the per-pass GPU command-buffer recording, per-draw
+    // render-state setup, scene-graph cull, and D3D11 constant-buffer
+    // creation. This is the layer where a graphics engineer would hook
+    // to:
+    //
+    //   - Intercept the actual shader / texture / cbuf bindings for a
+    //     specific material at submit time (chams without owning a
+    //     custom .vmat — just rewrite the bind table).
+    //   - Re-add culled entities back to the visible set for true x-ray
+    //     wallhack (vs. the post-process outline trick).
+    //   - Track every D3D11 constant buffer the engine creates so a
+    //     PBR-param patch (g_flMetalness/g_flRoughness/g_vReflectance)
+    //     can be written directly into the matching cbuf upload.
+    //   - Inject custom geometry into a real engine display-list batch
+    //     instead of running a parallel ImGui pass.
+    //
+    // Pipeline (build 14155):
+    //
+    //   CSceneSystem::Thread_CullView  (scenesystem!sub_1800E92F0)
+    //     -> CSceneSystem::Thread_RenderSceneDrawList (already shipped v1.11.0)
+    //         -> CMaterialLayer::CreateCommandBuffer (materialsystem2!sub_180019820)
+    //              -> CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode
+    //                                                 (materialsystem2!sub_180015BC0)
+    //                  -> CMaterial::SetVariableAndRenderState (materialsystem2!sub_18002F9B0)
+    //                       -> CRenderDeviceDx11::BeginSubmittingDisplayLists
+    //                                                 (rendersystemdx11!sub_18003C4E0)
+    //                            -> CRenderDeviceBase::CreateConstantBuffer
+    //                                                 (rendersystemdx11!sub_18002F500)
+    //                                 -> CMaterialSystem2::BindIdentityInstanceIDBufferAndSetRenderState
+    //                                                 (materialsystem2!sub_180070000)
+    //
+    // All 7 are STRREF-anchored on log strings with EXACTLY ONE xref each
+    // (verified via mcp_ida-pro-mcp_xref_query across instances 13338,
+    // 13341, 13344). Strings are extremely stable across patches.
+    // ====================================================================
+
+    // CMaterialLayer::CreateCommandBuffer — materialsystem2!sub_180019820
+    // (~0x1DD9 — large per-pass GPU command-buffer recorder).  Refs the
+    // unique error string "CMaterialLayer::CreateCommandBuffer(4446):
+    // Find a graphics programmer! Trying to bind a \"%s\" shader that
+    // doesn't exist! for %s" (1 xref).  The function CS2 calls when a
+    // CMaterialLayer needs to materialise its bound shader/texture/
+    // constant-buffer state into a recordable D3D command sequence.
+    // THE hook for "intercept the actual shader binds and rewrite
+    // PBR slots before the GPU sees them" — perfect for swapping in
+    // gold/silver chams without owning a custom .vmat.
+    Signature {
+        name: "CMaterialLayer_CreateCommandBuffer",
+        module: "materialsystem2.dll",
+        needle: "\nCMaterialLayer::CreateCommandBuffer(4446): Find a graphics programmer! Trying to bind a \"%s\" shader that doesn't exist! for %s\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode —
+    // materialsystem2!sub_180015BC0 (~0x632).  Refs the unique
+    // "CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3154):
+    // Failed call to FindOrLoadStaticComboData()!" log (1 xref).
+    // Schedules the work-items required to materialise every static
+    // shader combo a CMaterialLayer needs for a given render mode.
+    // Sits one level above CVfxProgramData::FindOrCreateStaticComboDataInCache
+    // (already shipped v1.16.0). Hook to inspect / pre-warm shader
+    // permutation work for runtime-injected chams materials.
+    Signature {
+        name: "CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode",
+        module: "materialsystem2.dll",
+        needle: "CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3154): Failed call to FindOrLoadStaticComboData()!\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CMaterial::SetVariableAndRenderState — materialsystem2!sub_18002F9B0
+    // (~0x8A4).  Refs the unique
+    // "SetRenderStateValueFromVariable(1172): Unsupported render state
+    // type in material \"%s\"!" log (1 xref). Decompile shows it ALSO
+    // contains the unique "SetVariable(1346): Could not bind constant
+    // buffer..." and "SetVariable(1363): Error setting constant for
+    // REGISTER_FLOAT4..." spew strings, confirming this is the
+    // dispatch hub that, for every CMaterialVariable, picks the right
+    // setter:
+    //   - REGISTER_FLOAT4 -> writes into per-material cbuf upload
+    //   - REGISTER_TEX_*   -> shader-resource-view binding
+    //   - render-state     -> blend / depth / stencil / colour-write
+    // THIS is where you literally write g_flMetalness / g_flRoughness /
+    // g_vReflectanceColor into the D3D constant-buffer slot for a
+    // gold-chams material. Single most useful hook for live PBR
+    // param injection.
+    Signature {
+        name: "CMaterial_SetVariableAndRenderState",
+        module: "materialsystem2.dll",
+        needle: "SetRenderStateValueFromVariable(1172): Unsupported render state type in material \"%s\"!\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CMaterialSystem2::BindIdentityInstanceIDBufferAndSetRenderState —
+    // materialsystem2!sub_180070000 (~0x677).  Refs the unique
+    // "BindIdentityInstanceIDBufferAndSetRenderState: GetMode == NULL?
+    // Can't Render" log (1 xref).  Decompile confirms it builds an
+    // identity per-instance vertex layout (`VertexUVPosColorNormalAnd
+    // Tangent_t`) and dispatches through the render-context vtable
+    // (qword_18014EE78, slot +320) to set up render state for a
+    // single-instance draw.  Hook to inject custom geometry into a
+    // real engine batch instead of running a parallel ImGui pass —
+    // gives free depth-buffer integration for chams x-ray.
+    Signature {
+        name: "CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState",
+        module: "materialsystem2.dll",
+        needle: "BindIdentityInstanceIDBufferAndSetRenderState: GetMode == NULL? Can't Render\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CSceneSystem::Thread_CullView — scenesystem!sub_1800E92F0
+    // (~0x7BF).  Refs the unique source-path string
+    // "CSceneSystem::Thread_CullView(), C:\\buildworker\\csgo_rel_win64\\
+    // build\\src\\scenesystem\\scenesystem.cpp:3312" (1 xref).  Per-
+    // worker-thread frustum + occlusion cull for a single scene view
+    // (one of the parallel jobs that feed Thread_RenderSceneDrawList,
+    // already shipped v1.11.0).  Hook target for TRUE x-ray wallhack:
+    // re-add the player scene-objects that the cull just rejected so
+    // they get drawn behind the world (with depth-test override in the
+    // RenderSceneDrawList layer hook). This is what an actual
+    // graphics-programmer wallhack looks like — not a 2D ImGui line
+    // overlay.
+    Signature {
+        name: "CSceneSystem_Thread_CullView",
+        module: "scenesystem.dll",
+        needle: "CSceneSystem::Thread_CullView(), C:\\buildworker\\csgo_rel_win64\\build\\src\\scenesystem\\scenesystem.cpp:3312",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CRenderDeviceBase::CreateConstantBuffer — rendersystemdx11!sub_18002F500
+    // (~0x1D2).  Refs the unique source-line string
+    // "CRenderDeviceBase::CreateConstantBuffer(1571):" (1 xref). Every
+    // ID3D11Buffer (D3D11_BIND_CONSTANT_BUFFER) the renderer ever
+    // creates routes through here. Hook to:
+    //   - Build a runtime map [cbuf-handle -> { shader-name, slot,
+    //     param-name list }] so you can locate the gold-chams cbuf
+    //     by name (g_flMetalness / g_flRoughness / etc.).
+    //   - Detect when a custom material is granted its cbuf so you
+    //     can keep its slot pinned across hot-reloads.
+    Signature {
+        name: "CRenderDeviceBase_CreateConstantBuffer",
+        module: "rendersystemdx11.dll",
+        needle: "CRenderDeviceBase::CreateConstantBuffer(1571): ",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CRenderDeviceDx11::BeginSubmittingDisplayLists — rendersystemdx11!
+    // sub_18003C4E0 (~0x147).  Refs the unique source-line string
+    // "CRenderDeviceDx11::BeginSubmittingDisplayLists(1162):" (1 xref).
+    // Per-frame display-list submission boundary (the engine batches
+    // all materialised D3D commands into display lists, then submits
+    // them here).  Useful to:
+    //   - Time GPU submit latency on the chams pass.
+    //   - Inject extra display lists for custom passes without paying
+    //     the full per-draw vtable cost.
+    Signature {
+        name: "CRenderDeviceDx11_BeginSubmittingDisplayLists",
+        module: "rendersystemdx11.dll",
+        needle: "CRenderDeviceDx11::BeginSubmittingDisplayLists(1162): ",
+        resolve: STRREF,
+        extra_off: 0,
+    },
 ];

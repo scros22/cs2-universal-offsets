@@ -274,10 +274,14 @@ namespace cs2::signatures {
     namespace materialsystem2 {
         inline constexpr std::uintptr_t CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile = 0x7FFC11943FA0; // rva 0x13FA0
         inline constexpr std::uintptr_t CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040; // rva 0x10040
+        inline constexpr std::uintptr_t CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode = 0x7FFC11945F3C; // rva 0x15F3C
+        inline constexpr std::uintptr_t CMaterialLayer_CreateCommandBuffer = 0x7FFC11949820; // rva 0x19820
+        inline constexpr std::uintptr_t CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState = 0x7FFC119A0000; // rva 0x70000
         inline constexpr std::uintptr_t CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials = 0x7FFC11969AA0; // rva 0x39AA0
         inline constexpr std::uintptr_t CMaterialSystem2_FrameUpdate = 0x7FFC1196BAC0; // rva 0x3BAC0
         inline constexpr std::uintptr_t CMaterialSystem2_GetErrorMaterial = 0x7FFC119474D7; // rva 0x174D7
         inline constexpr std::uintptr_t CMaterialSystem2_Init = 0x7FFC11966E40; // rva 0x36E40
+        inline constexpr std::uintptr_t CMaterial_SetVariableAndRenderState = 0x7FFC1195F9B0; // rva 0x2F9B0
         inline constexpr std::uintptr_t CVfxProgramData_FindOrCreateStaticComboDataInCache = 0x7FFC119DE0E0; // rva 0xAE0E0
         inline constexpr std::uintptr_t FindParameter = 0x7FFC11941E30; // rva 0x11E30
         inline constexpr std::uintptr_t MatSys__PrepareSceneMaterial = 0x7FFC11941BE0; // rva 0x11BE0
@@ -295,6 +299,8 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t Particles__SetMaterialShaderType = 0x7FFC09ECD8D0; // rva 0x9D8D0
     }
     namespace rendersystemdx11 {
+        inline constexpr std::uintptr_t CRenderDeviceBase_CreateConstantBuffer = 0x7FFC1259F500; // rva 0x2F500
+        inline constexpr std::uintptr_t CRenderDeviceDx11_BeginSubmittingDisplayLists = 0x7FFC125AC4E0; // rva 0x3C4E0
         inline constexpr std::uintptr_t CSwapChainDx11_QueuePresentAndWait = 0x7FFC125A4650; // rva 0x34650
         inline constexpr std::uintptr_t CSwapChainDx11_ResizeBuffers = 0x7FFC125ADD20; // rva 0x3DD20
         inline constexpr std::uintptr_t RenderSystemDx11_QueuePresentAndWait = 0x7FFC125A4650; // rva 0x34650
@@ -309,6 +315,7 @@ namespace cs2::signatures {
     namespace scenesystem {
         inline constexpr std::uintptr_t CSceneAnimatableObject__GeneratePrimitives = 0x7FFC0A683520; // rva 0x73520
         inline constexpr std::uintptr_t CSceneSystem_RenderViewLayer_Dispatch = 0x7FFC0A6FDD80; // rva 0xEDD80
+        inline constexpr std::uintptr_t CSceneSystem_Thread_CullView = 0x7FFC0A6F92F0; // rva 0xE92F0
         inline constexpr std::uintptr_t DrawObject_legacy = 0x7FFC0A665BC0; // rva 0x55BC0
         inline constexpr std::uintptr_t DrawSkyboxArray = 0x7FFC0A75FB90; // rva 0x14FB90
         inline constexpr std::uintptr_t SceneSystem__DrawAggeregateObject = 0x7FFC0A73CF50; // rva 0x12CF50

@@ -278,10 +278,14 @@ public static class Signatures
     {
         public const ulong CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile = 0x7FFC11943FA0UL; // rva 0x13FA0
         public const ulong CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040UL; // rva 0x10040
+        public const ulong CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode = 0x7FFC11945F3CUL; // rva 0x15F3C
+        public const ulong CMaterialLayer_CreateCommandBuffer = 0x7FFC11949820UL; // rva 0x19820
+        public const ulong CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState = 0x7FFC119A0000UL; // rva 0x70000
         public const ulong CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials = 0x7FFC11969AA0UL; // rva 0x39AA0
         public const ulong CMaterialSystem2_FrameUpdate = 0x7FFC1196BAC0UL; // rva 0x3BAC0
         public const ulong CMaterialSystem2_GetErrorMaterial = 0x7FFC119474D7UL; // rva 0x174D7
         public const ulong CMaterialSystem2_Init = 0x7FFC11966E40UL; // rva 0x36E40
+        public const ulong CMaterial_SetVariableAndRenderState = 0x7FFC1195F9B0UL; // rva 0x2F9B0
         public const ulong CVfxProgramData_FindOrCreateStaticComboDataInCache = 0x7FFC119DE0E0UL; // rva 0xAE0E0
         public const ulong FindParameter = 0x7FFC11941E30UL; // rva 0x11E30
         public const ulong MatSys__PrepareSceneMaterial = 0x7FFC11941BE0UL; // rva 0x11BE0
@@ -302,6 +306,8 @@ public static class Signatures
     }
     public static class rendersystemdx11
     {
+        public const ulong CRenderDeviceBase_CreateConstantBuffer = 0x7FFC1259F500UL; // rva 0x2F500
+        public const ulong CRenderDeviceDx11_BeginSubmittingDisplayLists = 0x7FFC125AC4E0UL; // rva 0x3C4E0
         public const ulong CSwapChainDx11_QueuePresentAndWait = 0x7FFC125A4650UL; // rva 0x34650
         public const ulong CSwapChainDx11_ResizeBuffers = 0x7FFC125ADD20UL; // rva 0x3DD20
         public const ulong RenderSystemDx11_QueuePresentAndWait = 0x7FFC125A4650UL; // rva 0x34650
@@ -318,6 +324,7 @@ public static class Signatures
     {
         public const ulong CSceneAnimatableObject__GeneratePrimitives = 0x7FFC0A683520UL; // rva 0x73520
         public const ulong CSceneSystem_RenderViewLayer_Dispatch = 0x7FFC0A6FDD80UL; // rva 0xEDD80
+        public const ulong CSceneSystem_Thread_CullView = 0x7FFC0A6F92F0UL; // rva 0xE92F0
         public const ulong DrawObject_legacy = 0x7FFC0A665BC0UL; // rva 0x55BC0
         public const ulong DrawSkyboxArray = 0x7FFC0A75FB90UL; // rva 0x14FB90
         public const ulong SceneSystem__DrawAggeregateObject = 0x7FFC0A73CF50UL; // rva 0x12CF50
