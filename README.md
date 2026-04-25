@@ -47,7 +47,7 @@ the union of the two, glued together with a smooth UI and a shared memory pipeli
 
 Additional community credit:
 
-- **kauht** &mdash; shared a practical standalone `GeneratePrimitives` chams
+- **[kauht](https://github.com/kauht)** &mdash; shared a practical standalone `GeneratePrimitives` chams
   implementation that helped validate and tighten our scenesystem/
   materialsystem2/tier0 signature coverage for runtime material creation
   and substitution paths.
