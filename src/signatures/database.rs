@@ -1756,6 +1756,33 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
+    // CMaterial2::GetVertexShaderInputSignature — materialsystem2!
+    // sub_18000C8C0 (~0x2AF). Emits unique GetVertexShaderInputSignature
+    // validation errors and can trigger dynamic compile queue processing
+    // through sub_18003A200 when VS input signature data is missing/stale.
+    // Useful for diagnosing shader-input mismatches in custom material paths.
+    Signature {
+        name: "CMaterial2_GetVertexShaderInputSignature",
+        module: "materialsystem2.dll",
+        needle: "CMaterial2::GetVertexShaderInputSignature(767): Error! Material \"%s\" doesn't have any valid layers to get the CVsInputSignatureVector from!\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // Dynamic shader compile reload orchestrator — materialsystem2!
+    // sub_1800355C0 (~0x79). Calls
+    // CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials and then
+    // CMaterialSystem2_DynamicShaderCompile_ProcessQueue, followed by SRW
+    // lock-protected sync over a fixed block. Compact entry for observing
+    // full reload+recompile cycles.
+    Signature {
+        name: "CMaterialSystem2_DynamicShaderCompile_ReloadAndSync",
+        module: "materialsystem2.dll",
+        needle: "48 83 EC 20 48 8B 35 ? ? ? ? 48 8B CE E8 ? ? ? ? 48 8B CE E8 ? ? ? ? 80 BE A0 03 00 00 00 74 ?",
+        resolve: NONE,
+        extra_off: -1,
+    },
+
     // CVfxProgramData::FindOrCreateStaticComboDataInCache —
     // materialsystem2!sub_1800AE220 (~0x726). Refs the unique log
     // "CVfxProgramData::FindOrCreateStaticComboDataInCache(4448):

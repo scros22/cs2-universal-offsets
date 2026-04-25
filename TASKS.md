@@ -31,6 +31,7 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [x] Source2 VFX/VCS pipeline reconnaissance (runtime HLSL compile path vs static-combo/VCS cache path) with MCP-verified call chains
 - [x] Source2 static-combo path deepening: mapped `sub_180015BC0 -> sub_1800BDAE0 -> sub_1800AE950 -> sub_1800AE220` and documented queue callers for `sub_18003A200`
 - [x] Added robust signature for `sub_1800AE950` cache-gate wrapper (`CVfxProgramData_FindOrCreateStaticComboData_CacheGate`) using a module-unique raw prologue
+- [x] Added compile orchestration signatures: `CMaterial2_GetVertexShaderInputSignature` (`sub_18000C8C0`) and `CMaterialSystem2_DynamicShaderCompile_ReloadAndSync` (`sub_1800355C0`)
 
 ## Scanner
 
@@ -59,6 +60,7 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [ ] Interface-version drift detector (flag any `XXX_VERSIONXXX` change)
 - [ ] Map resourcesystem extension->type registration for Source2 material assets (`vmat_c`/`vfx`/`vcs` family) to document compiled-asset load contract
 - [~] Resolve resourcesystem descriptor consumer path around `aVcompmat` table entries (descriptor blocks identified; dispatch walker still pending)
+- [x] Semantically label compile orchestration helpers (`sub_18000C8C0`, `sub_1800355C0`) in Source2 VFX/VCS notes
 
 ## Memory / backend
 

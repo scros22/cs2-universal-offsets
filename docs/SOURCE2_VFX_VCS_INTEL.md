@@ -25,6 +25,14 @@ This note captures the latest reverse-engineering pass for the
     `Compiled %i shaders (%i cached) in %.1fs`.
   - Calls `materialsystem2!sub_180013FA0` per queued item.
   - Added signature name: `CMaterialSystem2_DynamicShaderCompile_ProcessQueue`.
+- `materialsystem2!sub_18000C8C0`
+  - Vertex input-signature validator path that can feed compile queue when
+    signature vectors are missing/invalid.
+  - Added signature name: `CMaterial2_GetVertexShaderInputSignature`.
+- `materialsystem2!sub_1800355C0`
+  - Reload orchestrator calling unload -> queue process -> shared-state sync.
+  - Added signature name:
+    `CMaterialSystem2_DynamicShaderCompile_ReloadAndSync`.
 - `materialsystem2!sub_180013FA0`
   - `CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile`.
 
@@ -77,6 +85,9 @@ If the goal is custom Source2 shader graphs/material behavior beyond param edits
 - `materialsystem2!sub_1800AE950` is called from `sub_1800BDAE0`.
 - `sub_18000C8C0` emits `CMaterial2::GetVertexShaderInputSignature(...)`
   errors and can trigger compile-queue processing via `sub_18003A200`.
+- `sub_1800355C0` performs unload + recompile orchestration and then runs
+  SRW lock-protected sync over a fixed block, making it a compact lifecycle
+  hook for shader reload events.
 
 ### Resourcesystem evidence for compiled-asset contract mapping
 
@@ -96,9 +107,7 @@ If the goal is custom Source2 shader graphs/material behavior beyond param edits
 
 ## Next reverse targets
 
-1. Name/label `sub_18000C8C0` and `sub_1800355C0` semantically in notes to
-  better describe compile enqueue/reload orchestration (partially done).
-2. Walk code that consumes the resourcesystem descriptor blocks containing
+1. Walk code that consumes the resourcesystem descriptor blocks containing
   `aVcompmat` to fully map extension->type handler dispatch.
-3. Add a small dumper report mode that logs compile-queue and cache outcomes
+2. Add a small dumper report mode that logs compile-queue and cache outcomes
   in one run for quick regression checks across builds.
