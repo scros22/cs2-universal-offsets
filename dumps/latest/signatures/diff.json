@@ -1277,14 +1277,39 @@
       "va": 140720627695744
     },
     {
+      "name": "CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile",
+      "module": "materialsystem2.dll",
+      "va": 140720603414432
+    },
+    {
       "name": "CMaterial2_LoadShadersAndSetupModes",
       "module": "materialsystem2.dll",
       "va": 140720603398208
     },
     {
+      "name": "CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials",
+      "module": "materialsystem2.dll",
+      "va": 140720603568800
+    },
+    {
       "name": "CMaterialSystem2_FrameUpdate",
       "module": "materialsystem2.dll",
       "va": 140720603577024
+    },
+    {
+      "name": "CMaterialSystem2_GetErrorMaterial",
+      "module": "materialsystem2.dll",
+      "va": 140720603428055
+    },
+    {
+      "name": "CMaterialSystem2_Init",
+      "module": "materialsystem2.dll",
+      "va": 140720603557440
+    },
+    {
+      "name": "CVfxProgramData_FindOrCreateStaticComboDataInCache",
+      "module": "materialsystem2.dll",
+      "va": 140720604045536
     },
     {
       "name": "FindParameter",

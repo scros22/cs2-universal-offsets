@@ -276,8 +276,13 @@ public static class Signatures
     }
     public static class materialsystem2
     {
+        public const ulong CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile = 0x7FFC11943FA0UL; // rva 0x13FA0
         public const ulong CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040UL; // rva 0x10040
+        public const ulong CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials = 0x7FFC11969AA0UL; // rva 0x39AA0
         public const ulong CMaterialSystem2_FrameUpdate = 0x7FFC1196BAC0UL; // rva 0x3BAC0
+        public const ulong CMaterialSystem2_GetErrorMaterial = 0x7FFC119474D7UL; // rva 0x174D7
+        public const ulong CMaterialSystem2_Init = 0x7FFC11966E40UL; // rva 0x36E40
+        public const ulong CVfxProgramData_FindOrCreateStaticComboDataInCache = 0x7FFC119DE0E0UL; // rva 0xAE0E0
         public const ulong FindParameter = 0x7FFC11941E30UL; // rva 0x11E30
         public const ulong MatSys__PrepareSceneMaterial = 0x7FFC11941BE0UL; // rva 0x11BE0
         public const ulong UpdateParameter = 0x7FFC11942370UL; // rva 0x12370

@@ -1632,4 +1632,148 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
+
+    // ====================================================================
+    // NUVORA MAY-01-2026 EXPANSION v10 (build 14155 — VMAT / shader pipeline)
+    //
+    // The "real PBR chams" recipe documented in v9 needs a *real* CMaterial2
+    // to point CSkeletonInstance::SetMaterialGroup at. These six anchors
+    // expose every entry on the CMaterialSystem2 / CMaterial2 / CVfxProgramData
+    // pipeline you need to LOAD, COMPILE, and SWAP a custom .vmat_c at
+    // runtime — without round-tripping through the resource system from the
+    // file system.
+    //
+    // Pipeline (all on materialsystem2.dll, build 14155):
+    //   1. CMaterialSystem2::Init                 (sub_180036E40)
+    //         constructs g_pMaterialSystem2, the type-manager, the shader
+    //         cache, and the error-material fallback. Hook to inject your
+    //         own material-type allocator before any vmat is parsed.
+    //   2. CMaterialSystem2::GetErrorMaterial     (sub_180016D10)
+    //         the fallback CMaterial2*. Useful to force-return YOUR custom
+    //         gold/silver chams material from here for a quick global swap
+    //         without touching every entity.
+    //   3. CMaterial2::LoadShadersAndSetupModes   (sub_180010040)
+    //         every CMaterial2 finishing parse routes through here to
+    //         load + bind shader passes. Hook to substitute the shader
+    //         entry (e.g. force csgo_character.vfx) or rewrite param
+    //         tables (g_flMetalness=1.0, g_flRoughness=0.05, etc.)
+    //         BEFORE the static combo is compiled.
+    //   4. CMaterial2::CompileComboAndGetVariables_DynamicShaderCompile
+    //                                             (sub_180013FA0)
+    //         dynamic shader-permutation compile path. Hook to log every
+    //         combo a custom material asks for, or to short-circuit a slow
+    //         compile by returning a pre-warmed permutation.
+    //   5. CVfxProgramData::FindOrCreateStaticComboDataInCache
+    //                                             (sub_1800AE220)
+    //         the lower-level shader-cache lookup that 3 & 4 funnel into.
+    //         Hook to share static combos across runtime-injected materials
+    //         (cheap chams across many entities = one combo).
+    //   6. CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials
+    //                                             (sub_180039AA0)
+    //         called by `mat_reloadshaders` ConCommand. Hook to also
+    //         re-upload your custom chams material on a hot-reload so
+    //         devs iterating on shaders don't lose the override.
+    //
+    // All six are STRREF-anchored on log strings with exactly ONE xref each
+    // (verified via mcp_ida-pro-mcp_xref_query). The strings are literal
+    // C source-file LOG_ERROR / Plat_FatalError messages and are extremely
+    // stable across patches — they have not changed since at least 14154.
+    //
+    // RTTI strings `.?AVIMaterial2@@` @ 0x180146F98 and `.?AVCMaterial2@@`
+    // @ 0x1801473C0 are also present in materialsystem2.dll — keep these
+    // in mind for future ResolveKind::Vftable work to expose
+    // IMaterial2::SetParam / Bind / GetShaderName slots directly.
+    // ====================================================================
+
+    // CMaterialSystem2::Init — materialsystem2!sub_180036E40 (~0x132B).
+    // Refs the literal "MaterialSystem2" subsystem-name string.
+    // First-touch hook for installing your own CMaterialResource
+    // type-manager or pre-seeding the shader cache with custom
+    // permutations BEFORE the engine loads any .vmat_c.
+    Signature {
+        name: "CMaterialSystem2_Init",
+        module: "materialsystem2.dll",
+        needle: "MaterialSystem2",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CMaterialSystem2::GetErrorMaterial — materialsystem2!sub_180016D10
+    // (~0x9B9). Refs the unique fatal-spew string
+    // "CMaterialSystem2::GetErrorMaterial(529): GetErrorMaterial()
+    // called when m_pMaterialTypeManager == NULL!". Returns the
+    // engine-wide fallback CMaterial2*. Hook to substitute YOUR
+    // custom gold/silver csgo_character chams material as the
+    // global error fallback for a one-line "everything missing
+    // becomes chams" trick.
+    Signature {
+        name: "CMaterialSystem2_GetErrorMaterial",
+        module: "materialsystem2.dll",
+        needle: "CMaterialSystem2::GetErrorMaterial(529): GetErrorMaterial() called when m_pMaterialTypeManager == NULL!\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // (NOTE: CMaterial2::LoadShadersAndSetupModes is already shipped
+    // earlier as a raw byte signature anchored on its prologue and
+    // resolves correctly to the function start. Adding a duplicate
+    // STRREF entry was redundant and resolved to the lea instruction
+    // mid-function instead of the prologue, so it is omitted here.
+    // The string anchor "\nCMaterial2::LoadShadersAndSetupModes(1543):
+    // Error! Material \"%s\" is already loaded!\n" remains the unique
+    // STRREF anchor for that function on build 14155 if a future raw
+    // pattern goes stale.)
+
+    // CMaterial2::CompileComboAndGetVariables_DynamicShaderCompile —
+    // materialsystem2!sub_180013FA0 (~0x95E). Refs the unique source
+    // path string "CompileComboAndGetVariables_DynamicShaderCompile(),
+    // C:\\buildworker\\csgo_rel_win64\\build\\src\\materialsystem2\\
+    // material2.cpp:2786" (1 xref). Dynamic shader-permutation compile
+    // path — every novel combo (e.g. your gold chams running with a
+    // never-seen-before lighting/skinning combo) lands here. Hook to:
+    //   - log permutation requests for warmup baking
+    //   - short-circuit slow compiles by serving a pre-built combo
+    //   - measure compile-stall hitches on first-frame-with-chams
+    Signature {
+        name: "CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile",
+        module: "materialsystem2.dll",
+        needle: "CompileComboAndGetVariables_DynamicShaderCompile(), C:\\buildworker\\csgo_rel_win64\\build\\src\\materialsystem2\\material2.cpp:2786",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CVfxProgramData::FindOrCreateStaticComboDataInCache —
+    // materialsystem2!sub_1800AE220 (~0x726). Refs the unique log
+    // "CVfxProgramData::FindOrCreateStaticComboDataInCache(4448):
+    // Error! Ref count !=0 for static combo data cache entry!"
+    // (1 xref). The actual shader-static-combo cache lookup that
+    // CompileComboAndGetVariables funnels into. Hook here to share
+    // a single compiled static combo across many runtime-injected
+    // chams materials (e.g. all five enemies wearing your gold
+    // material -> one cache entry, not five).
+    Signature {
+        name: "CVfxProgramData_FindOrCreateStaticComboDataInCache",
+        module: "materialsystem2.dll",
+        needle: "CVfxProgramData::FindOrCreateStaticComboDataInCache(4448): Error! Ref count !=0 for static combo data cache entry!\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials —
+    // materialsystem2!sub_180039AA0 (~0x757). Refs the unique log
+    // "CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials
+    // (1084): ERROR!!! Shaders not freed before shader reload!"
+    // (1 xref). Driven by the `mat_reloadshaders` /
+    // `mat_forcereloadshaders` ConCommands. Hook to:
+    //   - re-upload your custom chams CMaterial2 after the engine
+    //     wipes its compiled-shader cache
+    //   - detect when a dev fires `mat_reloadshaders` so chams
+    //     overrides survive iterative shader work
+    Signature {
+        name: "CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials",
+        module: "materialsystem2.dll",
+        needle: "CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials(1084): ERROR!!! Shaders not freed before shader reload! (See spew above)\n\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
 ];

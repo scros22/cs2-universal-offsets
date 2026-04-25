@@ -4062,7 +4062,7 @@ namespace cs2::vtables {
             inline constexpr std::ptrdiff_t method_0                                         =    0; // materialsystem2.dll + 0x384F0
             inline constexpr std::ptrdiff_t method_1                                         =    1; // materialsystem2.dll + 0x38560
             inline constexpr std::ptrdiff_t method_2                                         =    2; // materialsystem2.dll + 0x233A0
-            inline constexpr std::ptrdiff_t method_3                                         =    3; // materialsystem2.dll + 0x36E40
+            inline constexpr std::ptrdiff_t CMaterialSystem2_Init                            =    3; // materialsystem2.dll + 0x36E40
             inline constexpr std::ptrdiff_t method_4                                         =    4; // materialsystem2.dll + 0x38300
             inline constexpr std::ptrdiff_t method_5                                         =    5; // materialsystem2.dll + 0x382F0
             inline constexpr std::ptrdiff_t method_6                                         =    6; // materialsystem2.dll + 0x363C0

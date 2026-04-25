@@ -272,8 +272,13 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t Engine_RegisterConVar = 0x7FFC1306C080; // rva 0x3FC080
     }
     namespace materialsystem2 {
+        inline constexpr std::uintptr_t CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile = 0x7FFC11943FA0; // rva 0x13FA0
         inline constexpr std::uintptr_t CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040; // rva 0x10040
+        inline constexpr std::uintptr_t CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials = 0x7FFC11969AA0; // rva 0x39AA0
         inline constexpr std::uintptr_t CMaterialSystem2_FrameUpdate = 0x7FFC1196BAC0; // rva 0x3BAC0
+        inline constexpr std::uintptr_t CMaterialSystem2_GetErrorMaterial = 0x7FFC119474D7; // rva 0x174D7
+        inline constexpr std::uintptr_t CMaterialSystem2_Init = 0x7FFC11966E40; // rva 0x36E40
+        inline constexpr std::uintptr_t CVfxProgramData_FindOrCreateStaticComboDataInCache = 0x7FFC119DE0E0; // rva 0xAE0E0
         inline constexpr std::uintptr_t FindParameter = 0x7FFC11941E30; // rva 0x11E30
         inline constexpr std::uintptr_t MatSys__PrepareSceneMaterial = 0x7FFC11941BE0; // rva 0x11BE0
         inline constexpr std::uintptr_t UpdateParameter = 0x7FFC11942370; // rva 0x12370
