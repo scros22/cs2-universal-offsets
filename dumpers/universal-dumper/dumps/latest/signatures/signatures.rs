@@ -27,6 +27,8 @@ pub mod client {
     pub const CAttributeStringInit: usize = 0x7FFBFFCE8600;
     /// rva 0x223C70
     pub const CBaseEntity_TakeDamageOld: usize = 0x7FFBFF913C70;
+    /// rva 0x8D87F0
+    pub const CBaseModelEntity_SetBodygroup: usize = 0x7FFBFFFC87F0;
     /// rva 0x1BC0B0
     pub const CBodyComponent: usize = 0x7FFBFF8AC0B0;
     /// rva 0x1C2F90
@@ -115,6 +117,8 @@ pub mod client {
     pub const CGameTrace_TraceShape_Client: usize = 0x7FFC0007D340;
     /// rva 0x2E10F0
     pub const CGlowProperty: usize = 0x7FFBFF9D10F0;
+    /// rva 0x2E10F0
+    pub const CGlowProperty_OnDataChanged: usize = 0x7FFBFF9D10F0;
     /// rva 0xFDDBD0
     pub const CHEGrenadeProjectile: usize = 0x7FFC006CDBD0;
     /// rva 0x20613C0
@@ -133,6 +137,12 @@ pub mod client {
     pub const CSkeletonInstance: usize = 0x7FFBFF893970;
     /// rva 0xA2C3F0
     pub const CSkeletonInstance__SetMeshGroupMask: usize = 0x7FFC0011C3F0;
+    /// rva 0xA18F60
+    pub const CSkeletonInstance_GetTransformsForHitboxList: usize = 0x7FFC00108F60;
+    /// rva 0xA24D50
+    pub const CSkeletonInstance_PostDataUpdate: usize = 0x7FFC00114D50;
+    /// rva 0x1BC0B0
+    pub const CSkeletonInstance_SetMaterialGroup: usize = 0x7FFBFF8AC0B0;
     /// rva 0x74E320
     pub const CSmokeGrenadeProjectile: usize = 0x7FFBFFE3E320;
     /// rva 0x257BE0
@@ -496,6 +506,8 @@ pub mod engine2 {
     pub const Engine_HLTVClient_ExecuteStringCommand: usize = 0x7FFC12D90D70;
     /// rva 0x21AFC0
     pub const Engine_HostStateMgr_QueueNewRequest: usize = 0x7FFC12E8AFC0;
+    /// rva 0x21AFC0
+    pub const Engine_HostStateMgr_QueueNewRequest: usize = 0x7FFC12E8AFC0;
     /// rva 0x18D760
     pub const Engine_LoadGameInfo: usize = 0x7FFC12DFD760;
     /// rva 0x193440
@@ -556,6 +568,15 @@ pub mod rendersystemdx11 {
     pub const RenderSystemDx11_SetHardwareGammaRamp: usize = 0x7FFC125AF790;
     /// rva 0x399E0
     pub const RenderSystemDx11_SetMode: usize = 0x7FFC125A99E0;
+}
+
+pub mod resourcesystem {
+    /// rva 0x17360
+    pub const ResourceSystem_BlockingLoadResourceByName: usize = 0x7FFC5B0A7360;
+    /// rva 0x16D80
+    pub const ResourceSystem_FindOrRegisterResourceByName: usize = 0x7FFC5B0A6D80;
+    /// rva 0x1C010
+    pub const ResourceSystem_FrameUpdate: usize = 0x7FFC5B0AC010;
 }
 
 pub mod scenesystem {

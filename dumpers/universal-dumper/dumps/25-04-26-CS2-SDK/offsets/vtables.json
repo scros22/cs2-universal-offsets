@@ -27824,7 +27824,7 @@
         {
           "index": 41,
           "module": "resourcesystem.dll",
-          "name": "method_41",
+          "name": "ResourceSystem_BlockingLoadResourceByName",
           "rva": "0x17360"
         },
         {
@@ -28052,7 +28052,7 @@
         {
           "index": 79,
           "module": "resourcesystem.dll",
-          "name": "method_79",
+          "name": "ResourceSystem_FindOrRegisterResourceByName",
           "rva": "0x16D80"
         },
         {

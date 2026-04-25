@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**279/325 signatures resolved across 10 module(s).**
+**288/334 signatures resolved across 11 module(s).**
 
 ## `animationsystem.dll`
 
@@ -24,6 +24,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CAttributeStringFill` | `rel32` | `0x7FFC0059C570` | `0xEAC570` | `E8 ? ? ? ? 41 83 CF 08` |
 | `CAttributeStringInit` | `rel32` | `0x7FFBFFCE8600` | `0x5F8600` | `E8 ? ? ? ? 48 8D 05 ? ? ? ? 48 89 7D ? 48 89 45 ? 49 8D 4F` |
 | `CBaseEntity_TakeDamageOld` | `raw` | `0x7FFBFF913C70` | `0x223C70` | `40 55 53 56 57 41 54 48 8D 6C 24 E0 48 81 EC 20 01 00 00 4D 8B E0 48 8B FA 48 8B F1 E8` |
+| `CBaseModelEntity_SetBodygroup` | `raw` | `0x7FFBFFFC87F0` | `0x8D87F0` | `85 D2 0F 88 CB 01 00 00 55 53 56 41 56 48 8B EC 48 83 EC 78 45 8B F0 8B DA 48 8B F1 E8 ? ? ?` |
 | `CBodyComponent` | `stringref` | `0x7FFBFF8AC0B0` | `0x1BC0B0` | `"CBodyComponent"` |
 | `CBodyComponentSkeletonInstance` | `stringref` | `0x7FFBFF8B2F90` | `0x1C2F90` | `"CBodyComponentSkeletonInstance"` |
 | `CBufferStringInit` | `raw` | `0x7FFC00ED0160` | `0x17E0160` | `48 89 5C 24 ? 57 48 83 EC ? 8B 41 ? 48 8D 79` |
@@ -68,6 +69,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CGameSceneNode_StartHierarchicalAttachment` | `raw` | `0x7FFC0007AE80` | `0x98AE80` | `48 89 5C 24 10 48 89 6C 24 18 48 89 74 24 20 57 41 54 41 55 41 56 41 57 48 83 EC 30 48 8B F9 8B` |
 | `CGameTrace_TraceShape_Client` | `raw` | `0x7FFC0007D340` | `0x98D340` | `48 89 5C 24 20 48 89 4C 24 08 55 57 41 54 41 55 41 56 48 8D AC 24 10 E0 FF FF B8 F0 20 00 00` |
 | `CGlowProperty` | `stringref` | `0x7FFBFF9D10F0` | `0x2E10F0` | `"CGlowProperty"` |
+| `CGlowProperty_OnDataChanged` | `raw` | `0x7FFBFF9D10F0` | `0x2E10F0` | `48 83 EC 58 83 F9 01 0F 85 A5 00 00 00 48 8D 05 ? ? ? ? C7 44 24 30 00 00 00 80 89 4C 24 28` |
 | `CHEGrenadeProjectile` | `stringref` | `0x7FFC006CDBD0` | `0xFDDBD0` | `"CHEGrenadeProjectile"` |
 | `CInputPtrGlobal` | `riprel` | `0x7FFC017513C0` | `0x20613C0` | `4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00 85 C0` |
 | `CMolotovProjectile` | `stringref` | `0x7FFBFFE3E280` | `0x74E280` | `"CMolotovProjectile"` |
@@ -77,6 +79,9 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CSGOInput_resolved` | `riprel` | `0x7FFC017513C7` | `0x20613C7` | `48 8B 0D ? ? ? ? 8B 10 E8 ? ? ? ? 45 32 FF` |
 | `CSkeletonInstance` | `stringref` | `0x7FFBFF893970` | `0x1A3970` | `"CSkeletonInstance"` |
 | `CSkeletonInstance::SetMeshGroupMask` | `raw` | `0x7FFC0011C3F0` | `0xA2C3F0` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8D 99` |
+| `CSkeletonInstance_GetTransformsForHitboxList` | `raw` | `0x7FFC00108F60` | `0xA18F60` | `48 89 5C 24 18 55 56 57 41 55 41 57 48 81 EC A0 00 00 00 49 63 28 4D 8B F8 48 8B FA 48 8B D9 85` |
+| `CSkeletonInstance_PostDataUpdate` | `raw` | `0x7FFC00114D50` | `0xA24D50` | `48 8B C4 4C 89 40 18 89 50 10 55 57 48 8D A8 68 FE FF FF 48 81 EC 88 02 00 00 48 89 70 E0 48 8B` |
+| `CSkeletonInstance_SetMaterialGroup` | `raw` | `0x7FFBFF8AC0B0` | `0x1BC0B0` | `48 83 EC 38 48 8B 05 ? ? ? ? 48 85 C0 0F 85 C6 0A 00 00 48 89 5C 24 40 B9 50 00 00 00 48 89` |
 | `CSmokeGrenadeProjectile` | `stringref` | `0x7FFBFFE3E320` | `0x74E320` | `"CSmokeGrenadeProjectile"` |
 | `CTonemapController2` | `stringref` | `0x7FFBFF947BE0` | `0x257BE0` | `"CTonemapController2"` |
 | `C_AttributeContainer` | `stringref` | `0x7FFC003065E0` | `0xC165E0` | `"C_AttributeContainer"` |
@@ -262,6 +267,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `Engine_Disconnect_main` | `raw` | `0x7FFC12E41510` | `0x1D1510` | `48 89 5C 24 20 55 57 41 54 48 8B EC 48 83 EC 70 45 33 E4 48 C7 05` |
 | `Engine_HLTVClient_ExecuteStringCommand` | `raw` | `0x7FFC12D90D70` | `0x120D70` | `40 53 56 48 81 EC 48 07 00 00 48 8B F1 48 8B DA 48 8B 4A 48 48 83 E1 FC 48 83 79 18 0F 76 03 48` |
 | `Engine_HostStateMgr_QueueNewRequest` | `raw` | `0x7FFC12E8AFC0` | `0x21AFC0` | `48 89 6C 24 18 48 89 7C 24 20 41 56 48 83 EC 30 48 8B EA 48 8B F9 8B 0D ? ? ? ? BA 02 00 00` |
+| `Engine_HostStateMgr_QueueNewRequest` | `raw` | `0x7FFC12E8AFC0` | `0x21AFC0` | `48 89 6C 24 18 48 89 7C 24 20 41 56 48 83 EC 30 48 8B EA 48 8B F9 8B 0D ? ? ? ? BA 02 00 00` |
 | `Engine_LoadGameInfo` | `raw` | `0x7FFC12DFD760` | `0x18D760` | `40 55 56 41 56 48 8D 6C 24 F0 48 81 EC 10 01 00 00 4C 8B F1 C7 44 24 40 00 00 00 00 48 8B CA 48` |
 | `Engine_MountAddon` | `raw` | `0x7FFC12E03440` | `0x193440` | `48 85 D2 0F 84 DA 0A 00 00 48 8B C4 44 88 40 18 55 57 41 54 41 57 48 8D A8 C8 FC FF FF 48 81 EC` |
 | `Engine_NetTimeoutDisconnect` | `raw` | `0x7FFC12CD9780` | `0x69780` | `40 53 55 56 57 41 56 48 81 EC 80 00 00 00 0F 29 74 24 70 49 8B F8` |
@@ -306,6 +312,14 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `RenderSystemDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
 | `RenderSystemDx11_SetHardwareGammaRamp` | `raw` | `0x7FFC125AF790` | `0x3F790` | `48 89 5C 24 18 57 B8 B0 40 00 00 E8 ? ? ? ? 48 2B E0 0F 29 BC 24 90 40 00 00 0F 57 C9 0F 28` |
 | `RenderSystemDx11_SetMode` | `raw` | `0x7FFC125A99E0` | `0x399E0` | `44 89 4C 24 20 44 89 44 24 18 89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 81 EC D8 02 00` |
+
+## `resourcesystem.dll`
+
+| Name | Resolve | VA | RVA | Pattern |
+| --- | --- | --- | --- | --- |
+| `ResourceSystem_BlockingLoadResourceByName` | `raw` | `0x7FFC5B0A7360` | `0x17360` | `40 53 55 57 48 81 EC 80 00 00 00 48 8B 01 49 8B E8 48 8B FA 48 8B D9 FF 90 98 01 00 00 83 F8 03` |
+| `ResourceSystem_FindOrRegisterResourceByName` | `raw` | `0x7FFC5B0A6D80` | `0x16D80` | `48 89 5C 24 18 48 89 74 24 20 57 48 81 EC A0 00 00 00 F7 02 FF FF FF 3F 41 0F B6 F8 48 8B DA 48` |
+| `ResourceSystem_FrameUpdate` | `raw` | `0x7FFC5B0AC010` | `0x1C010` | `44 88 4C 24 20 44 89 44 24 18 89 54 24 10 55 56 41 54 41 55 41 56 48 8D 6C 24 A0 48 81 EC 60 01` |
 
 ## `scenesystem.dll`
 
