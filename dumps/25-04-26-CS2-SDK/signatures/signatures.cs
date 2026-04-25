@@ -281,6 +281,8 @@ public static class Signatures
     }
     public static class rendersystemdx11
     {
+        public const ulong CSwapChainDx11_QueuePresentAndWait = 0x7FFC125A4650UL; // rva 0x34650
+        public const ulong CSwapChainDx11_ResizeBuffers = 0x7FFC125ADD20UL; // rva 0x3DD20
         public const ulong RenderSystemDx11_QueuePresentAndWait = 0x7FFC125A4650UL; // rva 0x34650
         public const ulong RenderSystemDx11_SetHardwareGammaRamp = 0x7FFC125AF790UL; // rva 0x3F790
         public const ulong RenderSystemDx11_SetMode = 0x7FFC125A99E0UL; // rva 0x399E0
@@ -288,10 +290,12 @@ public static class Signatures
     public static class scenesystem
     {
         public const ulong CSceneAnimatableObject__GeneratePrimitives = 0x7FFC0A683520UL; // rva 0x73520
+        public const ulong CSceneSystem_RenderViewLayer_Dispatch = 0x7FFC0A6FDD80UL; // rva 0xEDD80
         public const ulong DrawObject_legacy = 0x7FFC0A665BC0UL; // rva 0x55BC0
         public const ulong DrawSkyboxArray = 0x7FFC0A75FB90UL; // rva 0x14FB90
         public const ulong SceneSystem__DrawAggeregateObject = 0x7FFC0A73CF50UL; // rva 0x12CF50
         public const ulong SceneSystem__DrawArrayLight = 0x7FFC0A68AAC0UL; // rva 0x7AAC0
+        public const ulong SceneSystem_Thread_RenderSceneDrawList = 0x7FFC0A6FDA30UL; // rva 0xEDA30
     }
     public static class soundsystem
     {

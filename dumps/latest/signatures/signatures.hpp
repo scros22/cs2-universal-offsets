@@ -274,16 +274,20 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t Particles__SetMaterialShaderType = 0x7FFC09ECD8D0; // rva 0x9D8D0
     }
     namespace rendersystemdx11 {
+        inline constexpr std::uintptr_t CSwapChainDx11_QueuePresentAndWait = 0x7FFC125A4650; // rva 0x34650
+        inline constexpr std::uintptr_t CSwapChainDx11_ResizeBuffers = 0x7FFC125ADD20; // rva 0x3DD20
         inline constexpr std::uintptr_t RenderSystemDx11_QueuePresentAndWait = 0x7FFC125A4650; // rva 0x34650
         inline constexpr std::uintptr_t RenderSystemDx11_SetHardwareGammaRamp = 0x7FFC125AF790; // rva 0x3F790
         inline constexpr std::uintptr_t RenderSystemDx11_SetMode = 0x7FFC125A99E0; // rva 0x399E0
     }
     namespace scenesystem {
         inline constexpr std::uintptr_t CSceneAnimatableObject__GeneratePrimitives = 0x7FFC0A683520; // rva 0x73520
+        inline constexpr std::uintptr_t CSceneSystem_RenderViewLayer_Dispatch = 0x7FFC0A6FDD80; // rva 0xEDD80
         inline constexpr std::uintptr_t DrawObject_legacy = 0x7FFC0A665BC0; // rva 0x55BC0
         inline constexpr std::uintptr_t DrawSkyboxArray = 0x7FFC0A75FB90; // rva 0x14FB90
         inline constexpr std::uintptr_t SceneSystem__DrawAggeregateObject = 0x7FFC0A73CF50; // rva 0x12CF50
         inline constexpr std::uintptr_t SceneSystem__DrawArrayLight = 0x7FFC0A68AAC0; // rva 0x7AAC0
+        inline constexpr std::uintptr_t SceneSystem_Thread_RenderSceneDrawList = 0x7FFC0A6FDA30; // rva 0xEDA30
     }
     namespace soundsystem {
         inline constexpr std::uintptr_t SoundSystem__PlayVSound = 0x7FFC0E729840; // rva 0x349840

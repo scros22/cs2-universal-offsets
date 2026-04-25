@@ -535,6 +535,10 @@ pub mod particles {
 
 pub mod rendersystemdx11 {
     /// rva 0x34650
+    pub const CSwapChainDx11_QueuePresentAndWait: usize = 0x7FFC125A4650;
+    /// rva 0x3DD20
+    pub const CSwapChainDx11_ResizeBuffers: usize = 0x7FFC125ADD20;
+    /// rva 0x34650
     pub const RenderSystemDx11_QueuePresentAndWait: usize = 0x7FFC125A4650;
     /// rva 0x3F790
     pub const RenderSystemDx11_SetHardwareGammaRamp: usize = 0x7FFC125AF790;
@@ -545,6 +549,8 @@ pub mod rendersystemdx11 {
 pub mod scenesystem {
     /// rva 0x73520
     pub const CSceneAnimatableObject__GeneratePrimitives: usize = 0x7FFC0A683520;
+    /// rva 0xEDD80
+    pub const CSceneSystem_RenderViewLayer_Dispatch: usize = 0x7FFC0A6FDD80;
     /// rva 0x55BC0
     pub const DrawObject_legacy: usize = 0x7FFC0A665BC0;
     /// rva 0x14FB90
@@ -553,6 +559,8 @@ pub mod scenesystem {
     pub const SceneSystem__DrawAggeregateObject: usize = 0x7FFC0A73CF50;
     /// rva 0x7AAC0
     pub const SceneSystem__DrawArrayLight: usize = 0x7FFC0A68AAC0;
+    /// rva 0xEDA30
+    pub const SceneSystem_Thread_RenderSceneDrawList: usize = 0x7FFC0A6FDA30;
 }
 
 pub mod soundsystem {

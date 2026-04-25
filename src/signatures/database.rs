@@ -1236,4 +1236,61 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v6 (build 14155 — present / scene render)
+    // ====================================================================
+
+    // CSwapChainBase::QueuePresentAndWait — rendersystemdx11!
+    // sub_180034650. Refs "CSwapChainBase::QueuePresentAndWait()
+    // looped for %d iterations without a present event.". The
+    // engine-level wrapper around IDXGISwapChain::Present.
+    // GOLD STANDARD frame hook for ImGui menus, ESP overlay,
+    // chams setup — runs every present, has full device context.
+    Signature {
+        name: "CSwapChainDx11_QueuePresentAndWait",
+        module: "rendersystemdx11.dll",
+        needle: "40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // Swapchain ResizeBuffers — rendersystemdx11!sub_18003DD20. Refs
+    // both "m_pSwapChain->ResizeTarget(...)" and "m_pSwapChain->
+    // ResizeBuffers(...)" (two strings, single function). Hook to
+    // re-create your render targets / ImGui backbuffer view when
+    // window is resized or fullscreen toggled — without this, an
+    // ImGui hook breaks on every alt-tab/resize.
+    Signature {
+        name: "CSwapChainDx11_ResizeBuffers",
+        module: "rendersystemdx11.dll",
+        needle: "48 8B C4 55 53 56 57 41 54 48 8B EC 48 83 EC 70 4C 89 68 10 4D 8B E0 4C 89 70 18 4C 8B EA 4C 89",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // Thread_RenderSceneDrawList — scenesystem!sub_1800EDA30. Refs
+    // "Thread_RenderSceneDrawList" job name (single hit). Per-view
+    // scene draw-list submission. Useful as a per-view render hook
+    // (e.g. inject world-space chams pass before submission).
+    Signature {
+        name: "SceneSystem_Thread_RenderSceneDrawList",
+        module: "scenesystem.dll",
+        needle: "40 55 53 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 E1 48 81 EC D8 00 00 00 4C 8B 71 28 48 8B D9",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CSceneSystem RenderViewLayer — scenesystem!sub_1800EDD80
+    // (~0xEE6 bytes). One of two functions referencing the
+    // "Thread_RenderViewLayer" job name string. The big per-layer
+    // dispatcher that walks scene objects and submits draw work.
+    // Hook for layered overlay injection / draw-call replacement.
+    Signature {
+        name: "CSceneSystem_RenderViewLayer_Dispatch",
+        module: "scenesystem.dll",
+        needle: "48 8B C4 48 89 48 08 55 53 56 57 41 54 41 55 41 56 41 57 48 8D A8 B8 FE FF FF 48 81 EC 08 02 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
 ];

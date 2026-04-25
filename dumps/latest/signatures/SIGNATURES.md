@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**269/315 signatures resolved across 10 module(s).**
+**273/319 signatures resolved across 10 module(s).**
 
 ## `animationsystem.dll`
 
@@ -295,6 +295,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
+| `CSwapChainDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
+| `CSwapChainDx11_ResizeBuffers` | `raw` | `0x7FFC125ADD20` | `0x3DD20` | `48 8B C4 55 53 56 57 41 54 48 8B EC 48 83 EC 70 4C 89 68 10 4D 8B E0 4C 89 70 18 4C 8B EA 4C 89` |
 | `RenderSystemDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
 | `RenderSystemDx11_SetHardwareGammaRamp` | `raw` | `0x7FFC125AF790` | `0x3F790` | `48 89 5C 24 18 57 B8 B0 40 00 00 E8 ? ? ? ? 48 2B E0 0F 29 BC 24 90 40 00 00 0F 57 C9 0F 28` |
 | `RenderSystemDx11_SetMode` | `raw` | `0x7FFC125A99E0` | `0x399E0` | `44 89 4C 24 20 44 89 44 24 18 89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 81 EC D8 02 00` |
@@ -304,10 +306,12 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
 | `CSceneAnimatableObject::GeneratePrimitives` | `raw` | `0x7FFC0A683520` | `0x73520` | `48 8B C4 48 89 58 08 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ?` |
+| `CSceneSystem_RenderViewLayer_Dispatch` | `raw` | `0x7FFC0A6FDD80` | `0xEDD80` | `48 8B C4 48 89 48 08 55 53 56 57 41 54 41 55 41 56 41 57 48 8D A8 B8 FE FF FF 48 81 EC 08 02 00` |
 | `DrawObject_legacy` | `raw` | `0x7FFC0A665BC0` | `0x55BC0` | `48 8B C4 53 57 41 54 48 81 EC D0 00 00 00 49 63 F9 49` |
 | `DrawSkyboxArray` | `raw` | `0x7FFC0A75FB90` | `0x14FB90` | `45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55` |
 | `SceneSystem::DrawAggeregateObject` | `raw` | `0x7FFC0A73CF50` | `0x12CF50` | `48 8B C4 4C 89 48 20 4C 89 40 ? 48 89 50 ? 55 53 41 57 48 8D A8` |
 | `SceneSystem::DrawArrayLight` | `raw` | `0x7FFC0A68AAC0` | `0x7AAC0` | `48 89 5C 24 ? 48 89 6C 24 ? 48 89 54 24` |
+| `SceneSystem_Thread_RenderSceneDrawList` | `raw` | `0x7FFC0A6FDA30` | `0xEDA30` | `40 55 53 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 E1 48 81 EC D8 00 00 00 4C 8B 71 28 48 8B D9` |
 
 ## `soundsystem.dll`
 
