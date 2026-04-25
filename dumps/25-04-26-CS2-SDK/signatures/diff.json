@@ -372,6 +372,11 @@
       "va": 140720306988128
     },
     {
+      "name": "CalcViewmodelView",
+      "module": "client.dll",
+      "va": 140720311998928
+    },
+    {
       "name": "CalculateInterpolation",
       "module": "client.dll",
       "va": 140720320763392
@@ -582,9 +587,19 @@
       "va": 140720308287984
     },
     {
+      "name": "GetLocalPlayer_dispatcher",
+      "module": "client.dll",
+      "va": 140720302625104
+    },
+    {
       "name": "GetMatrixForView",
       "module": "client.dll",
       "va": 140720300465056
+    },
+    {
+      "name": "GetPlayerByIndex_export",
+      "module": "client.dll",
+      "va": 140720314704256
     },
     {
       "name": "GetPlayerInterp",
@@ -782,6 +797,11 @@
       "va": 140720309314448
     },
     {
+      "name": "RunCommand_processor",
+      "module": "client.dll",
+      "va": 140720309314448
+    },
+    {
       "name": "Scope_callsite",
       "module": "client.dll",
       "va": 140720307748848
@@ -888,6 +908,11 @@
     },
     {
       "name": "TraceShape",
+      "module": "client.dll",
+      "va": 140720308998976
+    },
+    {
+      "name": "TraceShape_Client",
       "module": "client.dll",
       "va": 140720308998976
     },
@@ -1097,6 +1122,16 @@
       "va": 140720625423632
     },
     {
+      "name": "Engine_HLTVClient_ExecuteStringCommand",
+      "module": "engine2.dll",
+      "va": 140720624700784
+    },
+    {
+      "name": "Engine_HostStateMgr_QueueNewRequest",
+      "module": "engine2.dll",
+      "va": 140720625725376
+    },
+    {
       "name": "Engine_NetTimeoutDisconnect",
       "module": "engine2.dll",
       "va": 140720623949696
@@ -1105,6 +1140,16 @@
       "name": "Engine_RegisterConCommand",
       "module": "engine2.dll",
       "va": 140720627700336
+    },
+    {
+      "name": "Engine_RegisterConVar",
+      "module": "engine2.dll",
+      "va": 140720627695744
+    },
+    {
+      "name": "CMaterial2_LoadShadersAndSetupModes",
+      "module": "materialsystem2.dll",
+      "va": 140720603398208
     },
     {
       "name": "FindParameter",
@@ -1145,6 +1190,21 @@
       "name": "Particles::SetMaterialShaderType",
       "module": "particles.dll",
       "va": 140720475003088
+    },
+    {
+      "name": "RenderSystemDx11_QueuePresentAndWait",
+      "module": "rendersystemdx11.dll",
+      "va": 140720616392272
+    },
+    {
+      "name": "RenderSystemDx11_SetHardwareGammaRamp",
+      "module": "rendersystemdx11.dll",
+      "va": 140720616437648
+    },
+    {
+      "name": "RenderSystemDx11_SetMode",
+      "module": "rendersystemdx11.dll",
+      "va": 140720616413664
     },
     {
       "name": "CSceneAnimatableObject::GeneratePrimitives",

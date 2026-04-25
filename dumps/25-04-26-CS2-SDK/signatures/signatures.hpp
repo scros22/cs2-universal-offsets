@@ -85,6 +85,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CalcSpread = 0x7FFC0036C6F0; // rva 0xC7C6F0
         inline constexpr std::uintptr_t CalcViewmodel = 0x7FFBFFF3E040; // rva 0x84E040
         inline constexpr std::uintptr_t CalcViewmodelTransform_v2 = 0x7FFBFFE92460; // rva 0x7A2460
+        inline constexpr std::uintptr_t CalcViewmodelView = 0x7FFC003599D0; // rva 0xC699D0
         inline constexpr std::uintptr_t CalculateInterpolation = 0x7FFC00BB5600; // rva 0x14C5600
         inline constexpr std::uintptr_t CalculateWorldSpaceBones = 0x7FFC000F9910; // rva 0xA09910
         inline constexpr std::uintptr_t ClearHUDWeaponIcon = 0x7FFC004DB720; // rva 0xDEB720
@@ -127,7 +128,9 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t GetInt2_Event = 0x7FFBFFB9AA90; // rva 0x4AAA90
         inline constexpr std::uintptr_t GetInventoryManager = 0x7FFBFFEB6370; // rva 0x7C6370
         inline constexpr std::uintptr_t GetLocalControllerById = 0x7FFBFFFCF9F0; // rva 0x8DF9F0
+        inline constexpr std::uintptr_t GetLocalPlayer_dispatcher = 0x7FFBFFA69150; // rva 0x379150
         inline constexpr std::uintptr_t GetMatrixForView = 0x7FFBFF859BA0; // rva 0x169BA0
+        inline constexpr std::uintptr_t GetPlayerByIndex_export = 0x7FFC005EE180; // rva 0xEFE180
         inline constexpr std::uintptr_t GetPlayerInterp = 0x7FFBFFFA7DE0; // rva 0x8B7DE0
         inline constexpr std::uintptr_t GetRemovedAimPunch_E8 = 0x7FFBFFF3C2F0; // rva 0x84C2F0
         inline constexpr std::uintptr_t GetRemovedAimpunch = 0x7FFBFF802897; // rva 0x112897
@@ -167,6 +170,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t RegenerateWeaponSkins = 0x7FFBFFEA0CB0; // rva 0x7B0CB0
         inline constexpr std::uintptr_t ReportHit = 0x7FFBFFCF21E0; // rva 0x6021E0
         inline constexpr std::uintptr_t RunCommand = 0x7FFC000CA390; // rva 0x9DA390
+        inline constexpr std::uintptr_t RunCommand_processor = 0x7FFC000CA390; // rva 0x9DA390
         inline constexpr std::uintptr_t Scope_callsite = 0x7FFBFFF4BFF0; // rva 0x85BFF0
         inline constexpr std::uintptr_t SendChatMessage = 0x7FFC007AE830; // rva 0x10BE830
         inline constexpr std::uintptr_t SetAbsOrigin_Pawn = 0x7FFBFF90EEA0; // rva 0x21EEA0
@@ -189,6 +193,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t TestSurfaces = 0x7FFBFFEF6290; // rva 0x806290
         inline constexpr std::uintptr_t TracePlayerBBox = 0x7FFC0025F6D0; // rva 0xB6F6D0
         inline constexpr std::uintptr_t TraceShape = 0x7FFC0007D340; // rva 0x98D340
+        inline constexpr std::uintptr_t TraceShape_Client = 0x7FFC0007D340; // rva 0x98D340
         inline constexpr std::uintptr_t TraceToExit = 0x7FFBFFEF4400; // rva 0x804400
         inline constexpr std::uintptr_t UpdatePostProcessing = 0x7FFC0060F6A0; // rva 0xF1F6A0
         inline constexpr std::uintptr_t UpdateSubClass = 0x7FFBFF8EA88B; // rva 0x1FA88B
@@ -232,10 +237,14 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t Engine__PVSManager_ptr = 0x7FFC132833F0; // rva 0x6133F0
         inline constexpr std::uintptr_t Engine__RunPrediction = 0x7FFC12CD6490; // rva 0x66490
         inline constexpr std::uintptr_t Engine_Disconnect_main = 0x7FFC12E41510; // rva 0x1D1510
+        inline constexpr std::uintptr_t Engine_HLTVClient_ExecuteStringCommand = 0x7FFC12D90D70; // rva 0x120D70
+        inline constexpr std::uintptr_t Engine_HostStateMgr_QueueNewRequest = 0x7FFC12E8AFC0; // rva 0x21AFC0
         inline constexpr std::uintptr_t Engine_NetTimeoutDisconnect = 0x7FFC12CD9780; // rva 0x69780
         inline constexpr std::uintptr_t Engine_RegisterConCommand = 0x7FFC1306D270; // rva 0x3FD270
+        inline constexpr std::uintptr_t Engine_RegisterConVar = 0x7FFC1306C080; // rva 0x3FC080
     }
     namespace materialsystem2 {
+        inline constexpr std::uintptr_t CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040; // rva 0x10040
         inline constexpr std::uintptr_t FindParameter = 0x7FFC11941E30; // rva 0x11E30
         inline constexpr std::uintptr_t MatSys__PrepareSceneMaterial = 0x7FFC11941BE0; // rva 0x11BE0
         inline constexpr std::uintptr_t UpdateParameter = 0x7FFC11942370; // rva 0x12370
@@ -248,6 +257,11 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t Particles__DrawArray = 0x7FFC09E520B0; // rva 0x220B0
         inline constexpr std::uintptr_t Particles__FindKeyVar = 0x7FFC09E6A650; // rva 0x3A650
         inline constexpr std::uintptr_t Particles__SetMaterialShaderType = 0x7FFC09ECD8D0; // rva 0x9D8D0
+    }
+    namespace rendersystemdx11 {
+        inline constexpr std::uintptr_t RenderSystemDx11_QueuePresentAndWait = 0x7FFC125A4650; // rva 0x34650
+        inline constexpr std::uintptr_t RenderSystemDx11_SetHardwareGammaRamp = 0x7FFC125AF790; // rva 0x3F790
+        inline constexpr std::uintptr_t RenderSystemDx11_SetMode = 0x7FFC125A99E0; // rva 0x399E0
     }
     namespace scenesystem {
         inline constexpr std::uintptr_t CSceneAnimatableObject__GeneratePrimitives = 0x7FFC0A683520; // rva 0x73520
