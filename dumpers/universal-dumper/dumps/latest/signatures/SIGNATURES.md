@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**231/277 signatures resolved across 8 module(s).**
+**242/288 signatures resolved across 9 module(s).**
 
 ## `animationsystem.dll`
 
@@ -90,6 +90,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CacheParticleEffect` | `raw` | `0x7FFBFF8F7B10` | `0x207B10` | `4C 8B DC 53 48 81 EC ? ? ? ? F2 0F 10 05` |
 | `CalcSpread` | `raw` | `0x7FFC0036C6F0` | `0xC7C6F0` | `48 8B C4 48 89 58 ? 48 89 68 ? 48 89 70 ? 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ? 4C 63 EA` |
 | `CalcViewmodel` | `raw` | `0x7FFBFFF3E040` | `0x84E040` | `40 55 53 56 41 56 41 57 48 8B EC` |
+| `CalcViewmodelTransform_v2` | `raw` | `0x7FFBFFE92460` | `0x7A2460` | `48 89 5C 24 20 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 80 48 81 EC 80 01 00 00 48 8B FA` |
 | `CalculateInterpolation` | `rel32` | `0x7FFC00BB5600` | `0x14C5600` | `E8 ? ? ? ? 8B 45 ? 3B 45 60 75 04 32 D2 EB 09 BA 01 00 00 00 41 0F 4C D5 C0 EA 07 84 D2 0F 85 87` |
 | `CalculateWorldSpaceBones` | `raw` | `0x7FFC000F9910` | `0xA09910` | `48 89 4C 24 ? 55 53 56 57 41 54 41 55 41 56 41 57 B8 ? ? ? ? E8 ? ? ? ? 48 2B E0 48 8D 6C 24 ? 48 8B 81` |
 | `ClearHUDWeaponIcon` | `rel32` | `0x7FFC004DB720` | `0xDEB720` | `E8 ? ? ? ? 8B F8 C6 84 24 ? ? ? ? ?` |
@@ -105,10 +106,12 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CreateSOSubclassEconItem` | `raw` | `0x7FFC006E4EB0` | `0xFF4EB0` | `48 83 EC 28 B9 48 00 00 00 E8 ? ? ? ? 48 85` |
 | `DestroyParticle` | `raw` | `0x7FFC00034DB0` | `0x944DB0` | `83 FA ? 0F 84 ? ? ? ? 41 54` |
 | `DispatchEffect` | `raw` | `0x7FFBFFA4A4C0` | `0x35A4C0` | `48 89 5C 24 ? 57 48 83 EC ? 48 8B F9 48 8B DA 48 8D 4C 24` |
+| `DispatchSpawn_caller` | `raw` | `0x7FFC00BC32A0` | `0x14D32A0` | `4C 8B DC 55 56 48 83 EC 78 49 8B 68 08 48 8B F1 48 85 ED 0F 84 72 01 00 00` |
 | `DrawCrosshair` | `raw` | `0x7FFBFFEA0B60` | `0x7B0B60` | `48 89 5C 24 08 57 48 83 EC 20 48 8B D9 E8 ? ? ? ? 48 85` |
 | `DrawOverHead` | `raw` | `0x7FFC00155590` | `0xA65590` | `40 53 48 83 EC ? 48 8B D9 83 FA ? 75 ? 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 ? ? ? ? 8B 10` |
 | `DrawScopeOverlay` | `raw` | `0x7FFBFFF4BFF0` | `0x85BFF0` | `48 8B C4 53 57 48 83 EC ? 48 8B FA` |
 | `DrawSmokeVertex` | `raw` | `0x7FFC00368D90` | `0xC78D90` | `48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B 9C 24 ? ? ? ? 4D 8B F8` |
+| `FX_FireBullets` | `raw` | `0x7FFC0036BE80` | `0xC7BE80` | `48 8B C4 4C 89 48 20 48 89 50 10 55 53 57 41 54 41 55 48 8D A8 58 FB FF FF 48 81 EC A0 05` |
 | `FindHudElement` | `raw` | `0x7FFC004AF7E8` | `0xDBF7E8` | `48 8D 15 ? ? ? ? 45 33 C0 B9 ? ? ? ? FF 15 ? ? ? ? EB ? 48 8B 15` |
 | `FindHudElement_panorama` | `raw` | `0x7FFC004B17C0` | `0xDC17C0` | `4C 8B DC 53 48 83 EC 50 48 8B 05` |
 | `FindSOCache` | `raw` | `0x7FFC00F0C810` | `0x181C810` | `48 89 5C 24 08 57 48 83 EC 30 4C 8B 52 08 48 8B D9 8B 0A` |
@@ -156,6 +159,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `LoadPath` | `rel32` | `0x7FFBFFDAB150` | `0x6BB150` | `E8 ? ? ? ? 8B 44 24 2C` |
 | `LookupBone` | `rel32` | `0x7FFBFFFB6B60` | `0x8C6B60` | `E8 ? ? ? ? 48 8B 8D ? ? ? ? B3` |
 | `ModulationUpdate` | `raw` | `0x7FFC000C8CF0` | `0x9D8CF0` | `48 89 5C 24 08 57 48 83 EC 20 8B FA 48 8B D9 E8 ? ? ? ? 84 C0 0F 84` |
+| `NoClipOnChange` | `raw` | `0x7FFBFF856B50` | `0x166B50` | `48 89 5C 24 10 48 89 74 24 18 48 89 7C 24 20 55 48 8B EC 48 83 EC 30 48 8D 05` |
 | `NoSpread1` | `raw` | `0x7FFC0036BDD0` | `0xC7BDD0` | `48 89 5C 24 08 57 48 81 EC F0 00` |
 | `ParticleCollection` | `raw` | `0x7FFBFF8E4CE0` | `0x1F4CE0` | `48 89 5C 24 ? 57 48 83 EC ? 0F 28 05` |
 | `ParticleManager_ptr` | `riprel` | `0x7FFC0171DAA8` | `0x202DAA8` | `48 8B 0D ? ? ? ? 41 B8 ? ? ? ? F3 0F 11 74 24 ? 48 C7 44 24 ? ? ? ? ?` |
@@ -187,6 +191,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `SetupMovementMoves` | `raw` | `0x7FFC0087441F` | `0x118441F` | `48 8B ? E8 ? ? ? ? 48 8B 5C 24 ? 48 8B 6C 24 ? 48 83 C4 30` |
 | `SomeTimingFromPawn` | `raw` | `0x7FFC00145B50` | `0xA55B50` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 49 63 D8 48 8B F1` |
 | `Spawner_PerTickOrchestrator` | `raw` | `0x7FFC002B2680` | `0xBC2680` | `48 8B C4 55 53 48 8D A8 ? ? ? ? 48 81 EC ? ? ? ? 80 B9 B1 13 00 00 00` |
+| `SpectatorInput` | `raw` | `0x7FFBFFEC9130` | `0x7D9130` | `48 89 5C 24 10 55 56 57 41 56 41 57 48 8B EC 48 83 EC 60 48 8B 01 41 8B F8 48 8B DA 48 8B F1 FF` |
 | `TestSurfaces` | `raw` | `0x7FFBFFEF6290` | `0x806290` | `40 53 57 41 56 48 83 EC 50 8B` |
 | `TracePlayerBBox` | `raw` | `0x7FFC0025F6D0` | `0xB6F6D0` | `48 89 5C 24 ? 55 57 41 54 41 55 41 56` |
 | `TraceShape` | `raw` | `0x7FFC0007D340` | `0x98D340` | `48 89 5C 24 ? 48 89 4C 24 ? 55 57` |
@@ -195,6 +200,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `UpdateSubClass` | `raw` | `0x7FFBFF8EA88B` | `0x1FA88B` | `48 8B 41 10 48 8B D9 8B 50 30` |
 | `UpdateTurningInAccuracy` | `rel32` | `0x7FFBFFE9FD10` | `0x7AFD10` | `E8 ? ? ? ? F3 0F 10 87 ? ? ? ? 44 0F 2F C8` |
 | `VPhys2World_ptr` | `riprel` | `0x7FFC0171D718` | `0x202D718` | `4C 8B 25 ? ? ? ? 24` |
+| `ViewModelHideZoomed` | `raw` | `0x7FFBFFE903D0` | `0x7A03D0` | `48 89 5C 24 20 55 56 57 41 54 41 56 48 8B EC 48 83 EC 50 48 8D 05` |
 | `ViewRender_ptr` | `riprel` | `0x7FFC01A1DCB8` | `0x232DCB8` | `48 89 05 ? ? ? ? 48 8B C8 48 85 C0` |
 | `WriteSubtickFromEntry` | `raw` | `0x7FFC00343E10` | `0xC53E10` | `48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00 8B 01 48 8B F9 81 4A 10 00 02` |
 | `create_move_v2` | `raw` | `0x7FFC001BA9C0` | `0xACA9C0` | `85 D2 0F 85 ? ? ? ? 48 8B C4 44 88 40` |
@@ -234,6 +240,9 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `Engine::GetScreenAspectRatio` | `raw` | `0x7FFC12CE69D0` | `0x769D0` | `48 89 5C 24 08 57 48 83 EC 20 8B FA 48 8D 0D` |
 | `Engine::PVSManager_ptr` | `riprel` | `0x7FFC132833F0` | `0x6133F0` | `48 8D 0D ? ? ? ? 33 D2 FF 50` |
 | `Engine::RunPrediction` | `raw` | `0x7FFC12CD6490` | `0x66490` | `40 55 41 56 48 83 EC ? 80 B9` |
+| `Engine_Disconnect_main` | `raw` | `0x7FFC12E41510` | `0x1D1510` | `48 89 5C 24 20 55 57 41 54 48 8B EC 48 83 EC 70 45 33 E4 48 C7 05` |
+| `Engine_NetTimeoutDisconnect` | `raw` | `0x7FFC12CD9780` | `0x69780` | `40 53 55 56 57 41 56 48 81 EC 80 00 00 00 0F 29 74 24 70 49 8B F8` |
+| `Engine_RegisterConCommand` | `raw` | `0x7FFC1306D270` | `0x3FD270` | `48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 48 83 EC 60 44 8B 15` |
 
 ## `materialsystem2.dll`
 
@@ -242,6 +251,13 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `FindParameter` | `raw` | `0x7FFC11941E30` | `0x11E30` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8B 59 20 48` |
 | `MatSys::PrepareSceneMaterial` | `raw` | `0x7FFC11941BE0` | `0x11BE0` | `48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 30 48 8B 59 ? 48 8B F2 48 63 79 ? 48 C1 E7 06` |
 | `UpdateParameter` | `raw` | `0x7FFC11942370` | `0x12370` | `48 89 7C 24 ? 41 56 48 83 EC ? 8B 81` |
+
+## `networksystem.dll`
+
+| Name | Resolve | VA | RVA | Pattern |
+| --- | --- | --- | --- | --- |
+| `NetSystem_CNetChan_ProcessMessages` | `raw` | `0x7FFC0FC1B280` | `0xBB280` | `48 8B C4 53 57 41 54 41 56 48 81 EC A8 00 00 00 48 89 70 D0 45 33 E4 4C 89 68 C8 48 8B D9 48 89` |
+| `NetSystem_CNetChan_SendNetMessage` | `raw` | `0x7FFC0FC1D670` | `0xBD670` | `48 89 5C 24 10 48 89 6C 24 18 56 57 41 56 48 83 EC 40 41 0F B6 F0 48 8D 99 F8 73 00 00 4C 8B F2` |
 
 ## `particles.dll`
 

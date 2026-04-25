@@ -86,6 +86,7 @@ public static class Signatures
         public const ulong CacheParticleEffect = 0x7FFBFF8F7B10UL; // rva 0x207B10
         public const ulong CalcSpread = 0x7FFC0036C6F0UL; // rva 0xC7C6F0
         public const ulong CalcViewmodel = 0x7FFBFFF3E040UL; // rva 0x84E040
+        public const ulong CalcViewmodelTransform_v2 = 0x7FFBFFE92460UL; // rva 0x7A2460
         public const ulong CalculateInterpolation = 0x7FFC00BB5600UL; // rva 0x14C5600
         public const ulong CalculateWorldSpaceBones = 0x7FFC000F9910UL; // rva 0xA09910
         public const ulong ClearHUDWeaponIcon = 0x7FFC004DB720UL; // rva 0xDEB720
@@ -101,10 +102,12 @@ public static class Signatures
         public const ulong CreateSOSubclassEconItem = 0x7FFC006E4EB0UL; // rva 0xFF4EB0
         public const ulong DestroyParticle = 0x7FFC00034DB0UL; // rva 0x944DB0
         public const ulong DispatchEffect = 0x7FFBFFA4A4C0UL; // rva 0x35A4C0
+        public const ulong DispatchSpawn_caller = 0x7FFC00BC32A0UL; // rva 0x14D32A0
         public const ulong DrawCrosshair = 0x7FFBFFEA0B60UL; // rva 0x7B0B60
         public const ulong DrawOverHead = 0x7FFC00155590UL; // rva 0xA65590
         public const ulong DrawScopeOverlay = 0x7FFBFFF4BFF0UL; // rva 0x85BFF0
         public const ulong DrawSmokeVertex = 0x7FFC00368D90UL; // rva 0xC78D90
+        public const ulong FX_FireBullets = 0x7FFC0036BE80UL; // rva 0xC7BE80
         public const ulong FindHudElement = 0x7FFC004AF7E8UL; // rva 0xDBF7E8
         public const ulong FindHudElement_panorama = 0x7FFC004B17C0UL; // rva 0xDC17C0
         public const ulong FindSOCache = 0x7FFC00F0C810UL; // rva 0x181C810
@@ -152,6 +155,7 @@ public static class Signatures
         public const ulong LoadPath = 0x7FFBFFDAB150UL; // rva 0x6BB150
         public const ulong LookupBone = 0x7FFBFFFB6B60UL; // rva 0x8C6B60
         public const ulong ModulationUpdate = 0x7FFC000C8CF0UL; // rva 0x9D8CF0
+        public const ulong NoClipOnChange = 0x7FFBFF856B50UL; // rva 0x166B50
         public const ulong NoSpread1 = 0x7FFC0036BDD0UL; // rva 0xC7BDD0
         public const ulong ParticleCollection = 0x7FFBFF8E4CE0UL; // rva 0x1F4CE0
         public const ulong ParticleManager_ptr = 0x7FFC0171DAA8UL; // rva 0x202DAA8
@@ -183,6 +187,7 @@ public static class Signatures
         public const ulong SetupMovementMoves = 0x7FFC0087441FUL; // rva 0x118441F
         public const ulong SomeTimingFromPawn = 0x7FFC00145B50UL; // rva 0xA55B50
         public const ulong Spawner_PerTickOrchestrator = 0x7FFC002B2680UL; // rva 0xBC2680
+        public const ulong SpectatorInput = 0x7FFBFFEC9130UL; // rva 0x7D9130
         public const ulong TestSurfaces = 0x7FFBFFEF6290UL; // rva 0x806290
         public const ulong TracePlayerBBox = 0x7FFC0025F6D0UL; // rva 0xB6F6D0
         public const ulong TraceShape = 0x7FFC0007D340UL; // rva 0x98D340
@@ -191,6 +196,7 @@ public static class Signatures
         public const ulong UpdateSubClass = 0x7FFBFF8EA88BUL; // rva 0x1FA88B
         public const ulong UpdateTurningInAccuracy = 0x7FFBFFE9FD10UL; // rva 0x7AFD10
         public const ulong VPhys2World_ptr = 0x7FFC0171D718UL; // rva 0x202D718
+        public const ulong ViewModelHideZoomed = 0x7FFBFFE903D0UL; // rva 0x7A03D0
         public const ulong ViewRender_ptr = 0x7FFC01A1DCB8UL; // rva 0x232DCB8
         public const ulong WriteSubtickFromEntry = 0x7FFC00343E10UL; // rva 0xC53E10
         public const ulong create_move_v2 = 0x7FFC001BA9C0UL; // rva 0xACA9C0
@@ -228,12 +234,20 @@ public static class Signatures
         public const ulong Engine__GetScreenAspectRatio = 0x7FFC12CE69D0UL; // rva 0x769D0
         public const ulong Engine__PVSManager_ptr = 0x7FFC132833F0UL; // rva 0x6133F0
         public const ulong Engine__RunPrediction = 0x7FFC12CD6490UL; // rva 0x66490
+        public const ulong Engine_Disconnect_main = 0x7FFC12E41510UL; // rva 0x1D1510
+        public const ulong Engine_NetTimeoutDisconnect = 0x7FFC12CD9780UL; // rva 0x69780
+        public const ulong Engine_RegisterConCommand = 0x7FFC1306D270UL; // rva 0x3FD270
     }
     public static class materialsystem2
     {
         public const ulong FindParameter = 0x7FFC11941E30UL; // rva 0x11E30
         public const ulong MatSys__PrepareSceneMaterial = 0x7FFC11941BE0UL; // rva 0x11BE0
         public const ulong UpdateParameter = 0x7FFC11942370UL; // rva 0x12370
+    }
+    public static class networksystem
+    {
+        public const ulong NetSystem_CNetChan_ProcessMessages = 0x7FFC0FC1B280UL; // rva 0xBB280
+        public const ulong NetSystem_CNetChan_SendNetMessage = 0x7FFC0FC1D670UL; // rva 0xBD670
     }
     public static class particles
     {

@@ -367,6 +367,11 @@
       "va": 140720307691584
     },
     {
+      "name": "CalcViewmodelTransform_v2",
+      "module": "client.dll",
+      "va": 140720306988128
+    },
+    {
       "name": "CalculateInterpolation",
       "module": "client.dll",
       "va": 140720320763392
@@ -442,6 +447,11 @@
       "va": 140720302499008
     },
     {
+      "name": "DispatchSpawn_caller",
+      "module": "client.dll",
+      "va": 140720320819872
+    },
+    {
       "name": "DrawCrosshair",
       "module": "client.dll",
       "va": 140720307047264
@@ -460,6 +470,11 @@
       "name": "DrawSmokeVertex",
       "module": "client.dll",
       "va": 140720312061328
+    },
+    {
+      "name": "FX_FireBullets",
+      "module": "client.dll",
+      "va": 140720312073856
     },
     {
       "name": "FindHudElement",
@@ -697,6 +712,11 @@
       "va": 140720309308656
     },
     {
+      "name": "NoClipOnChange",
+      "module": "client.dll",
+      "va": 140720300452688
+    },
+    {
       "name": "NoSpread1",
       "module": "client.dll",
       "va": 140720312073680
@@ -852,6 +872,11 @@
       "va": 140720311314048
     },
     {
+      "name": "SpectatorInput",
+      "module": "client.dll",
+      "va": 140720307212592
+    },
+    {
       "name": "TestSurfaces",
       "module": "client.dll",
       "va": 140720307397264
@@ -890,6 +915,11 @@
       "name": "VPhys2World_ptr",
       "module": "client.dll",
       "va": 140720332723992
+    },
+    {
+      "name": "ViewModelHideZoomed",
+      "module": "client.dll",
+      "va": 140720306979792
     },
     {
       "name": "ViewRender_ptr",
@@ -1062,6 +1092,21 @@
       "va": 140720623936656
     },
     {
+      "name": "Engine_Disconnect_main",
+      "module": "engine2.dll",
+      "va": 140720625423632
+    },
+    {
+      "name": "Engine_NetTimeoutDisconnect",
+      "module": "engine2.dll",
+      "va": 140720623949696
+    },
+    {
+      "name": "Engine_RegisterConCommand",
+      "module": "engine2.dll",
+      "va": 140720627700336
+    },
+    {
       "name": "FindParameter",
       "module": "materialsystem2.dll",
       "va": 140720603405872
@@ -1075,6 +1120,16 @@
       "name": "UpdateParameter",
       "module": "materialsystem2.dll",
       "va": 140720603407216
+    },
+    {
+      "name": "NetSystem_CNetChan_ProcessMessages",
+      "module": "networksystem.dll",
+      "va": 140720572838528
+    },
+    {
+      "name": "NetSystem_CNetChan_SendNetMessage",
+      "module": "networksystem.dll",
+      "va": 140720572847728
     },
     {
       "name": "Particles::DrawArray",

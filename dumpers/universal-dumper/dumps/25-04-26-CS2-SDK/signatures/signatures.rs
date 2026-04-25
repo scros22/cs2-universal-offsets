@@ -159,6 +159,8 @@ pub mod client {
     pub const CalcSpread: usize = 0x7FFC0036C6F0;
     /// rva 0x84E040
     pub const CalcViewmodel: usize = 0x7FFBFFF3E040;
+    /// rva 0x7A2460
+    pub const CalcViewmodelTransform_v2: usize = 0x7FFBFFE92460;
     /// rva 0x14C5600
     pub const CalculateInterpolation: usize = 0x7FFC00BB5600;
     /// rva 0xA09910
@@ -189,6 +191,8 @@ pub mod client {
     pub const DestroyParticle: usize = 0x7FFC00034DB0;
     /// rva 0x35A4C0
     pub const DispatchEffect: usize = 0x7FFBFFA4A4C0;
+    /// rva 0x14D32A0
+    pub const DispatchSpawn_caller: usize = 0x7FFC00BC32A0;
     /// rva 0x7B0B60
     pub const DrawCrosshair: usize = 0x7FFBFFEA0B60;
     /// rva 0xA65590
@@ -197,6 +201,8 @@ pub mod client {
     pub const DrawScopeOverlay: usize = 0x7FFBFFF4BFF0;
     /// rva 0xC78D90
     pub const DrawSmokeVertex: usize = 0x7FFC00368D90;
+    /// rva 0xC7BE80
+    pub const FX_FireBullets: usize = 0x7FFC0036BE80;
     /// rva 0xDBF7E8
     pub const FindHudElement: usize = 0x7FFC004AF7E8;
     /// rva 0xDC17C0
@@ -291,6 +297,8 @@ pub mod client {
     pub const LookupBone: usize = 0x7FFBFFFB6B60;
     /// rva 0x9D8CF0
     pub const ModulationUpdate: usize = 0x7FFC000C8CF0;
+    /// rva 0x166B50
+    pub const NoClipOnChange: usize = 0x7FFBFF856B50;
     /// rva 0xC7BDD0
     pub const NoSpread1: usize = 0x7FFC0036BDD0;
     /// rva 0x1F4CE0
@@ -353,6 +361,8 @@ pub mod client {
     pub const SomeTimingFromPawn: usize = 0x7FFC00145B50;
     /// rva 0xBC2680
     pub const Spawner_PerTickOrchestrator: usize = 0x7FFC002B2680;
+    /// rva 0x7D9130
+    pub const SpectatorInput: usize = 0x7FFBFFEC9130;
     /// rva 0x806290
     pub const TestSurfaces: usize = 0x7FFBFFEF6290;
     /// rva 0xB6F6D0
@@ -369,6 +379,8 @@ pub mod client {
     pub const UpdateTurningInAccuracy: usize = 0x7FFBFFE9FD10;
     /// rva 0x202D718
     pub const VPhys2World_ptr: usize = 0x7FFC0171D718;
+    /// rva 0x7A03D0
+    pub const ViewModelHideZoomed: usize = 0x7FFBFFE903D0;
     /// rva 0x232DCB8
     pub const ViewRender_ptr: usize = 0x7FFC01A1DCB8;
     /// rva 0xC53E10
@@ -440,6 +452,12 @@ pub mod engine2 {
     pub const Engine__PVSManager_ptr: usize = 0x7FFC132833F0;
     /// rva 0x66490
     pub const Engine__RunPrediction: usize = 0x7FFC12CD6490;
+    /// rva 0x1D1510
+    pub const Engine_Disconnect_main: usize = 0x7FFC12E41510;
+    /// rva 0x69780
+    pub const Engine_NetTimeoutDisconnect: usize = 0x7FFC12CD9780;
+    /// rva 0x3FD270
+    pub const Engine_RegisterConCommand: usize = 0x7FFC1306D270;
 }
 
 pub mod materialsystem2 {
@@ -449,6 +467,13 @@ pub mod materialsystem2 {
     pub const MatSys__PrepareSceneMaterial: usize = 0x7FFC11941BE0;
     /// rva 0x12370
     pub const UpdateParameter: usize = 0x7FFC11942370;
+}
+
+pub mod networksystem {
+    /// rva 0xBB280
+    pub const NetSystem_CNetChan_ProcessMessages: usize = 0x7FFC0FC1B280;
+    /// rva 0xBD670
+    pub const NetSystem_CNetChan_SendNetMessage: usize = 0x7FFC0FC1D670;
 }
 
 pub mod particles {
