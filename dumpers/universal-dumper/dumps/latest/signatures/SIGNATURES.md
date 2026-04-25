@@ -74,8 +74,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CHEGrenadeProjectile` | `stringref` | `0x7FFC006CDBD0` | `0xFDDBD0` | `"CHEGrenadeProjectile"` |
 | `CInputPtrGlobal` | `riprel` | `0x7FFC017513C0` | `0x20613C0` | `4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00 85 C0` |
 | `CMolotovProjectile` | `stringref` | `0x7FFBFFE3E280` | `0x74E280` | `"CMolotovProjectile"` |
-| `CPaintKitDefinitions_FindOrCreateByName` | `stringref` | `0x7FFC00747DD0` | `0x1057DD0` | `"Kit "[%s]" specified, but doesn't exist!! You're probably missing an entry in items_paintkits.txt or items_stickerkits.txt or need to run with -use_local_item_data
-"` |
+| `CPaintKitDefinitions_FindOrCreateByName` | `stringref` | `0x7FFC00747DD0` | `0x1057DD0` | `"Kit "[%s]" specified, but doesn't exist!! You're probably missing an entry in items_paintkits.txt or items_stickerkits.txt or need to run with -use_local_item_data\n"` |
 | `CPaintKitDefinitions_LoadDefaultKit` | `stringref` | `0x7FFC00719EA0` | `0x1029EA0` | `"Unable to find "default" paint kit in "paint_kits_rarity""` |
 | `CPostProcessingVolume` | `stringref` | `0x7FFBFF993CB0` | `0x2A3CB0` | `"CPostProcessingVolume"` |
 | `CS2ItemEditor_BuildTemplateMaterialFromFile` | `raw` | `0x7FFC00AAA1E0` | `0x13BA1E0` | `48 89 54 24 10 55 53 41 55 41 57 48 8D AC 24 18 F9 FF FF 48 81 EC E8 07 00 00 4C 8B FA 48 85 D2` |
@@ -106,8 +105,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `C_EconEntity_BuildModernWeaponSkinMaterial` | `raw` | `0x7FFC004728E0` | `0xD828E0` | `48 85 C9 0F 84 ? ? 00 00 48 8B C4 48 89 50 10 48 89 48 08 55 41 54 41 56 41 57 48 8D A8 B8 FA` |
 | `C_EconEntity_BuildNametagOverlayMaterial` | `stringref` | `0x7FFBFFE7AE20` | `0x78AE20` | `"low-res nametag"` |
 | `C_EconItemView` | `stringref` | `0x7FFBFFDFB400` | `0x70B400` | `"C_EconItemView"` |
-| `C_EconWearable_OnNewCustomMaterials` | `stringref` | `0x7FFC007A67D0` | `0x10B67D0` | `"Invalid EconItemView -- Can't create custom materials for wearable, debug this.
-"` |
+| `C_EconWearable_OnNewCustomMaterials` | `stringref` | `0x7FFC007A67D0` | `0x10B67D0` | `"Invalid EconItemView -- Can't create custom materials for wearable, debug this.\n"` |
 | `C_Hostage` | `stringref` | `0x7FFBFF7D73D0` | `0xE73D0` | `"C_Hostage"` |
 | `C_Inferno` | `stringref` | `0x7FFBFF7E7390` | `0xF7390` | `"C_Inferno"` |
 | `C_PlantedC4` | `stringref` | `0x7FFBFF7E06F0` | `0xF06F0` | `"C_PlantedC4"` |
@@ -303,24 +301,15 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CMaterial2_LoadShadersAndSetupModes` | `raw` | `0x7FFC11940040` | `0x10040` | `44 89 44 24 18 48 89 54 24 10 53 56 41 54 41 55 48 81 EC 88 00 00 00 4C 8B E9 48 C7 44 24 60` |
 | `CMaterialLayer_ApplyMaterialVarsForBatch` | `raw` | `0x7FFC11948B80` | `0x18B80` | `4C 89 4C 24 20 4C 89 44 24 18 48 89 54 24 10 53 55 56 57 41 54 41 55 41 56 41 57 48 83 EC 78` |
 | `CMaterialLayer_BuildPassCommandData` | `raw` | `0x7FFC11948F80` | `0x18F80` | `89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 58 FE FF FF 48 81 EC A8 02 00 00` |
-| `CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode` | `stringref` | `0x7FFC11945F3C` | `0x15F3C` | `"CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3154): Failed call to FindOrLoadStaticComboData()!
-"` |
-| `CMaterialLayer_CreateCommandBuffer` | `stringref` | `0x7FFC11949820` | `0x19820` | `"
-CMaterialLayer::CreateCommandBuffer(4446): Find a graphics programmer! Trying to bind a "%s" shader that doesn't exist! for %s
-"` |
-| `CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState` | `stringref` | `0x7FFC119A0000` | `0x70000` | `"BindIdentityInstanceIDBufferAndSetRenderState: GetMode == NULL? Can't Render
-"` |
-| `CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials` | `stringref` | `0x7FFC11969AA0` | `0x39AA0` | `"CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials(1084): ERROR!!! Shaders not freed before shader reload! (See spew above)
-
-"` |
+| `CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode` | `stringref` | `0x7FFC11945F3C` | `0x15F3C` | `"CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3154): Failed call to FindOrLoadStaticComboData()!\n"` |
+| `CMaterialLayer_CreateCommandBuffer` | `stringref` | `0x7FFC11949820` | `0x19820` | `"\nCMaterialLayer::CreateCommandBuffer(4446): Find a graphics programmer! Trying to bind a "%s" shader that doesn't exist! for %s\n"` |
+| `CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState` | `stringref` | `0x7FFC119A0000` | `0x70000` | `"BindIdentityInstanceIDBufferAndSetRenderState: GetMode == NULL? Can't Render\n"` |
+| `CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials` | `stringref` | `0x7FFC11969AA0` | `0x39AA0` | `"CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials(1084): ERROR!!! Shaders not freed before shader reload! (See spew above)\n\n"` |
 | `CMaterialSystem2_FrameUpdate` | `raw` | `0x7FFC1196BAC0` | `0x3BAC0` | `48 89 4C 24 08 55 53 56 57 41 54 41 56 48 8B EC 48 83 EC 68 48 8D 05 ? ? ? ? 48 C7 45 C0` |
-| `CMaterialSystem2_GetErrorMaterial` | `stringref` | `0x7FFC119474D7` | `0x174D7` | `"CMaterialSystem2::GetErrorMaterial(529): GetErrorMaterial() called when m_pMaterialTypeManager == NULL!
-"` |
+| `CMaterialSystem2_GetErrorMaterial` | `stringref` | `0x7FFC119474D7` | `0x174D7` | `"CMaterialSystem2::GetErrorMaterial(529): GetErrorMaterial() called when m_pMaterialTypeManager == NULL!\n"` |
 | `CMaterialSystem2_Init` | `stringref` | `0x7FFC11966E40` | `0x36E40` | `"MaterialSystem2"` |
-| `CMaterial_SetVariableAndRenderState` | `stringref` | `0x7FFC1195F9B0` | `0x2F9B0` | `"SetRenderStateValueFromVariable(1172): Unsupported render state type in material "%s"!
-"` |
-| `CVfxProgramData_FindOrCreateStaticComboDataInCache` | `stringref` | `0x7FFC119DE0E0` | `0xAE0E0` | `"CVfxProgramData::FindOrCreateStaticComboDataInCache(4448): Error! Ref count !=0 for static combo data cache entry!
-"` |
+| `CMaterial_SetVariableAndRenderState` | `stringref` | `0x7FFC1195F9B0` | `0x2F9B0` | `"SetRenderStateValueFromVariable(1172): Unsupported render state type in material "%s"!\n"` |
+| `CVfxProgramData_FindOrCreateStaticComboDataInCache` | `stringref` | `0x7FFC119DE0E0` | `0xAE0E0` | `"CVfxProgramData::FindOrCreateStaticComboDataInCache(4448): Error! Ref count !=0 for static combo data cache entry!\n"` |
 | `FindParameter` | `raw` | `0x7FFC11941E30` | `0x11E30` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8B 59 20 48` |
 | `MatSys::PrepareSceneMaterial` | `raw` | `0x7FFC11941BE0` | `0x11BE0` | `48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 30 48 8B 59 ? 48 8B F2 48 63 79 ? 48 C1 E7 06` |
 | `UpdateParameter` | `raw` | `0x7FFC11942370` | `0x12370` | `48 89 7C 24 ? 41 56 48 83 EC ? 8B 81` |
@@ -348,8 +337,7 @@ CMaterialLayer::CreateCommandBuffer(4446): Find a graphics programmer! Trying to
 | --- | --- | --- | --- | --- |
 | `CRenderDeviceBase_CreateConstantBuffer` | `stringref` | `0x7FFC1259F500` | `0x2F500` | `"CRenderDeviceBase::CreateConstantBuffer(1571): "` |
 | `CRenderDeviceDx11_BeginSubmittingDisplayLists` | `stringref` | `0x7FFC125AC4E0` | `0x3C4E0` | `"CRenderDeviceDx11::BeginSubmittingDisplayLists(1162): "` |
-| `CRenderDeviceDx11_CompileShaderSourceMain` | `stringref` | `0x7FFC125AFAF0` | `0x3FAF0` | `"Shader compilation failed! Reported no errors.
-"` |
+| `CRenderDeviceDx11_CompileShaderSourceMain` | `stringref` | `0x7FFC125AFAF0` | `0x3FAF0` | `"Shader compilation failed! Reported no errors.\n"` |
 | `CSwapChainDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
 | `CSwapChainDx11_ResizeBuffers` | `raw` | `0x7FFC125ADD20` | `0x3DD20` | `48 8B C4 55 53 56 57 41 54 48 8B EC 48 83 EC 70 4C 89 68 10 4D 8B E0 4C 89 70 18 4C 8B EA 4C 89` |
 | `RenderSystemDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
