@@ -1218,13 +1218,16 @@ namespace WorldEffects
     inline bool Setup()
     {
         // --- GetWorldFov hook (client.dll) ---
-        // Hooks the renderer's FOV query directly so we return our value
-        // without fighting the game's per-tick camera/weapon FOV writes.
-        uintptr_t callSite = Mem::FindPattern(L"client.dll", Signatures::SetWorldFov);
-        if (callSite)
+        // Hook the FOV resolver (sub_18080BE50) directly — it returns the
+        // final float the renderer uses, after fov_cs_debug + weapon zoom
+        // math. We read its value (so weapon-zoom transitions still work)
+        // and clamp/override only when not scoped. The legacy E8-call
+        // SetWorldFov sig is dead on 14154; GetWorldFovResolver is the
+        // current entry point.
+        uintptr_t fovAddr = Mem::FindPattern(L"client.dll", Signatures::GetWorldFovResolver);
+        if (fovAddr)
         {
-            int32_t rel = *reinterpret_cast<int32_t*>(callSite + 1);
-            pFovHookTarget = reinterpret_cast<void*>(callSite + 5 + rel);
+            pFovHookTarget = reinterpret_cast<void*>(fovAddr);
             if (MH_CreateHook(pFovHookTarget,
                               reinterpret_cast<void*>(hkGetWorldFov),
                               reinterpret_cast<void**>(&oGetWorldFov)) == MH_OK)

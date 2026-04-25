@@ -303,6 +303,13 @@ namespace Offsets
     // CModelState (m_BoneArray is hand-RE'd, not in schema)
     constexpr std::ptrdiff_t m_MeshGroupMask       = 0x1C8;
     constexpr std::ptrdiff_t m_BoneArray           = 0x80;
+    // Model handle / name on CModelState (schema-verified, build 14154,
+    // dumps/latest/sdk/client_dll.hpp lines 4585-4586). Used by the
+    // model-changer feature to copy a donor pawn's model resource handle
+    // onto our local pawn (cheap client-side agent skin swap — no hooks,
+    // pure memory write). m_ModelName is read-only diagnostics.
+    constexpr std::ptrdiff_t m_hModel              = 0xA0;  // CStrongHandle<InfoForResourceTypeCModel>
+    constexpr std::ptrdiff_t m_ModelName_state     = 0xA8;  // CUtlSymbolLarge (interned string ptr)
 
     // C_BaseModelEntity (render / visual)
     constexpr std::ptrdiff_t m_nRenderMode         = 0xC78;

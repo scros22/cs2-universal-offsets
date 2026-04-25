@@ -34,6 +34,7 @@
 #include "../features/skinchanger_test.h"
 #include "../features/inventory_changer.h"
 #include "../features/knife_glove_manager.h"
+#include "../features/model_changer.h"
 #include "../features/triggerbot.h"
 #include "../features/backtrack.h"
 #include "../features/anti_aim.h"
@@ -677,6 +678,9 @@ namespace Hooks
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
         __try {
             InventoryChanger::Tick();
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        __try {
+            ModelChanger::Tick();
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
         __try {
             Triggerbot::Tick();

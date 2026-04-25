@@ -60,9 +60,28 @@ namespace Signatures
         "83 7C 24 ? 00 75 ? 48 8B 05 ? ? ? ? C6 80 29 02 00 00 00 "
         "C7 80 A8 06 00 00 00";
 
-    // SetWorldFov — E8-CALL to world-FOV setter
+    // SetWorldFov — E8-CALL site used to derive the GetWorldFov hook
+    // target. NOTE: DEAD on build 14154 (0 hits, IDA-verified 2026-04-25).
+    // The world_effects FOV path falls back to writing
+    // m_iDesiredFOV_OnController + m_iFOV/m_iFOVStart on the camera
+    // services every tick — that path is correct against dumper-latest
+    // and is what's actually changing FOV in-game today. Re-derive a
+    // fresh sig if/when we want the cleaner hook back.
     constexpr const char* SetWorldFov =
         "E8 ? ? ? ? F3 0F 11 45 ? 48 8B 5C 24";
+
+    // GetWorldFov resolver — sub_18080BE50 (RVA 0x80BE50, IDA-verified
+    // 2026-04-25). This is the function the renderer calls to get the
+    // final view FOV. It internally:
+    //   1) Honours the `fov_cs_debug` cheat ConVar.
+    //   2) Calls the camera vfunc[33] to get the base world FOV.
+    //   3) Applies weapon zoom / desired-FOV math.
+    //   4) Returns the final float.
+    // Hooking here lets us override the FOV cleanly without writing to
+    // m_iFOV every tick. Matches the unique prologue + tail-call jmp.
+    constexpr const char* GetWorldFovResolver =
+        "40 53 48 83 EC 50 48 8B D9 E8 ? ? ? ? 48 85 C0 74 ? "
+        "48 8B C8 48 83 C4 50 5B E9";
 
     // DrawSkyboxArray — scenesystem.dll, skybox render function
     constexpr const char* DrawSkyboxArray =
@@ -120,25 +139,26 @@ namespace Signatures
 
     // ----------------------------------------------------------------
     // materialsystem2.dll
+    // CATALOG-ONLY. Chams uses a D3D11 DrawIndexedInstanced hook (see
+    // render/hooks.h + features/chams.h) — these sigs are not invoked
+    // by any active feature. Verified 2026-04-25 (IDA materialsystem2):
+    //   * CreateMaterial   — DEAD on build 14154 (0 hits)
+    //   * FindParameter    — unique @ ms2!0x180011E30
+    //   * UpdateParameter  — unique @ ms2!0x180012370
+    // Kept for archaeology / future material-pipeline experiments.
     // ----------------------------------------------------------------
-
-    // CreateMaterial
     constexpr const char* CreateMaterial =
         "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 81 EC ? ? ? ? 48 8B 05";
 
-    // FindParameter — material param lookup
     constexpr const char* FindParameter =
         "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8B 59 20 48";
 
-    // UpdateParameter — material param update
     constexpr const char* UpdateParameter =
         "48 89 7C 24 ? 41 56 48 83 EC ? 8B 81";
 
     // ----------------------------------------------------------------
-    // tier0.dll
+    // tier0.dll — CATALOG-ONLY (no active call site).
     // ----------------------------------------------------------------
-
-    // LoadKV3 call site
     constexpr const char* LoadKV3 =
         "48 8D 0D ? ? ? ? FF 15 ? ? ? ? 49 8B 06";
 }

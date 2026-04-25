@@ -54,6 +54,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
     Signature {
+        // NOTE: DEAD on build 14154 (0 hits, IDA-verified 2026-04-25).
+        // Use `GetWorldFovResolver` instead — see entry near bottom of
+        // this file. Kept here so the dumper diff still surfaces 0/N
+        // hits as a regression signal if a future build resurrects it.
         name: "SetWorldFov",
         module: "client.dll",
         // E8 disp32 at start of the match -> resolve as call target
@@ -604,6 +608,68 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         module: "client.dll",
         needle: "4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00 85 C0",
         resolve: RIPREL_3,
+        extra_off: 0,
+    },
+
+    // ==================================================================
+    // NUVORA APR-25-2026 EXPANSION  (build 14154 audit pass)
+    // ------------------------------------------------------------------
+    // Functions hooked / referenced by the live internal that were
+    // missing from the dumper catalog. All UNIQUE on client.dll 14154,
+    // verified via 8-instance IDA Pro MCP (ports 13337-13344).
+    // ==================================================================
+
+    // GetWorldFov resolver — sub_18080BE50. Renderer's actual FOV-read
+    // entry point. Replaces the now-dead `SetWorldFov` E8 callsite
+    // (which has 0 hits on 14154 — see comment block at top of section
+    // around line 57). The resolver:
+    //   1. Honours fov_cs_debug ConVar override.
+    //   2. Calls camera-services vfunc[33] for base world FOV.
+    //   3. Applies weapon-zoom / desired-FOV math.
+    //   4. Returns final view FOV float.
+    // Hooking here is the clean way to globally override view FOV
+    // without writing m_iFOV every tick. Pattern keys on prologue +
+    // distinctive tail-call jmp opcode that wraps the cleanup.
+    Signature {
+        name: "GetWorldFovResolver",
+        module: "client.dll",
+        needle: "40 53 48 83 EC 50 48 8B D9 E8 ? ? ? ? 48 85 C0 74 ? 48 8B C8 48 83 C4 50 5B E9",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CCSGOInput::WriteSubtickFromEntry — sub_180C53DB0 (drifted to
+    // 0x180C53E10 on 14154 — sig auto-resolves either way). Per-subtick
+    // writer that copies CInput entry+0x10..+0x18 (view angles) and
+    // entry+0x1C..+0x24 (shoot angles) into outgoing CUserCmd subtick
+    // message fields. Hooked by the silent-aim path to redirect BOTH
+    // view and shoot blocks per subtick (server uses shoot angles for
+    // hit-verification — view-only rewrite leaves bullets going to the
+    // original aim direction).
+    Signature {
+        name: "WriteSubtickFromEntry",
+        module: "client.dll",
+        needle: "48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00 8B 01 48 8B F9 81 4A 10 00 02",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ClientModeCSNormal::OnEvent — sub_180C5A0B0 (drifted +0x60 to
+    // 0x180C5A110 on 14154; sig still unique). The dispatcher CS2 uses
+    // for VAC/untrusted disconnect events. Inspects KeyValues::GetName
+    // and branches on:
+    //   "OnClientInsecureBlocked"        — VAC kicked us
+    //   "OnClientUntrustedLaunch"        — unsigned/injected module
+    //   "OnClientUntrustedSystemFiles"   — tampered files / cheat
+    //   "OnClientUntrustedDisallowed"    — disallowed launch
+    //   "OnTrustedLaunchFailed"          — trusted-mode init failed
+    //   "OnClientPureFileStateDirty"     — sv_pure mismatch
+    // Hooked by the watchdog so cleanup runs BEFORE the dialog renders.
+    Signature {
+        name: "ClientModeCSNormal_OnEvent",
+        module: "client.dll",
+        needle: "40 53 57 48 81 EC 78 02 00 00 48 8B CA 48 8B FA",
+        resolve: NONE,
         extra_off: 0,
     },
 ];

@@ -28,6 +28,7 @@
 #include "features/bhop.h"
 #include "features/skinchanger_test.h"
 #include "features/inventory_changer.h"
+#include "features/model_changer.h"
 #include "render/hooks.h"
 
 #pragma comment(lib, "Psapi.lib")
@@ -298,6 +299,7 @@ static void EntryThread(HMODULE hModule)
     Stealth::SetCleanupCallback([]() {
         InventoryChanger::Shutdown();
         Bhop::Shutdown();
+        ModelChanger::Shutdown();
         WorldEffects::Shutdown();
         Hooks::Shutdown();
         VacWatchdog::Shutdown();
@@ -495,6 +497,7 @@ static void EntryThread(HMODULE hModule)
     g_running.store(false);
     InventoryChanger::Shutdown();
     Bhop::Shutdown();
+    ModelChanger::Shutdown();
     WorldEffects::Shutdown();
     Aimbot::Shutdown();
     Hooks::Shutdown();

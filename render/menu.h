@@ -23,6 +23,7 @@
 #include "../features/nade_helper.h"
 #include "../features/skinchanger_test.h"
 #include "../features/inventory_changer.h"
+#include "../features/model_changer.h"
 #include "../features/triggerbot.h"
 #include "../features/backtrack.h"
 #include "../features/anti_aim.h"
@@ -1202,6 +1203,19 @@ namespace Menu
         }
         SynthSep();
         EvoCheckbox("Rank Revealer",  &RankRevealer::cfg.enabled);
+        SynthSep();
+        EvoCheckbox("Model Changer", &ModelChanger::cfg.enabled);
+        if (ModelChanger::cfg.enabled)
+        {
+            SynthSep();
+            // Build display-name array each frame (cheap, < 20 entries).
+            const char* names[ModelChanger::kAgentCount];
+            for (int i = 0; i < ModelChanger::kAgentCount; ++i)
+                names[i] = ModelChanger::kAgents[i].displayName;
+            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::Combo("##mcAgent", &ModelChanger::cfg.selectedAgent,
+                         names, ModelChanger::kAgentCount);
+        }
         SynthEndSection();
 
         if (advancedMode)
