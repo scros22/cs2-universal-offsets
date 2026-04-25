@@ -17,6 +17,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CAM_ThinkReturn = 0x7FFBFFA0A44F; // rva 0x31A44F
         inline constexpr std::uintptr_t CAttributeStringFill = 0x7FFC0059C570; // rva 0xEAC570
         inline constexpr std::uintptr_t CAttributeStringInit = 0x7FFBFFCE8600; // rva 0x5F8600
+        inline constexpr std::uintptr_t CBaseEntity_TakeDamageOld = 0x7FFBFF913C70; // rva 0x223C70
         inline constexpr std::uintptr_t CBodyComponent = 0x7FFBFF8AC0B0; // rva 0x1BC0B0
         inline constexpr std::uintptr_t CBodyComponentSkeletonInstance = 0x7FFBFF8B2F90; // rva 0x1C2F90
         inline constexpr std::uintptr_t CBufferStringInit = 0x7FFC00ED0160; // rva 0x17E0160
@@ -40,6 +41,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CCSPlayer_MovementServices = 0x7FFBFFF2CAF0; // rva 0x83CAF0
         inline constexpr std::uintptr_t CCSPlayer_MovementServices = 0x7FFBFFF2CAF0; // rva 0x83CAF0
         inline constexpr std::uintptr_t CCSPlayer_PingServices = 0x7FFBFFF40920; // rva 0x850920
+        inline constexpr std::uintptr_t CCSPlayer_RunCommand_Context = 0x7FFC000CA390; // rva 0x9DA390
         inline constexpr std::uintptr_t CCSPlayer_UseServices = 0x7FFBFFF70B50; // rva 0x880B50
         inline constexpr std::uintptr_t CCSPlayer_WaterServices = 0x7FFBFFF65DE0; // rva 0x875DE0
         inline constexpr std::uintptr_t CCSPlayer_WeaponServices = 0x7FFBFFF66190; // rva 0x876190
@@ -58,6 +60,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CGameSceneNode = 0x7FFBFF893840; // rva 0x1A3840
         inline constexpr std::uintptr_t CGameSceneNode_BuildBoneMergeWork = 0x7FFC0002E3C0; // rva 0x93E3C0
         inline constexpr std::uintptr_t CGameSceneNode_StartHierarchicalAttachment = 0x7FFC0007AE80; // rva 0x98AE80
+        inline constexpr std::uintptr_t CGameTrace_TraceShape_Client = 0x7FFC0007D340; // rva 0x98D340
         inline constexpr std::uintptr_t CGlowProperty = 0x7FFBFF9D10F0; // rva 0x2E10F0
         inline constexpr std::uintptr_t CHEGrenadeProjectile = 0x7FFC006CDBD0; // rva 0xFDDBD0
         inline constexpr std::uintptr_t CInputPtrGlobal = 0x7FFC017513C0; // rva 0x20613C0
@@ -93,6 +96,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t ClearHUDWeaponIcon = 0x7FFC004DB720; // rva 0xDEB720
         inline constexpr std::uintptr_t ClientModeCSNormal_OnEvent = 0x7FFC0034A110; // rva 0xC5A110
         inline constexpr std::uintptr_t ClientMode_ptr = 0x7FFC01A2BA60; // rva 0x233BA60
+        inline constexpr std::uintptr_t Client_DispatchSpawn = 0x7FFC00BC32A0; // rva 0x14D32A0
         inline constexpr std::uintptr_t ConCommand_firstperson = 0x7FFC001B8B50; // rva 0xAC8B50
         inline constexpr std::uintptr_t ConCommand_thirdperson = 0x7FFC001B8C30; // rva 0xAC8C30
         inline constexpr std::uintptr_t ConvarGet = 0x7FFBFFFADF82; // rva 0x8BDF82
@@ -108,6 +112,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t DrawOverHead = 0x7FFC00155590; // rva 0xA65590
         inline constexpr std::uintptr_t DrawScopeOverlay = 0x7FFBFFF4BFF0; // rva 0x85BFF0
         inline constexpr std::uintptr_t DrawSmokeVertex = 0x7FFC00368D90; // rva 0xC78D90
+        inline constexpr std::uintptr_t FX_FireBullets = 0x7FFC0036BE80; // rva 0xC7BE80
         inline constexpr std::uintptr_t FX_FireBullets = 0x7FFC0036BE80; // rva 0xC7BE80
         inline constexpr std::uintptr_t FindHudElement = 0x7FFC004AF7E8; // rva 0xDBF7E8
         inline constexpr std::uintptr_t FindHudElement_panorama = 0x7FFC004B17C0; // rva 0xDC17C0
@@ -236,7 +241,12 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t view_matrix_ptr = 0x7FFC01A1EAC0; // rva 0x232EAC0
     }
     namespace engine2 {
+        inline constexpr std::uintptr_t CCommand_Tokenize = 0x7FFC1306D710; // rva 0x3FD710
+        inline constexpr std::uintptr_t CGameClient_ClientCommand = 0x7FFC12D11240; // rva 0xA1240
+        inline constexpr std::uintptr_t CHLTVClient_ExecuteStringCommand = 0x7FFC12D90D70; // rva 0x120D70
         inline constexpr std::uintptr_t CSplitScreenSlot = 0x7FFC12EBA250; // rva 0x24A250
+        inline constexpr std::uintptr_t Cvar_RegisterConCommand = 0x7FFC1306D270; // rva 0x3FD270
+        inline constexpr std::uintptr_t Cvar_RegisterConVar = 0x7FFC1306C080; // rva 0x3FC080
         inline constexpr std::uintptr_t Engine__GetScreenAspectRatio = 0x7FFC12CE69D0; // rva 0x769D0
         inline constexpr std::uintptr_t Engine__PVSManager_ptr = 0x7FFC132833F0; // rva 0x6133F0
         inline constexpr std::uintptr_t Engine__RunPrediction = 0x7FFC12CD6490; // rva 0x66490
@@ -253,11 +263,14 @@ namespace cs2::signatures {
     }
     namespace materialsystem2 {
         inline constexpr std::uintptr_t CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040; // rva 0x10040
+        inline constexpr std::uintptr_t CMaterialSystem2_FrameUpdate = 0x7FFC1196BAC0; // rva 0x3BAC0
         inline constexpr std::uintptr_t FindParameter = 0x7FFC11941E30; // rva 0x11E30
         inline constexpr std::uintptr_t MatSys__PrepareSceneMaterial = 0x7FFC11941BE0; // rva 0x11BE0
         inline constexpr std::uintptr_t UpdateParameter = 0x7FFC11942370; // rva 0x12370
     }
     namespace networksystem {
+        inline constexpr std::uintptr_t CNetChan_ProcessMessages = 0x7FFC0FC1B280; // rva 0xBB280
+        inline constexpr std::uintptr_t CNetChan_SendNetMessage = 0x7FFC0FC1D670; // rva 0xBD670
         inline constexpr std::uintptr_t NetSystem_CNetChan_ProcessMessages = 0x7FFC0FC1B280; // rva 0xBB280
         inline constexpr std::uintptr_t NetSystem_CNetChan_SendNetMessage = 0x7FFC0FC1D670; // rva 0xBD670
     }
@@ -267,16 +280,20 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t Particles__SetMaterialShaderType = 0x7FFC09ECD8D0; // rva 0x9D8D0
     }
     namespace rendersystemdx11 {
+        inline constexpr std::uintptr_t CSwapChainDx11_QueuePresentAndWait = 0x7FFC125A4650; // rva 0x34650
+        inline constexpr std::uintptr_t CSwapChainDx11_ResizeBuffers = 0x7FFC125ADD20; // rva 0x3DD20
         inline constexpr std::uintptr_t RenderSystemDx11_QueuePresentAndWait = 0x7FFC125A4650; // rva 0x34650
         inline constexpr std::uintptr_t RenderSystemDx11_SetHardwareGammaRamp = 0x7FFC125AF790; // rva 0x3F790
         inline constexpr std::uintptr_t RenderSystemDx11_SetMode = 0x7FFC125A99E0; // rva 0x399E0
     }
     namespace scenesystem {
         inline constexpr std::uintptr_t CSceneAnimatableObject__GeneratePrimitives = 0x7FFC0A683520; // rva 0x73520
+        inline constexpr std::uintptr_t CSceneSystem_RenderViewLayer_Dispatch = 0x7FFC0A6FDD80; // rva 0xEDD80
         inline constexpr std::uintptr_t DrawObject_legacy = 0x7FFC0A665BC0; // rva 0x55BC0
         inline constexpr std::uintptr_t DrawSkyboxArray = 0x7FFC0A75FB90; // rva 0x14FB90
         inline constexpr std::uintptr_t SceneSystem__DrawAggeregateObject = 0x7FFC0A73CF50; // rva 0x12CF50
         inline constexpr std::uintptr_t SceneSystem__DrawArrayLight = 0x7FFC0A68AAC0; // rva 0x7AAC0
+        inline constexpr std::uintptr_t SceneSystem_Thread_RenderSceneDrawList = 0x7FFC0A6FDA30; // rva 0xEDA30
     }
     namespace soundsystem {
         inline constexpr std::uintptr_t SoundSystem__PlayVSound = 0x7FFC0E729840; // rva 0x349840

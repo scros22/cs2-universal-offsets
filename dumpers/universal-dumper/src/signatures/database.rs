@@ -1136,4 +1136,311 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v5 (build 14155 — convars / commands)
+    // ====================================================================
+
+    // ConVar registration — engine2!sub_1803FC080. The internal
+    // CCvar::RegisterConVar entry; refs "RegisterConVar: Unknown
+    // error registering convar \"%s\"!". Hook here to enumerate /
+    // patch every ConVar at registration time, or block creation
+    // of unwanted dev-only convars. Used by every ConVar in CS2.
+    Signature {
+        name: "Cvar_RegisterConVar",
+        module: "engine2.dll",
+        needle: "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 54 41 56 41 57 48 81 EC D0 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ConCommand registration — engine2!sub_1803FD270. The internal
+    // CCvar::RegisterConCommand entry; refs "RegisterConCommand:
+    // Unknown error registering con command \"%s\"!". Hook to
+    // enumerate / patch / hide console commands at startup.
+    Signature {
+        name: "Cvar_RegisterConCommand",
+        module: "engine2.dll",
+        needle: "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 48 83 EC 60 44 8B 15 ? ? ? ? 48 8B D9 65 48",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CCommand::Tokenize — engine2!sub_1803FD710. Refs "CCommand::
+    // Tokenize: Encountered command which overflows the tokenizer
+    // buffer.. Skipping!". Every console command (typed, alias,
+    // exec, RCON, scripted) flows through here before dispatch.
+    // Hook for command logging / blocking / rewriting.
+    Signature {
+        name: "CCommand_Tokenize",
+        module: "engine2.dll",
+        needle: "48 89 6C 24 20 4C 89 44 24 18 56 57 41 54 41 56 41 57 48 83 EC 70 48 8B F2 49 8B E8 8B 51 08 4C",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CGameClient::ClientCommand — engine2!sub_1800A1240. Refs
+    // "ClientCommand, 0 length string supplied.". Server-side
+    // dispatcher for stringcmds received from clients (e.g.
+    // "buy", "menuselect", "kill"). Useful for server-tooling
+    // anti-cheat hooks and command-flood detection.
+    Signature {
+        name: "CGameClient_ClientCommand",
+        module: "engine2.dll",
+        needle: "48 8B C4 4C 89 40 18 4C 89 48 20 55 53 57 48 8D 68 A1 48 81 EC C0 00 00 00 33 FF 48 63 DA 48 39",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CHLTVClient::ExecuteStringCommand — engine2!sub_180120D70.
+    // Refs "CHLTVClient::ExecuteStringCommand: Unknown command %s.".
+    // GOTV / HLTV-side stringcmd dispatcher. Useful for HLTV
+    // bot tooling and demo-recorder hooks.
+    Signature {
+        name: "CHLTVClient_ExecuteStringCommand",
+        module: "engine2.dll",
+        needle: "40 53 56 48 81 EC 48 07 00 00 48 8B F1 48 8B DA 48 8B 4A 48 48 83 E1 FC 48 83 79 18 0F 76 03 48",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v5 (build 14155 — client gameplay)
+    // ====================================================================
+
+    // FX_FireBullets — client!sub_180C7BE80. Refs "FX_FireBullets:
+    // GetItemDefinition failed", "...GetWeaponEconDataFromItem failed
+    // for weapon %s", "...GetCSWeaponDataFromItem failed for weapon
+    // %s" — three unique strings inside a single ~0x869 byte
+    // function. Client-side bullet-fire effect / tracer / decal /
+    // event dispatcher. PRIME hook target for tracers, hit markers,
+    // bullet impact replay, recoil-reset detection.
+    Signature {
+        name: "FX_FireBullets",
+        module: "client.dll",
+        needle: "48 8B C4 4C 89 48 20 48 89 50 10 55 53 57 41 54 41 55 48 8D A8 58 FB FF FF 48 81 EC A0 05 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // RunCommand context — client!sub_1809DA390. Refs "runcommand:
+    // %04d,tick:%u" log format. The per-tick CSPlayer movement
+    // RunCommand wrapper that drives prediction, where CUserCmd is
+    // applied. KEY hook for movement cheats (auto-strafe, perfect
+    // bhop), no-recoil compensators, fake-lag, and prediction
+    // observability. Pairs with the existing CCSGOInput_CreateMove.
+    Signature {
+        name: "CCSPlayer_RunCommand_Context",
+        module: "client.dll",
+        needle: "48 8B C4 48 81 EC C8 00 00 00 48 89 58 10 48 89 68 18 48 8B EA 48 89 70 20 48 8B F1 48 89 78 F8",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v6 (build 14155 — present / scene render)
+    // ====================================================================
+
+    // CSwapChainBase::QueuePresentAndWait — rendersystemdx11!
+    // sub_180034650. Refs "CSwapChainBase::QueuePresentAndWait()
+    // looped for %d iterations without a present event.". The
+    // engine-level wrapper around IDXGISwapChain::Present.
+    // GOLD STANDARD frame hook for ImGui menus, ESP overlay,
+    // chams setup — runs every present, has full device context.
+    Signature {
+        name: "CSwapChainDx11_QueuePresentAndWait",
+        module: "rendersystemdx11.dll",
+        needle: "40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // Swapchain ResizeBuffers — rendersystemdx11!sub_18003DD20. Refs
+    // both "m_pSwapChain->ResizeTarget(...)" and "m_pSwapChain->
+    // ResizeBuffers(...)" (two strings, single function). Hook to
+    // re-create your render targets / ImGui backbuffer view when
+    // window is resized or fullscreen toggled — without this, an
+    // ImGui hook breaks on every alt-tab/resize.
+    Signature {
+        name: "CSwapChainDx11_ResizeBuffers",
+        module: "rendersystemdx11.dll",
+        needle: "48 8B C4 55 53 56 57 41 54 48 8B EC 48 83 EC 70 4C 89 68 10 4D 8B E0 4C 89 70 18 4C 8B EA 4C 89",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // Thread_RenderSceneDrawList — scenesystem!sub_1800EDA30. Refs
+    // "Thread_RenderSceneDrawList" job name (single hit). Per-view
+    // scene draw-list submission. Useful as a per-view render hook
+    // (e.g. inject world-space chams pass before submission).
+    Signature {
+        name: "SceneSystem_Thread_RenderSceneDrawList",
+        module: "scenesystem.dll",
+        needle: "40 55 53 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 E1 48 81 EC D8 00 00 00 4C 8B 71 28 48 8B D9",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CSceneSystem RenderViewLayer — scenesystem!sub_1800EDD80
+    // (~0xEE6 bytes). One of two functions referencing the
+    // "Thread_RenderViewLayer" job name string. The big per-layer
+    // dispatcher that walks scene objects and submits draw work.
+    // Hook for layered overlay injection / draw-call replacement.
+    Signature {
+        name: "CSceneSystem_RenderViewLayer_Dispatch",
+        module: "scenesystem.dll",
+        needle: "48 8B C4 48 89 48 08 55 53 56 57 41 54 41 55 41 56 41 57 48 8D A8 B8 FE FF FF 48 81 EC 08 02 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v7 (build 14155 — material/net/damage)
+    // ====================================================================
+
+    // CMaterialSystem2::FrameUpdate — materialsystem2!sub_18003BAC0.
+    // Refs the unique "CMaterialSystem2::FrameUpdate" job-name
+    // string. Per-frame material state advance — fires before every
+    // scene render, useful as an alternate render-pacing hook for
+    // material patches (chams refresh, override-mode reset).
+    Signature {
+        name: "CMaterialSystem2_FrameUpdate",
+        module: "materialsystem2.dll",
+        needle: "48 89 4C 24 08 55 53 56 57 41 54 41 56 48 8B EC 48 83 EC 68 48 8D 05 ? ? ? ? 48 C7 45 C0",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CNetChan::ProcessMessages — networksystem!sub_1800BB280. Refs
+    // the literal "CNetChan::ProcessMessages" string + two timing
+    // log-format strings (single function). Where every received
+    // network message dispatches to its handler. PRIME hook for
+    // packet inspection / message logging / fakelag analysis.
+    Signature {
+        name: "CNetChan_ProcessMessages",
+        module: "networksystem.dll",
+        needle: "48 8B C4 53 57 41 54 41 56 48 81 EC A8 00 00 00 48 89 70 D0 45 33 E4 4C 89 68 C8 48 8B D9 48 89",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CNetChan::SendNetMessage — networksystem!sub_1800BD670. Refs
+    // three "CNetChan::SendNetMessage:" diagnostic strings (invalid
+    // category / buffer full / SerializeAbstract). The outbound
+    // counterpart — every netmessage you send (CMsg, RCON, voice,
+    // user-cmd) flows through here. Hook for traffic shaping /
+    // pre-send mutation / packet drop.
+    Signature {
+        name: "CNetChan_SendNetMessage",
+        module: "networksystem.dll",
+        needle: "48 89 5C 24 10 48 89 6C 24 18 56 57 41 56 48 83 EC 40 41 0F B6 F0 48 8D 99 F8 73 00 00 4C 8B F2",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v7 (build 14155 — client gameplay)
+    // ====================================================================
+
+    // CBaseEntity::TakeDamageOld — client!sub_180223C70. Refs both
+    // "CBaseEntity::TakeDamageOld: damagetype %d with info.
+    // GetDamageForce() == Vector::vZero" and the ...vector::vZero
+    // counterpart. The legacy (still-used) damage-application
+    // entry — hook for damage-indicator, hit-marker, mini-aimbot
+    // damage-prediction, and god-mode patches.
+    Signature {
+        name: "CBaseEntity_TakeDamageOld",
+        module: "client.dll",
+        needle: "40 55 53 56 57 41 54 48 8D 6C 24 E0 48 81 EC 20 01 00 00 4D 8B E0 48 8B FA 48 8B F1 E8",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CGameTrace dispatcher — client!sub_18098D340. Refs the unique
+    // "Physics/TraceShape (Client)" profile-zone string. Wraps
+    // every client-side trace (TraceLine / TraceHull) into the
+    // physics system. Hook for visibility checks, autowall, head-
+    // shot eligibility, custom no-trace sources.
+    Signature {
+        name: "CGameTrace_TraceShape_Client",
+        module: "client.dll",
+        needle: "48 89 5C 24 20 48 89 4C 24 08 55 57 41 54 41 55 41 56 48 8D AC 24 10 E0 FF FF B8 F0 20 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v7 (build 14155 — entity factory)
+    // ====================================================================
+
+    // DispatchSpawn entry — client!sub_1814D32A0. Single string-
+    // ref "DispatchSpawn". Spawns / re-initialises any entity on
+    // the client (called in waves on round-start, map-load,
+    // late-create). Hook to intercept new entities (auto-tag
+    // weapons, attach overrides, log spawns).
+    Signature {
+        name: "Client_DispatchSpawn",
+        module: "client.dll",
+        needle: "4C 8B DC 55 56 48 83 EC 78 49 8B 68 08 48 8B F1 48 85 ED 0F 84 72 01 00 00 49 89 5B 08 49 8D 4B",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA APR-26-2026 EXPANSION v8 (build 14155 — resources / hoststate)
+    // ====================================================================
+
+    // CResourceSystem::FindOrRegisterResourceByName_Internal —
+    // resourcesystem!sub_180016D80. Refs the unique
+    // "CResourceSystem::FindOrRegisterResourceByName_Internal"
+    // string. Every model / material / sound / particle path
+    // resolves through here. Hook for resource-load logging,
+    // path overrides, asset replacement (custom skins/models).
+    Signature {
+        name: "ResourceSystem_FindOrRegisterResourceByName",
+        module: "resourcesystem.dll",
+        needle: "48 89 5C 24 18 48 89 74 24 20 57 48 81 EC A0 00 00 00 F7 02 FF FF FF 3F 41 0F B6 F8 48 8B DA 48",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CResourceSystem::BlockingLoadResourceByNameIntoJustInTimeManifest —
+    // resourcesystem!sub_180017360. Refs that string. Synchronous
+    // resource-load entry. Hook to detect or block on-demand asset
+    // streaming, prefetch overrides, custom asset injection.
+    Signature {
+        name: "ResourceSystem_BlockingLoadResourceByName",
+        module: "resourcesystem.dll",
+        needle: "40 53 55 57 48 81 EC 80 00 00 00 48 8B 01 49 8B E8 48 8B FA 48 8B D9 FF 90 98 01 00 00 83 F8 03",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CResourceSystem::FrameUpdate — resourcesystem!sub_18001C010.
+    // Refs both the unique "ResourceSystemWaitingForFutureWork"
+    // tracing string and "Idle (ResourceSystemSleep)" inside the
+    // same ~0xC83 byte function. Per-frame resource-system tick.
+    // Hook to inject custom resource bookkeeping or measure load
+    // pressure.
+    Signature {
+        name: "ResourceSystem_FrameUpdate",
+        module: "resourcesystem.dll",
+        needle: "44 88 4C 24 20 44 89 44 24 18 89 54 24 10 55 56 41 54 41 55 41 56 48 8D 6C 24 A0 48 81 EC 60 01",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CHostStateMgr::QueueNewRequest — engine2!sub_18021AFC0. Refs
+    // the unique "CHostStateMgr::QueueNewRequest( %s, %u )" log
+    // string. The engine's host-state transition queue (map
+    // change, disconnect, demo playback, restart). Hook to
+    // intercept / log every map-state change and reset hooks
+    // safely between maps.
+    Signature {
+        name: "Engine_HostStateMgr_QueueNewRequest",
+        module: "engine2.dll",
+        needle: "48 89 6C 24 18 48 89 7C 24 20 41 56 48 83 EC 30 48 8B EA 48 8B F9 8B 0D ? ? ? ? BA 02 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
 ];

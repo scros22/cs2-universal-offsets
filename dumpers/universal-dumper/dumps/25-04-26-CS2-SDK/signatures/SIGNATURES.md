@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**262/308 signatures resolved across 10 module(s).**
+**279/325 signatures resolved across 10 module(s).**
 
 ## `animationsystem.dll`
 
@@ -23,6 +23,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CAM_ThinkReturn` | `raw` | `0x7FFBFFA0A44F` | `0x31A44F` | `BA 04 00 00 00 FF 15 ? ? ? ? 84 C0 0F 84` |
 | `CAttributeStringFill` | `rel32` | `0x7FFC0059C570` | `0xEAC570` | `E8 ? ? ? ? 41 83 CF 08` |
 | `CAttributeStringInit` | `rel32` | `0x7FFBFFCE8600` | `0x5F8600` | `E8 ? ? ? ? 48 8D 05 ? ? ? ? 48 89 7D ? 48 89 45 ? 49 8D 4F` |
+| `CBaseEntity_TakeDamageOld` | `raw` | `0x7FFBFF913C70` | `0x223C70` | `40 55 53 56 57 41 54 48 8D 6C 24 E0 48 81 EC 20 01 00 00 4D 8B E0 48 8B FA 48 8B F1 E8` |
 | `CBodyComponent` | `stringref` | `0x7FFBFF8AC0B0` | `0x1BC0B0` | `"CBodyComponent"` |
 | `CBodyComponentSkeletonInstance` | `stringref` | `0x7FFBFF8B2F90` | `0x1C2F90` | `"CBodyComponentSkeletonInstance"` |
 | `CBufferStringInit` | `raw` | `0x7FFC00ED0160` | `0x17E0160` | `48 89 5C 24 ? 57 48 83 EC ? 8B 41 ? 48 8D 79` |
@@ -46,6 +47,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CCSPlayer_MovementServices` | `stringref` | `0x7FFBFFF2CAF0` | `0x83CAF0` | `"CCSPlayer_MovementServices"` |
 | `CCSPlayer_MovementServices` | `stringref` | `0x7FFBFFF2CAF0` | `0x83CAF0` | `"CCSPlayer_MovementServices"` |
 | `CCSPlayer_PingServices` | `stringref` | `0x7FFBFFF40920` | `0x850920` | `"CCSPlayer_PingServices"` |
+| `CCSPlayer_RunCommand_Context` | `raw` | `0x7FFC000CA390` | `0x9DA390` | `48 8B C4 48 81 EC C8 00 00 00 48 89 58 10 48 89 68 18 48 8B EA 48 89 70 20 48 8B F1 48 89 78 F8` |
 | `CCSPlayer_UseServices` | `stringref` | `0x7FFBFFF70B50` | `0x880B50` | `"CCSPlayer_UseServices"` |
 | `CCSPlayer_WaterServices` | `stringref` | `0x7FFBFFF65DE0` | `0x875DE0` | `"CCSPlayer_WaterServices"` |
 | `CCSPlayer_WeaponServices` | `stringref` | `0x7FFBFFF66190` | `0x876190` | `"CCSPlayer_WeaponServices"` |
@@ -64,6 +66,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CGameSceneNode` | `stringref` | `0x7FFBFF893840` | `0x1A3840` | `"CGameSceneNode"` |
 | `CGameSceneNode_BuildBoneMergeWork` | `raw` | `0x7FFC0002E3C0` | `0x93E3C0` | `40 55 56 57 41 54 41 55 41 56 41 57 48 83 EC 50 48 8D 6C 24 50 80 A1 06 01 00 00 FB 4C 8B F9 80` |
 | `CGameSceneNode_StartHierarchicalAttachment` | `raw` | `0x7FFC0007AE80` | `0x98AE80` | `48 89 5C 24 10 48 89 6C 24 18 48 89 74 24 20 57 41 54 41 55 41 56 41 57 48 83 EC 30 48 8B F9 8B` |
+| `CGameTrace_TraceShape_Client` | `raw` | `0x7FFC0007D340` | `0x98D340` | `48 89 5C 24 20 48 89 4C 24 08 55 57 41 54 41 55 41 56 48 8D AC 24 10 E0 FF FF B8 F0 20 00 00` |
 | `CGlowProperty` | `stringref` | `0x7FFBFF9D10F0` | `0x2E10F0` | `"CGlowProperty"` |
 | `CHEGrenadeProjectile` | `stringref` | `0x7FFC006CDBD0` | `0xFDDBD0` | `"CHEGrenadeProjectile"` |
 | `CInputPtrGlobal` | `riprel` | `0x7FFC017513C0` | `0x20613C0` | `4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00 85 C0` |
@@ -99,6 +102,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `ClearHUDWeaponIcon` | `rel32` | `0x7FFC004DB720` | `0xDEB720` | `E8 ? ? ? ? 8B F8 C6 84 24 ? ? ? ? ?` |
 | `ClientModeCSNormal_OnEvent` | `raw` | `0x7FFC0034A110` | `0xC5A110` | `40 53 57 48 81 EC 78 02 00 00 48 8B CA 48 8B FA` |
 | `ClientMode_ptr` | `riprel` | `0x7FFC01A2BA60` | `0x233BA60` | `48 8D 0D ? ? ? ? 48 69 C0 ? ? ? ? 48 03 C1 C3 CC CC` |
+| `Client_DispatchSpawn` | `raw` | `0x7FFC00BC32A0` | `0x14D32A0` | `4C 8B DC 55 56 48 83 EC 78 49 8B 68 08 48 8B F1 48 85 ED 0F 84 72 01 00 00 49 89 5B 08 49 8D 4B` |
 | `ConCommand_firstperson` | `raw` | `0x7FFC001B8B50` | `0xAC8B50` | `48 83 EC 28 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 75 ? 48 8B 05 ? ? ? ? C6 80 29 02 00 00 00 C7 80 A8 06 00 00 00` |
 | `ConCommand_thirdperson` | `raw` | `0x7FFC001B8C30` | `0xAC8C30` | `48 83 EC 38 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 0F 85 ? ? ? ? 4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00` |
 | `ConvarGet` | `raw` | `0x7FFBFFFADF82` | `0x8BDF82` | `8B D0 48 8D 0D ? ? ? ? E8 ? ? ? ? 0F 10 45 ? 83 F0 74` |
@@ -115,6 +119,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `DrawScopeOverlay` | `raw` | `0x7FFBFFF4BFF0` | `0x85BFF0` | `48 8B C4 53 57 48 83 EC ? 48 8B FA` |
 | `DrawSmokeVertex` | `raw` | `0x7FFC00368D90` | `0xC78D90` | `48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B 9C 24 ? ? ? ? 4D 8B F8` |
 | `FX_FireBullets` | `raw` | `0x7FFC0036BE80` | `0xC7BE80` | `48 8B C4 4C 89 48 20 48 89 50 10 55 53 57 41 54 41 55 48 8D A8 58 FB FF FF 48 81 EC A0 05` |
+| `FX_FireBullets` | `raw` | `0x7FFC0036BE80` | `0xC7BE80` | `48 8B C4 4C 89 48 20 48 89 50 10 55 53 57 41 54 41 55 48 8D A8 58 FB FF FF 48 81 EC A0 05 00 00` |
 | `FindHudElement` | `raw` | `0x7FFC004AF7E8` | `0xDBF7E8` | `48 8D 15 ? ? ? ? 45 33 C0 B9 ? ? ? ? FF 15 ? ? ? ? EB ? 48 8B 15` |
 | `FindHudElement_panorama` | `raw` | `0x7FFC004B17C0` | `0xDC17C0` | `4C 8B DC 53 48 83 EC 50 48 8B 05` |
 | `FindSOCache` | `raw` | `0x7FFC00F0C810` | `0x181C810` | `48 89 5C 24 08 57 48 83 EC 30 4C 8B 52 08 48 8B D9 8B 0A` |
@@ -245,7 +250,12 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
+| `CCommand_Tokenize` | `raw` | `0x7FFC1306D710` | `0x3FD710` | `48 89 6C 24 20 4C 89 44 24 18 56 57 41 54 41 56 41 57 48 83 EC 70 48 8B F2 49 8B E8 8B 51 08 4C` |
+| `CGameClient_ClientCommand` | `raw` | `0x7FFC12D11240` | `0xA1240` | `48 8B C4 4C 89 40 18 4C 89 48 20 55 53 57 48 8D 68 A1 48 81 EC C0 00 00 00 33 FF 48 63 DA 48 39` |
+| `CHLTVClient_ExecuteStringCommand` | `raw` | `0x7FFC12D90D70` | `0x120D70` | `40 53 56 48 81 EC 48 07 00 00 48 8B F1 48 8B DA 48 8B 4A 48 48 83 E1 FC 48 83 79 18 0F 76 03 48` |
 | `CSplitScreenSlot` | `stringref` | `0x7FFC12EBA250` | `0x24A250` | `"CSplitScreenSlot"` |
+| `Cvar_RegisterConCommand` | `raw` | `0x7FFC1306D270` | `0x3FD270` | `48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 48 83 EC 60 44 8B 15 ? ? ? ? 48 8B D9 65 48` |
+| `Cvar_RegisterConVar` | `raw` | `0x7FFC1306C080` | `0x3FC080` | `48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 54 41 56 41 57 48 81 EC D0 00 00` |
 | `Engine::GetScreenAspectRatio` | `raw` | `0x7FFC12CE69D0` | `0x769D0` | `48 89 5C 24 08 57 48 83 EC 20 8B FA 48 8D 0D` |
 | `Engine::PVSManager_ptr` | `riprel` | `0x7FFC132833F0` | `0x6133F0` | `48 8D 0D ? ? ? ? 33 D2 FF 50` |
 | `Engine::RunPrediction` | `raw` | `0x7FFC12CD6490` | `0x66490` | `40 55 41 56 48 83 EC ? 80 B9` |
@@ -265,6 +275,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
 | `CMaterial2_LoadShadersAndSetupModes` | `raw` | `0x7FFC11940040` | `0x10040` | `44 89 44 24 18 48 89 54 24 10 53 56 41 54 41 55 48 81 EC 88 00 00 00 4C 8B E9 48 C7 44 24 60` |
+| `CMaterialSystem2_FrameUpdate` | `raw` | `0x7FFC1196BAC0` | `0x3BAC0` | `48 89 4C 24 08 55 53 56 57 41 54 41 56 48 8B EC 48 83 EC 68 48 8D 05 ? ? ? ? 48 C7 45 C0` |
 | `FindParameter` | `raw` | `0x7FFC11941E30` | `0x11E30` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8B 59 20 48` |
 | `MatSys::PrepareSceneMaterial` | `raw` | `0x7FFC11941BE0` | `0x11BE0` | `48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 30 48 8B 59 ? 48 8B F2 48 63 79 ? 48 C1 E7 06` |
 | `UpdateParameter` | `raw` | `0x7FFC11942370` | `0x12370` | `48 89 7C 24 ? 41 56 48 83 EC ? 8B 81` |
@@ -273,6 +284,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
+| `CNetChan_ProcessMessages` | `raw` | `0x7FFC0FC1B280` | `0xBB280` | `48 8B C4 53 57 41 54 41 56 48 81 EC A8 00 00 00 48 89 70 D0 45 33 E4 4C 89 68 C8 48 8B D9 48 89` |
+| `CNetChan_SendNetMessage` | `raw` | `0x7FFC0FC1D670` | `0xBD670` | `48 89 5C 24 10 48 89 6C 24 18 56 57 41 56 48 83 EC 40 41 0F B6 F0 48 8D 99 F8 73 00 00 4C 8B F2` |
 | `NetSystem_CNetChan_ProcessMessages` | `raw` | `0x7FFC0FC1B280` | `0xBB280` | `48 8B C4 53 57 41 54 41 56 48 81 EC A8 00 00 00 48 89 70 D0 45 33 E4 4C 89 68 C8 48 8B D9 48 89` |
 | `NetSystem_CNetChan_SendNetMessage` | `raw` | `0x7FFC0FC1D670` | `0xBD670` | `48 89 5C 24 10 48 89 6C 24 18 56 57 41 56 48 83 EC 40 41 0F B6 F0 48 8D 99 F8 73 00 00 4C 8B F2` |
 
@@ -288,6 +301,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
+| `CSwapChainDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
+| `CSwapChainDx11_ResizeBuffers` | `raw` | `0x7FFC125ADD20` | `0x3DD20` | `48 8B C4 55 53 56 57 41 54 48 8B EC 48 83 EC 70 4C 89 68 10 4D 8B E0 4C 89 70 18 4C 8B EA 4C 89` |
 | `RenderSystemDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
 | `RenderSystemDx11_SetHardwareGammaRamp` | `raw` | `0x7FFC125AF790` | `0x3F790` | `48 89 5C 24 18 57 B8 B0 40 00 00 E8 ? ? ? ? 48 2B E0 0F 29 BC 24 90 40 00 00 0F 57 C9 0F 28` |
 | `RenderSystemDx11_SetMode` | `raw` | `0x7FFC125A99E0` | `0x399E0` | `44 89 4C 24 20 44 89 44 24 18 89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 81 EC D8 02 00` |
@@ -297,10 +312,12 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
 | `CSceneAnimatableObject::GeneratePrimitives` | `raw` | `0x7FFC0A683520` | `0x73520` | `48 8B C4 48 89 58 08 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ?` |
+| `CSceneSystem_RenderViewLayer_Dispatch` | `raw` | `0x7FFC0A6FDD80` | `0xEDD80` | `48 8B C4 48 89 48 08 55 53 56 57 41 54 41 55 41 56 41 57 48 8D A8 B8 FE FF FF 48 81 EC 08 02 00` |
 | `DrawObject_legacy` | `raw` | `0x7FFC0A665BC0` | `0x55BC0` | `48 8B C4 53 57 41 54 48 81 EC D0 00 00 00 49 63 F9 49` |
 | `DrawSkyboxArray` | `raw` | `0x7FFC0A75FB90` | `0x14FB90` | `45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55` |
 | `SceneSystem::DrawAggeregateObject` | `raw` | `0x7FFC0A73CF50` | `0x12CF50` | `48 8B C4 4C 89 48 20 4C 89 40 ? 48 89 50 ? 55 53 41 57 48 8D A8` |
 | `SceneSystem::DrawArrayLight` | `raw` | `0x7FFC0A68AAC0` | `0x7AAC0` | `48 89 5C 24 ? 48 89 6C 24 ? 48 89 54 24` |
+| `SceneSystem_Thread_RenderSceneDrawList` | `raw` | `0x7FFC0A6FDA30` | `0xEDA30` | `40 55 53 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 E1 48 81 EC D8 00 00 00 4C 8B 71 28 48 8B D9` |
 
 ## `soundsystem.dll`
 

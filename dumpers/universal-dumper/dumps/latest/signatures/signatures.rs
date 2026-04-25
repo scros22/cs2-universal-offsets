@@ -25,6 +25,8 @@ pub mod client {
     pub const CAttributeStringFill: usize = 0x7FFC0059C570;
     /// rva 0x5F8600
     pub const CAttributeStringInit: usize = 0x7FFBFFCE8600;
+    /// rva 0x223C70
+    pub const CBaseEntity_TakeDamageOld: usize = 0x7FFBFF913C70;
     /// rva 0x1BC0B0
     pub const CBodyComponent: usize = 0x7FFBFF8AC0B0;
     /// rva 0x1C2F90
@@ -71,6 +73,8 @@ pub mod client {
     pub const CCSPlayer_MovementServices: usize = 0x7FFBFFF2CAF0;
     /// rva 0x850920
     pub const CCSPlayer_PingServices: usize = 0x7FFBFFF40920;
+    /// rva 0x9DA390
+    pub const CCSPlayer_RunCommand_Context: usize = 0x7FFC000CA390;
     /// rva 0x880B50
     pub const CCSPlayer_UseServices: usize = 0x7FFBFFF70B50;
     /// rva 0x875DE0
@@ -107,6 +111,8 @@ pub mod client {
     pub const CGameSceneNode_BuildBoneMergeWork: usize = 0x7FFC0002E3C0;
     /// rva 0x98AE80
     pub const CGameSceneNode_StartHierarchicalAttachment: usize = 0x7FFC0007AE80;
+    /// rva 0x98D340
+    pub const CGameTrace_TraceShape_Client: usize = 0x7FFC0007D340;
     /// rva 0x2E10F0
     pub const CGlowProperty: usize = 0x7FFBFF9D10F0;
     /// rva 0xFDDBD0
@@ -177,6 +183,8 @@ pub mod client {
     pub const ClientModeCSNormal_OnEvent: usize = 0x7FFC0034A110;
     /// rva 0x233BA60
     pub const ClientMode_ptr: usize = 0x7FFC01A2BA60;
+    /// rva 0x14D32A0
+    pub const Client_DispatchSpawn: usize = 0x7FFC00BC32A0;
     /// rva 0xAC8B50
     pub const ConCommand_firstperson: usize = 0x7FFC001B8B50;
     /// rva 0xAC8C30
@@ -207,6 +215,8 @@ pub mod client {
     pub const DrawScopeOverlay: usize = 0x7FFBFFF4BFF0;
     /// rva 0xC78D90
     pub const DrawSmokeVertex: usize = 0x7FFC00368D90;
+    /// rva 0xC7BE80
+    pub const FX_FireBullets: usize = 0x7FFC0036BE80;
     /// rva 0xC7BE80
     pub const FX_FireBullets: usize = 0x7FFC0036BE80;
     /// rva 0xDBF7E8
@@ -462,8 +472,18 @@ pub mod client {
 }
 
 pub mod engine2 {
+    /// rva 0x3FD710
+    pub const CCommand_Tokenize: usize = 0x7FFC1306D710;
+    /// rva 0xA1240
+    pub const CGameClient_ClientCommand: usize = 0x7FFC12D11240;
+    /// rva 0x120D70
+    pub const CHLTVClient_ExecuteStringCommand: usize = 0x7FFC12D90D70;
     /// rva 0x24A250
     pub const CSplitScreenSlot: usize = 0x7FFC12EBA250;
+    /// rva 0x3FD270
+    pub const Cvar_RegisterConCommand: usize = 0x7FFC1306D270;
+    /// rva 0x3FC080
+    pub const Cvar_RegisterConVar: usize = 0x7FFC1306C080;
     /// rva 0x769D0
     pub const Engine__GetScreenAspectRatio: usize = 0x7FFC12CE69D0;
     /// rva 0x6133F0
@@ -495,6 +515,8 @@ pub mod engine2 {
 pub mod materialsystem2 {
     /// rva 0x10040
     pub const CMaterial2_LoadShadersAndSetupModes: usize = 0x7FFC11940040;
+    /// rva 0x3BAC0
+    pub const CMaterialSystem2_FrameUpdate: usize = 0x7FFC1196BAC0;
     /// rva 0x11E30
     pub const FindParameter: usize = 0x7FFC11941E30;
     /// rva 0x11BE0
@@ -504,6 +526,10 @@ pub mod materialsystem2 {
 }
 
 pub mod networksystem {
+    /// rva 0xBB280
+    pub const CNetChan_ProcessMessages: usize = 0x7FFC0FC1B280;
+    /// rva 0xBD670
+    pub const CNetChan_SendNetMessage: usize = 0x7FFC0FC1D670;
     /// rva 0xBB280
     pub const NetSystem_CNetChan_ProcessMessages: usize = 0x7FFC0FC1B280;
     /// rva 0xBD670
@@ -521,6 +547,10 @@ pub mod particles {
 
 pub mod rendersystemdx11 {
     /// rva 0x34650
+    pub const CSwapChainDx11_QueuePresentAndWait: usize = 0x7FFC125A4650;
+    /// rva 0x3DD20
+    pub const CSwapChainDx11_ResizeBuffers: usize = 0x7FFC125ADD20;
+    /// rva 0x34650
     pub const RenderSystemDx11_QueuePresentAndWait: usize = 0x7FFC125A4650;
     /// rva 0x3F790
     pub const RenderSystemDx11_SetHardwareGammaRamp: usize = 0x7FFC125AF790;
@@ -531,6 +561,8 @@ pub mod rendersystemdx11 {
 pub mod scenesystem {
     /// rva 0x73520
     pub const CSceneAnimatableObject__GeneratePrimitives: usize = 0x7FFC0A683520;
+    /// rva 0xEDD80
+    pub const CSceneSystem_RenderViewLayer_Dispatch: usize = 0x7FFC0A6FDD80;
     /// rva 0x55BC0
     pub const DrawObject_legacy: usize = 0x7FFC0A665BC0;
     /// rva 0x14FB90
@@ -539,6 +571,8 @@ pub mod scenesystem {
     pub const SceneSystem__DrawAggeregateObject: usize = 0x7FFC0A73CF50;
     /// rva 0x7AAC0
     pub const SceneSystem__DrawArrayLight: usize = 0x7FFC0A68AAC0;
+    /// rva 0xEDA30
+    pub const SceneSystem_Thread_RenderSceneDrawList: usize = 0x7FFC0A6FDA30;
 }
 
 pub mod soundsystem {
