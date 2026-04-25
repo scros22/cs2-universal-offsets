@@ -65,7 +65,7 @@ public static class Signatures
         public const ulong CGameSceneNode_StartHierarchicalAttachment = 0x7FFC0007AE80UL; // rva 0x98AE80
         public const ulong CGameTrace_TraceShape_Client = 0x7FFC0007D340UL; // rva 0x98D340
         public const ulong CGlowProperty = 0x7FFBFF9D10F0UL; // rva 0x2E10F0
-        public const ulong CGlowProperty_OnDataChanged = 0x7FFBFF9D10F0UL; // rva 0x2E10F0
+        public const ulong CGlowProperty_OnGlowTypeChanged = 0x7FFC001FB630UL; // rva 0xB0B630
         public const ulong CHEGrenadeProjectile = 0x7FFC006CDBD0UL; // rva 0xFDDBD0
         public const ulong CInputPtrGlobal = 0x7FFC017513C0UL; // rva 0x20613C0
         public const ulong CMolotovProjectile = 0x7FFBFFE3E280UL; // rva 0x74E280
@@ -76,8 +76,11 @@ public static class Signatures
         public const ulong CSkeletonInstance = 0x7FFBFF893970UL; // rva 0x1A3970
         public const ulong CSkeletonInstance__SetMeshGroupMask = 0x7FFC0011C3F0UL; // rva 0xA2C3F0
         public const ulong CSkeletonInstance_GetTransformsForHitboxList = 0x7FFC00108F60UL; // rva 0xA18F60
+        public const ulong CSkeletonInstance_OnBodyGroupChoiceChanged = 0x7FFC00113BB0UL; // rva 0xA23BB0
+        public const ulong CSkeletonInstance_OnSkeletonModelChanged = 0x7FFC00113DC0UL; // rva 0xA23DC0
         public const ulong CSkeletonInstance_PostDataUpdate = 0x7FFC00114D50UL; // rva 0xA24D50
-        public const ulong CSkeletonInstance_SetMaterialGroup = 0x7FFBFF8AC0B0UL; // rva 0x1BC0B0
+        public const ulong CSkeletonInstance_SetMaterialGroup = 0x7FFC0011B0D0UL; // rva 0xA2B0D0
+        public const ulong CSkeletonInstance_SetMeshGroupMask = 0x7FFC00113D20UL; // rva 0xA23D20
         public const ulong CSmokeGrenadeProjectile = 0x7FFBFFE3E320UL; // rva 0x74E320
         public const ulong CTonemapController2 = 0x7FFBFF947BE0UL; // rva 0x257BE0
         public const ulong C_AttributeContainer = 0x7FFC003065E0UL; // rva 0xC165E0
@@ -159,6 +162,7 @@ public static class Signatures
         public const ulong GetWorldFovResolver = 0x7FFBFFEFBE50UL; // rva 0x80BE50
         public const ulong GlobalVariables_ptr = 0x7FFC017396A0UL; // rva 0x20496A0
         public const ulong GloveApply_PerTick = 0x7FFC002AFB00UL; // rva 0xBBFB00
+        public const ulong GlowObjectManager_GetInstance = 0x7FFC001F9570UL; // rva 0xB09570
         public const ulong HandleBulletPenetration = 0x7FFBFFF10210UL; // rva 0x820210
         public const ulong HandleEntityList = 0x7FFBFF8B3650UL; // rva 0x1C3650
         public const ulong HandleTeamIntro = 0x7FFBFFDF3E00UL; // rva 0x703E00

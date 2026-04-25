@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**288/334 signatures resolved across 11 module(s).**
+**292/338 signatures resolved across 11 module(s).**
 
 ## `animationsystem.dll`
 
@@ -69,7 +69,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CGameSceneNode_StartHierarchicalAttachment` | `raw` | `0x7FFC0007AE80` | `0x98AE80` | `48 89 5C 24 10 48 89 6C 24 18 48 89 74 24 20 57 41 54 41 55 41 56 41 57 48 83 EC 30 48 8B F9 8B` |
 | `CGameTrace_TraceShape_Client` | `raw` | `0x7FFC0007D340` | `0x98D340` | `48 89 5C 24 20 48 89 4C 24 08 55 57 41 54 41 55 41 56 48 8D AC 24 10 E0 FF FF B8 F0 20 00 00` |
 | `CGlowProperty` | `stringref` | `0x7FFBFF9D10F0` | `0x2E10F0` | `"CGlowProperty"` |
-| `CGlowProperty_OnDataChanged` | `raw` | `0x7FFBFF9D10F0` | `0x2E10F0` | `48 83 EC 58 83 F9 01 0F 85 A5 00 00 00 48 8D 05 ? ? ? ? C7 44 24 30 00 00 00 80 89 4C 24 28` |
+| `CGlowProperty_OnGlowTypeChanged` | `raw` | `0x7FFC001FB630` | `0xB0B630` | `48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 48 8B 05 ? ? ? ? 48 8B D9 F3 0F 10 41 4C` |
 | `CHEGrenadeProjectile` | `stringref` | `0x7FFC006CDBD0` | `0xFDDBD0` | `"CHEGrenadeProjectile"` |
 | `CInputPtrGlobal` | `riprel` | `0x7FFC017513C0` | `0x20613C0` | `4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00 85 C0` |
 | `CMolotovProjectile` | `stringref` | `0x7FFBFFE3E280` | `0x74E280` | `"CMolotovProjectile"` |
@@ -80,8 +80,11 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CSkeletonInstance` | `stringref` | `0x7FFBFF893970` | `0x1A3970` | `"CSkeletonInstance"` |
 | `CSkeletonInstance::SetMeshGroupMask` | `raw` | `0x7FFC0011C3F0` | `0xA2C3F0` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8D 99` |
 | `CSkeletonInstance_GetTransformsForHitboxList` | `raw` | `0x7FFC00108F60` | `0xA18F60` | `48 89 5C 24 18 55 56 57 41 55 41 57 48 81 EC A0 00 00 00 49 63 28 4D 8B F8 48 8B FA 48 8B D9 85` |
+| `CSkeletonInstance_OnBodyGroupChoiceChanged` | `raw` | `0x7FFC00113BB0` | `0xA23BB0` | `48 89 5C 24 08 57 48 83 EC 20 49 63 D8 49 8B F9 45 85 C0 78 20 3B 99 18 02 00 00 7D 18` |
+| `CSkeletonInstance_OnSkeletonModelChanged` | `raw` | `0x7FFC00113DC0` | `0xA23DC0` | `49 8B 00 48 89 81 B8 00 00 00 C6 81 B0 00 00 00 01 C3` |
 | `CSkeletonInstance_PostDataUpdate` | `raw` | `0x7FFC00114D50` | `0xA24D50` | `48 8B C4 4C 89 40 18 89 50 10 55 57 48 8D A8 68 FE FF FF 48 81 EC 88 02 00 00 48 89 70 E0 48 8B` |
-| `CSkeletonInstance_SetMaterialGroup` | `raw` | `0x7FFBFF8AC0B0` | `0x1BC0B0` | `48 83 EC 38 48 8B 05 ? ? ? ? 48 85 C0 0F 85 C6 0A 00 00 48 89 5C 24 40 B9 50 00 00 00 48 89` |
+| `CSkeletonInstance_SetMaterialGroup` | `raw` | `0x7FFC0011B0D0` | `0xA2B0D0` | `3B 91 C4 03 00 00 74 24 89 91 C4 03 00 00 48 8B 81 28 02 00 00 48 85 C0 74 12` |
+| `CSkeletonInstance_SetMeshGroupMask` | `raw` | `0x7FFC00113D20` | `0xA23D20` | `48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 49 8B 00 49 8B F8 48 8B F2 48 8B D9 48 39 81 C8 01` |
 | `CSmokeGrenadeProjectile` | `stringref` | `0x7FFBFFE3E320` | `0x74E320` | `"CSmokeGrenadeProjectile"` |
 | `CTonemapController2` | `stringref` | `0x7FFBFF947BE0` | `0x257BE0` | `"CTonemapController2"` |
 | `C_AttributeContainer` | `stringref` | `0x7FFC003065E0` | `0xC165E0` | `"C_AttributeContainer"` |
@@ -163,6 +166,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `GetWorldFovResolver` | `raw` | `0x7FFBFFEFBE50` | `0x80BE50` | `40 53 48 83 EC 50 48 8B D9 E8 ? ? ? ? 48 85 C0 74 ? 48 8B C8 48 83 C4 50 5B E9` |
 | `GlobalVariables_ptr` | `riprel` | `0x7FFC017396A0` | `0x20496A0` | `48 89 15 ? ? ? ? 48 89 42` |
 | `GloveApply_PerTick` | `raw` | `0x7FFC002AFB00` | `0xBBFB00` | `40 55 56 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B B9 A0 00 00 00` |
+| `GlowObjectManager_GetInstance` | `raw` | `0x7FFC001F9570` | `0xB09570` | `48 8B 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 8B 41 38 C3` |
 | `HandleBulletPenetration` | `raw` | `0x7FFBFFF10210` | `0x820210` | `48 8B C4 44 89 48 ? 48 89 50 ? 48 89 48 ? 55` |
 | `HandleEntityList` | `rel32` | `0x7FFBFF8B3650` | `0x1C3650` | `E8 ? ? ? ? 84 C0 74 ? 48 63 03` |
 | `HandleTeamIntro` | `raw` | `0x7FFBFFDF3E00` | `0x703E00` | `48 83 EC ? ? ? ? ? 44 38 89` |

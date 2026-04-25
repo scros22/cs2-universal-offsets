@@ -63,7 +63,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CGameSceneNode_StartHierarchicalAttachment = 0x7FFC0007AE80; // rva 0x98AE80
         inline constexpr std::uintptr_t CGameTrace_TraceShape_Client = 0x7FFC0007D340; // rva 0x98D340
         inline constexpr std::uintptr_t CGlowProperty = 0x7FFBFF9D10F0; // rva 0x2E10F0
-        inline constexpr std::uintptr_t CGlowProperty_OnDataChanged = 0x7FFBFF9D10F0; // rva 0x2E10F0
+        inline constexpr std::uintptr_t CGlowProperty_OnGlowTypeChanged = 0x7FFC001FB630; // rva 0xB0B630
         inline constexpr std::uintptr_t CHEGrenadeProjectile = 0x7FFC006CDBD0; // rva 0xFDDBD0
         inline constexpr std::uintptr_t CInputPtrGlobal = 0x7FFC017513C0; // rva 0x20613C0
         inline constexpr std::uintptr_t CMolotovProjectile = 0x7FFBFFE3E280; // rva 0x74E280
@@ -74,8 +74,11 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CSkeletonInstance = 0x7FFBFF893970; // rva 0x1A3970
         inline constexpr std::uintptr_t CSkeletonInstance__SetMeshGroupMask = 0x7FFC0011C3F0; // rva 0xA2C3F0
         inline constexpr std::uintptr_t CSkeletonInstance_GetTransformsForHitboxList = 0x7FFC00108F60; // rva 0xA18F60
+        inline constexpr std::uintptr_t CSkeletonInstance_OnBodyGroupChoiceChanged = 0x7FFC00113BB0; // rva 0xA23BB0
+        inline constexpr std::uintptr_t CSkeletonInstance_OnSkeletonModelChanged = 0x7FFC00113DC0; // rva 0xA23DC0
         inline constexpr std::uintptr_t CSkeletonInstance_PostDataUpdate = 0x7FFC00114D50; // rva 0xA24D50
-        inline constexpr std::uintptr_t CSkeletonInstance_SetMaterialGroup = 0x7FFBFF8AC0B0; // rva 0x1BC0B0
+        inline constexpr std::uintptr_t CSkeletonInstance_SetMaterialGroup = 0x7FFC0011B0D0; // rva 0xA2B0D0
+        inline constexpr std::uintptr_t CSkeletonInstance_SetMeshGroupMask = 0x7FFC00113D20; // rva 0xA23D20
         inline constexpr std::uintptr_t CSmokeGrenadeProjectile = 0x7FFBFFE3E320; // rva 0x74E320
         inline constexpr std::uintptr_t CTonemapController2 = 0x7FFBFF947BE0; // rva 0x257BE0
         inline constexpr std::uintptr_t C_AttributeContainer = 0x7FFC003065E0; // rva 0xC165E0
@@ -157,6 +160,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t GetWorldFovResolver = 0x7FFBFFEFBE50; // rva 0x80BE50
         inline constexpr std::uintptr_t GlobalVariables_ptr = 0x7FFC017396A0; // rva 0x20496A0
         inline constexpr std::uintptr_t GloveApply_PerTick = 0x7FFC002AFB00; // rva 0xBBFB00
+        inline constexpr std::uintptr_t GlowObjectManager_GetInstance = 0x7FFC001F9570; // rva 0xB09570
         inline constexpr std::uintptr_t HandleBulletPenetration = 0x7FFBFFF10210; // rva 0x820210
         inline constexpr std::uintptr_t HandleEntityList = 0x7FFBFF8B3650; // rva 0x1C3650
         inline constexpr std::uintptr_t HandleTeamIntro = 0x7FFBFFDF3E00; // rva 0x703E00

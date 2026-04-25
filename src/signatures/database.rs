@@ -1481,17 +1481,72 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //   NOT what produces the metal-look itself.
     // ====================================================================
 
-    // CSkeletonInstance::SetMaterialGroup — client!sub_1801BC0B0
-    // (~0xADF). The single function that references the unique
-    // "SetMaterialGroup" symbol string (CDataMap entry); this is
-    // the live setter for swapping a model's entire material list
-    // to a different material-group-symbol.  THE primary hook for
-    // proper chams: replace the symbol with one pointing at your
-    // custom csgo_character material variant (gold/silver/etc.).
+    // CSkeletonInstance::SetMaterialGroup — client!sub_180A2B0D0
+    // (~0x2C bytes — small fast setter). Verified via decomp:
+    //   if ( a2 != *(_DWORD *)(a1 + 0x3C4) ) {
+    //       *(_DWORD *)(a1 + 0x3C4) = a2;            // m_materialGroup
+    //       v2 = *(_QWORD *)(a1 + 0x228);            // scene-object
+    //       if ( v2 ) sub_1803B9E90(qword_1821C2EB8, v2, a2);
+    //   }
+    // Writes `m_materialGroup` (CUtlStringToken hash) at offset
+    // +0x3C4 and notifies the scene system so the swap is visible
+    // immediately. THE primary hook for proper chams: pass a hash
+    // pointing at your custom csgo_character.vfx variant
+    // (gold/silver/etc.) here every frame.
+    //
+    // NOTE v1.14.0 mistakenly anchored this at sub_1801BC0B0 — that
+    // address is `CBodyComponent::RegisterScriptDescriptor`, a
+    // one-shot script-binding registrar that contains the literal
+    // "SetMaterialGroup" symbol but is NOT the runtime setter.
+    // The wrapper chain is:
+    //   Script_SetMaterialGroup (sub_1801D5890)
+    //     -> vtable[+0x58] (CBodyComponent::GetSkeletonInstance)
+    //     -> CSkeletonInstance::SetMaterialGroup (sub_180A2B0D0) ← real
     Signature {
         name: "CSkeletonInstance_SetMaterialGroup",
         module: "client.dll",
-        needle: "48 83 EC 38 48 8B 05 ? ? ? ? 48 85 C0 0F 85 C6 0A 00 00 48 89 5C 24 40 B9 50 00 00 00 48 89",
+        needle: "3B 91 C4 03 00 00 74 24 89 91 C4 03 00 00 48 8B 81 28 02 00 00 48 85 C0 74 12",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CSkeletonInstance::SetMeshGroupMask (skeletonMeshGroupMaskChanged
+    // network-var change handler) — client!sub_180A23D20.  Verified
+    // via the CModelState change-handler registrar sub_18049BBF0 which
+    // wires "skeletonMeshGroupMaskChanged" -> sub_180A23D20.  Sets
+    // `m_MeshGroupMask` at +0x1C8 and notifies scene system.
+    // Pair with SetMaterialGroup above to mask off mesh parts (vest /
+    // helmet / scope) in the chams pass for a cleaner silhouette.
+    Signature {
+        name: "CSkeletonInstance_SetMeshGroupMask",
+        module: "client.dll",
+        needle: "48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 49 8B 00 49 8B F8 48 8B F2 48 8B D9 48 39 81 C8 01",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CSkeletonInstance::OnBodyGroupChoiceChanged — client!sub_180A23BB0.
+    // Wired via CModelState registrar as the "bodyGroupChoiceChanged"
+    // handler. Lets you control per-bodygroup mesh selection at the
+    // skeleton level (without going through CBaseModelEntity).
+    Signature {
+        name: "CSkeletonInstance_OnBodyGroupChoiceChanged",
+        module: "client.dll",
+        needle: "48 89 5C 24 08 57 48 83 EC 20 49 63 D8 49 8B F9 45 85 C0 78 20 3B 99 18 02 00 00 7D 18",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CSkeletonInstance::OnSkeletonModelChanged — client!sub_180A23DC0
+    // (tiny, 18 bytes). Wired as "skeletonModelChanged" handler.
+    // Fires whenever a model swap is netted to the client — perfect
+    // place to (a) re-resolve your override material for the new
+    // model, (b) reset cached bone counts, (c) recompute bodygroup
+    // override masks.
+    Signature {
+        name: "CSkeletonInstance_OnSkeletonModelChanged",
+        module: "client.dll",
+        needle: "49 8B 00 48 89 81 B8 00 00 00 C6 81 B0 00 00 00 01 C3",
         resolve: NONE,
         extra_off: 0,
     },
@@ -1526,22 +1581,40 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CGlowProperty::OnDataChanged — client!sub_1802E10F0 (~0xB7).
-    // Compact dispatcher referenced by both "OnGlowTypeChanged"
-    // and "OnGlowColorChanged" prediction-field hooks (single
-    // function). Hook here to:
-    //   * force m_bGlowing = true on every entity you want
-    //     outlined,
-    //   * override m_fGlowColor to your team-friendly/enemy
-    //     palette,
-    //   * keep m_iGlowType = 3 (visible-through-walls outline)
-    //     regardless of network state.
-    // Pairs with chams material-swap to give the classic
-    // "gold model + coloured outline" look.
+    // CGlowProperty::OnGlowTypeChanged — client!sub_180B0B630 (~0xE7).
+    // Verified via the registrar sub_1802E10F0 which wires
+    // "OnGlowTypeChanged" -> sub_180B0B630 and "OnGlowColorChanged"
+    // -> sub_180B0B620.  Fires every time `m_iGlowType` (or
+    // `m_glowColor`) changes; touches `m_flGlowStartTime` (+0x4C),
+    // `m_flGlowTime` (+0x48), and registers/unregisters the entity
+    // with `g_pGlowObjectManager` (qword_182325D30).  Hook here to
+    // force `m_bGlowing = true` and override the colour for every
+    // entity you want outlined regardless of network state.
+    //
+    // NOTE v1.14.0 mistakenly anchored this at sub_1802E10F0 — that
+    // address is the prediction-field registrar (a one-shot init
+    // function), not the runtime handler.  Sig collided with two
+    // other registrars (3 matches in find_bytes); the real handler
+    // sig below is unique.
     Signature {
-        name: "CGlowProperty_OnDataChanged",
+        name: "CGlowProperty_OnGlowTypeChanged",
         module: "client.dll",
-        needle: "48 83 EC 58 83 F9 01 0F 85 A5 00 00 00 48 8D 05 ? ? ? ? C7 44 24 30 00 00 00 80 89 4C 24 28",
+        needle: "48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 48 8B 05 ? ? ? ? 48 8B D9 F3 0F 10 41 4C",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // GlowObjectManager_GetInstance — client!sub_180B09570 (8 bytes,
+    // `mov rax, [g_pGlowObjectManager]; ret`).  Resolves the global
+    // CGlowObjectManager singleton — the actual outline-renderer
+    // that owns the per-entity outline list & materials.  Direct
+    // alternative to hooking CGlowProperty: register/unregister
+    // entities for outline yourself, set their colours, alpha, and
+    // depth-test mode at will.
+    Signature {
+        name: "GlowObjectManager_GetInstance",
+        module: "client.dll",
+        needle: "48 8B 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 8B 41 38 C3",
         resolve: NONE,
         extra_off: 0,
     },

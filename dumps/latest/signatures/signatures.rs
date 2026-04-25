@@ -117,8 +117,8 @@ pub mod client {
     pub const CGameTrace_TraceShape_Client: usize = 0x7FFC0007D340;
     /// rva 0x2E10F0
     pub const CGlowProperty: usize = 0x7FFBFF9D10F0;
-    /// rva 0x2E10F0
-    pub const CGlowProperty_OnDataChanged: usize = 0x7FFBFF9D10F0;
+    /// rva 0xB0B630
+    pub const CGlowProperty_OnGlowTypeChanged: usize = 0x7FFC001FB630;
     /// rva 0xFDDBD0
     pub const CHEGrenadeProjectile: usize = 0x7FFC006CDBD0;
     /// rva 0x20613C0
@@ -139,10 +139,16 @@ pub mod client {
     pub const CSkeletonInstance__SetMeshGroupMask: usize = 0x7FFC0011C3F0;
     /// rva 0xA18F60
     pub const CSkeletonInstance_GetTransformsForHitboxList: usize = 0x7FFC00108F60;
+    /// rva 0xA23BB0
+    pub const CSkeletonInstance_OnBodyGroupChoiceChanged: usize = 0x7FFC00113BB0;
+    /// rva 0xA23DC0
+    pub const CSkeletonInstance_OnSkeletonModelChanged: usize = 0x7FFC00113DC0;
     /// rva 0xA24D50
     pub const CSkeletonInstance_PostDataUpdate: usize = 0x7FFC00114D50;
-    /// rva 0x1BC0B0
-    pub const CSkeletonInstance_SetMaterialGroup: usize = 0x7FFBFF8AC0B0;
+    /// rva 0xA2B0D0
+    pub const CSkeletonInstance_SetMaterialGroup: usize = 0x7FFC0011B0D0;
+    /// rva 0xA23D20
+    pub const CSkeletonInstance_SetMeshGroupMask: usize = 0x7FFC00113D20;
     /// rva 0x74E320
     pub const CSmokeGrenadeProjectile: usize = 0x7FFBFFE3E320;
     /// rva 0x257BE0
@@ -305,6 +311,8 @@ pub mod client {
     pub const GlobalVariables_ptr: usize = 0x7FFC017396A0;
     /// rva 0xBBFB00
     pub const GloveApply_PerTick: usize = 0x7FFC002AFB00;
+    /// rva 0xB09570
+    pub const GlowObjectManager_GetInstance: usize = 0x7FFC001F9570;
     /// rva 0x820210
     pub const HandleBulletPenetration: usize = 0x7FFBFFF10210;
     /// rva 0x1C3650

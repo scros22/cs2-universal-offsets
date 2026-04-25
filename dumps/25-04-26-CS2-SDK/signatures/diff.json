@@ -262,9 +262,9 @@
       "va": 140720302002416
     },
     {
-      "name": "CGlowProperty_OnDataChanged",
+      "name": "CGlowProperty_OnGlowTypeChanged",
       "module": "client.dll",
-      "va": 140720302002416
+      "va": 140720310564400
     },
     {
       "name": "CHEGrenadeProjectile",
@@ -317,6 +317,16 @@
       "va": 140720309571424
     },
     {
+      "name": "CSkeletonInstance_OnBodyGroupChoiceChanged",
+      "module": "client.dll",
+      "va": 140720309615536
+    },
+    {
+      "name": "CSkeletonInstance_OnSkeletonModelChanged",
+      "module": "client.dll",
+      "va": 140720309616064
+    },
+    {
       "name": "CSkeletonInstance_PostDataUpdate",
       "module": "client.dll",
       "va": 140720309620048
@@ -324,7 +334,12 @@
     {
       "name": "CSkeletonInstance_SetMaterialGroup",
       "module": "client.dll",
-      "va": 140720300802224
+      "va": 140720309645520
+    },
+    {
+      "name": "CSkeletonInstance_SetMeshGroupMask",
+      "module": "client.dll",
+      "va": 140720309615904
     },
     {
       "name": "CSmokeGrenadeProjectile",
@@ -725,6 +740,11 @@
       "name": "GloveApply_PerTick",
       "module": "client.dll",
       "va": 140720311302912
+    },
+    {
+      "name": "GlowObjectManager_GetInstance",
+      "module": "client.dll",
+      "va": 140720310556016
     },
     {
       "name": "HandleBulletPenetration",
