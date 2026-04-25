@@ -1742,6 +1742,20 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
+    // Dynamic shader compile batch driver — materialsystem2!sub_18003A200
+    // (~0x1053). Emits the compile-batch status lines
+    // "Compiling %i shaders:" and "Compiled %i shaders (%i cached) in %.1fs".
+    // This function fans into CMaterial2_CompileComboAndGetVariables_
+    // DynamicShaderCompile for each queued permutation and is the best
+    // high-level timing hook for compile stalls / warmup effectiveness.
+    Signature {
+        name: "CMaterialSystem2_DynamicShaderCompile_ProcessQueue",
+        module: "materialsystem2.dll",
+        needle: "Compiling %i shaders:",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
     // CVfxProgramData::FindOrCreateStaticComboDataInCache —
     // materialsystem2!sub_1800AE220 (~0x726). Refs the unique log
     // "CVfxProgramData::FindOrCreateStaticComboDataInCache(4448):

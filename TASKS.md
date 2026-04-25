@@ -28,6 +28,7 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [x] **v1.3:** +46 string-ref class anchors (player services, weapon classes, projectiles, gamerules, engine networking) — now 220+ resolved
 - [x] **v1.3.1:** `bytes` field on every found signature (24-byte prologue snapshot, paste-ready IDA pattern even for StringRef entries)
 - [x] **v1.4:** MSVC RTTI walk — every interface vtable carries the demangled C++ class name (`CSource2Client`, `CGameEventSystem`, ...)
+- [x] Source2 VFX/VCS pipeline reconnaissance (runtime HLSL compile path vs static-combo/VCS cache path) with MCP-verified call chains
 
 ## Scanner
 
@@ -37,6 +38,7 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [ ] Auto-pattern generator: take a known VA, walk forward N bytes, mask RIP/imm operands, emit a stable IDA pattern
 - [ ] Per-sig confidence score (uniqueness in section)
 - [ ] Optional `--strict` flag that fails the run on any ambiguous (`matches > 1`) hit
+- [ ] Add two-stage shader-pipeline report mode: (1) compile-queue batch events, (2) static-combo cache outcomes (`FindOrCreateStaticComboDataInCache`)
 
 ## Output
 
@@ -53,6 +55,7 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [ ] ConVar dumper (walk `g_pCVar` registration list → name + flags + default)
 - [ ] GameEvent registry dumper (CGameEventManager → name + field schema)
 - [ ] Interface-version drift detector (flag any `XXX_VERSIONXXX` change)
+- [ ] Map resourcesystem extension->type registration for Source2 material assets (`vmat_c`/`vfx`/`vcs` family) to document compiled-asset load contract
 
 ## Memory / backend
 
