@@ -93,6 +93,8 @@ pub mod client {
     pub const CCSWeaponBaseVData: usize = 0x7FFBFFE4A170;
     /// rva 0x2E0EE0
     pub const CCollisionProperty: usize = 0x7FFBFF9D0EE0;
+    /// rva 0x13B9064
+    pub const CCompositeMaterialManager_AddPanoramaPanelRenderRequest_Caller: usize = 0x7FFC00AA9064;
     /// rva 0x74E0A0
     pub const CDecoyProjectile: usize = 0x7FFBFFE3E0A0;
     /// rva 0x104A5E0
@@ -125,8 +127,14 @@ pub mod client {
     pub const CInputPtrGlobal: usize = 0x7FFC017513C0;
     /// rva 0x74E280
     pub const CMolotovProjectile: usize = 0x7FFBFFE3E280;
+    /// rva 0x1057DD0
+    pub const CPaintKitDefinitions_FindOrCreateByName: usize = 0x7FFC00747DD0;
+    /// rva 0x1029EA0
+    pub const CPaintKitDefinitions_LoadDefaultKit: usize = 0x7FFC00719EA0;
     /// rva 0x2A3CB0
     pub const CPostProcessingVolume: usize = 0x7FFBFF993CB0;
+    /// rva 0x13BA1E0
+    pub const CS2ItemEditor_BuildTemplateMaterialFromFile: usize = 0x7FFC00AAA1E0;
     /// rva 0x14E58D0
     pub const CSBaseGunFireData_fn: usize = 0x7FFC00BD58D0;
     /// rva 0x20613C0
@@ -153,6 +161,8 @@ pub mod client {
     pub const CSmokeGrenadeProjectile: usize = 0x7FFBFFE3E320;
     /// rva 0x257BE0
     pub const CTonemapController2: usize = 0x7FFBFF947BE0;
+    /// rva 0x789A52
+    pub const CUtlVector_CompositeMaterialInput_AddToTail: usize = 0x7FFBFFE79A00;
     /// rva 0xC165E0
     pub const C_AttributeContainer: usize = 0x7FFC003065E0;
     /// rva 0x4E260
@@ -169,8 +179,18 @@ pub mod client {
     pub const C_CSPlayerPawnBase: usize = 0x7FFC002C57C0;
     /// rva 0x742030
     pub const C_CSWeaponBase: usize = 0x7FFBFFE32030;
+    /// rva 0xBBFB00
+    pub const C_EconEntity_BuildLegacyGloveSkinMaterial: usize = 0x7FFC002AFB00;
+    /// rva 0x78C050
+    pub const C_EconEntity_BuildLegacyWeaponSkinMaterial: usize = 0x7FFBFFE7C050;
+    /// rva 0xD828E0
+    pub const C_EconEntity_BuildModernWeaponSkinMaterial: usize = 0x7FFC004728E0;
+    /// rva 0x78AE20
+    pub const C_EconEntity_BuildNametagOverlayMaterial: usize = 0x7FFBFFE7AE20;
     /// rva 0x70B400
     pub const C_EconItemView: usize = 0x7FFBFFDFB400;
+    /// rva 0x10B67D0
+    pub const C_EconWearable_OnNewCustomMaterials: usize = 0x7FFC007A67D0;
     /// rva 0xE73D0
     pub const C_Hostage: usize = 0x7FFBFF7D73D0;
     /// rva 0xF7390
@@ -201,6 +221,8 @@ pub mod client {
     pub const ClientMode_ptr: usize = 0x7FFC01A2BA60;
     /// rva 0x14D32A0
     pub const Client_DispatchSpawn: usize = 0x7FFC00BC32A0;
+    /// rva 0xB8FB00
+    pub const CompositeMaterialPanoramaPanel_Init: usize = 0x7FFC0027FB00;
     /// rva 0xAC8B50
     pub const ConCommand_firstperson: usize = 0x7FFC001B8B50;
     /// rva 0xAC8C30
@@ -321,6 +343,10 @@ pub mod client {
     pub const HandleTeamIntro: usize = 0x7FFBFFDF3E00;
     /// rva 0x10BE830
     pub const HudChatPrintf: usize = 0x7FFC007AE830;
+    /// rva 0x13D6840
+    pub const InfoForResourceTypeCCompositeMaterialKit_TypeManager: usize = 0x7FFC00AC6840;
+    /// rva 0x13D6D90
+    pub const InfoForResourceTypeCCompositeMaterial_TypeManager: usize = 0x7FFC00AC6D90;
     /// rva 0x32BB40
     pub const InitFilter: usize = 0x7FFBFFA1BB40;
     /// rva 0x83F270
@@ -537,6 +563,16 @@ pub mod materialsystem2 {
     pub const CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile: usize = 0x7FFC11943FA0;
     /// rva 0x10040
     pub const CMaterial2_LoadShadersAndSetupModes: usize = 0x7FFC11940040;
+    /// rva 0x18B80
+    pub const CMaterialLayer_ApplyMaterialVarsForBatch: usize = 0x7FFC11948B80;
+    /// rva 0x18F80
+    pub const CMaterialLayer_BuildPassCommandData: usize = 0x7FFC11948F80;
+    /// rva 0x15F3C
+    pub const CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode: usize = 0x7FFC11945F3C;
+    /// rva 0x19820
+    pub const CMaterialLayer_CreateCommandBuffer: usize = 0x7FFC11949820;
+    /// rva 0x70000
+    pub const CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState: usize = 0x7FFC119A0000;
     /// rva 0x39AA0
     pub const CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials: usize = 0x7FFC11969AA0;
     /// rva 0x3BAC0
@@ -545,6 +581,8 @@ pub mod materialsystem2 {
     pub const CMaterialSystem2_GetErrorMaterial: usize = 0x7FFC119474D7;
     /// rva 0x36E40
     pub const CMaterialSystem2_Init: usize = 0x7FFC11966E40;
+    /// rva 0x2F9B0
+    pub const CMaterial_SetVariableAndRenderState: usize = 0x7FFC1195F9B0;
     /// rva 0xAE0E0
     pub const CVfxProgramData_FindOrCreateStaticComboDataInCache: usize = 0x7FFC119DE0E0;
     /// rva 0x11E30
@@ -576,6 +614,12 @@ pub mod particles {
 }
 
 pub mod rendersystemdx11 {
+    /// rva 0x2F500
+    pub const CRenderDeviceBase_CreateConstantBuffer: usize = 0x7FFC1259F500;
+    /// rva 0x3C4E0
+    pub const CRenderDeviceDx11_BeginSubmittingDisplayLists: usize = 0x7FFC125AC4E0;
+    /// rva 0x3FAF0
+    pub const CRenderDeviceDx11_CompileShaderSourceMain: usize = 0x7FFC125AFAF0;
     /// rva 0x34650
     pub const CSwapChainDx11_QueuePresentAndWait: usize = 0x7FFC125A4650;
     /// rva 0x3DD20
@@ -600,8 +644,12 @@ pub mod resourcesystem {
 pub mod scenesystem {
     /// rva 0x73520
     pub const CSceneAnimatableObject__GeneratePrimitives: usize = 0x7FFC0A683520;
+    /// rva 0x14FB90
+    pub const CSceneSkyBoxObject_DrawSkyboxArray: usize = 0x7FFC0A75FB90;
     /// rva 0xEDD80
     pub const CSceneSystem_RenderViewLayer_Dispatch: usize = 0x7FFC0A6FDD80;
+    /// rva 0xE92F0
+    pub const CSceneSystem_Thread_CullView: usize = 0x7FFC0A6F92F0;
     /// rva 0x55BC0
     pub const DrawObject_legacy: usize = 0x7FFC0A665BC0;
     /// rva 0x14FB90
@@ -622,6 +670,8 @@ pub mod soundsystem {
 }
 
 pub mod tier0 {
+    /// rva 0x129090
+    pub const LoadKV3: usize = 0x7FFC5CF49090;
     /// rva 0x129160
     pub const Tier0__LoadKeyValues: usize = 0x7FFC5CF49160;
     /// rva 0x53F10

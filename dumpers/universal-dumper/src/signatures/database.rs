@@ -194,10 +194,14 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ---------- tier0.dll ---------------------------------------------
+    // KeyValues3 loader used by runtime custom-material creation code.
+    // Community reference implementation (GeneratePrimitives chams)
+    // commonly resolves this symbol via mangled export first, then
+    // falls back to this raw pattern.
     Signature {
-        name: "LoadKV3_callsite",
+        name: "LoadKV3",
         module: "tier0.dll",
-        needle: "48 8D 0D ? ? ? ? FF 15 ? ? ? ? 49 8B 06",
+        needle: "48 89 5C 24 08 57 48 83 EC 70 4C 8B D1 48 C7 C0 FF FF FF FF 48 FF C0 41 80 3C 00 00 75 F6",
         resolve: NONE,
         extra_off: 0,
     },
@@ -1773,6 +1777,667 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         name: "CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials",
         module: "materialsystem2.dll",
         needle: "CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials(1084): ERROR!!! Shaders not freed before shader reload! (See spew above)\n\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA MAY-02-2026 EXPANSION v11 (build 14155 — GPU-pipeline / drawcall layer)
+    //
+    // v10 covered material PARSE / LOAD / COMPILE. v11 covers the layer
+    // BELOW that — the per-pass GPU command-buffer recording, per-draw
+    // render-state setup, scene-graph cull, and D3D11 constant-buffer
+    // creation. This is the layer where a graphics engineer would hook
+    // to:
+    //
+    //   - Intercept the actual shader / texture / cbuf bindings for a
+    //     specific material at submit time (chams without owning a
+    //     custom .vmat — just rewrite the bind table).
+    //   - Re-add culled entities back to the visible set for true x-ray
+    //     wallhack (vs. the post-process outline trick).
+    //   - Track every D3D11 constant buffer the engine creates so a
+    //     PBR-param patch (g_flMetalness/g_flRoughness/g_vReflectance)
+    //     can be written directly into the matching cbuf upload.
+    //   - Inject custom geometry into a real engine display-list batch
+    //     instead of running a parallel ImGui pass.
+    //
+    // Pipeline (build 14155):
+    //
+    //   CSceneSystem::Thread_CullView  (scenesystem!sub_1800E92F0)
+    //     -> CSceneSystem::Thread_RenderSceneDrawList (already shipped v1.11.0)
+    //         -> CMaterialLayer::CreateCommandBuffer (materialsystem2!sub_180019820)
+    //              -> CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode
+    //                                                 (materialsystem2!sub_180015BC0)
+    //                  -> CMaterial::SetVariableAndRenderState (materialsystem2!sub_18002F9B0)
+    //                       -> CRenderDeviceDx11::BeginSubmittingDisplayLists
+    //                                                 (rendersystemdx11!sub_18003C4E0)
+    //                            -> CRenderDeviceBase::CreateConstantBuffer
+    //                                                 (rendersystemdx11!sub_18002F500)
+    //                                 -> CMaterialSystem2::BindIdentityInstanceIDBufferAndSetRenderState
+    //                                                 (materialsystem2!sub_180070000)
+    //
+    // All 7 are STRREF-anchored on log strings with EXACTLY ONE xref each
+    // (verified via mcp_ida-pro-mcp_xref_query across instances 13338,
+    // 13341, 13344). Strings are extremely stable across patches.
+    // ====================================================================
+
+    // CMaterialLayer::CreateCommandBuffer — materialsystem2!sub_180019820
+    // (~0x1DD9 — large per-pass GPU command-buffer recorder).  Refs the
+    // unique error string "CMaterialLayer::CreateCommandBuffer(4446):
+    // Find a graphics programmer! Trying to bind a \"%s\" shader that
+    // doesn't exist! for %s" (1 xref).  The function CS2 calls when a
+    // CMaterialLayer needs to materialise its bound shader/texture/
+    // constant-buffer state into a recordable D3D command sequence.
+    // THE hook for "intercept the actual shader binds and rewrite
+    // PBR slots before the GPU sees them" — perfect for swapping in
+    // gold/silver chams without owning a custom .vmat.
+    Signature {
+        name: "CMaterialLayer_CreateCommandBuffer",
+        module: "materialsystem2.dll",
+        needle: "\nCMaterialLayer::CreateCommandBuffer(4446): Find a graphics programmer! Trying to bind a \"%s\" shader that doesn't exist! for %s\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode —
+    // materialsystem2!sub_180015BC0 (~0x632).  Refs the unique
+    // "CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3154):
+    // Failed call to FindOrLoadStaticComboData()!" log (1 xref).
+    // Schedules the work-items required to materialise every static
+    // shader combo a CMaterialLayer needs for a given render mode.
+    // Sits one level above CVfxProgramData::FindOrCreateStaticComboDataInCache
+    // (already shipped v1.16.0). Hook to inspect / pre-warm shader
+    // permutation work for runtime-injected chams materials.
+    Signature {
+        name: "CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode",
+        module: "materialsystem2.dll",
+        needle: "CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3154): Failed call to FindOrLoadStaticComboData()!\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CMaterial::SetVariableAndRenderState — materialsystem2!sub_18002F9B0
+    // (~0x8A4).  Refs the unique
+    // "SetRenderStateValueFromVariable(1172): Unsupported render state
+    // type in material \"%s\"!" log (1 xref). Decompile shows it ALSO
+    // contains the unique "SetVariable(1346): Could not bind constant
+    // buffer..." and "SetVariable(1363): Error setting constant for
+    // REGISTER_FLOAT4..." spew strings, confirming this is the
+    // dispatch hub that, for every CMaterialVariable, picks the right
+    // setter:
+    //   - REGISTER_FLOAT4 -> writes into per-material cbuf upload
+    //   - REGISTER_TEX_*   -> shader-resource-view binding
+    //   - render-state     -> blend / depth / stencil / colour-write
+    // THIS is where you literally write g_flMetalness / g_flRoughness /
+    // g_vReflectanceColor into the D3D constant-buffer slot for a
+    // gold-chams material. Single most useful hook for live PBR
+    // param injection.
+    Signature {
+        name: "CMaterial_SetVariableAndRenderState",
+        module: "materialsystem2.dll",
+        needle: "SetRenderStateValueFromVariable(1172): Unsupported render state type in material \"%s\"!\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CMaterialSystem2::BindIdentityInstanceIDBufferAndSetRenderState —
+    // materialsystem2!sub_180070000 (~0x677).  Refs the unique
+    // "BindIdentityInstanceIDBufferAndSetRenderState: GetMode == NULL?
+    // Can't Render" log (1 xref).  Decompile confirms it builds an
+    // identity per-instance vertex layout (`VertexUVPosColorNormalAnd
+    // Tangent_t`) and dispatches through the render-context vtable
+    // (qword_18014EE78, slot +320) to set up render state for a
+    // single-instance draw.  Hook to inject custom geometry into a
+    // real engine batch instead of running a parallel ImGui pass —
+    // gives free depth-buffer integration for chams x-ray.
+    Signature {
+        name: "CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState",
+        module: "materialsystem2.dll",
+        needle: "BindIdentityInstanceIDBufferAndSetRenderState: GetMode == NULL? Can't Render\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CSceneSystem::Thread_CullView — scenesystem!sub_1800E92F0
+    // (~0x7BF).  Refs the unique source-path string
+    // "CSceneSystem::Thread_CullView(), C:\\buildworker\\csgo_rel_win64\\
+    // build\\src\\scenesystem\\scenesystem.cpp:3312" (1 xref).  Per-
+    // worker-thread frustum + occlusion cull for a single scene view
+    // (one of the parallel jobs that feed Thread_RenderSceneDrawList,
+    // already shipped v1.11.0).  Hook target for TRUE x-ray wallhack:
+    // re-add the player scene-objects that the cull just rejected so
+    // they get drawn behind the world (with depth-test override in the
+    // RenderSceneDrawList layer hook). This is what an actual
+    // graphics-programmer wallhack looks like — not a 2D ImGui line
+    // overlay.
+    Signature {
+        name: "CSceneSystem_Thread_CullView",
+        module: "scenesystem.dll",
+        needle: "CSceneSystem::Thread_CullView(), C:\\buildworker\\csgo_rel_win64\\build\\src\\scenesystem\\scenesystem.cpp:3312",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CRenderDeviceBase::CreateConstantBuffer — rendersystemdx11!sub_18002F500
+    // (~0x1D2).  Refs the unique source-line string
+    // "CRenderDeviceBase::CreateConstantBuffer(1571):" (1 xref). Every
+    // ID3D11Buffer (D3D11_BIND_CONSTANT_BUFFER) the renderer ever
+    // creates routes through here. Hook to:
+    //   - Build a runtime map [cbuf-handle -> { shader-name, slot,
+    //     param-name list }] so you can locate the gold-chams cbuf
+    //     by name (g_flMetalness / g_flRoughness / etc.).
+    //   - Detect when a custom material is granted its cbuf so you
+    //     can keep its slot pinned across hot-reloads.
+    Signature {
+        name: "CRenderDeviceBase_CreateConstantBuffer",
+        module: "rendersystemdx11.dll",
+        needle: "CRenderDeviceBase::CreateConstantBuffer(1571): ",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CRenderDeviceDx11::BeginSubmittingDisplayLists — rendersystemdx11!
+    // sub_18003C4E0 (~0x147).  Refs the unique source-line string
+    // "CRenderDeviceDx11::BeginSubmittingDisplayLists(1162):" (1 xref).
+    // Per-frame display-list submission boundary (the engine batches
+    // all materialised D3D commands into display lists, then submits
+    // them here).  Useful to:
+    //   - Time GPU submit latency on the chams pass.
+    //   - Inject extra display lists for custom passes without paying
+    //     the full per-draw vtable cost.
+    Signature {
+        name: "CRenderDeviceDx11_BeginSubmittingDisplayLists",
+        module: "rendersystemdx11.dll",
+        needle: "CRenderDeviceDx11::BeginSubmittingDisplayLists(1162): ",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA APR-25-2026 EXPANSION v12 (build 14155 — WEAPON PAINT KIT /
+    // CCompositeMaterialKit pipeline — "Galaxy-camo" custom-skin reversing)
+    //
+    // GOAL: trace the full code path that turns a `paint kit id + seed +
+    // wear` triple on a `C_EconItemView` into a runtime-composited PBR
+    // material that gets bound to the weapon viewmodel — so we can
+    // INJECT a custom `.vcompmat` (or override the input shader-vars
+    // directly) and ship a fully custom Galaxy-style camo on any weapon.
+    //
+    // CS2's weapon-skin system is a layered shader-compositing engine
+    // (functionally identical to Fortnite skin-compositing, Valve just
+    // calls it `CCompositeMaterialKit`). The runtime recipe:
+    //
+    //   .vcompmat (kit definition)        -- e.g. weapons/paints/legacy/
+    //                                        missing_paintkit.vcompmat
+    //     |
+    //     +-- list of `CompositeMaterialAssemblyProcedure_t`
+    //     |       (each = "take input vmat A, blend into output vmat B
+    //     |        using mask M and shader-vars V")
+    //     +-- final output material  (the one bound to the model)
+    //
+    //   CompositeMaterialInputContainer_t  (per-instance)
+    //     +-- g_flWearAmount  (scratch / scuff intensity)
+    //     +-- g_nRandomSeed   (per-pattern offset)
+    //     +-- g_vColor*       (4 colour slots — what we override for
+    //                          a Galaxy purple-blue gradient)
+    //     +-- g_tNormalMap, g_tPattern, g_tMaskWear, g_flMetalness,
+    //         g_flRoughness, g_vReflectanceColor (PBR slots)
+    //
+    // The legacy-weapons pipeline (these sigs target the LEGACY path,
+    // because that is the one CS2 still uses for every weapon shipped
+    // before the workshop-2.0 era — i.e. ALL of them currently):
+    //
+    //   1. game tick: viewmodel becomes visible
+    //   2. sub_18011C6D0  registers `cl_paintkit_override` ConVar
+    //      (already-shipped earlier — paintkit override hot-swap entry)
+    //   3. C_EconWearable_OnNewCustomMaterials (sub_1810B67D0)
+    //        --> "[Wearables] Creating new wearable (%d)" log
+    //        --> calls sub_180A4CE30 with sub_180164704 callback
+    //            = the per-wearable composite-material build kickoff
+    //   4. C_EconEntity_BuildLegacyWeaponSkinMaterial (sub_18078C050)
+    //        --> reads paintkit name from off_182013BB0[(seed + N) % 34]
+    //            (the 34-entry legacy paintkit name table)
+    //        --> calls sub_180789A00 to push every shader-variable into
+    //            a CompositeMaterialInputContainer_t with key strings
+    //            "g_flWearAmount" then "g_nRandomSeed"
+    //        --> sets the .vcompmat resource path to
+    //            "weapons/paints/legacy/missing_paintkit.vcompmat" as
+    //            the FALLBACK if no kit was matched
+    //        --> tags the request "low-res weapon" or "workshop
+    //            preview weapon" depending on render scope
+    //        --> dispatches via vtable+8 of the composite-material
+    //            manager
+    //   5. CompositeMaterialPanoramaPanel_Init (sub_180B8FB00) /
+    //      CCompositeMaterialManager_AddNewPanoramaPanelRenderRequest
+    //      (called from sub_1813B8DD0) — feed the kit through the
+    //      panorama-render path so the inventory thumbnail rebuilds
+    //      whenever the user previews a skin
+    //   6. CMaterialLayer::CreateCommandBuffer (already shipped v1.17.0)
+    //      records the actual GPU bind sequence
+    //   7. CMaterial::SetVariableAndRenderState (already shipped v1.17.0)
+    //      writes our g_vColor / g_flMetalness into the cbuf upload
+    //
+    // CUSTOM-CAMO HOOK STRATEGY (for future feature impl):
+    //   A. Hook (4) C_EconEntity_BuildLegacyWeaponSkinMaterial:
+    //      - replace the .vcompmat path with our own bundled kit
+    //      - add extra `sub_180789A00(...)` calls injecting per-channel
+    //        Galaxy colours (e.g. g_vColor1=(0.31,0.18,0.85), g_vColor2=
+    //        (0.85,0.30,0.95), g_flMetalness=1.0, g_flRoughness=0.15,
+    //        g_tPattern -> our custom .vtex)
+    //   B. Or hook (7) CMaterial::SetVariableAndRenderState directly
+    //      and rewrite the cbuf upload at draw-time (no resource files
+    //      needed — pure in-memory swap, but per-draw cost).
+    //
+    // All 7 sigs below are STRREF-anchored on log / resource strings
+    // each with EXACTLY ONE xref to its target function (verified via
+    // mcp_ida-pro-mcp_xref_query on instance 13337 / client.dll).
+    // ====================================================================
+
+    // C_EconWearable::OnNewCustomMaterials — client.dll!sub_1810B67D0
+    // (~0xF5).  Refs the unique error string "Invalid EconItemView --
+    // Can't create custom materials for wearable, debug this." (1 xref).
+    // The per-wearable composite-material build kickoff. Schedules the
+    // per-frame composite-material recipe build (calls sub_180A4CE30
+    // with sub_180164704 callback). Hook here to gate which weapons
+    // receive a custom kit.
+    Signature {
+        name: "C_EconWearable_OnNewCustomMaterials",
+        module: "client.dll",
+        needle: "Invalid EconItemView -- Can't create custom materials for wearable, debug this.\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CPaintKitDefinitions::FindOrCreateByName — client.dll!sub_181057DD0
+    // (~0x328).  Refs the unique error string "Kit \"[%s]\" specified,
+    // but doesn't exist!! You're probably missing an entry in
+    // items_paintkits.txt or items_stickerkits.txt or need to run with
+    // -use_local_item_data" (1 xref). Translates a paint-kit name (or
+    // m_nFallbackPaintKit id) into a `CPaintKit*` definition. Hook to
+    // inject our custom kit name -> custom CPaintKit (which can in
+    // turn point at a custom .vcompmat).
+    Signature {
+        name: "CPaintKitDefinitions_FindOrCreateByName",
+        module: "client.dll",
+        needle: "Kit \"[%s]\" specified, but doesn't exist!! You're probably missing an entry in items_paintkits.txt or items_stickerkits.txt or need to run with -use_local_item_data\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CPaintKitDefinitions::LoadDefaultKit — client.dll!sub_181029EA0
+    // (~0x37D).  Refs the unique error string "Unable to find \"default\"
+    // paint kit in \"paint_kits_rarity\"" (1 xref).  One-shot loader
+    // run during econ-schema init that establishes the rarity-bucketed
+    // default paintkit table. Hook to inject custom-rarity-bucket entries.
+    Signature {
+        name: "CPaintKitDefinitions_LoadDefaultKit",
+        module: "client.dll",
+        needle: "Unable to find \"default\" paint kit in \"paint_kits_rarity\"",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // C_EconEntity::BuildLegacyWeaponSkinMaterial — client.dll!sub_18078C050
+    // (~0x810).  ★ THE GOLD-MINE FUNCTION FOR CUSTOM CAMO ★
+    // Refs the unique scope-tag string "workshop preview weapon"
+    // (1 xref). Decompile reveals the full per-weapon kit-build
+    // recipe: reads paintkit name from off_182013BB0[(seed+N) % 34]
+    // (the 34-entry legacy-paintkit name table — NOTE: pattern offset
+    // also appears in `*((_DWORD*)off_1820496A0 + 17)`); pushes
+    // CompositeMaterialInputContainer_t entries via sub_180789A00
+    // (`AddCompositeMaterialInput`) with keys "g_flWearAmount" and
+    // "g_nRandomSeed"; sets the .vcompmat resource path (default
+    // fallback `weapons/paints/legacy/missing_paintkit.vcompmat`);
+    // tags scope "low-res weapon" (512) or "workshop preview weapon"
+    // (2048); dispatches via composite-material-manager vtable +8.
+    // Hook to swap the .vcompmat path for our custom Galaxy kit AND
+    // inject extra g_vColor*/g_flMetalness/g_tPattern entries into the
+    // input container before dispatch.
+    Signature {
+        name: "C_EconEntity_BuildLegacyWeaponSkinMaterial",
+        module: "client.dll",
+        needle: "workshop preview weapon",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // C_EconEntity::BuildModernWeaponSkinMaterial — client.dll!sub_180D828E0
+    // (~0x13BD — large).  Modern (post-workshop-2.0) sibling of the
+    // legacy builder above.  Anchored via raw prologue bytes because
+    // it shares the `g_flWearAmount` / `missing_paintkit.vcompmat`
+    // strings with sub_18078C050 (no STRREF uniqueness possible
+    // without decompiling for a sub-region anchor).  Prologue:
+    //   48 85 C9              test  rcx, rcx
+    //   0F 84 60 13 00 00     jz    +0x1360                (early-out
+    //                                                       to function
+    //                                                       end — note
+    //                                                       0x1360 is
+    //                                                       fragile vs
+    //                                                       future patch)
+    //   48 8B C4              mov   rax, rsp
+    //   48 89 50 10 / 48 8D A8 B8 FA  unique stack frame
+    Signature {
+        name: "C_EconEntity_BuildModernWeaponSkinMaterial",
+        module: "client.dll",
+        needle: "48 85 C9 0F 84 ? ? 00 00 48 8B C4 48 89 50 10 48 89 48 08 55 41 54 41 56 41 57 48 8D A8 B8 FA",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CompositeMaterialPanoramaPanel_t::Init — client.dll!sub_180B8FB00
+    // (~0x4DC).  Refs the unique RTTI/log string
+    // "CompositeMaterialPanoramaPanel_t::Init" (1 xref). Initialiser
+    // that wires a Panorama UI panel to a composite-material render
+    // request — used for inventory previews, store thumbnails, weapon-
+    // inspect screens. Hook to drive a Panorama-rendered preview of
+    // our custom kit before the user equips it.
+    Signature {
+        name: "CompositeMaterialPanoramaPanel_Init",
+        module: "client.dll",
+        needle: "CompositeMaterialPanoramaPanel_t::Init",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CCompositeMaterialManager::AddNewPanoramaPanelRenderRequest_Caller —
+    // client.dll!sub_1813B8DD0 (~0x388). Refs the unique log string
+    // "CCompositeMaterialManager::AddNewPanoramaPanelRenderRequest"
+    // (1 xref).  The caller-side wrapper around the manager's
+    // render-request enqueue. Hook to log every kit-build request
+    // (great for runtime kit discovery / dumping the live paintkit
+    // table during a match).
+    Signature {
+        name: "CCompositeMaterialManager_AddPanoramaPanelRenderRequest_Caller",
+        module: "client.dll",
+        needle: "CCompositeMaterialManager::AddNewPanoramaPanelRenderRequest",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA APR-25-2026 EXPANSION v13 (build 14155 — composite-material
+    // DEEP DIVE — completes the Galaxy-camo recipe started in v12 by
+    // pinning the central shader-var injector, ALL three variant builders
+    // (weapon / glove / nametag), the schema-callback registrars that
+    // describe CCompositeMaterialKit + CompositeMaterial_t at runtime,
+    // and the CS2ItemEditor template-material parser — i.e. every door
+    // a graphics engineer needs to OWN the kit pipeline end-to-end).
+    //
+    // Why this round matters (success-rate vs. v12 surface):
+    //
+    //   * v12 anchored 7 entry points scattered around the Galaxy-camo
+    //     code path.  v13 adds the choke-point: AddCompositeMaterialInput
+    //     funnels EVERY shader-variable the engine ever pushes into a
+    //     kit (g_flWearAmount / g_nRandomSeed / g_vColor* / g_tPattern
+    //     ...).  Hook it once and you trivially observe AND mutate the
+    //     full per-instance kit recipe — for ALL variants (weapon,
+    //     glove, nametag, sticker, agent) simultaneously.
+    //
+    //   * v13 also exposes the SCHEMA layer: the type-manager callbacks
+    //     for `InfoForResourceTypeCCompositeMaterialKit` and
+    //     `InfoForResourceTypeCCompositeMaterial` enumerate every
+    //     CUtlVector field the kit/material structs contain at runtime,
+    //     so a runtime kit-dump tool can crawl the entire object tree
+    //     without hard-coded offsets — survives every CS2 patch.
+    //
+    //   * The template-material parser (CS2ItemEditor) is the OFFICIAL
+    //     KV-driven param exposer Valve themselves use to describe what
+    //     a shader exposes to the kit system (g_v* / g_fl* / g_b* /
+    //     Texture).  Knowing its layout = knowing exactly how to author
+    //     a custom .vcompmat that the engine will accept.
+    //
+    // Schema sizes confirmed via the type-manager registrars:
+    //
+    //   CompositeMaterialMatchFilter_t        =  32 B
+    //   CompositeMaterialAssemblyProcedure_t  =  96 B   (160 B incl. wrap)
+    //   CompositeMaterial_t                   = 160 B
+    //   CompositeMaterialInputContainer_t     = 312 B   (reflected POD)
+    //                                         = 648 B   (full runtime
+    //                                                    container, the
+    //                                                    delta = scratch
+    //                                                    + render state)
+    //   CompMatPropertyMutator_t              = 912 B   (per-property
+    //                                                    runtime mutator)
+    //   CResourceNameTyped<CWeakHandle<...>>  = 224 B   (resource handle
+    //                                                    wrapper)
+    //
+    // Glove-asymmetry note:  the glove builder pushes BOTH
+    // `g_nRandomSeed` and `g_nRandomSeedAlt` (alt = seed+1) so left- and
+    // right-hand glove patterns are deterministically offset — a detail
+    // a custom glove kit MUST reproduce or both gloves will look
+    // identical.
+    //
+    // Variant scope tags (the string set in `a1[28]`):
+    //   "low-res weapon"          — viewmodel / world-model PBR
+    //   "low-res gloves"          — viewmodel gloves
+    //   "low-res nametag"         — engraved nametag overlay (512x32)
+    //   "workshop preview weapon" — full-quality preview (loadout)
+    //
+    // ====================================================================
+
+    // CUtlVector<CompositeMaterialInput_t>::AddToTail — client.dll!
+    // sub_180789A00 (~0x158).  Has NO unique string of its own (it is a
+    // small templated container helper) so anchored by its 28-byte
+    // function prologue. 11 code xrefs from the kit-build path
+    // (BuildLegacyWeaponSkinMaterial x2, BuildModernWeaponSkinMaterial
+    // x5, BuildLegacyGloveSkinMaterial x3, BuildNametagOverlayMaterial
+    // x1).  Element size in the push = 648 bytes (full runtime
+    // CompositeMaterialInputContainer_t).
+    //
+    // SINGLE MOST IMPACTFUL HOOK in the entire pipeline: every shader-
+    // variable the engine ever injects (g_flWearAmount, g_nRandomSeed,
+    // g_nRandomSeedAlt, g_vColor*, g_tPattern, g_tNormalMap, ...) for
+    // EVERY variant flows through here.
+    //   - LOG mode:  dump (kit_path, key, value_type, value) on every
+    //                call to enumerate the live paintkit recipe at
+    //                runtime — fully patch-proof kit dumper.
+    //   - INTERCEPT: rewrite g_vColor1..4 in-place to ship a Galaxy
+    //                purple-blue gradient on top of any base kit
+    //                without ever touching disk.
+    Signature {
+        name: "CUtlVector_CompositeMaterialInput_AddToTail",
+        module: "client.dll",
+        // Generic AddToTail<T> prologue collides with 20+ other CUtlVector
+        // template instantiations.  Anchor instead by the mid-body
+        // sequence that hard-codes the element size 0x288 (=648 B = full
+        // CompositeMaterialInputContainer_t) followed by the UtlMemory
+        // 0x3FFFFFFF mask — unique to this single instantiation. We then
+        // back up by -0x52 to land on the function start.
+        needle: "41 B9 88 02 00 00 8B 57 14 81 E2 FF FF FF 3F 8D 71 01 44 8B C6 FF 15",
+        resolve: NONE,
+        extra_off: -0x52,
+    },
+
+    // C_EconEntity::BuildLegacyGloveSkinMaterial — client.dll!sub_180BBFB00
+    // (~0x9E7).  Refs the unique string "MapPlayerPreview gloves"
+    // (1 xref).  The glove-specific sibling of BuildLegacyWeaponSkinMaterial
+    // (already shipped v12).  Reads the prefix "gloves/paints/" from the
+    // econ item, builds a CompositeMaterialKit request scoped
+    // "low-res gloves" (512x512), then pushes via AddCompositeMaterialInput:
+    //   - g_flWearAmount
+    //   - g_nRandomSeed     (= econ seed)
+    //   - g_nRandomSeedAlt  (= econ seed + 1, drives left/right asymmetry)
+    // The "econ_instance" KV is then handed to sub_18071A140 which feeds
+    // the C_WorldModelGloves entity.  Hook this to ship a custom glove
+    // kit (CCompositeMaterialKit override) onto the player's hands with
+    // independent left/right pattern offsets.
+    Signature {
+        name: "C_EconEntity_BuildLegacyGloveSkinMaterial",
+        module: "client.dll",
+        needle: "MapPlayerPreview gloves",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // C_EconEntity::BuildNametagOverlayMaterial — client.dll!sub_18078AE20
+    // (~0x969).  Refs the unique scope tag "low-res nametag" (1 xref).
+    // Builds a 512x32 composite material from the .vcompmat
+    // "weapons/models/shared/nametag/nametag_default.vcompmat" with the
+    // user-supplied nametag string pushed as the "label" input — the
+    // engraved-text overlay you see on stickered weapons.  Hook to ship
+    // a custom nametag font / pattern, or to inject a multi-line
+    // animated overlay (the underlying material supports any param the
+    // shader exposes; nametag_default.vcompmat just happens to expose a
+    // single string slot today).
+    Signature {
+        name: "C_EconEntity_BuildNametagOverlayMaterial",
+        module: "client.dll",
+        needle: "low-res nametag",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // InfoForResourceTypeCCompositeMaterialKit::TypeManagerCallback —
+    // client.dll!sub_1813D6840 (~0x370). Refs the unique RTTI string
+    // "InfoForResourceTypeCCompositeMaterialKit" (1 xref).  Vftable-style
+    // dispatch (cases 0/2/3/4/5/6 = Init/Construct/Destruct/Reset/
+    // Cleanup/RTTI) registered with the resource system as the
+    // CCompositeMaterialKit type manager.  The case-0 branch declares
+    // every CUtlVector field of the kit struct via the schema reflector,
+    // revealing exact runtime layout:
+    //
+    //   +08  CUtlVector<CResourceNameTyped<CWeakHandle<CompositeMaterialKit>>>
+    //                                                        elem 224 B
+    //   +xx  CUtlVector<CompositeMaterialMatchFilter_t>      elem  32 B
+    //   +xx  CUtlVector<CompositeMaterialInputContainer_t>   elem 312 B
+    //   +xx  CUtlVector<CompMatPropertyMutator_t>            elem 912 B
+    //
+    // Hook for runtime kit-tree introspection that survives patches.
+    Signature {
+        name: "InfoForResourceTypeCCompositeMaterialKit_TypeManager",
+        module: "client.dll",
+        needle: "InfoForResourceTypeCCompositeMaterialKit",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // InfoForResourceTypeCCompositeMaterial::TypeManagerCallback —
+    // client.dll!sub_1813D6D90 (~0x2F0).  No unique 1-xref string of
+    // its own (uses "InfoForResourceTypeCModel" + "CompositeMaterial_t"
+    // + "CompositeMaterialAssemblyProcedure_t" — none singletons), so
+    // anchored by 20-byte function prologue.  Sibling of the kit
+    // type-manager: declares the FINAL CompositeMaterial_t struct
+    // schema:
+    //
+    //   +08  CResourceNameTyped<CWeakHandle<CModel>>         224 B
+    //   +xx  CResourceNameTyped<CWeakHandle<CModel>>         224 B
+    //   +xx  CUtlVector<CompositeMaterialAssemblyProcedure_t> elem  96 B
+    //   +xx  CUtlVector<CompositeMaterial_t>                  elem 160 B
+    //
+    // Hook to enumerate the assembly-procedure list of every materialised
+    // composite (= the "recipe" Valve actually ran to bake the final
+    // PBR material the GPU will sample).
+    Signature {
+        name: "InfoForResourceTypeCCompositeMaterial_TypeManager",
+        module: "client.dll",
+        needle: "40 55 41 56 48 83 EC 68 48 8B EA 83 F9 06 0F 87 B4 02 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CS2ItemEditor::BuildTemplateMaterialFromFile — client.dll!sub_1813BA1E0
+    // (~0x1445).  No 1-xref string anchor (uses generic logging strings
+    // and the literal "CS2ItemEditor" 4x as a KV-dict key), so anchored
+    // by 32-byte function prologue.  This is the OFFICIAL .vmt template
+    // -material parser Valve ships in client.dll: it loads a KV file
+    // via IFileSystem ("CONTENT" search path), iterates the `Attributes`
+    // block, and for each `exposed_param_*` key classifies the var by
+    // name prefix:
+    //
+    //   "g_b*"        -> bool      (type 0)
+    //   "g_fl*" "g_f*" -> float    (type 5)
+    //   "g_v*"        -> vec3      (type 6)
+    //   "g_vColor*"   -> color/vec4 (type 9)
+    //   "Texture*"    -> resource  (type 13)
+    //
+    // and emits a KV3 `template_material` block tagged "CS2ItemEditor"
+    // with each var's (path, name, friendlyname, group, alert_when_true,
+    // alert_helpid, type, typename, value, range_min, range_max).
+    //
+    // = the GROUND TRUTH for "what can a custom .vcompmat expose?".  To
+    // ship a Galaxy gradient we author a template_material that exposes
+    // 4 g_vColor slots + a Texture for the noise pattern, then drive
+    // them via CompositeMaterialInputContainer_t at runtime.
+    Signature {
+        name: "CS2ItemEditor_BuildTemplateMaterialFromFile",
+        module: "client.dll",
+        needle: "48 89 54 24 10 55 53 41 55 41 57 48 8D AC 24 18 F9 FF FF 48 81 EC E8 07 00 00 4C 8B FA 48 85 D2",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ====================================================================
+    // NUVORA APR-25-2026 EXPANSION v20 (build 14155 — GLOBAL material /
+    // shader injection path: not weapon-only)
+    //
+    // v12/v13 locked the econ/composite side. This block pins the broader
+    // renderer/material path used by anything that has a material state:
+    // world geometry, player models, skybox layers, props, particles.
+    //
+    // Practical model:
+    //   - Valve VMAT/VFX path (materialsystem2/scenesystem): stable and
+    //     semantically rich (material vars + render states + pass context)
+    //   - Direct D3D path (rendersystemdx11): strongest for arbitrary HLSL
+    //     replacement and custom bytecode injection.
+    //
+    // With these anchors we can bridge both worlds and target "anything
+    // with a material" instead of only econ paintkit entities.
+    // ====================================================================
+
+    // CMaterialLayer::ApplyMaterialVarsForBatch — materialsystem2!
+    // sub_180018B80 (~0x24C).  Raw prologue anchor.  Mid-level per-batch
+    // dispatcher that iterates draw surfaces/material entries and calls
+    // CMaterial::SetVariableAndRenderState (sub_18002F9B0) for each
+    // relevant var binding.  This is where material vars stop being
+    // "definition data" and start becoming per-draw GPU state.
+    Signature {
+        name: "CMaterialLayer_ApplyMaterialVarsForBatch",
+        module: "materialsystem2.dll",
+        needle: "4C 89 4C 24 20 4C 89 44 24 18 48 89 54 24 10 53 55 56 57 41 54 41 55 41 56 41 57 48 83 EC 78",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CMaterialLayer::BuildPassCommandData — materialsystem2!sub_180018F80
+    // (~0x89C).  Raw prologue anchor.  Higher-level pass builder that
+    // allocates/records per-surface command data and repeatedly invokes
+    // CMaterialLayer::CreateCommandBuffer (sub_180019820).  Good global
+    // interception point for "all materialized surfaces this frame",
+    // regardless of whether they are player, world, prop, or FX.
+    Signature {
+        name: "CMaterialLayer_BuildPassCommandData",
+        module: "materialsystem2.dll",
+        needle: "89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 58 FE FF FF 48 81 EC A8 02 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CSceneSkyBoxObject::DrawSkyboxArray — scenesystem!sub_18014FB90
+    // (~0x6F9).  Raw prologue (already production-proven in project hook).
+    // Render-time sky pass used by map sky/cubemap flow. Hook here for
+    // global sky material/tint changes without touching entity netvars.
+    Signature {
+        name: "CSceneSkyBoxObject_DrawSkyboxArray",
+        module: "scenesystem.dll",
+        needle: "45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55 41 56 49 8D AB 58 FC FF FF 48 81 EC 98 04 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CRenderDeviceDx11::CompileShaderSourceMain — rendersystemdx11!
+    // sub_18003FAF0 (~0x171). Refs the unique compile-failure string
+    // "Shader compilation failed! Reported no errors." (1 xref).
+    // This wrapper calls D3DCompile(source, size, ..., "main", profile,
+    // 0x1200, ...) and returns a shader blob object.
+    //
+    // Critical implication: in-process custom HLSL compilation is real
+    // and not limited to Valve's precompiled blobs. Combined with draw/
+    // material interception, this is the practical anchor for custom
+    // pixel-shader injection on any materialized surface.
+    Signature {
+        name: "CRenderDeviceDx11_CompileShaderSourceMain",
+        module: "rendersystemdx11.dll",
+        needle: "Shader compilation failed! Reported no errors.\n",
         resolve: STRREF,
         extra_off: 0,
     },

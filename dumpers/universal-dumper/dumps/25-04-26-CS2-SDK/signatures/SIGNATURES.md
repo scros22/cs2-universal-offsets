@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**297/343 signatures resolved across 11 module(s).**
+**322/367 signatures resolved across 11 module(s).**
 
 ## `animationsystem.dll`
 
@@ -57,6 +57,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CCSWeaponBaseGun` | `stringref` | `0x7FFBFFE6F300` | `0x77F300` | `"CCSWeaponBaseGun"` |
 | `CCSWeaponBaseVData` | `stringref` | `0x7FFBFFE4A170` | `0x75A170` | `"CCSWeaponBaseVData"` |
 | `CCollisionProperty` | `stringref` | `0x7FFBFF9D0EE0` | `0x2E0EE0` | `"CCollisionProperty"` |
+| `CCompositeMaterialManager_AddPanoramaPanelRenderRequest_Caller` | `stringref` | `0x7FFC00AA9064` | `0x13B9064` | `"CCompositeMaterialManager::AddNewPanoramaPanelRenderRequest"` |
 | `CDecoyProjectile` | `stringref` | `0x7FFBFFE3E0A0` | `0x74E0A0` | `"CDecoyProjectile"` |
 | `CEconItemSchema::GetAttributeDefinitionByName` | `raw` | `0x7FFC0073A5E0` | `0x104A5E0` | `48 89 5C 24 10 48 89 6C 24 18 57 41 56 41 57 48 83 EC 60 48 8D 05` |
 | `CEconItemView::GetCustomPaintKitIndex` | `raw` | `0x7FFBFFFA9C70` | `0x8B9C70` | `48 89 5C 24 ? 57 48 83 EC ? 8B 15 ? ? ? ? 48 8B F9 65 48 8B 04 25` |
@@ -73,7 +74,11 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CHEGrenadeProjectile` | `stringref` | `0x7FFC006CDBD0` | `0xFDDBD0` | `"CHEGrenadeProjectile"` |
 | `CInputPtrGlobal` | `riprel` | `0x7FFC017513C0` | `0x20613C0` | `4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00 85 C0` |
 | `CMolotovProjectile` | `stringref` | `0x7FFBFFE3E280` | `0x74E280` | `"CMolotovProjectile"` |
+| `CPaintKitDefinitions_FindOrCreateByName` | `stringref` | `0x7FFC00747DD0` | `0x1057DD0` | `"Kit "[%s]" specified, but doesn't exist!! You're probably missing an entry in items_paintkits.txt or items_stickerkits.txt or need to run with -use_local_item_data
+"` |
+| `CPaintKitDefinitions_LoadDefaultKit` | `stringref` | `0x7FFC00719EA0` | `0x1029EA0` | `"Unable to find "default" paint kit in "paint_kits_rarity""` |
 | `CPostProcessingVolume` | `stringref` | `0x7FFBFF993CB0` | `0x2A3CB0` | `"CPostProcessingVolume"` |
+| `CS2ItemEditor_BuildTemplateMaterialFromFile` | `raw` | `0x7FFC00AAA1E0` | `0x13BA1E0` | `48 89 54 24 10 55 53 41 55 41 57 48 8D AC 24 18 F9 FF FF 48 81 EC E8 07 00 00 4C 8B FA 48 85 D2` |
 | `CSBaseGunFireData_fn` | `raw` | `0x7FFC00BD58D0` | `0x14E58D0` | `48 8B C4 55 53 56 57 41 54 41 55 41 56 41 57 48 8D 68 A8 48 81 EC ? ? ? ? 4C 8B 69` |
 | `CSGOInput_ptr` | `riprel` | `0x7FFC017513C0` | `0x20613C0` | `48 8B 0D ? ? ? ? 4C 8B C6 8B 10 E8` |
 | `CSGOInput_resolved` | `riprel` | `0x7FFC017513C7` | `0x20613C7` | `48 8B 0D ? ? ? ? 8B 10 E8 ? ? ? ? 45 32 FF` |
@@ -87,6 +92,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CSkeletonInstance_SetMeshGroupMask` | `raw` | `0x7FFC00113D20` | `0xA23D20` | `48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 49 8B 00 49 8B F8 48 8B F2 48 8B D9 48 39 81 C8 01` |
 | `CSmokeGrenadeProjectile` | `stringref` | `0x7FFBFFE3E320` | `0x74E320` | `"CSmokeGrenadeProjectile"` |
 | `CTonemapController2` | `stringref` | `0x7FFBFF947BE0` | `0x257BE0` | `"CTonemapController2"` |
+| `CUtlVector_CompositeMaterialInput_AddToTail` | `raw` | `0x7FFBFFE79A00` | `0x789A52` | `41 B9 88 02 00 00 8B 57 14 81 E2 FF FF FF 3F 8D 71 01 44 8B C6 FF 15` |
 | `C_AttributeContainer` | `stringref` | `0x7FFC003065E0` | `0xC165E0` | `"C_AttributeContainer"` |
 | `C_BaseEntity` | `stringref` | `0x7FFBFF73E260` | `0x4E260` | `"C_BaseEntity"` |
 | `C_BaseModelEntity` | `stringref` | `0x7FFBFF847F60` | `0x157F60` | `"C_BaseModelEntity"` |
@@ -95,7 +101,13 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `C_CSPlayerPawn` | `stringref` | `0x7FFBFFDB2380` | `0x6C2380` | `"C_CSPlayerPawn"` |
 | `C_CSPlayerPawnBase` | `stringref` | `0x7FFC002C57C0` | `0xBD57C0` | `"C_CSPlayerPawnBase"` |
 | `C_CSWeaponBase` | `stringref` | `0x7FFBFFE32030` | `0x742030` | `"C_CSWeaponBase"` |
+| `C_EconEntity_BuildLegacyGloveSkinMaterial` | `stringref` | `0x7FFC002AFB00` | `0xBBFB00` | `"MapPlayerPreview gloves"` |
+| `C_EconEntity_BuildLegacyWeaponSkinMaterial` | `stringref` | `0x7FFBFFE7C050` | `0x78C050` | `"workshop preview weapon"` |
+| `C_EconEntity_BuildModernWeaponSkinMaterial` | `raw` | `0x7FFC004728E0` | `0xD828E0` | `48 85 C9 0F 84 ? ? 00 00 48 8B C4 48 89 50 10 48 89 48 08 55 41 54 41 56 41 57 48 8D A8 B8 FA` |
+| `C_EconEntity_BuildNametagOverlayMaterial` | `stringref` | `0x7FFBFFE7AE20` | `0x78AE20` | `"low-res nametag"` |
 | `C_EconItemView` | `stringref` | `0x7FFBFFDFB400` | `0x70B400` | `"C_EconItemView"` |
+| `C_EconWearable_OnNewCustomMaterials` | `stringref` | `0x7FFC007A67D0` | `0x10B67D0` | `"Invalid EconItemView -- Can't create custom materials for wearable, debug this.
+"` |
 | `C_Hostage` | `stringref` | `0x7FFBFF7D73D0` | `0xE73D0` | `"C_Hostage"` |
 | `C_Inferno` | `stringref` | `0x7FFBFF7E7390` | `0xF7390` | `"C_Inferno"` |
 | `C_PlantedC4` | `stringref` | `0x7FFBFF7E06F0` | `0xF06F0` | `"C_PlantedC4"` |
@@ -111,6 +123,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `ClientModeCSNormal_OnEvent` | `raw` | `0x7FFC0034A110` | `0xC5A110` | `40 53 57 48 81 EC 78 02 00 00 48 8B CA 48 8B FA` |
 | `ClientMode_ptr` | `riprel` | `0x7FFC01A2BA60` | `0x233BA60` | `48 8D 0D ? ? ? ? 48 69 C0 ? ? ? ? 48 03 C1 C3 CC CC` |
 | `Client_DispatchSpawn` | `raw` | `0x7FFC00BC32A0` | `0x14D32A0` | `4C 8B DC 55 56 48 83 EC 78 49 8B 68 08 48 8B F1 48 85 ED 0F 84 72 01 00 00 49 89 5B 08 49 8D 4B` |
+| `CompositeMaterialPanoramaPanel_Init` | `stringref` | `0x7FFC0027FB00` | `0xB8FB00` | `"CompositeMaterialPanoramaPanel_t::Init"` |
 | `ConCommand_firstperson` | `raw` | `0x7FFC001B8B50` | `0xAC8B50` | `48 83 EC 28 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 75 ? 48 8B 05 ? ? ? ? C6 80 29 02 00 00 00 C7 80 A8 06 00 00 00` |
 | `ConCommand_thirdperson` | `raw` | `0x7FFC001B8C30` | `0xAC8C30` | `48 83 EC 38 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 0F 85 ? ? ? ? 4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00` |
 | `ConvarGet` | `raw` | `0x7FFBFFFADF82` | `0x8BDF82` | `8B D0 48 8D 0D ? ? ? ? E8 ? ? ? ? 0F 10 45 ? 83 F0 74` |
@@ -171,6 +184,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `HandleEntityList` | `rel32` | `0x7FFBFF8B3650` | `0x1C3650` | `E8 ? ? ? ? 84 C0 74 ? 48 63 03` |
 | `HandleTeamIntro` | `raw` | `0x7FFBFFDF3E00` | `0x703E00` | `48 83 EC ? ? ? ? ? 44 38 89` |
 | `HudChatPrintf` | `rel32` | `0x7FFC007AE830` | `0x10BE830` | `E8 ? ? ? ? 49 8B 4E 20 BA ? ? ? ?` |
+| `InfoForResourceTypeCCompositeMaterialKit_TypeManager` | `stringref` | `0x7FFC00AC6840` | `0x13D6840` | `"InfoForResourceTypeCCompositeMaterialKit"` |
+| `InfoForResourceTypeCCompositeMaterial_TypeManager` | `raw` | `0x7FFC00AC6D90` | `0x13D6D90` | `40 55 41 56 48 83 EC 68 48 8B EA 83 F9 06 0F 87 B4 02 00 00` |
 | `InitFilter` | `raw` | `0x7FFBFFA1BB40` | `0x32BB40` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 0F B6 41 ? 33 FF 24 C9 C7 41 ?` |
 | `InitPlayerMovementTraceFilter` | `raw` | `0x7FFBFFF2F270` | `0x83F270` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 0F B6 41 ? 33 FF C7 41 ?` |
 | `InitTraceInfo` | `raw` | `0x7FFC00CE9A30` | `0x15F9A30` | `40 55 41 55 41 57 48 83 EC` |
@@ -286,6 +301,15 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | --- | --- | --- | --- | --- |
 | `CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile` | `stringref` | `0x7FFC11943FA0` | `0x13FA0` | `"CompileComboAndGetVariables_DynamicShaderCompile(), C:\buildworker\csgo_rel_win64\build\src\materialsystem2\material2.cpp:2786"` |
 | `CMaterial2_LoadShadersAndSetupModes` | `raw` | `0x7FFC11940040` | `0x10040` | `44 89 44 24 18 48 89 54 24 10 53 56 41 54 41 55 48 81 EC 88 00 00 00 4C 8B E9 48 C7 44 24 60` |
+| `CMaterialLayer_ApplyMaterialVarsForBatch` | `raw` | `0x7FFC11948B80` | `0x18B80` | `4C 89 4C 24 20 4C 89 44 24 18 48 89 54 24 10 53 55 56 57 41 54 41 55 41 56 41 57 48 83 EC 78` |
+| `CMaterialLayer_BuildPassCommandData` | `raw` | `0x7FFC11948F80` | `0x18F80` | `89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 58 FE FF FF 48 81 EC A8 02 00 00` |
+| `CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode` | `stringref` | `0x7FFC11945F3C` | `0x15F3C` | `"CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3154): Failed call to FindOrLoadStaticComboData()!
+"` |
+| `CMaterialLayer_CreateCommandBuffer` | `stringref` | `0x7FFC11949820` | `0x19820` | `"
+CMaterialLayer::CreateCommandBuffer(4446): Find a graphics programmer! Trying to bind a "%s" shader that doesn't exist! for %s
+"` |
+| `CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState` | `stringref` | `0x7FFC119A0000` | `0x70000` | `"BindIdentityInstanceIDBufferAndSetRenderState: GetMode == NULL? Can't Render
+"` |
 | `CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials` | `stringref` | `0x7FFC11969AA0` | `0x39AA0` | `"CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials(1084): ERROR!!! Shaders not freed before shader reload! (See spew above)
 
 "` |
@@ -293,6 +317,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `CMaterialSystem2_GetErrorMaterial` | `stringref` | `0x7FFC119474D7` | `0x174D7` | `"CMaterialSystem2::GetErrorMaterial(529): GetErrorMaterial() called when m_pMaterialTypeManager == NULL!
 "` |
 | `CMaterialSystem2_Init` | `stringref` | `0x7FFC11966E40` | `0x36E40` | `"MaterialSystem2"` |
+| `CMaterial_SetVariableAndRenderState` | `stringref` | `0x7FFC1195F9B0` | `0x2F9B0` | `"SetRenderStateValueFromVariable(1172): Unsupported render state type in material "%s"!
+"` |
 | `CVfxProgramData_FindOrCreateStaticComboDataInCache` | `stringref` | `0x7FFC119DE0E0` | `0xAE0E0` | `"CVfxProgramData::FindOrCreateStaticComboDataInCache(4448): Error! Ref count !=0 for static combo data cache entry!
 "` |
 | `FindParameter` | `raw` | `0x7FFC11941E30` | `0x11E30` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8B 59 20 48` |
@@ -320,6 +346,10 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
+| `CRenderDeviceBase_CreateConstantBuffer` | `stringref` | `0x7FFC1259F500` | `0x2F500` | `"CRenderDeviceBase::CreateConstantBuffer(1571): "` |
+| `CRenderDeviceDx11_BeginSubmittingDisplayLists` | `stringref` | `0x7FFC125AC4E0` | `0x3C4E0` | `"CRenderDeviceDx11::BeginSubmittingDisplayLists(1162): "` |
+| `CRenderDeviceDx11_CompileShaderSourceMain` | `stringref` | `0x7FFC125AFAF0` | `0x3FAF0` | `"Shader compilation failed! Reported no errors.
+"` |
 | `CSwapChainDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
 | `CSwapChainDx11_ResizeBuffers` | `raw` | `0x7FFC125ADD20` | `0x3DD20` | `48 8B C4 55 53 56 57 41 54 48 8B EC 48 83 EC 70 4C 89 68 10 4D 8B E0 4C 89 70 18 4C 8B EA 4C 89` |
 | `RenderSystemDx11_QueuePresentAndWait` | `raw` | `0x7FFC125A4650` | `0x34650` | `40 55 53 57 41 54 41 55 48 8D 6C 24 C9 48 81 EC C0 00 00 00 48 8D 05 ? ? ? ? 4C 89 B4 24` |
@@ -339,7 +369,9 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
 | `CSceneAnimatableObject::GeneratePrimitives` | `raw` | `0x7FFC0A683520` | `0x73520` | `48 8B C4 48 89 58 08 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ?` |
+| `CSceneSkyBoxObject_DrawSkyboxArray` | `raw` | `0x7FFC0A75FB90` | `0x14FB90` | `45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55 41 56 49 8D AB 58 FC FF FF 48 81 EC 98 04 00 00` |
 | `CSceneSystem_RenderViewLayer_Dispatch` | `raw` | `0x7FFC0A6FDD80` | `0xEDD80` | `48 8B C4 48 89 48 08 55 53 56 57 41 54 41 55 41 56 41 57 48 8D A8 B8 FE FF FF 48 81 EC 08 02 00` |
+| `CSceneSystem_Thread_CullView` | `stringref` | `0x7FFC0A6F92F0` | `0xE92F0` | `"CSceneSystem::Thread_CullView(), C:\buildworker\csgo_rel_win64\build\src\scenesystem\scenesystem.cpp:3312"` |
 | `DrawObject_legacy` | `raw` | `0x7FFC0A665BC0` | `0x55BC0` | `48 8B C4 53 57 41 54 48 81 EC D0 00 00 00 49 63 F9 49` |
 | `DrawSkyboxArray` | `raw` | `0x7FFC0A75FB90` | `0x14FB90` | `45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55` |
 | `SceneSystem::DrawAggeregateObject` | `raw` | `0x7FFC0A73CF50` | `0x12CF50` | `48 8B C4 4C 89 48 20 4C 89 40 ? 48 89 50 ? 55 53 41 57 48 8D A8` |
@@ -357,6 +389,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 
 | Name | Resolve | VA | RVA | Pattern |
 | --- | --- | --- | --- | --- |
+| `LoadKV3` | `raw` | `0x7FFC5CF49090` | `0x129090` | `48 89 5C 24 08 57 48 83 EC 70 4C 8B D1 48 C7 C0 FF FF FF FF 48 FF C0 41 80 3C 00 00 75 F6` |
 | `Tier0::LoadKeyValues` | `rel32` | `0x7FFC5CF49160` | `0x129160` | `E8 ? ? ? ? 8B 4C 24 34 0F B6 D8` |
 | `Tier0::UtlBuffer` | `raw` | `0x7FFC5CE73F10` | `0x53F10` | `48 89 5C 24 ? 57 48 83 EC ? 8B 41 ? 8D 7A` |
 

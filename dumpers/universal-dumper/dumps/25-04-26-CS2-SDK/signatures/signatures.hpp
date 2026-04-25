@@ -51,6 +51,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CCSWeaponBaseGun = 0x7FFBFFE6F300; // rva 0x77F300
         inline constexpr std::uintptr_t CCSWeaponBaseVData = 0x7FFBFFE4A170; // rva 0x75A170
         inline constexpr std::uintptr_t CCollisionProperty = 0x7FFBFF9D0EE0; // rva 0x2E0EE0
+        inline constexpr std::uintptr_t CCompositeMaterialManager_AddPanoramaPanelRenderRequest_Caller = 0x7FFC00AA9064; // rva 0x13B9064
         inline constexpr std::uintptr_t CDecoyProjectile = 0x7FFBFFE3E0A0; // rva 0x74E0A0
         inline constexpr std::uintptr_t CEconItemSchema__GetAttributeDefinitionByName = 0x7FFC0073A5E0; // rva 0x104A5E0
         inline constexpr std::uintptr_t CEconItemView__GetCustomPaintKitIndex = 0x7FFBFFFA9C70; // rva 0x8B9C70
@@ -67,7 +68,10 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CHEGrenadeProjectile = 0x7FFC006CDBD0; // rva 0xFDDBD0
         inline constexpr std::uintptr_t CInputPtrGlobal = 0x7FFC017513C0; // rva 0x20613C0
         inline constexpr std::uintptr_t CMolotovProjectile = 0x7FFBFFE3E280; // rva 0x74E280
+        inline constexpr std::uintptr_t CPaintKitDefinitions_FindOrCreateByName = 0x7FFC00747DD0; // rva 0x1057DD0
+        inline constexpr std::uintptr_t CPaintKitDefinitions_LoadDefaultKit = 0x7FFC00719EA0; // rva 0x1029EA0
         inline constexpr std::uintptr_t CPostProcessingVolume = 0x7FFBFF993CB0; // rva 0x2A3CB0
+        inline constexpr std::uintptr_t CS2ItemEditor_BuildTemplateMaterialFromFile = 0x7FFC00AAA1E0; // rva 0x13BA1E0
         inline constexpr std::uintptr_t CSBaseGunFireData_fn = 0x7FFC00BD58D0; // rva 0x14E58D0
         inline constexpr std::uintptr_t CSGOInput_ptr = 0x7FFC017513C0; // rva 0x20613C0
         inline constexpr std::uintptr_t CSGOInput_resolved = 0x7FFC017513C7; // rva 0x20613C7
@@ -81,6 +85,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CSkeletonInstance_SetMeshGroupMask = 0x7FFC00113D20; // rva 0xA23D20
         inline constexpr std::uintptr_t CSmokeGrenadeProjectile = 0x7FFBFFE3E320; // rva 0x74E320
         inline constexpr std::uintptr_t CTonemapController2 = 0x7FFBFF947BE0; // rva 0x257BE0
+        inline constexpr std::uintptr_t CUtlVector_CompositeMaterialInput_AddToTail = 0x7FFBFFE79A00; // rva 0x789A52
         inline constexpr std::uintptr_t C_AttributeContainer = 0x7FFC003065E0; // rva 0xC165E0
         inline constexpr std::uintptr_t C_BaseEntity = 0x7FFBFF73E260; // rva 0x4E260
         inline constexpr std::uintptr_t C_BaseModelEntity = 0x7FFBFF847F60; // rva 0x157F60
@@ -89,7 +94,12 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t C_CSPlayerPawn = 0x7FFBFFDB2380; // rva 0x6C2380
         inline constexpr std::uintptr_t C_CSPlayerPawnBase = 0x7FFC002C57C0; // rva 0xBD57C0
         inline constexpr std::uintptr_t C_CSWeaponBase = 0x7FFBFFE32030; // rva 0x742030
+        inline constexpr std::uintptr_t C_EconEntity_BuildLegacyGloveSkinMaterial = 0x7FFC002AFB00; // rva 0xBBFB00
+        inline constexpr std::uintptr_t C_EconEntity_BuildLegacyWeaponSkinMaterial = 0x7FFBFFE7C050; // rva 0x78C050
+        inline constexpr std::uintptr_t C_EconEntity_BuildModernWeaponSkinMaterial = 0x7FFC004728E0; // rva 0xD828E0
+        inline constexpr std::uintptr_t C_EconEntity_BuildNametagOverlayMaterial = 0x7FFBFFE7AE20; // rva 0x78AE20
         inline constexpr std::uintptr_t C_EconItemView = 0x7FFBFFDFB400; // rva 0x70B400
+        inline constexpr std::uintptr_t C_EconWearable_OnNewCustomMaterials = 0x7FFC007A67D0; // rva 0x10B67D0
         inline constexpr std::uintptr_t C_Hostage = 0x7FFBFF7D73D0; // rva 0xE73D0
         inline constexpr std::uintptr_t C_Inferno = 0x7FFBFF7E7390; // rva 0xF7390
         inline constexpr std::uintptr_t C_PlantedC4 = 0x7FFBFF7E06F0; // rva 0xF06F0
@@ -105,6 +115,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t ClientModeCSNormal_OnEvent = 0x7FFC0034A110; // rva 0xC5A110
         inline constexpr std::uintptr_t ClientMode_ptr = 0x7FFC01A2BA60; // rva 0x233BA60
         inline constexpr std::uintptr_t Client_DispatchSpawn = 0x7FFC00BC32A0; // rva 0x14D32A0
+        inline constexpr std::uintptr_t CompositeMaterialPanoramaPanel_Init = 0x7FFC0027FB00; // rva 0xB8FB00
         inline constexpr std::uintptr_t ConCommand_firstperson = 0x7FFC001B8B50; // rva 0xAC8B50
         inline constexpr std::uintptr_t ConCommand_thirdperson = 0x7FFC001B8C30; // rva 0xAC8C30
         inline constexpr std::uintptr_t ConvarGet = 0x7FFBFFFADF82; // rva 0x8BDF82
@@ -165,6 +176,8 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t HandleEntityList = 0x7FFBFF8B3650; // rva 0x1C3650
         inline constexpr std::uintptr_t HandleTeamIntro = 0x7FFBFFDF3E00; // rva 0x703E00
         inline constexpr std::uintptr_t HudChatPrintf = 0x7FFC007AE830; // rva 0x10BE830
+        inline constexpr std::uintptr_t InfoForResourceTypeCCompositeMaterialKit_TypeManager = 0x7FFC00AC6840; // rva 0x13D6840
+        inline constexpr std::uintptr_t InfoForResourceTypeCCompositeMaterial_TypeManager = 0x7FFC00AC6D90; // rva 0x13D6D90
         inline constexpr std::uintptr_t InitFilter = 0x7FFBFFA1BB40; // rva 0x32BB40
         inline constexpr std::uintptr_t InitPlayerMovementTraceFilter = 0x7FFBFFF2F270; // rva 0x83F270
         inline constexpr std::uintptr_t InitTraceInfo = 0x7FFC00CE9A30; // rva 0x15F9A30
@@ -274,10 +287,16 @@ namespace cs2::signatures {
     namespace materialsystem2 {
         inline constexpr std::uintptr_t CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile = 0x7FFC11943FA0; // rva 0x13FA0
         inline constexpr std::uintptr_t CMaterial2_LoadShadersAndSetupModes = 0x7FFC11940040; // rva 0x10040
+        inline constexpr std::uintptr_t CMaterialLayer_ApplyMaterialVarsForBatch = 0x7FFC11948B80; // rva 0x18B80
+        inline constexpr std::uintptr_t CMaterialLayer_BuildPassCommandData = 0x7FFC11948F80; // rva 0x18F80
+        inline constexpr std::uintptr_t CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode = 0x7FFC11945F3C; // rva 0x15F3C
+        inline constexpr std::uintptr_t CMaterialLayer_CreateCommandBuffer = 0x7FFC11949820; // rva 0x19820
+        inline constexpr std::uintptr_t CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState = 0x7FFC119A0000; // rva 0x70000
         inline constexpr std::uintptr_t CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials = 0x7FFC11969AA0; // rva 0x39AA0
         inline constexpr std::uintptr_t CMaterialSystem2_FrameUpdate = 0x7FFC1196BAC0; // rva 0x3BAC0
         inline constexpr std::uintptr_t CMaterialSystem2_GetErrorMaterial = 0x7FFC119474D7; // rva 0x174D7
         inline constexpr std::uintptr_t CMaterialSystem2_Init = 0x7FFC11966E40; // rva 0x36E40
+        inline constexpr std::uintptr_t CMaterial_SetVariableAndRenderState = 0x7FFC1195F9B0; // rva 0x2F9B0
         inline constexpr std::uintptr_t CVfxProgramData_FindOrCreateStaticComboDataInCache = 0x7FFC119DE0E0; // rva 0xAE0E0
         inline constexpr std::uintptr_t FindParameter = 0x7FFC11941E30; // rva 0x11E30
         inline constexpr std::uintptr_t MatSys__PrepareSceneMaterial = 0x7FFC11941BE0; // rva 0x11BE0
@@ -295,6 +314,9 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t Particles__SetMaterialShaderType = 0x7FFC09ECD8D0; // rva 0x9D8D0
     }
     namespace rendersystemdx11 {
+        inline constexpr std::uintptr_t CRenderDeviceBase_CreateConstantBuffer = 0x7FFC1259F500; // rva 0x2F500
+        inline constexpr std::uintptr_t CRenderDeviceDx11_BeginSubmittingDisplayLists = 0x7FFC125AC4E0; // rva 0x3C4E0
+        inline constexpr std::uintptr_t CRenderDeviceDx11_CompileShaderSourceMain = 0x7FFC125AFAF0; // rva 0x3FAF0
         inline constexpr std::uintptr_t CSwapChainDx11_QueuePresentAndWait = 0x7FFC125A4650; // rva 0x34650
         inline constexpr std::uintptr_t CSwapChainDx11_ResizeBuffers = 0x7FFC125ADD20; // rva 0x3DD20
         inline constexpr std::uintptr_t RenderSystemDx11_QueuePresentAndWait = 0x7FFC125A4650; // rva 0x34650
@@ -308,7 +330,9 @@ namespace cs2::signatures {
     }
     namespace scenesystem {
         inline constexpr std::uintptr_t CSceneAnimatableObject__GeneratePrimitives = 0x7FFC0A683520; // rva 0x73520
+        inline constexpr std::uintptr_t CSceneSkyBoxObject_DrawSkyboxArray = 0x7FFC0A75FB90; // rva 0x14FB90
         inline constexpr std::uintptr_t CSceneSystem_RenderViewLayer_Dispatch = 0x7FFC0A6FDD80; // rva 0xEDD80
+        inline constexpr std::uintptr_t CSceneSystem_Thread_CullView = 0x7FFC0A6F92F0; // rva 0xE92F0
         inline constexpr std::uintptr_t DrawObject_legacy = 0x7FFC0A665BC0; // rva 0x55BC0
         inline constexpr std::uintptr_t DrawSkyboxArray = 0x7FFC0A75FB90; // rva 0x14FB90
         inline constexpr std::uintptr_t SceneSystem__DrawAggeregateObject = 0x7FFC0A73CF50; // rva 0x12CF50
@@ -320,6 +344,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t SoundSystem__SomeUtlSymbolFunc = 0x7FFC0E490740; // rva 0xB0740
     }
     namespace tier0 {
+        inline constexpr std::uintptr_t LoadKV3 = 0x7FFC5CF49090; // rva 0x129090
         inline constexpr std::uintptr_t Tier0__LoadKeyValues = 0x7FFC5CF49160; // rva 0x129160
         inline constexpr std::uintptr_t Tier0__UtlBuffer = 0x7FFC5CE73F10; // rva 0x53F10
     }

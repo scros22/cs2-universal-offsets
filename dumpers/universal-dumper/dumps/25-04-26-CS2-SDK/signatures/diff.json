@@ -202,6 +202,11 @@
       "va": 140720302001888
     },
     {
+      "name": "CCompositeMaterialManager_AddPanoramaPanelRenderRequest_Caller",
+      "module": "client.dll",
+      "va": 140720319664228
+    },
+    {
       "name": "CDecoyProjectile",
       "module": "client.dll",
       "va": 140720306643104
@@ -282,9 +287,24 @@
       "va": 140720306643584
     },
     {
+      "name": "CPaintKitDefinitions_FindOrCreateByName",
+      "module": "client.dll",
+      "va": 140720316120528
+    },
+    {
+      "name": "CPaintKitDefinitions_LoadDefaultKit",
+      "module": "client.dll",
+      "va": 140720315932320
+    },
+    {
       "name": "CPostProcessingVolume",
       "module": "client.dll",
       "va": 140720301751472
+    },
+    {
+      "name": "CS2ItemEditor_BuildTemplateMaterialFromFile",
+      "module": "client.dll",
+      "va": 140720319668704
     },
     {
       "name": "CSBaseGunFireData_fn",
@@ -352,6 +372,11 @@
       "va": 140720301439968
     },
     {
+      "name": "CUtlVector_CompositeMaterialInput_AddToTail",
+      "module": "client.dll",
+      "va": 140720306887168
+    },
+    {
       "name": "C_AttributeContainer",
       "module": "client.dll",
       "va": 140720311657952
@@ -392,9 +417,34 @@
       "va": 140720306593840
     },
     {
+      "name": "C_EconEntity_BuildLegacyGloveSkinMaterial",
+      "module": "client.dll",
+      "va": 140720311302912
+    },
+    {
+      "name": "C_EconEntity_BuildLegacyWeaponSkinMaterial",
+      "module": "client.dll",
+      "va": 140720306896976
+    },
+    {
+      "name": "C_EconEntity_BuildModernWeaponSkinMaterial",
+      "module": "client.dll",
+      "va": 140720313149664
+    },
+    {
+      "name": "C_EconEntity_BuildNametagOverlayMaterial",
+      "module": "client.dll",
+      "va": 140720306892320
+    },
+    {
       "name": "C_EconItemView",
       "module": "client.dll",
       "va": 140720306369536
+    },
+    {
+      "name": "C_EconWearable_OnNewCustomMaterials",
+      "module": "client.dll",
+      "va": 140720316508112
     },
     {
       "name": "C_Hostage",
@@ -470,6 +520,11 @@
       "name": "Client_DispatchSpawn",
       "module": "client.dll",
       "va": 140720320819872
+    },
+    {
+      "name": "CompositeMaterialPanoramaPanel_Init",
+      "module": "client.dll",
+      "va": 140720311106304
     },
     {
       "name": "ConCommand_firstperson",
@@ -765,6 +820,16 @@
       "name": "HudChatPrintf",
       "module": "client.dll",
       "va": 140720316540976
+    },
+    {
+      "name": "InfoForResourceTypeCCompositeMaterialKit_TypeManager",
+      "module": "client.dll",
+      "va": 140720319785024
+    },
+    {
+      "name": "InfoForResourceTypeCCompositeMaterial_TypeManager",
+      "module": "client.dll",
+      "va": 140720319786384
     },
     {
       "name": "InitFilter",
@@ -1287,6 +1352,31 @@
       "va": 140720603398208
     },
     {
+      "name": "CMaterialLayer_ApplyMaterialVarsForBatch",
+      "module": "materialsystem2.dll",
+      "va": 140720603433856
+    },
+    {
+      "name": "CMaterialLayer_BuildPassCommandData",
+      "module": "materialsystem2.dll",
+      "va": 140720603434880
+    },
+    {
+      "name": "CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode",
+      "module": "materialsystem2.dll",
+      "va": 140720603422524
+    },
+    {
+      "name": "CMaterialLayer_CreateCommandBuffer",
+      "module": "materialsystem2.dll",
+      "va": 140720603437088
+    },
+    {
+      "name": "CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState",
+      "module": "materialsystem2.dll",
+      "va": 140720603791360
+    },
+    {
       "name": "CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials",
       "module": "materialsystem2.dll",
       "va": 140720603568800
@@ -1305,6 +1395,11 @@
       "name": "CMaterialSystem2_Init",
       "module": "materialsystem2.dll",
       "va": 140720603557440
+    },
+    {
+      "name": "CMaterial_SetVariableAndRenderState",
+      "module": "materialsystem2.dll",
+      "va": 140720603527600
     },
     {
       "name": "CVfxProgramData_FindOrCreateStaticComboDataInCache",
@@ -1362,6 +1457,21 @@
       "va": 140720475003088
     },
     {
+      "name": "CRenderDeviceBase_CreateConstantBuffer",
+      "module": "rendersystemdx11.dll",
+      "va": 140720616371456
+    },
+    {
+      "name": "CRenderDeviceDx11_BeginSubmittingDisplayLists",
+      "module": "rendersystemdx11.dll",
+      "va": 140720616424672
+    },
+    {
+      "name": "CRenderDeviceDx11_CompileShaderSourceMain",
+      "module": "rendersystemdx11.dll",
+      "va": 140720616438512
+    },
+    {
       "name": "CSwapChainDx11_QueuePresentAndWait",
       "module": "rendersystemdx11.dll",
       "va": 140720616392272
@@ -1407,9 +1517,19 @@
       "va": 140720483087648
     },
     {
+      "name": "CSceneSkyBoxObject_DrawSkyboxArray",
+      "module": "scenesystem.dll",
+      "va": 140720483990416
+    },
+    {
       "name": "CSceneSystem_RenderViewLayer_Dispatch",
       "module": "scenesystem.dll",
       "va": 140720483589504
+    },
+    {
+      "name": "CSceneSystem_Thread_CullView",
+      "module": "scenesystem.dll",
+      "va": 140720483570416
     },
     {
       "name": "DrawObject_legacy",
@@ -1445,6 +1565,11 @@
       "name": "SoundSystem::SomeUtlSymbolFunc",
       "module": "soundsystem.dll",
       "va": 140720548153152
+    },
+    {
+      "name": "LoadKV3",
+      "module": "tier0.dll",
+      "va": 140721868017808
     },
     {
       "name": "Tier0::LoadKeyValues",
