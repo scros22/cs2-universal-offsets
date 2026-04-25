@@ -1880,6 +1880,20 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
+    // Static combo cache gate wrapper — materialsystem2!sub_1800AE950
+    // (~0x1F6). Called by sub_1800BDAE0 and dispatches to
+    // CVfxProgramData_FindOrCreateStaticComboDataInCache (sub_1800AE220)
+    // on cache miss / invalid-state paths. This gives a compact hook to
+    // observe cache hit/miss behavior without instrumenting the full merge
+    // worker. Raw prologue pattern validated as unique in module.
+    Signature {
+        name: "CVfxProgramData_FindOrCreateStaticComboData_CacheGate",
+        module: "materialsystem2.dll",
+        needle: "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 41 57 48 83 EC 60 80 39 00 45 8B D9",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
     // CMaterial::SetVariableAndRenderState — materialsystem2!sub_18002F9B0
     // (~0x8A4).  Refs the unique
     // "SetRenderStateValueFromVariable(1172): Unsupported render state

@@ -39,6 +39,8 @@ This note captures the latest reverse-engineering pass for the
   - Logs `Error finding static combo data in VCS file!` and cache consistency errors.
 - `materialsystem2!sub_1800AE950`
   - Wrapper/cache gate that calls `sub_1800AE220` on miss or invalid state.
+  - Added signature name:
+    `CVfxProgramData_FindOrCreateStaticComboData_CacheGate` (raw, unique).
 - `materialsystem2!sub_1800BDAE0`
   - Static combo merge/validation worker (now signatured as
     `CVfxProgramData_FindOrLoadStaticComboData`).
@@ -67,12 +69,14 @@ If the goal is custom Source2 shader graphs/material behavior beyond param edits
 ### Call-chain resolution deltas
 
 - `materialsystem2!sub_18003A200` (compile-queue driver) callers:
-  - `sub_18000C8C0`
+  - `sub_18000C8C0` (material vertex shader input-signature path)
   - `sub_180016D10` (`CMaterialSystem2_GetErrorMaterial` path)
   - `sub_1800355C0` (`CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials` path)
 - `materialsystem2!sub_1800BDAE0` is called from
   `CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode`.
 - `materialsystem2!sub_1800AE950` is called from `sub_1800BDAE0`.
+- `sub_18000C8C0` emits `CMaterial2::GetVertexShaderInputSignature(...)`
+  errors and can trigger compile-queue processing via `sub_18003A200`.
 
 ### Resourcesystem evidence for compiled-asset contract mapping
 
@@ -86,14 +90,15 @@ If the goal is custom Source2 shader graphs/material behavior beyond param edits
 - This supports the current model: extension/type registration is explicit and
   tightly coupled to resource-type handlers, reinforcing that loader-compatible
   compiled assets are the practical path.
+- Additional tag observations from the same table family include
+  `aVmesh`, `aVsurf`, `aVwrld`, `aVpcf`, `aVnmgraphvnmcli`, and `aVcompmat`,
+  which further supports a centralized extension-tag -> type-descriptor design.
 
 ## Next reverse targets
 
-1. Add a robust signature for `materialsystem2!sub_1800AE950` (cache gate
-  wrapper) once a unique anchor is validated.
-2. Name/label `sub_18000C8C0` and `sub_1800355C0` semantically in notes to
-  better describe compile enqueue/reload orchestration.
-3. Walk code that consumes the resourcesystem descriptor blocks containing
+1. Name/label `sub_18000C8C0` and `sub_1800355C0` semantically in notes to
+  better describe compile enqueue/reload orchestration (partially done).
+2. Walk code that consumes the resourcesystem descriptor blocks containing
   `aVcompmat` to fully map extension->type handler dispatch.
-4. Add a small dumper report mode that logs compile-queue and cache outcomes
+3. Add a small dumper report mode that logs compile-queue and cache outcomes
   in one run for quick regression checks across builds.
