@@ -103,6 +103,10 @@ pub mod client {
     pub const CGameEntitySystem__OnRemoveEntity: usize = 0x7FFC00057790;
     /// rva 0x1A3840
     pub const CGameSceneNode: usize = 0x7FFBFF893840;
+    /// rva 0x93E3C0
+    pub const CGameSceneNode_BuildBoneMergeWork: usize = 0x7FFC0002E3C0;
+    /// rva 0x98AE80
+    pub const CGameSceneNode_StartHierarchicalAttachment: usize = 0x7FFC0007AE80;
     /// rva 0x2E10F0
     pub const CGlowProperty: usize = 0x7FFBFF9D10F0;
     /// rva 0xFDDBD0
@@ -219,6 +223,10 @@ pub mod client {
     pub const ForceButtonsDown: usize = 0x7FFC000BE9D0;
     /// rva 0x24CED50
     pub const GameEntitySystemPtr: usize = 0x7FFC01BBED50;
+    /// rva 0x938970
+    pub const GameEventManager_AddListener: usize = 0x7FFC00028970;
+    /// rva 0x9911A0
+    pub const GameEventManager_UnserializeEvent: usize = 0x7FFC000811A0;
     /// rva 0x2328F38
     pub const GameRules_ptr: usize = 0x7FFC01A18F38;
     /// rva 0x2328F38
@@ -468,8 +476,16 @@ pub mod engine2 {
     pub const Engine_HLTVClient_ExecuteStringCommand: usize = 0x7FFC12D90D70;
     /// rva 0x21AFC0
     pub const Engine_HostStateMgr_QueueNewRequest: usize = 0x7FFC12E8AFC0;
+    /// rva 0x18D760
+    pub const Engine_LoadGameInfo: usize = 0x7FFC12DFD760;
+    /// rva 0x193440
+    pub const Engine_MountAddon: usize = 0x7FFC12E03440;
     /// rva 0x69780
     pub const Engine_NetTimeoutDisconnect: usize = 0x7FFC12CD9780;
+    /// rva 0x7F400
+    pub const Engine_NetworkGameClient_Connect: usize = 0x7FFC12CEF400;
+    /// rva 0x60F80
+    pub const Engine_NetworkGameClient_SetSignonState: usize = 0x7FFC12CD0F80;
     /// rva 0x3FD270
     pub const Engine_RegisterConCommand: usize = 0x7FFC1306D270;
     /// rva 0x3FC080

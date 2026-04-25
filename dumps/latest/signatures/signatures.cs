@@ -58,6 +58,8 @@ public static class Signatures
         public const ulong CGameEntitySystem__OnAddEntity = 0x7FFC00056F30UL; // rva 0x966F30
         public const ulong CGameEntitySystem__OnRemoveEntity = 0x7FFC00057790UL; // rva 0x967790
         public const ulong CGameSceneNode = 0x7FFBFF893840UL; // rva 0x1A3840
+        public const ulong CGameSceneNode_BuildBoneMergeWork = 0x7FFC0002E3C0UL; // rva 0x93E3C0
+        public const ulong CGameSceneNode_StartHierarchicalAttachment = 0x7FFC0007AE80UL; // rva 0x98AE80
         public const ulong CGlowProperty = 0x7FFBFF9D10F0UL; // rva 0x2E10F0
         public const ulong CHEGrenadeProjectile = 0x7FFC006CDBD0UL; // rva 0xFDDBD0
         public const ulong CInputPtrGlobal = 0x7FFC017513C0UL; // rva 0x20613C0
@@ -116,6 +118,8 @@ public static class Signatures
         public const ulong FlashOverlay = 0x7FFC00498C10UL; // rva 0xDA8C10
         public const ulong ForceButtonsDown = 0x7FFC000BE9D0UL; // rva 0x9CE9D0
         public const ulong GameEntitySystemPtr = 0x7FFC01BBED50UL; // rva 0x24CED50
+        public const ulong GameEventManager_AddListener = 0x7FFC00028970UL; // rva 0x938970
+        public const ulong GameEventManager_UnserializeEvent = 0x7FFC000811A0UL; // rva 0x9911A0
         public const ulong GameRules_ptr = 0x7FFC01A18F38UL; // rva 0x2328F38
         public const ulong GetBBox_ptr = 0x7FFC01A18F38UL; // rva 0x2328F38
         public const ulong GetBaseEntity = 0x7FFC00055EF0UL; // rva 0x965EF0
@@ -242,7 +246,11 @@ public static class Signatures
         public const ulong Engine_Disconnect_main = 0x7FFC12E41510UL; // rva 0x1D1510
         public const ulong Engine_HLTVClient_ExecuteStringCommand = 0x7FFC12D90D70UL; // rva 0x120D70
         public const ulong Engine_HostStateMgr_QueueNewRequest = 0x7FFC12E8AFC0UL; // rva 0x21AFC0
+        public const ulong Engine_LoadGameInfo = 0x7FFC12DFD760UL; // rva 0x18D760
+        public const ulong Engine_MountAddon = 0x7FFC12E03440UL; // rva 0x193440
         public const ulong Engine_NetTimeoutDisconnect = 0x7FFC12CD9780UL; // rva 0x69780
+        public const ulong Engine_NetworkGameClient_Connect = 0x7FFC12CEF400UL; // rva 0x7F400
+        public const ulong Engine_NetworkGameClient_SetSignonState = 0x7FFC12CD0F80UL; // rva 0x60F80
         public const ulong Engine_RegisterConCommand = 0x7FFC1306D270UL; // rva 0x3FD270
         public const ulong Engine_RegisterConVar = 0x7FFC1306C080UL; // rva 0x3FC080
     }

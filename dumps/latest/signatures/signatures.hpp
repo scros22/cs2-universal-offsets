@@ -56,6 +56,8 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t CGameEntitySystem__OnAddEntity = 0x7FFC00056F30; // rva 0x966F30
         inline constexpr std::uintptr_t CGameEntitySystem__OnRemoveEntity = 0x7FFC00057790; // rva 0x967790
         inline constexpr std::uintptr_t CGameSceneNode = 0x7FFBFF893840; // rva 0x1A3840
+        inline constexpr std::uintptr_t CGameSceneNode_BuildBoneMergeWork = 0x7FFC0002E3C0; // rva 0x93E3C0
+        inline constexpr std::uintptr_t CGameSceneNode_StartHierarchicalAttachment = 0x7FFC0007AE80; // rva 0x98AE80
         inline constexpr std::uintptr_t CGlowProperty = 0x7FFBFF9D10F0; // rva 0x2E10F0
         inline constexpr std::uintptr_t CHEGrenadeProjectile = 0x7FFC006CDBD0; // rva 0xFDDBD0
         inline constexpr std::uintptr_t CInputPtrGlobal = 0x7FFC017513C0; // rva 0x20613C0
@@ -114,6 +116,8 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t FlashOverlay = 0x7FFC00498C10; // rva 0xDA8C10
         inline constexpr std::uintptr_t ForceButtonsDown = 0x7FFC000BE9D0; // rva 0x9CE9D0
         inline constexpr std::uintptr_t GameEntitySystemPtr = 0x7FFC01BBED50; // rva 0x24CED50
+        inline constexpr std::uintptr_t GameEventManager_AddListener = 0x7FFC00028970; // rva 0x938970
+        inline constexpr std::uintptr_t GameEventManager_UnserializeEvent = 0x7FFC000811A0; // rva 0x9911A0
         inline constexpr std::uintptr_t GameRules_ptr = 0x7FFC01A18F38; // rva 0x2328F38
         inline constexpr std::uintptr_t GetBBox_ptr = 0x7FFC01A18F38; // rva 0x2328F38
         inline constexpr std::uintptr_t GetBaseEntity = 0x7FFC00055EF0; // rva 0x965EF0
@@ -239,7 +243,11 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t Engine_Disconnect_main = 0x7FFC12E41510; // rva 0x1D1510
         inline constexpr std::uintptr_t Engine_HLTVClient_ExecuteStringCommand = 0x7FFC12D90D70; // rva 0x120D70
         inline constexpr std::uintptr_t Engine_HostStateMgr_QueueNewRequest = 0x7FFC12E8AFC0; // rva 0x21AFC0
+        inline constexpr std::uintptr_t Engine_LoadGameInfo = 0x7FFC12DFD760; // rva 0x18D760
+        inline constexpr std::uintptr_t Engine_MountAddon = 0x7FFC12E03440; // rva 0x193440
         inline constexpr std::uintptr_t Engine_NetTimeoutDisconnect = 0x7FFC12CD9780; // rva 0x69780
+        inline constexpr std::uintptr_t Engine_NetworkGameClient_Connect = 0x7FFC12CEF400; // rva 0x7F400
+        inline constexpr std::uintptr_t Engine_NetworkGameClient_SetSignonState = 0x7FFC12CD0F80; // rva 0x60F80
         inline constexpr std::uintptr_t Engine_RegisterConCommand = 0x7FFC1306D270; // rva 0x3FD270
         inline constexpr std::uintptr_t Engine_RegisterConVar = 0x7FFC1306C080; // rva 0x3FC080
     }
