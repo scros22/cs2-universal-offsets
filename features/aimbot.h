@@ -78,6 +78,19 @@ namespace Aimbot
         bool  noSpread        = false;       // zero weapon inaccuracy (perfect jump shots)
         float smokeRadius     = 144.0f;      // CS2 smoke sphere radius
         bool  silentAim       = true;        // silent aim via WriteSubtick frame redirect
+        // ---- BINARY-LAYOUT RESERVED ----
+        // These two floats used to be cfg.silentHitChance and cfg.silentSpread.
+        // The silent-aim WriteSubtick path never read them, so they were
+        // logically dead — but SavedConfig uses raw fwrite/fread of the
+        // whole struct, which means every byte after Aimbot::Config (ESP,
+        // tracer, chams, menu colors, etc.) is positionally bound to
+        // sizeof(Aimbot::Config). Removing them in 6743f1b shifted every
+        // following field 8 bytes earlier on load, which is what produced
+        // the corrupted menu colors, flipped ESP toggles, and "?" weapon
+        // icons reported in-game. Keep these as reserved padding so old
+        // saved configs still parse correctly. Do not expose in menu.
+        float _reservedSilentA = 0.f;
+        float _reservedSilentB = 0.f;
     };
 
     inline Config cfg;
