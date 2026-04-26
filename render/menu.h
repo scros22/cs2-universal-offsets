@@ -1109,8 +1109,6 @@ namespace Menu
                 const char* bts[] = { "Classic", "Vivid", "Compact" };
                 EvoCombo("Bomb Style##bts", &ESP::cfg.bombTimerStyle, bts, 3);
             }
-            SynthSep();
-            EvoCheckbox("Round Timer", &ESP::cfg.roundTimer);
             if (advancedMode)
             {
                 SynthSep();

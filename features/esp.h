@@ -43,10 +43,6 @@ namespace ESP
         bool  spectators     = false;
         int   bombTimerStyle = 0;   // 0=Classic  1=Vivid  2=Compact
         int   spectatorStyle = 0;   // 0=Classic  1=Stealth  2=Minimal
-        // Round timer HUD — pure read off C_CSGameRules (m_iRoundTime +
-        // m_fRoundStartTime); shows MM:SS countdown + phase label
-        // (LIVE / FREEZE / WARMUP / OVER).
-        bool  roundTimer        = true;
 
         // Visible/hidden color system
         bool  visColorEnabled = true;
@@ -546,72 +542,6 @@ namespace ESP
         }
 
         if (!GameState::clientBase) return;
-
-        // ---- Round Timer HUD (top-center) ------------------------------
-        // Pure read off C_CSGameRules. Shows a clean MM:SS countdown +
-        // a phase pill (LIVE / FREEZE / WARMUP / OVER). Zero detection
-        // signature — same data the official scoreboard reads.
-        if (cfg.roundTimer)
-        {
-            auto rt = GameState::GetRoundTimerInfo();
-            if (rt.valid && !rt.matchOver)
-            {
-                int secs = (int)(rt.remainingSeconds + 0.5f);
-                int mm = secs / 60;
-                int ss = secs % 60;
-                char buf[32];
-                snprintf(buf, sizeof(buf), "%d:%02d", mm, ss);
-
-                const char* phaseLbl = "LIVE";
-                ImU32 phaseCol = IM_COL32(120, 220, 120, 255);
-                if (rt.warmup)      { phaseLbl = "WARMUP";  phaseCol = IM_COL32(120, 180, 255, 255); }
-                else if (rt.freeze) { phaseLbl = "FREEZE";  phaseCol = IM_COL32(255, 200,  80, 255); }
-
-                ImU32 timerCol = IM_COL32(255, 255, 255, 240);
-                if (!rt.warmup && !rt.freeze) {
-                    if (rt.remainingSeconds < 10.f)      timerCol = IM_COL32(255,  60,  60, 250);
-                    else if (rt.remainingSeconds < 30.f) timerCol = IM_COL32(255, 180,  60, 250);
-                }
-
-                float fontTimer = 22.f, fontPhase = 11.f;
-                ImVec2 tsz = ImGui::CalcTextSize(buf);
-                tsz.x *= (fontTimer / ImGui::GetFontSize());
-                tsz.y *= (fontTimer / ImGui::GetFontSize());
-                ImVec2 psz = ImGui::CalcTextSize(phaseLbl);
-                psz.x *= (fontPhase / ImGui::GetFontSize());
-                psz.y *= (fontPhase / ImGui::GetFontSize());
-
-                float padX = 12.f, padY = 6.f, gap = 4.f;
-                float pillW = tsz.x + psz.x + padX * 3 + gap;
-                float pillH = tsz.y + padY * 2;
-                float px = (scrW - pillW) * 0.5f;
-                float py = 14.f;
-
-                // Soft drop-shadow + dark pill bg with subtle border.
-                dl->AddRectFilled(ImVec2(px - 2, py - 2),
-                                  ImVec2(px + pillW + 2, py + pillH + 2),
-                                  IM_COL32(0, 0, 0, 110), 9.f);
-                dl->AddRectFilled(ImVec2(px, py), ImVec2(px + pillW, py + pillH),
-                                  IM_COL32(12, 12, 14, 230), 7.f);
-                dl->AddRect(ImVec2(px, py), ImVec2(px + pillW, py + pillH),
-                            IM_COL32(255, 255, 255, 28), 7.f, 0, 1.2f);
-
-                // Timer text
-                Draw::Text(dl, ImVec2(px + padX + tsz.x * 0.5f, py + padY),
-                           timerCol, buf, true, fontTimer);
-                // Phase chip (right side of pill)
-                float chipX0 = px + padX + tsz.x + gap;
-                float chipX1 = chipX0 + psz.x + padX;
-                float chipY0 = py + padY * 0.5f;
-                float chipY1 = py + pillH - padY * 0.5f;
-                dl->AddRectFilled(ImVec2(chipX0, chipY0), ImVec2(chipX1, chipY1),
-                                  IM_COL32(((phaseCol>>0)&0xFF), ((phaseCol>>8)&0xFF),
-                                           ((phaseCol>>16)&0xFF), 38), 4.f);
-                Draw::Text(dl, ImVec2(chipX0 + (chipX1 - chipX0) * 0.5f,
-                                       chipY0 + ((chipY1 - chipY0) - psz.y) * 0.5f),
-                           phaseCol, phaseLbl, true, fontPhase);
-            }
-        }
 
         // ---- C4 Bomb Timer - World-space display on planted bomb ----
         if (cfg.bombTimer)

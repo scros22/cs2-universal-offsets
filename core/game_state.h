@@ -395,60 +395,6 @@ namespace GameState
     }
 
     // ---------------------------------------------------------------
-    // RoundTimerInfo — snapshot of the round-state HUD inputs from
-    // C_CSGameRules. All values are server-replicated; reading them is
-    // identical to any other ESP read (zero detection signature).
-    //
-    //   remainingSeconds = (m_fRoundStartTime + m_iRoundTime) - curtime
-    //   phase            = m_gamePhase  (0=init,1=pregame,2=startgame,
-    //                                   3=preround,4=teamwin,5=restart,
-    //                                   6=stalemate,7=gameover)
-    //   freeze           = m_bFreezePeriod
-    //   warmup           = m_bWarmupPeriod
-    //   roundsPlayed     = m_totalRoundsPlayed
-    // ---------------------------------------------------------------
-    struct RoundTimerInfo {
-        bool  valid           = false;
-        bool  freeze          = false;
-        bool  warmup          = false;
-        bool  matchOver       = false;
-        int   phase           = 0;
-        int   roundsPlayed    = 0;
-        float remainingSeconds = 0.f;
-    };
-
-    inline RoundTimerInfo GetRoundTimerInfo()
-    {
-        RoundTimerInfo info{};
-        if (!clientBase) return info;
-        uintptr_t rules = Mem::Read<uintptr_t>(clientBase + RVA_dwGameRules());
-        if (!rules) return info;
-        __try {
-            int   roundDuration = Mem::Read<int32_t>(rules + Offsets::m_iRoundTime);
-            float roundStart    = Mem::Read<float>(rules + Offsets::m_fRoundStartTime);
-            int   phase         = Mem::Read<int32_t>(rules + Offsets::m_gamePhase);
-            int   played        = Mem::Read<int32_t>(rules + Offsets::m_totalRoundsPlayed);
-            bool  fz            = Mem::Read<bool>(rules + Offsets::m_bFreezePeriod);
-            bool  wu            = Mem::Read<bool>(rules + Offsets::m_bWarmupPeriod);
-
-            float curtime = GetGameTime();
-            float remaining = (roundStart + (float)roundDuration) - curtime;
-            if (!(remaining == remaining))   remaining = 0.f; // NaN guard
-            if (remaining < 0.f)             remaining = 0.f;
-            if (remaining > 600.f)           remaining = 0.f; // sanity (round can't exceed 10min)
-
-            info.valid            = true;
-            info.freeze           = fz;
-            info.warmup           = wu;
-            info.matchOver        = (phase == 7);
-            info.phase            = phase;
-            info.roundsPlayed     = played;
-            info.remainingSeconds = remaining;
-        } __except (EXCEPTION_EXECUTE_HANDLER) {}
-        return info;
-    }
-
-    // ---------------------------------------------------------------
     // ReadWeaponItemDef — reads m_AttributeManager.m_Item.m_iItemDef
     // from a weapon entity. Returns 0 on failure.
     // ---------------------------------------------------------------
