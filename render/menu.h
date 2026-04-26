@@ -721,12 +721,29 @@ namespace Menu
         if (!f) return false;
         uint32_t hdr[3]{};
         if (fread(hdr, sizeof(hdr), 1, f) != 1) { fclose(f); return false; }
-        if (hdr[0] != 0x4C554349 || hdr[1] != 15) { fclose(f); return false; }
+        // hdr[0] = magic, hdr[1] = version, hdr[2] = dataSize at write time.
+        // CRITICAL: dataSize MUST equal sizeof(SavedConfig) at load time.
+        // SavedConfig is read with raw fread of the full struct — every
+        // member after Aimbot::Config (ESP/chams/colors/...) is positionally
+        // bound to sizeof(Aimbot::Config). A struct-size mismatch silently
+        // shifts every field after the change point, producing exactly the
+        // "weapon ? / wrong toggles / black menu / silent toggle off"
+        // corruption seen in builds that briefly removed cfg fields without
+        // a version bump (commit 6743f1b). Reject + fall back to defaults
+        // is far cleaner than reading 8 bytes of garbage into bools/floats.
+        if (hdr[0] != 0x4C554349 ||
+            hdr[1] != 15 ||
+            hdr[2] != (uint32_t)sizeof(SavedConfig))
+        {
+            fclose(f);
+            return false;
+        }
         fseek(f, 0, SEEK_SET);
         SavedConfig cfg{};
         fseek(f, 0, SEEK_END);
         long fsz = ftell(f);
         fseek(f, 0, SEEK_SET);
+        // dataSize already validated above, so fsz must equal sizeof(cfg).
         size_t rsz = ((size_t)fsz < sizeof(cfg)) ? (size_t)fsz : sizeof(cfg);
         if (fread(&cfg, 1, rsz, f) < 12) { fclose(f); return false; }
         fclose(f);
