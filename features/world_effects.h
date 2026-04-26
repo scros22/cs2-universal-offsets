@@ -85,7 +85,7 @@ namespace WorldEffects
 
         // Third person
         bool  thirdPerson       = false;
-        float thirdPersonDist   = 120.f; // camera distance
+        float thirdPersonDist   = 200.f; // camera distance
     };
 
     inline Config cfg;
@@ -670,8 +670,12 @@ namespace WorldEffects
     constexpr std::ptrdiff_t kThirdPersonOn_RVA  = 0xAC8C30;   // updated 2026-04-25
     constexpr std::ptrdiff_t kThirdPersonOff_RVA = 0xAC8B50;   // updated 2026-04-25
     constexpr std::ptrdiff_t kCInputPtr_RVA      = 0x20613C0;  // off_1820613C0 — unchanged
-    constexpr std::ptrdiff_t kCInput_ThirdPerson = 0x229;      // pInput +553 enable flag
-    constexpr std::ptrdiff_t kCInput_TransitionA = 0x6A8;      // pInput +0x6A8 transition reset
+    constexpr std::ptrdiff_t kCInput_ThirdPerson  = 0x229;  // enable gate  (byte)
+    constexpr std::ptrdiff_t kCInput_ThirdActive  = 0x228;  // active flag  (byte) — set by camera-init path
+    constexpr std::ptrdiff_t kCInput_ThirdInited  = 0x22A;  // initialized  (byte) — prevents re-init each frame
+    constexpr std::ptrdiff_t kCInput_TransitionA  = 0x6A8;  // transition   (dword) — cleared on toggle
+    constexpr std::ptrdiff_t kCInput_CurrentSlotDword = 0xB50; // dword index used by camera code
+    constexpr std::ptrdiff_t kCInput_SlotStride = 0x928; // 2344 bytes per slot
 
     // Get the live CInput struct (deref the global pointer). Returns 0 if
     // the global hasn't been populated yet (early in process startup) or
@@ -750,75 +754,146 @@ namespace WorldEffects
     inline void RunThirdPerson()
     {
         static bool wasOn = false;
-        if (!GameState::clientBase) { wasOn = false; return; }
-
-        ResolveThirdPersonHandlers();
-
-        // Live distance push regardless of state transition.
-        if (cfg.thirdPerson && pCV_cam_idealdist)
-        {
-            __try {
-                Mem::SmartWrite<float>(pCV_cam_idealdist, cfg.thirdPersonDist);
-            } __except (EXCEPTION_EXECUTE_HANDLER) {}
-        }
-
-        // ON state: re-stamp the flag every tick (engine clears it on
-        // map load / respawn / disconnect — without this our edge-trigger
-        // stayed "wasOn=true" while the engine had already gone first-person).
-        if (cfg.thirdPerson)
-        {
-            __try {
-                uintptr_t lp = GameState::GetLocalPawn();
-                if (!lp) return;
-                int hp = Mem::Read<int>(lp + Offsets::m_iHealth);
-                if (hp <= 0) { wasOn = false; return; }
-
-                if (!wasOn)
-                {
-                    // Transition — full handler call (does anchor + vtable flip).
-                    if (pThirdPersonOn) { pThirdPersonOn(); }
-                    else
-                    {
-                        uintptr_t pInput = GetCInput();
-                        if (pInput) Mem::SmartWrite<uint8_t>(pInput + kCInput_ThirdPerson, 1);
-                    }
-                    wasOn = true;
-                }
-                else
-                {
-                    // Already on — bare flag re-stamp (cheap, idempotent,
-                    // recovers from engine resets without re-firing the
-                    // anchor/vtable side effects of the full handler).
-                    uintptr_t pInput = GetCInput();
-                    if (pInput)
-                    {
-                        uint8_t cur = Mem::Read<uint8_t>(pInput + kCInput_ThirdPerson);
-                        if (cur == 0)
-                        {
-                            // Engine reset us — re-run the full handler so the
-                            // camera anchor + vtable flag are re-set too.
-                            if (pThirdPersonOn) { pThirdPersonOn(); }
-                            else                  Mem::SmartWrite<uint8_t>(pInput + kCInput_ThirdPerson, 1);
-                        }
-                    }
-                }
-            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        static UINT64 cvarTick = 0;
+        static UINT64 lastRecoverTick = 0;
+        static UINT64 spawnGraceTick = 0;
+        if (!GameState::clientBase) {
+            wasOn = false;
+            spawnGraceTick = 0;
             return;
         }
 
-        // OFF state: only fire on transition.
-        if (wasOn)
-        {
-            __try {
-                if (pThirdPersonOff) { pThirdPersonOff(); }
-                else
-                {
-                    uintptr_t pInput = GetCInput();
-                    if (pInput) Mem::SmartWrite<uint8_t>(pInput + kCInput_ThirdPerson, 0);
-                }
-            } __except (EXCEPTION_EXECUTE_HANDLER) {}
-            wasOn = false;
+        const bool wantOn = cfg.thirdPerson;
+
+        // Hard safety gate: never run third-person camera logic unless the
+        // local pawn is valid and alive. This avoids lobby/menu crashes when
+        // users enable third person before spawning in-game.
+        bool liveLocalPawn = false;
+        __try {
+            uintptr_t lp = GameState::GetLocalPawn();
+            if (lp)
+            {
+                int hp = Mem::Read<int>(lp + Offsets::m_iHealth);
+                liveLocalPawn = (hp > 0 && hp <= 200);
+            }
+        } __except (EXCEPTION_EXECUTE_HANDLER) {
+            liveLocalPawn = false;
         }
+
+        if (!liveLocalPawn)
+        {
+            // If we left in-game, forget transition state and avoid calling
+            // engine camera handlers on invalid globals.
+            wasOn = false;
+            spawnGraceTick = 0;
+            return;
+        }
+
+        ResolveThirdPersonHandlers();
+        uintptr_t pInput = GetCInput();
+
+        // Require both valid pawn AND valid CInput pointer before running
+        // any camera logic. This blocks crashes from transitional states.
+        if (!pInput)
+        {
+            wasOn = false;
+            spawnGraceTick = 0;
+            return;
+        }
+
+        auto stampThirdPersonFlag = [&](uint8_t v)
+        {
+            // Engine camera path reads +0x229 with a per-slot stride:
+            // *(pInput + 0x229 + 0x928 * slot). Keep both base and
+            // active slot latched so the gate can't mismatch/flicker.
+            Mem::SmartWrite<uint8_t>(pInput + kCInput_ThirdPerson, v);
+
+            int slot = Mem::Read<int>(pInput + kCInput_CurrentSlotDword);
+            if (slot > 0 && slot < 8)
+                Mem::SmartWrite<uint8_t>(
+                    pInput + kCInput_ThirdPerson + (kCInput_SlotStride * slot), v);
+        };
+
+        if (!wantOn)
+        {
+            spawnGraceTick = 0;
+            if (!wasOn) return;
+
+            __try {
+                if (pThirdPersonOff) pThirdPersonOff();
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+
+            __try {
+                stampThirdPersonFlag(0);
+                Mem::SmartWrite<uint32_t>(pInput + kCInput_TransitionA, 0);
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+
+            wasOn = false;
+            return;
+        }
+
+        // Keep runtime writes in a conservative range to avoid camera
+        // instability/crashes from extreme values.
+        float safeDist = cfg.thirdPersonDist;
+        if (safeDist < 50.f)  safeDist = 50.f;
+        if (safeDist > 300.f) safeDist = 300.f;
+
+        // Low-frequency shoulder cvar latching (200 ms).
+        UINT64 now = GetTickCount64();
+        if (now - cvarTick > 200)
+        {
+            cvarTick = now;
+            __try {
+                if (pCV_c_thirdpersonshoulder)
+                    Mem::SmartWrite<int>(pCV_c_thirdpersonshoulder, 1);
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        }
+
+        // Push ideal distance every tick so the slider is always live.
+        if (pCV_cam_idealdist)
+        {
+            __try { Mem::SmartWrite<float>(pCV_cam_idealdist, safeDist); }
+            __except (EXCEPTION_EXECUTE_HANDLER) {}
+        }
+
+        if (!wasOn)
+        {
+            // Grace period after spawn to avoid calling handlers during
+            // respawn/team-select transitions. Only activate after 200ms
+            // of stable pawn state.
+            if (spawnGraceTick == 0)
+                spawnGraceTick = now;
+
+            if ((now - spawnGraceTick) > 200)
+            {
+                // Safe to activate: call native handler so the engine
+                // sets camera anchor + local pawn render-self state.
+                __try { if (pThirdPersonOn) pThirdPersonOn(); }
+                __except (EXCEPTION_EXECUTE_HANDLER) {}
+                wasOn = true;
+                lastRecoverTick = now;
+            }
+            return;
+        }
+
+        __try {
+            // Safe maintenance only: keep the enable gate latched,
+            // but do not force internal active/init bytes (0x228/0x22A),
+            // which can desync camera/input and break mouse interaction.
+            stampThirdPersonFlag(1);
+            Mem::SmartWrite<uint32_t>(pInput + kCInput_TransitionA, 0);
+
+            // Recovery pulse: if engine dropped third-person active state,
+            // re-run native handler at a low rate to avoid flicker.
+            uint8_t active = Mem::Read<uint8_t>(pInput + kCInput_ThirdActive);
+            if (!active && (now - lastRecoverTick) > 150)
+            {
+                if (pThirdPersonOn) pThirdPersonOn();
+                stampThirdPersonFlag(1);
+                lastRecoverTick = now;
+            }
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        return;
     }
 
     // ---------------------------------------------------------------
@@ -907,6 +982,9 @@ namespace WorldEffects
     inline uintptr_t pCV_mat_fullbright      = 0;  // legacy +0x40 slot (kept for compat with old code paths)
     inline uintptr_t pCV_mat_fullbright_obj  = 0;  // cvar object pointer (for WriteCvarInt)
     inline int       lastFullbrightWritten   = -1; // throttle to avoid per-frame writes
+
+    // Forward declaration: used by RunFullbright before helper definition below.
+    inline void WriteCvarInt(uintptr_t cv, int value);
 
     inline void RunNoShadows()
     {

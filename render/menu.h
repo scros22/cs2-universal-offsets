@@ -1526,7 +1526,7 @@ namespace Menu
         if (advancedMode && WorldEffects::cfg.thirdPerson)
         {
             SynthSep();
-            EvoSliderFloat("3P Distance##tpd", &WorldEffects::cfg.thirdPersonDist, 50.f, 300.f, "%.0f");
+            EvoSliderFloat("3P Distance##tpd", &WorldEffects::cfg.thirdPersonDist, 50.f, 600.f, "%.0f");
         }
         if (advancedMode)
         {
@@ -2689,7 +2689,7 @@ namespace Menu
     }
     inline void Pg_ThirdPerson()
     {
-        EvoSliderFloat("Distance##tpd", &WorldEffects::cfg.thirdPersonDist, 50.f, 300.f, "%.0f");
+        EvoSliderFloat("Distance##tpd", &WorldEffects::cfg.thirdPersonDist, 50.f, 600.f, "%.0f");
     }
     inline void Pg_Wireframe()
     {
