@@ -78,8 +78,6 @@ namespace Aimbot
         bool  noSpread        = false;       // zero weapon inaccuracy (perfect jump shots)
         float smokeRadius     = 144.0f;      // CS2 smoke sphere radius
         bool  silentAim       = true;        // silent aim via WriteSubtick frame redirect
-        float silentHitChance = 80.f;        // % of shots that get corrected (rest fire naturally)
-        float silentSpread    = 0.2f;        // degrees of random scatter added to aim angle
     };
 
     inline Config cfg;
@@ -1546,81 +1544,18 @@ namespace Aimbot
                     capP *= k; capY *= k;
                 }
 
-                // ---- Anti-detection guard 3: observer-aware tightening --
-                // Silent aim is overwhelmingly reported by SPECTATORS,
-                // not the target being shot. When anyone is observing us,
-                // halve the allowed flick magnitude so the desync between
-                // the player's real view and the server's shoot direction
-                // becomes too small for casual observation to flag.
-                // When ALSO spotted (enemy currently has us in their PVS),
-                // tighten further — these are the highest-detection ticks.
-                int obsCount = observerCount;
-                bool spotted = localSpotted;
-                bool valveDS = onValveDS;
-
-                // ---- Anti-detection guard 4: crosshair-ID alignment ----
-                // The engine reports the entity index of whatever the local
-                // pawn's crosshair is currently over via m_iIDEntIndex.
-                // When this matches our locked target's index, the server
-                // already considers us hovering them — a silent flick here
-                // is indistinguishable from a normal "click on the guy I
-                // was already looking at" shot. Skip the observer/valveDS
-                // throttle in that case so semi-rage hits stay clean.
-                bool crosshairAligned =
-                    (localCrosshairPawn != 0) &&
-                    (localCrosshairPawn == targetPawn);
-
-                // ---- Anti-detection guard 5: speed-aware throttle ------
-                // Humans miss while sprint-strafing; aimbots don't. Big
-                // contributor to the "running gunner" pattern VACNet flags.
-                //   <80 u/s : no extra throttle (walking / counter-strafe)
-                //   80-180  : linear ramp 1.0 -> 0.5
-                //   >180    : 0.5 (capped)
-                float spdScale = 1.f;
-                {
-                    float v = localHSpeedSq;
-                    if (v > 80.f * 80.f) {
-                        float s = sqrtf(v);
-                        if (s > 180.f) spdScale = 0.5f;
-                        else           spdScale = 1.f - 0.5f * ((s - 80.f) / 100.f);
-                    }
-                }
-
-                if (!crosshairAligned && (obsCount > 0 || spotted || valveDS)) {
-                    float scale = 1.0f;
-                    // Stack the throttles multiplicatively so each
-                    // independent risk factor compounds the suppression.
-                    if (valveDS)               scale *= 0.55f; // VAC Live + Overwatch ingestion
-                    if (obsCount > 0)          scale *= 0.55f; // any spectator at all
-                    if (spotted && obsCount>0) scale *= 0.65f; // observed AND in enemy PVS
-                    capP *= scale; capY *= scale;
-                }
-                capP *= spdScale; capY *= spdScale;
-
-                // ---- Anti-detection guard 6: damage-state throttle -----
-                // While flinching from incoming fire OR while the server
-                // has cut our speed for a recent hit, real players can't
-                // bot-snap. The server already applies extra spread for
-                // both states, so a perfectly accurate flick during them
-                // is a unique fingerprint. Same throttle bypassed when
-                // the crosshair is already on target (legit mouse work).
-                if (!crosshairAligned) {
-                    float dmgScale = 1.0f;
-                    float fs = SilentAim::localFlinchStack;
-                    if (fs > 0.05f) {
-                        // 1 stack ~= -25%, capped at -60% (linear).
-                        float drop = fs * 0.25f;
-                        if (drop > 0.60f) drop = 0.60f;
-                        dmgScale *= (1.0f - drop);
-                    }
-                    float vm = SilentAim::localVelocityMod;
-                    if (vm < 0.95f) {
-                        // Velocity modifier 0..1; fully halve flick at 0.
-                        // Linear: 1.0 -> 1.0x, 0.0 -> 0.5x.
-                        dmgScale *= (0.5f + 0.5f * vm);
-                    }
-                    capP *= dmgScale; capY *= dmgScale;
-                }
+                // NOTE: previous builds stacked observer / valveDS / speed /
+                // damage-state multiplicative throttles here. With realistic
+                // values they composed to as little as 0.04x of the needed
+                // flick, so the bullet visually traced toward the head but
+                // landed far short of it. The 28-deg per-subtick cap above
+                // (which converts an "instant snap" into a humanly-plausible
+                // 1-tick flick) and the 60-deg behind-back skip are enough
+                // single-shot anti-detection on their own. Higher-level gates
+                // (freeze/warmup, m_bWaitForNoAttack, defuse/hostage,
+                // MoveType, sniper unscoped, bolt-action, reload, empty clip,
+                // next-attack-tick) are still enforced via the suppress
+                // block in Tick() and bypass the redirect entirely on risk.
 
                 // Per-shot wobble: ±0.10° independent jitter so consecutive
                 // bullets in the same engagement don't pixel-cluster.
