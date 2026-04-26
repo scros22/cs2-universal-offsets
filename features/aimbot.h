@@ -80,7 +80,6 @@ namespace Aimbot
         bool  silentAim       = true;        // silent aim via WriteSubtick frame redirect
         float silentHitChance = 80.f;        // % of shots that get corrected (rest fire naturally)
         float silentSpread    = 0.2f;        // degrees of random scatter added to aim angle
-        float silentMaxDelta  = 5.0f;        // max degrees of correction (skip if crosshair is further)
     };
 
     inline Config cfg;
@@ -1481,19 +1480,6 @@ namespace Aimbot
             if (!hasTarget || !cfg.enabled || !cfg.silentAim)
                 return oWriteSubtick(entry, msg, a3, a4, a5, a6);
 
-            // ---- Anti-detection guard 0: ATTACK-ONLY subticks ----------
-            // Reverse-engineered from sub_180C53DB0 (build 14152): the
-            // server only consults the predicted-attack angle group
-            // (a1[7..9]) when a3 != 0 AND the sv_subtick_attacks_use_aim_
-            // history convar is enabled. On non-attack subticks our writes
-            // are ignored anyway, AND any modification of a1[4..6] (the
-            // REAL view-angle stream) gets unconditionally serialized to
-            // every spectator/demo/Overwatch reviewer — that's the exact
-            // signature VACNet trains on. Bail out on non-attack subticks
-            // entirely so we never touch the view stream on idle frames.
-            if (a3 == 0)
-                return oWriteSubtick(entry, msg, a3, a4, a5, a6);
-
             // ---- Anti-detection guard 0b: HARD-SUPPRESS gate -----------
             // Set by Tick() when any of:
             //   * m_bFreezePeriod / m_bWarmupPeriod   (server drops attack)
@@ -1511,11 +1497,24 @@ namespace Aimbot
                 return oWriteSubtick(entry, msg, a3, a4, a5, a6);
 
             __try {
-                // entry layout (verified via IDA decompile of sub_180C53DB0
-                // in build 14152):
-                //   a1[4..6] = view angles (pitch/yaw/roll) — always written
-                //   a1[7..9] = aim/shoot angles — only consulted when the
-                //              "predicted attack" feature byte is set
+                // Entry layout (re-verified against build 14154,
+                // sub_180C53E10 @ 0x180c53e10 via IDA):
+                //   entry+0x10..0x18 (fe[4..6]) = VIEW angle group →
+                //     copied unconditionally to msg+0x18..0x20 (the
+                //     primary path the server uses for the bullet
+                //     trace direction).
+                //   entry+0x1C..0x20 (fe[7..8]) = AIM-HISTORY group →
+                //     copied to msg+0x40+0x18..0x20 ONLY when the
+                //     `sv_subtick_attacks_use_aim_history` convar
+                //     (`unk_1822A7108[0]` in IDA) is set on the
+                //     server. On every server where that convar is
+                //     0 (most community/practice setups) writing
+                //     fe[7..9] alone is a no-op.
+                // We rewrite BOTH groups so the redirect lands on
+                // every server config; the original values are
+                // restored immediately after oWriteSubtick returns
+                // so the next subtick + the local client view see
+                // the player's real angles.
                 float* fe = reinterpret_cast<float*>(entry);
                 float realViewP = fe[4];
                 float realViewY = fe[5];
@@ -1638,25 +1637,26 @@ namespace Aimbot
                 while (fakeYaw >  180.f) fakeYaw -= 360.f;
                 while (fakeYaw < -180.f) fakeYaw += 360.f;
 
-                float saved[3] = { fe[7], fe[8], fe[9] };
+                float savedView[3]   = { fe[4], fe[5], fe[6] };
+                float savedAttack[3] = { fe[7], fe[8], fe[9] };
 
-                // ---- Anti-detection: REAL VIEW STREAM PRESERVATION -----
-                // We deliberately DO NOT touch fe[4..6] (the real-view
-                // angle stream the server replays for spectators / demos
-                // / Overwatch). Only fe[7..9] (the predicted-attack /
-                // shoot-angle group) is rewritten, and only on attack
-                // subticks (gated by a3 != 0 above). Result: the demo
-                // reviewer sees the player's actual mouse path play back
-                // smoothly, while the bullet trace itself fires from the
-                // capped flick angle. Massive reduction in the desync
-                // signature VACNet's spectator-perspective model trains on.
+                // Redirect both angle groups in the entry. WriteSubtick
+                // copies fe[4..6] -> msg+0x18..0x20 unconditionally and
+                // fe[7..9] -> msg+0x40+0x18..0x20 when aim-history is on.
+                // Writing both guarantees the bullet trace direction
+                // matches our cap regardless of server convar state.
+                // Originals are restored below before the function
+                // returns so the local client and the next subtick
+                // never see the redirected values.
+                fe[4] = fakePitch; fe[5] = fakeYaw; fe[6] = 0.f;
                 fe[7] = fakePitch; fe[8] = fakeYaw; fe[9] = 0.f;
 
                 __int64 result = oWriteSubtick(entry, msg, a3, a4, a5, a6);
                 diag_wsRedirected++;
                 diag_silentApplied++;
 
-                fe[7] = saved[0]; fe[8] = saved[1]; fe[9] = saved[2];
+                fe[4] = savedView[0];   fe[5] = savedView[1];   fe[6] = savedView[2];
+                fe[7] = savedAttack[0]; fe[8] = savedAttack[1]; fe[9] = savedAttack[2];
                 return result;
             }
             __except (EXCEPTION_EXECUTE_HANDLER) {

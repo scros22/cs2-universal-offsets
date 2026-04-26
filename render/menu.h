@@ -899,11 +899,6 @@ namespace Menu
         }
         SynthSep();
         EvoCheckbox("Silent Aim",    &Aimbot::cfg.silentAim);
-        if (advancedMode && Aimbot::cfg.silentAim)
-        {
-            SynthSep();
-            EvoSliderFloat("Max Delta##sd", &Aimbot::cfg.silentMaxDelta, 0.5f, 5.f, "%.1f");
-        }
         SynthEndSection();
 
         SynthBeginSection("##aim_s2");
@@ -2399,10 +2394,6 @@ namespace Menu
         EvoSliderFloat("Humanization", &Aimbot::cfg.humanization, 0.4f, 1.f,   "%.2f");
         SynthSep();
         EvoCheckbox("Silent Aim",    &Aimbot::cfg.silentAim);
-        if (Aimbot::cfg.silentAim) {
-            SynthSep();
-            EvoSliderFloat("Max Delta##sd", &Aimbot::cfg.silentMaxDelta, 0.5f, 3.f, "%.1f");
-        }
         SynthSep();
         EvoCheckbox("Team Check",    &Aimbot::cfg.teamCheck);
         SynthSep();
