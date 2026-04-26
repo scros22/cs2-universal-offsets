@@ -58,18 +58,18 @@ namespace Aimbot
     {
         bool  enabled         = true;
         int   aimKey          = 0;           // 0 = auto (mouse1), 1 = mouse2, 2 = always on
-        float fov             = 1.8f;        // 14153: 1.8 is well below 2.3 ban line
-        float smoothing       = 55.0f;       // 14153: 55 is well above 43 ban line
+        float fov             = 5.5f;        // degrees — wide enough to actually engage
+        float smoothing       = 22.0f;       // 1=instant, 100=max drag — snappy default
         int   targetBone      = 7;           // build 14152: 7=head, 6=neck, 23=chest, 1=pelvis
         bool  headPriority    = true;        // try head first, fallback to configured
         bool  noRecoil        = true;        // compensate weapon recoil
         bool  teamCheck       = true;
-        bool  visCheck        = false;       // 14152: trace plumbing unreliable — default off
+        bool  visCheck        = true;        // visibility check (toggle off to lock through walls)
         bool  velPredict      = true;        // lead moving targets
         float velPredictScale = 1.0f;        // prediction multiplier
         bool  multiBone       = true;        // scan multiple bones for best hit
-        float humanization    = 0.60f;       // 14153: 0.60 is above 0.50 floor
-        bool  smokeCheck      = false;       // 14152: smoke detection unreliable — default off
+        float humanization    = 0.28f;       // 0..1 hand tremor intensity
+        bool  smokeCheck      = true;        // never aim through smoke
         bool  showFovCircle   = true;
         float fovCircleColor[4] = { 1.f, 1.f, 1.f, 0.14f };
         bool  jumpShot        = true;
@@ -77,10 +77,10 @@ namespace Aimbot
         float jumpApexThreshold = 30.f;
         bool  noSpread        = false;       // zero weapon inaccuracy (perfect jump shots)
         float smokeRadius     = 144.0f;      // CS2 smoke sphere radius
-        bool  silentAim       = false;       // default OFF for safety
-        float silentHitChance = 42.f;        // 42% is pro-level "lucky" shot correction
-        float silentSpread    = 0.08f;       // tighter scatter for subtick redirection
-        float silentMaxDelta  = 1.8f;        // match FOV for seamless transition
+        bool  silentAim       = true;        // silent aim via WriteSubtick frame redirect
+        float silentHitChance = 80.f;        // % of shots that get corrected (rest fire naturally)
+        float silentSpread    = 0.2f;        // degrees of random scatter added to aim angle
+        float silentMaxDelta  = 5.0f;        // max degrees of correction (skip if crosshair is further)
     };
 
     inline Config cfg;
@@ -98,11 +98,11 @@ namespace Aimbot
     {
         struct GovernorConfig
         {
-            bool  enabled          = true;     // default ON for safety
-            float intensity        = 0.55f;    // mid-high throttle
-            float hsCapPercent     = 48.0f;    // match 14153 pro average ceiling
+            bool  enabled          = false;    // default OFF — turn on if needed
+            float intensity        = 0.35f;    // 0..1 how aggressive throttling is
+            float hsCapPercent     = 55.0f;    // start forcing body after this HS%
             int   multiKillWindow  = 4;        // kills within this many seconds = multi-kill
-            int   multiKillCap     = 3;        // tighter cap for rapid kills
+            int   multiKillCap     = 4;        // max rapid kills before brief pause
         };
         inline GovernorConfig gcfg;
 

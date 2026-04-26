@@ -109,12 +109,16 @@ namespace Offsets
     // pointer from m_hActiveWeapon via the entity list instead.
     constexpr std::ptrdiff_t m_pClippingWeapon     = 0x0;
     constexpr std::ptrdiff_t m_nEconGlovesChanged  = 0x1AC8;   // 14153 a2x
+    // IDA-VERIFIED 2026-04-26 (build 14154): sub_180BB0B10 @ 0x180BB1D98
+    // `mov dword [rax+10h], 1C5Ch` after lea "m_iShotsFired".
     constexpr std::ptrdiff_t m_iShotsFired         = 0x1C5C;
     // 14153: m_aimPunchAngle no longer exists on the pawn directly.
     // The punch QAngle now lives inside CCSPlayer_AimPunchServices, pointed to
     // by m_pAimPunchServices on the pawn. Helper accessors live in features that
     // need it. Kept as legacy alias = 0 so any stale write is a no-op (safe).
     constexpr std::ptrdiff_t m_aimPunchAngle       = 0x0;      // DEPRECATED — use indirection
+    // IDA-VERIFIED 2026-04-26 (build 14154): sub_180BB0B10 @ 0x180BB1192
+    // `mov dword [...var_90], 1490h` after lea "m_pAimPunchServices".
     constexpr std::ptrdiff_t m_pAimPunchServices   = 0x1490;   // CCSPlayer_AimPunchServices*
     constexpr std::ptrdiff_t m_predictableBaseAngle_inAimPunch = 0x50; // QAngle inside services
     constexpr std::ptrdiff_t m_vecCsViewPunchAngle_inCamSvc    = 0x48; // QAngle inside m_pCameraServices
@@ -122,6 +126,11 @@ namespace Offsets
     // Per recent reversing notes, useful as an alternative read path on builds
     // where m_angEyeAngles drifts. We keep both available.
     constexpr std::ptrdiff_t v_angle               = 0x1298;
+    // IDA-VERIFIED 2026-04-26 (build 14154): schema-registration site
+    // sub_180BB0B10 @ 0x180BB1F26 emits `mov dword [rax+10h], 3300h`
+    // immediately after `lea rdx, "m_angEyeAngles"`. Matches universal-
+    // dumper latest. Used for BOTH read (target solver) and write (normal
+    // aim path); a wrong value here silently breaks the entire aimbot.
     constexpr std::ptrdiff_t m_angEyeAngles        = 0x3300;
     constexpr std::ptrdiff_t m_ArmorValue          = 0x1C74;
     constexpr std::ptrdiff_t m_bGunGameImmunity    = 0x3278;  // unverified, was 0x32B8 (-0x40)
@@ -441,6 +450,9 @@ namespace Offsets
     //                             were just shot.
     //   * m_flTimeOfLastInjury  — GameTime_t of the last damage event.
     //                             curtime - this < 0.5s = still recovering.
+    // IDA-VERIFIED 2026-04-26 (build 14154): sub_180BB0B10 @ 0x180BB1DE9
+    // `mov dword [rax+10h], 1C60h` after lea "m_flFlinchStack" and
+    // @ 0x180BB1E3A `mov dword [rax+10h], 1C64h` after "m_flVelocityModifier".
     constexpr std::ptrdiff_t m_flFlinchStack         = 0x1C60;
     constexpr std::ptrdiff_t m_flVelocityModifier    = 0x1C64;
     constexpr std::ptrdiff_t m_flTimeOfLastInjury    = 0x14E4;
