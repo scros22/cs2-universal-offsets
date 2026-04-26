@@ -59,7 +59,7 @@ namespace Aimbot
         bool  enabled         = true;
         int   aimKey          = 0;           // 0 = auto (mouse1), 1 = mouse2, 2 = always on
         float fov             = 5.5f;        // degrees — wide enough to actually engage
-        float smoothing       = 22.0f;       // 1=instant, 100=max drag — snappy default
+        float smoothing       = 12.0f;       // 1=instant, 100=max drag — snappier semi-rage default
         int   targetBone      = 7;           // build 14152: 7=head, 6=neck, 23=chest, 1=pelvis
         bool  headPriority    = true;        // try head first, fallback to configured
         bool  noRecoil        = true;        // compensate weapon recoil
@@ -68,7 +68,7 @@ namespace Aimbot
         bool  velPredict      = true;        // lead moving targets
         float velPredictScale = 1.0f;        // prediction multiplier
         bool  multiBone       = true;        // scan multiple bones for best hit
-        float humanization    = 0.28f;       // 0..1 hand tremor intensity
+        float humanization    = 0.18f;       // 0..1 hand tremor intensity (lower = less manual drag)
         bool  smokeCheck      = true;        // never aim through smoke
         bool  showFovCircle   = true;
         float fovCircleColor[4] = { 1.f, 1.f, 1.f, 0.14f };
@@ -488,9 +488,8 @@ namespace Aimbot
         sessionHumanJitter  = RandRange(-0.05f, 0.05f);
     }
 
-    // Effective config values with jitter baked in
-    // Safety-clamped to NEVER cross VACNet ban thresholds:
-    //   smoothing >= 43, humanization >= 0.50, fov <= 2.3
+    // Effective config values with jitter baked in (only hard bounds on
+    // FOV and humanization range; smoothing is clamped to >=1).
     inline float EffectiveFov()
     {
         float v = cfg.fov + sessionFovJitter;
@@ -1508,8 +1507,11 @@ namespace Aimbot
                 return oWriteSubtick(entry, msg, a3, a4, a5, a6);
 
             __try {
-                // Entry layout (re-verified against build 14154,
-                // sub_180C53E10 @ 0x180c53e10 via IDA):
+                // Entry layout (IDA 9.3 / current client.dll session:
+                // sub_180C53E10 @ 0x180C53E10; primary copies at e.g.
+                // 0x180C53EB1..0x180C53EE2 movss [rdi+10h/14h/18h] -> msg +18/+1C/+20;
+                // aim-history copies at 0x180C53F2F..0x180C53F5B from
+                // [rdi+1Ch/20h/24h] when convar branch @ 0x180C53F03 taken):
                 //   entry+0x10..0x18 (fe[4..6]) = VIEW angle group →
                 //     copied unconditionally to msg+0x18..0x20 (the
                 //     primary path the server uses for the bullet

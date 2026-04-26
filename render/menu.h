@@ -825,8 +825,10 @@ namespace Menu
         Aimbot::cfg.enabled       = true;
         Aimbot::cfg.silentAim     = true;   // <-- the whole point of this preset
         Aimbot::cfg.fov           = 2.3f;
-        Aimbot::cfg.smoothing     = 43.f;
-        Aimbot::cfg.humanization  = 0.50f;
+        // Semi-rage baseline: ~10 points snappier than old preset
+        // while keeping movement human-looking.
+        Aimbot::cfg.smoothing     = 33.f;
+        Aimbot::cfg.humanization  = 0.40f;
         Aimbot::cfg.targetBone    =  7;
         Aimbot::cfg.aimKey        = 0;
         Aimbot::cfg.teamCheck     = true;
@@ -2406,9 +2408,9 @@ namespace Menu
         SynthSep();
         EvoSliderFloat("FOV",          &Aimbot::cfg.fov,          0.5f, 15.f,  "%.1f");
         SynthSep();
-        EvoSliderFloat("Smoothing",    &Aimbot::cfg.smoothing,    30.f, 100.f, "%.0f");
+        EvoSliderFloat("Smoothing",    &Aimbot::cfg.smoothing,    20.f, 100.f, "%.0f");
         SynthSep();
-        EvoSliderFloat("Humanization", &Aimbot::cfg.humanization, 0.4f, 1.f,   "%.2f");
+        EvoSliderFloat("Humanization", &Aimbot::cfg.humanization, 0.30f, 1.f,   "%.2f");
         SynthSep();
         EvoCheckbox("Silent Aim",    &Aimbot::cfg.silentAim);
         SynthSep();
