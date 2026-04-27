@@ -3,676 +3,708 @@
 
 pub mod animationsystem {
     /// rva 0x14F0A0
-    pub const Animation__ShouldUpdateSequences: usize = 0x7FFAA3BEF0A0;
+    pub const Animation__ShouldUpdateSequences: usize = 0x7FFAA2A1F0A0;
 }
 
 pub mod client {
     /// rva 0x78AE20
-    pub const AddNametagEntity: usize = 0x7FFA94B7AE20;
+    pub const AddNametagEntity: usize = 0x7FFA7E80AE20;
     /// rva 0xA4B030
-    pub const AddStattrakEntity: usize = 0x7FFA94E3B030;
+    pub const AddStattrakEntity: usize = 0x7FFA7EACB030;
     /// rva 0x8E0860
-    pub const AutowallInit: usize = 0x7FFA94CD0860;
+    pub const AutowallInit: usize = 0x7FFA7E960860;
     /// rva 0x98D260
-    pub const AutowallTraceData: usize = 0x7FFA94D7D260;
+    pub const AutowallTraceData: usize = 0x7FFA7EA0D260;
     /// rva 0x806BE0
-    pub const AutowallTracePos: usize = 0x7FFA94BF6BE0;
+    pub const AutowallTracePos: usize = 0x7FFA7E886BE0;
     /// rva 0x78E321
-    pub const BulkRegenIterator: usize = 0x7FFA94B7E321;
+    pub const BulkRegenIterator: usize = 0x7FFA7E80E321;
     /// rva 0x31A44F
-    pub const CAM_ThinkReturn: usize = 0x7FFA9470A44F;
+    pub const CAM_ThinkReturn: usize = 0x7FFA7E39A44F;
     /// rva 0xEAC570
-    pub const CAttributeStringFill: usize = 0x7FFA9529C570;
+    pub const CAttributeStringFill: usize = 0x7FFA7EF2C570;
     /// rva 0x5F8600
-    pub const CAttributeStringInit: usize = 0x7FFA949E8600;
+    pub const CAttributeStringInit: usize = 0x7FFA7E678600;
     /// rva 0x223C70
-    pub const CBaseEntity_TakeDamageOld: usize = 0x7FFA94613C70;
+    pub const CBaseEntity_TakeDamageOld: usize = 0x7FFA7E2A3C70;
     /// rva 0x8D87F0
-    pub const CBaseModelEntity_SetBodygroup: usize = 0x7FFA94CC87F0;
+    pub const CBaseModelEntity_SetBodygroup: usize = 0x7FFA7E9587F0;
     /// rva 0x1BC0B0
-    pub const CBodyComponent: usize = 0x7FFA945AC0B0;
+    pub const CBodyComponent: usize = 0x7FFA7E23C0B0;
     /// rva 0x1C2F90
-    pub const CBodyComponentSkeletonInstance: usize = 0x7FFA945B2F90;
+    pub const CBodyComponentSkeletonInstance: usize = 0x7FFA7E242F90;
     /// rva 0x17E0160
-    pub const CBufferStringInit: usize = 0x7FFA95BD0160;
+    pub const CBufferStringInit: usize = 0x7FFA7F860160;
+    /// rva 0xC5C2A0
+    pub const CCSGOInput__CreateMove: usize = 0x7FFA7ECDC2A0;
     /// rva 0x7E160
-    pub const CCSGameRules: usize = 0x7FFA9446E160;
+    pub const CCSGameRules: usize = 0x7FFA7E0FE160;
     /// rva 0x6E9450
-    pub const CCSGameRulesProxy: usize = 0x7FFA94AD9450;
+    pub const CCSGameRulesProxy: usize = 0x7FFA7E769450;
     /// rva 0x7C2090
-    pub const CCSInventoryManager__EquipItemInLoadout: usize = 0x7FFA94BB2090;
+    pub const CCSInventoryManager__EquipItemInLoadout: usize = 0x7FFA7E842090;
     /// rva 0x7E4FA0
-    pub const CCSPlayerController: usize = 0x7FFA94BD4FA0;
+    pub const CCSPlayerController: usize = 0x7FFA7E864FA0;
     /// rva 0x7E4FA0
-    pub const CCSPlayerController: usize = 0x7FFA94BD4FA0;
+    pub const CCSPlayerController: usize = 0x7FFA7E864FA0;
     /// rva 0x7E4FA0
-    pub const CCSPlayerController_ActionTrackingServices: usize = 0x7FFA94BD4FA0;
+    pub const CCSPlayerController_ActionTrackingServices: usize = 0x7FFA7E864FA0;
     /// rva 0x7E4FA0
-    pub const CCSPlayerController_DamageServices: usize = 0x7FFA94BD4FA0;
+    pub const CCSPlayerController_DamageServices: usize = 0x7FFA7E864FA0;
     /// rva 0x7E4FA0
-    pub const CCSPlayerController_InGameMoneyServices: usize = 0x7FFA94BD4FA0;
+    pub const CCSPlayerController_InGameMoneyServices: usize = 0x7FFA7E864FA0;
     /// rva 0x7E4FA0
-    pub const CCSPlayerController_InventoryServices: usize = 0x7FFA94BD4FA0;
+    pub const CCSPlayerController_InventoryServices: usize = 0x7FFA7E864FA0;
     /// rva 0x7C3CB0
-    pub const CCSPlayerInventory__GetItemInLoadout: usize = 0x7FFA94BB3CB0;
+    pub const CCSPlayerInventory__GetItemInLoadout: usize = 0x7FFA7E843CB0;
     /// rva 0xBAF6E0
-    pub const CCSPlayerPawn: usize = 0x7FFA94F9F6E0;
+    pub const CCSPlayerPawn: usize = 0x7FFA7EC2F6E0;
     /// rva 0x812BC0
-    pub const CCSPlayer_BulletServices: usize = 0x7FFA94C02BC0;
+    pub const CCSPlayer_BulletServices: usize = 0x7FFA7E892BC0;
     /// rva 0x812BC0
-    pub const CCSPlayer_BulletServices: usize = 0x7FFA94C02BC0;
+    pub const CCSPlayer_BulletServices: usize = 0x7FFA7E892BC0;
     /// rva 0x80ECD0
-    pub const CCSPlayer_CameraServices: usize = 0x7FFA94BFECD0;
+    pub const CCSPlayer_CameraServices: usize = 0x7FFA7E88ECD0;
     /// rva 0x812BC0
-    pub const CCSPlayer_HostageServices: usize = 0x7FFA94C02BC0;
+    pub const CCSPlayer_HostageServices: usize = 0x7FFA7E892BC0;
     /// rva 0x84F710
-    pub const CCSPlayer_ItemServices: usize = 0x7FFA94C3F710;
+    pub const CCSPlayer_ItemServices: usize = 0x7FFA7E8CF710;
     /// rva 0x83CAF0
-    pub const CCSPlayer_MovementServices: usize = 0x7FFA94C2CAF0;
+    pub const CCSPlayer_MovementServices: usize = 0x7FFA7E8BCAF0;
     /// rva 0x83CAF0
-    pub const CCSPlayer_MovementServices: usize = 0x7FFA94C2CAF0;
+    pub const CCSPlayer_MovementServices: usize = 0x7FFA7E8BCAF0;
     /// rva 0x850920
-    pub const CCSPlayer_PingServices: usize = 0x7FFA94C40920;
+    pub const CCSPlayer_PingServices: usize = 0x7FFA7E8D0920;
     /// rva 0x9DA390
-    pub const CCSPlayer_RunCommand_Context: usize = 0x7FFA94DCA390;
+    pub const CCSPlayer_RunCommand_Context: usize = 0x7FFA7EA5A390;
     /// rva 0x880B50
-    pub const CCSPlayer_UseServices: usize = 0x7FFA94C70B50;
+    pub const CCSPlayer_UseServices: usize = 0x7FFA7E900B50;
     /// rva 0x875DE0
-    pub const CCSPlayer_WaterServices: usize = 0x7FFA94C65DE0;
+    pub const CCSPlayer_WaterServices: usize = 0x7FFA7E8F5DE0;
     /// rva 0x876190
-    pub const CCSPlayer_WeaponServices: usize = 0x7FFA94C66190;
+    pub const CCSPlayer_WeaponServices: usize = 0x7FFA7E8F6190;
     /// rva 0x876190
-    pub const CCSPlayer_WeaponServices: usize = 0x7FFA94C66190;
+    pub const CCSPlayer_WeaponServices: usize = 0x7FFA7E8F6190;
     /// rva 0x77F260
-    pub const CCSWeaponBase: usize = 0x7FFA94B6F260;
+    pub const CCSWeaponBase: usize = 0x7FFA7E7FF260;
     /// rva 0x77F300
-    pub const CCSWeaponBaseGun: usize = 0x7FFA94B6F300;
+    pub const CCSWeaponBaseGun: usize = 0x7FFA7E7FF300;
     /// rva 0x75A170
-    pub const CCSWeaponBaseVData: usize = 0x7FFA94B4A170;
+    pub const CCSWeaponBaseVData: usize = 0x7FFA7E7DA170;
     /// rva 0x2E0EE0
-    pub const CCollisionProperty: usize = 0x7FFA946D0EE0;
+    pub const CCollisionProperty: usize = 0x7FFA7E360EE0;
     /// rva 0x13B9064
-    pub const CCompositeMaterialManager_AddPanoramaPanelRenderRequest_Caller: usize = 0x7FFA957A9064;
+    pub const CCompositeMaterialManager_AddPanoramaPanelRenderRequest_Caller: usize = 0x7FFA7F439064;
     /// rva 0x74E0A0
-    pub const CDecoyProjectile: usize = 0x7FFA94B3E0A0;
+    pub const CDecoyProjectile: usize = 0x7FFA7E7CE0A0;
     /// rva 0x104A5E0
-    pub const CEconItemSchema__GetAttributeDefinitionByName: usize = 0x7FFA9543A5E0;
+    pub const CEconItemSchema__GetAttributeDefinitionByName: usize = 0x7FFA7F0CA5E0;
     /// rva 0x8B9C70
-    pub const CEconItemView__GetCustomPaintKitIndex: usize = 0x7FFA94CA9C70;
+    pub const CEconItemView__GetCustomPaintKitIndex: usize = 0x7FFA7E939C70;
     /// rva 0xFDDB30
-    pub const CFlashbangProjectile: usize = 0x7FFA953CDB30;
+    pub const CFlashbangProjectile: usize = 0x7FFA7F05DB30;
     /// rva 0x27EF20
-    pub const CFogController: usize = 0x7FFA9466EF20;
+    pub const CFogController: usize = 0x7FFA7E2FEF20;
     /// rva 0x966F30
-    pub const CGameEntitySystem__OnAddEntity: usize = 0x7FFA94D56F30;
+    pub const CGameEntitySystem__OnAddEntity: usize = 0x7FFA7E9E6F30;
     /// rva 0x967790
-    pub const CGameEntitySystem__OnRemoveEntity: usize = 0x7FFA94D57790;
+    pub const CGameEntitySystem__OnRemoveEntity: usize = 0x7FFA7E9E7790;
     /// rva 0x1A3840
-    pub const CGameSceneNode: usize = 0x7FFA94593840;
+    pub const CGameSceneNode: usize = 0x7FFA7E223840;
     /// rva 0x93E3C0
-    pub const CGameSceneNode_BuildBoneMergeWork: usize = 0x7FFA94D2E3C0;
+    pub const CGameSceneNode_BuildBoneMergeWork: usize = 0x7FFA7E9BE3C0;
     /// rva 0x98AE80
-    pub const CGameSceneNode_StartHierarchicalAttachment: usize = 0x7FFA94D7AE80;
+    pub const CGameSceneNode_StartHierarchicalAttachment: usize = 0x7FFA7EA0AE80;
     /// rva 0x98D340
-    pub const CGameTrace_TraceShape_Client: usize = 0x7FFA94D7D340;
+    pub const CGameTrace_TraceShape_Client: usize = 0x7FFA7EA0D340;
     /// rva 0x2E10F0
-    pub const CGlowProperty: usize = 0x7FFA946D10F0;
+    pub const CGlowProperty: usize = 0x7FFA7E3610F0;
     /// rva 0xB0B630
-    pub const CGlowProperty_OnGlowTypeChanged: usize = 0x7FFA94EFB630;
+    pub const CGlowProperty_OnGlowTypeChanged: usize = 0x7FFA7EB8B630;
     /// rva 0xFDDBD0
-    pub const CHEGrenadeProjectile: usize = 0x7FFA953CDBD0;
+    pub const CHEGrenadeProjectile: usize = 0x7FFA7F05DBD0;
     /// rva 0x20613C0
-    pub const CInputPtrGlobal: usize = 0x7FFA964513C0;
+    pub const CInputPtrGlobal: usize = 0x7FFA800E13C0;
     /// rva 0x74E280
-    pub const CMolotovProjectile: usize = 0x7FFA94B3E280;
+    pub const CMolotovProjectile: usize = 0x7FFA7E7CE280;
     /// rva 0x1057DD0
-    pub const CPaintKitDefinitions_FindOrCreateByName: usize = 0x7FFA95447DD0;
+    pub const CPaintKitDefinitions_FindOrCreateByName: usize = 0x7FFA7F0D7DD0;
     /// rva 0x1029EA0
-    pub const CPaintKitDefinitions_LoadDefaultKit: usize = 0x7FFA95419EA0;
+    pub const CPaintKitDefinitions_LoadDefaultKit: usize = 0x7FFA7F0A9EA0;
     /// rva 0x2A3CB0
-    pub const CPostProcessingVolume: usize = 0x7FFA94693CB0;
+    pub const CPostProcessingVolume: usize = 0x7FFA7E323CB0;
     /// rva 0x13BA1E0
-    pub const CS2ItemEditor_BuildTemplateMaterialFromFile: usize = 0x7FFA957AA1E0;
+    pub const CS2ItemEditor_BuildTemplateMaterialFromFile: usize = 0x7FFA7F43A1E0;
     /// rva 0x14E58D0
-    pub const CSBaseGunFireData_fn: usize = 0x7FFA958D58D0;
+    pub const CSBaseGunFireData_fn: usize = 0x7FFA7F5658D0;
     /// rva 0x20613C0
-    pub const CSGOInput_ptr: usize = 0x7FFA964513C0;
+    pub const CSGOInput_ptr: usize = 0x7FFA800E13C0;
     /// rva 0x20613C7
-    pub const CSGOInput_resolved: usize = 0x7FFA964513C7;
+    pub const CSGOInput_resolved: usize = 0x7FFA800E13C7;
     /// rva 0x1A3970
-    pub const CSkeletonInstance: usize = 0x7FFA94593970;
+    pub const CSkeletonInstance: usize = 0x7FFA7E223970;
     /// rva 0xA2C3F0
-    pub const CSkeletonInstance__SetMeshGroupMask: usize = 0x7FFA94E1C3F0;
+    pub const CSkeletonInstance__SetMeshGroupMask: usize = 0x7FFA7EAAC3F0;
     /// rva 0xA18F60
-    pub const CSkeletonInstance_GetTransformsForHitboxList: usize = 0x7FFA94E08F60;
+    pub const CSkeletonInstance_GetTransformsForHitboxList: usize = 0x7FFA7EA98F60;
     /// rva 0xA23BB0
-    pub const CSkeletonInstance_OnBodyGroupChoiceChanged: usize = 0x7FFA94E13BB0;
+    pub const CSkeletonInstance_OnBodyGroupChoiceChanged: usize = 0x7FFA7EAA3BB0;
     /// rva 0xA23DC0
-    pub const CSkeletonInstance_OnSkeletonModelChanged: usize = 0x7FFA94E13DC0;
+    pub const CSkeletonInstance_OnSkeletonModelChanged: usize = 0x7FFA7EAA3DC0;
     /// rva 0xA24D50
-    pub const CSkeletonInstance_PostDataUpdate: usize = 0x7FFA94E14D50;
+    pub const CSkeletonInstance_PostDataUpdate: usize = 0x7FFA7EAA4D50;
     /// rva 0xA2B0D0
-    pub const CSkeletonInstance_SetMaterialGroup: usize = 0x7FFA94E1B0D0;
+    pub const CSkeletonInstance_SetMaterialGroup: usize = 0x7FFA7EAAB0D0;
     /// rva 0xA23D20
-    pub const CSkeletonInstance_SetMeshGroupMask: usize = 0x7FFA94E13D20;
+    pub const CSkeletonInstance_SetMeshGroupMask: usize = 0x7FFA7EAA3D20;
     /// rva 0x74E320
-    pub const CSmokeGrenadeProjectile: usize = 0x7FFA94B3E320;
+    pub const CSmokeGrenadeProjectile: usize = 0x7FFA7E7CE320;
     /// rva 0x257BE0
-    pub const CTonemapController2: usize = 0x7FFA94647BE0;
+    pub const CTonemapController2: usize = 0x7FFA7E2D7BE0;
     /// rva 0x789A52
-    pub const CUtlVector_CompositeMaterialInput_AddToTail: usize = 0x7FFA94B79A00;
+    pub const CUtlVector_CompositeMaterialInput_AddToTail: usize = 0x7FFA7E809A00;
     /// rva 0xC165E0
-    pub const C_AttributeContainer: usize = 0x7FFA950065E0;
+    pub const C_AttributeContainer: usize = 0x7FFA7EC965E0;
     /// rva 0x4E260
-    pub const C_BaseEntity: usize = 0x7FFA9443E260;
+    pub const C_BaseEntity: usize = 0x7FFA7E0CE260;
     /// rva 0x157F60
-    pub const C_BaseModelEntity: usize = 0x7FFA94547F60;
+    pub const C_BaseModelEntity: usize = 0x7FFA7E1D7F60;
     /// rva 0x6DA20
-    pub const C_BasePlayerPawn: usize = 0x7FFA9445DA20;
+    pub const C_BasePlayerPawn: usize = 0x7FFA7E0EDA20;
     /// rva 0x9A370
-    pub const C_C4: usize = 0x7FFA9448A370;
+    pub const C_C4: usize = 0x7FFA7E11A370;
     /// rva 0x6C2380
-    pub const C_CSPlayerPawn: usize = 0x7FFA94AB2380;
+    pub const C_CSPlayerPawn: usize = 0x7FFA7E742380;
     /// rva 0xBD57C0
-    pub const C_CSPlayerPawnBase: usize = 0x7FFA94FC57C0;
+    pub const C_CSPlayerPawnBase: usize = 0x7FFA7EC557C0;
     /// rva 0x742030
-    pub const C_CSWeaponBase: usize = 0x7FFA94B32030;
+    pub const C_CSWeaponBase: usize = 0x7FFA7E7C2030;
     /// rva 0xBBFB00
-    pub const C_EconEntity_BuildLegacyGloveSkinMaterial: usize = 0x7FFA94FAFB00;
+    pub const C_EconEntity_BuildLegacyGloveSkinMaterial: usize = 0x7FFA7EC3FB00;
     /// rva 0x78C050
-    pub const C_EconEntity_BuildLegacyWeaponSkinMaterial: usize = 0x7FFA94B7C050;
+    pub const C_EconEntity_BuildLegacyWeaponSkinMaterial: usize = 0x7FFA7E80C050;
     /// rva 0xD828E0
-    pub const C_EconEntity_BuildModernWeaponSkinMaterial: usize = 0x7FFA951728E0;
+    pub const C_EconEntity_BuildModernWeaponSkinMaterial: usize = 0x7FFA7EE028E0;
     /// rva 0x78AE20
-    pub const C_EconEntity_BuildNametagOverlayMaterial: usize = 0x7FFA94B7AE20;
+    pub const C_EconEntity_BuildNametagOverlayMaterial: usize = 0x7FFA7E80AE20;
     /// rva 0x70B400
-    pub const C_EconItemView: usize = 0x7FFA94AFB400;
+    pub const C_EconItemView: usize = 0x7FFA7E78B400;
     /// rva 0x10B67D0
-    pub const C_EconWearable_OnNewCustomMaterials: usize = 0x7FFA954A67D0;
+    pub const C_EconWearable_OnNewCustomMaterials: usize = 0x7FFA7F1367D0;
     /// rva 0xE73D0
-    pub const C_Hostage: usize = 0x7FFA944D73D0;
+    pub const C_Hostage: usize = 0x7FFA7E1673D0;
     /// rva 0xF7390
-    pub const C_Inferno: usize = 0x7FFA944E7390;
+    pub const C_Inferno: usize = 0x7FFA7E177390;
     /// rva 0xF06F0
-    pub const C_PlantedC4: usize = 0x7FFA944E06F0;
+    pub const C_PlantedC4: usize = 0x7FFA7E1706F0;
     /// rva 0x95960
-    pub const C_SmokeGrenadeProjectile: usize = 0x7FFA94485960;
+    pub const C_SmokeGrenadeProjectile: usize = 0x7FFA7E115960;
     /// rva 0x207B10
-    pub const CacheParticleEffect: usize = 0x7FFA945F7B10;
+    pub const CacheParticleEffect: usize = 0x7FFA7E287B10;
     /// rva 0xC7C6F0
-    pub const CalcSpread: usize = 0x7FFA9506C6F0;
+    pub const CalcSpread: usize = 0x7FFA7ECFC6F0;
     /// rva 0x84E040
-    pub const CalcViewmodel: usize = 0x7FFA94C3E040;
+    pub const CalcViewmodel: usize = 0x7FFA7E8CE040;
     /// rva 0x7A2460
-    pub const CalcViewmodelTransform_v2: usize = 0x7FFA94B92460;
+    pub const CalcViewmodelTransform_v2: usize = 0x7FFA7E822460;
     /// rva 0xC699D0
-    pub const CalcViewmodelView: usize = 0x7FFA950599D0;
+    pub const CalcViewmodelView: usize = 0x7FFA7ECE99D0;
     /// rva 0x14C5600
-    pub const CalculateInterpolation: usize = 0x7FFA958B5600;
+    pub const CalculateInterpolation: usize = 0x7FFA7F545600;
     /// rva 0xA09910
-    pub const CalculateWorldSpaceBones: usize = 0x7FFA94DF9910;
+    pub const CalculateWorldSpaceBones: usize = 0x7FFA7EA89910;
     /// rva 0xDEB720
-    pub const ClearHUDWeaponIcon: usize = 0x7FFA951DB720;
+    pub const ClearHUDWeaponIcon: usize = 0x7FFA7EE6B720;
+    /// rva 0xC5A110
+    pub const ClientModeCSNormal_OnEvent: usize = 0x7FFA7ECDA110;
     /// rva 0x233BA60
-    pub const ClientMode_ptr: usize = 0x7FFA9672BA60;
+    pub const ClientMode_ptr: usize = 0x7FFA803BBA60;
     /// rva 0x14D32A0
-    pub const Client_DispatchSpawn: usize = 0x7FFA958C32A0;
+    pub const Client_DispatchSpawn: usize = 0x7FFA7F5532A0;
     /// rva 0xB8FB00
-    pub const CompositeMaterialPanoramaPanel_Init: usize = 0x7FFA94F7FB00;
+    pub const CompositeMaterialPanoramaPanel_Init: usize = 0x7FFA7EC0FB00;
     /// rva 0xAC8B50
-    pub const ConCommand_firstperson: usize = 0x7FFA94EB8B50;
+    pub const ConCommand_firstperson: usize = 0x7FFA7EB48B50;
     /// rva 0xAC8C30
-    pub const ConCommand_thirdperson: usize = 0x7FFA94EB8C30;
+    pub const ConCommand_thirdperson: usize = 0x7FFA7EB48C30;
     /// rva 0x8BDF82
-    pub const ConvarGet: usize = 0x7FFA94CADF82;
+    pub const ConvarGet: usize = 0x7FFA7E93DF82;
     /// rva 0x150E630
-    pub const CreateBaseTypeCache: usize = 0x7FFA958FE630;
+    pub const CreateBaseTypeCache: usize = 0x7FFA7F58E630;
     /// rva 0x16023D6
-    pub const CreateEntityByClassName: usize = 0x7FFA959F23D6;
+    pub const CreateEntityByClassName: usize = 0x7FFA7F6823D6;
     /// rva 0x4B1CD0
-    pub const CreateNewSubtickMoveStep: usize = 0x7FFA948A1CD0;
+    pub const CreateNewSubtickMoveStep: usize = 0x7FFA7E531CD0;
     /// rva 0x9858C0
-    pub const CreateParticleEffect: usize = 0x7FFA94D758C0;
+    pub const CreateParticleEffect: usize = 0x7FFA7EA058C0;
     /// rva 0xFF4EB0
-    pub const CreateSOSubclassEconItem: usize = 0x7FFA953E4EB0;
+    pub const CreateSOSubclassEconItem: usize = 0x7FFA7F074EB0;
     /// rva 0x944DB0
-    pub const DestroyParticle: usize = 0x7FFA94D34DB0;
+    pub const DestroyParticle: usize = 0x7FFA7E9C4DB0;
     /// rva 0x35A4C0
-    pub const DispatchEffect: usize = 0x7FFA9474A4C0;
+    pub const DispatchEffect: usize = 0x7FFA7E3DA4C0;
     /// rva 0x14D32A0
-    pub const DispatchSpawn_caller: usize = 0x7FFA958C32A0;
+    pub const DispatchSpawn_caller: usize = 0x7FFA7F5532A0;
     /// rva 0x7B0B60
-    pub const DrawCrosshair: usize = 0x7FFA94BA0B60;
+    pub const DrawCrosshair: usize = 0x7FFA7E830B60;
     /// rva 0xA65590
-    pub const DrawOverHead: usize = 0x7FFA94E55590;
+    pub const DrawOverHead: usize = 0x7FFA7EAE5590;
     /// rva 0x85BFF0
-    pub const DrawScopeOverlay: usize = 0x7FFA94C4BFF0;
+    pub const DrawScopeOverlay: usize = 0x7FFA7E8DBFF0;
     /// rva 0xC78D90
-    pub const DrawSmokeVertex: usize = 0x7FFA95068D90;
+    pub const DrawSmokeVertex: usize = 0x7FFA7ECF8D90;
     /// rva 0xC7BE80
-    pub const FX_FireBullets: usize = 0x7FFA9506BE80;
+    pub const FX_FireBullets: usize = 0x7FFA7ECFBE80;
     /// rva 0xC7BE80
-    pub const FX_FireBullets: usize = 0x7FFA9506BE80;
+    pub const FX_FireBullets: usize = 0x7FFA7ECFBE80;
     /// rva 0xDBF7E8
-    pub const FindHudElement: usize = 0x7FFA951AF7E8;
+    pub const FindHudElement: usize = 0x7FFA7EE3F7E8;
     /// rva 0xDC17C0
-    pub const FindHudElement_panorama: usize = 0x7FFA951B17C0;
+    pub const FindHudElement_panorama: usize = 0x7FFA7EE417C0;
     /// rva 0x181C810
-    pub const FindSOCache: usize = 0x7FFA95C0C810;
+    pub const FindSOCache: usize = 0x7FFA7F89C810;
     /// rva 0x10EDAA0
-    pub const FirstPersonLegs: usize = 0x7FFA954DDAA0;
+    pub const FirstPersonLegs: usize = 0x7FFA7F16DAA0;
     /// rva 0xDA8C10
-    pub const FlashOverlay: usize = 0x7FFA95198C10;
+    pub const FlashOverlay: usize = 0x7FFA7EE28C10;
     /// rva 0x9CE9D0
-    pub const ForceButtonsDown: usize = 0x7FFA94DBE9D0;
+    pub const ForceButtonsDown: usize = 0x7FFA7EA4E9D0;
     /// rva 0x24CED50
-    pub const GameEntitySystemPtr: usize = 0x7FFA968BED50;
+    pub const GameEntitySystemPtr: usize = 0x7FFA8054ED50;
     /// rva 0x938970
-    pub const GameEventManager_AddListener: usize = 0x7FFA94D28970;
+    pub const GameEventManager_AddListener: usize = 0x7FFA7E9B8970;
     /// rva 0x9911A0
-    pub const GameEventManager_UnserializeEvent: usize = 0x7FFA94D811A0;
+    pub const GameEventManager_UnserializeEvent: usize = 0x7FFA7EA111A0;
     /// rva 0x2328F38
-    pub const GameRules_ptr: usize = 0x7FFA96718F38;
+    pub const GameRules_ptr: usize = 0x7FFA803A8F38;
     /// rva 0x2328F38
-    pub const GetBBox_ptr: usize = 0x7FFA96718F38;
+    pub const GetBBox_ptr: usize = 0x7FFA803A8F38;
     /// rva 0x965EF0
-    pub const GetBaseEntity: usize = 0x7FFA94D55EF0;
+    pub const GetBaseEntity: usize = 0x7FFA7E9E5EF0;
     /// rva 0x8C6B60
-    pub const GetBonePositionByName: usize = 0x7FFA94CB6B60;
+    pub const GetBonePositionByName: usize = 0x7FFA7E946B60;
     /// rva 0x10C0DB0
-    pub const GetChatObject: usize = 0x7FFA954B0DB0;
+    pub const GetChatObject: usize = 0x7FFA7F140DB0;
     /// rva 0x1033CB0
-    pub const GetClientSystem: usize = 0x7FFA95423CB0;
+    pub const GetClientSystem: usize = 0x7FFA7F0B3CB0;
     /// rva 0x8BC580
-    pub const GetControllerCmd: usize = 0x7FFA94CAC580;
+    pub const GetControllerCmd: usize = 0x7FFA7E93C580;
     /// rva 0x379780
-    pub const GetEconItemSystem: usize = 0x7FFA94769780;
+    pub const GetEconItemSystem: usize = 0x7FFA7E3F9780;
     /// rva 0x94D1C0
-    pub const GetEntityHandle: usize = 0x7FFA94D3D1C0;
+    pub const GetEntityHandle: usize = 0x7FFA7E9CD1C0;
     /// rva 0xB09460
-    pub const GetGlowColor: usize = 0x7FFA94EF9460;
+    pub const GetGlowColor: usize = 0x7FFA7EB89460;
     /// rva 0x22B75E0
-    pub const GetInstanceS: usize = 0x7FFA966A75E0;
+    pub const GetInstanceS: usize = 0x7FFA803375E0;
     /// rva 0x4AAA90
-    pub const GetInt2_Event: usize = 0x7FFA9489AA90;
+    pub const GetInt2_Event: usize = 0x7FFA7E52AA90;
     /// rva 0x7C6370
-    pub const GetInventoryManager: usize = 0x7FFA94BB6370;
+    pub const GetInventoryManager: usize = 0x7FFA7E846370;
     /// rva 0x8DF9F0
-    pub const GetLocalControllerById: usize = 0x7FFA94CCF9F0;
+    pub const GetLocalControllerById: usize = 0x7FFA7E95F9F0;
     /// rva 0x379150
-    pub const GetLocalPlayer_dispatcher: usize = 0x7FFA94769150;
+    pub const GetLocalPlayer_dispatcher: usize = 0x7FFA7E3F9150;
     /// rva 0x169BA0
-    pub const GetMatrixForView: usize = 0x7FFA94559BA0;
+    pub const GetMatrixForView: usize = 0x7FFA7E1E9BA0;
     /// rva 0xEFE180
-    pub const GetPlayerByIndex_export: usize = 0x7FFA952EE180;
+    pub const GetPlayerByIndex_export: usize = 0x7FFA7EF7E180;
     /// rva 0x8B7DE0
-    pub const GetPlayerInterp: usize = 0x7FFA94CA7DE0;
+    pub const GetPlayerInterp: usize = 0x7FFA7E937DE0;
     /// rva 0x84C2F0
-    pub const GetRemovedAimPunch_E8: usize = 0x7FFA94C3C2F0;
+    pub const GetRemovedAimPunch_E8: usize = 0x7FFA7E8CC2F0;
     /// rva 0x112897
-    pub const GetRemovedAimpunch: usize = 0x7FFA94502897;
+    pub const GetRemovedAimpunch: usize = 0x7FFA7E192897;
     /// rva 0x951E30
-    pub const GetSurfaceData: usize = 0x7FFA94D41E30;
+    pub const GetSurfaceData: usize = 0x7FFA7E9D1E30;
     /// rva 0x8BC380
-    pub const GetTickBase: usize = 0x7FFA94CAC380;
+    pub const GetTickBase: usize = 0x7FFA7E93C380;
     /// rva 0x8063B0
-    pub const GetTraceInfo: usize = 0x7FFA94BF63B0;
+    pub const GetTraceInfo: usize = 0x7FFA7E8863B0;
     /// rva 0x8BC610
-    pub const GetUserCmdManager: usize = 0x7FFA94CAC610;
+    pub const GetUserCmdManager: usize = 0x7FFA7E93C610;
     /// rva 0xAD4540
-    pub const GetViewAngles: usize = 0x7FFA94EC4540;
+    pub const GetViewAngles: usize = 0x7FFA7EB54540;
     /// rva 0x796570
-    pub const GetWeaponInAccuracyRecoveryTime: usize = 0x7FFA94B86570;
+    pub const GetWeaponInAccuracyRecoveryTime: usize = 0x7FFA7E816570;
+    /// rva 0x80BE50
+    pub const GetWorldFovResolver: usize = 0x7FFA7E88BE50;
     /// rva 0x20496A0
-    pub const GlobalVariables_ptr: usize = 0x7FFA964396A0;
+    pub const GlobalVariables_ptr: usize = 0x7FFA800C96A0;
     /// rva 0xBBFB00
-    pub const GloveApply_PerTick: usize = 0x7FFA94FAFB00;
+    pub const GloveApply_PerTick: usize = 0x7FFA7EC3FB00;
+    /// rva 0x2325D30
+    pub const GlowManager_ptr: usize = 0x7FFA803A5D30;
     /// rva 0xB09570
-    pub const GlowObjectManager_GetInstance: usize = 0x7FFA94EF9570;
+    pub const GlowObjectManager_GetInstance: usize = 0x7FFA7EB89570;
     /// rva 0x820210
-    pub const HandleBulletPenetration: usize = 0x7FFA94C10210;
+    pub const HandleBulletPenetration: usize = 0x7FFA7E8A0210;
     /// rva 0x1C3650
-    pub const HandleEntityList: usize = 0x7FFA945B3650;
+    pub const HandleEntityList: usize = 0x7FFA7E243650;
     /// rva 0x703E00
-    pub const HandleTeamIntro: usize = 0x7FFA94AF3E00;
+    pub const HandleTeamIntro: usize = 0x7FFA7E783E00;
     /// rva 0x10BE830
-    pub const HudChatPrintf: usize = 0x7FFA954AE830;
+    pub const HudChatPrintf: usize = 0x7FFA7F13E830;
     /// rva 0x13D6840
-    pub const InfoForResourceTypeCCompositeMaterialKit_TypeManager: usize = 0x7FFA957C6840;
+    pub const InfoForResourceTypeCCompositeMaterialKit_TypeManager: usize = 0x7FFA7F456840;
     /// rva 0x13D6D90
-    pub const InfoForResourceTypeCCompositeMaterial_TypeManager: usize = 0x7FFA957C6D90;
+    pub const InfoForResourceTypeCCompositeMaterial_TypeManager: usize = 0x7FFA7F456D90;
     /// rva 0x32BB40
-    pub const InitFilter: usize = 0x7FFA9471BB40;
+    pub const InitFilter: usize = 0x7FFA7E3ABB40;
     /// rva 0x83F270
-    pub const InitPlayerMovementTraceFilter: usize = 0x7FFA94C2F270;
+    pub const InitPlayerMovementTraceFilter: usize = 0x7FFA7E8BF270;
     /// rva 0x15F9A30
-    pub const InitTraceInfo: usize = 0x7FFA959E9A30;
+    pub const InitTraceInfo: usize = 0x7FFA7F679A30;
     /// rva 0xB0ABA0
-    pub const IsGlowing: usize = 0x7FFA94EFABA0;
+    pub const IsGlowing: usize = 0x7FFA7EB8ABA0;
     /// rva 0x8CEA80
-    pub const LevelInit: usize = 0x7FFA94CBEA80;
+    pub const LevelInit: usize = 0x7FFA7E94EA80;
     /// rva 0x91A8C0
-    pub const LoadFileForMe: usize = 0x7FFA94D0A8C0;
+    pub const LoadFileForMe: usize = 0x7FFA7E99A8C0;
     /// rva 0x6BB150
-    pub const LoadPath: usize = 0x7FFA94AAB150;
+    pub const LoadPath: usize = 0x7FFA7E73B150;
     /// rva 0x8C6B60
-    pub const LookupBone: usize = 0x7FFA94CB6B60;
+    pub const LookupBone: usize = 0x7FFA7E946B60;
     /// rva 0x9D8CF0
-    pub const ModulationUpdate: usize = 0x7FFA94DC8CF0;
+    pub const ModulationUpdate: usize = 0x7FFA7EA58CF0;
     /// rva 0x166B50
-    pub const NoClipOnChange: usize = 0x7FFA94556B50;
+    pub const NoClipOnChange: usize = 0x7FFA7E1E6B50;
     /// rva 0xC7BDD0
-    pub const NoSpread1: usize = 0x7FFA9506BDD0;
+    pub const NoSpread1: usize = 0x7FFA7ECFBDD0;
     /// rva 0x1F4CE0
-    pub const ParticleCollection: usize = 0x7FFA945E4CE0;
+    pub const ParticleCollection: usize = 0x7FFA7E274CE0;
     /// rva 0x202DAA8
-    pub const ParticleManager_ptr: usize = 0x7FFA9641DAA8;
+    pub const ParticleManager_ptr: usize = 0x7FFA800ADAA8;
     /// rva 0x8D5C90
-    pub const PhysicsRunThink_Ctrl: usize = 0x7FFA94CC5C90;
+    pub const PhysicsRunThink_Ctrl: usize = 0x7FFA7E955C90;
     /// rva 0xB0D5F0
-    pub const PhysicsRunThink_Pawn: usize = 0x7FFA94EFD5F0;
+    pub const PhysicsRunThink_Pawn: usize = 0x7FFA7EB8D5F0;
     /// rva 0x150C490
-    pub const PlayVSound_client: usize = 0x7FFA958FC490;
+    pub const PlayVSound_client: usize = 0x7FFA7F58C490;
     /// rva 0x9CD2F0
-    pub const ProcessImpacts: usize = 0x7FFA94DBD2F0;
+    pub const ProcessImpacts: usize = 0x7FFA7EA4D2F0;
     /// rva 0x9D82D0
-    pub const ProcessMovement: usize = 0x7FFA94DC82D0;
+    pub const ProcessMovement: usize = 0x7FFA7EA582D0;
     /// rva 0x78C050
-    pub const RegenerateWeaponSkin: usize = 0x7FFA94B7C050;
+    pub const RegenerateWeaponSkin: usize = 0x7FFA7E80C050;
     /// rva 0x78C050
-    pub const RegenerateWeaponSkin_v2: usize = 0x7FFA94B7C050;
+    pub const RegenerateWeaponSkin_v2: usize = 0x7FFA7E80C050;
     /// rva 0x7B0CB0
-    pub const RegenerateWeaponSkins: usize = 0x7FFA94BA0CB0;
+    pub const RegenerateWeaponSkins: usize = 0x7FFA7E830CB0;
     /// rva 0x10EA0E0
-    pub const RenderDecals: usize = 0x7FFA954DA0E0;
+    pub const RenderDecals: usize = 0x7FFA7F16A0E0;
     /// rva 0x6021E0
-    pub const ReportHit: usize = 0x7FFA949F21E0;
+    pub const ReportHit: usize = 0x7FFA7E6821E0;
     /// rva 0x9DA390
-    pub const RunCommand: usize = 0x7FFA94DCA390;
+    pub const RunCommand: usize = 0x7FFA7EA5A390;
     /// rva 0x9DA390
-    pub const RunCommand_processor: usize = 0x7FFA94DCA390;
+    pub const RunCommand_processor: usize = 0x7FFA7EA5A390;
     /// rva 0x85BFF0
-    pub const Scope_callsite: usize = 0x7FFA94C4BFF0;
+    pub const Scope_callsite: usize = 0x7FFA7E8DBFF0;
     /// rva 0x10BE830
-    pub const SendChatMessage: usize = 0x7FFA954AE830;
+    pub const SendChatMessage: usize = 0x7FFA7F13E830;
+    /// rva 0x2326840
+    pub const Sensitivity_ptr: usize = 0x7FFA803A6840;
     /// rva 0x21EEA0
-    pub const SetAbsOrigin_Pawn: usize = 0x7FFA9460EEA0;
+    pub const SetAbsOrigin_Pawn: usize = 0x7FFA7E29EEA0;
     /// rva 0xD94BF0
-    pub const SetBodyGroup_inv: usize = 0x7FFA95184BF0;
+    pub const SetBodyGroup_inv: usize = 0x7FFA7EE14BF0;
     /// rva 0x803540
-    pub const SetCollisionBounds: usize = 0x7FFA94BF3540;
+    pub const SetCollisionBounds: usize = 0x7FFA7E883540;
     /// rva 0x10026A0
-    pub const SetDynamicAttributeValue: usize = 0x7FFA953F26A0;
+    pub const SetDynamicAttributeValue: usize = 0x7FFA7F0826A0;
     /// rva 0x10026A0
-    pub const SetDynamicAttributeValue_raw: usize = 0x7FFA953F26A0;
+    pub const SetDynamicAttributeValue_raw: usize = 0x7FFA7F0826A0;
     /// rva 0xA2C3F0
-    pub const SetMeshGroupMask: usize = 0x7FFA94E1C3F0;
+    pub const SetMeshGroupMask: usize = 0x7FFA7EAAC3F0;
     /// rva 0x8D9B40
-    pub const SetModel: usize = 0x7FFA94CC9B40;
+    pub const SetModel: usize = 0x7FFA7E959B40;
     /// rva 0xF1B510
-    pub const SetPlayerReady: usize = 0x7FFA9530B510;
+    pub const SetPlayerReady: usize = 0x7FFA7EF9B510;
     /// rva 0x7D4750
-    pub const SetTraceData: usize = 0x7FFA94BC4750;
+    pub const SetTraceData: usize = 0x7FFA7E854750;
     /// rva 0x1818640
-    pub const SetTypeKV3: usize = 0x7FFA95C08640;
+    pub const SetTypeKV3: usize = 0x7FFA7F898640;
     /// rva 0xAE3580
-    pub const SetViewAngle: usize = 0x7FFA94ED3580;
+    pub const SetViewAngle: usize = 0x7FFA7EB63580;
     /// rva 0x8B98A0
-    pub const SetupCmd: usize = 0x7FFA94CA98A0;
+    pub const SetupCmd: usize = 0x7FFA7E9398A0;
     /// rva 0xD1AA50
-    pub const SetupMove: usize = 0x7FFA9510AA50;
+    pub const SetupMove: usize = 0x7FFA7ED9AA50;
     /// rva 0x118441F
-    pub const SetupMovementMoves: usize = 0x7FFA9557441F;
+    pub const SetupMovementMoves: usize = 0x7FFA7F20441F;
     /// rva 0xA55B50
-    pub const SomeTimingFromPawn: usize = 0x7FFA94E45B50;
+    pub const SomeTimingFromPawn: usize = 0x7FFA7EAD5B50;
     /// rva 0xBC2680
-    pub const Spawner_PerTickOrchestrator: usize = 0x7FFA94FB2680;
+    pub const Spawner_PerTickOrchestrator: usize = 0x7FFA7EC42680;
     /// rva 0x7D9130
-    pub const SpectatorInput: usize = 0x7FFA94BC9130;
+    pub const SpectatorInput: usize = 0x7FFA7E859130;
     /// rva 0x806290
-    pub const TestSurfaces: usize = 0x7FFA94BF6290;
+    pub const TestSurfaces: usize = 0x7FFA7E886290;
     /// rva 0xB6F6D0
-    pub const TracePlayerBBox: usize = 0x7FFA94F5F6D0;
+    pub const TracePlayerBBox: usize = 0x7FFA7EBEF6D0;
     /// rva 0x98D340
-    pub const TraceShape: usize = 0x7FFA94D7D340;
+    pub const TraceShape: usize = 0x7FFA7EA0D340;
     /// rva 0x98D340
-    pub const TraceShape_Client: usize = 0x7FFA94D7D340;
+    pub const TraceShape_Client: usize = 0x7FFA7EA0D340;
     /// rva 0x804400
-    pub const TraceToExit: usize = 0x7FFA94BF4400;
+    pub const TraceToExit: usize = 0x7FFA7E884400;
     /// rva 0xF1F6A0
-    pub const UpdatePostProcessing: usize = 0x7FFA9530F6A0;
+    pub const UpdatePostProcessing: usize = 0x7FFA7EF9F6A0;
     /// rva 0x1FA88B
-    pub const UpdateSubClass: usize = 0x7FFA945EA88B;
+    pub const UpdateSubClass: usize = 0x7FFA7E27A88B;
     /// rva 0x7AFD10
-    pub const UpdateTurningInAccuracy: usize = 0x7FFA94B9FD10;
+    pub const UpdateTurningInAccuracy: usize = 0x7FFA7E82FD10;
     /// rva 0x202D718
-    pub const VPhys2World_ptr: usize = 0x7FFA9641D718;
+    pub const VPhys2World_ptr: usize = 0x7FFA800AD718;
     /// rva 0x7A03D0
-    pub const ViewModelHideZoomed: usize = 0x7FFA94B903D0;
+    pub const ViewModelHideZoomed: usize = 0x7FFA7E8203D0;
     /// rva 0x232DCB8
-    pub const ViewRender_ptr: usize = 0x7FFA9671DCB8;
+    pub const ViewRender_ptr: usize = 0x7FFA803ADCB8;
+    /// rva 0xC53E10
+    pub const WriteSubtickFromEntry: usize = 0x7FFA7ECD3E10;
     /// rva 0xACA9C0
-    pub const create_move_v2: usize = 0x7FFA94EBA9C0;
+    pub const create_move_v2: usize = 0x7FFA7EB4A9C0;
     /// rva 0xC78E80
-    pub const draw_smoke_array: usize = 0x7FFA95068E80;
+    pub const draw_smoke_array: usize = 0x7FFA7ECF8E80;
     /// rva 0x803CC0
-    pub const draw_view_punch_v2: usize = 0x7FFA94BF3CC0;
+    pub const draw_view_punch_v2: usize = 0x7FFA7E883CC0;
     /// rva 0x24CEE58
-    pub const entity_list_ptr: usize = 0x7FFA968BEE58;
+    pub const entity_list_ptr: usize = 0x7FFA8054EE58;
     /// rva 0xAD15D1
-    pub const frame_stage_notify: usize = 0x7FFA94EC15D1;
+    pub const frame_stage_notify: usize = 0x7FFA7EB515D1;
     /// rva 0x803CC0
-    pub const get_fov: usize = 0x7FFA94BF3CC0;
+    pub const get_fov: usize = 0x7FFA7E883CC0;
     /// rva 0xEDADF0
-    pub const get_map_name: usize = 0x7FFA952CADF0;
+    pub const get_map_name: usize = 0x7FFA7EF5ADF0;
     /// rva 0xAD2EA0
-    pub const get_view_angles_v2: usize = 0x7FFA94EC2EA0;
+    pub const get_view_angles_v2: usize = 0x7FFA7EB52EA0;
     /// rva 0x84E040
-    pub const get_view_model: usize = 0x7FFA94C3E040;
+    pub const get_view_model: usize = 0x7FFA7E8CE040;
     /// rva 0x2328F38
-    pub const global_vars_v2: usize = 0x7FFA96718F38;
+    pub const global_vars_v2: usize = 0x7FFA803A8F38;
     /// rva 0xEFC220
-    pub const is_demo_or_hltv: usize = 0x7FFA952EC220;
+    pub const is_demo_or_hltv: usize = 0x7FFA7EF7C220;
     /// rva 0xAF9230
-    pub const level_init_v2: usize = 0x7FFA94EE9230;
+    pub const level_init_v2: usize = 0x7FFA7EB79230;
     /// rva 0xAF94B0
-    pub const level_shutdown: usize = 0x7FFA94EE94B0;
+    pub const level_shutdown: usize = 0x7FFA7EB794B0;
     /// rva 0x2308520
-    pub const local_controller: usize = 0x7FFA966F8520;
+    pub const local_controller: usize = 0x7FFA80388520;
     /// rva 0x217FC0
-    pub const mark_interp_latch_flags_dirty: usize = 0x7FFA94607FC0;
+    pub const mark_interp_latch_flags_dirty: usize = 0x7FFA7E297FC0;
     /// rva 0x9674A0
-    pub const on_add_entity_v2: usize = 0x7FFA94D574A0;
+    pub const on_add_entity_v2: usize = 0x7FFA7E9E74A0;
     /// rva 0xC5D2F0
-    pub const override_view_short: usize = 0x7FFA9504D2F0;
+    pub const override_view_short: usize = 0x7FFA7ECDD2F0;
     /// rva 0x105AAF0
-    pub const paintkit_prefab: usize = 0x7FFA9544AAF0;
+    pub const paintkit_prefab: usize = 0x7FFA7F0DAAF0;
     /// rva 0xEEEC20
-    pub const paintkit_seed: usize = 0x7FFA952DEC20;
+    pub const paintkit_seed: usize = 0x7FFA7EF6EC20;
     /// rva 0xEEEC20
-    pub const paintkit_wear: usize = 0x7FFA952DEC20;
+    pub const paintkit_wear: usize = 0x7FFA7EF6EC20;
     /// rva 0x22A6CB8
-    pub const planted_c4_ptr: usize = 0x7FFA96696CB8;
+    pub const planted_c4_ptr: usize = 0x7FFA80326CB8;
     /// rva 0x10EDAA0
-    pub const remove_legs: usize = 0x7FFA954DDAA0;
+    pub const remove_legs: usize = 0x7FFA7F16DAA0;
     /// rva 0xEEEC20
-    pub const statTrak_killEater: usize = 0x7FFA952DEC20;
+    pub const statTrak_killEater: usize = 0x7FFA7EF6EC20;
     /// rva 0x11B740
-    pub const statTrak_scoreType: usize = 0x7FFA9450B740;
+    pub const statTrak_scoreType: usize = 0x7FFA7E19B740;
     /// rva 0x701110
-    pub const unlock_inventory: usize = 0x7FFA94AF1110;
+    pub const unlock_inventory: usize = 0x7FFA7E781110;
     /// rva 0xAE2FD0
-    pub const update_global_vars: usize = 0x7FFA94ED2FD0;
+    pub const update_global_vars: usize = 0x7FFA7EB62FD0;
     /// rva 0xF23C56
-    pub const update_post_processing_v2: usize = 0x7FFA95313C56;
+    pub const update_post_processing_v2: usize = 0x7FFA7EFA3C56;
     /// rva 0x232EAC0
-    pub const view_matrix_ptr: usize = 0x7FFA9671EAC0;
+    pub const view_matrix_ptr: usize = 0x7FFA803AEAC0;
 }
 
 pub mod engine2 {
+    /// rva 0x60CC74
+    pub const BuildNumber_addr: usize = 0x7FFAA729CC74;
     /// rva 0x3FD710
-    pub const CCommand_Tokenize: usize = 0x7FFAA7A8D710;
+    pub const CCommand_Tokenize: usize = 0x7FFAA708D710;
     /// rva 0xA1240
-    pub const CGameClient_ClientCommand: usize = 0x7FFAA7731240;
+    pub const CGameClient_ClientCommand: usize = 0x7FFAA6D31240;
     /// rva 0x120D70
-    pub const CHLTVClient_ExecuteStringCommand: usize = 0x7FFAA77B0D70;
+    pub const CHLTVClient_ExecuteStringCommand: usize = 0x7FFAA6DB0D70;
     /// rva 0x24A250
-    pub const CSplitScreenSlot: usize = 0x7FFAA78DA250;
+    pub const CSplitScreenSlot: usize = 0x7FFAA6EDA250;
     /// rva 0x3FD270
-    pub const Cvar_RegisterConCommand: usize = 0x7FFAA7A8D270;
+    pub const Cvar_RegisterConCommand: usize = 0x7FFAA708D270;
     /// rva 0x3FC080
-    pub const Cvar_RegisterConVar: usize = 0x7FFAA7A8C080;
+    pub const Cvar_RegisterConVar: usize = 0x7FFAA708C080;
     /// rva 0x769D0
-    pub const Engine__GetScreenAspectRatio: usize = 0x7FFAA77069D0;
+    pub const Engine__GetScreenAspectRatio: usize = 0x7FFAA6D069D0;
     /// rva 0x6133F0
-    pub const Engine__PVSManager_ptr: usize = 0x7FFAA7CA33F0;
+    pub const Engine__PVSManager_ptr: usize = 0x7FFAA72A33F0;
     /// rva 0x66490
-    pub const Engine__RunPrediction: usize = 0x7FFAA76F6490;
+    pub const Engine__RunPrediction: usize = 0x7FFAA6CF6490;
     /// rva 0x1D1510
-    pub const Engine_Disconnect_main: usize = 0x7FFAA7861510;
+    pub const Engine_Disconnect_main: usize = 0x7FFAA6E61510;
     /// rva 0x120D70
-    pub const Engine_HLTVClient_ExecuteStringCommand: usize = 0x7FFAA77B0D70;
+    pub const Engine_HLTVClient_ExecuteStringCommand: usize = 0x7FFAA6DB0D70;
     /// rva 0x21AFC0
-    pub const Engine_HostStateMgr_QueueNewRequest: usize = 0x7FFAA78AAFC0;
+    pub const Engine_HostStateMgr_QueueNewRequest: usize = 0x7FFAA6EAAFC0;
     /// rva 0x21AFC0
-    pub const Engine_HostStateMgr_QueueNewRequest: usize = 0x7FFAA78AAFC0;
+    pub const Engine_HostStateMgr_QueueNewRequest: usize = 0x7FFAA6EAAFC0;
     /// rva 0x18D760
-    pub const Engine_LoadGameInfo: usize = 0x7FFAA781D760;
+    pub const Engine_LoadGameInfo: usize = 0x7FFAA6E1D760;
     /// rva 0x193440
-    pub const Engine_MountAddon: usize = 0x7FFAA7823440;
+    pub const Engine_MountAddon: usize = 0x7FFAA6E23440;
     /// rva 0x69780
-    pub const Engine_NetTimeoutDisconnect: usize = 0x7FFAA76F9780;
+    pub const Engine_NetTimeoutDisconnect: usize = 0x7FFAA6CF9780;
     /// rva 0x7F400
-    pub const Engine_NetworkGameClient_Connect: usize = 0x7FFAA770F400;
+    pub const Engine_NetworkGameClient_Connect: usize = 0x7FFAA6D0F400;
     /// rva 0x60F80
-    pub const Engine_NetworkGameClient_SetSignonState: usize = 0x7FFAA76F0F80;
+    pub const Engine_NetworkGameClient_SetSignonState: usize = 0x7FFAA6CF0F80;
     /// rva 0x3FD270
-    pub const Engine_RegisterConCommand: usize = 0x7FFAA7A8D270;
+    pub const Engine_RegisterConCommand: usize = 0x7FFAA708D270;
     /// rva 0x3FC080
-    pub const Engine_RegisterConVar: usize = 0x7FFAA7A8C080;
+    pub const Engine_RegisterConVar: usize = 0x7FFAA708C080;
+    /// rva 0x90A0C0
+    pub const NetworkGameClient_ptr: usize = 0x7FFAA759A0C0;
+}
+
+pub mod inputsystem {
+    /// rva 0x42B50
+    pub const InputSystem_ptr: usize = 0x7FFAC4122B50;
+}
+
+pub mod matchmaking {
+    /// rva 0x1B0F80
+    pub const GameTypes_ptr: usize = 0x7FFA93F40F80;
 }
 
 pub mod materialsystem2 {
     /// rva 0x13FA0
-    pub const CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile: usize = 0x7FFAA61F3FA0;
+    pub const CMaterial2_CompileComboAndGetVariables_DynamicShaderCompile: usize = 0x7FFAA5173FA0;
     /// rva 0xC8C0
-    pub const CMaterial2_GetVertexShaderInputSignature: usize = 0x7FFAA61EC8C0;
+    pub const CMaterial2_GetVertexShaderInputSignature: usize = 0x7FFAA516C8C0;
     /// rva 0x10040
-    pub const CMaterial2_LoadShadersAndSetupModes: usize = 0x7FFAA61F0040;
+    pub const CMaterial2_LoadShadersAndSetupModes: usize = 0x7FFAA5170040;
     /// rva 0x18B80
-    pub const CMaterialLayer_ApplyMaterialVarsForBatch: usize = 0x7FFAA61F8B80;
+    pub const CMaterialLayer_ApplyMaterialVarsForBatch: usize = 0x7FFAA5178B80;
     /// rva 0x18F80
-    pub const CMaterialLayer_BuildPassCommandData: usize = 0x7FFAA61F8F80;
+    pub const CMaterialLayer_BuildPassCommandData: usize = 0x7FFAA5178F80;
     /// rva 0x15F3C
-    pub const CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode: usize = 0x7FFAA61F5F3C;
+    pub const CMaterialLayer_ComputeWorkItemsToSetupStaticCombosForMode: usize = 0x7FFAA5175F3C;
     /// rva 0x19820
-    pub const CMaterialLayer_CreateCommandBuffer: usize = 0x7FFAA61F9820;
+    pub const CMaterialLayer_CreateCommandBuffer: usize = 0x7FFAA5179820;
     /// rva 0x70000
-    pub const CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState: usize = 0x7FFAA6250000;
+    pub const CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState: usize = 0x7FFAA51D0000;
     /// rva 0x3A5E0
-    pub const CMaterialSystem2_DynamicShaderCompile_ProcessQueue: usize = 0x7FFAA621A5E0;
+    pub const CMaterialSystem2_DynamicShaderCompile_ProcessQueue: usize = 0x7FFAA519A5E0;
     /// rva 0x355C2
-    pub const CMaterialSystem2_DynamicShaderCompile_ReloadAndSync: usize = 0x7FFAA62155C1;
+    pub const CMaterialSystem2_DynamicShaderCompile_ReloadAndSync: usize = 0x7FFAA51955C1;
     /// rva 0x39AA0
-    pub const CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials: usize = 0x7FFAA6219AA0;
+    pub const CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials: usize = 0x7FFAA5199AA0;
     /// rva 0x3BAC0
-    pub const CMaterialSystem2_FrameUpdate: usize = 0x7FFAA621BAC0;
+    pub const CMaterialSystem2_FrameUpdate: usize = 0x7FFAA519BAC0;
     /// rva 0x174D7
-    pub const CMaterialSystem2_GetErrorMaterial: usize = 0x7FFAA61F74D7;
+    pub const CMaterialSystem2_GetErrorMaterial: usize = 0x7FFAA51774D7;
     /// rva 0x36E40
-    pub const CMaterialSystem2_Init: usize = 0x7FFAA6216E40;
+    pub const CMaterialSystem2_Init: usize = 0x7FFAA5196E40;
     /// rva 0x2F9B0
-    pub const CMaterial_SetVariableAndRenderState: usize = 0x7FFAA620F9B0;
+    pub const CMaterial_SetVariableAndRenderState: usize = 0x7FFAA518F9B0;
     /// rva 0xAE0E0
-    pub const CVfxProgramData_FindOrCreateStaticComboDataInCache: usize = 0x7FFAA628E0E0;
+    pub const CVfxProgramData_FindOrCreateStaticComboDataInCache: usize = 0x7FFAA520E0E0;
     /// rva 0xAE950
-    pub const CVfxProgramData_FindOrCreateStaticComboData_CacheGate: usize = 0x7FFAA628E950;
+    pub const CVfxProgramData_FindOrCreateStaticComboData_CacheGate: usize = 0x7FFAA520E950;
     /// rva 0xBDAE0
-    pub const CVfxProgramData_FindOrLoadStaticComboData: usize = 0x7FFAA629DAE0;
+    pub const CVfxProgramData_FindOrLoadStaticComboData: usize = 0x7FFAA521DAE0;
     /// rva 0x11E30
-    pub const FindParameter: usize = 0x7FFAA61F1E30;
+    pub const FindParameter: usize = 0x7FFAA5171E30;
     /// rva 0x11BE0
-    pub const MatSys__PrepareSceneMaterial: usize = 0x7FFAA61F1BE0;
+    pub const MatSys__PrepareSceneMaterial: usize = 0x7FFAA5171BE0;
     /// rva 0x12370
-    pub const UpdateParameter: usize = 0x7FFAA61F2370;
+    pub const UpdateParameter: usize = 0x7FFAA5172370;
 }
 
 pub mod networksystem {
     /// rva 0xBB280
-    pub const CNetChan_ProcessMessages: usize = 0x7FFAA470B280;
+    pub const CNetChan_ProcessMessages: usize = 0x7FFAA353B280;
     /// rva 0xBD670
-    pub const CNetChan_SendNetMessage: usize = 0x7FFAA470D670;
+    pub const CNetChan_SendNetMessage: usize = 0x7FFAA353D670;
     /// rva 0xBB280
-    pub const NetSystem_CNetChan_ProcessMessages: usize = 0x7FFAA470B280;
+    pub const NetSystem_CNetChan_ProcessMessages: usize = 0x7FFAA353B280;
     /// rva 0xBD670
-    pub const NetSystem_CNetChan_SendNetMessage: usize = 0x7FFAA470D670;
+    pub const NetSystem_CNetChan_SendNetMessage: usize = 0x7FFAA353D670;
 }
 
 pub mod particles {
     /// rva 0x220B0
-    pub const Particles__DrawArray: usize = 0x7FFA9E9420B0;
+    pub const Particles__DrawArray: usize = 0x7FFA9D7720B0;
     /// rva 0x3A650
-    pub const Particles__FindKeyVar: usize = 0x7FFA9E95A650;
+    pub const Particles__FindKeyVar: usize = 0x7FFA9D78A650;
     /// rva 0x9D8D0
-    pub const Particles__SetMaterialShaderType: usize = 0x7FFA9E9BD8D0;
+    pub const Particles__SetMaterialShaderType: usize = 0x7FFA9D7ED8D0;
 }
 
 pub mod rendersystemdx11 {
     /// rva 0x2F500
-    pub const CRenderDeviceBase_CreateConstantBuffer: usize = 0x7FFAA6DCF500;
+    pub const CRenderDeviceBase_CreateConstantBuffer: usize = 0x7FFAA573F500;
     /// rva 0x3C4E0
-    pub const CRenderDeviceDx11_BeginSubmittingDisplayLists: usize = 0x7FFAA6DDC4E0;
+    pub const CRenderDeviceDx11_BeginSubmittingDisplayLists: usize = 0x7FFAA574C4E0;
     /// rva 0x3FAF0
-    pub const CRenderDeviceDx11_CompileShaderSourceMain: usize = 0x7FFAA6DDFAF0;
+    pub const CRenderDeviceDx11_CompileShaderSourceMain: usize = 0x7FFAA574FAF0;
     /// rva 0x34650
-    pub const CSwapChainDx11_QueuePresentAndWait: usize = 0x7FFAA6DD4650;
+    pub const CSwapChainDx11_QueuePresentAndWait: usize = 0x7FFAA5744650;
     /// rva 0x3DD20
-    pub const CSwapChainDx11_ResizeBuffers: usize = 0x7FFAA6DDDD20;
+    pub const CSwapChainDx11_ResizeBuffers: usize = 0x7FFAA574DD20;
     /// rva 0x34650
-    pub const RenderSystemDx11_QueuePresentAndWait: usize = 0x7FFAA6DD4650;
+    pub const RenderSystemDx11_QueuePresentAndWait: usize = 0x7FFAA5744650;
     /// rva 0x3F790
-    pub const RenderSystemDx11_SetHardwareGammaRamp: usize = 0x7FFAA6DDF790;
+    pub const RenderSystemDx11_SetHardwareGammaRamp: usize = 0x7FFAA574F790;
     /// rva 0x399E0
-    pub const RenderSystemDx11_SetMode: usize = 0x7FFAA6DD99E0;
+    pub const RenderSystemDx11_SetMode: usize = 0x7FFAA57499E0;
 }
 
 pub mod resourcesystem {
     /// rva 0x17360
-    pub const ResourceSystem_BlockingLoadResourceByName: usize = 0x7FFACA5E7360;
+    pub const ResourceSystem_BlockingLoadResourceByName: usize = 0x7FFAAE777360;
     /// rva 0x16D80
-    pub const ResourceSystem_FindOrRegisterResourceByName: usize = 0x7FFACA5E6D80;
+    pub const ResourceSystem_FindOrRegisterResourceByName: usize = 0x7FFAAE776D80;
     /// rva 0x1C010
-    pub const ResourceSystem_FrameUpdate: usize = 0x7FFACA5EC010;
+    pub const ResourceSystem_FrameUpdate: usize = 0x7FFAAE77C010;
 }
 
 pub mod scenesystem {
     /// rva 0x73520
-    pub const CSceneAnimatableObject__GeneratePrimitives: usize = 0x7FFA9F173520;
+    pub const CSceneAnimatableObject__GeneratePrimitives: usize = 0x7FFA9DFA3520;
+    /// rva 0x14FB90
+    pub const CSceneSkyBoxObject_DrawSkyboxArray: usize = 0x7FFA9E07FB90;
     /// rva 0xEDD80
-    pub const CSceneSystem_RenderViewLayer_Dispatch: usize = 0x7FFA9F1EDD80;
+    pub const CSceneSystem_RenderViewLayer_Dispatch: usize = 0x7FFA9E01DD80;
     /// rva 0xE92F0
-    pub const CSceneSystem_Thread_CullView: usize = 0x7FFA9F1E92F0;
+    pub const CSceneSystem_Thread_CullView: usize = 0x7FFA9E0192F0;
     /// rva 0x55BC0
-    pub const DrawObject_legacy: usize = 0x7FFA9F155BC0;
+    pub const DrawObject_legacy: usize = 0x7FFA9DF85BC0;
+    /// rva 0x14FB90
+    pub const DrawSkyboxArray: usize = 0x7FFA9E07FB90;
     /// rva 0x12CF50
-    pub const SceneSystem__DrawAggeregateObject: usize = 0x7FFA9F22CF50;
+    pub const SceneSystem__DrawAggeregateObject: usize = 0x7FFA9E05CF50;
     /// rva 0x7AAC0
-    pub const SceneSystem__DrawArrayLight: usize = 0x7FFA9F17AAC0;
+    pub const SceneSystem__DrawArrayLight: usize = 0x7FFA9DFAAAC0;
     /// rva 0xEDA30
-    pub const SceneSystem_Thread_RenderSceneDrawList: usize = 0x7FFA9F1EDA30;
+    pub const SceneSystem_Thread_RenderSceneDrawList: usize = 0x7FFA9E01DA30;
 }
 
 pub mod soundsystem {
     /// rva 0x349840
-    pub const SoundSystem__PlayVSound: usize = 0x7FFAA3219840;
+    pub const SoundSystem__PlayVSound: usize = 0x7FFAA2049840;
     /// rva 0xB0740
-    pub const SoundSystem__SomeUtlSymbolFunc: usize = 0x7FFAA2F80740;
+    pub const SoundSystem__SomeUtlSymbolFunc: usize = 0x7FFAA1DB0740;
+    /// rva 0x512360
+    pub const SoundSystem_ptr: usize = 0x7FFAA2212360;
 }
 
 pub mod tier0 {
     /// rva 0x129160
-    pub const Tier0__LoadKeyValues: usize = 0x7FFAA8119160;
+    pub const Tier0__LoadKeyValues: usize = 0x7FFAA79B9160;
     /// rva 0x53F10
-    pub const Tier0__UtlBuffer: usize = 0x7FFAA8043F10;
+    pub const Tier0__UtlBuffer: usize = 0x7FFAA78E3F10;
 }
 

@@ -15,6 +15,7 @@ const NONE: ResolveKind = ResolveKind::None;
 const STRREF: ResolveKind = ResolveKind::StringRef;
 const REL32_1: ResolveKind = ResolveKind::Rel32 { rel_off: 1 };
 const RIPREL_3: ResolveKind = ResolveKind::RipRel { rel_off: 3 };
+const RIPREL_2: ResolveKind = ResolveKind::RipRel { rel_off: 2 };
 
 pub static CS2_SIGNATURES: &[Signature] = &[
     // ---------- client.dll : input / movement --------------------------
@@ -276,6 +277,23 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     Signature { name: "GetInstanceS",                         module: "client.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 8B 91 ? ? ? ? B8", resolve: RIPREL_3, extra_off: 0 },
     Signature { name: "ChamsRenderGameSystem",                module: "client.dll", needle: "48 8B 0D ? ? ? ? ? ? E8 ? ? ? ? 49 8B 8E ? ? ? ? 4C 8D 0D", resolve: RIPREL_3, extra_off: 0 },
     Signature { name: "CAM_ThinkReturn",                      module: "client.dll", needle: "BA 04 00 00 00 FF 15 ? ? ? ? 84 C0 0F 84", resolve: NONE, extra_off: 0 },
+
+    // a2x-derived globals (cs2-dumper, MIT). Battle-tested patterns.
+    // GlowManager_ptr — client.dll g_pGlowManager. Read as qword pointer.
+    Signature { name: "GlowManager_ptr",                      module: "client.dll", needle: "48 8B 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 8B 41", resolve: RIPREL_3, extra_off: 0 },
+    // Sensitivity_ptr — client.dll g_pSensitivity (mouse sens object).
+    Signature { name: "Sensitivity_ptr",                      module: "client.dll", needle: "48 8D 0D ? ? ? ? 66 0F 6E CD", resolve: RIPREL_3, extra_off: 0 },
+    // BuildNumber_addr — engine2.dll dword build number global.
+    // mov [rip+disp32], eax  ;  89 05 disp32
+    Signature { name: "BuildNumber_addr",                     module: "engine2.dll", needle: "89 05 ? ? ? ? 48 8D 0D ? ? ? ? FF 15 ? ? ? ? 48 8B 0D", resolve: RIPREL_2, extra_off: 0 },
+    // NetworkGameClient_ptr — engine2.dll g_pNetworkGameClient.
+    Signature { name: "NetworkGameClient_ptr",                module: "engine2.dll", needle: "48 89 3D ? ? ? ? FF 87", resolve: RIPREL_3, extra_off: 0 },
+    // InputSystem_ptr — inputsystem.dll g_pInputSystem.
+    Signature { name: "InputSystem_ptr",                      module: "inputsystem.dll", needle: "48 89 05 ? ? ? ? 33 C0", resolve: RIPREL_3, extra_off: 0 },
+    // GameTypes_ptr — matchmaking.dll IGameTypes singleton.
+    Signature { name: "GameTypes_ptr",                        module: "matchmaking.dll", needle: "48 8D 0D ? ? ? ? FF 90", resolve: RIPREL_3, extra_off: 0 },
+    // SoundSystem_ptr — soundsystem.dll g_pSoundSystem (CSoundSystem instance).
+    Signature { name: "SoundSystem_ptr",                      module: "soundsystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 89 15", resolve: RIPREL_3, extra_off: 0 },
 
     // Features / aimbot / autowall / movement ---------------------------
     Signature { name: "CalculateShootPosition",               module: "client.dll", needle: "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 81 EC ? ? ? ? 44 8B 92 ? ? ? ?", resolve: NONE, extra_off: 0 },
