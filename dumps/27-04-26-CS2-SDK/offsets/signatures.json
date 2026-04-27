@@ -1,0 +1,15 @@
+{
+    "client.dll": {
+        "CreateSOSubclassEconItem": "0xFF4EB0",
+        "EquipItemInLoadout": "0x7C2090",
+        "GetItemInLoadout": "0x7C3CB0",
+        "RegenerateWeaponSkin": "0x78C050",
+        "SetMeshGroupMask": "0xA2C3F0",
+        "SetModel": "0x8D9B40"
+    },
+    "materialsystem2.dll": {
+        "FindParameter": "0x11E30",
+        "PrepareSceneMaterial": "0x11BE0",
+        "UpdateParameter": "0x12370"
+    }
+}

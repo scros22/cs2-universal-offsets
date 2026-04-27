@@ -252,6 +252,14 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     Signature { name: "DrawScopeOverlay",                     module: "client.dll", needle: "48 8B C4 53 57 48 83 EC ? 48 8B FA", resolve: NONE, extra_off: 0 },
     Signature { name: "UpdatePostProcessing",                 module: "client.dll", needle: "48 85 D2 0F 84 ? ? ? ? 48 89 5C 24 08 57 48 83 EC 60 80", resolve: NONE, extra_off: 0 },
     Signature { name: "SetupMove",                            module: "client.dll", needle: "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 83 EC ? 48 8B EA 4C 8B F1 E8 ? ? ? ? 48 8D 15", resolve: NONE, extra_off: 0 },
+    // RenderDecals — top-level dispatcher for bullet impact decals,
+    // blood splatter, scorch marks, etc. Hook + early-return to disable
+    // all decals (visual clarity / no-blood). Prologue:
+    //   44 88 4C 24 ??  mov [rsp+?], r9b   ; pass_flag_B
+    //   55              push rbp
+    //   53              push rbx
+    // 4-arg fastcall: (rcx=render_ctx, rdx=render_view**, r8b=flagA, r9b=flagB)
+    Signature { name: "RenderDecals",                         module: "client.dll", needle: "44 88 4C 24 ? 55 53", resolve: NONE, extra_off: 0 },
 
     // Interface / global pointers --------------------------------------
     Signature { name: "GlobalVariables_ptr",                  module: "client.dll", needle: "48 89 15 ? ? ? ? 48 89 42", resolve: RIPREL_3, extra_off: 0 },

@@ -1,0 +1,809 @@
+{
+  "_doc": "Hand-curated catalogue of CS2 features verified working in a live internal cheat. Cross-reference with offsets.*, signatures.* and client_dll.* for canonical addresses.",
+  "cs2_build": 14155,
+  "feature_count": 19,
+  "features": [
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_SmokeGrenadeProjectile",
+          "field": "m_nSmokeEffectTickBegin",
+          "note": "set 0 to skip the puff",
+          "offset": "0x1250",
+          "type": "int32"
+        },
+        {
+          "class": "C_SmokeGrenadeProjectile",
+          "field": "m_bDidSmokeEffect",
+          "note": "set false",
+          "offset": "0x1254",
+          "type": "bool"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_flLastSmokeOverlayAlpha",
+          "note": "local pawn's screen overlay alpha; set 0",
+          "offset": "0x1420",
+          "type": "float"
+        }
+      ],
+      "hooks": [],
+      "name": "No Smoke",
+      "status": "working",
+      "summary": "Iterate the entity list, identify C_SmokeGrenadeProjectile via CEntityIdentity::m_designerName == \"smokegrenade_projectile\", zero m_nSmokeEffectTickBegin and clear m_bDidSmokeEffect. Engine re-evaluates every tick, so writes stick. Also zero m_flLastSmokeOverlayAlpha on the local pawn for the screen overlay."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_SmokeGrenadeProjectile",
+          "field": "m_vSmokeColor",
+          "note": "3 floats, multiply RGB by 255",
+          "offset": "0x125C",
+          "type": "Vector3 (RGB 0..255)"
+        }
+      ],
+      "hooks": [],
+      "name": "Smoke Color",
+      "status": "working",
+      "summary": "Same entity walk as No Smoke; write a Vector (3 floats * 255) to m_vSmokeColor. Particle system reads this every frame."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_flFlashDuration",
+          "note": "set 0 to clear flash",
+          "offset": "0x1400",
+          "type": "float"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_flFlashMaxAlpha",
+          "note": "set 0 for full removal, 0..255 for partial",
+          "offset": "0x13FC",
+          "type": "float"
+        }
+      ],
+      "hooks": [],
+      "name": "No Flash",
+      "status": "working",
+      "summary": "Zero m_flFlashDuration and m_flFlashMaxAlpha on the local pawn. Trip the write only when duration > 0 to avoid spamming the engine."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "env_sky",
+          "field": "m_vTintColor",
+          "note": "DOES NOT WORK at runtime — use the DrawSkyboxArray hook instead",
+          "offset": "0xFB9",
+          "type": "Color32"
+        },
+        {
+          "class": "env_sky",
+          "field": "m_vTintColorLightingOnly",
+          "note": "Same caveat",
+          "offset": "0xFBD",
+          "type": "Color32"
+        },
+        {
+          "class": "env_sky",
+          "field": "m_flBrightnessScale",
+          "note": "DOES update live (independent code path)",
+          "offset": "0xFC4",
+          "type": "float"
+        }
+      ],
+      "hooks": [
+        {
+          "action": "Patch RGB at primitive_obj+0xE8 before passing through to the original.",
+          "function": "DrawSkyboxArray",
+          "module": "scenesystem.dll",
+          "signature": "DrawSkyboxArray"
+        }
+      ],
+      "name": "Skybox Tint",
+      "status": "working",
+      "summary": "Hook scenesystem.dll!DrawSkyboxArray, intercept the draw-primitive pointer (3rd arg). Build 14152 moved the tint vec3 from +0x100 to +0xE8 inside the skybox object — writing to the old +0x100 slot poisons the renderer with NaN and crashes after ~60s. Layout: +0xE8..+0xF0 RGB tint floats, +0xF4 mode int, +0xF8..+0x104 four sun-angle floats. Do NOT write to env_sky m_vTintColor — the renderer caches material params at level setup and ignores entity writes."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "CBasePlayerController",
+          "field": "m_iDesiredFOV",
+          "note": "a2x-named m_iDesiredFOV_OnController",
+          "offset": "0x784",
+          "type": "uint32"
+        },
+        {
+          "class": "CCSPlayer_CameraServices",
+          "field": "m_iFOV",
+          "note": "current camera FOV",
+          "offset": "0x290",
+          "type": "uint32"
+        },
+        {
+          "class": "CCSPlayer_CameraServices",
+          "field": "m_iFOVStart",
+          "note": "target camera FOV",
+          "offset": "0x294",
+          "type": "uint32"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_pCameraServices",
+          "note": "deref to reach m_iFOV/m_iFOVStart",
+          "offset": "0x1218",
+          "type": "CCSPlayer_CameraServices*"
+        }
+      ],
+      "hooks": [
+        {
+          "action": "Return cfg.fovValue when not scoped, else delegate to original.",
+          "function": "GetWorldFov",
+          "module": "client.dll",
+          "signature": "SetWorldFov"
+        }
+      ],
+      "name": "FOV Changer",
+      "status": "working",
+      "summary": "Two-prong approach. (1) Hook GetWorldFov in client.dll (signature SetWorldFov, E8-CALL @ +1) and return the desired value when the local pawn is not scoped. (2) Every tick, write the desired FOV into m_iFOV and m_iFOVStart on the camera services AND into m_iDesiredFOV on the local controller (canonical source the renderer reads). The controller-level field is the one that gets reset back to default if you only fight the camera-services side."
+    },
+    {
+      "convars": [],
+      "fields": [],
+      "hooks": [
+        {
+          "action": "Substitute material on player/weapon scene objects.",
+          "function": "GeneratePrimitives",
+          "module": "scenesystem.dll",
+          "signature": "CSceneAnimatableObject::GeneratePrimitives"
+        },
+        {
+          "action": "Look up the param slot.",
+          "function": "FindParameter",
+          "module": "materialsystem2.dll",
+          "signature": "FindParameter"
+        },
+        {
+          "action": "Write the new value.",
+          "function": "UpdateParameter",
+          "module": "materialsystem2.dll",
+          "signature": "UpdateParameter"
+        }
+      ],
+      "name": "Chams (Material Override)",
+      "status": "working",
+      "summary": "Standard CS2 chams approach: override the material on CCSGOPlayerAnimGraphState::DrawObject path or material pointers on weapon/player render contexts. Use the cs2-dumper material signatures (FindParameter/UpdateParameter from materialsystem2) to swap shader params at draw time."
+    },
+    {
+      "convars": [
+        {
+          "name": "mat_fullbright",
+          "strip_flags": "0x4400",
+          "value": "1 to enable / 0 to disable",
+          "write_both_slots": true
+        }
+      ],
+      "fields": [],
+      "hooks": [],
+      "name": "Fullbright",
+      "status": "broken — does not toggle in build 14153 even with both slots written; suspect engine reads a 3rd location or the cvar object pointer moved. Re-IDA scenesystem.dll for the new value-slot offset.",
+      "summary": "ConVar mat_fullbright is registered FCVAR_CHEAT|FCVAR_DEVELOPMENTONLY. Source 2 ConVar layout (verified in scenesystem.dll sub_1804ACB70): cvar+0x30 flags DWORD, cvar+0x40 legacy value union, cvar+0x58 modern ConVar<T> value storage. The renderer's fullbright branch is gated on (flags & 0x400) == 0, so we MUST strip FCVAR_CHEAT (0x400) and FCVAR_DEVELOPMENTONLY (0x4000), then write the desired value to BOTH +0x40 (legacy) AND +0x58 (modern) slots — some code paths read each."
+    },
+    {
+      "convars": [],
+      "fields": [],
+      "hooks": [
+        {
+          "action": "Rewrite CViewSetup origin (offset 0x490) to a third-person position derived from view angles.",
+          "function": "OverrideView",
+          "module": "client.dll",
+          "signature": "CCSGOViewAdvice::OverrideView"
+        }
+      ],
+      "name": "Third Person",
+      "status": "working",
+      "summary": "Hook CCSGOViewAdviceService::OverrideView (signature OverrideView, client.dll). After calling the original (lets engine set up first-person camera), read the eye position out of CViewSetup, build forward from view angles, and rewrite CViewSetup origin to eye - forward*dist + (0,0,8). Leave angles untouched. Also flip the engine input flag at clientBase + dwCSGOInput + 0x229 to true so the local model renders. Restore to false on disable. CViewSetup field offsets (CS2 build 14152): origin=+0x490, angles=+0x4A0, fov=+0x230. Do NOT use c_thirdpersonshoulder ConVar — it's FCVAR_CHEAT and reads from cvar+0x58 (same gotchas as mat_fullbright); direct CViewSetup write is the canonical CS2 approach."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_FogController",
+          "field": "m_fog (params)",
+          "note": "+0x14 RGB primary, +0x18 RGB secondary, +0x24 start, +0x28 end, +0x30 density, +0x64 enable bool",
+          "offset": "0x608",
+          "type": "fogparams_t"
+        },
+        {
+          "class": "C_EnvCubemapFog",
+          "field": "m_bActive",
+          "note": "set false",
+          "offset": "0x62C",
+          "type": "bool"
+        },
+        {
+          "class": "C_EnvCubemapFog",
+          "field": "m_flFogMaxOpacity",
+          "note": "set 0",
+          "offset": "0x630",
+          "type": "float"
+        },
+        {
+          "class": "C_EnvVolumetricFogController",
+          "field": "m_bActive",
+          "note": "set false",
+          "offset": "0x64C",
+          "type": "bool"
+        },
+        {
+          "class": "C_EnvVolumetricFogController",
+          "field": "m_bStartDisabled",
+          "note": "set true",
+          "offset": "0x674",
+          "type": "bool"
+        },
+        {
+          "class": "C_EnvVolumetricFogVolume",
+          "field": "m_bActive",
+          "note": "set false",
+          "offset": "0x600",
+          "type": "bool"
+        },
+        {
+          "class": "C_EnvVolumetricFogVolume",
+          "field": "m_flStrength",
+          "note": "set 0",
+          "offset": "0x620",
+          "type": "float"
+        }
+      ],
+      "hooks": [],
+      "name": "Anti-Fog",
+      "status": "working",
+      "summary": "Disable every fog source per-entity. Cheap and total. env_fog_controller has fogparams_t embedded at +0x608: +0x14 colorPrimary, +0x18 colorSecondary, +0x24 start, +0x28 end, +0x30 maxDensity, +0x64 enable. env_cubemap_fog: +0x62C m_bActive, +0x630 m_flFogMaxOpacity, +0x60C/0x608 start/end distances. env_volumetric_fog_controller: +0x600 m_flScattering, +0x610 m_flDrawDistance, +0x64C m_bActive, +0x674 m_bStartDisabled. env_volumetric_fog_volume: +0x600 m_bActive, +0x620 m_flStrength."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_ColorCorrection",
+          "field": "m_flMaxWeight",
+          "note": "set 0",
+          "offset": "0x61C",
+          "type": "float"
+        },
+        {
+          "class": "C_ColorCorrection",
+          "field": "m_flCurWeight",
+          "note": "set 0",
+          "offset": "0x620",
+          "type": "float"
+        },
+        {
+          "class": "C_ColorCorrection",
+          "field": "m_bEnabled",
+          "note": "set false",
+          "offset": "0x824",
+          "type": "bool"
+        },
+        {
+          "class": "C_ColorCorrection",
+          "field": "m_bEnabledOnClient[0]",
+          "note": "set false",
+          "offset": "0x828",
+          "type": "bool"
+        },
+        {
+          "class": "C_ColorCorrection",
+          "field": "m_flCurWeightOnClient",
+          "note": "set 0",
+          "offset": "0x82C",
+          "type": "float"
+        }
+      ],
+      "hooks": [],
+      "name": "No Color Correction",
+      "status": "working",
+      "summary": "Color-correction LUT entities (color_correction designer name) ship on most maps and apply the mood grading (warm dust on Mirage, blue-grey on Anubis, etc). Disabling them is a free visibility upgrade. Zero m_flMaxWeight and m_flCurWeight, clear m_bEnabled and m_bEnabledOnClient[0], zero m_flCurWeightOnClient."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "env_sky",
+          "field": "m_vTintColor",
+          "note": "RGBA 0..255 packed",
+          "offset": "0xFB9",
+          "type": "Color32"
+        },
+        {
+          "class": "env_sky",
+          "field": "m_vTintColorLightingOnly",
+          "note": "match m_vTintColor for consistency",
+          "offset": "0xFBD",
+          "type": "Color32"
+        },
+        {
+          "class": "env_sky",
+          "field": "m_flBrightnessScale",
+          "note": "1.0 = default",
+          "offset": "0xFC4",
+          "type": "float"
+        }
+      ],
+      "hooks": [],
+      "name": "Night Mode / Asus Mode (Sky Tint via env_sky)",
+      "status": "working",
+      "summary": "For env_sky entities: m_vTintColor (Color32) at +0xFB9 and m_flBrightnessScale at +0xFC4 DO update live and are safe to poke per-tick. Use these for night/asus presets. The sky-tint hook (DrawSkyboxArray) handles dynamic per-frame color; this entity-write path handles the slower per-preset apply."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_BaseEntity",
+          "field": "m_pGameSceneNode",
+          "note": "deref → bone matrix + abs origin",
+          "offset": "0x330",
+          "type": "CGameSceneNode*"
+        },
+        {
+          "class": "C_BaseEntity",
+          "field": "m_iHealth",
+          "note": "0 == dead",
+          "offset": "0x34C",
+          "type": "int32"
+        },
+        {
+          "class": "C_BaseEntity",
+          "field": "m_lifeState",
+          "note": "0 == ALIVE",
+          "offset": "0x354",
+          "type": "uint8"
+        },
+        {
+          "class": "C_BaseEntity",
+          "field": "m_iTeamNum",
+          "note": "2=T, 3=CT",
+          "offset": "0x3EB",
+          "type": "uint8"
+        },
+        {
+          "class": "CGameSceneNode",
+          "field": "m_vecAbsOrigin",
+          "note": "world position (read for ESP root)",
+          "offset": "0xC8",
+          "type": "Vector3"
+        },
+        {
+          "class": "C_CSPlayerPawnBase",
+          "field": "m_pWeaponServices",
+          "note": "pawn-side weapon services",
+          "offset": "0x11E0",
+          "type": "ptr"
+        },
+        {
+          "class": "C_CSPlayerPawnBase",
+          "field": "m_pObserverServices",
+          "note": "spectator target via +0x4C m_hObserverTarget",
+          "offset": "0x11F8",
+          "type": "ptr"
+        },
+        {
+          "class": "CCSPlayerController",
+          "field": "m_iszPlayerName",
+          "note": "UTF-8 nickname",
+          "offset": "0x6F0",
+          "type": "char[128]"
+        },
+        {
+          "class": "CCSPlayerController",
+          "field": "m_hPawn",
+          "note": "handle → pawn entity",
+          "offset": "0x6BC",
+          "type": "CHandle"
+        },
+        {
+          "class": "C_BasePlayerWeapon",
+          "field": "m_iItemDefinitionIndex",
+          "note": "weapon definition index (CSWeaponID)",
+          "offset": "0x1BA",
+          "type": "uint16"
+        },
+        {
+          "class": "C_BasePlayerWeapon",
+          "field": "m_iClip1",
+          "note": "current magazine count",
+          "offset": "0x16D8",
+          "type": "int32"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_iIDEntIndex",
+          "note": "entity the local pawn is looking at (handy for triggerbot)",
+          "offset": "0x33DC",
+          "type": "CEntityIndex"
+        },
+        {
+          "class": "C_CSObserverPawn",
+          "field": "m_hObserverTarget",
+          "note": "current spectated entity (use when local is spectating)",
+          "offset": "0x4C",
+          "type": "CHandle"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_vOldOrigin",
+          "note": "previous-tick origin — useful for prediction / extrapolation",
+          "offset": "0x1390",
+          "type": "Vector"
+        }
+      ],
+      "hooks": [],
+      "name": "ESP — Player Pawn Core",
+      "status": "working",
+      "summary": "Iterate dwEntityList (client.dll global) — for each pawn read m_iHealth, m_lifeState (==ALIVE = 0), m_iTeamNum, m_pGameSceneNode → CGameSceneNode for world position, m_hActiveWeapon to look up the held weapon entity, m_iszPlayerName via m_hController → CCSPlayerController. m_vecAbsOrigin lives at +0xC8 on CGameSceneNode. World-to-screen uses dwViewMatrix (4x4 row-major)."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_BaseEntity",
+          "field": "m_pGameSceneNode",
+          "note": "actually CSkeletonInstance for animated entities",
+          "offset": "0x330",
+          "type": "CSkeletonInstance*"
+        },
+        {
+          "class": "CSkeletonInstance",
+          "field": "m_modelState",
+          "note": "embedded; bone array pointer is inside",
+          "offset": "0x150",
+          "type": "CModelState"
+        }
+      ],
+      "hooks": [],
+      "name": "ESP — Skeleton / Bones",
+      "status": "working",
+      "summary": "From the pawn → m_pGameSceneNode (+0x330) you reach a CSkeletonInstance (subclass of CGameSceneNode). Inside lives a CModelState at +0x150 whose m_modelSceneNode → CBoneState array is the source of truth for live bone positions. Each CBoneState is 32 bytes: position vec3 at +0x00, quat (4 floats) at +0x20 (engine layout). Bone count comes from the model resource. For ESP just read the chest/head bone indices from CSPlayer model: bone 6 = head, bone 5 = chest on the standard player skeleton."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_pAimPunchServices",
+          "note": "deref for punch arrays",
+          "offset": "0x1490",
+          "type": "CCSPlayer_AimPunchServices*"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_iShotsFired",
+          "note": "consecutive shots fired this trigger pull (drives spread)",
+          "offset": "0x1C5C",
+          "type": "int32"
+        },
+        {
+          "class": "C_CSWeaponBase",
+          "field": "m_flRecoilIndex",
+          "note": "recoil pattern index",
+          "offset": "0x17E0",
+          "type": "float"
+        },
+        {
+          "class": "C_CSWeaponBase",
+          "field": "m_flNextPrimaryAttackTickRatio",
+          "note": "rate-of-fire gate",
+          "offset": "0x16CC",
+          "type": "float"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_pWeaponServices",
+          "note": "owns FireBullet (recoil applied here)",
+          "offset": "0x11E0",
+          "type": "ptr"
+        }
+      ],
+      "hooks": [
+        {
+          "action": "Use during init to fetch sv_cheats / weapon_recoil_scale style cvars when bypassing recoil via cvar route.",
+          "function": "ConvarGet (engine FCVAR helper)",
+          "module": "client.dll",
+          "signature": "ConvarGet"
+        }
+      ],
+      "name": "Silent Aim / Aim Punch / No Recoil",
+      "status": "working",
+      "summary": "Recoil/spread is driven entirely by CCSPlayer_AimPunchServices on the pawn (+0x1490). View-angle correction for silent aim writes the desired angles into the engine's CSGOInput at clientBase + dwCSGOInput + 0x4F18 (m_angEyeAngles equivalent in CS2; double-check in your build's CSGOInput struct dump). No-recoil works by zero'ing the aim-punch cache vector before CalcViewModelView reads it, OR by patching the per-shot punch application in CCSPlayer_WeaponServices::FireBullet. The m_iShotsFired counter on CCSPlayerPawn (+0x1C5C) and m_flRecoilIndex on weapons (+0x17E0) drive the spread cone — silent-aim implementations usually compensate by reading both and applying the inverse aim-punch when computing the shot vector."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "CCSPlayerController_InGameMoneyServices",
+          "field": "m_iAccount",
+          "note": "current cash",
+          "offset": "0x40",
+          "type": "int32"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_ArmorValue",
+          "note": "armor 0..100",
+          "offset": "0x1C74",
+          "type": "int32"
+        },
+        {
+          "class": "CCSPlayer_ItemServices",
+          "field": "m_bHasDefuser",
+          "note": "CT defuser flag",
+          "offset": "0x48",
+          "type": "bool"
+        },
+        {
+          "class": "CCSPlayer_ItemServices",
+          "field": "m_bHasHelmet",
+          "note": "kevlar+helmet flag",
+          "offset": "0x49",
+          "type": "bool"
+        },
+        {
+          "class": "CCSPlayerController_ActionTrackingServices",
+          "field": "m_iKills",
+          "note": "scoreboard kills",
+          "offset": "0x30",
+          "type": "int32"
+        },
+        {
+          "class": "CCSPlayerController_ActionTrackingServices",
+          "field": "m_iDeaths",
+          "note": "scoreboard deaths",
+          "offset": "0x34",
+          "type": "int32"
+        },
+        {
+          "class": "CCSPlayerController_ActionTrackingServices",
+          "field": "m_iAssists",
+          "note": "scoreboard assists",
+          "offset": "0x38",
+          "type": "int32"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_unCurrentEquipmentValue",
+          "note": "rounded loadout $$",
+          "offset": "0x1C78",
+          "type": "uint16"
+        }
+      ],
+      "hooks": [],
+      "name": "Money / Armor / Helmet / Score",
+      "status": "working",
+      "summary": "Money lives on CCSPlayerController_InGameMoneyServices (m_iAccount @ +0x40). Armor + helmet on the pawn's CCSPlayer_ItemServices (m_ArmorValue +0x1C74 on pawn directly, m_bHasHelmet +0x49 / m_bHasDefuser +0x48 on the item-services block). Scoreboard kills/deaths/assists at CCSPlayerController_ActionTrackingServices +0x30..+0x38. Useful for ESP info panels and scoreboard reveal."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "EntitySpottedState_t",
+          "field": "m_bSpotted",
+          "note": "force true to reveal on radar",
+          "offset": "0x8",
+          "type": "bool"
+        },
+        {
+          "class": "EntitySpottedState_t",
+          "field": "m_bSpottedByMask",
+          "note": "bit per spotter; OR with 0xFFFFFFFF",
+          "offset": "0xC",
+          "type": "uint32[2]"
+        }
+      ],
+      "hooks": [],
+      "name": "Spotted / Glow (Radar Hack)",
+      "status": "working",
+      "summary": "Force m_bSpotted = true on enemy CEntitySpottedState_t (lives at +0x8 inside the pawn's spotted-state block; m_bSpottedByMask at +0xC). Radar reads from this every frame, no engine hook needed. Also tweak the GlowProperty colour on the pawn for the chams-lite outline path."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "CCSPlayerController",
+          "field": "m_iCompetitiveRanking",
+          "note": "Premier rating",
+          "offset": "0x878",
+          "type": "int32"
+        },
+        {
+          "class": "CCSPlayerController",
+          "field": "m_iCompetitiveRankingPredicted_Win",
+          "note": "+rating on win",
+          "offset": "0x884",
+          "type": "int32"
+        },
+        {
+          "class": "CCSPlayerController",
+          "field": "m_iCompetitiveRankingPredicted_Loss",
+          "note": "-rating on loss",
+          "offset": "0x888",
+          "type": "int32"
+        },
+        {
+          "class": "CCSPlayerController",
+          "field": "m_iCompetitiveRankingPredicted_Tie",
+          "note": "+/- rating on draw",
+          "offset": "0x88C",
+          "type": "int32"
+        }
+      ],
+      "hooks": [],
+      "name": "Rank Reveal (Premier MMR)",
+      "status": "working",
+      "summary": "Enemy competitive rank lives on CCSPlayerController +0x878 (m_iCompetitiveRanking). Predicted win/loss/tie at +0x884 / +0x888 / +0x88C. Available at warmup before the rank icons are censored."
+    },
+    {
+      "convars": [],
+      "fields": [],
+      "hooks": [],
+      "name": "Globals — RVAs in client.dll",
+      "status": "working",
+      "summary": "These are the pointers/arrays the cheat reads first on every frame. They live in client.dll and shift on most updates — the rest of the catalogue is meaningless without these. dwLocalPlayerPawn + dwLocalPlayerController are pointer globals (deref once). dwEntityList is a CEntitySystem* (game scene → entity by handle). dwViewMatrix is a 4x4 float[16] used for world→screen. dwViewAngles is a Vector3 (pitch, yaw, roll). dwCSGOInput holds engine input flags + the +0x229 third-person bool and +0x4F18 view-angles slot."
+    },
+    {
+      "convars": [],
+      "fields": [
+        {
+          "class": "C_CSGameRules",
+          "field": "m_bFreezePeriod",
+          "note": "round freeze — no attacks possible; suppress",
+          "offset": "0x40",
+          "type": "bool"
+        },
+        {
+          "class": "C_CSGameRules",
+          "field": "m_bWarmupPeriod",
+          "note": "warmup — no attacks possible; suppress",
+          "offset": "0x41",
+          "type": "bool"
+        },
+        {
+          "class": "C_CSGameRules",
+          "field": "m_bIsValveDS",
+          "note": "TRUE on Valve official MM (where Overwatch + VAC Live actually run) — soft-throttle to 0.55x",
+          "offset": "0xA4",
+          "type": "bool"
+        },
+        {
+          "class": "C_CSGameRules",
+          "field": "m_bHasMatchStarted",
+          "note": "match-state gate; useful for warmup-only conservative profile",
+          "offset": "0xB0",
+          "type": "bool"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_bWaitForNoAttack",
+          "note": "TRUE after respawn / weapon switch / round-restart until attack is RELEASED then re-pressed; suppress (firing through this is a textbook bot tell)",
+          "offset": "0x1C68",
+          "type": "bool"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_bIsDefusing",
+          "note": "server forbids attack while defusing; angle flick is worst possible signature",
+          "offset": "0x1C4A",
+          "type": "bool"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_bIsGrabbingHostage",
+          "note": "server forbids attack while grabbing hostage; suppress",
+          "offset": "0x1C4B",
+          "type": "bool"
+        },
+        {
+          "class": "C_BaseEntity",
+          "field": "m_MoveType",
+          "note": "only 2 (WALK) and 4 (FLYGRAVITY) are normal play; LADDER=9 / NOCLIP=7 / OBSERVER=8 / NONE=0 ⇒ suppress",
+          "offset": "0x525",
+          "type": "uint8 (MoveType_t)"
+        },
+        {
+          "class": "C_CSWeaponBaseGun",
+          "field": "m_zoomLevel",
+          "note": "0=unscoped, 1/2=scoped — refuse silent-fire on AWP/SSG/G3SG1/SCAR-20 when zoom == 0 (no-scope detection signal)",
+          "offset": "0x1CB0",
+          "type": "int32"
+        },
+        {
+          "class": "C_CSWeaponBaseGun",
+          "field": "m_bNeedsBoltAction",
+          "note": "AWP/SSG/Scout post-shot bolt-cycle lockout — server discards attacks until false",
+          "offset": "0x1CCD",
+          "type": "bool"
+        },
+        {
+          "class": "C_CSWeaponBase",
+          "field": "m_bInReload",
+          "note": "weapon mid-reload — no bullet possible; suppress",
+          "offset": "0x17F4",
+          "type": "bool"
+        },
+        {
+          "class": "C_BasePlayerWeapon",
+          "field": "m_iClip1",
+          "note": "clip count — silent fire with clip == 0 is server-discarded but angle still serialises; suppress",
+          "offset": "0x16D8",
+          "type": "int32"
+        },
+        {
+          "class": "C_BasePlayerWeapon",
+          "field": "m_nNextPrimaryAttackTick",
+          "note": "absolute server tick when next attack allowed; suppress when (nextTick - tickBase) > 1",
+          "offset": "0x16C8",
+          "type": "int32"
+        },
+        {
+          "class": "C_BasePlayerWeapon",
+          "field": "m_flNextPrimaryAttackTickRatio",
+          "note": "fractional component of next-attack tick",
+          "offset": "0x16CC",
+          "type": "float"
+        },
+        {
+          "class": "CBasePlayerController",
+          "field": "m_nTickBase",
+          "note": "local tick counter the server uses for weapon timers (compare against m_nNextPrimaryAttackTick)",
+          "offset": "0x6B8",
+          "type": "int32"
+        },
+        {
+          "class": "EntitySpottedState_t",
+          "field": "m_bSpottedByMask",
+          "note": "bit per spotter slot — when a real enemy has us in PVS, throttle silent flick to 0.65x (their POV demo will replay our suspicious aim snap)",
+          "offset": "0xC",
+          "type": "uint32[2]"
+        },
+        {
+          "class": "C_CSPlayerPawn",
+          "field": "m_iIDEntIndex",
+          "note": "entity index local crosshair currently rests on — resolve via slot→controller→m_hPlayerPawn for slots 1..64; if it matches silent-aim target pawn, BYPASS the throttle (player legitimately aimed there)",
+          "offset": "0x33DC",
+          "type": "int32"
+        },
+        {
+          "class": "C_BaseEntity",
+          "field": "m_vecVelocity",
+          "note": "soft throttle scales (1.0 → 0.5 linear from 80u/s → 180u/s horizontal speed)",
+          "offset": "0x430",
+          "type": "Vector3"
+        },
+        {
+          "class": "C_EconEntity",
+          "field": "m_iItemDefinitionIndex (abs)",
+          "note": "absolute on weapon entity = m_AttributeManager (0x13B8) + m_Item (0x50) + 0x1BA. Sniper IDs: AWP=9, SSG08=40, G3SG1=11, SCAR20=38",
+          "offset": "0x15C2",
+          "type": "uint16"
+        }
+      ],
+      "hooks": [
+        {
+          "action": "Per-subtick angle override. (1) BAIL if a3 (attack-flag arg) == 0 — non-attack subticks must NOT touch angles. (2) NEVER touch fe[4..6] (real view-angle stream replayed in demos). (3) Save fe[7..9], evaluate hard-suppress set; if any gate true call original unmodified, otherwise apply target-angles + soft-throttle scale + ±0.10° LCG jitter to fe[7..9] only, call original, restore fe[7..9].",
+          "function": "CSGOInputHistoryEntry::WriteSubtick",
+          "module": "client.dll",
+          "signature": "48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00 8B 01 48 8B F9 81 4A 10 00 02"
+        }
+      ],
+      "name": "Silent Aim — Anti-Detection Gate Stack (CS2 14152)",
+      "status": "working",
+      "summary": "Full reverse-engineered server-trust gate set for hooked CSGOInputHistoryEntry::WriteSubtick (signature `48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00 8B 01 48 8B F9 81 4A 10 00 02`, unique match @ 0x180C53DB0 in build 14152). KEY DISCOVERY: the WriteSubtick entry is 12 floats in two halves — fe[4..6] is the REAL view-angle stream the server replays for spectators / GOTV / Overwatch, while fe[7..9] is the per-subtick shoot angles read ONLY on attack subticks (a3 != 0). Public internals overwrite both → flagged. Touching ONLY fe[7..9] AND ONLY when a3 != 0 keeps the demo identical to a legit player while still bending the bullet. \n\nOn top of that, every gate below is a server-authoritative bool the engine itself reads to decide whether the attack produces a bullet. If we still write the angle while any of these are tripped, we get the desync in the demo with NO matching shot — pure liability. The full hard-suppress set: freeze/warmup, m_bWaitForNoAttack (post-respawn / weapon-switch attack-release lockout), no-scope sniper, m_bNeedsBoltAction (AWP/SSG bolt cycle), m_bInReload, m_iClip1==0, m_nNextPrimaryAttackTick > tickBase+1, m_bIsDefusing, m_bIsGrabbingHostage, MoveType not WALK/FLYGRAVITY. Soft throttle (multiplicative scale of the 28°/subtick flick cap): m_bIsValveDS * 0.55, observerCount * 0.55, m_bSpotted+observers * 0.65, horiz-speed > 80u/s linear-ramps to 0.5 (>180u/s caps), ±0.10° LCG jitter. Crosshair-aligned bypass: when local m_iIDEntIndex resolves (via slot→controller→m_hPlayerPawn) to the same pawn as the silent-aim target, the throttle is bypassed (the player legitimately had the crosshair on them)."
+    }
+  ]
+}
