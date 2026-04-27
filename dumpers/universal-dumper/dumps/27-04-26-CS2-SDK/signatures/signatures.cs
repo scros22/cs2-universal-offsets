@@ -239,6 +239,7 @@ public static class Signatures
         public const ulong VPhys2World_ptr = 0x7FFA800AD718UL; // rva 0x202D718
         public const ulong ViewModelHideZoomed = 0x7FFA7E8203D0UL; // rva 0x7A03D0
         public const ulong ViewRender_ptr = 0x7FFA803ADCB8UL; // rva 0x232DCB8
+        public const ulong WeaponC4_ptr = 0x7FFA80326CB8UL; // rva 0x22A6CB8
         public const ulong WriteSubtickFromEntry = 0x7FFA7ECD3E10UL; // rva 0xC53E10
         public const ulong create_move_v2 = 0x7FFA7EB4A9C0UL; // rva 0xACA9C0
         public const ulong draw_smoke_array = 0x7FFA7ECF8E80UL; // rva 0xC78E80

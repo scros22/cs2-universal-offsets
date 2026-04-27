@@ -237,6 +237,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t VPhys2World_ptr = 0x7FFA800AD718; // rva 0x202D718
         inline constexpr std::uintptr_t ViewModelHideZoomed = 0x7FFA7E8203D0; // rva 0x7A03D0
         inline constexpr std::uintptr_t ViewRender_ptr = 0x7FFA803ADCB8; // rva 0x232DCB8
+        inline constexpr std::uintptr_t WeaponC4_ptr = 0x7FFA80326CB8; // rva 0x22A6CB8
         inline constexpr std::uintptr_t WriteSubtickFromEntry = 0x7FFA7ECD3E10; // rva 0xC53E10
         inline constexpr std::uintptr_t create_move_v2 = 0x7FFA7EB4A9C0; // rva 0xACA9C0
         inline constexpr std::uintptr_t draw_smoke_array = 0x7FFA7ECF8E80; // rva 0xC78E80

@@ -465,6 +465,8 @@ pub mod client {
     pub const ViewModelHideZoomed: usize = 0x7FFA7E8203D0;
     /// rva 0x232DCB8
     pub const ViewRender_ptr: usize = 0x7FFA803ADCB8;
+    /// rva 0x22A6CB8
+    pub const WeaponC4_ptr: usize = 0x7FFA80326CB8;
     /// rva 0xC53E10
     pub const WriteSubtickFromEntry: usize = 0x7FFA7ECD3E10;
     /// rva 0xACA9C0
