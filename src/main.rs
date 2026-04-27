@@ -571,6 +571,8 @@ fn collect_module_fingerprints<P: Process + MemoryView>(
         "resourcesystem.dll",
         "vstdlib.dll",
         "pulse_system.dll",
+        "inputsystem.dll",
+        "filesystem_stdio.dll",
     ];
 
     let mut out = BTreeMap::new();

@@ -16,6 +16,7 @@ const STRREF: ResolveKind = ResolveKind::StringRef;
 const REL32_1: ResolveKind = ResolveKind::Rel32 { rel_off: 1 };
 const RIPREL_3: ResolveKind = ResolveKind::RipRel { rel_off: 3 };
 const RIPREL_2: ResolveKind = ResolveKind::RipRel { rel_off: 2 };
+const RIPREL_19: ResolveKind = ResolveKind::RipRel { rel_off: 19 };
 
 pub static CS2_SIGNATURES: &[Signature] = &[
     // ---------- client.dll : input / movement --------------------------
@@ -328,6 +329,100 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //   48 89 34 EA      mov [rdx+rbp*8], rsi  ; insert into list
     //   80 BE ...        cmp byte [rsi+disp32], ?
     Signature { name: "WeaponC4_ptr",                         module: "client.dll", needle: "48 8B 15 ? ? ? ? 48 8B 5C 24 ? FF C0 89 05 ? ? ? ? 48 8B C6 48 89 34 EA 80 BE", resolve: RIPREL_3, extra_off: 0 },
+
+    // LocalPlayerController_ptr ÔÇö client.dll g_pLocalPlayerController[1].
+    // Cached pointer to the local CCSPlayerController, used by ESP team
+    // checks, scoreboard, observer-target lookup, and money/ping HUD.
+    // a2x dwLocalPlayerController pattern:
+    //   48 8B 05 disp32   mov rax, [rip+g_pLocalPlayerController]
+    //   41 89 BE ...      mov [r14+disp32], edi
+    Signature { name: "LocalPlayerController_ptr",            module: "client.dll", needle: "48 8B 05 ? ? ? ? 41 89 BE", resolve: RIPREL_3, extra_off: 0 },
+
+    // WindowWidth_addr ÔÇö engine2.dll g_nWindowWidth. Updated every
+    // frame to the current swap-chain width; perfect screen-space
+    // anchor for menus, ESP, world-to-screen sanity checks. Also
+    // survives windowed/borderless/resolution swaps without re-hooking.
+    // a2x dwWindowWidth pattern: 8B 05 disp32  mov eax, [rip+w]
+    //                            89 07         mov [rdi], eax
+    Signature { name: "WindowWidth_addr",                     module: "engine2.dll", needle: "8B 05 ? ? ? ? 89 07", resolve: RIPREL_2, extra_off: 0 },
+
+    // WindowHeight_addr ÔÇö engine2.dll g_nWindowHeight. Companion to
+    // WindowWidth_addr; same instruction pair, different sink reg.
+    //   8B 05 disp32  mov eax, [rip+h]
+    //   89 03         mov [rbx], eax
+    Signature { name: "WindowHeight_addr",                    module: "engine2.dll", needle: "8B 05 ? ? ? ? 89 03", resolve: RIPREL_2, extra_off: 0 },
+
+    // Cross-module interface singletons ---------------------------------
+    // Each module's CreateInterface() registers an InterfaceReg for every
+    // exposed singleton. The factory each Reg holds is a 1-instruction
+    // thunk shaped exactly:
+    //     48 8D 05 disp32   lea rax, [rip+g_pSingleton]
+    //     C3                ret
+    //     CC ... CC         (16-byte alignment pad)
+    // The pattern below anchors that thunk so we recover the singleton
+    // pointer for free ÔÇö no CreateInterface call, no string scan, no
+    // module-walk required by the host process. Resolves to &g_pX (the
+    // static instance the engine itself uses internally).
+
+    // CVar_ptr ÔÇö tier0.dll g_pCVar (singleton ICvar). Backbone for any
+    // cvar read/write feature: third-person, FOV, sky_name, sv_cheats
+    // probes, etc. Followed in tier0 by an `E9` thunk that distinguishes
+    // it from the other 30+ tier0 factories.
+    Signature { name: "CVar_ptr",                             module: "tier0.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC E9", resolve: RIPREL_3, extra_off: 0 },
+
+    // NetworkSystem_ptr ÔÇö networksystem.dll g_pNetworkSystem (singleton
+    // INetworkSystem). Owns CNetChan registry, NetMessages send queue,
+    // and channel allocation. Foundation for network-side features:
+    // packet inject, choke control, real fakelag (not the in-engine
+    // sv_fakelag clamp), bandwidth metering. Trailing
+    // `48 83 EC 28 BA FF FF FF` is the next function (mov edx, -1) and
+    // is unique among the 3 lea-factory thunks in this module.
+    Signature { name: "NetworkSystem_ptr",                    module: "networksystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 83 EC 28 BA FF FF FF", resolve: RIPREL_3, extra_off: 0 },
+
+    // SceneSystem_ptr ÔÇö scenesystem.dll g_pSceneSystem (ISceneSystem).
+    // Owns the per-view render scene, scene-object lists, frustum data,
+    // and is the entry point for custom draw-call injection (chams,
+    // outlines, post-fx). Trailing `48 8D 0D ? ? ? ? E9` is the next
+    // function's lea+jmp tail-call ÔÇö unique anchor in scenesystem.dll.
+    Signature { name: "SceneSystem_ptr",                      module: "scenesystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 8D 0D ? ? ? ? E9", resolve: RIPREL_3, extra_off: 0 },
+
+    // RenderDeviceMgr_ptr ÔÇö rendersystemdx11.dll g_pRenderDeviceMgr
+    // (IRenderDeviceMgr). Direct gateway to the live ID3D11Device,
+    // IDXGISwapChain, and per-frame ID3D11DeviceContext. Lets us hook
+    // Present / ResizeBuffers without VTable scanning a DXGI dummy.
+    // The 16-byte preceding tail `8B 5C 24 38 48 83 C4 20 5E C3` is
+    // movsd-style epilogue of the previous func ÔÇö unique anchor that
+    // disambiguates from the 10 other identical lea-factory thunks
+    // chained right after this one (one per render sub-interface).
+    Signature { name: "RenderDeviceMgr_ptr",                  module: "rendersystemdx11.dll", needle: "8B 5C 24 38 48 83 C4 20 5E C3 CC CC CC CC CC CC 48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 8D 05 ? ? ? ? C3", resolve: RIPREL_19, extra_off: 0 },
+
+    // FullFileSystem_ptr ÔÇö filesystem_stdio.dll g_pFullFileSystem
+    // (IFileSystem). Mounts VPKs, opens game files, reads pak1_dir
+    // entries. Required for custom-camo / model-replacement loaders
+    // and any feature that reads game data without sv_pure tripping.
+    // Preceded by `8B 41 28 C3` (`mov eax, [rcx+28]; ret`) which is
+    // a unique 4-byte epilogue at exactly 16 bytes before this factory
+    // among the 30 lea-factory thunks in filesystem_stdio.dll.
+    Signature { name: "FullFileSystem_ptr",                   module: "filesystem_stdio.dll", needle: "8B 41 28 C3 CC CC CC CC CC CC CC CC CC CC CC CC 48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 8D 05 ? ? ? ? C3", resolve: RIPREL_19, extra_off: 0 },
+
+    // InputSystemSvc_ptr ÔÇö inputsystem.dll g_pInputSystem
+    // (IInputSystem). Different singleton from client.dll's
+    // CCSGOInput / "InputSystem_ptr" ÔÇö this is the engine-side input
+    // service that owns the raw mouse delta accumulator, button state
+    // arrays, and IME/joystick routing. Combine with InputSystem_ptr
+    // for pre-CCSGOInput mouse hooks (perfect-aim, true raw delta).
+    // Trailing `40 53 48 83 EC 20 33 DB` is the next func's prologue ÔÇö
+    // unique anchor in inputsystem.dll.
+    Signature { name: "InputSystemSvc_ptr",                   module: "inputsystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 40 53 48 83 EC 20 33 DB", resolve: RIPREL_3, extra_off: 0 },
+
+    // SchemaSystem_ptr ÔÇö schemasystem.dll g_pSchemaSystem
+    // (CSchemaSystem). Runtime-resolves any schema field offset, class
+    // metadata, or enum value WITHOUT a re-dump every game build.
+    // Pair with FindTypeScopeForModule + FindDeclaredClass and netvars
+    // become self-healing across CS2 patches. Trailing
+    // `48 89 5C 24 08 48 89 74` is the next func's stack-spill
+    // prologue ÔÇö unique anchor in schemasystem.dll.
+    Signature { name: "SchemaSystem_ptr",                     module: "schemasystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 89 5C 24 08 48 89 74", resolve: RIPREL_3, extra_off: 0 },
 
     // Features / aimbot / autowall / movement ---------------------------
     Signature { name: "CalculateShootPosition",               module: "client.dll", needle: "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 81 EC ? ? ? ? 44 8B 92 ? ? ? ?", resolve: NONE, extra_off: 0 },
