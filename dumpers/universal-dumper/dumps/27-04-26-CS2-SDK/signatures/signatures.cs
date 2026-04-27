@@ -123,6 +123,7 @@ public static class Signatures
         public const ulong ConvarGet = 0x7FFA7E93DF82UL; // rva 0x8BDF82
         public const ulong CreateBaseTypeCache = 0x7FFA7F58E630UL; // rva 0x150E630
         public const ulong CreateEntityByClassName = 0x7FFA7F6823D6UL; // rva 0x16023D6
+        public const ulong CreateInterface = 0x7FFA7F8B2F20UL; // rva 0x1832F20
         public const ulong CreateNewSubtickMoveStep = 0x7FFA7E531CD0UL; // rva 0x4B1CD0
         public const ulong CreateParticleEffect = 0x7FFA7EA058C0UL; // rva 0x9858C0
         public const ulong CreateSOSubclassEconItem = 0x7FFA7F074EB0UL; // rva 0xFF4EB0
@@ -197,6 +198,7 @@ public static class Signatures
         public const ulong PhysicsRunThink_Ctrl = 0x7FFA7E955C90UL; // rva 0x8D5C90
         public const ulong PhysicsRunThink_Pawn = 0x7FFA7EB8D5F0UL; // rva 0xB0D5F0
         public const ulong PlayVSound_client = 0x7FFA7F58C490UL; // rva 0x150C490
+        public const ulong Prediction_ptr = 0x7FFA800D46B0UL; // rva 0x20546B0
         public const ulong ProcessImpacts = 0x7FFA7EA4D2F0UL; // rva 0x9CD2F0
         public const ulong ProcessMovement = 0x7FFA7EA582D0UL; // rva 0x9D82D0
         public const ulong RegenerateWeaponSkin = 0x7FFA7E80C050UL; // rva 0x78C050

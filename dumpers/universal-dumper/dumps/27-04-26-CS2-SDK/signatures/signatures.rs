@@ -233,6 +233,8 @@ pub mod client {
     pub const CreateBaseTypeCache: usize = 0x7FFA7F58E630;
     /// rva 0x16023D6
     pub const CreateEntityByClassName: usize = 0x7FFA7F6823D6;
+    /// rva 0x1832F20
+    pub const CreateInterface: usize = 0x7FFA7F8B2F20;
     /// rva 0x4B1CD0
     pub const CreateNewSubtickMoveStep: usize = 0x7FFA7E531CD0;
     /// rva 0x9858C0
@@ -381,6 +383,8 @@ pub mod client {
     pub const PhysicsRunThink_Pawn: usize = 0x7FFA7EB8D5F0;
     /// rva 0x150C490
     pub const PlayVSound_client: usize = 0x7FFA7F58C490;
+    /// rva 0x20546B0
+    pub const Prediction_ptr: usize = 0x7FFA800D46B0;
     /// rva 0x9CD2F0
     pub const ProcessImpacts: usize = 0x7FFA7EA4D2F0;
     /// rva 0x9D82D0

@@ -1,5 +1,5 @@
 // Generated using https://github.com/a2x/cs2-dumper
-// 2026-04-27 22:23:07.870443600 UTC
+// 2026-04-27 22:33:06.446434400 UTC
 
 namespace CS2Dumper.Signatures {
     // Module: client.dll

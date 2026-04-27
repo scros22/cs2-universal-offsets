@@ -552,6 +552,11 @@
       "va": 140713856082902
     },
     {
+      "name": "CreateInterface",
+      "module": "client.dll",
+      "va": 140713858379552
+    },
+    {
       "name": "CreateNewSubtickMoveStep",
       "module": "client.dll",
       "va": 140713837927632
@@ -915,6 +920,11 @@
       "name": "PlayVSound_client",
       "module": "client.dll",
       "va": 140713855075472
+    },
+    {
+      "name": "Prediction_ptr",
+      "module": "client.dll",
+      "va": 140713866905264
     },
     {
       "name": "ProcessImpacts",

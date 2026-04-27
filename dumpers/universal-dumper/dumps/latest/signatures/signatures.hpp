@@ -121,6 +121,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t ConvarGet = 0x7FFA7E93DF82; // rva 0x8BDF82
         inline constexpr std::uintptr_t CreateBaseTypeCache = 0x7FFA7F58E630; // rva 0x150E630
         inline constexpr std::uintptr_t CreateEntityByClassName = 0x7FFA7F6823D6; // rva 0x16023D6
+        inline constexpr std::uintptr_t CreateInterface = 0x7FFA7F8B2F20; // rva 0x1832F20
         inline constexpr std::uintptr_t CreateNewSubtickMoveStep = 0x7FFA7E531CD0; // rva 0x4B1CD0
         inline constexpr std::uintptr_t CreateParticleEffect = 0x7FFA7EA058C0; // rva 0x9858C0
         inline constexpr std::uintptr_t CreateSOSubclassEconItem = 0x7FFA7F074EB0; // rva 0xFF4EB0
@@ -195,6 +196,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t PhysicsRunThink_Ctrl = 0x7FFA7E955C90; // rva 0x8D5C90
         inline constexpr std::uintptr_t PhysicsRunThink_Pawn = 0x7FFA7EB8D5F0; // rva 0xB0D5F0
         inline constexpr std::uintptr_t PlayVSound_client = 0x7FFA7F58C490; // rva 0x150C490
+        inline constexpr std::uintptr_t Prediction_ptr = 0x7FFA800D46B0; // rva 0x20546B0
         inline constexpr std::uintptr_t ProcessImpacts = 0x7FFA7EA4D2F0; // rva 0x9CD2F0
         inline constexpr std::uintptr_t ProcessMovement = 0x7FFA7EA582D0; // rva 0x9D82D0
         inline constexpr std::uintptr_t RegenerateWeaponSkin = 0x7FFA7E80C050; // rva 0x78C050
