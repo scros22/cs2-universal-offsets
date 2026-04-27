@@ -1127,6 +1127,11 @@
       "va": 140713869892792
     },
     {
+      "name": "WeaponC4_ptr",
+      "module": "client.dll",
+      "va": 140713869339832
+    },
+    {
       "name": "WriteSubtickFromEntry",
       "module": "client.dll",
       "va": 140713845931536

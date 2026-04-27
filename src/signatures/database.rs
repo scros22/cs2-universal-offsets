@@ -317,6 +317,18 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //   40 53 56 41 54       push rbx/rsi/r12  (next fn prologue)
     Signature { name: "Prediction_ptr",                       module: "client.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 40 53 56 41 54", resolve: RIPREL_3, extra_off: 0 },
 
+    // WeaponC4_ptr — client.dll g_pWeaponC4 (currently held / planted
+    // bomb instance). a2x dwWeaponC4 pattern. Useful for bomb timer
+    // ESP, defuse helpers, and round-state tracking. Chain:
+    //   48 8B 15 disp32  mov rdx, [rip+g_pWeaponC4]
+    //   48 8B 5C 24 ??   mov rbx, [rsp+save]
+    //   FF C0            inc eax
+    //   89 05 disp32     mov [rip+nWeaponC4Count], eax
+    //   48 8B C6         mov rax, rsi
+    //   48 89 34 EA      mov [rdx+rbp*8], rsi  ; insert into list
+    //   80 BE ...        cmp byte [rsi+disp32], ?
+    Signature { name: "WeaponC4_ptr",                         module: "client.dll", needle: "48 8B 15 ? ? ? ? 48 8B 5C 24 ? FF C0 89 05 ? ? ? ? 48 8B C6 48 89 34 EA 80 BE", resolve: RIPREL_3, extra_off: 0 },
+
     // Features / aimbot / autowall / movement ---------------------------
     Signature { name: "CalculateShootPosition",               module: "client.dll", needle: "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 81 EC ? ? ? ? 44 8B 92 ? ? ? ?", resolve: NONE, extra_off: 0 },
     Signature { name: "AutowallInit",                         module: "client.dll", needle: "40 53 48 83 EC ? 48 8B D9 48 81 C1 ? ? ? ? E8 ? ? ? ?", resolve: NONE, extra_off: 0 },

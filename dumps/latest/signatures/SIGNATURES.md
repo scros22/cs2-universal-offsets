@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**336/382 signatures resolved across 13 module(s).**
+**337/383 signatures resolved across 13 module(s).**
 
 ## `animationsystem.dll`
 
@@ -243,6 +243,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `VPhys2World_ptr` | `riprel` | `0x7FFA800AD718` | `0x202D718` | `4C 8B 25 ? ? ? ? 24` |
 | `ViewModelHideZoomed` | `raw` | `0x7FFA7E8203D0` | `0x7A03D0` | `48 89 5C 24 20 55 56 57 41 54 41 56 48 8B EC 48 83 EC 50 48 8D 05` |
 | `ViewRender_ptr` | `riprel` | `0x7FFA803ADCB8` | `0x232DCB8` | `48 89 05 ? ? ? ? 48 8B C8 48 85 C0` |
+| `WeaponC4_ptr` | `riprel` | `0x7FFA80326CB8` | `0x22A6CB8` | `48 8B 15 ? ? ? ? 48 8B 5C 24 ? FF C0 89 05 ? ? ? ? 48 8B C6 48 89 34 EA 80 BE` |
 | `WriteSubtickFromEntry` | `raw` | `0x7FFA7ECD3E10` | `0xC53E10` | `48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00 8B 01 48 8B F9 81 4A 10 00 02` |
 | `create_move_v2` | `raw` | `0x7FFA7EB4A9C0` | `0xACA9C0` | `85 D2 0F 85 ? ? ? ? 48 8B C4 44 88 40` |
 | `draw_smoke_array` | `raw` | `0x7FFA7ECF8E80` | `0xC78E80` | `40 55 41 54 41 55 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 4C 8B E2` |
