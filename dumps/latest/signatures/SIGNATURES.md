@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**334/380 signatures resolved across 13 module(s).**
+**336/382 signatures resolved across 13 module(s).**
 
 ## `animationsystem.dll`
 
@@ -127,6 +127,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `ConvarGet` | `raw` | `0x7FFA7E93DF82` | `0x8BDF82` | `8B D0 48 8D 0D ? ? ? ? E8 ? ? ? ? 0F 10 45 ? 83 F0 74` |
 | `CreateBaseTypeCache` | `raw` | `0x7FFA7F58E630` | `0x150E630` | `40 53 48 83 EC ? 4C 8B 49 ? 44 8B D2` |
 | `CreateEntityByClassName` | `raw` | `0x7FFA7F6823D6` | `0x16023D6` | `4C 8D 05 ? ? ? ? 4C 8B CF BA 03 00 00 00 FF 15 ? ? ? ? EB ? 0F B7 C8 48` |
+| `CreateInterface` | `raw` | `0x7FFA7F8B2F20` | `0x1832F20` | `4C 8B 0D ? ? ? ? 4C 8B D2 4C 8B D9 4D 85 C9 74 ? 49 8B 41 08` |
 | `CreateNewSubtickMoveStep` | `rel32` | `0x7FFA7E531CD0` | `0x4B1CD0` | `E8 ? ? ? ? 48 8B D0 48 8B CE E8 ? ? ? ? 48 8B C8` |
 | `CreateParticleEffect` | `raw` | `0x7FFA7EA058C0` | `0x9858C0` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? F3 0F 10 1D ? ? ? ? 41 8B F8 8B DA 4C 8D 05` |
 | `CreateSOSubclassEconItem` | `raw` | `0x7FFA7F074EB0` | `0xFF4EB0` | `48 83 EC 28 B9 48 00 00 00 E8 ? ? ? ? 48 85` |
@@ -201,6 +202,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `PhysicsRunThink_Ctrl` | `raw` | `0x7FFA7E955C90` | `0x8D5C90` | `48 89 5C 24 ? 57 48 81 EC ? ? ? ? ? ? ? 48 8B F9 FF 90` |
 | `PhysicsRunThink_Pawn` | `raw` | `0x7FFA7EB8D5F0` | `0xB0D5F0` | `48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 8B 81 ? ? ? ? 48 8B F9` |
 | `PlayVSound_client` | `raw` | `0x7FFA7F58C490` | `0x150C490` | `48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 55 48 8D 6C 24 ? 48 81 EC ? ? ? ? 33 FF` |
+| `Prediction_ptr` | `riprel` | `0x7FFA800D46B0` | `0x20546B0` | `48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 40 53 56 41 54` |
 | `ProcessImpacts` | `raw` | `0x7FFA7EA4D2F0` | `0x9CD2F0` | `48 8B C4 53 56 41 55` |
 | `ProcessMovement` | `rel32` | `0x7FFA7EA582D0` | `0x9D82D0` | `E8 ? ? ? ? 48 8B 06 48 8B CE FF 90 ? ? ? ? 48 85 DB` |
 | `RegenerateWeaponSkin` | `raw` | `0x7FFA7E80C050` | `0x78C050` | `40 55 53 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 44 0F B6 FA 48 8B D9 BA ? ? ? ? 48 8D 0D ? ? ? ? E8 ? ? ? ?` |

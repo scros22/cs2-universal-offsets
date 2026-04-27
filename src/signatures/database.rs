@@ -295,6 +295,28 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // SoundSystem_ptr — soundsystem.dll g_pSoundSystem (CSoundSystem instance).
     Signature { name: "SoundSystem_ptr",                      module: "soundsystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 89 15", resolve: RIPREL_3, extra_off: 0 },
 
+    // CreateInterface — client.dll exported factory dispatcher
+    // (DLL ordinal #2). Internals load any client interface
+    // (Source2Client002, GameClientExports001, ClientToolsInfo_001,
+    // EmptyWorldService001_Client, etc.) by calling
+    //   void* CreateInterface(const char* name, int* outStatus);
+    // Prologue chains to s_pInterfaceRegs head:
+    //   4C 8B 0D ?? ?? ?? ?? mov r9, [rip+s_pInterfaceRegs]
+    //   4C 8B D2             mov r10, rdx
+    //   4C 8B D9             mov r11, rcx
+    //   4D 85 C9             test r9, r9
+    //   74 ?                 jz <ret_null>
+    //   49 8B 41 08          mov rax, [r9+8]   ; reg->m_pName
+    Signature { name: "CreateInterface",                      module: "client.dll", needle: "4C 8B 0D ? ? ? ? 4C 8B D2 4C 8B D9 4D 85 C9 74 ? 49 8B 41 08", resolve: NONE, extra_off: 0 },
+
+    // Prediction_ptr — client.dll g_pPrediction (CPrediction instance).
+    // Used by SetupMove/RunCommand chain. a2x dwPrediction pattern.
+    //   48 8D 05 ?? ?? ?? ?? lea rax, [rip+g_pPrediction]
+    //   C3                   ret
+    //   CC CC CC CC CC CC CC CC                pad
+    //   40 53 56 41 54       push rbx/rsi/r12  (next fn prologue)
+    Signature { name: "Prediction_ptr",                       module: "client.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 40 53 56 41 54", resolve: RIPREL_3, extra_off: 0 },
+
     // Features / aimbot / autowall / movement ---------------------------
     Signature { name: "CalculateShootPosition",               module: "client.dll", needle: "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 81 EC ? ? ? ? 44 8B 92 ? ? ? ?", resolve: NONE, extra_off: 0 },
     Signature { name: "AutowallInit",                         module: "client.dll", needle: "40 53 48 83 EC ? 48 8B D9 48 81 C1 ? ? ? ? E8 ? ? ? ?", resolve: NONE, extra_off: 0 },
