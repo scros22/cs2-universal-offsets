@@ -424,6 +424,126 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // prologue ÔÇö unique anchor in schemasystem.dll.
     Signature { name: "SchemaSystem_ptr",                     module: "schemasystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 89 5C 24 08 48 89 74", resolve: RIPREL_3, extra_off: 0 },
 
+    // ================================================================
+    // Wave-5 cross-module hookpoints (12 sigs across 7 modules)
+    // ================================================================
+    // Continuing the multi-instance IDA mining pass (14 modules loaded).
+    // Each entry below is a RAW function-prologue (or factory-thunk for
+    // the animationsystem singleton) that public CS2 dumpers do NOT ship.
+    // All verified 1-match on build 14155 + live-resolved against the
+    // running game.
+
+    // ---------- animationsystem.dll -----------------------------------
+    // AnimationSystemUtils_ptr ÔÇö animationsystem.dll g_pAnimationSystemUtils
+    // (IAnimationSystemUtils). Singleton accessor for animation-graph
+    // helpers (stringÔåÆbone, sequence resolution, parameter fetch). Pairs
+    // with the existing `Animation::ShouldUpdateSequences` sig to drive
+    // arbitrary-frame skeleton manipulation (custom poses, freeze-bones,
+    // server-style ragdoll). Anchored on the factory thunk
+    // `48 8D 05 disp32; C3` followed by the unique
+    // `CreateInterface(name)` stub that compares interface name and
+    // dispatches via vtable+stored-singleton. Resolves to the pointer
+    // backing g_pAnimationSystemUtils inside animationsystem.dll.
+    Signature { name: "AnimationSystemUtils_ptr",             module: "animationsystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 83 EC 28 48 8B CA 48 8D 15", resolve: RIPREL_3, extra_off: 0 },
+
+    // ---------- vphysics2.dll -----------------------------------------
+    // VPhysics2_Startup ÔÇö vphysics2!sub_18006AF20 (~size 0x2a8). The
+    // module-level startup that brings up the physics world, surface-prop
+    // loader, and the VPhysics2_Interface_001 singleton chain. Hook here
+    // to inject custom collision filters / disable convex sweeps before
+    // the world is registered (server-grade no-clip / silent-walk).
+    // First module-level vphysics2 sig in the universal-dumper ÔÇö the
+    // module's entire string table is heavily stripped, so RAW prologue
+    // anchored on the unique `48 83 3D` global-init guard works best.
+    Signature { name: "VPhysics2_Startup",                    module: "vphysics2.dll", needle: "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 54 41 56 41 57 48 83 EC 70 48 83 3D", resolve: NONE, extra_off: 0 },
+
+    // ---------- schemasystem.dll --------------------------------------
+    // CSchemaSystem_VerifySchemaBindingConsistency ÔÇö schemasystem!
+    // sub_1800058F0 (~0x65d). Walks every registered class binding and
+    // verifies field offset / size / type consistency against per-module
+    // declarations. Refs the unique
+    // "CSchemaSystem::VerifySchemaBindingConsistency" string. Hook to
+    // observe which class bindings the engine considers valid this
+    // build (any disagreement is logged here before runtime asserts).
+    Signature { name: "CSchemaSystem_VerifySchemaBindingConsistency", module: "schemasystem.dll", needle: "88 54 24 10 55 53 57 41 54 41 55 48 8B EC 48 81 EC 80 00 00 00 65 48 8B 04 25 58 00 00 00", resolve: NONE, extra_off: 0 },
+
+    // CSchemaSystem_RegisterModuleAndBuiltins ÔÇö schemasystem!sub_1800106F0
+    // (~0x3ca). Combined ref to "SchemaSystem_001" + "InsertNewClassBinding"
+    // ÔÇö registers the SchemaSystem InterfaceReg AND the built-in primitive
+    // class bindings (Vector/QAngle/CUtlSymbolLarge/etc) in one shot.
+    // Critical bootstrap point ÔÇö hook here to intercept every class
+    // schema before any module's typescope opens.
+    Signature { name: "CSchemaSystem_RegisterModuleAndBuiltins", module: "schemasystem.dll", needle: "48 89 54 24 10 53 56 57 41 55 41 56 41 57 48 83 EC 48 45 33 ED 49 63 C0 33 FF 44 89 AC 24 90 00", resolve: NONE, extra_off: 0 },
+
+    // CSchemaSystem_InstallSchemaBindings ÔÇö schemasystem!sub_1800375D0
+    // (~0x4b). Per-module installer called from each .dll's startup with
+    // its serialized schema-binding blob. Hook to enumerate every
+    // module-local schema scope as it loads (lets the cheat snapshot
+    // offsets without ever calling FindDeclaredClass).
+    Signature { name: "CSchemaSystem_InstallSchemaBindings",  module: "schemasystem.dll", needle: "40 53 48 83 EC 20 48 8B DA 48 8B D1 48 8D 0D ? ? ? ? E8 ? ? ? ? 85 C0 74 08 32 C0", resolve: NONE, extra_off: 0 },
+
+    // ---------- networksystem.dll -------------------------------------
+    // CNetworkSystem_Init ÔÇö networksystem!sub_1800EC0C0 (~0x89d). Module
+    // boot for INetworkSystem: brings up SteamNetworkingSockets, builds
+    // the netmessage registry, and prepares CNetChan factory. Refs the
+    // unique "CNetworkSystem::Init() failed - no SteamNetworking()" log.
+    // Hook for: blocking the cheat from registering against Steam-relays,
+    // or short-circuiting the SteamNetworkingSockets init for offline use.
+    Signature { name: "CNetworkSystem_Init",                  module: "networksystem.dll", needle: "40 55 53 57 41 54 41 55 41 57 48 8D AC 24 98 FC FF FF 48 81 EC 68 04 00 00 4C 8B E9", resolve: NONE, extra_off: 0 },
+
+    // CNetworkSystem_RegisterNetMessageHandlerAbstract ÔÇö networksystem!
+    // sub_1800BBC00 (~0x270). Every protobuf netmessage type registers its
+    // handler through this funnel between StartRegisteringMessageHandlers
+    // and FinishRegisteringMessageHandlers. Hook to (a) enumerate every
+    // netmessage the build supports, (b) hot-swap a custom handler that
+    // intercepts/mutates a specific message before normal dispatch.
+    Signature { name: "CNetworkSystem_RegisterNetMessageHandlerAbstract", module: "networksystem.dll", needle: "48 89 5C 24 10 48 89 6C 24 18 57 41 56 41 57 48 83 EC 50 4C 8B B4 24 90 00 00 00 41 8B D9", resolve: NONE, extra_off: 0 },
+
+    // ---------- scenesystem.dll ---------------------------------------
+    // CSceneSystem_CreateStaticShape ÔÇö scenesystem!sub_1800B1AF0 (~0x648).
+    // Builds the GPU-side shape buffer for a static scene primitive.
+    // Refs "CSceneSystem::CreateStaticShape(322): " unique log. Pairs
+    // with CSceneSystem::DrawStaticPrimitive to inject custom debug
+    // overlays / 3D wireframe ESP that survives the engine cull.
+    Signature { name: "CSceneSystem_CreateStaticShape",       module: "scenesystem.dll", needle: "48 8B C4 48 89 48 08 55 41 54 41 56 48 8D 68 D8 48 81 EC 10 01 00 00 4C 8B 65 50 48 8D 4D 80", resolve: NONE, extra_off: 0 },
+
+    // CSceneSystem_InitGfxObjects ÔÇö scenesystem!sub_1800B3E30 (~0x1b1d).
+    // Master GPU-side init: creates persistent vertex/index buffers, the
+    // shadow-cube atlas, particle batchers, and the CRenderingPipelineDx11
+    // hookup. Refs "CSceneSystem::InitGfxObjects(976): " unique log. Hook
+    // to swap-in custom vertex layouts / shader includes BEFORE any scene
+    // primitive is drawn.
+    Signature { name: "CSceneSystem_InitGfxObjects",          module: "scenesystem.dll", needle: "40 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 08 FE FF FF 48 81 EC F8 02 00 00", resolve: NONE, extra_off: 0 },
+
+    // ---------- inputsystem.dll ---------------------------------------
+    // CInputSystem_PollInputState ÔÇö inputsystem!sub_180005500 (~0x459).
+    // Per-frame raw input poll: pulls SDL keyboard/mouse/joystick events,
+    // drains the OS message queue, and writes into the inputsystem ring.
+    // Refs the unique "PollInputState_SDL" string. Hook here to inject
+    // synthetic mouse-deltas or filter specific keys before they hit the
+    // engine's button table ÔÇö perfect anchor for raw aim-step / no-recoil
+    // mouse-comp without touching CCSGOInput.
+    Signature { name: "CInputSystem_PollInputState",          module: "inputsystem.dll", needle: "40 53 41 56 48 81 EC 28 01 00 00 48 8D 05 ? ? ? ? 48 C7 44 24 38 46 04 00 00 4C 8B F1", resolve: NONE, extra_off: 0 },
+
+    // ---------- materialsystem2.dll -----------------------------------
+    // CMaterial2_GetMode ÔÇö materialsystem2!sub_18000BD40 (~0x16e). Per-
+    // material rendering-mode resolver (default / wireframe / shadow /
+    // depth-only / picking). Refs "CMaterial2::GetMode(644): Material
+    // \"%s\" is requesting a bad mode \"%s\"!\n". Hook to force-override
+    // per-material mode (e.g. promote everything to wireframe = clean
+    // chams without shader patching).
+    Signature { name: "CMaterial2_GetMode",                   module: "materialsystem2.dll", needle: "48 89 5C 24 18 57 48 83 EC 30 8B 02 48 8B D9 39 05 ? ? ? ? 48 8B 0D ? ? ? ? 48 89 74 24", resolve: NONE, extra_off: 0 },
+
+    // CMaterial2_GetVertexShaderInputSignature ÔÇö materialsystem2!
+    // sub_18000C8C0 (~0x2af). Returns the CVsInputSignatureVector for the
+    // material's currently-bound layer (used by the renderer to validate
+    // that a model's vertex layout matches the shader). Refs unique
+    // "CMaterial2::GetVertexShaderInputSignature(767):" log. Hook to
+    // spoof signature compatibility ÔÇö required when forcing one material
+    // onto a model with an incompatible vertex layout (e.g. character
+    // vfx onto props for cross-class chams).
+    Signature { name: "CMaterial2_GetVertexShaderInputSignature", module: "materialsystem2.dll", needle: "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 56 48 83 EC 30 F6 41 0B 01 4C 8B", resolve: NONE, extra_off: 0 },
+
     // Features / aimbot / autowall / movement ---------------------------
     Signature { name: "CalculateShootPosition",               module: "client.dll", needle: "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 81 EC ? ? ? ? 44 8B 92 ? ? ? ?", resolve: NONE, extra_off: 0 },
     Signature { name: "AutowallInit",                         module: "client.dll", needle: "40 53 48 83 EC ? 48 8B D9 48 81 C1 ? ? ? ? E8 ? ? ? ?", resolve: NONE, extra_off: 0 },
