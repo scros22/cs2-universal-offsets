@@ -273,6 +273,11 @@ namespace Menu
     inline int       hudStyle         = 0;   // 0=Pill  1=Clean  2=Ghost
 
     inline const char* kTabLabels[] = { "AIM", "VIS", "SKN", "WLD", "CFG" };
+    // Full names used for hover tooltips on the icon rail and the
+    // header breadcrumb. The 3-letter labels above are kept only as
+    // internal identifiers / fallbacks -- nothing visible should use
+    // them now that the rail is icon-only.
+    inline const char* kTabLabelsFull[] = { "Aimbot", "Visuals", "Skins", "World", "Config" };
     inline constexpr int kTabCount  = 5;
 
     // Colour palette (menu 19 exact values)
@@ -769,6 +774,18 @@ namespace Menu
         Menu::hudStyle       = (cfg.hudStyle >= 0 && cfg.hudStyle <= 2) ? cfg.hudStyle : 0;
         memcpy(Menu::primaryColor,   cfg.priColor, sizeof(cfg.priColor));
         memcpy(Menu::secondaryColor, cfg.secColor, sizeof(cfg.secColor));
+        // Migrate legacy purple/blue accent colors saved before the
+        // 2026-04-28 red rewrite. If the saved color is bluer than
+        // it is red, snap it back to the new red default so old
+        // configs don't keep the old palette alive.
+        if (Menu::primaryColor[2] > Menu::primaryColor[0] ||
+            Menu::primaryColor[2] > 0.55f)
+        {
+            Menu::primaryColor[0] = 229.f / 255.f;
+            Menu::primaryColor[1] =  57.f / 255.f;
+            Menu::primaryColor[2] =  53.f / 255.f;
+            Menu::primaryColor[3] = 1.0f;
+        }
         Menu::themeApplied = false;
         Aimbot::ResetState();
         return true;
@@ -3512,7 +3529,7 @@ namespace Menu
             const char* crumb = (feats_hdr && pageStack[activeTab] >= 0
                                  && pageStack[activeTab] < fc_hdr)
                               ? feats_hdr[pageStack[activeTab]].name
-                              : kTabLabels[activeTab];
+                              : kTabLabelsFull[activeTab];
             ImVec2 sz = ImGui::CalcTextSize(crumb);
             ImGui::SetCursorPos({ W - sz.x - 14.f, 8.f });
             ImGui::PushStyleColor(ImGuiCol_Text, cTextDim);
@@ -3590,7 +3607,7 @@ namespace Menu
                     { bp.x + bs.x * 0.5f, bp.y + bs.y * 0.5f }, iconCol);
 
                 if (hovered)
-                    ImGui::SetTooltip("%s", kTabLabels[i]);
+                    ImGui::SetTooltip("%s", kTabLabelsFull[i]);
 
                 ImGui::PopID();
             }

@@ -335,13 +335,27 @@ namespace ESP
             float px = scrW - pw - 16.f, py = 84.f;
 
             // Shared accent (matches menu primary red #E53935)
-            const ImU32 cAccent  = IM_COL32(229,  57,  53, 235);
+            const ImU32 cAccent  = IM_COL32(229,  57,  53, 255);
             const ImU32 cAccDim  = IM_COL32(229,  57,  53,  90);
             const ImU32 cBg      = IM_COL32( 11,  11,  13, 235);
             const ImU32 cBgSoft  = IM_COL32( 11,  11,  13, 175);
             const ImU32 cBorder  = IM_COL32(255, 255, 255,  20);
             const ImU32 cText    = IM_COL32(240, 240, 245, 235);
             const ImU32 cTextDim = IM_COL32(160, 160, 170, 220);
+
+            // Header text helper -- raw AddText (no Draw::Text halo) so the
+            // small "SPECTATORS" label stays crisp and vivid against the
+            // dark card. The Draw::Text halo was crushing 11px red into
+            // looking nearly black.
+            ImFont* font = ImGui::GetFont();
+            auto Header = [&](ImVec2 p, ImU32 col, const char* txt, float fs, bool centered) {
+                ImVec2 sz = font->CalcTextSizeA(fs, FLT_MAX, 0.f, txt);
+                if (centered) p.x -= sz.x * 0.5f;
+                // Faint shadow underneath for legibility on bright maps,
+                // then full-strength colored glyphs on top.
+                dl->AddText(font, fs, ImVec2(p.x, p.y + 1.f), IM_COL32(0,0,0,180), txt);
+                dl->AddText(font, fs, p, col, txt);
+            };
 
             if (style == 1) // Stealth -- ultra-clean dark card, hairline accent rule
             {
@@ -350,7 +364,7 @@ namespace ESP
                 // Top hairline accent strip
                 dl->AddRectFilled(ImVec2(px+10, py+22), ImVec2(px+24, py+24), cAccent, 1.f);
                 dl->AddRectFilled(ImVec2(px+24, py+22.5f), ImVec2(px+pw-10, py+23.5f), cBorder);
-                Text(dl, ImVec2(px+10, py+6), cText, "SPECTATING", false, 11.f);
+                Header(ImVec2(px+10, py+6), cAccent, "SPECTATING", 12.f, false);
                 float ty = py + 30.f;
                 for (const auto& n : names) { Text(dl, ImVec2(px+10, ty), cText, n.c_str()); ty += lh; }
             }
@@ -359,7 +373,7 @@ namespace ESP
                 dl->AddRectFilled(ImVec2(px,py), ImVec2(px+pw,py+ph), cBgSoft, 6.f);
                 // Tiny accent dot before the title
                 dl->AddCircleFilled(ImVec2(px+10, py+11), 2.4f, cAccent, 12);
-                Text(dl, ImVec2(px+18, py+6), cTextDim, "SPECTATORS", false, 10.f);
+                Header(ImVec2(px+18, py+5), cAccent, "SPECTATORS", 11.f, false);
                 float ty = py + 24.f;
                 for (const auto& n : names) { Text(dl, ImVec2(px+10, ty), cText, n.c_str()); ty += lh; }
             }
@@ -369,7 +383,7 @@ namespace ESP
                 dl->AddRect      (ImVec2(px,py), ImVec2(px+pw,py+ph), cAccDim, 8.f, 0, 1.f);
                 // Vertical accent bar on the left edge
                 dl->AddRectFilled(ImVec2(px+3.f, py+8.f), ImVec2(px+5.f, py+ph-8.f), cAccent, 2.f);
-                Text(dl, ImVec2(px+pw*0.5f, py+6), cAccent, "SPECTATORS", true, 11.f);
+                Header(ImVec2(px+pw*0.5f, py+6), cAccent, "SPECTATORS", 12.f, true);
                 float ty = py + 26.f;
                 for (const auto& n : names) { Text(dl, ImVec2(px+12, ty), cText, n.c_str()); ty += lh; }
             }
