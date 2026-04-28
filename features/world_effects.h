@@ -286,6 +286,41 @@ namespace WorldEffects
     }
 
     // ---------------------------------------------------------------
+    // RenderDecals hook (client.dll, sub_1810EA0E0) — always-on.
+    //
+    // Returning nullptr from this per-view decal-render dispatcher
+    // skips ALL decal submission for that view: no blood splatters,
+    // no bullet impacts, no scorch marks, no sprays. Cleanest visual
+    // upgrade in the project (zero perf cost — we LITERALLY don't
+    // submit the decal pass).
+    //
+    // Forced on for the lifetime of the cheat. No menu toggle: this
+    // is consistent with how internals usually treat decals (always
+    // off — they only ever obscure player models or fake hits onto
+    // walls, never an information win for the user).
+    //
+    // Verified single match in client.dll on build 14155.
+    // Args (from IDA decompile): __int64 ctx, __int64** view, char
+    // pass_a, char pass_b. Returns _BYTE* (vanilla returns the render
+    // list head; nullptr is treated by the engine as "this pass
+    // produced nothing" and skipped).
+    // ---------------------------------------------------------------
+    using RenderDecalsFn = void*(__fastcall*)(__int64, __int64**, char, char);
+    inline RenderDecalsFn oRenderDecals = nullptr;
+    inline bool  decalsHooked          = false;
+    inline void* pRenderDecalsTarget   = nullptr;
+
+    inline void* __fastcall hkRenderDecals(
+        __int64 ctx, __int64** view, char pa, char pb)
+    {
+        // Hard-skip: every decal pass returns nullptr unconditionally.
+        // If we ever want a runtime toggle, gate this on a cfg bool
+        // and fall through to oRenderDecals when off.
+        (void)ctx; (void)view; (void)pa; (void)pb;
+        return nullptr;
+    }
+
+    // ---------------------------------------------------------------
     // DrawSkyboxArray hook — modifies skybox color in the render
     // primitive buffer before the skybox is drawn. No fog, no entity
     // writes — operates at the rendering level.
@@ -1368,6 +1403,26 @@ namespace WorldEffects
         // again with `false` writes the same byte.
         TryDisablePvs();
 
+        // --- No-decals (client.dll) ---
+        // Force-skip every per-view decal-render pass for the lifetime
+        // of the cheat. Detour returns nullptr unconditionally so the
+        // engine treats each pass as having produced no work. Removes
+        // blood, bullet impacts, scorch marks, sprays.
+        uintptr_t decalsAddr = Mem::FindPattern(L"client.dll", Signatures::RenderDecals);
+        if (decalsAddr)
+        {
+            pRenderDecalsTarget = reinterpret_cast<void*>(decalsAddr);
+            MH_STATUS st = MH_CreateHook(
+                pRenderDecalsTarget,
+                reinterpret_cast<void*>(&hkRenderDecals),
+                reinterpret_cast<void**>(&oRenderDecals));
+            if (st == MH_OK || st == MH_ERROR_ALREADY_CREATED)
+            {
+                st = MH_EnableHook(pRenderDecalsTarget);
+                decalsHooked = (st == MH_OK || st == MH_ERROR_ENABLED);
+            }
+        }
+
         // --- DrawSkyboxArray hook (scenesystem.dll) via MinHook ---
         // Entity writes to m_vTintColor don't work (renderer caches at setup).
         // This inline hook modifies color in the draw primitive buffer at
@@ -1455,6 +1510,14 @@ namespace WorldEffects
             oDrawSkyboxArray = nullptr;
             pSkyHookTarget = nullptr;
             skyHooked = false;
+        }
+        if (decalsHooked && pRenderDecalsTarget)
+        {
+            MH_DisableHook(pRenderDecalsTarget);
+            MH_RemoveHook(pRenderDecalsTarget);
+            oRenderDecals        = nullptr;
+            pRenderDecalsTarget  = nullptr;
+            decalsHooked         = false;
         }
         if (fovHooked && pFovHookTarget)
         {

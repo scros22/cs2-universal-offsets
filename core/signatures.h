@@ -113,6 +113,17 @@ namespace Signatures
     constexpr const char* CSceneAnimatableObject_GeneratePrimitives =
         "48 8B C4 48 89 58 08 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ?";
 
+    // RenderDecals — client.dll
+    //   Per-view decal-render dispatch. Returning nullptr from the
+    //   detour skips ALL decal submission for that view. Net effect:
+    //   no blood splatters, no bullet impacts, no scorch marks, no
+    //   sprays — anywhere in the world. Verified single match on
+    //   build 14155 (sub_1810EA0E0). Args: (render_ctx, render_view,
+    //   pass_flag_A, pass_flag_B). Returns _BYTE* (vanilla returns the
+    //   render-list ptr; nullptr = "I drew nothing here, move on").
+    constexpr const char* RenderDecals =
+        "44 88 4C 24 ? 55 53";
+
     // DrawSmokeVertex — smoke particle rendering
     constexpr const char* DrawSmokeVertex =
         "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B 9C 24 ? ? ? ? 4D 8B F8";
