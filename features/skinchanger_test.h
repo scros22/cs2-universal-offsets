@@ -417,6 +417,39 @@ namespace SkinChanger
     inline ApplyEconCustomizationFn ApplyEconCustomization = nullptr;
     inline constexpr std::ptrdiff_t kApplyEconCustomization_RVA = 0x7A8A00;
 
+    // ---------------------------------------------------------------
+    // ANIMGRAPH FORCE-REBUILD (build 14155, IDA-verified 2026-04-28)
+    // ---------------------------------------------------------------
+    // Schema layout (from sdk/client_dll.hpp + IDA decompile of
+    // sub_1808AD5F0):
+    //   CBaseAnimGraph::m_pMainGraphController  @ entity + 0x1058
+    //                                             (CAnimGraphControllerBase*)
+    //   CBaseAnimGraphController::m_hGraphDefinitionAG2 @ ctrl + 0x370
+    //                                             (CStrongHandle<CNmGraphDefinition>)
+    //   CBaseAnimGraphController::m_pGraphInstanceAG2  @ ctrl + 0x448
+    //                                             (CNmGraphInstance*)
+    //
+    // sub_1808AD5F0(controller, char arg2):
+    //   arg2 == 2 -> tear down the existing CNmGraphInstance (clears
+    //                ctrl+0x448, walks m_vecExternalGraphs at ctrl+0x660
+    //                to release each binding via sub_18120D900, calls the
+    //                global graph manager's vtable[+424] dtor on the
+    //                instance), then recreates bindings via
+    //                sub_1808AF930 (CAnimGraphControllerManager::
+    //                CreateControllerToGraphBindings) using the manager
+    //                lookup chain sub_180A18100(controller).
+    //
+    // After ApplyKnifeModelSwap spoofs m_nSubclassID + UpdateWeaponData,
+    // the controller still references the OLD knife's graph instance.
+    // Calling sub_1808AD5F0(controller, 2) destroys that instance and
+    // makes the manager re-bind from the (now-updated) vdata's animgraph.
+    using AnimGraphRebuildFn = void(__fastcall*)(uintptr_t controller, char mode);
+    inline AnimGraphRebuildFn AnimGraphRebuild = nullptr;
+    inline constexpr std::ptrdiff_t kAnimGraphRebuild_RVA = 0x8AD5F0;
+    inline constexpr std::ptrdiff_t kMainGraphController_OFF = 0x1058;
+    inline constexpr std::ptrdiff_t kGraphInstanceAG2_OFF    = 0x448;
+    inline constexpr std::ptrdiff_t kGraphDefinitionAG2_OFF  = 0x370;
+
     // RVA is unchanged (post-14154 build, IDA-verified 2026-04-25).
     // Backup sig captures the unique current-build prologue:
     //   40 55 53 41 57 48 8D AC 24 00 FE FF FF 48 81 EC
@@ -549,6 +582,15 @@ namespace SkinChanger
         uintptr_t setBodyGroupAddr = Mem::FindPatternInModule(GameState::clientBase, setBodyGroupSig);
         if (setBodyGroupAddr) {
             SetBodyGroup = reinterpret_cast<SetBodyGroupFn>(setBodyGroupAddr);
+        }
+
+        // AnimGraphRebuild = sub_1808AD5F0 in client.dll @ build 14155.
+        // Resolved by RVA only (no published sig — function is internal,
+        // not exported). RVA verified via IDA decompile this session.
+        // See ANIMGRAPH FORCE-REBUILD comment block above for layout.
+        if (GameState::clientBase) {
+            uintptr_t rebuildAddr = GameState::clientBase + kAnimGraphRebuild_RVA;
+            AnimGraphRebuild = reinterpret_cast<AnimGraphRebuildFn>(rebuildAddr);
         }
 
         // ---- one-time diagnostic so we can verify each sig actually resolved
@@ -781,24 +823,8 @@ namespace SkinChanger
             // 8. Force a re-deploy so the animgraph rebinds against the
             //    new spoofed subclass.
             //
-            //    CORRECTION (2026-04-28): the byte at weapon+0x18B8 was
-            //    PREVIOUSLY thought to be an FPV mesh-rebuild gate. That
-            //    was wrong — IDA decompile of sub_18078F390 in build 14155
-            //    shows it is the NAMETAG composite-material gate (uses
-            //    sub_180793C90 hashing "C_NametagModule"). Flipping it
-            //    here did nothing for FPV mesh; removed.
-            //
-            //    The real animation-graph rebind path lives in
-            //    CBaseAnimGraphController and requires either:
-            //      (a) per-tick CAnimationGraphInstance hook (poink @ UC),
-            //      (b) writing the target knife's m_hGraphDefinitionAG2
-            //          (CBaseAnimGraphController + 0x370) on the weapon's
-            //          controller subobject, then calling sub_1808AD5F0(
-            //          controller, 2) to force destroy + rebuild.
-            //    Neither is wired yet (see /memories/repo/skinchanger_modern_paint_fix.md).
-            //
-            //    These deploy-tick clears still help by forcing the active
-            //    weapon think to treat the next tick as a fresh deploy:
+            //    These deploy-tick clears force the active weapon think
+            //    to treat the next tick as a fresh deploy:
             Mem::Write<int32_t>(weapon + 0x17F8, 0);  // m_nDeployTick = 0 (force re-deploy think)
             Mem::Write<bool>(weapon + 0x1804, false); // m_bIsHauledBack = false
 
@@ -807,6 +833,50 @@ namespace SkinChanger
             // 3rd-person view still shows the previous skin).
             Mem::Write<int32_t>(weapon + 0xAA8, 0);
             Mem::Write<int32_t>(weapon + 0xAC0, 0);
+
+            // 9. ANIMGRAPH FORCE-REBUILD (build 14155, IDA-verified).
+            //
+            //    After UpdateWeaponData refreshes the vdata pointer the
+            //    weapon's CBaseAnimGraphController STILL holds the old
+            //    knife's CNmGraphInstance (e.g. default-knife idle/grip).
+            //    That is why the karambit shows but is held in the wrong
+            //    fist position with default-knife inspect / swing anims.
+            //
+            //    Fix: tear down the existing graph instance and let the
+            //    AnimGraphControllerManager rebind from the now-current
+            //    vdata. See ANIMGRAPH FORCE-REBUILD comment block above
+            //    for the full reverse-engineering rationale.
+            //
+            //    Defensive checks:
+            //      * controller pointer non-null and looks valid
+            //      * existing graph instance non-null (no point destroying
+            //        a graph that doesn't exist; also avoids triggering
+            //        the rebuild path on a partially-initialised entity)
+            //      * SEH wrap so any internal manager-state mismatch
+            //        downgrades to "no rebuild" instead of crashing.
+            if (AnimGraphRebuild) {
+                __try {
+                    uintptr_t controller = Mem::Read<uintptr_t>(weapon + kMainGraphController_OFF);
+                    if (controller > 0x10000) {
+                        uintptr_t graphInstance = Mem::Read<uintptr_t>(controller + kGraphInstanceAG2_OFF);
+                        if (graphInstance > 0x10000) {
+                            AnimGraphRebuild(controller, 2);
+                            SkLog("[Knife] AnimGraphRebuild OK ctrl=0x%llX inst=0x%llX",
+                                  (unsigned long long)controller,
+                                  (unsigned long long)graphInstance);
+                        } else {
+                            SkLog("[Knife] AnimGraphRebuild SKIP: no graph instance (ctrl=0x%llX)",
+                                  (unsigned long long)controller);
+                        }
+                    } else {
+                        SkLog("[Knife] AnimGraphRebuild SKIP: bad controller ptr 0x%llX",
+                              (unsigned long long)controller);
+                    }
+                } __except (EXCEPTION_EXECUTE_HANDLER) {
+                    SkLog("[Knife] AnimGraphRebuild EXCEPTION on weapon=0x%llX",
+                          (unsigned long long)weapon);
+                }
+            }
 
             char buf[160];
             wsprintfA(buf, "[SkinChanger] knife model swap: def=%d path=%s scene=0x%llX\n",
