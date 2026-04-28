@@ -25,6 +25,7 @@
 #include "core/game_state.h"
 #include "features/aimbot.h"
 #include "features/world_effects.h"
+#include "features/chams_scene.h"
 #include "features/bhop.h"
 #include "features/skinchanger_test.h"
 #include "features/inventory_changer.h"
@@ -338,6 +339,15 @@ static void EntryThread(HMODULE hModule)
         DllLog("[EntryThread] Aimbot::Setup FAILED");
 
     WorldEffects::Setup();
+
+    // Phase 1 of GeneratePrimitives chams migration — installs the
+    // scenesystem hook in passthrough mode (zero behavior change
+    // until ChamsScene::cfg.enabled is wired in Phase 2).
+    if (ChamsScene::Setup())
+        DllLog("[EntryThread] ChamsScene::Setup OK (GeneratePrimitives hooked)");
+    else
+        DllLog("[EntryThread] ChamsScene::Setup FAILED (sig miss or scenesystem.dll not loaded)");
+
     SkinChanger::Init();
     DllLog("[EntryThread] SkinChanger::Init OK");
 

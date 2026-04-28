@@ -99,6 +99,20 @@ namespace Signatures
     constexpr const char* DisablePvsAccessor =
         "48 8D 0D ? ? ? ? 33 D2 FF 50";
 
+    // CSceneAnimatableObject::GeneratePrimitives — scenesystem.dll
+    //   Per-renderable mesh-submit virtual. Fired once per scene-object
+    //   per draw-pass. Hooking here gives us:
+    //     - the actual scene object (CSceneAnimatableObject*) being drawn
+    //     - the materials/meshes it is about to submit
+    //     - which lets us swap material on a per-entity basis
+    //       (proper friend/enemy color separation, unlike a D3D11 hook
+    //        which only sees raw vertex/index buffers).
+    //   Verified live on build 14155 (RVA 0x73520, single match).
+    //   Source: kauht GeneratePrimitives reference + universal-dumper
+    //   v1.20.7 (see /memories/repo/cs2_research_index.md entry "u").
+    constexpr const char* CSceneAnimatableObject_GeneratePrimitives =
+        "48 8B C4 48 89 58 08 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ?";
+
     // DrawSmokeVertex — smoke particle rendering
     constexpr const char* DrawSmokeVertex =
         "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B 9C 24 ? ? ? ? 4D 8B F8";
