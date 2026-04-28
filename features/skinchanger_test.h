@@ -778,38 +778,27 @@ namespace SkinChanger
                 }
             }
 
-            // 8. Force the first-person viewmodel mesh + material to rebind
-            //    WITHOUT a slot-cycle.
+            // 8. Force a re-deploy so the animgraph rebinds against the
+            //    new spoofed subclass.
             //
-            //    IDA reveal (client.dll @ build 14155):
-            //      sub_18078F390(weapon)  =  EnsureFirstPersonModelLoaded()
+            //    CORRECTION (2026-04-28): the byte at weapon+0x18B8 was
+            //    PREVIOUSLY thought to be an FPV mesh-rebuild gate. That
+            //    was wrong — IDA decompile of sub_18078F390 in build 14155
+            //    shows it is the NAMETAG composite-material gate (uses
+            //    sub_180793C90 hashing "C_NametagModule"). Flipping it
+            //    here did nothing for FPV mesh; removed.
             //
-            //    It is the FPV equivalent of RegenerateWeaponSkin (which is
-            //    the world/3rd-person path). Its prologue:
+            //    The real animation-graph rebind path lives in
+            //    CBaseAnimGraphController and requires either:
+            //      (a) per-tick CAnimationGraphInstance hook (poink @ UC),
+            //      (b) writing the target knife's m_hGraphDefinitionAG2
+            //          (CBaseAnimGraphController + 0x370) on the weapon's
+            //          controller subobject, then calling sub_1808AD5F0(
+            //          controller, 2) to force destroy + rebuild.
+            //    Neither is wired yet (see /memories/repo/skinchanger_modern_paint_fix.md).
             //
-            //        if ( !*(_BYTE *)(weapon + 0x18B8) ) {
-            //            *(_BYTE *)(weapon + 0x18B8) = 1;
-            //            ...resolve nametag...
-            //            ...build composite material...
-            //            ...bind material to weapon[0x608] (FPV render comp)...
-            //        }
-            //
-            //    The byte at weapon+0x18B8 is a one-shot "FPV setup completed"
-            //    flag. Once 1, the function early-bails forever. Its caller
-            //    sub_180794430 invokes it every think tick on the active
-            //    weapon, but the gate prevents re-execution.
-            //
-            //    By writing 0 to weapon[0x18B8] AFTER our identity spoof +
-            //    SetModel, the next think tick re-runs the full FPV mesh
-            //    + material rebind against the NEW spoofed identity. That
-            //    is exactly the "Karambit mesh actually appears in the
-            //    player's hand" path — no slot-cycle required.
-            //
-            //    We additionally clear m_nDeployTick (CCSWeaponBase 0x17F8)
-            //    and m_bIsHauledBack (0x1804) so the animation system
-            //    treats the next think as a fresh deploy and re-resolves
-            //    the animgraph against m_nSubclassID.
-            Mem::Write<uint8_t>(weapon + 0x18B8, 0);  // re-arm sub_18078F390
+            //    These deploy-tick clears still help by forcing the active
+            //    weapon think to treat the next tick as a fresh deploy:
             Mem::Write<int32_t>(weapon + 0x17F8, 0);  // m_nDeployTick = 0 (force re-deploy think)
             Mem::Write<bool>(weapon + 0x1804, false); // m_bIsHauledBack = false
 
