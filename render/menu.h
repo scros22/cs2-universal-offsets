@@ -751,6 +751,9 @@ namespace Menu
         if (cfg.aimbot.fov < 0.1f)        cfg.aimbot.fov = 2.2f;
         if (cfg.aimbot.smoothing < 1.f)   cfg.aimbot.smoothing = 45.f;
         Aimbot::cfg          = cfg.aimbot;
+        // Hard-pin: silent-aim path is disabled build-wide. Never honor
+        // a previously-saved silentAim=true value from disk.
+        Aimbot::cfg.silentAim = false;
         ESP::cfg             = cfg.esp;
         BulletTracer::cfg    = cfg.tracer;
         WorldEffects::cfg    = cfg.worldEffects;
@@ -823,7 +826,7 @@ namespace Menu
     inline void ApplyPreset_SilentAim()
     {
         Aimbot::cfg.enabled       = true;
-        Aimbot::cfg.silentAim     = true;   // <-- the whole point of this preset
+        Aimbot::cfg.silentAim     = false;  // <-- silent-aim path disabled across the build
         Aimbot::cfg.fov           = 2.3f;
         // Semi-rage baseline: ~10 points snappier than old preset
         // while keeping movement human-looking.
@@ -864,7 +867,7 @@ namespace Menu
         Aimbot::Rage::cfg.lowestHpFirst   = true;
         Aimbot::Rage::cfg.forceBaim       = false;
         Aimbot::Rage::cfg.prioritizeArmored = false;
-        Aimbot::cfg.silentAim         = true;   // Rage = silent + wide
+        Aimbot::cfg.silentAim         = false;  // silent-aim path disabled build-wide
         Aimbot::cfg.fov               = 10.f;
         Aimbot::cfg.smoothing         = 8.f;
         Aimbot::cfg.humanization      = 0.15f;
@@ -927,8 +930,9 @@ namespace Menu
             SynthSep();
             EvoCheckbox("Vis Check",     &Aimbot::cfg.visCheck);
         }
-        SynthSep();
-        EvoCheckbox("Silent Aim",    &Aimbot::cfg.silentAim);
+        // "Silent Aim" toggle removed — the WriteSubtick path proved
+        // unreliable in the field (would silently no-op for some users).
+        // Aimbot::cfg.silentAim is hard-pinned to false at startup.
         SynthEndSection();
 
         SynthBeginSection("##aim_s2");
@@ -2423,8 +2427,7 @@ namespace Menu
         SynthSep();
         EvoSliderFloat("Humanization", &Aimbot::cfg.humanization, 0.30f, 1.f,   "%.2f");
         SynthSep();
-        EvoCheckbox("Silent Aim",    &Aimbot::cfg.silentAim);
-        SynthSep();
+        // "Silent Aim" toggle removed — see Pg_Aimbot for context.
         EvoCheckbox("Team Check",    &Aimbot::cfg.teamCheck);
         SynthSep();
         EvoCheckbox("No Recoil",       &Aimbot::cfg.noRecoil);
@@ -2477,7 +2480,7 @@ namespace Menu
         EvoCheckbox("Enable Rage##rge", &Aimbot::Rage::cfg.enabled);
         if (!Aimbot::Rage::cfg.enabled) return;
         SynthSep(); EvoCheckbox("Always On##rgao",       &Aimbot::Rage::cfg.alwaysOn);
-        SynthSep(); EvoCheckbox("Force Silent##rgs",     &Aimbot::Rage::cfg.silentForce);
+        // "Force Silent" removed \u2014 silent-aim path disabled build-wide.
         SynthSep(); EvoCheckbox("Instant Aim##rgi",      &Aimbot::Rage::cfg.instant);
         SynthSep(); EvoCheckbox("Wallbang (no vis)##rgw",&Aimbot::Rage::cfg.forceWallbang);
         SynthSep(); EvoCheckbox("Body Aim##rgb",         &Aimbot::Rage::cfg.forceBaim);

@@ -77,7 +77,7 @@ namespace Aimbot
         float jumpApexThreshold = 30.f;
         bool  noSpread        = false;       // zero weapon inaccuracy (perfect jump shots)
         float smokeRadius     = 144.0f;      // CS2 smoke sphere radius
-        bool  silentAim       = true;        // silent aim via WriteSubtick frame redirect
+        bool  silentAim       = false;       // DISABLED — WriteSubtick path is unreliable for users; menu toggle removed.
         // ---- BINARY-LAYOUT RESERVED ----
         // These two floats used to be cfg.silentHitChance and cfg.silentSpread.
         // The silent-aim WriteSubtick path never read them, so they were
@@ -182,7 +182,9 @@ namespace Aimbot
                 savedSmoothing = Aimbot::cfg.smoothing;
                 savedVisCheck  = Aimbot::cfg.visCheck;
                 if (cfg.alwaysOn)      Aimbot::cfg.aimKey   = 2;
-                if (cfg.silentForce)   Aimbot::cfg.silentAim = true;
+                // silentForce intentionally NOT honored \u2014 silent-aim
+                // path is disabled build-wide because the WriteSubtick
+                // hook proved unreliable for some users.
                 if (cfg.instant)       Aimbot::cfg.smoothing = 1.0f;
                 if (cfg.forceWallbang) Aimbot::cfg.visCheck  = false;
             }
@@ -1040,18 +1042,17 @@ namespace Aimbot
 
     inline bool IsEntityValid(uintptr_t pawn, int entityIndex = -1)
     {
+        // Live dormancy is the ONLY truth — `originalDormant` is a chams
+        // snapshot that goes stale across slot reassignments (e.g. a
+        // player disconnects and a bot fills their slot). Trusting the
+        // snapshot here used to silently reject the bot for the rest
+        // of the round even though it was alive and visible. Use the
+        // live scene-node value alone: if the engine is currently
+        // updating the entity, it's targetable.
+        (void)entityIndex;
         uintptr_t sceneNode = Mem::Read<uintptr_t>(pawn + Offsets::m_pGameSceneNode);
         if (!sceneNode) return false;
-        bool liveDormant = Mem::Read<bool>(sceneNode + Offsets::SceneNode::kDormant);
-
-        if (!liveDormant)
-        {
-            if (entityIndex >= 1 && entityIndex <= 64 && GameState::originalDormant[entityIndex])
-                return false;
-            return true;
-        }
-
-        return false;
+        return !Mem::Read<bool>(sceneNode + Offsets::SceneNode::kDormant);
     }
 
     inline bool IsVisible(uintptr_t pawn, uintptr_t localPawn, int entityIndex = -1)
@@ -1072,18 +1073,17 @@ namespace Aimbot
         // our specific bit is set in spottedByMask.
         // ---------------------------------------------------------------
 
-        // Check original dormancy first — if server isn't sending data, skip
-        if (entityIndex >= 1 && entityIndex <= 64)
-        {
-            if (GameState::originalDormant[entityIndex])
-                return false; // Server considers this entity occluded/far
-        }
-        else
+        // Live dormancy only — see IsEntityValid for why we no longer
+        // trust GameState::originalDormant[i] (slot reassignment to a
+        // bot leaves the snapshot stale, and the aimbot then refused
+        // to lock onto the bot for the rest of the round).
         {
             uintptr_t node = Mem::Read<uintptr_t>(pawn + Offsets::m_pGameSceneNode);
-            if (node && Mem::Read<bool>(node + Offsets::SceneNode::kDormant))
-                return false; // Dormant
+            if (!node) return false;
+            if (Mem::Read<bool>(node + Offsets::SceneNode::kDormant))
+                return false; // Dormant — engine isn't updating this entity
         }
+        (void)entityIndex;
 
         // Check m_bSpottedByMask for OUR player's bit specifically
         int localIdx = GameState::localPlayerIndex;
@@ -2110,16 +2110,15 @@ namespace Aimbot
             // last valid angle is still a much better aim point than zero.
         }
 
-        // Crash backoff: if we crashed many ticks in a row, wait before retrying.
-        // This prevents burning CPU on a crash loop and gives the game time to stabilize.
-        if (crashBackoffTicks > 0)
-        {
-            crashBackoffTicks--;
-            if (crashBackoffTicks == 0)
-                consecutiveCrashes = 0; // Give a clean start after backoff
-            diag_lastBail = 10;
-            return;
-        }
+        // Crash backoff DISABLED — users reported the aimbot "randomly
+        // shuts off" mid-game. Root cause was this backoff window
+        // tripping on transient bad reads (round transitions, player
+        // slot churn) and locking the aimbot off for ~1s at a time.
+        // The per-tick __try/__except below already swallows faults
+        // safely; we don't need an additional cooldown on top of it.
+        // Counters kept zeroed so they can't accumulate.
+        crashBackoffTicks   = 0;
+        consecutiveCrashes  = 0;
 
         uintptr_t localPawn = GameState::GetLocalPawn();
         if (!localPawn) { diag_lastBail = 1; return; }
@@ -2974,16 +2973,10 @@ namespace Aimbot
             consecutiveCrashes++;
             diag_lastCrash = consecutiveCrashes;
             diag_lastCrashTime = GetTickCount();
-            // Exponential backoff: after repeated crashes, wait longer before retrying.
-            // 1-2 crashes: instant retry (transient glitch)
-            // 3-9 crashes: skip 30 ticks (~500ms, lets round transition settle)
-            // 10+ crashes: skip 60 ticks (~1s, then reset and try fresh)
-            // Fast recovery: don't let crash backoff kill the aimbot.
-            // Round transitions cause brief entity corruption — recover fast.
-            if (consecutiveCrashes >= 15)
-                crashBackoffTicks = 20;
-            else if (consecutiveCrashes >= 5)
-                crashBackoffTicks = 8;
+            // Backoff intentionally NOT armed — see top of Tick(). The
+            // user-visible "aimbot turns off" symptom traced back to
+            // this loop. Faults are swallowed; we just retry next tick.
+            crashBackoffTicks = 0;
         }
     }
 
