@@ -182,6 +182,40 @@ namespace SkinChanger
         }
     }
 
+    // ---------------------------------------------------------------
+    // Legacy-mesh classification per items_game.txt `use_legacy_model`.
+    //
+    // CRITICAL: SetMeshGroupMask must match the model being loaded.
+    //   2 = Legacy mesh group (CSGO-era models)
+    //   1 = Modern mesh group (default CS2)
+    // Passing the wrong mask after SetModel makes the mesh fail to bind
+    // entirely (per the UC forum post: "if I set the old model to 2 and
+    // the new model to 1, my old model fails to load entirely").
+    //
+    // Among the 500-526 knife range we swap to, only def 503 (Classic
+    // Knife) loads `weapon_knife_css.vmdl`, the CSGO classic mesh, which
+    // is `use_legacy_model 1` in items_game.txt. All other modern
+    // knives (Bayonet, Karambit, M9, Butterfly, Falchion, Huntsman,
+    // Bowie, Push, Cord, Canis, Ursus, Gypsy, Outdoor, Stiletto,
+    // Widowmaker, Kukri, Skeleton) ship a CS2-era vmdl and use the
+    // modern mesh group (mask=1).
+    // ---------------------------------------------------------------
+    inline bool IsLegacyKnifeMesh(int defIndex) {
+        switch (defIndex) {
+            case 42:   // default CT knife
+            case 59:   // default T knife
+            case 503:  // Classic Knife (knife_css.vmdl)
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    // Returns the SetMeshGroupMask value to pair with a given def-index.
+    inline uint64_t MeshMaskForDef(int defIndex) {
+        return IsLegacyKnifeMesh(defIndex) ? 2ull : 1ull;
+    }
+
     inline const char* GetGloveModelPath(int defIndex) {
         switch (defIndex) {
             case 5027: return "weapons/models/arms/glove_sporty/glove_sporty.vmdl";
@@ -523,6 +557,28 @@ namespace SkinChanger
             Mem::Write<int32_t>(weapon + Offsets::m_nFallbackStatTrak, skin.statTrak);
 
             CallRegen(weapon);
+
+            // Force-refresh the weapon's mesh group AFTER regen.
+            //
+            // Per the UC forum thread, every paint/material rebind
+            // through RegenerateWeaponSkin must be paired with a
+            // SetMeshGroupMask call on the weapon's scene node so the
+            // renderer rebinds the mesh from current model state and
+            // picks up the freshly-bound paint material. Without this
+            // refresh, the new paint kit can sit in memory but not
+            // visually apply until the player switches weapons.
+            //
+            // All standard rifles/pistols/SMGs/snipers in CS2 use the
+            // modern mesh group -> mask=1. We only ever paint these
+            // (knives are routed through ApplyKnifeModelSwap above,
+            // which uses the per-def MeshMaskForDef helper).
+            if (SetMeshGroupMask) {
+                __try {
+                    uintptr_t wScene = Mem::Read<uintptr_t>(
+                        weapon + Offsets::m_pGameSceneNode);
+                    if (wScene) SetMeshGroupMask(wScene, 1ull);
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            }
         } else {
             // Persistent fallback approach: keep values written
             // Works without regen — game reads fallbacks when m_iItemIDHigh == 0xFFFFFFFF
@@ -613,10 +669,15 @@ namespace SkinChanger
             // 3. SetModel(weapon, vmdl)
             SetModel(weapon, modelPath);
 
-            // 4. SetMeshGroupMask(scene, 1) \u2014 !Legacy mesh group
+            // 4. SetMeshGroupMask(scene, mask) -- mask MUST match the
+            //    model loaded above. Legacy CSGO-era meshes (def 503
+            //    Classic Knife / 42 / 59) need mask=2; all modern CS2
+            //    knives use mask=1. Per the UC forum post: passing the
+            //    wrong mask makes the new mesh fail to bind entirely.
+            const uint64_t kMeshMask = MeshMaskForDef(targetDefIndex);
             uintptr_t sceneNode = Mem::Read<uintptr_t>(weapon + Offsets::m_pGameSceneNode);
             if (sceneNode)
-                SetMeshGroupMask(sceneNode, 1ull);
+                SetMeshGroupMask(sceneNode, kMeshMask);
 
             // 5. UpdateSubclass — DELIBERATELY SKIPPED. The previously-used
             //    sig resolved to sub_1801FA880, a "subclass data missing"
@@ -652,7 +713,11 @@ namespace SkinChanger
                 if (vma && vma > 0x10000) {
                     SetModel(vma, modelPath);
                     uintptr_t vmaScene = Mem::Read<uintptr_t>(vma + Offsets::m_pGameSceneNode);
-                    if (vmaScene) SetMeshGroupMask(vmaScene, 1ull);
+                    // Same mask as the world weapon -- the viewmodel
+                    // attachment loads the SAME vmdl, so it must use
+                    // the SAME legacy bit, otherwise its mesh fails
+                    // to bind exactly like the world model would.
+                    if (vmaScene) SetMeshGroupMask(vmaScene, kMeshMask);
                     if (SetBodyGroup) SetBodyGroup(vma, 0, 0);
                 }
             }
