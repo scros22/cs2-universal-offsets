@@ -365,6 +365,10 @@ pub mod client {
     pub const LoadFileForMe: usize = 0x7FFA7E99A8C0;
     /// rva 0x6BB150
     pub const LoadPath: usize = 0x7FFA7E73B150;
+    /// rva 0x2308520
+    pub const LocalPlayerController_ptr: usize = 0x7FFA80388520;
+    /// rva 0xB2E899
+    pub const LocalPlayerPawn_ptr: usize = 0x7FFA7EBAE899;
     /// rva 0x8C6B60
     pub const LookupBone: usize = 0x7FFA7E946B60;
     /// rva 0x9D8CF0
@@ -461,6 +465,8 @@ pub mod client {
     pub const UpdateTurningInAccuracy: usize = 0x7FFA7E82FD10;
     /// rva 0x202D718
     pub const VPhys2World_ptr: usize = 0x7FFA800AD718;
+    /// rva 0xAC4C6D
+    pub const ViewAngles_ptr: usize = 0x7FFA7EB44C6D;
     /// rva 0x7A03D0
     pub const ViewModelHideZoomed: usize = 0x7FFA7E8203D0;
     /// rva 0x232DCB8
@@ -572,6 +578,10 @@ pub mod engine2 {
     pub const Engine_RegisterConVar: usize = 0x7FFAA708C080;
     /// rva 0x90A0C0
     pub const NetworkGameClient_ptr: usize = 0x7FFAA759A0C0;
+    /// rva 0x90E4EC
+    pub const WindowHeight_addr: usize = 0x7FFAA759E4EC;
+    /// rva 0x90E4E8
+    pub const WindowWidth_addr: usize = 0x7FFAA759E4E8;
 }
 
 pub mod inputsystem {

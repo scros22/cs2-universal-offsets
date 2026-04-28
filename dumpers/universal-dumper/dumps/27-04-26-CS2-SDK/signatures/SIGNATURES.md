@@ -2,7 +2,7 @@
 
 _This file is regenerated on every successful run of `cs2-sdk`._
 
-**333/378 signatures resolved across 13 module(s).**
+**338/383 signatures resolved across 13 module(s).**
 
 ## `animationsystem.dll`
 
@@ -193,6 +193,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `LevelInit` | `raw` | `0x7FFA7E94EA80` | `0x8CEA80` | `40 55 56 41 56 48 8D 6C 24 ? 48 81 EC ? ? ? ? 48` |
 | `LoadFileForMe` | `raw` | `0x7FFA7E99A8C0` | `0x91A8C0` | `40 55 57 41 56 48 83 EC 20 4C` |
 | `LoadPath` | `rel32` | `0x7FFA7E73B150` | `0x6BB150` | `E8 ? ? ? ? 8B 44 24 2C` |
+| `LocalPlayerController_ptr` | `riprel` | `0x7FFA80388520` | `0x2308520` | `48 8B 05 ? ? ? ? 41 89 BE` |
+| `LocalPlayerPawn_ptr` | `riprel` | `0x7FFA7EBAE899` | `0xB2E899` | `4C 39 B6 ? ? ? ? 74 ? 44 88 BE` |
 | `LookupBone` | `rel32` | `0x7FFA7E946B60` | `0x8C6B60` | `E8 ? ? ? ? 48 8B 8D ? ? ? ? B3` |
 | `ModulationUpdate` | `raw` | `0x7FFA7EA58CF0` | `0x9D8CF0` | `48 89 5C 24 08 57 48 83 EC 20 8B FA 48 8B D9 E8 ? ? ? ? 84 C0 0F 84` |
 | `NoClipOnChange` | `raw` | `0x7FFA7E1E6B50` | `0x166B50` | `48 89 5C 24 10 48 89 74 24 18 48 89 7C 24 20 55 48 8B EC 48 83 EC 30 48 8D 05` |
@@ -241,6 +243,7 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `UpdateSubClass` | `raw` | `0x7FFA7E27A88B` | `0x1FA88B` | `48 8B 41 10 48 8B D9 8B 50 30` |
 | `UpdateTurningInAccuracy` | `rel32` | `0x7FFA7E82FD10` | `0x7AFD10` | `E8 ? ? ? ? F3 0F 10 87 ? ? ? ? 44 0F 2F C8` |
 | `VPhys2World_ptr` | `riprel` | `0x7FFA800AD718` | `0x202D718` | `4C 8B 25 ? ? ? ? 24` |
+| `ViewAngles_ptr` | `riprel` | `0x7FFA7EB44C6D` | `0xAC4C6D` | `F2 42 0F 10 84 28 ? ? ? ?` |
 | `ViewModelHideZoomed` | `raw` | `0x7FFA7E8203D0` | `0x7A03D0` | `48 89 5C 24 20 55 56 57 41 54 41 56 48 8B EC 48 83 EC 50 48 8D 05` |
 | `ViewRender_ptr` | `riprel` | `0x7FFA803ADCB8` | `0x232DCB8` | `48 89 05 ? ? ? ? 48 8B C8 48 85 C0` |
 | `WeaponC4_ptr` | `riprel` | `0x7FFA80326CB8` | `0x22A6CB8` | `48 8B 15 ? ? ? ? 48 8B 5C 24 ? FF C0 89 05 ? ? ? ? 48 8B C6 48 89 34 EA 80 BE` |
@@ -300,6 +303,8 @@ _This file is regenerated on every successful run of `cs2-sdk`._
 | `Engine_RegisterConCommand` | `raw` | `0x7FFAA708D270` | `0x3FD270` | `48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 48 83 EC 60 44 8B 15` |
 | `Engine_RegisterConVar` | `raw` | `0x7FFAA708C080` | `0x3FC080` | `48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 54 41 56 41 57 48 81 EC D0 00 00` |
 | `NetworkGameClient_ptr` | `riprel` | `0x7FFAA759A0C0` | `0x90A0C0` | `48 89 3D ? ? ? ? FF 87` |
+| `WindowHeight_addr` | `riprel` | `0x7FFAA759E4EC` | `0x90E4EC` | `8B 05 ? ? ? ? 89 03` |
+| `WindowWidth_addr` | `riprel` | `0x7FFAA759E4E8` | `0x90E4E8` | `8B 05 ? ? ? ? 89 07` |
 
 ## `inputsystem.dll`
 

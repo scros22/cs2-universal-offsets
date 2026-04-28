@@ -877,6 +877,16 @@
       "va": 140713840062800
     },
     {
+      "name": "LocalPlayerController_ptr",
+      "module": "client.dll",
+      "va": 140713869739296
+    },
+    {
+      "name": "LocalPlayerPawn_ptr",
+      "module": "client.dll",
+      "va": 140713844730009
+    },
+    {
       "name": "LookupBone",
       "module": "client.dll",
       "va": 140713842207584
@@ -1115,6 +1125,11 @@
       "name": "VPhys2World_ptr",
       "module": "client.dll",
       "va": 140713866745624
+    },
+    {
+      "name": "ViewAngles_ptr",
+      "module": "client.dll",
+      "va": 140713844296813
     },
     {
       "name": "ViewModelHideZoomed",
@@ -1380,6 +1395,16 @@
       "name": "NetworkGameClient_ptr",
       "module": "engine2.dll",
       "va": 140714526220480
+    },
+    {
+      "name": "WindowHeight_addr",
+      "module": "engine2.dll",
+      "va": 140714526237932
+    },
+    {
+      "name": "WindowWidth_addr",
+      "module": "engine2.dll",
+      "va": 140714526237928
     },
     {
       "name": "InputSystem_ptr",

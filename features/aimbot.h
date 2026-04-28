@@ -96,6 +96,180 @@ namespace Aimbot
     inline Config cfg;
     inline float  drawnFovRadius = 0.f;
 
+    // Forward decl — Rage::EstimateDamage (defined just below) needs to
+    // reach into the active-weapon resolver, but that helper is defined
+    // later in this header next to the rest of the weapon utilities.
+    inline uintptr_t GetActiveWeapon(uintptr_t pawn);
+
+    // ---------------------------------------------------------------
+    // Rage Mode — Neverlose / Memesense-style danger toggles.
+    //
+    // Kept as a SEPARATE namespace (NOT inside Aimbot::Config) so it
+    // doesn't bleed into the SavedConfig fwrite blob — every byte after
+    // Aimbot::Config is positionally bound to sizeof(Aimbot::Config),
+    // and silently extending the struct corrupts colors/ESP/chams on
+    // every old save. Rage is a per-session "I am about to do
+    // something obvious" intent — not a config you carry around.
+    //
+    // What each toggle does at runtime:
+    //   enabled        – master switch. Gates every other rage knob.
+    //   forceWallbang  – ignore the visibility check (m_bSpottedByMask
+    //                    + dormancy still gate the target — we never
+    //                    aim at server-occluded entities). Pairs well
+    //                    with high-pen weapons (AK/AWP/SCAR).
+    //   forceBaim      – aim chest (bone 23) instead of head; survives
+    //                    HS-priority. Useful when target HP > 100 (HE
+    //                    + helmet) and head wouldn't one-shot.
+    //   lowestHpFirst  – target picker uses HP as primary key instead
+    //                    of FOV. Cleans up the round when multiple
+    //                    enemies are visible at once.
+    //   alwaysOn       – clobbers cfg.aimKey to "always" on enable so
+    //                    the cheat fires without a held mouse button.
+    //   silentForce    – clobbers cfg.silentAim=true on enable so we
+    //                    never fall back to the visible-mouse path.
+    //   instant        – clobbers cfg.smoothing to 1.0 (no drag) on
+    //                    enable. Disable for a "smooth rage" feel.
+    //   minDamage      – heuristic damage gate (0 = off). Targets we
+    //                    estimate would deal less than this are
+    //                    skipped. We don't sim FireBullets — the gate
+    //                    is a cheap distance/HP/weapon-class check.
+    //   prioritizeArmored – pick helmet+armor targets last so we don't
+    //                    waste a wallbang shot on someone with armor
+    //                    that the bullet won't penetrate.
+    //
+    // The intent is that flipping `Rage::cfg.enabled` exposes the
+    // existing aimbot pipeline at full power, with no behavioral
+    // change to the aim physics — only target-selection + safety
+    // gates differ. The visible mouse path stays available.
+    // ---------------------------------------------------------------
+    namespace Rage
+    {
+        struct Config
+        {
+            bool  enabled            = false;
+            bool  forceWallbang      = true;
+            bool  forceBaim          = false;
+            bool  lowestHpFirst      = true;
+            bool  alwaysOn           = true;
+            bool  silentForce        = true;
+            bool  instant            = true;
+            int   minDamage          = 0;     // 0 = no gate
+            bool  prioritizeArmored  = false; // true = LAST, false = no preference
+        };
+        inline Config cfg;
+
+        // Rage is "danger" tier — when the user flips it on we apply
+        // the matching aim-physics toggles immediately (silent + always
+        // on + instant smoothing). When they flip it back off, we only
+        // restore the aim-physics knobs we forced — the rest of their
+        // legit settings stay intact. Caller hands us the previous-tick
+        // state via the static; no need to snapshot in cfg.
+        inline void ApplyTransition(bool nowOn)
+        {
+            static bool wasOn = false;
+            // Snapshot the legit settings the user had BEFORE we clobbered
+            // them, so we can restore on disable. Initialised lazily on
+            // the off→on transition.
+            static int   savedAimKey    = 0;
+            static bool  savedSilent    = true;
+            static float savedSmoothing = 12.0f;
+            static bool  savedVisCheck  = true;
+
+            if (nowOn && !wasOn)
+            {
+                savedAimKey    = Aimbot::cfg.aimKey;
+                savedSilent    = Aimbot::cfg.silentAim;
+                savedSmoothing = Aimbot::cfg.smoothing;
+                savedVisCheck  = Aimbot::cfg.visCheck;
+                if (cfg.alwaysOn)      Aimbot::cfg.aimKey   = 2;
+                if (cfg.silentForce)   Aimbot::cfg.silentAim = true;
+                if (cfg.instant)       Aimbot::cfg.smoothing = 1.0f;
+                if (cfg.forceWallbang) Aimbot::cfg.visCheck  = false;
+            }
+            else if (!nowOn && wasOn)
+            {
+                Aimbot::cfg.aimKey    = savedAimKey;
+                Aimbot::cfg.silentAim = savedSilent;
+                Aimbot::cfg.smoothing = savedSmoothing;
+                Aimbot::cfg.visCheck  = savedVisCheck;
+            }
+            wasOn = nowOn;
+        }
+
+        // Damage estimator — reads the local pawn's active-weapon VData
+        // and runs the same formula the server uses to compute final HP
+        // damage:
+        //
+        //   visible:    dmg = baseDmg * pow(rangeModifier, dist/500)
+        //   headshot:   dmg *= headshotMultiplier      (≈ 4.0 rifles)
+        //   armored:    dmg *= armorRatio              (≈ 1.0..2.0)
+        //   wallbang:   dmg *= 0.55                    (heuristic — we
+        //               can't sim TraceRay penetration without hooking
+        //               the engine's own trace, so we apply a single
+        //               flat penalty when LOS is blocked. Conservative:
+        //               under-estimates for thin walls, over-estimates
+        //               for thick ones, but stable enough to gate min-
+        //               damage / pen-priority decisions.)
+        //
+        // Returns the estimated final HP delta the bullet would deal.
+        // Caller compares it to cfg.minDamage. 0 (no weapon / no VData)
+        // means we have no data — caller should treat that as "pass".
+        inline int EstimateDamage(uintptr_t targetPawn, float distUnits,
+                                  bool isHead, bool throughWall)
+        {
+            uintptr_t lp = GameState::GetLocalPawn();
+            if (!lp) return 0;
+            uintptr_t weapon = Aimbot::GetActiveWeapon(lp);
+            if (!weapon) return 0;
+            uintptr_t vdata = Mem::Read<uintptr_t>(weapon + Offsets::m_pWeaponVData_weapon);
+            if (!vdata) return 0;
+
+            int   baseDmg = Mem::Read<int32_t>(vdata + Offsets::WeaponVData::m_nDamage);
+            float rangeMod= Mem::Read<float  >(vdata + Offsets::WeaponVData::m_flRangeModifier);
+            float armorR  = Mem::Read<float  >(vdata + Offsets::WeaponVData::m_flArmorRatio);
+            float hsMul   = Mem::Read<float  >(vdata + Offsets::WeaponVData::m_flHeadshotMultiplier);
+
+            // Sanity: bogus VData (uninitialised / first-tick race) reads
+            // back as nonsense floats — skip rather than estimate huge.
+            if (baseDmg <= 0 || baseDmg > 500)        return 0;
+            if (rangeMod <= 0.f || rangeMod > 1.0f)   rangeMod = 0.95f;
+            if (hsMul    <  1.f || hsMul    > 8.0f)   hsMul    = 4.0f;
+            if (armorR   <= 0.f || armorR   > 4.0f)   armorR   = 1.0f;
+
+            float dmg = (float)baseDmg * powf(rangeMod, distUnits / 500.f);
+            if (isHead) dmg *= hsMul;
+
+            // Armor handling: we don't know the *exact* armored hitgroup
+            // mapping client-side (helmet covers head, kevlar covers
+            // chest/stomach/arms). Use a coarse heuristic — if target
+            // has armor > 0, apply the weapon's armorRatio reduction.
+            int armor = Mem::Read<int32_t>(targetPawn + Offsets::m_ArmorValue);
+            if (armor > 0) dmg *= armorR;
+
+            if (throughWall) dmg *= 0.55f;
+
+            if (dmg < 0.f)   dmg = 0.f;
+            if (dmg > 999.f) dmg = 999.f;
+            return (int)dmg;
+        }
+
+        // Min-damage / wallbang-pen gate. Returns true if we believe
+        // the shot would meet the configured min-damage threshold —
+        // i.e. it's worth taking. Caller skips the target on false.
+        inline bool PassesDamageGate(uintptr_t pawn, int hp, float distUnits,
+                                     bool isHead = false, bool throughWall = false)
+        {
+            if (cfg.minDamage <= 0) return true;     // gate disabled
+            int est = EstimateDamage(pawn, distUnits, isHead, throughWall);
+            if (est <= 0) return true;               // no data — don't filter
+            // A shot that exceeds remaining HP is always good enough,
+            // even if est < cfg.minDamage. Lets us still kill 5-HP
+            // targets with a low-damage estimate.
+            if (est >= hp) return true;
+            return est >= cfg.minDamage;
+        }
+    }
+
     // ---------------------------------------------------------------
     // Stat Governor â€” behavioral anti-detection layer.
     // Monitors kills/headshots/rounds and throttles aimbot behavior
@@ -1190,6 +1364,10 @@ namespace Aimbot
             // Head priority: always try head first
             int primaryBone = cfg.targetBone;
             if (cfg.headPriority) primaryBone = 7;
+            // Rage-baim override: chest beats head when armor + helmet
+            // make HS uncertain. Force-applied here so the bone scanner
+            // anchors on chest first instead of head.
+            if (Rage::cfg.enabled && Rage::cfg.forceBaim) primaryBone = 23;
 
             int selectedBone = primaryBone;
             Math::Vec3 bone = GetBestBonePos(pawn, primaryBone, eye, view, selectedBone);
@@ -1211,20 +1389,67 @@ namespace Aimbot
             if (fovVal > EffectiveFov()) { ++diag_rFov; continue; }
 
             // Visibility check
-            if (cfg.visCheck)
+            // Rage::forceWallbang already clobbers cfg.visCheck=false on
+            // toggle (see Rage::ApplyTransition), but we re-gate here so
+            // a mid-session menu poke takes effect immediately without
+            // waiting for a transition edge.
+            //
+            // We also probe vis even when the gate is disabled (rage on)
+            // so PassesDamageGate can apply the wallbang penalty when
+            // the target is actually behind cover.
+            bool effectiveVis = cfg.visCheck;
+            if (Rage::cfg.enabled && Rage::cfg.forceWallbang) effectiveVis = false;
+            bool targetVisible = true;
+            if (effectiveVis)
             {
                 bool isVis = IsVisible(pawn, localPawn, i);
                 if (!isVis) { ++diag_rVis; continue; }
+                targetVisible = true;
+            }
+            else if (Rage::cfg.enabled)
+            {
+                // Rage path — vis is allowed-blocked, but we still need
+                // to know the truth so the damage estimator can decide
+                // whether to apply the wallbang penalty.
+                targetVisible = IsVisible(pawn, localPawn, i);
             }
 
             // Smoke check â€” VACnet flags smoke kills hard
             if (cfg.smokeCheck && IsLineThroughSmoke(eye, bone))
             { ++diag_rSmoke; continue; }
 
-            // Score: FOV distance + slight distance bias
+            // Score: FOV distance + slight distance bias.
+            // Rage lowest-HP mode flips the score to "lower HP wins"
+            // so we burn down the most fragile enemy first. We add a
+            // small FOV term as tiebreaker so we don't snap across the
+            // map for 1 HP when an in-FOV target is at 30 HP.
             Math::Vec3 delta = bone - eye;
             float dist = delta.Length();
-            float score = fovVal + dist * 0.01f;
+            float score;
+            if (Rage::cfg.enabled && Rage::cfg.lowestHpFirst)
+            {
+                // hp clamped 1..200 to keep weight bounded.
+                int hpC = hp; if (hpC < 1) hpC = 1; if (hpC > 200) hpC = 200;
+                score = (float)hpC + fovVal * 0.10f + dist * 0.001f;
+                if (Rage::cfg.prioritizeArmored)
+                {
+                    // Push armored targets to the back of the queue by
+                    // adding a flat penalty. Cheap proxy for "won't pen
+                    // through armor at this distance". (Helmet bool lives
+                    // on the player's item-services subobject — not a
+                    // pawn-direct field — so we use armor value alone.)
+                    int armor = Mem::Read<int32_t>(pawn + Offsets::m_ArmorValue);
+                    if (armor > 0) score += 60.f;
+                }
+                if (!Rage::PassesDamageGate(pawn, hp, dist,
+                                            /*isHead=*/(primaryBone == 7),
+                                            /*throughWall=*/!targetVisible))
+                    continue;
+            }
+            else
+            {
+                score = fovVal + dist * 0.01f;
+            }
             if (score < bestScore)
             {
                 bestScore  = score;
@@ -1836,6 +2061,12 @@ namespace Aimbot
     {
         diag_lastTick = GetTickCount();
         if (!GameState::clientBase) { diag_lastBail = 2; return; }
+
+        // Apply / release rage-mode forced overrides on every tick. Cheap
+        // edge-detected via internal static — no-op unless the user just
+        // toggled `Rage::cfg.enabled`. See namespace Rage for what gets
+        // clobbered (silentAim/aimKey/smoothing/visCheck) and restored.
+        Rage::ApplyTransition(Rage::cfg.enabled);
 
         // Visual no-recoil runs even when aimbot is disabled
         if (cfg.noRecoil) {

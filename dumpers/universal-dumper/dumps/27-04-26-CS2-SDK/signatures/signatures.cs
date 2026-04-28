@@ -189,6 +189,8 @@ public static class Signatures
         public const ulong LevelInit = 0x7FFA7E94EA80UL; // rva 0x8CEA80
         public const ulong LoadFileForMe = 0x7FFA7E99A8C0UL; // rva 0x91A8C0
         public const ulong LoadPath = 0x7FFA7E73B150UL; // rva 0x6BB150
+        public const ulong LocalPlayerController_ptr = 0x7FFA80388520UL; // rva 0x2308520
+        public const ulong LocalPlayerPawn_ptr = 0x7FFA7EBAE899UL; // rva 0xB2E899
         public const ulong LookupBone = 0x7FFA7E946B60UL; // rva 0x8C6B60
         public const ulong ModulationUpdate = 0x7FFA7EA58CF0UL; // rva 0x9D8CF0
         public const ulong NoClipOnChange = 0x7FFA7E1E6B50UL; // rva 0x166B50
@@ -237,6 +239,7 @@ public static class Signatures
         public const ulong UpdateSubClass = 0x7FFA7E27A88BUL; // rva 0x1FA88B
         public const ulong UpdateTurningInAccuracy = 0x7FFA7E82FD10UL; // rva 0x7AFD10
         public const ulong VPhys2World_ptr = 0x7FFA800AD718UL; // rva 0x202D718
+        public const ulong ViewAngles_ptr = 0x7FFA7EB44C6DUL; // rva 0xAC4C6D
         public const ulong ViewModelHideZoomed = 0x7FFA7E8203D0UL; // rva 0x7A03D0
         public const ulong ViewRender_ptr = 0x7FFA803ADCB8UL; // rva 0x232DCB8
         public const ulong WeaponC4_ptr = 0x7FFA80326CB8UL; // rva 0x22A6CB8
@@ -294,6 +297,8 @@ public static class Signatures
         public const ulong Engine_RegisterConCommand = 0x7FFAA708D270UL; // rva 0x3FD270
         public const ulong Engine_RegisterConVar = 0x7FFAA708C080UL; // rva 0x3FC080
         public const ulong NetworkGameClient_ptr = 0x7FFAA759A0C0UL; // rva 0x90A0C0
+        public const ulong WindowHeight_addr = 0x7FFAA759E4ECUL; // rva 0x90E4EC
+        public const ulong WindowWidth_addr = 0x7FFAA759E4E8UL; // rva 0x90E4E8
     }
     public static class inputsystem
     {

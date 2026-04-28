@@ -472,4 +472,23 @@ namespace Offsets
     constexpr std::ptrdiff_t m_unpredictableBaseTick         = 0xA0;
     constexpr std::ptrdiff_t m_unpredictableBaseAngle        = 0xA4;  // QAngle (damage punch)
     // m_pAimPunchServices already defined earlier (0x1490).
+
+    // CCSWeaponBase → CCSWeaponBaseVData* — the per-weapon static data
+    // block (damage / range / penetration / armorRatio / hsMultiplier).
+    // IDA-VERIFIED 2026-04-28 (build 14155): the `CCSWeaponBaseVData`
+    // RTTI string xref tail in client.dll is `48 8B 81 88 03 00 00`
+    // = `mov rax, [rcx+388h]`, i.e. the GetWeaponVData() one-liner
+    // returns *(this+0x388). Dereference once → fields below at the
+    // same offsets the schema dump lists for CCSWeaponBaseVData.
+    constexpr std::ptrdiff_t m_pWeaponVData_weapon = 0x388; // CCSWeaponBaseVData*
+
+    namespace WeaponVData
+    {
+        constexpr std::ptrdiff_t m_nDamage              = 0x828; // int32 (base damage / pellet)
+        constexpr std::ptrdiff_t m_flHeadshotMultiplier = 0x82C; // float (~4.0)
+        constexpr std::ptrdiff_t m_flArmorRatio         = 0x830; // float (~1.0..2.0)
+        constexpr std::ptrdiff_t m_flPenetration        = 0x834; // float (penetration power)
+        constexpr std::ptrdiff_t m_flRange              = 0x838; // float (max effective range)
+        constexpr std::ptrdiff_t m_flRangeModifier      = 0x83C; // float (per-500u falloff base, ~0.95)
+    }
 }

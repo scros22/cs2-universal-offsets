@@ -187,6 +187,8 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t LevelInit = 0x7FFA7E94EA80; // rva 0x8CEA80
         inline constexpr std::uintptr_t LoadFileForMe = 0x7FFA7E99A8C0; // rva 0x91A8C0
         inline constexpr std::uintptr_t LoadPath = 0x7FFA7E73B150; // rva 0x6BB150
+        inline constexpr std::uintptr_t LocalPlayerController_ptr = 0x7FFA80388520; // rva 0x2308520
+        inline constexpr std::uintptr_t LocalPlayerPawn_ptr = 0x7FFA7EBAE899; // rva 0xB2E899
         inline constexpr std::uintptr_t LookupBone = 0x7FFA7E946B60; // rva 0x8C6B60
         inline constexpr std::uintptr_t ModulationUpdate = 0x7FFA7EA58CF0; // rva 0x9D8CF0
         inline constexpr std::uintptr_t NoClipOnChange = 0x7FFA7E1E6B50; // rva 0x166B50
@@ -235,6 +237,7 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t UpdateSubClass = 0x7FFA7E27A88B; // rva 0x1FA88B
         inline constexpr std::uintptr_t UpdateTurningInAccuracy = 0x7FFA7E82FD10; // rva 0x7AFD10
         inline constexpr std::uintptr_t VPhys2World_ptr = 0x7FFA800AD718; // rva 0x202D718
+        inline constexpr std::uintptr_t ViewAngles_ptr = 0x7FFA7EB44C6D; // rva 0xAC4C6D
         inline constexpr std::uintptr_t ViewModelHideZoomed = 0x7FFA7E8203D0; // rva 0x7A03D0
         inline constexpr std::uintptr_t ViewRender_ptr = 0x7FFA803ADCB8; // rva 0x232DCB8
         inline constexpr std::uintptr_t WeaponC4_ptr = 0x7FFA80326CB8; // rva 0x22A6CB8
@@ -291,6 +294,8 @@ namespace cs2::signatures {
         inline constexpr std::uintptr_t Engine_RegisterConCommand = 0x7FFAA708D270; // rva 0x3FD270
         inline constexpr std::uintptr_t Engine_RegisterConVar = 0x7FFAA708C080; // rva 0x3FC080
         inline constexpr std::uintptr_t NetworkGameClient_ptr = 0x7FFAA759A0C0; // rva 0x90A0C0
+        inline constexpr std::uintptr_t WindowHeight_addr = 0x7FFAA759E4EC; // rva 0x90E4EC
+        inline constexpr std::uintptr_t WindowWidth_addr = 0x7FFAA759E4E8; // rva 0x90E4E8
     }
     namespace inputsystem {
         inline constexpr std::uintptr_t InputSystem_ptr = 0x7FFAC4122B50; // rva 0x42B50

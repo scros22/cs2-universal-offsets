@@ -606,7 +606,7 @@ namespace Menu
     struct SavedConfig
     {
         uint32_t magic    = 0x4C554349;
-        uint32_t version  = 15;
+        uint32_t version  = 16; // bumped: Bhop::Config gained `strafeMode`
         uint32_t dataSize = sizeof(SavedConfig);
         char                    name[32];
         Aimbot::Config          aimbot;
@@ -732,7 +732,7 @@ namespace Menu
         // a version bump (commit 6743f1b). Reject + fall back to defaults
         // is far cleaner than reading 8 bytes of garbage into bools/floats.
         if (hdr[0] != 0x4C554349 ||
-            hdr[1] != 15 ||
+            hdr[1] != 16 ||
             hdr[2] != (uint32_t)sizeof(SavedConfig))
         {
             fclose(f);
@@ -853,6 +853,17 @@ namespace Menu
     inline void ApplyPreset_Rage()
     {
         Aimbot::cfg.enabled           = true;
+        // Engage rage-mode toggles. ApplyTransition (called next aimbot
+        // tick) snapshots the current legit knobs, then clobbers
+        // silentAim/aimKey/smoothing/visCheck for the session.
+        Aimbot::Rage::cfg.enabled         = true;
+        Aimbot::Rage::cfg.alwaysOn        = true;
+        Aimbot::Rage::cfg.silentForce     = true;
+        Aimbot::Rage::cfg.instant         = true;
+        Aimbot::Rage::cfg.forceWallbang   = true;
+        Aimbot::Rage::cfg.lowestHpFirst   = true;
+        Aimbot::Rage::cfg.forceBaim       = false;
+        Aimbot::Rage::cfg.prioritizeArmored = false;
         Aimbot::cfg.silentAim         = true;   // Rage = silent + wide
         Aimbot::cfg.fov               = 10.f;
         Aimbot::cfg.smoothing         = 8.f;
@@ -2449,7 +2460,30 @@ namespace Menu
         EvoSliderFloat("Max Speed##bms", &Bhop::cfg.maxSpeed, 200.f, 500.f, "%.0f");
         SynthSep(); EvoSliderFloat("Min Speed##bns", &Bhop::cfg.minSpeed,  10.f, 120.f, "%.0f");
         SynthSep(); EvoCheckbox("Auto Strafe##bs",   &Bhop::cfg.autoStrafe);
+        SynthSep();
+        const char* sm[] = { "Velocity (smooth)", "Mouse Yaw (manual)" };
+        EvoCombo("Strafe Mode##bsm", &Bhop::cfg.strafeMode, sm, 2);
         SynthSep(); EvoCheckbox("Velocity Display##bvd", &Bhop::cfg.showVelocity);
+    }
+
+    // Rage Mode page — danger-tier toggles (Neverlose / Memesense style).
+    // Flipping `Enable` clobbers aim physics (silent / always-on / no
+    // smoothing / no vis-check) for the session. Toggle off to get your
+    // legit settings back exactly as they were before.
+    inline void Pg_Rage()
+    {
+        ImGui::TextColored({ 1.f, 0.4f, 0.4f, 1.f }, "  ⚠ Danger — visible to spectators");
+        ImGui::Dummy({ 0.f, 4.f });
+        EvoCheckbox("Enable Rage##rge", &Aimbot::Rage::cfg.enabled);
+        if (!Aimbot::Rage::cfg.enabled) return;
+        SynthSep(); EvoCheckbox("Always On##rgao",       &Aimbot::Rage::cfg.alwaysOn);
+        SynthSep(); EvoCheckbox("Force Silent##rgs",     &Aimbot::Rage::cfg.silentForce);
+        SynthSep(); EvoCheckbox("Instant Aim##rgi",      &Aimbot::Rage::cfg.instant);
+        SynthSep(); EvoCheckbox("Wallbang (no vis)##rgw",&Aimbot::Rage::cfg.forceWallbang);
+        SynthSep(); EvoCheckbox("Body Aim##rgb",         &Aimbot::Rage::cfg.forceBaim);
+        SynthSep(); EvoCheckbox("Lowest HP First##rgh",  &Aimbot::Rage::cfg.lowestHpFirst);
+        SynthSep(); EvoCheckbox("Skip Armored##rga",     &Aimbot::Rage::cfg.prioritizeArmored);
+        SynthSep(); ImGui::SliderInt("Min Damage##rgd",  &Aimbot::Rage::cfg.minDamage, 0, 100);
     }
     inline void Pg_Backtrack()
     {
@@ -2767,6 +2801,7 @@ namespace Menu
 
     inline FeatureDef kFeat_Aim[] = {
         { "Aimbot",     "Targeting & feel",     FI_CROSSHAIR, &Aimbot::cfg.enabled,        Pg_Aimbot     },
+        { "Rage Mode",  "Wallbang / silent / lowHP", FI_BOLT, &Aimbot::Rage::cfg.enabled,  Pg_Rage       },
         { "Triggerbot", "Auto-fire on target",  FI_TRIGGER,   &Triggerbot::cfg.enabled,    Pg_Triggerbot },
         { "Bunny Hop",  "Auto bhop & strafe",   FI_JUMP,      &Bhop::cfg.enabled,          Pg_Bhop       },
         { "Backtrack",  "Rewind enemy ticks",   FI_REWIND,    &Backtrack::cfg.enabled,     Pg_Backtrack  },

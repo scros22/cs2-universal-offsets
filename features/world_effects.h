@@ -755,11 +755,8 @@ namespace WorldEffects
     {
         static bool wasOn = false;
         static UINT64 cvarTick = 0;
-        static UINT64 lastRecoverTick = 0;
-        static UINT64 spawnGraceTick = 0;
         if (!GameState::clientBase) {
             wasOn = false;
-            spawnGraceTick = 0;
             return;
         }
 
@@ -785,21 +782,12 @@ namespace WorldEffects
             // If we left in-game, forget transition state and avoid calling
             // engine camera handlers on invalid globals.
             wasOn = false;
-            spawnGraceTick = 0;
             return;
         }
 
         ResolveThirdPersonHandlers();
         uintptr_t pInput = GetCInput();
-
-        // Require both valid pawn AND valid CInput pointer before running
-        // any camera logic. This blocks crashes from transitional states.
-        if (!pInput)
-        {
-            wasOn = false;
-            spawnGraceTick = 0;
-            return;
-        }
+        if (!pInput) { wasOn = false; return; }
 
         auto stampThirdPersonFlag = [&](uint8_t v)
         {
@@ -807,7 +795,6 @@ namespace WorldEffects
             // *(pInput + 0x229 + 0x928 * slot). Keep both base and
             // active slot latched so the gate can't mismatch/flicker.
             Mem::SmartWrite<uint8_t>(pInput + kCInput_ThirdPerson, v);
-
             int slot = Mem::Read<int>(pInput + kCInput_CurrentSlotDword);
             if (slot > 0 && slot < 8)
                 Mem::SmartWrite<uint8_t>(
@@ -816,27 +803,23 @@ namespace WorldEffects
 
         if (!wantOn)
         {
-            spawnGraceTick = 0;
             if (!wasOn) return;
-
             __try {
                 if (pThirdPersonOff) pThirdPersonOff();
-            } __except (EXCEPTION_EXECUTE_HANDLER) {}
-
-            __try {
                 stampThirdPersonFlag(0);
                 Mem::SmartWrite<uint32_t>(pInput + kCInput_TransitionA, 0);
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
-
             wasOn = false;
             return;
         }
 
-        // Keep runtime writes in a conservative range to avoid camera
-        // instability/crashes from extreme values.
+        // === wantOn ===
+
+        // Slider clamp: matches menu range (50..600). Anything outside
+        // these bounds risks NaN-ing the camera lerp on ConVar write.
         float safeDist = cfg.thirdPersonDist;
-        if (safeDist < 50.f)  safeDist = 50.f;
-        if (safeDist > 300.f) safeDist = 300.f;
+        if (safeDist <  50.f) safeDist =  50.f;
+        if (safeDist > 600.f) safeDist = 600.f;
 
         // Low-frequency shoulder cvar latching (200 ms).
         UINT64 now = GetTickCount64();
@@ -858,42 +841,26 @@ namespace WorldEffects
 
         if (!wasOn)
         {
-            // Grace period after spawn to avoid calling handlers during
-            // respawn/team-select transitions. Only activate after 200ms
-            // of stable pawn state.
-            if (spawnGraceTick == 0)
-                spawnGraceTick = now;
-
-            if ((now - spawnGraceTick) > 200)
-            {
-                // Safe to activate: call native handler so the engine
-                // sets camera anchor + local pawn render-self state.
-                __try { if (pThirdPersonOn) pThirdPersonOn(); }
-                __except (EXCEPTION_EXECUTE_HANDLER) {}
-                wasOn = true;
-                lastRecoverTick = now;
-            }
-            return;
+            // Edge: invoke engine handler ONCE on the off→on transition.
+            // The handler does the heavy lifting (camera anchor, viewmodel
+            // hide, localpawn render-self toggle). After this we just
+            // latch the enable flag every tick so engine-side resets
+            // (round restart, respawn, map change) can't silently flip
+            // us back to first-person.
+            __try { if (pThirdPersonOn) pThirdPersonOn(); }
+            __except (EXCEPTION_EXECUTE_HANDLER) {}
+            wasOn = true;
         }
 
+        // Steady-state maintenance: keep enable gate latched + clear the
+        // engine's transition flag so it doesn't try to fade us back to
+        // first-person after a round event. Do NOT force the engine
+        // "active" byte at +0x228 — that's owned by the camera processor
+        // and writing it desyncs input/mouse handling.
         __try {
-            // Safe maintenance only: keep the enable gate latched,
-            // but do not force internal active/init bytes (0x228/0x22A),
-            // which can desync camera/input and break mouse interaction.
             stampThirdPersonFlag(1);
             Mem::SmartWrite<uint32_t>(pInput + kCInput_TransitionA, 0);
-
-            // Recovery pulse: if engine dropped third-person active state,
-            // re-run native handler at a low rate to avoid flicker.
-            uint8_t active = Mem::Read<uint8_t>(pInput + kCInput_ThirdActive);
-            if (!active && (now - lastRecoverTick) > 150)
-            {
-                if (pThirdPersonOn) pThirdPersonOn();
-                stampThirdPersonFlag(1);
-                lastRecoverTick = now;
-            }
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
-        return;
     }
 
     // ---------------------------------------------------------------
