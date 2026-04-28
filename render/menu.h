@@ -1,12 +1,12 @@
-#pragma once
+﻿#pragma once
 
-// ═══════════════════════════════════════════════════════════════
-// Lucid CS2 Menu  ─  Menu 19 "framework" exact replica
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// Lucid CS2 Menu  â”€  Menu 19 "framework" exact replica
 // Dark navy (13,13,18) | Soft-purple accent (142,132,255)
 // 840x630 window | 110px LEFT SIDEBAR with stacked tabs
 // Toggle-switch checkboxes | Equalizer-bar sliders
 // Gradient accent lines top+bottom | Auto-height section boxes
-// ═══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 #include "../vendor/imgui/imgui.h"
 #include "../vendor/imgui/imgui_internal.h"
@@ -39,7 +39,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <wincodec.h>
-// WinHTTP is loaded at runtime (see SteamAvatarThread) — NOT statically linked.
+// WinHTTP is loaded at runtime (see SteamAvatarThread) â€” NOT statically linked.
 // Windowscodecs.lib likewise avoided; WIC is accessed via COM + local GUIDs.
 // Both DLLs are non-boot and may not be mapped at the same VA in cs2.exe as in
 // the injector process, so static IAT entries would point to garbage.
@@ -75,7 +75,7 @@ namespace Menu
         return a;
     }
 
-    // HUD Steam avatar — downloaded once on startup via background thread
+    // HUD Steam avatar â€” downloaded once on startup via background thread
     inline ID3D11Device*             g_pDevice      = nullptr;  // assigned from hooks.h
     inline ID3D11ShaderResourceView* hudAvatarSRV    = nullptr;
     inline std::vector<uint8_t>      hudAvatarPixels;
@@ -105,7 +105,7 @@ namespace Menu
         hudAvatarReady = false;
     }
 
-    // Background thread: fetches Steam profile XML → downloads avatar → decodes via WIC
+    // Background thread: fetches Steam profile XML â†’ downloads avatar â†’ decodes via WIC
     inline DWORD WINAPI SteamAvatarThread(LPVOID)
     {
         // 1. Account ID from registry
@@ -119,7 +119,7 @@ namespace Menu
 
         uint64_t steamID64 = 76561197960265728ULL + (uint64_t)accountID;
 
-        // 2. Load WinHTTP at runtime — avoids static IAT entries.
+        // 2. Load WinHTTP at runtime â€” avoids static IAT entries.
         //    The injector resolves imports from its own address space; non-boot DLLs
         //    like winhttp.dll may not be mapped in cs2.exe at the same VA, so any
         //    statically-linked import would call garbage addresses and crash.
@@ -154,7 +154,7 @@ namespace Menu
         constexpr DWORD kSecFlgs  = 0x00000100 | 0x00002000 | 0x00001000 | 0x00000200;
         // ^ IGNORE_UNKNOWN_CA | IGNORE_CERT_DATE_INVALID | IGNORE_CERT_CN_INVALID | IGNORE_CERT_WRONG_USAGE
 
-        // 3. FetchURL — all WinHTTP calls go through captured function pointers (no IAT)
+        // 3. FetchURL â€” all WinHTTP calls go through captured function pointers (no IAT)
         auto FetchURL = [&](const wchar_t* host, const wchar_t* path, std::string& out) -> bool {
             void* hs = whOpen(L"LucidHUD/1.0", kAccess, nullptr, nullptr, 0);
             if (!hs) return false;
@@ -212,7 +212,7 @@ namespace Menu
           fwrite(imgData.data(), 1, imgData.size(), f); fclose(f); }
 
         // 6. Decode JPEG via WIC to RGBA
-        // GUIDs defined locally — avoids Windowscodecs.lib in the import table
+        // GUIDs defined locally â€” avoids Windowscodecs.lib in the import table
         static const GUID kCLSID_WICFactory = { 0xcacaf262, 0x9370, 0x4615, { 0xa1, 0x3b, 0x9f, 0x55, 0x39, 0xda, 0x4c, 0x0a } };
         static const GUID kFmt32bppRGBA     = { 0xf5c7ad2d, 0x6a8d, 0x43dd, { 0xa7, 0xa8, 0xa2, 0x99, 0x35, 0x26, 0x1a, 0xe9 } };
         CoInitializeEx(nullptr, COINIT_MULTITHREADED);
@@ -261,7 +261,9 @@ namespace Menu
         if (t) CloseHandle(t);
     }
 
-    inline float primaryColor[4]   = { 142/255.f, 132/255.f, 255/255.f, 1.0f };
+    // Accent default â€” light red. Was deep purple; switched 2026-04-28
+    // alongside the minimal classic-internal menu rewrite.
+    inline float primaryColor[4]   = { 200/255.f,  56/255.f,  56/255.f, 1.0f };
     inline float secondaryColor[4] = { 0.09f, 0.09f, 0.09f, 0.70f };
     inline bool  themeApplied      = false;
 
@@ -510,7 +512,7 @@ namespace Menu
         return changed;
     }
 
-    // Section/category label — accent bar + title + subtle rule line
+    // Section/category label â€” accent bar + title + subtle rule line
     inline void EvoLabel(const char* text)
     {
         ImDrawList* dl = ImGui::GetWindowDrawList();
@@ -571,7 +573,7 @@ namespace Menu
         return current;
     }
 
-    // Auto-height section — wraps content in a subtle "card":
+    // Auto-height section â€” wraps content in a subtle "card":
     //   * 1px hairline outline so each section visibly separates from the
     //     next without heavy backgrounds,
     //   * a thin accent stripe down the left edge for a hierarchical feel,
@@ -589,7 +591,7 @@ namespace Menu
             ImGuiChildFlags_AutoResizeY,
             ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
-        // (no accent stripe — keep sections clean)
+        // (no accent stripe â€” keep sections clean)
     }
     inline void SynthEndSection()
     {
@@ -724,7 +726,7 @@ namespace Menu
         if (fread(hdr, sizeof(hdr), 1, f) != 1) { fclose(f); return false; }
         // hdr[0] = magic, hdr[1] = version, hdr[2] = dataSize at write time.
         // CRITICAL: dataSize MUST equal sizeof(SavedConfig) at load time.
-        // SavedConfig is read with raw fread of the full struct — every
+        // SavedConfig is read with raw fread of the full struct â€” every
         // member after Aimbot::Config (ESP/chams/colors/...) is positionally
         // bound to sizeof(Aimbot::Config). A struct-size mismatch silently
         // shifts every field after the change point, producing exactly the
@@ -931,7 +933,7 @@ namespace Menu
             SynthSep();
             EvoCheckbox("Vis Check",     &Aimbot::cfg.visCheck);
         }
-        // "Silent Aim" toggle removed — the WriteSubtick path proved
+        // "Silent Aim" toggle removed â€” the WriteSubtick path proved
         // unreliable in the field (would silently no-op for some users).
         // Aimbot::cfg.silentAim is hard-pinned to false at startup.
         SynthEndSection();
@@ -1654,7 +1656,7 @@ namespace Menu
         const float t = 1.4f;
         switch (tab)
         {
-        case 0: // Crosshair — Aim
+        case 0: // Crosshair â€” Aim
             dl->AddCircle(c, 7.f, col, 32, t);
             dl->AddCircleFilled(c, 1.8f, col);
             dl->AddLine({c.x,        c.y - 11.f}, {c.x,        c.y -  9.f}, col, t);
@@ -1662,7 +1664,7 @@ namespace Menu
             dl->AddLine({c.x - 11.f, c.y       }, {c.x -  9.f, c.y       }, col, t);
             dl->AddLine({c.x +  9.f, c.y       }, {c.x + 11.f, c.y       }, col, t);
             break;
-        case 1: // Eye — Vis
+        case 1: // Eye â€” Vis
         {
             const float ew = 11.f, ctrl = 7.5f;
             dl->AddBezierCubic(
@@ -1674,7 +1676,7 @@ namespace Menu
             dl->AddCircle(c, 3.2f, col, 12, t);
             break;
         }
-        case 2: // Layers / chevrons — Skin
+        case 2: // Layers / chevrons â€” Skin
         {
             const float offsets[3] = { -5.f, 0.f, 5.f };
             for (int j = 0; j < 3; ++j)
@@ -1685,7 +1687,7 @@ namespace Menu
             }
             break;
         }
-        case 3: // Globe — World
+        case 3: // Globe â€” World
         {
             dl->AddCircle(c, 9.f, col, 32, t);
             dl->AddLine({c.x, c.y - 9.f}, {c.x, c.y + 9.f}, col, t);
@@ -1698,7 +1700,7 @@ namespace Menu
                 {c.x - ex, c.y + ctrl2}, {c.x - ex, c.y}, col, t);
             break;
         }
-        case 4: // Sliders — Config
+        case 4: // Sliders â€” Config
         {
             const float lw = 18.f;
             const float ly[3] = {c.y - 5.5f, c.y, c.y + 5.5f};
@@ -1719,10 +1721,10 @@ namespace Menu
     // ============================================================
     //  TOP-RIGHT HUD OVERLAY  (always visible: LUCID | name | time | FPS)
     //  Three styles:
-    //    0 Pill  — premium dark pill with accent bar, hairline dividers,
+    //    0 Pill  â€” premium dark pill with accent bar, hairline dividers,
     //              soft drop shadow, gradient backdrop, avatar accent ring
-    //    1 Clean — accent-forward outline, no dividers
-    //    2 Ghost — ultra-minimal, barely visible
+    //    1 Clean â€” accent-forward outline, no dividers
+    //    2 Ghost â€” ultra-minimal, barely visible
     // ============================================================
     inline void RenderHUD()
     {
@@ -1749,9 +1751,9 @@ namespace Menu
         const float gap  = 9.f;                           // gap between text segments
         // Hairline divider footprint = gap + 1px line + gap. The math used to
         // fall short by 9px per divider which clipped the FPS value off the
-        // right edge — keep this in sync with HairDivider() below.
+        // right edge â€” keep this in sync with HairDivider() below.
         const float divW = gap + 1.f + gap;
-        const float radius = bh * 0.5f;                   // fully rounded ends → capsule
+        const float radius = bh * 0.5f;                   // fully rounded ends â†’ capsule
 
         ImVec2 szL  = ImGui::CalcTextSize("LUCID");
         ImVec2 szN  = ImGui::CalcTextSize(name);
@@ -1790,7 +1792,7 @@ namespace Menu
         const float cy = by + bh * 0.5f;
         const float ty = by + (bh - fh) * 0.5f;
 
-        // Hairline divider helper — shared across styles, advances cx
+        // Hairline divider helper â€” shared across styles, advances cx
         auto HairDivider = [&](float& cx, ImU32 col, float topPad = 6.f) {
             cx += gap;
             fl->AddRectFilled({ cx, by + topPad }, { cx + 1.f, by + bh - topPad }, col);
@@ -1798,12 +1800,12 @@ namespace Menu
         };
 
         // ------------------------------------------------------------------
-        //  STYLE 2 — GHOST  (truly minimal: low-alpha capsule, no chrome,
+        //  STYLE 2 â€” GHOST  (truly minimal: low-alpha capsule, no chrome,
         //  no dividers, dot separators only)
         // ------------------------------------------------------------------
         if (hudStyle == 2)
         {
-            // Very subtle backdrop — barely there, no border, no accent bar.
+            // Very subtle backdrop â€” barely there, no border, no accent bar.
             fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, IM_COL32(8, 8, 14, 110), radius);
 
             float cx = bx + padX;
@@ -1815,7 +1817,7 @@ namespace Menu
                 cx += avD + 8.f;
             }
 
-            // Dot separator instead of vertical hairline — softer, more "ghost"
+            // Dot separator instead of vertical hairline â€” softer, more "ghost"
             const ImU32 cDot = IM_COL32(150, 150, 165, 110);
             auto Dot = [&](float& x) {
                 x += gap;
@@ -1835,7 +1837,7 @@ namespace Menu
         }
 
         // ------------------------------------------------------------------
-        //  STYLE 1 — CLEAN  (accent-outline, no dividers)
+        //  STYLE 1 â€” CLEAN  (accent-outline, no dividers)
         // ------------------------------------------------------------------
         if (hudStyle == 1)
         {
@@ -1866,7 +1868,7 @@ namespace Menu
         }
 
         // ------------------------------------------------------------------
-        //  STYLE 0 — PILL  (default, premium)
+        //  STYLE 0 â€” PILL  (default, premium)
         //  - 4-layer drop shadow
         //  - Two-tone gradient backdrop (top slightly lighter)
         //  - 1px hairline outline + 1px inner highlight
@@ -1881,7 +1883,7 @@ namespace Menu
                               IM_COL32(0, 0, 0, 9 + (5 - i) * 6), radius + i);
         }
 
-        // 2) Backdrop — ImGui supports per-corner colors via AddRectFilledMultiColor
+        // 2) Backdrop â€” ImGui supports per-corner colors via AddRectFilledMultiColor
         //    Top: slightly lifted; bottom: deep ink. Gives a glass-panel feel.
         const ImU32 cTop  = IM_COL32(20, 18, 30, 235);
         const ImU32 cBot  = IM_COL32(8,  7, 14,  240);
@@ -1899,7 +1901,7 @@ namespace Menu
         fl->AddRect({ bx + 1.f, by + 1.f }, { bx + totalW - 1.f, by + bh - 1.f },
                     EvoAccent(55), radius - 1.f, 0, 1.f);
 
-        // 4) Accent bar on left edge — vertical capsule
+        // 4) Accent bar on left edge â€” vertical capsule
         fl->AddRectFilled({ bx + 4.f, by + 5.f }, { bx + 6.f, by + bh - 5.f }, EvoAccent(235), 2.f);
 
         // 5) Content
@@ -1915,7 +1917,7 @@ namespace Menu
             cx += avD + 8.f;
         }
 
-        // Clean separators — small soft dot between segments instead of
+        // Clean separators â€” small soft dot between segments instead of
         // hairline rules (those were reading as defects in light maps).
         auto Sep = [&](float& cx) {
             fl->AddCircleFilled({ cx + divW * 0.5f, cy + 0.5f }, 1.3f,
@@ -1937,11 +1939,11 @@ namespace Menu
     //  the 20-hour MM cooldown.
     //
     //  States (status dot / value text):
-    //    GRAY    "----"  — sigscan not run yet (very first frames)
-    //    AMBER   "MISS"  — sigscan ran but couldn't find the setter
-    //                       (game updated, pattern broke — bug me)
-    //    GREEN   "00"    — flag is being held at 0 (we're invisible)
-    //    RED     "01"    — game just set it; we'll zero it next beat
+    //    GRAY    "----"  â€” sigscan not run yet (very first frames)
+    //    AMBER   "MISS"  â€” sigscan ran but couldn't find the setter
+    //                       (game updated, pattern broke â€” bug me)
+    //    GREEN   "00"    â€” flag is being held at 0 (we're invisible)
+    //    RED     "01"    â€” game just set it; we'll zero it next beat
     // ============================================================
     inline void RenderVacWatermark()
     {
@@ -1967,9 +1969,9 @@ namespace Menu
         }
 
         // GC-emitter hook badge: small "GC" tag after the value. Three states:
-        //   GREEN  — hook installed (emitter can never call GC)
-        //   GRAY   — hook resolver hasn't run yet
-        //   AMBER  — resolver ran but pattern miss / MinHook failed
+        //   GREEN  â€” hook installed (emitter can never call GC)
+        //   GRAY   â€” hook resolver hasn't run yet
+        //   AMBER  â€” resolver ran but pattern miss / MinHook failed
         const char* gcBadge = "GC";
         ImU32       gcCol;
         if (gcHookOk)        gcCol = IM_COL32( 90,225,130,235);
@@ -2042,7 +2044,7 @@ namespace Menu
         fl->AddText({ cx, ty }, EvoAccent(245), "VAC");        cx += szL.x;  Sep(cx);
         fl->AddText({ cx, ty }, kTextBrt,        "Heartbeat"); cx += szH.x;  Sep(cx);
 
-        // status dot — pulsing soft halo + crisp center
+        // status dot â€” pulsing soft halo + crisp center
         const float dotR = 3.6f;
         const float dotCx = cx + dotW * 0.5f - 2.f;
         // soft halo (constant, no time-based pulse to avoid churn)
@@ -2057,7 +2059,7 @@ namespace Menu
     }
 
     // ============================================================
-    //  FEATURE CARD GRID  ─  iOS-style mod menu
+    //  FEATURE CARD GRID  â”€  iOS-style mod menu
     //  Each tab shows a 3-col grid of cards. Click OPTIONS on a
     //  card to navigate into that feature's page.
     // ============================================================
@@ -2073,7 +2075,7 @@ namespace Menu
     };
 
     // ============================================================
-    //  LUCIDE-STYLE ICONS  ─  24x24 grid, ~1.7px stroke, rounded
+    //  LUCIDE-STYLE ICONS  â”€  24x24 grid, ~1.7px stroke, rounded
     //  Drawn around center `c` with logical radius `s`.
     // ============================================================
     inline void DrawFeatureIcon(ImDrawList* dl, int id, ImVec2 c, float scale, ImU32 col)
@@ -2085,7 +2087,7 @@ namespace Menu
 
         switch (id)
         {
-        // ── crosshair (lucide: crosshair) ──
+        // â”€â”€ crosshair (lucide: crosshair) â”€â”€
         case FI_CROSSHAIR: {
             dl->AddCircle(c, s * 0.78f, col, 32, t);
             Ln({c.x, c.y - s*1.05f}, {c.x, c.y - s*0.55f});
@@ -2095,21 +2097,21 @@ namespace Menu
             dl->AddCircleFilled(c, s * 0.10f, col, 12);
             break; }
 
-        // ── triggerbot (lucide: target with center) ──
+        // â”€â”€ triggerbot (lucide: target with center) â”€â”€
         case FI_TRIGGER: {
             dl->AddCircle(c, s * 0.95f, col, 32, t);
             dl->AddCircle(c, s * 0.55f, col, 28, t);
             dl->AddCircleFilled(c, s * 0.18f, col, 16);
             break; }
 
-        // ── jump (lucide: arrow-up) ──
+        // â”€â”€ jump (lucide: arrow-up) â”€â”€
         case FI_JUMP: {
             Ln({c.x, c.y + s*0.95f}, {c.x, c.y - s*0.95f});
             Ln({c.x, c.y - s*0.95f}, {c.x - s*0.55f, c.y - s*0.4f});
             Ln({c.x, c.y - s*0.95f}, {c.x + s*0.55f, c.y - s*0.4f});
             break; }
 
-        // ── rewind (lucide: rotate-ccw) ──
+        // â”€â”€ rewind (lucide: rotate-ccw) â”€â”€
         case FI_REWIND: {
             int seg = 24; float r = s * 0.85f;
             for (int i = 0; i < seg; ++i) {
@@ -2126,7 +2128,7 @@ namespace Menu
             Ln(ep, { ep.x + s*0.55f, ep.y + s*0.05f });
             break; }
 
-        // ── rotate (lucide: refresh-cw / two arrows) ──
+        // â”€â”€ rotate (lucide: refresh-cw / two arrows) â”€â”€
         case FI_ROTATE: {
             float r = s * 0.78f;
             int seg = 18;
@@ -2147,7 +2149,7 @@ namespace Menu
             }
             break; }
 
-        // ── bolt (lucide: zap, filled) ──
+        // â”€â”€ bolt (lucide: zap, filled) â”€â”€
         case FI_BOLT: {
             ImVec2 pts[6] = {
                 { c.x - s*0.05f, c.y - s*1.0f },
@@ -2162,13 +2164,13 @@ namespace Menu
             dl->PathFillConvex(col);
             break; }
 
-        // ── box (lucide: square) ──
+        // â”€â”€ box (lucide: square) â”€â”€
         case FI_BOX: {
             float r = s * 0.85f;
             dl->AddRect({ c.x - r, c.y - r }, { c.x + r, c.y + r }, col, 3.f, 0, t);
             break; }
 
-        // ── silhouette (lucide: user) ──
+        // â”€â”€ silhouette (lucide: user) â”€â”€
         case FI_SILHOUETTE: {
             dl->AddCircle({ c.x, c.y - s*0.4f }, s * 0.34f, col, 24, t);
             int seg = 14;
@@ -2185,7 +2187,7 @@ namespace Menu
             }
             break; }
 
-        // ── tracer (lucide: move-up-right diag) ──
+        // â”€â”€ tracer (lucide: move-up-right diag) â”€â”€
         case FI_TRACER: {
             ImVec2 a{ c.x - s*0.85f, c.y + s*0.85f };
             ImVec2 b{ c.x + s*0.85f, c.y - s*0.85f };
@@ -2195,7 +2197,7 @@ namespace Menu
             Ln(b, { b.x, b.y + s*0.55f });
             break; }
 
-        // ── droplet (lucide: droplet) ──
+        // â”€â”€ droplet (lucide: droplet) â”€â”€
         case FI_DROP: {
             int seg = 26;
             dl->PathClear();
@@ -2208,7 +2210,7 @@ namespace Menu
             dl->PathStroke(col, ImDrawFlags_Closed, t);
             break; }
 
-        // ── eye (lucide: eye) ──
+        // â”€â”€ eye (lucide: eye) â”€â”€
         case FI_EYE: {
             const float w = s * 1.0f, h = s * 0.55f;
             dl->PathClear();
@@ -2223,7 +2225,7 @@ namespace Menu
             dl->AddCircleFilled(c, s * 0.12f, col, 12);
             break; }
 
-        // ── badge / award (lucide: award) ──
+        // â”€â”€ badge / award (lucide: award) â”€â”€
         case FI_BADGE: {
             dl->AddCircle({ c.x, c.y - s*0.15f }, s * 0.55f, col, 28, t);
             // ribbons
@@ -2233,7 +2235,7 @@ namespace Menu
             Ln({ c.x + s*0.05f, c.y + s*1.0f }, { c.x + s*0.42f, c.y + s*0.30f });
             break; }
 
-        // ── grenade (circle + safety lever) ──
+        // â”€â”€ grenade (circle + safety lever) â”€â”€
         case FI_GRENADE: {
             dl->AddCircle({ c.x, c.y + s*0.18f }, s * 0.62f, col, 28, t);
             // top cap
@@ -2245,7 +2247,7 @@ namespace Menu
             Ln({ c.x + s*0.18f, c.y - s*0.48f }, { c.x + s*0.36f, c.y - s*0.50f });
             break; }
 
-        // ── target / focus (lucide: focus) ──
+        // â”€â”€ target / focus (lucide: focus) â”€â”€
         case FI_TARGET: {
             dl->AddCircleFilled(c, s * 0.18f, col, 16);
             // L-corners
@@ -2260,7 +2262,7 @@ namespace Menu
             Ln({ c.x - r, c.y + r }, { c.x - r, c.y + r*0.55f });
             break; }
 
-        // ── speaker (lucide: volume-2) ──
+        // â”€â”€ speaker (lucide: volume-2) â”€â”€
         case FI_SPEAKER: {
             ImVec2 pts[5] = {
                 { c.x - s*0.85f, c.y - s*0.30f },
@@ -2284,7 +2286,7 @@ namespace Menu
             }
             break; }
 
-        // ── paint / brush (lucide: paintbrush) ──
+        // â”€â”€ paint / brush (lucide: paintbrush) â”€â”€
         case FI_PAINT: {
             // brush head
             dl->AddRect({ c.x - s*0.35f, c.y - s*0.95f }, { c.x + s*0.55f, c.y - s*0.30f }, col, 3.f, 0, t);
@@ -2298,7 +2300,7 @@ namespace Menu
             Ln({ c.x - s*0.55f, c.y + s*0.95f }, { c.x + s*0.05f, c.y + s*0.95f });
             break; }
 
-        // ── knife / sword (lucide: sword) ──
+        // â”€â”€ knife / sword (lucide: sword) â”€â”€
         case FI_KNIFE: {
             // blade
             Ln({ c.x - s*0.95f, c.y + s*0.30f }, { c.x + s*0.20f, c.y - s*0.85f });
@@ -2313,7 +2315,7 @@ namespace Menu
             Ln({ c.x - s*0.95f, c.y + s*0.45f }, { c.x - s*0.75f, c.y + s*0.85f });
             break; }
 
-        // ── glove / hand (lucide: hand) ──
+        // â”€â”€ glove / hand (lucide: hand) â”€â”€
         case FI_GLOVE: {
             // palm
             float pl = c.x - s*0.45f, pr = c.x + s*0.45f;
@@ -2346,7 +2348,7 @@ namespace Menu
             }
             break; }
 
-        // ── sun (lucide: sun) ──
+        // â”€â”€ sun (lucide: sun) â”€â”€
         case FI_SUN: {
             dl->AddCircle(c, s * 0.42f, col, 24, t);
             for (int i = 0; i < 8; ++i) {
@@ -2356,7 +2358,7 @@ namespace Menu
             }
             break; }
 
-        // ── flame (lucide: flame) ──
+        // â”€â”€ flame (lucide: flame) â”€â”€
         case FI_FLAME: {
             dl->PathClear();
             dl->PathLineTo({ c.x, c.y - s*0.95f });
@@ -2375,7 +2377,7 @@ namespace Menu
             dl->PathStroke(col, ImDrawFlags_Closed, t);
             break; }
 
-        // ── FOV (lucide: scan / corners) ──
+        // â”€â”€ FOV (lucide: scan / corners) â”€â”€
         case FI_FOV: {
             float r = s * 0.95f;
             // four corner brackets
@@ -2391,7 +2393,7 @@ namespace Menu
             Ln({ c.x - r*0.55f, c.y }, { c.x + r*0.55f, c.y });
             break; }
 
-        // ── moon (lucide: moon) ──
+        // â”€â”€ moon (lucide: moon) â”€â”€
         case FI_MOON: {
             // crescent via two-arc closed path
             int seg = 28;
@@ -2407,7 +2409,7 @@ namespace Menu
             dl->PathStroke(col, ImDrawFlags_Closed, t);
             break; }
 
-        // ── lightbulb (lucide: lightbulb) ──
+        // â”€â”€ lightbulb (lucide: lightbulb) â”€â”€
         case FI_BULB: {
             // bulb (circle with bottom flat)
             int seg = 22;
@@ -2425,7 +2427,7 @@ namespace Menu
             Ln({ c.x - s*0.20f, c.y - s*0.10f }, { c.x + s*0.20f, c.y - s*0.10f });
             break; }
 
-        // ── camera (lucide: camera) ──
+        // â”€â”€ camera (lucide: camera) â”€â”€
         case FI_CAMERA: {
             dl->AddRect({ c.x - s*0.95f, c.y - s*0.45f }, { c.x + s*0.95f, c.y + s*0.65f }, col, 3.f, 0, t);
             // top notch
@@ -2436,14 +2438,14 @@ namespace Menu
             dl->AddCircle({ c.x, c.y + s*0.10f }, s * 0.32f, col, 24, t);
             break; }
 
-        // ── check (lucide: check-circle) ──
+        // â”€â”€ check (lucide: check-circle) â”€â”€
         case FI_CHECK: {
             dl->AddCircle(c, s * 0.95f, col, 32, t);
             Ln({ c.x - s*0.42f, c.y + s*0.05f }, { c.x - s*0.05f, c.y + s*0.42f });
             Ln({ c.x - s*0.05f, c.y + s*0.42f }, { c.x + s*0.50f, c.y - s*0.30f });
             break; }
 
-        // ── gear (lucide: settings) ──
+        // â”€â”€ gear (lucide: settings) â”€â”€
         case FI_GEAR: {
             int teeth = 8;
             float rO = s * 0.95f, rI = s * 0.70f;
@@ -2465,7 +2467,7 @@ namespace Menu
             dl->AddCircle(c, s * 0.28f, col, 18, t);
             break; }
 
-        // ── wand / sparkles (lucide: sparkles) ──
+        // â”€â”€ wand / sparkles (lucide: sparkles) â”€â”€
         case FI_WAND: {
             // big star
             auto Star = [&](ImVec2 cc, float sz) {
@@ -2479,7 +2481,7 @@ namespace Menu
             Star({ c.x + s*0.55f, c.y + s*0.65f }, s * 0.20f);
             break; }
 
-        // ── palette (lucide: palette) ──
+        // â”€â”€ palette (lucide: palette) â”€â”€
         case FI_PALETTE: {
             // outline blob
             int seg = 28;
@@ -2499,7 +2501,7 @@ namespace Menu
             dl->AddCircleFilled({ c.x - s*0.40f, c.y + s*0.35f }, s * 0.10f, col, 12);
             break; }
 
-        // ── HUD / layout (lucide: layout-dashboard) ──
+        // â”€â”€ HUD / layout (lucide: layout-dashboard) â”€â”€
         case FI_HUD: {
             float r = s * 0.92f;
             // big cell top-left
@@ -2512,7 +2514,7 @@ namespace Menu
             dl->AddRect({ c.x + s*0.10f, c.y + s*0.40f }, { c.x + r, c.y + r }, col, 2.5f, 0, t);
             break; }
 
-        // ── floppy / save (lucide: save) ──
+        // â”€â”€ floppy / save (lucide: save) â”€â”€
         case FI_FLOPPY: {
             float r = s * 0.92f;
             dl->AddRect({ c.x - r, c.y - r }, { c.x + r, c.y + r }, col, 3.f, 0, t);
@@ -2533,7 +2535,7 @@ namespace Menu
     //  PAGE RENDERERS  (one per existing section; called from grid)
     // ============================================================
 
-    // ── AIM tab ────────────────────────────────────────────────
+    // â”€â”€ AIM tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     inline void Pg_Aimbot()
     {
         EvoCheckbox("Safety Governor##gov", &Aimbot::Governor::gcfg.enabled);
@@ -2554,7 +2556,7 @@ namespace Menu
         SynthSep();
         EvoSliderFloat("Humanization", &Aimbot::cfg.humanization, 0.30f, 1.f,   "%.2f");
         SynthSep();
-        // "Silent Aim" toggle removed — see Pg_Aimbot for context.
+        // "Silent Aim" toggle removed â€” see Pg_Aimbot for context.
         EvoCheckbox("Team Check",    &Aimbot::cfg.teamCheck);
         SynthSep();
         EvoCheckbox("No Recoil",       &Aimbot::cfg.noRecoil);
@@ -2596,13 +2598,13 @@ namespace Menu
         SynthSep(); EvoCheckbox("Velocity Display##bvd", &Bhop::cfg.showVelocity);
     }
 
-    // Rage Mode page — danger-tier toggles (Neverlose / Memesense style).
+    // Rage Mode page â€” danger-tier toggles (Neverlose / Memesense style).
     // Flipping `Enable` clobbers aim physics (silent / always-on / no
     // smoothing / no vis-check) for the session. Toggle off to get your
     // legit settings back exactly as they were before.
     inline void Pg_Rage()
     {
-        ImGui::TextColored({ 1.f, 0.4f, 0.4f, 1.f }, "  ⚠ Danger — visible to spectators");
+        ImGui::TextColored({ 1.f, 0.4f, 0.4f, 1.f }, "  âš  Danger â€” visible to spectators");
         ImGui::Dummy({ 0.f, 4.f });
         EvoCheckbox("Enable Rage##rge", &Aimbot::Rage::cfg.enabled);
         if (!Aimbot::Rage::cfg.enabled) return;
@@ -2636,7 +2638,7 @@ namespace Menu
         SynthSep(); ImGui::SliderInt("Max Choke##flmc", &FakeLag::cfg.maxChoke, 1, 14);
     }
 
-    // ── VIS tab ────────────────────────────────────────────────
+    // â”€â”€ VIS tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     inline void Pg_ESP()
     {
         EvoCheckbox("Box",       &ESP::cfg.box);
@@ -2731,7 +2733,7 @@ namespace Menu
         SynthSep(); EvoSliderFloat("Arrow Size##sas",&SoundESP::cfg.indicatorSize,15.f,  80.f, "%.0f");
     }
 
-    // ── SKN tab ────────────────────────────────────────────────
+    // â”€â”€ SKN tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     inline void Pg_SkinChanger()
     {
         if (EvoButton("Randomize All##ra")) SkinChanger::RandomizeAll();
@@ -2790,7 +2792,7 @@ namespace Menu
         SynthSep(); EvoSliderFloat("Wear##gw", &SkinChanger::cfg.gloveWear, 0.f, 1.f, "%.4f");
     }
 
-    // ── WLD tab ────────────────────────────────────────────────
+    // â”€â”€ WLD tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     inline void Pg_Sky()
     {
         EvoCheckbox("Sky Override##so", &WorldEffects::cfg.skyEnabled);
@@ -2874,7 +2876,7 @@ namespace Menu
         EvoSliderFloat("Delay##aad", &AutoAccept::cfg.delay, 0.1f, 3.f, "%.1f");
     }
 
-    // ── CFG tab ────────────────────────────────────────────────
+    // â”€â”€ CFG tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     inline void Pg_UIMode()  { EvoCheckbox("Advanced Mode", &advancedMode); }
     inline void Pg_Presets()
     {
@@ -2920,7 +2922,7 @@ namespace Menu
         }
     }
 
-    // ── Feature catalog ───────────────────────────────────────
+    // â”€â”€ Feature catalog â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     struct FeatureDef {
         const char* name;
         const char* subtitle;
@@ -2985,7 +2987,7 @@ namespace Menu
         count = 0; return nullptr;
     }
 
-    // ── Card renderer ────────────────────────────────────────
+    // â”€â”€ Card renderer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     //  Submits OPTIONS + toggle as REAL items (so clicks register).
     //  Hover for the whole card uses a non-blocking rect-test.
     inline bool DrawFeatureCard(const FeatureDef& f, ImVec2 sz, float dt)
@@ -3000,7 +3002,7 @@ namespace Menu
         const bool hovered = ImGui::IsWindowHovered() && ImGui::IsMouseHoveringRect(p0, p1);
         const float hAnim  = AnimStep(&f, hovered, 16.f, dt);
 
-        // ── shadow (lifts on hover) ──
+        // â”€â”€ shadow (lifts on hover) â”€â”€
         for (int s = 0; s < 4; ++s) {
             float ofs   = 2.0f + (float)s * 2.4f + hAnim * 2.5f;
             int   alpha = (int)((26 - s * 6 + hAnim * 12) * menuAlpha);
@@ -3011,7 +3013,7 @@ namespace Menu
                 IM_COL32(0, 0, 0, alpha), R + 2.f);
         }
 
-        // ── base fill ──
+        // â”€â”€ base fill â”€â”€
         ImU32 baseFill = IM_COL32(
             19 + (int)(hAnim * 5),
             17 + (int)(hAnim * 5),
@@ -3019,12 +3021,12 @@ namespace Menu
             (int)((220 + hAnim * 25) * menuAlpha));
         dl->AddRectFilled(p0, p1, baseFill, R);
 
-        // ── enabled accent wash (smooth radial centred on icon, no hard line) ──
+        // â”€â”€ enabled accent wash (smooth radial centred on icon, no hard line) â”€â”€
         if (isOn) {
             float cx = (p0.x + p1.x) * 0.5f;
             float cy = p0.y + 44.f;
             float maxR = sz.x * 0.85f;
-            // Many faint concentric rings → smooth gradient fall-off
+            // Many faint concentric rings â†’ smooth gradient fall-off
             for (int g = 0; g < 14; ++g) {
                 float t  = (float)g / 13.f;          // 0..1
                 float rr = maxR * (0.18f + t * 0.82f);
@@ -3034,26 +3036,26 @@ namespace Menu
             }
         }
 
-        // ── glossy top sliver ── two halves that fade INTO the center,
-        //  brighter near the corners, dimmer in the middle (≈25% less alpha).
+        // â”€â”€ glossy top sliver â”€â”€ two halves that fade INTO the center,
+        //  brighter near the corners, dimmer in the middle (â‰ˆ25% less alpha).
         {
-            const int   midA = (int)(58 * menuAlpha);   // was 78 (≈ -25%)
+            const int   midA = (int)(58 * menuAlpha);   // was 78 (â‰ˆ -25%)
             const float yA   = p0.y + 1.f;
             const float yB   = p0.y + 2.4f;
             const float xL   = p0.x + 16.f;
             const float xR   = p1.x - 16.f;
             const float xMid = (xL + xR) * 0.5f;
-            // left half: 0 → midA → 0
+            // left half: 0 â†’ midA â†’ 0
             dl->AddRectFilledMultiColor({ xL, yA }, { xMid, yB },
                 IM_COL32(255,255,255,0),       IM_COL32(255,255,255,midA),
                 IM_COL32(255,255,255,midA),    IM_COL32(255,255,255,0));
-            // right half: midA → 0 → 0 → midA  (mirror)
+            // right half: midA â†’ 0 â†’ 0 â†’ midA  (mirror)
             dl->AddRectFilledMultiColor({ xMid, yA }, { xR, yB },
                 IM_COL32(255,255,255,midA),    IM_COL32(255,255,255,0),
                 IM_COL32(255,255,255,0),       IM_COL32(255,255,255,midA));
         }
 
-        // ── outline ──
+        // â”€â”€ outline â”€â”€
         ImU32 outline = isOn
             ? EvoAccent((int)((140 + hAnim * 60) * menuAlpha))
             : IM_COL32(50 + (int)(hAnim * 28),
@@ -3065,7 +3067,7 @@ namespace Menu
         dl->AddRect({ p0.x + 0.5f, p0.y + 0.5f }, { p1.x - 0.5f, p1.y - 0.5f },
             IM_COL32(255, 255, 255, (int)(menuAlpha * (10 + hAnim * 6))), R - 0.5f, 0, 1.f);
 
-        // ── icon plate (centred more — sits a bit lower) ──
+        // â”€â”€ icon plate (centred more â€” sits a bit lower) â”€â”€
         const float iconR = 23.f;
         ImVec2 iconC{ (p0.x + p1.x) * 0.5f, p0.y + 44.f };
 
@@ -3094,7 +3096,7 @@ namespace Menu
             : IM_COL32(178, 178, 200, (int)((220 + hAnim * 30) * menuAlpha));
         DrawFeatureIcon(dl, f.icon, iconC, 13.5f, iconCol);
 
-        // ── name + subtitle (subtitle wrapped in a soft pill badge) ──
+        // â”€â”€ name + subtitle (subtitle wrapped in a soft pill badge) â”€â”€
         ImVec2 nmSz   = ImGui::CalcTextSize(f.name);
         const float nameY = iconC.y + iconR + 11.f;
         dl->AddText({ (p0.x + p1.x - nmSz.x) * 0.5f, nameY },
@@ -3117,14 +3119,14 @@ namespace Menu
                 ? EvoAccent((int)((110 + hAnim * 40) * menuAlpha))
                 : IM_COL32(70, 66, 100, (int)((150 + hAnim * 50) * menuAlpha));
             dl->AddRect({ chipX0, chipY0 }, { chipX1, chipY1 }, chipEdge, chipR, 0, 1.f);
-            // text — nudged up 2px so it sits visually centred (font baseline bias)
+            // text â€” nudged up 2px so it sits visually centred (font baseline bias)
             dl->AddText({ chipX0 + padX, chipY0 + padY - 2.f },
                 isOn ? IM_COL32(232, 230, 245, (int)(232 * menuAlpha))
                      : IM_COL32(150, 150, 170, (int)(218 * menuAlpha)),
                 f.subtitle);
         }
 
-        // ── bottom action row ──
+        // â”€â”€ bottom action row â”€â”€
         const float rowH  = 28.f;
         const float rowY0 = p1.y - rowH - 9.f;
         const float rowY1 = p1.y - 9.f;
@@ -3135,7 +3137,7 @@ namespace Menu
         // Use a stable ID scope per-card so children don't collide across cards
         ImGui::PushID((const void*)&f);
 
-        // OPTIONS button — left half if there's also a toggle; centred-wide otherwise
+        // OPTIONS button â€” left half if there's also a toggle; centred-wide otherwise
         {
             ImVec2 bTL, bBR;
             if (hasToggle) {
@@ -3162,7 +3164,7 @@ namespace Menu
                 IM_COL32(64, 60, 92, (int)((180 + bA * 60) * menuAlpha)), 7.f, 0, 1.f);
             const char* lbl = "OPTIONS";
             ImVec2 lSz = ImGui::CalcTextSize(lbl);
-            // No chevron — clean centred label only
+            // No chevron â€” clean centred label only
             dl->AddText({ (dTL.x + dBR.x - lSz.x) * 0.5f, (dTL.y + dBR.y - lSz.y) * 0.5f },
                 IM_COL32(220, 220, 235, (int)(228 * menuAlpha)), lbl);
             if (clicked) clickedOptions = true;
@@ -3183,7 +3185,7 @@ namespace Menu
             float pressShift = bd ? 1.f : 0.f;
             ImVec2 dTL{ tTL.x, tTL.y + pressShift };
             ImVec2 dBR{ tBR.x, tBR.y + pressShift };
-            // off → muted red, on → primaryColor
+            // off â†’ muted red, on â†’ primaryColor
             int rR = 132 + (int)((((primaryColor[0] * 255) - 132) * onA));
             int gG =  42 + (int)((((primaryColor[1] * 255) -  42) * onA));
             int bB =  54 + (int)((((primaryColor[2] * 255) -  54) * onA));
@@ -3225,7 +3227,7 @@ namespace Menu
         return clickedOptions;
     }
 
-    // ── Grid renderer (with slide-in animation) ──────────────
+    // â”€â”€ Grid renderer (with slide-in animation) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     inline void DrawFeatureGrid(int tab, float dt, ImVec2 areaSz)
     {
         int count = 0;
@@ -3275,7 +3277,7 @@ namespace Menu
         ImGui::Dummy({ areaSz.x, rows * CARD_H + (rows - 1) * ROW_GAP });
     }
 
-    // ── Feature page renderer ────────────────────────────────
+    // â”€â”€ Feature page renderer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     inline void DrawFeaturePage(int tab, float dt, ImVec2 areaSz)
     {
         int count = 0;
@@ -3298,7 +3300,7 @@ namespace Menu
         origin.x += slide;
         ImGui::SetCursorScreenPos(origin);
 
-        // ── header card ──
+        // â”€â”€ header card â”€â”€
         const float HDR = 46.f;
         ImVec2 hTL = origin;
         ImVec2 hBR = { origin.x + areaSz.x, origin.y + HDR };
@@ -3386,7 +3388,7 @@ namespace Menu
                 IM_COL32(255,255,255,(int)(245*menuAlpha)), st);
         }
 
-        // ── content card ──
+        // â”€â”€ content card â”€â”€
         ImVec2 cTL{ origin.x, hBR.y + 10.f };
         ImVec2 cBR{ origin.x + areaSz.x, origin.y + areaSz.y };
         // bg
@@ -3424,478 +3426,248 @@ namespace Menu
     }
 
     // ============================================================
-    //  MAIN RENDER  -  Menu 19 "framework" chrome
+    //  MAIN RENDER  â€”  Minimal classic-internal layout
+    //  (rewritten 2026-04-28: replaced the bottom-dock card grid
+    //   with a 3-column left-rail / feature-list / options layout
+    //   in the AimWare/Skeet/Pearl style. Light-red theme, dark
+    //   foreground. Per-feature Pg_* render funcs are unchanged.)
     // ============================================================
     inline void Render(bool& showMenu)
     {
         ApplyTheme();
 
         float dt = ImGui::GetIO().DeltaTime;
-        if (showMenu  && menuAlpha < 1.f) menuAlpha += dt * 5.f;
-        if (!showMenu && menuAlpha > 0.f) menuAlpha -= dt * 7.f;
+        if (showMenu  && menuAlpha < 1.f) menuAlpha += dt * 6.f;
+        if (!showMenu && menuAlpha > 0.f) menuAlpha -= dt * 8.f;
         if (menuAlpha < 0.f) menuAlpha = 0.f;
         if (menuAlpha > 1.f) menuAlpha = 1.f;
         if (menuAlpha <= 0.001f) return;
 
-        // ----------------------------------------------------------------
-        //  LAYOUT  (v2 — bottom dock)
-        //  Whole menu scaled ~7%. Sidebar is gone; tab strip lives in a
-        //  centered "iOS island" dock floating below the content card.
-        // ----------------------------------------------------------------
-        const float W        = 880.f;            // wider for 3-col grid
-        const float DOCK_H   = 48.f;
-        const float DOCK_GAP = 14.f;
-        const float PAD      = 12.f;             // 15 → 12
-        const float HDR_H    = 34.f;             // header strip height
-        const float COL_Y    = HDR_H + 6.f;      // content starts below header
-        // content height stops above the dock; full window height adds room for it
-        const float CONTENT_H = 560.f;           // taller for 3-row grid
-        const float H        = COL_Y + CONTENT_H + DOCK_GAP + DOCK_H + PAD + 6.f;
-        const float COL_X    = PAD;
-        const float COL_W    = (W - PAD * 2.f - 8.f) * 0.5f;
-        const float COL_H    = CONTENT_H;
+        // ---- Window geometry (compact medium, classic internal) ----
+        const float W           = 640.f;
+        const float H           = 460.f;
+        const float HEADER_H    = 30.f;
+        const float COL_LEFT_W  = 110.f;
+        const float COL_MID_W   = 180.f;
 
         ImGui::SetNextWindowSize({ W, H }, ImGuiCond_Once);
-        ImGui::SetNextWindowPos({ 120.f, 90.f }, ImGuiCond_Once);
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding,    { 0.f, 0.f });
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.f);
-        ImGui::PushStyleVar(ImGuiStyleVar_Alpha,            menuAlpha);
+        ImGui::SetNextWindowPos ({ 160.f, 110.f }, ImGuiCond_Once);
 
-        ImGui::Begin("##lucid19", nullptr,
-            ImGuiWindowFlags_NoTitleBar    | ImGuiWindowFlags_NoResize          |
-            ImGuiWindowFlags_NoScrollbar   | ImGuiWindowFlags_NoScrollWithMouse |
-            ImGuiWindowFlags_NoCollapse    | ImGuiWindowFlags_NoBringToFrontOnFocus |
-            ImGuiWindowFlags_NoBackground);
+        // ---- Light-red theme (scoped to this window only) ----
+        // Light pink background, deeper red panels, red accent,
+        // dark red-brown foreground text.
+        const ImVec4 cBgWin   = ImVec4(0.961f, 0.863f, 0.863f, 1.f);  // #F5DCDC
+        const ImVec4 cBgPanel = ImVec4(0.937f, 0.784f, 0.784f, 1.f);  // #EFC8C8
+        const ImVec4 cBgFrame = ImVec4(0.898f, 0.706f, 0.706f, 1.f);  // #E5B4B4
+        const ImVec4 cBgHov   = ImVec4(0.859f, 0.627f, 0.627f, 1.f);  // #DBA0A0
+        const ImVec4 cBgAct   = ImVec4(0.820f, 0.549f, 0.549f, 1.f);  // #D18C8C
+        const ImVec4 cAccent  = ImVec4(0.784f, 0.220f, 0.220f, 1.f);  // #C83838
+        const ImVec4 cAccHov  = ImVec4(0.863f, 0.286f, 0.286f, 1.f);  // #DC4949
+        const ImVec4 cText    = ImVec4(0.165f, 0.063f, 0.063f, 1.f);  // #2A1010
+        const ImVec4 cTextDim = ImVec4(0.471f, 0.298f, 0.298f, 1.f);  // #784C4C
+        const ImVec4 cBorder  = ImVec4(0.706f, 0.392f, 0.392f, 1.f);  // #B46464
 
-        ImVec2 wp  = ImGui::GetWindowPos();
-        ImVec2 ws  = ImGui::GetWindowSize();
-        ImDrawList* dl = ImGui::GetWindowDrawList();
+        ImGui::PushStyleColor(ImGuiCol_WindowBg,        cBgWin);
+        ImGui::PushStyleColor(ImGuiCol_ChildBg,         cBgPanel);
+        ImGui::PushStyleColor(ImGuiCol_PopupBg,         cBgPanel);
+        ImGui::PushStyleColor(ImGuiCol_Border,          cBorder);
+        ImGui::PushStyleColor(ImGuiCol_FrameBg,         cBgFrame);
+        ImGui::PushStyleColor(ImGuiCol_FrameBgHovered,  cBgHov);
+        ImGui::PushStyleColor(ImGuiCol_FrameBgActive,   cBgAct);
+        ImGui::PushStyleColor(ImGuiCol_Text,            cText);
+        ImGui::PushStyleColor(ImGuiCol_TextDisabled,    cTextDim);
+        ImGui::PushStyleColor(ImGuiCol_Header,          cAccent);
+        ImGui::PushStyleColor(ImGuiCol_HeaderHovered,   cAccHov);
+        ImGui::PushStyleColor(ImGuiCol_HeaderActive,    cAccent);
+        ImGui::PushStyleColor(ImGuiCol_CheckMark,       cAccent);
+        ImGui::PushStyleColor(ImGuiCol_SliderGrab,      cAccent);
+        ImGui::PushStyleColor(ImGuiCol_SliderGrabActive,cAccHov);
+        ImGui::PushStyleColor(ImGuiCol_Button,          cBgFrame);
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   cBgHov);
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive,    cAccent);
+        ImGui::PushStyleColor(ImGuiCol_Separator,       cBorder);
+        ImGui::PushStyleColor(ImGuiCol_ResizeGrip,      cAccent);
+        ImGui::PushStyleColor(ImGuiCol_Tab,             cBgFrame);
+        ImGui::PushStyleColor(ImGuiCol_TabHovered,      cAccHov);
+        ImGui::PushStyleColor(ImGuiCol_TabActive,       cAccent);
+        ImGui::PushStyleColor(ImGuiCol_ScrollbarBg,     cBgPanel);
+        ImGui::PushStyleColor(ImGuiCol_ScrollbarGrab,   cBgHov);
+        ImGui::PushStyleColor(ImGuiCol_ScrollbarGrabHovered, cBgAct);
+        ImGui::PushStyleColor(ImGuiCol_ScrollbarGrabActive,  cAccent);
 
-        const int panA = (int)(menuAlpha * 210.f);
-        const int sidA = (int)(menuAlpha * 222.f);
-        const int borA = (int)(menuAlpha * 175.f);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding,    6.f);
+        ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding,     4.f);
+        ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding,     3.f);
+        ImGui::PushStyleVar(ImGuiStyleVar_GrabRounding,      3.f);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize,  1.f);
+        ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize,   0.f);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding,     ImVec2(8.f, 8.f));
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing,       ImVec2(6.f, 4.f));
+        ImGui::PushStyleVar(ImGuiStyleVar_Alpha,             menuAlpha);
 
-        // ----------------------------------------------------------------
-        //  CONTENT CARD  — redesigned upper surface.
-        //   - soft drop shadow underneath (3 stacked rounded rects)
-        //   - flat tinted base (no multicolor gradient → no corner bleed)
-        //   - inset top "glass" sliver
-        //   - header strip with tab name + breadcrumb + accent dot
-        //   - hairline divider between header and content
-        // ----------------------------------------------------------------
-        const float CARD_R = 16.f;
-        ImVec2 panTL = { wp.x,           wp.y                     };
-        ImVec2 panBR = { wp.x + ws.x,    wp.y + COL_Y + CONTENT_H + 6.f };
+        ImGui::Begin("##lucid_minimal", nullptr,
+            ImGuiWindowFlags_NoTitleBar    | ImGuiWindowFlags_NoResize  |
+            ImGuiWindowFlags_NoCollapse    | ImGuiWindowFlags_NoScrollbar |
+            ImGuiWindowFlags_NoScrollWithMouse);
 
-        // drop shadow stack
-        for (int s = 0; s < 4; ++s)
+        // ---- Header bar: brand left, version right, accent underline ----
         {
-            float ofs   = 2.f + (float)s * 2.5f;
-            int   alpha = (int)((30 - s * 6) * menuAlpha);
-            if (alpha <= 0) continue;
-            dl->AddRectFilled(
-                { panTL.x - 1.f, panTL.y + ofs },
-                { panBR.x + 1.f, panBR.y + ofs },
-                IM_COL32(0, 0, 0, alpha), CARD_R + 2.f);
-        }
+            ImVec2 wp = ImGui::GetWindowPos();
+            ImVec2 ws = ImGui::GetWindowSize();
+            ImDrawList* dl = ImGui::GetWindowDrawList();
 
-        // base fill (single tone — no multicolor bleed past rounded corners)
-        dl->AddRectFilled(panTL, panBR, IM_COL32(13, 12, 20, sidA), CARD_R);
+            // Title text
+            ImGui::SetCursorPos({ 12.f, 6.f });
+            ImGui::PushStyleColor(ImGuiCol_Text, cAccent);
+            ImGui::TextUnformatted("LUCID");
+            ImGui::PopStyleColor();
 
-        // inner subtle vertical lift: a slightly lighter rounded rect inset by 1px
-        dl->AddRect(
-            { panTL.x + 0.5f, panTL.y + 0.5f },
-            { panBR.x - 0.5f, panBR.y - 0.5f },
-            IM_COL32(255, 255, 255, (int)(menuAlpha * 10.f)), CARD_R - 0.5f, 0, 1.f);
+            ImGui::SameLine();
+            ImGui::SetCursorPosX(46.f);
+            ImGui::PushStyleColor(ImGuiCol_Text, cTextDim);
+            ImGui::TextUnformatted("v2.0");
+            ImGui::PopStyleColor();
 
-        // glossy top sliver (well inside rounding, no bleed)
-        dl->AddRectFilledMultiColor(
-            { panTL.x + 22, panTL.y + 1.5f },
-            { panBR.x - 22, panTL.y + 3.f },
-            IM_COL32(255, 255, 255, 0),
-            IM_COL32(255, 255, 255, (int)(78 * menuAlpha)),
-            IM_COL32(255, 255, 255, (int)(78 * menuAlpha)),
-            IM_COL32(255, 255, 255, 0));
-
-        // 1px outline
-        dl->AddRect(panTL, panBR, IM_COL32(46, 44, 68, borA), CARD_R, 0, 1.f);
-
-        // ── OUTER RGB illuminating strip ABOVE the panel (subtle glow bar) ──
-        {
-            const float t      = (float)ImGui::GetTime();
-            const float cycle  = 0.16f;
-            const float inset  = CARD_R * 1.4f;
-            const float swX0   = panTL.x + inset;
-            const float swX1   = panBR.x - inset;
-            const float swY    = panTL.y - 4.f;     // sits above the panel
-            const int   segs   = 110;
-            const float swW    = swX1 - swX0;
-            for (int s = 0; s < segs; ++s)
-            {
-                float u0 = (float)s / segs, u1 = (float)(s + 1) / segs;
-                float hue = fmodf(t * cycle + u0 * 0.5f, 1.f);
-                float r, g, b;
-                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
-                float edgeFade = 1.f;
-                if (u0 < 0.18f)        edgeFade = u0 / 0.18f;
-                else if (u0 > 0.82f)   edgeFade = (1.f - u0) / 0.18f;
-                int aCore = (int)(180 * menuAlpha * edgeFade);
-                int aGlow = (int)( 55 * menuAlpha * edgeFade);
-                ImU32 cCore = IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), aCore);
-                ImU32 cGlow = IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), aGlow);
-                // soft halo above
-                dl->AddRectFilled({ swX0 + u0 * swW, swY - 4.f },
-                                  { swX0 + u1 * swW, swY        }, cGlow);
-                // crisp 1px line
-                dl->AddRectFilled({ swX0 + u0 * swW, swY        },
-                                  { swX0 + u1 * swW, swY + 1.2f }, cCore);
-            }
-        }
-
-        // RGB sweep along the top inner edge — mirrors the v1.5 sweep
-        {
-            const float t      = (float)ImGui::GetTime();
-            const float cycle  = 0.16f;
-            const float inset  = CARD_R * 0.55f;       // hug the corners
-            const float swX0   = panTL.x + inset;
-            const float swX1   = panBR.x - inset;
-            const float swY    = panTL.y + 1.2f;
-            const int   segs   = 96;
-            const float swW    = swX1 - swX0;
-            for (int s = 0; s < segs; ++s)
-            {
-                float u0 = (float)s / segs, u1 = (float)(s + 1) / segs;
-                float hue = fmodf(t * cycle + u0 * 0.5f, 1.f);
-                float r, g, b;
-                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
-                // wider edge fade so corners blend rather than clip
-                float edgeFade = 1.f;
-                if (u0 < 0.12f)        edgeFade = u0 / 0.12f;
-                else if (u0 > 0.88f)   edgeFade = (1.f - u0) / 0.12f;
-                int a = (int)(170 * menuAlpha * edgeFade);
-                dl->AddRectFilled(
-                    { swX0 + u0 * swW, swY },
-                    { swX0 + u1 * swW, swY + 1.f },
-                    IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), a));
-            }
-        }
-
-        // ---------- HEADER STRIP ----------
-        {
-            const float hX0 = panTL.x + 18.f;
-            const float hX1 = panBR.x - 18.f;
-            const float hY  = panTL.y + 10.f;
-            const float hYB = panTL.y + HDR_H;
-
-            // accent dot + tab name (large)
+            // Right-side: active category breadcrumb
             const char* tabName = kTabLabels[activeTab];
-            ImGui::PushFont(nullptr);
-            ImVec2 nmSz = ImGui::CalcTextSize(tabName);
-            ImGui::PopFont();
+            ImVec2 sz = ImGui::CalcTextSize(tabName);
+            ImGui::SetCursorPos({ W - sz.x - 14.f, 6.f });
+            ImGui::PushStyleColor(ImGuiCol_Text, cTextDim);
+            ImGui::TextUnformatted(tabName);
+            ImGui::PopStyleColor();
 
-            float dotR = 3.5f;
-            float dotX = hX0 + dotR;
-            float dotY = hY + nmSz.y * 0.5f;
-            // halo + dot
-            dl->AddCircleFilled({ dotX, dotY }, dotR + 2.f, EvoAccent((int)(60 * menuAlpha)));
-            dl->AddCircleFilled({ dotX, dotY }, dotR,        EvoAccent((int)(245 * menuAlpha)));
-
-            // tab name
-            float nmX = dotX + dotR + 8.f;
-            dl->AddText({ nmX, hY }, IM_COL32(235, 235, 245, (int)(245 * menuAlpha)), tabName);
-
-            // breadcrumb — small dim subtitle right after
-            const char* sub = nullptr;
-            switch (activeTab) {
-                case 0: sub = "Aim assist & feel";        break;
-                case 1: sub = "World visuals";            break;
-                case 2: sub = "Skin loadout";             break;
-                case 3: sub = "Movement & utility";       break;
-                case 4: sub = "Profiles & system";        break;
-                default: sub = "";                         break;
-            }
-            if (sub && *sub)
-            {
-                ImVec2 subSz = ImGui::CalcTextSize(sub);
-                float sepX = nmX + nmSz.x + 9.f;
-                // tiny vertical separator
-                dl->AddRectFilled({ sepX, hY + 3.f }, { sepX + 1.f, hY + nmSz.y - 2.f },
-                    IM_COL32(70, 66, 96, (int)(150 * menuAlpha)));
-                dl->AddText({ sepX + 7.f, hY }, IM_COL32(130, 130, 150, (int)(200 * menuAlpha)), sub);
-            }
-
-            // (status badge removed)
-
-            // (no divider beneath header — keep upper area clean)
-        }
-
-        // ----------------------------------------------------------------
-        //  BOTTOM DOCK — iOS-style floating island with LUCID brand,
-        //  horizontal tab row, and the RGB v1.5 tag.
-        // ----------------------------------------------------------------
-        ImGui::PushFont(nullptr); // ensure default font for size measure
-        const float dockFs   = ImGui::GetFontSize();
-        const ImVec2 lucSz   = ImGui::CalcTextSize("LUCID");
-        const ImVec2 verSz   = ImGui::CalcTextSize("v1.5");
-        ImGui::PopFont();
-
-        const float tabSz   = 36.f;
-        const float tabGap  = 4.f;
-        const float dockPad = 14.f;
-        const float dockSep = 12.f;     // gap between brand / tabs / version
-        const float tabsW   = kTabCount * tabSz + (kTabCount - 1) * tabGap;
-        const float dockW   = dockPad + lucSz.x + dockSep + tabsW + dockSep + verSz.x + dockPad;
-        const float dockX   = wp.x + (ws.x - dockW) * 0.5f;
-        const float dockY   = panBR.y + DOCK_GAP;
-        ImVec2 dockTL = { dockX,         dockY };
-        ImVec2 dockBR = { dockX + dockW, dockY + DOCK_H };
-
-        // dock backdrop — single-tone fill (no multicolor bleed), pill-rounded
-        const float dockR = DOCK_H * 0.5f;
-        // shadow under the dock
-        for (int s = 0; s < 3; ++s)
-        {
-            float ofs   = 2.f + (float)s * 2.5f;
-            int   alpha = (int)((28 - s * 7) * menuAlpha);
-            if (alpha <= 0) continue;
+            // Accent underline along header bottom
+            float uy = wp.y + HEADER_H - 1.f;
             dl->AddRectFilled(
-                { dockTL.x - 1.f, dockTL.y + ofs },
-                { dockBR.x + 1.f, dockBR.y + ofs },
-                IM_COL32(0, 0, 0, alpha), dockR + 2.f);
+                { wp.x + 1.f,        uy },
+                { wp.x + ws.x - 1.f, uy + 1.f },
+                IM_COL32(
+                    (int)(cAccent.x * 255),
+                    (int)(cAccent.y * 255),
+                    (int)(cAccent.z * 255),
+                    (int)(180 * menuAlpha)));
         }
-        dl->AddRectFilled(dockTL, dockBR, IM_COL32(13, 12, 20, sidA), dockR);
-        dl->AddRect(
-            { dockTL.x + 0.5f, dockTL.y + 0.5f },
-            { dockBR.x - 0.5f, dockBR.y - 0.5f },
-            IM_COL32(255, 255, 255, (int)(menuAlpha * 12.f)), dockR - 0.5f, 0, 1.f);
-        dl->AddRectFilledMultiColor(
-            { dockTL.x + 18, dockTL.y + 1.5f },
-            { dockBR.x - 18, dockTL.y + 3.f },
-            IM_COL32(255, 255, 255, 0),
-            IM_COL32(255, 255, 255, (int)(78 * menuAlpha)),
-            IM_COL32(255, 255, 255, (int)(78 * menuAlpha)),
-            IM_COL32(255, 255, 255, 0));
-        dl->AddRect(dockTL, dockBR, IM_COL32(46, 44, 68, borA), dockR, 0, 1.f);
 
-        // RGB sweep along the BOTTOM inner edge of the dock — mirror image
-        // of the content card’s top sweep so the two islands bracket the UI.
+        // ---- Content area: 3 columns ----
+        ImGui::SetCursorPos({ 8.f, HEADER_H + 4.f });
+
+        // Column 1: category rail
+        if (ImGui::BeginChild("##cat_rail", ImVec2(COL_LEFT_W, H - HEADER_H - 16.f),
+                              true, ImGuiWindowFlags_NoScrollbar))
         {
-            const float t      = (float)ImGui::GetTime();
-            const float cycle  = 0.16f;
-            const float inset  = dockR * 0.55f;
-            const float swX0   = dockTL.x + inset;
-            const float swX1   = dockBR.x - inset;
-            const float swY    = dockBR.y - 2.2f;
-            const int   segs   = 80;
-            const float swW    = swX1 - swX0;
-            for (int s = 0; s < segs; ++s)
+            for (int i = 0; i < kTabCount; ++i)
             {
-                float u0 = (float)s / segs, u1 = (float)(s + 1) / segs;
-                float hue = fmodf(t * cycle + u0 * 0.5f, 1.f);
-                float r, g, b;
-                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
-                float edgeFade = 1.f;
-                if (u0 < 0.14f)        edgeFade = u0 / 0.14f;
-                else if (u0 > 0.86f)   edgeFade = (1.f - u0) / 0.14f;
-                int a = (int)(170 * menuAlpha * edgeFade);
-                dl->AddRectFilled(
-                    { swX0 + u0 * swW, swY },
-                    { swX0 + u1 * swW, swY + 1.f },
-                    IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), a));
+                ImGui::PushID(10000 + i);
+                bool sel = (activeTab == i);
+                if (ImGui::Selectable(kTabLabels[i], sel,
+                                       ImGuiSelectableFlags_None,
+                                       ImVec2(0, 22.f)))
+                {
+                    activeTab = i;
+                }
+                ImGui::PopID();
             }
-        }
-
-        // ── OUTER RGB illuminating strip BELOW the dock ──
-        {
-            const float t      = (float)ImGui::GetTime();
-            const float cycle  = 0.16f;
-            const float inset  = dockR * 1.2f;
-            const float swX0   = dockTL.x + inset;
-            const float swX1   = dockBR.x - inset;
-            const float swY    = dockBR.y + 4.f;    // sits below the dock
-            const int   segs   = 90;
-            const float swW    = swX1 - swX0;
-            for (int s = 0; s < segs; ++s)
-            {
-                float u0 = (float)s / segs, u1 = (float)(s + 1) / segs;
-                float hue = fmodf(-t * cycle + u0 * 0.5f, 1.f);
-                if (hue < 0.f) hue += 1.f;
-                float r, g, b;
-                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
-                float edgeFade = 1.f;
-                if (u0 < 0.20f)        edgeFade = u0 / 0.20f;
-                else if (u0 > 0.80f)   edgeFade = (1.f - u0) / 0.20f;
-                int aCore = (int)(180 * menuAlpha * edgeFade);
-                int aGlow = (int)( 55 * menuAlpha * edgeFade);
-                ImU32 cCore = IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), aCore);
-                ImU32 cGlow = IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), aGlow);
-                // crisp line
-                dl->AddRectFilled({ swX0 + u0 * swW, swY        },
-                                  { swX0 + u1 * swW, swY + 1.2f }, cCore);
-                // soft halo below
-                dl->AddRectFilled({ swX0 + u0 * swW, swY + 1.2f },
-                                  { swX0 + u1 * swW, swY + 5.2f }, cGlow);
-            }
-        }
-
-        const float dockMidY = (dockTL.y + dockBR.y) * 0.5f;
-
-        // ---- LUCID brand on the left (with halo) ----
-        {
-            float lx = dockTL.x + dockPad;
-            float ly = dockMidY - lucSz.y * 0.5f;
-            const ImU32 col  = EvoAccent((int)(250 * menuAlpha));
-            const ImU32 halo = EvoAccent((int)(75  * menuAlpha));
-            dl->AddText({ lx - 1.f, ly      }, halo, "LUCID");
-            dl->AddText({ lx + 1.f, ly      }, halo, "LUCID");
-            dl->AddText({ lx,       ly - 1.f}, halo, "LUCID");
-            dl->AddText({ lx,       ly + 1.f}, halo, "LUCID");
-            dl->AddText({ lx, ly }, col, "LUCID");
-        }
-
-        // ---- vertical hairline separator ----
-        {
-            float sx = dockTL.x + dockPad + lucSz.x + dockSep * 0.5f;
-            dl->AddRectFilled({ sx, dockTL.y + 12.f }, { sx + 1.f, dockBR.y - 12.f },
-                IM_COL32(60, 56, 86, (int)(160 * menuAlpha)));
-        }
-
-        // ---- horizontal tab row ----
-        const float tabsX = dockTL.x + dockPad + lucSz.x + dockSep;
-        const float tabsY = dockMidY - tabSz * 0.5f;
-        for (int i = 0; i < kTabCount; ++i)
-        {
-            float tx = tabsX + (float)i * (tabSz + tabGap);
-            float ty = tabsY;
-            bool  sel = (activeTab == i);
-
-            ImGui::SetCursorScreenPos({ tx, ty });
-            ImGui::PushID(i + 50000);
-            const bool clicked = ImGui::InvisibleButton("##tab", { tabSz, tabSz });
-            const bool hovered = ImGui::IsItemHovered();
-            ImGui::PopID();
-            if (clicked) {
-                if (activeTab != i) { pageAnim = 0.f; pageAnimTab = i; }
-                activeTab = i;
-            }
-
-            if (sel)
-            {
-                const ImU32 selTop = IM_COL32(
-                    (int)(primaryColor[0] * 255 * 0.32f),
-                    (int)(primaryColor[1] * 255 * 0.32f),
-                    (int)(primaryColor[2] * 255 * 0.32f),
-                    (int)(220 * menuAlpha));
-                const ImU32 selBot = IM_COL32(
-                    (int)(primaryColor[0] * 255 * 0.16f),
-                    (int)(primaryColor[1] * 255 * 0.16f),
-                    (int)(primaryColor[2] * 255 * 0.16f),
-                    (int)(180 * menuAlpha));
-                dl->AddRectFilledMultiColor(
-                    { tx, ty }, { tx + tabSz, ty + tabSz },
-                    selTop, selTop, selBot, selBot);
-                dl->AddRect({ tx, ty }, { tx + tabSz, ty + tabSz },
-                    EvoAccent((int)(180 * menuAlpha)), 8.f, 0, 1.f);
-            }
-            else if (hovered)
-            {
-                dl->AddRectFilled({ tx, ty }, { tx + tabSz, ty + tabSz },
-                    IM_COL32(255, 255, 255, (int)(16 * menuAlpha)), 8.f);
-            }
-
-            ImU32 iconCol = sel
-                ? EvoAccent((int)(245 * menuAlpha))
-                : (hovered ? IM_COL32(190, 190, 205, (int)(235 * menuAlpha))
-                           : IM_COL32(115, 115, 135, (int)(220 * menuAlpha)));
-            DrawTabIcon(dl, i, { tx + tabSz * 0.5f, ty + tabSz * 0.5f }, iconCol);
-        }
-
-        // ---- right hairline separator ----
-        {
-            float sx = tabsX + tabsW + dockSep * 0.5f;
-            dl->AddRectFilled({ sx, dockTL.y + 12.f }, { sx + 1.f, dockBR.y - 12.f },
-                IM_COL32(60, 56, 86, (int)(160 * menuAlpha)));
-        }
-
-        // ---- v1.5 RGB tag on the right (illuminated, no chip) ----
-        {
-            const char* ver = "v1.5";
-            float vx = tabsX + tabsW + dockSep;
-            float vy = dockMidY - verSz.y * 0.5f;
-
-            const float t      = (float)ImGui::GetTime();
-            const float cycle  = 0.16f;
-            const float spread = 0.09f;
-
-            float cx = vx;
-            for (int i = 0; ver[i]; ++i)
-            {
-                char ch[2] = { ver[i], '\0' };
-                ImVec2 chs = ImGui::CalcTextSize(ch);
-                float hue = fmodf(t * cycle + (float)i * spread, 1.f);
-                float r, g, b;
-                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
-                ImU32 col  = IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), (int)(255 * menuAlpha));
-                ImU32 glow = IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), (int)(110 * menuAlpha));
-                ImVec2 cp{ cx, vy };
-                dl->AddText({ cp.x - 1.f, cp.y      }, glow, ch);
-                dl->AddText({ cp.x + 1.f, cp.y      }, glow, ch);
-                dl->AddText({ cp.x,       cp.y - 1.f}, glow, ch);
-                dl->AddText({ cp.x,       cp.y + 1.f}, glow, ch);
-                dl->AddText(cp, col, ch);
-                cx += chs.x;
-            }
-            // sweep underline beneath the version
-            const int segs = 14;
-            for (int s = 0; s < segs; ++s)
-            {
-                float u0 = (float)s / segs, u1 = (float)(s + 1) / segs;
-                float hue = fmodf(t * cycle + u0 * 0.4f, 1.f);
-                float r, g, b;
-                ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 1.f, r, g, b);
-                dl->AddRectFilled(
-                    { vx + u0 * verSz.x, vy + verSz.y + 1.5f },
-                    { vx + u1 * verSz.x, vy + verSz.y + 2.7f },
-                    IM_COL32((int)(r*255), (int)(g*255), (int)(b*255), (int)(195 * menuAlpha)));
-            }
-        }
-
-        // (no outer window border — cards stand on their own)
-
-        // ----------------------------------------------------------------
-        //  CONTENT AREA  ─  feature card grid OR feature page (back-able)
-        // ----------------------------------------------------------------
-        // page transition fade
-        if (pageAnim < 1.f) { pageAnim += dt * 7.f; if (pageAnim > 1.f) pageAnim = 1.f; }
-        ImGui::PushStyleColor(ImGuiCol_ChildBg,  { 0.f, 0.f, 0.f, 0.f });
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 8.f, 6.f });
-        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing,   { 8.f, 5.f });
-
-        // outer scroll container spans both former columns
-        const float CONTENT_X = PAD;
-        const float CONTENT_W = ws.x - PAD * 2.f;
-        ImGui::SetCursorPos({ CONTENT_X, COL_Y });
-        if (ImGui::BeginChild("##content19", { CONTENT_W, COL_H }, false,
-                ImGuiWindowFlags_NoScrollbar))
-        {
-            ImVec2 areaSz{ CONTENT_W - 8.f, COL_H - 4.f };
-            ImGuiErrorRecoveryState rs;
-            ImGui::ErrorRecoveryStoreState(&rs);
-            __try {
-                if (pageStack[activeTab] < 0)
-                    DrawFeatureGrid(activeTab, dt, areaSz);
-                else
-                    DrawFeaturePage(activeTab, dt, areaSz);
-            } __except(EXCEPTION_EXECUTE_HANDLER) {}
-            ImGui::ErrorRecoveryTryToRecoverState(&rs);
         }
         ImGui::EndChild();
 
-        ImGui::PopStyleVar(2);   // WindowPadding + ItemSpacing
-        ImGui::PopStyleColor();  // ChildBg
+        ImGui::SameLine();
+
+        // Column 2: feature list for active category
+        int featCount = 0;
+        FeatureDef* feats = GetTabFeatures(activeTab, featCount);
+
+        // Ensure something is always selected (-1 means "show feature grid"
+        // in the old layout; here we always want a per-feature pane visible)
+        if (feats && featCount > 0)
+        {
+            if (pageStack[activeTab] < 0 || pageStack[activeTab] >= featCount)
+                pageStack[activeTab] = 0;
+        }
+
+        if (ImGui::BeginChild("##feat_list", ImVec2(COL_MID_W, H - HEADER_H - 16.f),
+                              true, ImGuiWindowFlags_None))
+        {
+            if (feats)
+            {
+                for (int i = 0; i < featCount; ++i)
+                {
+                    const FeatureDef& f = feats[i];
+                    ImGui::PushID(20000 + i);
+
+                    // Inline checkbox + selectable row. The checkbox toggles
+                    // the master enable; clicking the name selects the page.
+                    if (f.enabled)
+                    {
+                        ImGui::Checkbox("##en", f.enabled);
+                        ImGui::SameLine(0.f, 6.f);
+                    }
+                    else
+                    {
+                        // Pad so labels align with rows that DO have a checkbox
+                        ImGui::Dummy(ImVec2(20.f, 0.f));
+                        ImGui::SameLine(0.f, 6.f);
+                    }
+
+                    bool sel = (pageStack[activeTab] == i);
+                    if (ImGui::Selectable(f.name, sel,
+                                           ImGuiSelectableFlags_None,
+                                           ImVec2(0, 18.f)))
+                    {
+                        pageStack[activeTab] = i;
+                    }
+
+                    ImGui::PopID();
+                }
+            }
+        }
+        ImGui::EndChild();
+
+        ImGui::SameLine();
+
+        // Column 3: options pane for the selected feature
+        const float COL_RIGHT_W = W - COL_LEFT_W - COL_MID_W - 8.f - 8.f - 8.f - 6.f;
+        if (ImGui::BeginChild("##feat_opts", ImVec2(COL_RIGHT_W, H - HEADER_H - 16.f),
+                              true, ImGuiWindowFlags_None))
+        {
+            if (feats && pageStack[activeTab] >= 0 && pageStack[activeTab] < featCount)
+            {
+                const FeatureDef& f = feats[pageStack[activeTab]];
+
+                // Section title â€” feature name + subtitle
+                ImGui::PushStyleColor(ImGuiCol_Text, cAccent);
+                ImGui::TextUnformatted(f.name);
+                ImGui::PopStyleColor();
+                if (f.subtitle && *f.subtitle)
+                {
+                    ImGui::PushStyleColor(ImGuiCol_Text, cTextDim);
+                    ImGui::TextUnformatted(f.subtitle);
+                    ImGui::PopStyleColor();
+                }
+                ImGui::Separator();
+                ImGui::Spacing();
+
+                // Defer to the feature's existing render fn â€” wrapped in
+                // ImGui error recovery + SEH so a single broken page can't
+                // take down the whole menu render pass.
+                if (f.render)
+                {
+                    ImGuiErrorRecoveryState rs;
+                    ImGui::ErrorRecoveryStoreState(&rs);
+                    __try { f.render(); }
+                    __except (EXCEPTION_EXECUTE_HANDLER) {}
+                    ImGui::ErrorRecoveryTryToRecoverState(&rs);
+                }
+            }
+            else
+            {
+                ImGui::TextDisabled("No feature selected.");
+            }
+        }
+        ImGui::EndChild();
 
         ImGui::End();
-        ImGui::PopStyleVar(3);   // WindowPadding, WindowBorderSize, Alpha
-    }
 
+        ImGui::PopStyleVar(9);
+        ImGui::PopStyleColor(26);
+    }
 } // namespace Menu
