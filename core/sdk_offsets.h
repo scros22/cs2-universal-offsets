@@ -245,11 +245,11 @@ namespace Offsets
     // C_EconEntity (parent of C_BasePlayerWeapon) — attribute container
     // chain to the item definition index.  m_iItemDefinitionIndex sits
     // inside m_AttributeManager.m_Item, so the absolute offset on a
-    // weapon entity is 0x13B8 (m_AttributeManager) + 0x50 (m_Item) +
-    // 0x1BA (m_iItemDefinitionIndex) = 0x15C2.
+    // weapon entity is 0x1180 (m_AttributeManager) + 0x50 (m_Item) +
+    // 0x1BA (m_iItemDefinitionIndex) = 0x138A.
     // (m_AttributeManager / m_Item / m_iItemDefinitionIndex are defined
     //  later in this file under C_AttributeContainer / C_EconItemView.)
-    constexpr std::ptrdiff_t kWeaponItemDefIndexOffset = 0x13B8 + 0x50 + 0x1BA; // 0x15C2
+    constexpr std::ptrdiff_t kWeaponItemDefIndexOffset = 0x1180 + 0x50 + 0x1BA; // 0x138A
 
     // CS2 sniper weapon item-definition indices (stable since 2014).
     // Used by anti-detection to refuse silent firing while no-scoped.
@@ -337,8 +337,9 @@ namespace Offsets
     constexpr std::ptrdiff_t m_flGlowTime          = 0x48;
     constexpr std::ptrdiff_t m_flGlowStartTime     = 0x4C;
 
-    // C_EconEntity
-    constexpr std::ptrdiff_t m_AttributeManager    = 0x13B8;
+    // C_EconEntity (parent of all weapons). NOTE: 0x13B8 is C_Chicken's
+    // m_AttributeManager — wrong class. Real C_EconEntity offset is 0x1180.
+    constexpr std::ptrdiff_t m_AttributeManager    = 0x1180;
     constexpr std::ptrdiff_t m_OriginalOwnerXuidLow  = 0x1650;
     constexpr std::ptrdiff_t m_OriginalOwnerXuidHigh = 0x1654;
     constexpr std::ptrdiff_t m_nFallbackPaintKit   = 0x1658;

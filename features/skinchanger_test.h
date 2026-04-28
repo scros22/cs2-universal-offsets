@@ -388,6 +388,35 @@ namespace SkinChanger
     using RegenerateWeaponSkinFn = void(__fastcall*)(uintptr_t weapon, bool refresh);
     inline RegenerateWeaponSkinFn RegenerateWeaponSkin = nullptr;
 
+    // ---------------------------------------------------------------
+    // ApplyEconCustomization (sub_1807A8A00 in build 14155).
+    //
+    // This is the REAL paint-apply entry point. RegenerateWeaponSkin
+    // (sub_18078C050) only handles a legacy static paint table indexed
+    // by entity hash — it does NOT consume m_nFallbackPaintKit. The
+    // modern path is:
+    //
+    //   sub_1807A8A00(weapon, 1)
+    //     -> sub_181079790(weapon, 1)
+    //          -> sub_18105AAF0(weapon)
+    //               // Reads m_nFallbackPaintKit / m_nFallbackSeed /
+    //               // m_flFallbackWear, calls SetOrAddAttribute with
+    //               // "set item texture prefab" / "seed" / "wear"
+    //               // on weapon.m_AttributeManager.m_Item.m_AttributeList
+    //     -> queues "clientside_reload_custom_econ" delayed think
+    //          // This is what actually rebuilds the composite material
+    //          // and binds it to the weapon's render slots — i.e. the
+    //          // step that makes the skin VISIBLE.
+    //
+    // Trigger condition (inside sub_18105AAF0):
+    //   if EconItemView lookup by m_iItemID FAILS -> apply fallbacks.
+    // We force this by writing m_iItemIDHigh = m_iItemIDLow = 0xFFFFFFFF
+    // (ID 0xFFFFFFFFFFFFFFFF will not resolve to any real inventory item).
+    // ---------------------------------------------------------------
+    using ApplyEconCustomizationFn = void(__fastcall*)(uintptr_t weapon, char applyFallbacks);
+    inline ApplyEconCustomizationFn ApplyEconCustomization = nullptr;
+    inline constexpr std::ptrdiff_t kApplyEconCustomization_RVA = 0x7A8A00;
+
     // RVA is unchanged (post-14154 build, IDA-verified 2026-04-25).
     // Backup sig captures the unique current-build prologue:
     //   40 55 53 41 57 48 8D AC 24 00 FE FF FF 48 81 EC
@@ -435,6 +464,33 @@ namespace SkinChanger
         } else {
             SkLog("[Init] FAILED to resolve RegenerateWeaponSkin");
         }
+
+        // ----- ApplyEconCustomization (sub_1807A8A00) -----
+        // Prologue (current build): 48 89 5C 24 08 57 48 83 EC 20 8B FA 48 8B D9 E8
+        uintptr_t aecAddr = GameState::clientBase + kApplyEconCustomization_RVA;
+        __try {
+            uint8_t b0 = *reinterpret_cast<uint8_t*>(aecAddr + 0);
+            uint8_t b5 = *reinterpret_cast<uint8_t*>(aecAddr + 5);
+            uint8_t b10 = *reinterpret_cast<uint8_t*>(aecAddr + 10);
+            uint8_t b11 = *reinterpret_cast<uint8_t*>(aecAddr + 11);
+            // 48 89 5C 24 ?? 57 ?? ?? ?? ?? 8B FA
+            if (b0 != 0x48 || b5 != 0x57 || b10 != 0x8B || b11 != 0xFA) aecAddr = 0;
+        } __except (EXCEPTION_EXECUTE_HANDLER) {
+            aecAddr = 0;
+        }
+        if (!aecAddr) {
+            const char* sig =
+                "48 89 5C 24 ? 57 48 83 EC ? 8B FA 48 8B D9 E8 ? ? ? ? 48 8B CB E8 ? ? ? ? 48 85 C0 74";
+            aecAddr = Mem::FindPatternInModule(GameState::clientBase, sig);
+        }
+        if (aecAddr) {
+            ApplyEconCustomization = reinterpret_cast<ApplyEconCustomizationFn>(aecAddr);
+            SkLog("[Init] ApplyEconCustomization resolved @ 0x%llX (RVA 0x%llX)",
+                  (unsigned long long)aecAddr,
+                  (unsigned long long)(aecAddr - GameState::clientBase));
+        } else {
+            SkLog("[Init] FAILED to resolve ApplyEconCustomization");
+        }
     }
 
     inline void InitModelFunctions() {
@@ -448,12 +504,9 @@ namespace SkinChanger
             SetModel = reinterpret_cast<SetModelFn>(setModelAddr);
         }
         
-        // SetMeshGroupMask signature — IDA confirmed sub_180A2C390:
-        //   lea rbx, [rcx+150h]   ; m_modelState
-        //   cmp [rbx+1C8h], rdx   ; m_MeshGroupMask
-        // Unique 28-byte prologue (avoids the 2-match false positive from
-        // the older 18-byte pattern).
-        const char* meshMaskSig = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8D 99 50 01 00 00";
+        // SetMeshGroupMask signature — user-provided (build 14155 verified).
+        //   48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8D 99 ? ? ? ? 48 8B 71
+        const char* meshMaskSig = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8D 99 ? ? ? ? 48 8B 71";
         uintptr_t meshMaskAddr = Mem::FindPatternInModule(GameState::clientBase, meshMaskSig);
         if (meshMaskAddr) {
             SetMeshGroupMask = reinterpret_cast<SetMeshGroupMaskFn>(meshMaskAddr);
@@ -529,11 +582,26 @@ namespace SkinChanger
     // genuinely-owned items by the inventory system).
     // ---------------------------------------------------------------
     inline void CallRegen(uintptr_t weapon = 0) {
-        if (!RegenerateWeaponSkin || !weapon) return;
+        if (!weapon) return;
         __try {
-            RegenerateWeaponSkin(weapon, false);
+            // Zero the bulk-iterator gate (legacy regen).
+            Mem::Write<int32_t>(weapon + 0xAA8, 0);
+            Mem::Write<int32_t>(weapon + 0xAC0, 0);
+
+            // Modern path: convert m_nFallback* into real EconItemView
+            // attributes and queue clientside_reload_custom_econ.
+            // This is what actually makes the skin VISIBLE in build 14155.
+            if (ApplyEconCustomization) {
+                ApplyEconCustomization(weapon, 1);
+            }
+
+            // Legacy path (covers older code that still consults the
+            // static paint table — harmless if no-op).
+            if (RegenerateWeaponSkin) {
+                RegenerateWeaponSkin(weapon, false);
+            }
         } __except (EXCEPTION_EXECUTE_HANDLER) {
-            SkLog("[Regen] EXCEPTION calling RegenerateWeaponSkin on 0x%llX",
+            SkLog("[Regen] EXCEPTION on weapon=0x%llX",
                   (unsigned long long)weapon);
         }
     }
@@ -541,7 +609,7 @@ namespace SkinChanger
     inline void ApplyAndRegen(uintptr_t weapon, const SkinConfig& skin, uint16_t targetDefIndex) {
         uintptr_t item = weapon + Offsets::m_AttributeManager + Offsets::m_Item;
 
-        if (RegenerateWeaponSkin) {
+        if (RegenerateWeaponSkin || ApplyEconCustomization) {
             // Direct-call path (build 14154+): write fallbacks, regen, leave them in place.
             //
             // Unlike the old "patch + flash + cleanup" approach, the fallback fields
@@ -551,6 +619,10 @@ namespace SkinChanger
             // tick. So we leave them set; ApplyGloveSkin / weapon iteration ensures
             // they are re-written when the user picks a different paint.
             Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0xFFFFFFFF);
+            // Force item-ID lookup to fail so ApplyEconCustomization enters its
+            // fallback-apply branch (sub_18105AAF0). m_iItemIDLow lives at
+            // m_iItemIDHigh + 4 in the EconItemView.
+            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh + 4, 0xFFFFFFFF);
             Mem::Write<int32_t>(weapon + Offsets::m_nFallbackPaintKit, skin.paintKit);
             Mem::Write<float>(weapon + Offsets::m_flFallbackWear, skin.wear);
             Mem::Write<int32_t>(weapon + Offsets::m_nFallbackSeed, skin.seed);
@@ -558,26 +630,11 @@ namespace SkinChanger
 
             CallRegen(weapon);
 
-            // Force-refresh the weapon's mesh group AFTER regen.
-            //
-            // Per the UC forum thread, every paint/material rebind
-            // through RegenerateWeaponSkin must be paired with a
-            // SetMeshGroupMask call on the weapon's scene node so the
-            // renderer rebinds the mesh from current model state and
-            // picks up the freshly-bound paint material. Without this
-            // refresh, the new paint kit can sit in memory but not
-            // visually apply until the player switches weapons.
-            //
-            // All standard rifles/pistols/SMGs/snipers in CS2 use the
-            // modern mesh group -> mask=1. We only ever paint these
-            // (knives are routed through ApplyKnifeModelSwap above,
-            // which uses the per-def MeshMaskForDef helper).
-            if (SetMeshGroupMask) {
-                __try {
-                    uintptr_t wScene = Mem::Read<uintptr_t>(
-                        weapon + Offsets::m_pGameSceneNode);
-                    if (wScene) SetMeshGroupMask(wScene, 1ull);
-                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            static int s_paintLogCount = 0;
+            if (s_paintLogCount < 8) {
+                SkLog("[Paint] regen: weapon=0x%llX def=%u kit=%d",
+                      (unsigned long long)weapon, (unsigned)targetDefIndex, skin.paintKit);
+                s_paintLogCount++;
             }
         } else {
             // Persistent fallback approach: keep values written
@@ -679,16 +736,15 @@ namespace SkinChanger
             if (sceneNode)
                 SetMeshGroupMask(sceneNode, kMeshMask);
 
-            // 5. UpdateSubclass — DELIBERATELY SKIPPED. The previously-used
-            //    sig resolved to sub_1801FA880, a "subclass data missing"
-            //    error logger that calls sub_180364410/sub_180364720 with
-            //    side effects that can DELETE the weapon entity. The real
-            //    subclass updater isn't named in the binary; without ground
-            //    truth, calling the sig-resolved fn is unsafe. The model
-            //    swap works without it: SetModel binds the new vmdl,
-            //    SetMeshGroupMask refreshes the rendered mesh, and the
-            //    animgraph picks up the new subclass id from the
-            //    m_nSubclassID write at step 2.
+            // 5. UpdateWeaponData — refreshes the weapon's bound VData
+            //    (CCSWeaponBaseVData) to match the new m_nSubclassID we
+            //    just wrote. Without this the world+view weapon keep the
+            //    PREVIOUS knife's animgraph (m_szAnimExtension /
+            //    m_szAnimClass) so e.g. a Karambit plays default-knife
+            //    inspect/deploy/swing animations. Calling it forces the
+            //    animation system to re-resolve sequences against the
+            //    new subclass.
+            if (UpdateWeaponData) UpdateWeaponData(weapon);
 
             // 6. SetBodygroup(weapon, 0, 0) — forces the renderer to drop the
             //    cached mesh from the previous def-index and rebind to the new
@@ -722,21 +778,46 @@ namespace SkinChanger
                 }
             }
 
-            // 8. Trigger a fresh viewmodel deploy.
-            //    The first-person viewmodel mesh is bound at deploy-time from
-            //    the weapon's VData → m_szWorldModel chain. Just SetModel'ing
-            //    the weapon entity does NOT rebind the FPV mesh — that's why
-            //    the player's hand still shows the default knife while the
-            //    inspect animation matches the new knife. Setting
-            //    m_bRestoreCustomMaterialAfterPrecache=true on the item (done
-            //    above in step 1) signals the renderer to re-precache the
-            //    custom material on next deploy. That cycle happens naturally
-            //    on slot-switch; we don't fake one here to avoid input drift.
+            // 8. Force the first-person viewmodel mesh + material to rebind
+            //    WITHOUT a slot-cycle.
             //
-            //    If you (the player) want the FPV mesh to update RIGHT NOW,
-            //    cycle weapons (Q to last-weapon, then Q back). The next
-            //    deploy will pick up the spoofed identity and bind the new
-            //    knife mesh in your hand.
+            //    IDA reveal (client.dll @ build 14155):
+            //      sub_18078F390(weapon)  =  EnsureFirstPersonModelLoaded()
+            //
+            //    It is the FPV equivalent of RegenerateWeaponSkin (which is
+            //    the world/3rd-person path). Its prologue:
+            //
+            //        if ( !*(_BYTE *)(weapon + 0x18B8) ) {
+            //            *(_BYTE *)(weapon + 0x18B8) = 1;
+            //            ...resolve nametag...
+            //            ...build composite material...
+            //            ...bind material to weapon[0x608] (FPV render comp)...
+            //        }
+            //
+            //    The byte at weapon+0x18B8 is a one-shot "FPV setup completed"
+            //    flag. Once 1, the function early-bails forever. Its caller
+            //    sub_180794430 invokes it every think tick on the active
+            //    weapon, but the gate prevents re-execution.
+            //
+            //    By writing 0 to weapon[0x18B8] AFTER our identity spoof +
+            //    SetModel, the next think tick re-runs the full FPV mesh
+            //    + material rebind against the NEW spoofed identity. That
+            //    is exactly the "Karambit mesh actually appears in the
+            //    player's hand" path — no slot-cycle required.
+            //
+            //    We additionally clear m_nDeployTick (CCSWeaponBase 0x17F8)
+            //    and m_bIsHauledBack (0x1804) so the animation system
+            //    treats the next think as a fresh deploy and re-resolves
+            //    the animgraph against m_nSubclassID.
+            Mem::Write<uint8_t>(weapon + 0x18B8, 0);  // re-arm sub_18078F390
+            Mem::Write<int32_t>(weapon + 0x17F8, 0);  // m_nDeployTick = 0 (force re-deploy think)
+            Mem::Write<bool>(weapon + 0x1804, false); // m_bIsHauledBack = false
+
+            // Also re-arm the third-person regen gate so the world material
+            // rebinds on the same tick (otherwise FPV catches up but the
+            // 3rd-person view still shows the previous skin).
+            Mem::Write<int32_t>(weapon + 0xAA8, 0);
+            Mem::Write<int32_t>(weapon + 0xAC0, 0);
 
             char buf[160];
             wsprintfA(buf, "[SkinChanger] knife model swap: def=%d path=%s scene=0x%llX\n",
@@ -940,14 +1021,38 @@ namespace SkinChanger
     }
 
     inline void Tick() {
-        if (!cfg.enabled || !running) return;
-        if (!GameState::clientBase) return;
+        // ---- early-bail diagnostic: per-reason cap so one noisy reason
+        //      doesn't suppress logs of later (different) bail reasons.
+        static int s_bailLogCfg     = 0;
+        static int s_bailLogClient  = 0;
+        static int s_bailLogPawn    = 0;
+        static int s_bailLogHealth  = 0;
+        static int s_bailLogWeapon  = 0;
+        static int s_bailLogIsWep   = 0;
+        // Track previous values so we always log VALUE TRANSITIONS even
+        // after the cap is hit -- otherwise a transient state at startup
+        // hides the real per-tick state once gameplay starts.
+        static int s_lastHealth = -999;
+        static int s_lastLife   = -1;
+        static int s_lastDef    = -1;
+        auto bail = [&](const char* why, int& counter) {
+            if (counter < 30) {
+                SkLog("[Tick-bail] %s cfg.enabled=%d running=%d clientBase=0x%llX",
+                      why, cfg.enabled ? 1 : 0, running.load() ? 1 : 0,
+                      (unsigned long long)GameState::clientBase);
+                counter++;
+            }
+        };
+
+        if (!cfg.enabled || !running) { bail("cfg/running", s_bailLogCfg); return; }
+        if (!GameState::clientBase) { bail("clientBase", s_bailLogClient); return; }
 
         // Sync menu configs to internal system
         SyncConfigs();
 
         uintptr_t localPawn = GameState::GetLocalPawn();
         if (!localPawn) {
+            bail("localPawn", s_bailLogPawn);
             lastAppliedWeapon = 0;
             lastAppliedKit = 0;
             return;
@@ -956,7 +1061,16 @@ namespace SkinChanger
         uint8_t lifeState = Mem::Read<uint8_t>(localPawn + Offsets::m_lifeState);
         int32_t health = Mem::Read<int32_t>(localPawn + Offsets::m_iHealth);
 
+        // Always log VALUE TRANSITIONS (even past the bail cap)
+        if ((int)lifeState != s_lastLife || health != s_lastHealth) {
+            SkLog("[Tick] life=%u hp=%d (was life=%d hp=%d)",
+                  (unsigned)lifeState, health, s_lastLife, s_lastHealth);
+            s_lastLife = (int)lifeState;
+            s_lastHealth = health;
+        }
+
         if (lifeState != 0 || health <= 0) {
+            bail("life/health", s_bailLogHealth);
             lastAppliedWeapon = 0;
             lastAppliedKit = 0;
             return;
@@ -990,15 +1104,50 @@ namespace SkinChanger
         // Build 14152+ removed m_pClippingWeapon. Resolve the active weapon
         // via WeaponServices->m_hActiveWeapon (centralised in game_state.h).
         uintptr_t activeWeapon = GameState::GetActiveWeapon(localPawn);
-        if (!activeWeapon) return;
+        if (!activeWeapon) { bail("activeWeapon", s_bailLogWeapon); return; }
 
         uintptr_t item = activeWeapon + Offsets::m_AttributeManager + Offsets::m_Item;
         uint16_t defIndex = Mem::Read<uint16_t>(item + Offsets::m_iItemDefinitionIndex);
 
+        // Always log defIndex transitions even past the bail cap
+        if ((int)defIndex != s_lastDef) {
+            SkLog("[Tick] weapon=0x%llX def=%u (was %d)",
+                  (unsigned long long)activeWeapon, (unsigned)defIndex, s_lastDef);
+            s_lastDef = (int)defIndex;
+        }
+
         bool isWeapon = (defIndex > 0 && defIndex < 70) || (defIndex >= 500 && defIndex < 600);
-        if (!isWeapon || defIndex == 31) return; // Skip grenades
+        if (!isWeapon || defIndex == 31) { bail("isWeapon", s_bailLogIsWep); return; } // Skip grenades
 
         int lookupIndex = defIndex;
+
+        // ---- one-shot diagnostic: log the active weapon + cfg state on first
+        //      tick where we have a valid pawn + weapon. Lets us pinpoint why
+        //      the apply paths might not be triggering (cfg.enabled false, no
+        //      weapon match in map, etc.)
+        {
+            static int s_diagOnce = 0;
+            if (s_diagOnce < 6) {
+                bool isKnife = IsKnife(defIndex);
+                int  wsCount = 0;
+                bool wsHit   = false;
+                int  wsKit   = 0;
+                for (auto& kv : weaponSkins) {
+                    if (kv.second.enabled && kv.second.paintKit > 0) ++wsCount;
+                    if (kv.first == lookupIndex && kv.second.enabled) {
+                        wsHit = true; wsKit = kv.second.paintKit;
+                    }
+                }
+                SkLog("[Diag] activeWeapon=0x%llX def=%u isKnife=%d cfg.enabled=%d "
+                      "cfg.knifeEnabled=%d cfg.knifeModel=%d cfg.knifePaintKit=%d "
+                      "weaponSkins.size=%zu enabledCount=%d hit=%d hitKit=%d",
+                      (unsigned long long)activeWeapon, (unsigned)defIndex, isKnife ? 1 : 0,
+                      cfg.enabled ? 1 : 0, cfg.knifeEnabled ? 1 : 0,
+                      cfg.knifeModel, cfg.knifePaintKit,
+                      weaponSkins.size(), wsCount, wsHit ? 1 : 0, wsKit);
+                s_diagOnce++;
+            }
+        }
         
         // ---------------------------------------------------------------
         // KNIFE SKIN — apply paint kit to equipped knife via ApplyAndRegen
@@ -1045,6 +1194,20 @@ namespace SkinChanger
                         ApplyAndRegen(activeWeapon, knifeSkin, defIndex);
                         lastAppliedWeapon = activeWeapon;
                         lastAppliedKit    = cfg.knifePaintKit;
+                    } else {
+                        static int s_kSkipLog = 0;
+                        if (s_kSkipLog < 5) {
+                            SkLog("[Paint-skip] knife life=%u hp=%d", (unsigned)lifeState, health);
+                            s_kSkipLog++;
+                        }
+                    }
+                } else {
+                    static int s_kCacheLog = 0;
+                    if (s_kCacheLog < 3) {
+                        SkLog("[Paint-skip] knife cached weapon=0x%llX kit=%d (last=0x%llX/%d)",
+                              (unsigned long long)activeWeapon, cfg.knifePaintKit,
+                              (unsigned long long)lastAppliedWeapon, lastAppliedKit);
+                        s_kCacheLog++;
                     }
                 }
             }
@@ -1052,7 +1215,14 @@ namespace SkinChanger
         else {
             // Handle regular weapons — use proven ApplyAndRegen approach
             auto it = weaponSkins.find(lookupIndex);
-            if (it != weaponSkins.end() && it->second.enabled && it->second.paintKit > 0) {
+            if (it == weaponSkins.end() || !it->second.enabled || it->second.paintKit <= 0) {
+                static int s_wMissLog = 0;
+                if (s_wMissLog < 8) {
+                    SkLog("[Paint-skip] weapon def=%d not in enabled skin map (size=%zu)",
+                          lookupIndex, weaponSkins.size());
+                    s_wMissLog++;
+                }
+            } else {
                 const SkinConfig& skin = it->second;
                 bool needsApply = force || (activeWeapon != lastAppliedWeapon) || (skin.paintKit != lastAppliedKit);
 
