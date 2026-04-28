@@ -227,6 +227,28 @@ namespace Stealth
     // resolved; resolution itself is driven by the main loop.
 
     // -----------------------------------------------------------
+    //  Belt-and-suspenders: kill the GC report emitter directly.
+    //  client.dll!sub_180C4A6C0 is the ONE function that sends
+    //  Game::ChatReportError("#SFUI_QMM_ERROR_X_InsecureBlocked") to the
+    //  Steam GC. Even if our heartbeat misses a frame and the untrusted
+    //  byte reads as 1 inside sub_180F23200's periodic tick, hooking
+    //  sub_180C4A6C0 to early-return guarantees no cooldown KV ever goes
+    //  out. Hook is one-shot at startup; never patches .text after install.
+    // -----------------------------------------------------------
+    inline void* g_pInsecureEmitterAddr     = nullptr;  // resolved fn addr
+    inline void* g_pInsecureEmitterTramp    = nullptr;  // MinHook trampoline (unused)
+    inline bool  g_insecureEmitterHookTried = false;
+    inline bool  g_insecureEmitterHookOk    = false;
+
+    // Detour: silently swallow the call. Original returns __int64 but its
+    // return value is discarded by every caller (sub_180F23200 does
+    // `return sub_180C4A6C0("init");` into a void context).
+    inline __int64 InsecureEmitter_Detour(const char* /*reason*/)
+    {
+        return 0;
+    }
+
+    // -----------------------------------------------------------
     //  Runtime defense â€” Heartbeat & Cleanup
     // -----------------------------------------------------------
     inline void(*cleanupFn)() = nullptr;

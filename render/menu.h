@@ -1951,6 +1951,8 @@ namespace Menu
         // ---- read live state (single byte deref, totally safe) ---------
         const volatile uint8_t* pFlag = Stealth::g_pUntrustedFlag;
         const bool tried              = Stealth::g_untrustedFlagResolveTried;
+        const bool gcHookOk           = Stealth::g_insecureEmitterHookOk;
+        const bool gcHookTried        = Stealth::g_insecureEmitterHookTried;
 
         const char* valTxt;
         ImU32       dotCol;
@@ -1964,6 +1966,16 @@ namespace Menu
             else        { valTxt = "01"; dotCol = IM_COL32(235, 80, 90,235); valCol = IM_COL32(235,150,160,235); }
         }
 
+        // GC-emitter hook badge: small "GC" tag after the value. Three states:
+        //   GREEN  — hook installed (emitter can never call GC)
+        //   GRAY   — hook resolver hasn't run yet
+        //   AMBER  — resolver ran but pattern miss / MinHook failed
+        const char* gcBadge = "GC";
+        ImU32       gcCol;
+        if (gcHookOk)        gcCol = IM_COL32( 90,225,130,235);
+        else if (!gcHookTried) gcCol = IM_COL32(150,150,160,180);
+        else                 gcCol = IM_COL32(245,180, 60,220);
+
         // ---- geometry (mirrors RenderHUD pill) -------------------------
         const float fh     = ImGui::GetFontSize();
         const float bh     = fh + 18.f;
@@ -1976,15 +1988,18 @@ namespace Menu
         ImVec2 szL = ImGui::CalcTextSize("VAC");
         ImVec2 szH = ImGui::CalcTextSize("Heartbeat");
         ImVec2 szV = ImGui::CalcTextSize(valTxt);
-        const float dotW = 12.f; // status dot footprint
+        ImVec2 szG = ImGui::CalcTextSize(gcBadge);
+        const float dotW    = 12.f; // status dot footprint
+        const float gcGap   = 8.f;  // gap between val and GC badge
 
         const float trailPad = padX;
-        // Layout: [accent bar] [pad] [VAC] [sep] [Heartbeat] [sep] [dot] [val] [pad]
+        // Layout: [accent bar] [pad] [VAC] [sep] [Heartbeat] [sep] [dot] [val] [gcGap] [GC] [pad]
         float totalW = pillInset + padX
                      + szL.x + divW
                      + szH.x + divW
                      + dotW + 4.f
-                     + szV.x
+                     + szV.x + gcGap
+                     + szG.x
                      + trailPad;
 
         const float bx = 14.f;             // 14px from left edge (mirror of HUD's 14 from right)
@@ -2037,6 +2052,8 @@ namespace Menu
         cx += dotW + 4.f;
 
         fl->AddText({ cx, ty }, valCol, valTxt);
+        cx += szV.x + gcGap;
+        fl->AddText({ cx, ty }, gcCol, gcBadge);
     }
 
     // ============================================================

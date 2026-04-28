@@ -528,6 +528,40 @@ static void EntryThread(HMODULE hModule)
             Stealth::g_untrustedFlagResolveTried = true;
         }
 
+        // ---- Belt-and-suspenders: kill the GC-report emitter ------------
+        // Even with the byte held at 0, a single race-window read could
+        // still trip sub_180F23200 -> sub_180C4A6C0 ("init") which is the
+        // ONLY function that sends Game::ChatReportError(InsecureBlocked)
+        // to Steam GC. Hooking the emitter to early-return makes the GC
+        // path unreachable regardless of the byte's transient state.
+        // Sigscan pattern verified unique against client.dll @ 14152.
+        if (!Stealth::g_insecureEmitterHookTried)
+        {
+            constexpr const char* kEmitterSig =
+                "48 89 5C 24 20 56 48 83 EC 20 48 8B D9 48 89 6C 24 30 "
+                "48 8B E9 48 8B 0D ? ? ? ? 48 8B 01";
+            uintptr_t addr = Mem::FindPattern(L"client.dll", kEmitterSig);
+            if (addr)
+            {
+                Stealth::g_pInsecureEmitterAddr = reinterpret_cast<void*>(addr);
+                MH_STATUS s = MH_CreateHook(
+                    reinterpret_cast<void*>(addr),
+                    reinterpret_cast<void*>(&Stealth::InsecureEmitter_Detour),
+                    &Stealth::g_pInsecureEmitterTramp);
+                if (s == MH_OK &&
+                    MH_EnableHook(reinterpret_cast<void*>(addr)) == MH_OK)
+                {
+                    Stealth::g_insecureEmitterHookOk = true;
+                    DllLog("[EntryThread] InsecureEmitter hook installed @ %p", (void*)addr);
+                }
+                else
+                {
+                    DllLog("[EntryThread] InsecureEmitter hook FAILED status=%d", (int)s);
+                }
+            }
+            Stealth::g_insecureEmitterHookTried = true;
+        }
+
         if (!Stealth::Heartbeat())
         {
             DllLog("[EntryThread] EXIT: Heartbeat failed (loop=%d cleanupDone=%d)", 
