@@ -828,6 +828,7 @@ namespace Hooks
 
             Log("[Render] Starting Menu::RenderHUD");
             Menu::RenderHUD();  // always-on HUD: visible in-game even when menu is closed
+            Menu::RenderVacWatermark(); // top-left "VAC Heartbeat" — shows live untrusted-flag state
             Log("[Render] Menu::RenderHUD done");
 
             // Push Tahoma Bold for all ESP/world overlays

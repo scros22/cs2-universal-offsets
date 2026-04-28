@@ -489,6 +489,45 @@ static void EntryThread(HMODULE hModule)
                    VacWatchdog::tripReason.load(), loopCount);
             break;
         }
+
+        // ---- Untrusted-mode (20-hour cooldown) flag suppression --------
+        // Lazy-resolve the address once via sigscan, then Stealth::Heartbeat
+        // stamps the byte to 0 every beat. The byte lives at
+        // client.dll + 0x2198858 in build 14152. Setter sigscan in
+        // sub_1801569B0 is "jz +0x26 ; mov [rip+rel32],1 ; xor eax,eax ; cmp eax,1".
+        // See /memories/repo/cs2_untrusted_mode_chain.md for the full chain.
+        if (!Stealth::g_pUntrustedFlag && !Stealth::g_untrustedFlagResolveTried)
+        {
+            constexpr const char* kSetterSig =
+                "74 26 C6 05 ? ? ? ? 01 33 C0 83 F8 01";
+            uintptr_t hit = Mem::FindPattern(L"client.dll", kSetterSig);
+            if (hit)
+            {
+                // Layout: 74 26  C6 05 [rel32] 01 ...
+                // The mov inst starts at hit+2; rel32 at hit+4; the mov is
+                // 7 bytes long so RIP after it is hit+2+7 = hit+9.
+                int32_t rel = *reinterpret_cast<const int32_t*>(hit + 4);
+                uintptr_t flagAddr = (hit + 9) + static_cast<intptr_t>(rel);
+
+                // Sanity-bound to client.dll image so a misfiring sig can't
+                // splatter random memory.
+                HMODULE hClient = GetModuleHandleW(L"client.dll");
+                if (hClient)
+                {
+                    MODULEINFO mi{};
+                    if (GetModuleInformation(GetCurrentProcess(), hClient, &mi, sizeof(mi)))
+                    {
+                        uintptr_t modBase = reinterpret_cast<uintptr_t>(hClient);
+                        uintptr_t modEnd  = modBase + mi.SizeOfImage;
+                        if (flagAddr >= modBase && flagAddr < modEnd)
+                            Stealth::g_pUntrustedFlag =
+                                reinterpret_cast<volatile uint8_t*>(flagAddr);
+                    }
+                }
+            }
+            Stealth::g_untrustedFlagResolveTried = true;
+        }
+
         if (!Stealth::Heartbeat())
         {
             DllLog("[EntryThread] EXIT: Heartbeat failed (loop=%d cleanupDone=%d)", 

@@ -1,0 +1,38 @@
+﻿stealth: defeat 20-hour MM cooldown + VAC Heartbeat watermark
+
+Reverse-engineered the full untrusted-mode chain in client.dll via IDA.
+Intel saved at /memories/repo/cs2_untrusted_mode_chain.md.
+
+Findings
+  - sub_1801569B0 (module-trust verifier) sets a single byte at
+    client.dll+0x2198858 if its callback rejects any loaded module.
+  - That byte is read by exactly two functions:
+      sub_180F23200 (per-tick) -> calls sub_180C4A6C0 which fires
+        OnClientInsecureBlocked AND sends Game::ChatReportError
+        (#SFUI_QMM_ERROR_X_InsecureBlocked) up the matchmaking KV pipe.
+      sub_180F1F830 (start-listen-server) -- same dialog/disconnect path.
+  - The 20-hour cooldown is applied by Steam GC AFTER receiving that
+    ChatReportError. steamclient64.dll has no OnClient* strings; the
+    decision is purely client-side and gated entirely on that one byte.
+
+Defeat
+  - Sigscan client.dll for the setter:
+      jz +0x26 ; mov byte [rip+rel32],1 ; xor eax,eax ; cmp eax,1
+      = '74 26 C6 05 ? ? ? ? 01 33 C0 83 F8 01'
+  - Decode rel32 -> absolute address of the flag byte.
+  - Sanity-bound to client.dll image so a misfire can't splatter memory.
+  - Stealth::Heartbeat stamps the byte to 0 every ~80ms.
+
+Cost: one 1-byte data write per heartbeat. No .text patch, no RWX page,
+no API hook. Indistinguishable from CS2 clearing the flag itself.
+
+UI: top-left 'VAC Heartbeat' pill watermark (matches the right-side
+LUCID HUD style) shows live state:
+  GRAY ----  : sigscan not run yet
+  AMBER MISS : pattern broke (game updated)
+  GREEN 00   : flag is held at 0 (we're invisible)
+  RED   01   : game just set it; will be zeroed next beat
+
+Resolver lives in dllmain.cpp (memory.h is in scope there); stealth.h
+carries only the cached pointer + 'tried' flag to keep the existing
+memory.h <-> stealth.h include hierarchy clean.

@@ -10,6 +10,7 @@
 
 #include "../vendor/imgui/imgui.h"
 #include "../vendor/imgui/imgui_internal.h"
+#include "../core/stealth.h"   // Stealth::g_pUntrustedFlag for VAC watermark
 #include "../features/esp.h"
 #include "../features/aimbot.h"
 #include "../features/chams.h"
@@ -1927,6 +1928,115 @@ namespace Menu
         fl->AddText({ cx, ty }, kTextMid,        timeBuf);   cx += szT.x;  Sep(cx);
         fl->AddText({ cx, ty }, IM_COL32(108,108,122,200), "FPS"); cx += szFL.x + fpsInner;
         fl->AddText({ cx, ty }, EvoAccent(225),  fpsBuf);
+    }
+
+    // ============================================================
+    //  TOP-LEFT VAC HEARTBEAT WATERMARK
+    //  Mirrors the right-side pill style. Shows the live state of
+    //  the client.dll untrusted-mode byte we hold down to defeat
+    //  the 20-hour MM cooldown.
+    //
+    //  States (status dot / value text):
+    //    GRAY    "----"  — sigscan not run yet (very first frames)
+    //    AMBER   "MISS"  — sigscan ran but couldn't find the setter
+    //                       (game updated, pattern broke — bug me)
+    //    GREEN   "00"    — flag is being held at 0 (we're invisible)
+    //    RED     "01"    — game just set it; we'll zero it next beat
+    // ============================================================
+    inline void RenderVacWatermark()
+    {
+        ImGuiIO&    io = ImGui::GetIO();
+        ImDrawList* fl = ImGui::GetForegroundDrawList();
+
+        // ---- read live state (single byte deref, totally safe) ---------
+        const volatile uint8_t* pFlag = Stealth::g_pUntrustedFlag;
+        const bool tried              = Stealth::g_untrustedFlagResolveTried;
+
+        const char* valTxt;
+        ImU32       dotCol;
+        ImU32       valCol;
+        if (!pFlag) {
+            if (!tried) { valTxt = "----"; dotCol = IM_COL32(150,150,160,200); valCol = IM_COL32(150,150,160,220); }
+            else        { valTxt = "MISS"; dotCol = IM_COL32(245,180, 60,235); valCol = IM_COL32(245,180, 60,235); }
+        } else {
+            uint8_t v = *pFlag;
+            if (v == 0) { valTxt = "00"; dotCol = IM_COL32( 90,225,130,235); valCol = IM_COL32(180,235,200,235); }
+            else        { valTxt = "01"; dotCol = IM_COL32(235, 80, 90,235); valCol = IM_COL32(235,150,160,235); }
+        }
+
+        // ---- geometry (mirrors RenderHUD pill) -------------------------
+        const float fh     = ImGui::GetFontSize();
+        const float bh     = fh + 18.f;
+        const float padX   = 12.f;
+        const float gap    = 9.f;
+        const float divW   = gap + 1.f + gap;
+        const float radius = bh * 0.5f;
+        const float pillInset = 6.f;       // accent bar width
+
+        ImVec2 szL = ImGui::CalcTextSize("VAC");
+        ImVec2 szH = ImGui::CalcTextSize("Heartbeat");
+        ImVec2 szV = ImGui::CalcTextSize(valTxt);
+        const float dotW = 12.f; // status dot footprint
+
+        const float trailPad = padX;
+        // Layout: [accent bar] [pad] [VAC] [sep] [Heartbeat] [sep] [dot] [val] [pad]
+        float totalW = pillInset + padX
+                     + szL.x + divW
+                     + szH.x + divW
+                     + dotW + 4.f
+                     + szV.x
+                     + trailPad;
+
+        const float bx = 14.f;             // 14px from left edge (mirror of HUD's 14 from right)
+        const float by = 12.f;
+        const float cy = by + bh * 0.5f;
+        const float ty = by + (bh - fh) * 0.5f;
+
+        // ---- 1) drop shadow -------------------------------------------
+        for (int i = 5; i > 0; --i) {
+            fl->AddRectFilled({ bx - i, by - i + 2 },
+                              { bx + totalW + i, by + bh + i + 2 },
+                              IM_COL32(0, 0, 0, 9 + (5 - i) * 6), radius + i);
+        }
+
+        // ---- 2) backdrop with gradient --------------------------------
+        const ImU32 cTop = IM_COL32(20, 18, 30, 235);
+        const ImU32 cBot = IM_COL32( 8,  7, 14, 240);
+        fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, cBot, radius);
+        fl->AddRectFilledMultiColor(
+            { bx + 1.f, by + 1.f },
+            { bx + totalW - 1.f, by + bh * 0.55f },
+            cTop, cTop, cBot, cBot);
+
+        // ---- 3) outline + inner highlight -----------------------------
+        fl->AddRect({ bx, by }, { bx + totalW, by + bh }, IM_COL32(255,255,255,18), radius, 0, 1.f);
+        fl->AddRect({ bx + 1.f, by + 1.f }, { bx + totalW - 1.f, by + bh - 1.f },
+                    EvoAccent(55), radius - 1.f, 0, 1.f);
+
+        // ---- 4) accent bar on left edge -------------------------------
+        fl->AddRectFilled({ bx + 4.f, by + 5.f }, { bx + 6.f, by + bh - 5.f }, EvoAccent(235), 2.f);
+
+        // ---- 5) content -----------------------------------------------
+        auto Sep = [&](float& cx) {
+            fl->AddCircleFilled({ cx + divW * 0.5f, cy + 0.5f }, 1.3f,
+                                IM_COL32(150, 145, 175, 150), 8);
+            cx += divW;
+        };
+
+        float cx = bx + pillInset + padX;
+        fl->AddText({ cx, ty }, EvoAccent(245), "VAC");        cx += szL.x;  Sep(cx);
+        fl->AddText({ cx, ty }, kTextBrt,        "Heartbeat"); cx += szH.x;  Sep(cx);
+
+        // status dot — pulsing soft halo + crisp center
+        const float dotR = 3.6f;
+        const float dotCx = cx + dotW * 0.5f - 2.f;
+        // soft halo (constant, no time-based pulse to avoid churn)
+        fl->AddCircleFilled({ dotCx, cy }, dotR + 2.4f,
+                            (dotCol & 0x00FFFFFF) | (40u << 24), 24);
+        fl->AddCircleFilled({ dotCx, cy }, dotR, dotCol, 24);
+        cx += dotW + 4.f;
+
+        fl->AddText({ cx, ty }, valCol, valTxt);
     }
 
     // ============================================================

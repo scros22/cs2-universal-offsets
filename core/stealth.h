@@ -189,6 +189,44 @@ namespace Stealth
     }
 
     // -----------------------------------------------------------
+    //  Untrusted-mode flag suppression (CS2 20-hour cooldown defeat)
+    //
+    //  Reverse-engineered chain (client.dll, build 14152-ish):
+    //
+    //    sub_1801569B0 (module-trust verifier) at startup runs a callback
+    //    table. If the callback returns 0 (i.e. it doesn't like one of our
+    //    loaded modules), it sets a single byte flag at:
+    //
+    //        client.dll + 0x2198858   (byte_182198858 in the IDB)
+    //
+    //  That byte is read by exactly two places:
+    //
+    //    sub_180F23200  (per-tick) - if set, calls sub_180C4A6C0 which
+    //                                 dispatches OnClientInsecureBlocked
+    //                                 AND sends Game::ChatReportError
+    //                                 ("#SFUI_QMM_ERROR_X_InsecureBlocked")
+    //                                 to the matchmaking KV pipe \u2192 GC \u2192
+    //                                 20-hour cooldown.
+    //    sub_180F1F830  (start-listen-server) - same dialog/disconnect path.
+    //
+    //  Nothing else in client.dll xrefs that byte. Nothing in steamclient64
+    //  carries the OnClient* event names. So the cooldown is decided
+    //  client-side by that ONE byte; once we zero it the report is never
+    //  built and Steam GC never hears about us.
+    //
+    //  Strategy: lazy-resolve the byte's address by sigscanning the setter
+    //  instruction (mov byte ptr [rip+rel32], 1) and decoding rel32. Then
+    //  every heartbeat, write 0 to it. No .text patch, no RWX page, just a
+    //  1-byte data write that's indistinguishable from CS2's own code
+    //  clearing the flag (which it never does, but VAC can't tell that).
+    // -----------------------------------------------------------
+    inline volatile uint8_t* g_pUntrustedFlag = nullptr;
+    inline bool g_untrustedFlagResolveTried   = false;
+    // Resolver lives in dllmain.cpp (where memory.h / Mem::FindPattern is
+    // already included). Heartbeat just stamps the byte if it's been
+    // resolved; resolution itself is driven by the main loop.
+
+    // -----------------------------------------------------------
     //  Runtime defense â€” Heartbeat & Cleanup
     // -----------------------------------------------------------
     inline void(*cleanupFn)() = nullptr;
@@ -206,6 +244,15 @@ namespace Stealth
         // If a new scanner DLL appeared, re-wipe our traces
         static int beatCount = 0;
         beatCount++;
+
+        // ---- 20-hour cooldown defeat (every beat) -----------------------
+        // CS2 sets a single byte in client.dll once at module-trust
+        // verification; we hold it down so OnClientInsecureBlocked never
+        // fires and Game::ChatReportError never goes to GC. Resolution of
+        // the byte's address is done in dllmain (where memory.h's pattern
+        // scanner is in scope). Here we only stamp the byte if resolved.
+        if (g_pUntrustedFlag)
+            *g_pUntrustedFlag = 0;
 
         // Every ~64 beats (~5s at 80ms loop), re-randomize our memory pages
         // to break any cached memory scan results
