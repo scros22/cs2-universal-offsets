@@ -1800,39 +1800,39 @@ namespace Menu
         };
 
         // ------------------------------------------------------------------
-        //  STYLE 2 â€” GHOST  (truly minimal: low-alpha capsule, no chrome,
+        //  STYLE 2 — GHOST  (truly minimal: low-alpha capsule, no chrome,
         //  no dividers, dot separators only)
         // ------------------------------------------------------------------
         if (hudStyle == 2)
         {
-            // Very subtle backdrop â€” barely there, no border, no accent bar.
-            fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, IM_COL32(8, 8, 14, 110), radius);
+            // Very subtle backdrop — barely there, no border, no accent bar.
+            fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, IM_COL32(11, 11, 13, 130), radius);
 
             float cx = bx + padX;
             if (hudAvatarSRV) {
                 fl->AddImageRounded((ImTextureID)(intptr_t)hudAvatarSRV,
                     { cx, cy - avR }, { cx + avD, cy + avR },
                     { 0.f, 0.f }, { 1.f, 1.f },
-                    IM_COL32(255, 255, 255, 165), avR);
+                    IM_COL32(255, 255, 255, 175), avR);
                 cx += avD + 8.f;
             }
 
-            // Dot separator instead of vertical hairline â€” softer, more "ghost"
-            const ImU32 cDot = IM_COL32(150, 150, 165, 110);
+            // Dot separator instead of vertical hairline — softer, more "ghost"
+            const ImU32 cDot = IM_COL32(180, 180, 190, 110);
             auto Dot = [&](float& x) {
                 x += gap;
                 fl->AddCircleFilled({ x + 1.f, cy }, 1.4f, cDot, 8);
                 x += 2.f + gap;
             };
 
-            fl->AddText({ cx, ty }, EvoAccent(195),                "LUCID");   cx += szL.x;
+            fl->AddText({ cx, ty }, EvoAccent(220),                "LUCID");   cx += szL.x;
             Dot(cx);
-            fl->AddText({ cx, ty }, IM_COL32(190, 190, 200, 180),  name);      cx += szN.x;
+            fl->AddText({ cx, ty }, IM_COL32(230, 230, 235, 200),  name);      cx += szN.x;
             Dot(cx);
-            fl->AddText({ cx, ty }, IM_COL32(150, 150, 160, 155),  timeBuf);   cx += szT.x;
+            fl->AddText({ cx, ty }, IM_COL32(170, 170, 180, 165),  timeBuf);   cx += szT.x;
             Dot(cx);
-            fl->AddText({ cx, ty }, IM_COL32(120, 120, 130, 145),  "FPS");     cx += szFL.x + fpsInner;
-            fl->AddText({ cx, ty }, EvoAccent(180),                fpsBuf);
+            fl->AddText({ cx, ty }, IM_COL32(140, 140, 150, 155),  "FPS");     cx += szFL.x + fpsInner;
+            fl->AddText({ cx, ty }, EvoAccent(210),                fpsBuf);
             return;
         }
 
@@ -1846,8 +1846,8 @@ namespace Menu
                 fl->AddRect({ bx - i, by - i }, { bx + totalW + i, by + bh + i },
                             EvoAccent(8 + (4 - i) * 4), radius + i, 0, 1.f);
             }
-            fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, IM_COL32(11, 9, 18, 215), radius);
-            fl->AddRect      ({ bx, by }, { bx + totalW, by + bh }, EvoAccent(110), radius, 0, 1.2f);
+            fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, IM_COL32(11, 11, 13, 225), radius);
+            fl->AddRect      ({ bx, by }, { bx + totalW, by + bh }, EvoAccent(120), radius, 0, 1.2f);
             fl->AddRectFilled({ bx + 4.f, by + 6.f }, { bx + 6.f, by + bh - 6.f }, EvoAccent(235), 2.f);
 
             float cx = bx + 6.f + padX;
@@ -1856,13 +1856,13 @@ namespace Menu
                     { cx, cy - avR }, { cx + avD, cy + avR },
                     { 0.f, 0.f }, { 1.f, 1.f },
                     IM_COL32(255, 255, 255, 255), avR);
-                fl->AddCircle({ cx + avR, cy }, avR + 0.8f, EvoAccent(140), 36, 1.4f);
+                fl->AddCircle({ cx + avR, cy }, avR + 0.8f, EvoAccent(150), 36, 1.4f);
                 cx += avD + 8.f;
             }
             fl->AddText({ cx, ty }, EvoAccent(255),               "LUCID");   cx += szL.x + gap + 4.f;
-            fl->AddText({ cx, ty }, kTextBrt,                     name);      cx += szN.x + gap + 4.f;
-            fl->AddText({ cx, ty }, EvoAccent(155),               timeBuf);   cx += szT.x + gap + 4.f;
-            fl->AddText({ cx, ty }, IM_COL32(105,105,118,170),    "FPS");     cx += szFL.x + fpsInner;
+            fl->AddText({ cx, ty }, IM_COL32(245,245,250,235),    name);      cx += szN.x + gap + 4.f;
+            fl->AddText({ cx, ty }, IM_COL32(170,170,180,200),    timeBuf);   cx += szT.x + gap + 4.f;
+            fl->AddText({ cx, ty }, IM_COL32(125,125,135,170),    "FPS");     cx += szFL.x + fpsInner;
             fl->AddText({ cx, ty }, EvoAccent(235),               fpsBuf);
             return;
         }
@@ -1883,13 +1883,9 @@ namespace Menu
                               IM_COL32(0, 0, 0, 9 + (5 - i) * 6), radius + i);
         }
 
-        // 2) Backdrop â€” ImGui supports per-corner colors via AddRectFilledMultiColor
-        //    Top: slightly lifted; bottom: deep ink. Gives a glass-panel feel.
-        const ImU32 cTop  = IM_COL32(20, 18, 30, 235);
-        const ImU32 cBot  = IM_COL32(8,  7, 14,  240);
-        // Rounded mask is faked: draw rounded base in cBot, then a top-half
-        // gradient strip that doesn't quite reach the edges (radius makes
-        // hard rectangle inside acceptable since the rounded base shows through).
+        // 2) Backdrop — pure black with a subtle vertical lift on top half.
+        const ImU32 cTop  = IM_COL32(22, 22, 26, 235);
+        const ImU32 cBot  = IM_COL32( 9,  9, 11, 240);
         fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, cBot, radius);
         fl->AddRectFilledMultiColor(
             { bx + 1.f, by + 1.f },
@@ -1897,12 +1893,12 @@ namespace Menu
             cTop, cTop, cBot, cBot);
 
         // 3) Outline + inner highlight
-        fl->AddRect({ bx, by }, { bx + totalW, by + bh }, IM_COL32(255, 255, 255, 18), radius, 0, 1.f);
+        fl->AddRect({ bx, by }, { bx + totalW, by + bh }, IM_COL32(255, 255, 255, 22), radius, 0, 1.f);
         fl->AddRect({ bx + 1.f, by + 1.f }, { bx + totalW - 1.f, by + bh - 1.f },
-                    EvoAccent(55), radius - 1.f, 0, 1.f);
+                    EvoAccent(60), radius - 1.f, 0, 1.f);
 
-        // 4) Accent bar on left edge â€” vertical capsule
-        fl->AddRectFilled({ bx + 4.f, by + 5.f }, { bx + 6.f, by + bh - 5.f }, EvoAccent(235), 2.f);
+        // 4) Accent bar on left edge — vertical capsule
+        fl->AddRectFilled({ bx + 4.f, by + 5.f }, { bx + 6.f, by + bh - 5.f }, EvoAccent(245), 2.f);
 
         // 5) Content
         float cx = bx + 6.f + padX;
@@ -1911,25 +1907,23 @@ namespace Menu
                 { cx, cy - avR }, { cx + avD, cy + avR },
                 { 0.f, 0.f }, { 1.f, 1.f },
                 IM_COL32(255, 255, 255, 255), avR);
-            // double ring: thin accent + outer faint
-            fl->AddCircle({ cx + avR, cy }, avR + 0.5f, EvoAccent(160), 36, 1.2f);
-            fl->AddCircle({ cx + avR, cy }, avR + 1.8f, EvoAccent(45),  36, 1.0f);
+            fl->AddCircle({ cx + avR, cy }, avR + 0.5f, EvoAccent(170), 36, 1.2f);
+            fl->AddCircle({ cx + avR, cy }, avR + 1.8f, EvoAccent(50),  36, 1.0f);
             cx += avD + 8.f;
         }
 
-        // Clean separators â€” small soft dot between segments instead of
-        // hairline rules (those were reading as defects in light maps).
+        // Clean separators — soft white dot between segments.
         auto Sep = [&](float& cx) {
             fl->AddCircleFilled({ cx + divW * 0.5f, cy + 0.5f }, 1.3f,
-                                IM_COL32(150, 145, 175, 150), 8);
+                                IM_COL32(180, 180, 190, 150), 8);
             cx += divW;
         };
 
         fl->AddText({ cx, ty }, EvoAccent(245), "LUCID");   cx += szL.x;  Sep(cx);
-        fl->AddText({ cx, ty }, kTextBrt,        name);      cx += szN.x;  Sep(cx);
-        fl->AddText({ cx, ty }, kTextMid,        timeBuf);   cx += szT.x;  Sep(cx);
-        fl->AddText({ cx, ty }, IM_COL32(108,108,122,200), "FPS"); cx += szFL.x + fpsInner;
-        fl->AddText({ cx, ty }, EvoAccent(225),  fpsBuf);
+        fl->AddText({ cx, ty }, IM_COL32(245,245,250,240),  name);    cx += szN.x;  Sep(cx);
+        fl->AddText({ cx, ty }, IM_COL32(160,160,170,210),  timeBuf); cx += szT.x;  Sep(cx);
+        fl->AddText({ cx, ty }, IM_COL32(120,120,130,200),  "FPS");   cx += szFL.x + fpsInner;
+        fl->AddText({ cx, ty }, EvoAccent(230),             fpsBuf);
     }
 
     // ============================================================
@@ -1948,6 +1942,7 @@ namespace Menu
     inline void RenderVacWatermark()
     {
         ImGuiIO&    io = ImGui::GetIO();
+        (void)io;
         ImDrawList* fl = ImGui::GetForegroundDrawList();
 
         // ---- read live state (single byte deref, totally safe) ---------
@@ -1956,106 +1951,71 @@ namespace Menu
         const bool gcHookOk           = Stealth::g_insecureEmitterHookOk;
         const bool gcHookTried        = Stealth::g_insecureEmitterHookTried;
 
+        // Status reduces to a single dot color + a 2-char value.
+        // Dot:  red  = 01 (game just set it; will be cleared next beat)
+        //       white= 00 (held at 0; we're invisible to VAC)
+        //       gray = ---- (sigscan not run yet)
+        //       amber= MISS (sigscan ran, pattern broke)
         const char* valTxt;
         ImU32       dotCol;
         ImU32       valCol;
         if (!pFlag) {
-            if (!tried) { valTxt = "----"; dotCol = IM_COL32(150,150,160,200); valCol = IM_COL32(150,150,160,220); }
-            else        { valTxt = "MISS"; dotCol = IM_COL32(245,180, 60,235); valCol = IM_COL32(245,180, 60,235); }
+            if (!tried) { valTxt = "--"; dotCol = IM_COL32(140,140,150,200); valCol = IM_COL32(160,160,170,220); }
+            else        { valTxt = "??"; dotCol = IM_COL32(245,180, 60,235); valCol = IM_COL32(245,180, 60,235); }
         } else {
             uint8_t v = *pFlag;
-            if (v == 0) { valTxt = "00"; dotCol = IM_COL32( 90,225,130,235); valCol = IM_COL32(180,235,200,235); }
-            else        { valTxt = "01"; dotCol = IM_COL32(235, 80, 90,235); valCol = IM_COL32(235,150,160,235); }
+            if (v == 0) { valTxt = "00"; dotCol = IM_COL32(229, 57, 53,235); valCol = IM_COL32(255,255,255,235); }
+            else        { valTxt = "01"; dotCol = IM_COL32(229, 57, 53,235); valCol = IM_COL32(255,170,170,235); }
         }
 
-        // GC-emitter hook badge: small "GC" tag after the value. Three states:
-        //   GREEN  â€” hook installed (emitter can never call GC)
-        //   GRAY   â€” hook resolver hasn't run yet
-        //   AMBER  â€” resolver ran but pattern miss / MinHook failed
-        const char* gcBadge = "GC";
-        ImU32       gcCol;
-        if (gcHookOk)        gcCol = IM_COL32( 90,225,130,235);
-        else if (!gcHookTried) gcCol = IM_COL32(150,150,160,180);
-        else                 gcCol = IM_COL32(245,180, 60,220);
+        // GC-hook health collapses into the dot's outer ring tint:
+        //   ok     -> faint red halo (matches dot)
+        //   pending-> no halo
+        //   miss   -> faint amber halo
+        ImU32 haloCol;
+        if (gcHookOk)        haloCol = IM_COL32(229, 57, 53, 50);
+        else if (!gcHookTried) haloCol = IM_COL32(140,140,150, 30);
+        else                 haloCol = IM_COL32(245,180, 60, 60);
 
-        // ---- geometry (mirrors RenderHUD pill) -------------------------
+        // ---- geometry: tiny dark pill, single line --------------------
         const float fh     = ImGui::GetFontSize();
-        const float bh     = fh + 18.f;
-        const float padX   = 12.f;
-        const float gap    = 9.f;
-        const float divW   = gap + 1.f + gap;
+        const float bh     = fh + 10.f;
+        const float padX   = 9.f;
         const float radius = bh * 0.5f;
-        const float pillInset = 6.f;       // accent bar width
+        const float dotW   = 9.f;
+        const float gapTxt = 6.f;
 
         ImVec2 szL = ImGui::CalcTextSize("VAC");
-        ImVec2 szH = ImGui::CalcTextSize("Heartbeat");
         ImVec2 szV = ImGui::CalcTextSize(valTxt);
-        ImVec2 szG = ImGui::CalcTextSize(gcBadge);
-        const float dotW    = 12.f; // status dot footprint
-        const float gcGap   = 8.f;  // gap between val and GC badge
 
-        const float trailPad = padX;
-        // Layout: [accent bar] [pad] [VAC] [sep] [Heartbeat] [sep] [dot] [val] [gcGap] [GC] [pad]
-        float totalW = pillInset + padX
-                     + szL.x + divW
-                     + szH.x + divW
-                     + dotW + 4.f
-                     + szV.x + gcGap
-                     + szG.x
-                     + trailPad;
+        const float totalW = padX + dotW + gapTxt + szL.x + 5.f + szV.x + padX;
 
-        const float bx = 14.f;             // 14px from left edge (mirror of HUD's 14 from right)
-        const float by = 12.f;
+        const float bx = 14.f;
+        const float by = 14.f;
         const float cy = by + bh * 0.5f;
         const float ty = by + (bh - fh) * 0.5f;
 
-        // ---- 1) drop shadow -------------------------------------------
-        for (int i = 5; i > 0; --i) {
-            fl->AddRectFilled({ bx - i, by - i + 2 },
-                              { bx + totalW + i, by + bh + i + 2 },
-                              IM_COL32(0, 0, 0, 9 + (5 - i) * 6), radius + i);
-        }
+        // Soft drop shadow (single layer, very subtle)
+        fl->AddRectFilled({ bx - 1, by + 1 }, { bx + totalW + 1, by + bh + 2 },
+                          IM_COL32(0, 0, 0, 70), radius + 1.f);
 
-        // ---- 2) backdrop with gradient --------------------------------
-        const ImU32 cTop = IM_COL32(20, 18, 30, 235);
-        const ImU32 cBot = IM_COL32( 8,  7, 14, 240);
-        fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh }, cBot, radius);
-        fl->AddRectFilledMultiColor(
-            { bx + 1.f, by + 1.f },
-            { bx + totalW - 1.f, by + bh * 0.55f },
-            cTop, cTop, cBot, cBot);
+        // Black pill backdrop with hairline border
+        fl->AddRectFilled({ bx, by }, { bx + totalW, by + bh },
+                          IM_COL32(11, 11, 13, 230), radius);
+        fl->AddRect({ bx, by }, { bx + totalW, by + bh },
+                    IM_COL32(255, 255, 255, 22), radius, 0, 1.f);
 
-        // ---- 3) outline + inner highlight -----------------------------
-        fl->AddRect({ bx, by }, { bx + totalW, by + bh }, IM_COL32(255,255,255,18), radius, 0, 1.f);
-        fl->AddRect({ bx + 1.f, by + 1.f }, { bx + totalW - 1.f, by + bh - 1.f },
-                    EvoAccent(55), radius - 1.f, 0, 1.f);
+        // Status dot with halo
+        const float dotR  = 3.0f;
+        const float dotCx = bx + padX + dotW * 0.5f - 2.f;
+        fl->AddCircleFilled({ dotCx, cy }, dotR + 2.0f, haloCol, 20);
+        fl->AddCircleFilled({ dotCx, cy }, dotR,        dotCol, 20);
 
-        // ---- 4) accent bar on left edge -------------------------------
-        fl->AddRectFilled({ bx + 4.f, by + 5.f }, { bx + 6.f, by + bh - 5.f }, EvoAccent(235), 2.f);
-
-        // ---- 5) content -----------------------------------------------
-        auto Sep = [&](float& cx) {
-            fl->AddCircleFilled({ cx + divW * 0.5f, cy + 0.5f }, 1.3f,
-                                IM_COL32(150, 145, 175, 150), 8);
-            cx += divW;
-        };
-
-        float cx = bx + pillInset + padX;
-        fl->AddText({ cx, ty }, EvoAccent(245), "VAC");        cx += szL.x;  Sep(cx);
-        fl->AddText({ cx, ty }, kTextBrt,        "Heartbeat"); cx += szH.x;  Sep(cx);
-
-        // status dot â€” pulsing soft halo + crisp center
-        const float dotR = 3.6f;
-        const float dotCx = cx + dotW * 0.5f - 2.f;
-        // soft halo (constant, no time-based pulse to avoid churn)
-        fl->AddCircleFilled({ dotCx, cy }, dotR + 2.4f,
-                            (dotCol & 0x00FFFFFF) | (40u << 24), 24);
-        fl->AddCircleFilled({ dotCx, cy }, dotR, dotCol, 24);
-        cx += dotW + 4.f;
-
+        // "VAC" label (red accent) + value (state color)
+        float cx = bx + padX + dotW + gapTxt;
+        fl->AddText({ cx, ty }, EvoAccent(235), "VAC");
+        cx += szL.x + 5.f;
         fl->AddText({ cx, ty }, valCol, valTxt);
-        cx += szV.x + gcGap;
-        fl->AddText({ cx, ty }, gcCol, gcBadge);
     }
 
     // ============================================================
@@ -3446,12 +3406,12 @@ namespace Menu
         if (menuAlpha <= 0.001f) return;
 
         // ---- Geometry ----
-        const float W           = 660.f;
-        const float H           = 450.f;
-        const float HEADER_H    = 32.f;
-        const float COL_LEFT_W  = 56.f;   // icon-only rail
-        const float COL_MID_W   = 168.f;
-        const float PAD         = 8.f;
+        const float W           = 720.f;
+        const float H           = 500.f;
+        const float HEADER_H    = 38.f;
+        const float COL_LEFT_W  = 60.f;   // icon-only rail
+        const float COL_MID_W   = 188.f;
+        const float PAD         = 12.f;
         const float CONTENT_H   = H - HEADER_H - PAD * 2.f;
 
         ImGui::SetNextWindowSize({ W, H }, ImGuiCond_Once);
@@ -3505,9 +3465,10 @@ namespace Menu
         ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize,  1.f);
         ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize,   0.f);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding,     ImVec2(PAD, PAD));
-        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing,       ImVec2(6.f, 4.f));
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing,       ImVec2(8.f, 7.f));
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemInnerSpacing,  ImVec2(8.f, 6.f));
         ImGui::PushStyleVar(ImGuiStyleVar_Alpha,             menuAlpha);
-        const int kPushedVars = 10;
+        const int kPushedVars = 11;
 
         ImGui::Begin("##lucid_minimal", nullptr,
             ImGuiWindowFlags_NoTitleBar    | ImGuiWindowFlags_NoResize  |
@@ -3586,9 +3547,9 @@ namespace Menu
                 { rp.x + rs.x, rp.y + rs.y },
                 IM_COL32(255, 255, 255, (int)(14 * menuAlpha)), 8.f, 0, 1.f);
 
-            const float btnH   = 44.f;
-            const float btnGap = 6.f;
-            const float topPad = 8.f;
+            const float btnH   = 46.f;
+            const float btnGap = 8.f;
+            const float topPad = 10.f;
 
             for (int i = 0; i < kTabCount; ++i)
             {
@@ -3649,7 +3610,7 @@ namespace Menu
                 pageStack[activeTab] = 0;
         }
 
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(8.f, 8.f));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(10.f, 10.f));
         if (ImGui::BeginChild("##feat_list", ImVec2(COL_MID_W, CONTENT_H),
                               true, ImGuiWindowFlags_None))
         {
@@ -3687,7 +3648,7 @@ namespace Menu
 
                     if (ImGui::Selectable(f.name, sel,
                                            ImGuiSelectableFlags_None,
-                                           ImVec2(0, 20.f)))
+                                           ImVec2(0, 24.f)))
                     {
                         pageStack[activeTab] = i;
                     }
@@ -3706,7 +3667,7 @@ namespace Menu
         // Column 3: OPTIONS PANE  (defers to existing Pg_* functions)
         // ------------------------------------------------------------
         const float COL_RIGHT_W = W - COL_LEFT_W - COL_MID_W - PAD * 4.f;
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(12.f, 10.f));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(16.f, 14.f));
         if (ImGui::BeginChild("##feat_opts", ImVec2(COL_RIGHT_W, CONTENT_H),
                               true, ImGuiWindowFlags_None))
         {

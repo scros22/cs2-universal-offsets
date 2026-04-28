@@ -330,33 +330,48 @@ namespace ESP
         inline void SpectatorPanel(ImDrawList* dl, float scrW, const std::vector<std::string>& names, int style = 0)
         {
             if (names.empty()) return;
-            float pw = 180.f, lh = 18.f;
-            float ph = 28.f + (float)names.size() * lh;
-            float px = scrW - pw - 15.f, py = 80.f;
+            float pw = 184.f, lh = 18.f;
+            float ph = 30.f + (float)names.size() * lh;
+            float px = scrW - pw - 16.f, py = 84.f;
 
-            if (style == 1) // Stealth — dark navy, menu accent border
+            // Shared accent (matches menu primary red #E53935)
+            const ImU32 cAccent  = IM_COL32(229,  57,  53, 235);
+            const ImU32 cAccDim  = IM_COL32(229,  57,  53,  90);
+            const ImU32 cBg      = IM_COL32( 11,  11,  13, 235);
+            const ImU32 cBgSoft  = IM_COL32( 11,  11,  13, 175);
+            const ImU32 cBorder  = IM_COL32(255, 255, 255,  20);
+            const ImU32 cText    = IM_COL32(240, 240, 245, 235);
+            const ImU32 cTextDim = IM_COL32(160, 160, 170, 220);
+
+            if (style == 1) // Stealth -- ultra-clean dark card, hairline accent rule
             {
-                dl->AddRectFilled(ImVec2(px,py), ImVec2(px+pw,py+ph), IM_COL32(13,13,18,215), 6.f);
-                dl->AddRect(ImVec2(px,py), ImVec2(px+pw,py+ph), IM_COL32(42,40,62,200), 6.f, 0, 1.f);
-                dl->AddRectFilled(ImVec2(px+2.f,py+7.f), ImVec2(px+4.f,py+ph-7.f), IM_COL32(142,132,255,200), 2.f);
-                Text(dl, ImVec2(px+pw*0.5f, py+5), IM_COL32(142,132,255,255), "SPECTATING", true, 11.f);
-                float ty = py + 24.f;
-                for (const auto& n : names) { Text(dl, ImVec2(px+10, ty), IM_COL32(200,200,220,240), n.c_str()); ty += lh; }
+                dl->AddRectFilled(ImVec2(px,py), ImVec2(px+pw,py+ph), cBg, 8.f);
+                dl->AddRect      (ImVec2(px,py), ImVec2(px+pw,py+ph), cBorder, 8.f, 0, 1.f);
+                // Top hairline accent strip
+                dl->AddRectFilled(ImVec2(px+10, py+22), ImVec2(px+24, py+24), cAccent, 1.f);
+                dl->AddRectFilled(ImVec2(px+24, py+22.5f), ImVec2(px+pw-10, py+23.5f), cBorder);
+                Text(dl, ImVec2(px+10, py+6), cText, "SPECTATING", false, 11.f);
+                float ty = py + 30.f;
+                for (const auto& n : names) { Text(dl, ImVec2(px+10, ty), cText, n.c_str()); ty += lh; }
             }
-            else if (style == 2) // Minimal — barely-there translucent chip
+            else if (style == 2) // Minimal -- barely-there pill, no border
             {
-                dl->AddRectFilled(ImVec2(px,py), ImVec2(px+pw,py+ph), IM_COL32(4,4,6,155), 4.f);
-                Text(dl, ImVec2(px+pw*0.5f, py+5), IM_COL32(165,165,175,200), "SPECTATORS", true, 10.f);
-                float ty = py + 22.f;
-                for (const auto& n : names) { Text(dl, ImVec2(px+8, ty), IM_COL32(200,200,200,185), n.c_str()); ty += lh; }
-            }
-            else // Classic (style == 0) — red-accent dark panel
-            {
-                dl->AddRectFilled(ImVec2(px,py), ImVec2(px+pw,py+ph), IM_COL32(10,10,10,200), 6.f);
-                dl->AddRect(ImVec2(px,py), ImVec2(px+pw,py+ph), IM_COL32(255,70,70,120), 6.f, 0, 1.f);
-                Text(dl, ImVec2(px+pw*0.5f, py+5), IM_COL32(255,100,100,255), "SPECTATORS", true, 11.f);
+                dl->AddRectFilled(ImVec2(px,py), ImVec2(px+pw,py+ph), cBgSoft, 6.f);
+                // Tiny accent dot before the title
+                dl->AddCircleFilled(ImVec2(px+10, py+11), 2.4f, cAccent, 12);
+                Text(dl, ImVec2(px+18, py+6), cTextDim, "SPECTATORS", false, 10.f);
                 float ty = py + 24.f;
-                for (const auto& n : names) { Text(dl, ImVec2(px+10, ty), IM_COL32(220,220,220,230), n.c_str()); ty += lh; }
+                for (const auto& n : names) { Text(dl, ImVec2(px+10, ty), cText, n.c_str()); ty += lh; }
+            }
+            else // Classic (style == 0) -- accent left bar + bold title
+            {
+                dl->AddRectFilled(ImVec2(px,py), ImVec2(px+pw,py+ph), cBg, 8.f);
+                dl->AddRect      (ImVec2(px,py), ImVec2(px+pw,py+ph), cAccDim, 8.f, 0, 1.f);
+                // Vertical accent bar on the left edge
+                dl->AddRectFilled(ImVec2(px+3.f, py+8.f), ImVec2(px+5.f, py+ph-8.f), cAccent, 2.f);
+                Text(dl, ImVec2(px+pw*0.5f, py+6), cAccent, "SPECTATORS", true, 11.f);
+                float ty = py + 26.f;
+                for (const auto& n : names) { Text(dl, ImVec2(px+12, ty), cText, n.c_str()); ty += lh; }
             }
         }
 
