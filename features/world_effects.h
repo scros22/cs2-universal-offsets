@@ -1260,6 +1260,73 @@ namespace WorldEffects
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
     }
 
+    // ---------------------------------------------------------------
+    // Disable PVS / vis-cluster culling so chams + ESP render through
+    // walls at any distance.
+    //
+    // Pattern hits one site inside CRenderingWorldSession::OnLoopActivate
+    // (engine2.dll @ 0x18023D3D2 in build 14154):
+    //   lea rcx, [g_visMgrPtr]   ; +3 holds rel32 to singleton-of-singleton
+    //   xor edx, edx
+    //   call qword ptr [rax+30h] ; vtable[6]
+    // The g_visMgrPtr is a `T**` — first deref gives the singleton, second
+    // gives its vtable. vtable[6] is a recursive routine that stamps every
+    // leaf in the visibility tree to the supplied bool. Passing `false`
+    // turns PVS culling off (every leaf reads as visible).
+    //
+    // Result tracked in g_pvsDisabled so the menu / watermark can reflect
+    // status if we ever want to expose it.
+    // ---------------------------------------------------------------
+    inline bool g_pvsDisableTried = false;
+    inline bool g_pvsDisabled     = false;
+
+    inline bool TryDisablePvs()
+    {
+        if (g_pvsDisableTried) return g_pvsDisabled;
+        g_pvsDisableTried = true;
+
+        __try {
+            uintptr_t hit = Mem::FindPattern(L"engine2.dll", Signatures::DisablePvsAccessor);
+            if (!hit) return false;
+
+            // lea rcx, [rip+rel32] : opcode at hit, rel32 at hit+3, next inst at hit+7
+            int32_t rel = *reinterpret_cast<const int32_t*>(hit + 3);
+            uintptr_t pSingletonHolder = (hit + 7) + static_cast<intptr_t>(rel);
+
+            // Sanity-bound to engine2.dll image — a misfiring sig must not
+            // splatter random memory.
+            HMODULE hEng = GetModuleHandleW(L"engine2.dll");
+            if (!hEng) return false;
+            MODULEINFO mi{};
+            if (!GetModuleInformation(GetCurrentProcess(), hEng, &mi, sizeof(mi)))
+                return false;
+            uintptr_t modBase = reinterpret_cast<uintptr_t>(hEng);
+            uintptr_t modEnd  = modBase + mi.SizeOfImage;
+            if (pSingletonHolder < modBase || pSingletonHolder >= modEnd) return false;
+
+            // First deref: g_visMgrPtr -> singleton instance
+            void* pMgr = *reinterpret_cast<void**>(pSingletonHolder);
+            if (!pMgr) return false;
+
+            // Second deref: instance -> vtable
+            void** vtbl = *reinterpret_cast<void***>(pMgr);
+            if (!vtbl) return false;
+
+            // vtable[6] expected inside engine2 .text — guard against a
+            // stale/uninitialized object.
+            uintptr_t fn = reinterpret_cast<uintptr_t>(vtbl[6]);
+            if (fn < modBase || fn >= modEnd) return false;
+
+            using SetVisibilityFn = void(__fastcall*)(void*, bool);
+            reinterpret_cast<SetVisibilityFn>(fn)(pMgr, false);
+
+            g_pvsDisabled = true;
+            return true;
+        } __except (EXCEPTION_EXECUTE_HANDLER) {
+            return false;
+        }
+    }
+
     inline bool Setup()
     {
         // --- GetWorldFov hook (client.dll) ---
@@ -1287,6 +1354,19 @@ namespace WorldEffects
         // handlers so RunThirdPerson() can call them directly. Failure is
         // non-fatal — RunThirdPerson falls back to a manual flag flip.
         ResolveThirdPersonHandlers();
+
+        // --- Disable PVS / vis-cluster culling (engine2.dll) ----------
+        // Walk to the visibility manager singleton via the setter sigscan
+        // inside CRenderingWorldSession::OnLoopActivate, then call
+        // vtable[6](mgr, false). vtable[6] is a recursive walk over the
+        // vis tree that stamps every leaf as visible (decompiled at
+        // engine2.dll!sub_180235950). After this, PVS leaf culling is
+        // dead — chams, ESP, and any rendered geometry stays drawn at
+        // any distance through any wall, regardless of which leaf the
+        // camera is in. We don't hook anything; we just call the
+        // existing engine vfunc once at startup. Idempotent — calling
+        // again with `false` writes the same byte.
+        TryDisablePvs();
 
         // --- DrawSkyboxArray hook (scenesystem.dll) via MinHook ---
         // Entity writes to m_vTintColor don't work (renderer caches at setup).

@@ -87,6 +87,18 @@ namespace Signatures
     constexpr const char* DrawSkyboxArray =
         "45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55";
 
+    // DisableViewClustering / PVS singleton accessor — engine2.dll
+    //   lea rcx, [g_visMgr]   ; load singleton ptr-to-ptr
+    //   xor edx, edx          ; arg = 0 (disable)
+    //   call qword ptr [rax+30h] ; vtable[6]
+    // Inside CRenderingWorldSession::OnLoopActivate; gated behind a
+    // `-disable_pvs` style cmdline parm in vanilla. We call vtable[6]
+    // ourselves to walk the visibility tree and stamp every leaf
+    // visible. After this, the engine no longer culls geometry/entities
+    // by PVS leaf — chams render at any distance through any wall.
+    constexpr const char* DisablePvsAccessor =
+        "48 8D 0D ? ? ? ? 33 D2 FF 50";
+
     // DrawSmokeVertex — smoke particle rendering
     constexpr const char* DrawSmokeVertex =
         "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B 9C 24 ? ? ? ? 4D 8B F8";
