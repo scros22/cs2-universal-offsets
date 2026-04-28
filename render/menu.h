@@ -1205,6 +1205,23 @@ namespace Menu
                     ImGui::SameLine();
                     ImGui::ColorEdit4("##cc", sl.color,
                         ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar);
+                    // Quick-pick palette swatches
+                    const float sw = 14.f;
+                    for (int i = 0; i < Chams::kColorPresetCount; ++i) {
+                        const auto& p = Chams::kColorPresets[i];
+                        ImVec4 col(p.rgba[0], p.rgba[1], p.rgba[2], 1.0f);
+                        ImGui::PushID(i);
+                        if (ImGui::ColorButton(p.name, col,
+                                ImGuiColorEditFlags_NoTooltip|ImGuiColorEditFlags_NoBorder,
+                                ImVec2(sw, sw))) {
+                            sl.color[0] = p.rgba[0];
+                            sl.color[1] = p.rgba[1];
+                            sl.color[2] = p.rgba[2];
+                        }
+                        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", p.name);
+                        ImGui::PopID();
+                        if (i + 1 < Chams::kColorPresetCount) ImGui::SameLine(0.f, 3.f);
+                    }
                 }
                 ImGui::PopID();
             };
@@ -2658,6 +2675,27 @@ namespace Menu
             if (sl.material != Chams::MAT_NONE) {
                 ImGui::SameLine();
                 ImGui::ColorEdit4("##cc", sl.color, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+                // Quick-pick palette: tiny coloured swatches under the
+                // combo. Click to snap the slot's tint to a preset (RGB
+                // copied verbatim, alpha preserved so user-set transparency
+                // for Glass/etc isn't clobbered).
+                const float sw = 14.f;
+                for (int i = 0; i < Chams::kColorPresetCount; ++i) {
+                    const auto& p = Chams::kColorPresets[i];
+                    ImVec4 col(p.rgba[0], p.rgba[1], p.rgba[2], 1.0f);
+                    ImGui::PushID(i);
+                    if (ImGui::ColorButton(p.name, col,
+                            ImGuiColorEditFlags_NoTooltip|ImGuiColorEditFlags_NoBorder,
+                            ImVec2(sw, sw))) {
+                        sl.color[0] = p.rgba[0];
+                        sl.color[1] = p.rgba[1];
+                        sl.color[2] = p.rgba[2];
+                        // alpha untouched on purpose
+                    }
+                    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", p.name);
+                    ImGui::PopID();
+                    if (i + 1 < Chams::kColorPresetCount) ImGui::SameLine(0.f, 3.f);
+                }
             }
             ImGui::PopID();
         };

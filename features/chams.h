@@ -31,13 +31,33 @@ namespace Chams
         MAT_PEARLESCENT = 6,   // colour-shifting iridescence
         MAT_CRYSTAL     = 7,   // prismatic facets + sparkle
         MAT_GLASS       = 8,   // transparent fresnel
+        MAT_PBR_GLOSS   = 9,   // saturated PBR metal -- ddx/ddy fake-normal lighting (kauht-style)
         MAT_COUNT
     };
 
     inline const char* MaterialNames[MAT_COUNT] = {
         "None (Original)", "Flat Color", "Chrome", "Metallic",
-        "Glow", "Hologram", "Pearlescent", "Crystal", "Glass"
+        "Glow", "Hologram", "Pearlescent", "Crystal", "Glass",
+        "PBR Gloss"
     };
+
+    // Quick-pick color presets (shown above the per-slot color edit). The
+    // first entry mirrors the green emerald look from the kauht reference
+    // screenshot -- one click and your slot's tint snaps to that exact RGB.
+    struct ColorPreset { const char* name; float rgba[4]; };
+    inline const ColorPreset kColorPresets[] = {
+        { "Emerald",  { 0.06f, 1.00f, 0.22f, 1.00f } },  // kauht reference
+        { "Acid",     { 0.55f, 1.00f, 0.05f, 1.00f } },
+        { "Cyan",     { 0.05f, 0.85f, 1.00f, 1.00f } },
+        { "Royal",    { 0.20f, 0.30f, 1.00f, 1.00f } },
+        { "Magenta",  { 1.00f, 0.10f, 0.85f, 1.00f } },
+        { "Hot Pink", { 1.00f, 0.25f, 0.55f, 1.00f } },
+        { "Crimson",  { 1.00f, 0.10f, 0.10f, 1.00f } },
+        { "Tangerine",{ 1.00f, 0.45f, 0.05f, 1.00f } },
+        { "Gold",     { 1.00f, 0.78f, 0.20f, 1.00f } },
+        { "Pearl",    { 0.95f, 0.95f, 1.00f, 1.00f } }
+    };
+    inline constexpr int kColorPresetCount = (int)(sizeof(kColorPresets) / sizeof(kColorPresets[0]));
 
     // Per-slot style: material + tint colour
     struct SlotStyle
@@ -52,7 +72,7 @@ namespace Chams
         bool  wallhack  = true;
 
         // Players (all characters — D3D11 hook can't differentiate teams)
-        SlotStyle playerVis = { MAT_CHROME,  { 1.0f, 0.15f, 0.15f, 1.0f } };
+        SlotStyle playerVis = { MAT_PBR_GLOSS,{ 0.06f, 1.00f, 0.22f, 1.00f } };
         SlotStyle playerHid = { MAT_NONE,    { 1.0f, 0.5f, 0.0f, 0.55f } };
 
         // Viewmodel (own hands + held weapon)
@@ -61,7 +81,7 @@ namespace Chams
 
         // World weapon drops
         bool      weaponsEnabled = false;
-        SlotStyle weapons        = { MAT_METALLIC, { 1.0f, 0.95f, 0.2f, 1.0f } };
+        SlotStyle weapons        = { MAT_PBR_GLOSS,{ 0.06f, 1.00f, 0.22f, 1.00f } };
     };
 
     inline Config cfg;
@@ -206,6 +226,38 @@ float4 main(float4 p:SV_Position):SV_Target{
   return float4(c,a);
 })";
 
+    // PBR Gloss -- targets the kauht-reference look: saturated solid colour,
+    // high-frequency specular along screen-space gradient ridges, soft rim,
+    // and a wide diffuse falloff biased toward the top of the visible mesh.
+    // Uses ddx_fine/ddy_fine of SV_Position to recover a fake mesh-aligned
+    // normal -- this is as close as a D3D11 PS-replacement can get to true
+    // material-layer PBR without touching the source2 shader pipeline.
+    static const char* kHlslPbrGloss = R"(
+cbuffer CB:register(b12){float4 tint;float2 screen;float time;};
+float4 main(float4 p:SV_Position):SV_Target{
+  // ddx/ddy_fine of pixel position gives us a screen-space gradient that
+  // tracks geometry edges -- a passable substitute for view-space normals.
+  float2 dx=ddx_fine(p.xy);
+  float2 dy=ddy_fine(p.xy);
+  // Fake normal in screen space (XY = gradient, Z = unit so it stays facing).
+  float3 N=normalize(float3(dx.y-dy.x,dy.y-dx.x,1.4));
+  // Two light directions -- key (top-front) + fill (back). Hard-coded so the
+  // result looks the same regardless of camera yaw.
+  float3 Lk=normalize(float3(-0.45,-0.85,0.30));
+  float3 Lf=normalize(float3( 0.55, 0.40,0.70));
+  float ndlK=saturate(dot(N,Lk));
+  float ndlF=saturate(dot(N,Lf));
+  // GGX-ish specular lobe approximated with pow(ndl, large_exp).
+  float specK=pow(ndlK,18.0);
+  float specF=pow(ndlF,28.0)*0.55;
+  // Rim term -- brightens silhouette pixels (where the fake-normal Z
+  // component is small).
+  float rim=pow(1.0-saturate(N.z),3.0)*0.65;
+  float3 base=tint.rgb*(0.35+0.55*ndlK+0.20*ndlF);
+  float3 spec=(specK+specF+rim)*lerp(tint.rgb,float3(1.0,1.0,1.0),0.55);
+  return float4(base+spec,tint.a);
+})";
+
     // Indexed by Material enum  (MAT_NONE = index 0 → nullptr)
     inline const char* kShaderSources[MAT_COUNT] = {
         nullptr,             // MAT_NONE
@@ -216,7 +268,8 @@ float4 main(float4 p:SV_Position):SV_Target{
         kHlslHologram,       // MAT_HOLOGRAM
         kHlslPearlescent,    // MAT_PEARLESCENT
         kHlslCrystal,        // MAT_CRYSTAL
-        kHlslGlass           // MAT_GLASS
+        kHlslGlass,          // MAT_GLASS
+        kHlslPbrGloss        // MAT_PBR_GLOSS
     };
 
     // ---------------------------------------------------------------
