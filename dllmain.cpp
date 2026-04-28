@@ -26,6 +26,7 @@
 #include "features/aimbot.h"
 #include "features/world_effects.h"
 #include "features/chams_scene.h"
+#include "features/kill_sound.h"
 #include "features/bhop.h"
 #include "features/skinchanger_test.h"
 #include "features/inventory_changer.h"
@@ -347,6 +348,13 @@ static void EntryThread(HMODULE hModule)
         DllLog("[EntryThread] ChamsScene::Setup OK (GeneratePrimitives hooked)");
     else
         DllLog("[EntryThread] ChamsScene::Setup FAILED (sig miss or scenesystem.dll not loaded)");
+
+    // Custom kill ding — mutes Valve's HS/body AttackerFeedback ding
+    // and plays our own short metallic chirp on every confirmed kill.
+    if (KillSound::Setup())
+        DllLog("[EntryThread] KillSound::Setup OK (custom ding active, Valve ding muted)");
+    else
+        DllLog("[EntryThread] KillSound::Setup FAILED (sig miss or hook install failed)");
 
     SkinChanger::Init();
     DllLog("[EntryThread] SkinChanger::Init OK");

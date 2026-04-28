@@ -124,6 +124,23 @@ namespace Signatures
     constexpr const char* RenderDecals =
         "44 88 4C 24 ? 55 53";
 
+    // KillFeedbackEmitter — client.dll
+    //   Emits one of four "Player.Death*.AttackerFeedback" sound
+    //   events to the local attacker on a confirmed kill:
+    //     Player.DeathHeadShotArmor.AttackerFeedback   (HS + helmet)
+    //     Player.DeathHeadShot.AttackerFeedback        (HS, no helmet)
+    //     Player.DeathBodyArmor.AttackerFeedback       (body + armor)
+    //     Player.DeathBody.AttackerFeedback            (body, no armor)
+    //   This IS the iconic CS2 "headshot ding" call site — and the
+    //   thud body-kill ack too. Detouring it lets us suppress every
+    //   Valve kill ack and play our own custom sound on confirmed
+    //   kills (most reliable kill-detection point in the game — fires
+    //   from the engine's damage flow, not from our aimbot lock state).
+    //   Verified single match on build 14155 (sub_180849CE0). 32-byte
+    //   sig pulled from function prologue — no relative branches.
+    constexpr const char* KillFeedbackEmitter =
+        "48 89 5C 24 08 48 89 74 24 18 48 89 7C 24 20 55 41 56 41 57 48 8B EC 48 81 EC 80 00 00 00 44 8B";
+
     // DrawSmokeVertex — smoke particle rendering
     constexpr const char* DrawSmokeVertex =
         "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B 9C 24 ? ? ? ? 4D 8B F8";
