@@ -235,10 +235,13 @@ float4 main(float4 p:SV_Position):SV_Target{
     static const char* kHlslPbrGloss = R"(
 cbuffer CB:register(b12){float4 tint;float2 screen;float time;};
 float4 main(float4 p:SV_Position):SV_Target{
-  // ddx/ddy_fine of pixel position gives us a screen-space gradient that
-  // tracks geometry edges -- a passable substitute for view-space normals.
-  float2 dx=ddx_fine(p.xy);
-  float2 dy=ddy_fine(p.xy);
+  // ddx/ddy of pixel position gives us a screen-space gradient that
+  // tracks geometry edges -- a passable substitute for view-space
+  // normals. Using ddx/ddy (not ddx_fine) to stay ps_4_0 compatible;
+  // the _fine variants require ps_5_0 and would silently fail to
+  // compile, leaving this style as a no-op.
+  float2 dx=ddx(p.xy);
+  float2 dy=ddy(p.xy);
   // Fake normal in screen space (XY = gradient, Z = unit so it stays facing).
   float3 N=normalize(float3(dx.y-dy.x,dy.y-dx.x,1.4));
   // Two light directions -- key (top-front) + fill (back). Hard-coded so the
