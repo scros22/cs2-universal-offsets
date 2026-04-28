@@ -263,7 +263,7 @@ namespace Menu
 
     // Accent default â€” light red. Was deep purple; switched 2026-04-28
     // alongside the minimal classic-internal menu rewrite.
-    inline float primaryColor[4]   = { 200/255.f,  56/255.f,  56/255.f, 1.0f };
+    inline float primaryColor[4]   = { 229/255.f,  57/255.f,  53/255.f, 1.0f };
     inline float secondaryColor[4] = { 0.09f, 0.09f, 0.09f, 0.70f };
     inline bool  themeApplied      = false;
 
@@ -3426,165 +3426,231 @@ namespace Menu
     }
 
     // ============================================================
-    //  MAIN RENDER  â€”  Minimal classic-internal layout
-    //  (rewritten 2026-04-28: replaced the bottom-dock card grid
-    //   with a 3-column left-rail / feature-list / options layout
-    //   in the AimWare/Skeet/Pearl style. Light-red theme, dark
-    //   foreground. Per-feature Pg_* render funcs are unchanged.)
+    //  MAIN RENDER  -  Minimal iOS-feel internal (black + red + white)
+    //  (rewritten 2026-04-29: switched to dark theme with red accent
+    //   and white foreground, replaced text labels in left rail with
+    //   icon glyphs (DrawTabIcon), tightened spacing, hardened the
+    //   per-feature render dispatch against unbalanced style stacks
+    //   so a misbehaving Pg_* page can never trigger ImGui's
+    //   "Missing PopStyleColor()" debug prompt.)
     // ============================================================
     inline void Render(bool& showMenu)
     {
         ApplyTheme();
 
         float dt = ImGui::GetIO().DeltaTime;
-        if (showMenu  && menuAlpha < 1.f) menuAlpha += dt * 6.f;
-        if (!showMenu && menuAlpha > 0.f) menuAlpha -= dt * 8.f;
+        if (showMenu  && menuAlpha < 1.f) menuAlpha += dt * 7.f;
+        if (!showMenu && menuAlpha > 0.f) menuAlpha -= dt * 9.f;
         if (menuAlpha < 0.f) menuAlpha = 0.f;
         if (menuAlpha > 1.f) menuAlpha = 1.f;
         if (menuAlpha <= 0.001f) return;
 
-        // ---- Window geometry (compact medium, classic internal) ----
-        const float W           = 640.f;
-        const float H           = 460.f;
-        const float HEADER_H    = 30.f;
-        const float COL_LEFT_W  = 110.f;
-        const float COL_MID_W   = 180.f;
+        // ---- Geometry ----
+        const float W           = 660.f;
+        const float H           = 450.f;
+        const float HEADER_H    = 32.f;
+        const float COL_LEFT_W  = 56.f;   // icon-only rail
+        const float COL_MID_W   = 168.f;
+        const float PAD         = 8.f;
+        const float CONTENT_H   = H - HEADER_H - PAD * 2.f;
 
         ImGui::SetNextWindowSize({ W, H }, ImGuiCond_Once);
         ImGui::SetNextWindowPos ({ 160.f, 110.f }, ImGuiCond_Once);
 
-        // ---- Light-red theme (scoped to this window only) ----
-        // Light pink background, deeper red panels, red accent,
-        // dark red-brown foreground text.
-        const ImVec4 cBgWin   = ImVec4(0.961f, 0.863f, 0.863f, 1.f);  // #F5DCDC
-        const ImVec4 cBgPanel = ImVec4(0.937f, 0.784f, 0.784f, 1.f);  // #EFC8C8
-        const ImVec4 cBgFrame = ImVec4(0.898f, 0.706f, 0.706f, 1.f);  // #E5B4B4
-        const ImVec4 cBgHov   = ImVec4(0.859f, 0.627f, 0.627f, 1.f);  // #DBA0A0
-        const ImVec4 cBgAct   = ImVec4(0.820f, 0.549f, 0.549f, 1.f);  // #D18C8C
-        const ImVec4 cAccent  = ImVec4(0.784f, 0.220f, 0.220f, 1.f);  // #C83838
-        const ImVec4 cAccHov  = ImVec4(0.863f, 0.286f, 0.286f, 1.f);  // #DC4949
-        const ImVec4 cText    = ImVec4(0.165f, 0.063f, 0.063f, 1.f);  // #2A1010
-        const ImVec4 cTextDim = ImVec4(0.471f, 0.298f, 0.298f, 1.f);  // #784C4C
-        const ImVec4 cBorder  = ImVec4(0.706f, 0.392f, 0.392f, 1.f);  // #B46464
+        // ---- iOS-feel dark theme (black base, red accent, white text) ----
+        const ImVec4 cBgWin   = ImVec4(0.043f, 0.043f, 0.051f, 1.f);   // #0B0B0D
+        const ImVec4 cBgPanel = ImVec4(0.071f, 0.071f, 0.082f, 1.f);   // #121215
+        const ImVec4 cBgFrame = ImVec4(0.110f, 0.110f, 0.125f, 1.f);   // #1C1C20
+        const ImVec4 cBgHov   = ImVec4(0.157f, 0.157f, 0.176f, 1.f);   // #28282D
+        const ImVec4 cBgAct   = ImVec4(0.200f, 0.200f, 0.220f, 1.f);   // #333338
+        const ImVec4 cAccent  = ImVec4(0.898f, 0.224f, 0.208f, 1.f);   // #E53935
+        const ImVec4 cAccHov  = ImVec4(0.957f, 0.290f, 0.275f, 1.f);   // #F44A46
+        const ImVec4 cAccDim  = ImVec4(0.898f, 0.224f, 0.208f, 0.18f); // accent @ 18%
+        const ImVec4 cText    = ImVec4(1.000f, 1.000f, 1.000f, 1.f);   // #FFFFFF
+        const ImVec4 cTextDim = ImVec4(0.620f, 0.620f, 0.660f, 1.f);   // #9E9EA8
+        const ImVec4 cBorder  = ImVec4(1.000f, 1.000f, 1.000f, 0.06f); // hairline
 
-        ImGui::PushStyleColor(ImGuiCol_WindowBg,        cBgWin);
-        ImGui::PushStyleColor(ImGuiCol_ChildBg,         cBgPanel);
-        ImGui::PushStyleColor(ImGuiCol_PopupBg,         cBgPanel);
-        ImGui::PushStyleColor(ImGuiCol_Border,          cBorder);
-        ImGui::PushStyleColor(ImGuiCol_FrameBg,         cBgFrame);
-        ImGui::PushStyleColor(ImGuiCol_FrameBgHovered,  cBgHov);
-        ImGui::PushStyleColor(ImGuiCol_FrameBgActive,   cBgAct);
-        ImGui::PushStyleColor(ImGuiCol_Text,            cText);
-        ImGui::PushStyleColor(ImGuiCol_TextDisabled,    cTextDim);
-        ImGui::PushStyleColor(ImGuiCol_Header,          cAccent);
-        ImGui::PushStyleColor(ImGuiCol_HeaderHovered,   cAccHov);
-        ImGui::PushStyleColor(ImGuiCol_HeaderActive,    cAccent);
-        ImGui::PushStyleColor(ImGuiCol_CheckMark,       cAccent);
-        ImGui::PushStyleColor(ImGuiCol_SliderGrab,      cAccent);
-        ImGui::PushStyleColor(ImGuiCol_SliderGrabActive,cAccHov);
-        ImGui::PushStyleColor(ImGuiCol_Button,          cBgFrame);
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   cBgHov);
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive,    cAccent);
-        ImGui::PushStyleColor(ImGuiCol_Separator,       cBorder);
-        ImGui::PushStyleColor(ImGuiCol_ResizeGrip,      cAccent);
-        ImGui::PushStyleColor(ImGuiCol_Tab,             cBgFrame);
-        ImGui::PushStyleColor(ImGuiCol_TabHovered,      cAccHov);
-        ImGui::PushStyleColor(ImGuiCol_TabActive,       cAccent);
-        ImGui::PushStyleColor(ImGuiCol_ScrollbarBg,     cBgPanel);
-        ImGui::PushStyleColor(ImGuiCol_ScrollbarGrab,   cBgHov);
+        ImGui::PushStyleColor(ImGuiCol_WindowBg,             cBgWin);
+        ImGui::PushStyleColor(ImGuiCol_ChildBg,              cBgPanel);
+        ImGui::PushStyleColor(ImGuiCol_PopupBg,              cBgFrame);
+        ImGui::PushStyleColor(ImGuiCol_Border,               cBorder);
+        ImGui::PushStyleColor(ImGuiCol_FrameBg,              cBgFrame);
+        ImGui::PushStyleColor(ImGuiCol_FrameBgHovered,       cBgHov);
+        ImGui::PushStyleColor(ImGuiCol_FrameBgActive,        cBgAct);
+        ImGui::PushStyleColor(ImGuiCol_Text,                 cText);
+        ImGui::PushStyleColor(ImGuiCol_TextDisabled,         cTextDim);
+        ImGui::PushStyleColor(ImGuiCol_Header,               cAccDim);
+        ImGui::PushStyleColor(ImGuiCol_HeaderHovered,        cBgHov);
+        ImGui::PushStyleColor(ImGuiCol_HeaderActive,         cAccDim);
+        ImGui::PushStyleColor(ImGuiCol_CheckMark,            cAccent);
+        ImGui::PushStyleColor(ImGuiCol_SliderGrab,           cAccent);
+        ImGui::PushStyleColor(ImGuiCol_SliderGrabActive,     cAccHov);
+        ImGui::PushStyleColor(ImGuiCol_Button,               cBgFrame);
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered,        cBgHov);
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive,         cAccent);
+        ImGui::PushStyleColor(ImGuiCol_Separator,            cBorder);
+        ImGui::PushStyleColor(ImGuiCol_ResizeGrip,           cAccent);
+        ImGui::PushStyleColor(ImGuiCol_ScrollbarBg,          cBgPanel);
+        ImGui::PushStyleColor(ImGuiCol_ScrollbarGrab,        cBgHov);
         ImGui::PushStyleColor(ImGuiCol_ScrollbarGrabHovered, cBgAct);
         ImGui::PushStyleColor(ImGuiCol_ScrollbarGrabActive,  cAccent);
+        ImGui::PushStyleColor(ImGuiCol_NavHighlight,         cAccent);
+        const int kPushedColors = 25;
 
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding,    6.f);
-        ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding,     4.f);
-        ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding,     3.f);
-        ImGui::PushStyleVar(ImGuiStyleVar_GrabRounding,      3.f);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding,    10.f);
+        ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding,     8.f);
+        ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding,     6.f);
+        ImGui::PushStyleVar(ImGuiStyleVar_PopupRounding,     6.f);
+        ImGui::PushStyleVar(ImGuiStyleVar_GrabRounding,      6.f);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize,  1.f);
         ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize,   0.f);
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding,     ImVec2(8.f, 8.f));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding,     ImVec2(PAD, PAD));
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing,       ImVec2(6.f, 4.f));
         ImGui::PushStyleVar(ImGuiStyleVar_Alpha,             menuAlpha);
+        const int kPushedVars = 10;
 
         ImGui::Begin("##lucid_minimal", nullptr,
             ImGuiWindowFlags_NoTitleBar    | ImGuiWindowFlags_NoResize  |
             ImGuiWindowFlags_NoCollapse    | ImGuiWindowFlags_NoScrollbar |
             ImGuiWindowFlags_NoScrollWithMouse);
 
-        // ---- Header bar: brand left, version right, accent underline ----
-        {
-            ImVec2 wp = ImGui::GetWindowPos();
-            ImVec2 ws = ImGui::GetWindowSize();
-            ImDrawList* dl = ImGui::GetWindowDrawList();
+        ImVec2 wp = ImGui::GetWindowPos();
+        ImVec2 ws = ImGui::GetWindowSize();
+        ImDrawList* dl = ImGui::GetWindowDrawList();
 
-            // Title text
-            ImGui::SetCursorPos({ 12.f, 6.f });
-            ImGui::PushStyleColor(ImGuiCol_Text, cAccent);
+        // Subtle vertical gradient over the window background for depth
+        dl->AddRectFilledMultiColor(
+            { wp.x + 1.f,        wp.y + 1.f },
+            { wp.x + ws.x - 1.f, wp.y + ws.y - 1.f },
+            IM_COL32(13, 13, 16, (int)(255 * menuAlpha)),
+            IM_COL32(13, 13, 16, (int)(255 * menuAlpha)),
+            IM_COL32(20, 20, 24, (int)(255 * menuAlpha)),
+            IM_COL32(20, 20, 24, (int)(255 * menuAlpha)));
+
+        // ---- Header bar: brand + version + accent dot + breadcrumb ----
+        {
+            float dotR = 3.f;
+            float dotX = wp.x + 14.f;
+            float dotY = wp.y + HEADER_H * 0.5f;
+            dl->AddCircleFilled({ dotX, dotY }, dotR + 2.f,
+                IM_COL32(229, 57, 53, (int)(60 * menuAlpha)));
+            dl->AddCircleFilled({ dotX, dotY }, dotR,
+                IM_COL32(229, 57, 53, (int)(255 * menuAlpha)));
+
+            ImGui::SetCursorPos({ 26.f, 8.f });
             ImGui::TextUnformatted("LUCID");
-            ImGui::PopStyleColor();
 
             ImGui::SameLine();
-            ImGui::SetCursorPosX(46.f);
+            ImGui::SetCursorPosX(64.f);
             ImGui::PushStyleColor(ImGuiCol_Text, cTextDim);
             ImGui::TextUnformatted("v2.0");
             ImGui::PopStyleColor();
 
-            // Right-side: active category breadcrumb
-            const char* tabName = kTabLabels[activeTab];
-            ImVec2 sz = ImGui::CalcTextSize(tabName);
-            ImGui::SetCursorPos({ W - sz.x - 14.f, 6.f });
+            // Right-side: active feature breadcrumb
+            int fc_hdr = 0; FeatureDef* feats_hdr = GetTabFeatures(activeTab, fc_hdr);
+            const char* crumb = (feats_hdr && pageStack[activeTab] >= 0
+                                 && pageStack[activeTab] < fc_hdr)
+                              ? feats_hdr[pageStack[activeTab]].name
+                              : kTabLabels[activeTab];
+            ImVec2 sz = ImGui::CalcTextSize(crumb);
+            ImGui::SetCursorPos({ W - sz.x - 14.f, 8.f });
             ImGui::PushStyleColor(ImGuiCol_Text, cTextDim);
-            ImGui::TextUnformatted(tabName);
+            ImGui::TextUnformatted(crumb);
             ImGui::PopStyleColor();
 
-            // Accent underline along header bottom
-            float uy = wp.y + HEADER_H - 1.f;
+            // Hairline separator under the header
+            float uy = wp.y + HEADER_H;
             dl->AddRectFilled(
                 { wp.x + 1.f,        uy },
                 { wp.x + ws.x - 1.f, uy + 1.f },
-                IM_COL32(
-                    (int)(cAccent.x * 255),
-                    (int)(cAccent.y * 255),
-                    (int)(cAccent.z * 255),
-                    (int)(180 * menuAlpha)));
+                IM_COL32(255, 255, 255, (int)(14 * menuAlpha)));
         }
 
-        // ---- Content area: 3 columns ----
-        ImGui::SetCursorPos({ 8.f, HEADER_H + 4.f });
+        // ---- Content row ----
+        ImGui::SetCursorPos({ PAD, HEADER_H + PAD });
 
-        // Column 1: category rail
-        if (ImGui::BeginChild("##cat_rail", ImVec2(COL_LEFT_W, H - HEADER_H - 16.f),
-                              true, ImGuiWindowFlags_NoScrollbar))
+        // ------------------------------------------------------------
+        // Column 1: ICON RAIL (no text labels, just glyphs)
+        // ------------------------------------------------------------
+        if (ImGui::BeginChild("##cat_rail", ImVec2(COL_LEFT_W, CONTENT_H),
+                              false, ImGuiWindowFlags_NoScrollbar))
         {
+            ImVec2 rp = ImGui::GetWindowPos();
+            ImVec2 rs = ImGui::GetWindowSize();
+            ImDrawList* rdl = ImGui::GetWindowDrawList();
+
+            rdl->AddRectFilled(rp,
+                { rp.x + rs.x, rp.y + rs.y },
+                IM_COL32(18, 18, 22, (int)(255 * menuAlpha)), 8.f);
+            rdl->AddRect(rp,
+                { rp.x + rs.x, rp.y + rs.y },
+                IM_COL32(255, 255, 255, (int)(14 * menuAlpha)), 8.f, 0, 1.f);
+
+            const float btnH   = 44.f;
+            const float btnGap = 6.f;
+            const float topPad = 8.f;
+
             for (int i = 0; i < kTabCount; ++i)
             {
                 ImGui::PushID(10000 + i);
                 bool sel = (activeTab == i);
-                if (ImGui::Selectable(kTabLabels[i], sel,
-                                       ImGuiSelectableFlags_None,
-                                       ImVec2(0, 22.f)))
+
+                ImGui::SetCursorPos({ 4.f, topPad + i * (btnH + btnGap) });
+                ImVec2 bp = ImGui::GetCursorScreenPos();
+                ImVec2 bs{ COL_LEFT_W - 8.f, btnH };
+
+                bool clicked = ImGui::InvisibleButton("##icon", bs);
+                bool hovered = ImGui::IsItemHovered();
+                if (clicked) activeTab = i;
+
+                if (sel)
                 {
-                    activeTab = i;
+                    rdl->AddRectFilled(bp,
+                        { bp.x + bs.x, bp.y + bs.y },
+                        IM_COL32(229, 57, 53, (int)(28 * menuAlpha)), 8.f);
+                    rdl->AddRectFilled(
+                        { bp.x - 4.f, bp.y + 8.f },
+                        { bp.x - 1.f, bp.y + bs.y - 8.f },
+                        IM_COL32(229, 57, 53, (int)(255 * menuAlpha)), 2.f);
                 }
+                else if (hovered)
+                {
+                    rdl->AddRectFilled(bp,
+                        { bp.x + bs.x, bp.y + bs.y },
+                        IM_COL32(255, 255, 255, (int)(10 * menuAlpha)), 8.f);
+                }
+
+                ImU32 iconCol = sel
+                    ? IM_COL32(255, 255, 255, (int)(255 * menuAlpha))
+                    : (hovered
+                        ? IM_COL32(220, 220, 230, (int)(255 * menuAlpha))
+                        : IM_COL32(150, 150, 165, (int)(255 * menuAlpha)));
+                DrawTabIcon(rdl, i,
+                    { bp.x + bs.x * 0.5f, bp.y + bs.y * 0.5f }, iconCol);
+
+                if (hovered)
+                    ImGui::SetTooltip("%s", kTabLabels[i]);
+
                 ImGui::PopID();
             }
         }
         ImGui::EndChild();
 
-        ImGui::SameLine();
+        ImGui::SameLine(0.f, PAD);
 
-        // Column 2: feature list for active category
+        // ------------------------------------------------------------
+        // Column 2: FEATURE LIST (checkbox + name)
+        // ------------------------------------------------------------
         int featCount = 0;
         FeatureDef* feats = GetTabFeatures(activeTab, featCount);
-
-        // Ensure something is always selected (-1 means "show feature grid"
-        // in the old layout; here we always want a per-feature pane visible)
         if (feats && featCount > 0)
         {
             if (pageStack[activeTab] < 0 || pageStack[activeTab] >= featCount)
                 pageStack[activeTab] = 0;
         }
 
-        if (ImGui::BeginChild("##feat_list", ImVec2(COL_MID_W, H - HEADER_H - 16.f),
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(8.f, 8.f));
+        if (ImGui::BeginChild("##feat_list", ImVec2(COL_MID_W, CONTENT_H),
                               true, ImGuiWindowFlags_None))
         {
             if (feats)
@@ -3594,47 +3660,62 @@ namespace Menu
                     const FeatureDef& f = feats[i];
                     ImGui::PushID(20000 + i);
 
-                    // Inline checkbox + selectable row. The checkbox toggles
-                    // the master enable; clicking the name selects the page.
-                    if (f.enabled)
+                    bool sel = (pageStack[activeTab] == i);
+                    if (sel)
                     {
-                        ImGui::Checkbox("##en", f.enabled);
-                        ImGui::SameLine(0.f, 6.f);
+                        ImGui::PushStyleColor(ImGuiCol_Header,        cAccDim);
+                        ImGui::PushStyleColor(ImGuiCol_HeaderHovered, cAccDim);
+                        ImGui::PushStyleColor(ImGuiCol_HeaderActive,  cAccDim);
                     }
                     else
                     {
-                        // Pad so labels align with rows that DO have a checkbox
-                        ImGui::Dummy(ImVec2(20.f, 0.f));
-                        ImGui::SameLine(0.f, 6.f);
+                        ImGui::PushStyleColor(ImGuiCol_Header,        cBgHov);
+                        ImGui::PushStyleColor(ImGuiCol_HeaderHovered, cBgHov);
+                        ImGui::PushStyleColor(ImGuiCol_HeaderActive,  cBgHov);
                     }
 
-                    bool sel = (pageStack[activeTab] == i);
+                    if (f.enabled)
+                    {
+                        ImGui::Checkbox("##en", f.enabled);
+                        ImGui::SameLine(0.f, 8.f);
+                    }
+                    else
+                    {
+                        ImGui::Dummy(ImVec2(20.f, 0.f));
+                        ImGui::SameLine(0.f, 8.f);
+                    }
+
                     if (ImGui::Selectable(f.name, sel,
                                            ImGuiSelectableFlags_None,
-                                           ImVec2(0, 18.f)))
+                                           ImVec2(0, 20.f)))
                     {
                         pageStack[activeTab] = i;
                     }
 
+                    ImGui::PopStyleColor(3);
                     ImGui::PopID();
                 }
             }
         }
         ImGui::EndChild();
+        ImGui::PopStyleVar();
 
-        ImGui::SameLine();
+        ImGui::SameLine(0.f, PAD);
 
-        // Column 3: options pane for the selected feature
-        const float COL_RIGHT_W = W - COL_LEFT_W - COL_MID_W - 8.f - 8.f - 8.f - 6.f;
-        if (ImGui::BeginChild("##feat_opts", ImVec2(COL_RIGHT_W, H - HEADER_H - 16.f),
+        // ------------------------------------------------------------
+        // Column 3: OPTIONS PANE  (defers to existing Pg_* functions)
+        // ------------------------------------------------------------
+        const float COL_RIGHT_W = W - COL_LEFT_W - COL_MID_W - PAD * 4.f;
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(12.f, 10.f));
+        if (ImGui::BeginChild("##feat_opts", ImVec2(COL_RIGHT_W, CONTENT_H),
                               true, ImGuiWindowFlags_None))
         {
             if (feats && pageStack[activeTab] >= 0 && pageStack[activeTab] < featCount)
             {
                 const FeatureDef& f = feats[pageStack[activeTab]];
 
-                // Section title â€” feature name + subtitle
-                ImGui::PushStyleColor(ImGuiCol_Text, cAccent);
+                // Title + subtitle
+                ImGui::PushStyleColor(ImGuiCol_Text, cText);
                 ImGui::TextUnformatted(f.name);
                 ImGui::PopStyleColor();
                 if (f.subtitle && *f.subtitle)
@@ -3643,19 +3724,42 @@ namespace Menu
                     ImGui::TextUnformatted(f.subtitle);
                     ImGui::PopStyleColor();
                 }
-                ImGui::Separator();
-                ImGui::Spacing();
 
-                // Defer to the feature's existing render fn â€” wrapped in
-                // ImGui error recovery + SEH so a single broken page can't
-                // take down the whole menu render pass.
+                // Accent rule under the title
+                {
+                    ImVec2 cp = ImGui::GetCursorScreenPos();
+                    float aw = ImGui::GetContentRegionAvail().x;
+                    ImDrawList* odl = ImGui::GetWindowDrawList();
+                    odl->AddRectFilled({ cp.x, cp.y + 2.f },
+                        { cp.x + 22.f, cp.y + 4.f },
+                        IM_COL32(229, 57, 53, (int)(255 * menuAlpha)), 1.f);
+                    odl->AddRectFilled({ cp.x + 22.f, cp.y + 2.5f },
+                        { cp.x + aw,   cp.y + 3.5f },
+                        IM_COL32(255, 255, 255, (int)(14 * menuAlpha)));
+                    ImGui::Dummy(ImVec2(aw, 8.f));
+                }
+
+                // Defer to feature page render fn. Snapshot the style stack
+                // depth before/after so any leak from a misbehaving Pg_* is
+                // recovered immediately and never reaches end-of-frame
+                // (which would trigger ImGui's "Missing PopStyleColor()"
+                // debug prompt).
                 if (f.render)
                 {
-                    ImGuiErrorRecoveryState rs;
-                    ImGui::ErrorRecoveryStoreState(&rs);
+                    ImGuiContext* gctx = ImGui::GetCurrentContext();
+                    int colsBefore = gctx ? gctx->ColorStack.Size    : 0;
+                    int varsBefore = gctx ? gctx->StyleVarStack.Size : 0;
+
                     __try { f.render(); }
                     __except (EXCEPTION_EXECUTE_HANDLER) {}
-                    ImGui::ErrorRecoveryTryToRecoverState(&rs);
+
+                    if (gctx)
+                    {
+                        int colExtra = gctx->ColorStack.Size    - colsBefore;
+                        int varExtra = gctx->StyleVarStack.Size - varsBefore;
+                        if (colExtra > 0) ImGui::PopStyleColor(colExtra);
+                        if (varExtra > 0) ImGui::PopStyleVar(varExtra);
+                    }
                 }
             }
             else
@@ -3664,10 +3768,11 @@ namespace Menu
             }
         }
         ImGui::EndChild();
+        ImGui::PopStyleVar();
 
         ImGui::End();
 
-        ImGui::PopStyleVar(9);
-        ImGui::PopStyleColor(26);
+        ImGui::PopStyleVar(kPushedVars);
+        ImGui::PopStyleColor(kPushedColors);
     }
 } // namespace Menu
