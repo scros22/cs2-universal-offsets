@@ -58,8 +58,15 @@ namespace Aimbot
     {
         bool  enabled         = true;
         int   aimKey          = 0;           // 0 = auto (mouse1), 1 = mouse2, 2 = always on
-        float fov             = 5.5f;        // degrees — wide enough to actually engage
-        float smoothing       = 12.0f;       // 1=instant, 100=max drag — snappier semi-rage default
+        // Default tightened 2026-04-28 after a 20h MM cooldown landed
+        // on the account: server-side trust scoring is what kicked us,
+        // not the local untrusted byte (heartbeat hook still says 00).
+        // Smaller FOV + heavier smoothing + more humanization keeps
+        // observed kill curves closer to a sharp human and away from
+        // the obvious bot tells (sub-frame snap, zero overshoot, 100%
+        // converge time). User can crank these back via the menu.
+        float fov             = 3.5f;        // degrees — tighter cone, less obvious flicks across screen
+        float smoothing       = 28.0f;       // 1=instant, 100=max drag — humanlike drag (was 12)
         int   targetBone      = 7;           // build 14152: 7=head, 6=neck, 23=chest, 1=pelvis
         bool  headPriority    = true;        // try head first, fallback to configured
         bool  noRecoil        = true;        // compensate weapon recoil
@@ -68,7 +75,7 @@ namespace Aimbot
         bool  velPredict      = true;        // lead moving targets
         float velPredictScale = 1.0f;        // prediction multiplier
         bool  multiBone       = true;        // scan multiple bones for best hit
-        float humanization    = 0.18f;       // 0..1 hand tremor intensity (lower = less manual drag)
+        float humanization    = 0.32f;       // 0..1 hand tremor intensity (raised from 0.18)
         bool  smokeCheck      = true;        // never aim through smoke
         bool  showFovCircle   = true;
         float fovCircleColor[4] = { 1.f, 1.f, 1.f, 0.14f };
@@ -284,11 +291,16 @@ namespace Aimbot
     {
         struct GovernorConfig
         {
-            bool  enabled          = false;    // default OFF — turn on if needed
-            float intensity        = 0.35f;    // 0..1 how aggressive throttling is
-            float hsCapPercent     = 55.0f;    // start forcing body after this HS%
-            int   multiKillWindow  = 4;        // kills within this many seconds = multi-kill
-            int   multiKillCap     = 4;        // max rapid kills before brief pause
+            // Enabled by default 2026-04-28 — a 20h MM cooldown landed
+            // before the governor was ever on. Server-side trust
+            // scoring needs us to bleed off some performance headroom
+            // (forced body shots after the HS cap, brief pauses after
+            // multi-kills) so the kill-curve looks human.
+            bool  enabled          = true;
+            float intensity        = 0.55f;    // 0..1 how aggressive throttling is (was 0.35)
+            float hsCapPercent     = 45.0f;    // start forcing body after this HS% (was 55)
+            int   multiKillWindow  = 5;        // kills within this many seconds = multi-kill (was 4)
+            int   multiKillCap     = 3;        // max rapid kills before brief pause (was 4)
         };
         inline GovernorConfig gcfg;
 

@@ -23,8 +23,13 @@ namespace Triggerbot
         int   key          = 0;       // 0 = always-on while aimbot active, else hold key
         bool  teamCheck    = true;
         bool  smokeCheck   = true;
-        int   minDelayMs   = 30;      // human reaction floor
-        int   maxDelayMs   = 120;     // human reaction ceiling
+        // Reaction floor/ceiling raised 2026-04-28 after 20h MM
+        // cooldown — 30/120ms is too tight, server-side trust scoring
+        // sees an inhuman 30-50ms TTK on every engagement. Real human
+        // visual reaction is 200-280ms; we sit just below it so the
+        // trigger still feels useful but doesn't read as a bot.
+        int   minDelayMs   = 60;      // human reaction floor (was 30)
+        int   maxDelayMs   = 220;     // human reaction ceiling (was 120)
         int   burstMin     = 1;       // min shots per burst
         int   burstMax     = 3;       // max shots per burst
         bool  scopeOnly    = false;   // only fire when scoped (AWP/Scout)
