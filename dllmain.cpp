@@ -41,10 +41,17 @@ static SIZE_T  g_cachedImageSize = 0; // forward — set in RawDllEntry
 static std::atomic<bool> g_running{false};
 
 // ---------------------------------------------------------------
-// File logger — ALWAYS ENABLED for crash debugging
+// File logger — DEBUG ONLY.
+//
+// Anti-cheat heuristics weight "injected process writes named files
+// into %TEMP% on a heartbeat" pretty heavily toward the untrusted-mode
+// (20-hour) cooldown. Release builds therefore never touch disk; the
+// function still exists and accepts variadic args so call sites need
+// no #ifdef churn, it just no-ops.
 // ---------------------------------------------------------------
 static void DllLog(const char* fmt, ...)
 {
+#ifdef _DEBUG
     char path[MAX_PATH];
     GetTempPathA(MAX_PATH, path);
     lstrcatA(path, "cs2init.txt");
@@ -64,6 +71,9 @@ static void DllLog(const char* fmt, ...)
         WriteFile(hFile, buf, len + 1, &written, nullptr);
     }
     CloseHandle(hFile);
+#else
+    (void)fmt;
+#endif
 }
 
 static LONG WINAPI CrashHandler(EXCEPTION_POINTERS* ep)
@@ -74,7 +84,10 @@ static LONG WINAPI CrashHandler(EXCEPTION_POINTERS* ep)
         code == 0xE06D7363) // C++ exception
         return EXCEPTION_CONTINUE_SEARCH;
 
-    // Log crash for post-mortem - ALWAYS ENABLED
+#ifdef _DEBUG
+    // Crash log to %TEMP%\cs2crash.txt — DEBUG ONLY (named temp files in
+    // a release build are an untrusted-mode signal). Release silently
+    // continues and lets SEH unwind normally.
     char path[MAX_PATH];
     GetTempPathA(MAX_PATH, path);
     lstrcatA(path, "cs2crash.txt");
@@ -114,6 +127,7 @@ static LONG WINAPI CrashHandler(EXCEPTION_POINTERS* ep)
         WriteFile(hFile, buf, len, &written, nullptr);
         CloseHandle(hFile);
     }
+#endif
 
     // Let SEH (__try/__except) handle exceptions in our code normally.
     // NEVER attempt stack manipulation recovery — it corrupts the stack

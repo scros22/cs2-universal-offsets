@@ -232,12 +232,19 @@ namespace Mem
         return 0;
     }
 
-    // Small helper to patch bytes with page protection toggle
+    // Small helper to patch bytes with page protection toggle.
+    // W^X: never request PAGE_EXECUTE_READWRITE — anti-cheats flag any
+    // RWX page in the process working set as one of the cheapest possible
+    // tells. We flip to PAGE_READWRITE for the write, then put the
+    // original protection back. The CPU stream is the writer here, so
+    // EXEC is not needed during the memcpy.
     inline void PatchBytes(uintptr_t addr, const uint8_t* code, size_t len)
     {
         DWORD old;
-        Stealth::ProtectMemory(reinterpret_cast<void*>(addr), len, PAGE_EXECUTE_READWRITE, &old);
+        if (!Stealth::ProtectMemory(reinterpret_cast<void*>(addr), len, PAGE_READWRITE, &old))
+            return;
         memcpy(reinterpret_cast<void*>(addr), code, len);
-        Stealth::ProtectMemory(reinterpret_cast<void*>(addr), len, old, nullptr);
+        DWORD tmp;
+        Stealth::ProtectMemory(reinterpret_cast<void*>(addr), len, old, &tmp);
     }
 }

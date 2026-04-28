@@ -1983,6 +1983,27 @@ namespace Aimbot
             diag_installResult = 1;
 
             // -----------------------------------------------------------
+            // WriteSubtick hook DISABLED build-wide.
+            //
+            // Silent-aim is permanently off (Aimbot::cfg.silentAim is
+            // pinned false at startup, in every preset, after every
+            // LoadConfig, and the menu toggle is gone). With silent
+            // aim off the WriteSubtick detour is a no-op early-return
+            // on the very first line of hkWriteSubtick — but the inline
+            // trampoline we leave behind on client.dll!sub_180C53DB0
+            // is still a .text patch that VAC checksums and that adds
+            // weight to the "untrusted launch" / 20-hour cooldown
+            // verdict. Stop installing it entirely. Surface reduction
+            // with literally zero feature impact.
+            diag_wsAddr = 0;
+            diag_wsInstall = 0; // 0 = intentionally not installed
+            return true;
+        }
+
+#if 0  // DEAD: legacy WriteSubtick install path, retained as reference only.
+        inline bool _LegacyInstallWriteSubtick()
+        {
+            // -----------------------------------------------------------
             // sub_180C54450 — per-subtick cmd writer. Hooking this is
             // what actually makes silent aim land hits in build 14153,
             // because it runs AFTER ReadFrameInput appends the live
@@ -2032,6 +2053,7 @@ namespace Aimbot
             }
             return true;
         }
+#endif // legacy WriteSubtick install path
 
         inline void Uninstall()
         {

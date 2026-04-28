@@ -55,8 +55,12 @@ namespace VacWatchdog
     inline std::atomic<uint64_t> lastTripTick{0};
 
     // ---- Logging ------------------------------------------------------------
+    // DEBUG-only. Named %TEMP% files written by an injected process on a
+    // heartbeat are an untrusted-mode (20-hour cooldown) signal; release
+    // builds never touch disk here. Body kept so call sites need no #ifdef.
     inline void Log(const char* fmt, ...)
     {
+#ifdef _DEBUG
         char path[MAX_PATH];
         GetTempPathA(MAX_PATH, path);
         lstrcatA(path, "cs2vac.txt");
@@ -69,6 +73,9 @@ namespace VacWatchdog
         va_end(args);
         if (len > 0) { buf[len] = '\n'; buf[len + 1] = '\0'; DWORD w; WriteFile(hFile, buf, len + 1, &w, nullptr); }
         CloseHandle(hFile);
+#else
+        (void)fmt;
+#endif
     }
 
     // ---- Trip table — events that mean "we are detected" --------------------
@@ -88,17 +95,20 @@ namespace VacWatchdog
     inline Trip Classify(const char* name)
     {
         if (!name) return Trip::None;
-        // strcmp is fine here — names are short, not in a tight loop, and
-        // the strings live in client.dll's .rdata so a memcmp matchup with
-        // a stack-decoded XOR string would still leak our detection logic
-        // through the comparison loop.  Sticking with direct strcmp keeps
-        // the hot path branchless-ish and identical to engine code style.
-        if (lstrcmpA(name, "OnClientInsecureBlocked")      == 0) return Trip::InsecureBlocked;
-        if (lstrcmpA(name, "OnClientUntrustedLaunch")      == 0) return Trip::UntrustedLaunch;
-        if (lstrcmpA(name, "OnClientUntrustedSystemFiles") == 0) return Trip::UntrustedSystemFiles;
-        if (lstrcmpA(name, "OnClientUntrustedDisallowed")  == 0) return Trip::UntrustedDisallowed;
-        if (lstrcmpA(name, "OnTrustedLaunchFailed")        == 0) return Trip::TrustedLaunchFailed;
-        if (lstrcmpA(name, "OnClientPureFileStateDirty")   == 0) return Trip::PureFileStateDirty;
+        // Compare against XOR-encoded copies so the literal
+        // "OnClientInsecureBlocked" / "OnClientUntrustedLaunch" /
+        // "OnClientUntrustedSystemFiles" / "OnClientUntrustedDisallowed" /
+        // "OnTrustedLaunchFailed" / "OnClientPureFileStateDirty"
+        // strings never live in our .rdata. Those exact strings are a
+        // YARA / public-cheat fingerprint; carrying them plaintext is a
+        // free signal toward the untrusted-mode (20-hour) cooldown.
+        // Decoded once per call into stack-local buffers.
+        if (lstrcmpA(name, XS("OnClientInsecureBlocked"))      == 0) return Trip::InsecureBlocked;
+        if (lstrcmpA(name, XS("OnClientUntrustedLaunch"))      == 0) return Trip::UntrustedLaunch;
+        if (lstrcmpA(name, XS("OnClientUntrustedSystemFiles")) == 0) return Trip::UntrustedSystemFiles;
+        if (lstrcmpA(name, XS("OnClientUntrustedDisallowed"))  == 0) return Trip::UntrustedDisallowed;
+        if (lstrcmpA(name, XS("OnTrustedLaunchFailed"))        == 0) return Trip::TrustedLaunchFailed;
+        if (lstrcmpA(name, XS("OnClientPureFileStateDirty"))   == 0) return Trip::PureFileStateDirty;
         return Trip::None;
     }
 
@@ -118,14 +128,21 @@ namespace VacWatchdog
                     tripped.store(true);
                     tripReason.store(static_cast<int>(t));
                     lastTripTick.store(GetTickCount64());
-                    Log("[VAC] PANIC trip=%d name=%s — running cleanup",
+                    Log("[VAC] PANIC trip=%d name=%s \u2014 running cleanup",
                         static_cast<int>(t), name ? name : "(null)");
 
-                    // Run cleanup BEFORE the dialog renders.  This unhooks
-                    // everything so when VAC enumerates trampolines a moment
-                    // later there's nothing to find.  We don't tear down the
-                    // DLL itself — the user can alt-f4 the warning dialog.
-                    if (Stealth::cleanupFn && !Stealth::cleanupDone)
+                    // PureFileStateDirty is sv_pure mismatch \u2014 NOT a real
+                    // detection of us. Running emergency cleanup for it is
+                    // counter-productive: it tears down all hooks for what
+                    // is effectively a server-config issue, and the abrupt
+                    // unhook itself (followed by re-hook on map change) is
+                    // a stronger fingerprint than the pure event ever was.
+                    // Log it, mark it, but do NOT cleanup.
+                    if (t == Trip::PureFileStateDirty)
+                    {
+                        // fall through to forward-original below
+                    }
+                    else if (Stealth::cleanupFn && !Stealth::cleanupDone)
                     {
                         Stealth::cleanupDone = true;
                         __try { Stealth::cleanupFn(); }

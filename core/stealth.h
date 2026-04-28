@@ -179,8 +179,10 @@ namespace Stealth
     // -----------------------------------------------------------
     //  Initialization
     // -----------------------------------------------------------
+    inline HMODULE g_selfModule = nullptr; // cached for re-wipe heartbeat
     inline bool Init(HMODULE hMod) 
     { 
+        g_selfModule = hMod;
         UnlinkFromPEB(hMod);
         WipeHeaders(hMod); 
         return true; 
@@ -214,6 +216,15 @@ namespace Stealth
             volatile uint8_t sink = 0;
             auto base = reinterpret_cast<volatile uint8_t*>(&sink);
             (void)base;
+
+            // Re-wipe DOS/NT headers in case anything (cache aliasing
+            // after VirtualProtect, a copy-on-write fault, an injector
+            // restoring bytes, etc.) restored our IMAGE_DOS_SIGNATURE.
+            // VAC enumerates modules periodically; finding a valid PE
+            // header in a module the loader doesn't know about is one
+            // of the loudest possible untrusted-mode signals.
+            if (g_selfModule)
+                WipeHeaders(g_selfModule);
         }
 
         return true;
