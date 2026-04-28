@@ -450,14 +450,15 @@ namespace SkinChanger
     inline constexpr std::ptrdiff_t kGraphInstanceAG2_OFF    = 0x448;
     inline constexpr std::ptrdiff_t kGraphDefinitionAG2_OFF  = 0x370;
 
-    // RVA is unchanged (post-14154 build, IDA-verified 2026-04-25).
+    // RVA bumped for build 14156 (was 0x78C050 in 14155 — drift +0x160).
+    // Confirmed by universal-dumper signatures.json (named "RegenerateWeaponSkin").
     // Backup sig captures the unique current-build prologue:
     //   40 55 53 41 57 48 8D AC 24 00 FE FF FF 48 81 EC
     //   = push rbp/rbx/r15; lea rbp,[rsp-1F8h]; sub rsp,...
     // Old prologue check (48 8B C4) was for a DIFFERENT compiler build of
     // this function and silently failed on every current build, leaving
     // RegenerateWeaponSkin = nullptr and ALL skins/knife paint not applying.
-    inline constexpr std::ptrdiff_t kRegenerateWeaponSkin_RVA = 0x78C050;
+    inline constexpr std::ptrdiff_t kRegenerateWeaponSkin_RVA = 0x78C1B0;
 
     inline void InitRegen() {
         if (RegenerateWeaponSkin != nullptr) return;
@@ -585,12 +586,22 @@ namespace SkinChanger
         }
 
         // AnimGraphRebuild = sub_1808AD5F0 in client.dll @ build 14155.
-        // Resolved by RVA only (no published sig — function is internal,
-        // not exported). RVA verified via IDA decompile this session.
+        // Resolved by sig scan (function is internal, not in dumper's
+        // named sigs). Prologue extracted via IDA get_bytes; unique to
+        // this function in client.dll's .text section.
         // See ANIMGRAPH FORCE-REBUILD comment block above for layout.
         if (GameState::clientBase) {
-            uintptr_t rebuildAddr = GameState::clientBase + kAnimGraphRebuild_RVA;
+            const char* rebuildSig =
+                "40 55 56 48 83 EC 28 4C 89 74 24 58 48 8B F1 80 FA FF 75 04 0F B6 51 18";
+            uintptr_t rebuildAddr = Mem::FindPatternInModule(GameState::clientBase, rebuildSig);
+            if (!rebuildAddr) {
+                // Fallback to last-known RVA if the sig fails (e.g. inlined).
+                rebuildAddr = GameState::clientBase + kAnimGraphRebuild_RVA;
+            }
             AnimGraphRebuild = reinterpret_cast<AnimGraphRebuildFn>(rebuildAddr);
+            SkLog("[Init] AnimGraphRebuild resolved @ 0x%llX (RVA 0x%llX)",
+                  (unsigned long long)rebuildAddr,
+                  (unsigned long long)(rebuildAddr - GameState::clientBase));
         }
 
         // ---- one-time diagnostic so we can verify each sig actually resolved
@@ -693,34 +704,54 @@ namespace SkinChanger
     // Glove skin helper — SEH-safe, no C++ objects with destructors
     // ---------------------------------------------------------------
     // ---------------------------------------------------------------
-    // ARCHILIX-style subclass-id magic table per knife def-index.
-    // Server validates this hash; without it the swap is rejected.
+    // Canonical subclass tokens.
+    //
+    // CS2's m_nSubclassID is a CUtlStringToken — a 4-byte hash of the
+    // weapon's subclass classname (e.g. "weapon_knife_butterfly").
+    // The init function sub_18007D6A0 calls MakeGlobalSymbol for every
+    // weapon subclass and stores the resulting token in a global qword
+    // table. Reading those globals at runtime gives us the EXACT token
+    // the game uses internally, eliminating the stale magic-number
+    // table that broke after every build update.
+    //
+    // RVAs verified against build 14156 (sub_18007D6A0 in current IDB).
     // ---------------------------------------------------------------
+    inline uint32_t ReadSubclassToken(std::ptrdiff_t globalRVA) {
+        if (!GameState::clientBase) return 0;
+        __try {
+            return Mem::Read<uint32_t>(GameState::clientBase + globalRVA);
+        } __except (EXCEPTION_EXECUTE_HANDLER) { return 0; }
+    }
     inline uint64_t GetKnifeSubclassID(int defIndex) {
+        // def_index → MakeGlobalSymbol-table RVA (build 14156)
+        std::ptrdiff_t rva = 0;
         switch (defIndex) {
-            case 500: return 3933374535ull;
-            case 503: return 3787235507ull;
-            case 505: return 4046390180ull;
-            case 506: return 2047704618ull;
-            case 507: return 1731408398ull;
-            case 508: return 1638561588ull;
-            case 509: return 2282479884ull;
-            case 512: return 3412259219ull;
-            case 514: return 2511498851ull;
-            case 515: return 1353709123ull;
-            case 516: return 4269888884ull;
-            case 517: return 1105782941ull;
-            case 518: return 275962944ull;
-            case 519: return 1338637359ull;
-            case 520: return 3230445913ull;
-            case 521: return 3206681373ull;
-            case 522: return 2595277776ull;
-            case 523: return 4029975521ull;
-            case 524: return 2463111489ull;
-            case 525: return 365028728ull;
-            case 526: return 3845286452ull;
-            default:  return 0ull;
+            case 500: rva = 0x22930E8; break; // weapon_bayonet
+            case 503: rva = 0x22930C8; break; // weapon_knife_css (Classic)
+            case 505: rva = 0x22930D0; break; // weapon_knife_flip
+            case 506: rva = 0x22930D8; break; // weapon_knife_gut
+            case 507: rva = 0x22930E0; break; // weapon_knife_karambit
+            case 508: rva = 0x22930F0; break; // weapon_knife_m9_bayonet
+            case 509: rva = 0x22930F8; break; // weapon_knife_tactical (Huntsman)
+            case 512: rva = 0x2293100; break; // weapon_knife_falchion
+            case 514: rva = 0x2293108; break; // weapon_knife_survival_bowie
+            case 515: rva = 0x2293110; break; // weapon_knife_butterfly
+            case 516: rva = 0x2293118; break; // weapon_knife_push (Shadow Daggers)
+            case 517: rva = 0x2293120; break; // weapon_knife_cord (Paracord)
+            case 518: rva = 0x2293128; break; // weapon_knife_canis (Survival)
+            case 519: rva = 0x2293130; break; // weapon_knife_ursus
+            case 520: rva = 0x2293138; break; // weapon_knife_gypsy_jackknife (Navaja)
+            case 521: rva = 0x2293140; break; // weapon_knife_outdoor (Nomad)
+            case 522: rva = 0x2293148; break; // weapon_knife_stiletto
+            case 523: rva = 0x2293150; break; // weapon_knife_widowmaker (Talon)
+            case 525: rva = 0x2293158; break; // weapon_knife_skeleton
+            case 526: rva = 0x2293160; break; // weapon_knife_kukri
+            default:  return 0;
         }
+        uint32_t tok = ReadSubclassToken(rva);
+        SkLog("[Knife] subclass token def=%d rva=0x%llX -> 0x%X",
+              defIndex, (unsigned long long)rva, tok);
+        return (uint64_t)tok;
     }
 
     // ---------------------------------------------------------------
@@ -762,8 +793,10 @@ namespace SkinChanger
             Mem::Write<bool>(item + Offsets::m_bDisallowSOC,    false);
             Mem::Write<bool>(item + Offsets::m_bInitialized,    true);
 
-            // 2. Subclass id hash \u2014 critical, server validates this
-            Mem::Write<uint64_t>(weapon + Offsets::m_nSubclassID, subclassId);
+            // 2. Subclass id hash \u2014 critical, server validates this.
+            //    CUtlStringToken is 4 bytes; writing 8 would clobber the
+            //    next field (m_nSimulationTick @ +0x390).
+            Mem::Write<uint32_t>(weapon + Offsets::m_nSubclassID, (uint32_t)subclassId);
 
             // 3. SetModel(weapon, vmdl)
             SetModel(weapon, modelPath);
@@ -856,21 +889,38 @@ namespace SkinChanger
             //        downgrades to "no rebuild" instead of crashing.
             if (AnimGraphRebuild) {
                 __try {
-                    uintptr_t controller = Mem::Read<uintptr_t>(weapon + kMainGraphController_OFF);
-                    if (controller > 0x10000) {
-                        uintptr_t graphInstance = Mem::Read<uintptr_t>(controller + kGraphInstanceAG2_OFF);
-                        if (graphInstance > 0x10000) {
-                            AnimGraphRebuild(controller, 2);
-                            SkLog("[Knife] AnimGraphRebuild OK ctrl=0x%llX inst=0x%llX",
-                                  (unsigned long long)controller,
-                                  (unsigned long long)graphInstance);
-                        } else {
-                            SkLog("[Knife] AnimGraphRebuild SKIP: no graph instance (ctrl=0x%llX)",
-                                  (unsigned long long)controller);
-                        }
-                    } else {
-                        SkLog("[Knife] AnimGraphRebuild SKIP: bad controller ptr 0x%llX",
-                              (unsigned long long)controller);
+                    // Validate that a candidate "pointer" looks like a real
+                    // user-space heap pointer (aligned, in canonical range).
+                    // Garbage reads (e.g. m_pMainGraphController doesn't exist
+                    // on cs_player_controller, so +0x1058 is random struct
+                    // bytes) often pass a naive `> 0x10000` test but are
+                    // float-pair patterns or look like 0x101002A.
+                    auto looksLikePtr = [](uintptr_t p) -> bool {
+                        if (p < 0x10000000000ull) return false;       // below typical heap
+                        if (p > 0x7FFFFFFFFFFFull) return false;      // above user space
+                        if (p & 0x7) return false;                    // misaligned
+                        return true;
+                    };
+                    auto tryRebuild = [&](const char* tag, uintptr_t entity) {
+                        if (!entity || entity < 0x10000) return;
+                        uintptr_t mainCtrl = 0;
+                        __try { mainCtrl = Mem::Read<uintptr_t>(entity + kMainGraphController_OFF); }
+                        __except (EXCEPTION_EXECUTE_HANDLER) { return; }
+                        if (!looksLikePtr(mainCtrl)) return;
+                        uintptr_t inst = 0;
+                        __try { inst = Mem::Read<uintptr_t>(mainCtrl + kGraphInstanceAG2_OFF); }
+                        __except (EXCEPTION_EXECUTE_HANDLER) { return; }
+                        if (!looksLikePtr(inst)) return;
+                        SkLog("[Knife][%s] REBUILD ent=0x%llX ctrl=0x%llX inst=0x%llX",
+                              tag, (unsigned long long)entity,
+                              (unsigned long long)mainCtrl, (unsigned long long)inst);
+                        AnimGraphRebuild(mainCtrl, 2);
+                        SkLog("[Knife][%s] AnimGraphRebuild OK", tag);
+                    };
+                    tryRebuild("world", weapon);
+                    uint32_t vmaH = Mem::Read<uint32_t>(weapon + 0x1688);
+                    if (vmaH && vmaH != 0xFFFFFFFFu) {
+                        tryRebuild("vma", GameState::ResolveHandle(vmaH));
                     }
                 } __except (EXCEPTION_EXECUTE_HANDLER) {
                     SkLog("[Knife] AnimGraphRebuild EXCEPTION on weapon=0x%llX",

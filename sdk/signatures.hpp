@@ -1,5 +1,5 @@
 // Generated using https://github.com/a2x/cs2-dumper
-// 2026-04-21 23:33:03.496729300 UTC
+// 2026-04-28 22:36:02.314572 UTC
 
 #pragma once
 
@@ -10,12 +10,12 @@ namespace cs2_dumper {
     namespace signatures {
         // Module: client.dll
         namespace client_dll {
-            constexpr std::ptrdiff_t CreateSOSubclassEconItem = 0xFF07D0;
-            constexpr std::ptrdiff_t EquipItemInLoadout = 0x7C2780;
-            constexpr std::ptrdiff_t GetItemInLoadout = 0x7C43A0;
-            constexpr std::ptrdiff_t RegenerateWeaponSkin = 0x78C6B0;
-            constexpr std::ptrdiff_t SetMeshGroupMask = 0xA27EE0;
-            constexpr std::ptrdiff_t SetModel = 0x8D56F0;
+            constexpr std::ptrdiff_t CreateSOSubclassEconItem = 0xFF4FF0;
+            constexpr std::ptrdiff_t EquipItemInLoadout = 0x7C2130;
+            constexpr std::ptrdiff_t GetItemInLoadout = 0x7C3D50;
+            constexpr std::ptrdiff_t RegenerateWeaponSkin = 0x78C1B0;
+            constexpr std::ptrdiff_t SetMeshGroupMask = 0xA2C2B0;
+            constexpr std::ptrdiff_t SetModel = 0x8D9A50;
         }
         // Module: materialsystem2.dll
         namespace materialsystem2_dll {
