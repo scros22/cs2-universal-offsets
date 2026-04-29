@@ -2,7 +2,7 @@
 
 Hand-curated catalogue of CS2 features that have been **confirmed working in a live internal cheat** against the current build. Cross-reference with the auto-generated `offsets.*`, `signatures.*` and `client_dll.*` files for canonical addresses; this document captures the *gotchas* — the kind of thing that took an evening of IDA work to figure out.
 
-**CS2 build:** `14155`
+**CS2 build:** `14156`
 
 **Feature count:** 19
 

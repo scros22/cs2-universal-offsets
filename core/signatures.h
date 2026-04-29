@@ -15,9 +15,14 @@ namespace Signatures
     constexpr const char* CreateMove =
         "48 8B C4 4C 89 40 18 48 89 48 08 55 53 41 54 41 55";
 
-    // Third-person camera reset branch
+    // Third-person camera reset branch — sv_cheats gate inside
+    // CalcView (sub_180AC6EC0). Patch byte at pattern_base + 7
+    // (JNE 0x75 → JMP 0xEB) defeats the per-frame +0x229 clear.
+    // Wildcarded register slots (44 38 ?? / 44 88 ??) so it survives
+    // re-compiles that re-allocate r12b ↔ r15b etc. (verified across
+    // 2026-04-25 r12b build and 2026-04-29 r15b build).
     constexpr const char* ThirdPersonReset =
-        "48 8B 40 08 44 38 20 75 10 44 88 67 01";
+        "48 8B 40 08 44 38 ? 75 10 44 88 ? 01";
 
     // RegenerateWeaponSkin — sub_18078C050 (RVA 0x78C050, current build,
     // IDA-verified 2026-04-25). Call directly with (weapon, false) AFTER
@@ -140,6 +145,74 @@ namespace Signatures
     //   sig pulled from function prologue — no relative branches.
     constexpr const char* KillFeedbackEmitter =
         "48 89 5C 24 08 48 89 74 24 18 48 89 7C 24 20 55 41 56 41 57 48 8B EC 48 81 EC 80 00 00 00 44 8B";
+
+    // DamageFeedbackEmitter — client.dll (build 14155: sub_18081ED00)
+    //   Per-HIT damage feedback dispatcher. Picks one of:
+    //     Player.DamageHeadShot[Armor].AttackerFeedback   (the HS "dink")
+    //     Player.DamageBody[Armor][.Knife].AttackerFeedback
+    //     Player.DamageKevlar / Flesh.BulletImpact
+    //     Player.BurnDamage[Kevlar]
+    //   Fires on EVERY successful damaging hit (including the killing
+    //   one) — this is what produces the iconic high-pitched headshot
+    //   chirp the player hears even on non-fatal HS. KillFeedbackEmitter
+    //   above only fires on death, so suppressing one does not affect
+    //   the other. 32-byte prologue, verified single match on 14155.
+    constexpr const char* DamageFeedbackEmitter =
+        "48 89 4C 24 08 55 53 41 54 41 55 41 57 48 8D AC 24 E0 FE FF FF 48 81 EC 20 02 00 00 48 83 79 38";
+
+    // GetHitGroup — client.dll (build 14155: sub_180A163A0)
+    //   Tiny helper called from DamageFeedbackEmitter to determine the
+    //   hitgroup of the current damage info struct. Returns 1 for HEAD,
+    //   used to drive the HS-vs-body branch. We call it from our detour
+    //   to selectively skip ONLY the HS dink without disturbing body
+    //   hit-marker sounds. 32-byte sig with one wildcarded rel-call.
+    constexpr const char* GetHitGroup =
+        "40 53 48 83 EC 20 48 83 79 10 00 48 8B D9 74 16 E8 ?? ?? ?? ?? 84 C0 75 0D 48 8B 43 10 8B 40 38";
+
+    // EmitSoundByHandle — client.dll (build 14155: sub_180B62270)
+    //   Universal sound emit dispatcher used by EVERY in-game sound
+    //   path: damage feedback, death feedback, killfeed UI ding,
+    //   weapon fire, footsteps, voice lines, music — all of it.
+    //   The 4th arg (a4) is a SoundEventDesc-like struct whose
+    //   first qword (a4[0]) is the event-name C-string pointer
+    //   (e.g. "Player.DamageHeadShot.AttackerFeedback"). Hooking
+    //   here lets us name-filter to drop just the HS chirp variants
+    //   no matter what part of the engine emits them. Verified
+    //   single match on 14155 — 32-byte prologue with one wildcarded
+    //   lea-rel32 to the soundemittersystem.cpp __FILE__ string.
+    constexpr const char* EmitSoundByHandle =
+        "40 53 48 83 EC 30 4C 89 4C 24 20 48 8B D9 45 8B C8 4C 8B C2 48 8B D1 48 8D 0D ?? ?? ?? ?? E8";
+
+    // ----------------------------------------------------------------
+    // soundsystem.dll
+    // ----------------------------------------------------------------
+
+    // CSosOperatorSystem::StartSoundEvent (UNIFIED entrypoint)
+    //   soundsystem.dll, build 14155: sub_1801B7AD0 (RVA 0x1B7AD0)
+    //
+    //   THE single convergence point for every named, by-handle, AND
+    //   by-hash sound-event start in CS2. Vtable slots 11 (by-handle
+    //   — used for HS dink), 12, and 13 (by-name) all tail-call here.
+    //
+    //   Hook this and you intercept literally every sound event the
+    //   engine ever schedules. The previous by-name sig on sub_1801B7700
+    //   missed the HS dink because the dink takes the by-handle path
+    //   which never enters the by-name overload.
+    //
+    //   Calling convention: __fastcall
+    //     RCX = CSosOperatorSystem* this
+    //     RDX = uint32_t* outGuid
+    //     R8  = StartSoundEventInfo_t* info
+    //         info+0  = const char*  name (may be null on by-handle path)
+    //         info+16 = uint32_t     murmur2 hash of name
+    //         info+20 = uint32_t     flags
+    //         info+24 = uint32_t     requested guid (0 = generate)
+    //         info+28 = int32_t      param count
+    //
+    //   Wildcard the cmp [rcx+0x24EC] flag-field displacement (varies
+    //   between Source 2 builds).
+    constexpr const char* StartSoundEvent =
+        "40 53 55 56 48 83 EC 20 83 B9 ?? ?? ?? ?? 00 49 8B D8 48 8B F2 48 8B E9 74 ?? C7 02 00 00 00 00";
 
     // DrawSmokeVertex — smoke particle rendering
     constexpr const char* DrawSmokeVertex =

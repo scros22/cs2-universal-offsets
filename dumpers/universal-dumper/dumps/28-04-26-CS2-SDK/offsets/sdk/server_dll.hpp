@@ -3,8 +3,8 @@
 // module:        server.dll
 // classes:       944
 // enums:         179
-// build_number:  14155
-// generated_at:  2026-04-27T23:35:29.677327700+00:00
+// build_number:  14156
+// generated_at:  2026-04-28T22:36:02.314572+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -15,7 +15,7 @@
 
 namespace cs2::sdk::server {
 
-    inline constexpr std::uint32_t CS2_BUILD = 14155;
+    inline constexpr std::uint32_t CS2_BUILD = 14156;
 
     class CWeaponNOVA;
     class CPointWorldText;
@@ -7590,57 +7590,57 @@ namespace cs2::sdk::server {
     class CCSPlayer_MovementServices : public CPlayer_MovementServices_Humanoid {
     public:
         SCHEMA_FIELD(CCSPlayerAnimationState         , m_AnimationState                                , 0x2E0) // CCSPlayerAnimationState
-        SCHEMA_FIELD(::Vector                        , m_vecLadderNormal                               , 0x3D0) // Vector
-        SCHEMA_FIELD(std::int32_t                    , m_nLadderSurfacePropIndex                       , 0x3DC) // int32
-        SCHEMA_FIELD(bool                            , m_bDucked                                       , 0x3E0) // bool
-        SCHEMA_FIELD(float                           , m_flDuckAmount                                  , 0x3E4) // float32
-        SCHEMA_FIELD(float                           , m_flDuckSpeed                                   , 0x3E8) // float32
-        SCHEMA_FIELD(bool                            , m_bDuckOverride                                 , 0x3EC) // bool
-        SCHEMA_FIELD(bool                            , m_bDesiresDuck                                  , 0x3ED) // bool
-        SCHEMA_FIELD(bool                            , m_bDucking                                      , 0x3EE) // bool
-        SCHEMA_FIELD(float                           , m_flDuckRootOffset                              , 0x3F0) // float32
-        SCHEMA_FIELD(float                           , m_flDuckViewOffset                              , 0x3F4) // float32
-        SCHEMA_FIELD(float                           , m_flLastDuckTime                                , 0x3F8) // float32
-        SCHEMA_FIELD(float                           , m_flBombPlantViewOffset                         , 0x3FC) // float32
-        SCHEMA_FIELD(::Vector2D                      , m_vecLastPositionAtFullCrouchSpeed              , 0x408) // Vector2D
-        SCHEMA_FIELD(bool                            , m_duckUntilOnGround                             , 0x410) // bool
-        SCHEMA_FIELD(bool                            , m_bHasWalkMovedSinceLastJump                    , 0x411) // bool
-        SCHEMA_FIELD(bool                            , m_bInStuckTest                                  , 0x412) // bool
-        SCHEMA_FIELD(std::int32_t                    , m_nTraceCount                                   , 0x620) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_StuckLast                                     , 0x624) // int32
-        SCHEMA_FIELD(bool                            , m_bSpeedCropped                                 , 0x628) // bool
-        SCHEMA_FIELD(std::int32_t                    , m_nOldWaterLevel                                , 0x62C) // int32
-        SCHEMA_FIELD(float                           , m_flWaterEntryTime                              , 0x630) // float32
-        SCHEMA_FIELD(::Vector                        , m_vecForward                                    , 0x634) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vecLeft                                       , 0x640) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vecUp                                         , 0x64C) // Vector
-        SCHEMA_FIELD(std::int32_t                    , m_nGameCodeHasMovedPlayerAfterCommand           , 0x658) // int32
-        SCHEMA_FIELD(bool                            , m_bMadeFootstepNoise                            , 0x65C) // bool
-        SCHEMA_FIELD(std::int32_t                    , m_iFootsteps                                    , 0x660) // int32
-        SCHEMA_FIELD(GameTime_t                      , m_fStashGrenadeParameterWhen                    , 0x664) // GameTime_t
-        SCHEMA_FIELD(std::uint64_t                   , m_nButtonDownMaskPrev                           , 0x668) // uint64
-        SCHEMA_FIELD(bool                            , m_bUseFrictionStashedSpeed                      , 0x670) // bool
-        SCHEMA_FIELD(float                           , m_flUseFrictionStashedSpeedUntilFrac            , 0x674) // float32
-        SCHEMA_FIELD(float                           , m_flFrictionStashedSpeed                        , 0x678) // float32
-        SCHEMA_FIELD(float                           , m_flStamina                                     , 0x67C) // float32
-        SCHEMA_FIELD(float                           , m_flHeightAtJumpStart                           , 0x680) // float32
-        SCHEMA_FIELD(float                           , m_flMaxJumpHeightThisJump                       , 0x684) // float32
-        SCHEMA_FIELD(float                           , m_flMaxJumpHeightLastJump                       , 0x688) // float32
-        SCHEMA_FIELD(float                           , m_flStaminaAtJumpStart                          , 0x68C) // float32
-        SCHEMA_FIELD(float                           , m_flVelMulAtJumpStart                           , 0x690) // float32
-        SCHEMA_FIELD(float                           , m_flAccumulatedJumpError                        , 0x694) // float32
-        SCHEMA_FIELD(CCSPlayerLegacyJump             , m_LegacyJump                                    , 0x698) // CCSPlayerLegacyJump
-        SCHEMA_FIELD(CCSPlayerModernJump             , m_ModernJump                                    , 0x6B0) // CCSPlayerModernJump
-        SCHEMA_FIELD(GameTick_t                      , m_nLastJumpTick                                 , 0x6E8) // GameTick_t
-        SCHEMA_FIELD(float                           , m_flLastJumpFrac                                , 0x6EC) // float32
-        SCHEMA_FIELD(float                           , m_flLastJumpVelocityZ                           , 0x6F0) // float32
-        SCHEMA_FIELD(bool                            , m_bJumpApexPending                              , 0x6F4) // bool
-        SCHEMA_FIELD(float                           , m_flTicksSinceLastSurfingDetected               , 0x6F8) // float32
-        SCHEMA_FIELD(bool                            , m_bWasSurfing                                   , 0x6FC) // bool
-        SCHEMA_FIELD(::Vector2D                      , m_vecWalkWishVel                                , 0x78C) // Vector2D
-        SCHEMA_FIELD(GameTime_t                      , m_gtLastTimeOnStaticWorldGround                 , 0xFB8) // GameTime_t
-        SCHEMA_FIELD(GameTime_t                      , m_gtLastTimeInAir                               , 0xFBC) // GameTime_t
-        SCHEMA_FIELD(bool                            , m_bHasEverProcessedCommand                      , 0xFC0) // bool
+        SCHEMA_FIELD(::Vector                        , m_vecLadderNormal                               , 0x3C0) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_nLadderSurfacePropIndex                       , 0x3CC) // int32
+        SCHEMA_FIELD(bool                            , m_bDucked                                       , 0x3D0) // bool
+        SCHEMA_FIELD(float                           , m_flDuckAmount                                  , 0x3D4) // float32
+        SCHEMA_FIELD(float                           , m_flDuckSpeed                                   , 0x3D8) // float32
+        SCHEMA_FIELD(bool                            , m_bDuckOverride                                 , 0x3DC) // bool
+        SCHEMA_FIELD(bool                            , m_bDesiresDuck                                  , 0x3DD) // bool
+        SCHEMA_FIELD(bool                            , m_bDucking                                      , 0x3DE) // bool
+        SCHEMA_FIELD(float                           , m_flDuckRootOffset                              , 0x3E0) // float32
+        SCHEMA_FIELD(float                           , m_flDuckViewOffset                              , 0x3E4) // float32
+        SCHEMA_FIELD(float                           , m_flLastDuckTime                                , 0x3E8) // float32
+        SCHEMA_FIELD(float                           , m_flBombPlantViewOffset                         , 0x3EC) // float32
+        SCHEMA_FIELD(::Vector2D                      , m_vecLastPositionAtFullCrouchSpeed              , 0x3F8) // Vector2D
+        SCHEMA_FIELD(bool                            , m_duckUntilOnGround                             , 0x400) // bool
+        SCHEMA_FIELD(bool                            , m_bHasWalkMovedSinceLastJump                    , 0x401) // bool
+        SCHEMA_FIELD(bool                            , m_bInStuckTest                                  , 0x402) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nTraceCount                                   , 0x610) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_StuckLast                                     , 0x614) // int32
+        SCHEMA_FIELD(bool                            , m_bSpeedCropped                                 , 0x618) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nOldWaterLevel                                , 0x61C) // int32
+        SCHEMA_FIELD(float                           , m_flWaterEntryTime                              , 0x620) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecForward                                    , 0x624) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecLeft                                       , 0x630) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecUp                                         , 0x63C) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_nGameCodeHasMovedPlayerAfterCommand           , 0x648) // int32
+        SCHEMA_FIELD(bool                            , m_bMadeFootstepNoise                            , 0x64C) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_iFootsteps                                    , 0x650) // int32
+        SCHEMA_FIELD(GameTime_t                      , m_fStashGrenadeParameterWhen                    , 0x654) // GameTime_t
+        SCHEMA_FIELD(std::uint64_t                   , m_nButtonDownMaskPrev                           , 0x658) // uint64
+        SCHEMA_FIELD(bool                            , m_bUseFrictionStashedSpeed                      , 0x660) // bool
+        SCHEMA_FIELD(float                           , m_flUseFrictionStashedSpeedUntilFrac            , 0x664) // float32
+        SCHEMA_FIELD(float                           , m_flFrictionStashedSpeed                        , 0x668) // float32
+        SCHEMA_FIELD(float                           , m_flStamina                                     , 0x66C) // float32
+        SCHEMA_FIELD(float                           , m_flHeightAtJumpStart                           , 0x670) // float32
+        SCHEMA_FIELD(float                           , m_flMaxJumpHeightThisJump                       , 0x674) // float32
+        SCHEMA_FIELD(float                           , m_flMaxJumpHeightLastJump                       , 0x678) // float32
+        SCHEMA_FIELD(float                           , m_flStaminaAtJumpStart                          , 0x67C) // float32
+        SCHEMA_FIELD(float                           , m_flVelMulAtJumpStart                           , 0x680) // float32
+        SCHEMA_FIELD(float                           , m_flAccumulatedJumpError                        , 0x684) // float32
+        SCHEMA_FIELD(CCSPlayerLegacyJump             , m_LegacyJump                                    , 0x688) // CCSPlayerLegacyJump
+        SCHEMA_FIELD(CCSPlayerModernJump             , m_ModernJump                                    , 0x6A0) // CCSPlayerModernJump
+        SCHEMA_FIELD(GameTick_t                      , m_nLastJumpTick                                 , 0x6D8) // GameTick_t
+        SCHEMA_FIELD(float                           , m_flLastJumpFrac                                , 0x6DC) // float32
+        SCHEMA_FIELD(float                           , m_flLastJumpVelocityZ                           , 0x6E0) // float32
+        SCHEMA_FIELD(bool                            , m_bJumpApexPending                              , 0x6E4) // bool
+        SCHEMA_FIELD(float                           , m_flTicksSinceLastSurfingDetected               , 0x6E8) // float32
+        SCHEMA_FIELD(bool                            , m_bWasSurfing                                   , 0x6EC) // bool
+        SCHEMA_FIELD(::Vector2D                      , m_vecWalkWishVel                                , 0x77C) // Vector2D
+        SCHEMA_FIELD(GameTime_t                      , m_gtLastTimeOnStaticWorldGround                 , 0xFA8) // GameTime_t
+        SCHEMA_FIELD(GameTime_t                      , m_gtLastTimeInAir                               , 0xFAC) // GameTime_t
+        SCHEMA_FIELD(bool                            , m_bHasEverProcessedCommand                      , 0xFB0) // bool
     };
 
     // SellbackPurchaseEntry_t
@@ -7975,7 +7975,7 @@ namespace cs2::sdk::server {
     };
 
     // CCS2PawnGraphController
-    //   fields: 29
+    //   fields: 28
     class CCS2PawnGraphController {
     public:
         SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<bool>, m_bIsDefusing                                   , 0x588) // CAnimGraph2ParamOptionalRef<bool>
@@ -7987,26 +7987,25 @@ namespace cs2::sdk::server {
         SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flPreviousMoveSpeedHorizontal                 , 0x618) // CAnimGraph2ParamOptionalRef<float32>
         SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flCrouchAmount                                , 0x630) // CAnimGraph2ParamOptionalRef<float32>
         SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<bool>, m_bIsWalking                                    , 0x648) // CAnimGraph2ParamOptionalRef<bool>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<bool>, m_bIsStutterStep                                , 0x660) // CAnimGraph2ParamOptionalRef<bool>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flWeaponDropAmount                            , 0x678) // CAnimGraph2ParamOptionalRef<float32>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CGlobalSymbol>, m_groundAction                                  , 0x690) // CAnimGraph2ParamOptionalRef<CGlobalSymbol>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CGlobalSymbol>, m_groundActionDirectionID                       , 0x6A8) // CAnimGraph2ParamOptionalRef<CGlobalSymbol>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flGroundTurnAngleOrVelocity                   , 0x6C0) // CAnimGraph2ParamOptionalRef<float32>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flLadderCycle                                 , 0x6D8) // CAnimGraph2ParamOptionalRef<float32>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flLadderYaw                                   , 0x6F0) // CAnimGraph2ParamOptionalRef<float32>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flLadderYawBackwards                          , 0x708) // CAnimGraph2ParamOptionalRef<float32>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CGlobalSymbol>, m_airAction                                     , 0x720) // CAnimGraph2ParamOptionalRef<CGlobalSymbol>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flAirHeightAboveGround                        , 0x738) // CAnimGraph2ParamOptionalRef<float32>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CNmTarget>, m_leftFootTarget                                , 0x750) // CAnimGraph2ParamOptionalRef<CNmTarget>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CNmTarget>, m_rightFootTarget                               , 0x768) // CAnimGraph2ParamOptionalRef<CNmTarget>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flFlashedAmount                               , 0x780) // CAnimGraph2ParamOptionalRef<float32>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flAimPitchAngle                               , 0x798) // CAnimGraph2ParamOptionalRef<float32>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flAimYawAngle                                 , 0x7B0) // CAnimGraph2ParamOptionalRef<float32>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CGlobalSymbol>, m_flinchHead                                    , 0x7C8) // CAnimGraph2ParamOptionalRef<CGlobalSymbol>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<bool>, m_flinchHeadRestart                             , 0x7E0) // CAnimGraph2ParamOptionalRef<bool>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CGlobalSymbol>, m_flinchBody                                    , 0x7F8) // CAnimGraph2ParamOptionalRef<CGlobalSymbol>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<bool>, m_flinchBodyRestart                             , 0x810) // CAnimGraph2ParamOptionalRef<bool>
-        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<bool>, m_flinchIsOnFire                                , 0x828) // CAnimGraph2ParamOptionalRef<bool>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flWeaponDropAmount                            , 0x660) // CAnimGraph2ParamOptionalRef<float32>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CGlobalSymbol>, m_groundAction                                  , 0x678) // CAnimGraph2ParamOptionalRef<CGlobalSymbol>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CGlobalSymbol>, m_groundActionDirectionID                       , 0x690) // CAnimGraph2ParamOptionalRef<CGlobalSymbol>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flGroundTurnAngleOrVelocity                   , 0x6A8) // CAnimGraph2ParamOptionalRef<float32>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flLadderCycle                                 , 0x6C0) // CAnimGraph2ParamOptionalRef<float32>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flLadderYaw                                   , 0x6D8) // CAnimGraph2ParamOptionalRef<float32>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flLadderYawBackwards                          , 0x6F0) // CAnimGraph2ParamOptionalRef<float32>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CGlobalSymbol>, m_airAction                                     , 0x708) // CAnimGraph2ParamOptionalRef<CGlobalSymbol>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flAirHeightAboveGround                        , 0x720) // CAnimGraph2ParamOptionalRef<float32>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CNmTarget>, m_leftFootTarget                                , 0x738) // CAnimGraph2ParamOptionalRef<CNmTarget>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CNmTarget>, m_rightFootTarget                               , 0x750) // CAnimGraph2ParamOptionalRef<CNmTarget>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flFlashedAmount                               , 0x768) // CAnimGraph2ParamOptionalRef<float32>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flAimPitchAngle                               , 0x780) // CAnimGraph2ParamOptionalRef<float32>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<float32>, m_flAimYawAngle                                 , 0x798) // CAnimGraph2ParamOptionalRef<float32>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CGlobalSymbol>, m_flinchHead                                    , 0x7B0) // CAnimGraph2ParamOptionalRef<CGlobalSymbol>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<bool>, m_flinchHeadRestart                             , 0x7C8) // CAnimGraph2ParamOptionalRef<bool>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<CGlobalSymbol>, m_flinchBody                                    , 0x7E0) // CAnimGraph2ParamOptionalRef<CGlobalSymbol>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<bool>, m_flinchBodyRestart                             , 0x7F8) // CAnimGraph2ParamOptionalRef<bool>
+        SCHEMA_FIELD(CAnimGraph2ParamOptionalRef<bool>, m_flinchIsOnFire                                , 0x810) // CAnimGraph2ParamOptionalRef<bool>
     };
 
     // EngineCountdownTimer
@@ -12196,7 +12195,7 @@ namespace cs2::sdk::server {
 
     // CMapInfo
     //   parent: CPointEntity
-    //   fields: 14
+    //   fields: 15
     class CMapInfo : public CPointEntity {
     public:
         SCHEMA_FIELD(std::int32_t                    , m_iBuyingStatus                                 , 0x4A8) // int32
@@ -12208,6 +12207,7 @@ namespace cs2::sdk::server {
         SCHEMA_FIELD(std::int32_t                    , m_iHostageCount                                 , 0x4BC) // int32
         SCHEMA_FIELD(bool                            , m_bFadePlayerVisibilityFarZ                     , 0x4C0) // bool
         SCHEMA_FIELD(bool                            , m_bRainTraceToSkyEnabled                        , 0x4C1) // bool
+        SCHEMA_FIELD(bool                            , m_bGPUCullSkybox                                , 0x4C2) // bool
         SCHEMA_FIELD(float                           , m_flEnvRainStrength                             , 0x4C4) // float32
         SCHEMA_FIELD(float                           , m_flEnvPuddleRippleStrength                     , 0x4C8) // float32
         SCHEMA_FIELD(float                           , m_flEnvPuddleRippleDirection                    , 0x4CC) // float32
@@ -14781,7 +14781,7 @@ namespace cs2::sdk::server {
     };
 
     // CCSPlayerAnimationState
-    //   fields: 18
+    //   fields: 16
     class CCSPlayerAnimationState {
     public:
         SCHEMA_FIELD(CCSPlayerAnimationState::MoveType_t, m_currentMoveType                               , 0x18) // CCSPlayerAnimationState::MoveType_t
@@ -14792,16 +14792,14 @@ namespace cs2::sdk::server {
         SCHEMA_FIELD(bool                            , m_bWasStationaryLastUpdate                      , 0x1D) // bool
         SCHEMA_FIELD(GameTick_t                      , m_actionStartTick                               , 0x20) // GameTick_t
         SCHEMA_FIELD(GameTick_t                      , m_staticAimTimerStartTick                       , 0x24) // GameTick_t
-        SCHEMA_FIELD(GameTick_t                      , m_stutterStepStartTick                          , 0x28) // GameTick_t
-        SCHEMA_FIELD(GameTick_t                      , m_plantAndTurnStartTick                         , 0x2C) // GameTick_t
-        SCHEMA_FIELD(bool                            , m_bIsStutterStep                                , 0x30) // bool
-        SCHEMA_FIELD(float                           , m_flTurnOnSpotAngle                             , 0x34) // float32
-        SCHEMA_FIELD(float                           , m_flPreviousAimYaw                              , 0x38) // float32
-        SCHEMA_FIELD(float                           , m_flPreviousHorizontalSpeed                     , 0x3C) // float32
-        SCHEMA_FIELD(float                           , m_flFootIKOffsetLeft                            , 0x40) // float32
-        SCHEMA_FIELD(float                           , m_flFootIKOffsetRight                           , 0x44) // float32
-        SCHEMA_FIELD(float                           , m_flWeaponDropPercentageDueToMovement           , 0x48) // float32
-        SCHEMA_FIELD(float                           , m_flWeaponDropSmoothDampVelocity                , 0x4C) // float32
+        SCHEMA_FIELD(GameTick_t                      , m_plantAndTurnStartTick                         , 0x28) // GameTick_t
+        SCHEMA_FIELD(float                           , m_flTurnOnSpotAngle                             , 0x2C) // float32
+        SCHEMA_FIELD(float                           , m_flPreviousAimYaw                              , 0x30) // float32
+        SCHEMA_FIELD(float                           , m_flPreviousHorizontalSpeed                     , 0x34) // float32
+        SCHEMA_FIELD(float                           , m_flFootIKOffsetLeft                            , 0x38) // float32
+        SCHEMA_FIELD(float                           , m_flFootIKOffsetRight                           , 0x3C) // float32
+        SCHEMA_FIELD(float                           , m_flWeaponDropPercentageDueToMovement           , 0x40) // float32
+        SCHEMA_FIELD(float                           , m_flWeaponDropSmoothDampVelocity                , 0x44) // float32
     };
 
     // hudtextparms_t

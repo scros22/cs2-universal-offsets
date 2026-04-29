@@ -32,7 +32,7 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-cl.exe /EHsc /O2 /std:c++17 /MT /Fe:..\x64\Lucid.exe injector.cpp app.res /link advapi32.lib shell32.lib ole32.lib Psapi.lib
+cl.exe /EHsc /O2 /std:c++20 /MT /Fe:..\x64\Lucid.exe injector.cpp app.res /link /SUBSYSTEM:WINDOWS /ENTRY:wWinMainCRTStartup advapi32.lib shell32.lib ole32.lib Psapi.lib user32.lib gdi32.lib d2d1.lib dwrite.lib dwmapi.lib
 if %ERRORLEVEL% NEQ 0 (
     echo ERROR: Injector build failed!
     pause

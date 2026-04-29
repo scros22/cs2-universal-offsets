@@ -3,8 +3,8 @@
 // module:        materialsystem2.dll
 // classes:       14
 // enums:         5
-// build_number:  14155
-// generated_at:  2026-04-27T23:35:29.677327700+00:00
+// build_number:  14156
+// generated_at:  2026-04-28T22:36:02.314572+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -15,7 +15,7 @@
 
 namespace cs2::sdk::materialsystem2 {
 
-    inline constexpr std::uint32_t CS2_BUILD = 14155;
+    inline constexpr std::uint32_t CS2_BUILD = 14156;
 
     class MaterialParam_t;
     class MaterialParamVector_t;

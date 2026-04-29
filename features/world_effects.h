@@ -702,15 +702,49 @@ namespace WorldEffects
     inline ThirdPersonCmdFn pThirdPersonOn  = nullptr;
     inline ThirdPersonCmdFn pThirdPersonOff = nullptr;
 
-    constexpr std::ptrdiff_t kThirdPersonOn_RVA  = 0xAC8C30;   // updated 2026-04-25
-    constexpr std::ptrdiff_t kThirdPersonOff_RVA = 0xAC8B50;   // updated 2026-04-25
-    constexpr std::ptrdiff_t kCInputPtr_RVA      = 0x20613C0;  // off_1820613C0 — unchanged
+    constexpr std::ptrdiff_t kThirdPersonOn_RVA  = 0xAC8AF0;   // updated 2026-04-29 (drift -0x140 from 0xAC8C30)
+    constexpr std::ptrdiff_t kThirdPersonOff_RVA = 0xAC8A10;   // updated 2026-04-29 (drift -0x140 from 0xAC8B50)
+    constexpr std::ptrdiff_t kCInputPtr_RVA      = 0x20612C0;  // updated 2026-04-29 (drift -0x100 from 0x20613C0)
+
+    // ---------------------------------------------------------------
+    // sv_cheats gate patch (CCSPlayer::ThirdPersonReset / CalcView).
+    // Recent (post-2026-04-27) builds added a `sv_cheats` check inside
+    // the camera-reset path: if cheats are off, the engine clears the
+    // +0x229 enable byte every frame (write at `mov [rdi+1], 0` after
+    // a `JNE` that skips the clear when cheats are on). UC public
+    // research confirms a single-byte patch flips that JNE → JMP and
+    // restores third-person under sv_cheats=0.
+    //
+    // Pattern (Signatures::ThirdPersonReset, IDA-verified):
+    //   48 8B 40 08 44 38 20 75 10 44 88 67 01
+    //                       ^^ JNE  ^^ skip distance
+    //   patch byte: pattern_base + 7  (0x75 → 0xEB)
+    //
+    // Current-build RVA (UC public, 2026-04-29):
+    //   pattern base = 0x00AC6EC0   →  patch byte = 0x00AC6EC7
+    // We try the cached RVA first (validated by reading the JNE byte),
+    // then fall back to the signature scan if it drifts on a future
+    // patch. Original byte is captured at resolve time so unpatch is
+    // always exact (no hardcoded 0x75).
+    // ---------------------------------------------------------------
+    constexpr std::ptrdiff_t kThirdPersonPatch_RVA = 0xAC6EC0;  // base of pattern (UC 2026-04-29)
+    constexpr std::ptrdiff_t kThirdPersonPatch_JNE_OFFSET = 7;  // 0x75 byte inside pattern
+    inline uintptr_t pThirdPersonPatchAddr   = 0;     // == patternBase + 7 once resolved
+    inline uint8_t   thirdPersonPatchOrig    = 0x75;  // captured at resolve time
+    inline bool      thirdPersonPatchActive  = false; // currently flipped to JMP?
     constexpr std::ptrdiff_t kCInput_ThirdPerson  = 0x229;  // enable gate  (byte)
     constexpr std::ptrdiff_t kCInput_ThirdActive  = 0x228;  // active flag  (byte) — set by camera-init path
     constexpr std::ptrdiff_t kCInput_ThirdInited  = 0x22A;  // initialized  (byte) — prevents re-init each frame
     constexpr std::ptrdiff_t kCInput_TransitionA  = 0x6A8;  // transition   (dword) — cleared on toggle
-    constexpr std::ptrdiff_t kCInput_CurrentSlotDword = 0xB50; // dword index used by camera code
-    constexpr std::ptrdiff_t kCInput_SlotStride = 0x928; // 2344 bytes per slot
+    // NOTE: previous builds of this file also had kCInput_CurrentSlotDword=0xB50
+    // and kCInput_SlotStride=0x928 used to mirror the +0x229 enable byte into
+    // a per-slot copy. IDA decompile of the ON handler proves this was wrong:
+    // the slot index lives at +0x2D0 (`*((_DWORD*)pInput + 724)`) and the
+    // 1088-byte-stride array (pointer at +0xB58) only stores the saved camera
+    // ANCHOR per slot — the +0x229 enable byte is single-instance on the base
+    // struct. Reading the slot from the wrong offset returned garbage and
+    // wrote bytes into random struct fields, causing delayed crashes after
+    // the engine wandered into a corrupted member. Removed entirely.
 
     // Get the live CInput struct (deref the global pointer). Returns 0 if
     // the global hasn't been populated yet (early in process startup) or
@@ -777,6 +811,66 @@ namespace WorldEffects
         }
     }
 
+    // Resolve the sv_cheats gate patch site inside the camera-reset
+    // path (see big comment at constants above). Idempotent — once
+    // pThirdPersonPatchAddr is populated and validated we cache the
+    // original byte and never re-scan.
+    inline void ResolveThirdPersonPatch()
+    {
+        if (pThirdPersonPatchAddr || !GameState::clientBase) return;
+
+        // Validate by reading bytes 0,3,7 of the pattern at a candidate
+        // base address. We require:
+        //   [0] == 0x48  (REX.W prefix on `mov rax, [rax+8]`)
+        //   [3] == 0x08  (disp8 of that mov)
+        //   [7] == 0x75  (the JNE we plan to patch)
+        // This is enough to discriminate from random byte sequences in
+        // the .text section without re-running the full sig scan.
+        auto validate = [](uintptr_t base) -> bool {
+            __try {
+                return Mem::Read<uint8_t>(base + 0) == 0x48 &&
+                       Mem::Read<uint8_t>(base + 3) == 0x08 &&
+                       Mem::Read<uint8_t>(base + 7) == 0x75;
+            } __except (EXCEPTION_EXECUTE_HANDLER) { return false; }
+        };
+
+        uintptr_t base = GameState::clientBase + kThirdPersonPatch_RVA;
+        if (!validate(base))
+            base = Mem::FindPattern(L"client.dll", Signatures::ThirdPersonReset);
+        if (!base || !validate(base)) return;
+
+        uintptr_t patchAt = base + kThirdPersonPatch_JNE_OFFSET;
+        __try {
+            thirdPersonPatchOrig = Mem::Read<uint8_t>(patchAt);
+        } __except (EXCEPTION_EXECUTE_HANDLER) {
+            return;
+        }
+        pThirdPersonPatchAddr = patchAt;
+    }
+
+    // Flip JNE (0x75) → JMP (0xEB) at the camera-reset gate. Engine
+    // then takes the "skip the clear" branch every frame and stops
+    // wiping +0x229 back to 0 under sv_cheats=0.
+    inline void ApplyThirdPersonPatch()
+    {
+        ResolveThirdPersonPatch();
+        if (!pThirdPersonPatchAddr || thirdPersonPatchActive) return;
+        const uint8_t jmp = 0xEB;
+        Mem::PatchBytes(pThirdPersonPatchAddr, &jmp, 1);
+        thirdPersonPatchActive = true;
+    }
+
+    // Restore the original conditional-jump byte. Called on toggle-off
+    // and any time we leave the in-game state (death, disconnect) so
+    // we never leave a hand-patched .text page behind for AC scans to
+    // notice while we're not actively using the feature.
+    inline void RevertThirdPersonPatch()
+    {
+        if (!pThirdPersonPatchAddr || !thirdPersonPatchActive) return;
+        Mem::PatchBytes(pThirdPersonPatchAddr, &thirdPersonPatchOrig, 1);
+        thirdPersonPatchActive = false;
+    }
+
     // Forward declare ConVar value pointer (defined above for shoulder cvars)
     // so RunThirdPerson can write the live camera distance each tick.
     extern uintptr_t pCV_cam_idealdist;
@@ -815,7 +909,10 @@ namespace WorldEffects
         if (!liveLocalPawn)
         {
             // If we left in-game, forget transition state and avoid calling
-            // engine camera handlers on invalid globals.
+            // engine camera handlers on invalid globals. Also revert the
+            // sv_cheats gate patch so we don't leave a modified byte sitting
+            // in client.dll while we're not actively driving 3p.
+            if (wasOn) RevertThirdPersonPatch();
             wasOn = false;
             return;
         }
@@ -826,14 +923,13 @@ namespace WorldEffects
 
         auto stampThirdPersonFlag = [&](uint8_t v)
         {
-            // Engine camera path reads +0x229 with a per-slot stride:
-            // *(pInput + 0x229 + 0x928 * slot). Keep both base and
-            // active slot latched so the gate can't mismatch/flicker.
+            // Single byte at base struct +0x229. Do NOT mirror to any
+            // per-slot offset — the per-slot array (+0xB58, stride 1088)
+            // holds the camera anchor only; the enable flag has no
+            // alternate slots. Earlier code wrote a stride-mirrored copy
+            // that trampled random struct fields and crashed the game
+            // after a few seconds.
             Mem::SmartWrite<uint8_t>(pInput + kCInput_ThirdPerson, v);
-            int slot = Mem::Read<int>(pInput + kCInput_CurrentSlotDword);
-            if (slot > 0 && slot < 8)
-                Mem::SmartWrite<uint8_t>(
-                    pInput + kCInput_ThirdPerson + (kCInput_SlotStride * slot), v);
         };
 
         if (!wantOn)
@@ -844,6 +940,9 @@ namespace WorldEffects
                 stampThirdPersonFlag(0);
                 Mem::SmartWrite<uint32_t>(pInput + kCInput_TransitionA, 0);
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            // Restore the original JNE so the camera-reset path returns
+            // to stock behavior under sv_cheats=0.
+            RevertThirdPersonPatch();
             wasOn = false;
             return;
         }
@@ -882,6 +981,12 @@ namespace WorldEffects
             // latch the enable flag every tick so engine-side resets
             // (round restart, respawn, map change) can't silently flip
             // us back to first-person.
+            //
+            // Patch the sv_cheats gate FIRST so the camera-reset path
+            // doesn't immediately wipe +0x229 back to 0 the next frame
+            // (post-2026-04-27 behavior). With the JNE→JMP applied the
+            // handler's flag write sticks even under sv_cheats=0.
+            ApplyThirdPersonPatch();
             __try { if (pThirdPersonOn) pThirdPersonOn(); }
             __except (EXCEPTION_EXECUTE_HANDLER) {}
             wasOn = true;

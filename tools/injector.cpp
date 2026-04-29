@@ -42,7 +42,37 @@
 #include <share.h>
 #include <sys/stat.h>
 
+#include "splash.h"
+
 #pragma comment(lib, "Psapi.lib")
+
+// ---- Splash status bridge ----
+// Strips ANSI escape sequences out of a printf-formatted line and forwards
+// the cleaned text to the loader window's status field. Safe no-op if the
+// splash is not active (e.g. dev console-mode build).
+static void SplashStatusf(const char* fmt, ...)
+{
+    char raw[512];
+    va_list args;
+    va_start(args, fmt);
+    _vsnprintf_s(raw, _TRUNCATE, fmt, args);
+    va_end(args);
+
+    // strip CSI sequences (\x1b[ ... <letter>)
+    char clean[512];
+    size_t o = 0;
+    for (size_t i = 0; raw[i] && o < sizeof(clean) - 1; ) {
+        if (raw[i] == '\x1b' && raw[i + 1] == '[') {
+            i += 2;
+            while (raw[i] && (raw[i] < '@' || raw[i] > '~')) ++i;
+            if (raw[i]) ++i;
+            continue;
+        }
+        clean[o++] = raw[i++];
+    }
+    clean[o] = '\0';
+    Splash::Status(clean);
+}
 
 // ---- NT types (fallback path) ----
 using NtOpenProcessFn           = NTSTATUS(NTAPI*)(PHANDLE, ACCESS_MASK, PVOID, PVOID);
@@ -162,11 +192,13 @@ static bool InjectLegacy(DWORD pid, const std::vector<uint8_t>& fileData);
 static void EnableAnsi()
 {
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
-    DWORD mode = 0;
-    GetConsoleMode(h, &mode);
-    SetConsoleMode(h, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
-    SetConsoleOutputCP(65001);
-    SetConsoleTitleA("LUCID Injector");
+    if (h && h != INVALID_HANDLE_VALUE) {
+        DWORD mode = 0;
+        GetConsoleMode(h, &mode);
+        SetConsoleMode(h, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+        SetConsoleOutputCP(65001);
+        SetConsoleTitleA("LUCID Injector");
+    }
 }
 
 static void PrintBanner()
@@ -184,6 +216,7 @@ static void PrintSection(const char* title)
 {
     printf(BOLD FG256(69) "\n  ┌─ " RST BOLD FG_BWHT "%s" RST BOLD FG256(69) "\n" RST, title);
     printf(DIM FG256(240) "  │\n" RST);
+    SplashStatusf("%s...", title);
 }
 
 static void PrintOK(const char* fmt, ...)
@@ -194,6 +227,12 @@ static void PrintOK(const char* fmt, ...)
     vprintf(fmt, args);
     va_end(args);
     printf(RST "\n");
+
+    char buf[480];
+    va_list a2; va_start(a2, fmt);
+    _vsnprintf_s(buf, _TRUNCATE, fmt, a2);
+    va_end(a2);
+    SplashStatusf("%s", buf);
 }
 
 static void PrintInfo(const char* fmt, ...)
@@ -204,6 +243,12 @@ static void PrintInfo(const char* fmt, ...)
     vprintf(fmt, args);
     va_end(args);
     printf(RST "\n");
+
+    char buf[480];
+    va_list a2; va_start(a2, fmt);
+    _vsnprintf_s(buf, _TRUNCATE, fmt, a2);
+    va_end(a2);
+    SplashStatusf("%s", buf);
 }
 
 static void PrintWarn(const char* fmt, ...)
@@ -214,6 +259,12 @@ static void PrintWarn(const char* fmt, ...)
     vprintf(fmt, args);
     va_end(args);
     printf(RST "\n");
+
+    char buf[480];
+    va_list a2; va_start(a2, fmt);
+    _vsnprintf_s(buf, _TRUNCATE, fmt, a2);
+    va_end(a2);
+    SplashStatusf("%s", buf);
 }
 
 static void PrintFail(const char* fmt, ...)
@@ -224,6 +275,12 @@ static void PrintFail(const char* fmt, ...)
     vprintf(fmt, args);
     va_end(args);
     printf(RST "\n");
+
+    char buf[480];
+    va_list a2; va_start(a2, fmt);
+    _vsnprintf_s(buf, _TRUNCATE, fmt, a2);
+    va_end(a2);
+    SplashStatusf("%s", buf);
 }
 
 static void PrintSectionEnd()
@@ -515,8 +572,6 @@ int wmain(int argc, wchar_t* argv[])
         PrintSectionEnd();
         // Success chime
         Beep(523, 100); Beep(659, 100); Beep(784, 150);
-        printf("\n" DIM "  Press Enter to exit..." RST "\n");
-        getchar();
         return 0;
     }
 
@@ -561,8 +616,6 @@ int wmain(int argc, wchar_t* argv[])
         {
             PrintFail("All injection methods failed");
             PrintSectionEnd();
-            printf("\n" DIM "  Press Enter to exit..." RST "\n");
-            getchar();
             return 1;
         }
         PrintSectionEnd();
@@ -608,9 +661,52 @@ int wmain(int argc, wchar_t* argv[])
     }
 
     PrintSectionEnd();
-    printf("\n" DIM "  Press Enter to exit..." RST "\n");
-    getchar();
     return 0;
+}
+
+// ============================================================================
+// WinMain entry \xe2\x80\x94 redirects stdio to %TEMP%\lucid_loader.log, raises the
+// frameless splash window, runs the existing wmain() injection logic on a
+// worker thread, then signals the splash to auto-close.
+// ============================================================================
+int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
+{
+    // ---- redirect stdio to a log file so the existing printf() flow keeps
+    //      producing diagnostics even with no console attached.
+    {
+        wchar_t logPath[MAX_PATH];
+        GetTempPathW(MAX_PATH, logPath);
+        wcscat_s(logPath, L"lucid_loader.log");
+        FILE* f = nullptr;
+        if (_wfopen_s(&f, logPath, L"w, ccs=UTF-8") == 0 && f) {
+            *stdout = *f;
+            *stderr = *f;
+            setvbuf(stdout, nullptr, _IONBF, 0);
+            setvbuf(stderr, nullptr, _IONBF, 0);
+        }
+    }
+
+    // ---- raise the splash before any work begins
+    Splash::Show();
+    Splash::Status("Starting injection pipeline...");
+
+    // ---- rebuild argv for wmain() from the unicode command line
+    int argc = 0;
+    LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+    int rc = 1;
+    if (argv) {
+        rc = wmain(argc, argv);
+        LocalFree(argv);
+    }
+
+    // ---- finalise splash and wait for it to close itself
+    if (rc == 0) Splash::Status("Injection complete \xe2\x80\x94 closing.");
+    else         Splash::Status("Injection failed \xe2\x80\x94 see %TEMP%\\lucid_loader.log");
+    Splash::Done(rc == 0);
+    Splash::Wait();
+
+    if (stdout) fflush(stdout);
+    return rc;
 }
 
 // =============================================================
