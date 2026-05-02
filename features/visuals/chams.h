@@ -275,18 +275,19 @@ namespace Chams
             float s0 = sinf(p);
             float s1 = sinf(p * 1.20f + 1.4f);
             float s2 = sinf(p * 0.85f + 2.7f);
-            // Visible body: tints the cosmic texture. Kept bright so the
-            // texture's brightness variation isn't crushed by the multiply.
-            float vr = 0.55f + 0.40f * s0 * s0;             // 0.55..0.95
-            float vg = 0.15f + 0.25f * s1 * s1;             // 0.15..0.40  some green so detail reads
-            float vb = 0.75f + 0.25f * s2 * s2;             // 0.75..1.00  blue-dominant
+            // Visible body: tints the cosmic texture. Floors lifted high
+            // so even the dark regions of the cloud texture render as
+            // colored cosmos rather than going black on multiply.
+            float vr = 0.65f + 0.30f * s0 * s0;             // 0.65..0.95
+            float vg = 0.30f + 0.30f * s1 * s1;             // 0.30..0.60  enough to keep texture detail
+            float vb = 0.85f + 0.15f * s2 * s2;             // 0.85..1.00  blue-dominant
             // Occluded: brighter / phase-shifted so wallhack reads.
             float o0 = sinf(p + 1.7f);
             float o1 = sinf(p * 1.10f + 3.4f);
             float o2 = sinf(p * 0.90f + 0.6f);
-            float orC = 0.65f + 0.35f * o0 * o0;            // 0.65..1.00
-            float ogC = 0.15f + 0.25f * o1 * o1;            // 0.15..0.40
-            float obC = 0.85f + 0.15f * o2 * o2;            // 0.85..1.00
+            float orC = 0.75f + 0.25f * o0 * o0;            // 0.75..1.00
+            float ogC = 0.30f + 0.30f * o1 * o1;            // 0.30..0.60
+            float obC = 0.90f + 0.10f * o2 * o2;            // 0.90..1.00
             // No supernova flash - it just washed the body to white. The
             // sparkle pass below is what provides the star highlights.
             mat.vis_color[0] = vr;  mat.vis_color[1] = vg;  mat.vis_color[2] = vb;  mat.vis_color[3] = 1.0f;
@@ -499,12 +500,13 @@ namespace Chams
         // pattern, giving the moving "galaxy camo" look. The third slot
         // is an additive csgo_effects pass with the literal starfield
         // texture for twinkling stars on top.
-        const char k14_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_tColor=resource:")" NEBULA R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[6.0,6.0] g_vTexCoordScrollSpeed=[0.04,0.07]})";
-        const char k14_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_tColor=resource:")" NEBULA R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[6.0,6.0] g_vTexCoordScrollSpeed=[0.04,0.07]})";
+        const char k14_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_tColor=resource:")" NEBULA R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[4.0,4.0] g_vTexCoordScrollSpeed=[0.08,0.13]})";
+        const char k14_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_tColor=resource:")" NEBULA R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[4.0,4.0] g_vTexCoordScrollSpeed=[0.08,0.13]})";
         // Sparkle/star pass: glitter texture additively layered on top.
         // Z-disabled so it shows through walls along with the wallhack body.
-        // Slow scroll in the opposite direction to the body for parallax.
-        const char k14_star[] = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_tColor=resource:")" GLITTER R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[8.0,8.0] g_vTexCoordScrollSpeed=[-0.02,0.03]})";
+        // Fast scroll in opposite direction to the body for parallax — the
+        // star field clearly drifts across the player as they move.
+        const char k14_star[] = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_tColor=resource:")" GLITTER R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[6.0,6.0] g_vTexCoordScrollSpeed=[-0.18,0.22]})";
 
 #undef H
 #undef W
