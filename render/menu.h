@@ -621,7 +621,7 @@ namespace Menu
     struct SavedConfig
     {
         uint32_t magic    = 0x4C554349;
-        uint32_t version  = 17; // bumped: Chams::Config simplified to {enabled,style}
+        uint32_t version  = 18; // bumped: Chams::Config gained weaponChams/handsChams + 7 styles
         uint32_t dataSize = sizeof(SavedConfig);
         char                    name[32];
         Aimbot::Config          aimbot;
@@ -1203,6 +1203,10 @@ namespace Menu
             ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
             ImGui::Combo("##chams_style", &Chams::cfg.style,
                          Chams::MaterialNames, Chams::STYLE_COUNT);
+            SynthSep();
+            EvoCheckbox("Weapon Chams##cw_vm", &Chams::cfg.weaponChams);
+            SynthSep();
+            EvoCheckbox("Hand Chams##ch_vm",   &Chams::cfg.handsChams);
         }
         SynthEndSection();
     }
@@ -2855,6 +2859,8 @@ namespace Menu
         ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
         ImGui::Combo("##chams_style2", &Chams::cfg.style,
                      Chams::MaterialNames, Chams::STYLE_COUNT);
+        SynthSep(); EvoCheckbox("Weapon Chams##cw_vm2", &Chams::cfg.weaponChams);
+        SynthSep(); EvoCheckbox("Hand Chams##ch_vm2",   &Chams::cfg.handsChams);
     }
     inline void Pg_Tracers()
     {

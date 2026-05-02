@@ -37,18 +37,32 @@ namespace Chams
         STYLE_OUTLINE,
         STYLE_FLAT,
         STYLE_GLOW,
+        // ---- new wild styles ----
+        STYLE_TOON,        // flat unlit + thick black ink wireframe (cell shaded)
+        STYLE_CRYSTAL,     // dual-band fresnel, hard rim + soft body, prismatic
+        STYLE_INFERNO,     // red/orange additive boost + amber wireframe
+        STYLE_HOLO,        // cyan ignoreZ additive + scanline-thin wire on top
+        STYLE_XRAY,        // pure ignoreZ skeleton glow, see-through everything
+        STYLE_MATRIX,      // green Tron — flat dark + bright green wire on both
+        STYLE_PLASMA,      // boosted bloom glow + magenta wire overlay
         STYLE_COUNT
     };
 
     inline const char* MaterialNames[STYLE_COUNT] = {
         "Glass", "Flat + Wire", "Pearlescent", "Ghost",
-        "Outline", "Flat", "Glow"
+        "Outline", "Flat", "Glow",
+        "Toon", "Crystal", "Inferno", "Holographic",
+        "X-Ray", "Matrix", "Plasma"
     };
 
     struct Config
     {
-        bool enabled = false;
-        int  style   = STYLE_FLAT_WIRE;
+        bool enabled       = false;
+        int  style         = STYLE_FLAT_WIRE;
+        // Viewmodel overrides — disabled by default, when ON the chams
+        // material override applies to your own viewmodel weapon / arms too.
+        bool weaponChams   = false;
+        bool handsChams    = false;
     };
     inline Config cfg;
 
@@ -212,9 +226,12 @@ namespace Chams
         // Per-frame dedup
         if (!MarkSeen(obj, buf->m_out)) return;
 
-        // Skip viewmodel (anything with +0xB0 set is a child renderable like
-        // first-person hands)
-        if (Mem::Read<void*>(reinterpret_cast<uintptr_t>(obj) + 0xB0) != nullptr) {
+        // Viewmodel (your own arms + weapon) — child renderables have a non-null
+        // parent at +0xB0. We can't cheaply distinguish hands from weapon at
+        // the primitive level, so the two checkboxes share one effective gate:
+        // either being on lets the viewmodel through.
+        const bool is_viewmodel = (Mem::Read<void*>(reinterpret_cast<uintptr_t>(obj) + 0xB0) != nullptr);
+        if (is_viewmodel && !cfg.weaponChams && !cfg.handsChams) {
             o_GeneratePrim(scene, obj, ctx, buf);
             return;
         }
@@ -224,7 +241,8 @@ namespace Chams
         o_GeneratePrim(scene, obj, ctx, buf);
         int end = buf->m_start_primitive;
 
-        if (!IsPlayer(obj)) return;
+        // Players always allowed; viewmodel allowed via the checkbox above.
+        if (!is_viewmodel && !IsPlayer(obj)) return;
 
         int idx = cfg.style;
         if (idx < 0 || idx >= STYLE_COUNT) idx = 0;
@@ -316,6 +334,38 @@ namespace Chams
         // Glow
         const char k6[] = H R"({shader="csgo_effects.vfx" g_tColor=resource:")" W R"(" g_flColorBoost=20.0 g_flOpacityScale=0.7 g_flFresnelExponent=10.0 g_flFresnelFalloff=10.0 g_flFresnelMax=0.0 g_flFresnelMin=1.0 F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 F_DISABLE_Z_BUFFERING=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
 
+        // Toon — flat unlit + thick black ink wireframe (cell shaded)
+        const char k7_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k7_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k7_wire[] = H R"({shader="tools_wireframe.vfx" F_UNLIT=1 F_WIREFRAME=1 g_DepthBiasAmount=0.0 g_LineThickness=0.6 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.0,0.0,0.0,1.0]})";
+
+        // Crystal — dual-band fresnel: hard rim + soft body, prismatic refractive
+        const char k8_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=8.0 g_flFresnelFalloff=2.5 g_flFresnelMax=2.0 g_flFresnelMin=0.05 g_flColorBoost=2.5 g_flOpacityScale=0.85 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k8_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=4.0 g_flFresnelFalloff=2.0 g_flFresnelMax=1.5 g_flFresnelMin=0.0 g_flColorBoost=1.8 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+
+        // Inferno — red/orange additive boost + amber wire on occluded
+        const char k9_vis[]  = H R"({shader="csgo_effects.vfx" g_flColorBoost=8.0 g_flOpacityScale=0.95 g_flFresnelExponent=2.0 g_flFresnelFalloff=2.0 g_flFresnelMax=2.0 g_flFresnelMin=0.5 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k9_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flColorBoost=12.0 g_flOpacityScale=0.85 g_flFresnelExponent=3.0 g_flFresnelFalloff=4.0 g_flFresnelMax=3.0 g_flFresnelMin=0.3 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k9_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.3 g_OverrideColorFactor=1.0 g_vOverrideColor=[1.0,0.45,0.0,1.0]})";
+
+        // Holographic — cyan ignoreZ additive + thin scanline wire on top
+        const char k10_vis[]  = H R"({shader="csgo_effects.vfx" g_flColorBoost=4.0 g_flOpacityScale=0.6 g_flFresnelExponent=4.0 g_flFresnelFalloff=3.0 g_flFresnelMax=2.5 g_flFresnelMin=0.2 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k10_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flColorBoost=6.0 g_flOpacityScale=0.5 g_flFresnelExponent=5.0 g_flFresnelFalloff=4.0 g_flFresnelMax=3.0 g_flFresnelMin=0.1 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 F_DISABLE_Z_BUFFERING=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k10_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.15 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.6,1.0,1.0,1.0]})";
+
+        // X-Ray — pure ignoreZ skeleton glow on both passes (see-through everything)
+        const char k11[] = H R"({shader="csgo_effects.vfx" g_flColorBoost=15.0 g_flOpacityScale=0.45 g_flFresnelExponent=12.0 g_flFresnelFalloff=8.0 g_flFresnelMax=4.0 g_flFresnelMin=0.0 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 F_DISABLE_Z_BUFFERING=1 F_DISABLE_Z_WRITE=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+
+        // Matrix — Tron-look: dark flat unlit body + bright green wire on both passes
+        const char k12_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k12_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k12_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.35 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.2,1.0,0.3,1.0]})";
+
+        // Plasma — boosted bloom glow + magenta wire overlay
+        const char k13_vis[]  = H R"({shader="csgo_effects.vfx" g_flColorBoost=25.0 g_flOpacityScale=0.75 g_flFresnelExponent=6.0 g_flFresnelFalloff=6.0 g_flFresnelMax=3.5 g_flFresnelMin=0.4 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k13_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flColorBoost=30.0 g_flOpacityScale=0.7 g_flFresnelExponent=8.0 g_flFresnelFalloff=8.0 g_flFresnelMax=4.0 g_flFresnelMin=0.3 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 F_DISABLE_Z_BUFFERING=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k13_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.25 g_OverrideColorFactor=1.0 g_vOverrideColor=[1.0,0.2,0.9,1.0]})";
+
 #undef H
 #undef W
 #undef MK
@@ -335,6 +385,22 @@ namespace Chams
                                          {1.0f,0.0f,0.0f,1.0f}, {0.0f,1.0f,0.0f,1.0f}, false };
         g_materials[STYLE_GLOW]      = { CreateMaterial("cham6_occ", k6),     CreateMaterial("cham6_vis", k6),     nullptr,
                                          {0.0f,1.0f,1.0f,1.0f}, {1.0f,1.0f,0.0f,1.0f}, false };
+
+        // ---- new wild styles ----
+        g_materials[STYLE_TOON]    = { CreateMaterial("cham7_occ", k7_occ), CreateMaterial("cham7_vis", k7_vis), CreateMaterial("cham7_wire", k7_wire),
+                                       {0.15f,0.15f,0.15f,1.0f}, {1.0f,0.85f,0.2f,1.0f}, true };
+        g_materials[STYLE_CRYSTAL] = { CreateMaterial("cham8_occ", k8_occ), CreateMaterial("cham8_vis", k8_vis), nullptr,
+                                       {0.6f,0.4f,1.0f,0.9f}, {0.5f,0.95f,1.0f,0.9f}, false };
+        g_materials[STYLE_INFERNO] = { CreateMaterial("cham9_occ", k9_occ), CreateMaterial("cham9_vis", k9_vis), CreateMaterial("cham9_wire", k9_wire),
+                                       {1.0f,0.25f,0.05f,1.0f}, {1.0f,0.55f,0.1f,1.0f}, true };
+        g_materials[STYLE_HOLO]    = { CreateMaterial("cham10_occ", k10_occ), CreateMaterial("cham10_vis", k10_vis), CreateMaterial("cham10_wire", k10_wire),
+                                       {0.0f,0.85f,1.0f,0.85f}, {0.4f,1.0f,0.95f,0.7f}, true };
+        g_materials[STYLE_XRAY]    = { CreateMaterial("cham11_occ", k11), CreateMaterial("cham11_vis", k11), nullptr,
+                                       {0.4f,0.85f,1.0f,1.0f}, {0.95f,0.95f,1.0f,1.0f}, false };
+        g_materials[STYLE_MATRIX]  = { CreateMaterial("cham12_occ", k12_occ), CreateMaterial("cham12_vis", k12_vis), CreateMaterial("cham12_wire", k12_wire),
+                                       {0.0f,0.05f,0.0f,1.0f}, {0.0f,0.15f,0.05f,1.0f}, true };
+        g_materials[STYLE_PLASMA]  = { CreateMaterial("cham13_occ", k13_occ), CreateMaterial("cham13_vis", k13_vis), CreateMaterial("cham13_wire", k13_wire),
+                                       {1.0f,0.1f,0.85f,1.0f}, {0.45f,0.2f,1.0f,1.0f}, true };
     }
 
     // -----------------------------------------------------------------------

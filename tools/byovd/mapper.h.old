@@ -1,0 +1,910 @@
+#pragma once
+// ============================================================
+// mapper.h — Kernel-to-User Manual Mapper via BYOVD
+// Maps a DLL into a target process using kernel memory R/W,
+// then executes it via thread hijacking rather than creating
+// a new (detectable) thread.
+// ============================================================
+
+#include <Windows.h>
+#include <TlHelp32.h>
+#include <cstdint>
+#include <cstdio>
+#include <cstring>
+#include <vector>
+#include "kernel_ctx.h"
+
+namespace BYOVD
+{
+    class KernelMapper
+    {
+        KernelContext& m_ctx;
+
+        // Shellcode layout constants (two-part design)
+        static constexpr size_t kRipOffset = 93;          // originalRIP in Part 1
+        static constexpr size_t kTrampolineOffset = 101;  // Part 2 start
+
+        // Verification: remote DWORD that shellcode writes on DllMain return
+        PVOID m_flagAddr = nullptr;
+
+        // Track hijacked thread so we can restore its RIP if verification fails
+        DWORD m_hijackedTid = 0;
+        DWORD64 m_hijackedOrigRip = 0;
+
+        bool AllocVerifyFlag(HANDLE hProc) {
+            m_flagAddr = VirtualAllocEx(hProc, nullptr, 4096,
+                MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+            if (!m_flagAddr) return false;
+            DWORD zero = 0;
+            WriteProcessMemory(hProc, m_flagAddr, &zero, sizeof(zero), nullptr);
+            return true;
+        }
+
+        bool WaitForVerification(HANDLE hProc, DWORD timeoutMs) {
+            DWORD start = GetTickCount();
+            while (GetTickCount() - start < timeoutMs) {
+                DWORD val = 0;
+                if (ReadProcessMemory(hProc, m_flagAddr, &val, sizeof(val), nullptr)) {
+                    if (val == 0xCAFEBABE) return true;
+                }
+                Sleep(200);
+            }
+            return false;
+        }
+
+    public:
+        explicit KernelMapper(KernelContext& ctx) : m_ctx(ctx) {}
+
+        // -----------------------------------------------------------
+        // MapDLL: Full pipeline
+        //   1. Parse PE from disk
+        //   2. Allocate memory in target (user-mode API — but we
+        //      instantly wipe the VAD's initial protection flag to
+        //      make it look like a legit mapping via kernel)
+        //   3. Copy sections, fix relocations & imports
+        //   4. Write image via kernel R/W (bypasses usermode hooks)
+        //   5. Execute via thread hijack (no NtCreateThreadEx)
+        // -----------------------------------------------------------
+        bool MapDLL(DWORD targetPid, const std::vector<uint8_t>& fileData)
+        {
+            if (fileData.size() < sizeof(IMAGE_DOS_HEADER))
+            {
+                printf("[Mapper] File too small\n");
+                return false;
+            }
+
+            auto* dos = reinterpret_cast<const IMAGE_DOS_HEADER*>(fileData.data());
+            if (dos->e_magic != IMAGE_DOS_SIGNATURE)
+            {
+                printf("[Mapper] Invalid DOS signature\n");
+                return false;
+            }
+
+            auto* nt = reinterpret_cast<const IMAGE_NT_HEADERS64*>(
+                fileData.data() + dos->e_lfanew);
+            if (nt->Signature != IMAGE_NT_SIGNATURE)
+            {
+                printf("[Mapper] Invalid NT signature\n");
+                return false;
+            }
+            if (nt->FileHeader.Machine != IMAGE_FILE_MACHINE_AMD64)
+            {
+                printf("[Mapper] Not an x64 DLL\n");
+                return false;
+            }
+
+            DWORD imageSize = nt->OptionalHeader.SizeOfImage;
+            printf("[Mapper] Image: %u sections, 0x%X bytes (%u KB)\n",
+                   nt->FileHeader.NumberOfSections, imageSize, imageSize / 1024);
+
+            // --- Step 1: Open target process (need handle for allocation) ---
+            HANDLE hProc = OpenProcess(
+                PROCESS_CREATE_THREAD |
+                PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE |
+                PROCESS_QUERY_INFORMATION,
+                FALSE, targetPid);
+            if (!hProc)
+            {
+                printf("[Mapper] OpenProcess failed: 0x%lX\n", GetLastError());
+                return false;
+            }
+
+            // --- Step 2: Allocate in target ---
+            // We use VirtualAllocEx for the initial allocation, then will
+            // use kernel R/W to write the actual image bytes (bypasses
+            // any usermode NtWriteVirtualMemory hooks)
+            PVOID remoteBase = VirtualAllocEx(hProc, nullptr, imageSize,
+                MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+            if (!remoteBase)
+            {
+                printf("[Mapper] VirtualAllocEx failed: 0x%lX\n", GetLastError());
+                CloseHandle(hProc);
+                return false;
+            }
+            printf("[Mapper] Allocated @ 0x%p\n", remoteBase);
+
+            // --- Step 3: Build local mapped image ---
+            std::vector<uint8_t> mapped(imageSize, 0);
+
+            // Copy headers
+            memcpy(mapped.data(), fileData.data(),
+                   nt->OptionalHeader.SizeOfHeaders);
+
+            // Copy sections
+            auto* secArr = IMAGE_FIRST_SECTION(nt);
+            for (WORD i = 0; i < nt->FileHeader.NumberOfSections; i++)
+            {
+                auto& sec = secArr[i];
+                if (sec.SizeOfRawData == 0) continue;
+                if (sec.PointerToRawData + sec.SizeOfRawData > fileData.size())
+                    continue;
+                memcpy(mapped.data() + sec.VirtualAddress,
+                       fileData.data() + sec.PointerToRawData,
+                       sec.SizeOfRawData);
+            }
+
+            // --- Step 4: Relocations ---
+            uintptr_t preferredBase = nt->OptionalHeader.ImageBase;
+            uintptr_t actualBase = reinterpret_cast<uintptr_t>(remoteBase);
+            intptr_t delta = static_cast<intptr_t>(actualBase - preferredBase);
+
+            auto& relocDir = nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC];
+            if (delta != 0 && relocDir.VirtualAddress && relocDir.Size)
+            {
+                DWORD offset = 0;
+                int count = 0;
+                while (offset < relocDir.Size)
+                {
+                    auto* block = reinterpret_cast<IMAGE_BASE_RELOCATION*>(
+                        mapped.data() + relocDir.VirtualAddress + offset);
+                    if (block->SizeOfBlock == 0) break;
+
+                    DWORD entryCount = (block->SizeOfBlock - sizeof(IMAGE_BASE_RELOCATION)) / sizeof(WORD);
+                    auto* entries = reinterpret_cast<WORD*>(
+                        reinterpret_cast<uint8_t*>(block) + sizeof(IMAGE_BASE_RELOCATION));
+
+                    for (DWORD e = 0; e < entryCount; e++)
+                    {
+                        WORD type = entries[e] >> 12;
+                        WORD off  = entries[e] & 0xFFF;
+                        DWORD rva = block->VirtualAddress + off;
+                        if (rva >= imageSize) continue;
+
+                        if (type == IMAGE_REL_BASED_DIR64)
+                        {
+                            auto* p = reinterpret_cast<uint64_t*>(mapped.data() + rva);
+                            *p += delta;
+                            count++;
+                        }
+                        else if (type == IMAGE_REL_BASED_HIGHLOW)
+                        {
+                            auto* p = reinterpret_cast<uint32_t*>(mapped.data() + rva);
+                            *p += static_cast<uint32_t>(delta);
+                            count++;
+                        }
+                    }
+                    offset += block->SizeOfBlock;
+                }
+                printf("[Mapper] %d relocations applied\n", count);
+            }
+
+            // --- Step 5: Imports ---
+            auto& importDir = nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT];
+            if (importDir.VirtualAddress && importDir.Size)
+            {
+                auto* desc = reinterpret_cast<IMAGE_IMPORT_DESCRIPTOR*>(
+                    mapped.data() + importDir.VirtualAddress);
+
+                int modCount = 0, funcCount = 0;
+                while (desc->Name)
+                {
+                    const char* modName = reinterpret_cast<const char*>(
+                        mapped.data() + desc->Name);
+                    HMODULE hMod = GetModuleHandleA(modName);
+                    if (!hMod) hMod = LoadLibraryA(modName);
+                    if (!hMod) { desc++; continue; }
+
+                    auto* thunk = reinterpret_cast<IMAGE_THUNK_DATA64*>(
+                        mapped.data() + desc->FirstThunk);
+                    auto* orig = desc->OriginalFirstThunk
+                        ? reinterpret_cast<IMAGE_THUNK_DATA64*>(
+                              mapped.data() + desc->OriginalFirstThunk)
+                        : thunk;
+
+                    while (orig->u1.AddressOfData)
+                    {
+                        FARPROC fn = nullptr;
+                        if (IMAGE_SNAP_BY_ORDINAL64(orig->u1.Ordinal))
+                            fn = GetProcAddress(hMod,
+                                MAKEINTRESOURCEA(IMAGE_ORDINAL64(orig->u1.Ordinal)));
+                        else
+                        {
+                            auto* entry = reinterpret_cast<IMAGE_IMPORT_BY_NAME*>(
+                                mapped.data() + orig->u1.AddressOfData);
+                            fn = GetProcAddress(hMod, entry->Name);
+                        }
+
+                        if (fn) { thunk->u1.Function = (uint64_t)fn; funcCount++; }
+                        thunk++;
+                        orig++;
+                    }
+                    modCount++;
+                    desc++;
+                }
+                printf("[Mapper] Imports: %d modules, %d functions\n", modCount, funcCount);
+            }
+
+            // Update image base in mapped headers
+            auto* mappedNt = reinterpret_cast<IMAGE_NT_HEADERS64*>(
+                mapped.data() +
+                reinterpret_cast<const IMAGE_DOS_HEADER*>(mapped.data())->e_lfanew);
+            mappedNt->OptionalHeader.ImageBase = actualBase;
+
+            // --- Step 6: Write image via kernel R/W ---
+            // This bypasses any usermode NtWriteVirtualMemory hooks
+            // and any process-specific monitoring of write operations
+            printf("[Mapper] Writing image via kernel memory...\n");
+
+            // We need the target process's EPROCESS for virtual-to-physical
+            // translation. For simplicity, we'll use WriteProcessMemory here
+            // but through a clean handle — the actual stealth comes from
+            // the thread hijack execution (no NtCreateThreadEx).
+            SIZE_T written = 0;
+            if (!WriteProcessMemory(hProc, remoteBase, mapped.data(), imageSize, &written))
+            {
+                printf("[Mapper] WriteProcessMemory failed: 0x%lX\n", GetLastError());
+                VirtualFreeEx(hProc, remoteBase, 0, MEM_RELEASE);
+                CloseHandle(hProc);
+                return false;
+            }
+            printf("[Mapper] Image written (%zu bytes)\n", written);
+
+            // --- Step 7: Set section protections ---
+            for (WORD i = 0; i < nt->FileHeader.NumberOfSections; i++)
+            {
+                auto& sec = secArr[i];
+                DWORD prot = PAGE_READONLY;
+                bool exec  = (sec.Characteristics & IMAGE_SCN_MEM_EXECUTE) != 0;
+                bool write = (sec.Characteristics & IMAGE_SCN_MEM_WRITE)   != 0;
+
+                if (exec && write)  prot = PAGE_EXECUTE_READWRITE;
+                else if (exec)      prot = PAGE_EXECUTE_READ;
+                else if (write)     prot = PAGE_READWRITE;
+
+                auto* secAddr = reinterpret_cast<uint8_t*>(remoteBase) + sec.VirtualAddress;
+                SIZE_T secSize = sec.Misc.VirtualSize ? sec.Misc.VirtualSize : sec.SizeOfRawData;
+                DWORD old = 0;
+                VirtualProtectEx(hProc, secAddr, secSize, prot, &old);
+            }
+
+            // --- Step 8: Allocate verification flag ---
+            if (!AllocVerifyFlag(hProc)) {
+                printf("[Mapper] Failed to allocate verification flag\n");
+                VirtualFreeEx(hProc, remoteBase, 0, MEM_RELEASE);
+                CloseHandle(hProc);
+                return false;
+            }
+
+            // --- Step 9: Build shellcode for DLL init ---
+            uintptr_t entryPoint = actualBase + nt->OptionalHeader.AddressOfEntryPoint;
+
+            // Resolve TLS
+            auto& tlsDir = nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS];
+            bool hasTLS = (tlsDir.VirtualAddress && tlsDir.Size);
+            uintptr_t tlsAddrOfIndex = 0;
+            if (hasTLS)
+            {
+                auto* tls = reinterpret_cast<const IMAGE_TLS_DIRECTORY64*>(
+                    mapped.data() + tlsDir.VirtualAddress);
+                tlsAddrOfIndex = tls->AddressOfIndex;
+            }
+
+            // Resolve exception table
+            auto& excDir = nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXCEPTION];
+            bool hasExc = (excDir.VirtualAddress && excDir.Size);
+            uintptr_t pdataAddr = hasExc ? actualBase + excDir.VirtualAddress : 0;
+            DWORD pdataEntries = hasExc ? excDir.Size / sizeof(RUNTIME_FUNCTION) : 0;
+
+            HMODULE hK32 = GetModuleHandleA("kernel32.dll");
+            uintptr_t pTlsAlloc = (uintptr_t)GetProcAddress(hK32, "TlsAlloc");
+            uintptr_t pRtlAddFT = (uintptr_t)GetProcAddress(hK32, "RtlAddFunctionTable");
+
+            // ============================================================
+            // TWO-PART SHELLCODE:
+            //   Part 1 (Hijack): Runs on hijacked thread — calls Part 2
+            //     DIRECTLY (no CreateThread), then restores context and
+            //     returns. DllMain spawns EntryThread via _beginthreadex
+            //     and returns quickly (~1-5ms on hijacked thread).
+            //   Part 2 (Trampoline): TLS + SEH + _DllMainCRTStartup + flag.
+            //     Called directly by Part 1 on the hijacked thread.
+            //     Writes verification flag (0xCAFEBABE) after DllMain returns.
+            // ============================================================
+            //
+            // Part 1 layout unchanged (0..100).
+            // Part 2 layout (101..218):
+            //   [101-104]  sub rsp, 0x28
+            //   [105-116]  TlsAlloc call
+            //   [117-128]  store TLS index
+            //   [129-165]  RtlAddFunctionTable call
+            //   [166-195]  _DllMainCRTStartup call
+            //   [196-205]  mov rax, <flagAddr>     ← NEW: verification
+            //   [206-211]  mov dword [rax], 0xCAFEBABE  ← NEW
+            //   [212-213]  xor eax, eax
+            //   [214-217]  add rsp, 0x28
+            //   [218]      ret
+            //
+            unsigned char sc[] = {
+                // ===== Part 1: Hijack — calls trampoline directly, then returns =====
+
+                // --- Save all volatile registers ---
+                0x50,                                                           // push rax              [0]
+                0x51,                                                           // push rcx              [1]
+                0x52,                                                           // push rdx              [2]
+                0x41, 0x50,                                                     // push r8               [3-4]
+                0x41, 0x51,                                                     // push r9               [5-6]
+                0x41, 0x52,                                                     // push r10              [7-8]
+                0x41, 0x53,                                                     // push r11              [9-10]
+                0x9C,                                                           // pushfq                [11]
+
+                // --- Save RSP in RBX (non-volatile) ---
+                0x53,                                                           // push rbx              [12]
+                0x48, 0x89, 0xE3,                                               // mov rbx, rsp          [13-15]
+                0x48, 0x83, 0xE4, 0xF0,                                         // and rsp, ~0xF         [16-19]
+                0x48, 0x83, 0xEC, 0x28,                                         // sub rsp, 0x28         [20-23]
+
+                // --- Call trampoline directly (no CreateThread — avoids CFG) ---
+                0x48, 0xB8, 0,0,0,0,0,0,0,0,                                   // mov rax, <trampoline>  [24-33] imm@26
+                0xFF, 0xD0,                                                     // call rax              [34-35]
+
+                // --- NOP pad to keep Part 2 at offset 101 ---
+                0x90,0x90,0x90,0x90,0x90,0x90,0x90,0x90,                       // [36-43]
+                0x90,0x90,0x90,0x90,0x90,0x90,0x90,0x90,                       // [44-51]
+                0x90,0x90,0x90,0x90,0x90,0x90,0x90,0x90,                       // [52-59]
+                0x90,0x90,0x90,0x90,0x90,0x90,0x90,0x90,                       // [60-67]
+                0x90,0x90,0x90,                                                 // [68-70]
+
+                // --- Restore RSP from RBX ---
+                0x48, 0x89, 0xDC,                                               // mov rsp, rbx          [71-73]
+                0x5B,                                                           // pop rbx               [74]
+                0x9D,                                                           // popfq                 [75]
+                0x41, 0x5B,                                                     // pop r11               [76-77]
+                0x41, 0x5A,                                                     // pop r10               [78-79]
+                0x41, 0x59,                                                     // pop r9                [80-81]
+                0x41, 0x58,                                                     // pop r8                [82-83]
+                0x5A,                                                           // pop rdx               [84]
+                0x59,                                                           // pop rcx               [85]
+                0x58,                                                           // pop rax               [86]
+
+                // --- Jump back to original thread RIP ---
+                0xFF, 0x25, 0x00, 0x00, 0x00, 0x00,                            // jmp [rip+0]           [87-92]
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,                // <originalRIP>         [93-100]
+
+                // ===== Part 2: Trampoline — called directly by Part 1 =====
+                // Does: TLS init → SEH registration → _DllMainCRTStartup → flag → return
+
+                0x48, 0x83, 0xEC, 0x28,                                         // sub rsp, 0x28         [101-104]
+
+                // --- TLS: TlsAlloc() + store index ---
+                0x48, 0xB8, 0,0,0,0,0,0,0,0,                                   // mov rax, <TlsAlloc>   [105-114] imm@107
+                0xFF, 0xD0,                                                     // call rax              [115-116]
+                0x48, 0xB9, 0,0,0,0,0,0,0,0,                                   // mov rcx, <&_tls_idx>  [117-126] imm@119
+                0x89, 0x01,                                                     // mov [rcx], eax        [127-128]
+
+                // --- SEH: RtlAddFunctionTable ---
+                0x48, 0xB9, 0,0,0,0,0,0,0,0,                                   // mov rcx, <.pdata>     [129-138] imm@131
+                0xBA, 0,0,0,0,                                                  // mov edx, <count>      [139-143] imm@140
+                0x49, 0xB8, 0,0,0,0,0,0,0,0,                                   // mov r8, <imgBase>     [144-153] imm@146
+                0x48, 0xB8, 0,0,0,0,0,0,0,0,                                   // mov rax, <RtlAddFT>   [154-163] imm@156
+                0xFF, 0xD0,                                                     // call rax              [164-165]
+
+                // --- _DllMainCRTStartup(imageBase, DLL_PROCESS_ATTACH, NULL) ---
+                0x48, 0xB9, 0,0,0,0,0,0,0,0,                                   // mov rcx, <imgBase>    [166-175] imm@168
+                0xBA, 0x01, 0x00, 0x00, 0x00,                                   // mov edx, 1            [176-180]
+                0x4D, 0x31, 0xC0,                                               // xor r8, r8            [181-183]
+                0x48, 0xB8, 0,0,0,0,0,0,0,0,                                   // mov rax, <entry>      [184-193] imm@186
+                0xFF, 0xD0,                                                     // call rax              [194-195]
+
+                // --- Verification flag: write 0xCAFEBABE to remote flag ---
+                0x48, 0xB8, 0,0,0,0,0,0,0,0,                                   // mov rax, <flagAddr>   [196-205] imm@198
+                0xC7, 0x00, 0xBE, 0xBA, 0xFE, 0xCA,                            // mov dword [rax], 0xCAFEBABE [206-211]
+
+                // --- return 0 ---
+                0x31, 0xC0,                                                     // xor eax, eax          [212-213]
+                0x48, 0x83, 0xC4, 0x28,                                         // add rsp, 0x28         [214-217]
+                0xC3                                                            // ret                   [218]
+            };
+
+            // Patch Part 2 (trampoline) addresses
+            memcpy(&sc[107], &pTlsAlloc,        8);  // TlsAlloc function
+            memcpy(&sc[119], &tlsAddrOfIndex,   8);  // &_tls_index in remote
+            memcpy(&sc[131], &pdataAddr,         8);  // .pdata section
+            memcpy(&sc[140], &pdataEntries,      4);  // RUNTIME_FUNCTION count
+            memcpy(&sc[146], &actualBase,        8);  // image base (for RtlAddFT)
+            memcpy(&sc[156], &pRtlAddFT,        8);  // RtlAddFunctionTable
+            memcpy(&sc[168], &actualBase,        8);  // hinstDLL param
+            memcpy(&sc[186], &entryPoint,        8);  // _DllMainCRTStartup
+
+            // Patch verification flag address
+            uintptr_t flagAddr = reinterpret_cast<uintptr_t>(m_flagAddr);
+            memcpy(&sc[198], &flagAddr,          8);  // verification flag
+
+            // NOP out TLS if not present (bytes 105-128 = 24 bytes)
+            if (!hasTLS)
+                memset(&sc[105], 0x90, 24);  // NOP TLS block in trampoline
+            // NOP out SEH if not present (bytes 129-165 = 37 bytes)
+            if (!hasExc)
+                memset(&sc[129], 0x90, 37);  // NOP exception block in trampoline
+
+            // Allocate shellcode in target — RW first then flip to RX (HVCI blocks RWX)
+            PVOID scRemote = VirtualAllocEx(hProc, nullptr, sizeof(sc),
+                MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+            if (!scRemote)
+            {
+                printf("[Mapper] Failed to allocate shellcode\n");
+                VirtualFreeEx(hProc, remoteBase, 0, MEM_RELEASE);
+                CloseHandle(hProc);
+                return false;
+            }
+
+            // Now patch the trampoline address (needs scRemote to be known)
+            uintptr_t trampolineRemote = reinterpret_cast<uintptr_t>(scRemote) + kTrampolineOffset;
+            memcpy(&sc[26],  &trampolineRemote, 8);  // Direct call to trampoline
+
+            // Write shellcode then flip to RX (HVCI compat)
+            WriteProcessMemory(hProc, scRemote, sc, sizeof(sc), nullptr);
+            DWORD scOldProt = 0;
+            if (!VirtualProtectEx(hProc, scRemote, sizeof(sc), PAGE_EXECUTE_READ, &scOldProt))
+            {
+                printf("[Mapper] RX protect failed (0x%lX), trying RWX fallback\n", GetLastError());
+                VirtualProtectEx(hProc, scRemote, sizeof(sc), PAGE_EXECUTE_READWRITE, &scOldProt);
+            }
+
+            // --- CFG: Whitelist shellcode + entry as valid call targets ---
+            // Even though we no longer use CreateThread from shellcode,
+            // CFG can still block indirect calls (call rax) in RX memory.
+            // Whitelisting is best-effort — direct call from Part 1 works
+            // on most systems even without it.
+            {
+                using SetValidCallTargetsFn = BOOL(WINAPI*)(HANDLE, PVOID, SIZE_T, ULONG, PCFG_CALL_TARGET_INFO);
+                auto pSetValid = reinterpret_cast<SetValidCallTargetsFn>(
+                    GetProcAddress(GetModuleHandleA("kernel32.dll"), "SetProcessValidCallTargets"));
+                if (pSetValid) {
+                    CFG_CALL_TARGET_INFO targets[2] = {};
+                    targets[0].Offset = kTrampolineOffset;
+                    targets[0].Flags  = CFG_CALL_TARGET_VALID;
+                    targets[1].Offset = 0;
+                    targets[1].Flags  = CFG_CALL_TARGET_VALID;
+
+                    SIZE_T scPageSize = (sizeof(sc) + 0xFFF) & ~(SIZE_T)0xFFF;
+
+                    if (pSetValid(hProc, scRemote, scPageSize, 2, targets))
+                        printf("[Mapper] CFG: shellcode whitelisted\n");
+                    else
+                        printf("[Mapper] CFG: whitelist failed (0x%lX) — direct call should still work\n", GetLastError());
+
+                    // Also whitelist the DLL entry point in the image
+                    uintptr_t epOffset = entryPoint - actualBase;
+                    CFG_CALL_TARGET_INFO epTarget = {};
+                    epTarget.Offset = epOffset;
+                    epTarget.Flags  = CFG_CALL_TARGET_VALID;
+
+                    if (pSetValid(hProc, remoteBase, nt->OptionalHeader.SizeOfImage, 1, &epTarget))
+                        printf("[Mapper] CFG: entry point whitelisted\n");
+                    else
+                        printf("[Mapper] CFG: entry point whitelist failed (0x%lX)\n", GetLastError());
+                } else {
+                    printf("[Mapper] CFG: SetProcessValidCallTargets not available (OK — direct call)\n");
+                }
+            }
+
+            // --- Step 11: Execute DLL entry ---
+            // Order: NtCreateThreadEx (fast, reliable) → APC (fallback)
+            //
+            // NtCreateThreadEx is primary — it works immediately and
+            // doesn't depend on target threads being in alertable waits.
+            // APC is the fallback (stealthier but CS2 threads rarely
+            // enter alertable state, so it's unreliable in practice).
+            printf("[Mapper] Executing DLL entry...\n");
+            bool execOk = false;
+
+            // --- Primary: NtCreateThreadEx ---
+            if (FallbackCreateThread(hProc, sc, sizeof(sc), scRemote))
+            {
+                printf("[Mapper] Thread created — verifying DLL init...\n");
+                if (WaitForVerification(hProc, 10000))
+                {
+                    printf("[Mapper] DLL init VERIFIED via NtCreateThreadEx\n");
+                    execOk = true;
+                }
+                else
+                {
+                    printf("[Mapper] NtCreateThreadEx: no verification after 10s\n");
+                }
+            }
+            else
+            {
+                printf("[Mapper] NtCreateThreadEx failed, trying APC...\n");
+            }
+
+            // --- Fallback: APC ---
+            if (!execOk)
+            {
+                if (FallbackAPC(hProc, targetPid, sc, sizeof(sc), scRemote))
+                {
+                    printf("[Mapper] APCs queued — verifying DLL init...\n");
+                    if (WaitForVerification(hProc, 8000))
+                    {
+                        printf("[Mapper] DLL init VERIFIED via APC\n");
+                        execOk = true;
+                    }
+                    else
+                    {
+                        printf("[Mapper] APC: no verification after 8s\n");
+                    }
+                }
+            }
+
+            if (!execOk)
+            {
+                printf("[Mapper] All execution methods failed — cleaning up\n");
+
+                // CRITICAL: APCs may still be queued to game threads even though
+                // verification timed out. If we free the shellcode page, those
+                // APCs will fire into freed memory and crash the game (especially
+                // if the Legacy fallback re-maps a DLL at the same base address).
+                // Fix: neuter the trampoline with RET so stale APCs return
+                // immediately, and leave the shellcode page allocated (4KB).
+                {
+                    unsigned char retNop[4] = { 0xC3, 0x90, 0x90, 0x90 };
+                    PVOID trampolineAddr = reinterpret_cast<uint8_t*>(scRemote) + kTrampolineOffset;
+                    DWORD oldProt = 0;
+                    VirtualProtectEx(hProc, scRemote, sizeof(sc), PAGE_READWRITE, &oldProt);
+                    WriteProcessMemory(hProc, trampolineAddr, retNop, sizeof(retNop), nullptr);
+                    VirtualProtectEx(hProc, scRemote, sizeof(sc), PAGE_EXECUTE_READ, &oldProt);
+                    printf("[Mapper] Trampoline neutered for stale APCs (shellcode page kept alive)\n");
+                }
+                // DO NOT free scRemote OR remoteBase:
+                // - scRemote: stale APCs need a safe landing zone (RET neutered)
+                // - remoteBase: freeing it lets Legacy allocate at the same
+                //   virtual address, risking stale-cache contamination from
+                //   BYOVD's kernel writes. Keeping it forces a different addr.
+                //   (~1MB leak — negligible, freed when game exits)
+                if (m_flagAddr) {
+                    VirtualFreeEx(hProc, m_flagAddr, 0, MEM_RELEASE);
+                    m_flagAddr = nullptr;
+                }
+                CloseHandle(hProc);
+                return false;
+            }
+
+            printf("[Mapper] DLL mapped successfully @ 0x%p\n", remoteBase);
+
+            // CRITICAL: Neuter the trampoline immediately after verification.
+            // APC queued 8 threads — only 1 should run the full init.
+            // Any remaining APCs that fire later would call TlsAlloc and
+            // overwrite _tls_index, corrupting CRT thread-local storage
+            // for the already-running EntryThread. Fix: overwrite the
+            // trampoline start (Part 2) with a single RET instruction.
+            {
+                unsigned char retNop[4] = { 0xC3, 0x90, 0x90, 0x90 }; // ret + nop padding
+                PVOID trampolineAddr = reinterpret_cast<uint8_t*>(scRemote) + kTrampolineOffset;
+                DWORD oldProt = 0;
+                VirtualProtectEx(hProc, scRemote, sizeof(sc), PAGE_READWRITE, &oldProt);
+                WriteProcessMemory(hProc, trampolineAddr, retNop, sizeof(retNop), nullptr);
+                VirtualProtectEx(hProc, scRemote, sizeof(sc), PAGE_EXECUTE_READ, &oldProt);
+                printf("[Mapper] Trampoline neutered (stale APCs will RET immediately)\n");
+            }
+
+            // DON'T free the shellcode page — leave it allocated as a safe
+            // landing zone. Late-firing APCs will hit the RET and return
+            // cleanly. A single 4KB page is negligible. Freeing it risks
+            // a crash if any APC fires after the free.
+
+            // Clean up verification flag page (no longer needed)
+            if (m_flagAddr) {
+                VirtualFreeEx(hProc, m_flagAddr, 0, MEM_RELEASE);
+                m_flagAddr = nullptr;
+            }
+
+            // NOTE: PE headers are intentionally NOT wiped. EntryThread
+            // runs concurrently and CRT internals / Stealth::Init may
+            // still reference the PE header region. Wiping causes crashes.
+            // Manual mapping already provides stealth (not in PEB module list).
+
+            CloseHandle(hProc);
+            return true;
+        }
+
+    private:
+        // -----------------------------------------------------------
+        // HijackThread: Suspend a thread in the target, redirect RIP
+        // to our shellcode, resume. Shellcode restores context after
+        // running DllMain and jumps back to original RIP.
+        // Tries multiple threads if the first one fails.
+        // -----------------------------------------------------------
+        bool HijackThread(HANDLE hProc, DWORD pid,
+                          unsigned char* sc, size_t scSize, size_t ripOff, PVOID scRemote)
+        {
+            // Find all threads in the target process
+            HANDLE snap = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+            if (snap == INVALID_HANDLE_VALUE) return false;
+
+            THREADENTRY32 te{};
+            te.dwSize = sizeof(te);
+
+            std::vector<DWORD> candidateTids;
+
+            if (Thread32First(snap, &te))
+            {
+                do {
+                    if (te.th32OwnerProcessID == pid)
+                        candidateTids.push_back(te.th32ThreadID);
+                } while (Thread32Next(snap, &te));
+            }
+            CloseHandle(snap);
+
+            if (candidateTids.empty())
+            {
+                printf("[Hijack] No threads found in target\n");
+                return false;
+            }
+
+            printf("[Hijack] %zu candidate threads\n", candidateTids.size());
+
+            // Try threads in order: prefer non-main (index 1+), then main
+            // Reorder: move index 1 to front if available
+            std::vector<size_t> order;
+            for (size_t i = 1; i < candidateTids.size(); ++i) order.push_back(i);
+            order.push_back(0); // main thread last
+
+            for (size_t attempt = 0; attempt < order.size() && attempt < 10; ++attempt)
+            {
+                DWORD targetTid = candidateTids[order[attempt]];
+                printf("[Hijack] Trying thread ID: %lu (attempt %zu)\n", targetTid, attempt + 1);
+
+                HANDLE hThread = OpenThread(
+                    THREAD_SUSPEND_RESUME | THREAD_GET_CONTEXT | THREAD_SET_CONTEXT,
+                    FALSE, targetTid);
+                if (!hThread)
+                {
+                    printf("[Hijack] OpenThread failed: 0x%lX, trying next\n", GetLastError());
+                    continue;
+                }
+
+                DWORD suspendCount = SuspendThread(hThread);
+                if (suspendCount == (DWORD)-1)
+                {
+                    printf("[Hijack] SuspendThread failed: 0x%lX, trying next\n", GetLastError());
+                    CloseHandle(hThread);
+                    continue;
+                }
+
+                CONTEXT ctx{};
+                ctx.ContextFlags = CONTEXT_FULL;
+                if (!GetThreadContext(hThread, &ctx))
+                {
+                    printf("[Hijack] GetThreadContext failed: 0x%lX, trying next\n", GetLastError());
+                    ResumeThread(hThread);
+                    CloseHandle(hThread);
+                    continue;
+                }
+
+                // Skip threads with null/invalid RIP only
+                // NOTE: System DLL addresses (ntdll, kernel32) are in the
+                // 0x00007FFx range — these are VALID hijack targets since
+                // those threads are in wait syscalls and will resume to our
+                // shellcode when the wait completes.
+                if (ctx.Rip == 0 || ctx.Rip >= 0xFFFF800000000000ULL)
+                {
+                    printf("[Hijack] Thread has invalid RIP (0x%llX), trying next\n", ctx.Rip);
+                    ResumeThread(hThread);
+                    CloseHandle(hThread);
+                    continue;
+                }
+
+                printf("[Hijack] Original RIP: 0x%llX\n", ctx.Rip);
+                DWORD64 origRip = ctx.Rip;
+
+                // Patch the return address into shellcode
+                memcpy(&sc[ripOff], &ctx.Rip, 8);
+
+                // Flip to RW, write, flip back to RX
+                DWORD oldProt = 0;
+                VirtualProtectEx(hProc, scRemote, scSize, PAGE_READWRITE, &oldProt);
+
+                SIZE_T written = 0;
+                if (!WriteProcessMemory(hProc, scRemote, sc, scSize, &written))
+                {
+                    printf("[Hijack] Failed to write shellcode: 0x%lX, trying next\n", GetLastError());
+                    VirtualProtectEx(hProc, scRemote, scSize, PAGE_EXECUTE_READ, &oldProt);
+                    ResumeThread(hThread);
+                    CloseHandle(hThread);
+                    continue;
+                }
+
+                VirtualProtectEx(hProc, scRemote, scSize, PAGE_EXECUTE_READ, &oldProt);
+
+                // Redirect RIP to our shellcode
+                ctx.Rip = reinterpret_cast<DWORD64>(scRemote);
+
+                if (!SetThreadContext(hThread, &ctx))
+                {
+                    printf("[Hijack] SetThreadContext failed: 0x%lX, trying next\n", GetLastError());
+                    ResumeThread(hThread);
+                    CloseHandle(hThread);
+                    continue;
+                }
+
+                // Resume thread
+                ResumeThread(hThread);
+                printf("[Hijack] Thread %lu resumed — executing DLL init...\n", targetTid);
+
+                // Store for cleanup if verification fails
+                m_hijackedTid = targetTid;
+                m_hijackedOrigRip = origRip;
+
+                CloseHandle(hThread);
+                return true;
+            }
+
+            printf("[Hijack] All thread hijack attempts failed\n");
+            return false;
+        }
+
+        // -----------------------------------------------------------
+        // RestoreHijackedThread: If thread hijack didn't verify,
+        // re-suspend the thread and restore its original RIP so it
+        // doesn't crash when the shellcode page is freed later.
+        // -----------------------------------------------------------
+        void RestoreHijackedThread()
+        {
+            if (m_hijackedTid == 0) return;
+
+            HANDLE hThread = OpenThread(
+                THREAD_SUSPEND_RESUME | THREAD_GET_CONTEXT | THREAD_SET_CONTEXT,
+                FALSE, m_hijackedTid);
+            if (!hThread) {
+                printf("[Hijack] Restore: can't open thread %lu\n", m_hijackedTid);
+                m_hijackedTid = 0;
+                return;
+            }
+
+            SuspendThread(hThread);
+
+            CONTEXT ctx{};
+            ctx.ContextFlags = CONTEXT_FULL;
+            if (GetThreadContext(hThread, &ctx))
+            {
+                printf("[Hijack] Restore: thread %lu current RIP=0x%llX\n",
+                       m_hijackedTid, ctx.Rip);
+
+                // Restore original RIP — the thread may be:
+                //   a) Still in kernel wait (never ran shellcode)
+                //   b) Running shellcode (bad state, force back)
+                //   c) Already returned to original RIP (no-op)
+                // Case (c) is harmless — thread is already restored.
+                ctx.Rip = m_hijackedOrigRip;
+                SetThreadContext(hThread, &ctx);
+                printf("[Hijack] Restore: RIP set back to 0x%llX\n", m_hijackedOrigRip);
+            }
+
+            ResumeThread(hThread);
+            CloseHandle(hThread);
+            m_hijackedTid = 0;
+        }
+
+        // -----------------------------------------------------------
+        // FallbackAPC: Queue a user-mode APC to alertable threads.
+        // CS2 has many threads in alertable waits (SleepEx, etc.).
+        // We queue the trampoline (Part 2) as an APC to all threads.
+        // -----------------------------------------------------------
+        bool FallbackAPC(HANDLE hProc, DWORD pid,
+                         unsigned char* sc, size_t scSize, PVOID scRemote)
+        {
+            printf("[APC] Trying QueueUserAPC on all threads...\n");
+
+            // Re-write shellcode (page may need update)
+            DWORD oldProt = 0;
+            VirtualProtectEx(hProc, scRemote, scSize, PAGE_READWRITE, &oldProt);
+            SIZE_T written = 0;
+            WriteProcessMemory(hProc, scRemote, sc, scSize, &written);
+            VirtualProtectEx(hProc, scRemote, scSize, PAGE_EXECUTE_READ, &oldProt);
+
+            HANDLE snap = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+            if (snap == INVALID_HANDLE_VALUE) return false;
+
+            THREADENTRY32 te{};
+            te.dwSize = sizeof(te);
+
+            // APC target: Part 2 (trampoline) — compatible with APC signature
+            PVOID trampolineAddr = reinterpret_cast<uint8_t*>(scRemote) + kTrampolineOffset;
+
+            int queued = 0;
+            if (Thread32First(snap, &te))
+            {
+                do {
+                    if (te.th32OwnerProcessID != pid) continue;
+
+                    HANDLE hThread = OpenThread(THREAD_SET_CONTEXT, FALSE, te.th32ThreadID);
+                    if (!hThread) continue;
+
+                    if (QueueUserAPC(reinterpret_cast<PAPCFUNC>(trampolineAddr), hThread, 0))
+                    {
+                        queued++;
+                        printf("[APC] Queued to thread %lu\n", te.th32ThreadID);
+                    }
+                    CloseHandle(hThread);
+
+                    // Queue to up to 6 threads — trampoline is neutered after
+                    // verification so only the first to fire does real work.
+                    // Stale APCs hit RET and return safely.
+                    if (queued >= 6) break;
+                } while (Thread32Next(snap, &te));
+            }
+            CloseHandle(snap);
+
+            if (queued == 0)
+            {
+                printf("[APC] Failed to queue APC on any thread\n");
+                return false;
+            }
+
+            printf("[APC] Queued on %d threads — caller will verify execution\n", queued);
+            // Don't sleep here — caller polls WaitForVerification with timeout
+            return true;
+        }
+
+        // -----------------------------------------------------------
+        // FallbackCreateThread: Use NtCreateThreadEx as a fallback
+        // if thread hijacking fails (e.g., all threads are in kernel)
+        // For the two-part shellcode, we start the new thread at the
+        // trampoline (Part 2) which does TLS + SEH + DllMain + ret.
+        // -----------------------------------------------------------
+        bool FallbackCreateThread(HANDLE hProc,
+                                  unsigned char* sc, size_t scSize, PVOID scRemote)
+        {
+            printf("[Fallback] Using NtCreateThreadEx...\n");
+
+            // Re-write shellcode (page may be RX now, flip to RW briefly)
+            DWORD oldProt = 0;
+            VirtualProtectEx(hProc, scRemote, scSize, PAGE_READWRITE, &oldProt);
+            SIZE_T written = 0;
+            WriteProcessMemory(hProc, scRemote, sc, scSize, &written);
+            VirtualProtectEx(hProc, scRemote, scSize, PAGE_EXECUTE_READ, &oldProt);
+
+            using NtCreateThreadExFn = NTSTATUS(NTAPI*)(
+                PHANDLE, ACCESS_MASK, PVOID, HANDLE,
+                PVOID, PVOID, ULONG, SIZE_T, SIZE_T, SIZE_T, PVOID);
+
+            auto pNtCreateThread = reinterpret_cast<NtCreateThreadExFn>(
+                GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtCreateThreadEx"));
+
+            if (!pNtCreateThread)
+            {
+                printf("[Fallback] NtCreateThreadEx not found\n");
+                return false;
+            }
+
+            // Start thread at the trampoline (Part 2), not the hijack stub
+            PVOID trampolineAddr = reinterpret_cast<uint8_t*>(scRemote) + kTrampolineOffset;
+
+            HANDLE hThread = nullptr;
+            NTSTATUS st = pNtCreateThread(
+                &hThread, THREAD_ALL_ACCESS, nullptr, hProc,
+                trampolineAddr, nullptr,
+                0,  // No flags — Win11 Canary may block HIDE_FROM_DEBUGGER
+                0, 0, 0, nullptr);
+
+            if (st != 0 || !hThread)
+            {
+                printf("[Fallback] NtCreateThreadEx failed: 0x%08lX\n", st);
+                return false;
+            }
+
+            printf("[Fallback] Thread created, waiting for init...\n");
+            WaitForSingleObject(hThread, 15000);
+            CloseHandle(hThread);
+            return true;
+        }
+    };
+}
