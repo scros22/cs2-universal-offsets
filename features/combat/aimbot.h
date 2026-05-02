@@ -381,8 +381,14 @@ namespace Aimbot
                 // Pause aimbot for 0.5-1.5 seconds (looks like repositioning)
                 int pauseMs = 500 + (int)(gcfg.intensity * 1000.f);
                 stats.pauseTicks = pauseMs / 15;  // ~15ms per CreateMove tick
+                if (stats.pauseTicks > 30) stats.pauseTicks = 30; // hard cap so it can't snowball
                 stats.rapidKills = 0;
             }
+
+            // Hard cap forceBodyTicks too — without this a hot HS streak
+            // arms 500 ticks per kill and the user perceives the aimbot as
+            // "missing heads forever" / "randomly broken".
+            if (stats.forceBodyTicks > 200) stats.forceBodyTicks = 200;
         }
 
         // Called every CreateMove tick. Returns what the governor wants.
@@ -2163,6 +2169,38 @@ namespace Aimbot
             // last valid angle is still a much better aim point than zero.
         }
 
+        // ----- cfg.enabled toggle detection -----
+        // Re-enabling after a disable should start from a known-good state.
+        // Otherwise stale lockedTarget pointers, snowballed Governor pause/
+        // body-force counters and an old freshSightUntil can carry the
+        // "aimbot feels broken" perception across the toggle. Also handles
+        // the user-visible "stops working after ~8 rounds" case where
+        // accumulated state degrades silently â€” a quick disable+re-enable
+        // is now a true reset.
+        {
+            static bool s_prevEnabled = false;
+            if (!s_prevEnabled) {
+                ResetState();
+                mouseAccumX = mouseAccumY = 0.f;
+                prevMoveDp  = prevMoveDy  = 0.f;
+                skipTicksRemaining       = 0;
+                noTargetTicks            = 0;
+                consecutiveCrashes       = 0;
+                crashBackoffTicks        = 0;
+                lastSightTarget          = 0;
+                lastSightTick            = 0;
+                freshSightUntil          = 0;
+                Governor::stats.pauseTicks      = 0;
+                Governor::stats.forceBodyTicks  = 0;
+                Governor::stats.forceBody       = false;
+                Governor::stats.rapidKills      = 0;
+                SilentAim::targetPawn = 0;
+                SilentAim::hasTarget  = false;
+                haveLastValidAim      = false;
+            }
+            s_prevEnabled = true;
+        }
+
         // Crash backoff DISABLED â€” users reported the aimbot "randomly
         // shuts off" mid-game. Root cause was this backoff window
         // tripping on transient bad reads (round transitions, player
@@ -2460,6 +2498,19 @@ namespace Aimbot
             else
                 shouldAim = true; // 2 or anything else => always active when enabled
 
+            // Aim-key press edge: full responsiveness reset so the user's
+            // first click after switching binds (or releasing+re-pressing)
+            // doesn't get blocked by the fresh-sight reaction gate. The
+            // gate is meant to defend against pre-aim-through-wall — a
+            // human pressing their button to start aiming is NOT that.
+            static bool s_prevShouldAim = false;
+            if (shouldAim && !s_prevShouldAim) {
+                lastSightTarget = 0;
+                lastSightTick   = 0;
+                freshSightUntil = 0;
+            }
+            s_prevShouldAim = shouldAim;
+
             if (!shouldAim)
             {
                 if (state.phase != PHASE_IDLE)
@@ -2469,6 +2520,13 @@ namespace Aimbot
                 skipTicksRemaining = 0;
                 SilentAim::targetPawn = 0;
                 SilentAim::hasTarget = false;
+                // Drop fresh-sight tracking while idle. Otherwise the next
+                // press would be gated against a stale lastSightTick from
+                // many seconds ago, which the user perceives as "aimbot
+                // randomly breaks when I change my bind".
+                lastSightTarget = 0;
+                lastSightTick   = 0;
+                freshSightUntil = 0;
                 diag_lastBail = 5;
                 goto tickDone;
             }
