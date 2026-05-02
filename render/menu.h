@@ -23,6 +23,7 @@
 #include "../features/grenade_prediction.h"
 #include "../features/nade_helper.h"
 #include "../features/skinchanger_test.h"
+#include "../features/paint_kits.h"
 #include "../features/inventory_changer.h"
 #include "../features/model_changer.h"
 #include "../features/triggerbot.h"
@@ -31,6 +32,7 @@
 #include "../features/fake_lag.h"
 #include "../features/sound_esp.h"
 #include "../features/kill_sound.h"
+#include "../features/crosshair.h"
 #include <cstdlib>
 #include <ctime>
 #include <cstdio>
@@ -1034,7 +1036,7 @@ namespace Menu
             if (advancedMode)
             {
                 SynthSep();
-                EvoSliderFloat("Max Speed##bms", &Bhop::cfg.maxSpeed, 200.f, 500.f, "%.0f");
+                EvoSliderFloat("Max Speed (0=off)##bms", &Bhop::cfg.maxSpeed, 0.f, 500.f, "%.0f");
                 SynthSep();
                 EvoSliderFloat("Min Speed##bns", &Bhop::cfg.minSpeed,  10.f, 120.f, "%.0f");
             }
@@ -1050,6 +1052,14 @@ namespace Menu
         EvoCheckbox("Enable##trig",      &Triggerbot::cfg.enabled);
         if (Triggerbot::cfg.enabled && advancedMode)
         {
+            SynthSep();
+            Triggerbot::cfg.key = KeyCombo("Trigger Key##tk", Triggerbot::cfg.key);
+            SynthSep();
+            EvoCheckbox("Seeded Predict##tsp", &Triggerbot::cfg.seededPredict);
+            SynthSep();
+            EvoCheckbox("Fire Airborne##tab", &Triggerbot::cfg.airborneFire);
+            SynthSep();
+            ImGui::SliderFloat("Hitbox Radius##thr", &Triggerbot::cfg.hitboxRadius, 1.f, 20.f, "%.1f");
             SynthSep();
             EvoCheckbox("Team Check##ttc",   &Triggerbot::cfg.teamCheck);
             SynthSep();
@@ -1374,6 +1384,96 @@ namespace Menu
         SynthEndSection();
     }
 
+    // ---------------------------------------------------------------
+    // PaintKitPicker — searchable dropdown that replaces the bare
+    // numeric InputInt for paint kit selection. Filters the curated
+    // PaintKits::kAll table by weapon name and provides a search box.
+    //
+    // Signature mirrors ImGui::InputInt — pass label, paint-kit value
+    // pointer, and the weapon's display name (used for filtering).
+    // Returns true when the value changed this frame.
+    // ---------------------------------------------------------------
+    inline bool PaintKitPicker(const char* label, int* paintKit, const char* weaponName)
+    {
+        std::vector<int> idxs = PaintKits::FilterIndices(weaponName);
+
+        // Weapon-aware preview text
+        const char* curName = PaintKits::NameForWeapon(*paintKit, weaponName);
+        char preview_buf[96];
+        if (*paintKit <= 0) {
+            _snprintf_s(preview_buf, _TRUNCATE, "None / Default");
+        } else if (curName) {
+            _snprintf_s(preview_buf, _TRUNCATE, "%s  (%d)", curName, *paintKit);
+        } else {
+            _snprintf_s(preview_buf, _TRUNCATE, "Custom (%d)", *paintKit);
+        }
+
+        bool changed = false;
+        ImGui::PushID(label);
+
+        // Combo widget — full available width minus space for the label.
+        float availW = ImGui::GetContentRegionAvail().x;
+        if (availW < 80.f) availW = 200.f;
+        // Strip ##suffix to compute label visible width
+        const char* dispEnd = label;
+        for (const char* p = label; *p; ++p) {
+            if (p[0] == '#' && p[1] == '#') break;
+            dispEnd = p + 1;
+        }
+        float labelW = ImGui::CalcTextSize(label, dispEnd).x;
+        float comboW = availW - labelW - ImGui::GetStyle().ItemInnerSpacing.x - 4.f;
+        if (comboW < 100.f) comboW = availW;
+        ImGui::SetNextItemWidth(comboW);
+
+        // Constrain popup to combo width so it can't escape the panel.
+        ImGui::SetNextWindowSizeConstraints(
+            ImVec2(comboW, 80.f),
+            ImVec2(comboW, 380.f));
+
+        if (ImGui::BeginCombo("##combo", preview_buf, ImGuiComboFlags_HeightLarge))
+        {
+            // Search box
+            static char search[96] = "";
+            ImGui::SetNextItemWidth(-FLT_MIN);
+            ImGui::InputTextWithHint("##pksearch", "Search...", search, sizeof(search));
+            ImGui::Separator();
+
+            if (ImGui::Selectable("None / Default", *paintKit == 0)) {
+                *paintKit = 0;
+                changed = true;
+            }
+            ImGui::Separator();
+
+            for (int idx : idxs)
+            {
+                const auto& e = PaintKits::kAll[idx];
+                if (search[0] && !PaintKits::ContainsCI(e.displayName, search)) continue;
+                char itemLabel[160];
+                _snprintf_s(itemLabel, _TRUNCATE, "%s  (%d)##pk%d", e.displayName, e.id, idx);
+                bool selected = (*paintKit == e.id);
+                if (ImGui::Selectable(itemLabel, selected)) {
+                    *paintKit = e.id;
+                    changed = true;
+                }
+                if (selected) ImGui::SetItemDefaultFocus();
+            }
+
+            ImGui::Separator();
+            int v = *paintKit;
+            ImGui::SetNextItemWidth(-FLT_MIN);
+            if (ImGui::InputInt("Manual ID", &v, 1, 50)) {
+                if (v < 0) v = 0;
+                if (v != *paintKit) { *paintKit = v; changed = true; }
+            }
+            ImGui::EndCombo();
+        }
+        // Label to the right of the combo.
+        ImGui::SameLine(0.f, ImGui::GetStyle().ItemInnerSpacing.x);
+        ImGui::TextUnformatted(label, dispEnd);
+        ImGui::PopID();
+        return changed;
+    }
+
     inline void Left_Skn()
     {
         SynthBeginSection("##skn_s1");
@@ -1414,11 +1514,14 @@ namespace Menu
             auto& skin = SkinChanger::cfg.weapons[ws];
             SynthSep();
             EvoCheckbox("Enable##wp", &skin.enabled);
-            if (skin.enabled)
+            // Picker is always visible — picking a paint kit auto-enables
+            // the weapon (SkinChanger::SyncConfigs treats paintKit>0 as
+            // active). The checkbox is now an explicit "force on" override.
             {
                 SynthSep();
-                ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-                ImGui::InputInt("Paint Kit##wpk", &skin.paintKit);
+                PaintKitPicker("Paint Kit##wpk", &skin.paintKit,
+                               (ws >= 0 && ws < SkinChanger::kWeaponCount)
+                                   ? SkinChanger::kWeapons[ws].name : "");
                 if (skin.paintKit < 0) skin.paintKit = 0;
                 SynthSep();
                 EvoSliderFloat("Wear##ww", &skin.wear, 0.f, 1.f, "%.4f");
@@ -1460,8 +1563,13 @@ namespace Menu
             if (ImGui::Combo("Model##km", &SkinChanger::cfg.knifeModel, kn, SkinChanger::kKnifeCount))
                 SkinChanger::ForceFullUpdate();
             SynthSep();
-            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-            ImGui::InputInt("Paint Kit##kpk", &SkinChanger::cfg.knifePaintKit);
+            {
+                int kIdx = SkinChanger::cfg.knifeModel;
+                const char* kName = (kIdx > 0 && kIdx < SkinChanger::kKnifeCount)
+                                        ? SkinChanger::kKnives[kIdx].name : "knife";
+                if (PaintKitPicker("Paint Kit##kpk", &SkinChanger::cfg.knifePaintKit, kName))
+                    SkinChanger::ForceFullUpdate();
+            }
             if (SkinChanger::cfg.knifePaintKit < 0) SkinChanger::cfg.knifePaintKit = 0;
             SynthSep();
             EvoSliderFloat("Wear##kw", &SkinChanger::cfg.knifeWear, 0.f, 1.f, "%.4f");
@@ -1489,8 +1597,7 @@ namespace Menu
             if (ImGui::Combo("Model##gm", &SkinChanger::cfg.gloveModel, gn, SkinChanger::kGloveCount))
                 SkinChanger::ForceFullUpdate();
             SynthSep();
-            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-            ImGui::InputInt("Paint Kit##gpk", &SkinChanger::cfg.glovePaintKit);
+            PaintKitPicker("Paint Kit##gpk", &SkinChanger::cfg.glovePaintKit, "glove");
             if (SkinChanger::cfg.glovePaintKit < 0) SkinChanger::cfg.glovePaintKit = 0;
             SynthSep();
             EvoSliderFloat("Wear##gw", &SkinChanger::cfg.gloveWear, 0.f, 1.f, "%.4f");
@@ -1589,6 +1696,8 @@ namespace Menu
         EvoCheckbox("No Shadows##nsh",         &WorldEffects::cfg.noShadows);
         SynthSep();
         EvoCheckbox("No Color Correction##ncc",&WorldEffects::cfg.noColorCorrection);
+        SynthSep();
+        EvoCheckbox("Bright Aggregates##bag",  &WorldEffects::cfg.brightAggregates);
         SynthEndSection();
 
         if (advancedMode)
@@ -2681,7 +2790,14 @@ namespace Menu
     }
     inline void Pg_Triggerbot()
     {
-        EvoCheckbox("Team Check##ttc",   &Triggerbot::cfg.teamCheck);
+        Triggerbot::cfg.key = KeyCombo("Trigger Key##tk", Triggerbot::cfg.key);
+        SynthSep();
+        const char* tmodes[] = { "Headshot", "Bodyshot", "Auto (head/body)", "Manual" };
+        EvoCombo("Target Mode##ttm", &Triggerbot::cfg.targetMode, tmodes, 4);
+        SynthSep(); EvoCheckbox("Seeded Predict##tsp", &Triggerbot::cfg.seededPredict);
+        SynthSep(); EvoCheckbox("Fire Airborne##tab", &Triggerbot::cfg.airborneFire);
+        SynthSep(); ImGui::SliderFloat("Hitbox Radius##thr", &Triggerbot::cfg.hitboxRadius, 1.f, 20.f, "%.1f");
+        SynthSep(); EvoCheckbox("Team Check##ttc",   &Triggerbot::cfg.teamCheck);
         SynthSep(); EvoCheckbox("Smoke Check##tsc",  &Triggerbot::cfg.smokeCheck);
         SynthSep(); EvoCheckbox("Scope Only##tso",   &Triggerbot::cfg.scopeOnly);
         SynthSep(); ImGui::SliderInt("Min Delay##tmd", &Triggerbot::cfg.minDelayMs, 0, 200);
@@ -2689,7 +2805,7 @@ namespace Menu
     }
     inline void Pg_Bhop()
     {
-        EvoSliderFloat("Max Speed##bms", &Bhop::cfg.maxSpeed, 200.f, 500.f, "%.0f");
+        EvoSliderFloat("Max Speed (0=off)##bms", &Bhop::cfg.maxSpeed, 0.f, 500.f, "%.0f");
         SynthSep(); EvoSliderFloat("Min Speed##bns", &Bhop::cfg.minSpeed,  10.f, 120.f, "%.0f");
         SynthSep(); EvoCheckbox("Auto Strafe##bs",   &Bhop::cfg.autoStrafe);
         SynthSep();
@@ -2761,6 +2877,23 @@ namespace Menu
             SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
             ImGui::ColorEdit4("Hidden##hc",  ESP::cfg.hiddenColor,  ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
         }
+    }
+    inline void Pg_Crosshair()
+    {
+        const char* styles[] = { "Dot", "Cross", "T-Style", "Plus" };
+        EvoCombo("Style##xhs", &Crosshair::cfg.style, styles, 4);
+        SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::ColorEdit4("Color##xhc", Crosshair::cfg.color, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+        SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::SliderFloat("Size##xhz", &Crosshair::cfg.size, 1.f, 20.f, "%.0f");
+        SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::SliderFloat("Gap##xhg",  &Crosshair::cfg.gap,  0.f, 15.f, "%.0f");
+        SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::SliderFloat("Thickness##xht", &Crosshair::cfg.thickness, 1.f, 4.f, "%.1f");
+        SynthSep(); EvoCheckbox("Center Dot##xhcd", &Crosshair::cfg.dotCenter);
+        SynthSep(); EvoCheckbox("Outline##xho",     &Crosshair::cfg.outline);
+        SynthSep(); EvoCheckbox("Only With Weapon##xhw", &Crosshair::cfg.onlyWithWeapon);
+        SynthSep(); EvoCheckbox("Hide When Scoped##xhs", &Crosshair::cfg.hideWhenScoped);
     }
     inline void Pg_Chams()
     {
@@ -2877,8 +3010,10 @@ namespace Menu
             auto& skin = SkinChanger::cfg.weapons[ws];
             SynthSep(); EvoCheckbox("Enable##wp", &skin.enabled);
             if (skin.enabled) {
-                SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-                ImGui::InputInt("Paint Kit##wpk", &skin.paintKit);
+                SynthSep();
+                PaintKitPicker("Paint Kit##wpk", &skin.paintKit,
+                               (ws >= 0 && ws < SkinChanger::kWeaponCount)
+                                   ? SkinChanger::kWeapons[ws].name : "");
                 if (skin.paintKit < 0) skin.paintKit = 0;
                 SynthSep(); EvoSliderFloat("Wear##ww", &skin.wear, 0.f, 1.f, "%.4f");
                 SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
@@ -2894,8 +3029,14 @@ namespace Menu
         ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
         if (ImGui::Combo("Model##km", &SkinChanger::cfg.knifeModel, kn, SkinChanger::kKnifeCount))
             SkinChanger::ForceFullUpdate();
-        SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-        ImGui::InputInt("Paint Kit##kpk", &SkinChanger::cfg.knifePaintKit);
+        SynthSep();
+        {
+            int kIdx = SkinChanger::cfg.knifeModel;
+            const char* kName = (kIdx > 0 && kIdx < SkinChanger::kKnifeCount)
+                                    ? SkinChanger::kKnives[kIdx].name : "knife";
+            if (PaintKitPicker("Paint Kit##kpk", &SkinChanger::cfg.knifePaintKit, kName))
+                SkinChanger::ForceFullUpdate();
+        }
         if (SkinChanger::cfg.knifePaintKit < 0) SkinChanger::cfg.knifePaintKit = 0;
         SynthSep(); EvoSliderFloat("Wear##kw", &SkinChanger::cfg.knifeWear, 0.f, 1.f, "%.4f");
     }
@@ -2907,8 +3048,8 @@ namespace Menu
         ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
         if (ImGui::Combo("Model##gm", &SkinChanger::cfg.gloveModel, gn, SkinChanger::kGloveCount))
             SkinChanger::ForceFullUpdate();
-        SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-        ImGui::InputInt("Paint Kit##gpk", &SkinChanger::cfg.glovePaintKit);
+        SynthSep();
+        PaintKitPicker("Paint Kit##gpk", &SkinChanger::cfg.glovePaintKit, "glove");
         if (SkinChanger::cfg.glovePaintKit < 0) SkinChanger::cfg.glovePaintKit = 0;
         SynthSep(); EvoSliderFloat("Wear##gw", &SkinChanger::cfg.gloveWear, 0.f, 1.f, "%.4f");
     }
@@ -2967,6 +3108,7 @@ namespace Menu
         SynthSep(); EvoCheckbox("Anti-Fog##af", &WorldEffects::cfg.antiFog);
         SynthSep(); EvoCheckbox("No Shadows##nsh", &WorldEffects::cfg.noShadows);
         SynthSep(); EvoCheckbox("No Color Correction##ncc", &WorldEffects::cfg.noColorCorrection);
+        SynthSep(); EvoCheckbox("Bright Aggregates##bag",   &WorldEffects::cfg.brightAggregates);
         SynthSep(); EvoCheckbox("Custom Fog##cf", &WorldEffects::cfg.fogEnabled);
         if (WorldEffects::cfg.fogEnabled) {
             SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
@@ -3063,6 +3205,7 @@ namespace Menu
     };
     inline FeatureDef kFeat_Vis[] = {
         { "ESP",         "Player visuals",       FI_BOX,        &ESP::cfg.enabled,             Pg_ESP         },
+        { "Crosshair",   "Static center reticle",FI_CROSSHAIR,  &Crosshair::cfg.enabled,       Pg_Crosshair   },
         { "Chams",       "Material overrides",   FI_SILHOUETTE, &Chams::cfg.enabled,           Pg_Chams       },
         { "Tracers",     "Bullet trails",        FI_TRACER,     &BulletTracer::cfg.enabled,    Pg_Tracers     },
         { "Damage Ind.", "Hitmarker indicator",  FI_DROP,       &DamageIndicator::cfg.enabled, Pg_DamageInd   },

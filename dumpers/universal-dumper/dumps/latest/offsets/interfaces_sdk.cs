@@ -3,7 +3,7 @@ namespace CS2Sdk.Interfaces;
 
 public static class Interfaces
 {
-    public const uint CS2_BUILD = 14156u;
+    public const uint CS2_BUILD = 14158u;
 
     public static class animationsystem_dll
     {
@@ -13,14 +13,14 @@ public static class Interfaces
 
     public static class client_dll
     {
-        public static nint ClientToolsInfo_001(nint moduleBase) => moduleBase + 0x204D150;
-        public static nint EmptyWorldService001_Client(nint moduleBase) => moduleBase + 0x2010A90;
-        public static nint GameClientExports001(nint moduleBase) => moduleBase + 0x2049DF0;
-        public static nint LegacyGameUI001(nint moduleBase) => moduleBase + 0x2065580;
-        public static nint Source2Client002(nint moduleBase) => moduleBase + 0x2323E10;
-        public static nint Source2ClientConfig001(nint moduleBase) => moduleBase + 0x2295D30;
-        public static nint Source2ClientPrediction001(nint moduleBase) => moduleBase + 0x20545B0;
-        public static nint Source2ClientUI001(nint moduleBase) => moduleBase + 0x2063AE0;
+        public static nint ClientToolsInfo_001(nint moduleBase) => moduleBase + 0x20501C0;
+        public static nint EmptyWorldService001_Client(nint moduleBase) => moduleBase + 0x2013A90;
+        public static nint GameClientExports001(nint moduleBase) => moduleBase + 0x204CE60;
+        public static nint LegacyGameUI001(nint moduleBase) => moduleBase + 0x20685E0;
+        public static nint Source2Client002(nint moduleBase) => moduleBase + 0x2326F90;
+        public static nint Source2ClientConfig001(nint moduleBase) => moduleBase + 0x2298FD0;
+        public static nint Source2ClientPrediction001(nint moduleBase) => moduleBase + 0x2057630;
+        public static nint Source2ClientUI001(nint moduleBase) => moduleBase + 0x2066B40;
     }
 
     public static class engine2_dll
@@ -184,16 +184,16 @@ public static class Interfaces
 
     public static class server_dll
     {
-        public static nint EmptyWorldService001_Server(nint moduleBase) => moduleBase + 0x1BEED40;
-        public static nint EntitySubclassUtilsV001(nint moduleBase) => moduleBase + 0x1B9A3C0;
-        public static nint NavGameTest001(nint moduleBase) => moduleBase + 0x1C9B1C0;
-        public static nint ServerToolsInfo_001(nint moduleBase) => moduleBase + 0x1C481B8;
-        public static nint Source2GameClients001(nint moduleBase) => moduleBase + 0x1C46C10;
-        public static nint Source2GameDirector001(nint moduleBase) => moduleBase + 0x1DE06E0;
-        public static nint Source2GameEntities001(nint moduleBase) => moduleBase + 0x1C478C0;
-        public static nint Source2Server001(nint moduleBase) => moduleBase + 0x1C47710;
-        public static nint Source2ServerConfig001(nint moduleBase) => moduleBase + 0x1EFE378;
-        public static nint customnavsystem001(nint moduleBase) => moduleBase + 0x1B7B6A8;
+        public static nint EmptyWorldService001_Server(nint moduleBase) => moduleBase + 0x1BEFD30;
+        public static nint EntitySubclassUtilsV001(nint moduleBase) => moduleBase + 0x1B9B3B0;
+        public static nint NavGameTest001(nint moduleBase) => moduleBase + 0x1C9C1D0;
+        public static nint ServerToolsInfo_001(nint moduleBase) => moduleBase + 0x1C491B8;
+        public static nint Source2GameClients001(nint moduleBase) => moduleBase + 0x1C47C10;
+        public static nint Source2GameDirector001(nint moduleBase) => moduleBase + 0x1DE17F0;
+        public static nint Source2GameEntities001(nint moduleBase) => moduleBase + 0x1C488C0;
+        public static nint Source2Server001(nint moduleBase) => moduleBase + 0x1C48710;
+        public static nint Source2ServerConfig001(nint moduleBase) => moduleBase + 0x1EFEA98;
+        public static nint customnavsystem001(nint moduleBase) => moduleBase + 0x1B7C698;
     }
 
     public static class soundsystem_dll
@@ -211,27 +211,27 @@ public static class Interfaces
 
     public static class steamclient64_dll
     {
-        public static nint IVALIDATE001(nint moduleBase) => moduleBase + 0x16998B8;
-        public static nint SteamClient006(nint moduleBase) => moduleBase + 0x1696D50;
-        public static nint SteamClient007(nint moduleBase) => moduleBase + 0x1696D58;
-        public static nint SteamClient008(nint moduleBase) => moduleBase + 0x1696D60;
-        public static nint SteamClient009(nint moduleBase) => moduleBase + 0x1696D68;
-        public static nint SteamClient010(nint moduleBase) => moduleBase + 0x1696D70;
-        public static nint SteamClient011(nint moduleBase) => moduleBase + 0x1696D78;
-        public static nint SteamClient012(nint moduleBase) => moduleBase + 0x1696D80;
-        public static nint SteamClient013(nint moduleBase) => moduleBase + 0x1696D88;
-        public static nint SteamClient014(nint moduleBase) => moduleBase + 0x1696D90;
-        public static nint SteamClient015(nint moduleBase) => moduleBase + 0x1696D98;
-        public static nint SteamClient016(nint moduleBase) => moduleBase + 0x1696DA0;
-        public static nint SteamClient017(nint moduleBase) => moduleBase + 0x1696DA8;
-        public static nint SteamClient018(nint moduleBase) => moduleBase + 0x1696DB0;
-        public static nint SteamClient019(nint moduleBase) => moduleBase + 0x1696DB8;
-        public static nint SteamClient020(nint moduleBase) => moduleBase + 0x1696DC0;
-        public static nint SteamClient021(nint moduleBase) => moduleBase + 0x1696DC8;
-        public static nint SteamClient022(nint moduleBase) => moduleBase + 0x1696DD0;
-        public static nint SteamClient023(nint moduleBase) => moduleBase + 0x1696DD8;
-        public static nint p2pvoice002(nint moduleBase) => moduleBase + 0x14E5DEF;
-        public static nint p2pvoicesingleton002(nint moduleBase) => moduleBase + 0x16720F0;
+        public static nint IVALIDATE001(nint moduleBase) => moduleBase + 0x16BD098;
+        public static nint SteamClient006(nint moduleBase) => moduleBase + 0x16BA500;
+        public static nint SteamClient007(nint moduleBase) => moduleBase + 0x16BA508;
+        public static nint SteamClient008(nint moduleBase) => moduleBase + 0x16BA510;
+        public static nint SteamClient009(nint moduleBase) => moduleBase + 0x16BA518;
+        public static nint SteamClient010(nint moduleBase) => moduleBase + 0x16BA520;
+        public static nint SteamClient011(nint moduleBase) => moduleBase + 0x16BA528;
+        public static nint SteamClient012(nint moduleBase) => moduleBase + 0x16BA530;
+        public static nint SteamClient013(nint moduleBase) => moduleBase + 0x16BA538;
+        public static nint SteamClient014(nint moduleBase) => moduleBase + 0x16BA540;
+        public static nint SteamClient015(nint moduleBase) => moduleBase + 0x16BA548;
+        public static nint SteamClient016(nint moduleBase) => moduleBase + 0x16BA550;
+        public static nint SteamClient017(nint moduleBase) => moduleBase + 0x16BA558;
+        public static nint SteamClient018(nint moduleBase) => moduleBase + 0x16BA560;
+        public static nint SteamClient019(nint moduleBase) => moduleBase + 0x16BA568;
+        public static nint SteamClient020(nint moduleBase) => moduleBase + 0x16BA570;
+        public static nint SteamClient021(nint moduleBase) => moduleBase + 0x16BA578;
+        public static nint SteamClient022(nint moduleBase) => moduleBase + 0x16BA580;
+        public static nint SteamClient023(nint moduleBase) => moduleBase + 0x16BA588;
+        public static nint p2pvoice002(nint moduleBase) => moduleBase + 0x14E627F;
+        public static nint p2pvoicesingleton002(nint moduleBase) => moduleBase + 0x16950F0;
     }
 
     public static class tier0_dll

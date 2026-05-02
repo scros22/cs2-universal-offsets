@@ -92,6 +92,23 @@ namespace Signatures
     constexpr const char* DrawSkyboxArray =
         "45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55";
 
+    // CSceneSystem::DrawAggregateSceneObjectArray — scenesystem.dll
+    //   Per-frame batched draw of static world geometry "aggregates"
+    //   (props/brushes batched together by tile). Receives an output
+    //   render-batch struct via a3 whose [1]+8 slot is a fade-alpha
+    //   multiplier the engine zeroes when the batch is past its LOD
+    //   fade boundary. On dark/foggy maps + warmup ambient the engine
+    //   piles enough fade onto distant aggregates that the world looks
+    //   washed-out / dimmed (image: Anubis warmup purple cast).
+    //   Verified unique on build 14158 (sub_18003BC00).
+    //   Hook usage: pass-through call, then post-call force
+    //   ((uint32_t*)a3[1])[2] = 0x3F800000 (1.0f) when the visibility
+    //   override is on — keeps far aggregates at full opacity so the
+    //   world reads brighter without disabling fog/lighting.
+    constexpr const char* DrawAggregateSceneObjectArray =
+        "48 8B C4 48 89 50 ? 48 89 48 ? 55 53 56 57 41 54 41 55 41 56 "
+        "41 57 48 8D A8 ? ? ? ? 48 81 EC ? ? ? ? 0F 29 70";
+
     // DisableViewClustering / PVS singleton accessor — engine2.dll
     //   lea rcx, [g_visMgr]   ; load singleton ptr-to-ptr
     //   xor edx, edx          ; arg = 0 (disable)
@@ -248,9 +265,25 @@ namespace Signatures
     constexpr const char* EquipItemInLoadout =
         "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 89 54 24 ? 57 41 54 41 55 41 56 41 57 48 83 EC ? 0F B7 FA";
 
-    // CEconItemView::GetPaintKitIndex — resolves paint kit from econ item
+    // CEconItemView::GetCustomPaintKitIndex — static accessor that
+    // reads the "set item texture prefab" attribute off the supplied
+    // CEconItemView via vtable[29] (GetTypedAttributeValue<u32,float>),
+    // returns int paint-kit-id (0 when missing). Lets us read what the
+    // game thinks the live paint kit is for a weapon — used by the
+    // skin changer to detect rejection and gate re-apply work, instead
+    // of blindly hammering ApplyEconCustomization every tick.
+    //
+    // The previous short signature ("48 89 5C 24 ?? 57 48 83 EC ?? 8B
+    // 15 ?? ?? ?? ?? 48 8B F9 65 48 8B 04 25") matched 15 functions
+    // on build 14158 and would resolve to the wrong one. Long unique
+    // pattern below verified single match @ sub_1810A8A60.
     constexpr const char* GetPaintKitIndex =
-        "48 89 5C 24 ? 57 48 83 EC ? 8B 15 ? ? ? ? 48 8B F9 65 48 8B 04 25";
+        "48 89 5C 24 ? 57 48 83 EC ? 8B 15 ? ? ? ? 48 8B F9 65 48 8B 04 25 "
+        "? ? ? ? B9 ? ? ? ? 48 8B 04 D0 8B 04 01 39 05 ? ? ? ? "
+        "0F 8F ? ? ? ? E8 ? ? ? ? 8B 58 ? 39 1D ? ? ? ? 74 ? "
+        "E8 ? ? ? ? 48 8B 15 ? ? ? ? 48 8B C8 E8 ? ? ? ? "
+        "48 89 05 ? ? ? ? 89 1D ? ? ? ? EB ? 48 8B 05 ? ? ? ? "
+        "48 85 C0 74";
 
     // ----------------------------------------------------------------
     // scenesystem.dll

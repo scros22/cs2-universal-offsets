@@ -1,3 +1,4 @@
 {
-    "kiroAgent.configureMCP": "Enabled"
+    "kiroAgent.configureMCP": "Enabled",
+    "cmake.sourceDirectory": "C:/Users/Samuel/Projects/cs2/vendor/imgui/examples/example_glfw_vulkan"
 }

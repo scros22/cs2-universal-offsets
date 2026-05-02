@@ -31,6 +31,13 @@
 #include "features/skinchanger_test.h"
 #include "features/inventory_changer.h"
 #include "features/model_changer.h"
+#include "features/crosshair.h"
+// Seeded-triggerbot research probe — superseded by Triggerbot::Setup
+// (features/triggerbot.h) which owns the spread hook directly. Kept
+// in tree (disabled) for future re-enable when investigating new
+// Valve changes to the spread RNG path.
+//#define LUCID_SEED_PROBE 1
+//#include "features/seed_probe.h"
 #include "render/hooks.h"
 
 #pragma comment(lib, "Psapi.lib")
@@ -355,6 +362,20 @@ static void EntryThread(HMODULE hModule)
         DllLog("[EntryThread] KillSound::Setup OK (custom ding active, Valve ding muted)");
     else
         DllLog("[EntryThread] KillSound::Setup FAILED (sig miss or hook install failed)");
+
+    // Seeded triggerbot — resolves the engine seed-gen + spread
+    // functions and installs a passive hook on the spread fn to
+    // capture per-weapon arg templates. Predictor lives in
+    // features/triggerbot.h (Triggerbot::PredictHit).
+    {
+        int tsr = Triggerbot::Setup();
+        if (tsr == 1)
+            DllLog("[EntryThread] Triggerbot::Setup OK (seeded predictor armed)");
+        else if (tsr == 0)
+            DllLog("[EntryThread] Triggerbot::Setup PARTIAL (seed-gen ok, spread hook missed) — falling back to accuracy-gate");
+        else
+            DllLog("[EntryThread] Triggerbot::Setup FAILED (%d) — falling back to accuracy-gate", tsr);
+    }
 
     SkinChanger::Init();
     DllLog("[EntryThread] SkinChanger::Init OK");

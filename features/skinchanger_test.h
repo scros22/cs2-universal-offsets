@@ -389,6 +389,55 @@ namespace SkinChanger
     inline RegenerateWeaponSkinFn RegenerateWeaponSkin = nullptr;
 
     // ---------------------------------------------------------------
+    // CEconItemView::GetCustomPaintKitIndex (sub_1810A8A60 build 14158).
+    //
+    // Static accessor that takes a CEconItemView* and returns the
+    // currently resolved paint-kit-id (int, 0 when missing). Internally
+    // looks up the "set item texture prefab" attribute def via TLS-cached
+    // schema globals and dispatches vtable[29] (GetTypedAttributeValue
+    // <uint,float>) on the view, casting the float result to int.
+    //
+    // We use this as a verification feedback loop: after writing the
+    // fallback paint-kit + calling ApplyEconCustomization+regen, we can
+    // ask the engine "what paint kit do you actually see on this item?"
+    // If the answer matches our target we skip per-tick re-apply work
+    // (huge churn reduction → fewer crashes from racing the regen path).
+    // If it doesn't match (server reverted, round transition wiped
+    // fallbacks, etc.) we re-apply once.
+    //
+    // Argument is the CEconItemView pointer = weapon + m_AttributeManager
+    // + m_Item, NOT the bare weapon entity.
+    // ---------------------------------------------------------------
+    using GetPaintKitIndexFn = int(__fastcall*)(uintptr_t econItemView);
+    inline GetPaintKitIndexFn GetPaintKitIndex = nullptr;
+
+    inline void InitGetPaintKitIndex() {
+        if (GetPaintKitIndex != nullptr) return;
+        if (!GameState::clientBase) return;
+        uintptr_t addr = Mem::FindPatternInModule(
+            GameState::clientBase, Signatures::GetPaintKitIndex);
+        if (addr) {
+            GetPaintKitIndex = reinterpret_cast<GetPaintKitIndexFn>(addr);
+            SkLog("[Init] GetPaintKitIndex resolved @ 0x%llX (RVA 0x%llX)",
+                  (unsigned long long)addr,
+                  (unsigned long long)(addr - GameState::clientBase));
+        } else {
+            SkLog("[Init] GetPaintKitIndex sig FAILED (live-verify disabled)");
+        }
+    }
+
+    // Returns the live paint-kit-id the game has resolved for `weapon`,
+    // or -1 if the accessor isn't available / call faulted. SEH-wrapped.
+    inline int ReadLivePaintKit(uintptr_t weapon) {
+        if (!GetPaintKitIndex || !weapon) return -1;
+        uintptr_t view = weapon + Offsets::m_AttributeManager + Offsets::m_Item;
+        int kit = -1;
+        __try { kit = GetPaintKitIndex(view); }
+        __except (EXCEPTION_EXECUTE_HANDLER) { kit = -1; }
+        return kit;
+    }
+
+    // ---------------------------------------------------------------
     // ApplyEconCustomization (sub_1807A8A00 in build 14155).
     //
     // This is the REAL paint-apply entry point. RegenerateWeaponSkin
@@ -415,7 +464,7 @@ namespace SkinChanger
     // ---------------------------------------------------------------
     using ApplyEconCustomizationFn = void(__fastcall*)(uintptr_t weapon, char applyFallbacks);
     inline ApplyEconCustomizationFn ApplyEconCustomization = nullptr;
-    inline constexpr std::ptrdiff_t kApplyEconCustomization_RVA = 0x7A8A00;
+    inline constexpr std::ptrdiff_t kApplyEconCustomization_RVA = 0x7A8A90;
 
     // ---------------------------------------------------------------
     // ANIMGRAPH FORCE-REBUILD (build 14155, IDA-verified 2026-04-28)
@@ -445,12 +494,15 @@ namespace SkinChanger
     // makes the manager re-bind from the (now-updated) vdata's animgraph.
     using AnimGraphRebuildFn = void(__fastcall*)(uintptr_t controller, char mode);
     inline AnimGraphRebuildFn AnimGraphRebuild = nullptr;
-    inline constexpr std::ptrdiff_t kAnimGraphRebuild_RVA = 0x8AD5F0;
+    // 14158: function relocated 0x8AD5F0 → 0x8AEC70 (delta +0x1680). The
+    // 14155-era sig still resolves uniquely so the sig-scan path picks
+    // the right address; the constant is the fallback if sig fails.
+    inline constexpr std::ptrdiff_t kAnimGraphRebuild_RVA = 0x8AEC70;
     inline constexpr std::ptrdiff_t kMainGraphController_OFF = 0x1058;
     inline constexpr std::ptrdiff_t kGraphInstanceAG2_OFF    = 0x448;
     inline constexpr std::ptrdiff_t kGraphDefinitionAG2_OFF  = 0x370;
 
-    // RVA bumped for build 14156 (was 0x78C050 in 14155 — drift +0x160).
+    // RVA bumped for build 14158 (was 0x78C1B0 in 14156 — drift +0xF0).
     // Confirmed by universal-dumper signatures.json (named "RegenerateWeaponSkin").
     // Backup sig captures the unique current-build prologue:
     //   40 55 53 41 57 48 8D AC 24 00 FE FF FF 48 81 EC
@@ -458,7 +510,7 @@ namespace SkinChanger
     // Old prologue check (48 8B C4) was for a DIFFERENT compiler build of
     // this function and silently failed on every current build, leaving
     // RegenerateWeaponSkin = nullptr and ALL skins/knife paint not applying.
-    inline constexpr std::ptrdiff_t kRegenerateWeaponSkin_RVA = 0x78C1B0;
+    inline constexpr std::ptrdiff_t kRegenerateWeaponSkin_RVA = 0x78C2A0;
 
     inline void InitRegen() {
         if (RegenerateWeaponSkin != nullptr) return;
@@ -545,22 +597,54 @@ namespace SkinChanger
         if (meshMaskAddr) {
             SetMeshGroupMask = reinterpret_cast<SetMeshGroupMaskFn>(meshMaskAddr);
         }        
-        // UpdateSubclass — INTENTIONALLY UNRESOLVED.
-        // The historic sig (4C 8B DC 53 48 81 EC ?? ?? ?? ?? 48 8B 41)
-        // matches sub_1801FA880 in current build, which is the
-        // "missing subclass data" error logger (calls sub_180364720 with
-        // entity-deletion side effects). Calling it on a knife will
-        // wipe the weapon. We leave UpdateSubclass = nullptr so callers
-        // skip it. ApplyKnifeModelSwap no longer requires it.
-        UpdateSubclass = nullptr;
-        
-        // UpdateWeaponData - NEW! This is what we're missing
-        // Signature from forum post analysis
-        const char* updateWeaponDataSig = "48 89 5C 24 ? 57 48 83 EC ? 48 8B F9 E8 ? ? ? ? 48 8B D8";
-        uintptr_t updateWeaponDataAddr = Mem::FindPatternInModule(GameState::clientBase, updateWeaponDataSig);
-        if (updateWeaponDataAddr) {
-            UpdateWeaponData = reinterpret_cast<UpdateWeaponDataFn>(updateWeaponDataAddr);
+        // UpdateSubclass — RESOLVED (revised 2026-05-02).
+        //
+        // Earlier I (incorrectly) flagged sub_1801FA930 as a
+        // pure error-logger. Re-decompile shows it is the legitimate
+        // **subclass-data acquire** routine. It only enters the
+        // "DELETED entity" error path when m_nSubclassID == 0 OR the
+        // resolved subclass index returns -1. Because we ALWAYS write
+        // a valid m_nSubclassID before calling, the success branch is
+        // taken every time:
+        //   v3 = *(uint32*)(weapon + 0x380)            // m_nSubclassID
+        //   if (v3 != 0) {
+        //     *(uint64*)(weapon + 0x388) = sub_180356D20(...);  // bind subclass data ptr
+        //   }
+        // That bound subclass-data ptr (+0x388) is exactly what the
+        // animgraph manager dereferences to pick the per-knife
+        // sequence set (inspect / deploy / swing). Without this call
+        // the knife model swaps but the animgraph keeps using the
+        // old subclass's sequences — exactly the bug the user is
+        // reporting (Emerald Butterfly mesh shows but inspect plays
+        // default-knife anim).
+        //
+        // Long unique sig pinning the function in build 14158 (verified
+        // via IDA find_bytes — single match at sub_1801FA930).
+        const char* updateSubclassSig =
+            "4C 8B DC 53 48 81 EC ? ? ? ? 48 8B 41 10 48 8B D9 8B 50 30 C1 EA 04";
+        uintptr_t updateSubclassAddr = Mem::FindPatternInModule(GameState::clientBase, updateSubclassSig);
+        if (updateSubclassAddr) {
+            UpdateSubclass = reinterpret_cast<UpdateSubclassFn>(updateSubclassAddr);
+            SkLog("[Init] UpdateSubclass resolved @ 0x%llX (RVA 0x%llX)",
+                  (unsigned long long)updateSubclassAddr,
+                  (unsigned long long)(updateSubclassAddr - GameState::clientBase));
+        } else {
+            UpdateSubclass = nullptr;
+            SkLog("[Init] UpdateSubclass sig FAILED (animations may not rebind)");
         }
+        
+        // UpdateWeaponData - DISABLED.
+        //   Sig "48 89 5C 24 ? 57 48 83 EC ? 48 8B F9 E8 ? ? ? ? 48 8B D8"
+        //   matches 10 unrelated functions in client.dll build 14158
+        //   (verified via IDA find_bytes 2026-05-02). The first match
+        //   sub_18079F6D0 is a game-state-flag toggler completely
+        //   unrelated to weapons — calling it on a knife each swap was
+        //   poking random fields and almost certainly contributed to
+        //   the inspect-animation regression and intermittent crashes.
+        //   We rely on AnimGraphRebuild + ApplyEconCustomization for
+        //   vdata refresh instead. Leave nullptr so the call site skips.
+        UpdateWeaponData = nullptr;
+        (void)0;
         
         // UpdateComposite - NEW! This refreshes the weapon model
         // Signature from forum post analysis
@@ -578,8 +662,14 @@ namespace SkinChanger
         // refreshes the rendered mesh, this call is non-critical — if the
         // pattern fails to resolve we just skip it and rely on the mesh-mask
         // write to refresh the visual.
+        // CBaseModelEntity::SetBodygroup(int, int) — 14158 prologue. Old
+        // sig (48 83 EC 70 41 8B F0 8B DA 48 8B E9) was for a different
+        // compiler build and now matches 0 sites; the function moved to a
+        // proper rbp-frame prologue:
+        //   85 D2 0F 88 ?? ?? ?? ?? 55 53 56 41 56 48 8B EC 48 83 EC 78 45 8B F0 8B DA 48 8B F1
+        // RVA in 14158: 0x8D9E70. IDA verified single hit.
         const char* setBodyGroupSig =
-            "85 D2 0F 88 ? ? ? ? 53 55 56 48 83 EC 70 41 8B F0 8B DA 48 8B E9";
+            "85 D2 0F 88 ? ? ? ? 55 53 56 41 56 48 8B EC 48 83 EC 78 45 8B F0 8B DA 48 8B F1";
         uintptr_t setBodyGroupAddr = Mem::FindPatternInModule(GameState::clientBase, setBodyGroupSig);
         if (setBodyGroupAddr) {
             SetBodyGroup = reinterpret_cast<SetBodyGroupFn>(setBodyGroupAddr);
@@ -723,35 +813,44 @@ namespace SkinChanger
         } __except (EXCEPTION_EXECUTE_HANDLER) { return 0; }
     }
     inline uint64_t GetKnifeSubclassID(int defIndex) {
-        // def_index → MakeGlobalSymbol-table RVA (build 14156)
-        std::ptrdiff_t rva = 0;
+        // Hardcoded canonical CUtlStringToken hashes from the proven
+        // working reference (skin-changer-working-animations, user
+        // verified butterfly inspect anim works on his friend's box
+        // 2026-05-02). These are MakeGlobalSymbol("weapon_knife_*")
+        // outputs and are STABLE across CS2 builds (the algorithm
+        // hasn't changed) \u2014 unlike RVA-table reads which must be
+        // re-validated every build.
+        //
+        // Replacing the previous runtime-table lookup eliminates two
+        // sources of failure:
+        //   (a) the table RVA can drift (it did between 14156 \u2192 14158)
+        //   (b) the table is populated lazily by sub_18007D6A0; if our
+        //       swap fires before that init runs we'd read 0 and bail.
         switch (defIndex) {
-            case 500: rva = 0x22930E8; break; // weapon_bayonet
-            case 503: rva = 0x22930C8; break; // weapon_knife_css (Classic)
-            case 505: rva = 0x22930D0; break; // weapon_knife_flip
-            case 506: rva = 0x22930D8; break; // weapon_knife_gut
-            case 507: rva = 0x22930E0; break; // weapon_knife_karambit
-            case 508: rva = 0x22930F0; break; // weapon_knife_m9_bayonet
-            case 509: rva = 0x22930F8; break; // weapon_knife_tactical (Huntsman)
-            case 512: rva = 0x2293100; break; // weapon_knife_falchion
-            case 514: rva = 0x2293108; break; // weapon_knife_survival_bowie
-            case 515: rva = 0x2293110; break; // weapon_knife_butterfly
-            case 516: rva = 0x2293118; break; // weapon_knife_push (Shadow Daggers)
-            case 517: rva = 0x2293120; break; // weapon_knife_cord (Paracord)
-            case 518: rva = 0x2293128; break; // weapon_knife_canis (Survival)
-            case 519: rva = 0x2293130; break; // weapon_knife_ursus
-            case 520: rva = 0x2293138; break; // weapon_knife_gypsy_jackknife (Navaja)
-            case 521: rva = 0x2293140; break; // weapon_knife_outdoor (Nomad)
-            case 522: rva = 0x2293148; break; // weapon_knife_stiletto
-            case 523: rva = 0x2293150; break; // weapon_knife_widowmaker (Talon)
-            case 525: rva = 0x2293158; break; // weapon_knife_skeleton
-            case 526: rva = 0x2293160; break; // weapon_knife_kukri
+            case 42:  return 1986423522u; // weapon_knife (default CT)
+            case 59:  return 4069507963u; // weapon_knife_t (default T)
+            case 500: return 3933374535u; // weapon_bayonet
+            case 503: return 3787235507u; // weapon_knife_css (Classic)
+            case 505: return 4046390180u; // weapon_knife_flip
+            case 506: return 2047704618u; // weapon_knife_gut
+            case 507: return 1731408398u; // weapon_knife_karambit
+            case 508: return 1638561588u; // weapon_knife_m9_bayonet
+            case 509: return 2282479884u; // weapon_knife_tactical (Huntsman)
+            case 512: return 3412259219u; // weapon_knife_falchion
+            case 514: return 2511498851u; // weapon_knife_survival_bowie (Bowie)
+            case 515: return 1353709123u; // weapon_knife_butterfly
+            case 516: return 4269888884u; // weapon_knife_push (Shadow Daggers)
+            case 517: return 1105782941u; // weapon_knife_cord (Paracord)
+            case 518: return 275962944u;  // weapon_knife_canis (Survival)
+            case 519: return 1338637359u; // weapon_knife_ursus
+            case 520: return 3230445913u; // weapon_knife_gypsy_jackknife (Navaja)
+            case 521: return 3206681373u; // weapon_knife_outdoor (Nomad)
+            case 522: return 2595277776u; // weapon_knife_stiletto
+            case 523: return 4029975521u; // weapon_knife_widowmaker (Talon)
+            case 525: return 365028728u;  // weapon_knife_skeleton
+            case 526: return 3845286452u; // weapon_knife_kukri
             default:  return 0;
         }
-        uint32_t tok = ReadSubclassToken(rva);
-        SkLog("[Knife] subclass token def=%d rva=0x%llX -> 0x%X",
-              defIndex, (unsigned long long)rva, tok);
-        return (uint64_t)tok;
     }
 
     // ---------------------------------------------------------------
@@ -798,27 +897,33 @@ namespace SkinChanger
             //    next field (m_nSimulationTick @ +0x390).
             Mem::Write<uint32_t>(weapon + Offsets::m_nSubclassID, (uint32_t)subclassId);
 
-            // 3. SetModel(weapon, vmdl)
-            SetModel(weapon, modelPath);
+            // 3. UpdateSubclass(weapon) \u2014 acquires the subclass-data
+            //    pointer at weapon+0x388 from the new m_nSubclassID we
+            //    just wrote. The animgraph manager dereferences this
+            //    pointer to pick the per-knife sequence set. Skipping
+            //    this is what made the mesh swap visually but kept the
+            //    inspect/deploy anims locked to the previous knife.
+            //    Order copied verbatim from the proven working reference.
+            if (UpdateSubclass) UpdateSubclass(weapon);
 
-            // 4. SetMeshGroupMask(scene, mask) -- mask MUST match the
-            //    model loaded above. Legacy CSGO-era meshes (def 503
-            //    Classic Knife / 42 / 59) need mask=2; all modern CS2
-            //    knives use mask=1. Per the UC forum post: passing the
-            //    wrong mask makes the new mesh fail to bind entirely.
+            // 4. SetMeshGroupMask BEFORE SetModel.
+            //    Reference order. Setting the mask first ensures SetModel
+            //    binds the new vmdl using the correct mesh-group bit; the
+            //    inverse order can leave a legacy-mesh knife (Classic /
+            //    def 503) bound with the wrong mask and silently fall back
+            //    to default-knife sequences.
             const uint64_t kMeshMask = MeshMaskForDef(targetDefIndex);
             uintptr_t sceneNode = Mem::Read<uintptr_t>(weapon + Offsets::m_pGameSceneNode);
             if (sceneNode)
                 SetMeshGroupMask(sceneNode, kMeshMask);
 
-            // 5. UpdateWeaponData — refreshes the weapon's bound VData
-            //    (CCSWeaponBaseVData) to match the new m_nSubclassID we
-            //    just wrote. Without this the world+view weapon keep the
-            //    PREVIOUS knife's animgraph (m_szAnimExtension /
-            //    m_szAnimClass) so e.g. a Karambit plays default-knife
-            //    inspect/deploy/swing animations. Calling it forces the
-            //    animation system to re-resolve sequences against the
-            //    new subclass.
+            // 5. SetModel(weapon, vmdl) \u2014 with mask + subclass already set.
+            SetModel(weapon, modelPath);
+
+            // 6. UpdateWeaponData \u2014 DISABLED, see InitModelFunctions.
+            //    The previously-resolved address was a random unrelated
+            //    function. Animation rebind is now handled by step 3
+            //    (UpdateSubclass) plus AnimGraphRebuild + ApplyEconCustomization.
             if (UpdateWeaponData) UpdateWeaponData(weapon);
 
             // 6. SetBodygroup(weapon, 0, 0) — forces the renderer to drop the
@@ -842,13 +947,14 @@ namespace SkinChanger
             if (vmaHandle && vmaHandle != 0xFFFFFFFFu) {
                 uintptr_t vma = GameState::ResolveHandle(vmaHandle);
                 if (vma && vma > 0x10000) {
-                    SetModel(vma, modelPath);
+                    // Mirror the world-weapon swap order on the viewmodel
+                    // attachment so its animgraph also rebinds:
+                    //   subclass id \u2192 UpdateSubclass \u2192 mesh mask \u2192 SetModel.
+                    Mem::Write<uint32_t>(vma + Offsets::m_nSubclassID, (uint32_t)subclassId);
+                    if (UpdateSubclass) UpdateSubclass(vma);
                     uintptr_t vmaScene = Mem::Read<uintptr_t>(vma + Offsets::m_pGameSceneNode);
-                    // Same mask as the world weapon -- the viewmodel
-                    // attachment loads the SAME vmdl, so it must use
-                    // the SAME legacy bit, otherwise its mesh fails
-                    // to bind exactly like the world model would.
                     if (vmaScene) SetMeshGroupMask(vmaScene, kMeshMask);
+                    SetModel(vma, modelPath);
                     if (SetBodyGroup) SetBodyGroup(vma, 0, 0);
                 }
             }
@@ -1080,18 +1186,38 @@ namespace SkinChanger
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
     }
 
+    // SEH-safe peek used by Tick() to read the embedded glove def-index
+    // without contaminating Tick() with __try (Tick already holds a
+    // std::lock_guard which requires object unwinding — incompatible
+    // with __try in the same function).
+    inline uint16_t SafeReadGloveEconDef(uintptr_t localPawn)
+    {
+        if (!localPawn) return 0;
+        uint16_t v = 0;
+        __try {
+            v = Mem::Read<uint16_t>(
+                localPawn + Offsets::m_EconGloves + Offsets::m_iItemDefinitionIndex);
+        } __except (EXCEPTION_EXECUTE_HANDLER) { v = 0; }
+        return v;
+    }
+
     // ---------------------------------------------------------------
     // Sync function to convert menu config to internal system
     // ---------------------------------------------------------------
     inline void SyncConfigs() {
         std::lock_guard<std::mutex> lock(configMutex);
         
-        // Sync weapon configs from menu to internal system
+        // Sync weapon configs from menu to internal system.
+        // UX: a weapon is "active" if user picked a paint kit (>0) OR
+        // explicitly toggled the Enable checkbox. This lets the picker
+        // alone drive things — no extra Enable click required, matching
+        // the knife/glove flow.
         for (int i = 0; i < kWeaponCount && i < 32; ++i) {
             int defIndex = kWeapons[i].defIndex;
             const auto& oldSkin = cfg.weapons[i];
-            
-            if (oldSkin.enabled) {
+
+            bool active = oldSkin.enabled || oldSkin.paintKit > 0;
+            if (active) {
                 weaponSkins[defIndex] = {
                     oldSkin.paintKit,
                     oldSkin.wear,
@@ -1186,20 +1312,44 @@ namespace SkinChanger
         }
 
         InitRegen();
+        InitGetPaintKitIndex();
         InitModelFunctions();
 
         bool force = forceUpdate.load();
         std::lock_guard<std::mutex> lock(configMutex);
 
         // ---------------------------------------------------------------
-        // GLOVE CHANGER — force model load + skin
+        // GLOVE CHANGER — edge-triggered model swap.
+        //
+        // CRITICAL: prior to this revision we wrote the entire
+        // m_EconGloves identity + set m_bNeedToReApplyGloves=1 every
+        // single tick. That made the per-tick orchestrator destroy +
+        // respawn C_WorldModelGloves continuously — visually the gloves
+        // never settled into the new model AND the entity churn was the
+        // most plausible source of the random in-game crashes.
+        //
+        // We now only call ApplyGloveModelSwap when:
+        //   - first time we see this pawn / model combo (round start), or
+        //   - user changed glove model in the menu (force/reset path), or
+        //   - game reverted m_iItemDefinitionIndex on the embedded view
+        //     back to something other than our target (auth resync).
         // ---------------------------------------------------------------
         if (cfg.gloveEnabled && cfg.gloveModel > 0 && cfg.gloveModel < kGloveCount) {
             int targetGloveDef = kGloves[cfg.gloveModel].defIndex;
-            // Re-apply every tick until it sticks (game may revert)
-            ApplyGloveModelSwap(localPawn, targetGloveDef);
-            lastGloveModelEntity = localPawn;
-            lastGloveModelDef    = targetGloveDef;
+
+            uint16_t curEconDef = SafeReadGloveEconDef(localPawn);
+
+            bool needSwap = force
+                         || lastGloveModelEntity != localPawn
+                         || lastGloveModelDef    != targetGloveDef
+                         || curEconDef           != (uint16_t)targetGloveDef;
+
+            if (needSwap) {
+                ApplyGloveModelSwap(localPawn, targetGloveDef);
+                lastGloveModelEntity = localPawn;
+                lastGloveModelDef    = targetGloveDef;
+            }
+
             if (cfg.glovePaintKit > 0)
                 ApplyGloveSkin(localPawn, cfg.glovePaintKit, cfg.gloveWear);
         } else {
@@ -1294,7 +1444,16 @@ namespace SkinChanger
                 knifeSkin.statTrak = cfg.knifeStatTrak;
                 knifeSkin.enabled  = true;
 
-                bool needsApply = force || (activeWeapon != lastAppliedWeapon) || (cfg.knifePaintKit != lastAppliedKit);
+                int liveKit = ReadLivePaintKit(activeWeapon);
+                bool engineMismatch = (liveKit >= 0 && liveKit != cfg.knifePaintKit);
+                bool engineMatches  = (liveKit >= 0 && liveKit == cfg.knifePaintKit);
+                bool cacheSaysApply = force || (activeWeapon != lastAppliedWeapon) || (cfg.knifePaintKit != lastAppliedKit);
+                bool needsApply     = (cacheSaysApply && !engineMatches) || engineMismatch;
+                if (cacheSaysApply && engineMatches) {
+                    // Engine already has correct paint kit — sync cache, skip work.
+                    lastAppliedWeapon = activeWeapon;
+                    lastAppliedKit    = cfg.knifePaintKit;
+                }
                 if (needsApply) {
                     lifeState = Mem::Read<uint8_t>(localPawn + Offsets::m_lifeState);
                     health    = Mem::Read<int32_t>(localPawn + Offsets::m_iHealth);
@@ -1333,7 +1492,16 @@ namespace SkinChanger
                 }
             } else {
                 const SkinConfig& skin = it->second;
-                bool needsApply = force || (activeWeapon != lastAppliedWeapon) || (skin.paintKit != lastAppliedKit);
+                int liveKit = ReadLivePaintKit(activeWeapon);
+                bool engineMismatch = (liveKit >= 0 && liveKit != skin.paintKit);
+                bool engineMatches  = (liveKit >= 0 && liveKit == skin.paintKit);
+                bool cacheSaysApply = force || (activeWeapon != lastAppliedWeapon) || (skin.paintKit != lastAppliedKit);
+                bool needsApply     = (cacheSaysApply && !engineMatches) || engineMismatch;
+                if (cacheSaysApply && engineMatches) {
+                    // Engine already shows our target paint kit — adopt cache, skip churn.
+                    lastAppliedWeapon = activeWeapon;
+                    lastAppliedKit    = skin.paintKit;
+                }
 
                 if (needsApply) {
                     lifeState = Mem::Read<uint8_t>(localPawn + Offsets::m_lifeState);

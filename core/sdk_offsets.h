@@ -111,7 +111,7 @@ namespace Offsets
     constexpr std::ptrdiff_t m_nEconGlovesChanged  = 0x1AC8;   // 14153 a2x
     // IDA-VERIFIED 2026-04-26 (build 14154): sub_180BB0B10 @ 0x180BB1D98
     // `mov dword [rax+10h], 1C5Ch` after lea "m_iShotsFired".
-    constexpr std::ptrdiff_t m_iShotsFired         = 0x1C5C;
+    constexpr std::ptrdiff_t m_iShotsFired         = 0x1C64;  // 14158 +0x8
     // 14153: m_aimPunchAngle no longer exists on the pawn directly.
     // The punch QAngle now lives inside CCSPlayer_AimPunchServices, pointed to
     // by m_pAimPunchServices on the pawn. Helper accessors live in features that
@@ -131,15 +131,15 @@ namespace Offsets
     // immediately after `lea rdx, "m_angEyeAngles"`. Matches universal-
     // dumper latest. Used for BOTH read (target solver) and write (normal
     // aim path); a wrong value here silently breaks the entire aimbot.
-    constexpr std::ptrdiff_t m_angEyeAngles        = 0x3300;
-    constexpr std::ptrdiff_t m_ArmorValue          = 0x1C74;
-    constexpr std::ptrdiff_t m_bGunGameImmunity    = 0x3278;  // unverified, was 0x32B8 (-0x40)
-    constexpr std::ptrdiff_t m_iIDEntIndex         = 0x33DC;
+    constexpr std::ptrdiff_t m_angEyeAngles        = 0x3360;  // 14158 +0x60
+    constexpr std::ptrdiff_t m_ArmorValue          = 0x1C7C;  // 14158 +0x8
+    constexpr std::ptrdiff_t m_bGunGameImmunity    = 0x3288;  // 14158 +0x10
+    constexpr std::ptrdiff_t m_iIDEntIndex         = 0x343C;  // 14158 +0x60
     constexpr std::ptrdiff_t m_flFlashDuration     = 0x1400;
     constexpr std::ptrdiff_t m_flFlashMaxAlpha     = 0x13FC;
     constexpr std::ptrdiff_t m_flLastSmokeOverlayAlpha = 0x1420;
-    constexpr std::ptrdiff_t m_bIsScoped           = 0x1C48;
-    constexpr std::ptrdiff_t m_entitySpottedState   = 0x1C30;  // was 0x1C70 (-0x40)
+    constexpr std::ptrdiff_t m_bIsScoped           = 0x1C50;  // 14158 +0x8
+    constexpr std::ptrdiff_t m_entitySpottedState   = 0x1C38;  // 14158 +0x8
     // EntitySpottedState_t::m_bSpottedByMask — uint32[2] bitmask of player
     // slots currently looking at this entity. Anti-detection uses this to
     // soften silent aim when an enemy has us in their PVS / on screen.
@@ -168,7 +168,7 @@ namespace Offsets
     // mov [rcx+10h], 1C68h immediately after lea "m_bWaitForNoAttack".
     // Previous value (0x1CA8) was +0x40 high — same drift we already
     // fixed for m_entitySpottedState. Universal-dumper + IDA agree.
-    constexpr std::ptrdiff_t m_bWaitForNoAttack    = 0x1C68;
+    constexpr std::ptrdiff_t m_bWaitForNoAttack    = 0x1C70;  // 14158 +0x8
 
     // C_CSPlayerPawn — defuse / hostage-rescue locks. Server forbids
     // attack inputs while either bool is true; angle desync alone
@@ -176,8 +176,8 @@ namespace Offsets
     // VERIFIED via IDA schema-registration sub_180BB0AB0 @ build 14154:
     // mov [rcx+10h], 1C4Ah / 1C4Bh after the respective string lea.
     // Previously had 0x1C8A / 0x1C8B (+0x40 drift, same as spotted-state).
-    constexpr std::ptrdiff_t m_bIsDefusing         = 0x1C4A;
-    constexpr std::ptrdiff_t m_bIsGrabbingHostage  = 0x1C4B;
+    constexpr std::ptrdiff_t m_bIsDefusing         = 0x1C52;  // 14158 +0x8
+    constexpr std::ptrdiff_t m_bIsGrabbingHostage  = 0x1C53;  // 14158 +0x8
 
     // C_BaseEntity — m_MoveType. MoveType_t::WALK = 2 (normal),
     // FLYGRAVITY = 4 (airborne due to gravity). Anything else
@@ -395,17 +395,88 @@ namespace Offsets
     // stamina to the wrong block silently nukes bhop without any obvious
     // symptom — the speed reset just doesn't take effect.
     constexpr std::ptrdiff_t m_pMovementServices_pawn       = 0x1220; // CCSPlayer_MovementServices*
-    constexpr std::ptrdiff_t m_bDucked_movement             = 0x3E0;  // bool
-    constexpr std::ptrdiff_t m_flDuckAmount_movement        = 0x3E4;  // float
-    constexpr std::ptrdiff_t m_bDucking_movement            = 0x3EE;  // bool
-    constexpr std::ptrdiff_t m_flStamina_movement           = 0x674;  // float — bhop kills speed if non-zero
-    constexpr std::ptrdiff_t m_flStaminaAtJumpStart_movement = 0x684; // float
-    constexpr std::ptrdiff_t m_flAccumulatedJumpError_mov   = 0x68C;  // float
-    constexpr std::ptrdiff_t m_flLastJumpFrac_movement      = 0x6E4;  // float
-    constexpr std::ptrdiff_t m_flLastJumpVelocityZ_movement = 0x6E8;  // float — for jumpshot apex detection
+    constexpr std::ptrdiff_t m_bDucked_movement             = 0x40C;  // bool   (14158 +0x2C)
+
+    // ===== MODERN SUBTICK MOVE API (CPlayer_MovementServices base) =====
+    // These are the schema-verified fields the engine reads in
+    // CCSPlayer_MovementServices::ProcessUsercmds to drive sub-tick-
+    // precise jump/duck/attack inputs (the same path gamesense's
+    // "modern bhop" / "perfect strafe" uses).
+    //
+    //   m_nButtons            : CInButtonState (24B) — current button state
+    //   m_nQueuedButtonDownMask    : uint64 — bits to set DOWN this cmd
+    //   m_nQueuedButtonChangeMask  : uint64 — bits that CHANGED state this cmd
+    //                                 (drives subtick recognition; without
+    //                                 a bit here the engine ignores the
+    //                                 corresponding ForceSubtickMoveWhen)
+    //   m_flCmdForwardMove / m_flCmdLeftMove / m_flCmdUpMove
+    //                          : raw input axes (-450..+450)
+    //   m_flMaxspeed           : effective max speed (sv_maxspeed*scaling)
+    //   m_arrForceSubtickMoveWhen[4]
+    //                          : subtick "when" fraction (0..1) per slot
+    //                            slot[0] = ATTACK, [1] = ATTACK2,
+    //                            slot[2] = JUMP,   [3] = DUCK
+    //   m_flForwardMove / m_flLeftMove / m_flUpMove
+    //                          : post-clip movement values applied to
+    //                            physics (write here to override after
+    //                            engine clamps/zeroes the cmd values)
+    constexpr std::ptrdiff_t m_nButtons_movement                  = 0x50;
+    constexpr std::ptrdiff_t m_nQueuedButtonDownMask_movement     = 0x70;
+    constexpr std::ptrdiff_t m_nQueuedButtonChangeMask_movement   = 0x78;
+    constexpr std::ptrdiff_t m_flCmdForwardMove_movement          = 0x1A0;
+    constexpr std::ptrdiff_t m_flCmdLeftMove_movement             = 0x1A4;
+    constexpr std::ptrdiff_t m_flCmdUpMove_movement               = 0x1A8;
+    constexpr std::ptrdiff_t m_flMaxspeed_movement                = 0x1AC;
+    constexpr std::ptrdiff_t m_arrForceSubtickMoveWhen_movement   = 0x1B0; // float[4]
+    constexpr std::ptrdiff_t m_flForwardMove_movement             = 0x1C0;
+    constexpr std::ptrdiff_t m_flLeftMove_movement                = 0x1C4;
+    constexpr std::ptrdiff_t m_flUpMove_movement                  = 0x1C8;
+    // Subtick slot indices into m_arrForceSubtickMoveWhen
+    constexpr int kSubtickSlot_Attack  = 0;
+    constexpr int kSubtickSlot_Attack2 = 1;
+    constexpr int kSubtickSlot_Jump    = 2;
+    constexpr int kSubtickSlot_Duck    = 3;
+    // Engine button bits (mirrors server_dll.hpp / ButtonCode_t)
+    constexpr std::uint64_t IN_BTN_ATTACK  = 1ull << 0;
+    constexpr std::uint64_t IN_BTN_JUMP    = 1ull << 1;
+    constexpr std::uint64_t IN_BTN_DUCK    = 1ull << 2;
+    constexpr std::uint64_t IN_BTN_FORWARD = 1ull << 3;
+    constexpr std::uint64_t IN_BTN_BACK    = 1ull << 4;
+    constexpr std::uint64_t IN_BTN_MOVELEFT  = 1ull << 9;
+    constexpr std::uint64_t IN_BTN_MOVERIGHT = 1ull << 10;
+    constexpr std::uint64_t IN_BTN_ATTACK2 = 1ull << 11;
+
+    constexpr std::ptrdiff_t m_flDuckAmount_movement        = 0x410;  // float  (14158 +0x2C)
+    constexpr std::ptrdiff_t m_bDucking_movement            = 0x41A;  // bool   (14158 +0x2C)
+    constexpr std::ptrdiff_t m_flStamina_movement           = 0x6A4;  // float  (14158 +0x30) — bhop kills speed if non-zero
+    constexpr std::ptrdiff_t m_flStaminaAtJumpStart_movement = 0x6B4; // float  (14158 +0x30)
+    constexpr std::ptrdiff_t m_flAccumulatedJumpError_mov   = 0x6BC;  // float  (14158 +0x30)
+    constexpr std::ptrdiff_t m_flLastJumpFrac_movement      = 0x714;  // float  (14158 +0x30)
+    constexpr std::ptrdiff_t m_flLastJumpVelocityZ_movement = 0x718;  // float  (14158 +0x30)
+
+    // ----- 14158 Modern Jump (CCSPlayerModernJump @ MovementServices+0x6D8) -----
+    // Build 14158 introduced CCSPlayerModernJump — subtick-aware jump press
+    // tracking. Writing the legacy +jump kbutton state no longer drives a
+    // jump on default servers (sv_legacy_jump 0). The press timestamp the
+    // server now consults lives in this sub-struct on the local pawn's
+    // movement services. Bhop primes m_nLastActualJumpPressTick = land+1
+    // every ground tick so the spam-penalty timer always sees a fresh press.
+    constexpr std::ptrdiff_t m_ModernJump_movement                        = 0x6D8; // CCSPlayerModernJump
+    constexpr std::ptrdiff_t m_ModernJump_LastActualJumpPressTick_off     = 0x10;  // int32 within ModernJump
+    constexpr std::ptrdiff_t m_ModernJump_LastActualJumpPressFrac_off     = 0x14;  // float
+    constexpr std::ptrdiff_t m_ModernJump_LastUsableJumpPressTick_off     = 0x18;  // int32
+    constexpr std::ptrdiff_t m_ModernJump_LastUsableJumpPressFrac_off     = 0x1C;  // float
+    constexpr std::ptrdiff_t m_ModernJump_LastLandedTick_off              = 0x20;  // int32
+    constexpr std::ptrdiff_t m_ModernJump_LastLandedFrac_off              = 0x24;  // float
+    // Legacy jump struct (CCSPlayerLegacyJump @ MovementServices+0x6C0). Used
+    // when sv_legacy_jump 1 — kept in sync as a belt-and-braces fallback.
+    constexpr std::ptrdiff_t m_LegacyJump_movement                        = 0x6C0; // CCSPlayerLegacyJump
+    constexpr std::ptrdiff_t m_LegacyJump_OldJumpPressed_off              = 0x10;  // bool
+    constexpr std::ptrdiff_t m_LegacyJump_JumpPressedTime_off             = 0x14;  // float
+    constexpr std::ptrdiff_t m_nLastJumpTick_movement                     = 0x710; // int32 — used to validate fresh press
     // Pawn-direct (not via services pointer):
-    constexpr std::ptrdiff_t m_flVelocityModifier_pawn      = 0x1C64; // float — server caps speed via this
-    constexpr std::ptrdiff_t m_iShotsFired_pawn             = 0x1C5C; // int — increments per bullet
+    constexpr std::ptrdiff_t m_flVelocityModifier_pawn      = 0x1C6C; // float (14158 +0x8) — server caps speed via this
+    constexpr std::ptrdiff_t m_iShotsFired_pawn             = 0x1C64; // int (14158 +0x8) — increments per bullet
     constexpr std::ptrdiff_t m_flFallVelocity_pawn          = 0x25C;  // float
 
     // C_PlantedC4 — full timing block. m_flC4Blow / m_flDefuseCountDown
@@ -454,8 +525,8 @@ namespace Offsets
     // IDA-VERIFIED 2026-04-26 (build 14154): sub_180BB0B10 @ 0x180BB1DE9
     // `mov dword [rax+10h], 1C60h` after lea "m_flFlinchStack" and
     // @ 0x180BB1E3A `mov dword [rax+10h], 1C64h` after "m_flVelocityModifier".
-    constexpr std::ptrdiff_t m_flFlinchStack         = 0x1C60;
-    constexpr std::ptrdiff_t m_flVelocityModifier    = 0x1C64;
+    constexpr std::ptrdiff_t m_flFlinchStack         = 0x1C68;  // 14158 +0x8
+    constexpr std::ptrdiff_t m_flVelocityModifier    = 0x1C6C;  // 14158 +0x8
     constexpr std::ptrdiff_t m_flTimeOfLastInjury    = 0x14E4;
 
     // CCSPlayer_AimPunchServices @ pawn + 0x1490. The server keeps the

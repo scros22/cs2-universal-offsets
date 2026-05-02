@@ -1,11 +1,11 @@
 {
     "client.dll": {
-        "CreateSOSubclassEconItem": "0xFF4FF0",
-        "EquipItemInLoadout": "0x7C2130",
-        "GetItemInLoadout": "0x7C3D50",
-        "RegenerateWeaponSkin": "0x78C1B0",
-        "SetMeshGroupMask": "0xA2C2B0",
-        "SetModel": "0x8D9A50"
+        "CreateSOSubclassEconItem": "0xFF7770",
+        "EquipItemInLoadout": "0x7C2150",
+        "GetItemInLoadout": "0x7C3D70",
+        "RegenerateWeaponSkin": "0x78C2A0",
+        "SetMeshGroupMask": "0xA2DB50",
+        "SetModel": "0x8DB1C0"
     },
     "materialsystem2.dll": {
         "FindParameter": "0x11E30",

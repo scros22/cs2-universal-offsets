@@ -76,6 +76,12 @@ namespace WorldEffects
         // Devastating visibility upgrade on dark maps.
         bool  fullbright        = false;
 
+        // Bright Aggregates — hooks CSceneSystem::DrawAggregateSceneObjectArray
+        // and forces the per-batch fade-alpha multiplier to 1.0 so distant
+        // world geometry doesn't visibly dim into ambient. Compounds nicely
+        // with antiFog / nightMode off / fullbright. Cheap and SEH-safe.
+        bool  brightAggregates  = false;
+
         // Fog override
         bool  fogEnabled        = false;
         float fogColor[3]       = { 0.1f, 0.1f, 0.2f };
@@ -392,6 +398,46 @@ namespace WorldEffects
             if (oDrawSkyboxArray) oDrawSkyboxArray(a1, a2, drawPrimitive, count, a5, a6, a7);
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
         g_inSkyboxDraw = false;
+    }
+
+    // ---------------------------------------------------------------
+    // CSceneSystem::DrawAggregateSceneObjectArray hook \u2014 forces the
+    // per-batch fade-alpha multiplier to 1.0 after the engine computes
+    // its (possibly zero / dimmed) value, so distant aggregates stop
+    // dimming into ambient. See signatures.h note for full rationale.
+    //
+    // Decompile shows the engine writes `((uint32_t*)a3[1])[2] = v19`
+    // very early in the function with v19 = 0 when scene-object fade
+    // is active or 0x3F800000 (1.0f) when not. Overwriting that slot
+    // post-call influences the parent draw loop's per-batch weighting
+    // (the function is one node in a recursive aggregate-walk) without
+    // touching any other render state. Single 4-byte write, SEH-wrapped.
+    // ---------------------------------------------------------------
+    using DrawAggregateFn = __int64 (__fastcall*)(__int64, __int64, __int64*);
+    inline DrawAggregateFn oDrawAggregate    = nullptr;
+    inline void*           pAggregateTarget  = nullptr;
+    inline bool            aggregateHooked   = false;
+
+    inline __int64 __fastcall hkDrawAggregate(__int64 a1, __int64 a2, __int64* a3)
+    {
+        __int64 ret = 0;
+        __try {
+            if (oDrawAggregate) ret = oDrawAggregate(a1, a2, a3);
+        } __except (EXCEPTION_EXECUTE_HANDLER) { return ret; }
+
+        if (cfg.brightAggregates && a3)
+        {
+            __try {
+                __int64 outBatch = a3[1];
+                if (outBatch)
+                {
+                    // +8 == third uint32_t slot == fade-alpha float bits.
+                    // 0x3F800000 == 1.0f. Force full opacity for this batch.
+                    *(volatile uint32_t*)(outBatch + 8) = 0x3F800000u;
+                }
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        }
+        return ret;
     }
 
     // ---------------------------------------------------------------
@@ -1548,6 +1594,25 @@ namespace WorldEffects
             }
         }
 
+        // --- DrawAggregateSceneObjectArray hook (scenesystem.dll) ---
+        // Verified unique on build 14158 (sub_18003BC00). Hook is a
+        // pass-through; only writes when cfg.brightAggregates is on.
+        uintptr_t aggAddr = Mem::FindPattern(L"scenesystem.dll",
+                                             Signatures::DrawAggregateSceneObjectArray);
+        if (aggAddr)
+        {
+            pAggregateTarget = reinterpret_cast<void*>(aggAddr);
+            MH_STATUS st = MH_CreateHook(
+                pAggregateTarget,
+                reinterpret_cast<void*>(&hkDrawAggregate),
+                reinterpret_cast<void**>(&oDrawAggregate));
+            if (st == MH_OK || st == MH_ERROR_ALREADY_CREATED)
+            {
+                st = MH_EnableHook(pAggregateTarget);
+                aggregateHooked = (st == MH_OK || st == MH_ERROR_ENABLED);
+            }
+        }
+
         // --- Third-person ConVars ---
         // All CS2 ConVars register into tier0.dll's central CCvar list.
         // Use CreateInterface("VEngineCvar007") to get the CCvar object
@@ -1615,6 +1680,14 @@ namespace WorldEffects
             oDrawSkyboxArray = nullptr;
             pSkyHookTarget = nullptr;
             skyHooked = false;
+        }
+        if (aggregateHooked && pAggregateTarget)
+        {
+            MH_DisableHook(pAggregateTarget);
+            MH_RemoveHook(pAggregateTarget);
+            oDrawAggregate    = nullptr;
+            pAggregateTarget  = nullptr;
+            aggregateHooked   = false;
         }
         if (decalsHooked && pRenderDecalsTarget)
         {

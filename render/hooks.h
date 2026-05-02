@@ -853,6 +853,7 @@ namespace Hooks
             Backtrack::Render();
             SoundESP::Render();
             Bhop::RenderVelocity();
+            Crosshair::Render();
             Log("[Render] All renders complete");
 
             if (Menu::espFont) ImGui::PopFont();

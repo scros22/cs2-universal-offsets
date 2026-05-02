@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace cs2::ifaces { inline constexpr std::uint32_t CS2_BUILD = 14156; }
+namespace cs2::ifaces { inline constexpr std::uint32_t CS2_BUILD = 14158; }
 
 namespace cs2::ifaces {
 
@@ -13,14 +13,14 @@ namespace cs2::ifaces {
     } // namespace animationsystem_dll
 
     namespace client_dll {
-        inline void* ClientToolsInfo_001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x204D150); }
-        inline void* EmptyWorldService001_Client(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x2010A90); }
-        inline void* GameClientExports001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x2049DF0); }
-        inline void* LegacyGameUI001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x2065580); }
-        inline void* Source2Client002(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x2323E10); }
-        inline void* Source2ClientConfig001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x2295D30); }
-        inline void* Source2ClientPrediction001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x20545B0); }
-        inline void* Source2ClientUI001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x2063AE0); }
+        inline void* ClientToolsInfo_001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x20501C0); }
+        inline void* EmptyWorldService001_Client(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x2013A90); }
+        inline void* GameClientExports001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x204CE60); }
+        inline void* LegacyGameUI001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x20685E0); }
+        inline void* Source2Client002(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x2326F90); }
+        inline void* Source2ClientConfig001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x2298FD0); }
+        inline void* Source2ClientPrediction001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x2057630); }
+        inline void* Source2ClientUI001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x2066B40); }
     } // namespace client_dll
 
     namespace engine2_dll {
@@ -162,16 +162,16 @@ namespace cs2::ifaces {
     } // namespace schemasystem_dll
 
     namespace server_dll {
-        inline void* EmptyWorldService001_Server(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1BEED40); }
-        inline void* EntitySubclassUtilsV001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1B9A3C0); }
-        inline void* NavGameTest001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1C9B1C0); }
-        inline void* ServerToolsInfo_001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1C481B8); }
-        inline void* Source2GameClients001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1C46C10); }
-        inline void* Source2GameDirector001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1DE06E0); }
-        inline void* Source2GameEntities001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1C478C0); }
-        inline void* Source2Server001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1C47710); }
-        inline void* Source2ServerConfig001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1EFE378); }
-        inline void* customnavsystem001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1B7B6A8); }
+        inline void* EmptyWorldService001_Server(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1BEFD30); }
+        inline void* EntitySubclassUtilsV001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1B9B3B0); }
+        inline void* NavGameTest001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1C9C1D0); }
+        inline void* ServerToolsInfo_001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1C491B8); }
+        inline void* Source2GameClients001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1C47C10); }
+        inline void* Source2GameDirector001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1DE17F0); }
+        inline void* Source2GameEntities001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1C488C0); }
+        inline void* Source2Server001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1C48710); }
+        inline void* Source2ServerConfig001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1EFEA98); }
+        inline void* customnavsystem001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1B7C698); }
     } // namespace server_dll
 
     namespace soundsystem_dll {
@@ -186,27 +186,27 @@ namespace cs2::ifaces {
     } // namespace steamaudio_dll
 
     namespace steamclient64_dll {
-        inline void* IVALIDATE001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16998B8); }
-        inline void* SteamClient006(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696D50); }
-        inline void* SteamClient007(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696D58); }
-        inline void* SteamClient008(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696D60); }
-        inline void* SteamClient009(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696D68); }
-        inline void* SteamClient010(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696D70); }
-        inline void* SteamClient011(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696D78); }
-        inline void* SteamClient012(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696D80); }
-        inline void* SteamClient013(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696D88); }
-        inline void* SteamClient014(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696D90); }
-        inline void* SteamClient015(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696D98); }
-        inline void* SteamClient016(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696DA0); }
-        inline void* SteamClient017(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696DA8); }
-        inline void* SteamClient018(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696DB0); }
-        inline void* SteamClient019(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696DB8); }
-        inline void* SteamClient020(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696DC0); }
-        inline void* SteamClient021(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696DC8); }
-        inline void* SteamClient022(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696DD0); }
-        inline void* SteamClient023(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x1696DD8); }
-        inline void* p2pvoice002(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x14E5DEF); }
-        inline void* p2pvoicesingleton002(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16720F0); }
+        inline void* IVALIDATE001(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BD098); }
+        inline void* SteamClient006(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA500); }
+        inline void* SteamClient007(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA508); }
+        inline void* SteamClient008(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA510); }
+        inline void* SteamClient009(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA518); }
+        inline void* SteamClient010(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA520); }
+        inline void* SteamClient011(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA528); }
+        inline void* SteamClient012(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA530); }
+        inline void* SteamClient013(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA538); }
+        inline void* SteamClient014(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA540); }
+        inline void* SteamClient015(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA548); }
+        inline void* SteamClient016(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA550); }
+        inline void* SteamClient017(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA558); }
+        inline void* SteamClient018(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA560); }
+        inline void* SteamClient019(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA568); }
+        inline void* SteamClient020(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA570); }
+        inline void* SteamClient021(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA578); }
+        inline void* SteamClient022(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA580); }
+        inline void* SteamClient023(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16BA588); }
+        inline void* p2pvoice002(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x14E627F); }
+        inline void* p2pvoicesingleton002(std::uintptr_t module_base) noexcept { return reinterpret_cast<void*>(module_base + 0x16950F0); }
     } // namespace steamclient64_dll
 
     namespace tier0_dll {

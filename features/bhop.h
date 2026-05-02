@@ -45,13 +45,23 @@ namespace Bhop
     {
         bool  enabled       = false;
         int   key           = VK_SPACE;
-        float maxSpeed      = 380.f;
-        float minSpeed      = 30.f;
+        // Soft speed clamp. 0 = OFF (recommended for advanced bhop —
+        // the only way to climb past 400 ups is to NOT clamp). When >0,
+        // autostrafe releases input above this speed so velocity coasts
+        // back into the band — useful for HvH where 290-315 mimics
+        // human pressure but caps the obvious tells.
+        // Set in menu. Default 0 = unlimited (gamesense "advanced" mode).
+        float maxSpeed      = 0.f;
+        float minSpeed      = 30.f;   // kickstart threshold
         bool  autoStrafe    = true;
         bool  showVelocity  = true;   // HUD speed display
         // Strafe mode: 0 = velocity (smoothest, perfect-strafe physics),
         //              1 = mouse-yaw (legacy, follows mouse turn delta)
         int   strafeMode    = 0;
+        // Subtick path: queue jump via m_arrForceSubtickMoveWhen +
+        // m_nQueuedButtonChangeMask. The ONLY path sv_subtick_legacy_kbinds 0
+        // servers honour. Pairs with kbutton fallback for legacy servers.
+        bool  subtickJump   = true;
     };
 
     inline Config cfg;
@@ -94,6 +104,27 @@ namespace Bhop
     using Offsets::m_flAccumulatedJumpError_mov;
     using Offsets::m_flLastJumpVelocityZ_movement;
     using Offsets::m_flVelocityModifier_pawn;
+    using Offsets::m_ModernJump_movement;
+    using Offsets::m_ModernJump_LastActualJumpPressTick_off;
+    using Offsets::m_ModernJump_LastActualJumpPressFrac_off;
+    using Offsets::m_ModernJump_LastUsableJumpPressTick_off;
+    using Offsets::m_ModernJump_LastUsableJumpPressFrac_off;
+    using Offsets::m_ModernJump_LastLandedTick_off;
+    using Offsets::m_LegacyJump_movement;
+    using Offsets::m_LegacyJump_OldJumpPressed_off;
+    using Offsets::m_LegacyJump_JumpPressedTime_off;
+    using Offsets::m_nLastJumpTick_movement;
+
+    // Modern subtick API offsets (CPlayer_MovementServices base)
+    using Offsets::m_nButtons_movement;
+    using Offsets::m_nQueuedButtonDownMask_movement;
+    using Offsets::m_nQueuedButtonChangeMask_movement;
+    using Offsets::m_flCmdForwardMove_movement;
+    using Offsets::m_flCmdLeftMove_movement;
+    using Offsets::m_flMaxspeed_movement;
+    using Offsets::m_arrForceSubtickMoveWhen_movement;
+    using Offsets::m_flForwardMove_movement;
+    using Offsets::m_flLeftMove_movement;
 
     inline bool hookInstalled = false;
 
@@ -132,8 +163,6 @@ namespace Bhop
         auto releaseStrafe = [&]() {
             WriteBtnIfChanged(base, ButtonOffsets::left,    256, lastBtnLeft);
             WriteBtnIfChanged(base, ButtonOffsets::right,   256, lastBtnRight);
-            // NOTE: we do NOT release forward/back here — those are
-            // user controls and on the ground we leave them alone.
         };
 
         if (onGround)
@@ -141,10 +170,7 @@ namespace Bhop
             if (inAutoStrafe)
             {
                 releaseStrafe();
-                // Ground frame: also release any forward/back override
-                // we held so the player gets normal walking control back.
-                WriteBtnIfChanged(base, ButtonOffsets::forward, 256, lastBtnForward);
-                WriteBtnIfChanged(base, ButtonOffsets::back,    256, lastBtnBack);
+                // Don't touch forward/back on ground — it's the user's input.
                 inAutoStrafe = false;
             }
             yawInit = false;
@@ -153,8 +179,7 @@ namespace Bhop
 
         // === IN AIR ===
 
-        // Only auto strafe while the bhop key is held (don't surprise the
-        // user when they're just falling normally).
+        // Only auto strafe while the bhop key is held.
         if (!(GetAsyncKeyState(cfg.key) & 0x8000))
         {
             if (inAutoStrafe)
@@ -166,51 +191,85 @@ namespace Bhop
             return;
         }
 
+        // RESPECT MANUAL INPUT: if the player is actively pressing A or D
+        // themselves, bail — they're driving the strafe manually.
+        // This is what fixes the "capped at 180 trying to move around" feel:
+        // we only kick in when the player has hands off the strafe keys.
+        if ((GetAsyncKeyState('A') & 0x8000) ||
+            (GetAsyncKeyState('D') & 0x8000))
+        {
+            if (inAutoStrafe) { releaseStrafe(); inAutoStrafe = false; }
+            return;
+        }
+
         inAutoStrafe = true;
 
-        // CRITICAL: in Source, holding W/S in air kills air acceleration.
-        // Force them released so A/D can do their job.
-        WriteBtnIfChanged(base, ButtonOffsets::forward, 256, lastBtnForward);
-        WriteBtnIfChanged(base, ButtonOffsets::back,    256, lastBtnBack);
+        Math::Vec3 vel = Mem::Read<Math::Vec3>(localPawn + Offsets::m_vecVelocity);
+        float speed2D = sqrtf(vel.x * vel.x + vel.y * vel.y);
+
+        // ---- OPTIONAL SOFT SPEED CLAMP ----
+        // Disabled by default (cfg.maxSpeed == 0). When enabled, releases
+        // strafe above the cap so velocity coasts back into the band.
+        if (cfg.maxSpeed > 0.f && speed2D > cfg.maxSpeed)
+        {
+            releaseStrafe();
+            return;
+        }
+
+        // CRITICAL: in Source, holding W in air kills air acceleration.
+        // Only force-release forward when the player ISN'T pressing it
+        // themselves (we don't want to fight their input — if they hold
+        // W intentionally for a jumpshot we leave it alone).
+        if (!(GetAsyncKeyState('W') & 0x8000))
+        {
+            WriteBtnIfChanged(base, ButtonOffsets::forward, 256, lastBtnForward);
+        }
+        if (!(GetAsyncKeyState('S') & 0x8000))
+        {
+            WriteBtnIfChanged(base, ButtonOffsets::back,    256, lastBtnBack);
+        }
 
         float curYaw = Mem::Read<Math::QAngle>(
             GameState::clientBase + GameState::RVA_dwViewAngles()).yaw;
 
-        // ---- direction = sign of "turn into velocity" ----
-        // dir < 0  → strafe LEFT (press A)
-        // dir > 0  → strafe RIGHT (press D)
-        // dir == 0 → no input (hold current speed)
+        // ---- direction = sign of "turn into desired direction" ----
+        // dir < 0  \u2192 strafe LEFT (press A)
+        // dir > 0  \u2192 strafe RIGHT (press D)
+        // dir == 0 \u2192 no input (hold current speed)
         float dir = 0.f;
 
         if (cfg.strafeMode == 0)
         {
-            // Velocity-vector mode. Compute angle from velocity vector.
-            Math::Vec3 vel = Mem::Read<Math::Vec3>(localPawn + Offsets::m_vecVelocity);
-            float speed2D = sqrtf(vel.x * vel.x + vel.y * vel.y);
-
+            // Velocity-vector mode. We strafe so that velocity rotates
+            // into the desired heading.
+            //
+            // Desired heading selection:
+            //   * if speed is too low to have a meaningful velocity
+            //     vector, kickstart by alternating
+            //   * else with handsFreeGlide on we ALWAYS aim velocity
+            //     toward view yaw (player just looks where they want)
+            //   * with handsFreeGlide off we follow existing velocity
+            //     (legacy behaviour: keeps current direction)
             if (speed2D < 30.f)
             {
-                // No real horizontal motion yet — kickstart by alternating.
                 static bool kickRight = false;
                 kickRight = !kickRight;
                 dir = kickRight ? 1.f : -1.f;
             }
             else
             {
-                // Angle between view yaw and velocity heading. Source
-                // engine yaw uses degrees with east=0, north=90.
                 float velYawDeg = atan2f(vel.y, vel.x) * (180.f / 3.14159265f);
                 float diff = curYaw - velYawDeg;
                 while (diff >  180.f) diff -= 360.f;
                 while (diff < -180.f) diff += 360.f;
 
-                // diff > 0 → view is to the LEFT of velocity heading
-                //             so to keep velocity rotating into view we
-                //             press A (strafe left, turn velocity left).
-                // diff < 0 → press D (strafe right).
+                // diff > 0  \u2192 view is CCW of velocity (left of it)
+                //              press A to rotate velocity CCW into view
+                // diff < 0  \u2192 view is CW of velocity (right of it)
+                //              press D to rotate velocity CW into view
                 if      (diff >  1.0f) dir = -1.f;
                 else if (diff < -1.0f) dir =  1.f;
-                // tiny residual diff → coast, no input.
+                // tiny residual diff \u2192 coast, no input.
             }
         }
         else
@@ -313,6 +372,62 @@ namespace Bhop
     }
 
     // ---------------------------------------------------------------
+    // ModernJumpPrime — build 14158 added CCSPlayerModernJump with a
+    // subtick press-tick guard. Writing the legacy +jump kbutton slot
+    // (which the universal-dumper exposes as Buttons::jump) no longer
+    // drives a jump on default servers (sv_legacy_jump 0): the press
+    // event the server now consults lives in m_ModernJump on the local
+    // movement services struct.
+    //
+    // We can't easily call the +iv_jump ConCommand from here without
+    // resolving the engine's command dispatcher, so instead we forge
+    // the press server-side state every frame the bhop key is held and
+    // we're on the ground: bump m_nLastActualJumpPressTick to one tick
+    // past the last landed tick. This is the same value the engine
+    // would write if a real subtick press arrived right after touchdown,
+    // so the spam-penalty timer (sv_jump_spam_penalty_time) sees a
+    // fresh press every landing and the jump fires.
+    //
+    // We also keep the legacy struct fields in sync as a belt-and-
+    // braces fallback for sv_legacy_jump 1 servers.
+    // ---------------------------------------------------------------
+    inline void ModernJumpPrime(bool keyHeld, bool onGround)
+    {
+        if (!cfg.enabled) return;
+
+        uintptr_t localPawn = GameState::GetLocalPawn();
+        if (!localPawn) return;
+        uintptr_t moveSvc = Mem::Read<uintptr_t>(localPawn + m_pMovementServices_pawn);
+        if (!moveSvc) return;
+
+        uintptr_t modern = moveSvc + m_ModernJump_movement;
+        uintptr_t legacy = moveSvc + m_LegacyJump_movement;
+
+        if (keyHeld && onGround)
+        {
+            // Read the latest landed tick. Forge a press timestamp at
+            // landed+1 so the spam guard sees a fresh user-initiated
+            // press right after touchdown (pre-landing presses are also
+            // accepted by Modern Jump, this is the most permissive value).
+            int32_t landedTick = Mem::Read<int32_t>(modern + m_ModernJump_LastLandedTick_off);
+            int32_t pressTick  = landedTick + 1;
+            Mem::Write<int32_t>(modern + m_ModernJump_LastActualJumpPressTick_off, pressTick);
+            Mem::Write<int32_t>(modern + m_ModernJump_LastUsableJumpPressTick_off, pressTick);
+            Mem::Write<float>  (modern + m_ModernJump_LastActualJumpPressFrac_off, 0.f);
+            Mem::Write<float>  (modern + m_ModernJump_LastUsableJumpPressFrac_off, 0.f);
+
+            // Legacy fallback
+            Mem::Write<bool> (legacy + m_LegacyJump_OldJumpPressed_off,  true);
+            Mem::Write<float>(legacy + m_LegacyJump_JumpPressedTime_off, 0.f);
+        }
+        else if (!keyHeld)
+        {
+            // Drop legacy press flag while key released
+            Mem::Write<bool>(legacy + m_LegacyJump_OldJumpPressed_off, false);
+        }
+    }
+
+    // ---------------------------------------------------------------
     // GetLastJumpVelZ — reads m_flLastJumpVelocityZ from the movement
     // services block.  Aimbot's jumpshot/triggerbot use this to find
     // the actual apex of the current jump rather than guessing from
@@ -329,6 +444,103 @@ namespace Bhop
     }
 
     // ---------------------------------------------------------------
+    // ApplySubtickInputs — the MODERN bhop path (build 14155+).
+    //
+    // The kbutton path (writing 65537/256 to client.dll button slots)
+    // works but is timing-fragile: the slot is consumed once per render
+    // frame, the engine debounces fresh presses, and on slopes/stairs
+    // FL_ONGROUND flickers between true/false sub-tick which causes
+    // missed jumps. The MODERN path the engine itself uses for the
+    // "subtick input" (sv_subtick_legacy_kbinds 0) treats every input
+    // as a fractional tick event:
+    //
+    //   m_arrForceSubtickMoveWhen[slot] = fractional position 0..1
+    //   m_nQueuedButtonDownMask        |= bit       (set DOWN)
+    //   m_nQueuedButtonChangeMask      |= bit       (mark CHANGED)
+    //
+    // This is what gamesense / NL / pandora bhop call directly. The
+    // engine then synthesises a sub-tick press event at exactly that
+    // fraction of the upcoming tick, which:
+    //   * always fires on the same tick (no edge-case landed-tick race)
+    //   * is sub-tick precise so it survives slopes/stair-step where
+    //     FL_ONGROUND is true for only 1-2ms per land-bounce
+    //   * is the ONLY path sv_legacy_jump 0 servers (the default) honour
+    //
+    // For the autostrafe we ALSO write directly to:
+    //   m_flCmdLeftMove (raw input axis)  AND
+    //   m_flLeftMove    (post-clip applied axis)
+    // This bypasses the kbutton +moveleft/+moveright entirely so the
+    // strafe responds in the same tick we wrote it (kbutton has a
+    // 1-tick latency through CInput::JoyStickMove). It also means the
+    // bhop is INDEPENDENT of whether the user is holding any WASD key
+    // — true hands-free.
+    //
+    // Subtick slot indices:
+    //   0 = ATTACK
+    //   1 = ATTACK2
+    //   2 = JUMP   <- our slot
+    //   3 = DUCK
+    // ---------------------------------------------------------------
+    inline void ApplySubtickInputs(bool keyHeld, bool onGround)
+    {
+        if (!cfg.enabled || !cfg.subtickJump) return;
+        if (!keyHeld) return;
+
+        uintptr_t localPawn = GameState::GetLocalPawn();
+        if (!localPawn) return;
+        uintptr_t moveSvc = Mem::Read<uintptr_t>(localPawn + m_pMovementServices_pawn);
+        if (!moveSvc) return;
+
+        // --- Subtick JUMP press ---
+        //
+        // Gate: must be effectively grounded AND must NOT have already
+        // jumped since the latest landing. The engine spam-guards back-
+        // to-back press queues; without this gate we'd flood the queue
+        // every render frame and the engine would discard our presses.
+        //
+        // "Effectively grounded" means either FL_ONGROUND right now, OR
+        // we landed more recently than we last jumped (covers slope/
+        // stair flicker where FL_ONGROUND drops for 1-2 sub-ticks).
+        int32_t lastLanded = Mem::Read<int32_t>(
+            moveSvc + m_ModernJump_movement + m_ModernJump_LastLandedTick_off);
+        int32_t lastJump   = Mem::Read<int32_t>(
+            moveSvc + m_nLastJumpTick_movement);
+
+        bool effectiveGround = onGround || (lastLanded > lastJump);
+        bool freshLanding    = (lastLanded > lastJump);  // strictly
+
+        // Only queue a subtick jump on the SINGLE tick after touchdown
+        // (lastLanded == this cmd number, lastJump still == old). After
+        // we queue once, lastJump catches up next tick and this returns
+        // false until the next landing.
+        if (effectiveGround && freshLanding)
+        {
+            // Tiny positive fraction = press at the very start of the
+            // upcoming tick. 0.0 is treated as "unset".
+            Mem::Write<float>(moveSvc + m_arrForceSubtickMoveWhen_movement
+                              + sizeof(float) * Offsets::kSubtickSlot_Jump,
+                              0.001f);
+
+            // Engine ignores subtick "when" entries whose bit isn't ALSO
+            // present in change-mask — it's the change-mask that drives
+            // subtick recognition.
+            uint64_t down = Mem::Read<uint64_t>(moveSvc + m_nQueuedButtonDownMask_movement);
+            uint64_t chng = Mem::Read<uint64_t>(moveSvc + m_nQueuedButtonChangeMask_movement);
+            Mem::Write<uint64_t>(moveSvc + m_nQueuedButtonDownMask_movement,
+                                 down | Offsets::IN_BTN_JUMP);
+            Mem::Write<uint64_t>(moveSvc + m_nQueuedButtonChangeMask_movement,
+                                 chng | Offsets::IN_BTN_JUMP);
+        }
+
+        // NOTE: subtick STRAFE removed. Writing m_flCmdLeftMove + zeroing
+        // m_flCmdForwardMove every render frame caused the engine to
+        // renormalize wishvel against m_flMaxspeed, capping speed at
+        // ~180 ups when the player was just trying to move around.
+        // The kbutton AutoStrafe() path is the correct strafe driver —
+        // it lets CInput produce the sidemove value AFTER engine clamps.
+    }
+
+    // ---------------------------------------------------------------
     // Called from SilentAim::hkCreateMove (tick-synced)
     // ---------------------------------------------------------------
     inline void OnCreateMove(__int64 /*inputPtr*/)
@@ -338,6 +550,14 @@ namespace Bhop
             DoBhop();
             AutoStrafe();
             PreserveSpeed();
+            uintptr_t lp = GameState::GetLocalPawn();
+            if (lp) {
+                uint32_t flags = Mem::Read<uint32_t>(lp + Offsets::m_fFlags);
+                bool og = (flags & FL_ONGROUND) != 0;
+                bool kh = (GetAsyncKeyState(cfg.key) & 0x8000) != 0;
+                ModernJumpPrime(kh, og);
+                ApplySubtickInputs(kh, og);
+            }
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
     }
 
@@ -365,6 +585,16 @@ namespace Bhop
 
         uint32_t flags = Mem::Read<uint32_t>(localPawn + Offsets::m_fFlags);
         bool onGround = (flags & FL_ONGROUND) != 0;
+        bool keyHeld  = (GetAsyncKeyState(cfg.key) & 0x8000) != 0;
+
+        // 14158 Modern Jump primer — forge a fresh press tick each
+        // ground frame so the subtick spam guard accepts our jump.
+        ModernJumpPrime(keyHeld, onGround);
+
+        // Modern subtick path — sub-tick precise jump + direct sidemove
+        // axis writes. This is what survives slope/stair landings and
+        // pins the glide to the configured speed band.
+        ApplySubtickInputs(keyHeld, onGround);
 
         if (onGround && !wasOnGround)
         {
