@@ -996,15 +996,27 @@ namespace Aimbot
         }
         else
         {
-            // Reaction delay: tuned to mimic genuine human peek-reaction
-            // (~170-280ms aimed-rifle median, slightly longer with smoothing).
-            // This is the PRIMARY anti-VAC layer: the old 8-35ms instant-react
-            // path was responsible for the "snap before peek" trust-score
-            // hit that produces 20h MM cooldowns. NEVER drop below ~150ms.
+            // Reaction delay. Two regimes:
+            //  * visCheck ON  \u2014 the visibility filter already prevents
+            //    pre-aim through walls, so the bot is allowed a tight
+            //    25-90ms acquire window. This is what makes peeks feel
+            //    "exact" instead of late.
+            //  * visCheck OFF (wallbang/rage) \u2014 we MUST gate, because
+            //    FindBestTarget will return targets behind walls. Use a
+            //    humanlike 170-280ms window so VACNet trust scoring can't
+            //    fingerprint the wallbang pre-aim.
             state.phase = PHASE_REACTING;
             state.reactStartTime = GetTickCount();
-            float reactBase = 170.f + EffectiveSmoothing() * 1.2f;
-            state.reactDelayMs = RandInt((int)reactBase, (int)(reactBase + 110.f));
+            const bool wallbangModeBE =
+                !cfg.visCheck ||
+                (Rage::cfg.enabled && Rage::cfg.forceWallbang);
+            if (wallbangModeBE) {
+                float reactBase = 170.f + EffectiveSmoothing() * 1.2f;
+                state.reactDelayMs = RandInt((int)reactBase, (int)(reactBase + 110.f));
+            } else {
+                float reactBase = 25.f + EffectiveSmoothing() * 0.4f;
+                state.reactDelayMs = RandInt((int)reactBase, (int)(reactBase + 65.f));
+            }
         }
     }
 
@@ -2720,21 +2732,24 @@ namespace Aimbot
             // ===========================================================
             // ANTI-VAC: Fresh-sight reaction gate
             //
-            // VACNet trust scoring (the source of 20h MM cooldowns) flags
-            // the angular signature "bot was already on the headline before
-            // the enemy crossed the wall edge". Even with visCheck enabled,
-            // the locked-target grace window keeps state.phase in LOCKED/
-            // CORRECTING through brief occlusions, so the bot snaps to the
-            // peeker the instant their head pixel becomes traceable.
+            // Only applied when visCheck is OFF (wallbang / rage). With
+            // visCheck ON, FindBestTarget already refuses to return
+            // anything we cannot trace LOS to, so by definition we
+            // CANNOT pre-aim through a wall \u2014 the moment a target is
+            // returned, the enemy is already exposed and locking on the
+            // very next tick is the correct, exact, server-legal behavior.
+            // The user reported the previous always-on gate felt late on
+            // peeks; this trims it back to its real threat surface.
             //
-            // Force-reset to PHASE_REACTING with a humanlike 170-280ms gate
-            // whenever the current target wasn't visible in the recent past:
-            //   - first-ever sight of this pawn this engagement, OR
-            //   - same pawn but lost-sight gap > 80ms (re-peek).
-            // During the window, suppress SilentAim::hasTarget so the
-            // WriteSubtick gate cannot fire bullets either -- otherwise the
-            // server still sees an instant-pre-hit shot and the gate is moot.
+            // Without visCheck (rage wallbang), we DO need the gate
+            // because FindBestTarget will happily return a target while
+            // they're still mid-wall \u2014 and that's the angular signature
+            // VACNet trust scoring fingerprints for the 20h MM cooldown.
             // ===========================================================
+            const bool wallbangMode =
+                !cfg.visCheck ||
+                (Rage::cfg.enabled && Rage::cfg.forceWallbang);
+            if (wallbangMode)
             {
                 DWORD nowSight = GetTickCount();
                 bool isFreshSight = false;
@@ -2746,8 +2761,6 @@ namespace Aimbot
                 if (isFreshSight) {
                     int reactMs = RandInt(170, 280);
                     freshSightUntil = nowSight + (DWORD)reactMs;
-                    // Force visible-aim curve back into REACTING so we
-                    // don't keep tracking through the gate window.
                     state.phase = PHASE_REACTING;
                     state.reactStartTime = nowSight;
                     state.reactDelayMs = reactMs;
@@ -2756,6 +2769,15 @@ namespace Aimbot
                 }
                 lastSightTarget = t.pawn;
                 lastSightTick   = nowSight;
+            }
+            else
+            {
+                // visCheck on \u2014 keep tracking variables consistent so a
+                // later toggle-off doesn't trip a phantom \"fresh sight\"
+                // against a stale lastSightTick.
+                lastSightTarget = t.pawn;
+                lastSightTick   = GetTickCount();
+                freshSightUntil = 0;
             }
 
             // Governor kill detection (wrapped â€” lockedTarget could be stale)
