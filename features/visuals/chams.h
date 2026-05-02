@@ -346,7 +346,7 @@ namespace Chams
             float tw = 0.55f + 0.45f * sinf(t * (TAU * 2.5f) + ph)
                              * sinf(t * (TAU * 1.3f) + ph * 1.7f);
             if (tw < 0.0f) tw = 0.0f;
-            tw *= 0.85f; // sparkle intensity - texture-based stars need a bit more pop
+            tw *= 1.20f; // sparkle intensity - texture-based star pinpricks need extra punch
             // Slight tint shift so sparkles aren't just flat white.
             float ti = sinf(t * (TAU / 3.0f) + ph);
             float sparkle[4] = {
@@ -490,23 +490,21 @@ namespace Chams
         const char k13_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.16 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.95,1.0,1.0,1.0]})";
 
         // Galaxy — the marquee animated style. Uses CS2's shipped
-        // tile_starfield + tile_clouds_02 particle textures as the actual
-        // body texture, so the silhouette reads as a real cosmic camo
-        // pattern (stars + nebula) and not just a flat tinted blob. The
-        // per-frame tint cycle then animates the HUE of that pattern,
-        // giving a moving "galaxy camo" look like the Fortnite skin.
-        //
-        // Visible body: F_TRANSLUCENT removed so the body reads SOLID
-        // (the previous see-through look was the alpha blend killing it).
-        // Fresnel still active for a bright nebula rim. Color boost stays
-        // low (1.4) — the cycling tint provides saturation, the texture
-        // provides the cosmic detail.
-        const char k14_vis[]  = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=2.0 g_flFresnelFalloff=2.0 g_flFresnelMax=1.4 g_flFresnelMin=0.25 g_flColorBoost=1.4 g_flOpacityScale=1.0 g_tColor=resource:")" NEBULA R"(" g_tMask1=resource:")" STARFIELD R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k14_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=2.0 g_flFresnelFalloff=2.0 g_flFresnelMax=1.8 g_flFresnelMin=0.30 g_flColorBoost=2.0 g_flOpacityScale=0.95 g_tColor=resource:")" NEBULA R"(" g_tMask1=resource:")" STARFIELD R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        // Sparkle pass: uses the literal starfield texture so the additive
-        // overlay is actual stars, not procedural fresnel pinpricks. Tight
-        // fresnel (exp 8) keeps it strongest where the surface curves.
-        const char k14_star[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=8.0 g_flFresnelFalloff=1.5 g_flFresnelMax=4.0 g_flFresnelMin=0.0 g_flColorBoost=5.0 g_flOpacityScale=1.0 g_tColor=resource:")" STARFIELD R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // tile_clouds_02 (nebula) particle texture as the body so the
+        // silhouette reads as a real cosmic camo pattern instead of a
+        // flat tinted blob. csgo_unlitgeneric.vfx is used for the body
+        // (it actually samples g_tColor — csgo_effects largely ignores
+        // it). The cycling per-frame tint then hue-shifts the nebula
+        // pattern, giving the moving "galaxy camo" look. The third slot
+        // is an additive csgo_effects pass with the literal starfield
+        // texture for twinkling stars on top.
+        const char k14_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_tColor=resource:")" NEBULA R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[2.5,2.5]})";
+        const char k14_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_tColor=resource:")" NEBULA R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[2.5,2.5]})";
+        // Sparkle/star pass: csgo_unlitgeneric with the literal starfield
+        // texture, additive-blended on top of the body. Z-disabled so it
+        // shows through walls along with the wallhack body. Tint cycles
+        // white↔cyan↔violet per frame and pulses for the twinkle.
+        const char k14_star[] = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_tColor=resource:")" STARFIELD R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[3.0,3.0]})";
 
 #undef H
 #undef W
