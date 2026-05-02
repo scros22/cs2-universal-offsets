@@ -621,7 +621,7 @@ namespace Menu
     struct SavedConfig
     {
         uint32_t magic    = 0x4C554349;
-        uint32_t version  = 18; // bumped: Chams::Config gained weaponChams/handsChams + 7 styles
+        uint32_t version  = 19; // bumped: chams styles redesigned (Velvet/Iridescent/LiquidMetal/Acid/Blueprint/InkSketch/Frostbite)
         uint32_t dataSize = sizeof(SavedConfig);
         char                    name[32];
         Aimbot::Config          aimbot;

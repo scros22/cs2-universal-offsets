@@ -37,22 +37,22 @@ namespace Chams
         STYLE_OUTLINE,
         STYLE_FLAT,
         STYLE_GLOW,
-        // ---- new wild styles ----
-        STYLE_TOON,        // flat unlit + thick black ink wireframe (cell shaded)
-        STYLE_CRYSTAL,     // dual-band fresnel, hard rim + soft body, prismatic
-        STYLE_INFERNO,     // red/orange additive boost + amber wireframe
-        STYLE_HOLO,        // cyan ignoreZ additive + scanline-thin wire on top
-        STYLE_XRAY,        // pure ignoreZ skeleton glow, see-through everything
-        STYLE_MATRIX,      // green Tron — flat dark + bright green wire on both
-        STYLE_PLASMA,      // boosted bloom glow + magenta wire overlay
+        // ---- distinct second-tier styles ----
+        STYLE_VELVET,        // inverted fresnel — bright body, dark rim (skin/fabric)
+        STYLE_IRIDESCENT,    // tight high-frequency sheen, oil-slick rim
+        STYLE_LIQUID_METAL,  // dark steel body + mirror rim, no wire
+        STYLE_ACID,          // toxic neon-green additive + lime wire
+        STYLE_BLUEPRINT,     // navy unlit body + cyan wire on both passes (CAD)
+        STYLE_INK_SKETCH,    // white unlit body + thin black wire (paper drawing)
+        STYLE_FROSTBITE,     // icy white-cyan translucent + soft white wire
         STYLE_COUNT
     };
 
     inline const char* MaterialNames[STYLE_COUNT] = {
         "Glass", "Flat + Wire", "Pearlescent", "Ghost",
         "Outline", "Flat", "Glow",
-        "Toon", "Crystal", "Inferno", "Holographic",
-        "X-Ray", "Matrix", "Plasma"
+        "Velvet", "Iridescent", "Liquid Metal", "Acid",
+        "Blueprint", "Ink Sketch", "Frostbite"
     };
 
     struct Config
@@ -334,37 +334,47 @@ namespace Chams
         // Glow
         const char k6[] = H R"({shader="csgo_effects.vfx" g_tColor=resource:")" W R"(" g_flColorBoost=20.0 g_flOpacityScale=0.7 g_flFresnelExponent=10.0 g_flFresnelFalloff=10.0 g_flFresnelMax=0.0 g_flFresnelMin=1.0 F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 F_DISABLE_Z_BUFFERING=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
 
-        // Toon — flat unlit + thick black ink wireframe (cell shaded)
-        const char k7_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k7_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k7_wire[] = H R"({shader="tools_wireframe.vfx" F_UNLIT=1 F_WIREFRAME=1 g_DepthBiasAmount=0.0 g_LineThickness=0.6 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.0,0.0,0.0,1.0]})";
+        // -------------------------------------------------------------------
+        // Tier 2 — distinct styles, each visually unmistakable.
+        // -------------------------------------------------------------------
 
-        // Crystal — dual-band fresnel: hard rim + soft body, prismatic refractive
-        const char k8_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=8.0 g_flFresnelFalloff=2.5 g_flFresnelMax=2.0 g_flFresnelMin=0.05 g_flColorBoost=2.5 g_flOpacityScale=0.85 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k8_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=4.0 g_flFresnelFalloff=2.0 g_flFresnelMax=1.5 g_flFresnelMin=0.0 g_flColorBoost=1.8 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Velvet — INVERTED fresnel (min > max): body lit, rim darkens.
+        // Reads like soft fabric / skin SSS. No wire.
+        const char k7_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=2.0 g_flFresnelFalloff=2.0 g_flFresnelMax=0.0 g_flFresnelMin=1.6 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k7_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=2.0 g_flFresnelFalloff=2.0 g_flFresnelMax=0.0 g_flFresnelMin=1.6 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
 
-        // Inferno — red/orange additive boost + amber wire on occluded
-        const char k9_vis[]  = H R"({shader="csgo_effects.vfx" g_flColorBoost=8.0 g_flOpacityScale=0.95 g_flFresnelExponent=2.0 g_flFresnelFalloff=2.0 g_flFresnelMax=2.0 g_flFresnelMin=0.5 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k9_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flColorBoost=12.0 g_flOpacityScale=0.85 g_flFresnelExponent=3.0 g_flFresnelFalloff=4.0 g_flFresnelMax=3.0 g_flFresnelMin=0.3 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k9_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.3 g_OverrideColorFactor=1.0 g_vOverrideColor=[1.0,0.45,0.0,1.0]})";
+        // Iridescent — very tight high-frequency rim sheen (oil-slick).
+        // Hot multi-color spike right at the silhouette. No wire.
+        const char k8_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=18.0 g_flFresnelFalloff=1.5 g_flFresnelMax=4.5 g_flFresnelMin=0.05 g_flColorBoost=3.5 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k8_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=14.0 g_flFresnelFalloff=2.0 g_flFresnelMax=3.5 g_flFresnelMin=0.0 g_flColorBoost=2.5 g_flOpacityScale=0.9 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
 
-        // Holographic — cyan ignoreZ additive + thin scanline wire on top
-        const char k10_vis[]  = H R"({shader="csgo_effects.vfx" g_flColorBoost=4.0 g_flOpacityScale=0.6 g_flFresnelExponent=4.0 g_flFresnelFalloff=3.0 g_flFresnelMax=2.5 g_flFresnelMin=0.2 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k10_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flColorBoost=6.0 g_flOpacityScale=0.5 g_flFresnelExponent=5.0 g_flFresnelFalloff=4.0 g_flFresnelMax=3.0 g_flFresnelMin=0.1 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 F_DISABLE_Z_BUFFERING=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k10_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.15 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.6,1.0,1.0,1.0]})";
+        // Liquid Metal — dark satin body (vis_color near-black) with a
+        // bright fresnel rim acting as the spec highlight. No wire.
+        const char k9_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=4.0 g_flFresnelFalloff=2.5 g_flFresnelMax=2.5 g_flFresnelMin=0.05 g_flColorBoost=1.4 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k9_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=4.0 g_flFresnelFalloff=2.5 g_flFresnelMax=2.5 g_flFresnelMin=0.05 g_flColorBoost=1.4 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
 
-        // X-Ray — pure ignoreZ skeleton glow on both passes (see-through everything)
-        const char k11[] = H R"({shader="csgo_effects.vfx" g_flColorBoost=15.0 g_flOpacityScale=0.45 g_flFresnelExponent=12.0 g_flFresnelFalloff=8.0 g_flFresnelMax=4.0 g_flFresnelMin=0.0 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 F_DISABLE_Z_BUFFERING=1 F_DISABLE_Z_WRITE=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Acid — toxic neon-green additive with mid bloom + lime wire on occluded.
+        const char k10_vis[]  = H R"({shader="csgo_effects.vfx" g_flColorBoost=6.0 g_flOpacityScale=0.85 g_flFresnelExponent=2.0 g_flFresnelFalloff=2.0 g_flFresnelMax=2.0 g_flFresnelMin=0.6 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k10_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flColorBoost=9.0 g_flOpacityScale=0.7 g_flFresnelExponent=3.0 g_flFresnelFalloff=3.0 g_flFresnelMax=2.5 g_flFresnelMin=0.4 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k10_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.22 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.7,1.0,0.0,1.0]})";
 
-        // Matrix — Tron-look: dark flat unlit body + bright green wire on both passes
+        // Blueprint — dark-navy unlit body + bright cyan wire on BOTH passes.
+        // Reads like a CAD/blueprint diagram.
+        const char k11_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k11_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k11_wire[] = H R"({shader="tools_wireframe.vfx" F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.28 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.35,0.85,1.0,1.0]})";
+
+        // Ink Sketch — pure white unlit body + thin black wire (negative of Toon).
+        // Crisp paper-drawing look.
         const char k12_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
         const char k12_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k12_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.35 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.2,1.0,0.3,1.0]})";
+        const char k12_wire[] = H R"({shader="tools_wireframe.vfx" F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.18 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.0,0.0,0.0,1.0]})";
 
-        // Plasma — boosted bloom glow + magenta wire overlay
-        const char k13_vis[]  = H R"({shader="csgo_effects.vfx" g_flColorBoost=25.0 g_flOpacityScale=0.75 g_flFresnelExponent=6.0 g_flFresnelFalloff=6.0 g_flFresnelMax=3.5 g_flFresnelMin=0.4 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k13_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flColorBoost=30.0 g_flOpacityScale=0.7 g_flFresnelExponent=8.0 g_flFresnelFalloff=8.0 g_flFresnelMax=4.0 g_flFresnelMin=0.3 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 F_DISABLE_Z_BUFFERING=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k13_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.25 g_OverrideColorFactor=1.0 g_vOverrideColor=[1.0,0.2,0.9,1.0]})";
+        // Frostbite — pale cyan-white translucent body w/ soft fresnel + thin white wire.
+        // Genuinely icy, not glowy.
+        const char k13_vis[]  = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=3.5 g_flFresnelFalloff=2.0 g_flFresnelMax=1.6 g_flFresnelMin=0.5 g_flColorBoost=1.6 g_flOpacityScale=0.9 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k13_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=3.0 g_flFresnelFalloff=2.0 g_flFresnelMax=1.4 g_flFresnelMin=0.3 g_flColorBoost=1.4 g_flOpacityScale=0.7 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k13_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.16 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.95,1.0,1.0,1.0]})";
 
 #undef H
 #undef W
@@ -386,21 +396,29 @@ namespace Chams
         g_materials[STYLE_GLOW]      = { CreateMaterial("cham6_occ", k6),     CreateMaterial("cham6_vis", k6),     nullptr,
                                          {0.0f,1.0f,1.0f,1.0f}, {1.0f,1.0f,0.0f,1.0f}, false };
 
-        // ---- new wild styles ----
-        g_materials[STYLE_TOON]    = { CreateMaterial("cham7_occ", k7_occ), CreateMaterial("cham7_vis", k7_vis), CreateMaterial("cham7_wire", k7_wire),
-                                       {0.15f,0.15f,0.15f,1.0f}, {1.0f,0.85f,0.2f,1.0f}, true };
-        g_materials[STYLE_CRYSTAL] = { CreateMaterial("cham8_occ", k8_occ), CreateMaterial("cham8_vis", k8_vis), nullptr,
-                                       {0.6f,0.4f,1.0f,0.9f}, {0.5f,0.95f,1.0f,0.9f}, false };
-        g_materials[STYLE_INFERNO] = { CreateMaterial("cham9_occ", k9_occ), CreateMaterial("cham9_vis", k9_vis), CreateMaterial("cham9_wire", k9_wire),
-                                       {1.0f,0.25f,0.05f,1.0f}, {1.0f,0.55f,0.1f,1.0f}, true };
-        g_materials[STYLE_HOLO]    = { CreateMaterial("cham10_occ", k10_occ), CreateMaterial("cham10_vis", k10_vis), CreateMaterial("cham10_wire", k10_wire),
-                                       {0.0f,0.85f,1.0f,0.85f}, {0.4f,1.0f,0.95f,0.7f}, true };
-        g_materials[STYLE_XRAY]    = { CreateMaterial("cham11_occ", k11), CreateMaterial("cham11_vis", k11), nullptr,
-                                       {0.4f,0.85f,1.0f,1.0f}, {0.95f,0.95f,1.0f,1.0f}, false };
-        g_materials[STYLE_MATRIX]  = { CreateMaterial("cham12_occ", k12_occ), CreateMaterial("cham12_vis", k12_vis), CreateMaterial("cham12_wire", k12_wire),
-                                       {0.0f,0.05f,0.0f,1.0f}, {0.0f,0.15f,0.05f,1.0f}, true };
-        g_materials[STYLE_PLASMA]  = { CreateMaterial("cham13_occ", k13_occ), CreateMaterial("cham13_vis", k13_vis), CreateMaterial("cham13_wire", k13_wire),
-                                       {1.0f,0.1f,0.85f,1.0f}, {0.45f,0.2f,1.0f,1.0f}, true };
+        // ---- distinct second-tier styles ----
+        // Velvet — warm raspberry body fading to dark rim (vis), violet (occ).
+        g_materials[STYLE_VELVET]       = { CreateMaterial("cham7_occ",  k7_occ),  CreateMaterial("cham7_vis",  k7_vis),  nullptr,
+                                            {0.55f, 0.10f, 0.45f, 1.0f}, {1.00f, 0.35f, 0.55f, 1.0f}, false };
+        // Iridescent — emerald shimmer (vis), magenta sheen (occ).
+        g_materials[STYLE_IRIDESCENT]   = { CreateMaterial("cham8_occ",  k8_occ),  CreateMaterial("cham8_vis",  k8_vis),  nullptr,
+                                            {0.75f, 0.20f, 1.00f, 1.0f}, {0.20f, 1.00f, 0.55f, 1.0f}, false };
+        // Liquid Metal — cool charcoal (vis), warm gunmetal (occ). Body dark,
+        // fresnel rim does the lighting.
+        g_materials[STYLE_LIQUID_METAL] = { CreateMaterial("cham9_occ",  k9_occ),  CreateMaterial("cham9_vis",  k9_vis),  nullptr,
+                                            {0.18f, 0.16f, 0.22f, 1.0f}, {0.10f, 0.10f, 0.12f, 1.0f}, false };
+        // Acid — toxic green throughout, lime wire on occluded only.
+        g_materials[STYLE_ACID]         = { CreateMaterial("cham10_occ", k10_occ), CreateMaterial("cham10_vis", k10_vis), CreateMaterial("cham10_wire", k10_wire),
+                                            {0.30f, 1.00f, 0.05f, 1.0f}, {0.55f, 1.00f, 0.10f, 1.0f}, true };
+        // Blueprint — navy body + cyan wire on both passes.
+        g_materials[STYLE_BLUEPRINT]    = { CreateMaterial("cham11_occ", k11_occ), CreateMaterial("cham11_vis", k11_vis), CreateMaterial("cham11_wire", k11_wire),
+                                            {0.04f, 0.08f, 0.22f, 1.0f}, {0.08f, 0.14f, 0.32f, 1.0f}, true };
+        // Ink Sketch — pure white body + thin black wire.
+        g_materials[STYLE_INK_SKETCH]   = { CreateMaterial("cham12_occ", k12_occ), CreateMaterial("cham12_vis", k12_vis), CreateMaterial("cham12_wire", k12_wire),
+                                            {1.00f, 1.00f, 1.00f, 1.0f}, {0.85f, 0.88f, 0.92f, 1.0f}, true };
+        // Frostbite — pale ice (vis), deeper ice-blue (occ), soft white wire.
+        g_materials[STYLE_FROSTBITE]    = { CreateMaterial("cham13_occ", k13_occ), CreateMaterial("cham13_vis", k13_vis), CreateMaterial("cham13_wire", k13_wire),
+                                            {0.55f, 0.85f, 1.00f, 1.0f}, {0.85f, 0.95f, 1.00f, 0.95f}, true };
     }
 
     // -----------------------------------------------------------------------
