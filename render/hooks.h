@@ -299,13 +299,21 @@ namespace Hooks
             static const ImWchar mdlRanges[] = { 0xE700, 0xF900, 0 };   // Segoe MDL2 icons
             static const ImWchar geoRanges[] = { 0x2500, 0x27FF, 0 };   // Geometric shapes + misc symbols
 
-            // Font 0: Glass — Segoe UI Regular, 17px — high oversampling for smooth sub-pixel rendering
-            ImFontConfig fc0; fc0.OversampleH = 4; fc0.OversampleV = 4; fc0.PixelSnapH = false;
-            Menu::fonts[0] = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\segoeui.ttf", 17.f, &fc0);
+            // Font 0: Glass — Verdana Bold @ 13px, pixel-snapped, no oversample.
+            // Same crisp competitive-HUD look as the on-screen watermark so
+            // the menu and HUD share a single visual language.
+            ImFontConfig fc0;
+            fc0.OversampleH        = 1;
+            fc0.OversampleV        = 1;
+            fc0.PixelSnapH         = true;
+            fc0.RasterizerMultiply = 1.05f;
+            Menu::fonts[0] = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\verdanab.ttf", 13.f, &fc0);
+            if (!Menu::fonts[0])
+                Menu::fonts[0] = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\tahomabd.ttf", 13.f, &fc0);
             {
-                ImFontConfig mc; mc.MergeMode = true; mc.GlyphMinAdvanceX = 17.f; mc.PixelSnapH = true;
-                io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\segmdl2.ttf", 17.f, &mc, mdlRanges);
-                io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\seguisym.ttf", 17.f, &mc, geoRanges);
+                ImFontConfig mc; mc.MergeMode = true; mc.GlyphMinAdvanceX = 14.f; mc.PixelSnapH = true;
+                io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\segmdl2.ttf", 14.f, &mc, mdlRanges);
+                io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\seguisym.ttf", 14.f, &mc, geoRanges);
             }
 
             // Font 1: Cyber — Consolas, 14px (monospace, tech/hacker aesthetic)
@@ -322,6 +330,23 @@ namespace Hooks
                 ImFontConfig mc; mc.MergeMode = true; mc.GlyphMinAdvanceX = 14.f; mc.PixelSnapH = true;
                 io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\segmdl2.ttf", 14.f, &mc, mdlRanges);
                 io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\seguisym.ttf", 14.f, &mc, geoRanges);
+            }
+
+            // Crisp HUD font — Verdana Bold @ 12px with no oversampling +
+            // pixel snap.  Produces the sharp, slightly pixelated bitmap
+            // look used by classic competitive HUDs.  Falls back to
+            // Tahoma Bold if Verdana isn't installed.
+            {
+                ImFontConfig hc;
+                hc.OversampleH    = 1;
+                hc.OversampleV    = 1;
+                hc.PixelSnapH     = true;
+                hc.RasterizerMultiply = 1.10f; // slightly thicker strokes
+                Menu::hudFont = io.Fonts->AddFontFromFileTTF(
+                    "C:\\Windows\\Fonts\\verdanab.ttf", 12.f, &hc);
+                if (!Menu::hudFont)
+                    Menu::hudFont = io.Fonts->AddFontFromFileTTF(
+                        "C:\\Windows\\Fonts\\tahomabd.ttf", 12.f, &hc);
             }
 
             // Load weapon icon font LAST so it doesn't become the default font

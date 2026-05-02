@@ -11,6 +11,10 @@
 #include "../vendor/imgui/imgui.h"
 #include "../vendor/imgui/imgui_internal.h"
 #include "../core/stealth.h"   // Stealth::g_pUntrustedFlag for VAC watermark
+#include "../core/game_state.h" // GameState::GetLocalPawn for HUD speed read
+#include "../core/sdk_offsets.h"// Offsets::m_vecVelocity
+#include "../core/memory.h"    // Mem::Read
+#include "../core/math.h"      // Math::Vec3
 #include "../features/visuals/esp.h"
 #include "../features/combat/aimbot.h"
 #include "../features/visuals/chams.h"
@@ -55,6 +59,9 @@ namespace Menu
     inline float menuAlpha    = 0.f;
     inline ImFont* fonts[3]   = { nullptr, nullptr, nullptr };
     inline ImFont* espFont    = nullptr;
+    // Tiny crisp pixel-snapped HUD font (Verdana Bold 10px, no oversample).
+    // Loaded by hooks.h after the main fonts so the index can drift safely.
+    inline ImFont* hudFont    = nullptr;
 
     // ---- Card grid navigation state (per-tab feature page index, -1 = grid) ----
     inline int   pageStack[5]   = { -1, -1, -1, -1, -1 };
@@ -621,7 +628,7 @@ namespace Menu
     struct SavedConfig
     {
         uint32_t magic    = 0x4C554349;
-        uint32_t version  = 20; // bumped: tier-2 chams redesigned shader-only (Velvet/Iridescent/LiquidMetal/PlasmaCore/Hologram/Onyx/Crystal); knife wire glitch fixed
+        uint32_t version  = 19; // bumped: chams styles redesigned (Velvet/Iridescent/LiquidMetal/Acid/Blueprint/InkSketch/Frostbite)
         uint32_t dataSize = sizeof(SavedConfig);
         char                    name[32];
         Aimbot::Config          aimbot;
@@ -1868,249 +1875,142 @@ namespace Menu
     //    1 Clean Ã¢â‚¬â€ accent-forward outline, no dividers
     //    2 Ghost Ã¢â‚¬â€ ultra-minimal, barely visible
     // ============================================================
+    inline int  GetLocalSpeed();
+    inline void RenderHudGamesense();
+
     inline void RenderHUD()
     {
-        // Upload pending avatar on the render thread
+        // ---- gamesense-inspired minimal HUD (lucid | name | fps | ms | speed) ----
+        // Upload pending avatar on the render thread (kept for compatibility)
         if (hudAvatarReady) CreateAvatarSRV();
+        RenderHudGamesense();
+        return;
+    }
+    //  Live local-player horizontal speed in u/s (xy length of velocity).
+    //  Returns 0 when not in-game / pawn unavailable so the HUD just
+    //  shows "0 speed" instead of garbage.
+    // ---------------------------------------------------------------
+    inline int GetLocalSpeed()
+    {
+        std::uintptr_t pawn = GameState::GetLocalPawn();
+        if (!pawn) return 0;
+        Math::Vec3 v{};
+        try { v = Mem::Read<Math::Vec3>(pawn + Offsets::m_vecVelocity); }
+        catch (...) { return 0; }
+        float s = std::sqrt(v.x * v.x + v.y * v.y);
+        if (!std::isfinite(s) || s < 0.f) return 0;
+        if (s > 9999.f) s = 9999.f;
+        return (int)(s + 0.5f);
+    }
 
+    // ---------------------------------------------------------------
+    //  Minimal gamesense-style overlay. Three "styles" pick background
+    //  density only Ã¢â‚¬â€ the layout itself stays identical.
+    // ---------------------------------------------------------------
+    inline void RenderHudGamesense()
+    {
         ImGuiIO&    io = ImGui::GetIO();
         ImDrawList* fl = ImGui::GetForegroundDrawList();
 
-        // ---- data --------------------------------------------------------
-        char fpsBuf[8], timeBuf[12], name[64] = "User";
-        snprintf(fpsBuf,  sizeof(fpsBuf),  "%d", (int)(io.Framerate + 0.5f));
-        SYSTEMTIME st; GetLocalTime(&st);
-        snprintf(timeBuf, sizeof(timeBuf), "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond);
-        GetEnvironmentVariableA("USERNAME", name, sizeof(name));
-        name[15] = '\0';
+        // Use the tiny crisp HUD font when available so glyphs render with
+        // sharp pixel-snapped edges instead of the smoother main UI font.
+        const bool pushedFont = (hudFont != nullptr);
+        if (pushedFont) ImGui::PushFont(hudFont);
+
+        // ---- live data ---------------------------------------------------
+        char nameBuf[64] = "user";
+        GetEnvironmentVariableA("USERNAME", nameBuf, sizeof(nameBuf));
+        nameBuf[15] = '\0';
+        for (char* p = nameBuf; *p; ++p)
+            if (*p >= 'A' && *p <= 'Z') *p = (char)(*p - 'A' + 'a');
+
+        const int fpsVal = (int)(io.Framerate + 0.5f);
+        const int msVal  = (io.Framerate > 0.f)
+                         ? (int)(1000.0f / io.Framerate + 0.5f)
+                         : 0;
+        const int spdVal = GetLocalSpeed();
+
+        char fpsValBuf[8], msValBuf[8], spdValBuf[8];
+        snprintf(fpsValBuf, sizeof(fpsValBuf), "%d", fpsVal);
+        snprintf(msValBuf,  sizeof(msValBuf),  "%d", msVal);
+        snprintf(spdValBuf, sizeof(spdValBuf), "%d", spdVal);
+
+        // ---- palette (no background; values white, units coloured) -------
+        const ImU32 cBrand   = IM_COL32(255, 138, 138, 255);
+        const ImU32 cName    = IM_COL32(235, 235, 240, 255);
+        const ImU32 cValue   = IM_COL32(245, 245, 250, 255);
+        const ImU32 cFpsUnit = IM_COL32(245, 205,  90, 255);
+        const ImU32 cMsUnit  = IM_COL32(235,  95,  95, 255);
+        const ImU32 cSpdUnit = IM_COL32( 95, 200, 235, 255);
+        const ImU32 cSep     = IM_COL32(150, 150, 160, 180);
+        const ImU32 cShadow  = IM_COL32(  0,   0,   0, 200);
 
         // ---- geometry ----------------------------------------------------
-        const float fh   = ImGui::GetFontSize();
-        const float bh   = fh + 18.f;                    // bar height
-        const float avD  = bh - 10.f;                    // avatar diameter
-        const float avR  = avD * 0.5f;
-        const float padX = 12.f;                          // horizontal padding inside pill
-        const float gap  = 9.f;                           // gap between text segments
-        // Hairline divider footprint = gap + 1px line + gap. The math used to
-        // fall short by 9px per divider which clipped the FPS value off the
-        // right edge Ã¢â‚¬â€ keep this in sync with HairDivider() below.
-        const float divW = gap + 1.f + gap;
-        // Note: rounded-capsule radius (`bh * 0.5f`) is no longer used â€”
-        // all HUD styles now share the squared liquid-glass look (see kHudR).
+        const float fh    = ImGui::GetFontSize();
+        const float bh    = fh + 6.f;
+        const float gap   = 6.f;
+        const float space = 3.f;
 
-        ImVec2 szL  = ImGui::CalcTextSize(kVersionTag);
-        ImVec2 szN  = ImGui::CalcTextSize(name);
-        ImVec2 szT  = ImGui::CalcTextSize(timeBuf);
-        ImVec2 szFL = ImGui::CalcTextSize("FPS");
-        ImVec2 szFV = ImGui::CalcTextSize(fpsBuf);
+        ImVec2 sBrand = ImGui::CalcTextSize("lucid");
+        ImVec2 sName  = ImGui::CalcTextSize(nameBuf);
+        ImVec2 sFpsV  = ImGui::CalcTextSize(fpsValBuf);
+        ImVec2 sFpsU  = ImGui::CalcTextSize("fps");
+        ImVec2 sMsV   = ImGui::CalcTextSize(msValBuf);
+        ImVec2 sMsU   = ImGui::CalcTextSize("ms");
+        ImVec2 sSpdV  = ImGui::CalcTextSize(spdValBuf);
+        ImVec2 sSpdU  = ImGui::CalcTextSize("speed");
 
-        const float avSpace  = hudAvatarSRV ? (avD + 8.f) : 0.f;
-        const float fpsInner = 5.f; // spacing between "FPS" label and value
+        const float wFps = sFpsV.x + space + sFpsU.x;
+        const float wMs  = sMsV.x  + space + sMsU.x;
+        const float wSpd = sSpdV.x + space + sSpdU.x;
+        const float sepW = gap + 1.f + gap;
 
-        // Left inset is style-dependent: pill/clean draw a 2px accent bar at
-        // bx+4..bx+6 so content starts at bx+6+padX; ghost has no accent bar
-        // and starts at bx+padX. Compute totalW per style.
-        const float pillInset  = 6.f;     // accent bar width
-        const float ghostInset = 0.f;
-        const float leftInset  = (hudStyle == 2) ? ghostInset : pillInset;
-
-        // Trailing margin so FPS value doesn't kiss the rounded right edge.
-        const float trailPad = padX;
-        // Note: ghost has 3 dividers (between every segment), pill/clean
-        // currently render either 3 (pill) or 0 (clean). Compute per style.
-        int dividers = 0;
-        if (hudStyle == 0 || hudStyle == 2) dividers = 3;  // pill/ghost: hairlines
-        // clean style: no dividers, but we add small inter-segment gaps
-        const float cleanGap = (hudStyle == 1) ? (gap + 4.f) : 0.f;
-
-        // FPS is hidden in the premium HUD per user request â€” keep the locals
-        // computed above to avoid touching every style branch but do not
-        // include the FPS label/value in the bar width.
-        (void)szFL; (void)szFV; (void)fpsBuf; (void)fpsInner;
-        const int hudDividers = (hudStyle == 0) ? 2 : dividers;
-        const float cleanGapW = (hudStyle == 1) ? cleanGap : 0.f;
-        float totalW = leftInset + padX + avSpace
-                     + szL.x  + (hudDividers ? divW : cleanGapW)
-                     + szN.x  + (hudDividers ? divW : cleanGapW)
-                     + szT.x
-                     + trailPad;
+        const float totalW = sBrand.x + sepW + sName.x + sepW
+                           + wFps     + sepW + wMs     + sepW + wSpd;
 
         const float bx = io.DisplaySize.x - totalW - 14.f;
         const float by = 12.f;
-        const float cy = by + bh * 0.5f;
-        const float ty = by + (bh - fh) * 0.5f;
+        const float ty = by;
 
-        // Hairline divider helper Ã¢â‚¬â€ shared across styles, advances cx
-        auto HairDivider = [&](float& cx, ImU32 col, float topPad = 6.f) {
+        // 1px-offset shadow draw helper - keeps glyphs readable on bright
+        // surfaces without painting any backdrop.
+        auto Text = [&](float x, float y, ImU32 col, const char* s) {
+            fl->AddText({ x + 1.f, y + 1.f }, cShadow, s);
+            fl->AddText({ x,       y       }, col,    s);
+        };
+
+        // Hairline vertical separator with shadow on the right edge.
+        auto Sep = [&](float& cx) {
             cx += gap;
-            fl->AddRectFilled({ cx, by + topPad }, { cx + 1.f, by + bh - topPad }, col);
+            fl->AddRectFilled({ cx + 1.f, by + 3.f },
+                              { cx + 2.f, by + bh - 3.f },
+                              IM_COL32(0, 0, 0, 160));
+            fl->AddRectFilled({ cx,       by + 3.f },
+                              { cx + 1.f, by + bh - 3.f }, cSep);
             cx += 1.f + gap;
         };
 
-        // Squared corner rounding shared by all HUD styles â€” matches the
-        // squared "liquid glass" look of the main menu rail.
-        const float kHudR = 6.f;
-
-        // Light red used for the version watermark â€” soft, brand-adjacent
-        // pink-red so it reads as decorative rather than alarmist.
-        const ImU32 kVersionRed = IM_COL32(255, 138, 138, 245);
-        // Dark inky outline behind the version text â€” gives it the
-        // "engraved" look that pops nicely against any glass tint.
-        const ImU32 kVersionInk = IM_COL32(0, 0, 0, 200);
-
-        // 1-pixel 8-direction outline + center fill. Slightly more
-        // expensive than a single AddText but produces the crisp, legible
-        // version chip the user asked for.
-        auto DrawVersion = [&](float x, float y) {
-            const float k = 1.f;
-            for (int dy = -1; dy <= 1; ++dy)
-                for (int dx = -1; dx <= 1; ++dx) {
-                    if (dx == 0 && dy == 0) continue;
-                    fl->AddText({ x + dx * k, y + dy * k }, kVersionInk, kVersionTag);
-                }
-            fl->AddText({ x, y }, kVersionRed, kVersionTag);
-        };
-
-        // Liquid-glass layered backdrop helper: same recipe as the menu rail
-        // (translucent dark base, vertical sheen, horizontal cross-sheen,
-        // inner top highlight + bottom shadow, faint border). baseAlpha lets
-        // each style dial in how dense / transparent the glass reads.
-        auto DrawHudGlass = [&](float x0, float y0, float x1, float y1,
-                                int baseAlpha)
-        {
-            // soft outer shadow stack â€” fakes background blur falloff
-            for (int i = 8; i > 0; --i) {
-                int sa = 6 + (8 - i) * 4;          // 6..34
-                fl->AddRectFilled({ x0 - i, y0 - i + 1 },
-                                  { x1 + i, y1 + i + 1 },
-                                  IM_COL32(0, 0, 0, sa), kHudR + i);
-            }
-            // 1) translucent dark glass base
-            fl->AddRectFilled({ x0, y0 }, { x1, y1 },
-                IM_COL32(10, 10, 13, baseAlpha), kHudR);
-            // 2) vertical sheen: top dim â†’ mid bright â†’ bot dim
-            const ImU32 cT = IM_COL32(255, 255, 255,  4);
-            const ImU32 cM = IM_COL32(255, 255, 255, 12);
-            const ImU32 cB = IM_COL32(255, 255, 255,  2);
-            const float yMid = y0 + (y1 - y0) * 0.55f;
-            fl->AddRectFilledMultiColor({ x0, y0 }, { x1, yMid }, cT, cT, cM, cM);
-            fl->AddRectFilledMultiColor({ x0, yMid }, { x1, y1 }, cM, cM, cB, cB);
-            // 3) horizontal cross-sheen (left dimmer, right brighter)
-            const ImU32 hL = IM_COL32(255, 255, 255, 0);
-            const ImU32 hR = IM_COL32(255, 255, 255, 6);
-            fl->AddRectFilledMultiColor({ x0, y0 }, { x1, y1 }, hL, hR, hR, hL);
-            // 4) inner top highlight + inner bottom shadow
-            fl->AddLine({ x0 + 1.f, y0 + 1.f }, { x1 - 1.f, y0 + 1.f },
-                IM_COL32(255, 255, 255, 22), 1.f);
-            fl->AddLine({ x0 + 1.f, y1 - 1.f }, { x1 - 1.f, y1 - 1.f },
-                IM_COL32(0, 0, 0, 80), 1.f);
-            // 5) crisp 1px border
-            fl->AddRect({ x0, y0 }, { x1, y1 },
-                IM_COL32(255, 255, 255, 28), kHudR, 0, 1.f);
-        };
-
-        // ------------------------------------------------------------------
-        //  STYLE 2 â€” GHOST  (squared liquid glass, minimal: no accent bar,
-        //  dot separators, lower base alpha so it reads as the lightest)
-        // ------------------------------------------------------------------
-        if (hudStyle == 2)
-        {
-            DrawHudGlass(bx, by, bx + totalW, by + bh, 175);
-
-            float cx = bx + padX;
-            if (hudAvatarSRV) {
-                fl->AddImageRounded((ImTextureID)(intptr_t)hudAvatarSRV,
-                    { cx, cy - avR }, { cx + avD, cy + avR },
-                    { 0.f, 0.f }, { 1.f, 1.f },
-                    IM_COL32(255, 255, 255, 195), avR);
-                cx += avD + 8.f;
-            }
-
-            // Dot separator instead of vertical hairline â€” softer, more "ghost"
-            const ImU32 cDot = IM_COL32(180, 180, 190, 130);
-            auto Dot = [&](float& x) {
-                x += gap;
-                fl->AddCircleFilled({ x + 1.f, cy }, 1.4f, cDot, 8);
-                x += 2.f + gap;
-            };
-
-            DrawVersion(cx, ty); cx += szL.x;
-            Dot(cx);
-            fl->AddText({ cx, ty }, IM_COL32(235, 235, 240, 220),  name);      cx += szN.x;
-            Dot(cx);
-            fl->AddText({ cx, ty }, IM_COL32(180, 180, 190, 200),  timeBuf);   cx += szT.x;
-            Dot(cx);
-            fl->AddText({ cx, ty }, IM_COL32(150, 150, 160, 175),  "FPS");     cx += szFL.x + fpsInner;
-            fl->AddText({ cx, ty }, EvoAccent(220),                fpsBuf);
-            return;
-        }
-
-        // ------------------------------------------------------------------
-        //  STYLE 1 â€” CLEAN  (squared liquid glass + accent outline + bar)
-        // ------------------------------------------------------------------
-        if (hudStyle == 1)
-        {
-            // accent outer glow
-            for (int i = 4; i > 0; --i) {
-                fl->AddRect({ bx - i, by - i }, { bx + totalW + i, by + bh + i },
-                            EvoAccent(8 + (4 - i) * 4), kHudR + i, 0, 1.f);
-            }
-            DrawHudGlass(bx, by, bx + totalW, by + bh, 200);
-            // accent border + accent bar (override neutral border from glass)
-            fl->AddRect      ({ bx, by }, { bx + totalW, by + bh },
-                EvoAccent(120), kHudR, 0, 1.2f);
-            fl->AddRectFilled({ bx + 4.f, by + 6.f },
-                              { bx + 6.f, by + bh - 6.f },
+        // Style 1 (Clean) adds a thin accent bar above the row; the others
+        // are 100% transparent.
+        if (hudStyle == 1) {
+            fl->AddRectFilled({ bx,            by - 4.f },
+                              { bx + totalW,   by - 2.f },
                               EvoAccent(235), 1.f);
-
-            float cx = bx + 6.f + padX;
-            if (hudAvatarSRV) {
-                fl->AddImageRounded((ImTextureID)(intptr_t)hudAvatarSRV,
-                    { cx, cy - avR }, { cx + avD, cy + avR },
-                    { 0.f, 0.f }, { 1.f, 1.f },
-                    IM_COL32(255, 255, 255, 255), avR);
-                fl->AddCircle({ cx + avR, cy }, avR + 0.8f, EvoAccent(150), 36, 1.4f);
-                cx += avD + 8.f;
-            }
-            DrawVersion(cx, ty); cx += szL.x + gap + 4.f;
-            fl->AddText({ cx, ty }, IM_COL32(245,245,250,235),    name);      cx += szN.x + gap + 4.f;
-            fl->AddText({ cx, ty }, IM_COL32(170,170,180,200),    timeBuf);   cx += szT.x + gap + 4.f;
-            fl->AddText({ cx, ty }, IM_COL32(125,125,135,170),    "FPS");     cx += szFL.x + fpsInner;
-            fl->AddText({ cx, ty }, EvoAccent(235),               fpsBuf);
-            return;
         }
 
-        // ------------------------------------------------------------------
-        //  STYLE 0 â€” PREMIUM SQUARE  (default, densest liquid glass)
-        // ------------------------------------------------------------------
-        DrawHudGlass(bx, by, bx + totalW, by + bh, 215);
+        float cx = bx;
+        Text(cx, ty, cBrand,   "lucid");      cx += sBrand.x; Sep(cx);
+        Text(cx, ty, cName,    nameBuf);      cx += sName.x;  Sep(cx);
+        Text(cx, ty, cValue,   fpsValBuf);    cx += sFpsV.x + space;
+        Text(cx, ty, cFpsUnit, "fps");        cx += sFpsU.x;  Sep(cx);
+        Text(cx, ty, cValue,   msValBuf);     cx += sMsV.x  + space;
+        Text(cx, ty, cMsUnit,  "ms");         cx += sMsU.x;   Sep(cx);
+        Text(cx, ty, cValue,   spdValBuf);    cx += sSpdV.x + space;
+        Text(cx, ty, cSpdUnit, "speed");
 
-        // Accent bar â€” flat vertical strip on the left edge.
-        fl->AddRectFilled({ bx + 3.f, by + 6.f },
-                          { bx + 5.f, by + bh - 6.f },
-                          EvoAccent(235), 1.f);
+        (void)hudAvatarSRV;
 
-        // 5) Content
-        float cx = bx + 6.f + padX;
-        if (hudAvatarSRV) {
-            fl->AddImageRounded((ImTextureID)(intptr_t)hudAvatarSRV,
-                { cx, cy - avR }, { cx + avD, cy + avR },
-                { 0.f, 0.f }, { 1.f, 1.f },
-                IM_COL32(255, 255, 255, 245), avR);
-            fl->AddCircle({ cx + avR, cy }, avR + 0.5f, EvoAccent(140), 36, 1.0f);
-            cx += avD + 8.f;
-        }
-
-        // Clean separators â€” soft white dot between segments.
-        auto Sep = [&](float& cx) {
-            fl->AddCircleFilled({ cx + divW * 0.5f, cy + 0.5f }, 1.3f,
-                                IM_COL32(180, 180, 190, 130), 8);
-            cx += divW;
-        };
-
-        DrawVersion(cx, ty); cx += szL.x;  Sep(cx);
-        fl->AddText({ cx, ty }, IM_COL32(240,240,245,230),  name);    cx += szN.x;  Sep(cx);
-        fl->AddText({ cx, ty }, IM_COL32(160,160,170,200),  timeBuf);
+        if (pushedFont) ImGui::PopFont();
     }
 
     // ============================================================

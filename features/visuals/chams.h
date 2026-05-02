@@ -19,6 +19,7 @@
 #include <cstdint>
 #include <cstring>
 #include <cstdlib>
+#include <cmath>
 #include "../../core/memory.h"
 #include "../../vendor/minhook/include/MinHook.h"
 
@@ -37,22 +38,23 @@ namespace Chams
         STYLE_OUTLINE,
         STYLE_FLAT,
         STYLE_GLOW,
-        // ---- advanced second-tier styles (all shader-only, no wireframe) ----
-        STYLE_VELVET,        // inverted fresnel — lit body, dark velvet rim
-        STYLE_IRIDESCENT,    // tight high-freq oil-slick rim, additive
-        STYLE_LIQUID_METAL,  // dark satin body + chrome spec rim
-        STYLE_PLASMA_CORE,   // dual-fresnel additive volume w/ inner backface glow
-        STYLE_HOLOGRAM,      // cyan rim + masked translucent body, ghost-tech feel
-        STYLE_ONYX,          // jet-black body + razor hot rim (silhouette pop)
-        STYLE_CRYSTAL,       // prism translucent + inner refractive glow
+        // ---- distinct second-tier styles ----
+        STYLE_VELVET,        // inverted fresnel — bright body, dark rim (skin/fabric)
+        STYLE_IRIDESCENT,    // tight high-frequency sheen, oil-slick rim
+        STYLE_LIQUID_METAL,  // dark steel body + mirror rim, no wire
+        STYLE_ACID,          // toxic neon-green additive + lime wire
+        STYLE_BLUEPRINT,     // navy unlit body + cyan wire on both passes (CAD)
+        STYLE_INK_SKETCH,    // white unlit body + thin black wire (paper drawing)
+        STYLE_FROSTBITE,     // icy white-cyan translucent + soft white wire
+        STYLE_GALAXY,        // animated cosmic nebula — purple/magenta/blue cycling rim + starlight wire
         STYLE_COUNT
     };
 
     inline const char* MaterialNames[STYLE_COUNT] = {
         "Glass", "Flat + Wire", "Pearlescent", "Ghost",
         "Outline", "Flat", "Glow",
-        "Velvet", "Iridescent", "Liquid Metal", "Plasma Core",
-        "Hologram", "Onyx", "Crystal"
+        "Velvet", "Iridescent", "Liquid Metal", "Acid",
+        "Blueprint", "Ink Sketch", "Frostbite", "Galaxy"
     };
 
     struct Config
@@ -248,6 +250,53 @@ namespace Chams
         if (idx < 0 || idx >= STYLE_COUNT) idx = 0;
         MaterialSet& mat = g_materials[idx];
 
+        // -------------------------------------------------------------------
+        // Galaxy live color animation. Runs only when this style is active.
+        // We mutate the SHARED color arrays in g_materials[GALAXY] in-place;
+        // safe because no other style ever reads them (each frame we only
+        // pull the active style's set), and writes are simple float arrays.
+        //
+        // Three layered sine waves give a rich nebula cycle through the
+        // signature Galaxy palette: deep violet -> magenta -> electric
+        // blue -> cyan-white core flashes. Visible / occluded passes use
+        // slightly out-of-phase palettes so the wallhack reads independently
+        // of the in-LOS body -- you can see at a glance which is which.
+        // -------------------------------------------------------------------
+        if (idx == STYLE_GALAXY)
+        {
+            const float t   = (float)GetTickCount() * 0.001f;
+            const float TAU = 6.2831853f;
+            // Shared cosmic phase (slow main cycle ~12s)
+            const float p   = t * (TAU / 12.0f);
+            // Visible body: violet <-> magenta <-> electric blue.
+            // sin^2 keeps each channel in [0,1] without an explicit clamp.
+            float s0 = sinf(p);
+            float s1 = sinf(p * 1.3f + 1.0f);
+            float s2 = sinf(p * 0.8f + 2.5f);
+            float vr = 0.45f + 0.50f * s0 * s0;             // 0.45..0.95
+            float vg = 0.05f + 0.30f * s1 * s1;             // 0.05..0.35
+            float vb = 0.65f + 0.35f * s2 * s2;             // 0.65..1.00
+            // Occluded (wallhack): brighter + phase-offset palette so the
+            // through-wall read is visually distinct from the in-LOS body.
+            float o0 = sinf(p + 1.6f);
+            float o1 = sinf(p * 1.1f + 3.2f);
+            float o2 = sinf(p * 0.9f + 0.3f);
+            float orC = 0.55f + 0.45f * o0 * o0;            // 0.55..1.00
+            float ogC = 0.10f + 0.40f * o1 * o1;            // 0.10..0.50
+            float obC = 0.85f + 0.15f * o2 * o2;            // 0.85..1.00
+            // Sharp cyan-white "star burst" overlay every ~5s.
+            float burst = sinf(t * (TAU / 5.0f));
+            burst = burst > 0.92f ? (burst - 0.92f) * 12.0f : 0.0f;
+            if (burst > 0.0f) {
+                vr += burst * 0.40f; vg += burst * 0.55f; vb += burst * 0.30f;
+                orC += burst * 0.25f; ogC += burst * 0.45f; obC += burst * 0.20f;
+                if (vr > 1.0f) vr = 1.0f; if (vg > 1.0f) vg = 1.0f; if (vb > 1.0f) vb = 1.0f;
+                if (orC > 1.0f) orC = 1.0f; if (ogC > 1.0f) ogC = 1.0f; if (obC > 1.0f) obC = 1.0f;
+            }
+            mat.vis_color[0] = vr;  mat.vis_color[1] = vg;  mat.vis_color[2] = vb;  mat.vis_color[3] = 1.0f;
+            mat.occ_color[0] = orC; mat.occ_color[1] = ogC; mat.occ_color[2] = obC; mat.occ_color[3] = 1.0f;
+        }
+
         for (int i = start; i < end; ++i)
             Apply(&buf->m_out[i], mat.vis, mat.vis_color);
 
@@ -265,12 +314,6 @@ namespace Chams
             int occ_count  = occ_end - occ_start;
             int space_left = buf->m_max_output_primitives - buf->m_start_primitive;
             int to_copy    = (occ_count < space_left) ? occ_count : space_left;
-            // Knife / glove / tiny-mesh guard: the wireframe shader expects a
-            // sane triangle topology. Some weapon LODs (notably the knife and
-            // some skinned attachments) come in as a handful of stitch tris
-            // that produce torn / "exploding" lines. Skip the wire copy for
-            // these — the visible+occluded passes already cover them.
-            if (occ_count < 16) to_copy = 0;
             if (to_copy > 0)
             {
                 int wire_start = buf->m_start_primitive;
@@ -344,44 +387,56 @@ namespace Chams
         // Tier 2 — distinct styles, each visually unmistakable.
         // -------------------------------------------------------------------
 
-        // Velvet — INVERTED fresnel (min > max): body lit, rim darkens into
-        // a rich plum shadow. Subtle bloom on vis pass for that fabric glow.
-        const char k7_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=2.2 g_flFresnelFalloff=1.8 g_flFresnelMax=0.0 g_flFresnelMin=1.85 g_flColorBoost=1.25 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k7_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=2.4 g_flFresnelFalloff=1.6 g_flFresnelMax=0.0 g_flFresnelMin=1.7 g_flColorBoost=1.1 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Velvet — INVERTED fresnel (min > max): body lit, rim darkens.
+        // Reads like soft fabric / skin SSS. No wire.
+        const char k7_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=2.0 g_flFresnelFalloff=2.0 g_flFresnelMax=0.0 g_flFresnelMin=1.6 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k7_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=2.0 g_flFresnelFalloff=2.0 g_flFresnelMax=0.0 g_flFresnelMin=1.6 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
 
-        // Iridescent — extreme high-frequency rim with HUGE color boost.
-        // Pearl-on-oil: black body, prismatic edge.
-        const char k8_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=22.0 g_flFresnelFalloff=1.2 g_flFresnelMax=6.5 g_flFresnelMin=0.0 g_flColorBoost=5.0 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k8_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=18.0 g_flFresnelFalloff=1.4 g_flFresnelMax=5.0 g_flFresnelMin=0.0 g_flColorBoost=4.0 g_flOpacityScale=0.9 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Iridescent — very tight high-frequency rim sheen (oil-slick).
+        // Hot multi-color spike right at the silhouette. No wire.
+        const char k8_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=18.0 g_flFresnelFalloff=1.5 g_flFresnelMax=4.5 g_flFresnelMin=0.05 g_flColorBoost=3.5 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k8_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=14.0 g_flFresnelFalloff=2.0 g_flFresnelMax=3.5 g_flFresnelMin=0.0 g_flColorBoost=2.5 g_flOpacityScale=0.9 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
 
-        // Liquid Metal — pitch-dark body, ultra-bright thin chrome fresnel.
-        // The rim is the only light source — looks like polished steel.
-        const char k9_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=8.0 g_flFresnelFalloff=2.0 g_flFresnelMax=4.0 g_flFresnelMin=0.0 g_flColorBoost=2.2 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k9_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=7.0 g_flFresnelFalloff=2.2 g_flFresnelMax=3.2 g_flFresnelMin=0.0 g_flColorBoost=1.8 g_flOpacityScale=0.95 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Liquid Metal — dark satin body (vis_color near-black) with a
+        // bright fresnel rim acting as the spec highlight. No wire.
+        const char k9_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=4.0 g_flFresnelFalloff=2.5 g_flFresnelMax=2.5 g_flFresnelMin=0.05 g_flColorBoost=1.4 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k9_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=4.0 g_flFresnelFalloff=2.5 g_flFresnelMax=2.5 g_flFresnelMin=0.05 g_flColorBoost=1.4 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
 
-        // Plasma Core — DUAL-pass additive volume. Vis is a soft full-body
-        // glow with backface render (fills inside), occluded uses tighter
-        // fresnel with massive boost + ignoreZ for an x-ray plasma core.
-        const char k10_vis[] = H R"({shader="csgo_effects.vfx" g_flColorBoost=4.0 g_flOpacityScale=0.85 g_flFresnelExponent=1.6 g_flFresnelFalloff=1.4 g_flFresnelMax=2.8 g_flFresnelMin=0.9 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k10_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flColorBoost=12.0 g_flOpacityScale=0.7 g_flFresnelExponent=4.0 g_flFresnelFalloff=2.0 g_flFresnelMax=3.5 g_flFresnelMin=0.5 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Acid — toxic neon-green additive with mid bloom + lime wire on occluded.
+        const char k10_vis[]  = H R"({shader="csgo_effects.vfx" g_flColorBoost=6.0 g_flOpacityScale=0.85 g_flFresnelExponent=2.0 g_flFresnelFalloff=2.0 g_flFresnelMax=2.0 g_flFresnelMin=0.6 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k10_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flColorBoost=9.0 g_flOpacityScale=0.7 g_flFresnelExponent=3.0 g_flFresnelFalloff=3.0 g_flFresnelMax=2.5 g_flFresnelMin=0.4 g_tColor=resource:")" W R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k10_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.22 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.7,1.0,0.0,1.0]})";
 
-        // Hologram — translucent cyan body w/ bright thin fresnel and
-        // additive blend mode 1; reads like a sci-fi holo projection. The
-        // backface pass + tight rim creates the doubled "glass shell" look.
-        const char k11_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=10.0 g_flFresnelFalloff=1.6 g_flFresnelMax=3.0 g_flFresnelMin=0.15 g_flColorBoost=2.4 g_flOpacityScale=0.55 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 F_BLEND_MODE=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k11_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=12.0 g_flFresnelFalloff=1.4 g_flFresnelMax=4.0 g_flFresnelMin=0.05 g_flColorBoost=3.0 g_flOpacityScale=0.45 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Blueprint — dark-navy unlit body + bright cyan wire on BOTH passes.
+        // Reads like a CAD/blueprint diagram.
+        const char k11_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k11_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k11_wire[] = H R"({shader="tools_wireframe.vfx" F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.28 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.35,0.85,1.0,1.0]})";
 
-        // Onyx — pure black body (no boost) + razor hot rim. The body soaks
-        // light, only the silhouette pops with a warm color edge. Very
-        // cinematic, perfect for high-contrast scenes.
-        const char k12_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=14.0 g_flFresnelFalloff=1.8 g_flFresnelMax=3.5 g_flFresnelMin=0.0 g_flColorBoost=2.5 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k12_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=10.0 g_flFresnelFalloff=2.0 g_flFresnelMax=2.8 g_flFresnelMin=0.0 g_flColorBoost=2.0 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Ink Sketch — pure white unlit body + thin black wire (negative of Toon).
+        // Crisp paper-drawing look.
+        const char k12_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k12_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_tColor=resource:")" W R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k12_wire[] = H R"({shader="tools_wireframe.vfx" F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.18 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.0,0.0,0.0,1.0]})";
 
-        // Crystal — translucent prism body + inner refractive glow via
-        // backface pass. Two fresnel layers (gentle body + sharp edge) make
-        // the surface look faceted without any geometry tricks.
-        const char k13_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=3.0 g_flFresnelFalloff=1.5 g_flFresnelMax=2.4 g_flFresnelMin=0.6 g_flColorBoost=1.8 g_flOpacityScale=0.65 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 F_BLEND_MODE=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k13_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=5.0 g_flFresnelFalloff=1.8 g_flFresnelMax=3.0 g_flFresnelMin=0.4 g_flColorBoost=2.2 g_flOpacityScale=0.55 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Frostbite — pale cyan-white translucent body w/ soft fresnel + thin white wire.
+        // Genuinely icy, not glowy.
+        const char k13_vis[]  = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=3.5 g_flFresnelFalloff=2.0 g_flFresnelMax=1.6 g_flFresnelMin=0.5 g_flColorBoost=1.6 g_flOpacityScale=0.9 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k13_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=3.0 g_flFresnelFalloff=2.0 g_flFresnelMax=1.4 g_flFresnelMin=0.3 g_flColorBoost=1.4 g_flOpacityScale=0.7 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k13_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.16 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.95,1.0,1.0,1.0]})";
+
+        // Galaxy — the marquee animated style. Inspired by the Fortnite
+        // Galaxy skin: deep purple/violet body with a hot cosmic rim that
+        // shifts through purple→magenta→electric-blue, plus a fine white
+        // wire overlay that reads as starlight pinpricks. Colors are
+        // animated PER FRAME in hk_GeneratePrim by mutating the MaterialSet
+        // color arrays (NOT the KV3 — those are baked once). The KV3 here
+        // sets up the silhouette physics: tight high-frequency fresnel
+        // (sharp rim), strong color boost (so the cycling tint blooms),
+        // and additive blending on occluded so the wallhack reads as glow.
+        const char k14_vis[]  = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=6.0 g_flFresnelFalloff=2.5 g_flFresnelMax=2.6 g_flFresnelMin=0.18 g_flColorBoost=2.4 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k14_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=5.0 g_flFresnelFalloff=2.5 g_flFresnelMax=3.2 g_flFresnelMin=0.10 g_flColorBoost=3.5 g_flOpacityScale=0.85 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k14_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.10 g_OverrideColorFactor=1.0 g_vOverrideColor=[1.0,1.0,1.0,1.0]})";
 
 #undef H
 #undef W
@@ -403,29 +458,34 @@ namespace Chams
         g_materials[STYLE_GLOW]      = { CreateMaterial("cham6_occ", k6),     CreateMaterial("cham6_vis", k6),     nullptr,
                                          {0.0f,1.0f,1.0f,1.0f}, {1.0f,1.0f,0.0f,1.0f}, false };
 
-        // ---- advanced second-tier styles, all wire-free ----
-        // Velvet — deep raspberry body fading to inky violet rim. The inverted
-        // fresnel reads as soft fabric/skin SSS.
+        // ---- distinct second-tier styles ----
+        // Velvet — warm raspberry body fading to dark rim (vis), violet (occ).
         g_materials[STYLE_VELVET]       = { CreateMaterial("cham7_occ",  k7_occ),  CreateMaterial("cham7_vis",  k7_vis),  nullptr,
-                                            {0.40f, 0.06f, 0.30f, 1.0f}, {1.00f, 0.45f, 0.65f, 1.0f}, false };
-        // Iridescent — pitch black body, prismatic emerald-violet rim.
+                                            {0.55f, 0.10f, 0.45f, 1.0f}, {1.00f, 0.35f, 0.55f, 1.0f}, false };
+        // Iridescent — emerald shimmer (vis), magenta sheen (occ).
         g_materials[STYLE_IRIDESCENT]   = { CreateMaterial("cham8_occ",  k8_occ),  CreateMaterial("cham8_vis",  k8_vis),  nullptr,
-                                            {0.85f, 0.15f, 1.00f, 1.0f}, {0.10f, 1.00f, 0.55f, 1.0f}, false };
-        // Liquid Metal — black body, warm chrome rim (vis) / cool steel (occ).
+                                            {0.75f, 0.20f, 1.00f, 1.0f}, {0.20f, 1.00f, 0.55f, 1.0f}, false };
+        // Liquid Metal — cool charcoal (vis), warm gunmetal (occ). Body dark,
+        // fresnel rim does the lighting.
         g_materials[STYLE_LIQUID_METAL] = { CreateMaterial("cham9_occ",  k9_occ),  CreateMaterial("cham9_vis",  k9_vis),  nullptr,
-                                            {0.55f, 0.65f, 0.85f, 1.0f}, {1.00f, 0.85f, 0.55f, 1.0f}, false };
-        // Plasma Core — orange-magenta visible plasma, electric cyan core occluded.
-        g_materials[STYLE_PLASMA_CORE]  = { CreateMaterial("cham10_occ", k10_occ), CreateMaterial("cham10_vis", k10_vis), nullptr,
-                                            {0.20f, 0.80f, 1.00f, 1.0f}, {1.00f, 0.45f, 0.10f, 1.0f}, false };
-        // Hologram — cool cyan body + bright cyan rim, classic sci-fi tone.
-        g_materials[STYLE_HOLOGRAM]     = { CreateMaterial("cham11_occ", k11_occ), CreateMaterial("cham11_vis", k11_vis), nullptr,
-                                            {0.10f, 0.95f, 1.00f, 1.0f}, {0.30f, 1.00f, 0.95f, 1.0f}, false };
-        // Onyx — black body, hot amber rim (vis) / hot crimson rim (occ).
-        g_materials[STYLE_ONYX]         = { CreateMaterial("cham12_occ", k12_occ), CreateMaterial("cham12_vis", k12_vis), nullptr,
-                                            {1.00f, 0.10f, 0.05f, 1.0f}, {1.00f, 0.55f, 0.05f, 1.0f}, false };
-        // Crystal — pale aqua prism body, deep sapphire inner glow.
-        g_materials[STYLE_CRYSTAL]      = { CreateMaterial("cham13_occ", k13_occ), CreateMaterial("cham13_vis", k13_vis), nullptr,
-                                            {0.25f, 0.55f, 1.00f, 0.95f}, {0.65f, 0.95f, 1.00f, 0.85f}, false };
+                                            {0.18f, 0.16f, 0.22f, 1.0f}, {0.10f, 0.10f, 0.12f, 1.0f}, false };
+        // Acid — toxic green throughout, lime wire on occluded only.
+        g_materials[STYLE_ACID]         = { CreateMaterial("cham10_occ", k10_occ), CreateMaterial("cham10_vis", k10_vis), CreateMaterial("cham10_wire", k10_wire),
+                                            {0.30f, 1.00f, 0.05f, 1.0f}, {0.55f, 1.00f, 0.10f, 1.0f}, true };
+        // Blueprint — navy body + cyan wire on both passes.
+        g_materials[STYLE_BLUEPRINT]    = { CreateMaterial("cham11_occ", k11_occ), CreateMaterial("cham11_vis", k11_vis), CreateMaterial("cham11_wire", k11_wire),
+                                            {0.04f, 0.08f, 0.22f, 1.0f}, {0.08f, 0.14f, 0.32f, 1.0f}, true };
+        // Ink Sketch — pure white body + thin black wire.
+        g_materials[STYLE_INK_SKETCH]   = { CreateMaterial("cham12_occ", k12_occ), CreateMaterial("cham12_vis", k12_vis), CreateMaterial("cham12_wire", k12_wire),
+                                            {1.00f, 1.00f, 1.00f, 1.0f}, {0.85f, 0.88f, 0.92f, 1.0f}, true };
+        // Frostbite — pale ice (vis), deeper ice-blue (occ), soft white wire.
+        g_materials[STYLE_FROSTBITE]    = { CreateMaterial("cham13_occ", k13_occ), CreateMaterial("cham13_vis", k13_vis), CreateMaterial("cham13_wire", k13_wire),
+                                            {0.55f, 0.85f, 1.00f, 1.0f}, {0.85f, 0.95f, 1.00f, 0.95f}, true };
+        // Galaxy — deep cosmic purple base; vis_color / occ_color get
+        // overwritten per-frame in hk_GeneratePrim with the cycling nebula
+        // palette. Wire stays as the static "starlight" white overlay.
+        g_materials[STYLE_GALAXY]       = { CreateMaterial("cham14_occ", k14_occ), CreateMaterial("cham14_vis", k14_vis), CreateMaterial("cham14_wire", k14_wire),
+                                            {0.35f, 0.05f, 0.55f, 1.0f}, {0.55f, 0.20f, 0.95f, 1.0f}, true };
     }
 
     // -----------------------------------------------------------------------
