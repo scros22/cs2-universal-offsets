@@ -15,94 +15,84 @@
     <Filter Include="Header Files\Features">
       <UniqueIdentifier>{B1A2C3D4-E5F6-7890-1234-567890ABCDE2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Features\Combat">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-1234-567890ABCDE4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Features\Visuals">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-1234-567890ABCDE5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Features\Movement">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-1234-567890ABCDE6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Features\Misc">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-1234-567890ABCDE7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Features\Skins">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-1234-567890ABCDE8}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\Render">
       <UniqueIdentifier>{B1A2C3D4-E5F6-7890-1234-567890ABCDE3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <!-- Core -->
-    <ClInclude Include="core\sdk_offsets.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="core\memory.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="core\math.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="core\signatures.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="core\game_state.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="core\vtable_swap.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="core\stealth.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="core\vac_watchdog.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <!-- Features -->
-    <ClInclude Include="features\aimbot.h">
-      <Filter>Header Files\Features</Filter>
-    </ClInclude>
-    <ClInclude Include="features\esp.h">
-      <Filter>Header Files\Features</Filter>
-    </ClInclude>
-
-    <ClInclude Include="features\bullet_tracer.h">
-      <Filter>Header Files\Features</Filter>
-    </ClInclude>
-    <ClInclude Include="features\chams.h">
-      <Filter>Header Files\Features</Filter>
-    </ClInclude>
+    <ClInclude Include="core\game_state.h">       <Filter>Header Files\Core</Filter></ClInclude>
+    <ClInclude Include="core\math.h">             <Filter>Header Files\Core</Filter></ClInclude>
+    <ClInclude Include="core\memory.h">           <Filter>Header Files\Core</Filter></ClInclude>
+    <ClInclude Include="core\sdk_offsets.h">      <Filter>Header Files\Core</Filter></ClInclude>
+    <ClInclude Include="core\signatures.h">       <Filter>Header Files\Core</Filter></ClInclude>
+    <ClInclude Include="core\spoof_call.h">       <Filter>Header Files\Core</Filter></ClInclude>
+    <ClInclude Include="core\stealth.h">          <Filter>Header Files\Core</Filter></ClInclude>
+    <ClInclude Include="core\syscall.h">          <Filter>Header Files\Core</Filter></ClInclude>
+    <ClInclude Include="core\vac_watchdog.h">     <Filter>Header Files\Core</Filter></ClInclude>
+    <ClInclude Include="core\vtable_swap.h">      <Filter>Header Files\Core</Filter></ClInclude>
+    <ClInclude Include="core\xorstr.h">           <Filter>Header Files\Core</Filter></ClInclude>
+    <!-- Features: Combat -->
+    <ClInclude Include="features\combat\aimbot.h">          <Filter>Header Files\Features\Combat</Filter></ClInclude>
+    <ClInclude Include="features\combat\triggerbot.h">      <Filter>Header Files\Features\Combat</Filter></ClInclude>
+    <!-- Features: Visuals -->
+    <ClInclude Include="features\visuals\bullet_tracer.h">    <Filter>Header Files\Features\Visuals</Filter></ClInclude>
+    <ClInclude Include="features\visuals\chams.h">            <Filter>Header Files\Features\Visuals</Filter></ClInclude>
+    <ClInclude Include="features\visuals\chams_scene.h">      <Filter>Header Files\Features\Visuals</Filter></ClInclude>
+    <ClInclude Include="features\visuals\damage_indicator.h"> <Filter>Header Files\Features\Visuals</Filter></ClInclude>
+    <ClInclude Include="features\visuals\esp.h">              <Filter>Header Files\Features\Visuals</Filter></ClInclude>
+    <ClInclude Include="features\visuals\weapon_icons.h">     <Filter>Header Files\Features\Visuals</Filter></ClInclude>
+    <ClInclude Include="features\visuals\world_effects.h">    <Filter>Header Files\Features\Visuals</Filter></ClInclude>
+    <!-- Features: Movement -->
+    <ClInclude Include="features\movement\anti_aim.h">  <Filter>Header Files\Features\Movement</Filter></ClInclude>
+    <ClInclude Include="features\movement\backtrack.h"> <Filter>Header Files\Features\Movement</Filter></ClInclude>
+    <ClInclude Include="features\movement\bhop.h">      <Filter>Header Files\Features\Movement</Filter></ClInclude>
+    <ClInclude Include="features\movement\fake_lag.h">  <Filter>Header Files\Features\Movement</Filter></ClInclude>
+    <!-- Features: Misc -->
+    <ClInclude Include="features\misc\auto_accept.h">         <Filter>Header Files\Features\Misc</Filter></ClInclude>
+    <ClInclude Include="features\misc\crosshair.h">           <Filter>Header Files\Features\Misc</Filter></ClInclude>
+    <ClInclude Include="features\misc\grenade_prediction.h">  <Filter>Header Files\Features\Misc</Filter></ClInclude>
+    <ClInclude Include="features\misc\kill_sound.h">          <Filter>Header Files\Features\Misc</Filter></ClInclude>
+    <ClInclude Include="features\misc\nade_helper.h">         <Filter>Header Files\Features\Misc</Filter></ClInclude>
+    <ClInclude Include="features\misc\rank_revealer.h">       <Filter>Header Files\Features\Misc</Filter></ClInclude>
+    <ClInclude Include="features\misc\sound_esp.h">           <Filter>Header Files\Features\Misc</Filter></ClInclude>
+    <!-- Features: Skins -->
+    <ClInclude Include="features\skins\inventory_changer.h">    <Filter>Header Files\Features\Skins</Filter></ClInclude>
+    <ClInclude Include="features\skins\knife_glove_manager.h">  <Filter>Header Files\Features\Skins</Filter></ClInclude>
+    <ClInclude Include="features\skins\model_changer.h">        <Filter>Header Files\Features\Skins</Filter></ClInclude>
+    <ClInclude Include="features\skins\paint_kits.h">           <Filter>Header Files\Features\Skins</Filter></ClInclude>
+    <ClInclude Include="features\skins\skinchanger.h">          <Filter>Header Files\Features\Skins</Filter></ClInclude>
     <!-- Render -->
-    <ClInclude Include="render\menu.h">
-      <Filter>Header Files\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="render\hooks.h">
-      <Filter>Header Files\Render</Filter>
-    </ClInclude>
+    <ClInclude Include="render\hooks.h"> <Filter>Header Files\Render</Filter></ClInclude>
+    <ClInclude Include="render\menu.h">  <Filter>Header Files\Render</Filter></ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\imgui\imgui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\imgui\imgui_draw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\imgui\imgui_tables.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\imgui\backends\imgui_impl_dx11.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\imgui\backends\imgui_impl_win32.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\minhook\src\hook.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\minhook\src\buffer.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\minhook\src\trampoline.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\minhook\src\hde\hde32.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\minhook\src\hde\hde64.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="dllmain.cpp">                                  <Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="vendor\imgui\imgui.cpp">                       <Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp">                  <Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_tables.cpp">                <Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp">               <Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_dx11.cpp">    <Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_win32.cpp">   <Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="vendor\minhook\src\hook.c">                    <Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="vendor\minhook\src\buffer.c">                  <Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="vendor\minhook\src\trampoline.c">              <Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="vendor\minhook\src\hde\hde32.c">               <Filter>Source Files</Filter></ClCompile>
+    <ClCompile Include="vendor\minhook\src\hde\hde64.c">               <Filter>Source Files</Filter></ClCompile>
   </ItemGroup>
 </Project>

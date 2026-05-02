@@ -103,26 +103,50 @@
   <!-- Header Files -->
   <ItemGroup>
     <!-- Core -->
-    <ClInclude Include="core\sdk_offsets.h" />
-    <ClInclude Include="core\memory.h" />
-    <ClInclude Include="core\math.h" />
-    <ClInclude Include="core\signatures.h" />
     <ClInclude Include="core\game_state.h" />
-    <ClInclude Include="core\vtable_swap.h" />
+    <ClInclude Include="core\math.h" />
+    <ClInclude Include="core\memory.h" />
+    <ClInclude Include="core\sdk_offsets.h" />
+    <ClInclude Include="core\signatures.h" />
+    <ClInclude Include="core\spoof_call.h" />
     <ClInclude Include="core\stealth.h" />
+    <ClInclude Include="core\syscall.h" />
     <ClInclude Include="core\vac_watchdog.h" />
-    <!-- Features -->
-    <ClInclude Include="features\aimbot.h" />
-    <ClInclude Include="features\esp.h" />
-    <ClInclude Include="features\bullet_tracer.h" />
-    <ClInclude Include="features\chams.h" />
-    <ClInclude Include="features\backtrack.h" />
-    <ClInclude Include="features\anti_aim.h" />
-    <ClInclude Include="features\fake_lag.h" />
-    <ClInclude Include="features\sound_esp.h" />
+    <ClInclude Include="core\vtable_swap.h" />
+    <ClInclude Include="core\xorstr.h" />
+    <!-- Features: Combat -->
+    <ClInclude Include="features\combat\aimbot.h" />
+    <ClInclude Include="features\combat\triggerbot.h" />
+    <!-- Features: Visuals -->
+    <ClInclude Include="features\visuals\bullet_tracer.h" />
+    <ClInclude Include="features\visuals\chams.h" />
+    <ClInclude Include="features\visuals\chams_scene.h" />
+    <ClInclude Include="features\visuals\damage_indicator.h" />
+    <ClInclude Include="features\visuals\esp.h" />
+    <ClInclude Include="features\visuals\weapon_icons.h" />
+    <ClInclude Include="features\visuals\world_effects.h" />
+    <!-- Features: Movement -->
+    <ClInclude Include="features\movement\anti_aim.h" />
+    <ClInclude Include="features\movement\backtrack.h" />
+    <ClInclude Include="features\movement\bhop.h" />
+    <ClInclude Include="features\movement\fake_lag.h" />
+    <!-- Features: Misc -->
+    <ClInclude Include="features\misc\auto_accept.h" />
+    <ClInclude Include="features\misc\crosshair.h" />
+    <ClInclude Include="features\misc\grenade_prediction.h" />
+    <ClInclude Include="features\misc\kill_sound.h" />
+    <ClInclude Include="features\misc\nade_helper.h" />
+    <ClInclude Include="features\misc\rank_revealer.h" />
+    <ClInclude Include="features\misc\sound_esp.h" />
+    <!-- Features: Skins -->
+    <ClInclude Include="features\skins\inventory_changer.h" />
+    <ClInclude Include="features\skins\knife_glove_manager.h" />
+    <ClInclude Include="features\skins\model_changer.h" />
+    <ClInclude Include="features\skins\paint_kits.h" />
+    <ClInclude Include="features\skins\skinchanger.h" />
     <!-- Render -->
-    <ClInclude Include="render\menu.h" />
     <ClInclude Include="render\hooks.h" />
+    <ClInclude Include="render\menu.h" />
   </ItemGroup>
 
   <!-- Source Files -->

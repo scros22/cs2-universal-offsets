@@ -1,38 +1,38 @@
-#pragma once
+﻿#pragma once
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// Lucid CS2 Menu  â”€  Menu 19 "framework" exact replica
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+// Lucid CS2 Menu  Ã¢â€â‚¬  Menu 19 "framework" exact replica
 // Dark navy (13,13,18) | Soft-purple accent (142,132,255)
 // 840x630 window | 110px LEFT SIDEBAR with stacked tabs
 // Toggle-switch checkboxes | Equalizer-bar sliders
 // Gradient accent lines top+bottom | Auto-height section boxes
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
 #include "../vendor/imgui/imgui.h"
 #include "../vendor/imgui/imgui_internal.h"
 #include "../core/stealth.h"   // Stealth::g_pUntrustedFlag for VAC watermark
-#include "../features/esp.h"
-#include "../features/aimbot.h"
-#include "../features/chams.h"
-#include "../features/bullet_tracer.h"
-#include "../features/world_effects.h"
-#include "../features/damage_indicator.h"
-#include "../features/bhop.h"
-#include "../features/auto_accept.h"
-#include "../features/rank_revealer.h"
-#include "../features/grenade_prediction.h"
-#include "../features/nade_helper.h"
-#include "../features/skinchanger_test.h"
-#include "../features/paint_kits.h"
-#include "../features/inventory_changer.h"
-#include "../features/model_changer.h"
-#include "../features/triggerbot.h"
-#include "../features/backtrack.h"
-#include "../features/anti_aim.h"
-#include "../features/fake_lag.h"
-#include "../features/sound_esp.h"
-#include "../features/kill_sound.h"
-#include "../features/crosshair.h"
+#include "../features/visuals/esp.h"
+#include "../features/combat/aimbot.h"
+#include "../features/visuals/chams.h"
+#include "../features/visuals/bullet_tracer.h"
+#include "../features/visuals/world_effects.h"
+#include "../features/visuals/damage_indicator.h"
+#include "../features/movement/bhop.h"
+#include "../features/misc/auto_accept.h"
+#include "../features/misc/rank_revealer.h"
+#include "../features/misc/grenade_prediction.h"
+#include "../features/misc/nade_helper.h"
+#include "../features/skins/skinchanger.h"
+#include "../features/skins/paint_kits.h"
+#include "../features/skins/inventory_changer.h"
+#include "../features/skins/model_changer.h"
+#include "../features/combat/triggerbot.h"
+#include "../features/movement/backtrack.h"
+#include "../features/movement/anti_aim.h"
+#include "../features/movement/fake_lag.h"
+#include "../features/misc/sound_esp.h"
+#include "../features/misc/kill_sound.h"
+#include "../features/misc/crosshair.h"
 #include <cstdlib>
 #include <ctime>
 #include <cstdio>
@@ -42,7 +42,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <wincodec.h>
-// WinHTTP is loaded at runtime (see SteamAvatarThread) â€” NOT statically linked.
+// WinHTTP is loaded at runtime (see SteamAvatarThread) Ã¢â‚¬â€ NOT statically linked.
 // Windowscodecs.lib likewise avoided; WIC is accessed via COM + local GUIDs.
 // Both DLLs are non-boot and may not be mapped at the same VA in cs2.exe as in
 // the injector process, so static IAT entries would point to garbage.
@@ -78,7 +78,7 @@ namespace Menu
         return a;
     }
 
-    // HUD Steam avatar â€” downloaded once on startup via background thread
+    // HUD Steam avatar Ã¢â‚¬â€ downloaded once on startup via background thread
     inline ID3D11Device*             g_pDevice      = nullptr;  // assigned from hooks.h
     inline ID3D11ShaderResourceView* hudAvatarSRV    = nullptr;
     inline std::vector<uint8_t>      hudAvatarPixels;
@@ -108,7 +108,7 @@ namespace Menu
         hudAvatarReady = false;
     }
 
-    // Background thread: fetches Steam profile XML â†’ downloads avatar â†’ decodes via WIC
+    // Background thread: fetches Steam profile XML Ã¢â€ â€™ downloads avatar Ã¢â€ â€™ decodes via WIC
     inline DWORD WINAPI SteamAvatarThread(LPVOID)
     {
         // 1. Account ID from registry
@@ -122,7 +122,7 @@ namespace Menu
 
         uint64_t steamID64 = 76561197960265728ULL + (uint64_t)accountID;
 
-        // 2. Load WinHTTP at runtime â€” avoids static IAT entries.
+        // 2. Load WinHTTP at runtime Ã¢â‚¬â€ avoids static IAT entries.
         //    The injector resolves imports from its own address space; non-boot DLLs
         //    like winhttp.dll may not be mapped in cs2.exe at the same VA, so any
         //    statically-linked import would call garbage addresses and crash.
@@ -157,7 +157,7 @@ namespace Menu
         constexpr DWORD kSecFlgs  = 0x00000100 | 0x00002000 | 0x00001000 | 0x00000200;
         // ^ IGNORE_UNKNOWN_CA | IGNORE_CERT_DATE_INVALID | IGNORE_CERT_CN_INVALID | IGNORE_CERT_WRONG_USAGE
 
-        // 3. FetchURL â€” all WinHTTP calls go through captured function pointers (no IAT)
+        // 3. FetchURL Ã¢â‚¬â€ all WinHTTP calls go through captured function pointers (no IAT)
         auto FetchURL = [&](const wchar_t* host, const wchar_t* path, std::string& out) -> bool {
             void* hs = whOpen(L"LucidHUD/1.0", kAccess, nullptr, nullptr, 0);
             if (!hs) return false;
@@ -215,7 +215,7 @@ namespace Menu
           fwrite(imgData.data(), 1, imgData.size(), f); fclose(f); }
 
         // 6. Decode JPEG via WIC to RGBA
-        // GUIDs defined locally â€” avoids Windowscodecs.lib in the import table
+        // GUIDs defined locally Ã¢â‚¬â€ avoids Windowscodecs.lib in the import table
         static const GUID kCLSID_WICFactory = { 0xcacaf262, 0x9370, 0x4615, { 0xa1, 0x3b, 0x9f, 0x55, 0x39, 0xda, 0x4c, 0x0a } };
         static const GUID kFmt32bppRGBA     = { 0xf5c7ad2d, 0x6a8d, 0x43dd, { 0xa7, 0xa8, 0xa2, 0x99, 0x35, 0x26, 0x1a, 0xe9 } };
         CoInitializeEx(nullptr, COINIT_MULTITHREADED);
@@ -264,7 +264,7 @@ namespace Menu
         if (t) CloseHandle(t);
     }
 
-    // Accent default â€” light red. Was deep purple; switched 2026-04-28
+    // Accent default Ã¢â‚¬â€ light red. Was deep purple; switched 2026-04-28
     // alongside the minimal classic-internal menu rewrite.
     inline float primaryColor[4]   = { 229/255.f,  57/255.f,  53/255.f, 1.0f };
     inline float secondaryColor[4] = { 0.09f, 0.09f, 0.09f, 0.70f };
@@ -524,7 +524,7 @@ namespace Menu
         return changed;
     }
 
-    // Section/category label â€” accent bar + title + subtle rule line
+    // Section/category label Ã¢â‚¬â€ accent bar + title + subtle rule line
     inline void EvoLabel(const char* text)
     {
         ImDrawList* dl = ImGui::GetWindowDrawList();
@@ -585,7 +585,7 @@ namespace Menu
         return current;
     }
 
-    // Auto-height section â€” wraps content in a subtle "card":
+    // Auto-height section Ã¢â‚¬â€ wraps content in a subtle "card":
     //   * 1px hairline outline so each section visibly separates from the
     //     next without heavy backgrounds,
     //   * a thin accent stripe down the left edge for a hierarchical feel,
@@ -603,7 +603,7 @@ namespace Menu
             ImGuiChildFlags_AutoResizeY,
             ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
-        // (no accent stripe â€” keep sections clean)
+        // (no accent stripe Ã¢â‚¬â€ keep sections clean)
     }
     inline void SynthEndSection()
     {
@@ -738,7 +738,7 @@ namespace Menu
         if (fread(hdr, sizeof(hdr), 1, f) != 1) { fclose(f); return false; }
         // hdr[0] = magic, hdr[1] = version, hdr[2] = dataSize at write time.
         // CRITICAL: dataSize MUST equal sizeof(SavedConfig) at load time.
-        // SavedConfig is read with raw fread of the full struct â€” every
+        // SavedConfig is read with raw fread of the full struct Ã¢â‚¬â€ every
         // member after Aimbot::Config (ESP/chams/colors/...) is positionally
         // bound to sizeof(Aimbot::Config). A struct-size mismatch silently
         // shifts every field after the change point, producing exactly the
@@ -957,7 +957,7 @@ namespace Menu
             SynthSep();
             EvoCheckbox("Vis Check",     &Aimbot::cfg.visCheck);
         }
-        // "Silent Aim" toggle removed â€” the WriteSubtick path proved
+        // "Silent Aim" toggle removed Ã¢â‚¬â€ the WriteSubtick path proved
         // unreliable in the field (would silently no-op for some users).
         // Aimbot::cfg.silentAim is hard-pinned to false at startup.
         SynthEndSection();
@@ -1356,7 +1356,7 @@ namespace Menu
         EvoCheckbox("Custom Ding##ksc",            &KillSound::cfg.enabled);
         SynthSep();
         EvoCheckbox("Log Sounds (debug)##kslog",   &KillSound::cfg.logSounds);
-        // Diagnostic readout — if "muted" stays at 0 while shooting,
+        // Diagnostic readout â€” if "muted" stays at 0 while shooting,
         // the per-hit hook didn't install or Valve is using a path we
         // don't intercept. Helps debug remaining HS dink leaks.
         ImGui::Text("Hits muted: %u | passed: %u | hooked: %s",
@@ -1385,11 +1385,11 @@ namespace Menu
     }
 
     // ---------------------------------------------------------------
-    // PaintKitPicker — searchable dropdown that replaces the bare
+    // PaintKitPicker â€” searchable dropdown that replaces the bare
     // numeric InputInt for paint kit selection. Filters the curated
     // PaintKits::kAll table by weapon name and provides a search box.
     //
-    // Signature mirrors ImGui::InputInt — pass label, paint-kit value
+    // Signature mirrors ImGui::InputInt â€” pass label, paint-kit value
     // pointer, and the weapon's display name (used for filtering).
     // Returns true when the value changed this frame.
     // ---------------------------------------------------------------
@@ -1411,7 +1411,7 @@ namespace Menu
         bool changed = false;
         ImGui::PushID(label);
 
-        // Combo widget — full available width minus space for the label.
+        // Combo widget â€” full available width minus space for the label.
         float availW = ImGui::GetContentRegionAvail().x;
         if (availW < 80.f) availW = 200.f;
         // Strip ##suffix to compute label visible width
@@ -1514,7 +1514,7 @@ namespace Menu
             auto& skin = SkinChanger::cfg.weapons[ws];
             SynthSep();
             EvoCheckbox("Enable##wp", &skin.enabled);
-            // Picker is always visible — picking a paint kit auto-enables
+            // Picker is always visible â€” picking a paint kit auto-enables
             // the weapon (SkinChanger::SyncConfigs treats paintKit>0 as
             // active). The checkbox is now an explicit "force on" override.
             {
@@ -1840,7 +1840,7 @@ namespace Menu
         const float t = 1.4f;
         switch (tab)
         {
-        case 0: // Crosshair â€” Aim
+        case 0: // Crosshair Ã¢â‚¬â€ Aim
             dl->AddCircle(c, 7.f, col, 32, t);
             dl->AddCircleFilled(c, 1.8f, col);
             dl->AddLine({c.x,        c.y - 11.f}, {c.x,        c.y -  9.f}, col, t);
@@ -1848,7 +1848,7 @@ namespace Menu
             dl->AddLine({c.x - 11.f, c.y       }, {c.x -  9.f, c.y       }, col, t);
             dl->AddLine({c.x +  9.f, c.y       }, {c.x + 11.f, c.y       }, col, t);
             break;
-        case 1: // Eye â€” Vis
+        case 1: // Eye Ã¢â‚¬â€ Vis
         {
             const float ew = 11.f, ctrl = 7.5f;
             dl->AddBezierCubic(
@@ -1860,7 +1860,7 @@ namespace Menu
             dl->AddCircle(c, 3.2f, col, 12, t);
             break;
         }
-        case 2: // Layers / chevrons â€” Skin
+        case 2: // Layers / chevrons Ã¢â‚¬â€ Skin
         {
             const float offsets[3] = { -5.f, 0.f, 5.f };
             for (int j = 0; j < 3; ++j)
@@ -1871,7 +1871,7 @@ namespace Menu
             }
             break;
         }
-        case 3: // Globe â€” World
+        case 3: // Globe Ã¢â‚¬â€ World
         {
             dl->AddCircle(c, 9.f, col, 32, t);
             dl->AddLine({c.x, c.y - 9.f}, {c.x, c.y + 9.f}, col, t);
@@ -1884,7 +1884,7 @@ namespace Menu
                 {c.x - ex, c.y + ctrl2}, {c.x - ex, c.y}, col, t);
             break;
         }
-        case 4: // Sliders â€” Config
+        case 4: // Sliders Ã¢â‚¬â€ Config
         {
             const float lw = 18.f;
             const float ly[3] = {c.y - 5.5f, c.y, c.y + 5.5f};
@@ -1905,10 +1905,10 @@ namespace Menu
     // ============================================================
     //  TOP-RIGHT HUD OVERLAY  (always visible: LUCID | name | time | FPS)
     //  Three styles:
-    //    0 Pill  â€” premium dark pill with accent bar, hairline dividers,
+    //    0 Pill  Ã¢â‚¬â€ premium dark pill with accent bar, hairline dividers,
     //              soft drop shadow, gradient backdrop, avatar accent ring
-    //    1 Clean â€” accent-forward outline, no dividers
-    //    2 Ghost â€” ultra-minimal, barely visible
+    //    1 Clean Ã¢â‚¬â€ accent-forward outline, no dividers
+    //    2 Ghost Ã¢â‚¬â€ ultra-minimal, barely visible
     // ============================================================
     inline void RenderHUD()
     {
@@ -1935,9 +1935,9 @@ namespace Menu
         const float gap  = 9.f;                           // gap between text segments
         // Hairline divider footprint = gap + 1px line + gap. The math used to
         // fall short by 9px per divider which clipped the FPS value off the
-        // right edge â€” keep this in sync with HairDivider() below.
+        // right edge Ã¢â‚¬â€ keep this in sync with HairDivider() below.
         const float divW = gap + 1.f + gap;
-        // Note: rounded-capsule radius (`bh * 0.5f`) is no longer used —
+        // Note: rounded-capsule radius (`bh * 0.5f`) is no longer used â€”
         // all HUD styles now share the squared liquid-glass look (see kHudR).
 
         ImVec2 szL  = ImGui::CalcTextSize(kVersionTag);
@@ -1965,7 +1965,7 @@ namespace Menu
         // clean style: no dividers, but we add small inter-segment gaps
         const float cleanGap = (hudStyle == 1) ? (gap + 4.f) : 0.f;
 
-        // FPS is hidden in the premium HUD per user request — keep the locals
+        // FPS is hidden in the premium HUD per user request â€” keep the locals
         // computed above to avoid touching every style branch but do not
         // include the FPS label/value in the bar width.
         (void)szFL; (void)szFV; (void)fpsBuf; (void)fpsInner;
@@ -1982,21 +1982,21 @@ namespace Menu
         const float cy = by + bh * 0.5f;
         const float ty = by + (bh - fh) * 0.5f;
 
-        // Hairline divider helper â€” shared across styles, advances cx
+        // Hairline divider helper Ã¢â‚¬â€ shared across styles, advances cx
         auto HairDivider = [&](float& cx, ImU32 col, float topPad = 6.f) {
             cx += gap;
             fl->AddRectFilled({ cx, by + topPad }, { cx + 1.f, by + bh - topPad }, col);
             cx += 1.f + gap;
         };
 
-        // Squared corner rounding shared by all HUD styles — matches the
+        // Squared corner rounding shared by all HUD styles â€” matches the
         // squared "liquid glass" look of the main menu rail.
         const float kHudR = 6.f;
 
-        // Light red used for the version watermark — soft, brand-adjacent
+        // Light red used for the version watermark â€” soft, brand-adjacent
         // pink-red so it reads as decorative rather than alarmist.
         const ImU32 kVersionRed = IM_COL32(255, 138, 138, 245);
-        // Dark inky outline behind the version text — gives it the
+        // Dark inky outline behind the version text â€” gives it the
         // "engraved" look that pops nicely against any glass tint.
         const ImU32 kVersionInk = IM_COL32(0, 0, 0, 200);
 
@@ -2020,7 +2020,7 @@ namespace Menu
         auto DrawHudGlass = [&](float x0, float y0, float x1, float y1,
                                 int baseAlpha)
         {
-            // soft outer shadow stack — fakes background blur falloff
+            // soft outer shadow stack â€” fakes background blur falloff
             for (int i = 8; i > 0; --i) {
                 int sa = 6 + (8 - i) * 4;          // 6..34
                 fl->AddRectFilled({ x0 - i, y0 - i + 1 },
@@ -2030,7 +2030,7 @@ namespace Menu
             // 1) translucent dark glass base
             fl->AddRectFilled({ x0, y0 }, { x1, y1 },
                 IM_COL32(10, 10, 13, baseAlpha), kHudR);
-            // 2) vertical sheen: top dim → mid bright → bot dim
+            // 2) vertical sheen: top dim â†’ mid bright â†’ bot dim
             const ImU32 cT = IM_COL32(255, 255, 255,  4);
             const ImU32 cM = IM_COL32(255, 255, 255, 12);
             const ImU32 cB = IM_COL32(255, 255, 255,  2);
@@ -2052,7 +2052,7 @@ namespace Menu
         };
 
         // ------------------------------------------------------------------
-        //  STYLE 2 — GHOST  (squared liquid glass, minimal: no accent bar,
+        //  STYLE 2 â€” GHOST  (squared liquid glass, minimal: no accent bar,
         //  dot separators, lower base alpha so it reads as the lightest)
         // ------------------------------------------------------------------
         if (hudStyle == 2)
@@ -2068,7 +2068,7 @@ namespace Menu
                 cx += avD + 8.f;
             }
 
-            // Dot separator instead of vertical hairline — softer, more "ghost"
+            // Dot separator instead of vertical hairline â€” softer, more "ghost"
             const ImU32 cDot = IM_COL32(180, 180, 190, 130);
             auto Dot = [&](float& x) {
                 x += gap;
@@ -2088,7 +2088,7 @@ namespace Menu
         }
 
         // ------------------------------------------------------------------
-        //  STYLE 1 — CLEAN  (squared liquid glass + accent outline + bar)
+        //  STYLE 1 â€” CLEAN  (squared liquid glass + accent outline + bar)
         // ------------------------------------------------------------------
         if (hudStyle == 1)
         {
@@ -2123,11 +2123,11 @@ namespace Menu
         }
 
         // ------------------------------------------------------------------
-        //  STYLE 0 — PREMIUM SQUARE  (default, densest liquid glass)
+        //  STYLE 0 â€” PREMIUM SQUARE  (default, densest liquid glass)
         // ------------------------------------------------------------------
         DrawHudGlass(bx, by, bx + totalW, by + bh, 215);
 
-        // Accent bar — flat vertical strip on the left edge.
+        // Accent bar â€” flat vertical strip on the left edge.
         fl->AddRectFilled({ bx + 3.f, by + 6.f },
                           { bx + 5.f, by + bh - 6.f },
                           EvoAccent(235), 1.f);
@@ -2143,7 +2143,7 @@ namespace Menu
             cx += avD + 8.f;
         }
 
-        // Clean separators — soft white dot between segments.
+        // Clean separators â€” soft white dot between segments.
         auto Sep = [&](float& cx) {
             fl->AddCircleFilled({ cx + divW * 0.5f, cy + 0.5f }, 1.3f,
                                 IM_COL32(180, 180, 190, 130), 8);
@@ -2162,11 +2162,11 @@ namespace Menu
     //  the 20-hour MM cooldown.
     //
     //  States (status dot / value text):
-    //    GRAY    "----"  â€” sigscan not run yet (very first frames)
-    //    AMBER   "MISS"  â€” sigscan ran but couldn't find the setter
-    //                       (game updated, pattern broke â€” bug me)
-    //    GREEN   "00"    â€” flag is being held at 0 (we're invisible)
-    //    RED     "01"    â€” game just set it; we'll zero it next beat
+    //    GRAY    "----"  Ã¢â‚¬â€ sigscan not run yet (very first frames)
+    //    AMBER   "MISS"  Ã¢â‚¬â€ sigscan ran but couldn't find the setter
+    //                       (game updated, pattern broke Ã¢â‚¬â€ bug me)
+    //    GREEN   "00"    Ã¢â‚¬â€ flag is being held at 0 (we're invisible)
+    //    RED     "01"    Ã¢â‚¬â€ game just set it; we'll zero it next beat
     // ============================================================
     inline void RenderVacWatermark()
     {
@@ -2224,7 +2224,7 @@ namespace Menu
         const float cy = by + bh * 0.5f;
         const float ty = by + (bh - fh) * 0.5f;
 
-        // Soft drop shadow stack — blur falloff
+        // Soft drop shadow stack â€” blur falloff
         for (int i = 4; i > 0; --i) {
             fl->AddRectFilled({ bx - i, by - i + 1 },
                               { bx + totalW + i, by + bh + i + 1 },
@@ -2268,7 +2268,7 @@ namespace Menu
     }
 
     // ============================================================
-    //  FEATURE CARD GRID  â”€  iOS-style mod menu
+    //  FEATURE CARD GRID  Ã¢â€â‚¬  iOS-style mod menu
     //  Each tab shows a 3-col grid of cards. Click OPTIONS on a
     //  card to navigate into that feature's page.
     // ============================================================
@@ -2284,7 +2284,7 @@ namespace Menu
     };
 
     // ============================================================
-    //  LUCIDE-STYLE ICONS  â”€  24x24 grid, ~1.7px stroke, rounded
+    //  LUCIDE-STYLE ICONS  Ã¢â€â‚¬  24x24 grid, ~1.7px stroke, rounded
     //  Drawn around center `c` with logical radius `s`.
     // ============================================================
     inline void DrawFeatureIcon(ImDrawList* dl, int id, ImVec2 c, float scale, ImU32 col)
@@ -2296,7 +2296,7 @@ namespace Menu
 
         switch (id)
         {
-        // â”€â”€ crosshair (lucide: crosshair) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ crosshair (lucide: crosshair) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_CROSSHAIR: {
             dl->AddCircle(c, s * 0.78f, col, 32, t);
             Ln({c.x, c.y - s*1.05f}, {c.x, c.y - s*0.55f});
@@ -2306,21 +2306,21 @@ namespace Menu
             dl->AddCircleFilled(c, s * 0.10f, col, 12);
             break; }
 
-        // â”€â”€ triggerbot (lucide: target with center) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ triggerbot (lucide: target with center) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_TRIGGER: {
             dl->AddCircle(c, s * 0.95f, col, 32, t);
             dl->AddCircle(c, s * 0.55f, col, 28, t);
             dl->AddCircleFilled(c, s * 0.18f, col, 16);
             break; }
 
-        // â”€â”€ jump (lucide: arrow-up) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ jump (lucide: arrow-up) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_JUMP: {
             Ln({c.x, c.y + s*0.95f}, {c.x, c.y - s*0.95f});
             Ln({c.x, c.y - s*0.95f}, {c.x - s*0.55f, c.y - s*0.4f});
             Ln({c.x, c.y - s*0.95f}, {c.x + s*0.55f, c.y - s*0.4f});
             break; }
 
-        // â”€â”€ rewind (lucide: rotate-ccw) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ rewind (lucide: rotate-ccw) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_REWIND: {
             int seg = 24; float r = s * 0.85f;
             for (int i = 0; i < seg; ++i) {
@@ -2337,7 +2337,7 @@ namespace Menu
             Ln(ep, { ep.x + s*0.55f, ep.y + s*0.05f });
             break; }
 
-        // â”€â”€ rotate (lucide: refresh-cw / two arrows) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ rotate (lucide: refresh-cw / two arrows) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_ROTATE: {
             float r = s * 0.78f;
             int seg = 18;
@@ -2358,7 +2358,7 @@ namespace Menu
             }
             break; }
 
-        // â”€â”€ bolt (lucide: zap, filled) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ bolt (lucide: zap, filled) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_BOLT: {
             ImVec2 pts[6] = {
                 { c.x - s*0.05f, c.y - s*1.0f },
@@ -2373,13 +2373,13 @@ namespace Menu
             dl->PathFillConvex(col);
             break; }
 
-        // â”€â”€ box (lucide: square) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ box (lucide: square) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_BOX: {
             float r = s * 0.85f;
             dl->AddRect({ c.x - r, c.y - r }, { c.x + r, c.y + r }, col, 3.f, 0, t);
             break; }
 
-        // â”€â”€ silhouette (lucide: user) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ silhouette (lucide: user) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_SILHOUETTE: {
             dl->AddCircle({ c.x, c.y - s*0.4f }, s * 0.34f, col, 24, t);
             int seg = 14;
@@ -2396,7 +2396,7 @@ namespace Menu
             }
             break; }
 
-        // â”€â”€ tracer (lucide: move-up-right diag) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ tracer (lucide: move-up-right diag) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_TRACER: {
             ImVec2 a{ c.x - s*0.85f, c.y + s*0.85f };
             ImVec2 b{ c.x + s*0.85f, c.y - s*0.85f };
@@ -2406,7 +2406,7 @@ namespace Menu
             Ln(b, { b.x, b.y + s*0.55f });
             break; }
 
-        // â”€â”€ droplet (lucide: droplet) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ droplet (lucide: droplet) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_DROP: {
             int seg = 26;
             dl->PathClear();
@@ -2419,7 +2419,7 @@ namespace Menu
             dl->PathStroke(col, ImDrawFlags_Closed, t);
             break; }
 
-        // â”€â”€ eye (lucide: eye) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ eye (lucide: eye) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_EYE: {
             const float w = s * 1.0f, h = s * 0.55f;
             dl->PathClear();
@@ -2434,7 +2434,7 @@ namespace Menu
             dl->AddCircleFilled(c, s * 0.12f, col, 12);
             break; }
 
-        // â”€â”€ badge / award (lucide: award) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ badge / award (lucide: award) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_BADGE: {
             dl->AddCircle({ c.x, c.y - s*0.15f }, s * 0.55f, col, 28, t);
             // ribbons
@@ -2444,7 +2444,7 @@ namespace Menu
             Ln({ c.x + s*0.05f, c.y + s*1.0f }, { c.x + s*0.42f, c.y + s*0.30f });
             break; }
 
-        // â”€â”€ grenade (circle + safety lever) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ grenade (circle + safety lever) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_GRENADE: {
             dl->AddCircle({ c.x, c.y + s*0.18f }, s * 0.62f, col, 28, t);
             // top cap
@@ -2456,7 +2456,7 @@ namespace Menu
             Ln({ c.x + s*0.18f, c.y - s*0.48f }, { c.x + s*0.36f, c.y - s*0.50f });
             break; }
 
-        // â”€â”€ target / focus (lucide: focus) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ target / focus (lucide: focus) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_TARGET: {
             dl->AddCircleFilled(c, s * 0.18f, col, 16);
             // L-corners
@@ -2471,7 +2471,7 @@ namespace Menu
             Ln({ c.x - r, c.y + r }, { c.x - r, c.y + r*0.55f });
             break; }
 
-        // â”€â”€ speaker (lucide: volume-2) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ speaker (lucide: volume-2) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_SPEAKER: {
             ImVec2 pts[5] = {
                 { c.x - s*0.85f, c.y - s*0.30f },
@@ -2495,7 +2495,7 @@ namespace Menu
             }
             break; }
 
-        // â”€â”€ paint / brush (lucide: paintbrush) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ paint / brush (lucide: paintbrush) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_PAINT: {
             // brush head
             dl->AddRect({ c.x - s*0.35f, c.y - s*0.95f }, { c.x + s*0.55f, c.y - s*0.30f }, col, 3.f, 0, t);
@@ -2509,7 +2509,7 @@ namespace Menu
             Ln({ c.x - s*0.55f, c.y + s*0.95f }, { c.x + s*0.05f, c.y + s*0.95f });
             break; }
 
-        // â”€â”€ knife / sword (lucide: sword) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ knife / sword (lucide: sword) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_KNIFE: {
             // blade
             Ln({ c.x - s*0.95f, c.y + s*0.30f }, { c.x + s*0.20f, c.y - s*0.85f });
@@ -2524,7 +2524,7 @@ namespace Menu
             Ln({ c.x - s*0.95f, c.y + s*0.45f }, { c.x - s*0.75f, c.y + s*0.85f });
             break; }
 
-        // â”€â”€ glove / hand (lucide: hand) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ glove / hand (lucide: hand) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_GLOVE: {
             // palm
             float pl = c.x - s*0.45f, pr = c.x + s*0.45f;
@@ -2557,7 +2557,7 @@ namespace Menu
             }
             break; }
 
-        // â”€â”€ sun (lucide: sun) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ sun (lucide: sun) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_SUN: {
             dl->AddCircle(c, s * 0.42f, col, 24, t);
             for (int i = 0; i < 8; ++i) {
@@ -2567,7 +2567,7 @@ namespace Menu
             }
             break; }
 
-        // â”€â”€ flame (lucide: flame) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ flame (lucide: flame) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_FLAME: {
             dl->PathClear();
             dl->PathLineTo({ c.x, c.y - s*0.95f });
@@ -2586,7 +2586,7 @@ namespace Menu
             dl->PathStroke(col, ImDrawFlags_Closed, t);
             break; }
 
-        // â”€â”€ FOV (lucide: scan / corners) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ FOV (lucide: scan / corners) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_FOV: {
             float r = s * 0.95f;
             // four corner brackets
@@ -2602,7 +2602,7 @@ namespace Menu
             Ln({ c.x - r*0.55f, c.y }, { c.x + r*0.55f, c.y });
             break; }
 
-        // â”€â”€ moon (lucide: moon) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ moon (lucide: moon) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_MOON: {
             // crescent via two-arc closed path
             int seg = 28;
@@ -2618,7 +2618,7 @@ namespace Menu
             dl->PathStroke(col, ImDrawFlags_Closed, t);
             break; }
 
-        // â”€â”€ lightbulb (lucide: lightbulb) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ lightbulb (lucide: lightbulb) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_BULB: {
             // bulb (circle with bottom flat)
             int seg = 22;
@@ -2636,7 +2636,7 @@ namespace Menu
             Ln({ c.x - s*0.20f, c.y - s*0.10f }, { c.x + s*0.20f, c.y - s*0.10f });
             break; }
 
-        // â”€â”€ camera (lucide: camera) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ camera (lucide: camera) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_CAMERA: {
             dl->AddRect({ c.x - s*0.95f, c.y - s*0.45f }, { c.x + s*0.95f, c.y + s*0.65f }, col, 3.f, 0, t);
             // top notch
@@ -2647,14 +2647,14 @@ namespace Menu
             dl->AddCircle({ c.x, c.y + s*0.10f }, s * 0.32f, col, 24, t);
             break; }
 
-        // â”€â”€ check (lucide: check-circle) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ check (lucide: check-circle) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_CHECK: {
             dl->AddCircle(c, s * 0.95f, col, 32, t);
             Ln({ c.x - s*0.42f, c.y + s*0.05f }, { c.x - s*0.05f, c.y + s*0.42f });
             Ln({ c.x - s*0.05f, c.y + s*0.42f }, { c.x + s*0.50f, c.y - s*0.30f });
             break; }
 
-        // â”€â”€ gear (lucide: settings) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ gear (lucide: settings) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_GEAR: {
             int teeth = 8;
             float rO = s * 0.95f, rI = s * 0.70f;
@@ -2676,7 +2676,7 @@ namespace Menu
             dl->AddCircle(c, s * 0.28f, col, 18, t);
             break; }
 
-        // â”€â”€ wand / sparkles (lucide: sparkles) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ wand / sparkles (lucide: sparkles) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_WAND: {
             // big star
             auto Star = [&](ImVec2 cc, float sz) {
@@ -2690,7 +2690,7 @@ namespace Menu
             Star({ c.x + s*0.55f, c.y + s*0.65f }, s * 0.20f);
             break; }
 
-        // â”€â”€ palette (lucide: palette) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ palette (lucide: palette) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_PALETTE: {
             // outline blob
             int seg = 28;
@@ -2710,7 +2710,7 @@ namespace Menu
             dl->AddCircleFilled({ c.x - s*0.40f, c.y + s*0.35f }, s * 0.10f, col, 12);
             break; }
 
-        // â”€â”€ HUD / layout (lucide: layout-dashboard) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ HUD / layout (lucide: layout-dashboard) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_HUD: {
             float r = s * 0.92f;
             // big cell top-left
@@ -2723,7 +2723,7 @@ namespace Menu
             dl->AddRect({ c.x + s*0.10f, c.y + s*0.40f }, { c.x + r, c.y + r }, col, 2.5f, 0, t);
             break; }
 
-        // â”€â”€ floppy / save (lucide: save) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ floppy / save (lucide: save) Ã¢â€â‚¬Ã¢â€â‚¬
         case FI_FLOPPY: {
             float r = s * 0.92f;
             dl->AddRect({ c.x - r, c.y - r }, { c.x + r, c.y + r }, col, 3.f, 0, t);
@@ -2744,7 +2744,7 @@ namespace Menu
     //  PAGE RENDERERS  (one per existing section; called from grid)
     // ============================================================
 
-    // â”€â”€ AIM tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ AIM tab Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     inline void Pg_Aimbot()
     {
         EvoCheckbox("Safety Governor##gov", &Aimbot::Governor::gcfg.enabled);
@@ -2765,7 +2765,7 @@ namespace Menu
         SynthSep();
         EvoSliderFloat("Humanization", &Aimbot::cfg.humanization, 0.30f, 1.f,   "%.2f");
         SynthSep();
-        // "Silent Aim" toggle removed â€” see Pg_Aimbot for context.
+        // "Silent Aim" toggle removed Ã¢â‚¬â€ see Pg_Aimbot for context.
         EvoCheckbox("Team Check",    &Aimbot::cfg.teamCheck);
         SynthSep();
         EvoCheckbox("No Recoil",       &Aimbot::cfg.noRecoil);
@@ -2814,13 +2814,13 @@ namespace Menu
         SynthSep(); EvoCheckbox("Velocity Display##bvd", &Bhop::cfg.showVelocity);
     }
 
-    // Rage Mode page â€” danger-tier toggles (Neverlose / Memesense style).
+    // Rage Mode page Ã¢â‚¬â€ danger-tier toggles (Neverlose / Memesense style).
     // Flipping `Enable` clobbers aim physics (silent / always-on / no
     // smoothing / no vis-check) for the session. Toggle off to get your
     // legit settings back exactly as they were before.
     inline void Pg_Rage()
     {
-        ImGui::TextColored({ 1.f, 0.4f, 0.4f, 1.f }, "  âš  Danger â€” visible to spectators");
+        ImGui::TextColored({ 1.f, 0.4f, 0.4f, 1.f }, "  Ã¢Å¡Â  Danger Ã¢â‚¬â€ visible to spectators");
         ImGui::Dummy({ 0.f, 4.f });
         EvoCheckbox("Enable Rage##rge", &Aimbot::Rage::cfg.enabled);
         if (!Aimbot::Rage::cfg.enabled) return;
@@ -2854,7 +2854,7 @@ namespace Menu
         SynthSep(); ImGui::SliderInt("Max Choke##flmc", &FakeLag::cfg.maxChoke, 1, 14);
     }
 
-    // â”€â”€ VIS tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ VIS tab Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     inline void Pg_ESP()
     {
         EvoCheckbox("Box",       &ESP::cfg.box);
@@ -2987,7 +2987,7 @@ namespace Menu
         SynthSep(); EvoSliderFloat("Arrow Size##sas",&SoundESP::cfg.indicatorSize,15.f,  80.f, "%.0f");
     }
 
-    // â”€â”€ SKN tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ SKN tab Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     inline void Pg_SkinChanger()
     {
         if (EvoButton("Randomize All##ra")) SkinChanger::RandomizeAll();
@@ -3054,7 +3054,7 @@ namespace Menu
         SynthSep(); EvoSliderFloat("Wear##gw", &SkinChanger::cfg.gloveWear, 0.f, 1.f, "%.4f");
     }
 
-    // â”€â”€ WLD tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ WLD tab Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     inline void Pg_Sky()
     {
         EvoCheckbox("Sky Override##so", &WorldEffects::cfg.skyEnabled);
@@ -3139,7 +3139,7 @@ namespace Menu
         EvoSliderFloat("Delay##aad", &AutoAccept::cfg.delay, 0.1f, 3.f, "%.1f");
     }
 
-    // â”€â”€ CFG tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ CFG tab Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     inline void Pg_UIMode()  { EvoCheckbox("Advanced Mode", &advancedMode); }
     inline void Pg_Presets()
     {
@@ -3185,7 +3185,7 @@ namespace Menu
         }
     }
 
-    // â”€â”€ Feature catalog â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ Feature catalog Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     struct FeatureDef {
         const char* name;
         const char* subtitle;
@@ -3251,7 +3251,7 @@ namespace Menu
         count = 0; return nullptr;
     }
 
-    // â”€â”€ Card renderer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ Card renderer Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     //  Submits OPTIONS + toggle as REAL items (so clicks register).
     //  Hover for the whole card uses a non-blocking rect-test.
     inline bool DrawFeatureCard(const FeatureDef& f, ImVec2 sz, float dt)
@@ -3266,7 +3266,7 @@ namespace Menu
         const bool hovered = ImGui::IsWindowHovered() && ImGui::IsMouseHoveringRect(p0, p1);
         const float hAnim  = AnimStep(&f, hovered, 16.f, dt);
 
-        // â”€â”€ shadow (lifts on hover) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ shadow (lifts on hover) Ã¢â€â‚¬Ã¢â€â‚¬
         for (int s = 0; s < 4; ++s) {
             float ofs   = 2.0f + (float)s * 2.4f + hAnim * 2.5f;
             int   alpha = (int)((26 - s * 6 + hAnim * 12) * menuAlpha);
@@ -3277,7 +3277,7 @@ namespace Menu
                 IM_COL32(0, 0, 0, alpha), R + 2.f);
         }
 
-        // â”€â”€ base fill â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ base fill Ã¢â€â‚¬Ã¢â€â‚¬
         ImU32 baseFill = IM_COL32(
             19 + (int)(hAnim * 5),
             17 + (int)(hAnim * 5),
@@ -3285,12 +3285,12 @@ namespace Menu
             (int)((220 + hAnim * 25) * menuAlpha));
         dl->AddRectFilled(p0, p1, baseFill, R);
 
-        // â”€â”€ enabled accent wash (smooth radial centred on icon, no hard line) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ enabled accent wash (smooth radial centred on icon, no hard line) Ã¢â€â‚¬Ã¢â€â‚¬
         if (isOn) {
             float cx = (p0.x + p1.x) * 0.5f;
             float cy = p0.y + 44.f;
             float maxR = sz.x * 0.85f;
-            // Many faint concentric rings â†’ smooth gradient fall-off
+            // Many faint concentric rings Ã¢â€ â€™ smooth gradient fall-off
             for (int g = 0; g < 14; ++g) {
                 float t  = (float)g / 13.f;          // 0..1
                 float rr = maxR * (0.18f + t * 0.82f);
@@ -3300,26 +3300,26 @@ namespace Menu
             }
         }
 
-        // â”€â”€ glossy top sliver â”€â”€ two halves that fade INTO the center,
-        //  brighter near the corners, dimmer in the middle (â‰ˆ25% less alpha).
+        // Ã¢â€â‚¬Ã¢â€â‚¬ glossy top sliver Ã¢â€â‚¬Ã¢â€â‚¬ two halves that fade INTO the center,
+        //  brighter near the corners, dimmer in the middle (Ã¢â€°Ë†25% less alpha).
         {
-            const int   midA = (int)(58 * menuAlpha);   // was 78 (â‰ˆ -25%)
+            const int   midA = (int)(58 * menuAlpha);   // was 78 (Ã¢â€°Ë† -25%)
             const float yA   = p0.y + 1.f;
             const float yB   = p0.y + 2.4f;
             const float xL   = p0.x + 16.f;
             const float xR   = p1.x - 16.f;
             const float xMid = (xL + xR) * 0.5f;
-            // left half: 0 â†’ midA â†’ 0
+            // left half: 0 Ã¢â€ â€™ midA Ã¢â€ â€™ 0
             dl->AddRectFilledMultiColor({ xL, yA }, { xMid, yB },
                 IM_COL32(255,255,255,0),       IM_COL32(255,255,255,midA),
                 IM_COL32(255,255,255,midA),    IM_COL32(255,255,255,0));
-            // right half: midA â†’ 0 â†’ 0 â†’ midA  (mirror)
+            // right half: midA Ã¢â€ â€™ 0 Ã¢â€ â€™ 0 Ã¢â€ â€™ midA  (mirror)
             dl->AddRectFilledMultiColor({ xMid, yA }, { xR, yB },
                 IM_COL32(255,255,255,midA),    IM_COL32(255,255,255,0),
                 IM_COL32(255,255,255,0),       IM_COL32(255,255,255,midA));
         }
 
-        // â”€â”€ outline â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ outline Ã¢â€â‚¬Ã¢â€â‚¬
         ImU32 outline = isOn
             ? EvoAccent((int)((140 + hAnim * 60) * menuAlpha))
             : IM_COL32(50 + (int)(hAnim * 28),
@@ -3331,7 +3331,7 @@ namespace Menu
         dl->AddRect({ p0.x + 0.5f, p0.y + 0.5f }, { p1.x - 0.5f, p1.y - 0.5f },
             IM_COL32(255, 255, 255, (int)(menuAlpha * (10 + hAnim * 6))), R - 0.5f, 0, 1.f);
 
-        // â”€â”€ icon plate (centred more â€” sits a bit lower) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ icon plate (centred more Ã¢â‚¬â€ sits a bit lower) Ã¢â€â‚¬Ã¢â€â‚¬
         const float iconR = 23.f;
         ImVec2 iconC{ (p0.x + p1.x) * 0.5f, p0.y + 44.f };
 
@@ -3360,7 +3360,7 @@ namespace Menu
             : IM_COL32(178, 178, 200, (int)((220 + hAnim * 30) * menuAlpha));
         DrawFeatureIcon(dl, f.icon, iconC, 13.5f, iconCol);
 
-        // â”€â”€ name + subtitle (subtitle wrapped in a soft pill badge) â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ name + subtitle (subtitle wrapped in a soft pill badge) Ã¢â€â‚¬Ã¢â€â‚¬
         ImVec2 nmSz   = ImGui::CalcTextSize(f.name);
         const float nameY = iconC.y + iconR + 11.f;
         dl->AddText({ (p0.x + p1.x - nmSz.x) * 0.5f, nameY },
@@ -3383,14 +3383,14 @@ namespace Menu
                 ? EvoAccent((int)((110 + hAnim * 40) * menuAlpha))
                 : IM_COL32(70, 66, 100, (int)((150 + hAnim * 50) * menuAlpha));
             dl->AddRect({ chipX0, chipY0 }, { chipX1, chipY1 }, chipEdge, chipR, 0, 1.f);
-            // text â€” nudged up 2px so it sits visually centred (font baseline bias)
+            // text Ã¢â‚¬â€ nudged up 2px so it sits visually centred (font baseline bias)
             dl->AddText({ chipX0 + padX, chipY0 + padY - 2.f },
                 isOn ? IM_COL32(232, 230, 245, (int)(232 * menuAlpha))
                      : IM_COL32(150, 150, 170, (int)(218 * menuAlpha)),
                 f.subtitle);
         }
 
-        // â”€â”€ bottom action row â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ bottom action row Ã¢â€â‚¬Ã¢â€â‚¬
         const float rowH  = 28.f;
         const float rowY0 = p1.y - rowH - 9.f;
         const float rowY1 = p1.y - 9.f;
@@ -3401,7 +3401,7 @@ namespace Menu
         // Use a stable ID scope per-card so children don't collide across cards
         ImGui::PushID((const void*)&f);
 
-        // OPTIONS button â€” left half if there's also a toggle; centred-wide otherwise
+        // OPTIONS button Ã¢â‚¬â€ left half if there's also a toggle; centred-wide otherwise
         {
             ImVec2 bTL, bBR;
             if (hasToggle) {
@@ -3428,7 +3428,7 @@ namespace Menu
                 IM_COL32(64, 60, 92, (int)((180 + bA * 60) * menuAlpha)), 7.f, 0, 1.f);
             const char* lbl = "OPTIONS";
             ImVec2 lSz = ImGui::CalcTextSize(lbl);
-            // No chevron â€” clean centred label only
+            // No chevron Ã¢â‚¬â€ clean centred label only
             dl->AddText({ (dTL.x + dBR.x - lSz.x) * 0.5f, (dTL.y + dBR.y - lSz.y) * 0.5f },
                 IM_COL32(220, 220, 235, (int)(228 * menuAlpha)), lbl);
             if (clicked) clickedOptions = true;
@@ -3449,7 +3449,7 @@ namespace Menu
             float pressShift = bd ? 1.f : 0.f;
             ImVec2 dTL{ tTL.x, tTL.y + pressShift };
             ImVec2 dBR{ tBR.x, tBR.y + pressShift };
-            // off â†’ muted red, on â†’ primaryColor
+            // off Ã¢â€ â€™ muted red, on Ã¢â€ â€™ primaryColor
             int rR = 132 + (int)((((primaryColor[0] * 255) - 132) * onA));
             int gG =  42 + (int)((((primaryColor[1] * 255) -  42) * onA));
             int bB =  54 + (int)((((primaryColor[2] * 255) -  54) * onA));
@@ -3491,7 +3491,7 @@ namespace Menu
         return clickedOptions;
     }
 
-    // â”€â”€ Grid renderer (with slide-in animation) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ Grid renderer (with slide-in animation) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     inline void DrawFeatureGrid(int tab, float dt, ImVec2 areaSz)
     {
         int count = 0;
@@ -3541,7 +3541,7 @@ namespace Menu
         ImGui::Dummy({ areaSz.x, rows * CARD_H + (rows - 1) * ROW_GAP });
     }
 
-    // â”€â”€ Feature page renderer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ Feature page renderer Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     inline void DrawFeaturePage(int tab, float dt, ImVec2 areaSz)
     {
         int count = 0;
@@ -3564,7 +3564,7 @@ namespace Menu
         origin.x += slide;
         ImGui::SetCursorScreenPos(origin);
 
-        // â”€â”€ header card â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ header card Ã¢â€â‚¬Ã¢â€â‚¬
         const float HDR = 46.f;
         ImVec2 hTL = origin;
         ImVec2 hBR = { origin.x + areaSz.x, origin.y + HDR };
@@ -3652,7 +3652,7 @@ namespace Menu
                 IM_COL32(255,255,255,(int)(245*menuAlpha)), st);
         }
 
-        // â”€â”€ content card â”€â”€
+        // Ã¢â€â‚¬Ã¢â€â‚¬ content card Ã¢â€â‚¬Ã¢â€â‚¬
         ImVec2 cTL{ origin.x, hBR.y + 10.f };
         ImVec2 cBR{ origin.x + areaSz.x, origin.y + areaSz.y };
         // bg
@@ -3937,18 +3937,18 @@ namespace Menu
         const float ry0 = wp.y;
         const float ry1 = wp.y + ws.y;
         const float aBase = menuAlpha;
-        // 1) translucent dark base — denser/darker so it reads closer to the
+        // 1) translucent dark base â€” denser/darker so it reads closer to the
         //    solid right pane while still letting the game peek through
         dl->AddRectFilled({ rx0, ry0 }, { rx1, ry1 },
             IM_COL32(10, 10, 13, (int)(205 * aBase)));
-        // 2) vertical sheen gradient: top dim → mid bright → bottom dim
+        // 2) vertical sheen gradient: top dim â†’ mid bright â†’ bottom dim
         const ImU32 cTop = IM_COL32(255, 255, 255, (int)( 4 * aBase));
         const ImU32 cMid = IM_COL32(255, 255, 255, (int)(12 * aBase));
         const ImU32 cBot = IM_COL32(255, 255, 255, (int)( 2 * aBase));
         const float ryM = ry0 + ws.y * 0.55f;
         dl->AddRectFilledMultiColor({ rx0, ry0 }, { rx1, ryM }, cTop, cTop, cMid, cMid);
         dl->AddRectFilledMultiColor({ rx0, ryM }, { rx1, ry1 }, cMid, cMid, cBot, cBot);
-        // 3a) horizontal cross-sheen (left dimmer, right brighter — fakes refraction)
+        // 3a) horizontal cross-sheen (left dimmer, right brighter â€” fakes refraction)
         const ImU32 hL = IM_COL32(255, 255, 255, 0);
         const ImU32 hR = IM_COL32(255, 255, 255, (int)( 6 * aBase));
         dl->AddRectFilledMultiColor({ rx0, ry0 }, { rx1, ry1 }, hL, hR, hR, hL);
@@ -3957,7 +3957,7 @@ namespace Menu
             IM_COL32(255, 255, 255, (int)(22 * aBase)), 1.f);
         dl->AddLine({ rx0 + 1.f, ry1 - 1.f }, { rx1 - 1.f, ry1 - 1.f },
             IM_COL32(0, 0, 0, (int)(80 * aBase)), 1.f);
-        // 4) right-edge rim hairline (subtler — blends into the solid right pane)
+        // 4) right-edge rim hairline (subtler â€” blends into the solid right pane)
         dl->AddRectFilled({ rx1 - 1.f, ry0 }, { rx1, ry1 },
             IM_COL32(255, 255, 255, (int)(18 * aBase)));
         dl->AddRectFilled({ wp.x + RAIL_W, wp.y + 14.f },
@@ -3969,7 +3969,7 @@ namespace Menu
 
         // ---- LEFT RAIL ----
         {
-            // search icon button — BOTTOM of rail (fades out as bar opens)
+            // search icon button â€” BOTTOM of rail (fades out as bar opens)
             float sIconAlpha = 1.f - g_searchAnim;
             ImVec2 sBtnTL{ wp.x + RAIL_W * 0.5f - 12.f, wp.y + ws.y - 38.f };
             ImGui::SetCursorScreenPos(sBtnTL);

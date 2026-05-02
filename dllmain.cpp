@@ -1,7 +1,7 @@
-// dllmain.cpp — CS2 DLL entry
+﻿// dllmain.cpp â€” CS2 DLL entry
 //
 // Uses a CUSTOM ENTRY POINT (RawDllEntry) set via /ENTRY linker flag.
-// This runs BEFORE CRT init — critical for manual-map thread hijack
+// This runs BEFORE CRT init â€” critical for manual-map thread hijack
 // injectors that may wipe PE headers while _DllMainCRTStartup is still
 // reading them. We cache what we need, init CRT ourselves, then proceed.
 //
@@ -23,16 +23,16 @@
 #include "core/syscall.h"
 #include "core/spoof_call.h"
 #include "core/game_state.h"
-#include "features/aimbot.h"
-#include "features/world_effects.h"
-#include "features/chams_scene.h"
-#include "features/kill_sound.h"
-#include "features/bhop.h"
-#include "features/skinchanger_test.h"
-#include "features/inventory_changer.h"
-#include "features/model_changer.h"
-#include "features/crosshair.h"
-// Seeded-triggerbot research probe — superseded by Triggerbot::Setup
+#include "features/combat/aimbot.h"
+#include "features/visuals/world_effects.h"
+#include "features/visuals/chams_scene.h"
+#include "features/misc/kill_sound.h"
+#include "features/movement/bhop.h"
+#include "features/skins/skinchanger.h"
+#include "features/skins/inventory_changer.h"
+#include "features/skins/model_changer.h"
+#include "features/misc/crosshair.h"
+// Seeded-triggerbot research probe â€” superseded by Triggerbot::Setup
 // (features/triggerbot.h) which owns the spread hook directly. Kept
 // in tree (disabled) for future re-enable when investigating new
 // Valve changes to the spread RNG path.
@@ -46,11 +46,11 @@
 extern "C" BOOL WINAPI _CRT_INIT(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved);
 
 static HMODULE g_hModule = nullptr;
-static SIZE_T  g_cachedImageSize = 0; // forward — set in RawDllEntry
+static SIZE_T  g_cachedImageSize = 0; // forward â€” set in RawDllEntry
 static std::atomic<bool> g_running{false};
 
 // ---------------------------------------------------------------
-// File logger — DEBUG ONLY.
+// File logger â€” DEBUG ONLY.
 //
 // Anti-cheat heuristics weight "injected process writes named files
 // into %TEMP% on a heartbeat" pretty heavily toward the untrusted-mode
@@ -94,7 +94,7 @@ static LONG WINAPI CrashHandler(EXCEPTION_POINTERS* ep)
         return EXCEPTION_CONTINUE_SEARCH;
 
 #ifdef _DEBUG
-    // Crash log to %TEMP%\cs2crash.txt — DEBUG ONLY (named temp files in
+    // Crash log to %TEMP%\cs2crash.txt â€” DEBUG ONLY (named temp files in
     // a release build are an untrusted-mode signal). Release silently
     // continues and lets SEH unwind normally.
     char path[MAX_PATH];
@@ -139,7 +139,7 @@ static LONG WINAPI CrashHandler(EXCEPTION_POINTERS* ep)
 #endif
 
     // Let SEH (__try/__except) handle exceptions in our code normally.
-    // NEVER attempt stack manipulation recovery — it corrupts the stack
+    // NEVER attempt stack manipulation recovery â€” it corrupts the stack
     // for manual-mapped code that isn't in the PEB module list.
     return EXCEPTION_CONTINUE_SEARCH;
 }
@@ -163,7 +163,7 @@ static void EntryThread(HMODULE hModule)
 
     DllLog("[EntryThread] Started. hModule=%p", hModule);
 
-    // Spoof thread start address — scanners see kernel32 instead of unbacked memory
+    // Spoof thread start address â€” scanners see kernel32 instead of unbacked memory
     using NtSetInfoThread = NTSTATUS(NTAPI*)(HANDLE, ULONG, PVOID, ULONG);
     auto ntSit = reinterpret_cast<NtSetInfoThread>(
         GetProcAddress(GetModuleHandleW(XW(L"ntdll.dll")), XS("NtSetInformationThread")));
@@ -177,21 +177,21 @@ static void EntryThread(HMODULE hModule)
         ntSit(GetCurrentThread(), 0x11 /*ThreadHideFromDebugger*/, nullptr, 0);
     DllLog("[EntryThread] Thread start addr spoofed + HideFromDebugger set");
 
-    // Random jitter before init — avoids timing-based signatures
+    // Random jitter before init â€” avoids timing-based signatures
     LARGE_INTEGER pc;
     QueryPerformanceCounter(&pc);
     int jitterMs = 200 + static_cast<int>(pc.QuadPart % 800);
     DllLog("[EntryThread] Jitter sleep %d ms", jitterMs);
     std::this_thread::sleep_for(std::chrono::milliseconds(jitterMs));
 
-    // ---- Stealth init — must be first ----
+    // ---- Stealth init â€” must be first ----
     // Install crash handler
     AddVectoredExceptionHandler(1, CrashHandler);
     DllLog("[EntryThread] Crash handler installed");
 
     // Register exception function table for x64 table-based SEH.
     // Without this, __try/__except blocks in manual-mapped code are
-    // NON-FUNCTIONAL — the OS can't find RUNTIME_FUNCTION entries to
+    // NON-FUNCTIONAL â€” the OS can't find RUNTIME_FUNCTION entries to
     // unwind our stack frames, so ALL exceptions are "unhandled" and
     // the unwinder corrupts the stack walking through garbage addresses.
     {
@@ -206,19 +206,19 @@ static void EntryThread(HMODULE hModule)
                 auto pFuncs = reinterpret_cast<PRUNTIME_FUNCTION>(base + excDir.VirtualAddress);
                 DWORD count = excDir.Size / (DWORD)sizeof(RUNTIME_FUNCTION);
                 if (RtlAddFunctionTable(pFuncs, count, (DWORD64)base))
-                    DllLog("[EntryThread] Exception table registered (%u entries) — SEH enabled", count);
+                    DllLog("[EntryThread] Exception table registered (%u entries) â€” SEH enabled", count);
                 else
-                    DllLog("[EntryThread] RtlAddFunctionTable FAILED — SEH will NOT work");
+                    DllLog("[EntryThread] RtlAddFunctionTable FAILED â€” SEH will NOT work");
             }
             else
-                DllLog("[EntryThread] No .pdata section — SEH unavailable");
+                DllLog("[EntryThread] No .pdata section â€” SEH unavailable");
         }
     }
 
     DllLog("[EntryThread] Calling Stealth::Init");
     if (!Stealth::Init(hModule))
     {
-        DllLog("[EntryThread] Stealth::Init FAILED — aborting");
+        DllLog("[EntryThread] Stealth::Init FAILED â€” aborting");
         return;
     }
     DllLog("[EntryThread] Stealth::Init OK");
@@ -227,7 +227,7 @@ static void EntryThread(HMODULE hModule)
     if (DirectSyscall::Init())
         DllLog("[EntryThread] Direct syscalls ready");
     else
-        DllLog("[EntryThread] Direct syscalls FAILED — using fallback APIs");
+        DllLog("[EntryThread] Direct syscalls FAILED â€” using fallback APIs");
 
     // Init return address spoofing (gadget trampoline in ntdll)
     if (SpoofCall::Init())
@@ -237,7 +237,7 @@ static void EntryThread(HMODULE hModule)
         DllLog("[EntryThread] Return-address spoof ready");
     }
     else
-        DllLog("[EntryThread] Return-address spoof FAILED — using direct calls");
+        DllLog("[EntryThread] Return-address spoof FAILED â€” using direct calls");
 
 #ifdef _DEBUG
     AllocConsole();
@@ -255,7 +255,7 @@ static void EntryThread(HMODULE hModule)
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
         if (++waitTicks > 300)
         {
-            DllLog("[EntryThread] Module wait TIMED OUT (30s) — aborting");
+            DllLog("[EntryThread] Module wait TIMED OUT (30s) â€” aborting");
             return;
         }
     }
@@ -273,7 +273,7 @@ static void EntryThread(HMODULE hModule)
         }
         if (!gsOk)
         {
-            DllLog("[EntryThread] GameState::Init FAILED after 10 attempts — aborting");
+            DllLog("[EntryThread] GameState::Init FAILED after 10 attempts â€” aborting");
             return;
         }
     }
@@ -293,7 +293,7 @@ static void EntryThread(HMODULE hModule)
         }
         if (mhStatus != MH_OK && mhStatus != MH_ERROR_ALREADY_INITIALIZED)
         {
-            DllLog("[EntryThread] MH_Initialize FAILED after 5 attempts: %d — aborting", mhStatus);
+            DllLog("[EntryThread] MH_Initialize FAILED after 5 attempts: %d â€” aborting", mhStatus);
             return;
         }
     }
@@ -311,7 +311,7 @@ static void EntryThread(HMODULE hModule)
         }
         if (!dxOk)
         {
-            DllLog("[EntryThread] SetupDX FAILED after 5 attempts — aborting");
+            DllLog("[EntryThread] SetupDX FAILED after 5 attempts â€” aborting");
             MH_Uninitialize();
             return;
         }
@@ -332,7 +332,7 @@ static void EntryThread(HMODULE hModule)
     });
 
     // Arm VAC untrusted-event watchdog (IDA-verified hook on
-    // ClientModeCSNormal::OnEvent — sub_180C5A0B0 build 14154).  If
+    // ClientModeCSNormal::OnEvent â€” sub_180C5A0B0 build 14154).  If
     // tier0.dll / client.dll aren't fully resolved yet, the heartbeat
     // will retry every ~2s.
     if (VacWatchdog::Install())
@@ -348,7 +348,7 @@ static void EntryThread(HMODULE hModule)
 
     WorldEffects::Setup();
 
-    // Phase 1 of GeneratePrimitives chams migration — installs the
+    // Phase 1 of GeneratePrimitives chams migration â€” installs the
     // scenesystem hook in passthrough mode (zero behavior change
     // until ChamsScene::cfg.enabled is wired in Phase 2).
     if (ChamsScene::Setup())
@@ -356,14 +356,14 @@ static void EntryThread(HMODULE hModule)
     else
         DllLog("[EntryThread] ChamsScene::Setup FAILED (sig miss or scenesystem.dll not loaded)");
 
-    // Custom kill ding — mutes Valve's HS/body AttackerFeedback ding
+    // Custom kill ding â€” mutes Valve's HS/body AttackerFeedback ding
     // and plays our own short metallic chirp on every confirmed kill.
     if (KillSound::Setup())
         DllLog("[EntryThread] KillSound::Setup OK (custom ding active, Valve ding muted)");
     else
         DllLog("[EntryThread] KillSound::Setup FAILED (sig miss or hook install failed)");
 
-    // Seeded triggerbot — resolves the engine seed-gen + spread
+    // Seeded triggerbot â€” resolves the engine seed-gen + spread
     // functions and installs a passive hook on the spread fn to
     // capture per-weapon arg templates. Predictor lives in
     // features/triggerbot.h (Triggerbot::PredictHit).
@@ -372,9 +372,9 @@ static void EntryThread(HMODULE hModule)
         if (tsr == 1)
             DllLog("[EntryThread] Triggerbot::Setup OK (seeded predictor armed)");
         else if (tsr == 0)
-            DllLog("[EntryThread] Triggerbot::Setup PARTIAL (seed-gen ok, spread hook missed) — falling back to accuracy-gate");
+            DllLog("[EntryThread] Triggerbot::Setup PARTIAL (seed-gen ok, spread hook missed) â€” falling back to accuracy-gate");
         else
-            DllLog("[EntryThread] Triggerbot::Setup FAILED (%d) — falling back to accuracy-gate", tsr);
+            DllLog("[EntryThread] Triggerbot::Setup FAILED (%d) â€” falling back to accuracy-gate", tsr);
     }
 
     SkinChanger::Init();
@@ -393,9 +393,9 @@ static void EntryThread(HMODULE hModule)
     // See FINAL_KNIFE_ANALYSIS.md for full details.
     // 
     // What DOES work:
-    // ✅ Weapon skins (AK-47, AWP, M4A4, etc.) - uses fallback system
-    // ✅ Glove skins - uses fallback system
-    // ❌ Knife models - NO fallback system, server-authoritative
+    // âœ… Weapon skins (AK-47, AWP, M4A4, etc.) - uses fallback system
+    // âœ… Glove skins - uses fallback system
+    // âŒ Knife models - NO fallback system, server-authoritative
     DllLog("[EntryThread] Knife changer DISABLED - architecturally impossible in CS2");
     DllLog("[EntryThread] Weapon skins and glove skins work perfectly!");
     DllLog("[EntryThread] See FINAL_KNIFE_ANALYSIS.md for full analysis");
@@ -405,11 +405,11 @@ static void EntryThread(HMODULE hModule)
     DllLog("[EntryThread] Features initialized (jitter: FOV%.2f Smooth%.1f Human%.3f)",
            Aimbot::sessionFovJitter, Aimbot::sessionSmoothJitter, Aimbot::sessionHumanJitter);
 
-    // NOTE: RWX→RX protection removed — manual mappers put code+data
+    // NOTE: RWXâ†’RX protection removed â€” manual mappers put code+data
     // in a single RWX allocation, so flipping to RX kills all global
     // variable writes and crashes on the next render/game thread frame.
 
-    // Success chime — debug builds only (PlaySoundA from unbacked memory is fingerprinted)
+    // Success chime â€” debug builds only (PlaySoundA from unbacked memory is fingerprinted)
 #ifdef _DEBUG
     // Soft success chime (3-note ascending, WAV in memory)
     {
@@ -474,23 +474,23 @@ static void EntryThread(HMODULE hModule)
         }
     }
 #endif
-    DllLog("[EntryThread] READY — menu should be visible, INSERT to toggle");
+    DllLog("[EntryThread] READY â€” menu should be visible, INSERT to toggle");
 
-    // NOTE: PE header wipe REMOVED — it breaks RtlAddFunctionTable's
+    // NOTE: PE header wipe REMOVED â€” it breaks RtlAddFunctionTable's
     // RUNTIME_FUNCTION entries and causes DEP crashes at tiny addresses.
     // Manual mapping already provides stealth (not in PEB module list).
     // Anti-cheat doesn't scan arbitrary heap allocations for PE sigs.
 
-    // Log cleanup disabled for debugging — check %TEMP%\cs2init.txt
+    // Log cleanup disabled for debugging â€” check %TEMP%\cs2init.txt
 
 #ifdef _DEBUG
-    printf("[+] Ready — INSERT=menu, END=unload\n");
+    printf("[+] Ready â€” INSERT=menu, END=unload\n");
 #endif
 
     g_running.store(true);
     DllLog("[EntryThread] Entering main loop");
 
-    // Flush stale key states — GetAsyncKeyState(VK_END) & 1 can be
+    // Flush stale key states â€” GetAsyncKeyState(VK_END) & 1 can be
     // set from before injection; clear it before first real check.
     GetAsyncKeyState(VK_END);
 
@@ -617,7 +617,7 @@ static void EntryThread(HMODULE hModule)
     if (!g_running.load())
         DllLog("[EntryThread] EXIT: running flag cleared externally (loop=%d)", loopCount);
 
-    DllLog("[EntryThread] Main loop exited — tearing down");
+    DllLog("[EntryThread] Main loop exited â€” tearing down");
 
     // Teardown
     g_running.store(false);
@@ -641,7 +641,7 @@ static void EntryThread(HMODULE hModule)
 }
 
 // ---------------------------------------------------------------
-// Entry — CreateThread + thread start spoof already done above.
+// Entry â€” CreateThread + thread start spoof already done above.
 // ---------------------------------------------------------------
 static unsigned WINAPI ThreadEntry(void* param)
 {
@@ -649,7 +649,7 @@ static unsigned WINAPI ThreadEntry(void* param)
     return 0;
 }
 
-// CRT-free marker log — debug builds only
+// CRT-free marker log â€” debug builds only
 #ifdef _DEBUG
 static void RawMarker(const char* msg)
 {
@@ -676,7 +676,7 @@ static std::atomic<bool> g_initStarted{false};
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID reserved)
 {
-    // Log EVERY call regardless of reason — thread hijack mappers may
+    // Log EVERY call regardless of reason â€” thread hijack mappers may
     // pass garbage in 'reason' (rcx=base, rdx=reason, r8=reserved)
     {
         char buf[128];
@@ -743,7 +743,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID reserved)
 }
 
 // ---------------------------------------------------------------
-// RAW ENTRY POINT — runs before CRT init.
+// RAW ENTRY POINT â€” runs before CRT init.
 // Set via /ENTRY:RawDllEntry in linker settings.
 //
 // The BYOVD thread-hijack injector sets RIP to our entry and the
@@ -759,7 +759,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID reserved)
 // g_cachedImageSize is defined near g_hModule at file scope (line ~33).
 // Read from PE before headers can be wiped.
 
-// Atomic guard — prevents RawDllEntry from running twice.
+// Atomic guard â€” prevents RawDllEntry from running twice.
 // InterlockedCompareExchange is safe even before CRT init.
 static volatile LONG g_rawEntryGuard = 0;
 
@@ -778,7 +778,7 @@ extern "C" BOOL WINAPI RawDllEntry(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID l
     // if it actually looks like a legitimate detach (guard already set).
     if (fdwReason == DLL_PROCESS_DETACH && g_rawEntryGuard == 1)
     {
-        // Legitimate detach — pass through to CRT + DllMain
+        // Legitimate detach â€” pass through to CRT + DllMain
     }
     else
     {
@@ -786,11 +786,11 @@ extern "C" BOOL WINAPI RawDllEntry(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID l
         // calls (APC, hijack race, etc.) return immediately.
         if (InterlockedCompareExchange(&g_rawEntryGuard, 1, 0) != 0)
         {
-            RawMarker("[RawDllEntry] BLOCKED — already running on another thread");
+            RawMarker("[RawDllEntry] BLOCKED â€” already running on another thread");
             return TRUE;
         }
 
-        // Always normalize to DLL_PROCESS_ATTACH — thread hijack may pass 0,
+        // Always normalize to DLL_PROCESS_ATTACH â€” thread hijack may pass 0,
         // some injectors may pass DLL_THREAD_ATTACH (2)
         fdwReason = DLL_PROCESS_ATTACH;
 
@@ -829,7 +829,7 @@ extern "C" BOOL WINAPI RawDllEntry(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID l
             // For thread hijack: hinstDLL was garbage, now fixed
         }
 
-        // Log — pure Win32, no CRT needed
+        // Log â€” pure Win32, no CRT needed
         RawMarker("[RawDllEntry] Reached entry point");
         {
             char buf[128];
@@ -838,7 +838,7 @@ extern "C" BOOL WINAPI RawDllEntry(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID l
             RawMarker(buf);
         }
 
-        // Sanitize lpReserved — APC may leave garbage in r8
+        // Sanitize lpReserved â€” APC may leave garbage in r8
         // _CRT_INIT checks this to distinguish static vs dynamic load
         lpReserved = nullptr;
     }
@@ -854,8 +854,8 @@ extern "C" BOOL WINAPI RawDllEntry(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID l
     }
     if (!crtOk)
     {
-        RawMarker("[RawDllEntry] _CRT_INIT FAILED after 3 attempts — trying DllMain anyway");
-        // Don't bail — DllMain uses raw Win32 and can recover.
+        RawMarker("[RawDllEntry] _CRT_INIT FAILED after 3 attempts â€” trying DllMain anyway");
+        // Don't bail â€” DllMain uses raw Win32 and can recover.
         // _beginthreadex will fail but CreateThread fallback works.
     }
 
