@@ -990,15 +990,15 @@ namespace Aimbot
         }
         else
         {
-            // Reaction delay: minimal for semi-rage. Just enough
-            // to not look like instant-lock to VACNet.
+            // Reaction delay: tuned to mimic genuine human peek-reaction
+            // (~170-280ms aimed-rifle median, slightly longer with smoothing).
+            // This is the PRIMARY anti-VAC layer: the old 8-35ms instant-react
+            // path was responsible for the "snap before peek" trust-score
+            // hit that produces 20h MM cooldowns. NEVER drop below ~150ms.
             state.phase = PHASE_REACTING;
             state.reactStartTime = GetTickCount();
-            float reactBase = 15.f + EffectiveSmoothing() * 0.3f;
-            state.reactDelayMs = RandInt((int)reactBase, (int)(reactBase * 1.4f));
-            // High chance of near-instant reaction
-            if (Rand01() < 0.40f)
-                state.reactDelayMs = RandInt(8, 35);
+            float reactBase = 170.f + EffectiveSmoothing() * 1.2f;
+            state.reactDelayMs = RandInt((int)reactBase, (int)(reactBase + 110.f));
         }
     }
 
@@ -1553,6 +1553,25 @@ namespace Aimbot
     // Post-shot disruption: brief aim degradation after firing
     inline DWORD shotDisruptUntil   = 0;
     inline float shotDisruptScale   = 1.0f;
+
+    // ---------------------------------------------------------------
+    // Fresh-sight reaction gate (anti-VAC trust-score)
+    //
+    // Real humans need 170-280ms to react to a newly-visible enemy.
+    // The "pre-aim through wall, snap on peek" pattern is the textbook
+    // VACNet behavioural trigger that produces 20h MM cooldowns even
+    // without any local detection (no insecure-byte flip, no UntrustedLaunch).
+    //
+    // Rule: whenever the currently-selected target was NOT visible in
+    // the last ~80ms (different pawn, or same pawn after a sight gap),
+    // arm a randomized reaction window during which BOTH the visible-aim
+    // curve (PHASE_REACTING) AND the silent-aim WriteSubtick gate
+    // (SilentAim::hasTarget) are suppressed. After the window expires
+    // the bot acquires/fires normally.
+    // ---------------------------------------------------------------
+    inline uintptr_t lastSightTarget = 0;
+    inline DWORD     lastSightTick   = 0;
+    inline DWORD     freshSightUntil = 0;
 
     // FOV distance of current target (for soft-edge attenuation)
     inline float curTargetFovDist   = 0.f;
@@ -2640,6 +2659,47 @@ namespace Aimbot
             }
             state.lockedTarget = t.pawn;
 
+            // ===========================================================
+            // ANTI-VAC: Fresh-sight reaction gate
+            //
+            // VACNet trust scoring (the source of 20h MM cooldowns) flags
+            // the angular signature "bot was already on the headline before
+            // the enemy crossed the wall edge". Even with visCheck enabled,
+            // the locked-target grace window keeps state.phase in LOCKED/
+            // CORRECTING through brief occlusions, so the bot snaps to the
+            // peeker the instant their head pixel becomes traceable.
+            //
+            // Force-reset to PHASE_REACTING with a humanlike 170-280ms gate
+            // whenever the current target wasn't visible in the recent past:
+            //   - first-ever sight of this pawn this engagement, OR
+            //   - same pawn but lost-sight gap > 80ms (re-peek).
+            // During the window, suppress SilentAim::hasTarget so the
+            // WriteSubtick gate cannot fire bullets either -- otherwise the
+            // server still sees an instant-pre-hit shot and the gate is moot.
+            // ===========================================================
+            {
+                DWORD nowSight = GetTickCount();
+                bool isFreshSight = false;
+                if (t.pawn != lastSightTarget) {
+                    isFreshSight = true;
+                } else if (lastSightTick != 0 && (nowSight - lastSightTick) > 80) {
+                    isFreshSight = true;
+                }
+                if (isFreshSight) {
+                    int reactMs = RandInt(170, 280);
+                    freshSightUntil = nowSight + (DWORD)reactMs;
+                    // Force visible-aim curve back into REACTING so we
+                    // don't keep tracking through the gate window.
+                    state.phase = PHASE_REACTING;
+                    state.reactStartTime = nowSight;
+                    state.reactDelayMs = reactMs;
+                    state.attackTicks = 0;
+                    state.curveProgress = 0.f;
+                }
+                lastSightTarget = t.pawn;
+                lastSightTick   = nowSight;
+            }
+
             // Governor kill detection (wrapped â€” lockedTarget could be stale)
             __try {
                 if (state.lockedTarget)
@@ -2680,6 +2740,21 @@ namespace Aimbot
             while (dy < -180.f) dy += 360.f;
             float distToTarget = sqrtf(dp * dp + dy * dy);
 
+            // ANTI-VAC fresh-sight gate: while the reaction window is open,
+            // do not arm the WriteSubtick fire path or move the visible aim.
+            // The bot effectively "sees but hasn't reacted yet" -- a click
+            // during the window produces a normal mis-aimed shot, exactly
+            // like a human caught off-guard. Window is set above when the
+            // target was first sighted / re-peeked.
+            const bool inFreshSightGate = (GetTickCount() < freshSightUntil);
+            if (inFreshSightGate)
+            {
+                SilentAim::targetPawn = 0;
+                SilentAim::hasTarget  = false;
+                // Tiny natural tremor so cursor isn't frozen.
+                SendMouseDeltaSmooth(HandTremor(0.f, 0.4f), HandTremor(1.f, 0.4f));
+                goto tickDone;
+            }
             // ===========================================================
             // SILENT AIM v2 â€” Gradual angle convergence
             //
