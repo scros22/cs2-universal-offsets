@@ -266,30 +266,35 @@ namespace Chams
         {
             const float t   = (float)GetTickCount() * 0.001f;
             const float TAU = 6.2831853f;
-            // Shared cosmic phase (slow main cycle ~12s)
-            const float p   = t * (TAU / 12.0f);
-            // Visible body: violet <-> magenta <-> electric blue.
-            // sin^2 keeps each channel in [0,1] without an explicit clamp.
+            // Per-object hash so each player twinkles on a slightly
+            // different phase \u2014 reads as a real starfield, not a uniform pulse.
+            const uint32_t h = (uint32_t)((uintptr_t)obj * 2654435761u);
+            const float    ph = (float)(h & 0xFFFF) * (TAU / 65536.0f);
+            // Slow main nebula cycle (~14s)
+            const float p   = t * (TAU / 14.0f) + ph * 0.25f;
+            // Visible body palette: deep violet <-> indigo <-> magenta accents.
+            // sin^2 keeps each channel in [0,1].
             float s0 = sinf(p);
-            float s1 = sinf(p * 1.3f + 1.0f);
-            float s2 = sinf(p * 0.8f + 2.5f);
-            float vr = 0.45f + 0.50f * s0 * s0;             // 0.45..0.95
-            float vg = 0.05f + 0.30f * s1 * s1;             // 0.05..0.35
-            float vb = 0.65f + 0.35f * s2 * s2;             // 0.65..1.00
-            // Occluded (wallhack): brighter + phase-offset palette so the
-            // through-wall read is visually distinct from the in-LOS body.
-            float o0 = sinf(p + 1.6f);
-            float o1 = sinf(p * 1.1f + 3.2f);
-            float o2 = sinf(p * 0.9f + 0.3f);
-            float orC = 0.55f + 0.45f * o0 * o0;            // 0.55..1.00
-            float ogC = 0.10f + 0.40f * o1 * o1;            // 0.10..0.50
+            float s1 = sinf(p * 1.20f + 1.4f);
+            float s2 = sinf(p * 0.85f + 2.7f);
+            float vr = 0.35f + 0.55f * s0 * s0;             // 0.35..0.90  violet/magenta red
+            float vg = 0.05f + 0.20f * s1 * s1;             // 0.05..0.25  keep green low (cosmic)
+            float vb = 0.75f + 0.25f * s2 * s2;             // 0.75..1.00  always blue-heavy
+            // Occluded palette: brighter and phase-shifted so the wallhack
+            // is unmistakably distinct from the in-LOS body.
+            float o0 = sinf(p + 1.7f);
+            float o1 = sinf(p * 1.10f + 3.4f);
+            float o2 = sinf(p * 0.90f + 0.6f);
+            float orC = 0.45f + 0.50f * o0 * o0;            // 0.45..0.95
+            float ogC = 0.05f + 0.20f * o1 * o1;            // 0.05..0.25
             float obC = 0.85f + 0.15f * o2 * o2;            // 0.85..1.00
-            // Sharp cyan-white "star burst" overlay every ~5s.
-            float burst = sinf(t * (TAU / 5.0f));
-            burst = burst > 0.92f ? (burst - 0.92f) * 12.0f : 0.0f;
+            // Cyan-white "supernova" pulse every ~6s pushes a brief flash
+            // through the whole body \u2014 a subtle highlight, not a strobe.
+            float burst = sinf(t * (TAU / 6.0f) + ph);
+            burst = burst > 0.94f ? (burst - 0.94f) * 16.0f : 0.0f;
             if (burst > 0.0f) {
-                vr += burst * 0.40f; vg += burst * 0.55f; vb += burst * 0.30f;
-                orC += burst * 0.25f; ogC += burst * 0.45f; obC += burst * 0.20f;
+                vr += burst * 0.30f; vg += burst * 0.45f; vb += burst * 0.20f;
+                orC += burst * 0.20f; ogC += burst * 0.40f; obC += burst * 0.15f;
                 if (vr > 1.0f) vr = 1.0f; if (vg > 1.0f) vg = 1.0f; if (vb > 1.0f) vb = 1.0f;
                 if (orC > 1.0f) orC = 1.0f; if (ogC > 1.0f) ogC = 1.0f; if (obC > 1.0f) obC = 1.0f;
             }
@@ -324,6 +329,68 @@ namespace Chams
                     Apply(&buf->m_out[wire_start + i], mat.wire, wire_color);
                 }
                 buf->m_start_primitive += to_copy;
+            }
+        }
+
+        // -------------------------------------------------------------------
+        // Galaxy sparkle / "stars" overlay. We re-use the wire slot to hold
+        // a high-frequency additive fresnel material (k14_star). It's
+        // copied on TOP of the visible primitives so the star pinpricks
+        // shimmer along the body silhouette \u2014 not a wireframe pattern.
+        //
+        // Color is animated very fast (multi-Hz twinkle) and offset by the
+        // per-object hash so different bodies twinkle independently. The
+        // tint cycles white \u2192 cyan \u2192 light-violet to feel like real
+        // stars rather than a single solid glow.
+        // -------------------------------------------------------------------
+        if (idx == STYLE_GALAXY && mat.wire)
+        {
+            const float t   = (float)GetTickCount() * 0.001f;
+            const float TAU = 6.2831853f;
+            const uint32_t h = (uint32_t)((uintptr_t)obj * 2654435761u);
+            const float ph   = (float)(h & 0xFFFF) * (TAU / 65536.0f);
+            // Fast twinkle (~2.5 Hz) with a second harmonic for a
+            // shimmering, non-uniform sparkle intensity.
+            float tw = 0.55f + 0.45f * sinf(t * (TAU * 2.5f) + ph)
+                             * sinf(t * (TAU * 1.3f) + ph * 1.7f);
+            if (tw < 0.0f) tw = 0.0f;
+            // Slight tint shift so sparkles aren't just flat white.
+            float ti = sinf(t * (TAU / 3.0f) + ph);
+            float sparkle[4] = {
+                0.85f + 0.15f * ti,            // R: white\u2194pink
+                0.95f,                          // G: high
+                1.00f,                          // B: full blue
+                tw                              // alpha = twinkle intensity
+            };
+
+            // Copy visible primitives and apply sparkle on top.
+            int vis_count   = end - start;
+            int space_left  = buf->m_max_output_primitives - buf->m_start_primitive;
+            int to_copy_v   = (vis_count < space_left) ? vis_count : space_left;
+            if (to_copy_v > 0)
+            {
+                int sp_start = buf->m_start_primitive;
+                for (int i = 0; i < to_copy_v; ++i)
+                {
+                    buf->m_out[sp_start + i] = buf->m_out[start + i];
+                    Apply(&buf->m_out[sp_start + i], mat.wire, sparkle);
+                }
+                buf->m_start_primitive += to_copy_v;
+            }
+            // Copy occluded primitives too, dimmer, so sparkle reads through walls.
+            int occ_count2 = occ_end - occ_start;
+            space_left     = buf->m_max_output_primitives - buf->m_start_primitive;
+            int to_copy_o  = (occ_count2 < space_left) ? occ_count2 : space_left;
+            if (to_copy_o > 0)
+            {
+                int sp_start = buf->m_start_primitive;
+                float sparkle_occ[4] = { sparkle[0], sparkle[1], sparkle[2], sparkle[3] * 0.6f };
+                for (int i = 0; i < to_copy_o; ++i)
+                {
+                    buf->m_out[sp_start + i] = buf->m_out[occ_start + i];
+                    Apply(&buf->m_out[sp_start + i], mat.wire, sparkle_occ);
+                }
+                buf->m_start_primitive += to_copy_o;
             }
         }
     }
@@ -426,17 +493,23 @@ namespace Chams
         const char k13_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.16 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.95,1.0,1.0,1.0]})";
 
         // Galaxy — the marquee animated style. Inspired by the Fortnite
-        // Galaxy skin: deep purple/violet body with a hot cosmic rim that
-        // shifts through purple→magenta→electric-blue, plus a fine white
-        // wire overlay that reads as starlight pinpricks. Colors are
-        // animated PER FRAME in hk_GeneratePrim by mutating the MaterialSet
-        // color arrays (NOT the KV3 — those are baked once). The KV3 here
-        // sets up the silhouette physics: tight high-frequency fresnel
-        // (sharp rim), strong color boost (so the cycling tint blooms),
-        // and additive blending on occluded so the wallhack reads as glow.
-        const char k14_vis[]  = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=6.0 g_flFresnelFalloff=2.5 g_flFresnelMax=2.6 g_flFresnelMin=0.18 g_flColorBoost=2.4 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k14_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=5.0 g_flFresnelFalloff=2.5 g_flFresnelMax=3.2 g_flFresnelMin=0.10 g_flColorBoost=3.5 g_flOpacityScale=0.85 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k14_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.10 g_OverrideColorFactor=1.0 g_vOverrideColor=[1.0,1.0,1.0,1.0]})";
+        // Galaxy skin: deep cosmic violet/blue body, fully filled (not
+        // rim-only) so the nebula color reads across the whole silhouette,
+        // plus a separate high-frequency sparkle pass that paints star-like
+        // pinpricks along curvature edges. Body colors are animated PER
+        // FRAME in hk_GeneratePrim by mutating the MaterialSet color arrays
+        // (the KV3 here is baked once and just defines the optical setup).
+        //
+        // Body params: low fresnel exp (1.5) + high min (1.0) + low max
+        // (0.0) inverts the rim falloff — the body LIGHTS UP and the rim
+        // darkens, like cosmic dust catching light from inside. Big color
+        // boost (3.0) so the cycling tint really blooms.
+        const char k14_vis[]  = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=1.5 g_flFresnelFalloff=2.0 g_flFresnelMax=0.0 g_flFresnelMin=1.0 g_flColorBoost=3.0 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k14_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=1.5 g_flFresnelFalloff=2.0 g_flFresnelMax=0.0 g_flFresnelMin=1.0 g_flColorBoost=4.0 g_flOpacityScale=0.95 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Sparkle layer: extreme high-frequency fresnel acts as star
+        // pinpricks where surface curvature aligns with the camera. Z-disabled
+        // and additive so it twinkles on top of the body without depth fight.
+        const char k14_star[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=24.0 g_flFresnelFalloff=1.0 g_flFresnelMax=6.0 g_flFresnelMin=0.0 g_flColorBoost=8.0 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
 
 #undef H
 #undef W
@@ -481,11 +554,13 @@ namespace Chams
         // Frostbite — pale ice (vis), deeper ice-blue (occ), soft white wire.
         g_materials[STYLE_FROSTBITE]    = { CreateMaterial("cham13_occ", k13_occ), CreateMaterial("cham13_vis", k13_vis), CreateMaterial("cham13_wire", k13_wire),
                                             {0.55f, 0.85f, 1.00f, 1.0f}, {0.85f, 0.95f, 1.00f, 0.95f}, true };
-        // Galaxy — deep cosmic purple base; vis_color / occ_color get
+        // Galaxy — deep cosmic violet/blue base; vis_color / occ_color get
         // overwritten per-frame in hk_GeneratePrim with the cycling nebula
-        // palette. Wire stays as the static "starlight" white overlay.
-        g_materials[STYLE_GALAXY]       = { CreateMaterial("cham14_occ", k14_occ), CreateMaterial("cham14_vis", k14_vis), CreateMaterial("cham14_wire", k14_wire),
-                                            {0.35f, 0.05f, 0.55f, 1.0f}, {0.55f, 0.20f, 0.95f, 1.0f}, true };
+        // palette. The third slot holds the sparkle ("stars") material that
+        // is rendered as an extra additive pass; use_wire stays FALSE so the
+        // generic occluded-wire overlay code path is skipped.
+        g_materials[STYLE_GALAXY]       = { CreateMaterial("cham14_occ", k14_occ), CreateMaterial("cham14_vis", k14_vis), CreateMaterial("cham14_star", k14_star),
+                                            {0.30f, 0.05f, 0.55f, 1.0f}, {0.45f, 0.15f, 0.95f, 1.0f}, false };
     }
 
     // -----------------------------------------------------------------------
