@@ -275,19 +275,19 @@ namespace Chams
             float s0 = sinf(p);
             float s1 = sinf(p * 1.20f + 1.4f);
             float s2 = sinf(p * 0.85f + 2.7f);
-            // Visible body: DARK base, modest variation. The fresnel
-            // gradient brightens the rim of these tints, giving the
-            // Fortnite-Galaxy "dark cosmos with glowing nebula edge" look.
-            float vr = 0.18f + 0.32f * s0 * s0;             // 0.18..0.50
-            float vg = 0.03f + 0.08f * s1 * s1;             // 0.03..0.11  keep green minimal
-            float vb = 0.45f + 0.45f * s2 * s2;             // 0.45..0.90  blue-dominant
-            // Occluded: a touch brighter / more violet so wallhack reads.
+            // Visible body: tints the cosmic texture. Brighter than v3
+            // because the underlying nebula texture is dark, so we need
+            // headroom to make the cycling palette read.
+            float vr = 0.40f + 0.55f * s0 * s0;             // 0.40..0.95
+            float vg = 0.05f + 0.15f * s1 * s1;             // 0.05..0.20  keep green minimal
+            float vb = 0.65f + 0.35f * s2 * s2;             // 0.65..1.00  blue-dominant
+            // Occluded: brighter / phase-shifted so wallhack reads.
             float o0 = sinf(p + 1.7f);
             float o1 = sinf(p * 1.10f + 3.4f);
             float o2 = sinf(p * 0.90f + 0.6f);
-            float orC = 0.28f + 0.42f * o0 * o0;            // 0.28..0.70
-            float ogC = 0.04f + 0.10f * o1 * o1;            // 0.04..0.14
-            float obC = 0.60f + 0.40f * o2 * o2;            // 0.60..1.00
+            float orC = 0.55f + 0.45f * o0 * o0;            // 0.55..1.00
+            float ogC = 0.05f + 0.18f * o1 * o1;            // 0.05..0.23
+            float obC = 0.80f + 0.20f * o2 * o2;            // 0.80..1.00
             // No supernova flash - it just washed the body to white. The
             // sparkle pass below is what provides the star highlights.
             mat.vis_color[0] = vr;  mat.vis_color[1] = vg;  mat.vis_color[2] = vb;  mat.vis_color[3] = 1.0f;
@@ -346,7 +346,7 @@ namespace Chams
             float tw = 0.55f + 0.45f * sinf(t * (TAU * 2.5f) + ph)
                              * sinf(t * (TAU * 1.3f) + ph * 1.7f);
             if (tw < 0.0f) tw = 0.0f;
-            tw *= 0.55f; // overall sparkle intensity - keep stars from washing the body
+            tw *= 0.85f; // sparkle intensity - texture-based stars need a bit more pop
             // Slight tint shift so sparkles aren't just flat white.
             float ti = sinf(t * (TAU / 3.0f) + ph);
             float sparkle[4] = {
@@ -414,6 +414,10 @@ namespace Chams
 #define H  "<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->\n"
 #define W  "materials/dev/primary_white_color_tga_21186c76.vtex"
 #define MK "materials/default/default_mask_tga_fde710a5.vtex"
+// Cosmic textures (shipped particle tile assets) used by the Galaxy style.
+#define STARFIELD "materials/particle/tile/tile_starfield.vtex"
+#define NEBULA    "materials/particle/tile/tile_clouds_02.vtex"
+#define PLASMA    "materials/particle/tile/tile_noise_plasma.vtex"
 #define ZD "    F_DISABLE_Z_BUFFERING = 1\n    F_DISABLE_Z_PREPASS = 1\n    F_DISABLE_Z_WRITE = 1\n"
 
         // Glass
@@ -485,24 +489,31 @@ namespace Chams
         const char k13_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=3.0 g_flFresnelFalloff=2.0 g_flFresnelMax=1.4 g_flFresnelMin=0.3 g_flColorBoost=1.4 g_flOpacityScale=0.7 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
         const char k13_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.16 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.95,1.0,1.0,1.0]})";
 
-        // Galaxy — the marquee animated style. Inspired by the Fortnite
-        // Galaxy skin: deep navy/violet body with a bright nebula RIM
-        // (cosmic gradient, dark interior → bright edge), plus a separate
-        // sparkle pass for star pinpricks. Body uses a NORMAL fresnel
-        // (min low, max high, exp ~2.5) so the silhouette reads as a
-        // shaded cosmic surface instead of a flat coloured blob. Color
-        // boost is intentionally low (1.2) — the cycling tint provides
-        // the saturation, the fresnel provides the form.
-        const char k14_vis[]  = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=2.5 g_flFresnelFalloff=2.0 g_flFresnelMax=1.6 g_flFresnelMin=0.15 g_flColorBoost=1.2 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k14_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=2.5 g_flFresnelFalloff=2.0 g_flFresnelMax=2.0 g_flFresnelMin=0.20 g_flColorBoost=1.6 g_flOpacityScale=0.9 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        // Sparkle layer: medium-frequency fresnel (exp 10) spreads star
-        // pinpricks across more of the body, not only at the silhouette.
-        // Strong color boost so the additive twinkle reads bright.
-        const char k14_star[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=10.0 g_flFresnelFalloff=1.5 g_flFresnelMax=5.0 g_flFresnelMin=0.0 g_flColorBoost=6.0 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Galaxy — the marquee animated style. Uses CS2's shipped
+        // tile_starfield + tile_clouds_02 particle textures as the actual
+        // body texture, so the silhouette reads as a real cosmic camo
+        // pattern (stars + nebula) and not just a flat tinted blob. The
+        // per-frame tint cycle then animates the HUE of that pattern,
+        // giving a moving "galaxy camo" look like the Fortnite skin.
+        //
+        // Visible body: F_TRANSLUCENT removed so the body reads SOLID
+        // (the previous see-through look was the alpha blend killing it).
+        // Fresnel still active for a bright nebula rim. Color boost stays
+        // low (1.4) — the cycling tint provides saturation, the texture
+        // provides the cosmic detail.
+        const char k14_vis[]  = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=2.0 g_flFresnelFalloff=2.0 g_flFresnelMax=1.4 g_flFresnelMin=0.25 g_flColorBoost=1.4 g_flOpacityScale=1.0 g_tColor=resource:")" NEBULA R"(" g_tMask1=resource:")" STARFIELD R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k14_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=2.0 g_flFresnelFalloff=2.0 g_flFresnelMax=1.8 g_flFresnelMin=0.30 g_flColorBoost=2.0 g_flOpacityScale=0.95 g_tColor=resource:")" NEBULA R"(" g_tMask1=resource:")" STARFIELD R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Sparkle pass: uses the literal starfield texture so the additive
+        // overlay is actual stars, not procedural fresnel pinpricks. Tight
+        // fresnel (exp 8) keeps it strongest where the surface curves.
+        const char k14_star[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=8.0 g_flFresnelFalloff=1.5 g_flFresnelMax=4.0 g_flFresnelMin=0.0 g_flColorBoost=5.0 g_flOpacityScale=1.0 g_tColor=resource:")" STARFIELD R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
 
 #undef H
 #undef W
 #undef MK
+#undef STARFIELD
+#undef NEBULA
+#undef PLASMA
 #undef ZD
 
         g_materials[STYLE_GLASS]     = { CreateMaterial("cham0_occ", k0_occ), CreateMaterial("cham0_vis", k0_vis), nullptr,
