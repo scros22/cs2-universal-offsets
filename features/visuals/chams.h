@@ -266,38 +266,30 @@ namespace Chams
         {
             const float t   = (float)GetTickCount() * 0.001f;
             const float TAU = 6.2831853f;
-            // Per-object hash so each player twinkles on a slightly
-            // different phase \u2014 reads as a real starfield, not a uniform pulse.
             const uint32_t h = (uint32_t)((uintptr_t)obj * 2654435761u);
             const float    ph = (float)(h & 0xFFFF) * (TAU / 65536.0f);
-            // Slow main nebula cycle (~14s)
-            const float p   = t * (TAU / 14.0f) + ph * 0.25f;
-            // Visible body palette: deep violet <-> indigo <-> magenta accents.
-            // sin^2 keeps each channel in [0,1].
+            // Slow nebula cycle (~16s) - keeps the cosmic palette in deep
+            // ranges (dark violet <-> indigo <-> nebula magenta accent),
+            // never washes out to flat pink.
+            const float p   = t * (TAU / 16.0f) + ph * 0.25f;
             float s0 = sinf(p);
             float s1 = sinf(p * 1.20f + 1.4f);
             float s2 = sinf(p * 0.85f + 2.7f);
-            float vr = 0.35f + 0.55f * s0 * s0;             // 0.35..0.90  violet/magenta red
-            float vg = 0.05f + 0.20f * s1 * s1;             // 0.05..0.25  keep green low (cosmic)
-            float vb = 0.75f + 0.25f * s2 * s2;             // 0.75..1.00  always blue-heavy
-            // Occluded palette: brighter and phase-shifted so the wallhack
-            // is unmistakably distinct from the in-LOS body.
+            // Visible body: DARK base, modest variation. The fresnel
+            // gradient brightens the rim of these tints, giving the
+            // Fortnite-Galaxy "dark cosmos with glowing nebula edge" look.
+            float vr = 0.18f + 0.32f * s0 * s0;             // 0.18..0.50
+            float vg = 0.03f + 0.08f * s1 * s1;             // 0.03..0.11  keep green minimal
+            float vb = 0.45f + 0.45f * s2 * s2;             // 0.45..0.90  blue-dominant
+            // Occluded: a touch brighter / more violet so wallhack reads.
             float o0 = sinf(p + 1.7f);
             float o1 = sinf(p * 1.10f + 3.4f);
             float o2 = sinf(p * 0.90f + 0.6f);
-            float orC = 0.45f + 0.50f * o0 * o0;            // 0.45..0.95
-            float ogC = 0.05f + 0.20f * o1 * o1;            // 0.05..0.25
-            float obC = 0.85f + 0.15f * o2 * o2;            // 0.85..1.00
-            // Cyan-white "supernova" pulse every ~6s pushes a brief flash
-            // through the whole body \u2014 a subtle highlight, not a strobe.
-            float burst = sinf(t * (TAU / 6.0f) + ph);
-            burst = burst > 0.94f ? (burst - 0.94f) * 16.0f : 0.0f;
-            if (burst > 0.0f) {
-                vr += burst * 0.30f; vg += burst * 0.45f; vb += burst * 0.20f;
-                orC += burst * 0.20f; ogC += burst * 0.40f; obC += burst * 0.15f;
-                if (vr > 1.0f) vr = 1.0f; if (vg > 1.0f) vg = 1.0f; if (vb > 1.0f) vb = 1.0f;
-                if (orC > 1.0f) orC = 1.0f; if (ogC > 1.0f) ogC = 1.0f; if (obC > 1.0f) obC = 1.0f;
-            }
+            float orC = 0.28f + 0.42f * o0 * o0;            // 0.28..0.70
+            float ogC = 0.04f + 0.10f * o1 * o1;            // 0.04..0.14
+            float obC = 0.60f + 0.40f * o2 * o2;            // 0.60..1.00
+            // No supernova flash - it just washed the body to white. The
+            // sparkle pass below is what provides the star highlights.
             mat.vis_color[0] = vr;  mat.vis_color[1] = vg;  mat.vis_color[2] = vb;  mat.vis_color[3] = 1.0f;
             mat.occ_color[0] = orC; mat.occ_color[1] = ogC; mat.occ_color[2] = obC; mat.occ_color[3] = 1.0f;
         }
@@ -354,6 +346,7 @@ namespace Chams
             float tw = 0.55f + 0.45f * sinf(t * (TAU * 2.5f) + ph)
                              * sinf(t * (TAU * 1.3f) + ph * 1.7f);
             if (tw < 0.0f) tw = 0.0f;
+            tw *= 0.55f; // overall sparkle intensity - keep stars from washing the body
             // Slight tint shift so sparkles aren't just flat white.
             float ti = sinf(t * (TAU / 3.0f) + ph);
             float sparkle[4] = {
@@ -493,23 +486,19 @@ namespace Chams
         const char k13_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_LineThickness=0.16 g_OverrideColorFactor=1.0 g_vOverrideColor=[0.95,1.0,1.0,1.0]})";
 
         // Galaxy — the marquee animated style. Inspired by the Fortnite
-        // Galaxy skin: deep cosmic violet/blue body, fully filled (not
-        // rim-only) so the nebula color reads across the whole silhouette,
-        // plus a separate high-frequency sparkle pass that paints star-like
-        // pinpricks along curvature edges. Body colors are animated PER
-        // FRAME in hk_GeneratePrim by mutating the MaterialSet color arrays
-        // (the KV3 here is baked once and just defines the optical setup).
-        //
-        // Body params: low fresnel exp (1.5) + high min (1.0) + low max
-        // (0.0) inverts the rim falloff — the body LIGHTS UP and the rim
-        // darkens, like cosmic dust catching light from inside. Big color
-        // boost (3.0) so the cycling tint really blooms.
-        const char k14_vis[]  = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=1.5 g_flFresnelFalloff=2.0 g_flFresnelMax=0.0 g_flFresnelMin=1.0 g_flColorBoost=3.0 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        const char k14_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=1.5 g_flFresnelFalloff=2.0 g_flFresnelMax=0.0 g_flFresnelMin=1.0 g_flColorBoost=4.0 g_flOpacityScale=0.95 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
-        // Sparkle layer: extreme high-frequency fresnel acts as star
-        // pinpricks where surface curvature aligns with the camera. Z-disabled
-        // and additive so it twinkles on top of the body without depth fight.
-        const char k14_star[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=24.0 g_flFresnelFalloff=1.0 g_flFresnelMax=6.0 g_flFresnelMin=0.0 g_flColorBoost=8.0 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Galaxy skin: deep navy/violet body with a bright nebula RIM
+        // (cosmic gradient, dark interior → bright edge), plus a separate
+        // sparkle pass for star pinpricks. Body uses a NORMAL fresnel
+        // (min low, max high, exp ~2.5) so the silhouette reads as a
+        // shaded cosmic surface instead of a flat coloured blob. Color
+        // boost is intentionally low (1.2) — the cycling tint provides
+        // the saturation, the fresnel provides the form.
+        const char k14_vis[]  = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=2.5 g_flFresnelFalloff=2.0 g_flFresnelMax=1.6 g_flFresnelMin=0.15 g_flColorBoost=1.2 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k14_occ[]  = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=2.5 g_flFresnelFalloff=2.0 g_flFresnelMax=2.0 g_flFresnelMin=0.20 g_flColorBoost=1.6 g_flOpacityScale=0.9 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        // Sparkle layer: medium-frequency fresnel (exp 10) spreads star
+        // pinpricks across more of the body, not only at the silhouette.
+        // Strong color boost so the additive twinkle reads bright.
+        const char k14_star[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=10.0 g_flFresnelFalloff=1.5 g_flFresnelMax=5.0 g_flFresnelMin=0.0 g_flColorBoost=6.0 g_flOpacityScale=1.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
 
 #undef H
 #undef W
