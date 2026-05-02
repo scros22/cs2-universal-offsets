@@ -70,13 +70,11 @@ namespace Hooks
     using Present1Fn       = HRESULT(__stdcall*)(IDXGISwapChain1*, UINT, UINT, const DXGI_PRESENT_PARAMETERS*);
     using ResizeBuffersFn  = HRESULT(__stdcall*)(IDXGISwapChain*, UINT, UINT, UINT, DXGI_FORMAT, UINT);
     using DrawIndexedFn    = void(__stdcall*)(ID3D11DeviceContext*, UINT, UINT, INT);
-    using DrawIndexedInstancedFn = void(__stdcall*)(ID3D11DeviceContext*, UINT, UINT, UINT, INT, UINT);
 
     inline PresentFn       oPresent       = nullptr;
     inline Present1Fn      oPresent1      = nullptr;
     inline ResizeBuffersFn oResizeBuffers = nullptr;
     inline DrawIndexedFn   oDrawIndexed   = nullptr;
-    inline DrawIndexedInstancedFn oDrawIndexedInstanced = nullptr;
     inline WNDPROC         oWndProc       = nullptr;
 
     inline void*           pHkPresent     = nullptr;
@@ -84,7 +82,6 @@ namespace Hooks
     inline void*           pHkResize      = nullptr;
     inline void*           pHkFSN         = nullptr;
     inline void*           pHkDrawIndexed = nullptr;
-    inline void*           pHkDrawIdxInst = nullptr;
 
     inline ID3D11Device*            pDevice     = nullptr;
     inline ID3D11DeviceContext*     pContext    = nullptr;
@@ -250,218 +247,10 @@ namespace Hooks
     }
 
     // ---------------------------------------------------------------
-    // DrawIndexedInstanced hook — material chams
-    // Detection: debug-name primary + vertex-stride fallback
+    // DrawIndexedInstanced hook removed.
+    // Chams now operates at the scenesystem layer via
+    // CSceneAnimatableObject::GeneratePrimitives (features/visuals/chams.h).
     // ---------------------------------------------------------------
-    inline void __stdcall hkDrawIndexedInstanced(ID3D11DeviceContext* ctx,
-        UINT IndexCount, UINT InstanceCount, UINT StartIndexLocation,
-        INT BaseVertexLocation, UINT StartInstanceLocation)
-    {
-        if (Chams::cfg.enabled && Chams::ready && IndexCount > 100)
-        {
-            Chams::HitType hit = Chams::HitType::None;
-
-            // --- Check if this is a viewmodel/first-person draw ---
-            // Viewmodel renders with DepthWriteMask = 0 (draws on top).
-            // We must skip these for character chams so the local player's
-            // own head/body/gas mask don't get coloured.
-            bool isViewmodel = false;
-            {
-                ID3D11DepthStencilState* dss = nullptr;
-                UINT ref = 0;
-                ctx->OMGetDepthStencilState(&dss, &ref);
-                if (dss)
-                {
-                    D3D11_DEPTH_STENCIL_DESC desc;
-                    dss->GetDesc(&desc);
-                    if (desc.DepthEnable && desc.DepthWriteMask == D3D11_DEPTH_WRITE_MASK_ZERO)
-                        isViewmodel = true;
-                    dss->Release();
-                }
-            }
-
-            // --- Primary detection: pixel shader debug name ---
-            char psName[128] = {};
-            bool havePsName = false;
-            {
-                ID3D11PixelShader* ps = nullptr;
-                ctx->PSGetShader(&ps, nullptr, nullptr);
-                if (ps)
-                {
-                    havePsName = Chams::GetDebugName(ps, psName, sizeof(psName));
-                    ps->Release();
-                }
-            }
-
-            if (havePsName)
-            {
-                if (!isViewmodel && strstr(psName, "csgo_character"))
-                    hit = Chams::HitType::Character;
-                else if (Chams::cfg.handsEnabled && strstr(psName, "csgo_vertexlit"))
-                    hit = Chams::HitType::Hand;
-                else if (Chams::cfg.weaponsEnabled && strstr(psName, "csgo_weapon"))
-                    hit = Chams::HitType::Weapon;
-            }
-
-            // Fallback: SRV resource debug name
-            if (hit == Chams::HitType::None)
-            {
-                ID3D11ShaderResourceView* srv = nullptr;
-                ctx->PSGetShaderResources(0, 1, &srv);
-                if (srv)
-                {
-                    ID3D11Resource* res = nullptr;
-                    srv->GetResource(&res);
-                    if (res)
-                    {
-                        char srvName[128] = {};
-                        if (Chams::GetDebugName(res, srvName, sizeof(srvName)))
-                        {
-                            if (!isViewmodel && strstr(srvName, "csgo_character"))
-                                hit = Chams::HitType::Character;
-                        }
-                        res->Release();
-                    }
-                    srv->Release();
-                }
-            }
-
-            // Fallback: stride heuristic for character accessories/gear
-            // Skinned character meshes: stride 32-44, IndexCount >= 3000
-            // Excludes viewmodel draws and known world-geometry shaders
-            if (hit == Chams::HitType::None && !isViewmodel && IndexCount >= 3000)
-            {
-                UINT stride = 0;
-                {
-                    ID3D11Buffer* vb = nullptr;
-                    UINT vbOff = 0;
-                    ctx->IAGetVertexBuffers(0, 1, &vb, &stride, &vbOff);
-                    if (vb) vb->Release();
-                }
-                if (stride >= 32 && stride <= 44)
-                {
-                    // Blacklist known world/environment shader names
-                    bool isWorldGeo = false;
-                    if (havePsName)
-                    {
-                        if (strstr(psName, "csgo_environment") ||
-                            strstr(psName, "csgo_static") ||
-                            strstr(psName, "csgo_complex") ||
-                            strstr(psName, "csgo_glass") ||
-                            strstr(psName, "csgo_decal") ||
-                            strstr(psName, "csgo_water") ||
-                            strstr(psName, "csgo_sky") ||
-                            strstr(psName, "csgo_lightmapped") ||
-                            strstr(psName, "csgo_foliage") ||
-                            strstr(psName, "csgo_projected_decal"))
-                        {
-                            isWorldGeo = true;
-                        }
-                    }
-                    if (!isWorldGeo)
-                        hit = Chams::HitType::Character;
-                }
-            }
-
-            // --- Apply chams ---
-            if (hit == Chams::HitType::Character)
-            {
-                const Chams::SlotStyle& slotV = Chams::cfg.playerVis;
-                const Chams::SlotStyle& slotH = Chams::cfg.playerHid;
-
-                auto applySlot = [&](const Chams::SlotStyle& slot) {
-                    if (slot.material == Chams::MAT_NONE) return;
-                    D3D11_VIEWPORT vp = {};
-                    UINT nvp = 1;
-                    ctx->RSGetViewports(&nvp, &vp);
-                    Chams::UpdateCB(ctx, slot, vp.Width, vp.Height, Chams::gTime);
-                    ID3D11PixelShader* matPS = Chams::GetShader(slot);
-                    if (matPS) ctx->PSSetShader(matPS, nullptr, 0);
-                };
-
-                ID3D11DepthStencilState* origDSS = nullptr;
-                UINT origRef = 0;
-                ctx->OMGetDepthStencilState(&origDSS, &origRef);
-                ID3D11PixelShader* origPS = nullptr;
-                ctx->PSGetShader(&origPS, nullptr, nullptr);
-
-                if (Chams::cfg.wallhack && Chams::dssOff)
-                {
-                    // Pass 1: behind walls (depth disabled)
-                    ctx->OMSetDepthStencilState(Chams::dssOff, origRef);
-                    if (slotH.material != Chams::MAT_NONE)
-                        applySlot(slotH);
-                    // else: MAT_NONE → keep original shader for real model through walls
-                    oDrawIndexedInstanced(ctx, IndexCount, InstanceCount,
-                        StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
-
-                    // Pass 2: visible (depth restored)
-                    if (origDSS) ctx->OMSetDepthStencilState(origDSS, origRef);
-                    if (slotV.material != Chams::MAT_NONE)
-                    {
-                        applySlot(slotV);
-                    }
-                    else
-                    {
-                        // Restore original shader for real model
-                        if (origPS) ctx->PSSetShader(origPS, nullptr, 0);
-                    }
-                    oDrawIndexedInstanced(ctx, IndexCount, InstanceCount,
-                        StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
-                }
-                else
-                {
-                    if (slotV.material != Chams::MAT_NONE)
-                        applySlot(slotV);
-                    oDrawIndexedInstanced(ctx, IndexCount, InstanceCount,
-                        StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
-                }
-
-                if (origDSS) { ctx->OMSetDepthStencilState(origDSS, origRef); origDSS->Release(); }
-                if (origPS)  { ctx->PSSetShader(origPS, nullptr, 0); origPS->Release(); }
-                return;
-            }
-            else if (hit == Chams::HitType::Hand)
-            {
-                ID3D11PixelShader* origPS = nullptr;
-                ctx->PSGetShader(&origPS, nullptr, nullptr);
-                if (Chams::cfg.hands.material != Chams::MAT_NONE)
-                {
-                    D3D11_VIEWPORT vp = {};
-                    UINT nvp = 1;
-                    ctx->RSGetViewports(&nvp, &vp);
-                    Chams::UpdateCB(ctx, Chams::cfg.hands, vp.Width, vp.Height, Chams::gTime);
-                    ID3D11PixelShader* matPS = Chams::GetShader(Chams::cfg.hands);
-                    if (matPS) ctx->PSSetShader(matPS, nullptr, 0);
-                }
-                oDrawIndexedInstanced(ctx, IndexCount, InstanceCount,
-                    StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
-                if (origPS) { ctx->PSSetShader(origPS, nullptr, 0); origPS->Release(); }
-                return;
-            }
-            else if (hit == Chams::HitType::Weapon)
-            {
-                ID3D11PixelShader* origPS = nullptr;
-                ctx->PSGetShader(&origPS, nullptr, nullptr);
-                if (Chams::cfg.weapons.material != Chams::MAT_NONE)
-                {
-                    D3D11_VIEWPORT vp = {};
-                    UINT nvp = 1;
-                    ctx->RSGetViewports(&nvp, &vp);
-                    Chams::UpdateCB(ctx, Chams::cfg.weapons, vp.Width, vp.Height, Chams::gTime);
-                    ID3D11PixelShader* matPS = Chams::GetShader(Chams::cfg.weapons);
-                    if (matPS) ctx->PSSetShader(matPS, nullptr, 0);
-                }
-                oDrawIndexedInstanced(ctx, IndexCount, InstanceCount,
-                    StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
-                if (origPS) { ctx->PSSetShader(origPS, nullptr, 0); origPS->Release(); }
-                return;
-            }
-        }
-
-        oDrawIndexedInstanced(ctx, IndexCount, InstanceCount,
-            StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
-    }
 
     // ---------------------------------------------------------------
     // Present hook — shared rendering logic
@@ -579,11 +368,9 @@ namespace Hooks
                     Log("[-] Failed to create wireframe RS");
             }
 
-            // Init chams D3D resources
-            if (Chams::Init(pDevice))
-                Log("[+] Chams D3D resources created");
-            else
-                Log("[-] Chams init failed");
+            // Init chams D3D resources — chams now hooks scenesystem
+            // GeneratePrimitives directly (features/visuals/chams.h::Setup),
+            // installed from the entry thread. Nothing to do here.
 
             // Pre-load weapon SVG icons via Panorama UI - DISABLED (needs CUtlBuffer implementation)
             // if (WeaponIcons::Init(pDevice))
@@ -631,9 +418,7 @@ namespace Hooks
                 {
                     oDrawIndexed = vmtContext.Original<DrawIndexedFn>(12);
                     vmtContext.Replace(12, &hkDrawIndexed);
-                    oDrawIndexedInstanced = vmtContext.Original<DrawIndexedInstancedFn>(20);
-                    vmtContext.Replace(20, &hkDrawIndexedInstanced);
-                    Log("[+] DeviceContext VMT hooks (DrawIndexed/DrawIndexedInstanced)");
+                    Log("[+] DeviceContext VMT hook (DrawIndexed)");
                 }
                 else { Log("[-] DeviceContext VMT init failed"); vmtOk = false; }
 
@@ -667,9 +452,6 @@ namespace Hooks
         } __except (EXCEPTION_EXECUTE_HANDLER) {
             Log("[PresentCore] DamageIndicator::Tick EXCEPTION");
         }
-        __try {
-            Chams::Tick(pDevice);
-        } __except (EXCEPTION_EXECUTE_HANDLER) {}
         __try {
             AutoAccept::Tick();
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
@@ -1029,10 +811,6 @@ namespace Hooks
         pHkDrawIndexed = ctxVT[12];
         Log("[*] DrawIndexed=%p", pHkDrawIndexed);
 
-        // DrawIndexedInstanced = device context vtable index 20
-        pHkDrawIdxInst = ctxVT[20];
-        Log("[*] DrawIndexedInstanced=%p", pHkDrawIdxInst);
-
         tmpSC->Release();
         tmpDev->Release();
         tmpCtx->Release();
@@ -1119,6 +897,5 @@ namespace Hooks
         oPresent1         = nullptr;
         oResizeBuffers    = nullptr;
         oDrawIndexed      = nullptr;
-        oDrawIndexedInstanced = nullptr;
     }
 }

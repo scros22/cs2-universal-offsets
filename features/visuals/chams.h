@@ -1,449 +1,383 @@
-﻿#pragma once
+#pragma once
 
-// ---------------------------------------------------------------
-// Chams â€” D3D11 DrawIndexedInstanced hook with MATERIAL shaders.
-// Detection: debug-name primary + vertex-stride fallback.
-// Per-frame constant buffer drives animated GPU materials.
-// ---------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// Chams — scenesystem-layer material override (kauht-style).
+//
+// Hooks CSceneAnimatableObject::GeneratePrimitives on scenesystem.dll and
+// re-runs the renderer with custom KV3-built materials for the wallhack /
+// visible passes. Materials are real Source 2 IMaterial2 instances created
+// at init via materialsystem2 + tier0!LoadKV3, so visuals are pixel-identical
+// to what shipped shaders produce — no custom HLSL.
+//
+// Replaces the previous D3D11 DrawIndexedInstanced hook entirely.
+//
+// Credit: design ported from the friend's reference implementation.
+// ---------------------------------------------------------------------------
 
 #include <Windows.h>
-#include <d3d11.h>
-#include <D3Dcompiler.h>
-#include <cstdio>
+#include <Psapi.h>
+#include <cstdint>
 #include <cstring>
-#include <cmath>
-#include "../../core/game_state.h"
-#include "../../core/sdk_offsets.h"
+#include <cstdlib>
+#include "../../core/memory.h"
+#include "../../vendor/minhook/include/MinHook.h"
 
 namespace Chams
 {
-    // ---------------------------------------------------------------
-    // Material types â€” MAT_NONE means "keep original model look"
-    // ---------------------------------------------------------------
-    enum Material : int
+    // -----------------------------------------------------------------------
+    // Style presets (must match menu order). MaterialNames is exposed for
+    // the menu's combo widget.
+    // -----------------------------------------------------------------------
+    enum Style : int
     {
-        MAT_NONE        = 0,   // wallhack only â€” original model preserved
-        MAT_FLAT        = 1,   // solid tint
-        MAT_CHROME      = 2,   // GTA chrome reflections
-        MAT_METALLIC    = 3,   // brushed metal
-        MAT_GLOW        = 4,   // pulsing emissive
-        MAT_HOLOGRAM    = 5,   // scanlines + RGB fringe
-        MAT_PEARLESCENT = 6,   // colour-shifting iridescence
-        MAT_CRYSTAL     = 7,   // prismatic facets + sparkle
-        MAT_GLASS       = 8,   // transparent fresnel
-        MAT_PBR_GLOSS   = 9,   // saturated PBR metal -- ddx/ddy fake-normal lighting (kauht-style)
-        MAT_COUNT
+        STYLE_GLASS = 0,
+        STYLE_FLAT_WIRE,
+        STYLE_PEARL,
+        STYLE_GHOST,
+        STYLE_OUTLINE,
+        STYLE_FLAT,
+        STYLE_GLOW,
+        STYLE_COUNT
     };
 
-    inline const char* MaterialNames[MAT_COUNT] = {
-        "None (Original)", "Flat Color", "Chrome", "Metallic",
-        "Glow", "Hologram", "Pearlescent", "Crystal", "Glass",
-        "PBR Gloss"
-    };
-
-    // Quick-pick color presets (shown above the per-slot color edit). The
-    // first entry mirrors the green emerald look from the kauht reference
-    // screenshot -- one click and your slot's tint snaps to that exact RGB.
-    struct ColorPreset { const char* name; float rgba[4]; };
-    inline const ColorPreset kColorPresets[] = {
-        { "Emerald",  { 0.06f, 1.00f, 0.22f, 1.00f } },  // kauht reference
-        { "Acid",     { 0.55f, 1.00f, 0.05f, 1.00f } },
-        { "Cyan",     { 0.05f, 0.85f, 1.00f, 1.00f } },
-        { "Royal",    { 0.20f, 0.30f, 1.00f, 1.00f } },
-        { "Magenta",  { 1.00f, 0.10f, 0.85f, 1.00f } },
-        { "Hot Pink", { 1.00f, 0.25f, 0.55f, 1.00f } },
-        { "Crimson",  { 1.00f, 0.10f, 0.10f, 1.00f } },
-        { "Tangerine",{ 1.00f, 0.45f, 0.05f, 1.00f } },
-        { "Gold",     { 1.00f, 0.78f, 0.20f, 1.00f } },
-        { "Pearl",    { 0.95f, 0.95f, 1.00f, 1.00f } }
-    };
-    inline constexpr int kColorPresetCount = (int)(sizeof(kColorPresets) / sizeof(kColorPresets[0]));
-
-    // Per-slot style: material + tint colour
-    struct SlotStyle
-    {
-        int   material = MAT_FLAT;
-        float color[4] = { 1.f, 1.f, 1.f, 1.f };
+    inline const char* MaterialNames[STYLE_COUNT] = {
+        "Glass", "Flat + Wire", "Pearlescent", "Ghost",
+        "Outline", "Flat", "Glow"
     };
 
     struct Config
     {
-        bool  enabled   = false;
-        bool  wallhack  = true;
-
-        // Players (all characters â€” D3D11 hook can't differentiate teams)
-        SlotStyle playerVis = { MAT_PBR_GLOSS,{ 0.06f, 1.00f, 0.22f, 1.00f } };
-        SlotStyle playerHid = { MAT_NONE,    { 1.0f, 0.5f, 0.0f, 0.55f } };
-
-        // Viewmodel (own hands + held weapon)
-        bool      handsEnabled = false;
-        SlotStyle hands        = { MAT_CHROME, { 0.82f, 0.85f, 0.95f, 1.0f } };
-
-        // World weapon drops
-        bool      weaponsEnabled = false;
-        SlotStyle weapons        = { MAT_PBR_GLOSS,{ 0.06f, 1.00f, 0.22f, 1.00f } };
+        bool enabled = false;
+        int  style   = STYLE_FLAT_WIRE;
     };
-
     inline Config cfg;
 
-    enum class HitType { None, Character, Hand, Weapon };
+    // -----------------------------------------------------------------------
+    // Internal — engine types used by the hook
+    // -----------------------------------------------------------------------
+    struct CMaterial2 {};
 
-    // ---------------------------------------------------------------
-    // GPU constant buffer layout  (register b12 to avoid engine clashes)
-    // ---------------------------------------------------------------
-    struct alignas(16) ChamsCB
+    struct CMeshDrawPrimitive
     {
-        float tintR, tintG, tintB, tintA;   // 16 bytes
-        float screenW, screenH;             //  8
-        float time;                         //  4
-        float _pad;                         //  4  â†’ 32 total
+        char        pad_0000[32];
+        CMaterial2* m_material;
+        CMaterial2* m_material2;
+        char        pad_0030[32];
+        uint32_t    m_tint_color;
+        float       m_alpha_scale;
+        char        pad_0058[10];
+        uint16_t    m_render_flags;
+        uint16_t    m_render_flags2;
+        char        pad_0066[2];
     };
 
-    // D3D11 resources â€” one compiled shader per material type
-    inline ID3D11PixelShader*       psSlots[MAT_COUNT] = {};
-    inline ID3D11DepthStencilState* dssOff   = nullptr;
-    inline ID3D11Buffer*            cbuf     = nullptr;
-    inline bool                     ready    = false;
-    inline float                    gTime    = 0.f;
+    struct CMeshPrimitiveOutputBuffer
+    {
+        CMeshDrawPrimitive* m_out;
+        int                 m_max_output_primitives;
+        int                 m_start_primitive;
+    };
 
-    // WKPDID_D3DDebugObjectName
-    static const GUID kDbgName =
-        { 0x429b8c22, 0x9188, 0x4b0c, { 0x87,0x42,0xac,0xb0,0xbf,0x85,0xc2,0x00 } };
+    struct KV3_t { const char* name; uint64_t a; uint64_t b; };
+    using fn_LoadKV3        = bool(__fastcall*)(void*, void*, const char*, const KV3_t*, const char*, uint32_t);
+    using fn_CreateMaterial = void**(__fastcall*)(void*, void**, const char*, void*, void*, char);
+    using fn_GeneratePrim   = void(__fastcall*)(void*, void*, void*, CMeshPrimitiveOutputBuffer*);
 
-    inline bool GetDebugName(ID3D11DeviceChild* obj, char* out, int maxLen)
+    // -----------------------------------------------------------------------
+    // Style data
+    // -----------------------------------------------------------------------
+    struct MaterialSet
+    {
+        CMaterial2* occ;
+        CMaterial2* vis;
+        CMaterial2* wire;
+        float       occ_color[4];
+        float       vis_color[4];
+        bool        use_wire;
+    };
+
+    inline MaterialSet g_materials[STYLE_COUNT] = {};
+    inline fn_GeneratePrim o_GeneratePrim = nullptr;
+    inline bool g_ready = false;
+
+    // Per-frame deduplication so the same scene object isn't drawn twice
+    inline void* g_seen[256] = {};
+    inline int   g_seen_count = 0;
+    inline void* g_last_buf  = nullptr;
+
+    inline bool MarkSeen(void* obj, void* buf)
+    {
+        if (buf != g_last_buf) { g_last_buf = buf; g_seen_count = 0; }
+        for (int i = 0; i < g_seen_count; ++i)
+            if (g_seen[i] == obj) return false;
+        if (g_seen_count < 256) g_seen[g_seen_count++] = obj;
+        return true;
+    }
+
+    inline uint32_t PackColor(const float* c)
+    {
+        auto clamp = [](float v) -> uint32_t {
+            if (v > 1.0f) v = 1.0f;
+            if (v < 0.0f) v = 0.0f;
+            return static_cast<uint32_t>(v * 255.0f);
+        };
+        return clamp(c[0]) | (clamp(c[1]) << 8) | (clamp(c[2]) << 16) | (clamp(c[3]) << 24);
+    }
+
+    inline void Apply(CMeshDrawPrimitive* p, CMaterial2* mat, const float* color)
+    {
+        if (!mat) return;
+        p->m_material = p->m_material2 = mat;
+        p->m_alpha_scale = color[3];
+        p->m_tint_color  = PackColor(color);
+    }
+
+    inline bool IsPlayer(void* obj)
     {
         if (!obj) return false;
-        UINT sz = 0;
-        if (FAILED(obj->GetPrivateData(kDbgName, &sz, nullptr)) || sz == 0 || (int)sz >= maxLen)
-            return false;
-        UINT sz2 = sz;
-        if (FAILED(obj->GetPrivateData(kDbgName, &sz2, out)))
-            return false;
-        out[sz] = '\0';
-        return true;
+        // Renderable flags live at +0x80; bit 49 (0x2'0000'0000'0000) = player
+        uint64_t flags = Mem::Read<uint64_t>(reinterpret_cast<uintptr_t>(obj) + 0x80);
+        return (flags & 0x2000000000000ULL) != 0;
     }
 
-    // ---------------------------------------------------------------
-    // HLSL sources  (compiled as ps_4_0 for max compat)
-    // MAT_NONE has no shader â€” hook preserves original PS
-    // ---------------------------------------------------------------
-
-    // Flat â€” solid tint
-    static const char* kHlslFlat = R"(
-cbuffer CB:register(b12){float4 tint;float2 screen;float time;};
-float4 main(float4 p:SV_Position):SV_Target{return tint;})";
-
-    // Chrome â€” multi-band reflections with bright specular streaks
-    static const char* kHlslChrome = R"(
-cbuffer CB:register(b12){float4 tint;float2 screen;float time;};
-float4 main(float4 p:SV_Position):SV_Target{
-  float2 uv=p.xy/screen;
-  float a=sin(uv.y*30.0+uv.x*10.0+time*2.0)*0.5+0.5;
-  float b=cos(uv.x*20.0-uv.y*15.0+time*1.5)*0.5+0.5;
-  float c=sin((uv.x+uv.y)*35.0-time*2.8)*0.5+0.5;
-  float chrome=pow(a*0.4+b*0.35+c*0.25,1.3);
-  float spec=pow(saturate(sin(uv.y*60.0+time*4.0)*0.5+0.5),12.0)*0.45;
-  float3 base=lerp(float3(0.07,0.07,0.10),float3(1.05,1.05,1.1),chrome)+spec;
-  return float4(base*tint.rgb,tint.a);
-})";
-
-    // Metallic â€” brushed texture with directional highlights
-    static const char* kHlslMetallic = R"(
-cbuffer CB:register(b12){float4 tint;float2 screen;float time;};
-float4 main(float4 p:SV_Position):SV_Target{
-  float2 uv=p.xy/screen;
-  float brush=sin(uv.y*140.0+uv.x*12.0)*0.06;
-  float spec=pow(saturate(sin(uv.x*8.0+uv.y*3.0+time*0.7)*0.5+0.5),5.0)*0.35;
-  float3 base=tint.rgb*(0.55+brush)+0.25+spec;
-  return float4(base*tint.rgb,tint.a);
-})";
-
-    // Glow â€” pulsing emissive aura
-    static const char* kHlslGlow = R"(
-cbuffer CB:register(b12){float4 tint;float2 screen;float time;};
-float4 main(float4 p:SV_Position):SV_Target{
-  float pulse=sin(time*4.0)*0.2+0.8;
-  float edge=sin(p.x*0.02+p.y*0.015+time*2.0)*0.12+0.88;
-  float3 c=tint.rgb*pulse*edge*1.7;
-  return float4(c,tint.a);
-})";
-
-    // Hologram â€” sci-fi scanlines with RGB colour fringing
-    static const char* kHlslHologram = R"(
-cbuffer CB:register(b12){float4 tint;float2 screen;float time;};
-float4 main(float4 p:SV_Position):SV_Target{
-  float scan=step(frac(p.y*0.15),0.5);
-  float flick=sin(time*15.0)*0.08+0.92;
-  float3 c;
-  c.r=tint.r*(1.0+sin(p.y*0.3+time*3.0)*0.15);
-  c.g=tint.g*(1.0+sin(p.y*0.3+time*3.0+2.094)*0.15);
-  c.b=tint.b*(1.0+sin(p.y*0.3+time*3.0+4.189)*0.15);
-  c*=flick*(0.5+scan*0.5);
-  c+=float3(0.0,0.03,0.08)*scan;
-  return float4(c,tint.a*(0.45+scan*0.4));
-})";
-
-    // Pearlescent â€” oil-slick colour shifting
-    static const char* kHlslPearlescent = R"(
-cbuffer CB:register(b12){float4 tint;float2 screen;float time;};
-float4 main(float4 p:SV_Position):SV_Target{
-  float2 uv=p.xy/screen;
-  float shift=sin(uv.x*5.0+uv.y*3.5+time*1.2)*0.5+0.5;
-  float3 c1=tint.rgb;
-  float3 c2=float3(tint.z,tint.x,tint.y);
-  float3 c3=float3(tint.y,tint.z,tint.x);
-  float3 col=lerp(lerp(c1,c2,shift),c3,sin(shift*3.14159)*0.45);
-  float gloss=pow(saturate(sin(uv.y*30.0+time*2.5)*0.5+0.5),6.0)*0.2;
-  return float4(col*1.2+gloss,tint.a);
-})";
-
-    // Crystal â€” prismatic facets with rainbow sparkle
-    static const char* kHlslCrystal = R"(
-cbuffer CB:register(b12){float4 tint;float2 screen;float time;};
-float4 main(float4 p:SV_Position):SV_Target{
-  float2 uv=p.xy/screen;
-  float facet=sin(uv.x*45.0)*sin(uv.y*45.0)*0.5+0.5;
-  float rainbow=frac(uv.x*2.0+uv.y*1.5+time*0.3);
-  float3 c;
-  c.r=tint.r*(0.5+facet*0.5)+pow(saturate(1.0-abs(rainbow*3.0)),2.0)*0.25;
-  c.g=tint.g*(0.5+facet*0.5)+pow(saturate(1.0-abs(rainbow*3.0-1.0)),2.0)*0.25;
-  c.b=tint.b*(0.5+facet*0.5)+pow(saturate(1.0-abs(rainbow*3.0-2.0)),2.0)*0.25;
-  float sparkle=pow(facet,8.0)*0.55;
-  c+=sparkle;
-  return float4(c,tint.a);
-})";
-
-    // Glass â€” frosted transparent with fresnel shimmer
-    static const char* kHlslGlass = R"(
-cbuffer CB:register(b12){float4 tint;float2 screen;float time;};
-float4 main(float4 p:SV_Position):SV_Target{
-  float2 uv=p.xy/screen;
-  float fresnel=pow(abs(sin(uv.x*6.28+uv.y*3.14)),0.4)*0.5+0.3;
-  float3 c=tint.rgb*(1.0+fresnel*0.55);
-  float shimmer=sin(uv.y*65.0+time*5.5)*0.025;
-  c+=shimmer;
-  float a=tint.a*(0.22+fresnel*0.48);
-  return float4(c,a);
-})";
-
-    // PBR Gloss -- targets the kauht-reference look: saturated solid colour,
-    // high-frequency specular along screen-space gradient ridges, soft rim,
-    // and a wide diffuse falloff biased toward the top of the visible mesh.
-    // Uses ddx_fine/ddy_fine of SV_Position to recover a fake mesh-aligned
-    // normal -- this is as close as a D3D11 PS-replacement can get to true
-    // material-layer PBR without touching the source2 shader pipeline.
-    static const char* kHlslPbrGloss = R"(
-cbuffer CB:register(b12){float4 tint;float2 screen;float time;};
-float4 main(float4 p:SV_Position):SV_Target{
-  // ddx/ddy of pixel position gives us a screen-space gradient that
-  // tracks geometry edges -- a passable substitute for view-space
-  // normals. Using ddx/ddy (not ddx_fine) to stay ps_4_0 compatible;
-  // the _fine variants require ps_5_0 and would silently fail to
-  // compile, leaving this style as a no-op.
-  float2 dx=ddx(p.xy);
-  float2 dy=ddy(p.xy);
-  // Fake normal in screen space (XY = gradient, Z = unit so it stays facing).
-  float3 N=normalize(float3(dx.y-dy.x,dy.y-dx.x,1.4));
-  // Two light directions -- key (top-front) + fill (back). Hard-coded so the
-  // result looks the same regardless of camera yaw.
-  float3 Lk=normalize(float3(-0.45,-0.85,0.30));
-  float3 Lf=normalize(float3( 0.55, 0.40,0.70));
-  float ndlK=saturate(dot(N,Lk));
-  float ndlF=saturate(dot(N,Lf));
-  // GGX-ish specular lobe approximated with pow(ndl, large_exp).
-  float specK=pow(ndlK,18.0);
-  float specF=pow(ndlF,28.0)*0.55;
-  // Rim term -- brightens silhouette pixels (where the fake-normal Z
-  // component is small).
-  float rim=pow(1.0-saturate(N.z),3.0)*0.65;
-  float3 base=tint.rgb*(0.35+0.55*ndlK+0.20*ndlF);
-  float3 spec=(specK+specF+rim)*lerp(tint.rgb,float3(1.0,1.0,1.0),0.55);
-  return float4(base+spec,tint.a);
-})";
-
-    // Indexed by Material enum  (MAT_NONE = index 0 â†’ nullptr)
-    inline const char* kShaderSources[MAT_COUNT] = {
-        nullptr,             // MAT_NONE
-        kHlslFlat,           // MAT_FLAT
-        kHlslChrome,         // MAT_CHROME
-        kHlslMetallic,       // MAT_METALLIC
-        kHlslGlow,           // MAT_GLOW
-        kHlslHologram,       // MAT_HOLOGRAM
-        kHlslPearlescent,    // MAT_PEARLESCENT
-        kHlslCrystal,        // MAT_CRYSTAL
-        kHlslGlass,          // MAT_GLASS
-        kHlslPbrGloss        // MAT_PBR_GLOSS
-    };
-
-    // ---------------------------------------------------------------
-    // Compile a material shader (ps_4_0 for widest GPU compat)
-    // ---------------------------------------------------------------
-    inline HRESULT CompileMaterial(ID3D11Device* dev, int mat, ID3D11PixelShader** ps)
+    // -----------------------------------------------------------------------
+    // Material creator — runs KV3 text through tier0!LoadKV3 and hands the
+    // result to materialsystem2's CreateMaterial.
+    // -----------------------------------------------------------------------
+    inline CMaterial2* CreateMaterial(const char* name, const char* kv3_text)
     {
-        *ps = nullptr;
-        if (mat < 0 || mat >= MAT_COUNT) return E_INVALIDARG;
-        const char* src = kShaderSources[mat];
-        if (!src) return S_FALSE; // MAT_NONE has no shader
-        ID3DBlob* blob = nullptr;
-        ID3DBlob* err  = nullptr;
-        HRESULT hr = D3DCompile(src, strlen(src), "chams", nullptr, nullptr,
-                                "main", "ps_4_0", 0, 0, &blob, &err);
-        if (err) err->Release();
-        if (FAILED(hr)) return hr;
-        hr = dev->CreatePixelShader(blob->GetBufferPointer(),
-                                    blob->GetBufferSize(), nullptr, ps);
-        blob->Release();
-        return hr;
-    }
+        HMODULE ms2 = GetModuleHandleA("materialsystem2.dll");
+        HMODULE t0  = GetModuleHandleA("tier0.dll");
+        if (!ms2 || !t0) return nullptr;
 
-    inline void ReleaseShader(ID3D11PixelShader*& ps)
-    { if (ps) { ps->Release(); ps = nullptr; } }
+        auto ci = reinterpret_cast<void*(*)(const char*, int*)>(GetProcAddress(ms2, "CreateInterface"));
+        if (!ci) return nullptr;
+        void* ms = ci("VMaterialSystem2_001", nullptr);
+        if (!ms) ms = ci("VMaterialSystem2_000", nullptr);
+        if (!ms) return nullptr;
 
-    inline void BuildAllShaders(ID3D11Device* dev)
-    {
-        for (int i = 0; i < MAT_COUNT; ++i)
+        auto load = reinterpret_cast<fn_LoadKV3>(GetProcAddress(t0,
+            "?LoadKV3@@YA_NPEAVKeyValues3@@PEAVCUtlString@@PEBDAEBUKV3ID_t@@2I@Z"));
+        if (!load)
         {
-            ReleaseShader(psSlots[i]);
-            CompileMaterial(dev, i, &psSlots[i]);
+            uintptr_t addr = Mem::FindPatternInModule(t0,
+                "48 89 5C 24 08 57 48 83 EC 70 4C 8B D1 48 C7 C0 FF FF FF FF "
+                "48 FF C0 41 80 3C 00 00 75 F6");
+            if (addr) load = reinterpret_cast<fn_LoadKV3>(addr);
         }
+
+        auto create = reinterpret_cast<fn_CreateMaterial>(Mem::FindPatternInModule(ms2,
+            "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 56 "
+            "48 81 EC 10 01 00 00 48 8B 05 ? ? ? ? 4C 8B F2 BA 90 06 00 00 "
+            "49 8B D9 49 8B E8 48 8B 08 48 8B 01 FF 50 08 33 F6 48 8B F8"));
+
+        if (!load || !create) return nullptr;
+
+        void* buf = malloc(0x400);
+        if (!buf) return nullptr;
+        memset(buf, 0, 0x400);
+        void* kv = reinterpret_cast<uint8_t*>(buf) + 0x100;
+        KV3_t id{ "generic", 0x469806E97412167CULL, 0xE73790B53EE6F2AFULL };
+
+        if (!load(kv, nullptr, kv3_text, &id, nullptr, 0)) { free(buf); return nullptr; }
+
+        void* handle = nullptr;
+        void* base   = nullptr;
+        create(ms, &handle, name, kv, &base, 0);
+        free(buf);
+        if (!handle) return nullptr;
+        return *reinterpret_cast<CMaterial2**>(handle);
     }
 
-    inline ID3D11PixelShader* GetShader(const SlotStyle& s)
+    // -----------------------------------------------------------------------
+    // The hook — runs once per scene-animatable object per frame.
+    // First trampoline call = visible pass; second = occluded pass.
+    // -----------------------------------------------------------------------
+    inline void __fastcall hk_GeneratePrim(void* scene, void* obj, void* ctx,
+                                           CMeshPrimitiveOutputBuffer* buf)
     {
-        int m = s.material;
-        if (m <= 0 || m >= MAT_COUNT) return nullptr; // MAT_NONE â†’ null
-        return psSlots[m];
-    }
-
-    // ---------------------------------------------------------------
-    // Update constant buffer with tint + screen + time
-    // ---------------------------------------------------------------
-    inline void UpdateCB(ID3D11DeviceContext* ctx, const SlotStyle& s,
-                         float screenW, float screenH, float t)
-    {
-        if (!cbuf) return;
-        D3D11_MAPPED_SUBRESOURCE mapped;
-        if (SUCCEEDED(ctx->Map(cbuf, 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped)))
-        {
-            auto* cb = static_cast<ChamsCB*>(mapped.pData);
-            cb->tintR   = s.color[0];
-            cb->tintG   = s.color[1];
-            cb->tintB   = s.color[2];
-            cb->tintA   = s.color[3];
-            cb->screenW = screenW > 0 ? screenW : 1920.f;
-            cb->screenH = screenH > 0 ? screenH : 1080.f;
-            cb->time    = t;
-            cb->_pad    = 0.f;
-            ctx->Unmap(cbuf, 0);
+        if (!cfg.enabled || !g_ready || !obj || !buf) {
+            o_GeneratePrim(scene, obj, ctx, buf);
+            return;
         }
-        ctx->PSSetConstantBuffers(12, 1, &cbuf);
-    }
 
-    // ---------------------------------------------------------------
-    // Init
-    // ---------------------------------------------------------------
-    inline bool Init(ID3D11Device* dev)
-    {
-        if (ready || !dev) return ready;
-
-        BuildAllShaders(dev);
-
-        // Constant buffer
-        D3D11_BUFFER_DESC bd = {};
-        bd.ByteWidth      = sizeof(ChamsCB);
-        bd.Usage           = D3D11_USAGE_DYNAMIC;
-        bd.BindFlags       = D3D11_BIND_CONSTANT_BUFFER;
-        bd.CPUAccessFlags  = D3D11_CPU_ACCESS_WRITE;
-        if (FAILED(dev->CreateBuffer(&bd, nullptr, &cbuf)))
-            return false;
-
-        // Depth-stencil disabed (wallhack pass)
-        D3D11_DEPTH_STENCIL_DESC dd = {};
-        dd.DepthEnable    = FALSE;
-        dd.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-        dd.DepthFunc      = D3D11_COMPARISON_LESS;
-        dd.StencilEnable  = FALSE;
-        dd.StencilReadMask  = 0xFF;
-        dd.StencilWriteMask = 0xFF;
-        if (FAILED(dev->CreateDepthStencilState(&dd, &dssOff)))
-            return false;
-
-        ready = true;
-        return true;
-    }
-
-    // ---------------------------------------------------------------
-    // Tick â€” update animation timer (called from Present)
-    // ---------------------------------------------------------------
-    inline void Tick(ID3D11Device* dev)
-    {
-        if (!ready) return;
-        static LARGE_INTEGER freq = {}, start = {};
-        if (!freq.QuadPart)
+        // Suppress shadow pass (avoid double-drawing wallhack shadows)
+        if (ctx)
         {
-            QueryPerformanceFrequency(&freq);
-            QueryPerformanceCounter(&start);
+            uint8_t* vd = Mem::Read<uint8_t*>(reinterpret_cast<uintptr_t>(ctx) + 16);
+            if (vd && ((Mem::Read<uint64_t>(reinterpret_cast<uintptr_t>(vd) + 0x48) >> 24) & 1))
+                return;
         }
-        LARGE_INTEGER now;
-        QueryPerformanceCounter(&now);
-        gTime = static_cast<float>(
-            (double)(now.QuadPart - start.QuadPart) / (double)freq.QuadPart);
 
-        // --- Force-render all enemy pawns (anti-dormancy) ---
-        // The game marks far/occluded entities as "dormant" and skips
-        // rendering them. By forcing m_bDormant = false every frame,
-        // the client always issues draw calls for all enemy players,
-        // Clear dormancy cache EVERY frame regardless of chams state.
-        // When chams WH is on, we repopulate it below.
-        // When chams WH is off, all zeros = aimbot trusts live scene node directly.
-        memset(GameState::originalDormant, 0, sizeof(GameState::originalDormant));
+        // Per-frame dedup
+        if (!MarkSeen(obj, buf->m_out)) return;
 
-        // letting our wallhack chams work at any distance on the map.
-        if (cfg.enabled && cfg.wallhack && GameState::clientBase)
+        // Skip viewmodel (anything with +0xB0 set is a child renderable like
+        // first-person hands)
+        if (Mem::Read<void*>(reinterpret_cast<uintptr_t>(obj) + 0xB0) != nullptr) {
+            o_GeneratePrim(scene, obj, ctx, buf);
+            return;
+        }
+
+        // Pass 1: normal (visible)
+        int start = buf->m_start_primitive;
+        o_GeneratePrim(scene, obj, ctx, buf);
+        int end = buf->m_start_primitive;
+
+        if (!IsPlayer(obj)) return;
+
+        int idx = cfg.style;
+        if (idx < 0 || idx >= STYLE_COUNT) idx = 0;
+        MaterialSet& mat = g_materials[idx];
+
+        for (int i = start; i < end; ++i)
+            Apply(&buf->m_out[i], mat.vis, mat.vis_color);
+
+        // Pass 2: occluded
+        int occ_start = buf->m_start_primitive;
+        o_GeneratePrim(scene, obj, ctx, buf);
+        int occ_end = buf->m_start_primitive;
+
+        for (int i = occ_start; i < occ_end; ++i)
+            Apply(&buf->m_out[i], mat.occ, mat.occ_color);
+
+        // Optional wireframe overlay (occluded only)
+        if (mat.use_wire && mat.wire)
         {
-            __try {
-                uintptr_t entList = GameState::GetEntityList();
-                uintptr_t localPawn = GameState::GetLocalPawn();
-                if (entList && localPawn)
+            int occ_count  = occ_end - occ_start;
+            int space_left = buf->m_max_output_primitives - buf->m_start_primitive;
+            int to_copy    = (occ_count < space_left) ? occ_count : space_left;
+            if (to_copy > 0)
+            {
+                int wire_start = buf->m_start_primitive;
+                float wire_color[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+                for (int i = 0; i < to_copy; ++i)
                 {
-                    int localTeam = Mem::Read<uint8_t>(localPawn + Offsets::m_iTeamNum);
-
-                    for (int i = 1; i <= 64; ++i)
-                    {
-                        uintptr_t ctrl = GameState::GetEntityByIndex(i);
-                        if (!ctrl) continue;
-                        if (!Mem::Read<bool>(ctrl + Offsets::m_bPawnIsAlive)) continue;
-                        uint32_t ph = Mem::Read<uint32_t>(ctrl + Offsets::m_hPlayerPawn);
-                        if (!ph) continue;
-                        uintptr_t pawn = GameState::ResolveHandle(ph);
-                        if (!pawn || pawn == localPawn) continue;
-                        int team = Mem::Read<uint8_t>(pawn + Offsets::m_iTeamNum);
-                        if (team == localTeam) continue;
-
-                        // Save original dormancy state for aimbot,
-                        // then force scene node non-dormant so the renderer
-                        // draws this entity regardless of occlusion/distance
-                        uintptr_t sceneNode = Mem::Read<uintptr_t>(
-                            pawn + Offsets::m_pGameSceneNode);
-                        if (sceneNode)
-                        {
-                            GameState::originalDormant[i] = Mem::Read<bool>(sceneNode + Offsets::SceneNode::kDormant);
-                            Mem::SmartWrite<bool>(sceneNode + Offsets::SceneNode::kDormant, false);
-                        }
-                    }
+                    buf->m_out[wire_start + i] = buf->m_out[occ_start + i];
+                    Apply(&buf->m_out[wire_start + i], mat.wire, wire_color);
                 }
-            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+                buf->m_start_primitive += to_copy;
+            }
         }
     }
 
-    // ---------------------------------------------------------------
-    // Shutdown
-    // ---------------------------------------------------------------
+    // -----------------------------------------------------------------------
+    // Best-effort: flip the engine PVS manager off so chams render at any
+    // distance. Failure is non-fatal — visuals still work for visible PVS.
+    // -----------------------------------------------------------------------
+    inline void DisablePvs()
+    {
+        HMODULE engine2 = GetModuleHandleA("engine2.dll");
+        if (!engine2) return;
+        uintptr_t pvs = Mem::FindPatternInModule(engine2, "48 8D 0D ? ? ? ? 33 D2 FF 50");
+        if (!pvs) return;
+        void* mgr = reinterpret_cast<void*>(pvs + 7 + Mem::Read<int32_t>(pvs + 3));
+        void** vt = Mem::Read<void**>(reinterpret_cast<uintptr_t>(mgr));
+        if (!vt) return;
+        __try {
+            reinterpret_cast<void(__fastcall*)(void*, bool)>(vt[6])(mgr, false);
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+    }
+
+    // -----------------------------------------------------------------------
+    // Build the 7 KV3 material presets.
+    // -----------------------------------------------------------------------
+    inline void BuildMaterials()
+    {
+#define H  "<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->\n"
+#define W  "materials/dev/primary_white_color_tga_21186c76.vtex"
+#define MK "materials/default/default_mask_tga_fde710a5.vtex"
+#define ZD "    F_DISABLE_Z_BUFFERING = 1\n    F_DISABLE_Z_PREPASS = 1\n    F_DISABLE_Z_WRITE = 1\n"
+
+        // Glass
+        const char k0_vis[] = H R"({shader="csgo_effects.vfx" g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" g_flFresnelExponent=0.75 g_flFresnelFalloff=1.0 g_flFresnelMax=0.0 g_flFresnelMin=1.0 F_ADDITIVE_BLEND=1 F_ALPHA_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k0_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" g_flFresnelExponent=0.75 g_flFresnelFalloff=1.0 g_flFresnelMax=0.0 g_flFresnelMin=1.0 F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+
+        // Flat + Wire
+        const char k1_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_vColorTint=[1.0,1.0,1.0,1.0] g_tColor=resource:")" W R"("})";
+        const char k1_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_vColorTint=[1.0,1.0,1.0,1.0] g_tColor=resource:")" W R"("})";
+        const char k1_wire[] = H R"({shader="tools_wireframe.vfx" )" ZD R"(F_UNLIT=1 F_WIREFRAME=1 g_DepthBiasAmount=0.0 g_LineThickness=0.25 g_OverrideColorFactor=1.0 g_vOverrideColor=[1.0,1.0,1.0,1.0]})";
+
+        // Pearl
+        const char k2_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=2.0 g_flFresnelFalloff=3.0 g_flFresnelMax=1.0 g_flFresnelMin=0.2 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k2_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=2.0 g_flFresnelFalloff=3.0 g_flFresnelMax=1.0 g_flFresnelMin=0.2 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+
+        // Ghost
+        const char k3_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=3.0 g_flFresnelFalloff=5.0 g_flFresnelMax=1.0 g_flFresnelMin=0.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k3_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=3.0 g_flFresnelFalloff=5.0 g_flFresnelMax=1.0 g_flFresnelMin=0.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+
+        // Outline
+        const char k4_vis[] = H R"({shader="csgo_effects.vfx" g_flFresnelExponent=15.0 g_flFresnelFalloff=1.0 g_flFresnelMax=2.0 g_flFresnelMin=0.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+        const char k4_occ[] = H R"({shader="csgo_effects.vfx" )" ZD R"(g_flFresnelExponent=15.0 g_flFresnelFalloff=1.0 g_flFresnelMax=2.0 g_flFresnelMin=0.0 g_tColor=resource:")" W R"(" g_tMask1=resource:")" MK R"(" g_tMask2=resource:")" MK R"(" g_tMask3=resource:")" MK R"(" F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+
+        // Flat
+        const char k5[] = H R"({shader="csgo_unlitgeneric.vfx" g_tColor=resource:")" W R"(" F_IGNOREZ=1 F_DISABLE_Z_WRITE=1 F_DISABLE_Z_BUFFERING=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+
+        // Glow
+        const char k6[] = H R"({shader="csgo_effects.vfx" g_tColor=resource:")" W R"(" g_flColorBoost=20.0 g_flOpacityScale=0.7 g_flFresnelExponent=10.0 g_flFresnelFalloff=10.0 g_flFresnelMax=0.0 g_flFresnelMin=1.0 F_ADDITIVE_BLEND=1 F_BLEND_MODE=1 F_TRANSLUCENT=1 F_IGNOREZ=1 F_DISABLE_Z_BUFFERING=1 F_RENDER_BACKFACES=1 g_vColorTint=[1.0,1.0,1.0,1.0]})";
+
+#undef H
+#undef W
+#undef MK
+#undef ZD
+
+        g_materials[STYLE_GLASS]     = { CreateMaterial("cham0_occ", k0_occ), CreateMaterial("cham0_vis", k0_vis), nullptr,
+                                         {1.0f,0.3f,0.3f,0.5f}, {0.3f,0.7f,1.0f,0.5f}, false };
+        g_materials[STYLE_FLAT_WIRE] = { CreateMaterial("cham1_occ", k1_occ), CreateMaterial("cham1_vis", k1_vis), CreateMaterial("cham1_wire", k1_wire),
+                                         {0.0f,0.0f,0.0f,1.0f}, {0.0f,0.0f,0.0f,0.0f}, true };
+        g_materials[STYLE_PEARL]     = { CreateMaterial("cham2_occ", k2_occ), CreateMaterial("cham2_vis", k2_vis), nullptr,
+                                         {1.0f,0.6f,0.0f,1.0f}, {0.5f,1.0f,1.0f,1.0f}, false };
+        g_materials[STYLE_GHOST]     = { CreateMaterial("cham3_occ", k3_occ), CreateMaterial("cham3_vis", k3_vis), nullptr,
+                                         {0.0f,1.0f,0.5f,1.0f}, {0.8f,0.0f,1.0f,1.0f}, false };
+        g_materials[STYLE_OUTLINE]   = { CreateMaterial("cham4_occ", k4_occ), CreateMaterial("cham4_vis", k4_vis), nullptr,
+                                         {1.0f,1.0f,0.0f,1.0f}, {0.0f,1.0f,1.0f,1.0f}, false };
+        g_materials[STYLE_FLAT]      = { CreateMaterial("cham5_occ", k5),     CreateMaterial("cham5_vis", k5),     nullptr,
+                                         {1.0f,0.0f,0.0f,1.0f}, {0.0f,1.0f,0.0f,1.0f}, false };
+        g_materials[STYLE_GLOW]      = { CreateMaterial("cham6_occ", k6),     CreateMaterial("cham6_vis", k6),     nullptr,
+                                         {0.0f,1.0f,1.0f,1.0f}, {1.0f,1.0f,0.0f,1.0f}, false };
+    }
+
+    // -----------------------------------------------------------------------
+    // Public API
+    //   Setup()    — one-shot installer (call after scenesystem/material/tier0
+    //                are loaded; safe to retry)
+    //   Shutdown() — best-effort unhook
+    // -----------------------------------------------------------------------
+    inline bool Setup()
+    {
+        if (g_ready) return true;
+
+        HMODULE scenesystem = GetModuleHandleA("scenesystem.dll");
+        if (!scenesystem) return false;
+        if (!GetModuleHandleA("materialsystem2.dll")) return false;
+        if (!GetModuleHandleA("tier0.dll"))           return false;
+
+        DisablePvs(); // best-effort
+
+        BuildMaterials();
+        if (!g_materials[0].vis || !g_materials[0].occ) return false;
+
+        uintptr_t target = Mem::FindPatternInModule(scenesystem,
+            "48 8B C4 48 89 58 08 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 "
+            "48 81 EC ? ? ? ?");
+        if (!target) return false;
+
+        if (MH_CreateHook(reinterpret_cast<void*>(target),
+                          reinterpret_cast<void*>(&hk_GeneratePrim),
+                          reinterpret_cast<void**>(&o_GeneratePrim)) != MH_OK)
+            return false;
+        if (MH_EnableHook(reinterpret_cast<void*>(target)) != MH_OK)
+            return false;
+
+        g_ready = true;
+        return true;
+    }
+
     inline void Shutdown()
     {
-        for (auto& ps : psSlots) ReleaseShader(ps);
-        if (dssOff) { dssOff->Release(); dssOff = nullptr; }
-        if (cbuf)   { cbuf->Release();   cbuf   = nullptr; }
-        ready = false;
+        if (!g_ready) return;
+        // o_GeneratePrim points at the trampoline; safest disable-all on exit
+        MH_DisableHook(MH_ALL_HOOKS);
+        g_ready = false;
     }
 }

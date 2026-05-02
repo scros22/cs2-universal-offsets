@@ -120,7 +120,6 @@
     <!-- Features: Visuals -->
     <ClInclude Include="features\visuals\bullet_tracer.h" />
     <ClInclude Include="features\visuals\chams.h" />
-    <ClInclude Include="features\visuals\chams_scene.h" />
     <ClInclude Include="features\visuals\damage_indicator.h" />
     <ClInclude Include="features\visuals\esp.h" />
     <ClInclude Include="features\visuals\weapon_icons.h" />

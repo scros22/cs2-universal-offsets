@@ -25,7 +25,7 @@
 #include "core/game_state.h"
 #include "features/combat/aimbot.h"
 #include "features/visuals/world_effects.h"
-#include "features/visuals/chams_scene.h"
+#include "features/visuals/chams.h"
 #include "features/misc/kill_sound.h"
 #include "features/movement/bhop.h"
 #include "features/skins/skinchanger.h"
@@ -348,13 +348,12 @@ static void EntryThread(HMODULE hModule)
 
     WorldEffects::Setup();
 
-    // Phase 1 of GeneratePrimitives chams migration â€” installs the
-    // scenesystem hook in passthrough mode (zero behavior change
-    // until ChamsScene::cfg.enabled is wired in Phase 2).
-    if (ChamsScene::Setup())
-        DllLog("[EntryThread] ChamsScene::Setup OK (GeneratePrimitives hooked)");
+    // Material chams — hooks scenesystem CSceneAnimatableObject::
+    // GeneratePrimitives and substitutes KV3-built materials per style.
+    if (Chams::Setup())
+        DllLog("[EntryThread] Chams::Setup OK (GeneratePrimitives hooked)");
     else
-        DllLog("[EntryThread] ChamsScene::Setup FAILED (sig miss or scenesystem.dll not loaded)");
+        DllLog("[EntryThread] Chams::Setup FAILED (sig miss or scenesystem/materialsystem2/tier0 not loaded)");
 
     // Custom kill ding â€” mutes Valve's HS/body AttackerFeedback ding
     // and plays our own short metallic chirp on every confirmed kill.

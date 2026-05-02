@@ -53,7 +53,6 @@
     <!-- Features: Visuals -->
     <ClInclude Include="features\visuals\bullet_tracer.h">    <Filter>Header Files\Features\Visuals</Filter></ClInclude>
     <ClInclude Include="features\visuals\chams.h">            <Filter>Header Files\Features\Visuals</Filter></ClInclude>
-    <ClInclude Include="features\visuals\chams_scene.h">      <Filter>Header Files\Features\Visuals</Filter></ClInclude>
     <ClInclude Include="features\visuals\damage_indicator.h"> <Filter>Header Files\Features\Visuals</Filter></ClInclude>
     <ClInclude Include="features\visuals\esp.h">              <Filter>Header Files\Features\Visuals</Filter></ClInclude>
     <ClInclude Include="features\visuals\weapon_icons.h">     <Filter>Header Files\Features\Visuals</Filter></ClInclude>

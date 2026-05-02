@@ -1,0 +1,370 @@
+namespace Signatures
+{
+    // ────────────────────────────────────────────────────────────────────────
+    // client.dll BY NUVORA
+    // ────────────────────────────────────────────────────────────────────────
+    namespace Client
+    {
+        // [OK] Hooks — PROLOGUE matches
+        // OverrideView (CCSGOViewAdviceService) — camera FOV/angles. PROLOGUE: push+save+E8 tail.
+        static constexpr const char* OverrideView          = "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B FA E8";
+        // OnAddEntity (CGameEntitySystem) — entity-list insert. PROLOGUE; ends with FF 81 (inc counter).
+        static constexpr const char* OnAddEntity            = "48 89 74 24 ? 57 48 83 EC ? 41 B9 ? ? ? ? 41 8B C0 41 23 C1 48 8B F2 41 83 F8 ? 48 8B F9 44 0F 45 C8 41 81 F9 ? ? ? ? 73 ? FF 81";
+        // OnRemoveEntity (CGameEntitySystem) — entity-list remove. PROLOGUE; ends with FF 89 (dec counter).
+        static constexpr const char* OnRemoveEntity         = "48 89 74 24 ? 57 48 83 EC ? 41 B9 ? ? ? ? 41 8B C0 41 23 C1 48 8B F2 41 83 F8 ? 48 8B F9 44 0F 45 C8 41 81 F9 ? ? ? ? 73 ? FF 89";
+        // [UPDATED] was "40 53 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 4C 8D 05" - matched 4 wrong batch-setup functions (no MOVAPS, not GetMatrixForView)
+        //  Correct fn: sub rsp,60 + save xmm6 + xorps xmm3,xmm3 + movss xmm6,[rcx+ACh] + mov rbx,r8 (1 unique hit)
+        static constexpr const char* GetMatrixForView       = "40 53 48 83 EC 60 0F 29 74 24 50 0F 57 DB F3 0F 10 ? ? ? ? ? 49 8B D8";
+        // SetWorldFov — E8-CALL to world-FOV setter; resolved via GetAbsoluteAddress(,0x1,0x0).
+        //   Context: movss [rbp+xx],xmm0 + mov rbx,[rsp+xx] after the call.
+        static constexpr const char* SetWorldFov            = "E8 ? ? ? ? F3 0F 11 45 ? 48 8B 5C 24";
+        // DrawSmokeVertex — smoke particle rendering. PROLOGUE; 4D 8B F8 (mov r15,r8) is unique.
+        static constexpr const char* DrawSmokeVertex        = "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B 9C 24 ? ? ? ? 4D 8B F8";
+        // IsGlowing — E8-CALL; target is tiny: MOVZX EAX,[RCX+51h]; RET. Resolved via GetAbsoluteAddress.
+        //   Context: xor ebx,ebx + test al,al + jz after the call.
+        static constexpr const char* IsGlowing              = "E8 ? ? ? ? 33 DB 84 C0 0F 84 ? ? ? ? 48 8B 4F";
+        // GetGlowColor — glow-color computation. PROLOGUE; 48 8B 54 24 (extra stack arg) is distinctive.
+        static constexpr const char* GetGlowColor           = "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B F2 48 8B F9 48 8B 54 24";
+        // FlashOverlay — flashbang screen overlay. PROLOGUE; starts with TEST EDX,EDX + JS.
+        static constexpr const char* FlashOverlay           = "85 D2 0F 88 ? ? ? ? 48 89 4C 24";
+        // CalcViewmodel — viewmodel animation/position. PROLOGUE; distinctive push pattern.
+        static constexpr const char* CalcViewmodel          = "40 55 53 56 41 56 41 57 48 8B EC";
+        // DrawOverHead — overhead player info (health bars). PROLOGUE; 83 FA + FF 90 vcall.
+        static constexpr const char* DrawOverHead           = "40 53 48 83 EC ? 48 8B D9 83 FA ? 75 ? 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 ? ? ? ? 8B 10";
+        // DrawCrosshair — HUD crosshair rendering. PROLOGUE; E8+48 85 (call+test) tail.
+        static constexpr const char* DrawCrosshair          = "48 89 5C 24 08 57 48 83 EC 20 48 8B D9 E8 ?? ?? ?? ?? 48 85";
+        // FirstPersonLegs — first-person leg model draw. PROLOGUE; F2 0F 10 42 (movsd) from arg2.
+        static constexpr const char* FirstPersonLegs        = "40 55 53 56 41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? F2 0F 10 42";
+        // HandleTeamIntro — team intro/warmup animation. PROLOGUE; 44 38 89 (cmp byte) is unique.
+        static constexpr const char* HandleTeamIntro        = "48 83 EC ? ? ? ? ? 44 38 89";
+        // DrawViewPunch — camera punch/recoil effect. PROLOGUE; 48 83 79 (cmp qword ptr).
+        static constexpr const char* DrawViewPunch          = "48 89 5C 24 ? 55 56 57 48 83 EC ? 48 83 79";
+        // DrawScopeOverlay — scope HUD overlay. PROLOGUE; 48 8B FA (mov rdi,rdx) tail.
+        static constexpr const char* DrawScopeOverlay       = "48 8B C4 53 57 48 83 EC ? 48 8B FA";
+        // UpdatePostProcessing — post-processing effects. PROLOGUE; test rdx,rdx; je past 48 89 5C 24 08 stack alloc.
+        // [FIXED] was "48 89 5C 24 08 57 48 83 EC 60 80" (+9 bytes mid-function, skipped test rdx/je prologue)
+        static constexpr const char* UpdatePostProcessing   = "48 85 D2 0F 84 ? ? ? ? 48 89 5C 24 08 57 48 83 EC 60 80";
+        // [UPDATED] was "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 83 EC ? 49 8B F8 4C 8B F2"
+        // Extended to be unique: old pattern matched 3 fns; distinguish by E8 call + lea rdx,[rip+...] after args save
+        static constexpr const char* SetupMove              = "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 83 EC ? 48 8B EA 4C 8B F1 E8 ? ? ? ? 48 8D 15";
+        static constexpr const char* DrawAggeregateObject_CLIENT = "40 53 48 83 EC ? 48 8B D9 48 81 C1 ? ? ? ? E8 ? ? ? ?"; // AutowallInit context
+ 
+        // [OK] Interfaces resolution
+        static constexpr const char* GlobalVariables        = "48 89 15 ? ? ? ? 48 89 42";
+        static constexpr const char* GameRules              = "48 8B 1D ? ? ? ? 48 8D 54 24 ? 0F 28 D0 48 8D 4C 24 ?";
+ 
+        // [UPDATED] was "48 8B 01 BA 04 00 00 00" - bytes changed in and around this location
+        static constexpr const char* CAM_ThinkReturn        = "BA 04 00 00 00 FF 15 ? ? ? ? 84 C0 0F 84";
+ 
+        // [OK] Features
+        static constexpr const char* CalculateShootPosition = "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 81 EC ? ? ? ? 44 8B 92 ? ? ? ?";
+        static constexpr const char* AutowallInit           = "40 53 48 83 EC ? 48 8B D9 48 81 C1 ? ? ? ? E8 ? ? ? ?";
+        static constexpr const char* AutowallResolveTracePos = "E8 ? ? ? ? 48 63 83 ? ? ? ? 48 8D 14 40";  // autowall HandleEntityList context
+ 
+        // [UPDATED] was "E8 ? ? ? ? 48 8B F8 48 85 C0 74 ? 48 8B C8 E8 ? ? ? ? EB"
+        // The indirect call context changed; use partial pattern from inside call body
+        static constexpr const char* GetBasePlayerController = "48 8B F8 48 85 C0 74 ? 48 8B C8 E8 ? ? ? ? 44 39 A8";
+        static constexpr const char* GetTickBase            = "E8 ? ? ? ? EB ? 48 8B 05 ? ? ? ? 8B 40";
+ 
+        static constexpr const char* CreateNewPaintKit      = "48 89 5C 24 10 56 48 83 EC 20 48 8B 01 FF 50 10 48 8B 1D ? ? ? ?";
+        // [UPDATED] SetBodyGroup - prologue lost push rsi (56) in this build
+        static constexpr const char* SetBodyGroup           = "85 D2 0F 88 ? ? ? ? 55 57";
+ 
+        static constexpr const char* FindHudElement         = "48 8D 15 ? ? ? ? 45 33 C0 B9 ? ? ? ? FF 15 ? ? ? ? EB ? 48 8B 15";
+        static constexpr const char* HudChatPrintf          = "E8 ? ? ? ? 49 8B 4E 20 BA ? ? ? ?";
+        static constexpr const char* Scope                  = "E8 ? ? ? ? 80 7C 24 34 ? 74 ?";
+ 
+        // [UPDATED] was "E8 ? ? ? ? 48 8D 4E ? 48 8D 54 24 ? E8 ? ? ? ? F2 0F 10 44 24"
+        // Now resolved via SSE2 instruction context in new build
+        static constexpr const char* GetRemovedAimpunch     = "F2 0F 10 44 24 ? F2 0F 11 84 24 ? ? ? ? FF 15";
+ 
+        static constexpr const char* NoSpread1              = "48 89 5C 24 08 57 48 81 EC F0 00";
+        static constexpr const char* CalcSpread             = "48 8B C4 48 89 58 ? 48 89 68 ? 48 89 70 ? 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ? 4C 63 EA";
+ 
+        // [OK] Chams
+        static constexpr const char* ChamsRenderGameSystem  = "48 8B 0D ? ? ? ? ? ? E8 ? ? ? ? 49 8B 8E ? ? ? ? 4C 8D 0D";
+        static constexpr const char* ChamsGetWorldGroupID   = "E8 ? ? ? ? 48 8B 0D ? ? ? ? ? ? E8 ? ? ? ? 49 8B 8E ? ? ? ? 4C 8D 0D";
+        static constexpr const char* Chams_sub_180221C00    = "E8 ? ? ? ? 49 8B 8E ? ? ? ? 4C 8D 0D";
+ 
+        // [OK] Misc
+        static constexpr const char* ModulationUpdate       = "48 89 5C 24 08 57 48 83 EC 20 8B FA 48 8B D9 E8 ?? ?? ?? ?? 84 C0 0F 84";
+        static constexpr const char* ClearHUDWeaponIcon     = "E8 ?? ?? ?? ?? 8B F8 C6 84 24 ?? ?? ?? ?? ??";
+        static constexpr const char* HandleEntityList       = "E8 ? ? ? ? 84 C0 74 ? 48 63 03";
+        static constexpr const char* SetTraceData           = "E8 ? ? ? ? 8B 85 ? ? ? ? 48 8D 54 24 ? F2 0F 10 45";
+ 
+        // [UPDATED] SetTraceInit - last bytes changed (4C 8B C3 -> 4C 8D 0D)
+        static constexpr const char* SetTraceInit           = "E8 ? ? ? ? F2 0F 10 0B 4C 8D 0D"; // GetAbsoluteAddress(pattern, 0x1, 0x0)
+ 
+        static constexpr const char* AutowallTracePos       = "40 55 56 41 54 41 55 41 57 48 8B EC";
+        static constexpr const char* AutowallTraceData      = "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B 09";
+        static constexpr const char* TestSurfaces           = "40 53 57 41 56 48 83 EC 50 8B";
+        // [UPDATED 2026-04-02] ReportHit - E8-CALL sig from shot-registration caller.
+        // Resolve via GetAbsoluteAddress(pattern, 0x1, 0x0) to get target function.
+        static constexpr const char* ReportHit              = "E8 ? ? ? ? 48 8B AC 24 D8 00 00 00 48 81 C4";
+        static constexpr const char* PlayVSound_client      = "48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 55 48 8D 6C 24 ? 48 81 EC ? ? ? ? 33 FF";
+ 
+        // [UPDATED] was "E8 ? ? ? ? 8B D0 48 8D 0D ? ? ? ? E8 ? ? ? ? 0F 10 45 ? 69 C8"
+        // Call site changed; locate by post-call sequence in new build
+        static constexpr const char* ConvarGet              = "8B D0 48 8D 0D ? ? ? ? E8 ? ? ? ? 0F 10 45 ? 83 F0 74";
+ 
+        // [OK] Functions (functions.cpp)
+        static constexpr const char* SetViewAngle           = "85 D2 75 3D 48 63 81 ? ? ? ?";
+        static constexpr const char* GetViewAngles          = "4C 8B C1 85 D2 74 08 48 8D 05 ? ? ? ? C3";
+        static constexpr const char* GetBaseEntity          = "4C 8D 49 ? 81 FA";
+        // [UPDATED] CalculateWorldSpaceBones - shortened; body after 48 8B 81 changed (registers reordered)
+        static constexpr const char* CalculateWorldSpaceBones = "48 89 4C 24 ? 55 53 56 57 41 54 41 55 41 56 41 57 B8 ? ? ? ? E8 ? ? ? ? 48 2B E0 48 8D 6C 24 ? 48 8B 81";
+        static constexpr const char* TraceShape             = "48 89 5C 24 ? 48 89 4C 24 ? 55 57";
+        static constexpr const char* ClipRayToEntity        = "48 8B C4 48 89 58 ? 55 56 57 41 54 41 56 48 8D 68 ? 48 81 EC ? ? ? ? 48 8B 5D";
+        static constexpr const char* GetSurfaceData         = "E8 ? ? ? ? 80 78 18 00";
+        static constexpr const char* SetTypeKV3             = "40 53 48 83 EC 30 4C 8B 11 41 B9 ? ? ? ? 49 83 CA 01 0F B6 C2 80 FA 06 48 8B D9 44 0F 45 C8";
+        static constexpr const char* CreateParticleEffect   = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? F3 0F 10 1D ? ? ? ? 41 8B F8 8B DA 4C 8D 05";
+        static constexpr const char* UnknownParticleFunc    = "48 89 74 24 ? 57 48 83 EC ? 4C 8B D9 49 8B F9 33 C9 41 8B F0 83 FA ? 0F 84";
+        static constexpr const char* SetPlayerReady         = "40 53 48 83 EC 20 48 8B DA 48 8D 15 ? ? ? ? 48 8B CB FF 15 ? ? ? ? 85 C0 75 14 BA";
+        static constexpr const char* CacheParticleEffect    = "4C 8B DC 53 48 81 EC ? ? ? ? F2 0F 10 05";
+        static constexpr const char* GetEntityHandle        = "48 85 C9 74 32 48 8B 49 10 48 85 C9 74 29 44 8B 41 10 BA";
+        static constexpr const char* LookupBone             = "E8 ? ? ? ? 48 8B 8D ? ? ? ? B3";
+        static constexpr const char* TraceSmokeDensity      = "E8 ? ? ? ? 0F 28 F8 44 0F 28 54 24 ?";
+        // [UPDATED] GetInventoryManager - vtable offset bytes changed (wildcards -> 00 02), dropped trailing CB
+        static constexpr const char* GetInventoryManager    = "E8 ? ? ? ? 48 8B D3 48 8B C8 4C 8B 00 41 FF 90 00 02"; // GetAbsoluteAddress(0x1, 0x0)
+        static constexpr const char* UpdateCompositeMaterial = "48 89 5C 24 10 48 89 6C 24 18 48 89 74 24 20 57 41 56 41 57 48 83 EC 20 44 0F B6 F2 48 8B F1 E8";
+        static constexpr const char* RegenerateWeaponSkin   = "40 55 53 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 44 0F B6 FA 48 8B D9 BA ? ? ? ? 48 8D 0D ? ? ? ? E8 ? ? ? ? ";
+        static constexpr const char* SetModel               = "40 53 48 83 EC ? 48 8B D9 4C 8B C2 48 8B 0D ? ? ? ? 48 8D 54 24";
+        static constexpr const char* SetMeshGroupMask       = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8D 99 ? ? ? ? 48 8B 71";
+        static constexpr const char* AddNametagEntity       = "40 55 53 56 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B DA";
+        // [UPDATED] AddStattrakEntity found via RTTI: C_CSWeaponBase VMT[9] = AddViewmodelAttachments (community hint).
+        // RTTI walk: TypeDesc at 0x2156ee8 -> COL at 0x1d101b8 -> vtable at 0x1a1e1c8 -> VMT[9] at 0xa56ed0.
+        // Unique prologue (21 bytes): MOV RAX,RSP; spills RBX+RSI; PUSH RDI; SUB RSP,50; XOR ESI,ESI; saves other regs.
+        static constexpr const char* AddStattrakEntity     = "48 8B C4 48 89 58 08 48 89 70 10 57 48 83 EC 50 33 F6 8B FA 48 8B D1";
+        static constexpr const char* CreateSOSubclassEconItem = "48 83 EC 28 B9 48 00 00 00 E8 ? ? ? ? 48 85";
+        static constexpr const char* CreateBaseTypeCache    = "40 53 48 83 EC ? 4C 8B 49 ? 44 8B D2";
+        static constexpr const char* GetClientSystem        = "E8 ? ? ? ? 48 8B C8 E8 ? ? ? ? 8B D8 85 C0 74 33";
+        static constexpr const char* SetDynamicAttributeValue = "E9 ? ? ? ? CC CC CC CC CC CC CC CC CC CC CC CC CC CC CC 49 8B C0 48 8B CA 48 8B D0";
+        static constexpr const char* CAttributeStringInit  = "E8 ? ? ? ? 48 8D 05 ? ? ? ? 48 89 7D ? 48 89 45 ? 49 8D 4F";
+        static constexpr const char* CAttributeStringFill  = "E8 ? ? ? ? 41 83 CF 08";
+        static constexpr const char* SetDynamicAttrValueStr = "E8 ? ? ? ? 48 8D 4C 24 ? E8 ? ? ? ? 48 8B 5C 24 ? 48 8B 6C 24 ? 48 8B 74 24 ? 48 83 C4 40";
+        static constexpr const char* CBufferStringInit      = "48 89 5C 24 ? 57 48 83 EC ? 8B 41 ? 48 8D 79";
+        static constexpr const char* DispatchEffect         = "48 89 5C 24 ? 57 48 83 EC ? 48 8B F9 48 8B DA 48 8D 4C 24";
+        static constexpr const char* LoadFileForMe          = "40 55 57 41 56 48 83 EC 20 4C";
+        // [UPDATED] was "40 53 48 83 EC 30 48 8B 41 10 48 8B D9 8B 50 30" - prologue changed
+        static constexpr const char* UpdateSubClass         = "48 8B 41 10 48 8B D9 8B 50 30";
+        static constexpr const char* CreateNewSubtickMoveStep = "E8 ? ? ? ? 48 8B D0 48 8B CE E8 ? ? ? ? 48 8B C8";
+ 
+        // [OK] Entity.h - Collision / Scene Node / Skeleton
+        static constexpr const char* SetCollisionBounds     = "48 83 EC ? F2 0F 10 02 8B 42 08";
+        // [UPDATED] CalculateInterpolation - new call context (EF/57 -> 50/60); includes jnz disambiguation bytes
+        static constexpr const char* CalculateInterpolation = "E8 ? ? ? ? 8B 45 ? 3B 45 60 75 04 32 D2 EB 09 BA 01 00 00 00 41 0F 4C D5 C0 EA 07 84 D2 0F 85 87"; // GetAbsoluteAddress(pattern, 0x1, 0x0)
+        // [UPDATED] CalculateAnimState - stack frame+register reorder; rbp offset+lea reorder changed
+        static constexpr const char* CalculateAnimState     = "40 55 56 57 41 54 41 55 41 56 41 57 B8 10 11 00 00 E8 ? ? ? ? 48 2B E0 48 8D 6C 24 40 48 8D 05 ? ? ? ? 48 C7 45 08 4B 0C 00 00 48 8B F1";
+        static constexpr const char* SetAbsOrigin_BaseModel = "48 89 5C 24 08 57 48 83 EC 40 48 8B 01 48 8B FA";
+        static constexpr const char* SetAbsOrigin_Pawn      = "48 89 5C 24 ? 57 48 83 EC ? ? ? ? 48 8B FA 48 8B D9 FF 90 ? ? ? ? 84 C0 0F 85";
+ 
+        // [OK] Entity.h - Player functions
+        static constexpr const char* PhysicsRunThink_Pawn   = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 8B 81 ? ? ? ? 48 8B F9";
+        static constexpr const char* SomeTimingFromPawn     = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 49 63 D8 48 8B F1";
+        static constexpr const char* GetRemovedAimPunch_E8  = "E8 ? ? ? ? 4C 8B C0 48 8D 55 ? 48 8B CB E8 ? ? ? ? 48 8D 0D"; // GetAbsoluteAddress(pattern, 1)
+        static constexpr const char* GetUserCmdManager      = "41 56 41 57 48 83 EC ? 48 8D 54 24";
+        static constexpr const char* GetPlayerInterp        = "40 53 48 83 EC ? 48 8B D9 48 8B 0D ? ? ? ? 48 83 C1";
+        static constexpr const char* PhysicsRunThink_Ctrl   = "48 89 5C 24 ? 57 48 81 EC ? ? ? ? ? ? ? 48 8B F9 FF 90";
+        // [UPDATED] was "48 8B C4 48 81 EC C8 00 00 00 48 89 58 10" - stack size changed
+        static constexpr const char* RunCommand             = "48 8B C4 48 81 EC ? ? ? ? 48 89 58 10";
+        static constexpr const char* ProcessMovement        = "E8 ? ? ? ? 48 8B 06 48 8B CE FF 90 ? ? ? ? 48 85 DB"; // GetAbsoluteAddress(pattern, 1)
+        static constexpr const char* GetBBox                = "48 8B 0D ? ? ? ? 48 85 C9 74 ? ? ? ? 48 FF A0 ? ? ? ? 48 8D 05";
+        static constexpr const char* ForceButtonsDown       = "40 53 57 41 56 48 81 EC ? ? ? ? 48 83 79";
+        // [UPDATED] SetupMovementMoves - register changed (CB -> wildcard)
+        static constexpr const char* SetupMovementMoves     = "48 8B ? E8 ? ? ? ? 48 8B 5C 24 ? 48 8B 6C 24 ? 48 83 C4 30";
+        static constexpr const char* ProcessImpacts         = "48 8B C4 53 56 41 55";
+ 
+        // [UPDATED] CSBaseGunFireData_fn - rbp offset fixed (A8); last register changed (F1 -> 69 = r13 deref)
+        static constexpr const char* CSBaseGunFireData_fn   = "48 8B C4 55 53 56 57 41 54 41 55 41 56 41 57 48 8D 68 A8 48 81 EC ? ? ? ? 4C 8B 69";
+        static constexpr const char* GetWeaponInAccuracyRecoveryTime = "E8 ? ? ? ? F3 0F 10 B7 ? ? ? ? F3 0F 5E F8"; // GetAbsoluteAddress(pattern, 1)
+        static constexpr const char* UpdateTurningInAccuracy = "E8 ? ? ? ? F3 0F 10 87 ? ? ? ? 44 0F 2F C8"; // GetAbsoluteAddress(pattern, 1)
+ 
+        // [OK] CGameTraceManager.h
+        static constexpr const char* TraceToExit            = "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? F2 0F 10 02";
+        static constexpr const char* GetTraceInfo           = "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B E9 0F 29 74 24 ? 48 8B CA";
+        // [UPDATED 2026-04-03] InitFilter (5-param: filter, skip, mask, layer, idk) - unique in client.dll
+        static constexpr const char* InitFilter             = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 0F B6 41 ? 33 FF 24 C9 C7 41 ?";
+        // [UPDATED] was "48 8B C4 44 89 48 ? 48 89 50 ? 48 89 48 ? 55 57" - dropped 57 (push rdi)
+        static constexpr const char* HandleBulletPenetration = "48 8B C4 44 89 48 ? 48 89 50 ? 48 89 48 ? 55";
+        static constexpr const char* InitTraceInfo          = "40 55 41 55 41 57 48 83 EC";
+        // [UPDATED 2026-04-03] InitPlayerMovementTraceFilter (4-param: pFilter, pHandle, interactWith, collisionGroup) - unique in client.dll
+        static constexpr const char* InitPlayerMovementTraceFilter = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 0F B6 41 ? 33 FF C7 41 ?";
+        static constexpr const char* TracePlayerBBox        = "48 89 5C 24 ? 55 57 41 54 41 55 41 56";
+ 
+        // [UPDATED] CreateEntityByClassName - arg2 now 03 00 00 00; tail bytes changed
+        static constexpr const char* CreateEntityByClassName = "4C 8D 05 ? ? ? ? 4C 8B CF BA 03 00 00 00 FF 15 ? ? ? ? EB ? 0F B7 C8 48";
+ 
+        // [OK] IParticleSystem.h
+        static constexpr const char* DestroyParticle        = "83 FA ? 0F 84 ? ? ? ? 41 54";
+ 
+        // [OK] IResourceSystem.h
+        static constexpr const char* LoadPath               = "E8 ? ? ? ? 8B 44 24 2C"; // GetAbsoluteAddress(pattern, 0x1, 0x0)
+ 
+        // [OK] ChatHandler.cpp
+        static constexpr const char* GetChatObject          = "E8 ? ? ? ? 48 8B E8 48 85 C0 0F 84 ? ? ? ? 4C 8D 05"; // GetAbsoluteAddress(pattern, 0x1, 0x0)
+        static constexpr const char* SendChatMessage        = "E8 ? ? ? ? 49 8B 4E 20 BA ? ? ? ?"; // GetAbsoluteAddress(pattern, 0x1, 0x0) - same as HudChatPrintf
+ 
+        // [UPDATED] GetInt2_Event - new prologue; rbx save removed, stack size changed (30->20), added movsxd
+        static constexpr const char* GetInt2_Event          = "48 89 74 24 ? 48 89 7C 24 ? 41 56 48 83 EC 20 48 63 FA 41";
+ 
+        // [OK] Inventory subsystem
+        static constexpr const char* GetInstanceS           = "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 8B 91 ? ? ? ? B8";
+        // [UPDATED 2026-04-02] FindSOCache - PROLOGUE sig (direct FindPattern, no resolve needed)
+        static constexpr const char* FindSOCache            = "48 89 5C 24 08 57 48 83 EC 30 4C 8B 52 08 48 8B D9 8B 0A";
+        // [UPDATED] GetClientSystem_inv - register changed (4F->47), post-call code restructured; jz byte for uniqueness
+        static constexpr const char* GetClientSystem_inv    = "E8 ? ? ? ? 48 8B 47 10 8B 48 30 D1 E9 F6 C1 01 0F 84 8E"; // ResolveRelativeAddress(pattern, 0x1, 0x0)
+        static constexpr const char* SetDynamicAttributeValue_raw = "48 89 6C 24 ? 57 41 56 41 57 48 81 EC ? ? ? ? 48 8B FA C7 44 24";
+        // [UPDATED] GameEntitySystemPtr - register changed (3D/rdi -> 1D/rbx); RIP-relative structure preserved
+        static constexpr const char* GameEntitySystemPtr    = "48 8B 1D ? ? ? ? 48 89 1D ? ? ? ?";
+        static constexpr const char* FindHudElement_pan     = "4C 8B DC 53 48 83 EC 50 48 8B 05";
+        static constexpr const char* SetBodyGroup_inv       = "85 D2 0F 88 ? ? ? ? 53 55";
+ 
+        // [UPDATED] EquipItemInLoadout - edx store offset fixed (10); last reg changed (F2->FA = edi from edx)
+        static constexpr const char* EquipItemInLoadout     = "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 89 54 24 10 57 41 54 41 55 41 56 41 57 48 83 EC ? 0F B7 FA";
+        static constexpr const char* LevelInit              = "40 55 56 41 56 48 8D 6C 24 ? 48 81 EC ? ? ? ? 48";
+ 
+        // [OK] Interfaces (interfaces.cpp)
+        static constexpr const char* ParticleManager        = "48 8B 0D ? ? ? ? 41 B8 ? ? ? ? F3 0F 11 74 24 ? 48 C7 44 24 ? ? ? ? ?";
+        static constexpr const char* ParticleCollection     = "48 89 5C 24 ? 57 48 83 EC ? 0F 28 05";
+        static constexpr const char* SwapChain              = "48 89 2D ? ? ? ? 48 C7 05 ? ? ? ? ? ? ? ? C7 05 ? ? ? ? ? ? ? ? 89 2D";
+        static constexpr const char* CSGOInput              = "48 8B 0D ? ? ? ? 4C 8B C6 8B 10 E8";
+        static constexpr const char* ClientMode             = "48 8D 0D ? ? ? ? 48 69 C0 ? ? ? ? 48 03 C1 C3 CC CC";
+        static constexpr const char* ViewRender             = "48 89 05 ? ? ? ? 48 8B C8 48 85 C0";
+        static constexpr const char* VPhys2World            = "4C 8B 25 ? ? ? ? 24";
+        static constexpr const char* PVSManager             = "48 8D 0D ? ? ? ? 33 D2 FF 50";
+ 
+        // [OK] Entity system
+        static constexpr const char* GetBasePlayerCtrl_Entity = "E8 ? ? ? ? 48 8B F8 48 85 C0 74 ? 48 8B C8 E8 ? ? ? ? EB";
+        static constexpr const char* PhysicsRunThink        = "E8 ? ? ? ? 49 8B D6 48 8B CE E8 ? ? ? ? 48 8B 06";
+        static constexpr const char* EntitySub_6A4730       = "E8 ? ? ? ? 8B 08 E8 ? ? ? ? F3 0F 10 35";
+        static constexpr const char* EntitySub_48F8F0       = "E8 ? ? ? ? F3 0F 10 35 ? ? ? ? 45 33 E4";
+        static constexpr const char* EntitySub_693DF0       = "E8 ? ? ? ? 48 8B 06 48 8B CE FF 90 ? ? ? ? 44 38 63";
+        // [UPDATED] GetLocalControllerById - shortened; tail instruction changed (48 8D 0D -> 4C 8D 05 = lea r8)
+        static constexpr const char* GetLocalControllerById = "48 83 EC 28 83 F9 FF 75 ? 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 ? ? ? ? 8B 08 48 63 C1 4C 8D 05";
+        static constexpr const char* SetupCmd               = "48 83 EC 28 E8 ?? ?? ?? ?? 8B 80";
+        static constexpr const char* GetControllerCmd       = "40 53 48 83 EC 20 8B DA E8 ?? ?? ?? ?? 4C";
+ 
+        // [OK] Ret-spoof gadget
+        static constexpr const char* RetSpoofGadget         = "FF 27";
+    }
+ 
+    // ────────────────────────────────────────────────────────────────────────
+    // scenesystem.dll
+    // ────────────────────────────────────────────────────────────────────────
+    namespace SceneSystem
+    {
+        // [FIXED] was "4C 89 40 ? 48 89 50 ? 55 53 41 57 48 8D A8" (+7 bytes mid-function, skipped mov rax,rsp prologue)
+        // Prologue: 48 8B C4 4C 89 48 20 4C 89 40 18 ... at 0x12a560
+        static constexpr const char* DrawAggeregateObject   = "48 8B C4 4C 89 48 20 4C 89 40 ? 48 89 50 ? 55 53 41 57 48 8D A8";
+ 
+        // [OK]
+        static constexpr const char* DrawArrayLight         = "48 89 5C 24 ? 48 89 6C 24 ? 48 89 54 24";
+        static constexpr const char* SkyboxDrawarray        = "45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55";
+        static constexpr const char* GeneratePrimitives     = "48 8B C4 48 89 58 08 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ?";
+        // [FIXED] was "48 89 50 ? 48 89 48 ? 55 48 8D A8 ? ? ? ? 48 81 EC 70 07 00 00" (+7 bytes mid-function, skipped mov rax,rsp prologue)
+        // Prologue: 48 8B C4 4C 89 48 20 48 89 50 10 48 89 48 08 ... at 0x80db0
+        static constexpr const char* DrawAggregateSceneObject = "48 8B C4 4C 89 48 20 48 89 50 ? 48 89 48 ? 55 48 8D A8 ? ? ? ? 48 81 EC 70 07 00 00";
+ 
+        // [OK] Ret-spoof gadget
+        static constexpr const char* RetSpoofGadget         = "FF 27";
+    }
+ 
+    // ────────────────────────────────────────────────────────────────────────
+    // particles.dll
+    // ────────────────────────────────────────────────────────────────────────
+    namespace Particles
+    {
+        // [OK]
+        static constexpr const char* DrawArray              = "40 55 53 56 57 48 8D 6C 24";
+        static constexpr const char* FindKeyVar             = "48 89 5C 24 ? 57 48 81 EC ? ? ? ? 33 C0 8B DA";
+        // [UPDATED] SetMaterialShaderType - function restructured; prologue changed to sub rsp variant with movsxd
+        static constexpr const char* SetMaterialShaderType  = "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 54 41 56 41 57 48 81 EC ? ? ? ? 4C 63 32";
+        // [UPDATED] SetMaterialFunction found via "spritecard.vfx" string xref in particles.dll (offset 0x47dc20).
+        // Unique prologue: 48 89 54 24 10 = MOV [RSP+10],RDX; pushes rbp/rbx/rsi/rdi/r12/r13/r14/r15; frame E8 05 00 00.
+        // 1 unique hit at 0x242150 in particles.dll. (Frame size E8 05 = 0x5E8 is distinctive.)
+        static constexpr const char* SetMaterialFunction    = "48 89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC E8 05 00 00";
+ 
+        // [OK] Ret-spoof gadget
+        static constexpr const char* RetSpoofGadget         = "FF 27";
+    }
+ 
+    // ────────────────────────────────────────────────────────────────────────
+    // soundsystem.dll
+    // ────────────────────────────────────────────────────────────────────────
+    namespace SoundSystem
+    {
+        // [UPDATED 2026-04-02] SomeUtlSymbolFunc - MUST start at prologue for MinHook detour!
+        // Old sig started +10 bytes into function body → trampoline skipped prologue → stack corruption → NX crash
+        static constexpr const char* SomeUtlSymbolFunc      = "48 89 74 24 18 57 48 83 EC 20 48 63 F2 48 8B F9 3B 71 30";
+        // [UPDATED 2026-04-02] PlayVSound - MUST start at prologue (used as direct call target)
+        // Old sig started +8 bytes in → calling mid-function = stack corruption
+        static constexpr const char* PlayVSound             = "48 8B C4 48 89 58 08 57 48 81 EC ? ? ? ? 33 FF 48 8B D9";
+ 
+        // [OK] Ret-spoof gadget
+        static constexpr const char* RetSpoofGadget         = "FF 27";
+    }
+ 
+    // ────────────────────────────────────────────────────────────────────────
+    // animationsystem.dll
+    // ────────────────────────────────────────────────────────────────────────
+    namespace AnimationSystem
+    {
+        // [OK]
+        static constexpr const char* ShouldUpdateSequences = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 49 8B 40 48";
+ 
+        // [OK] Ret-spoof gadget
+        static constexpr const char* RetSpoofGadget         = "FF 27";
+    }
+ 
+    // ────────────────────────────────────────────────────────────────────────
+    // materialsystem2.dll
+    // ────────────────────────────────────────────────────────────────────────
+    namespace MaterialSystem2
+    {
+        // [FIXED] was "48 C1 E7 06 48 03 7E 08 ..." (992 bytes mid-function! pointed inside wrong 1508B func at RVA 0xdc80)
+        // Real function at RVA 0x11bc0 (123B). Struct offsets changed: +18→+20, +10→+18. Wildcarded for resilience.
+        static constexpr const char* PrepareSceneMaterial  = "48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 30 48 8B 59 ? 48 8B F2 48 63 79 ? 48 C1 E7 06";
+        static constexpr const char* CreateMaterial        = "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 81 EC ? ? ? ? 48 8B 05";
+        // [UPDATED] FindParameter - member offset changed (18 -> 20, 20 -> 48)
+        static constexpr const char* FindParameter         = "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8B 59 20 48";
+        static constexpr const char* UpdateParameter       = "48 89 7C 24 ? 41 56 48 83 EC ? 8B 81";
+ 
+        // [OK] Ret-spoof gadget
+        static constexpr const char* RetSpoofGadget         = "FF 27";
+    }
+ 
+    // ────────────────────────────────────────────────────────────────────────
+    // tier0.dll
+    // ────────────────────────────────────────────────────────────────────────
+    namespace Tier0
+    {
+        // [OK]
+        static constexpr const char* UtlBuffer              = "48 89 5C 24 ? 57 48 83 EC ? 8B 41 ? 8D 7A";
+        static constexpr const char* LoadKeyValues          = "E8 ? ? ? ? 8B 4C 24 34 0F B6 D8";
+ 
+        // [OK] Ret-spoof gadget
+        static constexpr const char* RetSpoofGadget         = "FF 27";
+    }
+ 
+    // ────────────────────────────────────────────────────────────────────────
+    // engine2.dll / other DLLs
+    // ────────────────────────────────────────────────────────────────────────
+    namespace Engine2
+    {
+        // [OK] Ret-spoof gadgets
+        static constexpr const char* RetSpoofGadget         = "FF 27";
+        static constexpr const char* PVSManager             = "48 8D 0D ? ? ? ? 33 D2 FF 50";
+        static constexpr const char* RunPrediction          = "40 55 41 56 48 83 EC ? 80 B9";
+        static constexpr const char* GetScreenAspectRatio   = "48 89 5C 24 08 57 48 83 EC 20 8B FA 48 8D 0D";
+    }
+ 
+    namespace Server          { static constexpr const char* RetSpoofGadget = "FF 27"; }
+    namespace SchemaSystem    { static constexpr const char* RetSpoofGadget = "FF 27"; }
+    namespace InputSystem     { static constexpr const char* RetSpoofGadget = "FF 27"; }
+    namespace SDL3            { static constexpr const char* RetSpoofGadget = "FF 27"; }
+    namespace FileSystem      { static constexpr const char* RetSpoofGadget = "FF 27"; }
+    namespace DbgHelp         { static constexpr const char* RetSpoofGadget = "FF 27"; }
+    namespace WorldRenderer   { static constexpr const char* RetSpoofGadget = "FF 27"; }
+    namespace ResourceSystem  { static constexpr const char* RetSpoofGadget = "FF 27"; }
+ 
+} // namespace Signatures

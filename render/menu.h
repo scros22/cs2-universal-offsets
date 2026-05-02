@@ -621,7 +621,7 @@ namespace Menu
     struct SavedConfig
     {
         uint32_t magic    = 0x4C554349;
-        uint32_t version  = 16; // bumped: Bhop::Config gained `strafeMode`
+        uint32_t version  = 17; // bumped: Chams::Config simplified to {enabled,style}
         uint32_t dataSize = sizeof(SavedConfig);
         char                    name[32];
         Aimbot::Config          aimbot;
@@ -1194,61 +1194,15 @@ namespace Menu
 
         SynthBeginSection("##vis_s2");
         EvoLabel("CHAMS");
-        EvoCheckbox("Enable Chams",  &Chams::cfg.enabled);
+        EvoCheckbox("Enable Chams", &Chams::cfg.enabled);
         if (Chams::cfg.enabled)
         {
             SynthSep();
-            EvoCheckbox("Wallhack##cw", &Chams::cfg.wallhack);
-            auto SlotW = [](const char* n, Chams::SlotStyle& sl) {
-                ImGui::PushID(n);
-                if (sl.material < 0 || sl.material >= Chams::MAT_COUNT) sl.material = Chams::MAT_NONE;
-                ImGui::Text("  %s", n);
-                ImGui::SameLine();
-                ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x - 30);
-                if (ImGui::BeginCombo("##m", Chams::MaterialNames[sl.material]))
-                {
-                    for (int i = 0; i < Chams::MAT_COUNT; ++i)
-                    {
-                        bool sel = (sl.material == i);
-                        if (ImGui::Selectable(Chams::MaterialNames[i], sel)) sl.material = i;
-                        if (sel) ImGui::SetItemDefaultFocus();
-                    }
-                    ImGui::EndCombo();
-                }
-                if (sl.material != Chams::MAT_NONE)
-                {
-                    ImGui::SameLine();
-                    ImGui::ColorEdit4("##cc", sl.color,
-                        ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar);
-                    // Quick-pick palette swatches
-                    const float sw = 14.f;
-                    for (int i = 0; i < Chams::kColorPresetCount; ++i) {
-                        const auto& p = Chams::kColorPresets[i];
-                        ImVec4 col(p.rgba[0], p.rgba[1], p.rgba[2], 1.0f);
-                        ImGui::PushID(i);
-                        if (ImGui::ColorButton(p.name, col,
-                                ImGuiColorEditFlags_NoTooltip|ImGuiColorEditFlags_NoBorder,
-                                ImVec2(sw, sw))) {
-                            sl.color[0] = p.rgba[0];
-                            sl.color[1] = p.rgba[1];
-                            sl.color[2] = p.rgba[2];
-                        }
-                        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", p.name);
-                        ImGui::PopID();
-                        if (i + 1 < Chams::kColorPresetCount) ImGui::SameLine(0.f, 3.f);
-                    }
-                }
-                ImGui::PopID();
-            };
-            SynthSep();
-            SlotW("Visible", Chams::cfg.playerVis);
-            if (Chams::cfg.wallhack) { SynthSep(); SlotW("Walls", Chams::cfg.playerHid); }
-            SynthSep();
-            EvoCheckbox("Hand Chams##hc",   &Chams::cfg.handsEnabled);
-            if (Chams::cfg.handsEnabled)  { SynthSep(); SlotW("Hands",   Chams::cfg.hands);   }
-            SynthSep();
-            EvoCheckbox("Weapon Chams##wc", &Chams::cfg.weaponsEnabled);
-            if (Chams::cfg.weaponsEnabled){ SynthSep(); SlotW("Weapons", Chams::cfg.weapons); }
+            ImGui::Text("  Style");
+            ImGui::SameLine();
+            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::Combo("##chams_style", &Chams::cfg.style,
+                         Chams::MaterialNames, Chams::STYLE_COUNT);
         }
         SynthEndSection();
     }
@@ -2897,53 +2851,10 @@ namespace Menu
     }
     inline void Pg_Chams()
     {
-        EvoCheckbox("Wallhack##cw", &Chams::cfg.wallhack);
-        auto SlotW = [](const char* n, Chams::SlotStyle& sl) {
-            ImGui::PushID(n);
-            if (sl.material < 0 || sl.material >= Chams::MAT_COUNT) sl.material = Chams::MAT_NONE;
-            ImGui::Text("  %s", n); ImGui::SameLine();
-            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x - 30);
-            if (ImGui::BeginCombo("##m", Chams::MaterialNames[sl.material])) {
-                for (int i = 0; i < Chams::MAT_COUNT; ++i) {
-                    bool sel = (sl.material == i);
-                    if (ImGui::Selectable(Chams::MaterialNames[i], sel)) sl.material = i;
-                    if (sel) ImGui::SetItemDefaultFocus();
-                }
-                ImGui::EndCombo();
-            }
-            if (sl.material != Chams::MAT_NONE) {
-                ImGui::SameLine();
-                ImGui::ColorEdit4("##cc", sl.color, ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
-                // Quick-pick palette: tiny coloured swatches under the
-                // combo. Click to snap the slot's tint to a preset (RGB
-                // copied verbatim, alpha preserved so user-set transparency
-                // for Glass/etc isn't clobbered).
-                const float sw = 14.f;
-                for (int i = 0; i < Chams::kColorPresetCount; ++i) {
-                    const auto& p = Chams::kColorPresets[i];
-                    ImVec4 col(p.rgba[0], p.rgba[1], p.rgba[2], 1.0f);
-                    ImGui::PushID(i);
-                    if (ImGui::ColorButton(p.name, col,
-                            ImGuiColorEditFlags_NoTooltip|ImGuiColorEditFlags_NoBorder,
-                            ImVec2(sw, sw))) {
-                        sl.color[0] = p.rgba[0];
-                        sl.color[1] = p.rgba[1];
-                        sl.color[2] = p.rgba[2];
-                        // alpha untouched on purpose
-                    }
-                    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", p.name);
-                    ImGui::PopID();
-                    if (i + 1 < Chams::kColorPresetCount) ImGui::SameLine(0.f, 3.f);
-                }
-            }
-            ImGui::PopID();
-        };
-        SynthSep(); SlotW("Visible", Chams::cfg.playerVis);
-        if (Chams::cfg.wallhack) { SynthSep(); SlotW("Walls", Chams::cfg.playerHid); }
-        SynthSep(); EvoCheckbox("Hand Chams##hc", &Chams::cfg.handsEnabled);
-        if (Chams::cfg.handsEnabled) { SynthSep(); SlotW("Hands", Chams::cfg.hands); }
-        SynthSep(); EvoCheckbox("Weapon Chams##wc", &Chams::cfg.weaponsEnabled);
-        if (Chams::cfg.weaponsEnabled) { SynthSep(); SlotW("Weapons", Chams::cfg.weapons); }
+        ImGui::Text("  Style"); ImGui::SameLine();
+        ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::Combo("##chams_style2", &Chams::cfg.style,
+                     Chams::MaterialNames, Chams::STYLE_COUNT);
     }
     inline void Pg_Tracers()
     {
