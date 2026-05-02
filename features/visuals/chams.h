@@ -268,28 +268,23 @@ namespace Chams
             const float TAU = 6.2831853f;
             const uint32_t h = (uint32_t)((uintptr_t)obj * 2654435761u);
             const float    ph = (float)(h & 0xFFFF) * (TAU / 65536.0f);
-            // Slow nebula cycle (~16s) - keeps the cosmic palette in deep
-            // ranges (dark violet <-> indigo <-> nebula magenta accent),
-            // never washes out to flat pink.
-            const float p   = t * (TAU / 16.0f) + ph * 0.25f;
-            float s0 = sinf(p);
-            float s1 = sinf(p * 1.20f + 1.4f);
-            float s2 = sinf(p * 0.85f + 2.7f);
-            // Visible body: tints the cosmic texture. Floors lifted high
-            // so even the dark regions of the cloud texture render as
-            // colored cosmos rather than going black on multiply.
-            float vr = 0.65f + 0.30f * s0 * s0;             // 0.65..0.95
-            float vg = 0.30f + 0.30f * s1 * s1;             // 0.30..0.60  enough to keep texture detail
-            float vb = 0.85f + 0.15f * s2 * s2;             // 0.85..1.00  blue-dominant
-            // Occluded: brighter / phase-shifted so wallhack reads.
-            float o0 = sinf(p + 1.7f);
-            float o1 = sinf(p * 1.10f + 3.4f);
-            float o2 = sinf(p * 0.90f + 0.6f);
-            float orC = 0.75f + 0.25f * o0 * o0;            // 0.75..1.00
-            float ogC = 0.30f + 0.30f * o1 * o1;            // 0.30..0.60
-            float obC = 0.90f + 0.10f * o2 * o2;            // 0.90..1.00
-            // No supernova flash - it just washed the body to white. The
-            // sparkle pass below is what provides the star highlights.
+            // Fast cosmic flow cycle (~8s) - the visible "movement" of the
+            // galaxy comes from the tint hue-shifting across the colorful
+            // acrylic-flow texture. Three-phase RGB rotation drives the
+            // marbled pattern through the full cosmic spectrum:
+            // violet -> magenta -> rose -> cobalt -> cyan -> back to violet.
+            const float p = t * (TAU / 8.0f) + ph * 0.3f;
+            // sin pair offset by 120 degrees per channel for a smooth hue
+            // rotation. Bias up so it never crushes to black.
+            float vr = 0.55f + 0.40f * (0.5f + 0.5f * sinf(p));
+            float vg = 0.25f + 0.35f * (0.5f + 0.5f * sinf(p + TAU * (1.0f/3.0f)));
+            float vb = 0.70f + 0.30f * (0.5f + 0.5f * sinf(p + TAU * (2.0f/3.0f)));
+            // Occluded: same rotation, larger phase offset so the through-
+            // wall view sits ahead in the spectrum (visibly distinct).
+            const float pq = p + TAU * 0.45f;
+            float orC = 0.65f + 0.35f * (0.5f + 0.5f * sinf(pq));
+            float ogC = 0.25f + 0.35f * (0.5f + 0.5f * sinf(pq + TAU * (1.0f/3.0f)));
+            float obC = 0.80f + 0.20f * (0.5f + 0.5f * sinf(pq + TAU * (2.0f/3.0f)));
             mat.vis_color[0] = vr;  mat.vis_color[1] = vg;  mat.vis_color[2] = vb;  mat.vis_color[3] = 1.0f;
             mat.occ_color[0] = orC; mat.occ_color[1] = ogC; mat.occ_color[2] = obC; mat.occ_color[3] = 1.0f;
         }
@@ -346,14 +341,16 @@ namespace Chams
             float tw = 0.55f + 0.45f * sinf(t * (TAU * 2.5f) + ph)
                              * sinf(t * (TAU * 1.3f) + ph * 1.7f);
             if (tw < 0.0f) tw = 0.0f;
-            tw *= 1.20f; // sparkle intensity - texture-based star pinpricks need extra punch
-            // Slight tint shift so sparkles aren't just flat white.
-            float ti = sinf(t * (TAU / 3.0f) + ph);
+            tw *= 1.40f; // sparkle intensity - punches the stars on the body
+            // Sparkle hue cycles at a DIFFERENT rate than the body
+            // (slower, shifted) so the two layers visibly drift relative to
+            // each other - that's what reads as cosmic flow / motion.
+            const float sp = t * (TAU / 11.0f) + ph * 0.7f;
             float sparkle[4] = {
-                0.85f + 0.15f * ti,            // R: white\u2194pink
-                0.95f,                          // G: high
-                1.00f,                          // B: full blue
-                tw                              // alpha = twinkle intensity
+                0.65f + 0.35f * (0.5f + 0.5f * sinf(sp + TAU * 0.10f)),
+                0.55f + 0.40f * (0.5f + 0.5f * sinf(sp + TAU * 0.43f)),
+                0.85f + 0.15f * (0.5f + 0.5f * sinf(sp + TAU * 0.76f)),
+                tw
             };
 
             // Copy visible primitives and apply sparkle on top.
@@ -414,12 +411,13 @@ namespace Chams
 #define H  "<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->\n"
 #define W  "materials/dev/primary_white_color_tga_21186c76.vtex"
 #define MK "materials/default/default_mask_tga_fde710a5.vtex"
-// Cosmic textures used by the Galaxy style. Effect-domain textures are
-// guaranteed runtime-loadable on player models (particle/tile textures are
-// only loaded into the particle atlas).
-#define NEBULA  "materials/effects/smoke/cloud_003_mask_psd_3fa6a080.vtex"
+// Cosmic textures used by the Galaxy style.
+//   ACRYLIC : the famous "acrylic flow" paintkit texture — marbled colorful
+//             swirls that look exactly like a galactic nebula when tinted.
+//   GLITTER : per-pixel glitter sparkle map for the star overlay pass.
+#define ACRYLIC "items/assets/paintkits/timed_drops/acrylic_flow_psd_9ca57c25.vtex"
+#define ACRYLIC2 "items/assets/paintkits/timed_drops/acrylic_flow_3_psd_b69e2d7b.vtex"
 #define GLITTER "materials/effects/squares_glitter_color_psd_8d090324.vtex"
-#define GLITNRM "materials/effects/squares_glitter_normal_tga_d78920fb.vtex"
 #define ZD "    F_DISABLE_Z_BUFFERING = 1\n    F_DISABLE_Z_PREPASS = 1\n    F_DISABLE_Z_WRITE = 1\n"
 
         // Glass
@@ -500,20 +498,25 @@ namespace Chams
         // pattern, giving the moving "galaxy camo" look. The third slot
         // is an additive csgo_effects pass with the literal starfield
         // texture for twinkling stars on top.
-        const char k14_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_tColor=resource:")" NEBULA R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[4.0,4.0] g_vTexCoordScrollSpeed=[0.08,0.13]})";
-        const char k14_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_tColor=resource:")" NEBULA R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[4.0,4.0] g_vTexCoordScrollSpeed=[0.08,0.13]})";
-        // Sparkle/star pass: glitter texture additively layered on top.
-        // Z-disabled so it shows through walls along with the wallhack body.
-        // Fast scroll in opposite direction to the body for parallax — the
-        // star field clearly drifts across the player as they move.
-        const char k14_star[] = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_tColor=resource:")" GLITTER R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[6.0,6.0] g_vTexCoordScrollSpeed=[-0.18,0.22]})";
+        // Galaxy — high-fidelity moving cosmic camo, BO2-Weaponized-115 style.
+        // Body uses CS2's shipped "acrylic flow" paintkit texture: marbled
+        // multi-color swirls that, when tinted with our cycling cosmic
+        // palette, read as a true galactic nebula. The per-frame tint cycle
+        // smoothly hue-shifts the entire pattern, giving the impression of
+        // liquid flowing color across the body even though the texture
+        // itself is static. A second additive sparkle pass (glitter) layers
+        // animated stars on top, with its tint cycling at a different rate
+        // than the body so the two layers visibly drift independently.
+        const char k14_vis[]  = H R"({shader="csgo_unlitgeneric.vfx" F_UNLIT=1 g_tColor=resource:")" ACRYLIC R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[2.0,2.0]})";
+        const char k14_occ[]  = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 g_tColor=resource:")" ACRYLIC R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[2.0,2.0]})";
+        const char k14_star[] = H R"({shader="csgo_unlitgeneric.vfx" )" ZD R"(F_UNLIT=1 F_ADDITIVE_BLEND=1 F_TRANSLUCENT=1 g_tColor=resource:")" GLITTER R"(" g_vColorTint=[1.0,1.0,1.0,1.0] g_vTexCoordScale=[5.0,5.0]})";
 
 #undef H
 #undef W
 #undef MK
-#undef NEBULA
+#undef ACRYLIC
+#undef ACRYLIC2
 #undef GLITTER
-#undef GLITNRM
 #undef ZD
 
         g_materials[STYLE_GLASS]     = { CreateMaterial("cham0_occ", k0_occ), CreateMaterial("cham0_vis", k0_vis), nullptr,
