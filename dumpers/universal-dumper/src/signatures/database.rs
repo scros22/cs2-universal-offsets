@@ -3188,4 +3188,45 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
+    // ==================================================================
+    // NUVORA MAY-05-2026 EXPANSION (build 14158, port-13338 IDA pass)
+    // ------------------------------------------------------------------
+    // Two more cheat-relevant unique anchors mined live:
+    //   * CCSPlayer_MovementServices::CheckJumpButton   (bhop / autostrafe)
+    //   * CSGOInput::CreateMove                         (per-tick aim/move hook)
+    // Both verified single-match on client.dll 14158 via IDA-MCP
+    // find_bytes against the live IDB.
+    // ==================================================================
+
+    // CCSPlayer_MovementServices::CheckJumpButton â€” sub_180ACF410.
+    // Stamina + jump-impulse logic; refs the
+    // "stamina: %.1f, jump impulse mul: %.3f" log string. This is THE
+    // function to hook for perfect bunnyhop (force-jump on landing
+    // tick) and autostrafe (overwrite m_vecVelocity right after the
+    // stamina-penalty multiplier is applied). Replaces the older
+    // create-move-side jump emulation with the exact same write the
+    // engine does internally â€” no more "first jump miss" desync.
+    Signature {
+        name: "CCSPlayer_MovementServices_CheckJumpButton",
+        module: "client.dll",
+        needle: "4C 89 44 24 18 55 56 41 56 48 8D AC 24 70 EC FF FF B8 90 14 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CSGOInput::CreateMove â€” sub_180C5E7F0. The actual createmove the
+    // existing `create_move_v2` short-form sig was missing. Refs
+    // "cl: CreateMove - Frame %d, cmd %d, cmd client tick %d, ..."
+    // log string. Wraps the per-subtick CUserCmd assembly (mouse
+    // delta â†’ view angles â†’ shoot angles â†’ buttons). Hook this
+    // instead of patching individual subtick writers when you want
+    // a single chokepoint for aim/anti-aim/triggerbot.
+    Signature {
+        name: "CSGOInput_CreateMove",
+        module: "client.dll",
+        needle: "48 8B C4 4C 89 40 18 48 89 48 08 55 53 41 54 41 55 48 8D A8 F8 FE FF FF",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
 ];
