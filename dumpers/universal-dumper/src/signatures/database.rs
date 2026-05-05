@@ -660,6 +660,19 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     Signature { name: "Particles::FindKeyVar",                module: "particles.dll", needle: "48 89 5C 24 ? 57 48 81 EC ? ? ? ? 33 C0 8B DA", resolve: NONE, extra_off: 0 },
     Signature { name: "Particles::SetMaterialShaderType",     module: "particles.dll", needle: "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 54 41 56 41 57 48 81 EC ? ? ? ? 4C 63 32", resolve: NONE, extra_off: 0 },
     Signature { name: "Particles::SetMaterialFunction",       module: "particles.dll", needle: "48 89 54 24 10 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC E8 05 00 00", resolve: NONE, extra_off: 0 },
+    // CParticleSystemMgr::FindParticleSystem(name, out_handle, blocking_load) — looks up
+    // a precached particle system definition by string name. The "FindParticleSystem"
+    // log/profile string is referenced exactly once from this function. Useful as a hook
+    // point for swapping/recoloring particle effects (smokes, molotovs, tracers).
+    Signature { name: "Particles::CParticleSystemMgr_FindParticleSystem", module: "particles.dll",
+        needle: "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 41 56 41 57 48 81 EC 40 01 00 00 48 8D 05 ? ? ? ? 48 C7 44 24 28 ? ? 00 00 48 89 44 24 20",
+        resolve: NONE, extra_off: 0 },
+    // CParticleSystemMgr::CreateParticleCollection — instantiates a particle collection
+    // from a previously-found definition. The "CParticleSystemMgr::CreateParticleCollection( Name String )"
+    // VProf string sits at the function head.
+    Signature { name: "Particles::CParticleSystemMgr_CreateParticleCollection", module: "particles.dll",
+        needle: "4C 8B DC 49 89 5B 10 49 89 6B 18 49 89 73 20 57 41 56 41 57 48 81 EC 80 00 00 00 49 C7 43 B0 ? ? 00 00 48 8D 05 ? ? ? ? 49 89 43 A8",
+        resolve: NONE, extra_off: 0 },
 
     // ==================================================================
     // soundsystem.dll --------------------------------------------------
@@ -1350,6 +1363,24 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         name: "CGameSceneNode_StartHierarchicalAttachment",
         module: "client.dll",
         needle: "48 89 5C 24 10 48 89 6C 24 18 48 89 74 24 20 57 41 54 41 55 41 56 41 57 48 83 EC 30 48 8B F9 8B",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CGameSceneNode::PerformBatchedInvalidatePhysicsRecursive â€”
+    // sub_18093E660. The only function that references the
+    // "PerformInvalidatePhysicsRecursive" VProf string. Toggles a
+    // global counter and, when balanced, walks 8 internal queues to
+    // dispatch deferred InvalidatePhysicsRecursive calls (transform /
+    // bone / parented entity invalidation). Called from ~10
+    // ParallelFor lambdas every frame; valuable as an anchor for
+    // grabbing the deferred-invalidation table and for hooking the
+    // pose-update batching path used by viewmodel and animation
+    // chams.
+    Signature {
+        name: "CGameSceneNode_PerformBatchedInvalidatePhysicsRecursive",
+        module: "client.dll",
+        needle: "40 57 48 81 EC 90 00 00 00 84 C9 74 4D BF 01 00 00 00 F0 0F C1 3D ? ? ? ? FF C7 83 FF 01 0F 85 63 05 00 00 48 8D 0D ? ? ? ? 48 8D 15",
         resolve: NONE,
         extra_off: 0,
     },
