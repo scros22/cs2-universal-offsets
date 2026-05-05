@@ -367,6 +367,13 @@ static void EntryThread(HMODULE hModule)
     // capture per-weapon arg templates. Predictor lives in
     // features/triggerbot.h (Triggerbot::PredictHit).
     {
+        // Resolve the bullet-trace pipeline first â€” triggerbot's
+        // vischeck gate consumes EngineTrace::IsVisible. Six fns;
+        // 5/6 = vischeck still works (HandleBulletPen only needed
+        // for autowall damage prediction).
+        int et = EngineTrace::Init();
+        DllLog("[EntryThread] EngineTrace::Init resolved %d/6 fns", et);
+
         int tsr = Triggerbot::Setup();
         if (tsr == 1)
             DllLog("[EntryThread] Triggerbot::Setup OK (seeded predictor armed)");
@@ -379,9 +386,13 @@ static void EntryThread(HMODULE hModule)
     SkinChanger::Init();
     DllLog("[EntryThread] SkinChanger::Init OK");
 
-    // Inventory locker injector (ARCHILIX-style)
-    InventoryChanger::Init();
-    DllLog("[EntryThread] InventoryChanger::Init done");
+    // Inventory locker injector (ARCHILIX-style) â€” DISABLED.
+    // Non-functional in current build and suspected of contributing to
+    // mid-game lag/crash. Skip Init so its sigs never scan and its
+    // hooks never install. Shutdown() in DllMain still runs and is
+    // safe (no-ops if uninitialized).
+    // InventoryChanger::Init();
+    DllLog("[EntryThread] InventoryChanger::Init SKIPPED (disabled)");
     
     // KNIFE/GLOVE CHANGER - DISABLED (ARCHITECTURALLY IMPOSSIBLE)
     // After extensive IDA Pro analysis and testing, knife changing is confirmed IMPOSSIBLE in CS2.

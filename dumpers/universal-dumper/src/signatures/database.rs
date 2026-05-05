@@ -1,10 +1,10 @@
-//! CS2 signature database (ported + deduplicated from
+﻿//! CS2 signature database (ported + deduplicated from
 //! `signature-dumper/cs2sign/CS2EnhancedSignatures.h`).
 //!
 //! Every entry is module-scoped to its DLL (.text first, .rdata fallback)
 //! so scans stay fast and unambiguous.  Patterns that pointed into a
 //! relative-addressing instruction use `Rel32` / `RipRel` resolution so the
-//! reported address is the final function / global — not the midpoint of
+//! reported address is the final function / global â€” not the midpoint of
 //! whatever instruction matched.  Entries marked `StringRef` find the
 //! function by the unique string it references (Ghidra workflow), which
 //! is the most resilient kind across CS2 patches.
@@ -57,7 +57,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
     Signature {
         // NOTE: DEAD on build 14154 (0 hits, IDA-verified 2026-04-25).
-        // Use `GetWorldFovResolver` instead — see entry near bottom of
+        // Use `GetWorldFovResolver` instead â€” see entry near bottom of
         // this file. Kept here so the dumper diff still surfaces 0/N
         // hits as a regression signal if a future build resurrects it.
         name: "SetWorldFov",
@@ -114,7 +114,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     Signature {
         name: "CEconItemView::GetCustomPaintKitIndex",
         module: "client.dll",
-        needle: "48 89 5C 24 ? 57 48 83 EC ? 8B 15 ? ? ? ? 48 8B F9 65 48 8B 04 25",
+        needle: "48 89 5C 24 ? 57 48 83 EC ? 8B 15 ? ? ? ? 48 8B F9 65 48 8B 04 25 ? ? ? ? B9 ? ? ? ? 48 8B 04 D0 8B 04 01 39 05 ? ? ? ? 0F 8F ? ? ? ? E8 ? ? ? ? 8B 58 ? 39 1D ? ? ? ? 74 ? E8 ? ? ? ? 48 8B 15 ? ? ? ? 48 8B C8 E8 ? ? ? ? 48 89 05 ? ? ? ? 89 1D ? ? ? ? EB ? 48 8B 05 ? ? ? ? 48 85 C0 74",
         resolve: NONE,
         extra_off: 0,
     },
@@ -196,14 +196,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ---------- tier0.dll ---------------------------------------------
-    // KeyValues3 loader used by runtime custom-material creation code.
-    // Community reference implementation (GeneratePrimitives chams)
-    // commonly resolves this symbol via mangled export first, then
-    // falls back to this raw pattern.
     Signature {
-        name: "LoadKV3",
+        name: "LoadKV3_callsite",
         module: "tier0.dll",
-        needle: "48 89 5C 24 08 57 48 83 EC 70 4C 8B D1 48 C7 C0 FF FF FF FF 48 FF C0 41 80 3C 00 00 75 F6",
+        needle: "48 8D 0D ? ? ? ? FF 15 ? ? ? ? 49 8B 06",
         resolve: NONE,
         extra_off: 0,
     },
@@ -258,7 +254,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     Signature { name: "DrawScopeOverlay",                     module: "client.dll", needle: "48 8B C4 53 57 48 83 EC ? 48 8B FA", resolve: NONE, extra_off: 0 },
     Signature { name: "UpdatePostProcessing",                 module: "client.dll", needle: "48 85 D2 0F 84 ? ? ? ? 48 89 5C 24 08 57 48 83 EC 60 80", resolve: NONE, extra_off: 0 },
     Signature { name: "SetupMove",                            module: "client.dll", needle: "48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 83 EC ? 48 8B EA 4C 8B F1 E8 ? ? ? ? 48 8D 15", resolve: NONE, extra_off: 0 },
-    // RenderDecals — top-level dispatcher for bullet impact decals,
+    // RenderDecals â€” top-level dispatcher for bullet impact decals,
     // blood splatter, scorch marks, etc. Hook + early-return to disable
     // all decals (visual clarity / no-blood). Prologue:
     //   44 88 4C 24 ??  mov [rsp+?], r9b   ; pass_flag_B
@@ -284,23 +280,23 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     Signature { name: "CAM_ThinkReturn",                      module: "client.dll", needle: "BA 04 00 00 00 FF 15 ? ? ? ? 84 C0 0F 84", resolve: NONE, extra_off: 0 },
 
     // a2x-derived globals (cs2-dumper, MIT). Battle-tested patterns.
-    // GlowManager_ptr — client.dll g_pGlowManager. Read as qword pointer.
+    // GlowManager_ptr â€” client.dll g_pGlowManager. Read as qword pointer.
     Signature { name: "GlowManager_ptr",                      module: "client.dll", needle: "48 8B 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 8B 41", resolve: RIPREL_3, extra_off: 0 },
-    // Sensitivity_ptr — client.dll g_pSensitivity (mouse sens object).
+    // Sensitivity_ptr â€” client.dll g_pSensitivity (mouse sens object).
     Signature { name: "Sensitivity_ptr",                      module: "client.dll", needle: "48 8D 0D ? ? ? ? 66 0F 6E CD", resolve: RIPREL_3, extra_off: 0 },
-    // BuildNumber_addr — engine2.dll dword build number global.
+    // BuildNumber_addr â€” engine2.dll dword build number global.
     // mov [rip+disp32], eax  ;  89 05 disp32
     Signature { name: "BuildNumber_addr",                     module: "engine2.dll", needle: "89 05 ? ? ? ? 48 8D 0D ? ? ? ? FF 15 ? ? ? ? 48 8B 0D", resolve: RIPREL_2, extra_off: 0 },
-    // NetworkGameClient_ptr — engine2.dll g_pNetworkGameClient.
+    // NetworkGameClient_ptr â€” engine2.dll g_pNetworkGameClient.
     Signature { name: "NetworkGameClient_ptr",                module: "engine2.dll", needle: "48 89 3D ? ? ? ? FF 87", resolve: RIPREL_3, extra_off: 0 },
-    // InputSystem_ptr — inputsystem.dll g_pInputSystem.
+    // InputSystem_ptr â€” inputsystem.dll g_pInputSystem.
     Signature { name: "InputSystem_ptr",                      module: "inputsystem.dll", needle: "48 89 05 ? ? ? ? 33 C0", resolve: RIPREL_3, extra_off: 0 },
-    // GameTypes_ptr — matchmaking.dll IGameTypes singleton.
+    // GameTypes_ptr â€” matchmaking.dll IGameTypes singleton.
     Signature { name: "GameTypes_ptr",                        module: "matchmaking.dll", needle: "48 8D 0D ? ? ? ? FF 90", resolve: RIPREL_3, extra_off: 0 },
-    // SoundSystem_ptr — soundsystem.dll g_pSoundSystem (CSoundSystem instance).
+    // SoundSystem_ptr â€” soundsystem.dll g_pSoundSystem (CSoundSystem instance).
     Signature { name: "SoundSystem_ptr",                      module: "soundsystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 89 15", resolve: RIPREL_3, extra_off: 0 },
 
-    // CreateInterface — client.dll exported factory dispatcher
+    // CreateInterface â€” client.dll exported factory dispatcher
     // (DLL ordinal #2). Internals load any client interface
     // (Source2Client002, GameClientExports001, ClientToolsInfo_001,
     // EmptyWorldService001_Client, etc.) by calling
@@ -314,7 +310,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //   49 8B 41 08          mov rax, [r9+8]   ; reg->m_pName
     Signature { name: "CreateInterface",                      module: "client.dll", needle: "4C 8B 0D ? ? ? ? 4C 8B D2 4C 8B D9 4D 85 C9 74 ? 49 8B 41 08", resolve: NONE, extra_off: 0 },
 
-    // Prediction_ptr — client.dll g_pPrediction (CPrediction instance).
+    // Prediction_ptr â€” client.dll g_pPrediction (CPrediction instance).
     // Used by SetupMove/RunCommand chain. a2x dwPrediction pattern.
     //   48 8D 05 ?? ?? ?? ?? lea rax, [rip+g_pPrediction]
     //   C3                   ret
@@ -322,7 +318,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //   40 53 56 41 54       push rbx/rsi/r12  (next fn prologue)
     Signature { name: "Prediction_ptr",                       module: "client.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 40 53 56 41 54", resolve: RIPREL_3, extra_off: 0 },
 
-    // WeaponC4_ptr — client.dll g_pWeaponC4 (currently held / planted
+    // WeaponC4_ptr â€” client.dll g_pWeaponC4 (currently held / planted
     // bomb instance). a2x dwWeaponC4 pattern. Useful for bomb timer
     // ESP, defuse helpers, and round-state tracking. Chain:
     //   48 8B 15 disp32  mov rdx, [rip+g_pWeaponC4]
@@ -334,7 +330,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //   80 BE ...        cmp byte [rsi+disp32], ?
     Signature { name: "WeaponC4_ptr",                         module: "client.dll", needle: "48 8B 15 ? ? ? ? 48 8B 5C 24 ? FF C0 89 05 ? ? ? ? 48 8B C6 48 89 34 EA 80 BE", resolve: RIPREL_3, extra_off: 0 },
 
-    // LocalPlayerController_ptr — client.dll g_pLocalPlayerController[1].
+    // LocalPlayerController_ptr Ã”Ã‡Ã¶ client.dll g_pLocalPlayerController[1].
     // Cached pointer to the local CCSPlayerController, used by ESP team
     // checks, scoreboard, observer-target lookup, and money/ping HUD.
     // a2x dwLocalPlayerController pattern:
@@ -342,7 +338,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //   41 89 BE ...      mov [r14+disp32], edi
     Signature { name: "LocalPlayerController_ptr",            module: "client.dll", needle: "48 8B 05 ? ? ? ? 41 89 BE", resolve: RIPREL_3, extra_off: 0 },
 
-    // WindowWidth_addr — engine2.dll g_nWindowWidth. Updated every
+    // WindowWidth_addr Ã”Ã‡Ã¶ engine2.dll g_nWindowWidth. Updated every
     // frame to the current swap-chain width; perfect screen-space
     // anchor for menus, ESP, world-to-screen sanity checks. Also
     // survives windowed/borderless/resolution swaps without re-hooking.
@@ -350,7 +346,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //                            89 07         mov [rdi], eax
     Signature { name: "WindowWidth_addr",                     module: "engine2.dll", needle: "8B 05 ? ? ? ? 89 07", resolve: RIPREL_2, extra_off: 0 },
 
-    // WindowHeight_addr — engine2.dll g_nWindowHeight. Companion to
+    // WindowHeight_addr Ã”Ã‡Ã¶ engine2.dll g_nWindowHeight. Companion to
     // WindowWidth_addr; same instruction pair, different sink reg.
     //   8B 05 disp32  mov eax, [rip+h]
     //   89 03         mov [rbx], eax
@@ -364,17 +360,17 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //     C3                ret
     //     CC ... CC         (16-byte alignment pad)
     // The pattern below anchors that thunk so we recover the singleton
-    // pointer for free — no CreateInterface call, no string scan, no
+    // pointer for free Ã”Ã‡Ã¶ no CreateInterface call, no string scan, no
     // module-walk required by the host process. Resolves to &g_pX (the
     // static instance the engine itself uses internally).
 
-    // CVar_ptr — tier0.dll g_pCVar (singleton ICvar). Backbone for any
+    // CVar_ptr Ã”Ã‡Ã¶ tier0.dll g_pCVar (singleton ICvar). Backbone for any
     // cvar read/write feature: third-person, FOV, sky_name, sv_cheats
     // probes, etc. Followed in tier0 by an `E9` thunk that distinguishes
     // it from the other 30+ tier0 factories.
     Signature { name: "CVar_ptr",                             module: "tier0.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC E9", resolve: RIPREL_3, extra_off: 0 },
 
-    // NetworkSystem_ptr — networksystem.dll g_pNetworkSystem (singleton
+    // NetworkSystem_ptr Ã”Ã‡Ã¶ networksystem.dll g_pNetworkSystem (singleton
     // INetworkSystem). Owns CNetChan registry, NetMessages send queue,
     // and channel allocation. Foundation for network-side features:
     // packet inject, choke control, real fakelag (not the in-engine
@@ -383,24 +379,24 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // is unique among the 3 lea-factory thunks in this module.
     Signature { name: "NetworkSystem_ptr",                    module: "networksystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 83 EC 28 BA FF FF FF", resolve: RIPREL_3, extra_off: 0 },
 
-    // SceneSystem_ptr — scenesystem.dll g_pSceneSystem (ISceneSystem).
+    // SceneSystem_ptr Ã”Ã‡Ã¶ scenesystem.dll g_pSceneSystem (ISceneSystem).
     // Owns the per-view render scene, scene-object lists, frustum data,
     // and is the entry point for custom draw-call injection (chams,
     // outlines, post-fx). Trailing `48 8D 0D ? ? ? ? E9` is the next
-    // function's lea+jmp tail-call — unique anchor in scenesystem.dll.
+    // function's lea+jmp tail-call Ã”Ã‡Ã¶ unique anchor in scenesystem.dll.
     Signature { name: "SceneSystem_ptr",                      module: "scenesystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 8D 0D ? ? ? ? E9", resolve: RIPREL_3, extra_off: 0 },
 
-    // RenderDeviceMgr_ptr — rendersystemdx11.dll g_pRenderDeviceMgr
+    // RenderDeviceMgr_ptr Ã”Ã‡Ã¶ rendersystemdx11.dll g_pRenderDeviceMgr
     // (IRenderDeviceMgr). Direct gateway to the live ID3D11Device,
     // IDXGISwapChain, and per-frame ID3D11DeviceContext. Lets us hook
     // Present / ResizeBuffers without VTable scanning a DXGI dummy.
     // The 16-byte preceding tail `8B 5C 24 38 48 83 C4 20 5E C3` is
-    // movsd-style epilogue of the previous func — unique anchor that
+    // movsd-style epilogue of the previous func Ã”Ã‡Ã¶ unique anchor that
     // disambiguates from the 10 other identical lea-factory thunks
     // chained right after this one (one per render sub-interface).
     Signature { name: "RenderDeviceMgr_ptr",                  module: "rendersystemdx11.dll", needle: "8B 5C 24 38 48 83 C4 20 5E C3 CC CC CC CC CC CC 48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 8D 05 ? ? ? ? C3", resolve: RIPREL_19, extra_off: 0 },
 
-    // FullFileSystem_ptr — filesystem_stdio.dll g_pFullFileSystem
+    // FullFileSystem_ptr Ã”Ã‡Ã¶ filesystem_stdio.dll g_pFullFileSystem
     // (IFileSystem). Mounts VPKs, opens game files, reads pak1_dir
     // entries. Required for custom-camo / model-replacement loaders
     // and any feature that reads game data without sv_pure tripping.
@@ -409,23 +405,23 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // among the 30 lea-factory thunks in filesystem_stdio.dll.
     Signature { name: "FullFileSystem_ptr",                   module: "filesystem_stdio.dll", needle: "8B 41 28 C3 CC CC CC CC CC CC CC CC CC CC CC CC 48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 8D 05 ? ? ? ? C3", resolve: RIPREL_19, extra_off: 0 },
 
-    // InputSystemSvc_ptr — inputsystem.dll g_pInputSystem
+    // InputSystemSvc_ptr Ã”Ã‡Ã¶ inputsystem.dll g_pInputSystem
     // (IInputSystem). Different singleton from client.dll's
-    // CCSGOInput / "InputSystem_ptr" — this is the engine-side input
+    // CCSGOInput / "InputSystem_ptr" Ã”Ã‡Ã¶ this is the engine-side input
     // service that owns the raw mouse delta accumulator, button state
     // arrays, and IME/joystick routing. Combine with InputSystem_ptr
     // for pre-CCSGOInput mouse hooks (perfect-aim, true raw delta).
-    // Trailing `40 53 48 83 EC 20 33 DB` is the next func's prologue —
+    // Trailing `40 53 48 83 EC 20 33 DB` is the next func's prologue Ã”Ã‡Ã¶
     // unique anchor in inputsystem.dll.
     Signature { name: "InputSystemSvc_ptr",                   module: "inputsystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 40 53 48 83 EC 20 33 DB", resolve: RIPREL_3, extra_off: 0 },
 
-    // SchemaSystem_ptr — schemasystem.dll g_pSchemaSystem
+    // SchemaSystem_ptr Ã”Ã‡Ã¶ schemasystem.dll g_pSchemaSystem
     // (CSchemaSystem). Runtime-resolves any schema field offset, class
     // metadata, or enum value WITHOUT a re-dump every game build.
     // Pair with FindTypeScopeForModule + FindDeclaredClass and netvars
     // become self-healing across CS2 patches. Trailing
     // `48 89 5C 24 08 48 89 74` is the next func's stack-spill
-    // prologue — unique anchor in schemasystem.dll.
+    // prologue Ã”Ã‡Ã¶ unique anchor in schemasystem.dll.
     Signature { name: "SchemaSystem_ptr",                     module: "schemasystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 89 5C 24 08 48 89 74", resolve: RIPREL_3, extra_off: 0 },
 
     // ================================================================
@@ -438,9 +434,9 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // running game.
 
     // ---------- animationsystem.dll -----------------------------------
-    // AnimationSystemUtils_ptr — animationsystem.dll g_pAnimationSystemUtils
+    // AnimationSystemUtils_ptr Ã”Ã‡Ã¶ animationsystem.dll g_pAnimationSystemUtils
     // (IAnimationSystemUtils). Singleton accessor for animation-graph
-    // helpers (string→bone, sequence resolution, parameter fetch). Pairs
+    // helpers (stringÃ”Ã¥Ã†bone, sequence resolution, parameter fetch). Pairs
     // with the existing `Animation::ShouldUpdateSequences` sig to drive
     // arbitrary-frame skeleton manipulation (custom poses, freeze-bones,
     // server-style ragdoll). Anchored on the factory thunk
@@ -451,18 +447,18 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     Signature { name: "AnimationSystemUtils_ptr",             module: "animationsystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 83 EC 28 48 8B CA 48 8D 15", resolve: RIPREL_3, extra_off: 0 },
 
     // ---------- vphysics2.dll -----------------------------------------
-    // VPhysics2_Startup — vphysics2!sub_18006AF20 (~size 0x2a8). The
+    // VPhysics2_Startup Ã”Ã‡Ã¶ vphysics2!sub_18006AF20 (~size 0x2a8). The
     // module-level startup that brings up the physics world, surface-prop
     // loader, and the VPhysics2_Interface_001 singleton chain. Hook here
     // to inject custom collision filters / disable convex sweeps before
     // the world is registered (server-grade no-clip / silent-walk).
-    // First module-level vphysics2 sig in the universal-dumper — the
+    // First module-level vphysics2 sig in the universal-dumper Ã”Ã‡Ã¶ the
     // module's entire string table is heavily stripped, so RAW prologue
     // anchored on the unique `48 83 3D` global-init guard works best.
     Signature { name: "VPhysics2_Startup",                    module: "vphysics2.dll", needle: "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 54 41 56 41 57 48 83 EC 70 48 83 3D", resolve: NONE, extra_off: 0 },
 
     // ---------- schemasystem.dll --------------------------------------
-    // CSchemaSystem_VerifySchemaBindingConsistency — schemasystem!
+    // CSchemaSystem_VerifySchemaBindingConsistency Ã”Ã‡Ã¶ schemasystem!
     // sub_1800058F0 (~0x65d). Walks every registered class binding and
     // verifies field offset / size / type consistency against per-module
     // declarations. Refs the unique
@@ -471,15 +467,15 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // build (any disagreement is logged here before runtime asserts).
     Signature { name: "CSchemaSystem_VerifySchemaBindingConsistency", module: "schemasystem.dll", needle: "88 54 24 10 55 53 57 41 54 41 55 48 8B EC 48 81 EC 80 00 00 00 65 48 8B 04 25 58 00 00 00", resolve: NONE, extra_off: 0 },
 
-    // CSchemaSystem_RegisterModuleAndBuiltins — schemasystem!sub_1800106F0
+    // CSchemaSystem_RegisterModuleAndBuiltins Ã”Ã‡Ã¶ schemasystem!sub_1800106F0
     // (~0x3ca). Combined ref to "SchemaSystem_001" + "InsertNewClassBinding"
-    // — registers the SchemaSystem InterfaceReg AND the built-in primitive
+    // Ã”Ã‡Ã¶ registers the SchemaSystem InterfaceReg AND the built-in primitive
     // class bindings (Vector/QAngle/CUtlSymbolLarge/etc) in one shot.
-    // Critical bootstrap point — hook here to intercept every class
+    // Critical bootstrap point Ã”Ã‡Ã¶ hook here to intercept every class
     // schema before any module's typescope opens.
     Signature { name: "CSchemaSystem_RegisterModuleAndBuiltins", module: "schemasystem.dll", needle: "48 89 54 24 10 53 56 57 41 55 41 56 41 57 48 83 EC 48 45 33 ED 49 63 C0 33 FF 44 89 AC 24 90 00", resolve: NONE, extra_off: 0 },
 
-    // CSchemaSystem_InstallSchemaBindings — schemasystem!sub_1800375D0
+    // CSchemaSystem_InstallSchemaBindings Ã”Ã‡Ã¶ schemasystem!sub_1800375D0
     // (~0x4b). Per-module installer called from each .dll's startup with
     // its serialized schema-binding blob. Hook to enumerate every
     // module-local schema scope as it loads (lets the cheat snapshot
@@ -487,7 +483,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     Signature { name: "CSchemaSystem_InstallSchemaBindings",  module: "schemasystem.dll", needle: "40 53 48 83 EC 20 48 8B DA 48 8B D1 48 8D 0D ? ? ? ? E8 ? ? ? ? 85 C0 74 08 32 C0", resolve: NONE, extra_off: 0 },
 
     // ---------- networksystem.dll -------------------------------------
-    // CNetworkSystem_Init — networksystem!sub_1800EC0C0 (~0x89d). Module
+    // CNetworkSystem_Init Ã”Ã‡Ã¶ networksystem!sub_1800EC0C0 (~0x89d). Module
     // boot for INetworkSystem: brings up SteamNetworkingSockets, builds
     // the netmessage registry, and prepares CNetChan factory. Refs the
     // unique "CNetworkSystem::Init() failed - no SteamNetworking()" log.
@@ -495,7 +491,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // or short-circuiting the SteamNetworkingSockets init for offline use.
     Signature { name: "CNetworkSystem_Init",                  module: "networksystem.dll", needle: "40 55 53 57 41 54 41 55 41 57 48 8D AC 24 98 FC FF FF 48 81 EC 68 04 00 00 4C 8B E9", resolve: NONE, extra_off: 0 },
 
-    // CNetworkSystem_RegisterNetMessageHandlerAbstract — networksystem!
+    // CNetworkSystem_RegisterNetMessageHandlerAbstract Ã”Ã‡Ã¶ networksystem!
     // sub_1800BBC00 (~0x270). Every protobuf netmessage type registers its
     // handler through this funnel between StartRegisteringMessageHandlers
     // and FinishRegisteringMessageHandlers. Hook to (a) enumerate every
@@ -504,14 +500,14 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     Signature { name: "CNetworkSystem_RegisterNetMessageHandlerAbstract", module: "networksystem.dll", needle: "48 89 5C 24 10 48 89 6C 24 18 57 41 56 41 57 48 83 EC 50 4C 8B B4 24 90 00 00 00 41 8B D9", resolve: NONE, extra_off: 0 },
 
     // ---------- scenesystem.dll ---------------------------------------
-    // CSceneSystem_CreateStaticShape — scenesystem!sub_1800B1AF0 (~0x648).
+    // CSceneSystem_CreateStaticShape Ã”Ã‡Ã¶ scenesystem!sub_1800B1AF0 (~0x648).
     // Builds the GPU-side shape buffer for a static scene primitive.
     // Refs "CSceneSystem::CreateStaticShape(322): " unique log. Pairs
     // with CSceneSystem::DrawStaticPrimitive to inject custom debug
     // overlays / 3D wireframe ESP that survives the engine cull.
     Signature { name: "CSceneSystem_CreateStaticShape",       module: "scenesystem.dll", needle: "48 8B C4 48 89 48 08 55 41 54 41 56 48 8D 68 D8 48 81 EC 10 01 00 00 4C 8B 65 50 48 8D 4D 80", resolve: NONE, extra_off: 0 },
 
-    // CSceneSystem_InitGfxObjects — scenesystem!sub_1800B3E30 (~0x1b1d).
+    // CSceneSystem_InitGfxObjects Ã”Ã‡Ã¶ scenesystem!sub_1800B3E30 (~0x1b1d).
     // Master GPU-side init: creates persistent vertex/index buffers, the
     // shadow-cube atlas, particle batchers, and the CRenderingPipelineDx11
     // hookup. Refs "CSceneSystem::InitGfxObjects(976): " unique log. Hook
@@ -520,17 +516,17 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     Signature { name: "CSceneSystem_InitGfxObjects",          module: "scenesystem.dll", needle: "40 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 08 FE FF FF 48 81 EC F8 02 00 00", resolve: NONE, extra_off: 0 },
 
     // ---------- inputsystem.dll ---------------------------------------
-    // CInputSystem_PollInputState — inputsystem!sub_180005500 (~0x459).
+    // CInputSystem_PollInputState Ã”Ã‡Ã¶ inputsystem!sub_180005500 (~0x459).
     // Per-frame raw input poll: pulls SDL keyboard/mouse/joystick events,
     // drains the OS message queue, and writes into the inputsystem ring.
     // Refs the unique "PollInputState_SDL" string. Hook here to inject
     // synthetic mouse-deltas or filter specific keys before they hit the
-    // engine's button table — perfect anchor for raw aim-step / no-recoil
+    // engine's button table Ã”Ã‡Ã¶ perfect anchor for raw aim-step / no-recoil
     // mouse-comp without touching CCSGOInput.
     Signature { name: "CInputSystem_PollInputState",          module: "inputsystem.dll", needle: "40 53 41 56 48 81 EC 28 01 00 00 48 8D 05 ? ? ? ? 48 C7 44 24 38 46 04 00 00 4C 8B F1", resolve: NONE, extra_off: 0 },
 
     // ---------- materialsystem2.dll -----------------------------------
-    // CMaterial2_GetMode — materialsystem2!sub_18000BD40 (~0x16e). Per-
+    // CMaterial2_GetMode Ã”Ã‡Ã¶ materialsystem2!sub_18000BD40 (~0x16e). Per-
     // material rendering-mode resolver (default / wireframe / shadow /
     // depth-only / picking). Refs "CMaterial2::GetMode(644): Material
     // \"%s\" is requesting a bad mode \"%s\"!\n". Hook to force-override
@@ -538,12 +534,12 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // chams without shader patching).
     Signature { name: "CMaterial2_GetMode",                   module: "materialsystem2.dll", needle: "48 89 5C 24 18 57 48 83 EC 30 8B 02 48 8B D9 39 05 ? ? ? ? 48 8B 0D ? ? ? ? 48 89 74 24", resolve: NONE, extra_off: 0 },
 
-    // CMaterial2_GetVertexShaderInputSignature — materialsystem2!
+    // CMaterial2_GetVertexShaderInputSignature Ã”Ã‡Ã¶ materialsystem2!
     // sub_18000C8C0 (~0x2af). Returns the CVsInputSignatureVector for the
     // material's currently-bound layer (used by the renderer to validate
     // that a model's vertex layout matches the shader). Refs unique
     // "CMaterial2::GetVertexShaderInputSignature(767):" log. Hook to
-    // spoof signature compatibility — required when forcing one material
+    // spoof signature compatibility Ã”Ã‡Ã¶ required when forcing one material
     // onto a model with an incompatible vertex layout (e.g. character
     // vfx onto props for cross-class chams).
     Signature { name: "CMaterial2_GetVertexShaderInputSignature", module: "materialsystem2.dll", needle: "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 56 48 83 EC 30 F6 41 0B 01 4C 8B", resolve: NONE, extra_off: 0 },
@@ -805,12 +801,12 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // captured at the function entry, and uses literal byte runs that
     // are structurally stable (instruction selectors, not register
     // colourings).  These are the exact functions our internal calls
-    // into directly — community use cases include drop-in skin/glove
+    // into directly â€” community use cases include drop-in skin/glove
     // changers and a console-quality third-person camera.
     // ==================================================================
 
     // -- Cosmetics: skin / knife / glove direct-call pipeline ----------
-    // RegenerateWeaponSkin(weapon, bForce) — 0x18078C050 on 14154.
+    // RegenerateWeaponSkin(weapon, bForce) â€” 0x18078C050 on 14154.
     // Bypasses the bulk-iterator gate at weapon+0xAA8/+0xAC0 so a
     // cheat can apply skins without spawning a fake EconItem first.
     Signature {
@@ -820,7 +816,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
-    // GloveApply orchestrator — sub_180BBFAA0 — runs every spawner tick
+    // GloveApply orchestrator â€” sub_180BBFAA0 â€” runs every spawner tick
     // inside sub_180BC2620.  Reads m_EconGloves (embedded view at
     // pawn+0x1658), checks m_bNeedToReApplyGloves @ pawn+0x1655,
     // destroys old C_WorldModelGloves, spawns new bonemerged glove
@@ -832,7 +828,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
-    // Spawner orchestrator — sub_180BC2620 — checks pawn+0x13B1 each
+    // Spawner orchestrator â€” sub_180BC2620 â€” checks pawn+0x13B1 each
     // tick to drive GloveApply_PerTick.  Useful for entities/loadout
     // refresh hooks.
     Signature {
@@ -842,7 +838,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
-    // Bulk regen iterator — sub_18078E320 — iterates all C_CSWeaponBase,
+    // Bulk regen iterator â€” sub_18078E320 â€” iterates all C_CSWeaponBase,
     // gates per-weapon on weapon[0xAA8] || weapon[0xAC0], calls
     // RegenerateWeaponSkin.  Knowing this gate is the reason custom
     // skins are silently dropped without setting the fallback fields.
@@ -855,7 +851,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // -- Third-person: native ConCommand handlers ----------------------
-    // sub_180AC8BD0 — `thirdperson` ConCommand handler.  Calling this
+    // sub_180AC8BD0 â€” `thirdperson` ConCommand handler.  Calling this
     // directly is identical to typing `thirdperson` in console: sets
     // CInput+0x229=1, seeds camera anchor at CInput+0x230..+0x238,
     // calls localPawn->vtable[+0x9C8](true) so the local pawn
@@ -867,7 +863,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
-    // sub_180AC8AF0 — `firstperson` ConCommand handler.  Sister of the
+    // sub_180AC8AF0 â€” `firstperson` ConCommand handler.  Sister of the
     // above: clears CInput+0x229, calls localPawn->vtable[+0x9C8](false)
     // and broadcasts viewmodel/HUD reset.
     Signature {
@@ -877,7 +873,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: NONE,
         extra_off: 0,
     },
-    // CInput global pointer slot — `off_1820613C0` in IDA.  This is the
+    // CInput global pointer slot â€” `off_1820613C0` in IDA.  This is the
     // ACTUAL CInput pointer (deref the qword at this RVA).  The
     // cs2-dumper `dwCSGOInput = 0x23386E0` value points to a separate
     // C_Item entity reservoir and is NOT useful for camera flags.
@@ -898,9 +894,9 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // verified via 8-instance IDA Pro MCP (ports 13337-13344).
     // ==================================================================
 
-    // GetWorldFov resolver — sub_18080BE50. Renderer's actual FOV-read
+    // GetWorldFov resolver â€” sub_18080BE50. Renderer's actual FOV-read
     // entry point. Replaces the now-dead `SetWorldFov` E8 callsite
-    // (which has 0 hits on 14154 — see comment block at top of section
+    // (which has 0 hits on 14154 â€” see comment block at top of section
     // around line 57). The resolver:
     //   1. Honours fov_cs_debug ConVar override.
     //   2. Calls camera-services vfunc[33] for base world FOV.
@@ -917,13 +913,13 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CCSGOInput::WriteSubtickFromEntry — sub_180C53DB0 (drifted to
-    // 0x180C53E10 on 14154 — sig auto-resolves either way). Per-subtick
+    // CCSGOInput::WriteSubtickFromEntry â€” sub_180C53DB0 (drifted to
+    // 0x180C53E10 on 14154 â€” sig auto-resolves either way). Per-subtick
     // writer that copies CInput entry+0x10..+0x18 (view angles) and
     // entry+0x1C..+0x24 (shoot angles) into outgoing CUserCmd subtick
     // message fields. Hooked by the silent-aim path to redirect BOTH
     // view and shoot blocks per subtick (server uses shoot angles for
-    // hit-verification — view-only rewrite leaves bullets going to the
+    // hit-verification â€” view-only rewrite leaves bullets going to the
     // original aim direction).
     Signature {
         name: "WriteSubtickFromEntry",
@@ -933,16 +929,16 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // ClientModeCSNormal::OnEvent — sub_180C5A0B0 (drifted +0x60 to
+    // ClientModeCSNormal::OnEvent â€” sub_180C5A0B0 (drifted +0x60 to
     // 0x180C5A110 on 14154; sig still unique). The dispatcher CS2 uses
     // for VAC/untrusted disconnect events. Inspects KeyValues::GetName
     // and branches on:
-    //   "OnClientInsecureBlocked"        — VAC kicked us
-    //   "OnClientUntrustedLaunch"        — unsigned/injected module
-    //   "OnClientUntrustedSystemFiles"   — tampered files / cheat
-    //   "OnClientUntrustedDisallowed"    — disallowed launch
-    //   "OnTrustedLaunchFailed"          — trusted-mode init failed
-    //   "OnClientPureFileStateDirty"     — sv_pure mismatch
+    //   "OnClientInsecureBlocked"        â€” VAC kicked us
+    //   "OnClientUntrustedLaunch"        â€” unsigned/injected module
+    //   "OnClientUntrustedSystemFiles"   â€” tampered files / cheat
+    //   "OnClientUntrustedDisallowed"    â€” disallowed launch
+    //   "OnTrustedLaunchFailed"          â€” trusted-mode init failed
+    //   "OnClientPureFileStateDirty"     â€” sv_pure mismatch
     // Hooked by the watchdog so cleanup runs BEFORE the dialog renders.
     Signature {
         name: "ClientModeCSNormal_OnEvent",
@@ -963,7 +959,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
 
     // -- client.dll: combat / world ------------------------------------
 
-    // FX_FireBullets — sub_180C7BE80. Refs the "FX_FireBullets:
+    // FX_FireBullets â€” sub_180C7BE80. Refs the "FX_FireBullets:
     // GetItemDefinition failed" / "GetWeaponEconDataFromItem failed"
     // / "GetCSWeaponDataFromItem failed" log strings. Single anchor
     // function for all client-side bullet trace effects (tracers,
@@ -977,7 +973,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // DispatchSpawn caller — sub_1814D32A0. Iterates the pending-spawn
+    // DispatchSpawn caller â€” sub_1814D32A0. Iterates the pending-spawn
     // queue and calls per-entity DispatchSpawn vfunc. Refs the
     // "DispatchSpawn" string. Useful as a "wait until entity is
     // spawned" hook anchor for features that need post-spawn state
@@ -990,7 +986,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // m_bNoClipEnabled OnChange — sub_1808ADB40. Schema OnChange
+    // m_bNoClipEnabled OnChange â€” sub_1808ADB40. Schema OnChange
     // callback for noclip flag (loads m_bNoClipEnabled string by lea
     // immediately at prologue). Useful if implementing client-side
     // noclip for spectator demos / map exploration.
@@ -1002,8 +998,8 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // SpectatorInput — sub_1807D9130. Refs "spec_next" / "spec_prev"
-    // / "spec_player %d" — handles the spec_* ConCommand input. Useful
+    // SpectatorInput â€” sub_1807D9130. Refs "spec_next" / "spec_prev"
+    // / "spec_player %d" â€” handles the spec_* ConCommand input. Useful
     // for spectator-list UI / coach-cam features.
     Signature {
         name: "SpectatorInput",
@@ -1013,7 +1009,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // ViewModel HideZoomed handler — sub_1807A03D0. Refs
+    // ViewModel HideZoomed handler â€” sub_1807A03D0. Refs
     // m_bHideViewModelWhenZoomed; the function that gates viewmodel
     // visibility on zoom state. Hook to force viewmodel-on-while-scoped
     // (or always-hidden viewmodel for a clean screen).
@@ -1025,7 +1021,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CalcViewmodelTransform v2 — sub_1807A2460. The much larger
+    // CalcViewmodelTransform v2 â€” sub_1807A2460. The much larger
     // (0x1E8E byte) viewmodel-transform calculator. Hook for
     // viewmodel offset / FOV / hand-position customisation.
     Signature {
@@ -1038,7 +1034,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
 
     // -- engine2.dll ---------------------------------------------------
 
-    // RegisterConCommand impl — engine2!sub_1803FD270. Refs the
+    // RegisterConCommand impl â€” engine2!sub_1803FD270. Refs the
     // "RegisterConCommand: Unknown error..." log string. The function
     // to call directly to register a custom ConCommand from inside a
     // cheat (lets you bind cheat features to console commands).
@@ -1050,7 +1046,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // Client-side Disconnect_main — engine2!sub_1801D1510. Primary
+    // Client-side Disconnect_main â€” engine2!sub_1801D1510. Primary
     // disconnect handler (0x751 bytes), refs "disconnect" string and
     // "CL: SendStringCmd(disconnect)". Used by VAC watchdog as a
     // clean-eject path: invoke this before tearing down hooks so the
@@ -1063,10 +1059,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // Netchan timeout disconnect — engine2!sub_180069780. Refs
+    // Netchan timeout disconnect â€” engine2!sub_180069780. Refs
     // "CL: Disconnected - Client delta ticks out of order!". Fires
     // when the netchan detects desync. Hook to suppress / log these
-    // events (anti-VAC heuristic — desyncs from cheat hooks can
+    // events (anti-VAC heuristic â€” desyncs from cheat hooks can
     // trigger this).
     Signature {
         name: "Engine_NetTimeoutDisconnect",
@@ -1078,7 +1074,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
 
     // -- networksystem.dll ---------------------------------------------
 
-    // CNetChan::ProcessMessages impl — networksystem!sub_1800BB280.
+    // CNetChan::ProcessMessages impl â€” networksystem!sub_1800BB280.
     // Refs "CNetChan::ProcessMessages" log string. NOTE: distinct from
     // the client.dll string-anchored entry of the same name which
     // resolves a thunk; this is the actual impl. Hook here for
@@ -1092,7 +1088,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CNetChan::SendNetMessage impl — networksystem!sub_1800BD670.
+    // CNetChan::SendNetMessage impl â€” networksystem!sub_1800BD670.
     // Refs all 3 SendNetMessage error log strings ("invalid category
     // for this channel", "buffer is full", "SerializeAbstract failed").
     // Send-side counterpart for outgoing protobuf monitoring/blocking.
@@ -1105,7 +1101,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ==================================================================
-    // NUVORA APR-26-2026 EXPANSION v3 (build 14155 — feature-focused)
+    // NUVORA APR-26-2026 EXPANSION v3 (build 14155 â€” feature-focused)
     // ------------------------------------------------------------------
     // Sigs hand-picked for direct utility in internal/external feature
     // code: usercmd processing, world traces, local-player accessors,
@@ -1118,9 +1114,9 @@ pub static CS2_SIGNATURES: &[Signature] = &[
 
     // -- client.dll: combat/usercmd/world ------------------------------
 
-    // RunCommand processor — sub_1809DA390. Refs the per-tick log
+    // RunCommand processor â€” sub_1809DA390. Refs the per-tick log
     // "runcommand:%04d,tick:%u". Single anchor for the function CS2
-    // calls *before* prediction runs each subtick — useful as the
+    // calls *before* prediction runs each subtick â€” useful as the
     // canonical entry to inject anti-aim / fake-lag manipulation
     // because angles in m_pCmd are still mutable here.
     Signature {
@@ -1131,7 +1127,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // TraceShape (Client) — sub_18098D340. Refs the
+    // TraceShape (Client) â€” sub_18098D340. Refs the
     // "Physics/TraceShape (Client)" perfetto category. The client-side
     // raycast/sweep entry every visibility check funnels through.
     // ESSENTIAL for: aimbot visibility filter, autowall, no-spread
@@ -1144,7 +1140,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // GetLocalPlayer accessor — sub_180379150. Refs *both*
+    // GetLocalPlayer accessor â€” sub_180379150. Refs *both*
     // "GetLocalPlayerPawn" and "GetLocalPlayerController" interface
     // export strings (single dispatcher). The cleanest, version-stable
     // way to fetch the local controller/pawn without poking the entity
@@ -1158,7 +1154,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // GetPlayerByIndex export — sub_180F02D60. Refs the
+    // GetPlayerByIndex export â€” sub_180F02D60. Refs the
     // "GetPlayerByIndex" interface export string. Server-authoritative
     // controller lookup by entity index (1..maxclients). Useful for
     // ESP/aimbot enumeration when you don't want to walk the entity
@@ -1171,7 +1167,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CalcViewmodelView — sub_180C699D0. Reads m_flFOVSensitivityAdjust
+    // CalcViewmodelView â€” sub_180C699D0. Reads m_flFOVSensitivityAdjust
     // and the viewmodel_offset_{x,y,z} convars to build the viewmodel
     // transform. Hook target for: viewmodel FOV override (to match
     // world FOV without the sensitivity penalty), custom viewmodel
@@ -1186,7 +1182,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
 
     // -- engine2.dll: cvar / command / host-state ----------------------
 
-    // RegisterConVar impl — engine2!sub_1803FC080. Refs the
+    // RegisterConVar impl â€” engine2!sub_1803FC080. Refs the
     // "RegisterConVar: Unknown error registering convar" log. Direct
     // entry for *registering* a custom ConVar from inside a cheat
     // (mirrors RegisterConCommand). Combine with the existing
@@ -1200,7 +1196,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CHLTVClient::ExecuteStringCommand — engine2!sub_180120D70. Refs
+    // CHLTVClient::ExecuteStringCommand â€” engine2!sub_180120D70. Refs
     // "CHLTVClient::ExecuteStringCommand: Unknown command %s.". The
     // server-side string-command dispatcher used while in HLTV/GOTV
     // demo playback. Useful for replay/demo tooling, and for pushing
@@ -1213,7 +1209,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CHostStateMgr::QueueNewRequest — engine2!sub_18021AFC0. Refs
+    // CHostStateMgr::QueueNewRequest â€” engine2!sub_18021AFC0. Refs
     // the "CHostStateMgr::QueueNewRequest( %s, %u )" log. Single entry
     // for transitioning host state (HSR_GAME / HSR_QUIT / HSR_IDLE /
     // HSR_SOURCETV_RELAY). Useful for VAC watchdog clean-eject (queue
@@ -1229,7 +1225,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
 
     // -- materialsystem2.dll -------------------------------------------
 
-    // CMaterial2::LoadShadersAndSetupModes — materialsystem2!
+    // CMaterial2::LoadShadersAndSetupModes â€” materialsystem2!
     // sub_180010040. Refs the "Error creating shader %s for material
     // %s!" log block (multiple anchors). The function CS2 calls when
     // a material is loaded and its shader passes are compiled.
@@ -1246,7 +1242,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
 
     // -- rendersystemdx11.dll ------------------------------------------
 
-    // CRenderDeviceDx11::SetMode — rendersystemdx11!sub_1800399E0.
+    // CRenderDeviceDx11::SetMode â€” rendersystemdx11!sub_1800399E0.
     // Refs "CRenderDeviceDx11::SetMode: Previous mode has not been
     // shut down!". The HUGE (0x2183 byte) function that
     // creates/recreates the swapchain + RTVs whenever resolution /
@@ -1261,7 +1257,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CSwapChainBase::QueuePresentAndWait — rendersystemdx11!
+    // CSwapChainBase::QueuePresentAndWait â€” rendersystemdx11!
     // sub_180034650. Refs the "CSwapChainBase::QueuePresentAndWait()
     // looped for %d iterations without a present event" warning.
     // The wrapper around IDXGISwapChain::Present that CS2 actually
@@ -1276,10 +1272,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CRenderDeviceDx11::SetHardwareGammaRamp — rendersystemdx11!
+    // CRenderDeviceDx11::SetHardwareGammaRamp â€” rendersystemdx11!
     // sub_18003F790. Refs "CRenderDeviceDx11::SetHardwareGammaRamp:
     // Unable to set gamma controls!". Lets you set/read the live
-    // gamma ramp — useful for nightmode/wallhack-style global
+    // gamma ramp â€” useful for nightmode/wallhack-style global
     // brightness boost without touching shaders, and for restoring
     // gamma cleanly on detach.
     Signature {
@@ -1291,7 +1287,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ==================================================================
-    // NUVORA APR-26-2026 EXPANSION v4 (build 14155 — events/scene/net)
+    // NUVORA APR-26-2026 EXPANSION v4 (build 14155 â€” events/scene/net)
     // ------------------------------------------------------------------
     // Round 4: hooks for the game-event system (incoming server events
     // + client-side dispatch), the scene-node bone hierarchy (chams /
@@ -1302,7 +1298,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
 
     // -- client.dll ----------------------------------------------------
 
-    // CGameEventManager::AddListener — sub_180938970. Refs the
+    // CGameEventManager::AddListener â€” sub_180938970. Refs the
     // "CGameEventManager::AddListener: event '%s' unknown." log.
     // The function to call to register a client-side game-event
     // listener (round_start / player_death / item_purchase / bomb_*
@@ -1316,7 +1312,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CGameEventManager::UnserializeEvent — sub_1809911A0. Refs the
+    // CGameEventManager::UnserializeEvent â€” sub_1809911A0. Refs the
     // "CGameEventManager::UnserializeEvent:: unknown event id %i."
     // log. Where every server-pushed game event is reconstructed on
     // the client. Hook here to inspect/drop server events server-side
@@ -1330,7 +1326,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CGameSceneNode::BuildBoneMergeWork — sub_18093E3C0. Refs the
+    // CGameSceneNode::BuildBoneMergeWork â€” sub_18093E3C0. Refs the
     // "CGameSceneNode::BuildBoneMergeWork: Invalid use of
     // bonemerge-based hierarchy" log. Walks the bone hierarchy when
     // an entity is parented bone-to-bone (weapons, attachments).
@@ -1344,10 +1340,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CGameSceneNode::StartHierarchicalAttachment — sub_18098AE80.
+    // CGameSceneNode::StartHierarchicalAttachment â€” sub_18098AE80.
     // Refs "CGameSceneNode::StartHierarchicalAttachment: Cannot start
     // hierarchical attachment on a skeleton instance that has no
-    // owner!". Resolves attachment-name strings to bone indices —
+    // owner!". Resolves attachment-name strings to bone indices â€”
     // the function ESP/chams use to locate (e.g.) "muzzle_flash" or
     // "head" attachments on a model.
     Signature {
@@ -1360,11 +1356,11 @@ pub static CS2_SIGNATURES: &[Signature] = &[
 
     // -- engine2.dll ---------------------------------------------------
 
-    // Application::LoadGameInfo — engine2!sub_18018D760. Refs
+    // Application::LoadGameInfo â€” engine2!sub_18018D760. Refs
     // "Application unable to load gameinfo.gi file from directory".
     // Parses gameinfo.gi at startup. Useful as a very early init
     // hook (this fires before signon, before client.dll loads its
-    // entity factories) — gives a deterministic place to install
+    // entity factories) â€” gives a deterministic place to install
     // engine-level VMT hooks before anything sees them.
     Signature {
         name: "Engine_LoadGameInfo",
@@ -1374,7 +1370,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CNetworkGameClient::SetSignonState — engine2!sub_180060F80.
+    // CNetworkGameClient::SetSignonState â€” engine2!sub_180060F80.
     // Refs "CNetworkGameClient::SetSignonState: start %i" / "end %i".
     // The function that drives the connection state machine
     // (NONE -> CHALLENGE -> CONNECTED -> NEW -> PRESPAWN -> SPAWN ->
@@ -1389,7 +1385,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CNetworkGameClientBase::Connect — engine2!sub_18007F400. Refs
+    // CNetworkGameClientBase::Connect â€” engine2!sub_18007F400. Refs
     // "CL: CNetworkGameClientBase::Connect() calling
     // SetSignonState( SIGNONSTATE_CONNECTED )". The function that
     // *initiates* a connection to a server. Hook to: log/whitelist
@@ -1403,10 +1399,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // MountAddon — engine2!sub_180193440. Refs "MountAddon: Failed
+    // MountAddon â€” engine2!sub_180193440. Refs "MountAddon: Failed
     // to find ADDONS search path." (single hit, 0xAE4 byte function).
     // Programmatic addon-mounting entry. Useful for workshop-map /
-    // custom-content tooling — and as a hook target if you want to
+    // custom-content tooling â€” and as a hook target if you want to
     // intercept which addons CS2 actually loads.
     Signature {
         name: "Engine_MountAddon",
@@ -1417,10 +1413,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA APR-26-2026 EXPANSION v5 (build 14155 — convars / commands)
+    // NUVORA APR-26-2026 EXPANSION v5 (build 14155 â€” convars / commands)
     // ====================================================================
 
-    // ConVar registration — engine2!sub_1803FC080. The internal
+    // ConVar registration â€” engine2!sub_1803FC080. The internal
     // CCvar::RegisterConVar entry; refs "RegisterConVar: Unknown
     // error registering convar \"%s\"!". Hook here to enumerate /
     // patch every ConVar at registration time, or block creation
@@ -1433,7 +1429,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // ConCommand registration — engine2!sub_1803FD270. The internal
+    // ConCommand registration â€” engine2!sub_1803FD270. The internal
     // CCvar::RegisterConCommand entry; refs "RegisterConCommand:
     // Unknown error registering con command \"%s\"!". Hook to
     // enumerate / patch / hide console commands at startup.
@@ -1445,7 +1441,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CCommand::Tokenize — engine2!sub_1803FD710. Refs "CCommand::
+    // CCommand::Tokenize â€” engine2!sub_1803FD710. Refs "CCommand::
     // Tokenize: Encountered command which overflows the tokenizer
     // buffer.. Skipping!". Every console command (typed, alias,
     // exec, RCON, scripted) flows through here before dispatch.
@@ -1458,7 +1454,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CGameClient::ClientCommand — engine2!sub_1800A1240. Refs
+    // CGameClient::ClientCommand â€” engine2!sub_1800A1240. Refs
     // "ClientCommand, 0 length string supplied.". Server-side
     // dispatcher for stringcmds received from clients (e.g.
     // "buy", "menuselect", "kill"). Useful for server-tooling
@@ -1471,7 +1467,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CHLTVClient::ExecuteStringCommand — engine2!sub_180120D70.
+    // CHLTVClient::ExecuteStringCommand â€” engine2!sub_180120D70.
     // Refs "CHLTVClient::ExecuteStringCommand: Unknown command %s.".
     // GOTV / HLTV-side stringcmd dispatcher. Useful for HLTV
     // bot tooling and demo-recorder hooks.
@@ -1484,13 +1480,13 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA APR-26-2026 EXPANSION v5 (build 14155 — client gameplay)
+    // NUVORA APR-26-2026 EXPANSION v5 (build 14155 â€” client gameplay)
     // ====================================================================
 
-    // FX_FireBullets — client!sub_180C7BE80. Refs "FX_FireBullets:
+    // FX_FireBullets â€” client!sub_180C7BE80. Refs "FX_FireBullets:
     // GetItemDefinition failed", "...GetWeaponEconDataFromItem failed
     // for weapon %s", "...GetCSWeaponDataFromItem failed for weapon
-    // %s" — three unique strings inside a single ~0x869 byte
+    // %s" â€” three unique strings inside a single ~0x869 byte
     // function. Client-side bullet-fire effect / tracer / decal /
     // event dispatcher. PRIME hook target for tracers, hit markers,
     // bullet impact replay, recoil-reset detection.
@@ -1502,7 +1498,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // RunCommand context — client!sub_1809DA390. Refs "runcommand:
+    // RunCommand context â€” client!sub_1809DA390. Refs "runcommand:
     // %04d,tick:%u" log format. The per-tick CSPlayer movement
     // RunCommand wrapper that drives prediction, where CUserCmd is
     // applied. KEY hook for movement cheats (auto-strafe, perfect
@@ -1517,15 +1513,15 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA APR-26-2026 EXPANSION v6 (build 14155 — present / scene render)
+    // NUVORA APR-26-2026 EXPANSION v6 (build 14155 â€” present / scene render)
     // ====================================================================
 
-    // CSwapChainBase::QueuePresentAndWait — rendersystemdx11!
+    // CSwapChainBase::QueuePresentAndWait â€” rendersystemdx11!
     // sub_180034650. Refs "CSwapChainBase::QueuePresentAndWait()
     // looped for %d iterations without a present event.". The
     // engine-level wrapper around IDXGISwapChain::Present.
     // GOLD STANDARD frame hook for ImGui menus, ESP overlay,
-    // chams setup — runs every present, has full device context.
+    // chams setup â€” runs every present, has full device context.
     Signature {
         name: "CSwapChainDx11_QueuePresentAndWait",
         module: "rendersystemdx11.dll",
@@ -1534,11 +1530,11 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // Swapchain ResizeBuffers — rendersystemdx11!sub_18003DD20. Refs
+    // Swapchain ResizeBuffers â€” rendersystemdx11!sub_18003DD20. Refs
     // both "m_pSwapChain->ResizeTarget(...)" and "m_pSwapChain->
     // ResizeBuffers(...)" (two strings, single function). Hook to
     // re-create your render targets / ImGui backbuffer view when
-    // window is resized or fullscreen toggled — without this, an
+    // window is resized or fullscreen toggled â€” without this, an
     // ImGui hook breaks on every alt-tab/resize.
     Signature {
         name: "CSwapChainDx11_ResizeBuffers",
@@ -1548,7 +1544,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // Thread_RenderSceneDrawList — scenesystem!sub_1800EDA30. Refs
+    // Thread_RenderSceneDrawList â€” scenesystem!sub_1800EDA30. Refs
     // "Thread_RenderSceneDrawList" job name (single hit). Per-view
     // scene draw-list submission. Useful as a per-view render hook
     // (e.g. inject world-space chams pass before submission).
@@ -1560,7 +1556,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CSceneSystem RenderViewLayer — scenesystem!sub_1800EDD80
+    // CSceneSystem RenderViewLayer â€” scenesystem!sub_1800EDD80
     // (~0xEE6 bytes). One of two functions referencing the
     // "Thread_RenderViewLayer" job name string. The big per-layer
     // dispatcher that walks scene objects and submits draw work.
@@ -1574,12 +1570,12 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA APR-26-2026 EXPANSION v7 (build 14155 — material/net/damage)
+    // NUVORA APR-26-2026 EXPANSION v7 (build 14155 â€” material/net/damage)
     // ====================================================================
 
-    // CMaterialSystem2::FrameUpdate — materialsystem2!sub_18003BAC0.
+    // CMaterialSystem2::FrameUpdate â€” materialsystem2!sub_18003BAC0.
     // Refs the unique "CMaterialSystem2::FrameUpdate" job-name
-    // string. Per-frame material state advance — fires before every
+    // string. Per-frame material state advance â€” fires before every
     // scene render, useful as an alternate render-pacing hook for
     // material patches (chams refresh, override-mode reset).
     Signature {
@@ -1590,7 +1586,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CNetChan::ProcessMessages — networksystem!sub_1800BB280. Refs
+    // CNetChan::ProcessMessages â€” networksystem!sub_1800BB280. Refs
     // the literal "CNetChan::ProcessMessages" string + two timing
     // log-format strings (single function). Where every received
     // network message dispatches to its handler. PRIME hook for
@@ -1603,10 +1599,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CNetChan::SendNetMessage — networksystem!sub_1800BD670. Refs
+    // CNetChan::SendNetMessage â€” networksystem!sub_1800BD670. Refs
     // three "CNetChan::SendNetMessage:" diagnostic strings (invalid
     // category / buffer full / SerializeAbstract). The outbound
-    // counterpart — every netmessage you send (CMsg, RCON, voice,
+    // counterpart â€” every netmessage you send (CMsg, RCON, voice,
     // user-cmd) flows through here. Hook for traffic shaping /
     // pre-send mutation / packet drop.
     Signature {
@@ -1618,14 +1614,14 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA APR-26-2026 EXPANSION v7 (build 14155 — client gameplay)
+    // NUVORA APR-26-2026 EXPANSION v7 (build 14155 â€” client gameplay)
     // ====================================================================
 
-    // CBaseEntity::TakeDamageOld — client!sub_180223C70. Refs both
+    // CBaseEntity::TakeDamageOld â€” client!sub_180223C70. Refs both
     // "CBaseEntity::TakeDamageOld: damagetype %d with info.
     // GetDamageForce() == Vector::vZero" and the ...vector::vZero
     // counterpart. The legacy (still-used) damage-application
-    // entry — hook for damage-indicator, hit-marker, mini-aimbot
+    // entry â€” hook for damage-indicator, hit-marker, mini-aimbot
     // damage-prediction, and god-mode patches.
     Signature {
         name: "CBaseEntity_TakeDamageOld",
@@ -1635,7 +1631,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CGameTrace dispatcher — client!sub_18098D340. Refs the unique
+    // CGameTrace dispatcher â€” client!sub_18098D340. Refs the unique
     // "Physics/TraceShape (Client)" profile-zone string. Wraps
     // every client-side trace (TraceLine / TraceHull) into the
     // physics system. Hook for visibility checks, autowall, head-
@@ -1649,10 +1645,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA APR-26-2026 EXPANSION v7 (build 14155 — entity factory)
+    // NUVORA APR-26-2026 EXPANSION v7 (build 14155 â€” entity factory)
     // ====================================================================
 
-    // DispatchSpawn entry — client!sub_1814D32A0. Single string-
+    // DispatchSpawn entry â€” client!sub_1814D32A0. Single string-
     // ref "DispatchSpawn". Spawns / re-initialises any entity on
     // the client (called in waves on round-start, map-load,
     // late-create). Hook to intercept new entities (auto-tag
@@ -1666,10 +1662,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA APR-26-2026 EXPANSION v8 (build 14155 — resources / hoststate)
+    // NUVORA APR-26-2026 EXPANSION v8 (build 14155 â€” resources / hoststate)
     // ====================================================================
 
-    // CResourceSystem::FindOrRegisterResourceByName_Internal —
+    // CResourceSystem::FindOrRegisterResourceByName_Internal â€”
     // resourcesystem!sub_180016D80. Refs the unique
     // "CResourceSystem::FindOrRegisterResourceByName_Internal"
     // string. Every model / material / sound / particle path
@@ -1683,7 +1679,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CResourceSystem::BlockingLoadResourceByNameIntoJustInTimeManifest —
+    // CResourceSystem::BlockingLoadResourceByNameIntoJustInTimeManifest â€”
     // resourcesystem!sub_180017360. Refs that string. Synchronous
     // resource-load entry. Hook to detect or block on-demand asset
     // streaming, prefetch overrides, custom asset injection.
@@ -1695,7 +1691,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CResourceSystem::FrameUpdate — resourcesystem!sub_18001C010.
+    // CResourceSystem::FrameUpdate â€” resourcesystem!sub_18001C010.
     // Refs both the unique "ResourceSystemWaitingForFutureWork"
     // tracing string and "Idle (ResourceSystemSleep)" inside the
     // same ~0xC83 byte function. Per-frame resource-system tick.
@@ -1709,7 +1705,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CHostStateMgr::QueueNewRequest — engine2!sub_18021AFC0. Refs
+    // CHostStateMgr::QueueNewRequest â€” engine2!sub_18021AFC0. Refs
     // the unique "CHostStateMgr::QueueNewRequest( %s, %u )" log
     // string. The engine's host-state transition queue (map
     // change, disconnect, demo playback, restart). Hook to
@@ -1724,7 +1720,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA APR-26-2026 EXPANSION v9 (build 14155 — chams / glow / skin)
+    // NUVORA APR-26-2026 EXPANSION v9 (build 14155 â€” chams / glow / skin)
     //
     // Notes for "real metal / gold / silver" chams looking like a real
     // PBR material instead of a flat colour swap:
@@ -1737,7 +1733,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //                 MetalnessTexture, NormalMap, AmbientOcclusion).
     //
     //   To produce a believable "gold" chams you do NOT just override
-    //   `m_clrRender` — that only multiplies vertex colour. You need
+    //   `m_clrRender` â€” that only multiplies vertex colour. You need
     //   to swap `m_materialGroup` (CSkeletonInstance::SetMaterialGroup
     //   below) onto a custom `csgo_character` material whose shader
     //   params are set to:
@@ -1756,12 +1752,12 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //   exposed in v1.11.0).
     //
     //   The CGlowProperty path (m_glowColor / m_iGlowType) drives the
-    //   outline post-process — useful as an outline-only mode but
+    //   outline post-process â€” useful as an outline-only mode but
     //   NOT what produces the metal-look itself.
     // ====================================================================
 
-    // CSkeletonInstance::SetMaterialGroup — client!sub_180A2B0D0
-    // (~0x2C bytes — small fast setter). Verified via decomp:
+    // CSkeletonInstance::SetMaterialGroup â€” client!sub_180A2B0D0
+    // (~0x2C bytes â€” small fast setter). Verified via decomp:
     //   if ( a2 != *(_DWORD *)(a1 + 0x3C4) ) {
     //       *(_DWORD *)(a1 + 0x3C4) = a2;            // m_materialGroup
     //       v2 = *(_QWORD *)(a1 + 0x228);            // scene-object
@@ -1773,14 +1769,14 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // pointing at your custom csgo_character.vfx variant
     // (gold/silver/etc.) here every frame.
     //
-    // NOTE v1.14.0 mistakenly anchored this at sub_1801BC0B0 — that
+    // NOTE v1.14.0 mistakenly anchored this at sub_1801BC0B0 â€” that
     // address is `CBodyComponent::RegisterScriptDescriptor`, a
     // one-shot script-binding registrar that contains the literal
     // "SetMaterialGroup" symbol but is NOT the runtime setter.
     // The wrapper chain is:
     //   Script_SetMaterialGroup (sub_1801D5890)
     //     -> vtable[+0x58] (CBodyComponent::GetSkeletonInstance)
-    //     -> CSkeletonInstance::SetMaterialGroup (sub_180A2B0D0) ← real
+    //     -> CSkeletonInstance::SetMaterialGroup (sub_180A2B0D0) â† real
     Signature {
         name: "CSkeletonInstance_SetMaterialGroup",
         module: "client.dll",
@@ -1790,7 +1786,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // CSkeletonInstance::SetMeshGroupMask (skeletonMeshGroupMaskChanged
-    // network-var change handler) — client!sub_180A23D20.  Verified
+    // network-var change handler) â€” client!sub_180A23D20.  Verified
     // via the CModelState change-handler registrar sub_18049BBF0 which
     // wires "skeletonMeshGroupMaskChanged" -> sub_180A23D20.  Sets
     // `m_MeshGroupMask` at +0x1C8 and notifies scene system.
@@ -1804,7 +1800,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CSkeletonInstance::OnBodyGroupChoiceChanged — client!sub_180A23BB0.
+    // CSkeletonInstance::OnBodyGroupChoiceChanged â€” client!sub_180A23BB0.
     // Wired via CModelState registrar as the "bodyGroupChoiceChanged"
     // handler. Lets you control per-bodygroup mesh selection at the
     // skeleton level (without going through CBaseModelEntity).
@@ -1816,9 +1812,9 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CSkeletonInstance::OnSkeletonModelChanged — client!sub_180A23DC0
+    // CSkeletonInstance::OnSkeletonModelChanged â€” client!sub_180A23DC0
     // (tiny, 18 bytes). Wired as "skeletonModelChanged" handler.
-    // Fires whenever a model swap is netted to the client — perfect
+    // Fires whenever a model swap is netted to the client â€” perfect
     // place to (a) re-resolve your override material for the new
     // model, (b) reset cached bone counts, (c) recompute bodygroup
     // override masks.
@@ -1830,12 +1826,12 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CSkeletonInstance::PostDataUpdate — client!sub_180A24D50
+    // CSkeletonInstance::PostDataUpdate â€” client!sub_180A24D50
     // (~0xDFB).  Fires after every server net-state update for a
     // skeleton-bound entity (player / weapon / hostage). Refs
     // "CSkeletonInstance::PostDataUpdate".  Best place to re-apply
     // material-group / mesh-group / skin overrides after the server
-    // resets them — without this hook your chams flicker on every
+    // resets them â€” without this hook your chams flicker on every
     // entity update.
     Signature {
         name: "CSkeletonInstance_PostDataUpdate",
@@ -1845,10 +1841,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CSkeletonInstance::GetTransformsForHitboxList — client!
+    // CSkeletonInstance::GetTransformsForHitboxList â€” client!
     // sub_180A18F60. Refs the unique "CSkeletonInstance::
     // GetTransformsForHitboxList" string. Per-hitbox bone
-    // transform fetch — the canonical source for hitbox ESP /
+    // transform fetch â€” the canonical source for hitbox ESP /
     // skeleton ESP / aimbot bone targets, and the matching
     // bone-space frame for chams (so per-hitbox material masks
     // stay aligned to limbs).
@@ -1860,7 +1856,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CGlowProperty::OnGlowTypeChanged — client!sub_180B0B630 (~0xE7).
+    // CGlowProperty::OnGlowTypeChanged â€” client!sub_180B0B630 (~0xE7).
     // Verified via the registrar sub_1802E10F0 which wires
     // "OnGlowTypeChanged" -> sub_180B0B630 and "OnGlowColorChanged"
     // -> sub_180B0B620.  Fires every time `m_iGlowType` (or
@@ -1870,7 +1866,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // force `m_bGlowing = true` and override the colour for every
     // entity you want outlined regardless of network state.
     //
-    // NOTE v1.14.0 mistakenly anchored this at sub_1802E10F0 — that
+    // NOTE v1.14.0 mistakenly anchored this at sub_1802E10F0 â€” that
     // address is the prediction-field registrar (a one-shot init
     // function), not the runtime handler.  Sig collided with two
     // other registrars (3 matches in find_bytes); the real handler
@@ -1883,9 +1879,9 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // GlowObjectManager_GetInstance — client!sub_180B09570 (8 bytes,
+    // GlowObjectManager_GetInstance â€” client!sub_180B09570 (8 bytes,
     // `mov rax, [g_pGlowObjectManager]; ret`).  Resolves the global
-    // CGlowObjectManager singleton — the actual outline-renderer
+    // CGlowObjectManager singleton â€” the actual outline-renderer
     // that owns the per-entity outline list & materials.  Direct
     // alternative to hooking CGlowProperty: register/unregister
     // entities for outline yourself, set their colours, alpha, and
@@ -1898,7 +1894,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CBaseModelEntity::SetBodygroup — client!sub_1808D87F0 (~0x1D4).
+    // CBaseModelEntity::SetBodygroup â€” client!sub_1808D87F0 (~0x1D4).
     // Refs "CBaseModelEntity::SetBodygroup(%d,%d) failed:
     // CBaseModelEntity has no model!". Lets you mask off mesh
     // parts (e.g. drop the player's vest mesh so chams shows the
@@ -1913,13 +1909,13 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA MAY-01-2026 EXPANSION v10 (build 14155 — VMAT / shader pipeline)
+    // NUVORA MAY-01-2026 EXPANSION v10 (build 14155 â€” VMAT / shader pipeline)
     //
     // The "real PBR chams" recipe documented in v9 needs a *real* CMaterial2
     // to point CSkeletonInstance::SetMaterialGroup at. These six anchors
     // expose every entry on the CMaterialSystem2 / CMaterial2 / CVfxProgramData
     // pipeline you need to LOAD, COMPILE, and SWAP a custom .vmat_c at
-    // runtime — without round-tripping through the resource system from the
+    // runtime â€” without round-tripping through the resource system from the
     // file system.
     //
     // Pipeline (all on materialsystem2.dll, build 14155):
@@ -1956,15 +1952,15 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // All six are STRREF-anchored on log strings with exactly ONE xref each
     // (verified via mcp_ida-pro-mcp_xref_query). The strings are literal
     // C source-file LOG_ERROR / Plat_FatalError messages and are extremely
-    // stable across patches — they have not changed since at least 14154.
+    // stable across patches â€” they have not changed since at least 14154.
     //
     // RTTI strings `.?AVIMaterial2@@` @ 0x180146F98 and `.?AVCMaterial2@@`
-    // @ 0x1801473C0 are also present in materialsystem2.dll — keep these
+    // @ 0x1801473C0 are also present in materialsystem2.dll â€” keep these
     // in mind for future ResolveKind::Vftable work to expose
     // IMaterial2::SetParam / Bind / GetShaderName slots directly.
     // ====================================================================
 
-    // CMaterialSystem2::Init — materialsystem2!sub_180036E40 (~0x132B).
+    // CMaterialSystem2::Init â€” materialsystem2!sub_180036E40 (~0x132B).
     // Refs the literal "MaterialSystem2" subsystem-name string.
     // First-touch hook for installing your own CMaterialResource
     // type-manager or pre-seeding the shader cache with custom
@@ -1977,7 +1973,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CMaterialSystem2::GetErrorMaterial — materialsystem2!sub_180016D10
+    // CMaterialSystem2::GetErrorMaterial â€” materialsystem2!sub_180016D10
     // (~0x9B9). Refs the unique fatal-spew string
     // "CMaterialSystem2::GetErrorMaterial(529): GetErrorMaterial()
     // called when m_pMaterialTypeManager == NULL!". Returns the
@@ -2003,12 +1999,12 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // STRREF anchor for that function on build 14155 if a future raw
     // pattern goes stale.)
 
-    // CMaterial2::CompileComboAndGetVariables_DynamicShaderCompile —
+    // CMaterial2::CompileComboAndGetVariables_DynamicShaderCompile â€”
     // materialsystem2!sub_180013FA0 (~0x95E). Refs the unique source
     // path string "CompileComboAndGetVariables_DynamicShaderCompile(),
     // C:\\buildworker\\csgo_rel_win64\\build\\src\\materialsystem2\\
     // material2.cpp:2786" (1 xref). Dynamic shader-permutation compile
-    // path — every novel combo (e.g. your gold chams running with a
+    // path â€” every novel combo (e.g. your gold chams running with a
     // never-seen-before lighting/skinning combo) lands here. Hook to:
     //   - log permutation requests for warmup baking
     //   - short-circuit slow compiles by serving a pre-built combo
@@ -2021,7 +2017,48 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CVfxProgramData::FindOrCreateStaticComboDataInCache —
+    // Dynamic shader compile batch driver â€” materialsystem2!sub_18003A200
+    // (~0x1053). Emits the compile-batch status lines
+    // "Compiling %i shaders:" and "Compiled %i shaders (%i cached) in %.1fs".
+    // This function fans into CMaterial2_CompileComboAndGetVariables_
+    // DynamicShaderCompile for each queued permutation and is the best
+    // high-level timing hook for compile stalls / warmup effectiveness.
+    Signature {
+        name: "CMaterialSystem2_DynamicShaderCompile_ProcessQueue",
+        module: "materialsystem2.dll",
+        needle: "Compiling %i shaders:",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // CMaterial2::GetVertexShaderInputSignature â€” materialsystem2!
+    // sub_18000C8C0 (~0x2AF). Emits unique GetVertexShaderInputSignature
+    // validation errors and can trigger dynamic compile queue processing
+    // through sub_18003A200 when VS input signature data is missing/stale.
+    // Useful for diagnosing shader-input mismatches in custom material paths.
+    Signature {
+        name: "CMaterial2_GetVertexShaderInputSignature",
+        module: "materialsystem2.dll",
+        needle: "CMaterial2::GetVertexShaderInputSignature(767): Error! Material \"%s\" doesn't have any valid layers to get the CVsInputSignatureVector from!\n",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // Dynamic shader compile reload orchestrator â€” materialsystem2!
+    // sub_1800355C0 (~0x79). Calls
+    // CMaterialSystem2_DynamicShaderCompile_UnloadAllMaterials and then
+    // CMaterialSystem2_DynamicShaderCompile_ProcessQueue, followed by SRW
+    // lock-protected sync over a fixed block. Compact entry for observing
+    // full reload+recompile cycles.
+    Signature {
+        name: "CMaterialSystem2_DynamicShaderCompile_ReloadAndSync",
+        module: "materialsystem2.dll",
+        needle: "48 83 EC 20 48 8B 35 ? ? ? ? 48 8B CE E8 ? ? ? ? 48 8B CE E8 ? ? ? ? 80 BE A0 03 00 00 00 74 ?",
+        resolve: NONE,
+        extra_off: -1,
+    },
+
+    // CVfxProgramData::FindOrCreateStaticComboDataInCache â€”
     // materialsystem2!sub_1800AE220 (~0x726). Refs the unique log
     // "CVfxProgramData::FindOrCreateStaticComboDataInCache(4448):
     // Error! Ref count !=0 for static combo data cache entry!"
@@ -2038,7 +2075,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials —
+    // CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials â€”
     // materialsystem2!sub_180039AA0 (~0x757). Refs the unique log
     // "CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials
     // (1084): ERROR!!! Shaders not freed before shader reload!"
@@ -2057,17 +2094,17 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA MAY-02-2026 EXPANSION v11 (build 14155 — GPU-pipeline / drawcall layer)
+    // NUVORA MAY-02-2026 EXPANSION v11 (build 14155 â€” GPU-pipeline / drawcall layer)
     //
     // v10 covered material PARSE / LOAD / COMPILE. v11 covers the layer
-    // BELOW that — the per-pass GPU command-buffer recording, per-draw
+    // BELOW that â€” the per-pass GPU command-buffer recording, per-draw
     // render-state setup, scene-graph cull, and D3D11 constant-buffer
     // creation. This is the layer where a graphics engineer would hook
     // to:
     //
     //   - Intercept the actual shader / texture / cbuf bindings for a
     //     specific material at submit time (chams without owning a
-    //     custom .vmat — just rewrite the bind table).
+    //     custom .vmat â€” just rewrite the bind table).
     //   - Re-add culled entities back to the visible set for true x-ray
     //     wallhack (vs. the post-process outline trick).
     //   - Track every D3D11 constant buffer the engine creates so a
@@ -2096,15 +2133,15 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // 13341, 13344). Strings are extremely stable across patches.
     // ====================================================================
 
-    // CMaterialLayer::CreateCommandBuffer — materialsystem2!sub_180019820
-    // (~0x1DD9 — large per-pass GPU command-buffer recorder).  Refs the
+    // CMaterialLayer::CreateCommandBuffer â€” materialsystem2!sub_180019820
+    // (~0x1DD9 â€” large per-pass GPU command-buffer recorder).  Refs the
     // unique error string "CMaterialLayer::CreateCommandBuffer(4446):
     // Find a graphics programmer! Trying to bind a \"%s\" shader that
     // doesn't exist! for %s" (1 xref).  The function CS2 calls when a
     // CMaterialLayer needs to materialise its bound shader/texture/
     // constant-buffer state into a recordable D3D command sequence.
     // THE hook for "intercept the actual shader binds and rewrite
-    // PBR slots before the GPU sees them" — perfect for swapping in
+    // PBR slots before the GPU sees them" â€” perfect for swapping in
     // gold/silver chams without owning a custom .vmat.
     Signature {
         name: "CMaterialLayer_CreateCommandBuffer",
@@ -2114,7 +2151,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode —
+    // CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode â€”
     // materialsystem2!sub_180015BC0 (~0x632).  Refs the unique
     // "CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3154):
     // Failed call to FindOrLoadStaticComboData()!" log (1 xref).
@@ -2131,7 +2168,35 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CMaterial::SetVariableAndRenderState — materialsystem2!sub_18002F9B0
+    // Static combo merge/validation worker â€” materialsystem2!sub_1800BDAE0
+    // (~0x1B89). Called by ComputeWorkItemsToSetupStaticCombosForMode and
+    // funnels through sub_1800AE950 (cache gate wrapper) for combo fetch.
+    // The unique warning below fires when shader attributes diverge across
+    // shaders in one feature combo, making this a high-value observability
+    // hook for custom VFX/VCS compatibility debugging.
+    Signature {
+        name: "CVfxProgramData_FindOrLoadStaticComboData",
+        module: "materialsystem2.dll",
+        needle: "Shader %s attribute \"%s\" has inconsistent value or type across multiple shaders of a feature combo! [",
+        resolve: STRREF,
+        extra_off: 0,
+    },
+
+    // Static combo cache gate wrapper â€” materialsystem2!sub_1800AE950
+    // (~0x1F6). Called by sub_1800BDAE0 and dispatches to
+    // CVfxProgramData_FindOrCreateStaticComboDataInCache (sub_1800AE220)
+    // on cache miss / invalid-state paths. This gives a compact hook to
+    // observe cache hit/miss behavior without instrumenting the full merge
+    // worker. Raw prologue pattern validated as unique in module.
+    Signature {
+        name: "CVfxProgramData_FindOrCreateStaticComboData_CacheGate",
+        module: "materialsystem2.dll",
+        needle: "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 41 57 48 83 EC 60 80 39 00 45 8B D9",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // CMaterial::SetVariableAndRenderState â€” materialsystem2!sub_18002F9B0
     // (~0x8A4).  Refs the unique
     // "SetRenderStateValueFromVariable(1172): Unsupported render state
     // type in material \"%s\"!" log (1 xref). Decompile shows it ALSO
@@ -2155,7 +2220,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CMaterialSystem2::BindIdentityInstanceIDBufferAndSetRenderState —
+    // CMaterialSystem2::BindIdentityInstanceIDBufferAndSetRenderState â€”
     // materialsystem2!sub_180070000 (~0x677).  Refs the unique
     // "BindIdentityInstanceIDBufferAndSetRenderState: GetMode == NULL?
     // Can't Render" log (1 xref).  Decompile confirms it builds an
@@ -2163,7 +2228,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // Tangent_t`) and dispatches through the render-context vtable
     // (qword_18014EE78, slot +320) to set up render state for a
     // single-instance draw.  Hook to inject custom geometry into a
-    // real engine batch instead of running a parallel ImGui pass —
+    // real engine batch instead of running a parallel ImGui pass â€”
     // gives free depth-buffer integration for chams x-ray.
     Signature {
         name: "CMaterialSystem2_BindIdentityInstanceIDBufferAndSetRenderState",
@@ -2173,7 +2238,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CSceneSystem::Thread_CullView — scenesystem!sub_1800E92F0
+    // CSceneSystem::Thread_CullView â€” scenesystem!sub_1800E92F0
     // (~0x7BF).  Refs the unique source-path string
     // "CSceneSystem::Thread_CullView(), C:\\buildworker\\csgo_rel_win64\\
     // build\\src\\scenesystem\\scenesystem.cpp:3312" (1 xref).  Per-
@@ -2183,7 +2248,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // re-add the player scene-objects that the cull just rejected so
     // they get drawn behind the world (with depth-test override in the
     // RenderSceneDrawList layer hook). This is what an actual
-    // graphics-programmer wallhack looks like — not a 2D ImGui line
+    // graphics-programmer wallhack looks like â€” not a 2D ImGui line
     // overlay.
     Signature {
         name: "CSceneSystem_Thread_CullView",
@@ -2193,7 +2258,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CRenderDeviceBase::CreateConstantBuffer — rendersystemdx11!sub_18002F500
+    // CRenderDeviceBase::CreateConstantBuffer â€” rendersystemdx11!sub_18002F500
     // (~0x1D2).  Refs the unique source-line string
     // "CRenderDeviceBase::CreateConstantBuffer(1571):" (1 xref). Every
     // ID3D11Buffer (D3D11_BIND_CONSTANT_BUFFER) the renderer ever
@@ -2211,7 +2276,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CRenderDeviceDx11::BeginSubmittingDisplayLists — rendersystemdx11!
+    // CRenderDeviceDx11::BeginSubmittingDisplayLists â€” rendersystemdx11!
     // sub_18003C4E0 (~0x147).  Refs the unique source-line string
     // "CRenderDeviceDx11::BeginSubmittingDisplayLists(1162):" (1 xref).
     // Per-frame display-list submission boundary (the engine batches
@@ -2229,12 +2294,12 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA APR-25-2026 EXPANSION v12 (build 14155 — WEAPON PAINT KIT /
-    // CCompositeMaterialKit pipeline — "Galaxy-camo" custom-skin reversing)
+    // NUVORA APR-25-2026 EXPANSION v12 (build 14155 â€” WEAPON PAINT KIT /
+    // CCompositeMaterialKit pipeline â€” "Galaxy-camo" custom-skin reversing)
     //
     // GOAL: trace the full code path that turns a `paint kit id + seed +
     // wear` triple on a `C_EconItemView` into a runtime-composited PBR
-    // material that gets bound to the weapon viewmodel — so we can
+    // material that gets bound to the weapon viewmodel â€” so we can
     // INJECT a custom `.vcompmat` (or override the input shader-vars
     // directly) and ship a fully custom Galaxy-style camo on any weapon.
     //
@@ -2253,18 +2318,18 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //   CompositeMaterialInputContainer_t  (per-instance)
     //     +-- g_flWearAmount  (scratch / scuff intensity)
     //     +-- g_nRandomSeed   (per-pattern offset)
-    //     +-- g_vColor*       (4 colour slots — what we override for
+    //     +-- g_vColor*       (4 colour slots â€” what we override for
     //                          a Galaxy purple-blue gradient)
     //     +-- g_tNormalMap, g_tPattern, g_tMaskWear, g_flMetalness,
     //         g_flRoughness, g_vReflectanceColor (PBR slots)
     //
     // The legacy-weapons pipeline (these sigs target the LEGACY path,
     // because that is the one CS2 still uses for every weapon shipped
-    // before the workshop-2.0 era — i.e. ALL of them currently):
+    // before the workshop-2.0 era â€” i.e. ALL of them currently):
     //
     //   1. game tick: viewmodel becomes visible
     //   2. sub_18011C6D0  registers `cl_paintkit_override` ConVar
-    //      (already-shipped earlier — paintkit override hot-swap entry)
+    //      (already-shipped earlier â€” paintkit override hot-swap entry)
     //   3. C_EconWearable_OnNewCustomMaterials (sub_1810B67D0)
     //        --> "[Wearables] Creating new wearable (%d)" log
     //        --> calls sub_180A4CE30 with sub_180164704 callback
@@ -2284,7 +2349,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //            manager
     //   5. CompositeMaterialPanoramaPanel_Init (sub_180B8FB00) /
     //      CCompositeMaterialManager_AddNewPanoramaPanelRenderRequest
-    //      (called from sub_1813B8DD0) — feed the kit through the
+    //      (called from sub_1813B8DD0) â€” feed the kit through the
     //      panorama-render path so the inventory thumbnail rebuilds
     //      whenever the user previews a skin
     //   6. CMaterialLayer::CreateCommandBuffer (already shipped v1.17.0)
@@ -2301,14 +2366,14 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //        g_tPattern -> our custom .vtex)
     //   B. Or hook (7) CMaterial::SetVariableAndRenderState directly
     //      and rewrite the cbuf upload at draw-time (no resource files
-    //      needed — pure in-memory swap, but per-draw cost).
+    //      needed â€” pure in-memory swap, but per-draw cost).
     //
     // All 7 sigs below are STRREF-anchored on log / resource strings
     // each with EXACTLY ONE xref to its target function (verified via
     // mcp_ida-pro-mcp_xref_query on instance 13337 / client.dll).
     // ====================================================================
 
-    // C_EconWearable::OnNewCustomMaterials — client.dll!sub_1810B67D0
+    // C_EconWearable::OnNewCustomMaterials â€” client.dll!sub_1810B67D0
     // (~0xF5).  Refs the unique error string "Invalid EconItemView --
     // Can't create custom materials for wearable, debug this." (1 xref).
     // The per-wearable composite-material build kickoff. Schedules the
@@ -2323,7 +2388,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CPaintKitDefinitions::FindOrCreateByName — client.dll!sub_181057DD0
+    // CPaintKitDefinitions::FindOrCreateByName â€” client.dll!sub_181057DD0
     // (~0x328).  Refs the unique error string "Kit \"[%s]\" specified,
     // but doesn't exist!! You're probably missing an entry in
     // items_paintkits.txt or items_stickerkits.txt or need to run with
@@ -2339,7 +2404,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CPaintKitDefinitions::LoadDefaultKit — client.dll!sub_181029EA0
+    // CPaintKitDefinitions::LoadDefaultKit â€” client.dll!sub_181029EA0
     // (~0x37D).  Refs the unique error string "Unable to find \"default\"
     // paint kit in \"paint_kits_rarity\"" (1 xref).  One-shot loader
     // run during econ-schema init that establishes the rarity-bucketed
@@ -2352,12 +2417,12 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // C_EconEntity::BuildLegacyWeaponSkinMaterial — client.dll!sub_18078C050
-    // (~0x810).  ★ THE GOLD-MINE FUNCTION FOR CUSTOM CAMO ★
+    // C_EconEntity::BuildLegacyWeaponSkinMaterial â€” client.dll!sub_18078C050
+    // (~0x810).  â˜… THE GOLD-MINE FUNCTION FOR CUSTOM CAMO â˜…
     // Refs the unique scope-tag string "workshop preview weapon"
     // (1 xref). Decompile reveals the full per-weapon kit-build
     // recipe: reads paintkit name from off_182013BB0[(seed+N) % 34]
-    // (the 34-entry legacy-paintkit name table — NOTE: pattern offset
+    // (the 34-entry legacy-paintkit name table â€” NOTE: pattern offset
     // also appears in `*((_DWORD*)off_1820496A0 + 17)`); pushes
     // CompositeMaterialInputContainer_t entries via sub_180789A00
     // (`AddCompositeMaterialInput`) with keys "g_flWearAmount" and
@@ -2376,8 +2441,8 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // C_EconEntity::BuildModernWeaponSkinMaterial — client.dll!sub_180D828E0
-    // (~0x13BD — large).  Modern (post-workshop-2.0) sibling of the
+    // C_EconEntity::BuildModernWeaponSkinMaterial â€” client.dll!sub_180D828E0
+    // (~0x13BD â€” large).  Modern (post-workshop-2.0) sibling of the
     // legacy builder above.  Anchored via raw prologue bytes because
     // it shares the `g_flWearAmount` / `missing_paintkit.vcompmat`
     // strings with sub_18078C050 (no STRREF uniqueness possible
@@ -2385,7 +2450,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //   48 85 C9              test  rcx, rcx
     //   0F 84 60 13 00 00     jz    +0x1360                (early-out
     //                                                       to function
-    //                                                       end — note
+    //                                                       end â€” note
     //                                                       0x1360 is
     //                                                       fragile vs
     //                                                       future patch)
@@ -2399,11 +2464,11 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CompositeMaterialPanoramaPanel_t::Init — client.dll!sub_180B8FB00
+    // CompositeMaterialPanoramaPanel_t::Init â€” client.dll!sub_180B8FB00
     // (~0x4DC).  Refs the unique RTTI/log string
     // "CompositeMaterialPanoramaPanel_t::Init" (1 xref). Initialiser
     // that wires a Panorama UI panel to a composite-material render
-    // request — used for inventory previews, store thumbnails, weapon-
+    // request â€” used for inventory previews, store thumbnails, weapon-
     // inspect screens. Hook to drive a Panorama-rendered preview of
     // our custom kit before the user equips it.
     Signature {
@@ -2414,7 +2479,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CCompositeMaterialManager::AddNewPanoramaPanelRenderRequest_Caller —
+    // CCompositeMaterialManager::AddNewPanoramaPanelRenderRequest_Caller â€”
     // client.dll!sub_1813B8DD0 (~0x388). Refs the unique log string
     // "CCompositeMaterialManager::AddNewPanoramaPanelRenderRequest"
     // (1 xref).  The caller-side wrapper around the manager's
@@ -2430,12 +2495,12 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA APR-25-2026 EXPANSION v13 (build 14155 — composite-material
-    // DEEP DIVE — completes the Galaxy-camo recipe started in v12 by
+    // NUVORA APR-25-2026 EXPANSION v13 (build 14155 â€” composite-material
+    // DEEP DIVE â€” completes the Galaxy-camo recipe started in v12 by
     // pinning the central shader-var injector, ALL three variant builders
     // (weapon / glove / nametag), the schema-callback registrars that
     // describe CCompositeMaterialKit + CompositeMaterial_t at runtime,
-    // and the CS2ItemEditor template-material parser — i.e. every door
+    // and the CS2ItemEditor template-material parser â€” i.e. every door
     // a graphics engineer needs to OWN the kit pipeline end-to-end).
     //
     // Why this round matters (success-rate vs. v12 surface):
@@ -2445,7 +2510,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //     funnels EVERY shader-variable the engine ever pushes into a
     //     kit (g_flWearAmount / g_nRandomSeed / g_vColor* / g_tPattern
     //     ...).  Hook it once and you trivially observe AND mutate the
-    //     full per-instance kit recipe — for ALL variants (weapon,
+    //     full per-instance kit recipe â€” for ALL variants (weapon,
     //     glove, nametag, sticker, agent) simultaneously.
     //
     //   * v13 also exposes the SCHEMA layer: the type-manager callbacks
@@ -2453,7 +2518,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //     `InfoForResourceTypeCCompositeMaterial` enumerate every
     //     CUtlVector field the kit/material structs contain at runtime,
     //     so a runtime kit-dump tool can crawl the entire object tree
-    //     without hard-coded offsets — survives every CS2 patch.
+    //     without hard-coded offsets â€” survives every CS2 patch.
     //
     //   * The template-material parser (CS2ItemEditor) is the OFFICIAL
     //     KV-driven param exposer Valve themselves use to describe what
@@ -2478,19 +2543,19 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     //
     // Glove-asymmetry note:  the glove builder pushes BOTH
     // `g_nRandomSeed` and `g_nRandomSeedAlt` (alt = seed+1) so left- and
-    // right-hand glove patterns are deterministically offset — a detail
+    // right-hand glove patterns are deterministically offset â€” a detail
     // a custom glove kit MUST reproduce or both gloves will look
     // identical.
     //
     // Variant scope tags (the string set in `a1[28]`):
-    //   "low-res weapon"          — viewmodel / world-model PBR
-    //   "low-res gloves"          — viewmodel gloves
-    //   "low-res nametag"         — engraved nametag overlay (512x32)
-    //   "workshop preview weapon" — full-quality preview (loadout)
+    //   "low-res weapon"          â€” viewmodel / world-model PBR
+    //   "low-res gloves"          â€” viewmodel gloves
+    //   "low-res nametag"         â€” engraved nametag overlay (512x32)
+    //   "workshop preview weapon" â€” full-quality preview (loadout)
     //
     // ====================================================================
 
-    // CUtlVector<CompositeMaterialInput_t>::AddToTail — client.dll!
+    // CUtlVector<CompositeMaterialInput_t>::AddToTail â€” client.dll!
     // sub_180789A00 (~0x158).  Has NO unique string of its own (it is a
     // small templated container helper) so anchored by its 28-byte
     // function prologue. 11 code xrefs from the kit-build path
@@ -2505,7 +2570,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // EVERY variant flows through here.
     //   - LOG mode:  dump (kit_path, key, value_type, value) on every
     //                call to enumerate the live paintkit recipe at
-    //                runtime — fully patch-proof kit dumper.
+    //                runtime â€” fully patch-proof kit dumper.
     //   - INTERCEPT: rewrite g_vColor1..4 in-place to ship a Galaxy
     //                purple-blue gradient on top of any base kit
     //                without ever touching disk.
@@ -2516,14 +2581,14 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         // template instantiations.  Anchor instead by the mid-body
         // sequence that hard-codes the element size 0x288 (=648 B = full
         // CompositeMaterialInputContainer_t) followed by the UtlMemory
-        // 0x3FFFFFFF mask — unique to this single instantiation. We then
+        // 0x3FFFFFFF mask â€” unique to this single instantiation. We then
         // back up by -0x52 to land on the function start.
         needle: "41 B9 88 02 00 00 8B 57 14 81 E2 FF FF FF 3F 8D 71 01 44 8B C6 FF 15",
         resolve: NONE,
         extra_off: -0x52,
     },
 
-    // C_EconEntity::BuildLegacyGloveSkinMaterial — client.dll!sub_180BBFB00
+    // C_EconEntity::BuildLegacyGloveSkinMaterial â€” client.dll!sub_180BBFB00
     // (~0x9E7).  Refs the unique string "MapPlayerPreview gloves"
     // (1 xref).  The glove-specific sibling of BuildLegacyWeaponSkinMaterial
     // (already shipped v12).  Reads the prefix "gloves/paints/" from the
@@ -2544,11 +2609,11 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // C_EconEntity::BuildNametagOverlayMaterial — client.dll!sub_18078AE20
+    // C_EconEntity::BuildNametagOverlayMaterial â€” client.dll!sub_18078AE20
     // (~0x969).  Refs the unique scope tag "low-res nametag" (1 xref).
     // Builds a 512x32 composite material from the .vcompmat
     // "weapons/models/shared/nametag/nametag_default.vcompmat" with the
-    // user-supplied nametag string pushed as the "label" input — the
+    // user-supplied nametag string pushed as the "label" input â€” the
     // engraved-text overlay you see on stickered weapons.  Hook to ship
     // a custom nametag font / pattern, or to inject a multi-line
     // animated overlay (the underlying material supports any param the
@@ -2562,7 +2627,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // InfoForResourceTypeCCompositeMaterialKit::TypeManagerCallback —
+    // InfoForResourceTypeCCompositeMaterialKit::TypeManagerCallback â€”
     // client.dll!sub_1813D6840 (~0x370). Refs the unique RTTI string
     // "InfoForResourceTypeCCompositeMaterialKit" (1 xref).  Vftable-style
     // dispatch (cases 0/2/3/4/5/6 = Init/Construct/Destruct/Reset/
@@ -2586,10 +2651,10 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // InfoForResourceTypeCCompositeMaterial::TypeManagerCallback —
+    // InfoForResourceTypeCCompositeMaterial::TypeManagerCallback â€”
     // client.dll!sub_1813D6D90 (~0x2F0).  No unique 1-xref string of
     // its own (uses "InfoForResourceTypeCModel" + "CompositeMaterial_t"
-    // + "CompositeMaterialAssemblyProcedure_t" — none singletons), so
+    // + "CompositeMaterialAssemblyProcedure_t" â€” none singletons), so
     // anchored by 20-byte function prologue.  Sibling of the kit
     // type-manager: declares the FINAL CompositeMaterial_t struct
     // schema:
@@ -2610,7 +2675,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CS2ItemEditor::BuildTemplateMaterialFromFile — client.dll!sub_1813BA1E0
+    // CS2ItemEditor::BuildTemplateMaterialFromFile â€” client.dll!sub_1813BA1E0
     // (~0x1445).  No 1-xref string anchor (uses generic logging strings
     // and the literal "CS2ItemEditor" 4x as a KV-dict key), so anchored
     // by 32-byte function prologue.  This is the OFFICIAL .vmt template
@@ -2642,7 +2707,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     },
 
     // ====================================================================
-    // NUVORA APR-25-2026 EXPANSION v20 (build 14155 — GLOBAL material /
+    // NUVORA APR-25-2026 EXPANSION v20 (build 14155 â€” GLOBAL material /
     // shader injection path: not weapon-only)
     //
     // v12/v13 locked the econ/composite side. This block pins the broader
@@ -2659,7 +2724,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
     // with a material" instead of only econ paintkit entities.
     // ====================================================================
 
-    // CMaterialLayer::ApplyMaterialVarsForBatch — materialsystem2!
+    // CMaterialLayer::ApplyMaterialVarsForBatch â€” materialsystem2!
     // sub_180018B80 (~0x24C).  Raw prologue anchor.  Mid-level per-batch
     // dispatcher that iterates draw surfaces/material entries and calls
     // CMaterial::SetVariableAndRenderState (sub_18002F9B0) for each
@@ -2673,7 +2738,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CMaterialLayer::BuildPassCommandData — materialsystem2!sub_180018F80
+    // CMaterialLayer::BuildPassCommandData â€” materialsystem2!sub_180018F80
     // (~0x89C).  Raw prologue anchor.  Higher-level pass builder that
     // allocates/records per-surface command data and repeatedly invokes
     // CMaterialLayer::CreateCommandBuffer (sub_180019820).  Good global
@@ -2687,7 +2752,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CSceneSkyBoxObject::DrawSkyboxArray — scenesystem!sub_18014FB90
+    // CSceneSkyBoxObject::DrawSkyboxArray â€” scenesystem!sub_18014FB90
     // (~0x6F9).  Raw prologue (already production-proven in project hook).
     // Render-time sky pass used by map sky/cubemap flow. Hook here for
     // global sky material/tint changes without touching entity netvars.
@@ -2699,7 +2764,7 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         extra_off: 0,
     },
 
-    // CRenderDeviceDx11::CompileShaderSourceMain — rendersystemdx11!
+    // CRenderDeviceDx11::CompileShaderSourceMain â€” rendersystemdx11!
     // sub_18003FAF0 (~0x171). Refs the unique compile-failure string
     // "Shader compilation failed! Reported no errors." (1 xref).
     // This wrapper calls D3DCompile(source, size, ..., "main", profile,
@@ -2716,4 +2781,380 @@ pub static CS2_SIGNATURES: &[Signature] = &[
         resolve: STRREF,
         extra_off: 0,
     },
+
+    // ---------- INTERNAL FINDINGS (build 14158) -----------------------
+    // Signatures sourced from the live internal cheat (`core/signatures.h`)
+    // and re-validated against cs2.exe pid 1556. See git log for the
+    // verification cmds.
+    Signature {
+        name: "ThirdPersonOnHandler",
+        module: "client.dll",
+        needle: "48 83 EC 38 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 0F 85 ? ? ? ? 4C 8B 05 ? ? ? ? 41 8B 80 50 0B 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    Signature {
+        name: "ThirdPersonOffHandler",
+        module: "client.dll",
+        needle: "48 83 EC 28 48 8B 0D ? ? ? ? 48 8D 54 24 ? 48 8B 01 FF 90 08 03 00 00 83 7C 24 ? 00 75 ? 48 8B 05 ? ? ? ? C6 80 29 02 00 00 00 C7 80 A8 06 00 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ---------- world / scene visuals ---------------------------------
+    // CGlobalLightBase::UpdateState â€” sun-light per-frame copy. Hooked
+    // by the visuals module to dim the sun for the night-mode toggle.
+    Signature {
+        name: "GlobalLightUpdateState",
+        module: "client.dll",
+        needle: "40 57 48 81 EC C0 00 00 00 48 8B F9 BA FF FF FF FF 48 8D 0D ? ? ? ? E8",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // CSceneSystem::DrawAggregateSceneObjectArray â€” distinct from the
+    // existing `DrawAggregateSceneObject` (singular) sig in this file;
+    // this is the per-frame batched array dispatcher. Forcing the fade
+    // alpha at a3[1]+8 to 1.0f keeps far aggregates fully opaque.
+    Signature {
+        name: "DrawAggregateSceneObjectArray",
+        module: "scenesystem.dll",
+        needle: "48 8B C4 48 89 50 ? 48 89 48 ? 55 53 56 57 41 54 41 55 41 56 41 57 48 8D A8 ? ? ? ? 48 81 EC ? ? ? ? 0F 29 70",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // BuildSceneInfoGpu â€” sub_180084FF0, fires ONCE per map load. Writes
+    // sky_color / sky_bounce / sun_light_min_brightness into the GPU
+    // scene-info struct. Authoritative atmosphere-modulation entry.
+    Signature {
+        name: "BuildSceneInfoGpu",
+        module: "scenesystem.dll",
+        needle: "4C 89 4C 24 20 4C 89 44 24 18 48 89 4C 24 08 55 48 8D AC 24 00 E3 FF FF B8 00 1E 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // PVS / visibility-singleton accessor â€” lea rcx,[g_visMgr]; xor edx,
+    // edx; call [rax+30h]. Calling vtable[6] with edx=1 (instead of 0)
+    // marks every leaf visible â€” chams render through any wall.
+    Signature {
+        name: "DisablePvsAccessor",
+        module: "engine2.dll",
+        needle: "48 8D 0D ? ? ? ? 33 D2 FF 50",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // CSceneAnimatableObject::GeneratePrimitives â€” primary chams hook.
+    // Per-renderable mesh-submit virtual; gives access to the actual
+    // scene-object so we can swap material per-entity (friend/enemy
+    // colour separation). Already aliased as the chams target in
+    // features/visuals/chams.h.
+    Signature {
+        name: "CSceneAnimatableObject_GeneratePrimitives",
+        module: "scenesystem.dll",
+        needle: "48 8B C4 48 89 58 08 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ?",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ---------- EngineTrace bullet-trace pipeline (client.dll) --------
+    // Six functions Valve uses to do a bullet trace from start->end,
+    // collect surface hits and run penetration. Used by vischeck (no
+    // fake-tick gate), autowall, edge-jump trace, seeded-triggerbot
+    // ground-truth validation. RVAs (build 14158) recorded for drift
+    // tracking: 0x800580 / 0x15FC2A0 / 0x32BBF0 / 0x804900 / 0x806F50 /
+    // 0x8211F0.
+    Signature {
+        name: "TraceInitData",
+        module: "client.dll",
+        needle: "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8D 79 ? 33 F6 C7 47",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    Signature {
+        name: "TraceInitInfo",
+        module: "client.dll",
+        needle: "40 55 41 55 41 57 48 83 EC 30",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    Signature {
+        name: "TraceInitFilter",
+        module: "client.dll",
+        needle: "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 0F B6 41 ? 33 FF 24",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    Signature {
+        name: "TraceCreate",
+        module: "client.dll",
+        needle: "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC 50 F2 0F 10 02",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    Signature {
+        name: "TraceGetInfo",
+        module: "client.dll",
+        needle: "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC 60 48 8B E9 0F 29 74 24",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // 14158 prologue â€” the older 9-byte UC stub matched zero sites; the
+    // full prologue includes the arg-spill (mov [rsp+20],r9d ; mov
+    // [rsp+10],rdx ; mov [rsp+8],rcx) before push rbp/push rdi/push r15.
+    Signature {
+        name: "TraceHandleBulletPen",
+        module: "client.dll",
+        needle: "48 8B C4 44 89 48 20 48 89 50 10 48 89 48 08 55 57 41 57",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ---------- kill / damage feedback + sound dispatch ---------------
+    // KillFeedbackEmitter â€” emits Player.Death*.AttackerFeedback events.
+    // The iconic CS2 "headshot ding" call site (and body-kill thud).
+    // Most reliable kill-detection point in the game â€” fires from the
+    // engine's damage flow, not aimbot lock state. Hooked by
+    // features/misc/kill_sound.h to suppress the Valve ack and play our
+    // own custom sound on confirmed kills.
+    Signature {
+        name: "KillFeedbackEmitter",
+        module: "client.dll",
+        needle: "48 89 5C 24 08 48 89 74 24 18 48 89 7C 24 20 55 41 56 41 57 48 8B EC 48 81 EC 80 00 00 00 44 8B",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // DamageFeedbackEmitter â€” sub_18081ED00, per-HIT damage feedback.
+    // Fires on every successful damaging hit â€” produces the high-pitch
+    // headshot chirp on non-fatal HS too. Suppressed independently of
+    // KillFeedbackEmitter.
+    Signature {
+        name: "DamageFeedbackEmitter",
+        module: "client.dll",
+        needle: "48 89 4C 24 08 55 53 41 54 41 55 41 57 48 8D AC 24 E0 FE FF FF 48 81 EC 20 02 00 00 48 83 79 38",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // GetHitGroup â€” sub_180A163A0 helper called from
+    // DamageFeedbackEmitter. Returns 1 for HEAD; lets the cheat
+    // selectively skip the HS dink without disturbing body hit-marker
+    // sounds.
+    Signature {
+        name: "GetHitGroup",
+        module: "client.dll",
+        needle: "40 53 48 83 EC 20 48 83 79 10 00 48 8B D9 74 16 E8 ?? ?? ?? ?? 84 C0 75 0D 48 8B 43 10 8B 40 38",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // EmitSoundByHandle â€” sub_180B62270, universal sound emit dispatcher
+    // used by EVERY in-game sound path (damage, death, killfeed, weapon
+    // fire, footsteps, voice, music). a4[0] is the event-name C-string
+    // ptr â€” name-filter to drop just the HS chirp variants regardless
+    // of which subsystem emitted them.
+    Signature {
+        name: "EmitSoundByHandle",
+        module: "client.dll",
+        needle: "40 53 48 83 EC 30 4C 89 4C 24 20 48 8B D9 45 8B C8 4C 8B C2 48 8B D1 48 8D 0D ?? ?? ?? ?? E8",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // CSosOperatorSystem::StartSoundEvent â€” soundsystem!sub_1801B7AD0.
+    // The single convergence point for every named, by-handle, AND
+    // by-hash sound-event start in CS2. Vtable slots 11 / 12 / 13 all
+    // tail-call here. Hooking this catches the HS dink that takes the
+    // by-handle path (which never enters the by-name overload).
+    Signature {
+        name: "CSosOperatorSystem_StartSoundEvent",
+        module: "soundsystem.dll",
+        needle: "40 53 55 56 48 83 EC 20 83 B9 ?? ?? ?? ?? 00 49 8B D8 48 8B F2 48 8B E9 74 ?? C7 02 00 00 00 00",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ---------- skin / paint application ------------------------------
+    // Modern paint-apply path: sub_1807A8A00 â†’ sub_181079790 â†’
+    // sub_18105AAF0 (consumes m_nFallbackPaintKit/Seed/Wear, queues
+    // "clientside_reload_custom_econ" delayed think). RegenerateWeaponSkin
+    // alone DOES NOT trigger this â€” it only handles the legacy static
+    // paint table.
+    Signature {
+        name: "ApplyEconCustomization",
+        module: "client.dll",
+        needle: "48 89 5C 24 ? 57 48 83 EC ? 8B FA 48 8B D9 E8 ? ? ? ? 48 8B CB E8 ? ? ? ? 48 85 C0 74",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // CAnimGraphController force-rebuild â€” sub_1808AD5F0 (build 14155;
+    // 14158: 0x8AEC70). Called with mode=2 to tear down and re-create
+    // the CNmGraphInstance after a knife model swap so animations bind
+    // to the NEW subclass's animgraph (fixes inspect playing default
+    // anim on swapped knives).
+    Signature {
+        name: "AnimGraphRebuild",
+        module: "client.dll",
+        needle: "40 55 56 48 83 EC 28 4C 89 74 24 58 48 8B F1 80 FA FF 75 04 0F B6 51 18",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ---------- triggerbot internals ----------------------------------
+    // Spread-seed generator + per-shot spread compute. The triggerbot
+    // re-runs both client-side with the predicted next-fire seed to
+    // know exactly where the bullet would land before pulling the
+    // trigger. NoSpread1 / CalcSpread already exist above as the hook
+    // entrypoints; these are the inner math functions.
+    Signature {
+        name: "SpreadSeedGen",
+        module: "client.dll",
+        needle: "48 89 5C 24 08 57 48 81 EC F0 00 00 00 F3 0F 10 0A 48 8D 8C 24 10 01 00 00 41 8B D8 48 8B FA E8",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
+    // ---------- particle manager (particles.dll) ----------------------
+    // GetParticleManager â€” 1-line accessor:
+    //     mov rax, [rip+rel32_to_g_pParticleMgr]
+    //     ret
+    // RipRel resolution with rel_off=3 walks the disp32 to the
+    // singleton ptr-to-ptr slot. Trailing `48 83 EC 28 8B 0D` anchors
+    // the next function's prologue (build 14158 â€” was `48 89 5C 24 ?
+    // 57 B8` on earlier builds; compiler reshuffled the neighbour
+    // function), making the pattern unique inside particles.dll.
+    Signature {
+        name: "GetParticleManager",
+        module: "particles.dll",
+        needle: "48 8B 05 ? ? ? ? C3 ? ? ? ? ? ? ? ? 48 83 EC 28 8B 0D",
+        resolve: RIPREL_3,
+        extra_off: 0,
+    },
+
+    // ---------- cspatterns.dev cross-reference (build 14158) ----------
+    // Patterns sourced from the public cspatterns.dev/cpp catalogue,
+    // each independently re-validated in IDA Pro against the live
+    // build (single-match in their owning module). Names mirror the
+    // upstream catalogue so consumers familiar with that source see
+    // identical symbols. Resolution kind is `NONE` (pattern starts at
+    // the function prologue) unless noted.
+
+    // CBaseEntity::ChangeModel â€” single dispatch used by the model
+    // pipeline; we hook it in the skin/knife model swap path.
+    Signature {
+        name: "CBaseEntity_ChangeModel",
+        module: "client.dll",
+        needle: "40 53 48 83 EC ? 48 8B D9 4C 8B C2 48 8B 0D ? ? ? ? 48 8D 54 24",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // gpGlobals copy-out: mov rcx,[g_pCVar?] / lea r8,[g_global_vars].
+    // Useful for resolving the global timing struct without walking
+    // the engine interface table.
+    Signature {
+        name: "UpdateGlobalVars",
+        module: "client.dll",
+        needle: "48 8B 0D ? ? ? ? 4C 8D 05 ? ? ? ? 48 85 D2",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // CCSPlayer_WeaponServices::ComputeRandomSeed â€” direct cousin of
+    // SpreadSeedGen; consumed by the seeded-triggerbot path for
+    // server-RNG synchronisation experiments.
+    Signature {
+        name: "ComputeRandomSeed",
+        module: "client.dll",
+        needle: "48 89 5C 24 ? 57 48 81 EC ? ? ? ? ? ? ? ? 48 8D 8C 24",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // UI::ShowMessageBox â€” popup dispatcher; stubbing it out silences
+    // VAC nag dialogs and other modal interruptions during testing.
+    Signature {
+        name: "ShowMessageBox",
+        module: "client.dll",
+        needle: "44 88 4C 24 ? 53 41 56",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // CCSPlayerController::SetPlayerReady â€” match-ready toggle. Cheap
+    // hook target for queue-state automation.
+    Signature {
+        name: "SetPlayerReady",
+        module: "client.dll",
+        needle: "40 53 48 83 EC ? 48 8B DA 48 8D 15 ? ? ? ? 48 8B CB FF 15",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // Popup-event dispatcher (achievements, MM popups, etc.). Useful
+    // for menu-driven UI suppression. (Currently dormant on this build
+    // â€” IDA db lags live image; re-validate before relying on it.)
+    // Signature {
+    //     name: "PopupEventHandle",
+    //     module: "client.dll",
+    //     needle: "40 56 57 41 57 48 83 EC ? 48 8B 3D ? ? ? ? 4D 85 C0",
+    //     resolve: NONE,
+    //     extra_off: 0,
+    // },
+    // CEngineClient::IsInGame â€” predicates a global state byte; we
+    // gate per-frame hooks on it to avoid menu-time work.
+    Signature {
+        name: "IsInGame",
+        module: "engine2.dll",
+        needle: "48 8B 05 ? ? ? ? 48 85 C0 74 ? 80 B8 ? ? ? ? 00 75 ? 83 B8 ? ? ? ? ? 7C",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // CCSGOPlayerAnimGraphController::DrawLegs â€” first-person leg
+    // renderer; togglable to remove the FP leg geometry.
+    Signature {
+        name: "DrawLegs",
+        module: "client.dll",
+        needle: "40 55 53 56 41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? F2 0F 10 42",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // CUserCmd::ValidateInput â€” server-side-style sanity check on the
+    // local user-cmd. Currently dormant on this build (IDA db lags live
+    // image; re-validate before relying on it).
+    // Signature {
+    //     name: "ValidateInput",
+    //     module: "client.dll",
+    //     needle: "40 53 48 83 EC ? 48 8B D9 E8 ? ? ? ? 33 C0 C6 83 ? ? ? ? 00",
+    //     resolve: NONE,
+    //     extra_off: 0,
+    // },
+    // HUD::DrawCrosshair â€” already covered above (line ~260). Skipped
+    // here to avoid duplicate scanning.
+    // PostProcessing per-frame update â€” useful entry point for
+    // disabling fades, color-correction lookups, etc.
+    Signature {
+        name: "UpdatePostProcessing",
+        module: "client.dll",
+        needle: "48 85 D2 0F 84 ? ? ? ? 48 89 5C 24 ? 57 48 83 EC ? ? ? 00 48 8B DA 48 8B F9 0F 84 ? ? ? ? 48 8D 15",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // Skybox per-frame update (counterpart to scenesystem's draw).
+    Signature {
+        name: "UpdateSkybox",
+        module: "client.dll",
+        needle: "48 89 5C 24 ? 57 48 83 EC ? 48 8B F9 E8 ? ? ? ? 48 8B 47",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // CGameEntitySystem::GetEntityByIndex â€” short, distinctive
+    // 6-byte head; the canonical entity-list lookup helper.
+    Signature {
+        name: "GetEntityByIndex",
+        module: "client.dll",
+        needle: "4C 8D 49 ? 81 FA",
+        resolve: NONE,
+        extra_off: 0,
+    },
+    // Local-pawn accessor; mirrors the existing GetLocalControllerById
+    // entry but returns the player-pawn pointer instead.
+    Signature {
+        name: "GetLocalPawn",
+        module: "client.dll",
+        needle: "48 83 EC ? 83 F9 ? 75 ? 48 8B 0D ? ? ? ? 48 8D 54 24 ? ? ? ? FF 90 ? ? ? ? ? ? 48 63 C1 4C 8D 05",
+        resolve: NONE,
+        extra_off: 0,
+    },
+
 ];

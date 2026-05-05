@@ -167,9 +167,33 @@ namespace Hooks
         }
 
         // Middle mouse click toggles third person (works even with menu closed)
+        // Hardened against crash sources:
+        //   - 300 ms cooldown so rapid clicks can't race the engine's
+        //     camera handler invocation in WorldEffects::RunThirdPerson.
+        //   - Only toggles when the local pawn is alive; toggling in
+        //     menus/lobby/dead state can crash the engine when the
+        //     CInput / camera processor pointers aren't fully valid yet.
         if (msg == WM_MBUTTONDOWN)
         {
-            WorldEffects::cfg.thirdPerson = !WorldEffects::cfg.thirdPerson;
+            static UINT64 s_lastMTog = 0;
+            UINT64 nowT = GetTickCount64();
+            if (nowT - s_lastMTog > 300)
+            {
+                bool alive = false;
+                __try {
+                    if (GameState::clientBase) {
+                        uintptr_t lp = GameState::GetLocalPawn();
+                        if (lp) {
+                            int hp = Mem::Read<int>(lp + Offsets::m_iHealth);
+                            alive = (hp > 0 && hp <= 200);
+                        }
+                    }
+                } __except (EXCEPTION_EXECUTE_HANDLER) { alive = false; }
+                if (alive) {
+                    WorldEffects::cfg.thirdPerson = !WorldEffects::cfg.thirdPerson;
+                    s_lastMTog = nowT;
+                }
+            }
         }
 
         if (showMenu)
@@ -483,9 +507,12 @@ namespace Hooks
         __try {
             SkinChanger::Tick();
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
-        __try {
-            InventoryChanger::Tick();
-        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        // InventoryChanger::Tick disabled â€” feature is non-functional in
+        // the current build and was suspected of contributing to in-game
+        // lag/crash spirals (per-tick inventory walk + g_injected vector
+        // growth + EconItemSchema reads). SkinChanger handles all paint
+        // application via the local-pawn weapon hook.
+        // __try { InventoryChanger::Tick(); } __except (EXCEPTION_EXECUTE_HANDLER) {}
         __try {
             ModelChanger::Tick();
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
@@ -661,6 +688,7 @@ namespace Hooks
             SoundESP::Render();
             Bhop::RenderVelocity();
             Crosshair::Render();
+            Triggerbot::RenderDebug();
             Log("[Render] All renders complete");
 
             if (Menu::espFont) ImGui::PopFont();

@@ -62,6 +62,15 @@ namespace Bhop
         // m_nQueuedButtonChangeMask. The ONLY path sv_subtick_legacy_kbinds 0
         // servers honour. Pairs with kbutton fallback for legacy servers.
         bool  subtickJump   = true;
+
+        // Smart-strafe yield: when the player turns their mouse faster
+        // than this many degrees per render frame, AutoStrafe stops
+        // queueing A/D and lets the engine read the player's mouse
+        // rotation natively. Eliminates the "forces one direction and
+        // ignores my keyboard" feel.
+        float yieldYawDeg   = 1.5f;
+        // How long after the last fast mouse-turn frame to keep yielding.
+        int   yieldGraceMs  = 120;
     };
 
     inline Config cfg;
@@ -74,6 +83,22 @@ namespace Bhop
     inline bool  yawInit         = false;
     inline bool  jumpToggle      = false;  // alternates jump press/release
     inline bool  inAutoStrafe    = false;  // true while we're controlling strafe keys in air
+
+    // ----- one-shot-per-landing tracking -----
+    // ModernJumpPrime + subtick queue + legacy kbutton all used to fire every
+    // render frame. That tripped the engine's spam-penalty timer (sv_jump_
+    // spam_penalty_time) after ~5s of continuous bhop, producing the
+    // "glitching up/down like the game's trying to stop the jump" symptom.
+    // We now forge / queue exactly ONCE per detected landing.
+    inline int32_t lastPrimedLanded = INT32_MIN;
+    inline int32_t lastQueuedLanded = INT32_MIN;
+
+    // Yaw-delta tracker for smart strafe yield. When the player is actively
+    // turning their mouse fast, we DON'T fight them with auto-strafe — their
+    // mouse input owns the direction. Resets each tick.
+    inline float prevTickYaw = 0.f;
+    inline DWORD lastUserMouseMs = 0;
+    inline bool  prevWasEnabled  = false;  // edge detect for clean cleanup
 
     // Last value we wrote to each button slot, so AutoStrafe can avoid
     // hammering the same press/release on every tick. Spamming the same
@@ -202,10 +227,52 @@ namespace Bhop
             return;
         }
 
+        // SMART YIELD: when the player is actively turning their mouse
+        // (yaw delta > 1.5°/frame), we let THEIR rotation drive the strafe
+        // and just watch — we don't queue any A/D press. This kills the
+        // "forces one direction and disables keyboard input takeover"
+        // feeling: if you're swinging the mouse, the engine reads your
+        // turn natively without us picking a competing direction.
+        static bool yawTrackerInit = false;
+        float curYawCheck = Mem::Read<Math::QAngle>(
+            GameState::clientBase + GameState::RVA_dwViewAngles()).yaw;
+        float yawDelta = 0.f;
+        if (yawTrackerInit) {
+            yawDelta = curYawCheck - prevTickYaw;
+            if (yawDelta >  180.f) yawDelta -= 360.f;
+            if (yawDelta < -180.f) yawDelta += 360.f;
+        }
+        prevTickYaw = curYawCheck;
+        yawTrackerInit = true;
+        DWORD nowMs = GetTickCount();
+        if (fabsf(yawDelta) > cfg.yieldYawDeg)
+            lastUserMouseMs = nowMs;
+        // Brief grace window after the user stops turning so we don't
+        // immediately re-grab control mid-swing.
+        bool userDriving = (nowMs - lastUserMouseMs) < (DWORD)cfg.yieldGraceMs;
+        if (userDriving)
+        {
+            if (inAutoStrafe) { releaseStrafe(); inAutoStrafe = false; }
+            return;
+        }
+
         inAutoStrafe = true;
 
         Math::Vec3 vel = Mem::Read<Math::Vec3>(localPawn + Offsets::m_vecVelocity);
         float speed2D = sqrtf(vel.x * vel.x + vel.y * vel.y);
+
+        // ---- DESCENT-AWARE STRAFE (slope/jump-down momentum) ----
+        // When falling fast (steep decline or jump-down) the engine
+        // wants to clip our velocity into the slope normal on landing,
+        // bleeding speed. Two compensations help here:
+        //   1) Don't release W — keeping forward queued means landing
+        //      tick wishvel is aligned with horizontal velocity, so
+        //      the post-clip projection preserves the parallel speed
+        //      component instead of zeroing it.
+        //   2) Strafe more aggressively (no dead-zone) so any tiny
+        //      mouse drift gets converted into accel, building speed
+        //      on the way down before we slap into the slope.
+        bool descending = (vel.z < -180.f);
 
         // ---- OPTIONAL SOFT SPEED CLAMP ----
         // Disabled by default (cfg.maxSpeed == 0). When enabled, releases
@@ -220,9 +287,21 @@ namespace Bhop
         // Only force-release forward when the player ISN'T pressing it
         // themselves (we don't want to fight their input â€” if they hold
         // W intentionally for a jumpshot we leave it alone).
-        if (!(GetAsyncKeyState('W') & 0x8000))
+        //
+        // EXCEPTION: when descending fast (jump-down / off-ledge / steep
+        // ramp) we KEEP W queued. The forward wishdir aligned with
+        // horizontal velocity is what survives the slope-clip on
+        // landing tick — without it the engine zeroes our forward
+        // component when it projects velocity onto the surface plane.
+        if (!descending && !(GetAsyncKeyState('W') & 0x8000))
         {
             WriteBtnIfChanged(base, ButtonOffsets::forward, 256, lastBtnForward);
+        }
+        else if (descending)
+        {
+            // Keep forward queued through the descent so post-land
+            // wishvel preserves horizontal speed.
+            WriteBtnIfChanged(base, ButtonOffsets::forward, 65537, lastBtnForward);
         }
         if (!(GetAsyncKeyState('S') & 0x8000))
         {
@@ -240,16 +319,21 @@ namespace Bhop
 
         if (cfg.strafeMode == 0)
         {
-            // Velocity-vector mode. We strafe so that velocity rotates
-            // into the desired heading.
+            // Velocity-vector mode \u2014 true "perfect strafe" math:
+            //   in Source's air-accel, addspeed = wishspeed - dot(vel, wishdir)
+            //   max gain occurs when wishdir is PERPENDICULAR to vel.
+            //   Pressing A gives wishdir = -view_right; pressing D gives
+            //   wishdir = +view_right. We pick whichever sign rotates
+            //   velocity TOWARD the view yaw, which is also the choice
+            //   that produces near-perpendicular wishdir vs vel for any
+            //   small angle between vel and view.
             //
-            // Desired heading selection:
-            //   * if speed is too low to have a meaningful velocity
-            //     vector, kickstart by alternating
-            //   * else with handsFreeGlide on we ALWAYS aim velocity
-            //     toward view yaw (player just looks where they want)
-            //   * with handsFreeGlide off we follow existing velocity
-            //     (legacy behaviour: keeps current direction)
+            // Edge cases:
+            //   * speed too low \u2192 alternate kickstart (need any motion
+            //     before the perpendicular math has meaning)
+            //   * vel almost aligned with view \u2192 dead-zone, coast
+            //   * vel almost opposite view (>150\u00b0) \u2192 still strafe in
+            //     the rotation-shorter direction so we curve back
             if (speed2D < 30.f)
             {
                 static bool kickRight = false;
@@ -263,13 +347,13 @@ namespace Bhop
                 while (diff >  180.f) diff -= 360.f;
                 while (diff < -180.f) diff += 360.f;
 
-                // diff > 0  \u2192 view is CCW of velocity (left of it)
-                //              press A to rotate velocity CCW into view
-                // diff < 0  \u2192 view is CW of velocity (right of it)
-                //              press D to rotate velocity CW into view
-                if      (diff >  1.0f) dir = -1.f;
-                else if (diff < -1.0f) dir =  1.f;
-                // tiny residual diff \u2192 coast, no input.
+                // Tighter dead-zone (0.3\u00b0 vs 1.0\u00b0) so we keep micro-
+                // correcting at high speed instead of letting velocity
+                // drift off-axis. Zero dead-zone while descending so
+                // any micro-yaw delta builds accel into the slope.
+                float dz = descending ? 0.0f : 0.3f;
+                if      (diff >  dz) dir = -1.f;
+                else if (diff < -dz) dir =  1.f;
             }
         }
         else
@@ -311,6 +395,12 @@ namespace Bhop
     {
         if (!cfg.enabled || !GameState::clientBase) return;
 
+        // When the modern subtick path is owning the jump (default), we do
+        // NOT touch the legacy kbutton slot. Three competing jump-driving
+        // paths racing each tick is what produced the "jumping up/down
+        // glitching" symptom. Subtick is the canonical path on 14155+.
+        if (cfg.subtickJump) return;
+
         uintptr_t localPawn = GameState::GetLocalPawn();
         if (!localPawn) return;
 
@@ -329,7 +419,7 @@ namespace Bhop
 
         if (flags & FL_ONGROUND)
         {
-            // On ground â€” alternate between press and release
+            // On ground — alternate between press and release
             // This ensures the game sees a fresh key press each landing
             if (!jumpToggle)
             {
@@ -346,7 +436,7 @@ namespace Bhop
         }
         else
         {
-            // In air â€” always release jump so we can re-press on landing
+            // In air — always release jump so we can re-press on landing
             Mem::Write<uint32_t>(forceJump, 256);
             jumpToggle = false;
         }
@@ -405,25 +495,36 @@ namespace Bhop
 
         if (keyHeld && onGround)
         {
-            // Read the latest landed tick. Forge a press timestamp at
-            // landed+1 so the spam guard sees a fresh user-initiated
-            // press right after touchdown (pre-landing presses are also
-            // accepted by Modern Jump, this is the most permissive value).
+            // CRITICAL: forge ONCE per landing, not every render frame.
+            //
+            // The previous unconditional write hammered LastActualJumpPress
+            // Tick = landed+1 every frame. After ~5–6s the engine's spam
+            // penalty timer (sv_jump_spam_penalty_time) flagged it as a
+            // stuck-press pattern and started rejecting jumps, producing
+            // the "glitching up/down" symptom. Gating on landedTick change
+            // means the press is forged exactly when a real player would
+            // press: once per touchdown.
             int32_t landedTick = Mem::Read<int32_t>(modern + m_ModernJump_LastLandedTick_off);
-            int32_t pressTick  = landedTick + 1;
-            Mem::Write<int32_t>(modern + m_ModernJump_LastActualJumpPressTick_off, pressTick);
-            Mem::Write<int32_t>(modern + m_ModernJump_LastUsableJumpPressTick_off, pressTick);
-            Mem::Write<float>  (modern + m_ModernJump_LastActualJumpPressFrac_off, 0.f);
-            Mem::Write<float>  (modern + m_ModernJump_LastUsableJumpPressFrac_off, 0.f);
+            if (landedTick != lastPrimedLanded)
+            {
+                int32_t pressTick = landedTick + 1;
+                Mem::Write<int32_t>(modern + m_ModernJump_LastActualJumpPressTick_off, pressTick);
+                Mem::Write<int32_t>(modern + m_ModernJump_LastUsableJumpPressTick_off, pressTick);
+                Mem::Write<float>  (modern + m_ModernJump_LastActualJumpPressFrac_off, 0.f);
+                Mem::Write<float>  (modern + m_ModernJump_LastUsableJumpPressFrac_off, 0.f);
 
-            // Legacy fallback
-            Mem::Write<bool> (legacy + m_LegacyJump_OldJumpPressed_off,  true);
-            Mem::Write<float>(legacy + m_LegacyJump_JumpPressedTime_off, 0.f);
+                // Legacy fallback (sv_legacy_jump 1 servers)
+                Mem::Write<bool> (legacy + m_LegacyJump_OldJumpPressed_off,  true);
+                Mem::Write<float>(legacy + m_LegacyJump_JumpPressedTime_off, 0.f);
+
+                lastPrimedLanded = landedTick;
+            }
         }
         else if (!keyHeld)
         {
-            // Drop legacy press flag while key released
+            // Drop legacy press flag while key released, reset prime tracker
             Mem::Write<bool>(legacy + m_LegacyJump_OldJumpPressed_off, false);
+            lastPrimedLanded = INT32_MIN;
         }
     }
 
@@ -507,13 +608,14 @@ namespace Bhop
             moveSvc + m_nLastJumpTick_movement);
 
         bool effectiveGround = onGround || (lastLanded > lastJump);
-        bool freshLanding    = (lastLanded > lastJump);  // strictly
+        bool freshLanding    = (lastLanded >= lastJump);
 
-        // Only queue a subtick jump on the SINGLE tick after touchdown
-        // (lastLanded == this cmd number, lastJump still == old). After
-        // we queue once, lastJump catches up next tick and this returns
-        // false until the next landing.
-        if (effectiveGround && freshLanding)
+        // ONE QUEUE PER LANDING. Without this gate we re-stamped the
+        // subtick "when" + change-mask every render frame (240+ Hz),
+        // and the engine would consume the press, then immediately see
+        // the SAME press queued again on the very next frame — producing
+        // the rapid micro-jump glitching the user reported.
+        if (effectiveGround && freshLanding && lastLanded != lastQueuedLanded)
         {
             // Tiny positive fraction = press at the very start of the
             // upcoming tick. 0.0 is treated as "unset".
@@ -530,6 +632,8 @@ namespace Bhop
                                  down | Offsets::IN_BTN_JUMP);
             Mem::Write<uint64_t>(moveSvc + m_nQueuedButtonChangeMask_movement,
                                  chng | Offsets::IN_BTN_JUMP);
+
+            lastQueuedLanded = lastLanded;
         }
 
         // NOTE: subtick STRAFE removed. Writing m_flCmdLeftMove + zeroing
@@ -572,7 +676,35 @@ namespace Bhop
     // ---------------------------------------------------------------
     inline void Tick()
     {
-        if (!cfg.enabled || !GameState::clientBase) return;
+        // Edge-detect disable: when bhop is turned off, release every
+        // button slot we may have stamped. Without this the kbutton
+        // cache stays at 65537 / 256 from the last frame and the next
+        // time the user manually moves, the engine sees a stale press
+        // bit on +moveleft / +moveright — producing the symptom of
+        // "input being held against my will after disabling".
+        if (!cfg.enabled)
+        {
+            if (prevWasEnabled && GameState::clientBase)
+            {
+                uintptr_t base = GameState::clientBase;
+                Mem::Write<uint32_t>(base + ButtonOffsets::jump,    256);
+                Mem::Write<uint32_t>(base + ButtonOffsets::left,    256);
+                Mem::Write<uint32_t>(base + ButtonOffsets::right,   256);
+                Mem::Write<uint32_t>(base + ButtonOffsets::forward, 256);
+                Mem::Write<uint32_t>(base + ButtonOffsets::back,    256);
+                lastBtnLeft = lastBtnRight = lastBtnForward = lastBtnBack = 256;
+                inAutoStrafe = false;
+                jumpToggle = false;
+                lastPrimedLanded = INT32_MIN;
+                lastQueuedLanded = INT32_MIN;
+                yawInit = false;
+                prevWasEnabled = false;
+            }
+            return;
+        }
+        prevWasEnabled = true;
+
+        if (!GameState::clientBase) return;
 
         __try {
 

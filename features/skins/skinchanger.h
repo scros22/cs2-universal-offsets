@@ -306,7 +306,16 @@ namespace SkinChanger
     inline int       lastGloveModelDef   = 0;
 
     // Simple file logger â€” writes to %TEMP%\skinchanger.log
+    //
+    // PERFORMANCE: This used to fire CreateFile/WriteFile/CloseHandle on
+    // EVERY render-thread tick from inside SkinChanger::Tick + every
+    // glove/knife/paint swap path. Windows Defender real-time scan
+    // intercepts each %TEMP% open synchronously, which on some machines
+    // (the friend's setup confirmed this) drives the cheat-running
+    // process down to 2-10 fps with no other obvious cause. Gate the
+    // entire body under _DEBUG so Release builds compile to a no-op.
     inline void SkLog(const char* fmt, ...) {
+#ifdef _DEBUG
         char path[MAX_PATH];
         GetTempPathA(MAX_PATH, path);
         lstrcatA(path, "skinchanger.log");
@@ -319,6 +328,9 @@ namespace SkinChanger
         va_end(ap);
         if (n > 0) { buf[n] = '\n'; buf[n+1] = 0; DWORD w; WriteFile(h, buf, n+1, &w, nullptr); }
         CloseHandle(h);
+#else
+        (void)fmt;
+#endif
     }
 
     // ---------------------------------------------------------------
@@ -994,21 +1006,38 @@ namespace SkinChanger
             //      * SEH wrap so any internal manager-state mismatch
             //        downgrades to "no rebuild" instead of crashing.
             if (AnimGraphRebuild) {
+                // Dedupe: AnimGraphRebuild tears down the live
+                // CNmGraphInstance and re-binds it. The animation
+                // thread evaluates that instance every frame; if
+                // we tear it down WHILE EvaluateGraph is running
+                // (or worse, on every CreateMove tick at 64Hz) we
+                // get a consistent crash a few frames later.
+                //
+                // The caller re-enters ApplyKnifeModelSwap every
+                // tick until the def-index sticks (revert-protection),
+                // so we MUST gate the rebuild call to fire ONCE per
+                // (entity, def) pair. Item-identity rewrites and
+                // SetModel above are idempotent and safe to spam,
+                // but the rebuild is not.
+                struct RebuildKey { uintptr_t ent; int def; DWORD t; };
+                static RebuildKey s_lastWorld = {0,0,0};
+                static RebuildKey s_lastVma   = {0,0,0};
+                DWORD nowMs = GetTickCount();
                 __try {
-                    // Validate that a candidate "pointer" looks like a real
-                    // user-space heap pointer (aligned, in canonical range).
-                    // Garbage reads (e.g. m_pMainGraphController doesn't exist
-                    // on cs_player_controller, so +0x1058 is random struct
-                    // bytes) often pass a naive `> 0x10000` test but are
-                    // float-pair patterns or look like 0x101002A.
                     auto looksLikePtr = [](uintptr_t p) -> bool {
-                        if (p < 0x10000000000ull) return false;       // below typical heap
-                        if (p > 0x7FFFFFFFFFFFull) return false;      // above user space
-                        if (p & 0x7) return false;                    // misaligned
+                        if (p < 0x10000000000ull) return false;
+                        if (p > 0x7FFFFFFFFFFFull) return false;
+                        if (p & 0x7) return false;
                         return true;
                     };
-                    auto tryRebuild = [&](const char* tag, uintptr_t entity) {
+                    auto tryRebuild = [&](const char* tag, uintptr_t entity, RebuildKey& cache) {
                         if (!entity || entity < 0x10000) return;
+                        // Dedupe: same entity + same target def within
+                        // 2 seconds -> already rebuilt, skip.
+                        if (cache.ent == entity && cache.def == targetDefIndex &&
+                            (nowMs - cache.t) < 2000) {
+                            return;
+                        }
                         uintptr_t mainCtrl = 0;
                         __try { mainCtrl = Mem::Read<uintptr_t>(entity + kMainGraphController_OFF); }
                         __except (EXCEPTION_EXECUTE_HANDLER) { return; }
@@ -1022,11 +1051,14 @@ namespace SkinChanger
                               (unsigned long long)mainCtrl, (unsigned long long)inst);
                         AnimGraphRebuild(mainCtrl, 2);
                         SkLog("[Knife][%s] AnimGraphRebuild OK", tag);
+                        cache.ent = entity;
+                        cache.def = targetDefIndex;
+                        cache.t   = nowMs;
                     };
-                    tryRebuild("world", weapon);
+                    tryRebuild("world", weapon, s_lastWorld);
                     uint32_t vmaH = Mem::Read<uint32_t>(weapon + 0x1688);
                     if (vmaH && vmaH != 0xFFFFFFFFu) {
-                        tryRebuild("vma", GameState::ResolveHandle(vmaH));
+                        tryRebuild("vma", GameState::ResolveHandle(vmaH), s_lastVma);
                     }
                 } __except (EXCEPTION_EXECUTE_HANDLER) {
                     SkLog("[Knife] AnimGraphRebuild EXCEPTION on weapon=0x%llX",
@@ -1365,6 +1397,33 @@ namespace SkinChanger
         uintptr_t activeWeapon = GameState::GetActiveWeapon(localPawn);
         if (!activeWeapon) { bail("activeWeapon", s_bailLogWeapon); return; }
 
+        // -------------------------------------------------------------
+        // POST-DEPLOY DEFER (anti-crash on weapon switch).
+        //
+        // When the user presses 1/2/3 to switch weapons the engine
+        // publishes the new active-weapon handle on the network thread
+        // BEFORE the entity is fully wired up: vdata pointer, scene
+        // node, animgraph controller, subclass-data pointer at +0x388
+        // can all still be transitioning. If we run our model/skin
+        // swap on that exact frame we hammer SetModel /
+        // SetMeshGroupMask / UpdateSubclass / AnimGraphRebuild against
+        // a half-initialised entity and crash inside engine code (most
+        // recently reproduced as: "pressed 3 to switch to knife,
+        // game crashed").
+        //
+        // Skip this Tick the first time we see a new active-weapon
+        // pointer. By the next Present (~7ms) the deploy has settled
+        // and all the engine-side fields are populated. Visually
+        // imperceptible.
+        // -------------------------------------------------------------
+        static uintptr_t s_lastActiveWeapon = 0;
+        if (activeWeapon != s_lastActiveWeapon) {
+            s_lastActiveWeapon = activeWeapon;
+            SkLog("[Tick] active weapon changed -> 0x%llX (deferring 1 frame)",
+                  (unsigned long long)activeWeapon);
+            return;
+        }
+
         uintptr_t item = activeWeapon + Offsets::m_AttributeManager + Offsets::m_Item;
         uint16_t defIndex = Mem::Read<uint16_t>(item + Offsets::m_iItemDefinitionIndex);
 
@@ -1421,18 +1480,32 @@ namespace SkinChanger
 
             // 1. MODEL SWAP â€” re-swap every tick until on-entity def matches target.
             //    Game's network update can revert def-index, so caching is unsafe.
+            //    BUT calling this at 64Hz crashed: AnimGraphRebuild inside
+            //    tears down the live CNmGraphInstance, racing the animation
+            //    thread's per-frame EvaluateGraph. Throttle to ~250ms between
+            //    attempts on the same entity. AnimGraphRebuild is also
+            //    dedupe-gated inside ApplyKnifeModelSwap.
             if (targetKnifeDef > 0 && (int)defIndex != targetKnifeDef) {
-                static int s_swapLogCount = 0;
-                if (s_swapLogCount < 5) {
-                    SkLog("[Knife] swap attempt: weapon=0x%llX curDef=%u targetDef=%d",
-                        (unsigned long long)activeWeapon, (unsigned)defIndex, targetKnifeDef);
-                    s_swapLogCount++;
+                static DWORD     s_lastSwapMs   = 0;
+                static uintptr_t s_lastSwapEnt  = 0;
+                DWORD nowSwap = GetTickCount();
+                bool entChanged = (activeWeapon != s_lastSwapEnt);
+                bool throttled  = (!entChanged && (nowSwap - s_lastSwapMs) < 250);
+                if (!throttled) {
+                    static int s_swapLogCount = 0;
+                    if (s_swapLogCount < 5) {
+                        SkLog("[Knife] swap attempt: weapon=0x%llX curDef=%u targetDef=%d",
+                            (unsigned long long)activeWeapon, (unsigned)defIndex, targetKnifeDef);
+                        s_swapLogCount++;
+                    }
+                    ApplyKnifeModelSwap(activeWeapon, targetKnifeDef);
+                    lastKnifeModelEntity = activeWeapon;
+                    lastKnifeModelDef    = targetKnifeDef;
+                    s_lastSwapMs  = nowSwap;
+                    s_lastSwapEnt = activeWeapon;
+                    // Re-read after swap
+                    defIndex = Mem::Read<uint16_t>(item + Offsets::m_iItemDefinitionIndex);
                 }
-                ApplyKnifeModelSwap(activeWeapon, targetKnifeDef);
-                lastKnifeModelEntity = activeWeapon;
-                lastKnifeModelDef    = targetKnifeDef;
-                // Re-read after swap
-                defIndex = Mem::Read<uint16_t>(item + Offsets::m_iItemDefinitionIndex);
             }
 
             // 2. SKIN APPLY (paint-kit/wear/seed) â€” only when paint kit is set

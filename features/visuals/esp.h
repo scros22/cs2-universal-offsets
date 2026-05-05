@@ -543,6 +543,22 @@ namespace ESP
         return Mem::Read<uint8_t>(pawn + Offsets::m_entitySpottedState + 0x08) != 0;
     }
 
+    // Resilient pawn-side alive check. Used as a fallback when the
+    // controller's m_bPawnIsAlive byte is stale (the slot has just
+    // been reused -- e.g. a player disconnected and a bot took over,
+    // or the user joined as a bot). Lives in its own function because
+    // ESP::Render() uses C++ objects (vector, string) and cannot host
+    // __try/__except directly (C2712 in /EHsc mode).
+    inline bool PawnAliveFallback(uintptr_t pawn)
+    {
+        if (!pawn) return false;
+        __try {
+            int32_t hpFb = Mem::Read<int32_t>(pawn + Offsets::m_iHealth);
+            uint8_t lsFb = Mem::Read<uint8_t>(pawn + Offsets::m_lifeState);
+            return (hpFb > 0 && lsFb == 0);
+        } __except (EXCEPTION_EXECUTE_HANDLER) { return false; }
+    }
+
     // ---------------------------------------------------------------
     // Main render â€” clean, optimized, no debug overlays
     // ---------------------------------------------------------------
@@ -858,6 +874,18 @@ namespace ESP
             if (ctrl == localCtrl) continue;
 
             bool alive = Mem::Read<bool>(ctrl + Offsets::m_bPawnIsAlive);
+            // Resilient alive check (mirror of aimbot::FindBestTarget).
+            // m_bPawnIsAlive lags by 1-2 ticks when a human disconnects
+            // and a bot fills the slot; without this fallback the bot
+            // would have no ESP for the rest of the round.
+            if (!alive)
+            {
+                uint32_t pHfb = Mem::Read<uint32_t>(ctrl + Offsets::m_hPlayerPawn);
+                if (pHfb && pHfb != 0xFFFFFFFF) {
+                    uintptr_t pFb = GameState::ResolveHandle(pHfb);
+                    if (PawnAliveFallback(pFb)) alive = true;
+                }
+            }
 
             if (!alive && cfg.spectators)
             {

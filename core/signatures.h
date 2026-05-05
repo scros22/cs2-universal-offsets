@@ -92,6 +92,21 @@ namespace Signatures
     constexpr const char* DrawSkyboxArray =
         "45 85 C9 0F 8E ? ? ? ? 4C 8B DC 55";
 
+    // CGlobalLightBase::UpdateState -- client.dll, per-frame routine
+    // that copies the light entity's color/scale source fields into the
+    // render-side packed slots. After the original runs, the dest floats:
+    //   a1+0x1AC (m_flLightScale dst)
+    //   a1+0x21C (m_flAmbientScale1 dst)
+    //   a1+0x22C (m_flAmbientScale2 dst)
+    //   a1+0x230 (m_flGroundScale dst)
+    // are what the renderer reads. Forcing them to ~0.0 dims the sun
+    // entirely WITHOUT touching any rendering pipeline -- pure internal
+    // interference. Sig matches the unique prologue (sub_180A8B5A0 on
+    // build 14158): push rdi + sub rsp,C0h + lea rcx,[rip+rel] + call.
+    constexpr const char* GlobalLightUpdateState =
+        "40 57 48 81 EC C0 00 00 00 48 8B F9 BA FF FF FF FF "
+        "48 8D 0D ? ? ? ? E8";
+
     // CSceneSystem::DrawAggregateSceneObjectArray — scenesystem.dll
     //   Per-frame batched draw of static world geometry "aggregates"
     //   (props/brushes batched together by tile). Receives an output
@@ -108,6 +123,32 @@ namespace Signatures
     constexpr const char* DrawAggregateSceneObjectArray =
         "48 8B C4 48 89 50 ? 48 89 48 ? 55 53 56 57 41 54 41 55 41 56 "
         "41 57 48 8D A8 ? ? ? ? 48 81 EC ? ? ? ? 0F 29 70";
+
+    // BuildSceneInfoGpu / sceneinfo_gpu Load Materials -- scenesystem.dll
+    //   sub_180084FF0 on build 14158 (size ~0x2CF6). Called ONCE per
+    //   map / scene load. This is the discord-attested authoritative
+    //   atmosphere modulation entry: it parses the world atmosphere KV3
+    //   block and writes the parsed values into the GPU scene-info
+    //   struct (passed as the FIRST arg, rcx). Field layout (offsets
+    //   relative to a1):
+    //     +0x3E0..0x3EB : uniform_sky_color  (3x float RGB, 12 B)
+    //     +0x3F0..0x3FF : sky_bounce         (4x float RGBA vec4, 16 B)
+    //     +0x40C        : sky_bounce_scale   (float)
+    //     +0x47C        : sun_light_min_brightness (float)
+    //   These are the same values referenced for cloud tint / sun tint /
+    //   sky bounce modulation. Hook usage: capture rcx on entry, call
+    //   original, then post-overwrite the four fields above.
+    //
+    //   Limitation: this function fires once per map load, NOT per
+    //   frame. Toggling night mode in the menu only takes effect on
+    //   the next map / vid_restart. No in-game live-toggle path.
+    //
+    //   Anchor bytes: prologue spill of r9 + r8 + rcx, push rbp, lea
+    //   rbp,[rsp-1D00h], mov eax,1E00h (alloca probe size). Verified
+    //   unique on build 14158.
+    constexpr const char* BuildSceneInfoGpu =
+        "4C 89 4C 24 20 4C 89 44 24 18 48 89 4C 24 08 55 "
+        "48 8D AC 24 00 E3 FF FF B8 00 1E 00 00";
 
     // DisableViewClustering / PVS singleton accessor — engine2.dll
     //   lea rcx, [g_visMgr]   ; load singleton ptr-to-ptr
@@ -145,6 +186,44 @@ namespace Signatures
     //   render-list ptr; nullptr = "I drew nothing here, move on").
     constexpr const char* RenderDecals =
         "44 88 4C 24 ? 55 53";
+
+    // -----------------------------------------------------------------
+    // EngineTrace bullet-trace pipeline — client.dll
+    // -----------------------------------------------------------------
+    //   Six functions Valve uses to do a bullet trace from start→end,
+    //   collect surface hits and run penetration. Lifted from a UC post
+    //   (Apr 8 2026) and re-verified for build 14158 in IDA. Five UC
+    //   sigs match unchanged; HandleBulletPenetration's UC sig
+    //   (`48 8B C4 44 89 48 ? 55 57`) is DEAD on 14158 because the
+    //   compiler now spills extra args (rdx, rcx) inline before the
+    //   push rbp — replaced with a longer prologue match.
+    //
+    //   Use cases: vischeck (no fake-tick gate), autowall, edge-jump
+    //   trace, seeded-triggerbot ground-truth validation, etc.
+    //
+    //   client.dll RVAs (build 14158):
+    //     InitTraceData            0x180800580
+    //     InitTraceInfo            0x1815FC2A0
+    //     InitTraceFilter          0x18032BBF0
+    //     CreateTrace              0x180804900
+    //     GetTraceInfo             0x180806F50
+    //     HandleBulletPenetration  0x1808211F0
+    constexpr const char* TraceInitData =
+        "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8D 79 ? 33 F6 C7 47";
+    constexpr const char* TraceInitInfo =
+        "40 55 41 55 41 57 48 83 EC 30";
+    constexpr const char* TraceInitFilter =
+        "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 0F B6 41 ? 33 FF 24";
+    constexpr const char* TraceCreate =
+        "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC 50 F2 0F 10 02";
+    constexpr const char* TraceGetInfo =
+        "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC 60 48 8B E9 0F 29 74 24";
+    // 14158 prologue — UC sig was a 9-byte stub that matched zero
+    // sites on this build. The full unique prologue includes the
+    // arg-spill sequence (mov [rsp+20],r9d ; mov [rsp+10],rdx ;
+    // mov [rsp+8],rcx) before push rbp/push rdi/push r15.
+    constexpr const char* TraceHandleBulletPen =
+        "48 8B C4 44 89 48 20 48 89 50 10 48 89 48 08 55 57 41 57";
 
     // KillFeedbackEmitter — client.dll
     //   Emits one of four "Player.Death*.AttackerFeedback" sound
@@ -321,4 +400,30 @@ namespace Signatures
     // ----------------------------------------------------------------
     constexpr const char* LoadKV3 =
         "48 8D 0D ? ? ? ? FF 15 ? ? ? ? 49 8B 06";
+
+    // ----------------------------------------------------------------
+    // particles.dll
+    // ----------------------------------------------------------------
+
+    // GetParticleManager — returns the global CParticleSystemMgr*.
+    //   The function is a 1-line accessor:
+    //     mov rax, [rip+rel32_to_g_pParticleMgr]
+    //     ret
+    //   That's the leading 8 bytes of the pattern. The trailing
+    //   `48 89 5C 24 ? 57 B8` after 8 bytes of inter-function pad
+    //   anchors the NEXT function's prologue, making the whole
+    //   pattern unique inside particles.dll.
+    //
+    //   To read the manager pointer:
+    //     uintptr_t fn = FindPattern(L"particles.dll", GetParticleManager);
+    //     int32_t  rel = *(int32_t*)(fn + 3);
+    //     uintptr_t mgrSlot = (fn + 7) + rel;          // global ptr-to-ptr
+    //     CParticleSystemMgr* mgr = *(void**)mgrSlot;  // deref slot
+    //
+    //   With the manager in hand, the public CParticleSystemMgr API
+    //   (CreateParticleEffect / FindParticleSystem / etc.) is reachable
+    //   via vtable dispatch — vtable index needs separate verification
+    //   per build before wiring CreateParticleEffect itself.
+    constexpr const char* GetParticleManager =
+        "48 8B 05 ? ? ? ? C3 ? ? ? ? ? ? ? ? 48 83 EC 28 8B 0D";
 }

@@ -499,6 +499,156 @@ pub static FEATURES: &[VerifiedFeature] = &[
             },
         ],
     },
+
+    // ------------------------------------------------------------------
+    // Combat / sound additions verified live in the internal cheat
+    // through May 2026 (build 14158).
+    // ------------------------------------------------------------------
+    VerifiedFeature {
+        name: "Seeded Triggerbot",
+        status: "working",
+        summary: "Per-tick seeded prediction. Reads the live spread seed (m_iShotsFired \
+                  + m_aimPunchAngle) and re-runs Valve's spread RNG via \
+                  the SpreadSeedGen + CalcSpread pair to compute exactly where the \
+                  next bullet would fly, then traces from local eye to that point \
+                  through the EngineTrace pipeline (TraceInitData/Info/Filter + \
+                  TraceCreate + TraceGetInfo + TraceHandleBulletPen). Strict-window \
+                  mode tests only ticks {0, +1} and ALL must hit before firing; \
+                  wide-window mode accepts ANY hit in {0, +1, -1, +2}. Local eye \
+                  position is projected by localVel * leadTime so test geometry \
+                  matches engine fire-time eye pos. Predictor always tests REAL \
+                  m_fAccuracyPenalty + m_flTurningInaccuracy — earlier 'perfect-shot' \
+                  override that zeroed client spread caused server desync (kill sound \
+                  but no damage); that path is OFF by default.",
+        fields: &[],
+        convars: &[],
+        hooks: &[
+            VerifiedHook { function: "CCSPlayerAnimGraphState::CalcSpread", module: "client.dll", signature: "CalcSpread",     action: "Cache (mode, baseSpread, inaccuracy) per itemDef so the predictor can re-run the same math against the live seed." },
+            VerifiedHook { function: "NoSpread1",                            module: "client.dll", signature: "NoSpread1",      action: "Optional client-spread suppress for the perfect-shot path. Disabled by default — server desync risk." },
+            VerifiedHook { function: "TraceCreate",                          module: "client.dll", signature: "TraceCreate",    action: "Pass-through; used as the trace-pipeline entry point for predicted-shot vischecks." },
+        ],
+    },
+    VerifiedFeature {
+        name: "Aimbot / Trigger Cooperation",
+        status: "working",
+        summary: "Two-bug fix shipped this session. (1) Aimbot mid-snap caused angle \
+                  desync between trigger predict and engine fire — trigger now defers \
+                  whenever Aimbot::state.phase ∈ {REACTING, ATTACKING, CORRECTING} \
+                  and only fires in PHASE_LOCKED or PHASE_IDLE. (2) Trigger's SendInput \
+                  LBUTTON edges woke aimbot uninvited — aimbot's rawAim filter now \
+                  rejects edges arriving inside the trigger's 80ms synth-click window \
+                  via Triggerbot::g_synthClickUntilMs. 120ms debounce on rawAim release \
+                  remains in place.",
+        fields: &[],
+        convars: &[],
+        hooks: &[
+            VerifiedHook { function: "CCSGOInput::CreateMove", module: "client.dll", signature: "CreateMove", action: "Aimbot's primary tick — runs phase machine, performs angle snap, sets fire latch." },
+        ],
+    },
+    VerifiedFeature {
+        name: "Kill Sound Override",
+        status: "working",
+        summary: "Hooks the universal sound-emit dispatcher (EmitSoundByHandle) plus \
+                  the soundsystem.dll convergence point (CSosOperatorSystem::StartSoundEvent) \
+                  for name capture, and KillFeedbackEmitter for confirmed-kill detection. \
+                  Plays a custom local sound on kill and (optionally) suppresses the \
+                  Valve HS dink via DamageFeedbackEmitter + GetHitGroup. \
+                  STABILITY: per-sound FlushFileBuffers was removed from the audio-thread \
+                  log path (was stalling the engine audio thread and growing logs to \
+                  28MB/session); logging is OFF by default with a 5MB hard cap when \
+                  re-enabled.",
+        fields: &[],
+        convars: &[],
+        hooks: &[
+            VerifiedHook { function: "KillFeedbackEmitter",     module: "client.dll",      signature: "KillFeedbackEmitter",                action: "Detect confirmed kills (fires from engine damage flow, not aimbot lock state)." },
+            VerifiedHook { function: "DamageFeedbackEmitter",   module: "client.dll",      signature: "DamageFeedbackEmitter",              action: "Selectively skip the HS chirp via GetHitGroup branch (head=1)." },
+            VerifiedHook { function: "EmitSoundByHandle",       module: "client.dll",      signature: "EmitSoundByHandle",                  action: "Universal sound-name capture for filter/log." },
+            VerifiedHook { function: "StartSoundEvent",         module: "soundsystem.dll", signature: "CSosOperatorSystem_StartSoundEvent", action: "Convergence point that catches by-handle/by-hash variants the by-name path misses (HS dink)." },
+        ],
+    },
+    VerifiedFeature {
+        name: "Skin Changer (paint kits)",
+        status: "working",
+        summary: "Writes m_nFallbackPaintKit / m_nFallbackSeed / m_flFallbackWear / \
+                  m_iEntityQuality on each weapon then forces the modern paint-apply \
+                  path: ApplyEconCustomization(weapon, 1) → sub_181079790 → \
+                  sub_18105AAF0 (which actually consumes the fallback fields and queues \
+                  'clientside_reload_custom_econ' to rebuild the composite material). \
+                  RegenerateWeaponSkin alone is INSUFFICIENT — it only handles the \
+                  legacy static paint table. GetCustomPaintKitIndex is polled to \
+                  detect rejection and gate re-apply work instead of hammering \
+                  ApplyEconCustomization every tick. Setting m_iItemIDLow/High to \
+                  0xFFFFFFFF forces the EconItemView lookup to fail → fallback path \
+                  taken.",
+        fields: &[],
+        convars: &[],
+        hooks: &[
+            VerifiedHook { function: "ApplyEconCustomization",          module: "client.dll", signature: "ApplyEconCustomization",          action: "Modern paint-apply entry; consumes m_nFallback* fields and queues composite rebuild." },
+            VerifiedHook { function: "RegenerateWeaponSkin",            module: "client.dll", signature: "RegenerateWeaponSkin",            action: "Legacy static-paint pass; called for completeness, NOT what makes modern skins visible." },
+            VerifiedHook { function: "GetCustomPaintKitIndex",          module: "client.dll", signature: "CEconItemView::GetCustomPaintKitIndex", action: "Read live paint kit to detect rejection." },
+        ],
+    },
+    VerifiedFeature {
+        name: "Knife Model Swap",
+        status: "working",
+        summary: "Spoofs m_nSubclassID on the knife entity, calls UpdateSubclass to \
+                  re-bind the subclass-data ptr at weapon+0x388 (the per-knife sequence \
+                  set), then AnimGraphRebuild(controller, 2) to tear down the existing \
+                  CNmGraphInstance at controller+0x448 and let the manager re-bind \
+                  from the (now-updated) vdata's animgraph. Without the rebuild the \
+                  knife mesh swaps but inspect/deploy/swing animations stay on the \
+                  OLD subclass's sequences (Emerald Butterfly mesh + default-knife \
+                  inspect anim was the symptom).",
+        fields: &[],
+        convars: &[],
+        hooks: &[
+            VerifiedHook { function: "UpdateSubclass",   module: "client.dll", signature: "48 8B 41 10 48 8B D9 8B 50 30",                              action: "Re-bind subclass-data ptr at weapon+0x388." },
+            VerifiedHook { function: "AnimGraphRebuild", module: "client.dll", signature: "AnimGraphRebuild",                                            action: "Mode=2: destroy CNmGraphInstance and let CAnimGraphControllerManager re-bind from new vdata." },
+            VerifiedHook { function: "SetMeshGroupMask", module: "client.dll", signature: "SetMeshGroupMask",                                            action: "Refresh visible mesh after subclass change." },
+        ],
+    },
+    VerifiedFeature {
+        name: "Glove Changer",
+        status: "broken",
+        summary: "NOT WORKING in build 14158. Schema writes (m_nFallbackPaintKit on \
+                  C_EconWearable, m_unMusicID etc.) propagate but the composite \
+                  material fails to rebuild on the wearable's render slot. C_EconEntity::\
+                  BuildLegacyGloveSkinMaterial sig is in the database but the call \
+                  chain has not been wired end-to-end. Needs more research into \
+                  CompositeMaterialPanoramaPanel_Init + the per-panel render-request \
+                  path before this can be marked working.",
+        fields: &[],
+        convars: &[],
+        hooks: &[],
+    },
+    VerifiedFeature {
+        name: "Inventory Changer",
+        status: "broken",
+        summary: "WIP. Stub call sites and resolver scaffolding exist in \
+                  features/skins/inventory_changer.h (CreateBaseTypeCache, \
+                  CreateSOSubclassEconItem, GetInventoryManager, GetItemInLoadout, \
+                  EquipItemInLoadout, GetEconItemSchema, GetAttributeDefinitionByName, \
+                  SetDynamicAttributeValue) but the end-to-end inject-into-loadout \
+                  flow is not yet functional. All sigs resolve cleanly — wiring is \
+                  the blocker. Coming soon.",
+        fields: &[],
+        convars: &[],
+        hooks: &[],
+    },
+    VerifiedFeature {
+        name: "BHOP (Subtick)",
+        status: "working",
+        summary: "Subtick-aware bunnyhop. Adds IN_JUMP to the buttons mask in \
+                  CCSGOInput::CreateMove on the exact subtick the local pawn lands \
+                  (m_fFlags & FL_ONGROUND transition). Avoids the tick-boundary \
+                  miss that breaks naive +jump/-jump scripts on 64-tick servers \
+                  with 128-Hz subticks.",
+        fields: &[],
+        convars: &[],
+        hooks: &[
+            VerifiedHook { function: "CCSGOInput::CreateMove", module: "client.dll", signature: "CreateMove", action: "Inject IN_JUMP on landing subtick when bhop enabled and m_iJump latch armed." },
+        ],
+    },
 ];
 
 // ----------------------------------------------------------------------

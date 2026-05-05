@@ -628,7 +628,7 @@ namespace Menu
     struct SavedConfig
     {
         uint32_t magic    = 0x4C554349;
-        uint32_t version  = 19; // bumped: chams styles redesigned (Velvet/Iridescent/LiquidMetal/Acid/Blueprint/InkSketch/Frostbite)
+        uint32_t version  = 20; // bumped: KillSound::cfg added (sound pack picker)
         uint32_t dataSize = sizeof(SavedConfig);
         char                    name[32];
         Aimbot::Config          aimbot;
@@ -640,6 +640,7 @@ namespace Menu
         Chams::Config           chams;
         Bhop::Config            bhop;
         SkinChanger::Config     skinchanger;
+        KillSound::Config       killSound;
         int   menuStyle = 0;
         int   hudStyle  = 0;
         float priColor[4] = { 142/255.f, 132/255.f, 255/255.f, 1.f };
@@ -725,6 +726,7 @@ namespace Menu
         cfg.chams        = Chams::cfg;
         cfg.bhop         = Bhop::cfg;
         cfg.skinchanger  = SkinChanger::cfg;
+        cfg.killSound    = KillSound::cfg;
         cfg.menuStyle    = (int)Menu::activeStyle;
         cfg.hudStyle     = Menu::hudStyle;
         memcpy(cfg.priColor, Menu::primaryColor, sizeof(cfg.priColor));
@@ -754,7 +756,7 @@ namespace Menu
         // a version bump (commit 6743f1b). Reject + fall back to defaults
         // is far cleaner than reading 8 bytes of garbage into bools/floats.
         if (hdr[0] != 0x4C554349 ||
-            hdr[1] != 16 ||
+            hdr[1] != 20 ||
             hdr[2] != (uint32_t)sizeof(SavedConfig))
         {
             fclose(f);
@@ -784,6 +786,12 @@ namespace Menu
         Chams::cfg           = cfg.chams;
         Bhop::cfg            = cfg.bhop;
         SkinChanger::cfg     = cfg.skinchanger;
+        KillSound::cfg       = cfg.killSound;
+        // Reconcile the saved selection against currently-loaded packs:
+        // the index may not match anymore (files added/removed between
+        // sessions). LoadSoundPacks does this fix-up by name; calling it
+        // here is cheap (it short-circuits if the folder is unchanged).
+        KillSound::LoadSoundPacks();
         Menu::activeStyle    = (Menu::MenuStyle)cfg.menuStyle;
         Menu::hudStyle       = (cfg.hudStyle >= 0 && cfg.hudStyle <= 2) ? cfg.hudStyle : 0;
         memcpy(Menu::primaryColor,   cfg.priColor, sizeof(cfg.priColor));
@@ -1049,6 +1057,18 @@ namespace Menu
             }
             SynthSep();
             EvoCheckbox("Auto Strafe##bs", &Bhop::cfg.autoStrafe);
+            if (Bhop::cfg.autoStrafe && advancedMode)
+            {
+                SynthSep();
+                EvoSliderFloat("Strafe Yield Deg##bsy", &Bhop::cfg.yieldYawDeg, 0.5f, 5.f, "%.1f");
+                SynthSep();
+                ImGui::SliderInt("Yield Grace ms##bsg", &Bhop::cfg.yieldGraceMs, 0, 400);
+            }
+            if (advancedMode)
+            {
+                SynthSep();
+                EvoCheckbox("Subtick Jump (recommended)##bsj", &Bhop::cfg.subtickJump);
+            }
         }
         SynthSep();
         EvoCheckbox("Velocity Display##bvd", &Bhop::cfg.showVelocity);
@@ -1066,7 +1086,44 @@ namespace Menu
             SynthSep();
             EvoCheckbox("Fire Airborne##tab", &Triggerbot::cfg.airborneFire);
             SynthSep();
+            EvoCheckbox("Perfect Shot##tps", &Triggerbot::cfg.perfectShot);
+            SynthSep();
+            EvoCheckbox("Vis Check##tvc", &Triggerbot::cfg.visCheck);
+            SynthSep();
             ImGui::SliderFloat("Hitbox Radius##thr", &Triggerbot::cfg.hitboxRadius, 1.f, 20.f, "%.1f");
+            SynthSep();
+            // Jump Shot one-click tuner: bundles the proven config for
+            // landing seed-predicted shots while airborne. perfectShot
+            // ON flattens engine spread, airborneFire ON lifts the
+            // ground gate, hitbox 6.5 absorbs in-air sway, wide tick
+            // window covers cmd-timing slop on a moving platform.
+            // Real-damage jumpshot tune: NO client-side spread lie.
+            // Predictor uses live inaccuracy → only fires when the
+            // server-replayed bullet will actually land. Scoped AWP
+            // and first-shot rifles work mid-air; spamming an SMG
+            // mid-jump correctly refuses to fire.
+            if (EvoButton("Tune for Jump Shots##tjs"))
+            {
+                Triggerbot::cfg.seededPredict = true;
+                Triggerbot::cfg.airborneFire  = true;
+                Triggerbot::cfg.perfectShot   = false;  // off — server has real spread
+                Triggerbot::cfg.strictWindow  = true;   // both ticks {0,+1} must hit
+                Triggerbot::cfg.localEyeLead  = true;   // project eye by velocity
+                Triggerbot::cfg.visCheck      = true;
+                Triggerbot::cfg.hitboxRadius  = 3.6f;   // tight, matches server hitbox
+                Triggerbot::cfg.wideTickWindow = false; // strict path uses {0,+1}
+                Triggerbot::cfg.predictBothTicks = true;
+                Triggerbot::cfg.requireConsecutiveTicks = 1;
+                Triggerbot::cfg.targetLead    = true;
+                Triggerbot::cfg.leadTime      = 0.050f;
+                Triggerbot::cfg.targetMode    = 0; // head
+                Triggerbot::cfg.minDelayMs    = 0;
+                Triggerbot::cfg.maxDelayMs    = 0;      // no random delay
+            }
+            SynthSep();
+            EvoCheckbox("Strict Window##tps2", &Triggerbot::cfg.strictWindow);
+            SynthSep();
+            EvoCheckbox("Local Eye Lead##tlel", &Triggerbot::cfg.localEyeLead);
             SynthSep();
             EvoCheckbox("Team Check##ttc",   &Triggerbot::cfg.teamCheck);
             SynthSep();
@@ -1214,6 +1271,30 @@ namespace Menu
             EvoCheckbox("Weapon Chams##cw_vm", &Chams::cfg.weaponChams);
             SynthSep();
             EvoCheckbox("Hand Chams##ch_vm",   &Chams::cfg.handsChams);
+            // Custom color picker -- only meaningful for the tile-scroll
+            // family (Inferno..Constellation). Water + the legacy styles
+            // ignore it (they bake their own colors / palette cycles).
+            if (Chams::cfg.style >= Chams::kFirstCustomColorStyle &&
+                Chams::cfg.style != Chams::STYLE_WATER)
+            {
+                SynthSep();
+                EvoCheckbox("Custom Color##chcc", &Chams::cfg.useCustomColor);
+                if (Chams::cfg.useCustomColor)
+                {
+                    SynthSep();
+                    ImGui::Text("  Visible");
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+                    ImGui::ColorEdit4("##chvc", Chams::cfg.customColorVis,
+                                       ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_HDR | ImGuiColorEditFlags_Float);
+                    SynthSep();
+                    ImGui::Text("  Occluded");
+                    ImGui::SameLine();
+                    ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+                    ImGui::ColorEdit4("##choc", Chams::cfg.customColorOcc,
+                                       ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_HDR | ImGuiColorEditFlags_Float);
+                }
+            }
         }
         SynthEndSection();
     }
@@ -1319,6 +1400,64 @@ namespace Menu
         EvoCheckbox("Mute Valve Hit Sounds##kshs", &KillSound::cfg.muteValveHits);
         SynthSep();
         EvoCheckbox("Custom Ding##ksc",            &KillSound::cfg.enabled);
+        SynthSep();
+
+        // ---- Sound pack picker ----
+        // Build a transient label list:
+        //   index 0 = "Built-in Ding" (synth)
+        //   index 1..N = user-supplied .wav files in
+        //                %APPDATA%\LucidCS2\sounds\
+        // We rebuild the const-char* array each frame because the
+        // packs vector lives in another TU and may grow on Rescan.
+        // O(N) where N is bounded at 64 -- trivial for ImGui::Combo.
+        {
+            std::lock_guard<std::mutex> lock(KillSound::g_packsMutex);
+            int total = 1 + (int)KillSound::g_packs.size();
+            // Cap on the menu side too so a stack array is safe.
+            if (total > 65) total = 65;
+            const char* items[65];
+            items[0] = "Built-in Ding";
+            for (int i = 1; i < total; ++i)
+                items[i] = KillSound::g_packs[i - 1].name.c_str();
+
+            int prev = KillSound::cfg.selectedSound;
+            if (prev < 0 || prev >= total) prev = 0;
+            int sel = prev;
+            if (EvoCombo("Sound Pack##ksp", &sel, items, total)) {
+                KillSound::cfg.selectedSound = sel;
+                // Persist by name so adding/removing files between
+                // sessions doesn't shuffle the saved choice.
+                if (sel == 0) {
+                    strncpy_s(KillSound::cfg.selectedSoundName, "Built-in Ding", _TRUNCATE);
+                } else {
+                    strncpy_s(KillSound::cfg.selectedSoundName,
+                              KillSound::g_packs[sel - 1].name.c_str(), _TRUNCATE);
+                }
+                // Autosave to a tiny standalone file so the choice
+                // survives a game restart without requiring the user
+                // to click Save/Load on a slot.
+                KillSound::SavePersistedSelection();
+            }
+        }
+        SynthSep();
+        if (EvoButton("Rescan Sounds##ksr")) {
+            KillSound::LoadSoundPacks();
+        }
+        SynthSep();
+        if (EvoButton("Test Sound##kst")) {
+            KillSound::PlayDing();
+        }
+        SynthSep();
+        if (EvoButton("Open Sounds Folder##kof")) {
+            char appdata[MAX_PATH]{};
+            if (GetEnvironmentVariableA("APPDATA", appdata, MAX_PATH)) {
+                char dir[MAX_PATH];
+                _snprintf_s(dir, sizeof(dir), _TRUNCATE,
+                            "%s\\LucidCS2\\sounds", appdata);
+                CreateDirectoryA(dir, nullptr);
+                ShellExecuteA(nullptr, "open", dir, nullptr, nullptr, SW_SHOWNORMAL);
+            }
+        }
         SynthSep();
         EvoCheckbox("Log Sounds (debug)##kslog",   &KillSound::cfg.logSounds);
         // Diagnostic readout â€” if "muted" stays at 0 while shooting,
@@ -1642,63 +1781,6 @@ namespace Menu
 
     inline void Right_Wld()
     {
-        SynthBeginSection("##wld_r1");
-        EvoLabel("NIGHT MODE");
-        const char* nm[] = { "Off","Night","Midnight","Sunset","Blood Moon","Aurora","Cyberpunk","Vaporwave","Hellfire" };
-        EvoCombo("Mode##nm", &WorldEffects::cfg.nightMode, nm, IM_ARRAYSIZE(nm));
-        SynthSep();
-        EvoLabel("ASUS MODE");
-        const char* am[] = { "Off","Lime","Hot Pink","Cyan","Red","Yellow" };
-        EvoCombo("Color##am", &WorldEffects::cfg.asusMode, am, IM_ARRAYSIZE(am));
-        SynthEndSection();
-
-        SynthBeginSection("##wld_visibility");
-        EvoLabel("VISIBILITY");
-        EvoCheckbox("Fullbright##fbm",         &WorldEffects::cfg.fullbright);
-        SynthSep();
-        EvoCheckbox("Anti-Fog##af",            &WorldEffects::cfg.antiFog);
-        SynthSep();
-        EvoCheckbox("No Shadows##nsh",         &WorldEffects::cfg.noShadows);
-        SynthSep();
-        EvoCheckbox("No Color Correction##ncc",&WorldEffects::cfg.noColorCorrection);
-        SynthSep();
-        EvoCheckbox("Bright Aggregates##bag",  &WorldEffects::cfg.brightAggregates);
-        SynthEndSection();
-
-        if (advancedMode)
-        {
-            SynthBeginSection("##wld_r2");
-            EvoLabel("FOG");
-            EvoCheckbox("Custom Fog##cf", &WorldEffects::cfg.fogEnabled);
-            if (WorldEffects::cfg.fogEnabled)
-            {
-                SynthSep();
-                ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-                ImGui::ColorEdit3("Fog Color##fgc", WorldEffects::cfg.fogColor, ImGuiColorEditFlags_NoInputs);
-                SynthSep();
-                EvoSliderFloat("Start##fs",   &WorldEffects::cfg.fogStart,    0.f,    2000.f, "%.0f");
-                SynthSep();
-                EvoSliderFloat("End##fe",     &WorldEffects::cfg.fogEnd,      500.f, 20000.f, "%.0f");
-                SynthSep();
-                EvoSliderFloat("Density##fd", &WorldEffects::cfg.fogDensity,   0.f,    1.f,   "%.2f");
-            }
-            SynthEndSection();
-
-            SynthBeginSection("##wld_r3");
-            EvoLabel("EXPOSURE");
-            EvoCheckbox("Brightness Override##bo", &WorldEffects::cfg.brightnessEnabled);
-            if (WorldEffects::cfg.brightnessEnabled)
-            {
-                SynthSep();
-                EvoSliderFloat("Min Exp##me", &WorldEffects::cfg.exposureMin, 0.1f, 5.f, "%.2f");
-                SynthSep();
-                EvoSliderFloat("Max Exp##xe", &WorldEffects::cfg.exposureMax, 0.1f, 5.f, "%.2f");
-                SynthSep();
-                if (EvoButton("Fullbright##fb")) WorldEffects::cfg.exposureMin = WorldEffects::cfg.exposureMax = 3.f;
-            }
-            SynthEndSection();
-        }
-
         SynthBeginSection("##wld_r4");
         EvoLabel("MISC");
         EvoCheckbox("Third Person##tp",   &WorldEffects::cfg.thirdPerson);
@@ -2660,6 +2742,9 @@ namespace Menu
         SynthSep(); EvoCheckbox("Scope Only##tso",   &Triggerbot::cfg.scopeOnly);
         SynthSep(); ImGui::SliderInt("Min Delay##tmd", &Triggerbot::cfg.minDelayMs, 0, 200);
         SynthSep(); ImGui::SliderInt("Max Delay##txd", &Triggerbot::cfg.maxDelayMs, 0, 300);
+        SynthSep(); ImGui::SliderInt("Consecutive Ticks##trct", &Triggerbot::cfg.requireConsecutiveTicks, 1, 5);
+        SynthSep(); EvoCheckbox("Perfect Shot##tps",   &Triggerbot::cfg.perfectShot);
+        SynthSep(); EvoCheckbox("Debug Overlay##tdv",  &Triggerbot::cfg.debugVisual);
     }
     inline void Pg_Bhop()
     {
@@ -2761,11 +2846,69 @@ namespace Menu
                      Chams::MaterialNames, Chams::STYLE_COUNT);
         SynthSep(); EvoCheckbox("Weapon Chams##cw_vm2", &Chams::cfg.weaponChams);
         SynthSep(); EvoCheckbox("Hand Chams##ch_vm2",   &Chams::cfg.handsChams);
+        if (Chams::cfg.style >= Chams::kFirstCustomColorStyle &&
+            Chams::cfg.style != Chams::STYLE_WATER)
+        {
+            SynthSep();
+            EvoCheckbox("Custom Color##chcc2", &Chams::cfg.useCustomColor);
+            if (Chams::cfg.useCustomColor)
+            {
+                SynthSep();
+                ImGui::Text("  Visible"); ImGui::SameLine();
+                ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+                ImGui::ColorEdit4("##chvc2", Chams::cfg.customColorVis,
+                                   ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_HDR | ImGuiColorEditFlags_Float);
+                SynthSep();
+                ImGui::Text("  Occluded"); ImGui::SameLine();
+                ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+                ImGui::ColorEdit4("##choc2", Chams::cfg.customColorOcc,
+                                   ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_HDR | ImGuiColorEditFlags_Float);
+            }
+        }
     }
     inline void Pg_Tracers()
     {
-        ImGui::TextColored({0.7f,0.7f,0.8f,0.85f}, "No additional options.");
-        ImGui::TextColored({0.55f,0.55f,0.65f,0.7f}, "Use the toggle on the card to enable.");
+        EvoCombo("Style##trs",   &BulletTracer::cfg.style,
+                 BulletTracer::kStyleNames, BulletTracer::STYLE_COUNT);
+        SynthSep();
+        EvoSliderFloat("Trail Life##tll",   &BulletTracer::cfg.trailLife,    0.3f, 6.f,  "%.2fs");
+        SynthSep();
+        EvoSliderFloat("Bullet Speed##tbs", &BulletTracer::cfg.bulletSpeed, 1500.f, 20000.f, "%.0f u/s");
+        SynthSep();
+        EvoSliderFloat("Thickness##tth",    &BulletTracer::cfg.thickness,    0.5f, 8.f,  "%.1f px");
+        SynthSep();
+        EvoSliderFloat("Ray Length##trl",   &BulletTracer::cfg.rayLength,   1000.f, 20000.f, "%.0f");
+        SynthSep();
+        EvoCheckbox("Glow##tgl",            &BulletTracer::cfg.glow);
+        if (BulletTracer::cfg.glow) {
+            SynthSep();
+            EvoSliderFloat("Glow Width##tgw", &BulletTracer::cfg.glowMult, 1.5f, 8.f, "%.1fx");
+        }
+        SynthSep();
+        EvoCheckbox("Bullet Head##tbh",     &BulletTracer::cfg.showHead);
+        if (BulletTracer::cfg.showHead) {
+            SynthSep();
+            EvoSliderFloat("Head Size##ths", &BulletTracer::cfg.headRadius, 1.f, 10.f, "%.1f px");
+        }
+        SynthSep();
+        EvoCheckbox("Fade From Muzzle##tfm",&BulletTracer::cfg.fadeFromMuzzle);
+
+        // Color pickers â€” hidden for styles that ignore them.
+        const int s = BulletTracer::cfg.style;
+        const bool stylized = (s == BulletTracer::STYLE_FIRE ||
+                               s == BulletTracer::STYLE_RAINBOW);
+        if (!stylized) {
+            SynthSep();
+            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::ColorEdit4("Color##trc", BulletTracer::cfg.color,
+                              ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+        }
+        if (BulletTracer::cfg.glow) {
+            SynthSep();
+            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::ColorEdit4("Glow Color##tgc", BulletTracer::cfg.glowColor,
+                              ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_AlphaBar);
+        }
     }
     inline void Pg_DamageInd()
     {
@@ -2802,6 +2945,55 @@ namespace Menu
         SynthSep(); EvoSliderFloat("Max Dist##smd",  &SoundESP::cfg.maxDistance, 500.f, 4000.f, "%.0f");
         SynthSep(); EvoSliderFloat("Ring Size##srs", &SoundESP::cfg.ringRadius,   30.f, 150.f, "%.0f");
         SynthSep(); EvoSliderFloat("Arrow Size##sas",&SoundESP::cfg.indicatorSize,15.f,  80.f, "%.0f");
+    }
+
+    // Kill Sound page -- master enable + Valve mute toggles + sound pack
+    // picker. The pack list is rebuilt each frame from KillSound::g_packs
+    // (capped at 64 by the loader, so a stack array is safe).
+    inline void Pg_KillSound()
+    {
+        EvoCheckbox("Custom Ding##ks_en",         &KillSound::cfg.enabled);
+        SynthSep();
+        EvoCheckbox("Mute Valve Kill Ding##ks_m", &KillSound::cfg.muteValve);
+        SynthSep();
+        EvoCheckbox("Mute Valve Hit Sounds##ks_h",&KillSound::cfg.muteValveHits);
+        SynthSep();
+        {
+            std::lock_guard<std::mutex> lock(KillSound::g_packsMutex);
+            int total = 1 + (int)KillSound::g_packs.size();
+            if (total > 65) total = 65;
+            const char* items[65];
+            items[0] = "Built-in Ding";
+            for (int i = 1; i < total; ++i)
+                items[i] = KillSound::g_packs[i - 1].name.c_str();
+
+            int sel = KillSound::cfg.selectedSound;
+            if (sel < 0 || sel >= total) sel = 0;
+            if (EvoCombo("Sound Pack##ks_p", &sel, items, total)) {
+                KillSound::cfg.selectedSound = sel;
+                if (sel == 0) {
+                    strncpy_s(KillSound::cfg.selectedSoundName, "Built-in Ding", _TRUNCATE);
+                } else {
+                    strncpy_s(KillSound::cfg.selectedSoundName,
+                              KillSound::g_packs[sel - 1].name.c_str(), _TRUNCATE);
+                }
+                // Persist to %APPDATA%\LucidCS2\sound_selection.txt so
+                // the choice survives a game restart with zero clicks.
+                KillSound::SavePersistedSelection();
+            }
+        }
+        SynthSep(); if (EvoButton("Test Sound##ks_t"))   KillSound::PlayDing();
+        SynthSep(); if (EvoButton("Rescan Sounds##ks_r")) KillSound::LoadSoundPacks();
+        SynthSep(); if (EvoButton("Open Sounds Folder##ks_o")) {
+            char appdata[MAX_PATH]{};
+            if (GetEnvironmentVariableA("APPDATA", appdata, MAX_PATH)) {
+                char dir[MAX_PATH];
+                _snprintf_s(dir, sizeof(dir), _TRUNCATE,
+                            "%s\\LucidCS2\\sounds", appdata);
+                CreateDirectoryA(dir, nullptr);
+                ShellExecuteA(nullptr, "open", dir, nullptr, nullptr, SW_SHOWNORMAL);
+            }
+        }
     }
 
     // Ã¢â€â‚¬Ã¢â€â‚¬ SKN tab Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
@@ -2911,39 +3103,39 @@ namespace Menu
         EvoCheckbox("FOV Override##fovc", &WorldEffects::cfg.fovEnabled);
         if (WorldEffects::cfg.fovEnabled) { SynthSep(); EvoSliderFloat("FOV Value##fv", &WorldEffects::cfg.fovValue, 60.f, 150.f, "%.0f"); }
     }
-    inline void Pg_NightAsus()
-    {
-        const char* nm[] = { "Off","Night","Midnight","Sunset","Blood Moon","Aurora","Cyberpunk","Vaporwave","Hellfire" };
-        EvoCombo("Night Mode##nm", &WorldEffects::cfg.nightMode, nm, IM_ARRAYSIZE(nm));
-        SynthSep();
-        const char* am[] = { "Off","Lime","Hot Pink","Cyan","Red","Yellow" };
-        EvoCombo("Asus Mode##am", &WorldEffects::cfg.asusMode, am, IM_ARRAYSIZE(am));
-    }
-    inline void Pg_Visibility()
-    {
-        EvoCheckbox("Fullbright##fbm",          &WorldEffects::cfg.fullbright);
-        SynthSep(); EvoCheckbox("Anti-Fog##af", &WorldEffects::cfg.antiFog);
-        SynthSep(); EvoCheckbox("No Shadows##nsh", &WorldEffects::cfg.noShadows);
-        SynthSep(); EvoCheckbox("No Color Correction##ncc", &WorldEffects::cfg.noColorCorrection);
-        SynthSep(); EvoCheckbox("Bright Aggregates##bag",   &WorldEffects::cfg.brightAggregates);
-        SynthSep(); EvoCheckbox("Custom Fog##cf", &WorldEffects::cfg.fogEnabled);
-        if (WorldEffects::cfg.fogEnabled) {
-            SynthSep(); ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-            ImGui::ColorEdit3("Fog Color##fgc", WorldEffects::cfg.fogColor, ImGuiColorEditFlags_NoInputs);
-            SynthSep(); EvoSliderFloat("Start##fs",   &WorldEffects::cfg.fogStart,    0.f,    2000.f, "%.0f");
-            SynthSep(); EvoSliderFloat("End##fe",     &WorldEffects::cfg.fogEnd,    500.f,   20000.f, "%.0f");
-            SynthSep(); EvoSliderFloat("Density##fd", &WorldEffects::cfg.fogDensity,  0.f,       1.f, "%.2f");
-        }
-        SynthSep(); EvoCheckbox("Brightness Override##bo", &WorldEffects::cfg.brightnessEnabled);
-        if (WorldEffects::cfg.brightnessEnabled) {
-            SynthSep(); EvoSliderFloat("Min Exp##me", &WorldEffects::cfg.exposureMin, 0.1f, 5.f, "%.2f");
-            SynthSep(); EvoSliderFloat("Max Exp##xe", &WorldEffects::cfg.exposureMax, 0.1f, 5.f, "%.2f");
-            SynthSep(); if (EvoButton("Fullbright##fb")) WorldEffects::cfg.exposureMin = WorldEffects::cfg.exposureMax = 3.f;
-        }
-    }
     inline void Pg_ThirdPerson()
     {
         EvoSliderFloat("Distance##tpd", &WorldEffects::cfg.thirdPersonDist, 50.f, 600.f, "%.0f");
+    }
+    inline void Pg_Atmosphere()
+    {
+        // sceneinfo_gpu hook -- modulates uniform_sky_color, sky_bounce,
+        // sky_bounce_scale, sun_light_min_brightness. Applied at MAP LOAD
+        // (function fires once per scene). Toggle requires a map change
+        // / vid_restart to take effect.
+        static const char* kPresets[] = {
+            "Off", "Night", "Midnight", "Sunset", "Blood Moon", "Hellfire", "Custom"
+        };
+        ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::Combo("Preset##atmoP", &WorldEffects::cfg.atmosphere,
+                     kPresets, IM_ARRAYSIZE(kPresets));
+        SynthSep();
+        ImGui::TextDisabled("Live -- no reload needed.");
+
+        if (WorldEffects::cfg.atmosphere == 6) {
+            SynthSep();
+            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::ColorEdit3("Sky Color##atmoSC", WorldEffects::cfg.atmoSkyColor,
+                              ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_Float);
+            SynthSep();
+            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::ColorEdit4("Sky Bounce##atmoSB", WorldEffects::cfg.atmoSkyBounce,
+                              ImGuiColorEditFlags_NoInputs|ImGuiColorEditFlags_Float|ImGuiColorEditFlags_AlphaBar);
+            SynthSep();
+            EvoSliderFloat("Bounce Scale##atmoBS", &WorldEffects::cfg.atmoSkyBounceScale, 0.f, 2.f, "%.2f");
+            SynthSep();
+            EvoSliderFloat("Sun Min Bright##atmoSMB", &WorldEffects::cfg.atmoSunMinBrightness, 0.f, 1.f, "%.2f");
+        }
     }
     inline void Pg_Wireframe()
     {
@@ -3031,6 +3223,7 @@ namespace Menu
         { "Nade Predict","Trajectory preview",   FI_GRENADE,    &GrenadePrediction::cfg.enabled,Pg_NadePred  },
         { "Nade Helper", "Auto-aim grenades",    FI_TARGET,     &NadeHelper::cfg.enabled,      Pg_NadeHelper  },
         { "Sound ESP",   "Footstep markers",     FI_SPEAKER,    &SoundESP::cfg.enabled,        Pg_SoundESP    },
+        { "Kill Sound",  "Custom kill ding",     FI_SPEAKER,    &KillSound::cfg.enabled,       Pg_KillSound   },
     };
     inline FeatureDef kFeat_Skn[] = {
         { "Skin Changer","Weapon paintkits",     FI_PAINT, &SkinChanger::cfg.enabled,      Pg_SkinChanger },
@@ -3039,11 +3232,10 @@ namespace Menu
     };
     inline FeatureDef kFeat_Wld[] = {
         { "Sky",         "Sky color & rainbow",  FI_SUN,    &WorldEffects::cfg.skyEnabled,    Pg_Sky         },
+        { "Atmosphere",  "Night / sun tint",     FI_MOON,   nullptr,                          Pg_Atmosphere  },
         { "Flash/Smoke", "No flash & smoke",     FI_BULB,   &WorldEffects::cfg.noFlash,       Pg_FlashSmoke  },
         { "Fire",        "Molotov color",        FI_FLAME,  &WorldEffects::cfg.fireColor,     Pg_Fire        },
         { "FOV",         "Field of view",        FI_FOV,    &WorldEffects::cfg.fovEnabled,    Pg_FOV         },
-        { "Atmosphere",  "Night & ASUS modes",   FI_MOON,   nullptr,                          Pg_NightAsus   },
-        { "Visibility",  "Fullbright, fog, exp", FI_EYE,    &WorldEffects::cfg.fullbright,    Pg_Visibility  },
         { "Third Person","3P camera view",       FI_CAMERA, &WorldEffects::cfg.thirdPerson,   Pg_ThirdPerson },
         { "Wireframe",   "Hands wireframe view", FI_BOX,    &WireframeHands::cfg.enabled,     Pg_Wireframe   },
         { "Auto-Accept", "Auto match accept",    FI_CHECK,  &AutoAccept::cfg.enabled,         Pg_AutoAccept  },

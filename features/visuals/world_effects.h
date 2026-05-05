@@ -92,6 +92,20 @@ namespace WorldEffects
         // Third person
         bool  thirdPerson       = false;
         float thirdPersonDist   = 200.f; // camera distance
+
+        // Atmosphere (sceneinfo_gpu hook -- scenesystem.dll!sub_180084FF0)
+        // Modulates cloud tint / sun tint / sky bounce by post-writing
+        // the 4 atmosphere fields the engine parses out of the world's
+        // KV3 atmosphere block. Applied INSIDE the BuildSceneInfoGpu
+        // hook, so it takes effect on the NEXT map load (the function
+        // only fires once per map). Tooltip in menu warns about this.
+        //   atmosphere preset: 0=Off, 1=Night (deep blue), 2=Midnight,
+        //   3=Sunset, 4=Blood Moon, 5=Hellfire, 6=Custom (uses sliders)
+        int   atmosphere            = 0;
+        float atmoSkyColor[3]       = { 0.05f, 0.07f, 0.18f };  // RGB linear
+        float atmoSkyBounce[4]      = { 0.05f, 0.07f, 0.18f, 1.0f }; // RGBA
+        float atmoSkyBounceScale    = 0.20f;
+        float atmoSunMinBrightness  = 0.0f;
     };
 
     inline Config cfg;
@@ -247,6 +261,22 @@ namespace WorldEffects
     inline bool         fovHooked      = false;
     inline void*        pFovHookTarget = nullptr;
 
+    // Forward declarations -- defined further down (~line 1180/1430).
+    // Needed early because RunNightMode (above the helper definitions)
+    // calls ApplyTonemapForce / ReleaseTonemapForce.
+    inline void WriteCvarInt   (uintptr_t cv, int   value);
+    inline void WriteCvarFloat (uintptr_t cv, float value);
+    inline void ApplyTonemapForce  (float minVal, float maxVal);
+    inline void ReleaseTonemapForce();
+
+    // Tonemap force convars (scenesystem.dll). Declared early so the
+    // ApplyTonemapForce helper (defined just before RunBrightness) can
+    // reference them; resolved at Setup() via FindCvar(...).
+    inline uintptr_t pCV_mat_tonemap_force_min       = 0; // float
+    inline uintptr_t pCV_mat_tonemap_force_max       = 0; // float
+    inline uintptr_t pCV_mat_tonemap_force_scale     = 0; // float
+    inline uintptr_t pCV_mat_tonemap_force_use_alpha = 0; // int (1 = enable forced range)
+
     // Re-entrancy guard. The engine's DrawSkyboxArray internally queries
     // GetWorldFov to build the sky projection; if we return our high
     // user-FOV from inside that path the sun-angle floats at +0xF8..+0x104
@@ -353,10 +383,18 @@ namespace WorldEffects
     inline void __fastcall hkDrawSkyboxArray(void* a1, void* a2, void* drawPrimitive,
                                               int count, void* a5, void* a6, void* a7)
     {
-        // Tighter bound: real skybox draws have count <= 8. The previous
-        // < 100 cap was permissive enough to scribble into unrelated
-        // primitive slots on cubemap-rebuild calls.
-        if (cfg.skyEnabled && drawPrimitive && count > 0 && count <= 16)
+        // Tighter bound: real skybox draws have count <= 8. Was 16 \u2014
+        // halved further to match what's actually observed in the wild.
+        // Cubemap-rebuild / shadow passes occasionally re-enter with
+        // count values whose primitive layout doesn't match the in-game
+        // skybox struct, and the +0xE8 write would scribble random
+        // memory and crash a few seconds later when that primitive is
+        // walked (correlated with chams + skychanger reports).
+        // count >= 1 is the common case (single sky prim per map);
+        // count*0x68 - 0x50 stays positive for any count >= 1
+        // (1*0x68 - 0x50 = 0x18). Skybox got disabled in practice when
+        // we required >=2, since most draws are count==1.
+        if (cfg.skyEnabled && drawPrimitive && count >= 1 && count <= 8)
         {
             __try {
                 size_t offset = (size_t)(count * 0x68) - 0x50;
@@ -373,18 +411,36 @@ namespace WorldEffects
                     //   +0xF8 .. +0x104 four sun-angle floats (V_sinf inputs)
                     float* colorPtr = (float*)((char*)(*skyboxObjPtr) + 0xE8);
 
+                    // Clamp + NaN/Inf scrub. The +0xF8 sun-angle floats
+                    // sit right next to our writes; if any RGB value is
+                    // NaN/Inf the SIMD lane that reads tint can poison
+                    // the adjacent sun angle and V_sinf returns NaN,
+                    // crashing the renderer ~60s later.
+                    auto san = [](float v) -> float {
+                        if (!(v == v)) return 0.f;            // NaN
+                        if (v >  1e6f) return 4.f;            // +Inf / huge
+                        if (v < -1e6f) return 0.f;            // -Inf / huge neg
+                        if (v < 0.f)   return 0.f;
+                        if (v > 4.f)   return 4.f;            // HDR cap
+                        return v;
+                    };
+
                     if (cfg.skyRainbow)
                     {
                         // Smooth rainbow: hue cycles based on time
                         float t = (float)GetTickCount64() / 1000.f;
                         float hue = fmodf(t * cfg.skyRainbowSpeed * 360.f, 360.f);
-                        HsvToRgb(hue, 1.f, 1.f, colorPtr[0], colorPtr[1], colorPtr[2]);
+                        float rr = 0.f, gg = 0.f, bb = 0.f;
+                        HsvToRgb(hue, 1.f, 1.f, rr, gg, bb);
+                        colorPtr[0] = san(rr);
+                        colorPtr[1] = san(gg);
+                        colorPtr[2] = san(bb);
                     }
                     else
                     {
-                        colorPtr[0] = cfg.skyColor[0];
-                        colorPtr[1] = cfg.skyColor[1];
-                        colorPtr[2] = cfg.skyColor[2];
+                        colorPtr[0] = san(cfg.skyColor[0]);
+                        colorPtr[1] = san(cfg.skyColor[1]);
+                        colorPtr[2] = san(cfg.skyColor[2]);
                     }
                 }
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
@@ -418,6 +474,103 @@ namespace WorldEffects
     inline void*           pAggregateTarget  = nullptr;
     inline bool            aggregateHooked   = false;
 
+    // ---------------------------------------------------------------
+    // BuildSceneInfoGpu hook -- scenesystem.dll!sub_180084FF0.
+    //
+    // The discord-attested authoritative atmosphere modulation entry.
+    // Called ONCE per map / scene load. Parses the world's KV3
+    // atmosphere block and writes:
+    //   sceneInfo+0x3E0 : uniform_sky_color  (3x float RGB)
+    //   sceneInfo+0x3F0 : sky_bounce         (vec4 float RGBA)
+    //   sceneInfo+0x40C : sky_bounce_scale   (float)
+    //   sceneInfo+0x47C : sun_light_min_brightness (float)
+    // sceneInfo == rcx == first arg. Confirmed via IDA: r14 (used in
+    // every dest write) is loaded from `[rbp+arg_0]` at 0x180085281
+    // and 0x180085574, so r14 == a1.
+    //
+    // We pass through the original (so all the BLAS / mesh / light
+    // loading runs normally), then post-overwrite the 4 fields with
+    // our preset's atmosphere values when cfg.atmosphere != 0.
+    //
+    // Limitation: live-toggle in menu requires next map load to take
+    // effect. Documented in menu tooltip.
+    // ---------------------------------------------------------------
+    using BuildSceneInfoGpuFn = __int64 (__fastcall*)(void*, void*, void**, void*, uint8_t, uint8_t);
+    inline BuildSceneInfoGpuFn oBuildSceneInfoGpu  = nullptr;
+    inline void*               pSceneInfoGpuTarget = nullptr;
+    inline bool                sceneInfoGpuHooked  = false;
+    inline volatile uint32_t   g_SceneInfoGpuHits  = 0;
+    inline void*               g_pSceneInfoGpu     = nullptr; // cached a1 for live re-apply
+
+    // Apply the atmosphere preset to a captured scene-info GPU struct.
+    // Used both inside the hook (post-original) and from RunAtmosphereSunPush
+    // every tick on the cached pointer so a menu toggle takes effect WITHOUT
+    // the user needing to reload the map.
+    inline void ApplyAtmosphereToSceneInfo(void* sceneInfo)
+    {
+        int mode = cfg.atmosphere;
+        if (mode <= 0 || !sceneInfo) return;
+
+        float skyR, skyG, skyB;
+        float bnR, bnG, bnB, bnA;
+        float bnScale, sunMin;
+
+        switch (mode) {
+        case 1: skyR=0.05f; skyG=0.08f; skyB=0.20f;
+                bnR =0.05f; bnG =0.08f; bnB =0.20f; bnA=1.0f;
+                bnScale=0.25f; sunMin=0.0f; break;
+        case 2: skyR=0.01f; skyG=0.015f; skyB=0.05f;
+                bnR =0.01f; bnG =0.015f; bnB =0.05f; bnA=1.0f;
+                bnScale=0.10f; sunMin=0.0f; break;
+        case 3: skyR=0.70f; skyG=0.30f; skyB=0.15f;
+                bnR =0.55f; bnG =0.25f; bnB =0.15f; bnA=1.0f;
+                bnScale=0.45f; sunMin=0.05f; break;
+        case 4: skyR=0.40f; skyG=0.04f; skyB=0.04f;
+                bnR =0.30f; bnG =0.03f; bnB =0.03f; bnA=1.0f;
+                bnScale=0.30f; sunMin=0.0f; break;
+        case 5: skyR=0.80f; skyG=0.20f; skyB=0.05f;
+                bnR =0.55f; bnG =0.15f; bnB =0.05f; bnA=1.0f;
+                bnScale=0.40f; sunMin=0.05f; break;
+        case 6: skyR=cfg.atmoSkyColor[0]; skyG=cfg.atmoSkyColor[1]; skyB=cfg.atmoSkyColor[2];
+                bnR =cfg.atmoSkyBounce[0]; bnG =cfg.atmoSkyBounce[1];
+                bnB =cfg.atmoSkyBounce[2]; bnA =cfg.atmoSkyBounce[3];
+                bnScale=cfg.atmoSkyBounceScale;
+                sunMin =cfg.atmoSunMinBrightness; break;
+        default: return;
+        }
+
+        __try {
+            uint8_t* p = reinterpret_cast<uint8_t*>(sceneInfo);
+            *(volatile float*)(p + 0x3E0) = skyR;
+            *(volatile float*)(p + 0x3E4) = skyG;
+            *(volatile float*)(p + 0x3E8) = skyB;
+            *(volatile float*)(p + 0x3F0) = bnR;
+            *(volatile float*)(p + 0x3F4) = bnG;
+            *(volatile float*)(p + 0x3F8) = bnB;
+            *(volatile float*)(p + 0x3FC) = bnA;
+            *(volatile float*)(p + 0x40C) = bnScale;
+            *(volatile float*)(p + 0x47C) = sunMin;
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+    }
+
+    inline __int64 __fastcall hkBuildSceneInfoGpu(
+        void* a1, void* a2, void** a3, void* a4, uint8_t a5, uint8_t a6)
+    {
+        __int64 ret = 0;
+        __try {
+            if (oBuildSceneInfoGpu)
+                ret = oBuildSceneInfoGpu(a1, a2, a3, a4, a5, a6);
+        } __except (EXCEPTION_EXECUTE_HANDLER) { return ret; }
+
+        g_SceneInfoGpuHits++;
+        // Cache the latest sceneinfo pointer so RunAtmosphereSunPush() can
+        // re-apply our values every tick (live toggle without map reload).
+        g_pSceneInfoGpu = a1;
+
+        ApplyAtmosphereToSceneInfo(a1);
+        return ret;
+    }
+
     inline __int64 __fastcall hkDrawAggregate(__int64 a1, __int64 a2, __int64* a3)
     {
         __int64 ret = 0;
@@ -441,6 +594,198 @@ namespace WorldEffects
     }
 
     // ---------------------------------------------------------------
+    // CGlobalLightBase::UpdateState hook -- the proper internal way to
+    // dim sun lighting for night mode. Per-frame, the engine copies the
+    // entity's source scale fields into a packed render-side block:
+    //   src @ a1+0xB0  (m_flAmbientScale1)  -> dst @ a1+0x21C  (a1+540)
+    //   src @ a1+0xB4  (m_flAmbientScale2)  -> dst @ a1+0x22C  (a1+556)
+    //   src @ a1+0xB8  (m_flGroundScale)    -> dst @ a1+0x230  (a1+560)
+    //   src @ a1+0xBC  (m_flLightScale)     -> dst @ a1+0x1AC  (a1+428)
+    // We pass through the original then post-overwrite the destinations,
+    // so the renderer reads our dimmed values. This actually darkens the
+    // map (sun-lit ground / walls), unlike tonemap convars which only
+    // clamp post-process exposure.
+    // Verified via decompile of sub_180A8B5A0 in client.dll build 14158.
+    // ---------------------------------------------------------------
+    using GlobalLightUpdateStateFn = void(__fastcall*)(__int64);
+    inline GlobalLightUpdateStateFn oGlobalLightUpdate = nullptr;
+    inline void*                    pGlobalLightTarget = nullptr;
+    inline bool                     globalLightHooked  = false;
+    inline volatile __int64         g_pGlobalLightInst = 0;   // cached entity
+    inline volatile uint32_t        g_GlobalLightHits  = 0;   // hook fire count
+
+    inline void __fastcall hkGlobalLightUpdate(__int64 a1)
+    {
+        // Cache the live entity so we can re-invoke this every frame even
+        // if the engine only triggers UpdateState on entity-state changes.
+        g_pGlobalLightInst = a1;
+        g_GlobalLightHits++;
+
+        // Effective "night mode index" -- prefer cfg.atmosphere (the new
+        // sceneinfo_gpu-driven preset) so the sun cascade gets dimmed in
+        // sync with the ambient. Atmosphere -> nightMode preset map:
+        //   1 Night    -> 1   2 Midnight -> 2   3 Sunset -> 3
+        //   4 BloodMn  -> 4   5 Hellfire -> 8   6 Custom -> 1 (Night palette)
+        // Falls back to legacy cfg.nightMode if atmosphere is Off.
+        int nm = cfg.nightMode;
+        if (nm == 0 && cfg.atmosphere > 0) {
+            static const int kAtmoToNm[] = { 0, 1, 2, 3, 4, 8, 1 };
+            int ai = cfg.atmosphere;
+            if (ai >= 0 && ai < (int)(sizeof(kAtmoToNm)/sizeof(int)))
+                nm = kAtmoToNm[ai];
+        }
+        bool brightOverride = (cfg.brightnessEnabled && cfg.exposureMin < 0.5f);
+
+        // ---------------- write SOURCE entity fields BEFORE original ----
+        // The function reads m_flLightScale @ +188, ambient1/2/ground @
+        // +176/+180/+184, and 5 Color32 fields @ +100/+106/+110/+114/+118.
+        // Pre-writing source means the original copy lays down our values;
+        // post-writing dest is belt-and-suspenders for the renderer cache.
+        if (nm > 0 || brightOverride) {
+            float lightScale = 1.0f, ambientScale = 1.0f;
+            float r = 1.0f, g = 1.0f, b = 1.0f;
+            float gr = 1.0f, gg = 1.0f, gb = 1.0f;
+            switch (nm) {
+                case 1: lightScale=0.05f; ambientScale=0.10f; r=0.04f; g=0.06f; b=0.20f; gr=0.05f; gg=0.07f; gb=0.18f; break;
+                case 2: lightScale=0.01f; ambientScale=0.03f; r=0.01f; g=0.015f;b=0.05f; gr=0.01f; gg=0.015f;gb=0.04f; break;
+                case 3: lightScale=0.30f; ambientScale=0.35f; r=1.10f; g=0.55f; b=0.30f; gr=0.95f; gg=0.55f; gb=0.40f; break;
+                case 4: lightScale=0.10f; ambientScale=0.12f; r=0.95f; g=0.05f; b=0.05f; gr=0.45f; gg=0.05f; gb=0.05f; break;
+                case 5: lightScale=0.20f; ambientScale=0.55f; r=0.20f; g=0.85f; b=0.55f; gr=0.30f; gg=0.65f; gb=0.55f; break;
+                case 6: lightScale=0.20f; ambientScale=0.50f; r=0.90f; g=0.20f; b=0.85f; gr=0.30f; gg=0.45f; gb=0.85f; break;
+                case 7: lightScale=0.40f; ambientScale=0.65f; r=0.95f; g=0.45f; b=0.85f; gr=0.55f; gg=0.45f; gb=0.85f; break;
+                case 8: lightScale=0.20f; ambientScale=0.30f; r=1.20f; g=0.40f; b=0.10f; gr=0.85f; gg=0.35f; gb=0.15f; break;
+                default: break;
+            }
+            if (brightOverride) {
+                float bf = cfg.exposureMin / 0.5f; if (bf < 0.f) bf = 0.f;
+                float m = 0.05f + 0.95f * bf;
+                lightScale *= m; ambientScale *= m;
+            }
+
+            // Color32 packer: BGRA byte order in source slots.
+            auto pack = [](float fr, float fg, float fb) -> uint32_t {
+                auto cl = [](float v){ if (v<0.f) v=0.f; if (v>1.f) v=1.f; return (uint8_t)(v*255.0f); };
+                return (uint32_t)cl(fr) | ((uint32_t)cl(fg) << 8) |
+                       ((uint32_t)cl(fb) << 16) | (0xFFu << 24);
+            };
+            uint32_t cSky    = pack(r,  g,  b);
+            uint32_t cGround = pack(gr, gg, gb);
+
+            __try {
+                // Source scales (entity m_fl*Scale fields)
+                *(volatile float*)(a1 + 188) = lightScale;
+                *(volatile float*)(a1 + 176) = ambientScale;
+                *(volatile float*)(a1 + 180) = ambientScale;
+                *(volatile float*)(a1 + 184) = ambientScale;
+                // Source colors (Color32) -- 5 slots
+                *(volatile uint32_t*)(a1 + 100) = cGround;
+                *(volatile uint32_t*)(a1 + 106) = cSky;
+                *(volatile uint32_t*)(a1 + 110) = cSky;
+                *(volatile uint32_t*)(a1 + 114) = cSky;
+                *(volatile uint32_t*)(a1 + 118) = cGround;
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        }
+
+        __try {
+            if (oGlobalLightUpdate) oGlobalLightUpdate(a1);
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+
+        if (nm <= 0 && !brightOverride) return;
+
+        // Per-preset cinematic palette: scales + RGB color tints.
+        // Decompile of CGlobalLightBase::UpdateState shows the function
+        // copies entity color slots (a1+106/110/114/118/100) into render
+        // destinations at a1+416, +528, +544, +564, +608 (each RGB triplet
+        // of floats). We post-overwrite both scales and colors so the
+        // world actually takes on the preset's mood (image-ref night).
+        float lightScale = 1.0f, ambientScale = 1.0f;
+        float r = 1.0f, g = 1.0f, b = 1.0f;     // primary tint (sky-ish)
+        float gr = 1.0f, gg = 1.0f, gb = 1.0f;  // ground tint
+        switch (nm) {
+            case 1:  // Night -- deep blue cinematic (matches reference)
+                lightScale = 0.55f; ambientScale = 0.45f;
+                r = 0.18f; g = 0.28f; b = 0.85f;
+                gr = 0.35f; gg = 0.40f; gb = 0.65f;
+                break;
+            case 2:  // Midnight -- darker, deeper blue
+                lightScale = 0.30f; ambientScale = 0.25f;
+                r = 0.10f; g = 0.15f; b = 0.55f;
+                gr = 0.18f; gg = 0.22f; gb = 0.45f;
+                break;
+            case 3:  // Sunset -- warm orange/red
+                lightScale = 0.75f; ambientScale = 0.70f;
+                r = 1.10f; g = 0.55f; b = 0.30f;
+                gr = 0.95f; gg = 0.55f; gb = 0.40f;
+                break;
+            case 4:  // Blood Moon -- crimson
+                lightScale = 0.45f; ambientScale = 0.40f;
+                r = 0.95f; g = 0.15f; b = 0.10f;
+                gr = 0.65f; gg = 0.18f; gb = 0.18f;
+                break;
+            case 5:  // Aurora -- green/cyan
+                lightScale = 0.50f; ambientScale = 0.55f;
+                r = 0.20f; g = 0.85f; b = 0.55f;
+                gr = 0.30f; gg = 0.65f; gb = 0.55f;
+                break;
+            case 6:  // Cyberpunk -- magenta/cyan mix
+                lightScale = 0.50f; ambientScale = 0.50f;
+                r = 0.90f; g = 0.20f; b = 0.85f;
+                gr = 0.30f; gg = 0.45f; gb = 0.85f;
+                break;
+            case 7:  // Vaporwave -- pink/purple
+                lightScale = 0.70f; ambientScale = 0.65f;
+                r = 0.95f; g = 0.45f; b = 0.85f;
+                gr = 0.55f; gg = 0.45f; gb = 0.85f;
+                break;
+            case 8:  // Hellfire -- intense orange
+                lightScale = 0.55f; ambientScale = 0.50f;
+                r = 1.20f; g = 0.40f; b = 0.10f;
+                gr = 0.85f; gg = 0.35f; gb = 0.15f;
+                break;
+            default: break;
+        }
+
+        // Brightness Override slider folds in (further dim only)
+        if (cfg.brightnessEnabled && cfg.exposureMin < 0.5f) {
+            float bf = cfg.exposureMin / 0.5f;
+            if (bf < 0.f) bf = 0.f;
+            float m = 0.05f + 0.95f * bf;
+            lightScale *= m;
+            ambientScale *= m;
+        }
+
+        __try {
+            // --- scales ---
+            *(volatile float*)(a1 + 428) = lightScale;    // m_flLightScale
+            *(volatile float*)(a1 + 540) = ambientScale;  // m_flAmbientScale1
+            *(volatile float*)(a1 + 556) = ambientScale;  // m_flAmbientScale2
+            *(volatile float*)(a1 + 560) = ambientScale;  // m_flGroundScale
+
+            // --- color triplets (top/sky-ish ambient slots) ---
+            *(volatile float*)(a1 + 416) = r;
+            *(volatile float*)(a1 + 420) = g;
+            *(volatile float*)(a1 + 424) = b;
+
+            *(volatile float*)(a1 + 528) = r;
+            *(volatile float*)(a1 + 532) = g;
+            *(volatile float*)(a1 + 536) = b;
+
+            *(volatile float*)(a1 + 544) = r * 0.85f;
+            *(volatile float*)(a1 + 548) = g * 0.85f;
+            *(volatile float*)(a1 + 552) = b * 0.85f;
+
+            // --- ground triplet (warmer / less saturated) ---
+            *(volatile float*)(a1 + 564) = gr;
+            *(volatile float*)(a1 + 568) = gg;
+            *(volatile float*)(a1 + 572) = gb;
+
+            *(volatile float*)(a1 + 608) = gr;
+            *(volatile float*)(a1 + 612) = gg;
+            *(volatile float*)(a1 + 616) = gb;
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+    }
+
+    // ---------------------------------------------------------------
     // Sky brightness via direct entity writes to env_sky.
     // m_flBrightnessScale updates in real-time. Color is handled
     // by the DrawSkyboxArray hook (entity writes to m_vTintColor
@@ -448,8 +793,43 @@ namespace WorldEffects
     // ---------------------------------------------------------------
     inline void RunSkyBrightness()
     {
-        if (!cfg.skyEnabled || !GameState::clientBase) return;
-        if (cfg.skyBrightness == 1.0f) return; // nothing to do
+        // One-shot restore: when Sky is toggled OFF (or sliders return to
+        // 1.0 after we modified them), push the default 1.0 brightness
+        // back into every env_sky entity exactly once so the world stops
+        // looking dim/bright after disabling. Without this the engine
+        // doesn't refresh m_flBrightnessScale on its own and our prior
+        // value persists until map change.
+        static bool s_wasActive = false;
+        const bool active = cfg.skyEnabled && (cfg.skyBrightness != 1.0f);
+
+        if (!active)
+        {
+            if (s_wasActive && GameState::clientBase) {
+                __try {
+                    if (GameState::GetEntityList()) {
+                        for (int i = 0; i < 8192; ++i) {
+                            uintptr_t ent = GameState::GetEntityByIndex(i);
+                            if (!ent) continue;
+                            __try {
+                                uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
+                                if (!identity) continue;
+                                uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
+                                if (!namePtr) continue;
+                                struct NB { char d[64]; };
+                                NB nb = Mem::Read<NB>(namePtr);
+                                nb.d[63] = '\0';
+                                if (strstr(nb.d, "env_sky"))
+                                    Mem::SmartWrite<float>(ent + Offsets::m_flSkyBrightnessScale, 1.0f);
+                            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+                        }
+                    }
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+                s_wasActive = false;
+            }
+            return;
+        }
+
+        if (!GameState::clientBase) return;
 
         static UINT64 lastTick = 0;
         UINT64 now = GetTickCount64();
@@ -479,6 +859,7 @@ namespace WorldEffects
                 } __except (EXCEPTION_EXECUTE_HANDLER) {}
             }
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        s_wasActive = true;
     }
 
     // ---------------------------------------------------------------
@@ -492,43 +873,117 @@ namespace WorldEffects
     // ---------------------------------------------------------------
     inline void RunNightMode()
     {
-        if (cfg.nightMode == 0 || !GameState::clientBase) return;
+        // Atmosphere: drives THREE proven paths in parallel:
+        //   (1) DrawSkyboxArray hook -- recolors the actual rendered skybox
+        //       (universal, doesn't need an env_sky entity).
+        //   (2) mat_tonemap_force_min/max convars -- locks exposure so the
+        //       scene actually goes dark (the only path the engine respects).
+        //   (3) env_fog_controller writes -- atmospheric haze tint, when
+        //       the level happens to expose one.
+        //
+        // Track our previous mode so we can release tonemap force + drop the
+        // sky hook override cleanly when the user picks "Off" again.
+        static int s_lastMode = 0;
 
-        static UINT64 lastTick = 0;
-        UINT64 now = GetTickCount64();
-        if (now - lastTick < 200) return;
-        lastTick = now;
+        if (cfg.nightMode == 0) {
+            if (s_lastMode != 0) {
+                // Only release sky if the user wasn't independently using it.
+                // (cfg.skyEnabled may have been on before; we leave it alone
+                // and just clear the night-mode-managed flag.)
+                ReleaseTonemapForce();
+                s_lastMode = 0;
+            }
+            return;
+        }
 
-        // Night mode preset values
         struct NightPreset {
             uint8_t skyR, skyG, skyB;
-            float   brightness;
+            float   brightness;       // unused now (handled via tonemap convars)
             float   expMin, expMax;
             uint8_t fogR, fogG, fogB;
             float   fogStart, fogEnd, fogDensity;
         };
 
         static const NightPreset presets[] = {
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },             // 0: off (unused)
-            { 20, 25, 60, 0.15f, 0.08f, 0.15f, 10, 15, 40, 200.f, 8000.f, 0.4f },   // 1: Night
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },                                  // 0: off
+            { 20, 25, 60, 0.15f, 0.08f, 0.15f, 10, 15, 40, 200.f, 8000.f, 0.4f },    // 1: Night
             { 5, 5, 15, 0.05f, 0.03f, 0.06f, 5, 5, 15, 50.f, 4000.f, 0.7f },         // 2: Midnight
             { 255, 140, 50, 0.6f, 0.5f, 0.8f, 180, 100, 50, 500.f, 12000.f, 0.3f },  // 3: Sunset
             { 120, 10, 10, 0.2f, 0.1f, 0.2f, 80, 10, 10, 100.f, 6000.f, 0.6f },      // 4: Blood Moon
-            { 10, 30, 50, 0.25f, 0.15f, 0.3f, 20, 90, 60, 200.f, 9000.f, 0.4f },     // 5: Aurora â€” deep blue + green
-            { 80, 20, 100, 0.3f, 0.2f, 0.4f, 150, 30, 180, 150.f, 7000.f, 0.5f },    // 6: Cyberpunk â€” purple + magenta
-            { 230, 90, 200, 0.45f, 0.3f, 0.55f, 90, 200, 220, 300.f, 10000.f, 0.4f },// 7: Vaporwave â€” pink + cyan
-            { 200, 50, 5, 0.55f, 0.4f, 0.7f, 220, 90, 20, 200.f, 8000.f, 0.5f },     // 8: Hellfire â€” red + orange
+            { 10, 30, 50, 0.25f, 0.15f, 0.3f, 20, 90, 60, 200.f, 9000.f, 0.4f },     // 5: Aurora
+            { 80, 20, 100, 0.3f, 0.2f, 0.4f, 150, 30, 180, 150.f, 7000.f, 0.5f },    // 6: Cyberpunk
+            { 230, 90, 200, 0.45f, 0.3f, 0.55f, 90, 200, 220, 300.f, 10000.f, 0.4f },// 7: Vaporwave
+            { 200, 50, 5, 0.55f, 0.4f, 0.7f, 220, 90, 20, 200.f, 8000.f, 0.5f },     // 8: Hellfire
         };
 
         int idx = cfg.nightMode;
         if (idx < 1 || idx > 8) return;
         const NightPreset& p = presets[idx];
 
+        // (1) Drive the proven sky-color hook with the preset tint. We copy
+        // the preset color into cfg.skyColor and force-enable cfg.skyEnabled
+        // so DrawSkyboxArray paints the sky on every map. The hook respects
+        // re-entrancy + bounds so this is safe to set every 200ms.
+        cfg.skyColor[0] = p.skyR / 255.f;
+        cfg.skyColor[1] = p.skyG / 255.f;
+        cfg.skyColor[2] = p.skyB / 255.f;
+        cfg.skyEnabled  = true;
+        cfg.skyRainbow  = false;
+
+        // (2) Convar-driven exposure -- the only path that the engine
+        // doesn't override frame-to-frame. Don't fight if the user has
+        // their own Brightness Override active; that path takes priority.
+        if (!cfg.brightnessEnabled) {
+            ApplyTonemapForce(p.expMin, p.expMax);
+        }
+
+        s_lastMode = idx;
+
+        // (4) Push UpdateState on the cached env_global_light entity.
+        // Engine only re-runs UpdateState on entity-state changes, so we
+        // need to nudge it ourselves -- BUT only when our params change
+        // or as a low-frequency heartbeat (in case engine clobbered the
+        // dest block from another path). Calling pGlobalLightTarget
+        // routes through our hook, so pre/post writes execute.
+        if (globalLightHooked && g_pGlobalLightInst && pGlobalLightTarget) {
+            static int     s_pushedMode  = -1;
+            static float   s_pushedExpMn = -999.f;
+            static UINT64  s_lastPush    = 0;
+            UINT64 nowPush = GetTickCount64();
+            bool changed = (s_pushedMode != idx) ||
+                           (s_pushedExpMn != cfg.exposureMin);
+            // Heartbeat every 500 ms is plenty -- the dest block is read
+            // by the renderer but only mutated by UpdateState itself, so
+            // this is purely defensive against external resets.
+            bool heartbeat = (nowPush - s_lastPush) > 500;
+            if (changed || heartbeat) {
+                __try {
+                    auto fn = reinterpret_cast<GlobalLightUpdateStateFn>(pGlobalLightTarget);
+                    fn(g_pGlobalLightInst);
+                } __except (EXCEPTION_EXECUTE_HANDLER) {}
+                s_pushedMode  = idx;
+                s_pushedExpMn = cfg.exposureMin;
+                s_lastPush    = nowPush;
+            }
+        }
+
+        // (3) Best-effort fog tint via env_fog_controller (when present).
+        // Throttled separately so the entity scan isn't run every frame.
+        static UINT64 lastTick = 0;
+        UINT64 now = GetTickCount64();
+        if (now - lastTick < 200) return;
+        lastTick = now;
+
+        if (!GameState::clientBase) return;
+
         __try {
             uintptr_t entList = GameState::GetEntityList();
             if (!entList) return;
 
-            for (int i = 0; i < 8192; ++i)
+            uint32_t fogColor = (uint32_t)p.fogR | ((uint32_t)p.fogG << 8)
+                              | ((uint32_t)p.fogB << 16) | (255u << 24);
+
+            for (int i = 0; i < 2048; ++i)
             {
                 uintptr_t ent = GameState::GetEntityByIndex(i);
                 if (!ent) continue;
@@ -542,44 +997,15 @@ namespace WorldEffects
                     NB nb = Mem::Read<NB>(namePtr);
                     nb.d[63] = '\0';
 
-                    // Sky entity
-                    if (strstr(nb.d, "env_sky"))
-                    {
-                        uint32_t skyColor = (uint32_t)p.skyR | ((uint32_t)p.skyG << 8)
-                                          | ((uint32_t)p.skyB << 16) | (255u << 24);
-                        Mem::SmartWrite<uint32_t>(ent + Offsets::m_vTintColor, skyColor);
-                        Mem::SmartWrite<uint32_t>(ent + Offsets::m_vTintColorLightingOnly, skyColor);
-                        Mem::SmartWrite<float>(ent + Offsets::m_flSkyBrightnessScale, p.brightness);
-                    }
-
-                    // Tonemap controller â€” exposure
-                    if (strstr(nb.d, "tonemap_controller") || strstr(nb.d, "env_tonemap"))
-                    {
-                        Mem::SmartWrite<float>(ent + Offsets::m_flAutoExposureMin, p.expMin);
-                        Mem::SmartWrite<float>(ent + Offsets::m_flAutoExposureMax, p.expMax);
-                    }
-
-                    // Fog controller â€” atmospheric fog
                     if (strstr(nb.d, "env_fog_controller"))
                     {
-                        constexpr std::ptrdiff_t kFog = 0x608; // fogparams_t offset in C_FogController
-                        Mem::SmartWrite<bool>(ent + kFog + 0x64, true);  // enable
-                        uint32_t fogColor = (uint32_t)p.fogR | ((uint32_t)p.fogG << 8)
-                                          | ((uint32_t)p.fogB << 16) | (255u << 24);
-                        Mem::SmartWrite<uint32_t>(ent + kFog + 0x14, fogColor); // colorPrimary
-                        Mem::SmartWrite<uint32_t>(ent + kFog + 0x18, fogColor); // colorSecondary
-                        Mem::SmartWrite<float>(ent + kFog + 0x24, p.fogStart);  // start
-                        Mem::SmartWrite<float>(ent + kFog + 0x28, p.fogEnd);    // end
-                        Mem::SmartWrite<float>(ent + kFog + 0x30, p.fogDensity);// maxdensity
-                    }
-
-                    // Cubemap fog â€” atmospheric haze
-                    if (strstr(nb.d, "env_cubemap_fog"))
-                    {
-                        Mem::SmartWrite<bool>(ent + 0x62C, true);   // m_bActive
-                        Mem::SmartWrite<float>(ent + 0x630, p.fogDensity); // m_flFogMaxOpacity
-                        Mem::SmartWrite<float>(ent + 0x60C, p.fogStart);   // m_flStartDistance
-                        Mem::SmartWrite<float>(ent + 0x608, p.fogEnd);     // m_flEndDistance
+                        constexpr std::ptrdiff_t kFog = 0x608;
+                        Mem::SmartWrite<bool>(ent + kFog + 0x64, true);
+                        Mem::SmartWrite<uint32_t>(ent + kFog + 0x14, fogColor);
+                        Mem::SmartWrite<uint32_t>(ent + kFog + 0x18, fogColor);
+                        Mem::SmartWrite<float>(ent + kFog + 0x24, p.fogStart);
+                        Mem::SmartWrite<float>(ent + kFog + 0x28, p.fogEnd);
+                        Mem::SmartWrite<float>(ent + kFog + 0x30, p.fogDensity);
                     }
                 } __except (EXCEPTION_EXECUTE_HANDLER) {}
             }
@@ -675,41 +1101,54 @@ namespace WorldEffects
     // Setting both min and max to the same value = locked exposure.
     // Higher values = brighter. 1.0 = fullbright-ish, 0.5 = neutral.
     // ---------------------------------------------------------------
+    // Track whether we currently have tonemap_force convars overridden so
+    // we can release them cleanly when the toggle/preset turns off.
+    inline bool g_tonemapForced = false;
+
+    inline void ApplyTonemapForce(float minVal, float maxVal)
+    {
+        // mat_tonemap_force_use_alpha=1 + min/max=value forces the engine's
+        // post-process to lock target exposure in that range, bypassing the
+        // auto-exposure curve. This is the only path that works on every
+        // map (env_tonemap entity isn't always present).
+        WriteCvarFloat(pCV_mat_tonemap_force_min, minVal);
+        WriteCvarFloat(pCV_mat_tonemap_force_max, maxVal);
+        WriteCvarInt  (pCV_mat_tonemap_force_use_alpha, 1);
+        g_tonemapForced = true;
+    }
+
+    inline void ReleaseTonemapForce()
+    {
+        if (!g_tonemapForced) return;
+        WriteCvarInt  (pCV_mat_tonemap_force_use_alpha, 0);
+        // Restore sentinel "no override" values the engine treats as inactive.
+        WriteCvarFloat(pCV_mat_tonemap_force_min, -1.0f);
+        WriteCvarFloat(pCV_mat_tonemap_force_max, -1.0f);
+        g_tonemapForced = false;
+    }
+
     inline void RunBrightness()
     {
-        if (!cfg.brightnessEnabled || !GameState::clientBase) return;
+        // Convar-driven exposure lock. Universal -- works without any
+        // env_tonemap entity in the level. The previous entity-iteration
+        // path has been retired (writes were silently overwritten by the
+        // engine's per-frame auto-exposure pass).
+        if (!cfg.brightnessEnabled) {
+            ReleaseTonemapForce();
+            return;
+        }
 
         static UINT64 lastTick = 0;
+        static float  lastMin  = -999.f, lastMax = -999.f;
         UINT64 now = GetTickCount64();
-        if (now - lastTick < 200) return;
+        // Throttle, but always re-apply if the slider moved.
+        if (now - lastTick < 200 &&
+            cfg.exposureMin == lastMin && cfg.exposureMax == lastMax) return;
         lastTick = now;
+        lastMin  = cfg.exposureMin;
+        lastMax  = cfg.exposureMax;
 
-        __try {
-            uintptr_t entList = GameState::GetEntityList();
-            if (!entList) return;
-
-            for (int i = 0; i < 1024; ++i)
-            {
-                uintptr_t ent = GameState::GetEntityByIndex(i);
-                if (!ent) continue;
-
-                __try {
-                    uintptr_t identity = Mem::Read<uintptr_t>(ent + Offsets::EntitySys::kInstanceToIdentity);
-                    if (!identity) continue;
-                    uintptr_t namePtr = Mem::Read<uintptr_t>(identity + Offsets::EntitySys::kIdentityDesignerName);
-                    if (!namePtr) continue;
-                    struct NB { char d[64]; };
-                    NB nb = Mem::Read<NB>(namePtr);
-                    nb.d[63] = '\0';
-
-                    if (strstr(nb.d, "tonemap_controller") || strstr(nb.d, "env_tonemap"))
-                    {
-                        Mem::SmartWrite<float>(ent + Offsets::m_flAutoExposureMin, cfg.exposureMin);
-                        Mem::SmartWrite<float>(ent + Offsets::m_flAutoExposureMax, cfg.exposureMax);
-                    }
-                } __except (EXCEPTION_EXECUTE_HANDLER) {}
-            }
-        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        ApplyTonemapForce(cfg.exposureMin, cfg.exposureMax);
     }
 
     // ---------------------------------------------------------------
@@ -928,12 +1367,21 @@ namespace WorldEffects
     // can't silently turn 3p back off without us noticing.
     inline void RunThirdPerson()
     {
-        static bool wasOn = false;
-        static UINT64 cvarTick = 0;
+        static bool   wasOn       = false;
+        static UINT64 cvarTick    = 0;
+        static UINT64 lastTransit = 0;   // ms timestamp of last on<->off
         if (!GameState::clientBase) {
             wasOn = false;
             return;
         }
+
+        // Engine handler-call cooldown. The pThirdPersonOn / pThirdPersonOff
+        // entry points walk live camera / viewmodel state. During weapon
+        // switches (e.g. knife in/out) those pointers are mid-transition,
+        // and back-to-back invocations from a fast toggle can crash the
+        // game. Gate any actual on<->off transition by 250 ms.
+        const UINT64 nowMs = GetTickCount64();
+        const bool   coolingDown = (nowMs - lastTransit) < 250;
 
         const bool wantOn = cfg.thirdPerson;
 
@@ -981,6 +1429,7 @@ namespace WorldEffects
         if (!wantOn)
         {
             if (!wasOn) return;
+            if (coolingDown) return;   // hold off the OFF handler too
             __try {
                 if (pThirdPersonOff) pThirdPersonOff();
                 stampThirdPersonFlag(0);
@@ -990,6 +1439,7 @@ namespace WorldEffects
             // to stock behavior under sv_cheats=0.
             RevertThirdPersonPatch();
             wasOn = false;
+            lastTransit = nowMs;
             return;
         }
 
@@ -1021,6 +1471,7 @@ namespace WorldEffects
 
         if (!wasOn)
         {
+            if (coolingDown) return;   // gate the ON edge transition
             // Edge: invoke engine handler ONCE on the offâ†’on transition.
             // The handler does the heavy lifting (camera anchor, viewmodel
             // hide, localpawn render-self toggle). After this we just
@@ -1036,6 +1487,7 @@ namespace WorldEffects
             __try { if (pThirdPersonOn) pThirdPersonOn(); }
             __except (EXCEPTION_EXECUTE_HANDLER) {}
             wasOn = true;
+            lastTransit = nowMs;
         }
 
         // Steady-state maintenance: keep enable gate latched + clear the
@@ -1135,9 +1587,6 @@ namespace WorldEffects
     inline uintptr_t pCV_mat_fullbright      = 0;  // legacy +0x40 slot (kept for compat with old code paths)
     inline uintptr_t pCV_mat_fullbright_obj  = 0;  // cvar object pointer (for WriteCvarInt)
     inline int       lastFullbrightWritten   = -1; // throttle to avoid per-frame writes
-
-    // Forward declaration: used by RunFullbright before helper definition below.
-    inline void WriteCvarInt(uintptr_t cv, int value);
 
     inline void RunNoShadows()
     {
@@ -1296,6 +1745,43 @@ namespace WorldEffects
     }
 
     // ---------------------------------------------------------------
+    // Atmosphere sun-cascade heartbeat.
+    // The GlobalLightUpdate hook only runs when the engine itself decides
+    // to push UpdateState (typically on entity-state change). For our
+    // atmosphere preset to actually take and STAY -- including dimming the
+    // sun cascade & shadows -- we re-invoke the function ourselves on
+    // the cached env_global_light entity periodically. The hook does the
+    // real work; we just trigger it.
+    // ---------------------------------------------------------------
+    inline void RunAtmosphereSunPush()
+    {
+        if (cfg.atmosphere <= 0) return;
+
+        static UINT64 s_last = 0;
+        UINT64 now = GetTickCount64();
+        if (now - s_last < 100) return;
+        s_last = now;
+
+        // (1) Re-apply atmosphere overrides to the cached scene-info GPU
+        // pointer EVERY tick. Lets a menu toggle take effect on the
+        // current map (no reload required) -- the renderer reads these
+        // fields per frame once they're seeded by the BuildSceneInfoGpu
+        // hook (which fires on map load + a few times during).
+        if (g_pSceneInfoGpu)
+            ApplyAtmosphereToSceneInfo(g_pSceneInfoGpu);
+
+        // (2) Trigger the sun-cascade dimmer hook on the cached
+        // env_global_light entity (the hook itself does the writes when
+        // cfg.atmosphere or cfg.nightMode are nonzero).
+        if (globalLightHooked && pGlobalLightTarget && g_pGlobalLightInst) {
+            __try {
+                auto fn = reinterpret_cast<GlobalLightUpdateStateFn>(pGlobalLightTarget);
+                fn(g_pGlobalLightInst);
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        }
+    }
+
+    // ---------------------------------------------------------------
     // Main tick â€” call all sub-features
     // ---------------------------------------------------------------
     inline void Tick()
@@ -1304,16 +1790,9 @@ namespace WorldEffects
         RunNoSmoke();
         RunFireColor();
         RunSkyBrightness();
-        RunNightMode();
-        RunAsusMode();
-        RunFogOverride();
-        RunAntiFog();
-        RunNoShadows();
-        RunNoColorCorrection();
-        RunFullbright();
-        RunBrightness();
         RunFOV();
         RunThirdPerson();
+        RunAtmosphereSunPush();
     }
 
     // ---------------------------------------------------------------
@@ -1443,6 +1922,22 @@ namespace WorldEffects
             Mem::SmartWrite<int>(cv + 0x58, value);
             // Legacy union mirror (bool cvars, some reader paths).
             Mem::SmartWrite<int>(cv + 0x40, value);
+        } __except (EXCEPTION_EXECUTE_HANDLER) {}
+    }
+
+    // Float counterpart of WriteCvarInt. Same flag-strip + dual-slot
+    // write -- exposure cvars (mat_tonemap_force_*) are floats and read
+    // from the modern slot, but mirroring to the legacy slot is harmless.
+    inline void WriteCvarFloat(uintptr_t cv, float value)
+    {
+        if (!cv) return;
+        __try {
+            uint32_t* pFlags = reinterpret_cast<uint32_t*>(cv + 0x30);
+            uint32_t  cur    = *pFlags;
+            uint32_t  next   = cur & ~(uint32_t)(0x400 | 0x4000);
+            if (next != cur) Mem::SmartWrite<uint32_t>(reinterpret_cast<uintptr_t>(pFlags), next);
+            Mem::SmartWrite<float>(cv + 0x58, value);
+            Mem::SmartWrite<float>(cv + 0x40, value);
         } __except (EXCEPTION_EXECUTE_HANDLER) {}
     }
 
@@ -1594,22 +2089,50 @@ namespace WorldEffects
             }
         }
 
-        // --- DrawAggregateSceneObjectArray hook (scenesystem.dll) ---
-        // Verified unique on build 14158 (sub_18003BC00). Hook is a
-        // pass-through; only writes when cfg.brightAggregates is on.
-        uintptr_t aggAddr = Mem::FindPattern(L"scenesystem.dll",
-                                             Signatures::DrawAggregateSceneObjectArray);
-        if (aggAddr)
+        // --- DrawAggregateSceneObjectArray hook -- DISABLED ---
+        // Bright Aggregates feature was removed (Visibility menu stripped);
+        // skip installing this hook entirely so we add zero render-thread
+        // overhead and reduce hook surface for AC scans.
+
+        // --- BuildSceneInfoGpu hook (scenesystem.dll) ---
+        // Discord-attested authoritative atmosphere modulation point.
+        // Hook fires once per map load; modulates uniform_sky_color,
+        // sky_bounce(+scale), and sun_light_min_brightness for the
+        // "Atmosphere" preset menu (cfg.atmosphere). See sig comment
+        // and per-field offsets above.
+        uintptr_t sceneInfoAddr = Mem::FindPattern(L"scenesystem.dll", Signatures::BuildSceneInfoGpu);
+        if (sceneInfoAddr)
         {
-            pAggregateTarget = reinterpret_cast<void*>(aggAddr);
+            pSceneInfoGpuTarget = reinterpret_cast<void*>(sceneInfoAddr);
             MH_STATUS st = MH_CreateHook(
-                pAggregateTarget,
-                reinterpret_cast<void*>(&hkDrawAggregate),
-                reinterpret_cast<void**>(&oDrawAggregate));
+                pSceneInfoGpuTarget,
+                reinterpret_cast<void*>(&hkBuildSceneInfoGpu),
+                reinterpret_cast<void**>(&oBuildSceneInfoGpu));
             if (st == MH_OK || st == MH_ERROR_ALREADY_CREATED)
             {
-                st = MH_EnableHook(pAggregateTarget);
-                aggregateHooked = (st == MH_OK || st == MH_ERROR_ENABLED);
+                st = MH_EnableHook(pSceneInfoGpuTarget);
+                sceneInfoGpuHooked = (st == MH_OK || st == MH_ERROR_ENABLED);
+            }
+        }
+
+        // --- CGlobalLightBase::UpdateState hook (client.dll) ---
+        // Per-frame routine that copies env_global_light entity color +
+        // scale fields into the renderer's destination block. We hook it
+        // to dim the SUN cascade for night/atmosphere modes -- the
+        // sceneinfo_gpu hook only modulates the ambient sky/bounce; this
+        // one is what actually kills the bright direct sunlight & shadows.
+        uintptr_t glAddr = Mem::FindPattern(L"client.dll", Signatures::GlobalLightUpdateState);
+        if (glAddr)
+        {
+            pGlobalLightTarget = reinterpret_cast<void*>(glAddr);
+            MH_STATUS st = MH_CreateHook(
+                pGlobalLightTarget,
+                reinterpret_cast<void*>(&hkGlobalLightUpdate),
+                reinterpret_cast<void**>(&oGlobalLightUpdate));
+            if (st == MH_OK || st == MH_ERROR_ALREADY_CREATED)
+            {
+                st = MH_EnableHook(pGlobalLightTarget);
+                globalLightHooked = (st == MH_OK || st == MH_ERROR_ENABLED);
             }
         }
 
@@ -1649,6 +2172,33 @@ namespace WorldEffects
             pCV_cl_csm_sprite_shadows = FindCvarValue(pCCvar, "cl_csm_sprite_shadows");
             pCV_mat_fullbright        = FindCvarValue(pCCvar, "mat_fullbright");
             pCV_mat_fullbright_obj    = FindCvar(pCCvar, "mat_fullbright");
+
+            // Tonemap force convars (scenesystem.dll). Cvar OBJECT pointers
+            // (not value slots) -- WriteCvarFloat strips FCVAR_CHEAT first.
+            pCV_mat_tonemap_force_min       = FindCvar(pCCvar, "mat_tonemap_force_min");
+            pCV_mat_tonemap_force_max       = FindCvar(pCCvar, "mat_tonemap_force_max");
+            pCV_mat_tonemap_force_scale     = FindCvar(pCCvar, "mat_tonemap_force_scale");
+            pCV_mat_tonemap_force_use_alpha = FindCvar(pCCvar, "mat_tonemap_force_use_alpha");
+
+            // Direct-RVA fallback. The scenesystem.dll convar OBJECTS for
+            // mat_tonemap_force_* live at fixed RVAs in the module's .data
+            // (verified via IDA on build 14158, registration sites in
+            // sub_18000E650 / sub_18000E700 / sub_18000EB20). FindCvar can
+            // miss them on builds where scenesystem registers via its own
+            // local list before the global ICvar interface is published, so
+            // resolving directly via module-base + RVA is the bullet-proof
+            // path. The convar struct layout (cv+0x30 flags, cv+0x40/0x58
+            // value) is identical regardless of how we obtained the ptr.
+            HMODULE hScene = GetModuleHandleW(L"scenesystem.dll");
+            if (hScene)
+            {
+                auto baseRva = [hScene](uintptr_t rva) -> uintptr_t {
+                    return reinterpret_cast<uintptr_t>(hScene) + rva;
+                };
+                if (!pCV_mat_tonemap_force_min)       pCV_mat_tonemap_force_min       = baseRva(0x8DF928);
+                if (!pCV_mat_tonemap_force_max)       pCV_mat_tonemap_force_max       = baseRva(0x8DF938);
+                if (!pCV_mat_tonemap_force_use_alpha) pCV_mat_tonemap_force_use_alpha = baseRva(0x8DF998);
+            }
         }
 
         return skyHooked;
@@ -1688,6 +2238,23 @@ namespace WorldEffects
             oDrawAggregate    = nullptr;
             pAggregateTarget  = nullptr;
             aggregateHooked   = false;
+        }
+        if (sceneInfoGpuHooked && pSceneInfoGpuTarget)
+        {
+            MH_DisableHook(pSceneInfoGpuTarget);
+            MH_RemoveHook(pSceneInfoGpuTarget);
+            oBuildSceneInfoGpu  = nullptr;
+            pSceneInfoGpuTarget = nullptr;
+            sceneInfoGpuHooked  = false;
+            g_pSceneInfoGpu     = nullptr;
+        }
+        if (globalLightHooked && pGlobalLightTarget)
+        {
+            MH_DisableHook(pGlobalLightTarget);
+            MH_RemoveHook(pGlobalLightTarget);
+            oGlobalLightUpdate = nullptr;
+            pGlobalLightTarget = nullptr;
+            globalLightHooked  = false;
         }
         if (decalsHooked && pRenderDecalsTarget)
         {

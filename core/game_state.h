@@ -137,7 +137,32 @@ namespace GameState
     {
         std::ptrdiff_t off = resolved_dwLocalPlayerPawn ? resolved_dwLocalPlayerPawn
                                                         : Offsets::Global::dwLocalPlayerPawn;
-        return Mem::Read<uintptr_t>(clientBase + off);
+        uintptr_t p = Mem::Read<uintptr_t>(clientBase + off);
+        if (p) return p;
+        // Fallback: dwLocalPlayerPawn briefly goes null during the
+        // bot-takeover transition (cs_bot_takeover, jointeam swap, etc.).
+        // Resolve through the local controller's m_hPlayerPawn handle so
+        // every downstream consumer (aimbot, ESP, chams, triggerbot)
+        // stays armed across the swap. One extra read on the cold path
+        // only -- the hot path returns above without touching the handle.
+        std::ptrdiff_t cOff = resolved_dwLocalPlayerController ? resolved_dwLocalPlayerController
+                                                              : Offsets::Global::dwLocalPlayerController;
+        uintptr_t lc = Mem::Read<uintptr_t>(clientBase + cOff);
+        if (!lc) return 0;
+        uint32_t h = Mem::Read<uint32_t>(lc + Offsets::m_hPlayerPawn);
+        if (!h || h == 0xFFFFFFFFu) return 0;
+        // Inline the handle resolve to avoid a forward-decl ordering
+        // problem (ResolveHandle is defined further down).
+        uintptr_t entList = Mem::Read<uintptr_t>(clientBase +
+            (resolved_dwEntityList ? resolved_dwEntityList : Offsets::Global::dwEntityList));
+        if (!entList) return 0;
+        uint32_t idx = h & Offsets::EntitySys::kHandleIndexMask;
+        uintptr_t chunk = Mem::Read<uintptr_t>(entList +
+            Offsets::EntitySys::kChunkArrayBase +
+            Offsets::EntitySys::kChunkPtrStride * (idx >> 9));
+        if (!chunk) return 0;
+        return Mem::Read<uintptr_t>(chunk +
+            Offsets::EntitySys::kChunkEntryStride * (idx & Offsets::EntitySys::kSlotIndexMask));
     }
 
     inline uintptr_t GetLocalController()

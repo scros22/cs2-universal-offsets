@@ -11,6 +11,7 @@
 #include <cmath>
 #include <cfloat>
 #include <algorithm>
+#include <atomic>
 #include "../../core/game_state.h"
 #include "../../core/sdk_offsets.h"
 #include "../../core/signatures.h"
@@ -20,11 +21,18 @@
 #include "../../core/vtable_swap.h"
 #include "../movement/fake_lag.h"
 #include "../../core/spoof_call.h"
+#include "../../core/engine_trace.h"
 #include "../../vendor/imgui/imgui.h"
 #include "../../vendor/minhook/include/MinHook.h"
 #include "../movement/bhop.h"
 
 namespace BulletTracer { bool DetectShot(uintptr_t pawn); void AddTraceFromAngles(float ex, float ey, float ez, float p, float y); }
+
+// Forward decl so the aim-key lambda can mask synthetic LBUTTON
+// clicks from triggerbot. Real definition (inline) lives in
+// features/combat/triggerbot.h, which dllmain.cpp includes after
+// this header. The variable has external linkage either way.
+namespace Triggerbot { extern std::atomic<DWORD> g_synthClickUntilMs; }
 
 namespace Aimbot
 {
@@ -75,7 +83,7 @@ namespace Aimbot
         bool  velPredict      = true;        // lead moving targets
         float velPredictScale = 1.0f;        // prediction multiplier
         bool  multiBone       = true;        // scan multiple bones for best hit
-        float humanization    = 0.32f;       // 0..1 hand tremor intensity (raised from 0.18)
+        float humanization    = 0.40f;       // 0..1 hand tremor intensity (0.32 -> 0.40 post-2nd-ban)
         bool  smokeCheck      = true;        // never aim through smoke
         bool  showFovCircle   = true;
         float fovCircleColor[4] = { 1.f, 1.f, 1.f, 0.14f };
@@ -297,8 +305,8 @@ namespace Aimbot
             // (forced body shots after the HS cap, brief pauses after
             // multi-kills) so the kill-curve looks human.
             bool  enabled          = true;
-            float intensity        = 0.55f;    // 0..1 how aggressive throttling is (was 0.35)
-            float hsCapPercent     = 45.0f;    // start forcing body after this HS% (was 55)
+            float intensity        = 0.65f;    // 0..1 how aggressive throttling is (was 0.55)
+            float hsCapPercent     = 38.0f;    // start forcing body after this HS% (was 45)
             int   multiKillWindow  = 5;        // kills within this many seconds = multi-kill (was 4)
             int   multiKillCap     = 3;        // max rapid kills before brief pause (was 4)
         };
@@ -399,6 +407,40 @@ namespace Aimbot
         };
 
         inline Decision Tick()
+        {
+            Decision d = { false, -1 };
+            if (!gcfg.enabled) return d;
+
+            // -----------------------------------------------------------
+            // PARTIAL RE-ENABLE (2026-05 post-ban): the kill-rate skip /
+            // pause path stays disabled (it caused "aimbot turns itself
+            // off mid-match" because round reset detection was lossy
+            // and stats.roundKills accumulated across the whole map).
+            //
+            // What WE DO want back is the HS%-cap body override -- it
+            // works off the rolling HS% across the session, has no
+            // dependence on round detection, and is the cheapest way
+            // to keep the kill-curve out of the VACnet conviction zone
+            // (100% HS at any range with vis-check on is the textbook
+            // signature that just got the account banned).
+            //
+            // Decay forceBodyTicks here (not in OnKill) so it counts
+            // CreateMove ticks, not kills.
+            // -----------------------------------------------------------
+            if (stats.forceBodyTicks > 0)
+            {
+                stats.forceBodyTicks--;
+                if (stats.forceBodyTicks <= 0) stats.forceBody = false;
+            }
+            if (stats.forceBody)
+                d.overrideBone = 4; // chest -- big hitbox, body shot
+
+            return d;
+        }
+
+        // Original gated logic preserved for reference / future re-enable.
+        // Not reached.
+        inline Decision Tick_LEGACY()
         {
             Decision d = { false, -1 };
             if (!gcfg.enabled) return d;
@@ -687,6 +729,21 @@ namespace Aimbot
     inline float EffectiveFov()
     {
         float v = cfg.fov + sessionFovJitter;
+        // Mid-air FOV bonus: while jumping the camera bobs hard and
+        // the user is reorienting, so the legit-feeling cone size is
+        // larger than ground stance. Without this bump the aimbot
+        // visibly "lets go" of targets the moment the player jumps,
+        // which is the user-reported "aimbot still doesnt work when
+        // i jump / in air, cant lock onto enemy still properly".
+        // Only applied when jumpShot is enabled so the user can opt
+        // out by disabling jumpshot.
+        uintptr_t lp = GameState::GetLocalPawn();
+        if (lp && cfg.jumpShot) {
+            __try {
+                uint32_t flags = Mem::Read<uint32_t>(lp + Offsets::m_fFlags);
+                if ((flags & 1u) == 0u) v *= 2.5f;
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+        }
         if (v > 30.0f) v = 30.0f;  // engine max
         if (v < 0.5f) v = 0.5f;
         return v;
@@ -1115,6 +1172,31 @@ namespace Aimbot
         }
         (void)entityIndex;
 
+        // ---- Real LOS via EngineTrace (PRIMARY PATH) ----
+        // m_bSpottedByMask is a server-side spotted bit: it stays set
+        // for ~2 seconds after last sighting and updates at ~10Hz, so
+        // the aimbot would happily lock onto enemies who'd ducked
+        // behind a wall a moment ago ("locks on through walls"). When
+        // EngineTrace is wired up, do an actual eye->bone raycast and
+        // ONLY allow lock-on if the bullet path is clear. Try head
+        // first, then chest, so partial cover (head poking out / body
+        // poking out) still counts as visible.
+        if (EngineTrace::Ready())
+        {
+            __try {
+                Math::Vec3 head  = GameState::GetBonePos(pawn, 7);
+                if (!head.IsZero() && EngineTrace::IsVisible(pawn, head))
+                    return true;
+                Math::Vec3 chest = GameState::GetBonePos(pawn, 23);
+                if (!chest.IsZero() && EngineTrace::IsVisible(pawn, chest))
+                    return true;
+                Math::Vec3 pelv  = GameState::GetBonePos(pawn, 1);
+                if (!pelv.IsZero() && EngineTrace::IsVisible(pawn, pelv))
+                    return true;
+            } __except (EXCEPTION_EXECUTE_HANDLER) {}
+            return false;   // strict: no spotted-bit fallback when trace is available
+        }
+
         // Check m_bSpottedByMask for OUR player's bit specifically
         int localIdx = GameState::localPlayerIndex;
         if (localIdx >= 1 && localIdx <= 64)
@@ -1164,13 +1246,37 @@ namespace Aimbot
         if (cfg.velPredict)
         {
             Math::Vec3 vel = Mem::Read<Math::Vec3>(pawn + Offsets::m_vecVelocity);
-            if (vel.Length() < 3500.f && vel.Length() > 1.f)
+            float spd = vel.Length();
+            if (spd < 3500.f && spd > 1.f)
             {
                 constexpr float kTickInterval = 1.0f / 64.0f;
                 float scale = kTickInterval * cfg.velPredictScale;
                 bonePos.x += vel.x * scale;
                 bonePos.y += vel.y * scale;
                 bonePos.z += vel.z * scale;
+
+                // Imperfect-lead injection. Perfect velocity prediction
+                // (lead lands on the head every time regardless of
+                // strafe direction change) is one of the cheapest
+                // VACnet signatures -- humans systematically OVER-lead
+                // when targets accelerate and UNDER-lead when they
+                // decelerate. Add a small per-shot noise + a bias that
+                // grows with target speed.
+                if (spd > 80.f)
+                {
+                    DWORD seed = (DWORD)(uintptr_t)pawn ^ GetTickCount();
+                    auto frand = [&]() {
+                        seed = seed * 1664525u + 1013904223u;
+                        return ((seed >> 8) & 0xFFFF) / 65535.f - 0.5f; // [-0.5,0.5]
+                    };
+                    // Lead error scales with speed: ~1.5u at walk, ~4u at run.
+                    float errMag = 1.5f + (spd / 250.f) * 2.5f;
+                    bonePos.x += frand() * errMag;
+                    bonePos.y += frand() * errMag;
+                    // Vertical error is much smaller (humans rarely
+                    // miss vertically when leading horizontally).
+                    bonePos.z += frand() * (errMag * 0.25f);
+                }
             }
         }
         return bonePos;
@@ -1220,6 +1326,12 @@ namespace Aimbot
                 bestBone = preferredBone;
             }
 
+            // The user-picked bone wins unless another bone is DRAMATICALLY
+            // better (>=8 deg closer to crosshair). Without a strong bias
+            // here the head almost always beats chest/pelvis on FOV alone
+            // and the menu's hitbox dropdown becomes a no-op. multiBone is
+            // now strictly a fallback for when the picked bone fails to
+            // resolve, not a "pick whichever is closest" mode.
             for (int bi = 0; bi < kNumBones; ++bi)
             {
                 int b = kBones[bi];
@@ -1228,7 +1340,9 @@ namespace Aimbot
                 if (!validateBone(pos)) continue;
                 Math::QAngle ang = Math::CalcAngle(eye, pos);
                 float fov = Math::AngleFov(view, ang);
-                if (bestPos.IsZero() || (fov < bestFov - 0.5f))
+                // Only override the preferred bone if no preferred was
+                // resolved at all, otherwise leave it alone.
+                if (bestPos.IsZero())
                 {
                     bestPos = pos;
                     bestFov = fov;
@@ -1356,8 +1470,19 @@ namespace Aimbot
         diag_seen = diag_rDead = diag_rTeam = diag_rBone = diag_rFov = diag_rVis = diag_rSmoke = diag_rValid = 0;
         uintptr_t localCtrl = GameState::GetLocalController();
         if (!localCtrl) return best;
-        uint32_t localH = Mem::Read<uint32_t>(localCtrl + Offsets::m_hPlayerPawn);
-        uintptr_t localPawn = GameState::ResolveHandle(localH);
+        // Local pawn fallback: prefer the global pointer (cheaper, single
+        // deref) but fall back to controller's m_hPlayerPawn handle when
+        // the global is briefly null. This happens for ~1 frame when the
+        // user clicks "Take Over Bot" -- the global pointer is in the
+        // middle of being swapped, and without this fallback FindBestTarget
+        // returned no target for the rest of the takeover transition
+        // ("aimbot doesn't work when you join in as a bot" -- user report).
+        uintptr_t localPawn = GameState::GetLocalPawn();
+        if (!localPawn)
+        {
+            uint32_t lpH = Mem::Read<uint32_t>(localCtrl + Offsets::m_hPlayerPawn);
+            localPawn = GameState::ResolveHandle(lpH);
+        }
         if (!localPawn) return best;
         int localTeam = Mem::Read<uint8_t>(localPawn + Offsets::m_iTeamNum);
         uintptr_t entList = GameState::GetEntityList();
@@ -1370,14 +1495,37 @@ namespace Aimbot
             uintptr_t ctrl = GameState::GetEntityByIndex(i);
             if (!ctrl || ctrl == localCtrl) continue;
 
-            // Cheap alive check on the controller â€” same as ESP.
-            bool alive = Mem::Read<bool>(ctrl + Offsets::m_bPawnIsAlive);
-            if (!alive) { ++diag_rDead; continue; }
-
+            // Resilient alive check.
+            //
+            // m_bPawnIsAlive on the controller is the FAST path -- one byte
+            // read, no handle resolve. BUT it lags by 1-2 ticks across
+            // human-to-bot slot transitions: when a player disconnects and
+            // a bot takes over the slot, the controller's alive flag stays
+            // stale even after the bot pawn has fully spawned and is moving
+            // around. Result: enemy bots became invisible to the aimbot for
+            // the rest of the round ("if an enemy becomes a bot, you
+            // cannot aimbot them" -- user report).
+            //
+            // Fix: when m_bPawnIsAlive is false, do a second-chance resolve
+            // through the pawn handle and check pawn-side HP + lifeState
+            // directly. That's the same data the server uses to decide
+            // whether the pawn can be hit, so by definition matches what
+            // we want to aim at.
             uint32_t pH = Mem::Read<uint32_t>(ctrl + Offsets::m_hPlayerPawn);
             if (!pH || pH == 0xFFFFFFFF) continue;
             uintptr_t pawn = GameState::ResolveHandle(pH);
             if (!pawn || pawn == localPawn) continue;
+            bool alive = Mem::Read<bool>(ctrl + Offsets::m_bPawnIsAlive);
+            if (!alive)
+            {
+                __try {
+                    int32_t hpFb  = Mem::Read<int32_t>(pawn + Offsets::m_iHealth);
+                    uint8_t lsFb  = Mem::Read<uint8_t>(pawn + Offsets::m_lifeState);
+                    alive = (hpFb > 0 && lsFb == 0);
+                } __except (EXCEPTION_EXECUTE_HANDLER) { alive = false; }
+            }
+            if (!alive) { ++diag_rDead; continue; }
+
             ++diag_seen;
             int hp = Mem::Read<int32_t>(pawn + Offsets::m_iHealth);
             if (hp <= 0) { ++diag_rDead; continue; }
@@ -1391,9 +1539,13 @@ namespace Aimbot
                 if (team == localTeam) { ++diag_rTeam; continue; }
             }
 
-            // Head priority: always try head first
+            // Head priority: only meaningful when the user hasn't already
+            // picked head. If they picked chest/neck/pelvis in the menu we
+            // must honor that pick (used to deliberately lower HS%).
+            // Previously this always force-overwrote primaryBone to 7 and
+            // made the dropdown a no-op.
             int primaryBone = cfg.targetBone;
-            if (cfg.headPriority) primaryBone = 7;
+            if (cfg.headPriority && cfg.targetBone == 7) primaryBone = 7;
             // Rage-baim override: chest beats head when armor + helmet
             // make HS uncertain. Force-applied here so the bone scanner
             // anchors on chest first instead of head.
@@ -1429,6 +1581,12 @@ namespace Aimbot
             // the target is actually behind cover.
             bool effectiveVis = cfg.visCheck;
             if (Rage::cfg.enabled && Rage::cfg.forceWallbang) effectiveVis = false;
+            // (Jump visibility relaxation removed: now that IsVisible
+            // uses a real EngineTrace eye->bone ray it returns the
+            // truthful LOS state at the current eye position, so
+            // mid-air locks acquire correctly without bypassing the
+            // gate — fixes the "locks on through walls" behaviour
+            // that the spotted-bit fallback was causing.)
             bool targetVisible = true;
             if (effectiveVis)
             {
@@ -1567,10 +1725,16 @@ namespace Aimbot
 
     // Tick skip: random micro-pauses that break frame-locked patterns
     inline int   skipTicksRemaining = 0;
-
     // Post-shot disruption: brief aim degradation after firing
     inline DWORD shotDisruptUntil   = 0;
     inline float shotDisruptScale   = 1.0f;
+
+    // Watchdog liveness clock -- bumped every time the tick produces real
+    // aim output (silent-aim arming OR mouse delta send). The watchdog at
+    // the top of Tick() force-resets all aim state if this clock goes
+    // stale for >5s while we're alive and the cheat is enabled. See the
+    // long comment above the watchdog block in Tick() for rationale.
+    inline DWORD lastAimActivityTick = 0;
 
     // ---------------------------------------------------------------
     // Fresh-sight reaction gate (anti-VAC trust-score)
@@ -1643,6 +1807,7 @@ namespace Aimbot
             diag_lastSent = GetTickCount();
             diag_lastDx = dx;
             diag_lastDy = dy;
+            lastAimActivityTick = diag_lastSent;
         }
     }
 
@@ -2157,7 +2322,126 @@ namespace Aimbot
             } __except (EXCEPTION_EXECUTE_HANDLER) {}
         }
 
+        // ----- cfg.enabled toggle detection -----
+        // PRE-FIX: this block was placed AFTER the early-return below, so
+        // `s_prevEnabled` started false, fired the reset ONCE on the first
+        // tick after Tick() was reached, then stayed true forever. Toggling
+        // the menu checkbox off/on did absolutely nothing, which is why the
+        // user reported "aimbot stops working and disable+enable doesn't
+        // bring it back until next half/game". Hoisted here ABOVE the
+        // !cfg.enabled early-return so it sees both edges.
+        {
+            static bool s_prevEnabled = false;
+            if (cfg.enabled && !s_prevEnabled) {
+                ResetState();
+                mouseAccumX = mouseAccumY = 0.f;
+                prevMoveDp  = prevMoveDy  = 0.f;
+                skipTicksRemaining       = 0;
+                noTargetTicks            = 0;
+                consecutiveCrashes       = 0;
+                crashBackoffTicks        = 0;
+                lastSightTarget          = 0;
+                lastSightTick            = 0;
+                freshSightUntil          = 0;
+                Governor::stats.pauseTicks      = 0;
+                Governor::stats.forceBodyTicks  = 0;
+                Governor::stats.forceBody       = false;
+                Governor::stats.rapidKills      = 0;
+                haveLastValidAim         = false;
+                lastAimActivityTick      = GetTickCount();
+                // Intentionally do NOT touch SilentAim:: cross-thread
+                // fields here \u2014 the next valid tick will re-arm them.
+                // Touching them on the render thread while hkWriteSubtick
+                // (game thread) is mid-flight can race.
+            }
+            s_prevEnabled = cfg.enabled;
+        }
+
         if (!cfg.enabled) return;
+
+        // -----------------------------------------------------------------
+        // WATCHDOG (anti "round-10 stall")
+        //
+        // Users have repeatedly reported the aimbot silently stops working
+        // mid-match (round 8/10 etc.) with the menu checkbox still on.
+        // The 3000-line tick has too many internal gates (PHASE_REACTING,
+        // freshSightUntil, lockedTarget, postKillDelayMs, skipTicksRemaining,
+        // engagementStartTime, observer-mode throttle, untrusted-mode etc.)
+        // for any one cause to be obvious in static review, and the in-game
+        // diag_lastBail enum has historically not pinned it down either.
+        //
+        // Rather than chase ghosts, this watchdog enforces a single hard
+        // guarantee: if cfg.enabled is true AND a valid local pawn exists
+        // AND no aim output (silent-aim arming OR mouse delta) has been
+        // produced for >5s, EVERY internal aim-state field is wiped back
+        // to defaults. The very next tick re-runs the full pipeline from
+        // a known-good baseline, so any single stuck variable is healed
+        // automatically without the user having to disable / re-enable.
+        //
+        // Cost: one DWORD compare per tick. Cannot interrupt active aim
+        // because lastAimActivityTick is bumped at every successful arm
+        // / mouse send below, so as long as the cheat is doing its job
+        // the reset never fires.
+        // -----------------------------------------------------------------
+        {
+            DWORD nowWd = GetTickCount();
+            if (lastAimActivityTick == 0) lastAimActivityTick = nowWd;
+
+            uintptr_t lpWd = GameState::GetLocalPawn();
+            bool      lpAlive = false;
+            if (lpWd) {
+                __try {
+                    int32_t hp = Mem::Read<int32_t>(lpWd + Offsets::m_iHealth);
+                    uint8_t ls = Mem::Read<uint8_t>(lpWd + Offsets::m_lifeState);
+                    lpAlive = (hp > 0 && ls == 0);
+                } __except (EXCEPTION_EXECUTE_HANDLER) { lpAlive = false; }
+            }
+
+            if (lpAlive && (nowWd - lastAimActivityTick) > 5000)
+            {
+                // Force a complete cold start. Any single stuck gate gets
+                // cleared along with the rest.
+                //
+                // IMPORTANT: do NOT clear cross-thread fields from here.
+                // Tick() runs on the render thread (Present); hkCreateMove
+                // runs on the game thread and reads SilentAim::hasTarget /
+                // ::targetPawn / state.lockedTarget every tick. Racing a
+                // pointer-clear against a mid-flight read inside
+                // WriteSubtick / ApplyAngles can crash. Aim-only locals
+                // (mouseAccum*, prevMove*, skipTicks, noTargetTicks,
+                // crashBackoff, freshSight, governor stats) are render-
+                // thread-only and safe to wipe here. The next valid tick
+                // re-arms the silent-aim path naturally; no need to clear
+                // it from this thread.
+                ResetState();
+                state.lastKillTime        = 0;
+                state.postKillDelayMs     = 0;
+                state.engagementStartTime = 0;
+                mouseAccumX = mouseAccumY = 0.f;
+                prevMoveDp  = prevMoveDy  = 0.f;
+                skipTicksRemaining        = 0;
+                noTargetTicks             = 0;
+                consecutiveCrashes        = 0;
+                crashBackoffTicks         = 0;
+                lastSightTarget           = 0;
+                lastSightTick             = 0;
+                freshSightUntil           = 0;
+                govLastTarget             = 0;
+                govLastTargetHP           = 100;
+                Governor::stats.pauseTicks      = 0;
+                Governor::stats.forceBodyTicks  = 0;
+                Governor::stats.forceBody       = false;
+                Governor::stats.rapidKills      = 0;
+                Governor::stats.roundKills      = 0;
+                haveLastValidAim      = false;
+                lastAimActivityTick   = nowWd;   // restart the clock
+            }
+
+            // If we're not alive (between rounds, dead, in spec), keep the
+            // clock pinned to "now" so the moment we respawn we start with
+            // a fresh 5s budget instead of an instant reset.
+            if (!lpAlive) lastAimActivityTick = nowWd;
+        }
 
         __try {
 
@@ -2181,37 +2465,14 @@ namespace Aimbot
             // last valid angle is still a much better aim point than zero.
         }
 
-        // ----- cfg.enabled toggle detection -----
-        // Re-enabling after a disable should start from a known-good state.
-        // Otherwise stale lockedTarget pointers, snowballed Governor pause/
-        // body-force counters and an old freshSightUntil can carry the
-        // "aimbot feels broken" perception across the toggle. Also handles
-        // the user-visible "stops working after ~8 rounds" case where
-        // accumulated state degrades silently â€” a quick disable+re-enable
-        // is now a true reset.
-        {
-            static bool s_prevEnabled = false;
-            if (!s_prevEnabled) {
-                ResetState();
-                mouseAccumX = mouseAccumY = 0.f;
-                prevMoveDp  = prevMoveDy  = 0.f;
-                skipTicksRemaining       = 0;
-                noTargetTicks            = 0;
-                consecutiveCrashes       = 0;
-                crashBackoffTicks        = 0;
-                lastSightTarget          = 0;
-                lastSightTick            = 0;
-                freshSightUntil          = 0;
-                Governor::stats.pauseTicks      = 0;
-                Governor::stats.forceBodyTicks  = 0;
-                Governor::stats.forceBody       = false;
-                Governor::stats.rapidKills      = 0;
-                SilentAim::targetPawn = 0;
-                SilentAim::hasTarget  = false;
-                haveLastValidAim      = false;
-            }
-            s_prevEnabled = true;
-        }
+        // ----- cfg.enabled toggle detection (HOISTED) -----
+        // The actual reset logic now lives at the top of Tick() so it
+        // can see both edges (off->on AND on->off). The previous block
+        // here was placed AFTER the !cfg.enabled early return, which
+        // meant `s_prevEnabled` started false, fired exactly once on the
+        // first frame Tick() reached this point, then stayed pinned true
+        // forever -- making the menu checkbox useless as a manual reset.
+        // Anchor preserved here so existing cross-references resolve.
 
         // Crash backoff DISABLED â€” users reported the aimbot "randomly
         // shuts off" mid-game. Root cause was this backoff window
@@ -2224,6 +2485,16 @@ namespace Aimbot
         consecutiveCrashes  = 0;
 
         uintptr_t localPawn = GameState::GetLocalPawn();
+        if (!localPawn)
+        {
+            // Fallback: resolve via the local controller's m_hPlayerPawn.
+            // The dwLocalPlayerPawn global goes briefly null during the\n            // bot-takeover transition; without this fallback Tick() would\n            // bail for the entire transition window and the user would have\n            // to disable+re-enable the menu to recover.
+            uintptr_t lc = GameState::GetLocalController();
+            if (lc) {
+                uint32_t lpH = Mem::Read<uint32_t>(lc + Offsets::m_hPlayerPawn);
+                localPawn = GameState::ResolveHandle(lpH);
+            }
+        }
         if (!localPawn) { diag_lastBail = 1; return; }
 
         // Periodic NaN decontamination: purge poisoned state every tick
@@ -2486,7 +2757,14 @@ namespace Aimbot
             if (inAir)
             {
                 if (!cfg.jumpShot) goto tickDone;
-                if (!IsAtJumpApex(localPawn)) goto tickDone;
+                // Apex-only is now opt-in via the checkbox. Default
+                // behaviour is "aim throughout the jump arc" \u2014 paired
+                // with cfg.noSpread + the trigger's perfectShot window
+                // the bullets still land bit-perfect, and gating to
+                // apex was silently disabling the aimbot for the
+                // entire ascent/descent (which is what the user kept
+                // hitting as "aimbot doesn't work while jumping").
+                if (cfg.jumpApexOnly && !IsAtJumpApex(localPawn)) goto tickDone;
             }
 
             // Don't aim while fully blinded
@@ -2495,6 +2773,18 @@ namespace Aimbot
 
             // Robust key check: PEB-walked GetAsyncKeyState (no IAT import).
             // SafeGetKeyState resolves via export walk, falls back to LoadLibrary.
+            //
+            // NOTE: previously we masked LBUTTON to false during the
+            // trigger's synth-click window (Triggerbot::g_synthClickUntilMs).
+            // That broke the common case "user holds LBUTTON to aim while
+            // trigger is also enabled": every trigger click forced
+            // shouldAim=false for ~80ms, ran the !shouldAim branch which
+            // wipes SilentAim::hasTarget + state.phase, and the aimbot
+            // would visibly stop tracking mid-engagement. The 60ms
+            // human-impossible debounce below is sufficient on its own:
+            // a real held LBUTTON keeps the 0x8000 bit set across the
+            // synthetic up-edge, so rawAim stays true and continuity is
+            // preserved.
             auto CheckKey = [](int vk) -> bool {
                 SHORT s = GetAsyncKeyState(vk);
                 return (s & 0x8000) != 0;
@@ -2503,12 +2793,67 @@ namespace Aimbot
             // Defensive: any unexpected value is treated as always-on so a stale/garbled
             // config can't silently disable the aimbot.
             bool shouldAim = false;
+            bool rawAim = false;
             if (cfg.aimKey == 0)
-                shouldAim = CheckKey(VK_LBUTTON);
+                rawAim = CheckKey(VK_LBUTTON);
             else if (cfg.aimKey == 1)
-                shouldAim = CheckKey(VK_RBUTTON);
+                rawAim = CheckKey(VK_RBUTTON);
             else
-                shouldAim = true; // 2 or anything else => always active when enabled
+                rawAim = true; // 2 or anything else => always active when enabled
+
+            // ---- Synthetic-click debounce ----
+            // Triggerbot fires SendInput(LBUTTON DOWN/UP) inside the same
+            // process. Those clicks ARE visible to GetAsyncKeyState as a
+            // very brief press+release pair (<= 1 frame). Without this
+            // debounce, every trigger shot toggled shouldAim true→false
+            // mid-engagement, which:
+            //   - cleared SilentAim::hasTarget
+            //   - reset state.phase to PHASE_IDLE
+            //   - stomped lockedTarget continuity
+            // and produced the user-visible "aimbot stops working after I
+            // turn trigger on" failure mode.
+            //
+            // Real human input never releases+represses faster than ~70ms.
+            // We hold the "down" state alive for 60ms after the last
+            // observed press, which absorbs any synthetic up-edge in the
+            // middle of a real hold. The first true press still fires the
+            // edge logic immediately (no aim latency for a fresh click).
+            static DWORD s_lastDownTick = 0;
+
+            // ---- Synth-click false-edge filter ----
+            // When aimKey is 0 (auto-LBUTTON), the trigger's own
+            // SendInput(LEFTDOWN/UP) is observable to GetAsyncKeyState
+            // as a real press, which would wake the aimbot uninvited
+            // mid-trigger-shot and snap the view onto a different bone
+            // — user-visible as "trigger and aimbot fight each other".
+            // Discriminator: a real human hold keeps the bit set BEFORE
+            // the synth window opened. If s_lastDownTick is empty or
+            // predates the window, the press is synthetic; ignore it.
+            DWORD synthUntil = Triggerbot::g_synthClickUntilMs.load(
+                                   std::memory_order_acquire);
+            DWORD nowMsAim   = GetTickCount();
+            bool  inSynthWin = (synthUntil != 0 && nowMsAim < synthUntil);
+            if (rawAim && cfg.aimKey == 0 && inSynthWin) {
+                DWORD winStart = synthUntil - 80;
+                if (s_lastDownTick == 0 || s_lastDownTick < winStart)
+                    rawAim = false;
+            }
+
+            if (rawAim) {
+                s_lastDownTick = GetTickCount();
+                shouldAim = true;
+            } else if (s_lastDownTick != 0 &&
+                       (GetTickCount() - s_lastDownTick) < 120) {
+                // Triggerbot::g_synthClickUntilMs masks for 80ms; we cover
+                // it with a 40ms margin so a synthetic up-edge that lands
+                // a few ms before the next aim-key poll can't escape the
+                // debounce window. 120ms is still well under any human
+                // double-click cadence (~250ms+).
+                shouldAim = true;   // still within the human-impossible
+                                    // release window — treat as held
+            } else {
+                shouldAim = false;
+            }
 
             // Aim-key press edge: full responsiveness reset so the user's
             // first click after switching binds (or releasing+re-pressing)
@@ -2858,6 +3203,7 @@ namespace Aimbot
                 SilentAim::aimYaw    = biasedYaw;
                 SilentAim::targetPawn = t.pawn;
                 SilentAim::hasTarget = true;
+                lastAimActivityTick  = GetTickCount();
 
                 // Cache last valid angle so the grace-period path can keep
                 // bullets corrected through brief target-loss windows.
@@ -2885,6 +3231,7 @@ namespace Aimbot
             SilentAim::aimYaw    = biasedYaw2;
             SilentAim::targetPawn = t.pawn;
             SilentAim::hasTarget = true;
+            lastAimActivityTick  = GetTickCount();
 
             // Same caching as the silent-aim branch â€” keeps bullets corrected
             // through brief target-loss flickers in normal-aim mode too.

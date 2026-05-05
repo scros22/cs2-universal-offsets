@@ -29,9 +29,14 @@
 #include <cmath>
 #include <cstring>
 #include <atomic>
+#include <vector>
+#include <string>
+#include <mutex>
 #include "../../core/memory.h"
 #include "../../core/signatures.h"
 #include "../../vendor/minhook/include/MinHook.h"
+#include "kill_sound_builtin.h"
+#include "kill_sound_builtin_rust.h"
 
 namespace KillSound
 {
@@ -40,8 +45,13 @@ namespace KillSound
         bool  enabled = true;          // play our custom ding on confirmed kill
         bool  muteValve = true;         // skip Valve's HS/body kill DEATH ding (works even with enabled=false)
         bool  muteValveHits = true;     // skip Valve's per-HIT feedback (HS dink AND body thud)
-        bool  logSounds = true;         // capture every emitted sound name into a ring buffer (diagnostic)
+        bool  logSounds = false;        // capture every emitted sound name into a ring buffer (diagnostic) — OFF by default; per-sound disk writes were causing audio-thread stalls and a 28MB log bloat in long sessions
         float volume = 0.55f;          // 0..1 â€” playback amplitude scalar baked into WAV
+        // Selected sound pack index (0 = built-in synth ding). Persisted
+        // by NAME (selectedSoundName below) so adding/removing files in
+        // the sounds folder between sessions doesn't shuffle the choice.
+        int   selectedSound = 0;
+        char  selectedSoundName[64] = "Built-in Ding";
     };
     inline Config cfg;
 
@@ -76,6 +86,33 @@ namespace KillSound
     // Synthesized WAV buffer (heap-allocated, owned for cheat lifetime)
     inline uint8_t* g_wav = nullptr;
     inline int      g_wavSize = 0;
+
+    // -----------------------------------------------------------
+    // Sound packs â€” user-supplied WAV files dropped into
+    // %APPDATA%\LucidCS2\sounds\. Loaded once at Setup() and on
+    // demand from the menu (RescanSoundPacks). Index 0 is always
+    // the built-in synth ding so PlayDing() with selectedSound=0
+    // works zero-config.
+    //
+    // Each pack owns its WAV bytes for the cheat's lifetime
+    // (HeapAlloc, freed at Shutdown). PlaySoundA(SND_MEMORY) only
+    // accepts RIFF/WAV, so we validate the header on load and
+    // reject anything else (including MP3). Users convert MP3 -> WAV
+    // with ffmpeg per the README we drop in the sounds folder.
+    // -----------------------------------------------------------
+    struct SoundPack {
+        std::string name;     // display name (filename without .wav)
+        uint8_t*    wav;      // RIFF buffer (HeapAlloc, OR pointer to embedded
+                              //              read-only static data when isBuiltin)
+        int         wavSize;  // bytes
+        bool        isBuiltin = false; // true => skip HeapFree (static data)
+    };
+    inline std::vector<SoundPack> g_packs;
+    // CRITICAL: PlaySoundA reads g_packs[idx].wav asynchronously on a
+    // winmm thread. Reloading the list while a kill ding is playing
+    // would free the buffer mid-stream. PlaySoundA(nullptr) flushes
+    // pending playbacks before any HeapFree below.
+    inline std::mutex g_packsMutex;
 
     // Stat counter (diagnostics â€” number of kill events seen)
     inline std::atomic<uint32_t> g_kills{ 0 };
@@ -136,12 +173,26 @@ namespace KillSound
         }
         if (hLog != INVALID_HANDLE_VALUE)
         {
+            // ---- Hard size cap ----
+            // Per-sound WriteFile from the audio thread; if the user
+            // leaves logSounds on for a long session this file balloons
+            // (observed 28 MB / one match) and the disk-flush back-
+            // pressure was a likely contributor to a random hang/crash.
+            // Stop writing past 5 MB; ring buffer in memory is still
+            // populated for the in-game viewer.
+            static std::atomic<uint32_t> sBytesWritten{0};
+            constexpr uint32_t kMaxBytes = 5u * 1024u * 1024u;
+            if (sBytesWritten.load(std::memory_order_relaxed) >= kMaxBytes) {
+                return;
+            }
             char line[kSoundLogLen + 4];
             int  ll = 0;
             for (; ll < kSoundLogLen - 1 && name[ll]; ++ll) line[ll] = name[ll];
             line[ll++] = '\r'; line[ll++] = '\n';
             DWORD w; WriteFile(hLog, line, (DWORD)ll, &w, nullptr);
-            FlushFileBuffers(hLog);
+            sBytesWritten.fetch_add((uint32_t)ll, std::memory_order_relaxed);
+            // No FlushFileBuffers — the OS will flush on close. Per-call
+            // sync flush from the audio thread was stalling the engine.
         }
     }
 
@@ -222,11 +273,385 @@ namespace KillSound
     // -----------------------------------------------------------
     inline void PlayDing()
     {
-        if (!g_wav) return;
+        // Default = built-in synth ding (g_wav). Index >= 1 picks a
+        // user-supplied pack from g_packs[idx-1]. Out-of-range falls
+        // back to the synth ding so a stale config that names a
+        // since-deleted pack never silently breaks the kill sound.
+        const uint8_t* buf = g_wav;
+        int sel = cfg.selectedSound;
+        if (sel > 0) {
+            std::lock_guard<std::mutex> lock(g_packsMutex);
+            int idx = sel - 1;
+            if (idx >= 0 && idx < (int)g_packs.size() && g_packs[idx].wav) {
+                buf = g_packs[idx].wav;
+            }
+        }
+        if (!buf) return;
         // SND_MEMORY: read WAV from buffer
         // SND_ASYNC : return immediately
         // SND_NODEFAULT: don't play the system "ding" if buffer is bad
-        PlaySoundA((LPCSTR)g_wav, nullptr, SND_MEMORY | SND_ASYNC | SND_NODEFAULT);
+        PlaySoundA((LPCSTR)buf, nullptr, SND_MEMORY | SND_ASYNC | SND_NODEFAULT);
+    }
+
+    // -----------------------------------------------------------
+    // Drop a README into the sounds folder on first run so users
+    // know what to do with it. Idempotent: skips write if file
+    // already exists, so we never trample user notes.
+    // -----------------------------------------------------------
+    inline void WriteSoundsReadmeIfMissing(const char* dir)
+    {
+        char path[MAX_PATH];
+        _snprintf_s(path, sizeof(path), _TRUNCATE, "%s\\README.txt", dir);
+        // Force-refresh the README if it's the older WAV-only version
+        // so existing users see that MP3 now works. We detect the old
+        // version by reading the first 256 bytes and looking for the
+        // "MP3 ... are NOT supported" sentinel; absence of the file
+        // also triggers a write.
+        bool needWrite = (GetFileAttributesA(path) == INVALID_FILE_ATTRIBUTES);
+        if (!needWrite) {
+            HANDLE rh = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, nullptr,
+                                    OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+            if (rh != INVALID_HANDLE_VALUE) {
+                char head[512]{};
+                DWORD got = 0;
+                ReadFile(rh, head, sizeof(head) - 1, &got, nullptr);
+                CloseHandle(rh);
+                head[got] = 0;
+                if (strstr(head, "are NOT supported")) needWrite = true;
+            }
+        }
+        if (!needWrite) return;
+        HANDLE h = CreateFileA(path, GENERIC_WRITE, 0, nullptr,
+                               CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+        if (h == INVALID_HANDLE_VALUE) return;
+        const char* msg =
+            "Lucid Kill Sound Pack Folder\r\n"
+            "===========================\r\n"
+            "\r\n"
+            "Drop sound files in this folder. They will appear in the menu\r\n"
+            "under: Visuals -> Kill Sound -> Sound Pack.\r\n"
+            "\r\n"
+            "Filename = display name. e.g. \"valorant_5k.mp3\" shows as\r\n"
+            "\"valorant_5k\".\r\n"
+            "\r\n"
+            "SUPPORTED FORMATS (auto-decoded via Windows Media Foundation)\r\n"
+            "  * .wav   (PCM 8/16/24/32-bit, IEEE float)\r\n"
+            "  * .mp3   <-- just drop them in, no conversion needed\r\n"
+            "  * .m4a / .aac / .wma / .flac / .ogg\r\n"
+            "\r\n"
+            "TIPS\r\n"
+            "  * Keep clips short (< 2 seconds) so they don't overlap kills.\r\n"
+            "  * On-disk file size cap: 16 MB.\r\n"
+            "  * Decoded PCM cap: 16 MB (~3 min @ 44.1k stereo).\r\n"
+            "\r\n"
+            "WHERE TO GET SOUNDS\r\n"
+            "  * myinstants.com  (search 'valorant kill', 'fortnite hit')\r\n"
+            "  * 101soundboards.com\r\n"
+            "  * gamebanana.com  (search CS2 / CSS sound packs)\r\n"
+            "\r\n"
+            "Press \"Rescan Sounds\" in the menu after adding new files.\r\n";
+        DWORD w;
+        WriteFile(h, msg, (DWORD)strlen(msg), &w, nullptr);
+        CloseHandle(h);
+    }
+
+    // -----------------------------------------------------------
+    // Validate a buffer is a real RIFF/WAVE PCM file. PlaySoundA
+    // will silently ignore (and play the system "ding") on
+    // malformed input, so we reject up front.
+    //
+    // We accept any sample rate / channel count â€” the WaveOut mixer
+    // resamples on the fly. We require 16-bit PCM (format tag 1)
+    // because PlaySoundA's MMIO is most reliable there; 8-bit PCM
+    // also works but is rare in the wild.
+    // -----------------------------------------------------------
+    inline bool IsValidWav(const uint8_t* p, size_t sz)
+    {
+        if (!p || sz < 44) return false;
+        if (memcmp(p,      "RIFF", 4) != 0) return false;
+        if (memcmp(p + 8,  "WAVE", 4) != 0) return false;
+        if (memcmp(p + 12, "fmt ", 4) != 0) return false;
+        uint16_t fmt = *(const uint16_t*)(p + 20);
+        return fmt == 1 || fmt == 3 /* IEEE float */;
+    }
+
+    // -----------------------------------------------------------
+    // Decode anything-not-WAV (MP3, M4A, AAC, WMA, FLAC...) via
+    // Windows Media Foundation. Implemented in kill_sound_mf.cpp
+    // (separate TU) because mfapi/mfidl macros conflict with d3d11
+    // headers when pulled into the same translation unit.
+    //
+    // Returns a freshly built RIFF/WAVE buffer (PCM, 16-bit) on
+    // success; nullptr on failure. Caller owns the buffer
+    // (HeapAlloc on the process heap, free with HeapFree).
+    // -----------------------------------------------------------
+    uint8_t* DecodeAudioToWav(const wchar_t* widePath, int* outSize);
+
+    // SEH-safe wrapper. We can't put __try directly in LoadSoundPacks
+    // because that function holds std::vector with non-trivial dtors
+    // (MSVC C2712 with /EHsc). This shim has zero destructible locals
+    // so __try is allowed. A bad MP3 (corrupt header, missing codec,
+    // protected content) will throw deep inside MF -- catch it here
+    // and fall through to "skip this file" instead of nuking the
+    // entire pack scan and leaving g_packs empty.
+    inline uint8_t* SafeDecodeAudioToWav(const wchar_t* widePath, int* outSize)
+    {
+        uint8_t* result = nullptr;
+        __try {
+            result = DecodeAudioToWav(widePath, outSize);
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER) {
+            result = nullptr;
+            if (outSize) *outSize = 0;
+        }
+        return result;
+    }
+
+    // ASCII -> wide for MF URL.
+    inline void Utf8ToWide(const char* in, wchar_t* out, int outCap)
+    {
+        int n = MultiByteToWideChar(CP_UTF8, 0, in, -1, out, outCap);
+        if (n <= 0) {
+            // Fallback: ANSI
+            MultiByteToWideChar(CP_ACP, 0, in, -1, out, outCap);
+        }
+    }
+
+    // True if the lowercased filename ends with one of: .mp3 .m4a
+    // .aac .wma .flac .ogg .wav. Anything else is skipped.
+    inline bool IsSupportedAudioExt(const char* name, bool* outIsWav)
+    {
+        if (!name) return false;
+        const char* dot = strrchr(name, '.');
+        if (!dot) return false;
+        char ext[8]{};
+        for (int i = 0; i < 7 && dot[i]; ++i) {
+            char c = dot[i];
+            if (c >= 'A' && c <= 'Z') c = (char)(c + 32);
+            ext[i] = c;
+        }
+        if (outIsWav) *outIsWav = false;
+        if (strcmp(ext, ".wav") == 0)  { if (outIsWav) *outIsWav = true; return true; }
+        return strcmp(ext, ".mp3") == 0 || strcmp(ext, ".m4a") == 0
+            || strcmp(ext, ".aac") == 0 || strcmp(ext, ".wma") == 0
+            || strcmp(ext, ".flac") == 0|| strcmp(ext, ".ogg") == 0;
+    }
+
+    // -----------------------------------------------------------
+    // Walk %APPDATA%\LucidCS2\sounds\*.wav, load each into a
+    // heap-owned buffer, and publish g_packs atomically. Safe to
+    // call repeatedly (e.g. user clicks "Rescan" in menu after
+    // dropping new files).
+    // -----------------------------------------------------------
+    inline void LoadSoundPacks()
+    {
+        // Resolve %APPDATA%\LucidCS2\sounds\ (mirrors menu.h GetConfigDir)
+        char appdata[MAX_PATH]{};
+        if (GetEnvironmentVariableA("APPDATA", appdata, MAX_PATH) == 0) return;
+        char dir[MAX_PATH];
+        _snprintf_s(dir, sizeof(dir), _TRUNCATE, "%s\\LucidCS2\\sounds", appdata);
+        CreateDirectoryA(dir, nullptr); // ignore failure if exists
+
+        WriteSoundsReadmeIfMissing(dir);
+
+        // Build the new pack list off-mutex, then swap atomically.
+        // Always prepend embedded built-ins so every customer gets them
+        // without dropping any files. Their buffers are static const,
+        // never HeapFree'd (isBuiltin=true gates the cleanup loop).
+        std::vector<SoundPack> fresh;
+        fresh.push_back(SoundPack{
+            std::string("Valorant Default"),
+            const_cast<uint8_t*>(Builtin::kValorantDefault),
+            Builtin::kValorantDefaultSize,
+            true
+        });
+        fresh.push_back(SoundPack{
+            std::string("Rust"),
+            const_cast<uint8_t*>(Builtin::kRust),
+            Builtin::kRustSize,
+            true
+        });
+
+        char glob[MAX_PATH];
+        _snprintf_s(glob, sizeof(glob), _TRUNCATE, "%s\\*.*", dir);
+        WIN32_FIND_DATAA fd{};
+        HANDLE h = FindFirstFileA(glob, &fd);
+        if (h != INVALID_HANDLE_VALUE) {
+            do {
+                if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) continue;
+
+                bool isWav = false;
+                if (!IsSupportedAudioExt(fd.cFileName, &isWav)) continue;
+
+                // Cap on-disk file size at 16 MB. Decoded PCM cap is
+                // applied separately inside DecodeAudioToWav.
+                if (fd.nFileSizeHigh != 0 || fd.nFileSizeLow > 16u * 1024u * 1024u) continue;
+
+                char full[MAX_PATH];
+                _snprintf_s(full, sizeof(full), _TRUNCATE, "%s\\%s", dir, fd.cFileName);
+
+                uint8_t* buf = nullptr;
+                int      bufSize = 0;
+
+                if (isWav) {
+                    // Fast path -- slurp the file as-is and validate header.
+                    HANDLE fh = CreateFileA(full, GENERIC_READ, FILE_SHARE_READ,
+                                            nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+                    if (fh == INVALID_HANDLE_VALUE) continue;
+                    DWORD sz = fd.nFileSizeLow;
+                    buf = (uint8_t*)HeapAlloc(GetProcessHeap(), 0, sz);
+                    if (!buf) { CloseHandle(fh); continue; }
+                    DWORD got = 0;
+                    BOOL ok = ReadFile(fh, buf, sz, &got, nullptr);
+                    CloseHandle(fh);
+                    if (!ok || got != sz || !IsValidWav(buf, sz)) {
+                        HeapFree(GetProcessHeap(), 0, buf);
+                        continue;
+                    }
+                    bufSize = (int)sz;
+                } else {
+                    // MP3/M4A/AAC/etc. -- decode via Media Foundation.
+                    // Routed through SafeDecodeAudioToWav so a bad
+                    // file (corrupt, DRM, missing codec) returns
+                    // nullptr instead of unwinding through this
+                    // entire function and leaving g_packs empty.
+                    wchar_t wpath[MAX_PATH];
+                    Utf8ToWide(full, wpath, MAX_PATH);
+                    buf = SafeDecodeAudioToWav(wpath, &bufSize);
+                    if (!buf || bufSize <= 0) continue;
+                }
+
+                // Strip extension for the display name (".mp3", ".wav"...).
+                std::string name(fd.cFileName);
+                size_t dotPos = name.find_last_of('.');
+                if (dotPos != std::string::npos) name.resize(dotPos);
+
+                fresh.push_back(SoundPack{ std::move(name), buf, bufSize });
+            } while (FindNextFileA(h, &fd));
+            FindClose(h);
+        }
+
+        // Cap list length so a user dropping 5000 files into the
+        // folder doesn't blow up the menu combo. 64 is generous.
+        if (fresh.size() > 64) {
+            for (size_t i = 64; i < fresh.size(); ++i)
+                if (fresh[i].wav && !fresh[i].isBuiltin) HeapFree(GetProcessHeap(), 0, fresh[i].wav);
+            fresh.resize(64);
+        }
+
+        // Stop any in-flight playback before swapping (winmm reads
+        // the old buffer asynchronously on its mixer thread).
+        PlaySoundA(nullptr, nullptr, 0);
+
+        std::vector<SoundPack> old;
+        {
+            std::lock_guard<std::mutex> lock(g_packsMutex);
+            old.swap(g_packs);
+            g_packs = std::move(fresh);
+
+            // Reconcile cfg.selectedSound vs the new list. We persist
+            // the selection by NAME so the user's choice survives
+            // adding/removing other files. Try to relocate by name;
+            // fall back to built-in (0) if it was deleted.
+            if (cfg.selectedSound != 0 && cfg.selectedSoundName[0]) {
+                int found = 0;
+                for (int i = 0; i < (int)g_packs.size(); ++i) {
+                    if (g_packs[i].name == cfg.selectedSoundName) {
+                        found = i + 1;
+                        break;
+                    }
+                }
+                cfg.selectedSound = found;
+                if (found == 0) {
+                    cfg.selectedSoundName[0] = 0;
+                    strncpy_s(cfg.selectedSoundName, "Built-in Ding", _TRUNCATE);
+                }
+            }
+        }
+
+        // Free old buffers OUTSIDE the mutex (HeapFree can be slow
+        // on debug heaps and we don't want PlayDing blocked on it).
+        // Skip built-ins (their buffers are static const, not heap).
+        for (auto& p : old)
+            if (p.wav && !p.isBuiltin) HeapFree(GetProcessHeap(), 0, p.wav);
+    }
+
+    // -----------------------------------------------------------
+    // Persisted sound selection
+    // ------------------------
+    // The slot-based SavedConfig system only restores on a manual
+    // "Load" click. To make the customer's chosen kill sound
+    // survive a game restart with ZERO clicks, we additionally
+    // autosave the selection by NAME to a tiny text file at
+    //     %APPDATA%\LucidCS2\sound_selection.txt
+    // and autoload it from Setup() right after LoadSoundPacks.
+    //
+    // Storing the name (not the index) means the choice is robust
+    // against the user adding/removing other .wav files between
+    // sessions. If the named pack no longer exists on next launch
+    // (file deleted), we silently fall back to the built-in synth
+    // ding -- exactly the same behaviour the reconcile loop in
+    // LoadSoundPacks gives us elsewhere.
+    // -----------------------------------------------------------
+    inline bool GetSelectionFilePath(char* out, size_t cap)
+    {
+        char appdata[MAX_PATH]{};
+        if (GetEnvironmentVariableA("APPDATA", appdata, MAX_PATH) == 0) return false;
+        char dir[MAX_PATH];
+        _snprintf_s(dir, sizeof(dir), _TRUNCATE, "%s\\LucidCS2", appdata);
+        CreateDirectoryA(dir, nullptr);
+        _snprintf_s(out, cap, _TRUNCATE, "%s\\sound_selection.txt", dir);
+        return true;
+    }
+
+    inline void SavePersistedSelection()
+    {
+        char path[MAX_PATH];
+        if (!GetSelectionFilePath(path, sizeof(path))) return;
+        HANDLE h = CreateFileA(path, GENERIC_WRITE, 0, nullptr,
+                               CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+        if (h == INVALID_HANDLE_VALUE) return;
+        // Persist the display name verbatim (one line). "Built-in Ding"
+        // is written explicitly so a deleted file doesn't get treated
+        // as "never set" on next launch.
+        const char* nm = cfg.selectedSoundName[0] ? cfg.selectedSoundName : "Built-in Ding";
+        DWORD wrote = 0;
+        WriteFile(h, nm, (DWORD)strlen(nm), &wrote, nullptr);
+        CloseHandle(h);
+    }
+
+    inline void LoadPersistedSelection()
+    {
+        char path[MAX_PATH];
+        if (!GetSelectionFilePath(path, sizeof(path))) return;
+        HANDLE h = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, nullptr,
+                               OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+        if (h == INVALID_HANDLE_VALUE) return; // first run -- defaults
+        char buf[128]{};
+        DWORD got = 0;
+        BOOL ok = ReadFile(h, buf, sizeof(buf) - 1, &got, nullptr);
+        CloseHandle(h);
+        if (!ok || got == 0) return;
+        // Trim trailing whitespace/newline
+        for (int i = (int)got - 1; i >= 0; --i) {
+            if (buf[i] == '\r' || buf[i] == '\n' || buf[i] == ' ' || buf[i] == '\t')
+                buf[i] = 0;
+            else break;
+        }
+        if (!buf[0]) return;
+
+        strncpy_s(cfg.selectedSoundName, buf, _TRUNCATE);
+        // Map name -> index against currently-loaded packs.
+        // "Built-in Ding" or any unknown name => 0 (synth fallback).
+        std::lock_guard<std::mutex> lock(g_packsMutex);
+        int found = 0;
+        if (strcmp(buf, "Built-in Ding") != 0) {
+            for (int i = 0; i < (int)g_packs.size(); ++i) {
+                if (g_packs[i].name == buf) { found = i + 1; break; }
+            }
+        }
+        cfg.selectedSound = found;
+        if (found == 0) strncpy_s(cfg.selectedSoundName, "Built-in Ding", _TRUNCATE);
     }
 
     // -----------------------------------------------------------
@@ -535,6 +960,16 @@ namespace KillSound
 
         if (!BuildDingWav())
             return false;
+
+        // Load any user-supplied .wav packs from %APPDATA%\LucidCS2\sounds.
+        // Failure (folder missing, no files) is fine -- we still have the
+        // built-in synth ding.
+        __try { LoadSoundPacks(); } __except (EXCEPTION_EXECUTE_HANDLER) {}
+
+        // Restore the customer's last picked sound by name (zero-click
+        // persistence across game restarts -- independent of the slot
+        // config system, which only loads on a manual "Load" click).
+        __try { LoadPersistedSelection(); } __except (EXCEPTION_EXECUTE_HANDLER) {}
 
         BuildBanHashList();
 

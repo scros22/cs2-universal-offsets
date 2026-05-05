@@ -47,21 +47,26 @@ namespace KnifeGloveManager
     // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     // Logging helper
     // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // Release builds: no-op. Disk I/O on the render thread (this Tick is
+    // driven from the Present hook) was producing visible micro-stutter
+    // when the user was rapidly cycling skin/knife options. Debug builds
+    // keep the original sink for diagnostic work.
+#ifdef _DEBUG
     inline void Log(const char* fmt, ...) {
         char path[MAX_PATH];
         GetTempPathA(MAX_PATH, path);
         lstrcatA(path, "knife_glove_manager.txt");
-        
+
         HANDLE hFile = CreateFileA(path, FILE_APPEND_DATA, FILE_SHARE_READ,
                                    nullptr, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
         if (hFile == INVALID_HANDLE_VALUE) return;
-        
+
         char buf[1024];
         va_list args;
         va_start(args, fmt);
         int len = vsprintf_s(buf, sizeof(buf) - 2, fmt, args);
         va_end(args);
-        
+
         if (len > 0) {
             buf[len] = '\n';
             buf[len + 1] = '\0';
@@ -71,6 +76,9 @@ namespace KnifeGloveManager
         CloseHandle(hFile);
         OutputDebugStringA(buf);
     }
+#else
+    inline void Log(const char*, ...) {}
+#endif
     
     // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     // Apply knife modifications (called once per frame)
@@ -154,13 +162,22 @@ namespace KnifeGloveManager
                 Mem::Write<int32_t>(activeWeapon + Offsets::m_nFallbackStatTrak, SkinChanger::cfg.knifeStatTrak);
             }
             
-            // Force weapon to "respawn" by setting ItemIDHigh to -1
-            // This triggers the game to reload the weapon entity
-            Mem::Write<uint32_t>(item + Offsets::m_iItemIDHigh, 0xFFFFFFFF);
-            
-            // Mark as uninitialized to force reload
-            Mem::Write<bool>(item + Offsets::m_bInitialized, false);
-            
+            // NOTE: do NOT write m_bInitialized = false here.
+            //
+            // This Tick() runs from the Present (render) hook. Setting
+            // m_bInitialized = false asks the game-thread item system to
+            // re-initialize the CEconItem on its next pass -- and during
+            // that re-init the game touches the very same fields we just
+            // wrote (defIndex, fallback paint kit, subclass id). When the
+            // user is actively cycling knives/skins in the menu both sides
+            // race and the game crashes inside the item-init helpers in
+            // client.dll. The fallback paint pipeline does NOT need this
+            // bit cleared -- the m_iItemIDHigh = 0xFFFFFFFF write above is
+            // already enough to make the renderer re-resolve the model and
+            // skin on the next frame.
+            // (Pre-2026-05 builds wrote `false` here and produced random
+            //  knife-changer crashes; do not re-introduce.)
+
             // Update cache
             lastKnifeEntity = activeWeapon;
             lastKnifeDefIndex = targetDefIndex;
@@ -217,11 +234,14 @@ namespace KnifeGloveManager
             // Apply skin
             Mem::Write<int32_t>(gloveEntity + Offsets::m_nFallbackPaintKit, SkinChanger::cfg.glovePaintKit);
             Mem::Write<float>(gloveEntity + Offsets::m_flFallbackWear, SkinChanger::cfg.gloveWear);
-            
-            // Force model update
-            Mem::Write<bool>(item + Offsets::m_bInitialized, false);
-            
-            // Mark for reapply
+
+            // Same race rule as ApplyKnifeModifications: do NOT write
+            // m_bInitialized = false from the render thread. The
+            // m_bNeedToReApplyGloves flag below is the supported path --
+            // the game itself reads it on the next tick and re-applies the
+            // glove model cleanly without a torn re-init.
+
+            // Mark for reapply (game-thread side, race-safe)
             Mem::Write<bool>(localPawn + Offsets::m_bNeedToReApplyGloves, true);
             
             // Update cache

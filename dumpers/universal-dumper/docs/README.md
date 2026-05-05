@@ -14,6 +14,7 @@ extend it confidently.
 | [CONSUMING.md](CONSUMING.md)                  | How to drop the generated SDK into a C++/C#/Rust internal cheat (with a worked `SCHEMA_FIELD` example).    |
 | [ADDING_SIGNATURES.md](ADDING_SIGNATURES.md)  | The contributor workflow for adding a new signature, validating it, and getting it merged.                |
 | [LAYOUT.md](LAYOUT.md)                        | What every file in `dumps/<session>/` is, and which one your project should depend on.                    |
+| [SOURCE2_VFX_VCS_INTEL.md](SOURCE2_VFX_VCS_INTEL.md) | Reverse-engineering notes on Source2 VFX/VCS material paths, compile queue, and cache gates.              |
 
 If you only read one, read **CONSUMING.md** — it shows the new
 `cs2sdk.hpp` single-include amalgamation and the `SCHEMA_FIELD` macro

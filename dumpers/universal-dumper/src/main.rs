@@ -8,28 +8,25 @@
 // Output layout:
 //
 //     <OutputRoot>/<DD-MM-YY>-CS2-SDK/
-//         manifest.json
-//         logs/cs2-sdk.log
-//         offsets/
-//             buttons.(cs|hpp|json|rs|zig)
-//             interfaces.(cs|hpp|json|rs|zig)
-//             offsets.(cs|hpp|json|rs|zig)
-//             <schema modules>.(cs|hpp|json|rs|zig)
-//             info.json
-//             # SDK extras (cheat-developer-friendly outputs):
-//             cs2sdk.hpp                       single-include amalgamation
-//             cs2sdk.rs                        Rust amalgamation module
-//             netvars.(json|hpp|cs)            split networked-field offsets
-//             interfaces_sdk.(hpp|cs)          typed accessor stubs
-//             sdk/cs2sdk_macros.hpp            SCHEMA_FIELD macro family
-//             sdk/<module>.hpp                 typed schema classes
+//         manifest.json                       run metadata + module fingerprints
+//         logs/cs2-sdk.log                    full TRACE-level run log
 //         signatures/
 //             signatures.json   (hand-formatted, one entry per line)
-//             signatures.cs     (C#  static class per module)
-//             signatures.hpp    (C++ namespace per module)
-//             signatures.rs     (Rust module per module)
+//             signatures.cs     (C#  static class per module — patterns)
+//             signatures.hpp    (C++ namespace per module — patterns)
+//             signatures.rs     (Rust module per module — patterns)
 //             SIGNATURES.md     (human-readable table)
 //             diff.json         (delta vs. previous session, when found)
+//         sdk/
+//             cs2sdk.hpp                       single-include amalgamation
+//             cs2sdk.rs                        Rust amalgamation module
+//             cs2sdk_macros.hpp                SCHEMA_FIELD macro family
+//             <module>.hpp                     typed schema classes per module
+//             netvars.(json|hpp|cs)            split networked-field offsets
+//             interfaces_sdk.(hpp|cs)          typed accessor stubs
+//             vtables.(json|hpp|cs)            interface vtable layouts
+//             buttons.(cs|hpp|json|rs|zig)     symbolic button table
+//             verified_features.(json|md|hpp)  verified-working catalogue
 //
 //     <OutputRoot>/latest/                     mirror of the most recent
 //                                              successful session
@@ -114,10 +111,10 @@ fn main() -> Result<()> {
     let now = Local::now();
     let session_name = format!("{}-CS2-SDK", now.format("%d-%m-%y"));
     let session_dir = args.output.join(&session_name);
-    let offsets_dir = session_dir.join("offsets");
+    let sdk_dir = session_dir.join("sdk");
     let sigs_dir = session_dir.join("signatures");
     let logs_dir = session_dir.join("logs");
-    for d in [&session_dir, &offsets_dir, &sigs_dir, &logs_dir] {
+    for d in [&session_dir, &sdk_dir, &sigs_dir, &logs_dir] {
         fs::create_dir_all(d)
             .with_context(|| format!("failed to create {}", d.display()))?;
     }
@@ -175,7 +172,7 @@ fn main() -> Result<()> {
                 let out = Output::new(
                     &args.file_types,
                     args.indent_size,
-                    &offsets_dir,
+                    &sdk_dir,
                     &result,
                 )?;
                 out.dump_all(&mut process)?;
@@ -327,9 +324,9 @@ fn main() -> Result<()> {
             let json = output::vtables::render_json(&result.vtables, &oracle);
             let hpp  = output::vtables::render_hpp(&result.vtables, &oracle, build_number);
             let cs   = output::vtables::render_cs(&result.vtables, &oracle, build_number);
-            let _ = fs::write(offsets_dir.join("vtables.json"), json);
-            let _ = fs::write(offsets_dir.join("vtables.hpp"),  hpp);
-            let _ = fs::write(offsets_dir.join("vtables.cs"),   cs);
+            let _ = fs::write(sdk_dir.join("vtables.json"), json);
+            let _ = fs::write(sdk_dir.join("vtables.hpp"),  hpp);
+            let _ = fs::write(sdk_dir.join("vtables.cs"),   cs);
             let labelled = result
                 .vtables
                 .values()
@@ -365,7 +362,7 @@ fn main() -> Result<()> {
                 "enabled": !args.skip_offsets,
                 "success": offsets_ok,
                 "elapsed_ms": offsets_elapsed.as_millis(),
-                "output_dir": offsets_dir,
+                "output_dir": sdk_dir,
             },
             "signatures": {
                 "enabled": !args.skip_signatures,
@@ -516,22 +513,24 @@ fn copy_tree(src: &Path, dst: &Path) -> Result<()> {
 }
 
 fn init_logging(logs_dir: &Path, verbose: u8) -> Result<()> {
-    let level = match verbose {
+    let term_level = match verbose {
         0 => LevelFilter::Warn,
         1 => LevelFilter::Info,
         2 => LevelFilter::Debug,
         _ => LevelFilter::Trace,
     };
     let mut loggers: Vec<Box<dyn SharedLogger>> = Vec::new();
-    // Terminal: warnings+ only (UI is our main output).
+    // Terminal: warnings+ only by default (UI is our main output).
     loggers.push(TermLogger::new(
-        LevelFilter::Warn,
+        term_level,
         Config::default(),
         TerminalMode::Mixed,
         ColorChoice::Auto,
     ));
+    // File: always full TRACE so logs/cs2-sdk.log captures the entire
+    // run regardless of -v level. Verbose only affects the console.
     loggers.push(WriteLogger::new(
-        level,
+        LevelFilter::Trace,
         Config::default(),
         File::create(logs_dir.join("cs2-sdk.log"))?,
     ));

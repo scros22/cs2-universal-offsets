@@ -53,3 +53,7 @@ private/
 # Per-developer scratch
 temp/logs/
 temp/assets/
+# Local-only caches / large vendor blobs / dumper run artefacts
+.ida-mcp/
+tools/vrf/
+dumpers/universal-dumper/dumps/

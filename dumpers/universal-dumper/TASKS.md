@@ -7,6 +7,7 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 
 ## Recently shipped
 
+- [x] Research freeze checkpoint (Apr 25, 2026): VFX/VCS chain documented; continue only when internal-fix work resumes
 - [x] One-binary merger (offsets + signatures)
 - [x] Dated session folder layout (`DD-MM-YY-CS2-SDK/`)
 - [x] PE/section-aware IDA-style scanner with `Rel32` / `RipRel` / `StringRef`
@@ -28,6 +29,10 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [x] **v1.3:** +46 string-ref class anchors (player services, weapon classes, projectiles, gamerules, engine networking) — now 220+ resolved
 - [x] **v1.3.1:** `bytes` field on every found signature (24-byte prologue snapshot, paste-ready IDA pattern even for StringRef entries)
 - [x] **v1.4:** MSVC RTTI walk — every interface vtable carries the demangled C++ class name (`CSource2Client`, `CGameEventSystem`, ...)
+- [x] Source2 VFX/VCS pipeline reconnaissance (runtime HLSL compile path vs static-combo/VCS cache path) with MCP-verified call chains
+- [x] Source2 static-combo path deepening: mapped `sub_180015BC0 -> sub_1800BDAE0 -> sub_1800AE950 -> sub_1800AE220` and documented queue callers for `sub_18003A200`
+- [x] Added robust signature for `sub_1800AE950` cache-gate wrapper (`CVfxProgramData_FindOrCreateStaticComboData_CacheGate`) using a module-unique raw prologue
+- [x] Added compile orchestration signatures: `CMaterial2_GetVertexShaderInputSignature` (`sub_18000C8C0`) and `CMaterialSystem2_DynamicShaderCompile_ReloadAndSync` (`sub_1800355C0`)
 
 ## Scanner
 
@@ -37,6 +42,7 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [ ] Auto-pattern generator: take a known VA, walk forward N bytes, mask RIP/imm operands, emit a stable IDA pattern
 - [ ] Per-sig confidence score (uniqueness in section)
 - [ ] Optional `--strict` flag that fails the run on any ambiguous (`matches > 1`) hit
+- [ ] Add two-stage shader-pipeline report mode: (1) compile-queue batch events, (2) static-combo cache outcomes (`FindOrCreateStaticComboDataInCache`)
 
 ## Output
 
@@ -53,6 +59,9 @@ Legend: `[ ]` planned · `[~]` in-progress · `[x]` done.
 - [ ] ConVar dumper (walk `g_pCVar` registration list → name + flags + default)
 - [ ] GameEvent registry dumper (CGameEventManager → name + field schema)
 - [ ] Interface-version drift detector (flag any `XXX_VERSIONXXX` change)
+- [ ] Map resourcesystem extension->type registration for Source2 material assets (`vmat_c`/`vfx`/`vcs` family) to document compiled-asset load contract
+- [~] Resolve resourcesystem descriptor consumer path around `aVcompmat` table entries (descriptor blocks identified; dispatch walker still pending)
+- [x] Semantically label compile orchestration helpers (`sub_18000C8C0`, `sub_1800355C0`) in Source2 VFX/VCS notes
 
 ## Memory / backend
 

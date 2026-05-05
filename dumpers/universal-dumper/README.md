@@ -31,6 +31,18 @@ trivial to diff.
 
 > A new dump is published in this repo on every meaningful CS2 update.
 
+## Latest validated run
+
+- **Session:** `25-04-26-CS2-SDK`
+- **Generated:** `2026-04-25T16:45:42+01:00`
+- **CS2 build:** `14155`
+- **Signatures:** `326 / 372` resolved (`46` missing)
+- **Offsets pass:** success (`~1.26s`)
+- **Signatures pass:** success (`~10.86s`)
+
+This snapshot was produced from a live CS2 process (`cs2.exe`) and mirrored to
+`dumps/latest/`.
+
 ## Credits
 
 This tool stands on the shoulders of two excellent open-source projects:
@@ -47,7 +59,7 @@ the union of the two, glued together with a smooth UI and a shared memory pipeli
 
 Additional community credit:
 
-- **kauht** &mdash; shared a practical standalone `GeneratePrimitives` chams
+- **[kauht](https://github.com/kauht)** &mdash; shared a practical standalone `GeneratePrimitives` chams
   implementation that helped validate and tighten our scenesystem/
   materialsystem2/tier0 signature coverage for runtime material creation
   and substitution paths.

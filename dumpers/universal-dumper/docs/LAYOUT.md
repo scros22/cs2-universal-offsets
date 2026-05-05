@@ -44,13 +44,13 @@ dumps/
 | Internal cheat in C#                          | `offsets/netvars.cs` + `interfaces_sdk.cs`   |
 | Anti-cheat / research feed                    | `latest/offsets/*.json` + `signatures.json`  |
 | Patch-day comparison                          | `signatures/diff.json`                       |
-| Tooling that already targets a2x/cs2-dumper   | `offsets/<module>.{cs,hpp,json,rs,zig}` (unchanged shape) |
+| Tooling that consumes raw constants            | `offsets/<module>.{cs,hpp,json,rs,zig}`    |
 
-## Why both old and new files?
+## Why two flavours of the same data?
 
 The raw constant emitters (`<module>.hpp` with
-`constexpr std::ptrdiff_t m_iHealth = 0x344;`) preserve compatibility
-with every existing consumer of the original a2x/cs2-dumper output.
+`constexpr std::ptrdiff_t m_iHealth = 0x344;`) are deliberately minimal
+and are easy to consume from any language or build system.
 The new `sdk/` and `cs2sdk.hpp` files are *additive* — they layer typed
 classes on top of the same data and are intended for cheat developers
 who want ergonomic field access.
