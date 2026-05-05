@@ -1,6 +1,6 @@
 [package]
 name = "cs2-universal-dumper"
-version = "1.21.2"
+version = "1.21.3"
 edition = "2024"
 description = "CS2 SDK generator — offsets, signatures, schemas, and verified-feature catalogue, dumped externally from a live process."
 

@@ -12,7 +12,8 @@
 //         logs/cs2-sdk.log                    full TRACE-level run log
 //         signatures/
 //             signatures.json   (hand-formatted, one entry per line)
-//             signatures.cs     (C#  static class per module — patterns)
+//             signatures.hpp    (C++ namespace per module — patterns +
+//                                 fn-ptr typedefs)
 //             signatures.hpp    (C++ namespace per module — patterns)
 //             signatures.rs     (Rust module per module — patterns)
 //             SIGNATURES.md     (human-readable table)
@@ -25,7 +26,7 @@
 //             netvars.(json|hpp|cs)            split networked-field offsets
 //             interfaces_sdk.(hpp|cs)          typed accessor stubs
 //             vtables.(json|hpp|cs)            interface vtable layouts
-//             buttons.(cs|hpp|json|rs|zig)     symbolic button table
+//             buttons.(hpp|json|rs|zig)        symbolic button table
 //             verified_features.(json|md|hpp)  verified-working catalogue
 //
 //     <OutputRoot>/latest/                     mirror of the most recent
@@ -64,7 +65,7 @@ struct Args {
     #[arg(short = 'a', long)]
     connector_args: Option<String>,
 
-    #[arg(short, long, value_delimiter = ',', default_values = ["cs", "hpp", "json", "rs", "zig"])]
+    #[arg(short, long, value_delimiter = ',', default_values = ["hpp", "json", "rs", "zig"])]
     file_types: Vec<String>,
 
     #[arg(short, long, default_value_t = 4)]
@@ -280,7 +281,6 @@ fn main() -> Result<()> {
                 ui::ok(&format!("wrote {}", json_path.display()));
 
                 // Multi-language fan-out.
-                fs::write(sigs_dir.join("signatures.cs"), signatures::writers::render_cs(&report.hits))?;
                 fs::write(sigs_dir.join("signatures.hpp"), signatures::writers::render_hpp(&report.hits))?;
                 fs::write(sigs_dir.join("signatures.rs"), signatures::writers::render_rs(&report.hits))?;
                 fs::write(sigs_dir.join("SIGNATURES.md"), signatures::writers::render_markdown(&report.hits))?;
@@ -323,10 +323,8 @@ fn main() -> Result<()> {
                 .unwrap_or_default();
             let json = output::vtables::render_json(&result.vtables, &oracle);
             let hpp  = output::vtables::render_hpp(&result.vtables, &oracle, build_number);
-            let cs   = output::vtables::render_cs(&result.vtables, &oracle, build_number);
             let _ = fs::write(sdk_dir.join("vtables.json"), json);
             let _ = fs::write(sdk_dir.join("vtables.hpp"),  hpp);
-            let _ = fs::write(sdk_dir.join("vtables.cs"),   cs);
             let labelled = result
                 .vtables
                 .values()
@@ -335,7 +333,7 @@ fn main() -> Result<()> {
                 .filter(|m| oracle.contains_key(&(m.module.clone(), m.rva)))
                 .count();
             ui::ok(&format!(
-                "vtables emitted (vtables.{{json,hpp,cs}}) — {} slots labelled from signatures",
+                "vtables emitted (vtables.{{json,hpp}}) — {} slots labelled from signatures",
                 labelled
             ));
         }

@@ -113,8 +113,8 @@ impl<'a> Output<'a> {
     ///
     /// * `cs2sdk_macros.hpp`         — SCHEMA_FIELD macros
     /// * `<module>.hpp`              — typed schema classes
-    /// * `netvars.{json,hpp,cs}`     — split networked fields
-    /// * `interfaces_sdk.{hpp,cs}`   — typed accessor stubs
+    /// * `netvars.{json,hpp}`        — split networked fields
+    /// * `interfaces_sdk.hpp`        — typed accessor stubs
     /// * `cs2sdk.hpp`                — single-include amalgamation
     /// * `cs2sdk.rs`                 — Rust amalgamation module
     /// * `verified_features.{json,md,hpp}` — verified-working catalogue
@@ -140,16 +140,11 @@ impl<'a> Output<'a> {
         let nvs = netvars::extract(&self.result.schemas);
         fs::write(self.out_dir.join("netvars.json"), netvars::render_json(&nvs))?;
         fs::write(self.out_dir.join("netvars.hpp"), netvars::render_hpp(&nvs, build_number))?;
-        fs::write(self.out_dir.join("netvars.cs"), netvars::render_cs(&nvs, build_number))?;
 
         // 4. interface accessor stubs
         fs::write(
             self.out_dir.join("interfaces_sdk.hpp"),
             interfaces_sdk::render_hpp(&self.result.interfaces, build_number),
-        )?;
-        fs::write(
-            self.out_dir.join("interfaces_sdk.cs"),
-            interfaces_sdk::render_cs(&self.result.interfaces, build_number),
         )?;
 
         // 5. amalgamations
