@@ -1,5 +1,5 @@
 {
-  "build_number": 14171,
+  "build_number": 14172,
   "note": "Non-schema client struct layouts, reverse-engineered from client.dll. Offsets drift between builds.",
   "struct_count": 3,
   "structs": [
@@ -61,7 +61,7 @@
           "rva": "0xB1FB80"
         }
       ],
-      "instance": "(CCSGOInput*)(client.dll + 0x23B95F0) — static object embedded at this RVA (no deref; GetInput returns its address)",
+      "instance": "(CCSGOInput*)(client.dll + 0x23B95F0) — static object embedded at this RVA (no deref; the GetInput getter returns its address)",
       "instance_rva": "0x23B95F0",
       "module": "client.dll",
       "name": "CCSGOInput"

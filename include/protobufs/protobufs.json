@@ -2954,7 +2954,7 @@
       "fields": {
         "econ_item": { "offset": 24, "number": 1, "has_bit": -1, "type": 11, "label": 1 },
         "team": { "offset": 48, "number": 2, "has_bit": 0, "type": 5, "label": 1 },
-        "slot": { "offset": 4294967295, "number": 3, "has_bit": 3149832272, "type": 5, "label": 1 }
+        "slot": { "offset": 4294967295, "number": 3, "has_bit": 3440883488, "type": 5, "label": 1 }
       }
     },
     "CGCStorePurchaseInit_LineItem": {
@@ -8635,7 +8635,7 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 3149832272, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "begin": { "offset": 3440883488, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
         "end": { "offset": 32761, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     }
@@ -8928,7 +8928,7 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 3507010416, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "begin": { "offset": 3752311664, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
         "end": { "offset": 32761, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     },
@@ -10820,7 +10820,7 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 3407981536, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "begin": { "offset": 3699944416, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
         "end": { "offset": 32761, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     },
@@ -15091,7 +15091,7 @@
       "fields": {
         "econ_item": { "offset": 24, "number": 1, "has_bit": -1, "type": 11, "label": 1 },
         "team": { "offset": 48, "number": 2, "has_bit": 0, "type": 5, "label": 1 },
-        "slot": { "offset": 4294967295, "number": 3, "has_bit": 3199843344, "type": 5, "label": 1 }
+        "slot": { "offset": 4294967295, "number": 3, "has_bit": 3490888720, "type": 5, "label": 1 }
       }
     },
     "CGCStorePurchaseInit_LineItem": {
@@ -20038,7 +20038,7 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 3189673840, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "begin": { "offset": 3480720384, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
         "end": { "offset": 32761, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     }

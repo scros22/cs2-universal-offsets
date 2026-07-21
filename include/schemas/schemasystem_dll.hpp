@@ -3,7 +3,7 @@
 // module:        schemasystem.dll
 // classes:       7
 // enums:         1
-// generated_at:  2026-07-17T14:18:04.645785800+00:00
+// generated_at:  2026-07-21T15:54:44.281020800+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -63,6 +63,16 @@ namespace schemasystem {
         SCHEMA_FIELD(std::uint64_t                   , m_Value                                         , 0x0) // uint64
     };
 
+    // CExampleSchemaVData_Monomorphic
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CExampleSchemaVData_Monomorphic {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nExample1                                     , 0x0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nExample2                                     , 0x4) // int32
+    };
+
     // CSchemaSystemInternalRegistration
     //   fields: 23
     //   size: 0x180
@@ -99,16 +109,6 @@ namespace schemasystem {
     //   @MResourceTypeForInfoType
     class InfoForResourceTypeCResourceManifestInternal {
     public:
-    };
-
-    // CExampleSchemaVData_Monomorphic
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CExampleSchemaVData_Monomorphic {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nExample1                                     , 0x0) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nExample2                                     , 0x4) // int32
     };
 
 } // namespace schemasystem

@@ -1,4 +1,4 @@
-// cusercmd.h  ·  CS2 build 14171  ·  cs2-sdk.com
+// cusercmd.h  ·  CS2 build 14172  ·  cs2-sdk.com
 // One entry in CCSGOInput's per-command ring buffer (1088 bytes / 0x440 each) — the resolved view angle + button masks CreateMove writes each tick. This is the client working buffer, not the networked protobuf.
 // Reverse-engineered from client.dll; offsets drift between builds — re-verify after a CS2 update.
 #pragma once

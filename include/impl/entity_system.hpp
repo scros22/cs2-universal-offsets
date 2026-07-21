@@ -6,7 +6,7 @@
 #include "../offsets/offsets.hpp"
 #include "../schemas/client_dll.hpp"
 
-namespace entity { inline constexpr std::uint32_t CS2_BUILD = 14171; }
+namespace entity { inline constexpr std::uint32_t CS2_BUILD = 14172; }
 
 struct CGameEntitySystem {
     // Offset of the entity-list chunk-pointer array within CGameEntitySystem.

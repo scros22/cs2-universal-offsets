@@ -1,4 +1,4 @@
-// ccsgoinput.h  ·  CS2 build 14171  ·  cs2-sdk.com
+// ccsgoinput.h  ·  CS2 build 14172  ·  cs2-sdk.com
 // Client input singleton — turns raw mouse/keyboard state into the per-tick CUserCmd sent to the server. Not a schema (networked) class.
 // Reverse-engineered from client.dll; offsets drift between builds — re-verify after a CS2 update.
 #pragma once
@@ -6,7 +6,7 @@
 
 namespace CCSGOInput {
 
-// instance:  (CCSGOInput*)(client.dll + 0x23B95F0) — static object embedded at this RVA (no deref; GetInput returns its address)
+// instance:  (CCSGOInput*)(client.dll + 0x23B95F0) — static object embedded at this RVA (no deref; the GetInput getter returns its address)
 inline constexpr std::ptrdiff_t kInstance_rva = 0x23B95F0;
 inline constexpr std::ptrdiff_t kCreateMove_rva = 0xB1FB80;
 

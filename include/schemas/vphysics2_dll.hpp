@@ -3,7 +3,7 @@
 // module:        vphysics2.dll
 // classes:       113
 // enums:         5
-// generated_at:  2026-07-17T14:18:04.645785800+00:00
+// generated_at:  2026-07-21T15:54:44.281020800+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -166,13 +166,115 @@ namespace vphysics2 {
         GENERIC_SHAPE_HULL = 0x4,
     };
 
-    // RnVertex_t
-    //   fields: 1
-    //   size: 0x1
+    // FeHingeLimitBuild_t
+    //   fields: 4
+    //   size: 0x18
     //   @MGetKV3ClassDefaults
-    class RnVertex_t {
+    class FeHingeLimitBuild_t {
     public:
-        SCHEMA_FIELD(std::uint8_t                    , m_nEdge                                         , 0x0) // uint8
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[6]
+        SCHEMA_FIELD(std::uint32_t                   , nFlags                                          , 0xC) // uint32
+        SCHEMA_FIELD(float                           , flLimitCW                                       , 0x10) // float32
+        SCHEMA_FIELD(float                           , flLimitCCW                                      , 0x14) // float32
+    };
+
+    // RnHull_t
+    //   fields: 14
+    //   size: 0xF8
+    //   @MGetKV3ClassDefaults
+    class RnHull_t {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vCentroid                                     , 0x0) // Vector
+        SCHEMA_FIELD(float                           , m_flMaxAngularRadius                            , 0xC) // float32
+        SCHEMA_FIELD(::AABB_t                        , m_Bounds                                        , 0x10) // AABB_t
+        SCHEMA_FIELD(::Vector                        , m_vOrthographicAreas                            , 0x28) // Vector
+        SCHEMA_FIELD(::matrix3x4_t                   , m_MassProperties                                , 0x34) // matrix3x4_t
+        SCHEMA_FIELD(float                           , m_flVolume                                      , 0x64) // float32
+        SCHEMA_FIELD(float                           , m_flSurfaceArea                                 , 0x68) // float32
+        SCHEMA_FIELD(CUtlVector<Vector>              , m_VertexPositions                               , 0x70) // CUtlVector<Vector>
+        SCHEMA_FIELD(CUtlVector<RnPlane_t>           , m_FacePlanes                                    , 0x88) // CUtlVector<RnPlane_t>
+        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0xA0) // uint32
+        SCHEMA_FIELD(CRegionSVM*                     , m_pRegionSVM                                    , 0xA8) // CRegionSVM*
+        SCHEMA_FIELD(CUtlVector<RnVertex_t>          , m_Vertices                                      , 0xB0) // CUtlVector<RnVertex_t>
+        SCHEMA_FIELD(CUtlVector<RnHalfEdge_t>        , m_Edges                                         , 0xC8) // CUtlVector<RnHalfEdge_t>
+        SCHEMA_FIELD(CUtlVector<RnFace_t>            , m_Faces                                         , 0xE0) // CUtlVector<RnFace_t>
+    };
+
+    // FeSimdSpringIntegrator_t
+    //   fields: 5
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class FeSimdSpringIntegrator_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[4][2]
+        SCHEMA_FIELD(fltx4                           , flSpringRestLength                              , 0x10) // fltx4
+        SCHEMA_FIELD(fltx4                           , flSpringConstant                                , 0x20) // fltx4
+        SCHEMA_FIELD(fltx4                           , flSpringDamping                                 , 0x30) // fltx4
+        SCHEMA_FIELD(fltx4                           , flNodeWeight0                                   , 0x40) // fltx4
+    };
+
+    // FeBoneMergeLink_t
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class FeBoneMergeLink_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nParentHash                                   , 0x0) // uint32
+        SCHEMA_FIELD(std::uint16_t                   , m_nChildNode                                    , 0x4) // uint16
+    };
+
+    // RnPlane_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class RnPlane_t {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vNormal                                       , 0x0) // Vector
+        SCHEMA_FIELD(float                           , m_flOffset                                      , 0xC) // float32
+    };
+
+    // FeModelSelfCollisionLayer_t
+    //   fields: 5
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class FeModelSelfCollisionLayer_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(CUtlVector<uint16>              , m_Nodes                                         , 0x8) // CUtlVector<uint16>
+        SCHEMA_FIELD(float                           , m_flParentReaction                              , 0x20) // float32
+        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x24) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nEndIdx                                       , 0x28) // uint32[4]
+    };
+
+    // FeBuildTaperedCapsuleRigid_t
+    //   fields: 3
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class FeBuildTaperedCapsuleRigid_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x30) // int32
+        SCHEMA_FIELD(std::uint32_t                   , m_nVertexMapHash                                , 0x34) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nAntitunnelGroupBits                          , 0x38) // uint32
+    };
+
+    // FeCtrlOffset_t
+    //   fields: 3
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class FeCtrlOffset_t {
+    public:
+        SCHEMA_FIELD(::Vector                        , vOffset                                         , 0x0) // Vector
+        SCHEMA_FIELD(std::uint16_t                   , nCtrlParent                                     , 0xC) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nCtrlChild                                      , 0xE) // uint16
+    };
+
+    // CGenericShapeProxy
+    //   fields: 1
+    //   size: 0x98
+    class CGenericShapeProxy {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<Vector,8>;
+        SCHEMA_FIELD(_Type0                          , m_verts                                         , 0x30) // CUtlLeanVectorFixedGrowable<Vector,8>
     };
 
     // RnHullDesc_t
@@ -182,6 +284,111 @@ namespace vphysics2 {
     class RnHullDesc_t {
     public:
         SCHEMA_FIELD(RnHull_t                        , m_Hull                                          , 0x18) // RnHull_t
+    };
+
+    // FeHingeLimit_t
+    //   fields: 6
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class FeHingeLimit_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[6]
+        SCHEMA_FIELD(std::uint32_t                   , nFlags                                          , 0xC) // uint32
+        SCHEMA_FIELD(float                           , flWeight4                                       , 0x10) // float32
+        SCHEMA_FIELD(float                           , flWeight5                                       , 0x14) // float32
+        SCHEMA_FIELD(float                           , flAngleCenter                                   , 0x18) // float32
+        SCHEMA_FIELD(float                           , flAngleExtents                                  , 0x1C) // float32
+    };
+
+    // FeAntiTunnelProbeBuild_t
+    //   fields: 7
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class FeAntiTunnelProbeBuild_t {
+    public:
+        SCHEMA_FIELD(float                           , flWeight                                        , 0x0) // float32
+        SCHEMA_FIELD(float                           , flActivationDistance                            , 0x4) // float32
+        SCHEMA_FIELD(float                           , flBias                                          , 0x8) // float32
+        SCHEMA_FIELD(float                           , flCurvature                                     , 0xC) // float32
+        SCHEMA_FIELD(std::uint32_t                   , nFlags                                          , 0x10) // uint32
+        SCHEMA_FIELD(std::uint16_t                   , nProbeNode                                      , 0x14) // uint16
+        SCHEMA_FIELD(CUtlVector<uint16>              , targetNodes                                     , 0x18) // CUtlVector<uint16>
+    };
+
+    // RnFace_t
+    //   fields: 1
+    //   size: 0x1
+    //   @MGetKV3ClassDefaults
+    class RnFace_t {
+    public:
+        SCHEMA_FIELD(std::uint8_t                    , m_nEdge                                         , 0x0) // uint8
+    };
+
+    // RnSoftbodySpring_t
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class RnSoftbodySpring_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , m_nParticle                                     , 0x0) // uint16[2]
+        SCHEMA_FIELD(float                           , m_flLength                                      , 0x4) // float32
+    };
+
+    // constraint_axislimit_t
+    //   fields: 4
+    //   size: 0x10
+    class constraint_axislimit_t {
+    public:
+        SCHEMA_FIELD(float                           , flMinRotation                                   , 0x0) // float32
+        SCHEMA_FIELD(float                           , flMaxRotation                                   , 0x4) // float32
+        SCHEMA_FIELD(float                           , flMotorTargetAngSpeed                           , 0x8) // float32
+        SCHEMA_FIELD(float                           , flMotorMaxTorque                                , 0xC) // float32
+    };
+
+    // IPhysicsParticleRope
+    //   fields: 0
+    //   size: 0x8
+    class IPhysicsParticleRope {
+    public:
+    };
+
+    // FeSimdRodConstraint_t
+    //   fields: 5
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class FeSimdRodConstraint_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[4][2]
+        SCHEMA_FIELD(fltx4                           , f4MaxDist                                       , 0x10) // fltx4
+        SCHEMA_FIELD(fltx4                           , f4MinDist                                       , 0x20) // fltx4
+        SCHEMA_FIELD(fltx4                           , f4Weight0                                       , 0x30) // fltx4
+        SCHEMA_FIELD(fltx4                           , f4RelaxationFactor                              , 0x40) // fltx4
+    };
+
+    // RnShapeDesc_t
+    //   fields: 6
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class RnShapeDesc_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nCollisionAttributeIndex                      , 0x0) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nSurfacePropertyIndex                         , 0x4) // uint32
+        SCHEMA_FIELD(::CUtlString                    , m_UserFriendlyName                              , 0x8) // CUtlString
+        SCHEMA_FIELD(bool                            , m_bUserFriendlyNameSealed                       , 0x10) // bool
+        SCHEMA_FIELD(bool                            , m_bUserFriendlyNameLong                         , 0x11) // bool
+        SCHEMA_FIELD(std::uint32_t                   , m_nToolMaterialHash                             , 0x14) // uint32
+    };
+
+    // FeNodeIntegrator_t
+    //   fields: 4
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class FeNodeIntegrator_t {
+    public:
+        SCHEMA_FIELD(float                           , flPointDamping                                  , 0x0) // float32
+        SCHEMA_FIELD(float                           , flAnimationForceAttraction                      , 0x4) // float32
+        SCHEMA_FIELD(float                           , flAnimationVertexAttraction                     , 0x8) // float32
+        SCHEMA_FIELD(float                           , flGravity                                       , 0xC) // float32
     };
 
     // FeAnimStrayRadius_t
@@ -195,23 +402,148 @@ namespace vphysics2 {
         SCHEMA_FIELD(float                           , flRelaxationFactor                              , 0x8) // float32
     };
 
-    // FeSDFRigid_t
-    //   fields: 11
-    //   size: 0x50
+    // FeSimdQuad_t
+    //   fields: 4
+    //   size: 0x130
     //   @MGetKV3ClassDefaults
-    class FeSDFRigid_t {
+    class FeSimdQuad_t {
     public:
-        SCHEMA_FIELD(::Vector                        , vLocalMin                                       , 0x0) // Vector
-        SCHEMA_FIELD(::Vector                        , vLocalMax                                       , 0xC) // Vector
-        SCHEMA_FIELD(float                           , flBounciness                                    , 0x18) // float32
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x1C) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nCollisionMask                                  , 0x1E) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nVertexMapIndex                                 , 0x20) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nFlags                                          , 0x22) // uint16
-        SCHEMA_FIELD(CUtlVector<float32>             , m_Distances                                     , 0x28) // CUtlVector<float32>
-        SCHEMA_FIELD(std::int32_t                    , m_nWidth                                        , 0x40) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nHeight                                       , 0x44) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nDepth                                        , 0x48) // int32
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[4][4]
+        SCHEMA_FIELD(fltx4                           , f4Slack                                         , 0x20) // fltx4
+        SCHEMA_FIELD(FourVectors                     , vShape                                          , 0x30) // FourVectors[4]
+        SCHEMA_FIELD(fltx4                           , f4Weights                                       , 0xF0) // fltx4[4]
+    };
+
+    // FeCtrlOsOffset_t
+    //   fields: 2
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class FeCtrlOsOffset_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nCtrlParent                                     , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nCtrlChild                                      , 0x2) // uint16
+    };
+
+    // FeMorphLayerDepr_t
+    //   fields: 8
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class FeMorphLayerDepr_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(std::uint32_t                   , m_nNameHash                                     , 0x8) // uint32
+        SCHEMA_FIELD(CUtlVector<uint16>              , m_Nodes                                         , 0x10) // CUtlVector<uint16>
+        SCHEMA_FIELD(CUtlVector<Vector>              , m_InitPos                                       , 0x28) // CUtlVector<Vector>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_Gravity                                       , 0x40) // CUtlVector<float32>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_GoalStrength                                  , 0x58) // CUtlVector<float32>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_GoalDamping                                   , 0x70) // CUtlVector<float32>
+        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x88) // uint32
+    };
+
+    // IPhysicsJoint
+    //   fields: 0
+    //   size: 0x8
+    class IPhysicsJoint {
+    public:
+    };
+
+    // FeBuildSphereRigid_t
+    //   fields: 3
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class FeBuildSphereRigid_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x20) // int32
+        SCHEMA_FIELD(std::uint32_t                   , m_nVertexMapHash                                , 0x24) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nAntitunnelGroupBits                          , 0x28) // uint32
+    };
+
+    // RnNode_t
+    //   fields: 4
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class RnNode_t {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vMin                                          , 0x0) // Vector
+        SCHEMA_FIELD(std::uint32_t                   , m_nChildren                                     , 0xC) // uint32
+        SCHEMA_FIELD(::Vector                        , m_vMax                                          , 0x10) // Vector
+        SCHEMA_FIELD(std::uint32_t                   , m_nTriangleOffset                               , 0x1C) // uint32
+    };
+
+    // FeRigidColliderIndices_t
+    //   fields: 5
+    //   size: 0xA
+    //   @MGetKV3ClassDefaults
+    class FeRigidColliderIndices_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , m_nTaperedCapsuleRigidIndex                     , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nSphereRigidIndex                             , 0x2) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nBoxRigidIndex                                , 0x4) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nSDFRigidIndex                                , 0x6) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nCollisionPlaneIndex                          , 0x8) // uint16
+    };
+
+    // FeQuad_t
+    //   fields: 3
+    //   size: 0x4C
+    //   @MGetKV3ClassDefaults
+    class FeQuad_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[4]
+        SCHEMA_FIELD(float                           , flSlack                                         , 0x8) // float32
+        SCHEMA_FIELD(::Vector4D                      , vShape                                          , 0xC) // Vector4D[4]
+    };
+
+    // RnMeshDesc_t
+    //   fields: 1
+    //   size: 0xD8
+    //   @MGetKV3ClassDefaults
+    class RnMeshDesc_t {
+    public:
+        SCHEMA_FIELD(RnMesh_t                        , m_Mesh                                          , 0x18) // RnMesh_t
+    };
+
+    // CFeJiggleBone
+    //   fields: 35
+    //   size: 0x9C
+    //   @MGetKV3ClassDefaults
+    class CFeJiggleBone {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x0) // uint32
+        SCHEMA_FIELD(float                           , m_flLength                                      , 0x4) // float32
+        SCHEMA_FIELD(float                           , m_flTipMass                                     , 0x8) // float32
+        SCHEMA_FIELD(float                           , m_flYawStiffness                                , 0xC) // float32
+        SCHEMA_FIELD(float                           , m_flYawDamping                                  , 0x10) // float32
+        SCHEMA_FIELD(float                           , m_flPitchStiffness                              , 0x14) // float32
+        SCHEMA_FIELD(float                           , m_flPitchDamping                                , 0x18) // float32
+        SCHEMA_FIELD(float                           , m_flAlongStiffness                              , 0x1C) // float32
+        SCHEMA_FIELD(float                           , m_flAlongDamping                                , 0x20) // float32
+        SCHEMA_FIELD(float                           , m_flAngleLimit                                  , 0x24) // float32
+        SCHEMA_FIELD(float                           , m_flMinYaw                                      , 0x28) // float32
+        SCHEMA_FIELD(float                           , m_flMaxYaw                                      , 0x2C) // float32
+        SCHEMA_FIELD(float                           , m_flYawFriction                                 , 0x30) // float32
+        SCHEMA_FIELD(float                           , m_flYawBounce                                   , 0x34) // float32
+        SCHEMA_FIELD(float                           , m_flMinPitch                                    , 0x38) // float32
+        SCHEMA_FIELD(float                           , m_flMaxPitch                                    , 0x3C) // float32
+        SCHEMA_FIELD(float                           , m_flPitchFriction                               , 0x40) // float32
+        SCHEMA_FIELD(float                           , m_flPitchBounce                                 , 0x44) // float32
+        SCHEMA_FIELD(float                           , m_flBaseMass                                    , 0x48) // float32
+        SCHEMA_FIELD(float                           , m_flBaseStiffness                               , 0x4C) // float32
+        SCHEMA_FIELD(float                           , m_flBaseDamping                                 , 0x50) // float32
+        SCHEMA_FIELD(float                           , m_flBaseMinLeft                                 , 0x54) // float32
+        SCHEMA_FIELD(float                           , m_flBaseMaxLeft                                 , 0x58) // float32
+        SCHEMA_FIELD(float                           , m_flBaseLeftFriction                            , 0x5C) // float32
+        SCHEMA_FIELD(float                           , m_flBaseMinUp                                   , 0x60) // float32
+        SCHEMA_FIELD(float                           , m_flBaseMaxUp                                   , 0x64) // float32
+        SCHEMA_FIELD(float                           , m_flBaseUpFriction                              , 0x68) // float32
+        SCHEMA_FIELD(float                           , m_flBaseMinForward                              , 0x6C) // float32
+        SCHEMA_FIELD(float                           , m_flBaseMaxForward                              , 0x70) // float32
+        SCHEMA_FIELD(float                           , m_flBaseForwardFriction                         , 0x74) // float32
+        SCHEMA_FIELD(float                           , m_flRadius0                                     , 0x78) // float32
+        SCHEMA_FIELD(float                           , m_flRadius1                                     , 0x7C) // float32
+        SCHEMA_FIELD(::Vector                        , m_vPoint0                                       , 0x80) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vPoint1                                       , 0x8C) // Vector
+        SCHEMA_FIELD(std::uint16_t                   , m_nCollisionMask                                , 0x98) // uint16
     };
 
     // FeSimdNodeBase_t
@@ -229,35 +561,6 @@ namespace vphysics2 {
         SCHEMA_FIELD(::resourcesystem::FourQuaternions, qAdjust                                         , 0x30) // FourQuaternions
     };
 
-    // FeRigidColliderIndices_t
-    //   fields: 5
-    //   size: 0xA
-    //   @MGetKV3ClassDefaults
-    class FeRigidColliderIndices_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , m_nTaperedCapsuleRigidIndex                     , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nSphereRigidIndex                             , 0x2) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nBoxRigidIndex                                , 0x4) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nSDFRigidIndex                                , 0x6) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nCollisionPlaneIndex                          , 0x8) // uint16
-    };
-
-    // IPhysicsPlayerController
-    //   fields: 0
-    //   size: 0x8
-    class IPhysicsPlayerController {
-    public:
-    };
-
-    // RnFace_t
-    //   fields: 1
-    //   size: 0x1
-    //   @MGetKV3ClassDefaults
-    class RnFace_t {
-    public:
-        SCHEMA_FIELD(std::uint8_t                    , m_nEdge                                         , 0x0) // uint8
-    };
-
     // IPhysAggregateInstance
     //   fields: 2
     //   size: 0x18
@@ -267,142 +570,82 @@ namespace vphysics2 {
         SCHEMA_FIELD(bool                            , m_bIsAxisAligned                                , 0x10) // bool
     };
 
-    // FeBandBendLimit_t
-    //   fields: 3
-    //   size: 0x14
+    // FeAntiTunnelProbe_t
+    //   fields: 8
+    //   size: 0x1C
     //   @MGetKV3ClassDefaults
-    class FeBandBendLimit_t {
-    public:
-        SCHEMA_FIELD(float                           , flDistMin                                       , 0x0) // float32
-        SCHEMA_FIELD(float                           , flDistMax                                       , 0x4) // float32
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x8) // uint16[6]
-    };
-
-    // RnWing_t
-    //   fields: 1
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class RnWing_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nIndex                                        , 0x0) // int32[3]
-    };
-
-    // FeDynKinLink_t
-    //   fields: 2
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class FeDynKinLink_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , m_nParent                                       , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nChild                                        , 0x2) // uint16
-    };
-
-    // RnTriangle_t
-    //   fields: 1
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class RnTriangle_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nIndex                                        , 0x0) // int32[3]
-    };
-
-    // FeRodConstraint_t
-    //   fields: 5
-    //   size: 0x14
-    //   @MGetKV3ClassDefaults
-    class FeRodConstraint_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[2]
-        SCHEMA_FIELD(float                           , flMaxDist                                       , 0x4) // float32
-        SCHEMA_FIELD(float                           , flMinDist                                       , 0x8) // float32
-        SCHEMA_FIELD(float                           , flWeight0                                       , 0xC) // float32
-        SCHEMA_FIELD(float                           , flRelaxationFactor                              , 0x10) // float32
-    };
-
-    // FeSpringIntegrator_t
-    //   fields: 5
-    //   size: 0x14
-    //   @MGetKV3ClassDefaults
-    class FeSpringIntegrator_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[2]
-        SCHEMA_FIELD(float                           , flSpringRestLength                              , 0x4) // float32
-        SCHEMA_FIELD(float                           , flSpringConstant                                , 0x8) // float32
-        SCHEMA_FIELD(float                           , flSpringDamping                                 , 0xC) // float32
-        SCHEMA_FIELD(float                           , flNodeWeight0                                   , 0x10) // float32
-    };
-
-    // RnSoftbodySpring_t
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class RnSoftbodySpring_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , m_nParticle                                     , 0x0) // uint16[2]
-        SCHEMA_FIELD(float                           , m_flLength                                      , 0x4) // float32
-    };
-
-    // FeFitInfluence_t
-    //   fields: 3
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class FeFitInfluence_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , nVertexNode                                     , 0x0) // uint32
-        SCHEMA_FIELD(float                           , flWeight                                        , 0x4) // float32
-        SCHEMA_FIELD(std::uint32_t                   , nMatrixNode                                     , 0x8) // uint32
-    };
-
-    // vphysics_save_ragdoll_control_t
-    //   fields: 10
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class vphysics_save_ragdoll_control_t {
-    public:
-        SCHEMA_FIELD(float                           , m_flMinSpringFrequency                          , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flMaxSpringFrequency                          , 0x4) // float32
-        SCHEMA_FIELD(float                           , m_flMaxStretch                                  , 0x8) // float32
-        SCHEMA_FIELD(bool                            , m_bSolidCollisionAtZeroWeight                   , 0xC) // bool
-        SCHEMA_FIELD(bool                            , m_bRequiresDynamicBodies                        , 0xD) // bool
-        SCHEMA_FIELD(bool                            , m_bIgnoreTeleport                               , 0xE) // bool
-        SCHEMA_FIELD(::Vector                        , m_vLinearVelocityAccumulator                    , 0x10) // Vector
-        SCHEMA_FIELD(RotationVector                  , m_vAngularVelocityAccumulator                   , 0x1C) // RotationVector
-        SCHEMA_FIELD(::Vector                        , m_vForceAccumulator                             , 0x28) // Vector
-        SCHEMA_FIELD(std::int32_t                    , m_nBodyCount                                    , 0x34) // int32
-    };
-
-    // FeProxyVertexMap_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class FeProxyVertexMap_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(float                           , m_flWeight                                      , 0x8) // float32
-    };
-
-    // FeSphereRigid_t
-    //   fields: 5
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class FeSphereRigid_t {
-    public:
-        SCHEMA_FIELD(fltx4                           , vSphere                                         , 0x0) // fltx4
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x10) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nCollisionMask                                  , 0x12) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nVertexMapIndex                                 , 0x14) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nFlags                                          , 0x16) // uint16
-    };
-
-    // FeFitWeight_t
-    //   fields: 3
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class FeFitWeight_t {
+    class FeAntiTunnelProbe_t {
     public:
         SCHEMA_FIELD(float                           , flWeight                                        , 0x0) // float32
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x4) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nDummy                                          , 0x6) // uint16
+        SCHEMA_FIELD(std::uint32_t                   , nFlags                                          , 0x4) // uint32
+        SCHEMA_FIELD(std::uint16_t                   , nProbeNode                                      , 0x8) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nCount                                          , 0xA) // uint16
+        SCHEMA_FIELD(std::uint32_t                   , nBegin                                          , 0xC) // uint32
+        SCHEMA_FIELD(float                           , flActivationDistance                            , 0x10) // float32
+        SCHEMA_FIELD(float                           , flCurvatureRadius                               , 0x14) // float32
+        SCHEMA_FIELD(float                           , flBias                                          , 0x18) // float32
+    };
+
+    // FeVertexMapBuild_t
+    //   fields: 6
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class FeVertexMapBuild_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_VertexMapName                                 , 0x0) // CUtlString
+        SCHEMA_FIELD(std::uint32_t                   , m_nNameHash                                     , 0x8) // uint32
+        SCHEMA_FIELD(::Color                         , m_Color                                         , 0xC) // Color
+        SCHEMA_FIELD(float                           , m_flVolumetricSolveStrength                     , 0x10) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleSourceNode                              , 0x14) // int32
+        SCHEMA_FIELD(CUtlVector<float32>             , m_Weights                                       , 0x18) // CUtlVector<float32>
+    };
+
+    // RnSoftbodyParticle_t
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class RnSoftbodyParticle_t {
+    public:
+        SCHEMA_FIELD(float                           , m_flMassInv                                     , 0x0) // float32
+    };
+
+    // CFeIndexedJiggleBone
+    //   fields: 3
+    //   size: 0xA4
+    //   @MGetKV3ClassDefaults
+    class CFeIndexedJiggleBone {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nNode                                         , 0x0) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nJiggleParent                                 , 0x4) // uint32
+        SCHEMA_FIELD(CFeJiggleBone                   , m_jiggleBone                                    , 0x8) // CFeJiggleBone
+    };
+
+    // FeTaperedCapsuleRigid_t
+    //   fields: 5
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class FeTaperedCapsuleRigid_t {
+    public:
+        SCHEMA_FIELD(fltx4                           , vSphere                                         , 0x0) // fltx4[2]
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x20) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nCollisionMask                                  , 0x22) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nVertexMapIndex                                 , 0x24) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nFlags                                          , 0x26) // uint16
+    };
+
+    // FeNodeBase_t
+    //   fields: 7
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class FeNodeBase_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nDummy                                          , 0x2) // uint16[3]
+        SCHEMA_FIELD(std::uint16_t                   , nNodeX0                                         , 0x8) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nNodeX1                                         , 0xA) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nNodeY0                                         , 0xC) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nNodeY1                                         , 0xE) // uint16
+        SCHEMA_FIELD(QuaternionStorage               , qAdjust                                         , 0x10) // QuaternionStorage
     };
 
     // PhysFeModelDesc_t
@@ -524,139 +767,31 @@ namespace vphysics2 {
         SCHEMA_FIELD(std::uint16_t                   , m_nQuadVelocitySmoothIterations                 , 0x6F6) // uint16
     };
 
-    // FeTaperedCapsuleRigid_t
-    //   fields: 5
-    //   size: 0x30
+    // OldFeEdge_t
+    //   fields: 12
+    //   size: 0x48
     //   @MGetKV3ClassDefaults
-    class FeTaperedCapsuleRigid_t {
+    class OldFeEdge_t {
     public:
-        SCHEMA_FIELD(fltx4                           , vSphere                                         , 0x0) // fltx4[2]
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x20) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nCollisionMask                                  , 0x22) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nVertexMapIndex                                 , 0x24) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nFlags                                          , 0x26) // uint16
+        SCHEMA_FIELD(float                           , m_flK                                           , 0x0) // float32[3]
+        SCHEMA_FIELD(float                           , invA                                            , 0xC) // float32
+        SCHEMA_FIELD(float                           , t                                               , 0x10) // float32
+        SCHEMA_FIELD(float                           , flThetaRelaxed                                  , 0x14) // float32
+        SCHEMA_FIELD(float                           , flThetaFactor                                   , 0x18) // float32
+        SCHEMA_FIELD(float                           , c01                                             , 0x1C) // float32
+        SCHEMA_FIELD(float                           , c02                                             , 0x20) // float32
+        SCHEMA_FIELD(float                           , c03                                             , 0x24) // float32
+        SCHEMA_FIELD(float                           , c04                                             , 0x28) // float32
+        SCHEMA_FIELD(float                           , flAxialModelDist                                , 0x2C) // float32
+        SCHEMA_FIELD(float                           , flAxialModelWeights                             , 0x30) // float32[4]
+        SCHEMA_FIELD(std::uint16_t                   , m_nNode                                         , 0x40) // uint16[4]
     };
 
-    // CGenericShapeProxy
-    //   fields: 1
-    //   size: 0x98
-    class CGenericShapeProxy {
+    // IPhysicsBodyList
+    //   fields: 0
+    //   size: 0x8
+    class IPhysicsBodyList {
     public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<Vector,8>;
-        SCHEMA_FIELD(_Type0                          , m_verts                                         , 0x30) // CUtlLeanVectorFixedGrowable<Vector,8>
-    };
-
-    // FeMorphLayerDepr_t
-    //   fields: 8
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class FeMorphLayerDepr_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(std::uint32_t                   , m_nNameHash                                     , 0x8) // uint32
-        SCHEMA_FIELD(CUtlVector<uint16>              , m_Nodes                                         , 0x10) // CUtlVector<uint16>
-        SCHEMA_FIELD(CUtlVector<Vector>              , m_InitPos                                       , 0x28) // CUtlVector<Vector>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_Gravity                                       , 0x40) // CUtlVector<float32>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_GoalStrength                                  , 0x58) // CUtlVector<float32>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_GoalDamping                                   , 0x70) // CUtlVector<float32>
-        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x88) // uint32
-    };
-
-    // FeCtrlOsOffset_t
-    //   fields: 2
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class FeCtrlOsOffset_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nCtrlParent                                     , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nCtrlChild                                      , 0x2) // uint16
-    };
-
-    // RnPlane_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class RnPlane_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vNormal                                       , 0x0) // Vector
-        SCHEMA_FIELD(float                           , m_flOffset                                      , 0xC) // float32
-    };
-
-    // FeCollisionPlane_t
-    //   fields: 4
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class FeCollisionPlane_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nCtrlParent                                     , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nChildNode                                      , 0x2) // uint16
-        SCHEMA_FIELD(RnPlane_t                       , m_Plane                                         , 0x4) // RnPlane_t
-        SCHEMA_FIELD(float                           , flStrength                                      , 0x14) // float32
-    };
-
-    // CRegionSVM
-    //   fields: 2
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CRegionSVM {
-    public:
-        SCHEMA_FIELD(CUtlVector<RnPlane_t>           , m_Planes                                        , 0x0) // CUtlVector<RnPlane_t>
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_Nodes                                         , 0x18) // CUtlVector<uint32>
-    };
-
-    // FeSimdTri_t
-    //   fields: 5
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class FeSimdTri_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , nNode                                           , 0x0) // uint32[4][3]
-        SCHEMA_FIELD(fltx4                           , w1                                              , 0x30) // fltx4
-        SCHEMA_FIELD(fltx4                           , w2                                              , 0x40) // fltx4
-        SCHEMA_FIELD(fltx4                           , v1x                                             , 0x50) // fltx4
-        SCHEMA_FIELD(FourVectors2D                   , v2                                              , 0x60) // FourVectors2D
-    };
-
-    // FeSimdAnimStrayRadius_t
-    //   fields: 3
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class FeSimdAnimStrayRadius_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[4][2]
-        SCHEMA_FIELD(fltx4                           , flMaxDist                                       , 0x10) // fltx4
-        SCHEMA_FIELD(fltx4                           , flRelaxationFactor                              , 0x20) // fltx4
-    };
-
-    // VertexPositionNormal_t
-    //   fields: 2
-    //   size: 0x18
-    class VertexPositionNormal_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vPosition                                     , 0x0) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vNormal                                       , 0xC) // Vector
-    };
-
-    // FeTri_t
-    //   fields: 5
-    //   size: 0x1C
-    //   @MGetKV3ClassDefaults
-    class FeTri_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[3]
-        SCHEMA_FIELD(float                           , w1                                              , 0x8) // float32
-        SCHEMA_FIELD(float                           , w2                                              , 0xC) // float32
-        SCHEMA_FIELD(float                           , v1x                                             , 0x10) // float32
-        SCHEMA_FIELD(::Vector2D                      , v2                                              , 0x14) // Vector2D
-    };
-
-    // Dop26_t
-    //   fields: 1
-    //   size: 0x68
-    //   @MGetKV3ClassDefaults
-    class Dop26_t {
-    public:
-        SCHEMA_FIELD(float                           , m_flSupport                                     , 0x0) // float32[26]
     };
 
     // FeNodeWindBase_t
@@ -671,35 +806,148 @@ namespace vphysics2 {
         SCHEMA_FIELD(std::uint16_t                   , nNodeY1                                         , 0x6) // uint16
     };
 
-    // FeAntiTunnelGroupBuild_t
-    //   fields: 2
-    //   size: 0x8
+    // FeSphereRigid_t
+    //   fields: 5
+    //   size: 0x20
     //   @MGetKV3ClassDefaults
-    class FeAntiTunnelGroupBuild_t {
+    class FeSphereRigid_t {
     public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nVertexMapHash                                , 0x0) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nCollisionMask                                , 0x4) // uint32
+        SCHEMA_FIELD(fltx4                           , vSphere                                         , 0x0) // fltx4
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x10) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nCollisionMask                                  , 0x12) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nVertexMapIndex                                 , 0x14) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nFlags                                          , 0x16) // uint16
     };
 
-    // FeSimdSpringIntegrator_t
-    //   fields: 5
+    // FeStiffHingeBuild_t
+    //   fields: 4
+    //   size: 0x1C
+    //   @MGetKV3ClassDefaults
+    class FeStiffHingeBuild_t {
+    public:
+        SCHEMA_FIELD(float                           , flMaxAngle                                      , 0x0) // float32
+        SCHEMA_FIELD(float                           , flStrength                                      , 0x4) // float32
+        SCHEMA_FIELD(float                           , flMotionBias                                    , 0x8) // float32[3]
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x14) // uint16[3]
+    };
+
+    // FeSDFRigid_t
+    //   fields: 11
     //   size: 0x50
     //   @MGetKV3ClassDefaults
-    class FeSimdSpringIntegrator_t {
+    class FeSDFRigid_t {
     public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[4][2]
-        SCHEMA_FIELD(fltx4                           , flSpringRestLength                              , 0x10) // fltx4
-        SCHEMA_FIELD(fltx4                           , flSpringConstant                                , 0x20) // fltx4
-        SCHEMA_FIELD(fltx4                           , flSpringDamping                                 , 0x30) // fltx4
-        SCHEMA_FIELD(fltx4                           , flNodeWeight0                                   , 0x40) // fltx4
+        SCHEMA_FIELD(::Vector                        , vLocalMin                                       , 0x0) // Vector
+        SCHEMA_FIELD(::Vector                        , vLocalMax                                       , 0xC) // Vector
+        SCHEMA_FIELD(float                           , flBounciness                                    , 0x18) // float32
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x1C) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nCollisionMask                                  , 0x1E) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nVertexMapIndex                                 , 0x20) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nFlags                                          , 0x22) // uint16
+        SCHEMA_FIELD(CUtlVector<float32>             , m_Distances                                     , 0x28) // CUtlVector<float32>
+        SCHEMA_FIELD(std::int32_t                    , m_nWidth                                        , 0x40) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nHeight                                       , 0x44) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nDepth                                        , 0x48) // int32
     };
 
-    // VertexPositionColor_t
-    //   fields: 1
-    //   size: 0x10
-    class VertexPositionColor_t {
+    // FeFollowNode_t
+    //   fields: 3
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class FeFollowNode_t {
     public:
-        SCHEMA_FIELD(::Vector                        , m_vPosition                                     , 0x0) // Vector
+        SCHEMA_FIELD(std::uint16_t                   , nParentNode                                     , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nChildNode                                      , 0x2) // uint16
+        SCHEMA_FIELD(float                           , flWeight                                        , 0x4) // float32
+    };
+
+    // FeTaperedCapsuleStretch_t
+    //   fields: 4
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class FeTaperedCapsuleStretch_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[2]
+        SCHEMA_FIELD(std::uint16_t                   , nCollisionMask                                  , 0x4) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nDummy                                          , 0x6) // uint16 [MPropertySuppressField]
+        SCHEMA_FIELD(float                           , flRadius                                        , 0x8) // float32[2]
+    };
+
+    // FeCtrlSoftOffset_t
+    //   fields: 4
+    //   size: 0x14
+    //   @MGetKV3ClassDefaults
+    class FeCtrlSoftOffset_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nCtrlParent                                     , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nCtrlChild                                      , 0x2) // uint16
+        SCHEMA_FIELD(::Vector                        , vOffset                                         , 0x4) // Vector
+        SCHEMA_FIELD(float                           , flAlpha                                         , 0x10) // float32
+    };
+
+    // RnHalfEdge_t
+    //   fields: 4
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class RnHalfEdge_t {
+    public:
+        SCHEMA_FIELD(std::uint8_t                    , m_nNext                                         , 0x0) // uint8
+        SCHEMA_FIELD(std::uint8_t                    , m_nTwin                                         , 0x1) // uint8
+        SCHEMA_FIELD(std::uint8_t                    , m_nOrigin                                       , 0x2) // uint8
+        SCHEMA_FIELD(std::uint8_t                    , m_nFace                                         , 0x3) // uint8
+    };
+
+    // FeEdgeDesc_t
+    //   fields: 3
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class FeEdgeDesc_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nEdge                                           , 0x0) // uint16[2]
+        SCHEMA_FIELD(std::uint16_t                   , nSide                                           , 0x4) // uint16[2][2]
+        SCHEMA_FIELD(std::uint16_t                   , nVirtElem                                       , 0xC) // uint16[2]
+    };
+
+    // FeWeightedNode_t
+    //   fields: 2
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class FeWeightedNode_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nWeight                                         , 0x2) // uint16
+    };
+
+    // FeBoxRigid_t
+    //   fields: 6
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class FeBoxRigid_t {
+    public:
+        SCHEMA_FIELD(CTransform                      , tmFrame2                                        , 0x0) // CTransform
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x20) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nCollisionMask                                  , 0x22) // uint16
+        SCHEMA_FIELD(::Vector                        , vSize                                           , 0x24) // Vector
+        SCHEMA_FIELD(std::uint16_t                   , nVertexMapIndex                                 , 0x30) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nFlags                                          , 0x32) // uint16
+    };
+
+    // FeBuildSDFRigid_t
+    //   fields: 3
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class FeBuildSDFRigid_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x50) // int32
+        SCHEMA_FIELD(std::uint32_t                   , m_nVertexMapHash                                , 0x54) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nAntitunnelGroupBits                          , 0x58) // uint32
+    };
+
+    // IPhysicsPlayerController
+    //   fields: 0
+    //   size: 0x8
+    class IPhysicsPlayerController {
+    public:
     };
 
     // FeVertexMapDesc_t
@@ -722,39 +970,34 @@ namespace vphysics2 {
         SCHEMA_FIELD(std::uint16_t                   , nNodeListCount                                  , 0x32) // uint16
     };
 
-    // RnCompound_t
-    //   fields: 8
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class RnCompound_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<RnSphere_t>          , m_Spheres                                       , 0x0) // CUtlVector<RnSphere_t>
-        SCHEMA_FIELD(CUtlVector<RnCapsule_t>         , m_Capsules                                      , 0x18) // CUtlVector<RnCapsule_t>
-        SCHEMA_FIELD(CUtlVector<RnHull_t>            , m_Hulls                                         , 0x30) // CUtlVector<RnHull_t>
-        SCHEMA_FIELD(CUtlVector<RnMesh_t>            , m_Meshes                                        , 0x48) // CUtlVector<RnMesh_t>
-        SCHEMA_FIELD(::AABB_t                        , m_Bounds                                        , 0x60) // AABB_t
-        SCHEMA_FIELD(::Vector                        , m_vOrthographicAreas                            , 0x78) // Vector
-        SCHEMA_FIELD(float                           , m_flSurfaceArea                                 , 0x84) // float32
-        SCHEMA_FIELD(float                           , m_flVolume                                      , 0x88) // float32
-    };
-
-    // IPhysicsMotionController
-    //   fields: 0
-    //   size: 0x8
-    class IPhysicsMotionController {
-    public:
-    };
-
-    // FeCtrlSoftOffset_t
+    // FeTwistConstraint_t
     //   fields: 4
-    //   size: 0x14
+    //   size: 0xC
     //   @MGetKV3ClassDefaults
-    class FeCtrlSoftOffset_t {
+    class FeTwistConstraint_t {
     public:
-        SCHEMA_FIELD(std::uint16_t                   , nCtrlParent                                     , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nCtrlChild                                      , 0x2) // uint16
-        SCHEMA_FIELD(::Vector                        , vOffset                                         , 0x4) // Vector
-        SCHEMA_FIELD(float                           , flAlpha                                         , 0x10) // float32
+        SCHEMA_FIELD(std::uint16_t                   , nNodeOrient                                     , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nNodeEnd                                        , 0x2) // uint16
+        SCHEMA_FIELD(float                           , flTwistRelax                                    , 0x4) // float32
+        SCHEMA_FIELD(float                           , flSwingRelax                                    , 0x8) // float32
+    };
+
+    // Dop26_t
+    //   fields: 1
+    //   size: 0x68
+    //   @MGetKV3ClassDefaults
+    class Dop26_t {
+    public:
+        SCHEMA_FIELD(float                           , m_flSupport                                     , 0x0) // float32[26]
+    };
+
+    // RnSphereDesc_t
+    //   fields: 1
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class RnSphereDesc_t {
+    public:
+        SCHEMA_FIELD(RnSphere_t                      , m_Sphere                                        , 0x18) // RnSphere_t
     };
 
     // FeSimdRodConstraintAnim_t
@@ -768,66 +1011,212 @@ namespace vphysics2 {
         SCHEMA_FIELD(fltx4                           , f4RelaxationFactor                              , 0x20) // fltx4
     };
 
-    // RnMesh_t
-    //   fields: 11
-    //   size: 0xC0
+    // FeKelagerBend2_t
+    //   fields: 4
+    //   size: 0x18
     //   @MGetKV3ClassDefaults
-    class RnMesh_t {
+    class FeKelagerBend2_t {
     public:
-        SCHEMA_FIELD(::Vector                        , m_vMin                                          , 0x0) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vMax                                          , 0xC) // Vector
-        SCHEMA_FIELD(CUtlVector<RnNode_t>            , m_Nodes                                         , 0x18) // CUtlVector<RnNode_t>
-        SCHEMA_FIELD(CUtlVectorSIMDPaddedVector      , m_Vertices                                      , 0x30) // CUtlVectorSIMDPaddedVector
-        SCHEMA_FIELD(CUtlVector<RnTriangle_t>        , m_Triangles                                     , 0x48) // CUtlVector<RnTriangle_t>
-        SCHEMA_FIELD(CUtlVector<RnWing_t>            , m_Wings                                         , 0x60) // CUtlVector<RnWing_t>
-        SCHEMA_FIELD(CUtlVector<uint8>               , m_TriangleEdgeFlags                             , 0x78) // CUtlVector<uint8>
-        SCHEMA_FIELD(CUtlVector<uint8>               , m_Materials                                     , 0x90) // CUtlVector<uint8>
-        SCHEMA_FIELD(::Vector                        , m_vOrthographicAreas                            , 0xA8) // Vector
-        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0xB4) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nDebugFlags                                   , 0xB8) // uint32
+        SCHEMA_FIELD(float                           , flWeight                                        , 0x0) // float32[3]
+        SCHEMA_FIELD(float                           , flHeight0                                       , 0xC) // float32
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x10) // uint16[3]
+        SCHEMA_FIELD(std::uint16_t                   , nReserved                                       , 0x16) // uint16
     };
 
-    // FeNodeIntegrator_t
-    //   fields: 4
+    // FeProxyVertexMap_t
+    //   fields: 2
     //   size: 0x10
     //   @MGetKV3ClassDefaults
-    class FeNodeIntegrator_t {
+    class FeProxyVertexMap_t {
     public:
-        SCHEMA_FIELD(float                           , flPointDamping                                  , 0x0) // float32
-        SCHEMA_FIELD(float                           , flAnimationForceAttraction                      , 0x4) // float32
-        SCHEMA_FIELD(float                           , flAnimationVertexAttraction                     , 0x8) // float32
-        SCHEMA_FIELD(float                           , flGravity                                       , 0xC) // float32
+        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(float                           , m_flWeight                                      , 0x8) // float32
     };
 
-    // IPhysicsBodyList
+    // RnBlendVertex_t
+    //   fields: 8
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class RnBlendVertex_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , m_nWeight0                                      , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nIndex0                                       , 0x2) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nWeight1                                      , 0x4) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nIndex1                                       , 0x6) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nWeight2                                      , 0x8) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nIndex2                                       , 0xA) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nFlags                                        , 0xC) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nTargetIndex                                  , 0xE) // uint16
+    };
+
+    // FeAntiTunnelGroupBuild_t
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class FeAntiTunnelGroupBuild_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nVertexMapHash                                , 0x0) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nCollisionMask                                , 0x4) // uint32
+    };
+
+    // FeTri_t
+    //   fields: 5
+    //   size: 0x1C
+    //   @MGetKV3ClassDefaults
+    class FeTri_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[3]
+        SCHEMA_FIELD(float                           , w1                                              , 0x8) // float32
+        SCHEMA_FIELD(float                           , w2                                              , 0xC) // float32
+        SCHEMA_FIELD(float                           , v1x                                             , 0x10) // float32
+        SCHEMA_FIELD(::Vector2D                      , v2                                              , 0x14) // Vector2D
+    };
+
+    // FeDynKinLink_t
+    //   fields: 2
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class FeDynKinLink_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , m_nParent                                       , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nChild                                        , 0x2) // uint16
+    };
+
+    // IPhysicsMotionController
     //   fields: 0
     //   size: 0x8
-    class IPhysicsBodyList {
+    class IPhysicsMotionController {
     public:
     };
 
-    // FeSimdRodConstraint_t
-    //   fields: 5
-    //   size: 0x50
+    // VPhysEntityId_t
+    //   fields: 1
+    //   size: 0x4
     //   @MGetKV3ClassDefaults
-    class FeSimdRodConstraint_t {
+    class VPhysEntityId_t {
     public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[4][2]
-        SCHEMA_FIELD(fltx4                           , f4MaxDist                                       , 0x10) // fltx4
-        SCHEMA_FIELD(fltx4                           , f4MinDist                                       , 0x20) // fltx4
-        SCHEMA_FIELD(fltx4                           , f4Weight0                                       , 0x30) // fltx4
-        SCHEMA_FIELD(fltx4                           , f4RelaxationFactor                              , 0x40) // fltx4
+        SCHEMA_FIELD(std::uint32_t                   , m_Id                                            , 0x0) // uint32
     };
 
-    // FeQuad_t
+    // RnWing_t
+    //   fields: 1
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class RnWing_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nIndex                                        , 0x0) // int32[3]
+    };
+
+    // vphysics_save_cphysicsbody_t
+    //   fields: 1
+    //   size: 0xE8
+    //   @MGetKV3ClassDefaults
+    class vphysics_save_cphysicsbody_t {
+    public:
+        SCHEMA_FIELD(std::uint64_t                   , m_nOldPointer                                   , 0xE0) // uint64
+    };
+
+    // CRegionSVM
+    //   fields: 2
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CRegionSVM {
+    public:
+        SCHEMA_FIELD(CUtlVector<RnPlane_t>           , m_Planes                                        , 0x0) // CUtlVector<RnPlane_t>
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_Nodes                                         , 0x18) // CUtlVector<uint32>
+    };
+
+    // FourCovMatrices3
+    //   fields: 4
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class FourCovMatrices3 {
+    public:
+        SCHEMA_FIELD(FourVectors                     , m_vDiag                                         , 0x0) // FourVectors
+        SCHEMA_FIELD(fltx4                           , m_flXY                                          , 0x30) // fltx4
+        SCHEMA_FIELD(fltx4                           , m_flXZ                                          , 0x40) // fltx4
+        SCHEMA_FIELD(fltx4                           , m_flYZ                                          , 0x50) // fltx4
+    };
+
+    // CollisionDetailLayerInfo_t::Name_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CollisionDetailLayerInfo_t_Name_t {
+    public:
+        SCHEMA_FIELD(CUtlStringToken                 , m_nNameToken                                    , 0x0) // CUtlStringToken
+        SCHEMA_FIELD(::CUtlString                    , m_sNameString                                   , 0x8) // CUtlString
+    };
+
+    // FeNodeReverseOffset_t
     //   fields: 3
-    //   size: 0x4C
+    //   size: 0x10
     //   @MGetKV3ClassDefaults
-    class FeQuad_t {
+    class FeNodeReverseOffset_t {
     public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[4]
-        SCHEMA_FIELD(float                           , flSlack                                         , 0x8) // float32
-        SCHEMA_FIELD(::Vector4D                      , vShape                                          , 0xC) // Vector4D[4]
+        SCHEMA_FIELD(::Vector                        , vOffset                                         , 0x0) // Vector
+        SCHEMA_FIELD(std::uint16_t                   , nBoneCtrl                                       , 0xC) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nTargetNode                                     , 0xE) // uint16
+    };
+
+    // FeSoftParent_t
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class FeSoftParent_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , nParent                                         , 0x0) // int32
+        SCHEMA_FIELD(float                           , flAlpha                                         , 0x4) // float32
+    };
+
+    // FeRodConstraint_t
+    //   fields: 5
+    //   size: 0x14
+    //   @MGetKV3ClassDefaults
+    class FeRodConstraint_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[2]
+        SCHEMA_FIELD(float                           , flMaxDist                                       , 0x4) // float32
+        SCHEMA_FIELD(float                           , flMinDist                                       , 0x8) // float32
+        SCHEMA_FIELD(float                           , flWeight0                                       , 0xC) // float32
+        SCHEMA_FIELD(float                           , flRelaxationFactor                              , 0x10) // float32
+    };
+
+    // FeCollisionPlane_t
+    //   fields: 4
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class FeCollisionPlane_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nCtrlParent                                     , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nChildNode                                      , 0x2) // uint16
+        SCHEMA_FIELD(RnPlane_t                       , m_Plane                                         , 0x4) // RnPlane_t
+        SCHEMA_FIELD(float                           , flStrength                                      , 0x14) // float32
+    };
+
+    // IPhysicsBody
+    //   fields: 0
+    //   size: 0x8
+    class IPhysicsBody {
+    public:
+    };
+
+    // RnTriangle_t
+    //   fields: 1
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class RnTriangle_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nIndex                                        , 0x0) // int32[3]
+    };
+
+    // RnCapsuleDesc_t
+    //   fields: 1
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class RnCapsuleDesc_t {
+    public:
+        SCHEMA_FIELD(RnCapsule_t                     , m_Capsule                                       , 0x18) // RnCapsule_t
     };
 
     // FeBuildBoxRigid_t
@@ -841,172 +1230,61 @@ namespace vphysics2 {
         SCHEMA_FIELD(std::uint32_t                   , m_nAntitunnelGroupBits                          , 0x48) // uint32
     };
 
-    // FeStiffHingeBuild_t
-    //   fields: 4
-    //   size: 0x1C
-    //   @MGetKV3ClassDefaults
-    class FeStiffHingeBuild_t {
+    // IPhysicsRagdollControl
+    //   fields: 0
+    //   size: 0x8
+    class IPhysicsRagdollControl {
     public:
-        SCHEMA_FIELD(float                           , flMaxAngle                                      , 0x0) // float32
-        SCHEMA_FIELD(float                           , flStrength                                      , 0x4) // float32
-        SCHEMA_FIELD(float                           , flMotionBias                                    , 0x8) // float32[3]
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x14) // uint16[3]
     };
 
-    // FeWeightedNode_t
-    //   fields: 2
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class FeWeightedNode_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nWeight                                         , 0x2) // uint16
-    };
-
-    // RnNode_t
-    //   fields: 4
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class RnNode_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vMin                                          , 0x0) // Vector
-        SCHEMA_FIELD(std::uint32_t                   , m_nChildren                                     , 0xC) // uint32
-        SCHEMA_FIELD(::Vector                        , m_vMax                                          , 0x10) // Vector
-        SCHEMA_FIELD(std::uint32_t                   , m_nTriangleOffset                               , 0x1C) // uint32
-    };
-
-    // FeAntiTunnelProbe_t
-    //   fields: 8
-    //   size: 0x1C
-    //   @MGetKV3ClassDefaults
-    class FeAntiTunnelProbe_t {
-    public:
-        SCHEMA_FIELD(float                           , flWeight                                        , 0x0) // float32
-        SCHEMA_FIELD(std::uint32_t                   , nFlags                                          , 0x4) // uint32
-        SCHEMA_FIELD(std::uint16_t                   , nProbeNode                                      , 0x8) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nCount                                          , 0xA) // uint16
-        SCHEMA_FIELD(std::uint32_t                   , nBegin                                          , 0xC) // uint32
-        SCHEMA_FIELD(float                           , flActivationDistance                            , 0x10) // float32
-        SCHEMA_FIELD(float                           , flCurvatureRadius                               , 0x14) // float32
-        SCHEMA_FIELD(float                           , flBias                                          , 0x18) // float32
-    };
-
-    // CFeIndexedJiggleBone
-    //   fields: 3
-    //   size: 0xA4
-    //   @MGetKV3ClassDefaults
-    class CFeIndexedJiggleBone {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nNode                                         , 0x0) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nJiggleParent                                 , 0x4) // uint32
-        SCHEMA_FIELD(CFeJiggleBone                   , m_jiggleBone                                    , 0x8) // CFeJiggleBone
-    };
-
-    // RnSphereDesc_t
-    //   fields: 1
+    // FeAxialEdgeBend_t
+    //   fields: 5
     //   size: 0x28
     //   @MGetKV3ClassDefaults
-    class RnSphereDesc_t {
+    class FeAxialEdgeBend_t {
     public:
-        SCHEMA_FIELD(RnSphere_t                      , m_Sphere                                        , 0x18) // RnSphere_t
+        SCHEMA_FIELD(float                           , te                                              , 0x0) // float32
+        SCHEMA_FIELD(float                           , tv                                              , 0x4) // float32
+        SCHEMA_FIELD(float                           , flDist                                          , 0x8) // float32
+        SCHEMA_FIELD(float                           , flWeight                                        , 0xC) // float32[4]
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x1C) // uint16[6]
     };
 
-    // FeBuildSDFRigid_t
-    //   fields: 3
-    //   size: 0x60
+    // FeSimdTri_t
+    //   fields: 5
+    //   size: 0x80
     //   @MGetKV3ClassDefaults
-    class FeBuildSDFRigid_t {
+    class FeSimdTri_t {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x50) // int32
-        SCHEMA_FIELD(std::uint32_t                   , m_nVertexMapHash                                , 0x54) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nAntitunnelGroupBits                          , 0x58) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , nNode                                           , 0x0) // uint32[4][3]
+        SCHEMA_FIELD(fltx4                           , w1                                              , 0x30) // fltx4
+        SCHEMA_FIELD(fltx4                           , w2                                              , 0x40) // fltx4
+        SCHEMA_FIELD(fltx4                           , v1x                                             , 0x50) // fltx4
+        SCHEMA_FIELD(FourVectors2D                   , v2                                              , 0x60) // FourVectors2D
     };
 
-    // RnCapsule_t
-    //   fields: 2
-    //   size: 0x1C
+    // CollisionDetailLayerInfo_t
+    //   fields: 6
+    //   size: 0x40
     //   @MGetKV3ClassDefaults
-    class RnCapsule_t {
+    //   @MVDataOutlinerLeafNameFn
+    class CollisionDetailLayerInfo_t {
     public:
-        SCHEMA_FIELD(::Vector                        , m_vCenter                                       , 0x0) // Vector[2]
-        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x18) // float32
+        SCHEMA_FIELD(::CUtlString                    , m_sDescription                                  , 0x0) // CUtlString [MPropertyFriendlyName, MPropertyDescription]
+        SCHEMA_FIELD(::CUtlString                    , m_sFriendlyName                                 , 0x8) // CUtlString [MPropertyFriendlyName, MPropertyDescription]
+        SCHEMA_FIELD(bool                            , m_bIsQueryOnly                                  , 0x10) // bool [MPropertyDescription]
+        SCHEMA_FIELD(::CUtlString                    , m_sParentDetailLayer                            , 0x18) // CUtlString [MPropertyDescription]
+        SCHEMA_FIELD(CUtlVector<CollisionDetailLayerInfo_t_Name_t>, m_vecSubtreeDetailLayers                        , 0x20) // CUtlVector<CollisionDetailLayerInfo_t::Name_t> [MPropertySuppressField]
+        SCHEMA_FIELD(bool                            , m_bNotPickable                                  , 0x38) // bool [MPropertySuppressField]
     };
 
-    // OldFeEdge_t
-    //   fields: 12
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class OldFeEdge_t {
-    public:
-        SCHEMA_FIELD(float                           , m_flK                                           , 0x0) // float32[3]
-        SCHEMA_FIELD(float                           , invA                                            , 0xC) // float32
-        SCHEMA_FIELD(float                           , t                                               , 0x10) // float32
-        SCHEMA_FIELD(float                           , flThetaRelaxed                                  , 0x14) // float32
-        SCHEMA_FIELD(float                           , flThetaFactor                                   , 0x18) // float32
-        SCHEMA_FIELD(float                           , c01                                             , 0x1C) // float32
-        SCHEMA_FIELD(float                           , c02                                             , 0x20) // float32
-        SCHEMA_FIELD(float                           , c03                                             , 0x24) // float32
-        SCHEMA_FIELD(float                           , c04                                             , 0x28) // float32
-        SCHEMA_FIELD(float                           , flAxialModelDist                                , 0x2C) // float32
-        SCHEMA_FIELD(float                           , flAxialModelWeights                             , 0x30) // float32[4]
-        SCHEMA_FIELD(std::uint16_t                   , m_nNode                                         , 0x40) // uint16[4]
-    };
-
-    // constraint_axislimit_t
-    //   fields: 4
-    //   size: 0x10
-    class constraint_axislimit_t {
-    public:
-        SCHEMA_FIELD(float                           , flMinRotation                                   , 0x0) // float32
-        SCHEMA_FIELD(float                           , flMaxRotation                                   , 0x4) // float32
-        SCHEMA_FIELD(float                           , flMotorTargetAngSpeed                           , 0x8) // float32
-        SCHEMA_FIELD(float                           , flMotorMaxTorque                                , 0xC) // float32
-    };
-
-    // VPhysEntityId_t
+    // RnCompoundDesc_t
     //   fields: 1
-    //   size: 0x4
+    //   size: 0xA8
     //   @MGetKV3ClassDefaults
-    class VPhysEntityId_t {
+    class RnCompoundDesc_t {
     public:
-        SCHEMA_FIELD(std::uint32_t                   , m_Id                                            , 0x0) // uint32
-    };
-
-    // FourVectors2D
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class FourVectors2D {
-    public:
-        SCHEMA_FIELD(fltx4                           , x                                               , 0x0) // fltx4
-        SCHEMA_FIELD(fltx4                           , y                                               , 0x10) // fltx4
-    };
-
-    // FeNodeStrayBox_t
-    //   fields: 4
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class FeNodeStrayBox_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , vMin                                            , 0x0) // Vector
-        SCHEMA_FIELD(std::uint32_t                   , nFlags                                          , 0xC) // uint32
-        SCHEMA_FIELD(::Vector                        , vMax                                            , 0x10) // Vector
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x1C) // uint16[2]
-    };
-
-    // CFeMorphLayer
-    //   fields: 7
-    //   size: 0x88
-    //   @MGetKV3ClassDefaults
-    class CFeMorphLayer {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(std::uint32_t                   , m_nNameHash                                     , 0x8) // uint32
-        SCHEMA_FIELD(CUtlVector<uint16>              , m_Nodes                                         , 0x10) // CUtlVector<uint16>
-        SCHEMA_FIELD(CUtlVector<Vector>              , m_InitPos                                       , 0x28) // CUtlVector<Vector>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_Gravity                                       , 0x40) // CUtlVector<float32>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_GoalStrength                                  , 0x58) // CUtlVector<float32>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_GoalDamping                                   , 0x70) // CUtlVector<float32>
+        SCHEMA_FIELD(RnCompound_t                    , m_Compound                                      , 0x18) // RnCompound_t
     };
 
     // RnBodyDesc_t
@@ -1053,202 +1331,110 @@ namespace vphysics2 {
         SCHEMA_FIELD(DynamicContinuousContactBehavior_t, m_nDynamicContinuousContactBehavior             , 0xDA) // DynamicContinuousContactBehavior_t
     };
 
-    // IPhysicsParticleRope
-    //   fields: 0
-    //   size: 0x8
-    class IPhysicsParticleRope {
-    public:
-    };
-
-    // CollisionDetailLayerInfo_t
-    //   fields: 6
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    //   @MVDataOutlinerLeafNameFn
-    class CollisionDetailLayerInfo_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_sDescription                                  , 0x0) // CUtlString [MPropertyFriendlyName, MPropertyDescription]
-        SCHEMA_FIELD(::CUtlString                    , m_sFriendlyName                                 , 0x8) // CUtlString [MPropertyFriendlyName, MPropertyDescription]
-        SCHEMA_FIELD(bool                            , m_bIsQueryOnly                                  , 0x10) // bool [MPropertyDescription]
-        SCHEMA_FIELD(::CUtlString                    , m_sParentDetailLayer                            , 0x18) // CUtlString [MPropertyDescription]
-        SCHEMA_FIELD(CUtlVector<CollisionDetailLayerInfo_t_Name_t>, m_vecSubtreeDetailLayers                        , 0x20) // CUtlVector<CollisionDetailLayerInfo_t::Name_t> [MPropertySuppressField]
-        SCHEMA_FIELD(bool                            , m_bNotPickable                                  , 0x38) // bool [MPropertySuppressField]
-    };
-
-    // RnCapsuleDesc_t
+    // VertexPositionColor_t
     //   fields: 1
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class RnCapsuleDesc_t {
-    public:
-        SCHEMA_FIELD(RnCapsule_t                     , m_Capsule                                       , 0x18) // RnCapsule_t
-    };
-
-    // FeAntiTunnelProbeBuild_t
-    //   fields: 7
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class FeAntiTunnelProbeBuild_t {
-    public:
-        SCHEMA_FIELD(float                           , flWeight                                        , 0x0) // float32
-        SCHEMA_FIELD(float                           , flActivationDistance                            , 0x4) // float32
-        SCHEMA_FIELD(float                           , flBias                                          , 0x8) // float32
-        SCHEMA_FIELD(float                           , flCurvature                                     , 0xC) // float32
-        SCHEMA_FIELD(std::uint32_t                   , nFlags                                          , 0x10) // uint32
-        SCHEMA_FIELD(std::uint16_t                   , nProbeNode                                      , 0x14) // uint16
-        SCHEMA_FIELD(CUtlVector<uint16>              , targetNodes                                     , 0x18) // CUtlVector<uint16>
-    };
-
-    // FeTreeChildren_t
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class FeTreeChildren_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nChild                                          , 0x0) // uint16[2]
-    };
-
-    // FeFollowNode_t
-    //   fields: 3
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class FeFollowNode_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nParentNode                                     , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nChildNode                                      , 0x2) // uint16
-        SCHEMA_FIELD(float                           , flWeight                                        , 0x4) // float32
-    };
-
-    // IPhysicsJoint
-    //   fields: 0
-    //   size: 0x8
-    class IPhysicsJoint {
-    public:
-    };
-
-    // FeHingeLimitBuild_t
-    //   fields: 4
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class FeHingeLimitBuild_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[6]
-        SCHEMA_FIELD(std::uint32_t                   , nFlags                                          , 0xC) // uint32
-        SCHEMA_FIELD(float                           , flLimitCW                                       , 0x10) // float32
-        SCHEMA_FIELD(float                           , flLimitCCW                                      , 0x14) // float32
-    };
-
-    // RnHalfEdge_t
-    //   fields: 4
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class RnHalfEdge_t {
-    public:
-        SCHEMA_FIELD(std::uint8_t                    , m_nNext                                         , 0x0) // uint8
-        SCHEMA_FIELD(std::uint8_t                    , m_nTwin                                         , 0x1) // uint8
-        SCHEMA_FIELD(std::uint8_t                    , m_nOrigin                                       , 0x2) // uint8
-        SCHEMA_FIELD(std::uint8_t                    , m_nFace                                         , 0x3) // uint8
-    };
-
-    // FeVertexMapBuild_t
-    //   fields: 6
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class FeVertexMapBuild_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_VertexMapName                                 , 0x0) // CUtlString
-        SCHEMA_FIELD(std::uint32_t                   , m_nNameHash                                     , 0x8) // uint32
-        SCHEMA_FIELD(::Color                         , m_Color                                         , 0xC) // Color
-        SCHEMA_FIELD(float                           , m_flVolumetricSolveStrength                     , 0x10) // float32
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleSourceNode                              , 0x14) // int32
-        SCHEMA_FIELD(CUtlVector<float32>             , m_Weights                                       , 0x18) // CUtlVector<float32>
-    };
-
-    // PhysicsParticleId_t
-    //   fields: 1
-    //   size: 0x4
-    class PhysicsParticleId_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_Value                                         , 0x0) // uint32
-    };
-
-    // FeSimdQuad_t
-    //   fields: 4
-    //   size: 0x130
-    //   @MGetKV3ClassDefaults
-    class FeSimdQuad_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[4][4]
-        SCHEMA_FIELD(fltx4                           , f4Slack                                         , 0x20) // fltx4
-        SCHEMA_FIELD(FourVectors                     , vShape                                          , 0x30) // FourVectors[4]
-        SCHEMA_FIELD(fltx4                           , f4Weights                                       , 0xF0) // fltx4[4]
-    };
-
-    // FeSoftParent_t
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class FeSoftParent_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , nParent                                         , 0x0) // int32
-        SCHEMA_FIELD(float                           , flAlpha                                         , 0x4) // float32
-    };
-
-    // FeBuildSphereRigid_t
-    //   fields: 3
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class FeBuildSphereRigid_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x20) // int32
-        SCHEMA_FIELD(std::uint32_t                   , m_nVertexMapHash                                , 0x24) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nAntitunnelGroupBits                          , 0x28) // uint32
-    };
-
-    // CollisionDetailLayerInfo_t::Name_t
-    //   fields: 2
     //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CollisionDetailLayerInfo_t_Name_t {
+    class VertexPositionColor_t {
     public:
-        SCHEMA_FIELD(CUtlStringToken                 , m_nNameToken                                    , 0x0) // CUtlStringToken
-        SCHEMA_FIELD(::CUtlString                    , m_sNameString                                   , 0x8) // CUtlString
+        SCHEMA_FIELD(::Vector                        , m_vPosition                                     , 0x0) // Vector
     };
 
-    // FeModelSelfCollisionLayer_t
-    //   fields: 5
-    //   size: 0x38
+    // CFeMorphLayer
+    //   fields: 7
+    //   size: 0x88
     //   @MGetKV3ClassDefaults
-    class FeModelSelfCollisionLayer_t {
+    class CFeMorphLayer {
     public:
         SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(CUtlVector<uint16>              , m_Nodes                                         , 0x8) // CUtlVector<uint16>
-        SCHEMA_FIELD(float                           , m_flParentReaction                              , 0x20) // float32
-        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x24) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nEndIdx                                       , 0x28) // uint32[4]
+        SCHEMA_FIELD(std::uint32_t                   , m_nNameHash                                     , 0x8) // uint32
+        SCHEMA_FIELD(CUtlVector<uint16>              , m_Nodes                                         , 0x10) // CUtlVector<uint16>
+        SCHEMA_FIELD(CUtlVector<Vector>              , m_InitPos                                       , 0x28) // CUtlVector<Vector>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_Gravity                                       , 0x40) // CUtlVector<float32>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_GoalStrength                                  , 0x58) // CUtlVector<float32>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_GoalDamping                                   , 0x70) // CUtlVector<float32>
     };
 
-    // FeNodeReverseOffset_t
+    // RnMesh_t
+    //   fields: 11
+    //   size: 0xC0
+    //   @MGetKV3ClassDefaults
+    class RnMesh_t {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vMin                                          , 0x0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vMax                                          , 0xC) // Vector
+        SCHEMA_FIELD(CUtlVector<RnNode_t>            , m_Nodes                                         , 0x18) // CUtlVector<RnNode_t>
+        SCHEMA_FIELD(CUtlVectorSIMDPaddedVector      , m_Vertices                                      , 0x30) // CUtlVectorSIMDPaddedVector
+        SCHEMA_FIELD(CUtlVector<RnTriangle_t>        , m_Triangles                                     , 0x48) // CUtlVector<RnTriangle_t>
+        SCHEMA_FIELD(CUtlVector<RnWing_t>            , m_Wings                                         , 0x60) // CUtlVector<RnWing_t>
+        SCHEMA_FIELD(CUtlVector<uint8>               , m_TriangleEdgeFlags                             , 0x78) // CUtlVector<uint8>
+        SCHEMA_FIELD(CUtlVector<uint8>               , m_Materials                                     , 0x90) // CUtlVector<uint8>
+        SCHEMA_FIELD(::Vector                        , m_vOrthographicAreas                            , 0xA8) // Vector
+        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0xB4) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nDebugFlags                                   , 0xB8) // uint32
+    };
+
+    // FeFitInfluence_t
     //   fields: 3
-    //   size: 0x10
+    //   size: 0xC
     //   @MGetKV3ClassDefaults
-    class FeNodeReverseOffset_t {
+    class FeFitInfluence_t {
     public:
-        SCHEMA_FIELD(::Vector                        , vOffset                                         , 0x0) // Vector
-        SCHEMA_FIELD(std::uint16_t                   , nBoneCtrl                                       , 0xC) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nTargetNode                                     , 0xE) // uint16
+        SCHEMA_FIELD(std::uint32_t                   , nVertexNode                                     , 0x0) // uint32
+        SCHEMA_FIELD(float                           , flWeight                                        , 0x4) // float32
+        SCHEMA_FIELD(std::uint32_t                   , nMatrixNode                                     , 0x8) // uint32
     };
 
-    // CovMatrix3
+    // FeNodeStrayBox_t
     //   fields: 4
-    //   size: 0x18
+    //   size: 0x20
     //   @MGetKV3ClassDefaults
-    class CovMatrix3 {
+    class FeNodeStrayBox_t {
     public:
-        SCHEMA_FIELD(::Vector                        , m_vDiag                                         , 0x0) // Vector
-        SCHEMA_FIELD(float                           , m_flXY                                          , 0xC) // float32
-        SCHEMA_FIELD(float                           , m_flXZ                                          , 0x10) // float32
-        SCHEMA_FIELD(float                           , m_flYZ                                          , 0x14) // float32
+        SCHEMA_FIELD(::Vector                        , vMin                                            , 0x0) // Vector
+        SCHEMA_FIELD(std::uint32_t                   , nFlags                                          , 0xC) // uint32
+        SCHEMA_FIELD(::Vector                        , vMax                                            , 0x10) // Vector
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x1C) // uint16[2]
+    };
+
+    // FeSourceEdge_t
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class FeSourceEdge_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[2]
+    };
+
+    // FeSimdAnimStrayRadius_t
+    //   fields: 3
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class FeSimdAnimStrayRadius_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[4][2]
+        SCHEMA_FIELD(fltx4                           , flMaxDist                                       , 0x10) // fltx4
+        SCHEMA_FIELD(fltx4                           , flRelaxationFactor                              , 0x20) // fltx4
+    };
+
+    // RnSoftbodyCapsule_t
+    //   fields: 3
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class RnSoftbodyCapsule_t {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vCenter                                       , 0x0) // Vector[2]
+        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x18) // float32
+        SCHEMA_FIELD(std::uint16_t                   , m_nParticle                                     , 0x1C) // uint16[2]
+    };
+
+    // RnCapsule_t
+    //   fields: 2
+    //   size: 0x1C
+    //   @MGetKV3ClassDefaults
+    class RnCapsule_t {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vCenter                                       , 0x0) // Vector[2]
+        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x18) // float32
     };
 
     // CFeNamedJiggleBone
@@ -1263,18 +1449,57 @@ namespace vphysics2 {
         SCHEMA_FIELD(CFeJiggleBone                   , m_jiggleBone                                    , 0x34) // CFeJiggleBone
     };
 
-    // FeHingeLimit_t
-    //   fields: 6
-    //   size: 0x20
+    // CFeVertexMapBuildArray
+    //   fields: 1
+    //   size: 0x18
     //   @MGetKV3ClassDefaults
-    class FeHingeLimit_t {
+    class CFeVertexMapBuildArray {
     public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[6]
-        SCHEMA_FIELD(std::uint32_t                   , nFlags                                          , 0xC) // uint32
-        SCHEMA_FIELD(float                           , flWeight4                                       , 0x10) // float32
-        SCHEMA_FIELD(float                           , flWeight5                                       , 0x14) // float32
-        SCHEMA_FIELD(float                           , flAngleCenter                                   , 0x18) // float32
-        SCHEMA_FIELD(float                           , flAngleExtents                                  , 0x1C) // float32
+        SCHEMA_FIELD(CUtlVector<FeVertexMapBuild_t*> , m_Array                                         , 0x0) // CUtlVector<FeVertexMapBuild_t*>
+    };
+
+    // CovMatrix3
+    //   fields: 4
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CovMatrix3 {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vDiag                                         , 0x0) // Vector
+        SCHEMA_FIELD(float                           , m_flXY                                          , 0xC) // float32
+        SCHEMA_FIELD(float                           , m_flXZ                                          , 0x10) // float32
+        SCHEMA_FIELD(float                           , m_flYZ                                          , 0x14) // float32
+    };
+
+    // FeFitWeight_t
+    //   fields: 3
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class FeFitWeight_t {
+    public:
+        SCHEMA_FIELD(float                           , flWeight                                        , 0x0) // float32
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x4) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nDummy                                          , 0x6) // uint16
+    };
+
+    // RnVertex_t
+    //   fields: 1
+    //   size: 0x1
+    //   @MGetKV3ClassDefaults
+    class RnVertex_t {
+    public:
+        SCHEMA_FIELD(std::uint8_t                    , m_nEdge                                         , 0x0) // uint8
+    };
+
+    // constraint_breakableparams_t
+    //   fields: 5
+    //   size: 0x18
+    class constraint_breakableparams_t {
+    public:
+        SCHEMA_FIELD(float                           , strength                                        , 0x0) // float32
+        SCHEMA_FIELD(float                           , forceLimit                                      , 0x4) // float32
+        SCHEMA_FIELD(float                           , torqueLimit                                     , 0x8) // float32
+        SCHEMA_FIELD(float                           , bodyMassScale                                   , 0xC) // float32[2]
+        SCHEMA_FIELD(bool                            , isActive                                        , 0x14) // bool
     };
 
     // FeEffectDesc_t
@@ -1289,142 +1514,74 @@ namespace vphysics2 {
         SCHEMA_FIELD(KeyValues3                      , m_Params                                        , 0x10) // KeyValues3
     };
 
-    // IPhysicsBody
-    //   fields: 0
-    //   size: 0x8
-    class IPhysicsBody {
+    // VertexPositionNormal_t
+    //   fields: 2
+    //   size: 0x18
+    class VertexPositionNormal_t {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vPosition                                     , 0x0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vNormal                                       , 0xC) // Vector
     };
 
-    // FeCtrlOffset_t
+    // FeBandBendLimit_t
     //   fields: 3
-    //   size: 0x10
+    //   size: 0x14
     //   @MGetKV3ClassDefaults
-    class FeCtrlOffset_t {
+    class FeBandBendLimit_t {
     public:
-        SCHEMA_FIELD(::Vector                        , vOffset                                         , 0x0) // Vector
-        SCHEMA_FIELD(std::uint16_t                   , nCtrlParent                                     , 0xC) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nCtrlChild                                      , 0xE) // uint16
+        SCHEMA_FIELD(float                           , flDistMin                                       , 0x0) // float32
+        SCHEMA_FIELD(float                           , flDistMax                                       , 0x4) // float32
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x8) // uint16[6]
     };
 
-    // FeNodeBase_t
-    //   fields: 7
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class FeNodeBase_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nDummy                                          , 0x2) // uint16[3]
-        SCHEMA_FIELD(std::uint16_t                   , nNodeX0                                         , 0x8) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nNodeX1                                         , 0xA) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nNodeY0                                         , 0xC) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nNodeY1                                         , 0xE) // uint16
-        SCHEMA_FIELD(QuaternionStorage               , qAdjust                                         , 0x10) // QuaternionStorage
-    };
-
-    // CFeJiggleBone
-    //   fields: 35
-    //   size: 0x9C
-    //   @MGetKV3ClassDefaults
-    class CFeJiggleBone {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x0) // uint32
-        SCHEMA_FIELD(float                           , m_flLength                                      , 0x4) // float32
-        SCHEMA_FIELD(float                           , m_flTipMass                                     , 0x8) // float32
-        SCHEMA_FIELD(float                           , m_flYawStiffness                                , 0xC) // float32
-        SCHEMA_FIELD(float                           , m_flYawDamping                                  , 0x10) // float32
-        SCHEMA_FIELD(float                           , m_flPitchStiffness                              , 0x14) // float32
-        SCHEMA_FIELD(float                           , m_flPitchDamping                                , 0x18) // float32
-        SCHEMA_FIELD(float                           , m_flAlongStiffness                              , 0x1C) // float32
-        SCHEMA_FIELD(float                           , m_flAlongDamping                                , 0x20) // float32
-        SCHEMA_FIELD(float                           , m_flAngleLimit                                  , 0x24) // float32
-        SCHEMA_FIELD(float                           , m_flMinYaw                                      , 0x28) // float32
-        SCHEMA_FIELD(float                           , m_flMaxYaw                                      , 0x2C) // float32
-        SCHEMA_FIELD(float                           , m_flYawFriction                                 , 0x30) // float32
-        SCHEMA_FIELD(float                           , m_flYawBounce                                   , 0x34) // float32
-        SCHEMA_FIELD(float                           , m_flMinPitch                                    , 0x38) // float32
-        SCHEMA_FIELD(float                           , m_flMaxPitch                                    , 0x3C) // float32
-        SCHEMA_FIELD(float                           , m_flPitchFriction                               , 0x40) // float32
-        SCHEMA_FIELD(float                           , m_flPitchBounce                                 , 0x44) // float32
-        SCHEMA_FIELD(float                           , m_flBaseMass                                    , 0x48) // float32
-        SCHEMA_FIELD(float                           , m_flBaseStiffness                               , 0x4C) // float32
-        SCHEMA_FIELD(float                           , m_flBaseDamping                                 , 0x50) // float32
-        SCHEMA_FIELD(float                           , m_flBaseMinLeft                                 , 0x54) // float32
-        SCHEMA_FIELD(float                           , m_flBaseMaxLeft                                 , 0x58) // float32
-        SCHEMA_FIELD(float                           , m_flBaseLeftFriction                            , 0x5C) // float32
-        SCHEMA_FIELD(float                           , m_flBaseMinUp                                   , 0x60) // float32
-        SCHEMA_FIELD(float                           , m_flBaseMaxUp                                   , 0x64) // float32
-        SCHEMA_FIELD(float                           , m_flBaseUpFriction                              , 0x68) // float32
-        SCHEMA_FIELD(float                           , m_flBaseMinForward                              , 0x6C) // float32
-        SCHEMA_FIELD(float                           , m_flBaseMaxForward                              , 0x70) // float32
-        SCHEMA_FIELD(float                           , m_flBaseForwardFriction                         , 0x74) // float32
-        SCHEMA_FIELD(float                           , m_flRadius0                                     , 0x78) // float32
-        SCHEMA_FIELD(float                           , m_flRadius1                                     , 0x7C) // float32
-        SCHEMA_FIELD(::Vector                        , m_vPoint0                                       , 0x80) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vPoint1                                       , 0x8C) // Vector
-        SCHEMA_FIELD(std::uint16_t                   , m_nCollisionMask                                , 0x98) // uint16
-    };
-
-    // FeBuildTaperedCapsuleRigid_t
-    //   fields: 3
+    // constraint_hingeparams_t
+    //   fields: 4
     //   size: 0x40
     //   @MGetKV3ClassDefaults
-    class FeBuildTaperedCapsuleRigid_t {
+    class constraint_hingeparams_t {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x30) // int32
-        SCHEMA_FIELD(std::uint32_t                   , m_nVertexMapHash                                , 0x34) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nAntitunnelGroupBits                          , 0x38) // uint32
+        SCHEMA_FIELD(VectorWS                        , worldPosition                                   , 0x0) // VectorWS
+        SCHEMA_FIELD(::Vector                        , worldAxisDirection                              , 0xC) // Vector
+        SCHEMA_FIELD(constraint_axislimit_t          , hingeAxis                                       , 0x18) // constraint_axislimit_t [MNotSaved]
+        SCHEMA_FIELD(constraint_breakableparams_t    , constraint                                      , 0x28) // constraint_breakableparams_t [MNotSaved]
     };
 
-    // CFeVertexMapBuildArray
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CFeVertexMapBuildArray {
-    public:
-        SCHEMA_FIELD(CUtlVector<FeVertexMapBuild_t*> , m_Array                                         , 0x0) // CUtlVector<FeVertexMapBuild_t*>
-    };
-
-    // FeTwistConstraint_t
+    // FeWorldCollisionParams_t
     //   fields: 4
     //   size: 0xC
     //   @MGetKV3ClassDefaults
-    class FeTwistConstraint_t {
+    class FeWorldCollisionParams_t {
     public:
-        SCHEMA_FIELD(std::uint16_t                   , nNodeOrient                                     , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nNodeEnd                                        , 0x2) // uint16
-        SCHEMA_FIELD(float                           , flTwistRelax                                    , 0x4) // float32
-        SCHEMA_FIELD(float                           , flSwingRelax                                    , 0x8) // float32
+        SCHEMA_FIELD(float                           , flWorldFriction                                 , 0x0) // float32
+        SCHEMA_FIELD(float                           , flGroundFriction                                , 0x4) // float32
+        SCHEMA_FIELD(std::uint16_t                   , nListBegin                                      , 0x8) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , nListEnd                                        , 0xA) // uint16
     };
 
-    // vphysics_save_cphysicsbody_t
-    //   fields: 1
-    //   size: 0xE8
+    // RnCompound_t
+    //   fields: 8
+    //   size: 0x90
     //   @MGetKV3ClassDefaults
-    class vphysics_save_cphysicsbody_t {
+    class RnCompound_t {
     public:
-        SCHEMA_FIELD(std::uint64_t                   , m_nOldPointer                                   , 0xE0) // uint64
+        SCHEMA_FIELD(CUtlVector<RnSphere_t>          , m_Spheres                                       , 0x0) // CUtlVector<RnSphere_t>
+        SCHEMA_FIELD(CUtlVector<RnCapsule_t>         , m_Capsules                                      , 0x18) // CUtlVector<RnCapsule_t>
+        SCHEMA_FIELD(CUtlVector<RnHull_t>            , m_Hulls                                         , 0x30) // CUtlVector<RnHull_t>
+        SCHEMA_FIELD(CUtlVector<RnMesh_t>            , m_Meshes                                        , 0x48) // CUtlVector<RnMesh_t>
+        SCHEMA_FIELD(::AABB_t                        , m_Bounds                                        , 0x60) // AABB_t
+        SCHEMA_FIELD(::Vector                        , m_vOrthographicAreas                            , 0x78) // Vector
+        SCHEMA_FIELD(float                           , m_flSurfaceArea                                 , 0x84) // float32
+        SCHEMA_FIELD(float                           , m_flVolume                                      , 0x88) // float32
     };
 
-    // FourCovMatrices3
-    //   fields: 4
-    //   size: 0x60
+    // FourVectors2D
+    //   fields: 2
+    //   size: 0x20
     //   @MGetKV3ClassDefaults
-    class FourCovMatrices3 {
+    class FourVectors2D {
     public:
-        SCHEMA_FIELD(FourVectors                     , m_vDiag                                         , 0x0) // FourVectors
-        SCHEMA_FIELD(fltx4                           , m_flXY                                          , 0x30) // fltx4
-        SCHEMA_FIELD(fltx4                           , m_flXZ                                          , 0x40) // fltx4
-        SCHEMA_FIELD(fltx4                           , m_flYZ                                          , 0x50) // fltx4
-    };
-
-    // RnCompoundDesc_t
-    //   fields: 1
-    //   size: 0xA8
-    //   @MGetKV3ClassDefaults
-    class RnCompoundDesc_t {
-    public:
-        SCHEMA_FIELD(RnCompound_t                    , m_Compound                                      , 0x18) // RnCompound_t
+        SCHEMA_FIELD(fltx4                           , x                                               , 0x0) // fltx4
+        SCHEMA_FIELD(fltx4                           , y                                               , 0x10) // fltx4
     };
 
     // FeFitMatrix_t
@@ -1440,209 +1597,52 @@ namespace vphysics2 {
         SCHEMA_FIELD(std::uint16_t                   , nBeginDynamic                                   , 0x30) // uint16
     };
 
-    // FeSourceEdge_t
+    // FeSpringIntegrator_t
+    //   fields: 5
+    //   size: 0x14
+    //   @MGetKV3ClassDefaults
+    class FeSpringIntegrator_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[2]
+        SCHEMA_FIELD(float                           , flSpringRestLength                              , 0x4) // float32
+        SCHEMA_FIELD(float                           , flSpringConstant                                , 0x8) // float32
+        SCHEMA_FIELD(float                           , flSpringDamping                                 , 0xC) // float32
+        SCHEMA_FIELD(float                           , flNodeWeight0                                   , 0x10) // float32
+    };
+
+    // vphysics_save_ragdoll_control_t
+    //   fields: 10
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class vphysics_save_ragdoll_control_t {
+    public:
+        SCHEMA_FIELD(float                           , m_flMinSpringFrequency                          , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flMaxSpringFrequency                          , 0x4) // float32
+        SCHEMA_FIELD(float                           , m_flMaxStretch                                  , 0x8) // float32
+        SCHEMA_FIELD(bool                            , m_bSolidCollisionAtZeroWeight                   , 0xC) // bool
+        SCHEMA_FIELD(bool                            , m_bRequiresDynamicBodies                        , 0xD) // bool
+        SCHEMA_FIELD(bool                            , m_bIgnoreTeleport                               , 0xE) // bool
+        SCHEMA_FIELD(::Vector                        , m_vLinearVelocityAccumulator                    , 0x10) // Vector
+        SCHEMA_FIELD(RotationVector                  , m_vAngularVelocityAccumulator                   , 0x1C) // RotationVector
+        SCHEMA_FIELD(::Vector                        , m_vForceAccumulator                             , 0x28) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_nBodyCount                                    , 0x34) // int32
+    };
+
+    // FeTreeChildren_t
     //   fields: 1
     //   size: 0x4
     //   @MGetKV3ClassDefaults
-    class FeSourceEdge_t {
+    class FeTreeChildren_t {
     public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[2]
+        SCHEMA_FIELD(std::uint16_t                   , nChild                                          , 0x0) // uint16[2]
     };
 
-    // FeEdgeDesc_t
-    //   fields: 3
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class FeEdgeDesc_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nEdge                                           , 0x0) // uint16[2]
-        SCHEMA_FIELD(std::uint16_t                   , nSide                                           , 0x4) // uint16[2][2]
-        SCHEMA_FIELD(std::uint16_t                   , nVirtElem                                       , 0xC) // uint16[2]
-    };
-
-    // RnSoftbodyCapsule_t
-    //   fields: 3
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class RnSoftbodyCapsule_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vCenter                                       , 0x0) // Vector[2]
-        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x18) // float32
-        SCHEMA_FIELD(std::uint16_t                   , m_nParticle                                     , 0x1C) // uint16[2]
-    };
-
-    // RnSoftbodyParticle_t
+    // PhysicsParticleId_t
     //   fields: 1
     //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class RnSoftbodyParticle_t {
+    class PhysicsParticleId_t {
     public:
-        SCHEMA_FIELD(float                           , m_flMassInv                                     , 0x0) // float32
-    };
-
-    // FeBoneMergeLink_t
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class FeBoneMergeLink_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nParentHash                                   , 0x0) // uint32
-        SCHEMA_FIELD(std::uint16_t                   , m_nChildNode                                    , 0x4) // uint16
-    };
-
-    // RnBlendVertex_t
-    //   fields: 8
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class RnBlendVertex_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , m_nWeight0                                      , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nIndex0                                       , 0x2) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nWeight1                                      , 0x4) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nIndex1                                       , 0x6) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nWeight2                                      , 0x8) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nIndex2                                       , 0xA) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nFlags                                        , 0xC) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nTargetIndex                                  , 0xE) // uint16
-    };
-
-    // FeBoxRigid_t
-    //   fields: 6
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class FeBoxRigid_t {
-    public:
-        SCHEMA_FIELD(CTransform                      , tmFrame2                                        , 0x0) // CTransform
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x20) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nCollisionMask                                  , 0x22) // uint16
-        SCHEMA_FIELD(::Vector                        , vSize                                           , 0x24) // Vector
-        SCHEMA_FIELD(std::uint16_t                   , nVertexMapIndex                                 , 0x30) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nFlags                                          , 0x32) // uint16
-    };
-
-    // constraint_breakableparams_t
-    //   fields: 5
-    //   size: 0x18
-    class constraint_breakableparams_t {
-    public:
-        SCHEMA_FIELD(float                           , strength                                        , 0x0) // float32
-        SCHEMA_FIELD(float                           , forceLimit                                      , 0x4) // float32
-        SCHEMA_FIELD(float                           , torqueLimit                                     , 0x8) // float32
-        SCHEMA_FIELD(float                           , bodyMassScale                                   , 0xC) // float32[2]
-        SCHEMA_FIELD(bool                            , isActive                                        , 0x14) // bool
-    };
-
-    // constraint_hingeparams_t
-    //   fields: 4
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class constraint_hingeparams_t {
-    public:
-        SCHEMA_FIELD(VectorWS                        , worldPosition                                   , 0x0) // VectorWS
-        SCHEMA_FIELD(::Vector                        , worldAxisDirection                              , 0xC) // Vector
-        SCHEMA_FIELD(constraint_axislimit_t          , hingeAxis                                       , 0x18) // constraint_axislimit_t [MNotSaved]
-        SCHEMA_FIELD(constraint_breakableparams_t    , constraint                                      , 0x28) // constraint_breakableparams_t [MNotSaved]
-    };
-
-    // IPhysicsRagdollControl
-    //   fields: 0
-    //   size: 0x8
-    class IPhysicsRagdollControl {
-    public:
-    };
-
-    // FeAxialEdgeBend_t
-    //   fields: 5
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class FeAxialEdgeBend_t {
-    public:
-        SCHEMA_FIELD(float                           , te                                              , 0x0) // float32
-        SCHEMA_FIELD(float                           , tv                                              , 0x4) // float32
-        SCHEMA_FIELD(float                           , flDist                                          , 0x8) // float32
-        SCHEMA_FIELD(float                           , flWeight                                        , 0xC) // float32[4]
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x1C) // uint16[6]
-    };
-
-    // RnShapeDesc_t
-    //   fields: 6
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class RnShapeDesc_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nCollisionAttributeIndex                      , 0x0) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nSurfacePropertyIndex                         , 0x4) // uint32
-        SCHEMA_FIELD(::CUtlString                    , m_UserFriendlyName                              , 0x8) // CUtlString
-        SCHEMA_FIELD(bool                            , m_bUserFriendlyNameSealed                       , 0x10) // bool
-        SCHEMA_FIELD(bool                            , m_bUserFriendlyNameLong                         , 0x11) // bool
-        SCHEMA_FIELD(std::uint32_t                   , m_nToolMaterialHash                             , 0x14) // uint32
-    };
-
-    // RnMeshDesc_t
-    //   fields: 1
-    //   size: 0xD8
-    //   @MGetKV3ClassDefaults
-    class RnMeshDesc_t {
-    public:
-        SCHEMA_FIELD(RnMesh_t                        , m_Mesh                                          , 0x18) // RnMesh_t
-    };
-
-    // FeWorldCollisionParams_t
-    //   fields: 4
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class FeWorldCollisionParams_t {
-    public:
-        SCHEMA_FIELD(float                           , flWorldFriction                                 , 0x0) // float32
-        SCHEMA_FIELD(float                           , flGroundFriction                                , 0x4) // float32
-        SCHEMA_FIELD(std::uint16_t                   , nListBegin                                      , 0x8) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nListEnd                                        , 0xA) // uint16
-    };
-
-    // FeKelagerBend2_t
-    //   fields: 4
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class FeKelagerBend2_t {
-    public:
-        SCHEMA_FIELD(float                           , flWeight                                        , 0x0) // float32[3]
-        SCHEMA_FIELD(float                           , flHeight0                                       , 0xC) // float32
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x10) // uint16[3]
-        SCHEMA_FIELD(std::uint16_t                   , nReserved                                       , 0x16) // uint16
-    };
-
-    // FeTaperedCapsuleStretch_t
-    //   fields: 4
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class FeTaperedCapsuleStretch_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , nNode                                           , 0x0) // uint16[2]
-        SCHEMA_FIELD(std::uint16_t                   , nCollisionMask                                  , 0x4) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , nDummy                                          , 0x6) // uint16 [MPropertySuppressField]
-        SCHEMA_FIELD(float                           , flRadius                                        , 0x8) // float32[2]
-    };
-
-    // RnHull_t
-    //   fields: 14
-    //   size: 0xF8
-    //   @MGetKV3ClassDefaults
-    class RnHull_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vCentroid                                     , 0x0) // Vector
-        SCHEMA_FIELD(float                           , m_flMaxAngularRadius                            , 0xC) // float32
-        SCHEMA_FIELD(::AABB_t                        , m_Bounds                                        , 0x10) // AABB_t
-        SCHEMA_FIELD(::Vector                        , m_vOrthographicAreas                            , 0x28) // Vector
-        SCHEMA_FIELD(::matrix3x4_t                   , m_MassProperties                                , 0x34) // matrix3x4_t
-        SCHEMA_FIELD(float                           , m_flVolume                                      , 0x64) // float32
-        SCHEMA_FIELD(float                           , m_flSurfaceArea                                 , 0x68) // float32
-        SCHEMA_FIELD(CUtlVector<Vector>              , m_VertexPositions                               , 0x70) // CUtlVector<Vector>
-        SCHEMA_FIELD(CUtlVector<RnPlane_t>           , m_FacePlanes                                    , 0x88) // CUtlVector<RnPlane_t>
-        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0xA0) // uint32
-        SCHEMA_FIELD(CRegionSVM*                     , m_pRegionSVM                                    , 0xA8) // CRegionSVM*
-        SCHEMA_FIELD(CUtlVector<RnVertex_t>          , m_Vertices                                      , 0xB0) // CUtlVector<RnVertex_t>
-        SCHEMA_FIELD(CUtlVector<RnHalfEdge_t>        , m_Edges                                         , 0xC8) // CUtlVector<RnHalfEdge_t>
-        SCHEMA_FIELD(CUtlVector<RnFace_t>            , m_Faces                                         , 0xE0) // CUtlVector<RnFace_t>
+        SCHEMA_FIELD(std::uint32_t                   , m_Value                                         , 0x0) // uint32
     };
 
 } // namespace vphysics2

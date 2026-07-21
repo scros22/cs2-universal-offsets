@@ -1,33 +1,21 @@
 {
-  "build_number": 14171,
+  "build_number": 14172,
   "by_class": [
     {
+      "classname": "prop_dynamic",
+      "count": 107
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "count": 68
+    },
+    {
       "classname": "basemodelentity",
-      "count": 23
+      "count": 59
     },
     {
-      "classname": "c_cs_observer_for_precache",
-      "count": 10
-    },
-    {
-      "classname": "c_cs_player_for_precache",
-      "count": 10
-    },
-    {
-      "classname": "chicken",
-      "count": 10
-    },
-    {
-      "classname": "cs_player_controller",
-      "count": 10
-    },
-    {
-      "classname": "team_intro_counterterrorist",
-      "count": 10
-    },
-    {
-      "classname": "team_intro_terrorist",
-      "count": 10
+      "classname": "info_particle_system",
+      "count": 22
     },
     {
       "classname": "team_select_counterterrorist",
@@ -38,63 +26,43 @@
       "count": 10
     },
     {
-      "classname": "point_camera",
-      "count": 9
+      "classname": "team_intro_counterterrorist",
+      "count": 5
     },
     {
-      "classname": "prop_dynamic",
-      "count": 8
+      "classname": "team_intro_terrorist",
+      "count": 5
     },
     {
-      "classname": "weapon_knife",
-      "count": 8
-    },
-    {
-      "classname": "cs_minimap_boundary",
+      "classname": "env_sky",
       "count": 4
     },
     {
-      "classname": "weapon_glock",
-      "count": 4
+      "classname": "func_button",
+      "count": 3
     },
     {
       "classname": "vote_controller",
       "count": 3
     },
     {
-      "classname": "env_sky",
+      "classname": "post_processing_volume",
       "count": 2
     },
     {
-      "classname": "func_bomb_target",
-      "count": 2
+      "classname": "c_cs_observer_for_precache",
+      "count": 1
     },
     {
-      "classname": "info_particle_system",
-      "count": 2
-    },
-    {
-      "classname": "point_entity",
-      "count": 2
-    },
-    {
-      "classname": "weapon_awp",
-      "count": 2
-    },
-    {
-      "classname": "weapon_hkp2000",
-      "count": 2
-    },
-    {
-      "classname": "weapon_sg556",
-      "count": 2
-    },
-    {
-      "classname": "C_EnvWind",
+      "classname": "c_cs_player_for_precache",
       "count": 1
     },
     {
       "classname": "cs_gamerules",
+      "count": 1
+    },
+    {
+      "classname": "cs_player_controller",
       "count": 1
     },
     {
@@ -114,11 +82,19 @@
       "count": 1
     },
     {
-      "classname": "env_player_visibility",
+      "classname": "func_hostage_rescue",
       "count": 1
     },
     {
-      "classname": "post_processing_volume",
+      "classname": "func_water",
+      "count": 1
+    },
+    {
+      "classname": "info_hostage_rescue_zone_hint",
+      "count": 1
+    },
+    {
+      "classname": "point_entity",
       "count": 1
     },
     {
@@ -126,35 +102,11 @@
       "count": 1
     },
     {
-      "classname": "weapon_ak47",
-      "count": 1
-    },
-    {
-      "classname": "weapon_deagle",
-      "count": 1
-    },
-    {
-      "classname": "weapon_fiveseven",
-      "count": 1
-    },
-    {
-      "classname": "weapon_healthshot",
-      "count": 1
-    },
-    {
-      "classname": "weapon_ssg08",
-      "count": 1
-    },
-    {
-      "classname": "weapon_taser",
-      "count": 1
-    },
-    {
       "classname": "worldent",
       "count": 1
     }
   ],
-  "class_count": 38,
+  "class_count": 26,
   "entities": [
     {
       "classname": "worldent",
@@ -178,115 +130,7 @@
         0.0,
         0.0
       ],
-      "team": 3
-    },
-    {
-      "classname": "cs_player_controller",
-      "health": 0,
-      "index": 2,
-      "max_health": 0,
-      "origin": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "team": 2
-    },
-    {
-      "classname": "cs_player_controller",
-      "health": 0,
-      "index": 3,
-      "max_health": 0,
-      "origin": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "team": 2
-    },
-    {
-      "classname": "cs_player_controller",
-      "health": 0,
-      "index": 4,
-      "max_health": 0,
-      "origin": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "team": 3
-    },
-    {
-      "classname": "cs_player_controller",
-      "health": 0,
-      "index": 5,
-      "max_health": 0,
-      "origin": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "team": 3
-    },
-    {
-      "classname": "cs_player_controller",
-      "health": 0,
-      "index": 6,
-      "max_health": 0,
-      "origin": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "team": 2
-    },
-    {
-      "classname": "cs_player_controller",
-      "health": 0,
-      "index": 7,
-      "max_health": 0,
-      "origin": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "team": 2
-    },
-    {
-      "classname": "cs_player_controller",
-      "health": 0,
-      "index": 8,
-      "max_health": 0,
-      "origin": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "team": 3
-    },
-    {
-      "classname": "cs_player_controller",
-      "health": 0,
-      "index": 9,
-      "max_health": 0,
-      "origin": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "team": 2
-    },
-    {
-      "classname": "cs_player_controller",
-      "health": 0,
-      "index": 10,
-      "max_health": 0,
-      "origin": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "team": 3
+      "team": 0
     },
     {
       "classname": "cs_player_manager",
@@ -349,1393 +193,1513 @@
       "team": 0
     },
     {
-      "classname": "func_bomb_target",
+      "classname": "func_hostage_rescue",
       "health": 0,
-      "index": 88,
+      "index": 81,
       "max_health": 0,
       "origin": [
-        0.0,
-        0.0,
-        0.0
+        2603.0,
+        305.375,
+        32.0
       ],
       "team": 0
     },
     {
-      "classname": "func_bomb_target",
+      "classname": "info_particle_system",
       "health": 0,
-      "index": 89,
+      "index": 90,
       "max_health": 0,
       "origin": [
-        0.0,
-        0.0,
-        0.0
+        2404.0,
+        29.4375,
+        -31.0
       ],
       "team": 0
     },
     {
-      "classname": "weapon_hkp2000",
+      "classname": "basemodelentity",
       "health": 0,
-      "index": 189,
+      "index": 95,
       "max_health": 0,
       "origin": [
-        1358.238,
-        -1175.933,
-        -127.96875
-      ],
-      "team": 3
-    },
-    {
-      "classname": "weapon_knife",
-      "health": 0,
-      "index": 190,
-      "max_health": 0,
-      "origin": [
-        1358.238,
-        -1175.933,
-        -127.96875
-      ],
-      "team": 3
-    },
-    {
-      "classname": "weapon_fiveseven",
-      "health": 0,
-      "index": 191,
-      "max_health": 0,
-      "origin": [
-        -1595.395,
-        -1158.213,
-        -203.8934
-      ],
-      "team": 3
-    },
-    {
-      "classname": "chicken",
-      "health": 0,
-      "index": 192,
-      "max_health": 0,
-      "origin": [
-        1231.40625,
-        -500.84375,
-        -183.25
+        240.0,
+        992.0,
+        -32.0
       ],
       "team": 0
-    },
-    {
-      "classname": "weapon_knife",
-      "health": 0,
-      "index": 197,
-      "max_health": 0,
-      "origin": [
-        -80.7973,
-        -1590.146,
-        -127.96875
-      ],
-      "team": 2
-    },
-    {
-      "classname": "chicken",
-      "health": 0,
-      "index": 198,
-      "max_health": 0,
-      "origin": [
-        1244.90625,
-        509.78125,
-        -262.375
-      ],
-      "team": 0
-    },
-    {
-      "classname": "chicken",
-      "health": 0,
-      "index": 199,
-      "max_health": 0,
-      "origin": [
-        1047.65625,
-        -2325.03125,
-        -39.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "chicken",
-      "health": 0,
-      "index": 200,
-      "max_health": 0,
-      "origin": [
-        -1005.15625,
-        -131.15625,
-        -367.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "chicken",
-      "health": 0,
-      "index": 201,
-      "max_health": 0,
-      "origin": [
-        -160.34375,
-        -2094.59375,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "chicken",
-      "health": 0,
-      "index": 203,
-      "max_health": 0,
-      "origin": [
-        821.625,
-        -2075.5,
-        -39.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "chicken",
-      "health": 0,
-      "index": 204,
-      "max_health": 0,
-      "origin": [
-        1307.03125,
-        314.8125,
-        -231.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "chicken",
-      "health": 0,
-      "index": 208,
-      "max_health": 0,
-      "origin": [
-        705.9375,
-        431.9375,
-        -255.0625
-      ],
-      "team": 0
-    },
-    {
-      "classname": "chicken",
-      "health": 0,
-      "index": 210,
-      "max_health": 0,
-      "origin": [
-        -1780.46875,
-        -682.53125,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "chicken",
-      "health": 0,
-      "index": 211,
-      "max_health": 0,
-      "origin": [
-        334.6875,
-        93.84375,
-        -228.09375
-      ],
-      "team": 0
-    },
-    {
-      "classname": "weapon_awp",
-      "health": 0,
-      "index": 212,
-      "max_health": 0,
-      "origin": [
-        -80.7973,
-        -1590.146,
-        -127.96875
-      ],
-      "team": 2
-    },
-    {
-      "classname": "weapon_hkp2000",
-      "health": 0,
-      "index": 217,
-      "max_health": 0,
-      "origin": [
-        -589.9304,
-        -1317.223,
-        -127.96875
-      ],
-      "team": 3
-    },
-    {
-      "classname": "weapon_ak47",
-      "health": 0,
-      "index": 227,
-      "max_health": 0,
-      "origin": [
-        77.10104,
-        -2054.666,
-        0.03125
-      ],
-      "team": 2
-    },
-    {
-      "classname": "weapon_deagle",
-      "health": 0,
-      "index": 228,
-      "max_health": 0,
-      "origin": [
-        394.1493,
-        -1570.167,
-        -169.0397
-      ],
-      "team": 3
-    },
-    {
-      "classname": "weapon_knife",
-      "health": 0,
-      "index": 232,
-      "max_health": 0,
-      "origin": [
-        -1935.952,
-        -251.96875,
-        -119.96875
-      ],
-      "team": 2
-    },
-    {
-      "classname": "c_cs_observer_for_precache",
-      "health": 0,
-      "index": 238,
-      "max_health": 0,
-      "origin": [
-        -333.0,
-        -1910.0,
-        -136.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "c_cs_player_for_precache",
-      "health": 100,
-      "index": 239,
-      "max_health": 100,
-      "origin": [
-        -80.7973,
-        -1590.146,
-        -167.96875
-      ],
-      "team": 2
-    },
-    {
-      "classname": "c_cs_observer_for_precache",
-      "health": 0,
-      "index": 243,
-      "max_health": 0,
-      "origin": [
-        -333.0,
-        -1910.0,
-        -136.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "c_cs_player_for_precache",
-      "health": 100,
-      "index": 244,
-      "max_health": 100,
-      "origin": [
-        77.089,
-        -2054.632,
-        -39.96875
-      ],
-      "team": 2
-    },
-    {
-      "classname": "c_cs_observer_for_precache",
-      "health": 0,
-      "index": 248,
-      "max_health": 0,
-      "origin": [
-        -333.0,
-        -1910.0,
-        -136.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "c_cs_player_for_precache",
-      "health": 79,
-      "index": 249,
-      "max_health": 100,
-      "origin": [
-        -589.9572,
-        -1317.209,
-        -167.96875
-      ],
-      "team": 3
-    },
-    {
-      "classname": "c_cs_observer_for_precache",
-      "health": 0,
-      "index": 254,
-      "max_health": 0,
-      "origin": [
-        -333.0,
-        -1910.0,
-        -136.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "c_cs_player_for_precache",
-      "health": 100,
-      "index": 255,
-      "max_health": 100,
-      "origin": [
-        394.1493,
-        -1570.167,
-        -209.0397
-      ],
-      "team": 3
-    },
-    {
-      "classname": "c_cs_observer_for_precache",
-      "health": 0,
-      "index": 259,
-      "max_health": 0,
-      "origin": [
-        -333.0,
-        -1910.0,
-        -136.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "c_cs_player_for_precache",
-      "health": 0,
-      "index": 260,
-      "max_health": 100,
-      "origin": [
-        -1868.655,
-        -537.0088,
-        -167.96875
-      ],
-      "team": 2
-    },
-    {
-      "classname": "c_cs_observer_for_precache",
-      "health": 0,
-      "index": 264,
-      "max_health": 0,
-      "origin": [
-        -333.0,
-        -1910.0,
-        -136.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "c_cs_player_for_precache",
-      "health": 100,
-      "index": 265,
-      "max_health": 100,
-      "origin": [
-        -520.1954,
-        -1026.295,
-        -167.96875
-      ],
-      "team": 2
-    },
-    {
-      "classname": "c_cs_observer_for_precache",
-      "health": 0,
-      "index": 269,
-      "max_health": 0,
-      "origin": [
-        -333.0,
-        -1910.0,
-        -136.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "c_cs_player_for_precache",
-      "health": 100,
-      "index": 270,
-      "max_health": 100,
-      "origin": [
-        1358.238,
-        -1175.933,
-        -167.96875
-      ],
-      "team": 3
-    },
-    {
-      "classname": "c_cs_observer_for_precache",
-      "health": 0,
-      "index": 274,
-      "max_health": 0,
-      "origin": [
-        -333.0,
-        -1910.0,
-        -136.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "c_cs_player_for_precache",
-      "health": 14,
-      "index": 277,
-      "max_health": 100,
-      "origin": [
-        -1935.952,
-        -251.96875,
-        -159.96875
-      ],
-      "team": 2
-    },
-    {
-      "classname": "c_cs_observer_for_precache",
-      "health": 0,
-      "index": 281,
-      "max_health": 0,
-      "origin": [
-        -333.0,
-        -1910.0,
-        -136.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "c_cs_player_for_precache",
-      "health": 0,
-      "index": 282,
-      "max_health": 100,
-      "origin": [
-        -715.1553,
-        -2012.286,
-        -179.96875
-      ],
-      "team": 3
     },
     {
       "classname": "env_sky",
       "health": 0,
-      "index": 316,
+      "index": 102,
       "max_health": 0,
       "origin": [
-        289.71875,
-        -2555.46875,
-        -67.0
+        2758.125,
+        -0.03125,
+        383.46875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_sky",
+      "health": 0,
+      "index": 103,
+      "max_health": 0,
+      "origin": [
+        2758.125,
+        -0.03125,
+        415.46875
       ],
       "team": 0
     },
     {
       "classname": "env_cubemap_fog",
       "health": 0,
-      "index": 317,
+      "index": 105,
       "max_health": 0,
       "origin": [
-        60.65625,
-        -642.78125,
-        -157.0
+        2758.125,
+        0.0,
+        448.0
       ],
       "team": 0
     },
     {
-      "classname": "point_entity",
+      "classname": "basemodelentity",
       "health": 0,
-      "index": 320,
+      "index": 108,
       "max_health": 0,
       "origin": [
-        -440.0,
-        -2150.0,
-        -164.0
+        700.0,
+        1040.0,
+        -4.0
       ],
       "team": 0
     },
     {
-      "classname": "point_entity",
+      "classname": "info_particle_system",
       "health": 0,
-      "index": 321,
+      "index": 112,
       "max_health": 0,
       "origin": [
-        -2048.0,
+        2278.90625,
+        658.0625,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 113,
+      "max_health": 0,
+      "origin": [
+        -80.0,
+        1104.0,
+        -32.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 114,
+      "max_health": 0,
+      "origin": [
+        -256.0,
+        736.0,
+        -32.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 116,
+      "max_health": 0,
+      "origin": [
+        3387.15625,
+        -98.59375,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 137,
+      "max_health": 0,
+      "origin": [
+        2248.0,
+        -416.0,
+        40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 156,
+      "max_health": 0,
+      "origin": [
+        -1016.0,
+        1004.0,
+        -64.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 157,
+      "max_health": 0,
+      "origin": [
+        -2040.0,
+        144.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 161,
+      "max_health": 0,
+      "origin": [
+        -562.71875,
+        -140.40625,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 169,
+      "max_health": 0,
+      "origin": [
+        -800.0,
+        488.0,
+        -32.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 172,
+      "max_health": 0,
+      "origin": [
+        -483.9375,
+        -126.5,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 178,
+      "max_health": 0,
+      "origin": [
+        -1376.0,
+        416.0,
+        -64.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 182,
+      "max_health": 0,
+      "origin": [
+        -2152.0,
+        238.09375,
+        -64.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 184,
+      "max_health": 0,
+      "origin": [
+        -1943.5,
+        1326.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 185,
+      "max_health": 0,
+      "origin": [
+        -1943.5,
+        728.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 186,
+      "max_health": 0,
+      "origin": [
+        -579.8125,
+        140.90625,
+        -32.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 188,
+      "max_health": 0,
+      "origin": [
+        -405.125,
+        -112.625,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 189,
+      "max_health": 0,
+      "origin": [
+        -326.34375,
+        -98.71875,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 192,
+      "max_health": 0,
+      "origin": [
+        -768.0,
+        400.0,
+        -32.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 195,
+      "max_health": 0,
+      "origin": [
+        412.125,
+        153.375,
+        98.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 196,
+      "max_health": 0,
+      "origin": [
+        329.375,
+        138.75,
+        98.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 197,
+      "max_health": 0,
+      "origin": [
+        -382.90625,
+        -238.65625,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 198,
+      "max_health": 0,
+      "origin": [
+        -304.125,
+        -224.78125,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 200,
+      "max_health": 0,
+      "origin": [
+        -914.5,
+        752.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 224,
+      "max_health": 0,
+      "origin": [
+        3076.125,
+        284.0,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 225,
+      "max_health": 0,
+      "origin": [
+        -805.09375,
+        -240.0,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 228,
+      "max_health": 0,
+      "origin": [
+        -819.0,
+        -161.21875,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 229,
+      "max_health": 0,
+      "origin": [
+        2629.6875,
+        800.21875,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 231,
+      "max_health": 0,
+      "origin": [
+        -1808.0,
+        568.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 234,
+      "max_health": 0,
+      "origin": [
+        -1808.0,
+        488.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 235,
+      "max_health": 0,
+      "origin": [
+        344.0,
+        1536.0,
+        -8.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 237,
+      "max_health": 0,
+      "origin": [
+        -1808.0,
+        1240.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 238,
+      "max_health": 0,
+      "origin": [
+        3808.90625,
+        -213.1875,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 240,
+      "max_health": 0,
+      "origin": [
+        -1808.0,
+        1320.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "func_button",
+      "health": 0,
+      "index": 241,
+      "max_health": 0,
+      "origin": [
+        -1324.274,
+        946.4775,
+        -100.09375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 242,
+      "max_health": 0,
+      "origin": [
+        2382.03125,
+        769.65625,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_hostage_rescue_zone_hint",
+      "health": 0,
+      "index": 243,
+      "max_health": 0,
+      "origin": [
+        2712.0,
+        132.0,
+        -16.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 355,
+      "max_health": 0,
+      "origin": [
+        -1322.90625,
+        942.71875,
+        -128.09375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 356,
+      "max_health": 0,
+      "origin": [
+        2843.96875,
+        1159.625,
+        -39.90625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 357,
+      "max_health": 0,
+      "origin": [
+        -2048.53125,
+        -605.46875,
+        -64.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 359,
+      "max_health": 0,
+      "origin": [
+        2493.46875,
+        814.1875,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 360,
+      "max_health": 0,
+      "origin": [
+        -2305.28125,
+        -715.71875,
+        -64.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 362,
+      "max_health": 0,
+      "origin": [
+        -389.625,
+        -338.78125,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 363,
+      "max_health": 0,
+      "origin": [
+        -1200.0,
+        1464.0,
+        -64.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 365,
+      "max_health": 0,
+      "origin": [
+        2663.0,
+        1529.46875,
+        -39.90625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 366,
+      "max_health": 0,
+      "origin": [
+        -2936.0,
         256.0,
-        -144.0
+        -64.0
       ],
       "team": 0
     },
     {
-      "classname": "point_camera",
+      "classname": "basemodelentity",
       "health": 0,
-      "index": 322,
+      "index": 367,
       "max_health": 0,
       "origin": [
-        -333.0,
-        -1910.0,
-        -136.0
+        -2384.0625,
+        -729.625,
+        -63.96875
       ],
       "team": 0
     },
     {
-      "classname": "point_camera",
+      "classname": "basemodelentity",
       "health": 0,
-      "index": 323,
+      "index": 368,
       "max_health": 0,
       "origin": [
-        -655.0,
-        -2370.0,
-        -51.0
+        -2248.0,
+        288.0,
+        -64.0
       ],
       "team": 0
     },
     {
-      "classname": "point_camera",
+      "classname": "basemodelentity",
       "health": 0,
-      "index": 324,
+      "index": 369,
       "max_health": 0,
       "origin": [
-        -2115.0,
-        -90.0,
-        -111.0
+        -820.875,
+        -518.96875,
+        -32.0
       ],
       "team": 0
     },
     {
-      "classname": "point_camera",
+      "classname": "basemodelentity",
       "health": 0,
-      "index": 325,
+      "index": 370,
       "max_health": 0,
       "origin": [
-        -1220.0,
-        -630.0,
-        -101.0
+        686.8125,
+        -438.875,
+        -4.0
       ],
       "team": 0
     },
     {
-      "classname": "point_camera",
+      "classname": "basemodelentity",
       "health": 0,
-      "index": 326,
+      "index": 371,
       "max_health": 0,
       "origin": [
-        1035.0,
-        -2280.0,
-        14.0
+        487.40625,
+        -198.9375,
+        16.0
       ],
       "team": 0
     },
     {
-      "classname": "C_EnvWind",
+      "classname": "info_particle_system",
       "health": 0,
-      "index": 327,
+      "index": 372,
       "max_health": 0,
       "origin": [
-        0.0,
-        0.0,
+        2499.625,
+        -196.8125,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 377,
+      "max_health": 0,
+      "origin": [
+        3093.28125,
+        905.96875,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 381,
+      "max_health": 0,
+      "origin": [
+        2496.75,
+        -195.9375,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 384,
+      "max_health": 0,
+      "origin": [
+        3084.3125,
+        600.71875,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 388,
+      "max_health": 0,
+      "origin": [
+        2962.125,
+        1480.125,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 389,
+      "max_health": 0,
+      "origin": [
+        2310.625,
+        134.84375,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 390,
+      "max_health": 0,
+      "origin": [
+        2452.5,
+        -76.1875,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 391,
+      "max_health": 0,
+      "origin": [
+        -468.40625,
+        -352.6875,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 395,
+      "max_health": 0,
+      "origin": [
+        2864.0,
+        80.0,
+        32.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 398,
+      "max_health": 0,
+      "origin": [
+        2168.0,
+        20.0,
+        40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 401,
+      "max_health": 0,
+      "origin": [
+        2096.0,
+        940.0,
+        40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 405,
+      "max_health": 0,
+      "origin": [
+        -51.59375,
+        -505.1875,
+        -32.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 406,
+      "max_health": 0,
+      "origin": [
+        187.0625,
+        -430.625,
         0.0
       ],
       "team": 0
     },
     {
-      "classname": "point_camera",
-      "health": 0,
-      "index": 328,
-      "max_health": 0,
-      "origin": [
-        -323.34375,
-        -1866.40625,
-        -127.75
-      ],
-      "team": 0
-    },
-    {
-      "classname": "point_camera",
-      "health": 0,
-      "index": 329,
-      "max_health": 0,
-      "origin": [
-        -1466.21875,
-        -2106.9375,
-        -105.59375
-      ],
-      "team": 0
-    },
-    {
-      "classname": "point_camera",
-      "health": 0,
-      "index": 330,
-      "max_health": 0,
-      "origin": [
-        1386.875,
-        -456.28125,
-        -28.65625
-      ],
-      "team": 0
-    },
-    {
-      "classname": "point_camera",
-      "health": 0,
-      "index": 331,
-      "max_health": 0,
-      "origin": [
-        -1563.4375,
-        27.28125,
-        -38.65625
-      ],
-      "team": 0
-    },
-    {
-      "classname": "cs_minimap_boundary",
-      "health": 0,
-      "index": 333,
-      "max_health": 0,
-      "origin": [
-        -2824.0,
-        -1849.6875,
-        -313.53125
-      ],
-      "team": 0
-    },
-    {
-      "classname": "cs_minimap_boundary",
-      "health": 0,
-      "index": 334,
-      "max_health": 0,
-      "origin": [
-        -978.0625,
-        1136.90625,
-        80.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "cs_minimap_boundary",
-      "health": 0,
-      "index": 335,
-      "max_health": 0,
-      "origin": [
-        1524.125,
-        -241.28125,
-        120.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "cs_minimap_boundary",
-      "health": 0,
-      "index": 336,
-      "max_health": 0,
-      "origin": [
-        463.5,
-        -2842.0,
-        -80.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "prop_dynamic",
-      "health": 0,
-      "index": 338,
-      "max_health": 0,
-      "origin": [
-        -1255.0,
-        737.0,
-        80.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "prop_dynamic",
-      "health": 0,
-      "index": 339,
-      "max_health": 0,
-      "origin": [
-        -1900.0,
-        -528.0,
-        -8.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "prop_dynamic",
-      "health": 0,
-      "index": 340,
-      "max_health": 0,
-      "origin": [
-        -2252.0,
-        -528.0,
-        -8.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "prop_dynamic",
-      "health": 0,
-      "index": 354,
-      "max_health": 0,
-      "origin": [
-        -1820.0,
-        645.25,
-        24.90625
-      ],
-      "team": 0
-    },
-    {
-      "classname": "info_particle_system",
-      "health": 0,
-      "index": 362,
-      "max_health": 0,
-      "origin": [
-        -2232.0,
-        1028.0,
-        -80.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "info_particle_system",
-      "health": 0,
-      "index": 370,
-      "max_health": 0,
-      "origin": [
-        -2901.15625,
-        912.0,
-        -88.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "sky_camera",
-      "health": 0,
-      "index": 373,
-      "max_health": 0,
-      "origin": [
-        5208.0,
-        -968.0,
-        44.5
-      ],
-      "team": 0
-    },
-    {
-      "classname": "env_sky",
-      "health": 0,
-      "index": 374,
-      "max_health": 0,
-      "origin": [
-        5201.8125,
-        -964.90625,
-        136.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_terrorist",
-      "health": 0,
-      "index": 375,
-      "max_health": 0,
-      "origin": [
-        1300.34375,
-        11.21875,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_terrorist",
-      "health": 0,
-      "index": 376,
-      "max_health": 0,
-      "origin": [
-        1300.34375,
-        11.21875,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_terrorist",
-      "health": 0,
-      "index": 377,
-      "max_health": 0,
-      "origin": [
-        1300.34375,
-        11.21875,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_terrorist",
-      "health": 0,
-      "index": 378,
-      "max_health": 0,
-      "origin": [
-        1300.34375,
-        11.21875,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_terrorist",
-      "health": 0,
-      "index": 379,
-      "max_health": 0,
-      "origin": [
-        1300.34375,
-        11.21875,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_terrorist",
-      "health": 0,
-      "index": 380,
-      "max_health": 0,
-      "origin": [
-        1378.65625,
-        22.0,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_terrorist",
-      "health": 0,
-      "index": 381,
-      "max_health": 0,
-      "origin": [
-        1335.6875,
-        -41.875,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_terrorist",
-      "health": 0,
-      "index": 382,
-      "max_health": 0,
-      "origin": [
-        1346.15625,
-        5.625,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_terrorist",
-      "health": 0,
-      "index": 383,
-      "max_health": 0,
-      "origin": [
-        1358.1875,
-        -20.0625,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_counterterrorist",
-      "health": 0,
-      "index": 384,
-      "max_health": 0,
-      "origin": [
-        1199.3125,
-        -25.65625,
-        -163.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_counterterrorist",
-      "health": 0,
-      "index": 385,
-      "max_health": 0,
-      "origin": [
-        1199.3125,
-        -25.65625,
-        -163.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_counterterrorist",
-      "health": 0,
-      "index": 386,
-      "max_health": 0,
-      "origin": [
-        1199.3125,
-        -25.65625,
-        -163.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_counterterrorist",
-      "health": 0,
-      "index": 387,
-      "max_health": 0,
-      "origin": [
-        1199.3125,
-        -25.65625,
-        -163.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_counterterrorist",
-      "health": 0,
-      "index": 388,
-      "max_health": 0,
-      "origin": [
-        1199.3125,
-        -25.65625,
-        -163.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_counterterrorist",
-      "health": 0,
-      "index": 389,
-      "max_health": 0,
-      "origin": [
-        1241.8125,
-        -63.84375,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_counterterrorist",
-      "health": 0,
-      "index": 390,
-      "max_health": 0,
-      "origin": [
-        1201.8125,
-        -100.96875,
-        -163.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_counterterrorist",
-      "health": 0,
-      "index": 391,
-      "max_health": 0,
-      "origin": [
-        1161.40625,
-        -60.09375,
-        -164.75
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_counterterrorist",
-      "health": 0,
-      "index": 392,
-      "max_health": 0,
-      "origin": [
-        1272.0625,
-        -85.15625,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_counterterrorist",
-      "health": 0,
-      "index": 393,
-      "max_health": 0,
-      "origin": [
-        1164.75,
-        -93.65625,
-        -164.625
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_select_terrorist",
-      "health": 0,
-      "index": 394,
-      "max_health": 0,
-      "origin": [
-        1302.5625,
-        -59.0625,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_counterterrorist",
-      "health": 0,
-      "index": 395,
-      "max_health": 0,
-      "origin": [
-        -596.0,
-        -1780.0,
-        -179.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_counterterrorist",
-      "health": 0,
-      "index": 396,
-      "max_health": 0,
-      "origin": [
-        -596.0,
-        -1780.0,
-        -179.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_counterterrorist",
-      "health": 0,
-      "index": 397,
-      "max_health": 0,
-      "origin": [
-        -596.0,
-        -1780.0,
-        -179.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_counterterrorist",
-      "health": 0,
-      "index": 398,
-      "max_health": 0,
-      "origin": [
-        -596.0,
-        -1780.0,
-        -179.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_counterterrorist",
-      "health": 0,
-      "index": 399,
-      "max_health": 0,
-      "origin": [
-        -596.0,
-        -1780.0,
-        -179.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "weapon_knife",
-      "health": 0,
-      "index": 400,
-      "max_health": 0,
-      "origin": [
-        -1595.395,
-        -1158.213,
-        -203.8934
-      ],
-      "team": 3
-    },
-    {
-      "classname": "weapon_glock",
-      "health": 0,
-      "index": 401,
-      "max_health": 0,
-      "origin": [
-        77.10104,
-        -2054.666,
-        0.03125
-      ],
-      "team": 2
-    },
-    {
-      "classname": "team_intro_terrorist",
-      "health": 0,
-      "index": 402,
-      "max_health": 0,
-      "origin": [
-        -2320.0,
-        280.0,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_terrorist",
-      "health": 0,
-      "index": 403,
-      "max_health": 0,
-      "origin": [
-        -2320.0,
-        280.0,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_terrorist",
-      "health": 0,
-      "index": 404,
-      "max_health": 0,
-      "origin": [
-        -2320.0,
-        280.0,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_terrorist",
-      "health": 0,
-      "index": 405,
-      "max_health": 0,
-      "origin": [
-        -2320.0,
-        280.0,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_terrorist",
-      "health": 0,
-      "index": 406,
-      "max_health": 0,
-      "origin": [
-        -2320.0,
-        280.0,
-        -167.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_counterterrorist",
-      "health": 0,
-      "index": 407,
-      "max_health": 0,
-      "origin": [
-        -614.0,
-        -1857.0,
-        -179.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_counterterrorist",
-      "health": 0,
-      "index": 408,
-      "max_health": 0,
-      "origin": [
-        -614.0,
-        -1857.0,
-        -179.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_counterterrorist",
+      "classname": "basemodelentity",
       "health": 0,
       "index": 409,
       "max_health": 0,
       "origin": [
-        -614.0,
-        -1857.0,
-        -179.96875
+        -922.0,
+        1008.0,
+        -64.0
       ],
       "team": 0
     },
     {
-      "classname": "team_intro_counterterrorist",
-      "health": 0,
-      "index": 410,
-      "max_health": 0,
-      "origin": [
-        -614.0,
-        -1857.0,
-        -179.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_counterterrorist",
+      "classname": "env_light_probe_volume",
       "health": 0,
       "index": 411,
       "max_health": 0,
       "origin": [
-        -614.0,
-        -1857.0,
-        -179.96875
+        -700.0,
+        1042.0,
+        -72.0
       ],
       "team": 0
     },
     {
-      "classname": "team_intro_terrorist",
+      "classname": "env_light_probe_volume",
       "health": 0,
       "index": 412,
       "max_health": 0,
       "origin": [
-        -2262.0,
-        265.0,
-        -163.96875
+        -700.0,
+        1228.0,
+        -72.0
       ],
       "team": 0
     },
     {
-      "classname": "team_intro_terrorist",
-      "health": 0,
-      "index": 413,
-      "max_health": 0,
-      "origin": [
-        -2262.0,
-        265.0,
-        -163.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_terrorist",
+      "classname": "basemodelentity",
       "health": 0,
       "index": 414,
       "max_health": 0,
       "origin": [
-        -2262.0,
-        265.0,
-        -163.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_terrorist",
-      "health": 0,
-      "index": 415,
-      "max_health": 0,
-      "origin": [
-        -2262.0,
-        265.0,
-        -163.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "team_intro_terrorist",
-      "health": 0,
-      "index": 416,
-      "max_health": 0,
-      "origin": [
-        -2262.0,
-        265.0,
-        -163.96875
-      ],
-      "team": 0
-    },
-    {
-      "classname": "c_cs_observer_for_precache",
-      "health": 0,
-      "index": 417,
-      "max_health": 0,
-      "origin": [
-        -333.0,
-        -1910.0,
-        -136.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "c_cs_player_for_precache",
-      "health": 100,
-      "index": 418,
-      "max_health": 100,
-      "origin": [
-        -1595.395,
-        -1158.213,
-        -243.8934
-      ],
-      "team": 3
-    },
-    {
-      "classname": "weapon_glock",
-      "health": 0,
-      "index": 419,
-      "max_health": 0,
-      "origin": [
-        -1935.952,
-        -251.96875,
-        -119.96875
-      ],
-      "team": 2
-    },
-    {
-      "classname": "weapon_sg556",
-      "health": 0,
-      "index": 420,
-      "max_health": 0,
-      "origin": [
-        -1935.952,
-        -251.96875,
-        -119.96875
-      ],
-      "team": 2
-    },
-    {
-      "classname": "prop_dynamic",
-      "health": 0,
-      "index": 430,
-      "max_health": 0,
-      "origin": [
-        -1172.0,
-        -432.0,
-        -24.0
-      ],
-      "team": 0
-    },
-    {
-      "classname": "weapon_knife",
-      "health": 0,
-      "index": 432,
-      "max_health": 0,
-      "origin": [
-        -520.1951,
-        -1026.312,
-        -127.96875
-      ],
-      "team": 2
-    },
-    {
-      "classname": "prop_dynamic",
-      "health": 0,
-      "index": 434,
-      "max_health": 0,
-      "origin": [
-        -1888.0,
-        -276.0,
-        -72.0
+        -656.0,
+        1456.0,
+        -32.0
       ],
       "team": 0
     },
     {
       "classname": "post_processing_volume",
       "health": 0,
-      "index": 439,
+      "index": 417,
       "max_health": 0,
       "origin": [
-        440.78125,
-        -2635.0625,
-        -12.59375
+        2758.125,
+        -0.03125,
+        351.46875
       ],
       "team": 0
     },
     {
-      "classname": "env_player_visibility",
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 420,
+      "max_health": 0,
+      "origin": [
+        1688.0,
+        944.0,
+        24.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 425,
+      "max_health": 0,
+      "origin": [
+        -1808.0,
+        1160.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 433,
+      "max_health": 0,
+      "origin": [
+        -1808.0,
+        1000.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 438,
+      "max_health": 0,
+      "origin": [
+        1452.0,
+        944.0,
+        24.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 439,
+      "max_health": 0,
+      "origin": [
+        528.0,
+        1480.0,
+        -4.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 441,
+      "max_health": 0,
+      "origin": [
+        1004.0,
+        1264.0,
+        8.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 442,
+      "max_health": 0,
+      "origin": [
+        772.0,
+        1468.0,
+        -4.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
       "health": 0,
       "index": 443,
       "max_health": 0,
       "origin": [
-        320.0,
-        -2551.625,
+        2052.0,
+        1039.96875,
+        114.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 444,
+      "max_health": 0,
+      "origin": [
+        2052.0,
+        943.96875,
+        114.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 445,
+      "max_health": 0,
+      "origin": [
+        2052.0,
+        847.96875,
+        114.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 459,
+      "max_health": 0,
+      "origin": [
+        -256.0,
+        640.0,
+        -32.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 474,
+      "max_health": 0,
+      "origin": [
+        2116.25,
+        80.0,
+        114.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 475,
+      "max_health": 0,
+      "origin": [
+        2116.25,
+        -80.0,
+        114.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 476,
+      "max_health": 0,
+      "origin": [
+        659.75,
+        197.0,
+        98.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 478,
+      "max_health": 0,
+      "origin": [
+        2116.25,
+        -80.0,
+        158.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 479,
+      "max_health": 0,
+      "origin": [
+        2196.0,
+        -440.03125,
+        114.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 480,
+      "max_health": 0,
+      "origin": [
+        2196.0,
+        -344.03125,
+        114.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 481,
+      "max_health": 0,
+      "origin": [
+        2030.0,
+        -644.96875,
+        114.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 484,
+      "max_health": 0,
+      "origin": [
+        2116.25,
+        80.0,
+        158.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 485,
+      "max_health": 0,
+      "origin": [
+        992.0,
+        352.0,
+        24.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 487,
+      "max_health": 0,
+      "origin": [
+        2116.25,
+        80.0,
+        202.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 494,
+      "max_health": 0,
+      "origin": [
+        2116.25,
+        0.0,
+        202.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "func_button",
+      "health": 0,
+      "index": 500,
+      "max_health": 0,
+      "origin": [
+        -1479.288,
+        17.69627,
+        -78.875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 501,
+      "max_health": 0,
+      "origin": [
+        2116.25,
+        0.0,
+        114.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 503,
+      "max_health": 0,
+      "origin": [
+        2116.25,
+        0.0,
+        158.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 504,
+      "max_health": 0,
+      "origin": [
+        2116.25,
+        128.0,
+        114.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 506,
+      "max_health": 0,
+      "origin": [
+        2116.25,
+        416.0,
+        114.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 508,
+      "max_health": 0,
+      "origin": [
+        -1480.65625,
+        13.9375,
+        -106.90625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 520,
+      "max_health": 0,
+      "origin": [
+        2116.25,
+        207.0,
+        114.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 523,
+      "max_health": 0,
+      "origin": [
+        2116.25,
+        337.0,
+        114.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 544,
+      "max_health": 0,
+      "origin": [
+        -545.71875,
+        -366.3125,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 547,
+      "max_health": 0,
+      "origin": [
+        -318.21875,
+        -291.65625,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 548,
+      "max_health": 0,
+      "origin": [
+        -395.53125,
+        -305.3125,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 549,
+      "max_health": 0,
+      "origin": [
+        -474.3125,
+        -319.1875,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 550,
+      "max_health": 0,
+      "origin": [
+        -1943.5,
+        648.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 554,
+      "max_health": 0,
+      "origin": [
+        -2019.0625,
+        -496.125,
+        73.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 555,
+      "max_health": 0,
+      "origin": [
+        -2097.84375,
+        -510.0,
+        73.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 557,
+      "max_health": 0,
+      "origin": [
+        -2024.96875,
+        -462.625,
+        73.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 559,
+      "max_health": 0,
+      "origin": [
+        -551.625,
+        -332.8125,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 560,
+      "max_health": 0,
+      "origin": [
+        -1678.15625,
+        -494.46875,
+        -23.5
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 564,
+      "max_health": 0,
+      "origin": [
+        -1755.46875,
+        -508.09375,
+        10.5
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 565,
+      "max_health": 0,
+      "origin": [
+        -1755.46875,
+        -508.09375,
+        -23.5
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 570,
+      "max_health": 0,
+      "origin": [
+        -1947.65625,
+        -449.0,
+        73.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 571,
+      "max_health": 0,
+      "origin": [
+        -2053.15625,
+        -533.1875,
+        -60.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 572,
+      "max_health": 0,
+      "origin": [
+        -1522.0625,
+        -466.96875,
+        10.5
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 574,
+      "max_health": 0,
+      "origin": [
+        -1207.3125,
+        -124.125,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "func_button",
+      "health": 0,
+      "index": 575,
+      "max_health": 0,
+      "origin": [
+        -1895.858,
+        -68.78677,
+        -34.00002
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 576,
+      "max_health": 0,
+      "origin": [
+        -1599.375,
+        -480.59375,
+        10.5
+      ],
+      "team": 0
+    },
+    {
+      "classname": "point_entity",
+      "health": 0,
+      "index": 578,
+      "max_health": 0,
+      "origin": [
+        -1895.883,
+        -68.82303,
+        -33.00002
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 579,
+      "max_health": 0,
+      "origin": [
+        494.875,
+        167.875,
+        98.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 583,
+      "max_health": 0,
+      "origin": [
+        -1399.125,
+        -141.6875,
         -56.0
       ],
       "team": 0
@@ -1743,448 +1707,2152 @@
     {
       "classname": "prop_dynamic",
       "health": 0,
-      "index": 459,
+      "index": 586,
       "max_health": 0,
       "origin": [
-        -1744.0,
-        -696.0,
-        -52.0
+        -1522.0625,
+        -466.96875,
+        -23.5
       ],
       "team": 0
     },
     {
       "classname": "prop_dynamic",
       "health": 0,
-      "index": 460,
+      "index": 587,
       "max_health": 0,
       "origin": [
-        464.0,
-        880.0,
-        -100.0
+        -1678.15625,
+        -494.46875,
+        10.5
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 588,
+      "max_health": 0,
+      "origin": [
+        -1941.75,
+        -482.5,
+        73.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 589,
+      "max_health": 0,
+      "origin": [
+        -2175.15625,
+        -523.65625,
+        73.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 590,
+      "max_health": 0,
+      "origin": [
+        -2103.75,
+        -476.53125,
+        73.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 591,
+      "max_health": 0,
+      "origin": [
+        -2181.0625,
+        -490.15625,
+        73.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 592,
+      "max_health": 0,
+      "origin": [
+        -1895.90625,
+        -68.8125,
+        -16.75
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 593,
+      "max_health": 0,
+      "origin": [
+        -476.0,
+        752.0,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 594,
+      "max_health": 0,
+      "origin": [
+        -931.15625,
+        -262.21875,
+        -40.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 461,
+      "index": 595,
       "max_health": 0,
       "origin": [
-        37.5,
-        -2012.5,
-        15.28125
+        -1360.0,
+        1416.0,
+        -64.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 597,
+      "max_health": 0,
+      "origin": [
+        -1560.0,
+        144.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 598,
+      "max_health": 0,
+      "origin": [
+        -945.03125,
+        -183.4375,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 599,
+      "max_health": 0,
+      "origin": [
+        -964.0,
+        1094.0,
+        -122.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 600,
+      "max_health": 0,
+      "origin": [
+        -964.0,
+        1094.0,
+        -10.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 602,
+      "max_health": 0,
+      "origin": [
+        -958.9375,
+        -104.65625,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 603,
+      "max_health": 0,
+      "origin": [
+        -1808.0,
+        1080.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 604,
+      "max_health": 0,
+      "origin": [
+        -972.8125,
+        -25.875,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 606,
+      "max_health": 0,
+      "origin": [
+        -846.78125,
+        -3.65625,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 610,
+      "max_health": 0,
+      "origin": [
+        -1880.0,
+        144.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 611,
+      "max_health": 0,
+      "origin": [
+        -832.875,
+        -82.4375,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 612,
+      "max_health": 0,
+      "origin": [
+        -1960.0,
+        144.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 616,
+      "max_health": 0,
+      "origin": [
+        -964.0,
+        900.0,
+        -10.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 617,
+      "max_health": 0,
+      "origin": [
+        -964.0,
+        994.0,
+        -10.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 462,
+      "index": 622,
       "max_health": 0,
       "origin": [
-        -2012.5,
-        762.5,
-        5.28125
+        -1680.0,
+        1144.0,
+        -64.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 628,
+      "max_health": 0,
+      "origin": [
+        -1808.0,
+        808.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 633,
+      "max_health": 0,
+      "origin": [
+        -1640.0,
+        144.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 634,
+      "max_health": 0,
+      "origin": [
+        -1720.0,
+        144.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 635,
+      "max_health": 0,
+      "origin": [
+        -2120.0,
+        144.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 636,
+      "max_health": 0,
+      "origin": [
+        -1808.0,
+        728.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 637,
+      "max_health": 0,
+      "origin": [
+        -1808.0,
+        648.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_intro_terrorist",
+      "health": 0,
+      "index": 640,
+      "max_health": 0,
+      "origin": [
+        -2800.0,
+        272.0,
+        -127.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_intro_terrorist",
+      "health": 0,
+      "index": 641,
+      "max_health": 0,
+      "origin": [
+        -2800.0,
+        272.0,
+        -127.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_intro_terrorist",
+      "health": 0,
+      "index": 642,
+      "max_health": 0,
+      "origin": [
+        -2800.0,
+        272.0,
+        -127.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_intro_terrorist",
+      "health": 0,
+      "index": 643,
+      "max_health": 0,
+      "origin": [
+        -2800.0,
+        272.0,
+        -127.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_intro_terrorist",
+      "health": 0,
+      "index": 644,
+      "max_health": 0,
+      "origin": [
+        -2800.0,
+        272.0,
+        -127.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_intro_counterterrorist",
+      "health": 0,
+      "index": 645,
+      "max_health": 0,
+      "origin": [
+        2642.21875,
+        -161.78125,
+        -31.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_intro_counterterrorist",
+      "health": 0,
+      "index": 646,
+      "max_health": 0,
+      "origin": [
+        2642.21875,
+        -161.78125,
+        -31.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_intro_counterterrorist",
+      "health": 0,
+      "index": 647,
+      "max_health": 0,
+      "origin": [
+        2642.21875,
+        -161.78125,
+        -31.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_intro_counterterrorist",
+      "health": 0,
+      "index": 648,
+      "max_health": 0,
+      "origin": [
+        2642.21875,
+        -161.78125,
+        -31.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_intro_counterterrorist",
+      "health": 0,
+      "index": 649,
+      "max_health": 0,
+      "origin": [
+        2642.21875,
+        -161.78125,
+        -31.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "sky_camera",
+      "health": 0,
+      "index": 652,
+      "max_health": 0,
+      "origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "post_processing_volume",
+      "health": 0,
+      "index": 653,
+      "max_health": 0,
+      "origin": [
+        0.0,
+        -0.03125,
+        351.46875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_sky",
+      "health": 0,
+      "index": 654,
+      "max_health": 0,
+      "origin": [
+        0.0,
+        -0.03125,
+        383.46875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_sky",
+      "health": 0,
+      "index": 655,
+      "max_health": 0,
+      "origin": [
+        0.0,
+        -0.03125,
+        415.46875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 656,
+      "max_health": 0,
+      "origin": [
+        8.25,
+        151.375,
+        -6.34375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 657,
+      "max_health": 0,
+      "origin": [
+        -16.15625,
+        158.9375,
+        -6.34375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 658,
+      "max_health": 0,
+      "origin": [
+        -237.96875,
+        64.9375,
+        -8.21875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 659,
+      "max_health": 0,
+      "origin": [
+        -217.90625,
+        -44.59375,
+        -8.21875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 660,
+      "max_health": 0,
+      "origin": [
+        321.40625,
+        -55.0,
+        -4.34375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 661,
+      "max_health": 0,
+      "origin": [
+        277.5,
+        174.46875,
+        -4.34375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 662,
+      "max_health": 0,
+      "origin": [
+        -188.59375,
+        -212.8125,
+        -8.3125
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 663,
+      "max_health": 0,
+      "origin": [
+        -204.53125,
+        -187.90625,
+        -8.3125
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 664,
+      "max_health": 0,
+      "origin": [
+        -207.5,
+        -83.875,
+        -8.375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 665,
+      "max_health": 0,
+      "origin": [
+        -225.375,
+        132.8125,
+        -8.375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 666,
+      "max_health": 0,
+      "origin": [
+        -235.65625,
+        84.78125,
+        -8.375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 667,
+      "max_health": 0,
+      "origin": [
+        -56.65625,
+        176.71875,
+        -6.65625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 668,
+      "max_health": 0,
+      "origin": [
+        48.0,
+        144.0,
+        -6.34375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 669,
+      "max_health": 0,
+      "origin": [
+        169.125,
+        -94.53125,
+        -4.3125
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 670,
+      "max_health": 0,
+      "origin": [
+        -43.21875,
+        -157.03125,
+        -7.5625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 671,
+      "max_health": 0,
+      "origin": [
+        129.59375,
+        157.1875,
+        -4.34375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 672,
+      "max_health": 0,
+      "origin": [
+        335.625,
+        -29.625,
+        -4.34375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 673,
+      "max_health": 0,
+      "origin": [
+        291.96875,
+        105.25,
+        -4.28125
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 674,
+      "max_health": 0,
+      "origin": [
+        310.9375,
+        35.5,
+        -4.34375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 675,
+      "max_health": 0,
+      "origin": [
+        259.375,
+        193.90625,
+        -4.3125
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 676,
+      "max_health": 0,
+      "origin": [
+        128.0625,
+        -108.65625,
+        -4.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 677,
+      "max_health": 0,
+      "origin": [
+        -92.5625,
+        -174.6875,
+        -8.34375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 678,
+      "max_health": 0,
+      "origin": [
+        46.09375,
+        -143.75,
+        -6.15625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 679,
+      "max_health": 0,
+      "origin": [
+        -331.1875,
+        218.1875,
+        -8.375
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_terrorist",
+      "health": 0,
+      "index": 680,
+      "max_health": 0,
+      "origin": [
+        -885.59375,
+        -428.4375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_terrorist",
+      "health": 0,
+      "index": 681,
+      "max_health": 0,
+      "origin": [
+        -885.59375,
+        -428.4375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_terrorist",
+      "health": 0,
+      "index": 682,
+      "max_health": 0,
+      "origin": [
+        -885.59375,
+        -428.4375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_terrorist",
+      "health": 0,
+      "index": 683,
+      "max_health": 0,
+      "origin": [
+        -885.59375,
+        -428.4375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_terrorist",
+      "health": 0,
+      "index": 684,
+      "max_health": 0,
+      "origin": [
+        -885.59375,
+        -428.4375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_terrorist",
+      "health": 0,
+      "index": 685,
+      "max_health": 0,
+      "origin": [
+        -963.8125,
+        -416.84375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_terrorist",
+      "health": 0,
+      "index": 686,
+      "max_health": 0,
+      "origin": [
+        -904.625,
+        -367.53125,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_terrorist",
+      "health": 0,
+      "index": 687,
+      "max_health": 0,
+      "origin": [
+        -928.0,
+        -410.21875,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_terrorist",
+      "health": 0,
+      "index": 688,
+      "max_health": 0,
+      "origin": [
+        -932.375,
+        -382.1875,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_counterterrorist",
+      "health": 0,
+      "index": 689,
+      "max_health": 0,
+      "origin": [
+        -778.28125,
+        -421.34375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_counterterrorist",
+      "health": 0,
+      "index": 690,
+      "max_health": 0,
+      "origin": [
+        -778.28125,
+        -421.34375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_counterterrorist",
+      "health": 0,
+      "index": 691,
+      "max_health": 0,
+      "origin": [
+        -778.28125,
+        -421.34375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_counterterrorist",
+      "health": 0,
+      "index": 692,
+      "max_health": 0,
+      "origin": [
+        -778.28125,
+        -421.34375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_counterterrorist",
+      "health": 0,
+      "index": 693,
+      "max_health": 0,
+      "origin": [
+        -778.28125,
+        -421.34375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_counterterrorist",
+      "health": 0,
+      "index": 694,
+      "max_health": 0,
+      "origin": [
+        -808.375,
+        -372.78125,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_counterterrorist",
+      "health": 0,
+      "index": 695,
+      "max_health": 0,
+      "origin": [
+        -759.59375,
+        -348.34375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_counterterrorist",
+      "health": 0,
+      "index": 696,
+      "max_health": 0,
+      "origin": [
+        -732.25,
+        -398.90625,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_counterterrorist",
+      "health": 0,
+      "index": 697,
+      "max_health": 0,
+      "origin": [
+        -831.46875,
+        -343.84375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_counterterrorist",
+      "health": 0,
+      "index": 698,
+      "max_health": 0,
+      "origin": [
+        -726.0625,
+        -365.78125,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "team_select_terrorist",
+      "health": 0,
+      "index": 699,
+      "max_health": 0,
+      "origin": [
+        -868.03125,
+        -360.34375,
+        -95.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "c_cs_observer_for_precache",
+      "health": 0,
+      "index": 700,
+      "max_health": 0,
+      "origin": [
+        1331.049,
+        43.29063,
+        -31.96875
+      ],
+      "team": 2
+    },
+    {
+      "classname": "c_cs_player_for_precache",
+      "health": 100,
+      "index": 701,
+      "max_health": 100,
+      "origin": [
+        -2752,
+        256.0,
+        -127.96875
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 754,
+      "max_health": 0,
+      "origin": [
+        2382.34375,
+        766.65625,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 755,
+      "max_health": 0,
+      "origin": [
+        2506.5,
+        -465.40625,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 756,
+      "max_health": 0,
+      "origin": [
+        2503.65625,
+        -464.53125,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 757,
+      "max_health": 0,
+      "origin": [
+        2491.21875,
+        816.1875,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 758,
+      "max_health": 0,
+      "origin": [
+        2281.84375,
+        657.375,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 759,
+      "max_health": 0,
+      "origin": [
+        2512.46875,
+        -324.875,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 760,
+      "max_health": 0,
+      "origin": [
+        2627.96875,
+        797.75,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 761,
+      "max_health": 0,
+      "origin": [
+        2449.59375,
+        -76.96875,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 762,
+      "max_health": 0,
+      "origin": [
+        2401.96875,
+        27.21875,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 763,
+      "max_health": 0,
+      "origin": [
+        2510.71875,
+        -327.34375,
+        -31.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 463,
+      "index": 770,
       "max_health": 0,
       "origin": [
-        12.5,
-        812.5,
-        -82.71875
+        1736.0,
+        -16.0,
+        32.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 464,
+      "index": 771,
       "max_health": 0,
       "origin": [
-        1075.0,
-        475.0,
-        -207.4375
+        1736.0,
+        352.0,
+        32.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 465,
+      "index": 772,
       "max_health": 0,
       "origin": [
-        -1012.5,
-        -100.0,
-        -114.71875
+        1648.0,
+        352.0,
+        61.375
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 466,
+      "index": 774,
       "max_health": 0,
       "origin": [
-        -275.0,
-        387.5,
-        -31.53125
+        780.6875,
+        -419.0625,
+        -4.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 467,
+      "index": 775,
       "max_health": 0,
       "origin": [
-        -850.0,
-        -1537.5,
-        -114.71875
+        1648.0,
+        -16.0,
+        32.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 468,
+      "index": 776,
       "max_health": 0,
       "origin": [
-        -1512.5,
-        -787.5,
-        -114.71875
+        2152.0,
+        -410.0,
+        72.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 469,
+      "index": 777,
       "max_health": 0,
       "origin": [
-        512.5,
-        -1625.0,
-        -206.71875
+        1968.0,
+        -264.0,
+        32.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 470,
+      "index": 778,
       "max_health": 0,
       "origin": [
-        1262.5,
-        462.5,
-        -208.8125
+        1968.0,
+        -144.0,
+        32.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 471,
+      "index": 779,
       "max_health": 0,
       "origin": [
-        475.0,
-        -900.0,
-        -107.03125
+        2072.0,
+        16.0,
+        40.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 472,
+      "index": 780,
       "max_health": 0,
       "origin": [
-        -125.0,
-        -425.0,
-        -121.28125
+        887.53125,
+        287.46875,
+        16.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 473,
+      "index": 781,
       "max_health": 0,
       "origin": [
-        -162.5,
-        -887.5,
-        -112.75
+        938.5,
+        -279.625,
+        -8.0
       ],
       "team": 0
     },
     {
       "classname": "basemodelentity",
       "health": 0,
-      "index": 474,
+      "index": 782,
       "max_health": 0,
       "origin": [
-        -662.5,
-        -1612.5,
-        -118.71875
+        902.0,
+        -73.0,
+        -8.0
       ],
       "team": 0
     },
     {
-      "classname": "basemodelentity",
+      "classname": "prop_dynamic",
       "health": 0,
-      "index": 475,
+      "index": 783,
       "max_health": 0,
       "origin": [
-        -1250.0,
-        -1087.5,
-        -114.71875
+        480.3125,
+        -146.375,
+        -46.0
       ],
       "team": 0
     },
     {
-      "classname": "basemodelentity",
+      "classname": "prop_dynamic",
       "health": 0,
-      "index": 476,
+      "index": 784,
       "max_health": 0,
       "origin": [
-        -2300.0,
-        687.5,
-        11.4375
+        395.71875,
+        -161.28125,
+        -46.0
       ],
       "team": 0
     },
     {
-      "classname": "basemodelentity",
+      "classname": "prop_dynamic",
       "health": 0,
-      "index": 477,
+      "index": 785,
       "max_health": 0,
       "origin": [
-        -2550.0,
-        162.5,
-        -110.875
+        565.09375,
+        -131.4375,
+        -46.0
       ],
       "team": 0
     },
     {
-      "classname": "basemodelentity",
+      "classname": "env_light_probe_volume",
       "health": 0,
-      "index": 478,
+      "index": 786,
       "max_health": 0,
       "origin": [
-        1325.0,
-        -1362.5,
-        -114.71875
+        254.75,
+        60.625,
+        -8.0
       ],
       "team": 0
     },
     {
-      "classname": "basemodelentity",
+      "classname": "env_light_probe_volume",
       "health": 0,
-      "index": 479,
+      "index": 787,
       "max_health": 0,
       "origin": [
-        1187.5,
-        -762.5,
-        -190.75
+        333.59375,
+        74.53125,
+        -8.0
       ],
       "team": 0
     },
     {
-      "classname": "basemodelentity",
+      "classname": "env_light_probe_volume",
       "health": 0,
-      "index": 480,
+      "index": 788,
       "max_health": 0,
       "origin": [
-        -462.5,
-        -1575.0,
-        13.28125
+        412.375,
+        88.40625,
+        -8.0
       ],
       "team": 0
     },
     {
-      "classname": "basemodelentity",
+      "classname": "env_light_probe_volume",
       "health": 0,
-      "index": 481,
+      "index": 789,
       "max_health": 0,
       "origin": [
-        -675.0,
-        -1225.0,
-        -114.71875
+        491.15625,
+        102.3125,
+        -8.0
       ],
       "team": 0
     },
     {
-      "classname": "basemodelentity",
+      "classname": "env_light_probe_volume",
       "health": 0,
-      "index": 482,
+      "index": 790,
       "max_health": 0,
       "origin": [
-        -475.0,
-        412.5,
-        -106.71875
+        569.9375,
+        116.1875,
+        -8.0
       ],
       "team": 0
     },
     {
-      "classname": "basemodelentity",
+      "classname": "env_light_probe_volume",
       "health": 0,
-      "index": 483,
+      "index": 791,
       "max_health": 0,
       "origin": [
-        -2325.0,
-        -400.0,
-        -114.71875
+        648.71875,
+        130.09375,
+        -8.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 792,
+      "max_health": 0,
+      "origin": [
+        727.5,
+        144.0,
+        -8.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 794,
+      "max_health": 0,
+      "origin": [
+        247.125,
+        124.25,
+        98.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 797,
+      "max_health": 0,
+      "origin": [
+        -476.0,
+        858.0,
+        -40.0
       ],
       "team": 0
     },
     {
       "classname": "end_of_match_lineup_start",
       "health": 0,
-      "index": 484,
+      "index": 798,
       "max_health": 0,
       "origin": [
-        -331.65625,
-        -1661.8125,
-        -166.0
+        2475.59375,
+        -187.09375,
+        -31.8125
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 800,
+      "max_health": 0,
+      "origin": [
+        -476.0,
+        950.0,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 803,
+      "max_health": 0,
+      "origin": [
+        -476.0,
+        1042.0,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 806,
+      "max_health": 0,
+      "origin": [
+        -476.0,
+        1134.0,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 807,
+      "max_health": 0,
+      "origin": [
+        -476.0,
+        1228.0,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 808,
+      "max_health": 0,
+      "origin": [
+        -1943.5,
+        812.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 811,
+      "max_health": 0,
+      "origin": [
+        -1943.5,
+        1080.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 812,
+      "max_health": 0,
+      "origin": [
+        -1943.5,
+        1160.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 813,
+      "max_health": 0,
+      "origin": [
+        -476.0,
+        1318.0,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 816,
+      "max_health": 0,
+      "origin": [
+        0.0,
+        752.0,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 817,
+      "max_health": 0,
+      "origin": [
+        0.0,
+        866.0,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 820,
+      "max_health": 0,
+      "origin": [
+        0.0,
+        958.0,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 822,
+      "max_health": 0,
+      "origin": [
+        -1424.21875,
+        1007.0,
+        123.625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 826,
+      "max_health": 0,
+      "origin": [
+        1152.0,
+        496.0,
+        32.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 832,
+      "max_health": 0,
+      "origin": [
+        -1943.5,
+        1000.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 834,
+      "max_health": 0,
+      "origin": [
+        636.0,
+        752.0,
+        0.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 837,
+      "max_health": 0,
+      "origin": [
+        -700.0,
+        858.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 838,
+      "max_health": 0,
+      "origin": [
+        -700.0,
+        950.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 840,
+      "max_health": 0,
+      "origin": [
+        -700.0,
+        1134.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 841,
+      "max_health": 0,
+      "origin": [
+        103.875,
+        1261.59375,
+        -36.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "info_particle_system",
+      "health": 0,
+      "index": 842,
+      "max_health": 0,
+      "origin": [
+        2313.625,
+        135.125,
+        -31.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 844,
+      "max_health": 0,
+      "origin": [
+        -700.0,
+        1318.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 845,
+      "max_health": 0,
+      "origin": [
+        -754.0,
+        752.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 846,
+      "max_health": 0,
+      "origin": [
+        -1943.5,
+        488.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 847,
+      "max_health": 0,
+      "origin": [
+        -1943.5,
+        1240.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 848,
+      "max_health": 0,
+      "origin": [
+        -1943.5,
+        568.0,
+        -72.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 849,
+      "max_health": 0,
+      "origin": [
+        -1424.21875,
+        913.0,
+        123.625
       ],
       "team": 0
     },
     {
       "classname": "end_of_match_lineup_end",
       "health": 0,
-      "index": 485,
+      "index": 850,
       "max_health": 0,
       "origin": [
-        -280.03125,
-        -1916.65625,
-        -166.0
+        2592.0625,
+        45.375,
+        -31.8125
       ],
       "team": 0
     },
     {
-      "classname": "weapon_glock",
+      "classname": "prop_dynamic",
       "health": 0,
-      "index": 486,
+      "index": 864,
       "max_health": 0,
       "origin": [
-        -520.2158,
-        -1024.851,
-        -127.96875
+        2116.25,
+        -80.0,
+        202.0
       ],
-      "team": 2
+      "team": 0
     },
     {
-      "classname": "weapon_knife",
+      "classname": "prop_dynamic",
       "health": 0,
-      "index": 492,
+      "index": 865,
       "max_health": 0,
       "origin": [
-        -592.3619,
-        -1316.37,
-        -127.96875
+        2116.25,
+        416.0,
+        246.0
       ],
-      "team": 3
+      "team": 0
     },
     {
-      "classname": "weapon_sg556",
+      "classname": "prop_dynamic",
       "health": 0,
-      "index": 493,
+      "index": 866,
       "max_health": 0,
       "origin": [
-        -520.2158,
-        -1024.851,
-        -127.96875
+        2116.25,
+        337.0,
+        246.0
       ],
-      "team": 2
+      "team": 0
     },
     {
-      "classname": "weapon_knife",
+      "classname": "prop_dynamic",
       "health": 0,
-      "index": 494,
+      "index": 867,
       "max_health": 0,
       "origin": [
-        394.1493,
-        -1570.167,
-        -169.0397
+        2116.25,
+        207.0,
+        246.0
       ],
-      "team": 3
+      "team": 0
     },
     {
-      "classname": "weapon_ssg08",
+      "classname": "prop_dynamic",
       "health": 0,
-      "index": 496,
+      "index": 868,
       "max_health": 0,
       "origin": [
-        -1595.395,
-        -1158.213,
-        -203.8934
+        2116.25,
+        0.0,
+        246.0
       ],
-      "team": 3
+      "team": 0
     },
     {
-      "classname": "weapon_healthshot",
+      "classname": "prop_dynamic",
       "health": 0,
-      "index": 505,
+      "index": 869,
       "max_health": 0,
       "origin": [
-        -1935.952,
-        -251.96875,
-        -119.96875
+        2116.25,
+        128.0,
+        246.0
       ],
-      "team": 2
+      "team": 0
     },
     {
-      "classname": "weapon_knife",
+      "classname": "prop_dynamic",
       "health": 0,
-      "index": 506,
+      "index": 870,
       "max_health": 0,
       "origin": [
-        75.90195,
-        -2051.672,
-        0.03125
+        2116.25,
+        80.0,
+        246.0
       ],
-      "team": 2
+      "team": 0
     },
     {
-      "classname": "weapon_awp",
+      "classname": "prop_dynamic",
       "health": 0,
-      "index": 509,
+      "index": 871,
       "max_health": 0,
       "origin": [
-        394.1493,
-        -1570.167,
-        -169.0397
+        2116.25,
+        -80.0,
+        246.0
       ],
-      "team": 3
+      "team": 0
     },
     {
-      "classname": "weapon_taser",
+      "classname": "basemodelentity",
       "health": 0,
-      "index": 510,
+      "index": 873,
       "max_health": 0,
       "origin": [
-        -1595.395,
-        -1158.213,
-        -203.8934
+        -586.8125,
+        42.1875,
+        -32.0
       ],
-      "team": 3
+      "team": 0
     },
     {
-      "classname": "weapon_glock",
+      "classname": "basemodelentity",
       "health": 0,
-      "index": 511,
+      "index": 874,
       "max_health": 0,
       "origin": [
-        -80.7973,
-        -1590.146,
-        -127.96875
+        -127.71875,
+        -165.3125,
+        -24.0
       ],
-      "team": 2
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 875,
+      "max_health": 0,
+      "origin": [
+        -689.0,
+        -414.5,
+        -32.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "basemodelentity",
+      "health": 0,
+      "index": 876,
+      "max_health": 0,
+      "origin": [
+        168.3125,
+        -324.25,
+        8.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 879,
+      "max_health": 0,
+      "origin": [
+        -621.125,
+        -430.96875,
+        -68.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 880,
+      "max_health": 0,
+      "origin": [
+        -722.0,
+        -397.40625,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 881,
+      "max_health": 0,
+      "origin": [
+        -799.3125,
+        -411.03125,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 882,
+      "max_health": 0,
+      "origin": [
+        -878.09375,
+        -424.90625,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 883,
+      "max_health": 0,
+      "origin": [
+        -955.40625,
+        -438.53125,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 884,
+      "max_health": 0,
+      "origin": [
+        -727.90625,
+        -363.90625,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 885,
+      "max_health": 0,
+      "origin": [
+        -805.21875,
+        -377.53125,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 886,
+      "max_health": 0,
+      "origin": [
+        -884.0,
+        -391.4375,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 888,
+      "max_health": 0,
+      "origin": [
+        -961.3125,
+        -405.0625,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 889,
+      "max_health": 0,
+      "origin": [
+        -312.3125,
+        -325.15625,
+        105.0625
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 895,
+      "max_health": 0,
+      "origin": [
+        577.5,
+        182.5,
+        98.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 896,
+      "max_health": 0,
+      "origin": [
+        -1599.375,
+        -480.59375,
+        -23.5
+      ],
+      "team": 0
+    },
+    {
+      "classname": "func_water",
+      "health": 0,
+      "index": 917,
+      "max_health": 0,
+      "origin": [
+        -1885.34375,
+        -210.1875,
+        -134.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "prop_dynamic",
+      "health": 0,
+      "index": 919,
+      "max_health": 0,
+      "origin": [
+        3125.15625,
+        18.375,
+        -40.0
+      ],
+      "team": 0
+    },
+    {
+      "classname": "env_light_probe_volume",
+      "health": 0,
+      "index": 994,
+      "max_health": 0,
+      "origin": [
+        -1800.0,
+        144.0,
+        -72.0
+      ],
+      "team": 0
     }
   ],
-  "entity_count": 169,
+  "entity_count": 312,
   "note": "Live snapshot of the CGameEntitySystem at dump time."
 }

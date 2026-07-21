@@ -341,7 +341,7 @@ pub static CS2_PATTERNS: &[Pattern] = &[
         extra_off: 0,
         prototype: "__int64 sub_180B07940()",
     },
-    Pattern { name: "ConvarGet",                            module: "client.dll", needle: "4C 8B 49 08 49 8B 49 30 4D 8D 41 58 48 0F BA E1 0F 72 08 85 D2 7F 4A 49 8B C0 C3 48 C1 E9 0F F6 C1 01 75 07 B8 01 00 00 00 EB 0A 48 8B 05 66", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_181860BC0(__int64 a1, int a2)" },
+    Pattern { name: "ConvarGet",                            module: "client.dll", needle: "FF 24 ? CC 4C 8B 49 08 49 8B 49 30 4D 8D 41 58 48 0F BA E1 0F 72 08 85 D2 7F 4A", resolve: NONE, extra_off: 4, prototype: "__int64 __fastcall sub_181862260(__int64 a1, int a2)" },
     Pattern { name: "CPanel_Constructor", module: "client.dll", needle: "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 30 48 8B F1 48 8B FA B9 ? ? ? ? E8 ? ? ? ? 48 8B D8 48 85 C0 74", resolve: NONE, extra_off: 0, prototype: "" },
     Pattern { name: "CPlantedC4_StartDefuse",                module: "client.dll", needle: "48 89 4C 24 08 55 56 41 54 41 55 41 56 48 8D 6C 24 ? 48 81 EC ? ? ? ? 4C 8D A9 ? ? ? ? 45 33 F6 45 8B 4D 00", resolve: NONE, extra_off: 0, prototype: "char __fastcall sub_180C44270(__int64 a1)" },
     Pattern { name: "CPrediction_Update",           module: "client.dll", needle: "48 8B C4 89 50 ? 48 89 48 ? 55 53 57", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180B4DA50(__int64 thisptr, int reason)" },
@@ -933,10 +933,10 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern {
         name: "ViewModelHideZoomed",
         module: "client.dll",
-        needle: "40 55 53 56 57 48 8B EC 48 83 EC ? 48 8D 05 7D 8F 93 01 4C 89 A4 24 ? ? ? ? 49 8B F0 48 8B DA",
+        needle: "40 55 53 56 57 48 8B EC 48 83 EC 58 48 8D 05 ? ? ? ? 4C 89 A4 24 80 00 00 00 49 8B F0 48 8B DA 48 8B F9 4C 3B C0 75 39 48 83 BA 40 01 00 00 00 75 2F 44 8B 05 ? ? ? ? 65 48 8B 04 25 58 00 00 00 B9 68 00 00 00 4A 8B 04 C0 8B 04 01 39 05 ? ? ? ? 0F 8F ? ? ? ? 48 8B 35 ? ? ? ? 4C 89 B4 24 98 00 00 00",
         resolve: NONE,
         extra_off: 0,
-        prototype: "__int64 __fastcall sub_1807DA7A0(__int64 a1, __int64 a2, __int64 **a3)",
+        prototype: "__int64 __fastcall sub_1807DA7F0(__int64 a1, __int64 a2, __int64 **a3)",
     },
     Pattern {
         name: "WriteSubtickFromEntry",
