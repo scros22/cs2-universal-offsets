@@ -1,4 +1,4 @@
-// cviewsetup.h  ·  CS2 build 14172  ·  cs2-sdk.com
+// cviewsetup.h  ·  CS2 build 14175  ·  cs2-sdk.com
 // The camera/view description filled each frame (fov, world origin, view angles). Written by OverrideView; read by the renderer. Not a schema class.
 // Reverse-engineered from client.dll; offsets drift between builds — re-verify after a CS2 update.
 #pragma once

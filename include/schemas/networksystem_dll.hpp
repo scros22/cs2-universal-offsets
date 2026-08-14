@@ -3,7 +3,7 @@
 // module:        networksystem.dll
 // classes:       1
 // enums:         0
-// generated_at:  2026-07-21T15:54:44.281020800+00:00
+// generated_at:  2026-08-14T17:49:22.004126900+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);

@@ -8,7 +8,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace pb { inline constexpr std::uint32_t CS2_BUILD = 14172; }
+namespace pb { inline constexpr std::uint32_t CS2_BUILD = 14175; }
 
 namespace pb {
     // std::string the message owns (ArenaStringPtr points at one). Opaque.
@@ -308,6 +308,9 @@ namespace pb::client {
     struct CCSUsrMsg_RecurringMissionSchema;
     struct CCSUsrMsg_SendPlayerLoadout;
     struct CCSUsrMsg_SendPlayerLoadout_LoadoutItem;
+    struct CVacNet_GetReviewerInfo_Request;
+    struct CVacnetReviewerInfo;
+    struct CVacNet_GetReviewerInfo_Response;
     struct CGCStorePurchaseInit_LineItem;
     struct CMsgGCStorePurchaseInit;
     struct CMsgGCStorePurchaseInitResponse;
@@ -643,8 +646,38 @@ namespace pb::client {
     struct CSource2Metrics_FetchMapData_Response;
     struct CSource2Metrics_FetchMapData_Response_MapData;
     struct CUserMessage_UserSentBugBug;
+    struct CMsgTEArmorRicochet;
+    struct CMsgTEBaseBeam;
+    struct CMsgTEBeamEntPoint;
+    struct CMsgTEBeamEnts;
+    struct CMsgTEBeamPoints;
+    struct CMsgTEBeamRing;
+    struct CMsgTEBubbles;
+    struct CMsgTEBubbleTrail;
+    struct CMsgTEDecal;
+    struct CMsgEffectData;
+    struct CMsgTEEffectDispatch;
+    struct CMsgTEEnergySplash;
+    struct CMsgTEFizz;
+    struct CMsgTEShatterSurface;
+    struct CMsgTEGlowSprite;
+    struct CMsgTEImpact;
+    struct CMsgTEMuzzleFlash;
+    struct CMsgTEBloodStream;
+    struct CMsgTEExplosion;
+    struct CMsgTEDust;
+    struct CMsgTELargeFunnel;
+    struct CMsgTESparks;
+    struct CMsgTEPhysicsProp;
+    struct CMsgTESmoke;
+    struct CMsgTEWorldDecal;
+    struct CHelpRequestLogs_UploadUserApplicationLog_Request;
+    struct CHelpRequestLogs_UploadUserApplicationLog_Response;
     struct COAuthToken_ImplicitGrantNoPrompt_Request;
     struct COAuthToken_ImplicitGrantNoPrompt_Response;
+    struct CMsgProtoBufHeader;
+    struct CChinaAgreementSessions_StartAgreementSessionInGame_Request;
+    struct CChinaAgreementSessions_StartAgreementSessionInGame_Response;
     struct CPlayer_GetMutualFriendsForIncomingInvites_Request;
     struct CPlayer_IncomingInviteMutualFriendList;
     struct CPlayer_GetMutualFriendsForIncomingInvites_Response;
@@ -683,9 +716,6 @@ namespace pb::client {
     struct CPlayer_GetNewSteamAnnouncementState_Response;
     struct CPlayer_UpdateSteamAnnouncementLastRead_Request;
     struct CPlayer_UpdateSteamAnnouncementLastRead_Response;
-    struct CMsgProtoBufHeader;
-    struct CChinaAgreementSessions_StartAgreementSessionInGame_Request;
-    struct CChinaAgreementSessions_StartAgreementSessionInGame_Response;
     struct CCloud_GetUploadServerInfo_Request;
     struct CCloud_GetUploadServerInfo_Response;
     struct CCloud_GetFileDetails_Request;
@@ -823,33 +853,6 @@ namespace pb::client {
     struct CUserMessage_NotifyResponseFound_Criteria;
     struct CUserMessage_PlayResponseConditional;
     struct CUserMessage_UsageReport;
-    struct CMsgTEArmorRicochet;
-    struct CMsgTEBaseBeam;
-    struct CMsgTEBeamEntPoint;
-    struct CMsgTEBeamEnts;
-    struct CMsgTEBeamPoints;
-    struct CMsgTEBeamRing;
-    struct CMsgTEBubbles;
-    struct CMsgTEBubbleTrail;
-    struct CMsgTEDecal;
-    struct CMsgEffectData;
-    struct CMsgTEEffectDispatch;
-    struct CMsgTEEnergySplash;
-    struct CMsgTEFizz;
-    struct CMsgTEShatterSurface;
-    struct CMsgTEGlowSprite;
-    struct CMsgTEImpact;
-    struct CMsgTEMuzzleFlash;
-    struct CMsgTEBloodStream;
-    struct CMsgTEExplosion;
-    struct CMsgTEDust;
-    struct CMsgTELargeFunnel;
-    struct CMsgTESparks;
-    struct CMsgTEPhysicsProp;
-    struct CMsgTESmoke;
-    struct CMsgTEWorldDecal;
-    struct CHelpRequestLogs_UploadUserApplicationLog_Request;
-    struct CHelpRequestLogs_UploadUserApplicationLog_Response;
     struct CSGOInterpolationInfoPB;
     struct CSGOInterpolationInfoPB_CL;
     struct CSGOInputHistoryEntryPB;
@@ -1509,6 +1512,9 @@ namespace pb::server {
     struct CCSUsrMsg_RecurringMissionSchema;
     struct CCSUsrMsg_SendPlayerLoadout;
     struct CCSUsrMsg_SendPlayerLoadout_LoadoutItem;
+    struct CVacNet_GetReviewerInfo_Request;
+    struct CVacnetReviewerInfo;
+    struct CVacNet_GetReviewerInfo_Response;
     struct CGCStorePurchaseInit_LineItem;
     struct CMsgGCStorePurchaseInit;
     struct CMsgGCStorePurchaseInitResponse;
@@ -7076,6 +7082,40 @@ struct CCSUsrMsg_SendPlayerLoadout_LoadoutItem { // sizeof 0x38, _has_bits_ @ 0x
 static_assert(sizeof(CCSUsrMsg_SendPlayerLoadout_LoadoutItem) == 0x38);
 static_assert(offsetof(CCSUsrMsg_SendPlayerLoadout_LoadoutItem, econ_item) == 0x18);
 static_assert(offsetof(CCSUsrMsg_SendPlayerLoadout_LoadoutItem, team) == 0x30);
+
+#pragma pack(push, 1)
+struct CVacNet_GetReviewerInfo_Request { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t appid; // #1 uint32, has-bit 0
+    uint8_t _pad_1c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CVacNet_GetReviewerInfo_Request) == 0x20);
+static_assert(offsetof(CVacNet_GetReviewerInfo_Request, appid) == 0x18);
+
+#pragma pack(push, 1)
+struct CVacnetReviewerInfo { // sizeof 0x30, no _has_bits_
+    uint8_t _pad_0[0x10];
+    pb::RepeatedPtrField<pb::string_t> permissions; // #1 repeated string, no has-bit
+    uint8_t _pad_28[0x8];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+};
+#pragma pack(pop)
+static_assert(sizeof(CVacnetReviewerInfo) == 0x30);
+static_assert(offsetof(CVacnetReviewerInfo, permissions) == 0x10);
+
+#pragma pack(push, 1)
+struct CVacNet_GetReviewerInfo_Response { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CVacnetReviewerInfo* reviewer_info; // #1 message CVacnetReviewerInfo, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CVacNet_GetReviewerInfo_Response) == 0x20);
+static_assert(offsetof(CVacNet_GetReviewerInfo_Response, reviewer_info) == 0x18);
 
 #pragma pack(push, 1)
 struct CGCStorePurchaseInit_LineItem { // sizeof 0x38, _has_bits_ @ 0x10
@@ -12728,6 +12768,541 @@ static_assert(offsetof(CUserMessage_UserSentBugBug, osversion) == 0x3c);
 static_assert(offsetof(CUserMessage_UserSentBugBug, bugbug_no) == 0x40);
 
 #pragma pack(push, 1)
+struct CMsgTEArmorRicochet { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* pos; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgVector* dir; // #2 message CMsgVector, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEArmorRicochet) == 0x28);
+static_assert(offsetof(CMsgTEArmorRicochet, pos) == 0x18);
+static_assert(offsetof(CMsgTEArmorRicochet, dir) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgTEBaseBeam { // sizeof 0x50, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t modelindex; // #1 fixed64, has-bit 0
+    uint64_t haloindex; // #2 fixed64, has-bit 1
+    uint32_t startframe; // #3 uint32, has-bit 2
+    uint32_t framerate; // #4 uint32, has-bit 3
+    float life; // #5 float, has-bit 4
+    float width; // #6 float, has-bit 5
+    float endwidth; // #7 float, has-bit 6
+    uint32_t fadelength; // #8 uint32, has-bit 7
+    float amplitude; // #9 float, has-bit 8
+    uint32_t color; // #10 fixed32, has-bit 9
+    uint32_t speed; // #11 uint32, has-bit 10
+    uint32_t flags; // #12 uint32, has-bit 11
+    static constexpr std::ptrdiff_t kSizeOf = 0x50;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEBaseBeam) == 0x50);
+static_assert(offsetof(CMsgTEBaseBeam, modelindex) == 0x18);
+static_assert(offsetof(CMsgTEBaseBeam, haloindex) == 0x20);
+static_assert(offsetof(CMsgTEBaseBeam, startframe) == 0x28);
+static_assert(offsetof(CMsgTEBaseBeam, framerate) == 0x2c);
+static_assert(offsetof(CMsgTEBaseBeam, life) == 0x30);
+static_assert(offsetof(CMsgTEBaseBeam, width) == 0x34);
+static_assert(offsetof(CMsgTEBaseBeam, endwidth) == 0x38);
+static_assert(offsetof(CMsgTEBaseBeam, fadelength) == 0x3c);
+static_assert(offsetof(CMsgTEBaseBeam, amplitude) == 0x40);
+static_assert(offsetof(CMsgTEBaseBeam, color) == 0x44);
+static_assert(offsetof(CMsgTEBaseBeam, speed) == 0x48);
+static_assert(offsetof(CMsgTEBaseBeam, flags) == 0x4c);
+
+#pragma pack(push, 1)
+struct CMsgTEBeamEntPoint { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgTEBaseBeam* base; // #1 message CMsgTEBaseBeam, has-bit 0
+    pb::client::CMsgVector* start; // #4 message CMsgVector, has-bit 1
+    pb::client::CMsgVector* end; // #5 message CMsgVector, has-bit 2
+    uint32_t startentity; // #2 uint32, has-bit 3
+    uint32_t endentity; // #3 uint32, has-bit 4
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEBeamEntPoint) == 0x38);
+static_assert(offsetof(CMsgTEBeamEntPoint, base) == 0x18);
+static_assert(offsetof(CMsgTEBeamEntPoint, start) == 0x20);
+static_assert(offsetof(CMsgTEBeamEntPoint, end) == 0x28);
+static_assert(offsetof(CMsgTEBeamEntPoint, startentity) == 0x30);
+static_assert(offsetof(CMsgTEBeamEntPoint, endentity) == 0x34);
+
+#pragma pack(push, 1)
+struct CMsgTEBeamEnts { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgTEBaseBeam* base; // #1 message CMsgTEBaseBeam, has-bit 0
+    uint32_t startentity; // #2 uint32, has-bit 1
+    uint32_t endentity; // #3 uint32, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEBeamEnts) == 0x28);
+static_assert(offsetof(CMsgTEBeamEnts, base) == 0x18);
+static_assert(offsetof(CMsgTEBeamEnts, startentity) == 0x20);
+static_assert(offsetof(CMsgTEBeamEnts, endentity) == 0x24);
+
+#pragma pack(push, 1)
+struct CMsgTEBeamPoints { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgTEBaseBeam* base; // #1 message CMsgTEBaseBeam, has-bit 0
+    pb::client::CMsgVector* start; // #2 message CMsgVector, has-bit 1
+    pb::client::CMsgVector* end; // #3 message CMsgVector, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEBeamPoints) == 0x30);
+static_assert(offsetof(CMsgTEBeamPoints, base) == 0x18);
+static_assert(offsetof(CMsgTEBeamPoints, start) == 0x20);
+static_assert(offsetof(CMsgTEBeamPoints, end) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgTEBeamRing { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgTEBaseBeam* base; // #1 message CMsgTEBaseBeam, has-bit 0
+    uint32_t startentity; // #2 uint32, has-bit 1
+    uint32_t endentity; // #3 uint32, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEBeamRing) == 0x28);
+static_assert(offsetof(CMsgTEBeamRing, base) == 0x18);
+static_assert(offsetof(CMsgTEBeamRing, startentity) == 0x20);
+static_assert(offsetof(CMsgTEBeamRing, endentity) == 0x24);
+
+#pragma pack(push, 1)
+struct CMsgTEBubbles { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* mins; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgVector* maxs; // #2 message CMsgVector, has-bit 1
+    float height; // #3 float, has-bit 2
+    uint32_t count; // #4 uint32, has-bit 3
+    float speed; // #5 float, has-bit 4
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEBubbles) == 0x38);
+static_assert(offsetof(CMsgTEBubbles, mins) == 0x18);
+static_assert(offsetof(CMsgTEBubbles, maxs) == 0x20);
+static_assert(offsetof(CMsgTEBubbles, height) == 0x28);
+static_assert(offsetof(CMsgTEBubbles, count) == 0x2c);
+static_assert(offsetof(CMsgTEBubbles, speed) == 0x30);
+
+#pragma pack(push, 1)
+struct CMsgTEBubbleTrail { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* mins; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgVector* maxs; // #2 message CMsgVector, has-bit 1
+    float waterz; // #3 float, has-bit 2
+    uint32_t count; // #4 uint32, has-bit 3
+    float speed; // #5 float, has-bit 4
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEBubbleTrail) == 0x38);
+static_assert(offsetof(CMsgTEBubbleTrail, mins) == 0x18);
+static_assert(offsetof(CMsgTEBubbleTrail, maxs) == 0x20);
+static_assert(offsetof(CMsgTEBubbleTrail, waterz) == 0x28);
+static_assert(offsetof(CMsgTEBubbleTrail, count) == 0x2c);
+static_assert(offsetof(CMsgTEBubbleTrail, speed) == 0x30);
+
+#pragma pack(push, 1)
+struct CMsgTEDecal { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgVector* start; // #2 message CMsgVector, has-bit 1
+    uint32_t hitbox; // #4 uint32, has-bit 2
+    uint32_t index; // #5 uint32, has-bit 3
+    int32_t entity; // #3 int32, has-bit 4
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEDecal) == 0x38);
+static_assert(offsetof(CMsgTEDecal, origin) == 0x18);
+static_assert(offsetof(CMsgTEDecal, start) == 0x20);
+static_assert(offsetof(CMsgTEDecal, hitbox) == 0x28);
+static_assert(offsetof(CMsgTEDecal, index) == 0x2c);
+static_assert(offsetof(CMsgTEDecal, entity) == 0x30);
+
+#pragma pack(push, 1)
+struct CMsgEffectData { // sizeof 0x78, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgVector* start; // #2 message CMsgVector, has-bit 1
+    pb::client::CMsgVector* normal; // #3 message CMsgVector, has-bit 2
+    pb::client::CMsgQAngle* angles; // #4 message CMsgQAngle, has-bit 3
+    float scale; // #7 float, has-bit 4
+    float magnitude; // #8 float, has-bit 5
+    float radius; // #9 float, has-bit 6
+    uint32_t surfaceprop; // #10 fixed32, has-bit 7
+    uint64_t effectindex; // #11 fixed64, has-bit 8
+    uint32_t damagetype; // #12 uint32, has-bit 9
+    uint32_t material; // #13 uint32, has-bit 10
+    uint32_t hitbox; // #14 uint32, has-bit 11
+    uint32_t color; // #15 uint32, has-bit 12
+    uint32_t flags; // #16 uint32, has-bit 13
+    int32_t attachmentindex; // #17 int32, has-bit 14
+    uint32_t effectname; // #18 uint32, has-bit 15
+    uint32_t attachmentname; // #19 uint32, has-bit 16
+    uint32_t entity; // #5 fixed32, has-bit 17
+    uint32_t otherentity; // #6 fixed32, has-bit 18
+    static constexpr std::ptrdiff_t kSizeOf = 0x78;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgEffectData) == 0x78);
+static_assert(offsetof(CMsgEffectData, origin) == 0x18);
+static_assert(offsetof(CMsgEffectData, start) == 0x20);
+static_assert(offsetof(CMsgEffectData, normal) == 0x28);
+static_assert(offsetof(CMsgEffectData, angles) == 0x30);
+static_assert(offsetof(CMsgEffectData, scale) == 0x38);
+static_assert(offsetof(CMsgEffectData, magnitude) == 0x3c);
+static_assert(offsetof(CMsgEffectData, radius) == 0x40);
+static_assert(offsetof(CMsgEffectData, surfaceprop) == 0x44);
+static_assert(offsetof(CMsgEffectData, effectindex) == 0x48);
+static_assert(offsetof(CMsgEffectData, damagetype) == 0x50);
+static_assert(offsetof(CMsgEffectData, material) == 0x54);
+static_assert(offsetof(CMsgEffectData, hitbox) == 0x58);
+static_assert(offsetof(CMsgEffectData, color) == 0x5c);
+static_assert(offsetof(CMsgEffectData, flags) == 0x60);
+static_assert(offsetof(CMsgEffectData, attachmentindex) == 0x64);
+static_assert(offsetof(CMsgEffectData, effectname) == 0x68);
+static_assert(offsetof(CMsgEffectData, attachmentname) == 0x6c);
+static_assert(offsetof(CMsgEffectData, entity) == 0x70);
+static_assert(offsetof(CMsgEffectData, otherentity) == 0x74);
+
+#pragma pack(push, 1)
+struct CMsgTEEffectDispatch { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgEffectData* effectdata; // #1 message CMsgEffectData, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEEffectDispatch) == 0x20);
+static_assert(offsetof(CMsgTEEffectDispatch, effectdata) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgTEEnergySplash { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* pos; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgVector* dir; // #2 message CMsgVector, has-bit 1
+    bool explosive; // #3 bool, has-bit 2
+    uint8_t _pad_29[0x7];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEEnergySplash) == 0x30);
+static_assert(offsetof(CMsgTEEnergySplash, pos) == 0x18);
+static_assert(offsetof(CMsgTEEnergySplash, dir) == 0x20);
+static_assert(offsetof(CMsgTEEnergySplash, explosive) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgTEFizz { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t density; // #2 uint32, has-bit 0
+    int32_t current; // #3 int32, has-bit 1
+    int32_t entity; // #1 int32, has-bit 2
+    uint8_t _pad_24[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEFizz) == 0x28);
+static_assert(offsetof(CMsgTEFizz, density) == 0x18);
+static_assert(offsetof(CMsgTEFizz, current) == 0x1c);
+static_assert(offsetof(CMsgTEFizz, entity) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgTEShatterSurface { // sizeof 0x50, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgQAngle* angles; // #2 message CMsgQAngle, has-bit 1
+    pb::client::CMsgVector* force; // #3 message CMsgVector, has-bit 2
+    pb::client::CMsgVector* forcepos; // #4 message CMsgVector, has-bit 3
+    float width; // #5 float, has-bit 4
+    float height; // #6 float, has-bit 5
+    float shardsize; // #7 float, has-bit 6
+    uint32_t surfacetype; // #8 uint32, has-bit 7
+    uint32_t frontcolor; // #9 fixed32, has-bit 8
+    uint32_t backcolor; // #10 fixed32, has-bit 9
+    static constexpr std::ptrdiff_t kSizeOf = 0x50;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEShatterSurface) == 0x50);
+static_assert(offsetof(CMsgTEShatterSurface, origin) == 0x18);
+static_assert(offsetof(CMsgTEShatterSurface, angles) == 0x20);
+static_assert(offsetof(CMsgTEShatterSurface, force) == 0x28);
+static_assert(offsetof(CMsgTEShatterSurface, forcepos) == 0x30);
+static_assert(offsetof(CMsgTEShatterSurface, width) == 0x38);
+static_assert(offsetof(CMsgTEShatterSurface, height) == 0x3c);
+static_assert(offsetof(CMsgTEShatterSurface, shardsize) == 0x40);
+static_assert(offsetof(CMsgTEShatterSurface, surfacetype) == 0x44);
+static_assert(offsetof(CMsgTEShatterSurface, frontcolor) == 0x48);
+static_assert(offsetof(CMsgTEShatterSurface, backcolor) == 0x4c);
+
+#pragma pack(push, 1)
+struct CMsgTEGlowSprite { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    float scale; // #2 float, has-bit 1
+    float life; // #3 float, has-bit 2
+    uint32_t brightness; // #4 uint32, has-bit 3
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEGlowSprite) == 0x30);
+static_assert(offsetof(CMsgTEGlowSprite, origin) == 0x18);
+static_assert(offsetof(CMsgTEGlowSprite, scale) == 0x20);
+static_assert(offsetof(CMsgTEGlowSprite, life) == 0x24);
+static_assert(offsetof(CMsgTEGlowSprite, brightness) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgTEImpact { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgVector* normal; // #2 message CMsgVector, has-bit 1
+    uint32_t type; // #3 uint32, has-bit 2
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEImpact) == 0x30);
+static_assert(offsetof(CMsgTEImpact, origin) == 0x18);
+static_assert(offsetof(CMsgTEImpact, normal) == 0x20);
+static_assert(offsetof(CMsgTEImpact, type) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgTEMuzzleFlash { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgQAngle* angles; // #2 message CMsgQAngle, has-bit 1
+    float scale; // #3 float, has-bit 2
+    uint32_t type; // #4 uint32, has-bit 3
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEMuzzleFlash) == 0x30);
+static_assert(offsetof(CMsgTEMuzzleFlash, origin) == 0x18);
+static_assert(offsetof(CMsgTEMuzzleFlash, angles) == 0x20);
+static_assert(offsetof(CMsgTEMuzzleFlash, scale) == 0x28);
+static_assert(offsetof(CMsgTEMuzzleFlash, type) == 0x2c);
+
+#pragma pack(push, 1)
+struct CMsgTEBloodStream { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgVector* direction; // #2 message CMsgVector, has-bit 1
+    uint32_t color; // #3 fixed32, has-bit 2
+    uint32_t amount; // #4 uint32, has-bit 3
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEBloodStream) == 0x30);
+static_assert(offsetof(CMsgTEBloodStream, origin) == 0x18);
+static_assert(offsetof(CMsgTEBloodStream, direction) == 0x20);
+static_assert(offsetof(CMsgTEBloodStream, color) == 0x28);
+static_assert(offsetof(CMsgTEBloodStream, amount) == 0x2c);
+
+#pragma pack(push, 1)
+struct CMsgTEExplosion { // sizeof 0x58, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* sound_name; // #10 string, has-bit 0
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 1
+    pb::client::CMsgVector* normal; // #4 message CMsgVector, has-bit 2
+    uint32_t debris_surfaceprop; // #14 fixed32, has-bit 3
+    uint8_t _pad_34[0x4];
+    uint32_t flags; // #3 uint32, has-bit 4
+    uint32_t radius; // #6 uint32, has-bit 5
+    uint32_t magnitude; // #7 uint32, has-bit 6
+    bool affect_ragdolls; // #9 bool, has-bit 7
+    uint8_t debris_origin[0x3]; // #13 message CMsgVector, has-bit 8
+    uint32_t explosion_type; // #11 uint32, has-bit 9
+    uint32_t explosion_type_name; // #15 uint32, has-bit 10
+    bool create_debris; // #12 bool, has-bit 11
+    uint8_t _pad_51[0x7];
+    static constexpr std::ptrdiff_t kSizeOf = 0x58;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEExplosion) == 0x58);
+static_assert(offsetof(CMsgTEExplosion, sound_name) == 0x18);
+static_assert(offsetof(CMsgTEExplosion, origin) == 0x20);
+static_assert(offsetof(CMsgTEExplosion, normal) == 0x28);
+static_assert(offsetof(CMsgTEExplosion, debris_surfaceprop) == 0x30);
+static_assert(offsetof(CMsgTEExplosion, flags) == 0x38);
+static_assert(offsetof(CMsgTEExplosion, radius) == 0x3c);
+static_assert(offsetof(CMsgTEExplosion, magnitude) == 0x40);
+static_assert(offsetof(CMsgTEExplosion, affect_ragdolls) == 0x44);
+static_assert(offsetof(CMsgTEExplosion, debris_origin) == 0x45);
+static_assert(offsetof(CMsgTEExplosion, explosion_type) == 0x48);
+static_assert(offsetof(CMsgTEExplosion, explosion_type_name) == 0x4c);
+static_assert(offsetof(CMsgTEExplosion, create_debris) == 0x50);
+
+#pragma pack(push, 1)
+struct CMsgTEDust { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgVector* direction; // #4 message CMsgVector, has-bit 1
+    float size; // #2 float, has-bit 2
+    float speed; // #3 float, has-bit 3
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEDust) == 0x30);
+static_assert(offsetof(CMsgTEDust, origin) == 0x18);
+static_assert(offsetof(CMsgTEDust, direction) == 0x20);
+static_assert(offsetof(CMsgTEDust, size) == 0x28);
+static_assert(offsetof(CMsgTEDust, speed) == 0x2c);
+
+#pragma pack(push, 1)
+struct CMsgTELargeFunnel { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    uint32_t reversed; // #2 uint32, has-bit 1
+    uint8_t _pad_24[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTELargeFunnel) == 0x28);
+static_assert(offsetof(CMsgTELargeFunnel, origin) == 0x18);
+static_assert(offsetof(CMsgTELargeFunnel, reversed) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgTESparks { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgVector* direction; // #4 message CMsgVector, has-bit 1
+    uint32_t magnitude; // #2 uint32, has-bit 2
+    uint32_t length; // #3 uint32, has-bit 3
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTESparks) == 0x30);
+static_assert(offsetof(CMsgTESparks, origin) == 0x18);
+static_assert(offsetof(CMsgTESparks, direction) == 0x20);
+static_assert(offsetof(CMsgTESparks, magnitude) == 0x28);
+static_assert(offsetof(CMsgTESparks, length) == 0x2c);
+
+#pragma pack(push, 1)
+struct CMsgTEPhysicsProp { // sizeof 0x68, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgVector* velocity; // #2 message CMsgVector, has-bit 1
+    pb::client::CMsgQAngle* angles; // #3 message CMsgQAngle, has-bit 2
+    pb::client::CMsgVector* dmgpos; // #11 message CMsgVector, has-bit 3
+    pb::client::CMsgVector* dmgdir; // #12 message CMsgVector, has-bit 4
+    uint32_t skin; // #4 fixed32, has-bit 5
+    uint32_t flags; // #5 uint32, has-bit 6
+    uint32_t effects; // #6 uint32, has-bit 7
+    uint32_t color; // #7 fixed32, has-bit 8
+    uint64_t modelindex; // #8 fixed64, has-bit 9
+    uint32_t unused_breakmodelsnottomake; // #9 uint32, has-bit 10
+    float scale; // #10 float, has-bit 11
+    int32_t dmgtype; // #13 int32, has-bit 12
+    uint8_t _pad_64[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x68;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEPhysicsProp) == 0x68);
+static_assert(offsetof(CMsgTEPhysicsProp, origin) == 0x18);
+static_assert(offsetof(CMsgTEPhysicsProp, velocity) == 0x20);
+static_assert(offsetof(CMsgTEPhysicsProp, angles) == 0x28);
+static_assert(offsetof(CMsgTEPhysicsProp, dmgpos) == 0x30);
+static_assert(offsetof(CMsgTEPhysicsProp, dmgdir) == 0x38);
+static_assert(offsetof(CMsgTEPhysicsProp, skin) == 0x40);
+static_assert(offsetof(CMsgTEPhysicsProp, flags) == 0x44);
+static_assert(offsetof(CMsgTEPhysicsProp, effects) == 0x48);
+static_assert(offsetof(CMsgTEPhysicsProp, color) == 0x4c);
+static_assert(offsetof(CMsgTEPhysicsProp, modelindex) == 0x50);
+static_assert(offsetof(CMsgTEPhysicsProp, unused_breakmodelsnottomake) == 0x58);
+static_assert(offsetof(CMsgTEPhysicsProp, scale) == 0x5c);
+static_assert(offsetof(CMsgTEPhysicsProp, dmgtype) == 0x60);
+
+#pragma pack(push, 1)
+struct CMsgTESmoke { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    float scale; // #2 float, has-bit 1
+    uint8_t _pad_24[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTESmoke) == 0x28);
+static_assert(offsetof(CMsgTESmoke, origin) == 0x18);
+static_assert(offsetof(CMsgTESmoke, scale) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgTEWorldDecal { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
+    pb::client::CMsgVector* normal; // #2 message CMsgVector, has-bit 1
+    uint32_t index; // #3 uint32, has-bit 2
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgTEWorldDecal) == 0x30);
+static_assert(offsetof(CMsgTEWorldDecal, origin) == 0x18);
+static_assert(offsetof(CMsgTEWorldDecal, normal) == 0x20);
+static_assert(offsetof(CMsgTEWorldDecal, index) == 0x28);
+
+#pragma pack(push, 1)
+struct CHelpRequestLogs_UploadUserApplicationLog_Request { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* log_type; // #2 string, has-bit 0
+    pb::string_t* version_string; // #3 string, has-bit 1
+    pb::string_t* log_contents; // #4 string, has-bit 2
+    uint32_t appid; // #1 uint32, has-bit 3
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CHelpRequestLogs_UploadUserApplicationLog_Request) == 0x38);
+static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, log_type) == 0x18);
+static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, version_string) == 0x20);
+static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, log_contents) == 0x28);
+static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, appid) == 0x30);
+
+#pragma pack(push, 1)
+struct CHelpRequestLogs_UploadUserApplicationLog_Response { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t id; // #1 uint64, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CHelpRequestLogs_UploadUserApplicationLog_Response) == 0x20);
+static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Response, id) == 0x18);
+
+#pragma pack(push, 1)
 struct COAuthToken_ImplicitGrantNoPrompt_Request { // sizeof 0x20, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::string_t* clientid; // #1 string, has-bit 0
@@ -12750,6 +13325,64 @@ struct COAuthToken_ImplicitGrantNoPrompt_Response { // sizeof 0x28, _has_bits_ @
 static_assert(sizeof(COAuthToken_ImplicitGrantNoPrompt_Response) == 0x28);
 static_assert(offsetof(COAuthToken_ImplicitGrantNoPrompt_Response, access_token) == 0x18);
 static_assert(offsetof(COAuthToken_ImplicitGrantNoPrompt_Response, redirect_uri) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgProtoBufHeader { // sizeof 0x58, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* target_job_name; // #12 string, has-bit 0
+    pb::string_t* error_message; // #14 string, has-bit 1
+    uint64_t client_steam_id; // #1 fixed64, has-bit 2
+    int32_t client_session_id; // #2 int32, has-bit 3
+    uint32_t source_app_id; // #3 uint32, has-bit 4
+    uint32_t ip; // #15 uint32, has-bit 5
+    int32_t gc_msg_src; // #200 enum GCProtoBufMsgSrc, has-bit 6
+    uint32_t gc_dir_index_source; // #201 uint32, has-bit 7
+    int32_t eresult; // #13 int32, has-bit 8
+    uint64_t job_id_source; // #10 fixed64, has-bit 9
+    uint64_t job_id_target; // #11 fixed64, has-bit 10
+    static constexpr std::ptrdiff_t kSizeOf = 0x58;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgProtoBufHeader) == 0x58);
+static_assert(offsetof(CMsgProtoBufHeader, target_job_name) == 0x18);
+static_assert(offsetof(CMsgProtoBufHeader, error_message) == 0x20);
+static_assert(offsetof(CMsgProtoBufHeader, client_steam_id) == 0x28);
+static_assert(offsetof(CMsgProtoBufHeader, client_session_id) == 0x30);
+static_assert(offsetof(CMsgProtoBufHeader, source_app_id) == 0x34);
+static_assert(offsetof(CMsgProtoBufHeader, ip) == 0x38);
+static_assert(offsetof(CMsgProtoBufHeader, gc_msg_src) == 0x3c);
+static_assert(offsetof(CMsgProtoBufHeader, gc_dir_index_source) == 0x40);
+static_assert(offsetof(CMsgProtoBufHeader, eresult) == 0x44);
+static_assert(offsetof(CMsgProtoBufHeader, job_id_source) == 0x48);
+static_assert(offsetof(CMsgProtoBufHeader, job_id_target) == 0x50);
+
+#pragma pack(push, 1)
+struct CChinaAgreementSessions_StartAgreementSessionInGame_Request { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* client_ipaddress; // #3 string, has-bit 0
+    uint64_t steamid; // #2 fixed64, has-bit 1
+    uint32_t appid; // #1 uint32, has-bit 2
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CChinaAgreementSessions_StartAgreementSessionInGame_Request) == 0x30);
+static_assert(offsetof(CChinaAgreementSessions_StartAgreementSessionInGame_Request, client_ipaddress) == 0x18);
+static_assert(offsetof(CChinaAgreementSessions_StartAgreementSessionInGame_Request, steamid) == 0x20);
+static_assert(offsetof(CChinaAgreementSessions_StartAgreementSessionInGame_Request, appid) == 0x28);
+
+#pragma pack(push, 1)
+struct CChinaAgreementSessions_StartAgreementSessionInGame_Response { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* agreement_url; // #1 string, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CChinaAgreementSessions_StartAgreementSessionInGame_Response) == 0x20);
+static_assert(offsetof(CChinaAgreementSessions_StartAgreementSessionInGame_Response, agreement_url) == 0x18);
 
 #pragma pack(push, 1)
 struct CPlayer_GetMutualFriendsForIncomingInvites_Request { // sizeof 0x18, no _has_bits_
@@ -13227,64 +13860,6 @@ struct CPlayer_UpdateSteamAnnouncementLastRead_Response { // sizeof 0x18, no _ha
 };
 #pragma pack(pop)
 static_assert(sizeof(CPlayer_UpdateSteamAnnouncementLastRead_Response) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgProtoBufHeader { // sizeof 0x58, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* target_job_name; // #12 string, has-bit 0
-    pb::string_t* error_message; // #14 string, has-bit 1
-    uint64_t client_steam_id; // #1 fixed64, has-bit 2
-    int32_t client_session_id; // #2 int32, has-bit 3
-    uint32_t source_app_id; // #3 uint32, has-bit 4
-    uint32_t ip; // #15 uint32, has-bit 5
-    int32_t gc_msg_src; // #200 enum GCProtoBufMsgSrc, has-bit 6
-    uint32_t gc_dir_index_source; // #201 uint32, has-bit 7
-    int32_t eresult; // #13 int32, has-bit 8
-    uint64_t job_id_source; // #10 fixed64, has-bit 9
-    uint64_t job_id_target; // #11 fixed64, has-bit 10
-    static constexpr std::ptrdiff_t kSizeOf = 0x58;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgProtoBufHeader) == 0x58);
-static_assert(offsetof(CMsgProtoBufHeader, target_job_name) == 0x18);
-static_assert(offsetof(CMsgProtoBufHeader, error_message) == 0x20);
-static_assert(offsetof(CMsgProtoBufHeader, client_steam_id) == 0x28);
-static_assert(offsetof(CMsgProtoBufHeader, client_session_id) == 0x30);
-static_assert(offsetof(CMsgProtoBufHeader, source_app_id) == 0x34);
-static_assert(offsetof(CMsgProtoBufHeader, ip) == 0x38);
-static_assert(offsetof(CMsgProtoBufHeader, gc_msg_src) == 0x3c);
-static_assert(offsetof(CMsgProtoBufHeader, gc_dir_index_source) == 0x40);
-static_assert(offsetof(CMsgProtoBufHeader, eresult) == 0x44);
-static_assert(offsetof(CMsgProtoBufHeader, job_id_source) == 0x48);
-static_assert(offsetof(CMsgProtoBufHeader, job_id_target) == 0x50);
-
-#pragma pack(push, 1)
-struct CChinaAgreementSessions_StartAgreementSessionInGame_Request { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* client_ipaddress; // #3 string, has-bit 0
-    uint64_t steamid; // #2 fixed64, has-bit 1
-    uint32_t appid; // #1 uint32, has-bit 2
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CChinaAgreementSessions_StartAgreementSessionInGame_Request) == 0x30);
-static_assert(offsetof(CChinaAgreementSessions_StartAgreementSessionInGame_Request, client_ipaddress) == 0x18);
-static_assert(offsetof(CChinaAgreementSessions_StartAgreementSessionInGame_Request, steamid) == 0x20);
-static_assert(offsetof(CChinaAgreementSessions_StartAgreementSessionInGame_Request, appid) == 0x28);
-
-#pragma pack(push, 1)
-struct CChinaAgreementSessions_StartAgreementSessionInGame_Response { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* agreement_url; // #1 string, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CChinaAgreementSessions_StartAgreementSessionInGame_Response) == 0x20);
-static_assert(offsetof(CChinaAgreementSessions_StartAgreementSessionInGame_Response, agreement_url) == 0x18);
 
 #pragma pack(push, 1)
 struct CCloud_GetUploadServerInfo_Request { // sizeof 0x20, _has_bits_ @ 0x10
@@ -15542,541 +16117,6 @@ struct CUserMessage_UsageReport { // sizeof 0x20, _has_bits_ @ 0x10
 #pragma pack(pop)
 static_assert(sizeof(CUserMessage_UsageReport) == 0x20);
 static_assert(offsetof(CUserMessage_UsageReport, usage) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgTEArmorRicochet { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* pos; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgVector* dir; // #2 message CMsgVector, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEArmorRicochet) == 0x28);
-static_assert(offsetof(CMsgTEArmorRicochet, pos) == 0x18);
-static_assert(offsetof(CMsgTEArmorRicochet, dir) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgTEBaseBeam { // sizeof 0x50, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t modelindex; // #1 fixed64, has-bit 0
-    uint64_t haloindex; // #2 fixed64, has-bit 1
-    uint32_t startframe; // #3 uint32, has-bit 2
-    uint32_t framerate; // #4 uint32, has-bit 3
-    float life; // #5 float, has-bit 4
-    float width; // #6 float, has-bit 5
-    float endwidth; // #7 float, has-bit 6
-    uint32_t fadelength; // #8 uint32, has-bit 7
-    float amplitude; // #9 float, has-bit 8
-    uint32_t color; // #10 fixed32, has-bit 9
-    uint32_t speed; // #11 uint32, has-bit 10
-    uint32_t flags; // #12 uint32, has-bit 11
-    static constexpr std::ptrdiff_t kSizeOf = 0x50;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEBaseBeam) == 0x50);
-static_assert(offsetof(CMsgTEBaseBeam, modelindex) == 0x18);
-static_assert(offsetof(CMsgTEBaseBeam, haloindex) == 0x20);
-static_assert(offsetof(CMsgTEBaseBeam, startframe) == 0x28);
-static_assert(offsetof(CMsgTEBaseBeam, framerate) == 0x2c);
-static_assert(offsetof(CMsgTEBaseBeam, life) == 0x30);
-static_assert(offsetof(CMsgTEBaseBeam, width) == 0x34);
-static_assert(offsetof(CMsgTEBaseBeam, endwidth) == 0x38);
-static_assert(offsetof(CMsgTEBaseBeam, fadelength) == 0x3c);
-static_assert(offsetof(CMsgTEBaseBeam, amplitude) == 0x40);
-static_assert(offsetof(CMsgTEBaseBeam, color) == 0x44);
-static_assert(offsetof(CMsgTEBaseBeam, speed) == 0x48);
-static_assert(offsetof(CMsgTEBaseBeam, flags) == 0x4c);
-
-#pragma pack(push, 1)
-struct CMsgTEBeamEntPoint { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgTEBaseBeam* base; // #1 message CMsgTEBaseBeam, has-bit 0
-    pb::client::CMsgVector* start; // #4 message CMsgVector, has-bit 1
-    pb::client::CMsgVector* end; // #5 message CMsgVector, has-bit 2
-    uint32_t startentity; // #2 uint32, has-bit 3
-    uint32_t endentity; // #3 uint32, has-bit 4
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEBeamEntPoint) == 0x38);
-static_assert(offsetof(CMsgTEBeamEntPoint, base) == 0x18);
-static_assert(offsetof(CMsgTEBeamEntPoint, start) == 0x20);
-static_assert(offsetof(CMsgTEBeamEntPoint, end) == 0x28);
-static_assert(offsetof(CMsgTEBeamEntPoint, startentity) == 0x30);
-static_assert(offsetof(CMsgTEBeamEntPoint, endentity) == 0x34);
-
-#pragma pack(push, 1)
-struct CMsgTEBeamEnts { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgTEBaseBeam* base; // #1 message CMsgTEBaseBeam, has-bit 0
-    uint32_t startentity; // #2 uint32, has-bit 1
-    uint32_t endentity; // #3 uint32, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEBeamEnts) == 0x28);
-static_assert(offsetof(CMsgTEBeamEnts, base) == 0x18);
-static_assert(offsetof(CMsgTEBeamEnts, startentity) == 0x20);
-static_assert(offsetof(CMsgTEBeamEnts, endentity) == 0x24);
-
-#pragma pack(push, 1)
-struct CMsgTEBeamPoints { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgTEBaseBeam* base; // #1 message CMsgTEBaseBeam, has-bit 0
-    pb::client::CMsgVector* start; // #2 message CMsgVector, has-bit 1
-    pb::client::CMsgVector* end; // #3 message CMsgVector, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEBeamPoints) == 0x30);
-static_assert(offsetof(CMsgTEBeamPoints, base) == 0x18);
-static_assert(offsetof(CMsgTEBeamPoints, start) == 0x20);
-static_assert(offsetof(CMsgTEBeamPoints, end) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgTEBeamRing { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgTEBaseBeam* base; // #1 message CMsgTEBaseBeam, has-bit 0
-    uint32_t startentity; // #2 uint32, has-bit 1
-    uint32_t endentity; // #3 uint32, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEBeamRing) == 0x28);
-static_assert(offsetof(CMsgTEBeamRing, base) == 0x18);
-static_assert(offsetof(CMsgTEBeamRing, startentity) == 0x20);
-static_assert(offsetof(CMsgTEBeamRing, endentity) == 0x24);
-
-#pragma pack(push, 1)
-struct CMsgTEBubbles { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* mins; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgVector* maxs; // #2 message CMsgVector, has-bit 1
-    float height; // #3 float, has-bit 2
-    uint32_t count; // #4 uint32, has-bit 3
-    float speed; // #5 float, has-bit 4
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEBubbles) == 0x38);
-static_assert(offsetof(CMsgTEBubbles, mins) == 0x18);
-static_assert(offsetof(CMsgTEBubbles, maxs) == 0x20);
-static_assert(offsetof(CMsgTEBubbles, height) == 0x28);
-static_assert(offsetof(CMsgTEBubbles, count) == 0x2c);
-static_assert(offsetof(CMsgTEBubbles, speed) == 0x30);
-
-#pragma pack(push, 1)
-struct CMsgTEBubbleTrail { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* mins; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgVector* maxs; // #2 message CMsgVector, has-bit 1
-    float waterz; // #3 float, has-bit 2
-    uint32_t count; // #4 uint32, has-bit 3
-    float speed; // #5 float, has-bit 4
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEBubbleTrail) == 0x38);
-static_assert(offsetof(CMsgTEBubbleTrail, mins) == 0x18);
-static_assert(offsetof(CMsgTEBubbleTrail, maxs) == 0x20);
-static_assert(offsetof(CMsgTEBubbleTrail, waterz) == 0x28);
-static_assert(offsetof(CMsgTEBubbleTrail, count) == 0x2c);
-static_assert(offsetof(CMsgTEBubbleTrail, speed) == 0x30);
-
-#pragma pack(push, 1)
-struct CMsgTEDecal { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgVector* start; // #2 message CMsgVector, has-bit 1
-    uint32_t hitbox; // #4 uint32, has-bit 2
-    uint32_t index; // #5 uint32, has-bit 3
-    int32_t entity; // #3 int32, has-bit 4
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEDecal) == 0x38);
-static_assert(offsetof(CMsgTEDecal, origin) == 0x18);
-static_assert(offsetof(CMsgTEDecal, start) == 0x20);
-static_assert(offsetof(CMsgTEDecal, hitbox) == 0x28);
-static_assert(offsetof(CMsgTEDecal, index) == 0x2c);
-static_assert(offsetof(CMsgTEDecal, entity) == 0x30);
-
-#pragma pack(push, 1)
-struct CMsgEffectData { // sizeof 0x78, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgVector* start; // #2 message CMsgVector, has-bit 1
-    pb::client::CMsgVector* normal; // #3 message CMsgVector, has-bit 2
-    pb::client::CMsgQAngle* angles; // #4 message CMsgQAngle, has-bit 3
-    float scale; // #7 float, has-bit 4
-    float magnitude; // #8 float, has-bit 5
-    float radius; // #9 float, has-bit 6
-    uint32_t surfaceprop; // #10 fixed32, has-bit 7
-    uint64_t effectindex; // #11 fixed64, has-bit 8
-    uint32_t damagetype; // #12 uint32, has-bit 9
-    uint32_t material; // #13 uint32, has-bit 10
-    uint32_t hitbox; // #14 uint32, has-bit 11
-    uint32_t color; // #15 uint32, has-bit 12
-    uint32_t flags; // #16 uint32, has-bit 13
-    int32_t attachmentindex; // #17 int32, has-bit 14
-    uint32_t effectname; // #18 uint32, has-bit 15
-    uint32_t attachmentname; // #19 uint32, has-bit 16
-    uint32_t entity; // #5 fixed32, has-bit 17
-    uint32_t otherentity; // #6 fixed32, has-bit 18
-    static constexpr std::ptrdiff_t kSizeOf = 0x78;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgEffectData) == 0x78);
-static_assert(offsetof(CMsgEffectData, origin) == 0x18);
-static_assert(offsetof(CMsgEffectData, start) == 0x20);
-static_assert(offsetof(CMsgEffectData, normal) == 0x28);
-static_assert(offsetof(CMsgEffectData, angles) == 0x30);
-static_assert(offsetof(CMsgEffectData, scale) == 0x38);
-static_assert(offsetof(CMsgEffectData, magnitude) == 0x3c);
-static_assert(offsetof(CMsgEffectData, radius) == 0x40);
-static_assert(offsetof(CMsgEffectData, surfaceprop) == 0x44);
-static_assert(offsetof(CMsgEffectData, effectindex) == 0x48);
-static_assert(offsetof(CMsgEffectData, damagetype) == 0x50);
-static_assert(offsetof(CMsgEffectData, material) == 0x54);
-static_assert(offsetof(CMsgEffectData, hitbox) == 0x58);
-static_assert(offsetof(CMsgEffectData, color) == 0x5c);
-static_assert(offsetof(CMsgEffectData, flags) == 0x60);
-static_assert(offsetof(CMsgEffectData, attachmentindex) == 0x64);
-static_assert(offsetof(CMsgEffectData, effectname) == 0x68);
-static_assert(offsetof(CMsgEffectData, attachmentname) == 0x6c);
-static_assert(offsetof(CMsgEffectData, entity) == 0x70);
-static_assert(offsetof(CMsgEffectData, otherentity) == 0x74);
-
-#pragma pack(push, 1)
-struct CMsgTEEffectDispatch { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgEffectData* effectdata; // #1 message CMsgEffectData, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEEffectDispatch) == 0x20);
-static_assert(offsetof(CMsgTEEffectDispatch, effectdata) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgTEEnergySplash { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* pos; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgVector* dir; // #2 message CMsgVector, has-bit 1
-    bool explosive; // #3 bool, has-bit 2
-    uint8_t _pad_29[0x7];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEEnergySplash) == 0x30);
-static_assert(offsetof(CMsgTEEnergySplash, pos) == 0x18);
-static_assert(offsetof(CMsgTEEnergySplash, dir) == 0x20);
-static_assert(offsetof(CMsgTEEnergySplash, explosive) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgTEFizz { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t density; // #2 uint32, has-bit 0
-    int32_t current; // #3 int32, has-bit 1
-    int32_t entity; // #1 int32, has-bit 2
-    uint8_t _pad_24[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEFizz) == 0x28);
-static_assert(offsetof(CMsgTEFizz, density) == 0x18);
-static_assert(offsetof(CMsgTEFizz, current) == 0x1c);
-static_assert(offsetof(CMsgTEFizz, entity) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgTEShatterSurface { // sizeof 0x50, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgQAngle* angles; // #2 message CMsgQAngle, has-bit 1
-    pb::client::CMsgVector* force; // #3 message CMsgVector, has-bit 2
-    pb::client::CMsgVector* forcepos; // #4 message CMsgVector, has-bit 3
-    float width; // #5 float, has-bit 4
-    float height; // #6 float, has-bit 5
-    float shardsize; // #7 float, has-bit 6
-    uint32_t surfacetype; // #8 uint32, has-bit 7
-    uint32_t frontcolor; // #9 fixed32, has-bit 8
-    uint32_t backcolor; // #10 fixed32, has-bit 9
-    static constexpr std::ptrdiff_t kSizeOf = 0x50;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEShatterSurface) == 0x50);
-static_assert(offsetof(CMsgTEShatterSurface, origin) == 0x18);
-static_assert(offsetof(CMsgTEShatterSurface, angles) == 0x20);
-static_assert(offsetof(CMsgTEShatterSurface, force) == 0x28);
-static_assert(offsetof(CMsgTEShatterSurface, forcepos) == 0x30);
-static_assert(offsetof(CMsgTEShatterSurface, width) == 0x38);
-static_assert(offsetof(CMsgTEShatterSurface, height) == 0x3c);
-static_assert(offsetof(CMsgTEShatterSurface, shardsize) == 0x40);
-static_assert(offsetof(CMsgTEShatterSurface, surfacetype) == 0x44);
-static_assert(offsetof(CMsgTEShatterSurface, frontcolor) == 0x48);
-static_assert(offsetof(CMsgTEShatterSurface, backcolor) == 0x4c);
-
-#pragma pack(push, 1)
-struct CMsgTEGlowSprite { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    float scale; // #2 float, has-bit 1
-    float life; // #3 float, has-bit 2
-    uint32_t brightness; // #4 uint32, has-bit 3
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEGlowSprite) == 0x30);
-static_assert(offsetof(CMsgTEGlowSprite, origin) == 0x18);
-static_assert(offsetof(CMsgTEGlowSprite, scale) == 0x20);
-static_assert(offsetof(CMsgTEGlowSprite, life) == 0x24);
-static_assert(offsetof(CMsgTEGlowSprite, brightness) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgTEImpact { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgVector* normal; // #2 message CMsgVector, has-bit 1
-    uint32_t type; // #3 uint32, has-bit 2
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEImpact) == 0x30);
-static_assert(offsetof(CMsgTEImpact, origin) == 0x18);
-static_assert(offsetof(CMsgTEImpact, normal) == 0x20);
-static_assert(offsetof(CMsgTEImpact, type) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgTEMuzzleFlash { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgQAngle* angles; // #2 message CMsgQAngle, has-bit 1
-    float scale; // #3 float, has-bit 2
-    uint32_t type; // #4 uint32, has-bit 3
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEMuzzleFlash) == 0x30);
-static_assert(offsetof(CMsgTEMuzzleFlash, origin) == 0x18);
-static_assert(offsetof(CMsgTEMuzzleFlash, angles) == 0x20);
-static_assert(offsetof(CMsgTEMuzzleFlash, scale) == 0x28);
-static_assert(offsetof(CMsgTEMuzzleFlash, type) == 0x2c);
-
-#pragma pack(push, 1)
-struct CMsgTEBloodStream { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgVector* direction; // #2 message CMsgVector, has-bit 1
-    uint32_t color; // #3 fixed32, has-bit 2
-    uint32_t amount; // #4 uint32, has-bit 3
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEBloodStream) == 0x30);
-static_assert(offsetof(CMsgTEBloodStream, origin) == 0x18);
-static_assert(offsetof(CMsgTEBloodStream, direction) == 0x20);
-static_assert(offsetof(CMsgTEBloodStream, color) == 0x28);
-static_assert(offsetof(CMsgTEBloodStream, amount) == 0x2c);
-
-#pragma pack(push, 1)
-struct CMsgTEExplosion { // sizeof 0x58, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* sound_name; // #10 string, has-bit 0
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 1
-    pb::client::CMsgVector* normal; // #4 message CMsgVector, has-bit 2
-    uint32_t debris_surfaceprop; // #14 fixed32, has-bit 3
-    uint8_t _pad_34[0x4];
-    uint32_t flags; // #3 uint32, has-bit 4
-    uint32_t radius; // #6 uint32, has-bit 5
-    uint32_t magnitude; // #7 uint32, has-bit 6
-    bool affect_ragdolls; // #9 bool, has-bit 7
-    uint8_t debris_origin[0x3]; // #13 message CMsgVector, has-bit 8
-    uint32_t explosion_type; // #11 uint32, has-bit 9
-    uint32_t explosion_type_name; // #15 uint32, has-bit 10
-    bool create_debris; // #12 bool, has-bit 11
-    uint8_t _pad_51[0x7];
-    static constexpr std::ptrdiff_t kSizeOf = 0x58;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEExplosion) == 0x58);
-static_assert(offsetof(CMsgTEExplosion, sound_name) == 0x18);
-static_assert(offsetof(CMsgTEExplosion, origin) == 0x20);
-static_assert(offsetof(CMsgTEExplosion, normal) == 0x28);
-static_assert(offsetof(CMsgTEExplosion, debris_surfaceprop) == 0x30);
-static_assert(offsetof(CMsgTEExplosion, flags) == 0x38);
-static_assert(offsetof(CMsgTEExplosion, radius) == 0x3c);
-static_assert(offsetof(CMsgTEExplosion, magnitude) == 0x40);
-static_assert(offsetof(CMsgTEExplosion, affect_ragdolls) == 0x44);
-static_assert(offsetof(CMsgTEExplosion, debris_origin) == 0x45);
-static_assert(offsetof(CMsgTEExplosion, explosion_type) == 0x48);
-static_assert(offsetof(CMsgTEExplosion, explosion_type_name) == 0x4c);
-static_assert(offsetof(CMsgTEExplosion, create_debris) == 0x50);
-
-#pragma pack(push, 1)
-struct CMsgTEDust { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgVector* direction; // #4 message CMsgVector, has-bit 1
-    float size; // #2 float, has-bit 2
-    float speed; // #3 float, has-bit 3
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEDust) == 0x30);
-static_assert(offsetof(CMsgTEDust, origin) == 0x18);
-static_assert(offsetof(CMsgTEDust, direction) == 0x20);
-static_assert(offsetof(CMsgTEDust, size) == 0x28);
-static_assert(offsetof(CMsgTEDust, speed) == 0x2c);
-
-#pragma pack(push, 1)
-struct CMsgTELargeFunnel { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    uint32_t reversed; // #2 uint32, has-bit 1
-    uint8_t _pad_24[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTELargeFunnel) == 0x28);
-static_assert(offsetof(CMsgTELargeFunnel, origin) == 0x18);
-static_assert(offsetof(CMsgTELargeFunnel, reversed) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgTESparks { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgVector* direction; // #4 message CMsgVector, has-bit 1
-    uint32_t magnitude; // #2 uint32, has-bit 2
-    uint32_t length; // #3 uint32, has-bit 3
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTESparks) == 0x30);
-static_assert(offsetof(CMsgTESparks, origin) == 0x18);
-static_assert(offsetof(CMsgTESparks, direction) == 0x20);
-static_assert(offsetof(CMsgTESparks, magnitude) == 0x28);
-static_assert(offsetof(CMsgTESparks, length) == 0x2c);
-
-#pragma pack(push, 1)
-struct CMsgTEPhysicsProp { // sizeof 0x68, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgVector* velocity; // #2 message CMsgVector, has-bit 1
-    pb::client::CMsgQAngle* angles; // #3 message CMsgQAngle, has-bit 2
-    pb::client::CMsgVector* dmgpos; // #11 message CMsgVector, has-bit 3
-    pb::client::CMsgVector* dmgdir; // #12 message CMsgVector, has-bit 4
-    uint32_t skin; // #4 fixed32, has-bit 5
-    uint32_t flags; // #5 uint32, has-bit 6
-    uint32_t effects; // #6 uint32, has-bit 7
-    uint32_t color; // #7 fixed32, has-bit 8
-    uint64_t modelindex; // #8 fixed64, has-bit 9
-    uint32_t unused_breakmodelsnottomake; // #9 uint32, has-bit 10
-    float scale; // #10 float, has-bit 11
-    int32_t dmgtype; // #13 int32, has-bit 12
-    uint8_t _pad_64[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x68;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEPhysicsProp) == 0x68);
-static_assert(offsetof(CMsgTEPhysicsProp, origin) == 0x18);
-static_assert(offsetof(CMsgTEPhysicsProp, velocity) == 0x20);
-static_assert(offsetof(CMsgTEPhysicsProp, angles) == 0x28);
-static_assert(offsetof(CMsgTEPhysicsProp, dmgpos) == 0x30);
-static_assert(offsetof(CMsgTEPhysicsProp, dmgdir) == 0x38);
-static_assert(offsetof(CMsgTEPhysicsProp, skin) == 0x40);
-static_assert(offsetof(CMsgTEPhysicsProp, flags) == 0x44);
-static_assert(offsetof(CMsgTEPhysicsProp, effects) == 0x48);
-static_assert(offsetof(CMsgTEPhysicsProp, color) == 0x4c);
-static_assert(offsetof(CMsgTEPhysicsProp, modelindex) == 0x50);
-static_assert(offsetof(CMsgTEPhysicsProp, unused_breakmodelsnottomake) == 0x58);
-static_assert(offsetof(CMsgTEPhysicsProp, scale) == 0x5c);
-static_assert(offsetof(CMsgTEPhysicsProp, dmgtype) == 0x60);
-
-#pragma pack(push, 1)
-struct CMsgTESmoke { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    float scale; // #2 float, has-bit 1
-    uint8_t _pad_24[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTESmoke) == 0x28);
-static_assert(offsetof(CMsgTESmoke, origin) == 0x18);
-static_assert(offsetof(CMsgTESmoke, scale) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgTEWorldDecal { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
-    pb::client::CMsgVector* normal; // #2 message CMsgVector, has-bit 1
-    uint32_t index; // #3 uint32, has-bit 2
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgTEWorldDecal) == 0x30);
-static_assert(offsetof(CMsgTEWorldDecal, origin) == 0x18);
-static_assert(offsetof(CMsgTEWorldDecal, normal) == 0x20);
-static_assert(offsetof(CMsgTEWorldDecal, index) == 0x28);
-
-#pragma pack(push, 1)
-struct CHelpRequestLogs_UploadUserApplicationLog_Request { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* log_type; // #2 string, has-bit 0
-    pb::string_t* version_string; // #3 string, has-bit 1
-    pb::string_t* log_contents; // #4 string, has-bit 2
-    uint32_t appid; // #1 uint32, has-bit 3
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CHelpRequestLogs_UploadUserApplicationLog_Request) == 0x38);
-static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, log_type) == 0x18);
-static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, version_string) == 0x20);
-static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, log_contents) == 0x28);
-static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, appid) == 0x30);
-
-#pragma pack(push, 1)
-struct CHelpRequestLogs_UploadUserApplicationLog_Response { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t id; // #1 uint64, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CHelpRequestLogs_UploadUserApplicationLog_Response) == 0x20);
-static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Response, id) == 0x18);
 
 #pragma pack(push, 1)
 struct CSGOInterpolationInfoPB { // sizeof 0x28, _has_bits_ @ 0x10
@@ -27684,6 +27724,40 @@ struct CCSUsrMsg_SendPlayerLoadout_LoadoutItem { // sizeof 0x38, _has_bits_ @ 0x
 static_assert(sizeof(CCSUsrMsg_SendPlayerLoadout_LoadoutItem) == 0x38);
 static_assert(offsetof(CCSUsrMsg_SendPlayerLoadout_LoadoutItem, econ_item) == 0x18);
 static_assert(offsetof(CCSUsrMsg_SendPlayerLoadout_LoadoutItem, team) == 0x30);
+
+#pragma pack(push, 1)
+struct CVacNet_GetReviewerInfo_Request { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t appid; // #1 uint32, has-bit 0
+    uint8_t _pad_1c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CVacNet_GetReviewerInfo_Request) == 0x20);
+static_assert(offsetof(CVacNet_GetReviewerInfo_Request, appid) == 0x18);
+
+#pragma pack(push, 1)
+struct CVacnetReviewerInfo { // sizeof 0x30, no _has_bits_
+    uint8_t _pad_0[0x10];
+    pb::RepeatedPtrField<pb::string_t> permissions; // #1 repeated string, no has-bit
+    uint8_t _pad_28[0x8];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+};
+#pragma pack(pop)
+static_assert(sizeof(CVacnetReviewerInfo) == 0x30);
+static_assert(offsetof(CVacnetReviewerInfo, permissions) == 0x10);
+
+#pragma pack(push, 1)
+struct CVacNet_GetReviewerInfo_Response { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::server::CVacnetReviewerInfo* reviewer_info; // #1 message CVacnetReviewerInfo, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CVacNet_GetReviewerInfo_Response) == 0x20);
+static_assert(offsetof(CVacNet_GetReviewerInfo_Response, reviewer_info) == 0x18);
 
 #pragma pack(push, 1)
 struct CGCStorePurchaseInit_LineItem { // sizeof 0x38, _has_bits_ @ 0x10

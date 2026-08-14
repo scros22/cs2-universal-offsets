@@ -2954,7 +2954,28 @@
       "fields": {
         "econ_item": { "offset": 24, "number": 1, "has_bit": -1, "type": 11, "label": 1 },
         "team": { "offset": 48, "number": 2, "has_bit": 0, "type": 5, "label": 1 },
-        "slot": { "offset": 4294967295, "number": 3, "has_bit": 3440883488, "type": 5, "label": 1 }
+        "slot": { "offset": 4294967295, "number": 3, "has_bit": 16, "type": 5, "label": 1 }
+      }
+    },
+    "CVacNet_GetReviewerInfo_Request": {
+      "size": 32,
+      "has_bits_offset": 16,
+      "fields": {
+        "appid": { "offset": 24, "number": 1, "has_bit": 0, "type": 13, "label": 1 }
+      }
+    },
+    "CVacnetReviewerInfo": {
+      "size": 48,
+      "has_bits_offset": -1,
+      "fields": {
+        "permissions": { "offset": 16, "number": 1, "has_bit": -1, "type": 9, "label": 3 }
+      }
+    },
+    "CVacNet_GetReviewerInfo_Response": {
+      "size": 32,
+      "has_bits_offset": 16,
+      "fields": {
+        "reviewer_info": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 }
       }
     },
     "CGCStorePurchaseInit_LineItem": {
@@ -6264,6 +6285,307 @@
         "bugbug_no": { "offset": 64, "number": 7, "has_bit": 6, "type": 5, "label": 1 }
       }
     },
+    "CMsgTEArmorRicochet": {
+      "size": 40,
+      "has_bits_offset": 16,
+      "fields": {
+        "pos": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "dir": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 }
+      }
+    },
+    "CMsgTEBaseBeam": {
+      "size": 80,
+      "has_bits_offset": 16,
+      "fields": {
+        "modelindex": { "offset": 24, "number": 1, "has_bit": 0, "type": 6, "label": 1 },
+        "haloindex": { "offset": 32, "number": 2, "has_bit": 1, "type": 6, "label": 1 },
+        "startframe": { "offset": 40, "number": 3, "has_bit": 2, "type": 13, "label": 1 },
+        "framerate": { "offset": 44, "number": 4, "has_bit": 3, "type": 13, "label": 1 },
+        "life": { "offset": 48, "number": 5, "has_bit": 4, "type": 2, "label": 1 },
+        "width": { "offset": 52, "number": 6, "has_bit": 5, "type": 2, "label": 1 },
+        "endwidth": { "offset": 56, "number": 7, "has_bit": 6, "type": 2, "label": 1 },
+        "fadelength": { "offset": 60, "number": 8, "has_bit": 7, "type": 13, "label": 1 },
+        "amplitude": { "offset": 64, "number": 9, "has_bit": 8, "type": 2, "label": 1 },
+        "color": { "offset": 68, "number": 10, "has_bit": 9, "type": 7, "label": 1 },
+        "speed": { "offset": 72, "number": 11, "has_bit": 10, "type": 13, "label": 1 },
+        "flags": { "offset": 76, "number": 12, "has_bit": 11, "type": 13, "label": 1 }
+      }
+    },
+    "CMsgTEBeamEntPoint": {
+      "size": 56,
+      "has_bits_offset": 16,
+      "fields": {
+        "base": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "startentity": { "offset": 48, "number": 2, "has_bit": 3, "type": 13, "label": 1 },
+        "endentity": { "offset": 52, "number": 3, "has_bit": 4, "type": 13, "label": 1 },
+        "start": { "offset": 32, "number": 4, "has_bit": 1, "type": 11, "label": 1 },
+        "end": { "offset": 40, "number": 5, "has_bit": 2, "type": 11, "label": 1 }
+      }
+    },
+    "CMsgTEBeamEnts": {
+      "size": 40,
+      "has_bits_offset": 16,
+      "fields": {
+        "base": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "startentity": { "offset": 32, "number": 2, "has_bit": 1, "type": 13, "label": 1 },
+        "endentity": { "offset": 36, "number": 3, "has_bit": 2, "type": 13, "label": 1 }
+      }
+    },
+    "CMsgTEBeamPoints": {
+      "size": 48,
+      "has_bits_offset": 16,
+      "fields": {
+        "base": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "start": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
+        "end": { "offset": 40, "number": 3, "has_bit": 2, "type": 11, "label": 1 }
+      }
+    },
+    "CMsgTEBeamRing": {
+      "size": 40,
+      "has_bits_offset": 16,
+      "fields": {
+        "base": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "startentity": { "offset": 32, "number": 2, "has_bit": 1, "type": 13, "label": 1 },
+        "endentity": { "offset": 36, "number": 3, "has_bit": 2, "type": 13, "label": 1 }
+      }
+    },
+    "CMsgTEBubbles": {
+      "size": 56,
+      "has_bits_offset": 16,
+      "fields": {
+        "mins": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "maxs": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
+        "height": { "offset": 40, "number": 3, "has_bit": 2, "type": 2, "label": 1 },
+        "count": { "offset": 44, "number": 4, "has_bit": 3, "type": 13, "label": 1 },
+        "speed": { "offset": 48, "number": 5, "has_bit": 4, "type": 2, "label": 1 }
+      }
+    },
+    "CMsgTEBubbleTrail": {
+      "size": 56,
+      "has_bits_offset": 16,
+      "fields": {
+        "mins": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "maxs": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
+        "waterz": { "offset": 40, "number": 3, "has_bit": 2, "type": 2, "label": 1 },
+        "count": { "offset": 44, "number": 4, "has_bit": 3, "type": 13, "label": 1 },
+        "speed": { "offset": 48, "number": 5, "has_bit": 4, "type": 2, "label": 1 }
+      }
+    },
+    "CMsgTEDecal": {
+      "size": 56,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "start": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
+        "entity": { "offset": 48, "number": 3, "has_bit": 4, "type": 5, "label": 1 },
+        "hitbox": { "offset": 40, "number": 4, "has_bit": 2, "type": 13, "label": 1 },
+        "index": { "offset": 44, "number": 5, "has_bit": 3, "type": 13, "label": 1 }
+      }
+    },
+    "CMsgEffectData": {
+      "size": 120,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "start": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
+        "normal": { "offset": 40, "number": 3, "has_bit": 2, "type": 11, "label": 1 },
+        "angles": { "offset": 48, "number": 4, "has_bit": 3, "type": 11, "label": 1 },
+        "entity": { "offset": 112, "number": 5, "has_bit": 17, "type": 7, "label": 1 },
+        "otherentity": { "offset": 116, "number": 6, "has_bit": 18, "type": 7, "label": 1 },
+        "scale": { "offset": 56, "number": 7, "has_bit": 4, "type": 2, "label": 1 },
+        "magnitude": { "offset": 60, "number": 8, "has_bit": 5, "type": 2, "label": 1 },
+        "radius": { "offset": 64, "number": 9, "has_bit": 6, "type": 2, "label": 1 },
+        "surfaceprop": { "offset": 68, "number": 10, "has_bit": 7, "type": 7, "label": 1 },
+        "effectindex": { "offset": 72, "number": 11, "has_bit": 8, "type": 6, "label": 1 },
+        "damagetype": { "offset": 80, "number": 12, "has_bit": 9, "type": 13, "label": 1 },
+        "material": { "offset": 84, "number": 13, "has_bit": 10, "type": 13, "label": 1 },
+        "hitbox": { "offset": 88, "number": 14, "has_bit": 11, "type": 13, "label": 1 },
+        "color": { "offset": 92, "number": 15, "has_bit": 12, "type": 13, "label": 1 },
+        "flags": { "offset": 96, "number": 16, "has_bit": 13, "type": 13, "label": 1 },
+        "attachmentindex": { "offset": 100, "number": 17, "has_bit": 14, "type": 5, "label": 1 },
+        "effectname": { "offset": 104, "number": 18, "has_bit": 15, "type": 13, "label": 1 },
+        "attachmentname": { "offset": 108, "number": 19, "has_bit": 16, "type": 13, "label": 1 }
+      }
+    },
+    "CMsgTEEffectDispatch": {
+      "size": 32,
+      "has_bits_offset": 16,
+      "fields": {
+        "effectdata": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 }
+      }
+    },
+    "CMsgTEEnergySplash": {
+      "size": 48,
+      "has_bits_offset": 16,
+      "fields": {
+        "pos": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "dir": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
+        "explosive": { "offset": 40, "number": 3, "has_bit": 2, "type": 8, "label": 1 }
+      }
+    },
+    "CMsgTEFizz": {
+      "size": 40,
+      "has_bits_offset": 16,
+      "fields": {
+        "entity": { "offset": 32, "number": 1, "has_bit": 2, "type": 5, "label": 1 },
+        "density": { "offset": 24, "number": 2, "has_bit": 0, "type": 13, "label": 1 },
+        "current": { "offset": 28, "number": 3, "has_bit": 1, "type": 5, "label": 1 }
+      }
+    },
+    "CMsgTEShatterSurface": {
+      "size": 80,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "angles": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
+        "force": { "offset": 40, "number": 3, "has_bit": 2, "type": 11, "label": 1 },
+        "forcepos": { "offset": 48, "number": 4, "has_bit": 3, "type": 11, "label": 1 },
+        "width": { "offset": 56, "number": 5, "has_bit": 4, "type": 2, "label": 1 },
+        "height": { "offset": 60, "number": 6, "has_bit": 5, "type": 2, "label": 1 },
+        "shardsize": { "offset": 64, "number": 7, "has_bit": 6, "type": 2, "label": 1 },
+        "surfacetype": { "offset": 68, "number": 8, "has_bit": 7, "type": 13, "label": 1 },
+        "frontcolor": { "offset": 72, "number": 9, "has_bit": 8, "type": 7, "label": 1 },
+        "backcolor": { "offset": 76, "number": 10, "has_bit": 9, "type": 7, "label": 1 }
+      }
+    },
+    "CMsgTEGlowSprite": {
+      "size": 48,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "scale": { "offset": 32, "number": 2, "has_bit": 1, "type": 2, "label": 1 },
+        "life": { "offset": 36, "number": 3, "has_bit": 2, "type": 2, "label": 1 },
+        "brightness": { "offset": 40, "number": 4, "has_bit": 3, "type": 13, "label": 1 }
+      }
+    },
+    "CMsgTEImpact": {
+      "size": 48,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "normal": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
+        "type": { "offset": 40, "number": 3, "has_bit": 2, "type": 13, "label": 1 }
+      }
+    },
+    "CMsgTEMuzzleFlash": {
+      "size": 48,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "angles": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
+        "scale": { "offset": 40, "number": 3, "has_bit": 2, "type": 2, "label": 1 },
+        "type": { "offset": 44, "number": 4, "has_bit": 3, "type": 13, "label": 1 }
+      }
+    },
+    "CMsgTEBloodStream": {
+      "size": 48,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "direction": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
+        "color": { "offset": 40, "number": 3, "has_bit": 2, "type": 7, "label": 1 },
+        "amount": { "offset": 44, "number": 4, "has_bit": 3, "type": 13, "label": 1 }
+      }
+    },
+    "CMsgTEExplosion": {
+      "size": 88,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 32, "number": 1, "has_bit": 1, "type": 11, "label": 1 },
+        "flags": { "offset": 56, "number": 3, "has_bit": 4, "type": 13, "label": 1 },
+        "normal": { "offset": 40, "number": 4, "has_bit": 2, "type": 11, "label": 1 },
+        "radius": { "offset": 60, "number": 6, "has_bit": 5, "type": 13, "label": 1 },
+        "magnitude": { "offset": 64, "number": 7, "has_bit": 6, "type": 13, "label": 1 },
+        "affect_ragdolls": { "offset": 68, "number": 9, "has_bit": 7, "type": 8, "label": 1 },
+        "sound_name": { "offset": 24, "number": 10, "has_bit": 0, "type": 9, "label": 1 },
+        "explosion_type": { "offset": 72, "number": 11, "has_bit": 9, "type": 13, "label": 1 },
+        "create_debris": { "offset": 80, "number": 12, "has_bit": 11, "type": 8, "label": 1 },
+        "debris_origin": { "offset": 69, "number": 13, "has_bit": 8, "type": 11, "label": 1 },
+        "debris_surfaceprop": { "offset": 48, "number": 14, "has_bit": 3, "type": 7, "label": 1 },
+        "explosion_type_name": { "offset": 76, "number": 15, "has_bit": 10, "type": 13, "label": 1 }
+      }
+    },
+    "CMsgTEDust": {
+      "size": 48,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "size": { "offset": 40, "number": 2, "has_bit": 2, "type": 2, "label": 1 },
+        "speed": { "offset": 44, "number": 3, "has_bit": 3, "type": 2, "label": 1 },
+        "direction": { "offset": 32, "number": 4, "has_bit": 1, "type": 11, "label": 1 }
+      }
+    },
+    "CMsgTELargeFunnel": {
+      "size": 40,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "reversed": { "offset": 32, "number": 2, "has_bit": 1, "type": 13, "label": 1 }
+      }
+    },
+    "CMsgTESparks": {
+      "size": 48,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "magnitude": { "offset": 40, "number": 2, "has_bit": 2, "type": 13, "label": 1 },
+        "length": { "offset": 44, "number": 3, "has_bit": 3, "type": 13, "label": 1 },
+        "direction": { "offset": 32, "number": 4, "has_bit": 1, "type": 11, "label": 1 }
+      }
+    },
+    "CMsgTEPhysicsProp": {
+      "size": 104,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "velocity": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
+        "angles": { "offset": 40, "number": 3, "has_bit": 2, "type": 11, "label": 1 },
+        "skin": { "offset": 64, "number": 4, "has_bit": 5, "type": 7, "label": 1 },
+        "flags": { "offset": 68, "number": 5, "has_bit": 6, "type": 13, "label": 1 },
+        "effects": { "offset": 72, "number": 6, "has_bit": 7, "type": 13, "label": 1 },
+        "color": { "offset": 76, "number": 7, "has_bit": 8, "type": 7, "label": 1 },
+        "modelindex": { "offset": 80, "number": 8, "has_bit": 9, "type": 6, "label": 1 },
+        "unused_breakmodelsnottomake": { "offset": 88, "number": 9, "has_bit": 10, "type": 13, "label": 1 },
+        "scale": { "offset": 92, "number": 10, "has_bit": 11, "type": 2, "label": 1 },
+        "dmgpos": { "offset": 48, "number": 11, "has_bit": 3, "type": 11, "label": 1 },
+        "dmgdir": { "offset": 56, "number": 12, "has_bit": 4, "type": 11, "label": 1 },
+        "dmgtype": { "offset": 96, "number": 13, "has_bit": 12, "type": 5, "label": 1 }
+      }
+    },
+    "CMsgTESmoke": {
+      "size": 40,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "scale": { "offset": 32, "number": 2, "has_bit": 1, "type": 2, "label": 1 }
+      }
+    },
+    "CMsgTEWorldDecal": {
+      "size": 48,
+      "has_bits_offset": 16,
+      "fields": {
+        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
+        "normal": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
+        "index": { "offset": 40, "number": 3, "has_bit": 2, "type": 13, "label": 1 }
+      }
+    },
+    "CHelpRequestLogs_UploadUserApplicationLog_Request": {
+      "size": 56,
+      "has_bits_offset": 16,
+      "fields": {
+        "appid": { "offset": 48, "number": 1, "has_bit": 3, "type": 13, "label": 1 },
+        "log_type": { "offset": 24, "number": 2, "has_bit": 0, "type": 9, "label": 1 },
+        "version_string": { "offset": 32, "number": 3, "has_bit": 1, "type": 9, "label": 1 },
+        "log_contents": { "offset": 40, "number": 4, "has_bit": 2, "type": 9, "label": 1 }
+      }
+    },
+    "CHelpRequestLogs_UploadUserApplicationLog_Response": {
+      "size": 32,
+      "has_bits_offset": 16,
+      "fields": {
+        "id": { "offset": 24, "number": 1, "has_bit": 0, "type": 4, "label": 1 }
+      }
+    },
     "COAuthToken_ImplicitGrantNoPrompt_Request": {
       "size": 32,
       "has_bits_offset": 16,
@@ -6277,6 +6599,39 @@
       "fields": {
         "access_token": { "offset": 24, "number": 1, "has_bit": 0, "type": 9, "label": 1 },
         "redirect_uri": { "offset": 32, "number": 2, "has_bit": 1, "type": 9, "label": 1 }
+      }
+    },
+    "CMsgProtoBufHeader": {
+      "size": 88,
+      "has_bits_offset": 16,
+      "fields": {
+        "client_steam_id": { "offset": 40, "number": 1, "has_bit": 2, "type": 6, "label": 1 },
+        "client_session_id": { "offset": 48, "number": 2, "has_bit": 3, "type": 5, "label": 1 },
+        "source_app_id": { "offset": 52, "number": 3, "has_bit": 4, "type": 13, "label": 1 },
+        "job_id_source": { "offset": 72, "number": 10, "has_bit": 9, "type": 6, "label": 1 },
+        "job_id_target": { "offset": 80, "number": 11, "has_bit": 10, "type": 6, "label": 1 },
+        "target_job_name": { "offset": 24, "number": 12, "has_bit": 0, "type": 9, "label": 1 },
+        "eresult": { "offset": 68, "number": 13, "has_bit": 8, "type": 5, "label": 1 },
+        "error_message": { "offset": 32, "number": 14, "has_bit": 1, "type": 9, "label": 1 },
+        "ip": { "offset": 56, "number": 15, "has_bit": 5, "type": 13, "label": 1 },
+        "gc_msg_src": { "offset": 60, "number": 200, "has_bit": 6, "type": 14, "label": 1 },
+        "gc_dir_index_source": { "offset": 64, "number": 201, "has_bit": 7, "type": 13, "label": 1 }
+      }
+    },
+    "CChinaAgreementSessions_StartAgreementSessionInGame_Request": {
+      "size": 48,
+      "has_bits_offset": 16,
+      "fields": {
+        "appid": { "offset": 40, "number": 1, "has_bit": 2, "type": 13, "label": 1 },
+        "steamid": { "offset": 32, "number": 2, "has_bit": 1, "type": 6, "label": 1 },
+        "client_ipaddress": { "offset": 24, "number": 3, "has_bit": 0, "type": 9, "label": 1 }
+      }
+    },
+    "CChinaAgreementSessions_StartAgreementSessionInGame_Response": {
+      "size": 32,
+      "has_bits_offset": 16,
+      "fields": {
+        "agreement_url": { "offset": 24, "number": 1, "has_bit": 0, "type": 9, "label": 1 }
       }
     },
     "CPlayer_GetMutualFriendsForIncomingInvites_Request": {
@@ -6572,39 +6927,6 @@
       "size": 24,
       "has_bits_offset": -1,
       "fields": {
-      }
-    },
-    "CMsgProtoBufHeader": {
-      "size": 88,
-      "has_bits_offset": 16,
-      "fields": {
-        "client_steam_id": { "offset": 40, "number": 1, "has_bit": 2, "type": 6, "label": 1 },
-        "client_session_id": { "offset": 48, "number": 2, "has_bit": 3, "type": 5, "label": 1 },
-        "source_app_id": { "offset": 52, "number": 3, "has_bit": 4, "type": 13, "label": 1 },
-        "job_id_source": { "offset": 72, "number": 10, "has_bit": 9, "type": 6, "label": 1 },
-        "job_id_target": { "offset": 80, "number": 11, "has_bit": 10, "type": 6, "label": 1 },
-        "target_job_name": { "offset": 24, "number": 12, "has_bit": 0, "type": 9, "label": 1 },
-        "eresult": { "offset": 68, "number": 13, "has_bit": 8, "type": 5, "label": 1 },
-        "error_message": { "offset": 32, "number": 14, "has_bit": 1, "type": 9, "label": 1 },
-        "ip": { "offset": 56, "number": 15, "has_bit": 5, "type": 13, "label": 1 },
-        "gc_msg_src": { "offset": 60, "number": 200, "has_bit": 6, "type": 14, "label": 1 },
-        "gc_dir_index_source": { "offset": 64, "number": 201, "has_bit": 7, "type": 13, "label": 1 }
-      }
-    },
-    "CChinaAgreementSessions_StartAgreementSessionInGame_Request": {
-      "size": 48,
-      "has_bits_offset": 16,
-      "fields": {
-        "appid": { "offset": 40, "number": 1, "has_bit": 2, "type": 13, "label": 1 },
-        "steamid": { "offset": 32, "number": 2, "has_bit": 1, "type": 6, "label": 1 },
-        "client_ipaddress": { "offset": 24, "number": 3, "has_bit": 0, "type": 9, "label": 1 }
-      }
-    },
-    "CChinaAgreementSessions_StartAgreementSessionInGame_Response": {
-      "size": 32,
-      "has_bits_offset": 16,
-      "fields": {
-        "agreement_url": { "offset": 24, "number": 1, "has_bit": 0, "type": 9, "label": 1 }
       }
     },
     "CCloud_GetUploadServerInfo_Request": {
@@ -7996,307 +8318,6 @@
         "usage": { "offset": 24, "number": 1, "has_bit": 0, "type": 9, "label": 1 }
       }
     },
-    "CMsgTEArmorRicochet": {
-      "size": 40,
-      "has_bits_offset": 16,
-      "fields": {
-        "pos": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "dir": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 }
-      }
-    },
-    "CMsgTEBaseBeam": {
-      "size": 80,
-      "has_bits_offset": 16,
-      "fields": {
-        "modelindex": { "offset": 24, "number": 1, "has_bit": 0, "type": 6, "label": 1 },
-        "haloindex": { "offset": 32, "number": 2, "has_bit": 1, "type": 6, "label": 1 },
-        "startframe": { "offset": 40, "number": 3, "has_bit": 2, "type": 13, "label": 1 },
-        "framerate": { "offset": 44, "number": 4, "has_bit": 3, "type": 13, "label": 1 },
-        "life": { "offset": 48, "number": 5, "has_bit": 4, "type": 2, "label": 1 },
-        "width": { "offset": 52, "number": 6, "has_bit": 5, "type": 2, "label": 1 },
-        "endwidth": { "offset": 56, "number": 7, "has_bit": 6, "type": 2, "label": 1 },
-        "fadelength": { "offset": 60, "number": 8, "has_bit": 7, "type": 13, "label": 1 },
-        "amplitude": { "offset": 64, "number": 9, "has_bit": 8, "type": 2, "label": 1 },
-        "color": { "offset": 68, "number": 10, "has_bit": 9, "type": 7, "label": 1 },
-        "speed": { "offset": 72, "number": 11, "has_bit": 10, "type": 13, "label": 1 },
-        "flags": { "offset": 76, "number": 12, "has_bit": 11, "type": 13, "label": 1 }
-      }
-    },
-    "CMsgTEBeamEntPoint": {
-      "size": 56,
-      "has_bits_offset": 16,
-      "fields": {
-        "base": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "startentity": { "offset": 48, "number": 2, "has_bit": 3, "type": 13, "label": 1 },
-        "endentity": { "offset": 52, "number": 3, "has_bit": 4, "type": 13, "label": 1 },
-        "start": { "offset": 32, "number": 4, "has_bit": 1, "type": 11, "label": 1 },
-        "end": { "offset": 40, "number": 5, "has_bit": 2, "type": 11, "label": 1 }
-      }
-    },
-    "CMsgTEBeamEnts": {
-      "size": 40,
-      "has_bits_offset": 16,
-      "fields": {
-        "base": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "startentity": { "offset": 32, "number": 2, "has_bit": 1, "type": 13, "label": 1 },
-        "endentity": { "offset": 36, "number": 3, "has_bit": 2, "type": 13, "label": 1 }
-      }
-    },
-    "CMsgTEBeamPoints": {
-      "size": 48,
-      "has_bits_offset": 16,
-      "fields": {
-        "base": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "start": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
-        "end": { "offset": 40, "number": 3, "has_bit": 2, "type": 11, "label": 1 }
-      }
-    },
-    "CMsgTEBeamRing": {
-      "size": 40,
-      "has_bits_offset": 16,
-      "fields": {
-        "base": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "startentity": { "offset": 32, "number": 2, "has_bit": 1, "type": 13, "label": 1 },
-        "endentity": { "offset": 36, "number": 3, "has_bit": 2, "type": 13, "label": 1 }
-      }
-    },
-    "CMsgTEBubbles": {
-      "size": 56,
-      "has_bits_offset": 16,
-      "fields": {
-        "mins": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "maxs": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
-        "height": { "offset": 40, "number": 3, "has_bit": 2, "type": 2, "label": 1 },
-        "count": { "offset": 44, "number": 4, "has_bit": 3, "type": 13, "label": 1 },
-        "speed": { "offset": 48, "number": 5, "has_bit": 4, "type": 2, "label": 1 }
-      }
-    },
-    "CMsgTEBubbleTrail": {
-      "size": 56,
-      "has_bits_offset": 16,
-      "fields": {
-        "mins": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "maxs": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
-        "waterz": { "offset": 40, "number": 3, "has_bit": 2, "type": 2, "label": 1 },
-        "count": { "offset": 44, "number": 4, "has_bit": 3, "type": 13, "label": 1 },
-        "speed": { "offset": 48, "number": 5, "has_bit": 4, "type": 2, "label": 1 }
-      }
-    },
-    "CMsgTEDecal": {
-      "size": 56,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "start": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
-        "entity": { "offset": 48, "number": 3, "has_bit": 4, "type": 5, "label": 1 },
-        "hitbox": { "offset": 40, "number": 4, "has_bit": 2, "type": 13, "label": 1 },
-        "index": { "offset": 44, "number": 5, "has_bit": 3, "type": 13, "label": 1 }
-      }
-    },
-    "CMsgEffectData": {
-      "size": 120,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "start": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
-        "normal": { "offset": 40, "number": 3, "has_bit": 2, "type": 11, "label": 1 },
-        "angles": { "offset": 48, "number": 4, "has_bit": 3, "type": 11, "label": 1 },
-        "entity": { "offset": 112, "number": 5, "has_bit": 17, "type": 7, "label": 1 },
-        "otherentity": { "offset": 116, "number": 6, "has_bit": 18, "type": 7, "label": 1 },
-        "scale": { "offset": 56, "number": 7, "has_bit": 4, "type": 2, "label": 1 },
-        "magnitude": { "offset": 60, "number": 8, "has_bit": 5, "type": 2, "label": 1 },
-        "radius": { "offset": 64, "number": 9, "has_bit": 6, "type": 2, "label": 1 },
-        "surfaceprop": { "offset": 68, "number": 10, "has_bit": 7, "type": 7, "label": 1 },
-        "effectindex": { "offset": 72, "number": 11, "has_bit": 8, "type": 6, "label": 1 },
-        "damagetype": { "offset": 80, "number": 12, "has_bit": 9, "type": 13, "label": 1 },
-        "material": { "offset": 84, "number": 13, "has_bit": 10, "type": 13, "label": 1 },
-        "hitbox": { "offset": 88, "number": 14, "has_bit": 11, "type": 13, "label": 1 },
-        "color": { "offset": 92, "number": 15, "has_bit": 12, "type": 13, "label": 1 },
-        "flags": { "offset": 96, "number": 16, "has_bit": 13, "type": 13, "label": 1 },
-        "attachmentindex": { "offset": 100, "number": 17, "has_bit": 14, "type": 5, "label": 1 },
-        "effectname": { "offset": 104, "number": 18, "has_bit": 15, "type": 13, "label": 1 },
-        "attachmentname": { "offset": 108, "number": 19, "has_bit": 16, "type": 13, "label": 1 }
-      }
-    },
-    "CMsgTEEffectDispatch": {
-      "size": 32,
-      "has_bits_offset": 16,
-      "fields": {
-        "effectdata": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 }
-      }
-    },
-    "CMsgTEEnergySplash": {
-      "size": 48,
-      "has_bits_offset": 16,
-      "fields": {
-        "pos": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "dir": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
-        "explosive": { "offset": 40, "number": 3, "has_bit": 2, "type": 8, "label": 1 }
-      }
-    },
-    "CMsgTEFizz": {
-      "size": 40,
-      "has_bits_offset": 16,
-      "fields": {
-        "entity": { "offset": 32, "number": 1, "has_bit": 2, "type": 5, "label": 1 },
-        "density": { "offset": 24, "number": 2, "has_bit": 0, "type": 13, "label": 1 },
-        "current": { "offset": 28, "number": 3, "has_bit": 1, "type": 5, "label": 1 }
-      }
-    },
-    "CMsgTEShatterSurface": {
-      "size": 80,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "angles": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
-        "force": { "offset": 40, "number": 3, "has_bit": 2, "type": 11, "label": 1 },
-        "forcepos": { "offset": 48, "number": 4, "has_bit": 3, "type": 11, "label": 1 },
-        "width": { "offset": 56, "number": 5, "has_bit": 4, "type": 2, "label": 1 },
-        "height": { "offset": 60, "number": 6, "has_bit": 5, "type": 2, "label": 1 },
-        "shardsize": { "offset": 64, "number": 7, "has_bit": 6, "type": 2, "label": 1 },
-        "surfacetype": { "offset": 68, "number": 8, "has_bit": 7, "type": 13, "label": 1 },
-        "frontcolor": { "offset": 72, "number": 9, "has_bit": 8, "type": 7, "label": 1 },
-        "backcolor": { "offset": 76, "number": 10, "has_bit": 9, "type": 7, "label": 1 }
-      }
-    },
-    "CMsgTEGlowSprite": {
-      "size": 48,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "scale": { "offset": 32, "number": 2, "has_bit": 1, "type": 2, "label": 1 },
-        "life": { "offset": 36, "number": 3, "has_bit": 2, "type": 2, "label": 1 },
-        "brightness": { "offset": 40, "number": 4, "has_bit": 3, "type": 13, "label": 1 }
-      }
-    },
-    "CMsgTEImpact": {
-      "size": 48,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "normal": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
-        "type": { "offset": 40, "number": 3, "has_bit": 2, "type": 13, "label": 1 }
-      }
-    },
-    "CMsgTEMuzzleFlash": {
-      "size": 48,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "angles": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
-        "scale": { "offset": 40, "number": 3, "has_bit": 2, "type": 2, "label": 1 },
-        "type": { "offset": 44, "number": 4, "has_bit": 3, "type": 13, "label": 1 }
-      }
-    },
-    "CMsgTEBloodStream": {
-      "size": 48,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "direction": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
-        "color": { "offset": 40, "number": 3, "has_bit": 2, "type": 7, "label": 1 },
-        "amount": { "offset": 44, "number": 4, "has_bit": 3, "type": 13, "label": 1 }
-      }
-    },
-    "CMsgTEExplosion": {
-      "size": 88,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 32, "number": 1, "has_bit": 1, "type": 11, "label": 1 },
-        "flags": { "offset": 56, "number": 3, "has_bit": 4, "type": 13, "label": 1 },
-        "normal": { "offset": 40, "number": 4, "has_bit": 2, "type": 11, "label": 1 },
-        "radius": { "offset": 60, "number": 6, "has_bit": 5, "type": 13, "label": 1 },
-        "magnitude": { "offset": 64, "number": 7, "has_bit": 6, "type": 13, "label": 1 },
-        "affect_ragdolls": { "offset": 68, "number": 9, "has_bit": 7, "type": 8, "label": 1 },
-        "sound_name": { "offset": 24, "number": 10, "has_bit": 0, "type": 9, "label": 1 },
-        "explosion_type": { "offset": 72, "number": 11, "has_bit": 9, "type": 13, "label": 1 },
-        "create_debris": { "offset": 80, "number": 12, "has_bit": 11, "type": 8, "label": 1 },
-        "debris_origin": { "offset": 69, "number": 13, "has_bit": 8, "type": 11, "label": 1 },
-        "debris_surfaceprop": { "offset": 48, "number": 14, "has_bit": 3, "type": 7, "label": 1 },
-        "explosion_type_name": { "offset": 76, "number": 15, "has_bit": 10, "type": 13, "label": 1 }
-      }
-    },
-    "CMsgTEDust": {
-      "size": 48,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "size": { "offset": 40, "number": 2, "has_bit": 2, "type": 2, "label": 1 },
-        "speed": { "offset": 44, "number": 3, "has_bit": 3, "type": 2, "label": 1 },
-        "direction": { "offset": 32, "number": 4, "has_bit": 1, "type": 11, "label": 1 }
-      }
-    },
-    "CMsgTELargeFunnel": {
-      "size": 40,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "reversed": { "offset": 32, "number": 2, "has_bit": 1, "type": 13, "label": 1 }
-      }
-    },
-    "CMsgTESparks": {
-      "size": 48,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "magnitude": { "offset": 40, "number": 2, "has_bit": 2, "type": 13, "label": 1 },
-        "length": { "offset": 44, "number": 3, "has_bit": 3, "type": 13, "label": 1 },
-        "direction": { "offset": 32, "number": 4, "has_bit": 1, "type": 11, "label": 1 }
-      }
-    },
-    "CMsgTEPhysicsProp": {
-      "size": 104,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "velocity": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
-        "angles": { "offset": 40, "number": 3, "has_bit": 2, "type": 11, "label": 1 },
-        "skin": { "offset": 64, "number": 4, "has_bit": 5, "type": 7, "label": 1 },
-        "flags": { "offset": 68, "number": 5, "has_bit": 6, "type": 13, "label": 1 },
-        "effects": { "offset": 72, "number": 6, "has_bit": 7, "type": 13, "label": 1 },
-        "color": { "offset": 76, "number": 7, "has_bit": 8, "type": 7, "label": 1 },
-        "modelindex": { "offset": 80, "number": 8, "has_bit": 9, "type": 6, "label": 1 },
-        "unused_breakmodelsnottomake": { "offset": 88, "number": 9, "has_bit": 10, "type": 13, "label": 1 },
-        "scale": { "offset": 92, "number": 10, "has_bit": 11, "type": 2, "label": 1 },
-        "dmgpos": { "offset": 48, "number": 11, "has_bit": 3, "type": 11, "label": 1 },
-        "dmgdir": { "offset": 56, "number": 12, "has_bit": 4, "type": 11, "label": 1 },
-        "dmgtype": { "offset": 96, "number": 13, "has_bit": 12, "type": 5, "label": 1 }
-      }
-    },
-    "CMsgTESmoke": {
-      "size": 40,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "scale": { "offset": 32, "number": 2, "has_bit": 1, "type": 2, "label": 1 }
-      }
-    },
-    "CMsgTEWorldDecal": {
-      "size": 48,
-      "has_bits_offset": 16,
-      "fields": {
-        "origin": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 },
-        "normal": { "offset": 32, "number": 2, "has_bit": 1, "type": 11, "label": 1 },
-        "index": { "offset": 40, "number": 3, "has_bit": 2, "type": 13, "label": 1 }
-      }
-    },
-    "CHelpRequestLogs_UploadUserApplicationLog_Request": {
-      "size": 56,
-      "has_bits_offset": 16,
-      "fields": {
-        "appid": { "offset": 48, "number": 1, "has_bit": 3, "type": 13, "label": 1 },
-        "log_type": { "offset": 24, "number": 2, "has_bit": 0, "type": 9, "label": 1 },
-        "version_string": { "offset": 32, "number": 3, "has_bit": 1, "type": 9, "label": 1 },
-        "log_contents": { "offset": 40, "number": 4, "has_bit": 2, "type": 9, "label": 1 }
-      }
-    },
-    "CHelpRequestLogs_UploadUserApplicationLog_Response": {
-      "size": 32,
-      "has_bits_offset": 16,
-      "fields": {
-        "id": { "offset": 24, "number": 1, "has_bit": 0, "type": 4, "label": 1 }
-      }
-    },
     "CSGOInterpolationInfoPB": {
       "size": 40,
       "has_bits_offset": 16,
@@ -8635,8 +8656,8 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 3440883488, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
-        "end": { "offset": 32761, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
+        "begin": { "offset": 1408885760, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "end": { "offset": 32763, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     }
   },
@@ -8928,8 +8949,8 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 3752311664, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
-        "end": { "offset": 32761, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
+        "begin": { "offset": 2356263888, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "end": { "offset": 32763, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     },
     "C2S_CONNECT_SameProcessCheck": {
@@ -10820,8 +10841,8 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 3699944416, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
-        "end": { "offset": 32761, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
+        "begin": { "offset": 2308156384, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "end": { "offset": 32763, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     },
     "NetMessageSplitscreenUserChanged": {
@@ -15091,7 +15112,28 @@
       "fields": {
         "econ_item": { "offset": 24, "number": 1, "has_bit": -1, "type": 11, "label": 1 },
         "team": { "offset": 48, "number": 2, "has_bit": 0, "type": 5, "label": 1 },
-        "slot": { "offset": 4294967295, "number": 3, "has_bit": 3490888720, "type": 5, "label": 1 }
+        "slot": { "offset": 4294967295, "number": 3, "has_bit": 16, "type": 5, "label": 1 }
+      }
+    },
+    "CVacNet_GetReviewerInfo_Request": {
+      "size": 32,
+      "has_bits_offset": 16,
+      "fields": {
+        "appid": { "offset": 24, "number": 1, "has_bit": 0, "type": 13, "label": 1 }
+      }
+    },
+    "CVacnetReviewerInfo": {
+      "size": 48,
+      "has_bits_offset": -1,
+      "fields": {
+        "permissions": { "offset": 16, "number": 1, "has_bit": -1, "type": 9, "label": 3 }
+      }
+    },
+    "CVacNet_GetReviewerInfo_Response": {
+      "size": 32,
+      "has_bits_offset": 16,
+      "fields": {
+        "reviewer_info": { "offset": 24, "number": 1, "has_bit": 0, "type": 11, "label": 1 }
       }
     },
     "CGCStorePurchaseInit_LineItem": {
@@ -20038,8 +20080,8 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 3480720384, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
-        "end": { "offset": 32761, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
+        "begin": { "offset": 1448738368, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "end": { "offset": 32763, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     }
   }

@@ -1,4 +1,4 @@
-// ccsgoinput.h  ·  CS2 build 14172  ·  cs2-sdk.com
+// ccsgoinput.h  ·  CS2 build 14175  ·  cs2-sdk.com
 // Client input singleton — turns raw mouse/keyboard state into the per-tick CUserCmd sent to the server. Not a schema (networked) class.
 // Reverse-engineered from client.dll; offsets drift between builds — re-verify after a CS2 update.
 #pragma once

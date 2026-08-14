@@ -3,7 +3,7 @@
 // module:        animationsystem.dll
 // classes:       698
 // enums:         144
-// generated_at:  2026-07-21T15:54:44.281020800+00:00
+// generated_at:  2026-08-14T17:49:22.004126900+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -2089,640 +2089,363 @@ namespace animationsystem {
         eMoodType_Body = 0x1, // MPropertyFriendlyName
     };
 
-    // CNmBlendTask
-    //   fields: 0
-    //   size: 0x100
-    class CNmBlendTask {
-    public:
-    };
-
-    // CModelConfig
-    //   fields: 4
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CModelConfig {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_ConfigName                                    , 0x0) // CUtlString
-        SCHEMA_FIELD(CUtlVector<CModelConfigElement*>, m_Elements                                      , 0x8) // CUtlVector<CModelConfigElement*>
-        SCHEMA_FIELD(bool                            , m_bTopLevel                                     , 0x20) // bool
-        SCHEMA_FIELD(bool                            , m_bActiveInEditorByDefault                      , 0x21) // bool
-    };
-
-    // CStateNodeStateData
-    //   fields: 3
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CStateNodeStateData {
-    public:
-        SCHEMA_FIELD(CAnimUpdateNodeRef              , m_pChild                                        , 0x0) // CAnimUpdateNodeRef
-        // SKIPPED: m_bExclusiveRootMotion (bitfield type not supported)
-        // SKIPPED: m_bExclusiveRootMotionFirstFrame (bitfield type not supported)
-    };
-
-    // CPoseHandle
-    //   fields: 2
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class CPoseHandle {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , m_nIndex                                        , 0x0) // uint16
-        SCHEMA_FIELD(PoseType_t                      , m_eType                                         , 0x2) // PoseType_t
-    };
-
-    // CNmBodyGroupEvent
-    //   fields: 3
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CNmBodyGroupEvent {
-    public:
-        SCHEMA_FIELD(CNmEventTargetEntity_t          , m_target                                        , 0x18) // CNmEventTargetEntity_t
-        SCHEMA_FIELD(::CUtlString                    , m_groupName                                     , 0x20) // CUtlString
-        SCHEMA_FIELD(std::int32_t                    , m_nGroupValue                                   , 0x28) // int32
-    };
-
-    // CStateNodeInstanceData
-    //   fields: 4
-    //   size: 0x4C
-    //   @MGetKV3ClassDefaults
-    class CStateNodeInstanceData {
-    public:
-        SCHEMA_FIELD(CRelativeArray<float32>         , m_stateWeights                                  , 0x0) // CRelativeArray<float32>
-        SCHEMA_FIELD(::Vector                        , m_vTransitionVelocityDeltaWS                    , 0x8) // Vector
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_currentStateStartTime                         , 0x20) // CAnimNetVar<float32>
-        SCHEMA_FIELD(CAnimNetVar<uint8>              , m_resetCount                                    , 0x3C) // CAnimNetVar<uint8>
-    };
-
-    // CFootstepLandedAnimTag
-    //   fields: 5
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CFootstepLandedAnimTag {
-    public:
-        SCHEMA_FIELD(FootstepLandedFootSoundType_t   , m_FootstepType                                  , 0x58) // FootstepLandedFootSoundType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_OverrideSoundName                             , 0x60) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::CUtlString                    , m_DebugAnimSourceString                         , 0x68) // CUtlString [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_BoneName                                      , 0x70) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(FootstepJumpPhase_t             , m_footstepJumpPhase                             , 0x78) // FootstepJumpPhase_t [MPropertyFriendlyName]
-    };
-
-    // AnimTagID
+    // AnimScriptHandle
     //   fields: 1
     //   size: 0x4
     //   @MGetKV3ClassDefaults
-    class AnimTagID {
+    class AnimScriptHandle {
     public:
         SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
     };
 
-    // CMotionMetricEvaluator
-    //   fields: 4
+    // CPulseCell_Step_PublicOutput
+    //   fields: 1
     //   size: 0x50
     //   @MGetKV3ClassDefaults
-    class CMotionMetricEvaluator {
+    class CPulseCell_Step_PublicOutput {
     public:
-        SCHEMA_FIELD(CUtlVector<float32>             , m_means                                         , 0x18) // CUtlVector<float32>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_standardDeviations                            , 0x30) // CUtlVector<float32>
-        SCHEMA_FIELD(float                           , m_flWeight                                      , 0x48) // float32
-        SCHEMA_FIELD(std::int32_t                    , m_nDimensionStartIndex                          , 0x4C) // int32
+        SCHEMA_FIELD(PulseRuntimeOutputIndex_t       , m_OutputIndex                                   , 0x48) // PulseRuntimeOutputIndex_t
     };
 
-    // PulseRuntimeBlackboardReferenceIndex_t
-    //   fields: 1
-    //   size: 0x2
-    class PulseRuntimeBlackboardReferenceIndex_t {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_Value                                         , 0x0) // int16
-    };
-
-    // CTurnHelperInstanceData
-    //   fields: 3
-    //   size: 0xC
+    // VPhysXRange_t
+    //   fields: 2
+    //   size: 0x8
     //   @MGetKV3ClassDefaults
-    class CTurnHelperInstanceData {
+    class VPhysXRange_t {
     public:
-        SCHEMA_FIELD(float                           , m_turnAmount                                    , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_turnStartTime                                 , 0x4) // float32
-        SCHEMA_FIELD(float                           , m_duration                                      , 0x8) // float32
+        SCHEMA_FIELD(float                           , m_flMin                                         , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flMax                                         , 0x4) // float32
     };
 
-    // CParticleCollectionRendererVecInput
-    //   fields: 0
-    //   size: 0x6B8
+    // CNmSelectorNode::CDefinition
+    //   fields: 2
+    //   size: 0x40
     //   @MGetKV3ClassDefaults
-    //   @MPropertyCustomEditor
-    class CParticleCollectionRendererVecInput {
+    class CNmSelectorNode_CDefinition {
     public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,8>;
+        using _Type1 = CUtlLeanVectorFixedGrowable<int16,8>;
+        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,8>
+        SCHEMA_FIELD(_Type1                          , m_conditionNodeIndices                          , 0x28) // CUtlLeanVectorFixedGrowable<int16,8>
     };
 
-    // CPulse_InvokeBinding
+    // ModelEmbeddedMesh_t
+    //   fields: 9
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class ModelEmbeddedMesh_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(std::int32_t                    , m_nMeshIndex                                    , 0x10) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nDataBlock                                    , 0x14) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMorphBlock                                   , 0x18) // int32
+        SCHEMA_FIELD(CUtlVector<ModelMeshBufferData_t>, m_vertexBuffers                                 , 0x20) // CUtlVector<ModelMeshBufferData_t>
+        SCHEMA_FIELD(CUtlVector<ModelMeshBufferData_t>, m_indexBuffers                                  , 0x38) // CUtlVector<ModelMeshBufferData_t>
+        SCHEMA_FIELD(CUtlVector<ModelMeshBufferData_t>, m_toolsBuffers                                  , 0x50) // CUtlVector<ModelMeshBufferData_t>
+        SCHEMA_FIELD(std::int32_t                    , m_nVBIBBlock                                    , 0x68) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nToolsVBBlock                                 , 0x6C) // int32
+    };
+
+    // CAnimComponentUpdater
+    //   fields: 4
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CAnimComponentUpdater {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x18) // CUtlString
+        SCHEMA_FIELD(AnimComponentID                 , m_id                                            , 0x20) // AnimComponentID
+        SCHEMA_FIELD(AnimNodeNetworkMode             , m_networkMode                                   , 0x24) // AnimNodeNetworkMode
+        SCHEMA_FIELD(bool                            , m_bStartEnabled                                 , 0x28) // bool
+    };
+
+    // ModelBoneFlexDriverControl_t
     //   fields: 5
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class ModelBoneFlexDriverControl_t {
+    public:
+        SCHEMA_FIELD(ModelBoneFlexComponent_t        , m_nBoneComponent                                , 0x0) // ModelBoneFlexComponent_t
+        SCHEMA_FIELD(::CUtlString                    , m_flexController                                , 0x8) // CUtlString
+        SCHEMA_FIELD(std::uint32_t                   , m_flexControllerToken                           , 0x10) // uint32
+        SCHEMA_FIELD(float                           , m_flMin                                         , 0x14) // float32
+        SCHEMA_FIELD(float                           , m_flMax                                         , 0x18) // float32
+    };
+
+    // CCachedPose
+    //   fields: 4
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class CCachedPose {
+    public:
+        SCHEMA_FIELD(CUtlVector<CTransform>          , m_transforms                                    , 0x8) // CUtlVector<CTransform>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_morphWeights                                  , 0x20) // CUtlVector<float32>
+        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x38) // HSequence
+        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x3C) // float32
+    };
+
+    // ParamSpan_t
+    //   fields: 5
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class ParamSpan_t {
+    public:
+        SCHEMA_FIELD(CUtlVector<ParamSpanSample_t>   , m_samples                                       , 0x0) // CUtlVector<ParamSpanSample_t>
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParam                                        , 0x18) // CAnimParamHandle
+        SCHEMA_FIELD(AnimParamType_t                 , m_eParamType                                    , 0x1A) // AnimParamType_t
+        SCHEMA_FIELD(float                           , m_flStartCycle                                  , 0x1C) // float32
+        SCHEMA_FIELD(float                           , m_flEndCycle                                    , 0x20) // float32
+    };
+
+    // VPhysXJoint_t
+    //   fields: 30
+    //   size: 0xD0
+    //   @MGetKV3ClassDefaults
+    class VPhysXJoint_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , m_nType                                         , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nBody1                                        , 0x2) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nBody2                                        , 0x4) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nFlags                                        , 0x6) // uint16
+        SCHEMA_FIELD(CTransform                      , m_Frame1                                        , 0x10) // CTransform
+        SCHEMA_FIELD(CTransform                      , m_Frame2                                        , 0x30) // CTransform
+        SCHEMA_FIELD(bool                            , m_bEnableCollision                              , 0x50) // bool
+        SCHEMA_FIELD(bool                            , m_bIsLinearConstraintDisabled                   , 0x51) // bool
+        SCHEMA_FIELD(bool                            , m_bIsAngularConstraintDisabled                  , 0x52) // bool
+        SCHEMA_FIELD(bool                            , m_bEnableLinearLimit                            , 0x53) // bool
+        SCHEMA_FIELD(VPhysXRange_t                   , m_LinearLimit                                   , 0x54) // VPhysXRange_t
+        SCHEMA_FIELD(bool                            , m_bEnableLinearMotor                            , 0x5C) // bool
+        SCHEMA_FIELD(::Vector                        , m_vLinearTargetVelocity                         , 0x60) // Vector
+        SCHEMA_FIELD(float                           , m_flMaxForce                                    , 0x6C) // float32
+        SCHEMA_FIELD(bool                            , m_bEnableSwingLimit                             , 0x70) // bool
+        SCHEMA_FIELD(VPhysXRange_t                   , m_SwingLimit                                    , 0x74) // VPhysXRange_t
+        SCHEMA_FIELD(bool                            , m_bEnableTwistLimit                             , 0x7C) // bool
+        SCHEMA_FIELD(VPhysXRange_t                   , m_TwistLimit                                    , 0x80) // VPhysXRange_t
+        SCHEMA_FIELD(bool                            , m_bEnableAngularMotor                           , 0x88) // bool
+        SCHEMA_FIELD(::Vector                        , m_vAngularTargetVelocity                        , 0x8C) // Vector
+        SCHEMA_FIELD(float                           , m_flMaxTorque                                   , 0x98) // float32
+        SCHEMA_FIELD(float                           , m_flLinearFrequency                             , 0x9C) // float32
+        SCHEMA_FIELD(float                           , m_flLinearDampingRatio                          , 0xA0) // float32
+        SCHEMA_FIELD(float                           , m_flAngularFrequency                            , 0xA4) // float32
+        SCHEMA_FIELD(float                           , m_flAngularDampingRatio                         , 0xA8) // float32
+        SCHEMA_FIELD(float                           , m_flFriction                                    , 0xAC) // float32
+        SCHEMA_FIELD(float                           , m_flElasticity                                  , 0xB0) // float32
+        SCHEMA_FIELD(float                           , m_flElasticDamping                              , 0xB4) // float32
+        SCHEMA_FIELD(float                           , m_flPlasticity                                  , 0xB8) // float32
+        SCHEMA_FIELD(::CUtlString                    , m_Tag                                           , 0xC0) // CUtlString
+    };
+
+    // CAnimScriptManager
+    //   fields: 1
+    //   size: 0x1A0
+    //   @MGetKV3ClassDefaults
+    class CAnimScriptManager {
+    public:
+        SCHEMA_FIELD(CUtlVector<ScriptInfo_t>        , m_scriptInfo                                    , 0x10) // CUtlVector<ScriptInfo_t>
+    };
+
+    // CHitBoxSetList
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CHitBoxSetList {
+    public:
+        SCHEMA_FIELD(CUtlVector<CHitBoxSet>          , m_HitBoxSets                                    , 0x0) // CUtlVector<CHitBoxSet>
+    };
+
+    // CNmFloatChannelSet_t
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmFloatChannelSet_t {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x0) // CGlobalSymbol
+        SCHEMA_FIELD(CUtlLeanVector<CGlobalSymbol>   , m_channelIDs                                    , 0x8) // CUtlLeanVector<CGlobalSymbol>
+    };
+
+    // CNewParticleEffect
+    //   fields: 33
+    //   size: 0xD8
+    class CNewParticleEffect {
+    public:
+        SCHEMA_FIELD(CNewParticleEffect*             , m_pNext                                         , 0x10) // CNewParticleEffect*
+        SCHEMA_FIELD(CNewParticleEffect*             , m_pPrev                                         , 0x18) // CNewParticleEffect*
+        SCHEMA_FIELD(IParticleCollection*            , m_pParticles                                    , 0x20) // IParticleCollection*
+        SCHEMA_FIELD(char*                           , m_pDebugName                                    , 0x28) // char*
+        // SKIPPED: m_bDontRemove (bitfield type not supported)
+        // SKIPPED: m_bRemove (bitfield type not supported)
+        // SKIPPED: m_bNeedsBBoxUpdate (bitfield type not supported)
+        // SKIPPED: m_bIsFirstFrame (bitfield type not supported)
+        // SKIPPED: m_bAutoUpdateBBox (bitfield type not supported)
+        // SKIPPED: m_bAllocated (bitfield type not supported)
+        // SKIPPED: m_bSimulate (bitfield type not supported)
+        // SKIPPED: m_bShouldPerformCullCheck (bitfield type not supported)
+        // SKIPPED: m_bForceNoDraw (bitfield type not supported)
+        // SKIPPED: m_bSuppressScreenSpaceEffect (bitfield type not supported)
+        // SKIPPED: m_bShouldSave (bitfield type not supported)
+        // SKIPPED: m_bShouldSimulateDuringGamePaused (bitfield type not supported)
+        // SKIPPED: m_bShouldCheckFoW (bitfield type not supported)
+        // SKIPPED: m_bIsAsyncCreate (bitfield type not supported)
+        // SKIPPED: m_bFreezeTransitionActive (bitfield type not supported)
+        // SKIPPED: m_bFreezeTargetState (bitfield type not supported)
+        // SKIPPED: m_bCanFreeze (bitfield type not supported)
+        SCHEMA_FIELD(::Vector                        , m_vSortOrigin                                   , 0x40) // Vector
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x4C) // float32
+        SCHEMA_FIELD(PARTICLE_EHANDLE__*             , m_hOwner                                        , 0x50) // PARTICLE_EHANDLE__*
+        SCHEMA_FIELD(CParticleProperty*              , m_pOwningParticleProperty                       , 0x58) // CParticleProperty*
+        SCHEMA_FIELD(float                           , m_flFreezeTransitionStart                       , 0x70) // float32
+        SCHEMA_FIELD(float                           , m_flFreezeTransitionDuration                    , 0x74) // float32
+        SCHEMA_FIELD(float                           , m_flFreezeTransitionOverride                    , 0x78) // float32
+        SCHEMA_FIELD(::Vector                        , m_LastMin                                       , 0x7C) // Vector
+        SCHEMA_FIELD(::Vector                        , m_LastMax                                       , 0x88) // Vector
+        SCHEMA_FIELD(CSplitScreenSlot                , m_nSplitScreenUser                              , 0x94) // CSplitScreenSlot
+        SCHEMA_FIELD(::Vector                        , m_vecAggregationCenter                          , 0x98) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_RefCount                                      , 0xD0) // int32
+    };
+
+    // CDemoSettingsComponentUpdater
+    //   fields: 1
     //   size: 0xB0
     //   @MGetKV3ClassDefaults
-    class CPulse_InvokeBinding {
+    class CDemoSettingsComponentUpdater {
     public:
-        SCHEMA_FIELD(::PulseRegisterMap_t            , m_RegisterMap                                   , 0x0) // PulseRegisterMap_t
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_FuncName                                      , 0x30) // PulseSymbol_t
-        SCHEMA_FIELD(PulseRuntimeCellIndex_t         , m_nCellIndex                                    , 0x40) // PulseRuntimeCellIndex_t
-        SCHEMA_FIELD(::PulseRuntimeChunkIndex_t      , m_nSrcChunk                                     , 0x44) // PulseRuntimeChunkIndex_t
-        SCHEMA_FIELD(std::int32_t                    , m_nSrcInstruction                               , 0x48) // int32
+        SCHEMA_FIELD(CAnimDemoCaptureSettings        , m_settings                                      , 0x30) // CAnimDemoCaptureSettings
     };
 
-    // CPulseCell_Outflow_CycleOrdered::InstanceState_t
+    // CPulseCell_WaitForCursorsWithTagBase
+    //   fields: 2
+    //   size: 0x128
+    //   @MGetKV3ClassDefaults
+    //   @MPulseEditorCanvasItemSpecKV3
+    class CPulseCell_WaitForCursorsWithTagBase {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCursorsAllowedToWait                         , 0xD8) // int32 [MPropertyDescription]
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_WaitComplete                                  , 0xE0) // CPulse_ResumePoint
+    };
+
+    // CNmZeroPoseNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmZeroPoseNode_CDefinition {
+    public:
+    };
+
+    // CNmIsExternalPoseSetNode::CDefinition
     //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmIsExternalPoseSetNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nExternalPoseNodeIdx                          , 0x10) // int16
+    };
+
+    // CNmBlend1DNode::CDefinition
+    //   fields: 1
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class CNmBlend1DNode_CDefinition {
+    public:
+        SCHEMA_FIELD(CNmParameterizedBlendNode_Parameterization_t, m_parameterization                              , 0x30) // CNmParameterizedBlendNode::Parameterization_t
+    };
+
+    // PhysSoftbodyDesc_t
+    //   fields: 6
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class PhysSoftbodyDesc_t {
+    public:
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_ParticleBoneHash                              , 0x0) // CUtlVector<uint32>
+        SCHEMA_FIELD(CUtlVector<RnSoftbodyParticle_t>, m_Particles                                     , 0x18) // CUtlVector<RnSoftbodyParticle_t>
+        SCHEMA_FIELD(CUtlVector<RnSoftbodySpring_t>  , m_Springs                                       , 0x30) // CUtlVector<RnSoftbodySpring_t>
+        SCHEMA_FIELD(CUtlVector<RnSoftbodyCapsule_t> , m_Capsules                                      , 0x48) // CUtlVector<RnSoftbodyCapsule_t>
+        SCHEMA_FIELD(CUtlVector<CTransform>          , m_InitPose                                      , 0x60) // CUtlVector<CTransform>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_ParticleBoneName                              , 0x78) // CUtlVector<CUtlString>
+    };
+
+    // CMotionNode
+    //   fields: 2
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CMotionNode {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x18) // CUtlString
+        SCHEMA_FIELD(AnimNodeID                      , m_id                                            , 0x20) // AnimNodeID
+    };
+
+    // CDrawCullingData
+    //   fields: 2
     //   size: 0x4
     //   @MGetKV3ClassDefaults
-    class CPulseCell_Outflow_CycleOrdered_InstanceState_t {
+    class CDrawCullingData {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nNextIndex                                    , 0x0) // int32
+        SCHEMA_FIELD(std::int8_t                     , m_ConeAxis                                      , 0x0) // int8[3]
+        SCHEMA_FIELD(std::int8_t                     , m_ConeCutoff                                    , 0x3) // int8
     };
 
-    // SkeletonAnimCapture_t::Frame_t
-    //   fields: 9
-    //   size: 0xC0
+    // CNmVectorNegateNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
     //   @MGetKV3ClassDefaults
-    class SkeletonAnimCapture_t_Frame_t {
+    class CNmVectorNegateNode_CDefinition {
     public:
-        SCHEMA_FIELD(float                           , m_flTime                                        , 0x0) // float32
-        SCHEMA_FIELD(SkeletonAnimCapture_t_FrameStamp_t, m_Stamp                                         , 0x4) // SkeletonAnimCapture_t::FrameStamp_t
-        SCHEMA_FIELD(CTransform                      , m_Transform                                     , 0x20) // CTransform
-        SCHEMA_FIELD(bool                            , m_bTeleport                                     , 0x40) // bool
-        SCHEMA_FIELD(CUtlVector<CTransform>          , m_CompositeBones                                , 0x48) // CUtlVector<CTransform>
-        SCHEMA_FIELD(CUtlVector<CTransform>          , m_SimStateBones                                 , 0x60) // CUtlVector<CTransform>
-        SCHEMA_FIELD(CUtlVector<CTransform>          , m_FeModelAnims                                  , 0x78) // CUtlVector<CTransform>
-        SCHEMA_FIELD(CUtlVector<VectorAligned>       , m_FeModelPos                                    , 0x90) // CUtlVector<VectorAligned>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_FlexControllerWeights                         , 0xA8) // CUtlVector<float32>
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
     };
 
-    // CBoneMaskUpdateNode
-    //   fields: 7
-    //   size: 0xB0
+    // CModelConfigElement_SetMaterialGroupOnAttachedModels
+    //   fields: 1
+    //   size: 0x50
     //   @MGetKV3ClassDefaults
-    class CBoneMaskUpdateNode {
+    class CModelConfigElement_SetMaterialGroupOnAttachedModels {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nWeightListIndex                              , 0x94) // int32
-        SCHEMA_FIELD(float                           , m_flRootMotionBlend                             , 0x98) // float32
-        SCHEMA_FIELD(BoneMaskBlendSpace              , m_blendSpace                                    , 0x9C) // BoneMaskBlendSpace
-        SCHEMA_FIELD(BinaryNodeChildOption           , m_footMotionTiming                              , 0xA0) // BinaryNodeChildOption
-        SCHEMA_FIELD(bool                            , m_bUseBlendScale                                , 0xA4) // bool
-        SCHEMA_FIELD(AnimValueSource                 , m_blendValueSource                              , 0xA8) // AnimValueSource
-        SCHEMA_FIELD(CAnimParamHandle                , m_hBlendParameter                               , 0xAC) // CAnimParamHandle
+        SCHEMA_FIELD(::CUtlString                    , m_MaterialGroupName                             , 0x48) // CUtlString
     };
 
-    // CTaskStatusAnimTag
-    //   fields: 0
-    //   size: 0x58
+    // CNmIDComparisonNode::CDefinition
+    //   fields: 3
+    //   size: 0x40
     //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CTaskStatusAnimTag {
+    class CNmIDComparisonNode_CDefinition {
     public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<CGlobalSymbol,4>;
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(CNmIDComparisonNode_Comparison_t, m_comparison                                    , 0x12) // CNmIDComparisonNode::Comparison_t
+        SCHEMA_FIELD(_Type0                          , m_comparisionIDs                                , 0x18) // CUtlLeanVectorFixedGrowable<CGlobalSymbol,4>
     };
 
-    // CMoverUpdateNode
-    //   fields: 12
-    //   size: 0xB0
+    // PulseSelectorOutflowList_t
+    //   fields: 1
+    //   size: 0x18
     //   @MGetKV3ClassDefaults
-    class CMoverUpdateNode {
+    class PulseSelectorOutflowList_t {
     public:
-        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0x78) // CAnimInputDamping
-        SCHEMA_FIELD(AnimValueSource                 , m_facingTarget                                  , 0x90) // AnimValueSource
-        SCHEMA_FIELD(CAnimParamHandle                , m_hMoveVecParam                                 , 0x94) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hMoveHeadingParam                             , 0x96) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hTurnToFaceParam                              , 0x98) // CAnimParamHandle
-        SCHEMA_FIELD(float                           , m_flTurnToFaceOffset                            , 0x9C) // float32
-        SCHEMA_FIELD(float                           , m_flTurnToFaceLimit                             , 0xA0) // float32
-        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0xA4) // bool
-        SCHEMA_FIELD(bool                            , m_bApplyMovement                                , 0xA5) // bool
-        SCHEMA_FIELD(bool                            , m_bOrientMovement                               , 0xA6) // bool
-        SCHEMA_FIELD(bool                            , m_bApplyRotation                                , 0xA7) // bool
-        SCHEMA_FIELD(bool                            , m_bLimitOnly                                    , 0xA8) // bool
+        SCHEMA_FIELD(CUtlVector<OutflowWithRequirements_t>, m_Outflows                                      , 0x0) // CUtlVector<OutflowWithRequirements_t>
     };
 
-    // CPulseCell_Step_CallExternalMethod
-    //   fields: 5
-    //   size: 0x150
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Step_CallExternalMethod {
-    public:
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_MethodName                                    , 0xD8) // PulseSymbol_t
-        SCHEMA_FIELD(PulseRuntimeBlackboardReferenceIndex_t, m_nBlackboardIndex                              , 0xE8) // PulseRuntimeBlackboardReferenceIndex_t
-        SCHEMA_FIELD(CUtlLeanVector<CPulseRuntimeMethodArg>, m_ExpectedArgs                                  , 0xF0) // CUtlLeanVector<CPulseRuntimeMethodArg>
-        SCHEMA_FIELD(PulseMethodCallMode_t           , m_nAsyncCallMode                                , 0x100) // PulseMethodCallMode_t
-        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnFinished                                    , 0x108) // CPulse_ResumePoint
-    };
-
-    // CDirectPlaybackInstanceData
-    //   fields: 12
-    //   size: 0x148
-    //   @MGetKV3ClassDefaults
-    class CDirectPlaybackInstanceData {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vTargetPosition                               , 0x0) // Vector
-        SCHEMA_FIELD(float                           , m_flTargetFacing                                , 0xC) // float32
-        SCHEMA_FIELD(float                           , m_flInterpEndTime                               , 0x10) // float32
-        SCHEMA_FIELD(float                           , m_weights                                       , 0x14) // float32[4]
-        SCHEMA_FIELD(SequenceData                    , m_sequences                                     , 0x24) // SequenceData[4]
-        SCHEMA_FIELD(std::uint32_t                   , m_currentSequenceIndex                          , 0x104) // uint32
-        SCHEMA_FIELD(CAnimNetVar<uint64>             , m_currentSequenceData                           , 0x108) // CAnimNetVar<uint64>
-        SCHEMA_FIELD(float                           , m_flFadeInTime                                  , 0x118) // float32
-        SCHEMA_FIELD(float                           , m_flFadeOutTime                                 , 0x11C) // float32
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flForcedCycle                                 , 0x120) // CAnimNetVar<float32>
-        SCHEMA_FIELD(bool                            , m_bResetPending                                 , 0x130) // bool
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_SequenceCycleZeroTime                         , 0x138) // CAnimNetVar<float32>
-    };
-
-    // CParticleTransformInput
-    //   fields: 8
-    //   size: 0x68
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyCustomEditor
-    //   @MCustomFGDMetadata
-    class CParticleTransformInput {
-    public:
-        SCHEMA_FIELD(ParticleTransformType_t         , m_nType                                         , 0x10) // ParticleTransformType_t
-        SCHEMA_FIELD(CParticleNamedValueRef          , m_NamedValue                                    , 0x18) // CParticleNamedValueRef
-        SCHEMA_FIELD(bool                            , m_bFollowNamedValue                             , 0x58) // bool
-        SCHEMA_FIELD(bool                            , m_bSupportsDisabled                             , 0x59) // bool
-        SCHEMA_FIELD(bool                            , m_bUseOrientation                               , 0x5A) // bool
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x5C) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointRangeMax                         , 0x60) // int32
-        SCHEMA_FIELD(float                           , m_flEndCPGrowthTime                             , 0x64) // float32
-    };
-
-    // CPulseTestScriptLib
+    // CPulseMathlib
     //   fields: 0
     //   size: 0x1
     //   @MPropertyDescription
-    class CPulseTestScriptLib {
+    class CPulseMathlib {
     public:
     };
 
-    // CZeroPoseUpdateNode
-    //   fields: 0
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CZeroPoseUpdateNode {
-    public:
-    };
-
-    // CNmTransitionEvent
-    //   fields: 2
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CNmTransitionEvent {
-    public:
-        SCHEMA_FIELD(NmTransitionRule_t              , m_rule                                          , 0x18) // NmTransitionRule_t
-        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x20) // CGlobalSymbol
-    };
-
-    // CAnimationGraphVisualizerSphere
-    //   fields: 3
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CAnimationGraphVisualizerSphere {
-    public:
-        SCHEMA_FIELD(VectorAligned                   , m_vWsPosition                                   , 0x40) // VectorAligned
-        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x50) // float32
-        SCHEMA_FIELD(::Color                         , m_Color                                         , 0x54) // Color
-    };
-
-    // NmSyncTrackTimeRange_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class NmSyncTrackTimeRange_t {
-    public:
-        SCHEMA_FIELD(NmSyncTrackTime_t               , m_startTime                                     , 0x0) // NmSyncTrackTime_t
-        SCHEMA_FIELD(NmSyncTrackTime_t               , m_endTime                                       , 0x8) // NmSyncTrackTime_t
-    };
-
-    // CNmFloatSelectorNode::CDefinition
-    //   fields: 5
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CNmFloatSelectorNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,5>;
-        using _Type1 = CUtlLeanVectorFixedGrowable<float32,5>;
-        SCHEMA_FIELD(_Type0                          , m_conditionNodeIndices                          , 0x10) // CUtlLeanVectorFixedGrowable<int16,5>
-        SCHEMA_FIELD(_Type1                          , m_values                                        , 0x28) // CUtlLeanVectorFixedGrowable<float32,5>
-        SCHEMA_FIELD(float                           , m_flDefaultValue                                , 0x48) // float32
-        SCHEMA_FIELD(float                           , m_flEaseTime                                    , 0x4C) // float32
-        SCHEMA_FIELD(NmEasingOperation_t             , m_easingOp                                      , 0x50) // NmEasingOperation_t
-    };
-
-    // PulseGraphInstanceID_t
-    //   fields: 1
-    //   size: 0x4
-    class PulseGraphInstanceID_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_Value                                         , 0x0) // uint32
-    };
-
-    // CPulseCell_LimitCount::InstanceState_t
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_LimitCount_InstanceState_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCurrentCount                                 , 0x0) // int32
-    };
-
-    // CPulseCell_Outflow_CycleOrdered
-    //   fields: 1
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Outflow_CycleOrdered {
-    public:
-        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outputs                                       , 0x48) // CUtlVector<CPulse_OutflowConnection>
-    };
-
-    // CNmOrientationWarpNode::CDefinition
-    //   fields: 6
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmOrientationWarpNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nClipReferenceNodeIdx                         , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nTargetValueNodeIdx                           , 0x12) // int16
-        SCHEMA_FIELD(bool                            , m_bIsOffsetNode                                 , 0x14) // bool
-        SCHEMA_FIELD(bool                            , m_bIsOffsetRelativeToCharacter                  , 0x15) // bool
-        SCHEMA_FIELD(bool                            , m_bWarpTranslation                              , 0x16) // bool
-        SCHEMA_FIELD(CNmRootMotionData_SamplingMode_t, m_samplingMode                                  , 0x17) // CNmRootMotionData::SamplingMode_t
-    };
-
-    // CNmSampleTask
-    //   fields: 0
-    //   size: 0x80
-    class CNmSampleTask {
-    public:
-    };
-
-    // MoodAnimationLayer_t
-    //   fields: 12
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyArrayElementNameKey
-    class MoodAnimationLayer_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_sName                                         , 0x0) // CUtlString [MPropertyFriendlyName, MPropertyDescription]
-        SCHEMA_FIELD(bool                            , m_bActiveListening                              , 0x8) // bool [MPropertyFriendlyName, MPropertyDescription]
-        SCHEMA_FIELD(bool                            , m_bActiveTalking                                , 0x9) // bool [MPropertyFriendlyName, MPropertyDescription]
-        SCHEMA_FIELD(CUtlVector<MoodAnimation_t>     , m_layerAnimations                               , 0x10) // CUtlVector<MoodAnimation_t> [MPropertyDescription]
-        SCHEMA_FIELD(CRangeFloat                     , m_flIntensity                                   , 0x28) // CRangeFloat [MPropertyDescription, MPropertyAttributeRange]
-        SCHEMA_FIELD(CRangeFloat                     , m_flDurationScale                               , 0x30) // CRangeFloat [MPropertyDescription]
-        SCHEMA_FIELD(bool                            , m_bScaleWithInts                                , 0x38) // bool [MPropertyDescription]
-        SCHEMA_FIELD(CRangeFloat                     , m_flNextStart                                   , 0x3C) // CRangeFloat [MPropertyDescription]
-        SCHEMA_FIELD(CRangeFloat                     , m_flStartOffset                                 , 0x44) // CRangeFloat [MPropertyDescription]
-        SCHEMA_FIELD(CRangeFloat                     , m_flEndOffset                                   , 0x4C) // CRangeFloat [MPropertyDescription]
-        SCHEMA_FIELD(float                           , m_flFadeIn                                      , 0x54) // float32 [MPropertyDescription]
-        SCHEMA_FIELD(float                           , m_flFadeOut                                     , 0x58) // float32 [MPropertyDescription]
-    };
-
-    // CNmSoundEvent
-    //   fields: 7
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CNmSoundEvent {
-    public:
-        SCHEMA_FIELD(CNmEventRelevance_t             , m_relevance                                     , 0x18) // CNmEventRelevance_t
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x20) // CUtlString
-        SCHEMA_FIELD(CNmSoundEvent_Position_t        , m_position                                      , 0x28) // CNmSoundEvent::Position_t
-        SCHEMA_FIELD(::CUtlString                    , m_attachmentName                                , 0x30) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_tags                                          , 0x38) // CUtlString
-        SCHEMA_FIELD(bool                            , m_bContinuePlayingSoundAtDurationEnd            , 0x40) // bool
-        SCHEMA_FIELD(float                           , m_flDurationInterruptionThreshold               , 0x44) // float32
-    };
-
-    // CLeanMatrixUpdateNode
-    //   fields: 10
-    //   size: 0xF0
-    //   @MGetKV3ClassDefaults
-    class CLeanMatrixUpdateNode {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_frameCorners                                  , 0x5C) // int32[3][3]
-        SCHEMA_FIELD(CPoseHandle                     , m_poses                                         , 0x80) // CPoseHandle[9]
-        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0xA8) // CAnimInputDamping
-        SCHEMA_FIELD(AnimVectorSource                , m_blendSource                                   , 0xC0) // AnimVectorSource
-        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0xC4) // CAnimParamHandle
-        SCHEMA_FIELD(::Vector                        , m_verticalAxis                                  , 0xC8) // Vector
-        SCHEMA_FIELD(::Vector                        , m_horizontalAxis                                , 0xD4) // Vector
-        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0xE0) // HSequence
-        SCHEMA_FIELD(float                           , m_flMaxValue                                    , 0xE4) // float32
-        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMaxFrame                             , 0xE8) // int32
-    };
-
-    // CMoodVData
-    //   fields: 3
-    //   size: 0x100
-    //   @MGetKV3ClassDefaults
-    //   @MVDataOverlayType
-    class CMoodVData {
-    public:
-        SCHEMA_FIELD(CResourceNameTyped<CWeakHandle<InfoForResourceTypeCModel>>, m_sModelName                                    , 0x0) // CResourceNameTyped<CWeakHandle<InfoForResourceTypeCModel>> [MPropertyDescription, MPropertyProvidesEditContextString]
-        SCHEMA_FIELD(MoodType_t                      , m_nMoodType                                     , 0xE0) // MoodType_t [MPropertyDescription]
-        SCHEMA_FIELD(CUtlVector<MoodAnimationLayer_t>, m_animationLayers                               , 0xE8) // CUtlVector<MoodAnimationLayer_t> [MPropertyDescription]
-    };
-
-    // CPulseCell_BaseValue
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_BaseValue {
-    public:
-    };
-
-    // CSceneObjectData
-    //   fields: 7
-    //   size: 0xB8
-    //   @MGetKV3ClassDefaults
-    class CSceneObjectData {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vMinBounds                                    , 0x0) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vMaxBounds                                    , 0xC) // Vector
-        SCHEMA_FIELD(CUtlLeanVector<CMaterialDrawDescriptor>, m_drawCalls                                     , 0x18) // CUtlLeanVector<CMaterialDrawDescriptor>
-        SCHEMA_FIELD(CUtlLeanVector<AABB_t>          , m_drawBounds                                    , 0x28) // CUtlLeanVector<AABB_t>
-        SCHEMA_FIELD(CUtlLeanVector<CMeshletDescriptor>, m_meshlets                                      , 0x38) // CUtlLeanVector<CMeshletDescriptor>
-        SCHEMA_FIELD(CUtlLeanVector<CSceneObjectData_RTProxyDrawDescriptor_t>, m_rtProxyDrawCalls                              , 0x48) // CUtlLeanVector<CSceneObjectData::RTProxyDrawDescriptor_t>
-        SCHEMA_FIELD(::Vector4D                      , m_vTintColor                                    , 0x58) // Vector4D
-    };
-
-    // CNmVirtualParameterFloatNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmVirtualParameterFloatNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
-    };
-
-    // CNmOrientationWarpEvent
-    //   fields: 0
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmOrientationWarpEvent {
-    public:
-    };
-
-    // AimCameraOpFixedSettings_t
-    //   fields: 7
+    // CNmTransitionNode::CDefinition
+    //   fields: 11
     //   size: 0x30
     //   @MGetKV3ClassDefaults
-    class AimCameraOpFixedSettings_t {
+    class CNmTransitionNode_CDefinition {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nChainIndex                                   , 0x0) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nCameraJointIndex                             , 0x4) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nPelvisJointIndex                             , 0x8) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nClavicleLeftJointIndex                       , 0xC) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nClavicleRightJointIndex                      , 0x10) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nDepenetrationJointIndex                      , 0x14) // int32
-        SCHEMA_FIELD(CUtlVector<int32>               , m_propJoints                                    , 0x18) // CUtlVector<int32>
-    };
-
-    // CNPCPhysicsHull
-    //   fields: 8
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    //   @MFgdHelper
-    //   @MFgdHelper
-    class CNPCPhysicsHull {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_sName                                         , 0x0) // CGlobalSymbol [MPropertyFriendlyName, MPropertySuppressField]
-        SCHEMA_FIELD(NPCPhysicsHullType_t            , m_eType                                         , 0x8) // NPCPhysicsHullType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flCapsuleHeight                               , 0xC) // float32 [MPropertySuppressExpr, MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flCapsuleRadius                               , 0x10) // float32 [MPropertySuppressExpr, MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vCapsuleCenter1                               , 0x14) // Vector [MPropertySuppressExpr, MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vCapsuleCenter2                               , 0x20) // Vector [MPropertySuppressExpr, MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flGroundBoxHeight                             , 0x2C) // float32 [MPropertySuppressExpr, MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flGroundBoxWidth                              , 0x30) // float32 [MPropertySuppressExpr, MPropertyFriendlyName]
-    };
-
-    // CNmClip::ModelSpaceSamplingChainLink_t
-    //   fields: 3
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class CNmClip_ModelSpaceSamplingChainLink_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nBoneIdx                                      , 0x0) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nParentBoneIdx                                , 0x4) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nParentChainLinkIdx                           , 0x8) // int32
-    };
-
-    // CNmSpeedScaleBaseNode::CDefinition
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmSpeedScaleBaseNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x18) // int16
-        SCHEMA_FIELD(float                           , m_flDefaultInputValue                           , 0x1C) // float32
-    };
-
-    // CNmFixedWeightBoneMaskNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmFixedWeightBoneMaskNode_CDefinition {
-    public:
-        SCHEMA_FIELD(float                           , m_flBoneWeight                                  , 0x10) // float32
-    };
-
-    // PermModelExtPart_t
-    //   fields: 4
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class PermModelExtPart_t {
-    public:
-        SCHEMA_FIELD(CTransform                      , m_Transform                                     , 0x0) // CTransform
-        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x20) // CUtlString
-        SCHEMA_FIELD(std::int32_t                    , m_nParent                                       , 0x28) // int32
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_refModel                                      , 0x30) // CStrongHandle<InfoForResourceTypeCModel>
-    };
-
-    // CBaseConstraint
-    //   fields: 4
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CBaseConstraint {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x20) // CUtlString
-        SCHEMA_FIELD(::Vector                        , m_vUpVector                                     , 0x28) // Vector
-        SCHEMA_FIELD(CUtlLeanVector<CConstraintSlave>, m_slaves                                        , 0x38) // CUtlLeanVector<CConstraintSlave>
-        SCHEMA_FIELD(CUtlVector<CConstraintTarget>   , m_targets                                       , 0x48) // CUtlVector<CConstraintTarget>
-    };
-
-    // CMorphRectData
-    //   fields: 5
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CMorphRectData {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nXLeftDst                                     , 0x0) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nYTopDst                                      , 0x2) // int16
-        SCHEMA_FIELD(float                           , m_flUWidthSrc                                   , 0x4) // float32
-        SCHEMA_FIELD(float                           , m_flVHeightSrc                                  , 0x8) // float32
-        SCHEMA_FIELD(CUtlVector<CMorphBundleData>    , m_bundleDatas                                   , 0x10) // CUtlVector<CMorphBundleData>
-    };
-
-    // PulseGraphExecutionHistoryEntry_t
-    //   fields: 5
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class PulseGraphExecutionHistoryEntry_t {
-    public:
-        SCHEMA_FIELD(PulseCursorID_t                 , nCursorID                                       , 0x0) // PulseCursorID_t
-        SCHEMA_FIELD(::PulseDocNodeID_t              , nEditorID                                       , 0x4) // PulseDocNodeID_t
-        SCHEMA_FIELD(float                           , flExecTime                                      , 0x8) // float32
-        SCHEMA_FIELD(std::uint32_t                   , unFlags                                         , 0xC) // uint32
-        SCHEMA_FIELD(::PulseSymbol_t                 , tagName                                         , 0x10) // PulseSymbol_t
-    };
-
-    // CBoneConstraintPoseSpaceMorph::Input_t
-    //   fields: 2
-    //   size: 0x28
-    class CBoneConstraintPoseSpaceMorph_Input_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_inputValue                                    , 0x0) // Vector
-        SCHEMA_FIELD(CUtlVector<float32>             , m_outputWeightList                              , 0x10) // CUtlVector<float32>
-    };
-
-    // CStanceScaleUpdateNode
-    //   fields: 1
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CStanceScaleUpdateNode {
-    public:
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParam                                        , 0x70) // CAnimParamHandle
-    };
-
-    // CSpeedScaleUpdateNode
-    //   fields: 1
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CSpeedScaleUpdateNode {
-    public:
-        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0x70) // CAnimParamHandle
-    };
-
-    // CPathAnimMotorUpdaterBase
-    //   fields: 1
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CPathAnimMotorUpdaterBase {
-    public:
-        SCHEMA_FIELD(bool                            , m_bLockToPath                                   , 0x20) // bool
-    };
-
-    // CStanceOverrideUpdateNode
-    //   fields: 4
-    //   size: 0xA0
-    //   @MGetKV3ClassDefaults
-    class CStanceOverrideUpdateNode {
-    public:
-        SCHEMA_FIELD(CUtlVector<StanceInfo_t>        , m_footStanceInfo                                , 0x70) // CUtlVector<StanceInfo_t>
-        SCHEMA_FIELD(CAnimUpdateNodeRef              , m_pStanceSourceNode                             , 0x88) // CAnimUpdateNodeRef
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParameter                                    , 0x98) // CAnimParamHandle
-        SCHEMA_FIELD(StanceOverrideMode              , m_eMode                                         , 0x9C) // StanceOverrideMode
+        SCHEMA_FIELD(std::int16_t                    , m_nTargetStateNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nDurationOverrideNodeIdx                      , 0x12) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_timeOffsetOverrideNodeIdx                     , 0x14) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_startBoneMaskNodeIdx                          , 0x16) // int16
+        SCHEMA_FIELD(float                           , m_flDuration                                    , 0x18) // float32
+        SCHEMA_FIELD(NmPercent_t                     , m_boneMaskBlendInTimePercentage                 , 0x1C) // NmPercent_t
+        SCHEMA_FIELD(float                           , m_flTimeOffset                                  , 0x20) // float32
+        SCHEMA_FIELD(CNmBitFlags                     , m_transitionOptions                             , 0x24) // CNmBitFlags
+        SCHEMA_FIELD(std::int16_t                    , m_targetSyncIDNodeIdx                           , 0x28) // int16
+        SCHEMA_FIELD(NmEasingOperation_t             , m_blendWeightEasing                             , 0x2A) // NmEasingOperation_t
+        SCHEMA_FIELD(NmRootMotionBlendMode_t         , m_rootMotionBlend                               , 0x2B) // NmRootMotionBlendMode_t
     };
 
     // CTurnHelperUpdateNode
@@ -2739,406 +2462,159 @@ namespace animationsystem {
         SCHEMA_FIELD(bool                            , m_bUseManualTurnOffset                          , 0x88) // bool
     };
 
-    // CRenderSkeleton
-    //   fields: 3
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CRenderSkeleton {
-    public:
-        SCHEMA_FIELD(CUtlVector<RenderSkeletonBone_t>, m_bones                                         , 0x0) // CUtlVector<RenderSkeletonBone_t>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_boneParents                                   , 0x30) // CUtlVector<int32>
-        SCHEMA_FIELD(std::int32_t                    , m_nBoneWeightCount                              , 0x48) // int32
-    };
-
-    // CNmIDBasedSelectorNode::CDefinition
-    //   fields: 5
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CNmIDBasedSelectorNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,5>;
-        using _Type1 = CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>;
-        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,5>
-        SCHEMA_FIELD(_Type1                          , m_optionIDs                                     , 0x28) // CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>
-        SCHEMA_FIELD(std::int16_t                    , m_nParameterNodeIdx                             , 0x58) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nFallbackNodeIdx                              , 0x5A) // int16
-        SCHEMA_FIELD(bool                            , m_bIgnoreInvalidOptions                         , 0x5C) // bool
-    };
-
-    // CPulse_InstructionDebug
-    //   fields: 3
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CPulse_InstructionDebug {
-    public:
-        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nFlowNodeID                                   , 0x0) // PulseDocNodeID_t
-        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nValueNodeID                                  , 0x4) // PulseDocNodeID_t
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_SequencePointName                             , 0x8) // PulseSymbol_t
-    };
-
-    // CSequenceFinishedAnimTag
-    //   fields: 1
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CSequenceFinishedAnimTag {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_sequenceName                                  , 0x58) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // CFlexOp
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CFlexOp {
-    public:
-        SCHEMA_FIELD(FlexOpCode_t                    , m_OpCode                                        , 0x0) // FlexOpCode_t
-        SCHEMA_FIELD(std::int32_t                    , m_Data                                          , 0x4) // int32
-    };
-
-    // CNmOrNode::CDefinition
-    //   fields: 1
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmOrNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,4>;
-        SCHEMA_FIELD(_Type0                          , m_conditionNodeIndices                          , 0x10) // CUtlLeanVectorFixedGrowable<int16,4>
-    };
-
-    // CAimMatrixUpdateNode
-    //   fields: 6
-    //   size: 0x180
-    //   @MGetKV3ClassDefaults
-    class CAimMatrixUpdateNode {
-    public:
-        SCHEMA_FIELD(AimMatrixOpFixedSettings_t      , m_opFixedSettings                               , 0x70) // AimMatrixOpFixedSettings_t
-        SCHEMA_FIELD(AnimVectorSource                , m_target                                        , 0x168) // AnimVectorSource
-        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0x16C) // CAnimParamHandle
-        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x170) // HSequence
-        SCHEMA_FIELD(bool                            , m_bResetChild                                   , 0x174) // bool
-        SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0x175) // bool
-    };
-
-    // IParticleEffect
-    //   fields: 0
-    //   size: 0x8
-    class IParticleEffect {
-    public:
-    };
-
-    // ParamSpan_t
-    //   fields: 5
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class ParamSpan_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<ParamSpanSample_t>   , m_samples                                       , 0x0) // CUtlVector<ParamSpanSample_t>
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParam                                        , 0x18) // CAnimParamHandle
-        SCHEMA_FIELD(AnimParamType_t                 , m_eParamType                                    , 0x1A) // AnimParamType_t
-        SCHEMA_FIELD(float                           , m_flStartCycle                                  , 0x1C) // float32
-        SCHEMA_FIELD(float                           , m_flEndCycle                                    , 0x20) // float32
-    };
-
-    // SkeletonBoneBounds_t
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class SkeletonBoneBounds_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vecCenter                                     , 0x0) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vecSize                                       , 0xC) // Vector
-    };
-
-    // CAnimUser
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CAnimUser {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
-        SCHEMA_FIELD(std::int32_t                    , m_nType                                         , 0x10) // int32
-    };
-
-    // CPulseCell_WaitForCursorsWithTag
-    //   fields: 2
-    //   size: 0x130
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    //   @MPulseEditorHeaderIcon
-    class CPulseCell_WaitForCursorsWithTag {
-    public:
-        SCHEMA_FIELD(bool                            , m_bTagSelfWhenComplete                          , 0x128) // bool [MPropertyDescription]
-        SCHEMA_FIELD(PulseCursorCancelPriority_t     , m_nDesiredKillPriority                          , 0x12C) // PulseCursorCancelPriority_t [MPropertyDescription]
-    };
-
-    // CPulseBreakpointLocation
-    //   fields: 3
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CPulseBreakpointLocation {
-    public:
-        SCHEMA_FIELD(::PulseDocNodeID_t              , m_NodeID                                        , 0x0) // PulseDocNodeID_t
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_SequencePoint                                 , 0x8) // PulseSymbol_t
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_PortName                                      , 0x18) // PulseSymbol_t
-    };
-
-    // CLODComponentUpdater
-    //   fields: 1
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class CLODComponentUpdater {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nServerLOD                                    , 0x30) // int32
-    };
-
-    // PairedSequence_t
-    //   fields: 3
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class PairedSequence_t {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_sRole                                         , 0x0) // CGlobalSymbol
-        SCHEMA_FIELD(CGlobalSymbol                   , m_sSequenceName                                 , 0x8) // CGlobalSymbol
-        SCHEMA_FIELD(CAnimNetVar<uint32>             , m_hSequence                                     , 0x10) // CAnimNetVar<uint32>
-    };
-
-    // PulseRuntimeCellIndex_t
-    //   fields: 1
-    //   size: 0x4
-    class PulseRuntimeCellIndex_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
-    };
-
-    // CNmTargetSelectorNode::CDefinition
-    //   fields: 6
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class CNmTargetSelectorNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,8>;
-        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,8>
-        SCHEMA_FIELD(float                           , m_flOrientationScoreWeight                      , 0x28) // float32
-        SCHEMA_FIELD(float                           , m_flPositionScoreWeight                         , 0x2C) // float32
-        SCHEMA_FIELD(std::int16_t                    , m_parameterNodeIdx                              , 0x30) // int16
-        SCHEMA_FIELD(bool                            , m_bIgnoreInvalidOptions                         , 0x32) // bool
-        SCHEMA_FIELD(bool                            , m_bIsWorldSpaceTarget                           , 0x33) // bool
-    };
-
-    // PulseCursorYieldToken_t
-    //   fields: 1
-    //   size: 0x4
-    class PulseCursorYieldToken_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
-    };
-
-    // AnimParamID
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class AnimParamID {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
-    };
-
-    // CFootCycleMetricEvaluator
-    //   fields: 1
-    //   size: 0x68
-    //   @MGetKV3ClassDefaults
-    class CFootCycleMetricEvaluator {
-    public:
-        SCHEMA_FIELD(CUtlVector<int32>               , m_footIndices                                   , 0x50) // CUtlVector<int32>
-    };
-
-    // CFootPinningUpdateNode
+    // CTransitionUpdateData
     //   fields: 4
-    //   size: 0xD0
+    //   size: 0x3
     //   @MGetKV3ClassDefaults
-    class CFootPinningUpdateNode {
+    class CTransitionUpdateData {
     public:
-        SCHEMA_FIELD(FootPinningPoseOpFixedData_t    , m_poseOpFixedData                               , 0x78) // FootPinningPoseOpFixedData_t
-        SCHEMA_FIELD(FootPinningTimingSource         , m_eTimingSource                                 , 0xA8) // FootPinningTimingSource
-        SCHEMA_FIELD(CUtlVector<CAnimParamHandle>    , m_params                                        , 0xB0) // CUtlVector<CAnimParamHandle>
-        SCHEMA_FIELD(bool                            , m_bResetChild                                   , 0xC8) // bool
+        SCHEMA_FIELD(std::uint8_t                    , m_srcStateIndex                                 , 0x0) // uint8
+        SCHEMA_FIELD(std::uint8_t                    , m_destStateIndex                                , 0x1) // uint8
+        // SKIPPED: m_nHandshakeMaskToDisableFirst (bitfield type not supported)
+        // SKIPPED: m_bDisabled (bitfield type not supported)
     };
 
-    // CParticleInput
-    //   fields: 0
-    //   size: 0x10
+    // CMotionMatchingUpdateNode
+    //   fields: 23
+    //   size: 0x148
     //   @MGetKV3ClassDefaults
-    class CParticleInput {
+    class CMotionMatchingUpdateNode {
     public:
+        SCHEMA_FIELD(CMotionDataSet                  , m_dataSet                                       , 0x58) // CMotionDataSet
+        SCHEMA_FIELD(CUtlVector<CSmartPtr<CMotionMetricEvaluator>>, m_metrics                                       , 0x78) // CUtlVector<CSmartPtr<CMotionMetricEvaluator>>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_weights                                       , 0x90) // CUtlVector<float32>
+        SCHEMA_FIELD(bool                            , m_bSearchEveryTick                              , 0xE0) // bool
+        SCHEMA_FIELD(float                           , m_flSearchInterval                              , 0xE4) // float32
+        SCHEMA_FIELD(bool                            , m_bSearchWhenClipEnds                           , 0xE8) // bool
+        SCHEMA_FIELD(bool                            , m_bSearchWhenGoalChanges                        , 0xE9) // bool
+        SCHEMA_FIELD(CBlendCurve                     , m_blendCurve                                    , 0xEC) // CBlendCurve
+        SCHEMA_FIELD(float                           , m_flSampleRate                                  , 0xF4) // float32
+        SCHEMA_FIELD(float                           , m_flBlendTime                                   , 0xF8) // float32
+        SCHEMA_FIELD(bool                            , m_bLockClipWhenWaning                           , 0xFC) // bool
+        SCHEMA_FIELD(float                           , m_flSelectionThreshold                          , 0x100) // float32
+        SCHEMA_FIELD(float                           , m_flReselectionTimeWindow                       , 0x104) // float32
+        SCHEMA_FIELD(bool                            , m_bEnableRotationCorrection                     , 0x108) // bool
+        SCHEMA_FIELD(bool                            , m_bGoalAssist                                   , 0x109) // bool
+        SCHEMA_FIELD(float                           , m_flGoalAssistDistance                          , 0x10C) // float32
+        SCHEMA_FIELD(float                           , m_flGoalAssistTolerance                         , 0x110) // float32
+        SCHEMA_FIELD(CAnimInputDamping               , m_distanceScale_Damping                         , 0x118) // CAnimInputDamping
+        SCHEMA_FIELD(float                           , m_flDistanceScale_OuterRadius                   , 0x130) // float32
+        SCHEMA_FIELD(float                           , m_flDistanceScale_InnerRadius                   , 0x134) // float32
+        SCHEMA_FIELD(float                           , m_flDistanceScale_MaxScale                      , 0x138) // float32
+        SCHEMA_FIELD(float                           , m_flDistanceScale_MinScale                      , 0x13C) // float32
+        SCHEMA_FIELD(bool                            , m_bEnableDistanceScaling                        , 0x140) // bool
     };
 
-    // CSolveIKTargetHandle_t
+    // CBlend2DInstanceData
+    //   fields: 3
+    //   size: 0xA0
+    //   @MGetKV3ClassDefaults
+    class CBlend2DInstanceData {
+    public:
+        SCHEMA_FIELD(::Vector2D                      , m_dampedValue                                   , 0x8) // Vector2D
+        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x44) // float32
+        SCHEMA_FIELD(float                           , m_flPrevCycle                                   , 0x48) // float32
+    };
+
+    // WeightList
     //   fields: 2
-    //   size: 0x4
+    //   size: 0x20
     //   @MGetKV3ClassDefaults
-    class CSolveIKTargetHandle_t {
-    public:
-        SCHEMA_FIELD(CAnimParamHandle                , m_positionHandle                                , 0x0) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_orientationHandle                             , 0x2) // CAnimParamHandle
-    };
-
-    // AnimScriptHandle
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class AnimScriptHandle {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
-    };
-
-    // CPulseCell_Value_RandomFloat
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    //   @MPulseEditorHeaderIcon
-    class CPulseCell_Value_RandomFloat {
-    public:
-    };
-
-    // ScriptInfo_t
-    //   fields: 5
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class ScriptInfo_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_code                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(CUtlVector<CAnimParamHandle>    , m_paramsModified                                , 0x8) // CUtlVector<CAnimParamHandle>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_proxyReadParams                               , 0x20) // CUtlVector<int32>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_proxyWriteParams                              , 0x38) // CUtlVector<int32>
-        SCHEMA_FIELD(AnimScriptType                  , m_eScriptType                                   , 0x50) // AnimScriptType
-    };
-
-    // CStateUpdateData
-    //   fields: 10
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CStateUpdateData {
+    class WeightList {
     public:
         SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(AnimScriptHandle                , m_hScript                                       , 0x8) // AnimScriptHandle
-        SCHEMA_FIELD(CUtlVector<int32>               , m_transitionIndices                             , 0x10) // CUtlVector<int32>
-        SCHEMA_FIELD(CUtlVector<CStateActionUpdater> , m_actions                                       , 0x28) // CUtlVector<CStateActionUpdater>
-        SCHEMA_FIELD(AnimStateID                     , m_stateID                                       , 0x40) // AnimStateID
-        // SKIPPED: m_bIsStartState (bitfield type not supported)
-        // SKIPPED: m_bIsEndState (bitfield type not supported)
-        // SKIPPED: m_bIsPassthrough (bitfield type not supported)
-        // SKIPPED: m_bIsPassthroughRootMotion (bitfield type not supported)
-        // SKIPPED: m_bPreEvaluatePassthroughTransitionPath (bitfield type not supported)
+        SCHEMA_FIELD(CUtlVector<float32>             , m_weights                                       , 0x8) // CUtlVector<float32>
     };
 
-    // CPulseCell_FireCursors
-    //   fields: 3
-    //   size: 0x140
+    // TraceSettings_t
+    //   fields: 2
+    //   size: 0x8
     //   @MGetKV3ClassDefaults
-    class CPulseCell_FireCursors {
+    class TraceSettings_t {
     public:
-        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outflows                                      , 0xD8) // CUtlVector<CPulse_OutflowConnection>
-        SCHEMA_FIELD(bool                            , m_bWaitForChildOutflows                         , 0xF0) // bool
-        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnFinished                                    , 0xF8) // CPulse_ResumePoint
+        SCHEMA_FIELD(float                           , m_flTraceHeight                                 , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flTraceRadius                                 , 0x4) // float32
     };
 
-    // PulseRuntimeRegisterIndex_t
-    //   fields: 1
-    //   size: 0x2
-    class PulseRuntimeRegisterIndex_t {
+    // SelectorInstanceData_t
+    //   fields: 4
+    //   size: 0x2C
+    //   @MGetKV3ClassDefaults
+    class SelectorInstanceData_t {
     public:
-        SCHEMA_FIELD(std::int16_t                    , m_Value                                         , 0x0) // int16
+        SCHEMA_FIELD(CRelativeArray<float32>         , m_weights                                       , 0x0) // CRelativeArray<float32>
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_currentIndexStartTime                         , 0x8) // CAnimNetVar<float32>
+        SCHEMA_FIELD(std::int32_t                    , m_currentIndex                                  , 0x14) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_previousIndex                                 , 0x18) // int32
     };
 
-    // CSelectorUpdateNode
+    // CRagdollComponentUpdater
     //   fields: 10
-    //   size: 0xB8
+    //   size: 0xD8
     //   @MGetKV3ClassDefaults
-    class CSelectorUpdateNode {
+    class CRagdollComponentUpdater {
     public:
-        SCHEMA_FIELD(CUtlVector<CAnimUpdateNodeRef>  , m_children                                      , 0x60) // CUtlVector<CAnimUpdateNodeRef>
-        SCHEMA_FIELD(CUtlVector<int8>                , m_tags                                          , 0x78) // CUtlVector<int8>
-        SCHEMA_FIELD(CBlendCurve                     , m_blendCurve                                    , 0x94) // CBlendCurve
-        SCHEMA_FIELD(CAnimValue<float32>             , m_flBlendTime                                   , 0x9C) // CAnimValue<float32>
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParameter                                    , 0xA4) // CAnimParamHandle
-        SCHEMA_FIELD(std::int32_t                    , m_nTagIndex                                     , 0xA8) // int32
-        SCHEMA_FIELD(SelectorTagBehavior_t           , m_eTagBehavior                                  , 0xAC) // SelectorTagBehavior_t
-        SCHEMA_FIELD(bool                            , m_bResetOnChange                                , 0xB0) // bool
-        SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0xB1) // bool
-        SCHEMA_FIELD(bool                            , m_bSyncCyclesOnChange                           , 0xB2) // bool
+        SCHEMA_FIELD(CUtlVector<CAnimNodePath>       , m_ragdollNodePaths                              , 0x30) // CUtlVector<CAnimNodePath>
+        SCHEMA_FIELD(CUtlVector<CAnimNodePath>       , m_followAttachmentNodePaths                     , 0x48) // CUtlVector<CAnimNodePath>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_boneIndices                                   , 0x60) // CUtlVector<int32>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_boneNames                                     , 0x78) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<WeightList>          , m_weightLists                                   , 0x90) // CUtlVector<WeightList>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_boneToWeightIndices                           , 0xA8) // CUtlVector<int32>
+        SCHEMA_FIELD(float                           , m_flSpringFrequencyMin                          , 0xC0) // float32
+        SCHEMA_FIELD(float                           , m_flSpringFrequencyMax                          , 0xC4) // float32
+        SCHEMA_FIELD(float                           , m_flMaxStretch                                  , 0xC8) // float32
+        SCHEMA_FIELD(bool                            , m_bSolidCollisionAtZeroWeight                   , 0xCC) // bool
     };
 
-    // CNmParameterizedBlendNode::CDefinition
-    //   fields: 3
-    //   size: 0x30
+    // CConcreteAnimParameter
+    //   fields: 6
+    //   size: 0x80
     //   @MGetKV3ClassDefaults
-    class CNmParameterizedBlendNode_CDefinition {
+    class CConcreteAnimParameter {
     public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,5>;
-        SCHEMA_FIELD(_Type0                          , m_sourceNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,5>
-        SCHEMA_FIELD(std::int16_t                    , m_nInputParameterValueNodeIdx                   , 0x28) // int16
-        SCHEMA_FIELD(bool                            , m_bAllowLooping                                 , 0x2A) // bool
+        SCHEMA_FIELD(AnimParamButton_t               , m_previewButton                                 , 0x70) // AnimParamButton_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(AnimParamNetworkSetting         , m_eNetworkSetting                               , 0x74) // AnimParamNetworkSetting [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseMostRecentValue                           , 0x78) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAutoReset                                    , 0x79) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bGameWritable                                 , 0x7A) // bool [MPropertyFriendlyName, MPropertyGroupName, MPropertyAttrStateCallback]
+        SCHEMA_FIELD(bool                            , m_bGraphWritable                                , 0x7B) // bool [MPropertyFriendlyName, MPropertyGroupName, MPropertyAttrStateCallback]
     };
 
-    // CStateMachineComponentUpdater
-    //   fields: 1
-    //   size: 0x88
-    //   @MGetKV3ClassDefaults
-    class CStateMachineComponentUpdater {
-    public:
-        SCHEMA_FIELD(CAnimStateMachineUpdater        , m_stateMachine                                  , 0x30) // CAnimStateMachineUpdater
-    };
-
-    // CPulse_OutputConnection
+    // CNmTargetOffsetNode::CDefinition
     //   fields: 4
     //   size: 0x40
     //   @MGetKV3ClassDefaults
-    class CPulse_OutputConnection {
+    class CNmTargetOffsetNode_CDefinition {
     public:
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_SourceOutput                                  , 0x0) // PulseSymbol_t
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_TargetEntity                                  , 0x10) // PulseSymbol_t
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_TargetInput                                   , 0x20) // PulseSymbol_t
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_Param                                         , 0x30) // PulseSymbol_t
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(bool                            , m_bIsBoneSpaceOffset                            , 0x12) // bool
+        SCHEMA_FIELD(::Quaternion                    , m_rotationOffset                                , 0x20) // Quaternion
+        SCHEMA_FIELD(::Vector                        , m_translationOffset                             , 0x30) // Vector
     };
 
-    // TagStatus
-    //   fields: 2
-    //   size: 0x8
+    // CMotionGraphConfig
+    //   fields: 5
+    //   size: 0x20
     //   @MGetKV3ClassDefaults
-    class TagStatus {
+    class CMotionGraphConfig {
     public:
-        SCHEMA_FIELD(TagActionStatus                 , m_TagStatus                                     , 0x0) // TagActionStatus
-        SCHEMA_FIELD(float                           , m_flTagStartAnimTime                            , 0x4) // float32
+        SCHEMA_FIELD(float                           , m_paramValues                                   , 0x0) // float32[4]
+        SCHEMA_FIELD(float                           , m_flDuration                                    , 0x10) // float32
+        SCHEMA_FIELD(MotionIndex                     , m_nMotionIndex                                  , 0x14) // MotionIndex
+        SCHEMA_FIELD(std::int32_t                    , m_nSampleStart                                  , 0x18) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nSampleCount                                  , 0x1C) // int32
     };
 
-    // CAnimMovement
-    //   fields: 7
-    //   size: 0x2C
-    //   @MGetKV3ClassDefaults
-    class CAnimMovement {
+    // IKTargetSettings_t
+    //   fields: 5
+    //   size: 0x28
+    class IKTargetSettings_t {
     public:
-        SCHEMA_FIELD(std::int32_t                    , endframe                                        , 0x0) // int32
-        SCHEMA_FIELD(std::int32_t                    , motionflags                                     , 0x4) // int32
-        SCHEMA_FIELD(float                           , v0                                              , 0x8) // float32
-        SCHEMA_FIELD(float                           , v1                                              , 0xC) // float32
-        SCHEMA_FIELD(float                           , angle                                           , 0x10) // float32
-        SCHEMA_FIELD(::Vector                        , vector                                          , 0x14) // Vector
-        SCHEMA_FIELD(::Vector                        , position                                        , 0x20) // Vector
-    };
-
-    // CMorphConstraint
-    //   fields: 4
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CMorphConstraint {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_sTargetMorph                                  , 0x60) // CUtlString
-        SCHEMA_FIELD(std::int32_t                    , m_nSlaveChannel                                 , 0x68) // int32
-        SCHEMA_FIELD(float                           , m_flMin                                         , 0x6C) // float32
-        SCHEMA_FIELD(float                           , m_flMax                                         , 0x70) // float32
+        SCHEMA_FIELD(IKTargetSource                  , m_TargetSource                                  , 0x0) // IKTargetSource [MPropertyFriendlyName, MPropertyAutoRebuildOnChange]
+        SCHEMA_FIELD(IKBoneNameAndIndex_t            , m_Bone                                          , 0x8) // IKBoneNameAndIndex_t [MPropertyFriendlyName, MPropertyAttrStateCallback]
+        SCHEMA_FIELD(AnimParamID                     , m_AnimgraphParameterNamePosition                , 0x18) // AnimParamID [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertyAttrStateCallback]
+        SCHEMA_FIELD(AnimParamID                     , m_AnimgraphParameterNameOrientation             , 0x1C) // AnimParamID [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertyAttrStateCallback]
+        SCHEMA_FIELD(IKTargetCoordinateSystem        , m_TargetCoordSystem                             , 0x20) // IKTargetCoordinateSystem [MPropertyFriendlyName, MPropertyAttrStateCallback]
     };
 
     // VPhysXConstraintParams_t
@@ -3195,6 +2671,1731 @@ namespace animationsystem {
         SCHEMA_FIELD(float                           , m_projectionAngularTolerance                    , 0xF4) // float32
     };
 
+    // CNmConstIDNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmConstIDNode_CDefinition {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_value                                         , 0x10) // CGlobalSymbol
+    };
+
+    // HSequence
+    //   fields: 1
+    //   size: 0x4
+    class HSequence {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
+    };
+
+    // CNmTransitionEvent
+    //   fields: 2
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CNmTransitionEvent {
+    public:
+        SCHEMA_FIELD(NmTransitionRule_t              , m_rule                                          , 0x18) // NmTransitionRule_t
+        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x20) // CGlobalSymbol
+    };
+
+    // CNmBoolValueNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    class CNmBoolValueNode_CDefinition {
+    public:
+    };
+
+    // CPulse_Chunk
+    //   fields: 3
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CPulse_Chunk {
+    public:
+        SCHEMA_FIELD(CUtlLeanVector<PGDInstruction_t>, m_Instructions                                  , 0x0) // CUtlLeanVector<PGDInstruction_t>
+        SCHEMA_FIELD(CUtlLeanVector<CPulse_RegisterInfo>, m_Registers                                     , 0x10) // CUtlLeanVector<CPulse_RegisterInfo>
+        SCHEMA_FIELD(CUtlLeanVector<CPulse_InstructionDebug>, m_InstructionDebugInfos                         , 0x20) // CUtlLeanVector<CPulse_InstructionDebug>
+    };
+
+    // FootLockPoseOpFixedSettings
+    //   fields: 18
+    //   size: 0x68
+    //   @MGetKV3ClassDefaults
+    class FootLockPoseOpFixedSettings {
+    public:
+        SCHEMA_FIELD(CUtlVector<FootFixedData_t>     , m_footInfo                                      , 0x0) // CUtlVector<FootFixedData_t>
+        SCHEMA_FIELD(CAnimInputDamping               , m_hipDampingSettings                            , 0x18) // CAnimInputDamping
+        SCHEMA_FIELD(std::int32_t                    , m_nHipBoneIndex                                 , 0x30) // int32
+        SCHEMA_FIELD(IKSolverType                    , m_ikSolverType                                  , 0x34) // IKSolverType
+        SCHEMA_FIELD(bool                            , m_bApplyTilt                                    , 0x38) // bool
+        SCHEMA_FIELD(bool                            , m_bApplyHipDrop                                 , 0x39) // bool
+        SCHEMA_FIELD(bool                            , m_bAlwaysUseFallbackHinge                       , 0x3A) // bool
+        SCHEMA_FIELD(bool                            , m_bApplyFootRotationLimits                      , 0x3B) // bool
+        SCHEMA_FIELD(bool                            , m_bApplyLegTwistLimits                          , 0x3C) // bool
+        SCHEMA_FIELD(float                           , m_flMaxFootHeight                               , 0x40) // float32
+        SCHEMA_FIELD(float                           , m_flExtensionScale                              , 0x44) // float32
+        SCHEMA_FIELD(float                           , m_flMaxLegTwist                                 , 0x48) // float32
+        SCHEMA_FIELD(bool                            , m_bEnableLockBreaking                           , 0x4C) // bool
+        SCHEMA_FIELD(float                           , m_flLockBreakTolerance                          , 0x50) // float32
+        SCHEMA_FIELD(float                           , m_flLockBlendTime                               , 0x54) // float32
+        SCHEMA_FIELD(bool                            , m_bEnableStretching                             , 0x58) // bool
+        SCHEMA_FIELD(float                           , m_flMaxStretchAmount                            , 0x5C) // float32
+        SCHEMA_FIELD(float                           , m_flStretchExtensionScale                       , 0x60) // float32
+    };
+
+    // CTurnHelperInstanceData
+    //   fields: 3
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class CTurnHelperInstanceData {
+    public:
+        SCHEMA_FIELD(float                           , m_turnAmount                                    , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_turnStartTime                                 , 0x4) // float32
+        SCHEMA_FIELD(float                           , m_duration                                      , 0x8) // float32
+    };
+
+    // CSeqCmdSeqDesc
+    //   fields: 12
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class CSeqCmdSeqDesc {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x0) // CBufferString
+        SCHEMA_FIELD(CSeqSeqDescFlag                 , m_flags                                         , 0x10) // CSeqSeqDescFlag
+        SCHEMA_FIELD(CSeqTransition                  , m_transition                                    , 0x1C) // CSeqTransition
+        SCHEMA_FIELD(std::int16_t                    , m_nFrameRangeSequence                           , 0x24) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nFrameCount                                   , 0x26) // int16
+        SCHEMA_FIELD(float                           , m_flFPS                                         , 0x28) // float32
+        SCHEMA_FIELD(std::int16_t                    , m_nSubCycles                                    , 0x2C) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_numLocalResults                               , 0x2E) // int16
+        SCHEMA_FIELD(CUtlVector<CSeqCmdLayer>        , m_cmdLayerArray                                 , 0x30) // CUtlVector<CSeqCmdLayer>
+        SCHEMA_FIELD(CUtlVector<CAnimEventDefinition>, m_eventArray                                    , 0x48) // CUtlVector<CAnimEventDefinition>
+        SCHEMA_FIELD(CUtlVector<CAnimActivity>       , m_activityArray                                 , 0x60) // CUtlVector<CAnimActivity>
+        SCHEMA_FIELD(CUtlVector<CSeqPoseSetting>     , m_poseSettingArray                              , 0x78) // CUtlVector<CSeqPoseSetting>
+    };
+
+    // VPhysXConstraint2_t
+    //   fields: 4
+    //   size: 0x100
+    //   @MGetKV3ClassDefaults
+    class VPhysXConstraint2_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x0) // uint32
+        SCHEMA_FIELD(std::uint16_t                   , m_nParent                                       , 0x4) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nChild                                        , 0x6) // uint16
+        SCHEMA_FIELD(VPhysXConstraintParams_t        , m_params                                        , 0x8) // VPhysXConstraintParams_t
+    };
+
+    // CPulseCell_WaitForCursorsWithTag
+    //   fields: 2
+    //   size: 0x130
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    //   @MPulseEditorHeaderIcon
+    class CPulseCell_WaitForCursorsWithTag {
+    public:
+        SCHEMA_FIELD(bool                            , m_bTagSelfWhenComplete                          , 0x128) // bool [MPropertyDescription]
+        SCHEMA_FIELD(PulseCursorCancelPriority_t     , m_nDesiredKillPriority                          , 0x12C) // PulseCursorCancelPriority_t [MPropertyDescription]
+    };
+
+    // ModelMeshBufferData_t
+    //   fields: 13
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class ModelMeshBufferData_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nBlockIndex                                   , 0x0) // int32
+        SCHEMA_FIELD(std::uint32_t                   , m_nElementCount                                 , 0x4) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nElementSizeInBytes                           , 0x8) // uint32
+        SCHEMA_FIELD(bool                            , m_bMeshoptCompressed                            , 0xC) // bool
+        SCHEMA_FIELD(bool                            , m_bMeshoptIndexSequence                         , 0xD) // bool
+        SCHEMA_FIELD(std::int8_t                     , m_nMeshoptMeshletEncodeVersion                  , 0xE) // int8
+        SCHEMA_FIELD(bool                            , m_bCompressedZSTD                               , 0xF) // bool
+        SCHEMA_FIELD(bool                            , m_bCreateBufferSRV                              , 0x10) // bool
+        SCHEMA_FIELD(bool                            , m_bCreateBufferUAV                              , 0x11) // bool
+        SCHEMA_FIELD(bool                            , m_bCreateRawBuffer                              , 0x12) // bool
+        SCHEMA_FIELD(bool                            , m_bCreatePooledBuffer                           , 0x13) // bool
+        SCHEMA_FIELD(std::uint8_t                    , m_nBufferUsage                                  , 0x14) // uint8
+        SCHEMA_FIELD(CUtlVector<::rendersystemdx11::RenderInputLayoutField_t>, m_inputLayoutFields                             , 0x18) // CUtlVector<RenderInputLayoutField_t>
+    };
+
+    // VPhysXAggregateData_t
+    //   fields: 17
+    //   size: 0x150
+    //   @MGetKV3ClassDefaults
+    class VPhysXAggregateData_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , m_nFlags                                        , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nRefCounter                                   , 0x2) // uint16
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_bonesHash                                     , 0x8) // CUtlVector<uint32>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_boneNames                                     , 0x20) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<uint16>              , m_indexNames                                    , 0x38) // CUtlVector<uint16>
+        SCHEMA_FIELD(CUtlVector<uint16>              , m_indexHash                                     , 0x50) // CUtlVector<uint16>
+        SCHEMA_FIELD(CUtlVector<matrix3x4a_t>        , m_bindPose                                      , 0x68) // CUtlVector<matrix3x4a_t>
+        SCHEMA_FIELD(CUtlVector<VPhysXBodyPart_t>    , m_parts                                         , 0x80) // CUtlVector<VPhysXBodyPart_t>
+        SCHEMA_FIELD(CUtlVector<PhysShapeMarkup_t>   , m_shapeMarkups                                  , 0x98) // CUtlVector<PhysShapeMarkup_t>
+        SCHEMA_FIELD(CUtlVector<VPhysXConstraint2_t> , m_constraints2                                  , 0xB0) // CUtlVector<VPhysXConstraint2_t>
+        SCHEMA_FIELD(CUtlVector<VPhysXJoint_t>       , m_joints                                        , 0xC8) // CUtlVector<VPhysXJoint_t>
+        SCHEMA_FIELD(::vphysics2::PhysFeModelDesc_t* , m_pFeModel                                      , 0xE0) // PhysFeModelDesc_t*
+        SCHEMA_FIELD(CUtlVector<uint16>              , m_boneParents                                   , 0xE8) // CUtlVector<uint16>
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_surfacePropertyHashes                         , 0x100) // CUtlVector<uint32>
+        SCHEMA_FIELD(CUtlVector<VPhysXCollisionAttributes_t>, m_collisionAttributes                           , 0x118) // CUtlVector<VPhysXCollisionAttributes_t>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_debugPartNames                                , 0x130) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(::CUtlString                    , m_embeddedKeyvalues                             , 0x148) // CUtlString
+    };
+
+    // CNmParticleEvent
+    //   fields: 14
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class CNmParticleEvent {
+    public:
+        SCHEMA_FIELD(CNmEventRelevance_t             , m_relevance                                     , 0x18) // CNmEventRelevance_t
+        SCHEMA_FIELD(CNmParticleEvent_Type_t         , m_type                                          , 0x1C) // CNmParticleEvent::Type_t
+        SCHEMA_FIELD(CNmEventTargetEntity_t          , m_target                                        , 0x20) // CNmEventTargetEntity_t
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_hParticleSystem                               , 0x28) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>
+        SCHEMA_FIELD(::CUtlString                    , m_tags                                          , 0x30) // CUtlString
+        SCHEMA_FIELD(bool                            , m_bStopImmediately                              , 0x38) // bool
+        SCHEMA_FIELD(bool                            , m_bDetachFromOwner                              , 0x39) // bool
+        SCHEMA_FIELD(bool                            , m_bPlayEndCap                                   , 0x3A) // bool
+        SCHEMA_FIELD(::CUtlString                    , m_attachmentPoint0                              , 0x40) // CUtlString
+        SCHEMA_FIELD(ParticleAttachment_t            , m_attachmentType0                               , 0x48) // ParticleAttachment_t
+        SCHEMA_FIELD(::CUtlString                    , m_attachmentPoint1                              , 0x50) // CUtlString
+        SCHEMA_FIELD(ParticleAttachment_t            , m_attachmentType1                               , 0x58) // ParticleAttachment_t
+        SCHEMA_FIELD(::CUtlString                    , m_config                                        , 0x60) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_effectForConfig                               , 0x68) // CUtlString
+    };
+
+    // CFollowPathInstanceData
+    //   fields: 5
+    //   size: 0x24
+    //   @MGetKV3ClassDefaults
+    class CFollowPathInstanceData {
+    public:
+        SCHEMA_FIELD(CRelativeArray<CMotionTransform>, m_xLastPredictedTransformsDeltas                , 0x0) // CRelativeArray<CMotionTransform>
+        SCHEMA_FIELD(float                           , m_dampedTurnValue                               , 0x8) // float32
+        SCHEMA_FIELD(float                           , m_flTurnAmount                                  , 0xC) // float32
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flPredictionScale                             , 0x10) // CAnimNetVar<float32>
+        SCHEMA_FIELD(float                           , m_flLastPathTime                                , 0x1C) // float32
+    };
+
+    // AimCameraOpFixedSettings_t
+    //   fields: 7
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class AimCameraOpFixedSettings_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChainIndex                                   , 0x0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCameraJointIndex                             , 0x4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nPelvisJointIndex                             , 0x8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nClavicleLeftJointIndex                       , 0xC) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nClavicleRightJointIndex                      , 0x10) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nDepenetrationJointIndex                      , 0x14) // int32
+        SCHEMA_FIELD(CUtlVector<int32>               , m_propJoints                                    , 0x18) // CUtlVector<int32>
+    };
+
+    // CMaterialDrawDescriptor
+    //   fields: 18
+    //   size: 0x118
+    //   @MGetKV3ClassDefaults
+    class CMaterialDrawDescriptor {
+    public:
+        SCHEMA_FIELD(float                           , m_flUvDensity                                   , 0x0) // float32
+        SCHEMA_FIELD(::Vector                        , m_vTintColor                                    , 0x4) // Vector
+        SCHEMA_FIELD(float                           , m_flAlpha                                       , 0x10) // float32
+        SCHEMA_FIELD(std::uint16_t                   , m_nNumMeshlets                                  , 0x16) // uint16
+        SCHEMA_FIELD(std::uint32_t                   , m_nFirstMeshlet                                 , 0x1C) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nAppliedIndexOffset                           , 0x20) // uint32
+        SCHEMA_FIELD(std::uint8_t                    , m_nDepthVertexBufferIndex                       , 0x24) // uint8
+        SCHEMA_FIELD(std::uint8_t                    , m_nMeshletPackedIVBIndex                        , 0x25) // uint8
+        SCHEMA_FIELD(CUtlLeanVector<CMaterialDrawDescriptor_RigidMeshPart_t>, m_rigidMeshParts                                , 0x28) // CUtlLeanVector<CMaterialDrawDescriptor::RigidMeshPart_t>
+        SCHEMA_FIELD(CUtlLeanVector<uint16>          , m_rootBvhNodes                                  , 0x38) // CUtlLeanVector<uint16>
+        SCHEMA_FIELD(::rendersystemdx11::RenderPrimitiveType_t, m_nPrimitiveType                                , 0x48) // RenderPrimitiveType_t
+        SCHEMA_FIELD(std::int32_t                    , m_nBaseVertex                                   , 0x4C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nVertexCount                                  , 0x50) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nStartIndex                                   , 0x54) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nIndexCount                                   , 0x58) // int32
+        SCHEMA_FIELD(::CRenderBufferBinding          , m_indexBuffer                                   , 0xC0) // CRenderBufferBinding
+        SCHEMA_FIELD(::CRenderBufferBinding          , m_meshletPackedIVB                              , 0xE0) // CRenderBufferBinding
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_material                                      , 0x110) // CStrongHandle<InfoForResourceTypeIMaterial2>
+    };
+
+    // CNmParameterizedSelectorNode::CDefinition
+    //   fields: 5
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class CNmParameterizedSelectorNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,8>;
+        using _Type1 = CUtlLeanVectorFixedGrowable<uint8,8>;
+        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,8>
+        SCHEMA_FIELD(_Type1                          , m_optionWeights                                 , 0x28) // CUtlLeanVectorFixedGrowable<uint8,8>
+        SCHEMA_FIELD(std::int16_t                    , m_parameterNodeIdx                              , 0x38) // int16
+        SCHEMA_FIELD(bool                            , m_bIgnoreInvalidOptions                         , 0x3A) // bool
+        SCHEMA_FIELD(bool                            , m_bHasWeightsSet                                , 0x3B) // bool
+    };
+
+    // CAnimInputDamping
+    //   fields: 3
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CAnimInputDamping {
+    public:
+        SCHEMA_FIELD(DampingSpeedFunction            , m_speedFunction                                 , 0x8) // DampingSpeedFunction [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fSpeedScale                                   , 0xC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fFallingSpeedScale                            , 0x10) // float32 [MPropertyFriendlyName]
+    };
+
+    // CAnimTagManagerUpdater
+    //   fields: 1
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CAnimTagManagerUpdater {
+    public:
+        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimTagBase>>, m_tags                                          , 0x38) // CUtlVector<CSmartPtr<CAnimTagBase>>
+    };
+
+    // CNmVectorValueNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    class CNmVectorValueNode_CDefinition {
+    public:
+    };
+
+    // COrientationWarpUpdateNode
+    //   fields: 13
+    //   size: 0xC0
+    //   @MGetKV3ClassDefaults
+    class COrientationWarpUpdateNode {
+    public:
+        SCHEMA_FIELD(OrientationWarpMode_t           , m_eMode                                         , 0x74) // OrientationWarpMode_t
+        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetParam                                  , 0x78) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetPositionParam                          , 0x7A) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hFallbackTargetPositionParam                  , 0x7C) // CAnimParamHandle
+        SCHEMA_FIELD(OrientationWarpTargetOffsetMode_t, m_eTargetOffsetMode                             , 0x80) // OrientationWarpTargetOffsetMode_t
+        SCHEMA_FIELD(float                           , m_flTargetOffset                                , 0x84) // float32
+        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetOffsetParam                            , 0x88) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0x90) // CAnimInputDamping
+        SCHEMA_FIELD(OrientationWarpRootMotionSource_t, m_eRootMotionSource                             , 0xA8) // OrientationWarpRootMotionSource_t
+        SCHEMA_FIELD(float                           , m_flMaxRootMotionScale                          , 0xAC) // float32
+        SCHEMA_FIELD(bool                            , m_bEnablePreferredRotationDirection             , 0xB0) // bool
+        SCHEMA_FIELD(AnimValueSource                 , m_ePreferredRotationDirection                   , 0xB4) // AnimValueSource
+        SCHEMA_FIELD(float                           , m_flPreferredRotationThreshold                  , 0xB8) // float32
+    };
+
+    // CNmSpeedScaleBaseNode::CDefinition
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmSpeedScaleBaseNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x18) // int16
+        SCHEMA_FIELD(float                           , m_flDefaultInputValue                           , 0x1C) // float32
+    };
+
+    // CNmVelocityBlendNode::CDefinition
+    //   fields: 0
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CNmVelocityBlendNode_CDefinition {
+    public:
+    };
+
+    // CBodyGroupSetting
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPropertyElementNameFn
+    class CBodyGroupSetting {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_BodyGroupName                                 , 0x0) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertyAutoRebuildOnChange]
+        SCHEMA_FIELD(std::int32_t                    , m_nBodyGroupOption                              , 0x8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // CPerParticleVecInput
+    //   fields: 0
+    //   size: 0x6B8
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyCustomEditor
+    class CPerParticleVecInput {
+    public:
+    };
+
+    // CBlend2DUpdateNode
+    //   fields: 15
+    //   size: 0xF8
+    //   @MGetKV3ClassDefaults
+    class CBlend2DUpdateNode {
+    public:
+        SCHEMA_FIELD(CUtlVector<BlendItem_t>         , m_items                                         , 0x60) // CUtlVector<BlendItem_t>
+        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x78) // CUtlVector<TagSpan_t>
+        SCHEMA_FIELD(CParamSpanUpdater               , m_paramSpans                                    , 0x90) // CParamSpanUpdater
+        SCHEMA_FIELD(CUtlVector<int32>               , m_nodeItemIndices                               , 0xA8) // CUtlVector<int32>
+        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0xC0) // CAnimInputDamping
+        SCHEMA_FIELD(AnimValueSource                 , m_blendSourceX                                  , 0xD8) // AnimValueSource
+        SCHEMA_FIELD(CAnimParamHandle                , m_paramX                                        , 0xDC) // CAnimParamHandle
+        SCHEMA_FIELD(AnimValueSource                 , m_blendSourceY                                  , 0xE0) // AnimValueSource
+        SCHEMA_FIELD(CAnimParamHandle                , m_paramY                                        , 0xE4) // CAnimParamHandle
+        SCHEMA_FIELD(Blend2DMode                     , m_eBlendMode                                    , 0xE8) // Blend2DMode
+        SCHEMA_FIELD(float                           , m_playbackSpeed                                 , 0xEC) // float32
+        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0xF0) // bool
+        SCHEMA_FIELD(bool                            , m_bLockBlendOnReset                             , 0xF1) // bool
+        SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0xF2) // bool
+        SCHEMA_FIELD(bool                            , m_bAnimEventsAndTagsOnMostWeightedOnly          , 0xF3) // bool
+    };
+
+    // CModelConfigElement_RandomPick
+    //   fields: 2
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class CModelConfigElement_RandomPick {
+    public:
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_Choices                                       , 0x48) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_ChoiceWeights                                 , 0x60) // CUtlVector<float32>
+    };
+
+    // CSeqPoseParamDesc
+    //   fields: 5
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CSeqPoseParamDesc {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x0) // CBufferString
+        SCHEMA_FIELD(float                           , m_flStart                                       , 0x10) // float32
+        SCHEMA_FIELD(float                           , m_flEnd                                         , 0x14) // float32
+        SCHEMA_FIELD(float                           , m_flLoop                                        , 0x18) // float32
+        SCHEMA_FIELD(bool                            , m_bLooping                                      , 0x1C) // bool
+    };
+
+    // CAnimScriptComponentUpdater
+    //   fields: 1
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class CAnimScriptComponentUpdater {
+    public:
+        SCHEMA_FIELD(AnimScriptHandle                , m_hScript                                       , 0x30) // AnimScriptHandle
+    };
+
+    // CPulseCell_Outflow_CycleOrdered
+    //   fields: 1
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Outflow_CycleOrdered {
+    public:
+        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outputs                                       , 0x48) // CUtlVector<CPulse_OutflowConnection>
+    };
+
+    // PulseRuntimeRegisterIndex_t
+    //   fields: 1
+    //   size: 0x2
+    class PulseRuntimeRegisterIndex_t {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_Value                                         , 0x0) // int16
+    };
+
+    // BlendItem_t
+    //   fields: 6
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class BlendItem_t {
+    public:
+        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x0) // CUtlVector<TagSpan_t>
+        SCHEMA_FIELD(CAnimUpdateNodeRef              , m_pChild                                        , 0x18) // CAnimUpdateNodeRef
+        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x28) // HSequence
+        SCHEMA_FIELD(::Vector2D                      , m_vPos                                          , 0x2C) // Vector2D
+        SCHEMA_FIELD(float                           , m_flDuration                                    , 0x34) // float32
+        SCHEMA_FIELD(bool                            , m_bUseCustomDuration                            , 0x38) // bool
+    };
+
+    // CFollowAttachmentUpdateNode
+    //   fields: 1
+    //   size: 0x110
+    //   @MGetKV3ClassDefaults
+    class CFollowAttachmentUpdateNode {
+    public:
+        SCHEMA_FIELD(FollowAttachmentSettings_t      , m_opFixedData                                   , 0x70) // FollowAttachmentSettings_t
+    };
+
+    // CNmGraphInstance
+    //   fields: 0
+    //   size: 0x3D0
+    class CNmGraphInstance {
+    public:
+    };
+
+    // CAnimParamHandleMap
+    //   fields: 1
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CAnimParamHandleMap {
+    public:
+        using _Type0 = CUtlHashtable<uint16,int16>;
+        SCHEMA_FIELD(_Type0                          , m_list                                          , 0x0) // CUtlHashtable<uint16,int16>
+    };
+
+    // CMoverUpdateNode
+    //   fields: 12
+    //   size: 0xB0
+    //   @MGetKV3ClassDefaults
+    class CMoverUpdateNode {
+    public:
+        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0x78) // CAnimInputDamping
+        SCHEMA_FIELD(AnimValueSource                 , m_facingTarget                                  , 0x90) // AnimValueSource
+        SCHEMA_FIELD(CAnimParamHandle                , m_hMoveVecParam                                 , 0x94) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hMoveHeadingParam                             , 0x96) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hTurnToFaceParam                              , 0x98) // CAnimParamHandle
+        SCHEMA_FIELD(float                           , m_flTurnToFaceOffset                            , 0x9C) // float32
+        SCHEMA_FIELD(float                           , m_flTurnToFaceLimit                             , 0xA0) // float32
+        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0xA4) // bool
+        SCHEMA_FIELD(bool                            , m_bApplyMovement                                , 0xA5) // bool
+        SCHEMA_FIELD(bool                            , m_bOrientMovement                               , 0xA6) // bool
+        SCHEMA_FIELD(bool                            , m_bApplyRotation                                , 0xA7) // bool
+        SCHEMA_FIELD(bool                            , m_bLimitOnly                                    , 0xA8) // bool
+    };
+
+    // CSeqSeqDescFlag
+    //   fields: 11
+    //   size: 0xB
+    //   @MGetKV3ClassDefaults
+    class CSeqSeqDescFlag {
+    public:
+        SCHEMA_FIELD(bool                            , m_bLooping                                      , 0x0) // bool
+        SCHEMA_FIELD(bool                            , m_bSnap                                         , 0x1) // bool
+        SCHEMA_FIELD(bool                            , m_bAutoplay                                     , 0x2) // bool
+        SCHEMA_FIELD(bool                            , m_bPost                                         , 0x3) // bool
+        SCHEMA_FIELD(bool                            , m_bHidden                                       , 0x4) // bool
+        SCHEMA_FIELD(bool                            , m_bMulti                                        , 0x5) // bool
+        SCHEMA_FIELD(bool                            , m_bLegacyDelta                                  , 0x6) // bool
+        SCHEMA_FIELD(bool                            , m_bLegacyWorldspace                             , 0x7) // bool
+        SCHEMA_FIELD(bool                            , m_bLegacyCyclepose                              , 0x8) // bool
+        SCHEMA_FIELD(bool                            , m_bLegacyRealtime                               , 0x9) // bool
+        SCHEMA_FIELD(bool                            , m_bModelDoc                                     , 0xA) // bool
+    };
+
+    // FootFixedSettings
+    //   fields: 10
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class FootFixedSettings {
+    public:
+        SCHEMA_FIELD(TraceSettings_t                 , m_traceSettings                                 , 0x0) // TraceSettings_t
+        SCHEMA_FIELD(VectorAligned                   , m_vFootBaseBindPosePositionMS                   , 0x10) // VectorAligned
+        SCHEMA_FIELD(float                           , m_flFootBaseLength                              , 0x20) // float32
+        SCHEMA_FIELD(float                           , m_flMaxRotationLeft                             , 0x24) // float32
+        SCHEMA_FIELD(float                           , m_flMaxRotationRight                            , 0x28) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_footstepLandedTagIndex                        , 0x2C) // int32
+        SCHEMA_FIELD(bool                            , m_bEnableTracing                                , 0x30) // bool
+        SCHEMA_FIELD(float                           , m_flTraceAngleBlend                             , 0x34) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nDisableTagIndex                              , 0x38) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFootIndex                                    , 0x3C) // int32
+    };
+
+    // CNmOverlayBlendTask
+    //   fields: 0
+    //   size: 0x100
+    class CNmOverlayBlendTask {
+    public:
+    };
+
+    // CSymbolAnimParameter
+    //   fields: 1
+    //   size: 0x88
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CSymbolAnimParameter {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_defaultValue                                  , 0x80) // CGlobalSymbol [MPropertyFriendlyName]
+    };
+
+    // MoodAnimationLayer_t
+    //   fields: 12
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyArrayElementNameKey
+    class MoodAnimationLayer_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_sName                                         , 0x0) // CUtlString [MPropertyFriendlyName, MPropertyDescription]
+        SCHEMA_FIELD(bool                            , m_bActiveListening                              , 0x8) // bool [MPropertyFriendlyName, MPropertyDescription]
+        SCHEMA_FIELD(bool                            , m_bActiveTalking                                , 0x9) // bool [MPropertyFriendlyName, MPropertyDescription]
+        SCHEMA_FIELD(CUtlVector<MoodAnimation_t>     , m_layerAnimations                               , 0x10) // CUtlVector<MoodAnimation_t> [MPropertyDescription]
+        SCHEMA_FIELD(CRangeFloat                     , m_flIntensity                                   , 0x28) // CRangeFloat [MPropertyDescription, MPropertyAttributeRange]
+        SCHEMA_FIELD(CRangeFloat                     , m_flDurationScale                               , 0x30) // CRangeFloat [MPropertyDescription]
+        SCHEMA_FIELD(bool                            , m_bScaleWithInts                                , 0x38) // bool [MPropertyDescription]
+        SCHEMA_FIELD(CRangeFloat                     , m_flNextStart                                   , 0x3C) // CRangeFloat [MPropertyDescription]
+        SCHEMA_FIELD(CRangeFloat                     , m_flStartOffset                                 , 0x44) // CRangeFloat [MPropertyDescription]
+        SCHEMA_FIELD(CRangeFloat                     , m_flEndOffset                                   , 0x4C) // CRangeFloat [MPropertyDescription]
+        SCHEMA_FIELD(float                           , m_flFadeIn                                      , 0x54) // float32 [MPropertyDescription]
+        SCHEMA_FIELD(float                           , m_flFadeOut                                     , 0x58) // float32 [MPropertyDescription]
+    };
+
+    // AnimTagID
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class AnimTagID {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
+    };
+
+    // PulseRuntimeVarIndex_t
+    //   fields: 1
+    //   size: 0x4
+    class PulseRuntimeVarIndex_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
+    };
+
+    // CPulseCell_Outflow_CycleRandom
+    //   fields: 1
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Outflow_CycleRandom {
+    public:
+        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outputs                                       , 0x48) // CUtlVector<CPulse_OutflowConnection>
+    };
+
+    // CNmFloatChannelData::ChannelSettings_t
+    //   fields: 2
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class CNmFloatChannelData_ChannelSettings_t {
+    public:
+        SCHEMA_FIELD(NmCompressionSettings_t_QuantizationRange_t, m_range                                         , 0x0) // NmCompressionSettings_t::QuantizationRange_t
+        SCHEMA_FIELD(bool                            , m_bIsStatic                                     , 0x8) // bool
+    };
+
+    // CDistanceRemainingMetricEvaluator
+    //   fields: 7
+    //   size: 0x68
+    //   @MGetKV3ClassDefaults
+    class CDistanceRemainingMetricEvaluator {
+    public:
+        SCHEMA_FIELD(float                           , m_flMaxDistance                                 , 0x50) // float32
+        SCHEMA_FIELD(float                           , m_flMinDistance                                 , 0x54) // float32
+        SCHEMA_FIELD(float                           , m_flStartGoalFilterDistance                     , 0x58) // float32
+        SCHEMA_FIELD(float                           , m_flMaxGoalOvershootScale                       , 0x5C) // float32
+        SCHEMA_FIELD(bool                            , m_bFilterFixedMinDistance                       , 0x60) // bool
+        SCHEMA_FIELD(bool                            , m_bFilterGoalDistance                           , 0x61) // bool
+        SCHEMA_FIELD(bool                            , m_bFilterGoalOvershoot                          , 0x62) // bool
+    };
+
+    // PulseRuntimeOutputIndex_t
+    //   fields: 1
+    //   size: 0x4
+    class PulseRuntimeOutputIndex_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
+    };
+
+    // CPulseCell_WaitForObservable
+    //   fields: 2
+    //   size: 0x198
+    //   @MGetKV3ClassDefaults
+    //   @MPulseEditorHeaderIcon
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    class CPulseCell_WaitForObservable {
+    public:
+        SCHEMA_FIELD(CPulseObservableExpression<bool>, m_Condition                                     , 0xD8) // CPulseObservableExpression<bool> [MPropertyDescription, MPropertyFriendlyName]
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnTrue                                        , 0x150) // CPulse_ResumePoint
+    };
+
+    // CTimeRemainingMetricEvaluator
+    //   fields: 4
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CTimeRemainingMetricEvaluator {
+    public:
+        SCHEMA_FIELD(bool                            , m_bMatchByTimeRemaining                         , 0x50) // bool
+        SCHEMA_FIELD(float                           , m_flMaxTimeRemaining                            , 0x54) // float32
+        SCHEMA_FIELD(bool                            , m_bFilterByTimeRemaining                        , 0x58) // bool
+        SCHEMA_FIELD(float                           , m_flMinTimeRemaining                            , 0x5C) // float32
+    };
+
+    // CBaseConstraint
+    //   fields: 4
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CBaseConstraint {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x20) // CUtlString
+        SCHEMA_FIELD(::Vector                        , m_vUpVector                                     , 0x28) // Vector
+        SCHEMA_FIELD(CUtlLeanVector<CConstraintSlave>, m_slaves                                        , 0x38) // CUtlLeanVector<CConstraintSlave>
+        SCHEMA_FIELD(CUtlVector<CConstraintTarget>   , m_targets                                       , 0x48) // CUtlVector<CConstraintTarget>
+    };
+
+    // CFlexOp
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CFlexOp {
+    public:
+        SCHEMA_FIELD(FlexOpCode_t                    , m_OpCode                                        , 0x0) // FlexOpCode_t
+        SCHEMA_FIELD(std::int32_t                    , m_Data                                          , 0x4) // int32
+    };
+
+    // CDirectPlaybackInstanceData
+    //   fields: 12
+    //   size: 0x148
+    //   @MGetKV3ClassDefaults
+    class CDirectPlaybackInstanceData {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vTargetPosition                               , 0x0) // Vector
+        SCHEMA_FIELD(float                           , m_flTargetFacing                                , 0xC) // float32
+        SCHEMA_FIELD(float                           , m_flInterpEndTime                               , 0x10) // float32
+        SCHEMA_FIELD(float                           , m_weights                                       , 0x14) // float32[4]
+        SCHEMA_FIELD(SequenceData                    , m_sequences                                     , 0x24) // SequenceData[4]
+        SCHEMA_FIELD(std::uint32_t                   , m_currentSequenceIndex                          , 0x104) // uint32
+        SCHEMA_FIELD(CAnimNetVar<uint64>             , m_currentSequenceData                           , 0x108) // CAnimNetVar<uint64>
+        SCHEMA_FIELD(float                           , m_flFadeInTime                                  , 0x118) // float32
+        SCHEMA_FIELD(float                           , m_flFadeOutTime                                 , 0x11C) // float32
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flForcedCycle                                 , 0x120) // CAnimNetVar<float32>
+        SCHEMA_FIELD(bool                            , m_bResetPending                                 , 0x130) // bool
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_SequenceCycleZeroTime                         , 0x138) // CAnimNetVar<float32>
+    };
+
+    // CPairedSequenceComponentUpdater
+    //   fields: 0
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class CPairedSequenceComponentUpdater {
+    public:
+    };
+
+    // CCycleControlClipUpdateNode
+    //   fields: 6
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class CCycleControlClipUpdateNode {
+    public:
+        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x60) // CUtlVector<TagSpan_t>
+        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x7C) // HSequence
+        SCHEMA_FIELD(float                           , m_duration                                      , 0x80) // float32
+        SCHEMA_FIELD(AnimValueSource                 , m_valueSource                                   , 0x84) // AnimValueSource
+        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0x88) // CAnimParamHandle
+        SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0x8A) // bool
+    };
+
+    // CNmRootMotionOverrideNode::CDefinition
+    //   fields: 8
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CNmRootMotionOverrideNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_desiredMovingVelocityNodeIdx                  , 0x18) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_desiredFacingDirectionNodeIdx                 , 0x1A) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_linearVelocityLimitNodeIdx                    , 0x1C) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_angularVelocityLimitNodeIdx                   , 0x1E) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_enabledNodeIdx                                , 0x20) // int16
+        SCHEMA_FIELD(float                           , m_maxLinearVelocity                             , 0x24) // float32
+        SCHEMA_FIELD(float                           , m_maxAngularVelocityRadians                     , 0x28) // float32
+        SCHEMA_FIELD(CNmBitFlags                     , m_overrideFlags                                 , 0x2C) // CNmBitFlags
+    };
+
+    // CParticleInput
+    //   fields: 0
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CParticleInput {
+    public:
+    };
+
+    // CAnimUpdateNodeBase
+    //   fields: 3
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CAnimUpdateNodeBase {
+    public:
+        SCHEMA_FIELD(CAnimNodePath                   , m_nodePath                                      , 0x18) // CAnimNodePath
+        SCHEMA_FIELD(AnimNodeNetworkMode             , m_networkMode                                   , 0x48) // AnimNodeNetworkMode
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x50) // CUtlString
+    };
+
+    // CNmVirtualParameterBoolNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmVirtualParameterBoolNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
+    };
+
+    // CBlendCurve
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CBlendCurve {
+    public:
+        SCHEMA_FIELD(float                           , m_flControlPoint1                               , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flControlPoint2                               , 0x4) // float32
+    };
+
+    // CConstraintTarget
+    //   fields: 6
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CConstraintTarget {
+    public:
+        SCHEMA_FIELD(::Quaternion                    , m_qOffset                                       , 0x20) // Quaternion
+        SCHEMA_FIELD(::Vector                        , m_vOffset                                       , 0x30) // Vector
+        SCHEMA_FIELD(std::uint32_t                   , m_nBoneHash                                     , 0x3C) // uint32
+        SCHEMA_FIELD(::CUtlString                    , m_sName                                         , 0x40) // CUtlString
+        SCHEMA_FIELD(float                           , m_flWeight                                      , 0x48) // float32
+        SCHEMA_FIELD(bool                            , m_bIsAttachment                                 , 0x59) // bool
+    };
+
+    // CModelConfigElement
+    //   fields: 2
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CModelConfigElement {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_ElementName                                   , 0x8) // CUtlString
+        SCHEMA_FIELD(CUtlVector<CModelConfigElement*>, m_NestedElements                                , 0x10) // CUtlVector<CModelConfigElement*>
+    };
+
+    // CAnimDemoCaptureSettings
+    //   fields: 15
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class CAnimDemoCaptureSettings {
+    public:
+        SCHEMA_FIELD(::Vector2D                      , m_vecErrorRangeSplineRotation                   , 0x0) // Vector2D [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(::Vector2D                      , m_vecErrorRangeSplineTranslation                , 0x8) // Vector2D [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(::Vector2D                      , m_vecErrorRangeSplineScale                      , 0x10) // Vector2D [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(float                           , m_flIkRotation_MaxSplineError                   , 0x18) // float32 [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(float                           , m_flIkTranslation_MaxSplineError                , 0x1C) // float32 [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(::Vector2D                      , m_vecErrorRangeQuantizationRotation             , 0x20) // Vector2D [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(::Vector2D                      , m_vecErrorRangeQuantizationTranslation          , 0x28) // Vector2D [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(::Vector2D                      , m_vecErrorRangeQuantizationScale                , 0x30) // Vector2D [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(float                           , m_flIkRotation_MaxQuantizationError             , 0x38) // float32 [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(float                           , m_flIkTranslation_MaxQuantizationError          , 0x3C) // float32 [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(::CUtlString                    , m_baseSequence                                  , 0x40) // CUtlString [MPropertyFriendlyName, MPropertyGroupName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nBaseSequenceFrame                            , 0x48) // int32 [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(EDemoBoneSelectionMode          , m_boneSelectionMode                             , 0x4C) // EDemoBoneSelectionMode [MPropertyFriendlyName, MPropertyGroupName, MPropertyAutoRebuildOnChange]
+        SCHEMA_FIELD(CUtlVector<BoneDemoCaptureSettings_t>, m_bones                                         , 0x50) // CUtlVector<BoneDemoCaptureSettings_t> [MPropertyFriendlyName, MPropertyGroupName, MPropertyAttrStateCallback]
+        SCHEMA_FIELD(CUtlVector<IKDemoCaptureSettings_t>, m_ikChains                                      , 0x68) // CUtlVector<IKDemoCaptureSettings_t> [MPropertyFriendlyName]
+    };
+
+    // PairedSequenceData
+    //   fields: 1
+    //   size: 0x100
+    //   @MGetKV3ClassDefaults
+    class PairedSequenceData {
+    public:
+        SCHEMA_FIELD(PairedSequence_t                , m_vecPairedSequences                            , 0x0) // PairedSequence_t[8]
+    };
+
+    // CAnimNodePath
+    //   fields: 2
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CAnimNodePath {
+    public:
+        SCHEMA_FIELD(AnimNodeID                      , m_path                                          , 0x0) // AnimNodeID[11]
+        SCHEMA_FIELD(std::int32_t                    , m_nCount                                        , 0x2C) // int32
+    };
+
+    // CVPhysXSurfacePropertiesList
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CVPhysXSurfacePropertiesList {
+    public:
+        SCHEMA_FIELD(CUtlVector<CPhysSurfaceProperties*>, m_surfacePropertiesList                         , 0x0) // CUtlVector<CPhysSurfaceProperties*> [MKV3TransferName]
+    };
+
+    // CNmControlParameterTargetNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmControlParameterTargetNode_CDefinition {
+    public:
+    };
+
+    // CNmChainLookatTask
+    //   fields: 0
+    //   size: 0x120
+    class CNmChainLookatTask {
+    public:
+    };
+
+    // CLeanMatrixInstanceData
+    //   fields: 2
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class CLeanMatrixInstanceData {
+    public:
+        SCHEMA_FIELD(float                           , m_flValueY                                      , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flValueX                                      , 0x4) // float32
+    };
+
+    // CAnimCycle
+    //   fields: 0
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class CAnimCycle {
+    public:
+    };
+
+    // CNmRootMotionEvent
+    //   fields: 1
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmRootMotionEvent {
+    public:
+        SCHEMA_FIELD(float                           , m_flBlendTimeSeconds                            , 0x18) // float32
+    };
+
+    // CAimCameraUpdateNode
+    //   fields: 8
+    //   size: 0xB8
+    //   @MGetKV3ClassDefaults
+    class CAimCameraUpdateNode {
+    public:
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterPosition                            , 0x70) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterOrientation                         , 0x72) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterPelvisOffset                        , 0x74) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterCameraOnly                          , 0x76) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterWeaponDepenetrationDistance         , 0x78) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterWeaponDepenetrationDelta            , 0x7A) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterCameraClearanceDistance             , 0x7C) // CAnimParamHandle
+        SCHEMA_FIELD(AimCameraOpFixedSettings_t      , m_opFixedSettings                               , 0x80) // AimCameraOpFixedSettings_t
+    };
+
+    // CPulseCell_BaseLerp
+    //   fields: 1
+    //   size: 0x120
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_BaseLerp {
+    public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_WakeResume                                    , 0xD8) // CPulse_ResumePoint
+    };
+
+    // CBlendUpdateNode
+    //   fields: 13
+    //   size: 0xE0
+    //   @MGetKV3ClassDefaults
+    class CBlendUpdateNode {
+    public:
+        SCHEMA_FIELD(CUtlVector<CAnimUpdateNodeRef>  , m_children                                      , 0x60) // CUtlVector<CAnimUpdateNodeRef>
+        SCHEMA_FIELD(CUtlVector<uint8>               , m_sortedOrder                                   , 0x78) // CUtlVector<uint8>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_targetValues                                  , 0x90) // CUtlVector<float32>
+        SCHEMA_FIELD(AnimValueSource                 , m_blendValueSource                              , 0xAC) // AnimValueSource
+        SCHEMA_FIELD(LinearRootMotionBlendMode_t     , m_eLinearRootMotionBlendMode                    , 0xB0) // LinearRootMotionBlendMode_t
+        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0xB4) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0xB8) // CAnimInputDamping
+        SCHEMA_FIELD(BlendKeyType                    , m_blendKeyType                                  , 0xD0) // BlendKeyType
+        SCHEMA_FIELD(bool                            , m_bLockBlendOnReset                             , 0xD4) // bool
+        SCHEMA_FIELD(bool                            , m_bSyncCycles                                   , 0xD5) // bool
+        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0xD6) // bool
+        SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0xD7) // bool
+        SCHEMA_FIELD(bool                            , m_bIsAngle                                      , 0xD8) // bool
+    };
+
+    // CSeqBoneMaskList
+    //   fields: 5
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CSeqBoneMaskList {
+    public:
+        using _Type0 = CUtlVector<std::pair<CBufferString,float32>>;
+        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x0) // CBufferString
+        SCHEMA_FIELD(CUtlVector<int16>               , m_nLocalBoneArray                               , 0x10) // CUtlVector<int16>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_flBoneWeightArray                             , 0x28) // CUtlVector<float32>
+        SCHEMA_FIELD(float                           , m_flDefaultMorphCtrlWeight                      , 0x40) // float32
+        SCHEMA_FIELD(_Type0                          , m_morphCtrlWeightArray                          , 0x48) // CUtlVector<std::pair<CBufferString,float32>>
+    };
+
+    // CNmStateMachineNode::StateDefinition_t
+    //   fields: 3
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class CNmStateMachineNode_StateDefinition_t {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<CNmStateMachineNode_TransitionDefinition_t,5>;
+        SCHEMA_FIELD(std::int16_t                    , m_nStateNodeIdx                                 , 0x0) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nEntryConditionNodeIdx                        , 0x2) // int16
+        SCHEMA_FIELD(_Type0                          , m_transitionDefinitions                         , 0x8) // CUtlLeanVectorFixedGrowable<CNmStateMachineNode::TransitionDefinition_t,5>
+    };
+
+    // PulseRuntimeStateOffset_t
+    //   fields: 1
+    //   size: 0x2
+    class PulseRuntimeStateOffset_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , m_Value                                         , 0x0) // uint16
+    };
+
+    // CNmCachedVectorNode::CDefinition
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmCachedVectorNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(NmCachedValueMode_t             , m_mode                                          , 0x14) // NmCachedValueMode_t
+    };
+
+    // CNmEvent
+    //   fields: 3
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmEvent {
+    public:
+        SCHEMA_FIELD(NmPercent_t                     , m_flStartTime                                   , 0x8) // NmPercent_t
+        SCHEMA_FIELD(NmPercent_t                     , m_flDuration                                    , 0xC) // NmPercent_t
+        SCHEMA_FIELD(CGlobalSymbol                   , m_syncID                                        , 0x10) // CGlobalSymbol
+    };
+
+    // ParticleNamedValueConfiguration_t
+    //   fields: 6
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class ParticleNamedValueConfiguration_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_ConfigName                                    , 0x0) // CUtlString
+        SCHEMA_FIELD(KeyValues3                      , m_ConfigValue                                   , 0x8) // KeyValues3
+        SCHEMA_FIELD(::CUtlString                    , m_BoundValuePath                                , 0x18) // CUtlString
+        SCHEMA_FIELD(ParticleAttachment_t            , m_iAttachType                                   , 0x20) // ParticleAttachment_t
+        SCHEMA_FIELD(::CUtlString                    , m_strEntityScope                                , 0x28) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_strAttachmentName                             , 0x30) // CUtlString
+    };
+
+    // CNmIDEventConditionNode::CDefinition
+    //   fields: 3
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CNmIDEventConditionNode_CDefinition {
+    public:
+        using _Type0 = CUtlVectorFixedGrowable<CGlobalSymbol,5>;
+        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
+        SCHEMA_FIELD(_Type0                          , m_eventIDs                                      , 0x18) // CUtlVectorFixedGrowable<CGlobalSymbol,5>
+    };
+
+    // CBindPoseUpdateNode
+    //   fields: 0
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CBindPoseUpdateNode {
+    public:
+    };
+
+    // PulseRuntimeChunkIndex_t
+    //   fields: 1
+    //   size: 0x4
+    class PulseRuntimeChunkIndex_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
+    };
+
+    // CPulseCell_LimitCount::Criteria_t
+    //   fields: 1
+    //   size: 0x1
+    class CPulseCell_LimitCount_Criteria_t {
+    public:
+        SCHEMA_FIELD(bool                            , m_bLimitCountPasses                             , 0x0) // bool
+    };
+
+    // PulseNodeDynamicOutflows_t
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class PulseNodeDynamicOutflows_t {
+    public:
+        SCHEMA_FIELD(CUtlVector<PulseNodeDynamicOutflows_t_DynamicOutflow_t>, m_Outflows                                      , 0x0) // CUtlVector<PulseNodeDynamicOutflows_t::DynamicOutflow_t>
+    };
+
+    // CSlowDownOnSlopesUpdateNode
+    //   fields: 1
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CSlowDownOnSlopesUpdateNode {
+    public:
+        SCHEMA_FIELD(float                           , m_flSlowDownStrength                            , 0x70) // float32
+    };
+
+    // DampedPathMotorInstanceData_t
+    //   fields: 3
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class DampedPathMotorInstanceData_t {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vVelocity                                     , 0x0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vAcceleration                                 , 0xC) // Vector
+        SCHEMA_FIELD(bool                            , m_bStopping                                     , 0x24) // bool
+    };
+
+    // CNmEntityAttributeEventBase
+    //   fields: 2
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class CNmEntityAttributeEventBase {
+    public:
+        SCHEMA_FIELD(CNmEventTargetEntity_t          , m_target                                        , 0x18) // CNmEventTargetEntity_t
+        SCHEMA_FIELD(::CUtlString                    , m_attributeName                                 , 0x20) // CUtlString
+    };
+
+    // MotionBlendItem
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class MotionBlendItem {
+    public:
+        SCHEMA_FIELD(CSmartPtr<CMotionNode>          , m_pChild                                        , 0x0) // CSmartPtr<CMotionNode>
+        SCHEMA_FIELD(float                           , m_flKeyValue                                    , 0x8) // float32
+    };
+
+    // CNmLayerBlendNode::CDefinition
+    //   fields: 3
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CNmLayerBlendNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<CNmLayerBlendNode_LayerDefinition_t,3>;
+        SCHEMA_FIELD(std::int16_t                    , m_nBaseNodeIdx                                  , 0x10) // int16
+        SCHEMA_FIELD(bool                            , m_bOnlySampleBaseRootMotion                     , 0x12) // bool
+        SCHEMA_FIELD(_Type0                          , m_layerDefinition                               , 0x18) // CUtlLeanVectorFixedGrowable<CNmLayerBlendNode::LayerDefinition_t,3>
+    };
+
+    // CBodyGroupAnimTag
+    //   fields: 2
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CBodyGroupAnimTag {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x58) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<CBodyGroupSetting>   , m_bodyGroupSettings                             , 0x60) // CUtlVector<CBodyGroupSetting> [MPropertyFriendlyName]
+    };
+
+    // AnimNodeOutputID
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class AnimNodeOutputID {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
+    };
+
+    // CNmChainLookatNode::CDefinition
+    //   fields: 9
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CNmChainLookatNode_CDefinition {
+    public:
+        using _Type0 = CUtlVectorFixedGrowable<float32,5>;
+        SCHEMA_FIELD(CGlobalSymbol                   , m_endEffectorBoneID                             , 0x18) // CGlobalSymbol
+        SCHEMA_FIELD(::Vector                        , m_endEffectorForwardAxis                        , 0x20) // Vector
+        SCHEMA_FIELD(::Vector                        , m_endEffectorOffset                             , 0x2C) // Vector
+        SCHEMA_FIELD(std::int16_t                    , m_nLookatTargetNodeIdx                          , 0x38) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nEnabledNodeIdx                               , 0x3A) // int16
+        SCHEMA_FIELD(float                           , m_flBlendTimeSeconds                            , 0x3C) // float32
+        SCHEMA_FIELD(_Type0                          , m_chainWeights                                  , 0x40) // CUtlVectorFixedGrowable<float32,5>
+        SCHEMA_FIELD(std::uint8_t                    , m_nChainLength                                  , 0x70) // uint8
+        SCHEMA_FIELD(bool                            , m_bIsTargetInWorldSpace                         , 0x71) // bool
+    };
+
+    // TargetSelectorInstanceData_t
+    //   fields: 2
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class TargetSelectorInstanceData_t {
+    public:
+        SCHEMA_FIELD(CAnimNetVar<int32>              , m_currentIndex                                  , 0x0) // CAnimNetVar<int32>
+        SCHEMA_FIELD(CAnimNetVar<Vector>             , m_vMSRootMotionAnlyzerTarget                    , 0x1C) // CAnimNetVar<Vector>
+    };
+
+    // CNmBlendTaskBase
+    //   fields: 0
+    //   size: 0x100
+    class CNmBlendTaskBase {
+    public:
+    };
+
+    // CNmValueNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    class CNmValueNode_CDefinition {
+    public:
+    };
+
+    // CPairedSequenceUpdateNode
+    //   fields: 1
+    //   size: 0x88
+    //   @MGetKV3ClassDefaults
+    class CPairedSequenceUpdateNode {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_sPairedSequenceRole                           , 0x78) // CGlobalSymbol
+    };
+
+    // CPulse_RegisterInfo
+    //   fields: 5
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CPulse_RegisterInfo {
+    public:
+        SCHEMA_FIELD(PulseRuntimeRegisterIndex_t     , m_nReg                                          , 0x0) // PulseRuntimeRegisterIndex_t
+        SCHEMA_FIELD(CPulseValueFullType             , m_Type                                          , 0x8) // CPulseValueFullType
+        SCHEMA_FIELD(CKV3MemberNameWithStorage       , m_OriginName                                    , 0x20) // CKV3MemberNameWithStorage
+        SCHEMA_FIELD(std::int32_t                    , m_nWrittenByInstruction                         , 0x58) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nLastReadByInstruction                        , 0x5C) // int32
+    };
+
+    // VPhysXCollisionAttributes_t
+    //   fields: 11
+    //   size: 0xD0
+    //   @MGetKV3ClassDefaults
+    class VPhysXCollisionAttributes_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nIncludeDetailLayerCount                      , 0x0) // int32
+        SCHEMA_FIELD(std::uint32_t                   , m_CollisionGroup                                , 0x4) // uint32
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_InteractAs                                    , 0x8) // CUtlVector<uint32>
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_InteractWith                                  , 0x20) // CUtlVector<uint32>
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_InteractExclude                               , 0x38) // CUtlVector<uint32>
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_DetailLayers                                  , 0x50) // CUtlVector<uint32>
+        SCHEMA_FIELD(::CUtlString                    , m_CollisionGroupString                          , 0x68) // CUtlString
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_InteractAsStrings                             , 0x70) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_InteractWithStrings                           , 0x88) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_InteractExcludeStrings                        , 0xA0) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_DetailLayerStrings                            , 0xB8) // CUtlVector<CUtlString>
+    };
+
+    // CBoneVelocityMetricEvaluator
+    //   fields: 1
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CBoneVelocityMetricEvaluator {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nBoneIndex                                    , 0x50) // int32
+    };
+
+    // CNmTargetSelectorNode::CDefinition
+    //   fields: 6
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class CNmTargetSelectorNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,8>;
+        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,8>
+        SCHEMA_FIELD(float                           , m_flOrientationScoreWeight                      , 0x28) // float32
+        SCHEMA_FIELD(float                           , m_flPositionScoreWeight                         , 0x2C) // float32
+        SCHEMA_FIELD(std::int16_t                    , m_parameterNodeIdx                              , 0x30) // int16
+        SCHEMA_FIELD(bool                            , m_bIgnoreInvalidOptions                         , 0x32) // bool
+        SCHEMA_FIELD(bool                            , m_bIsWorldSpaceTarget                           , 0x33) // bool
+    };
+
+    // MoodAnimation_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyArrayElementNameKey
+    class MoodAnimation_t {
+    public:
+        SCHEMA_FIELD(CModelAnimNameWithDeltas        , m_sName                                         , 0x0) // CModelAnimNameWithDeltas [MPropertyDescription]
+        SCHEMA_FIELD(float                           , m_flWeight                                      , 0x8) // float32 [MPropertyDescription]
+    };
+
+    // CPoseHandle
+    //   fields: 2
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class CPoseHandle {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , m_nIndex                                        , 0x0) // uint16
+        SCHEMA_FIELD(PoseType_t                      , m_eType                                         , 0x2) // PoseType_t
+    };
+
+    // CEditableMotionGraph
+    //   fields: 0
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CEditableMotionGraph {
+    public:
+    };
+
+    // CNmStateCompletedConditionNode::CDefinition
+    //   fields: 3
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmStateCompletedConditionNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nTransitionDurationOverrideNodeIdx            , 0x12) // int16
+        SCHEMA_FIELD(float                           , m_flTransitionDurationSeconds                   , 0x14) // float32
+    };
+
+    // CFootMotion
+    //   fields: 3
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CFootMotion {
+    public:
+        SCHEMA_FIELD(CUtlVector<CFootStride>         , m_strides                                       , 0x0) // CUtlVector<CFootStride>
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x18) // CUtlString
+        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x20) // bool
+    };
+
+    // CAnimGraphSettingsGroup
+    //   fields: 0
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CAnimGraphSettingsGroup {
+    public:
+    };
+
+    // CFlexRule
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CFlexRule {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nFlex                                         , 0x0) // int32
+        SCHEMA_FIELD(CUtlVector<CFlexOp>             , m_FlexOps                                       , 0x8) // CUtlVector<CFlexOp>
+    };
+
+    // CAnimationGraphVisualizerText
+    //   fields: 3
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CAnimationGraphVisualizerText {
+    public:
+        SCHEMA_FIELD(VectorAligned                   , m_vWsPosition                                   , 0x40) // VectorAligned
+        SCHEMA_FIELD(::Color                         , m_Color                                         , 0x50) // Color
+        SCHEMA_FIELD(::CUtlString                    , m_Text                                          , 0x58) // CUtlString
+    };
+
+    // CNmFrameSnapEvent
+    //   fields: 1
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmFrameSnapEvent {
+    public:
+        SCHEMA_FIELD(NmFrameSnapEventMode_t          , m_frameSnapMode                                 , 0x18) // NmFrameSnapEventMode_t
+    };
+
+    // CFootstepLandedAnimTag
+    //   fields: 5
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CFootstepLandedAnimTag {
+    public:
+        SCHEMA_FIELD(FootstepLandedFootSoundType_t   , m_FootstepType                                  , 0x58) // FootstepLandedFootSoundType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_OverrideSoundName                             , 0x60) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::CUtlString                    , m_DebugAnimSourceString                         , 0x68) // CUtlString [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_BoneName                                      , 0x70) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(FootstepJumpPhase_t             , m_footstepJumpPhase                             , 0x78) // FootstepJumpPhase_t [MPropertyFriendlyName]
+    };
+
+    // CMaterialDrawDescriptor::RigidMeshPart_t
+    //   fields: 4
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class CMaterialDrawDescriptor_RigidMeshPart_t {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , m_nRigidBLASIndex                               , 0x0) // uint16
+        SCHEMA_FIELD(std::int16_t                    , m_nBoneIndex                                    , 0x2) // int16
+        SCHEMA_FIELD(std::uint32_t                   , m_nStartIndexOffset                             , 0x4) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nPrimitiveCount                               , 0x8) // uint32
+    };
+
+    // CBasePulseGraphInstance
+    //   fields: 0
+    //   size: 0x110
+    class CBasePulseGraphInstance {
+    public:
+    };
+
+    // CNmControlParameterBoolNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmControlParameterBoolNode_CDefinition {
+    public:
+    };
+
+    // CNmIDToFloatNode::CDefinition
+    //   fields: 4
+    //   size: 0x68
+    //   @MGetKV3ClassDefaults
+    class CNmIDToFloatNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>;
+        using _Type1 = CUtlLeanVectorFixedGrowable<float32,5>;
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(float                           , m_defaultValue                                  , 0x14) // float32
+        SCHEMA_FIELD(_Type0                          , m_IDs                                           , 0x18) // CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>
+        SCHEMA_FIELD(_Type1                          , m_values                                        , 0x48) // CUtlLeanVectorFixedGrowable<float32,5>
+    };
+
+    // CNmSkeleton
+    //   fields: 10
+    //   size: 0xD0
+    //   @MGetKV3ClassDefaults
+    class CNmSkeleton {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x0) // CGlobalSymbol
+        SCHEMA_FIELD(CUtlLeanVector<CGlobalSymbol>   , m_boneIDs                                       , 0x8) // CUtlLeanVector<CGlobalSymbol>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_parentIndices                                 , 0x18) // CUtlVector<int32>
+        SCHEMA_FIELD(CUtlVector<CTransform>          , m_parentSpaceReferencePose                      , 0x30) // CUtlVector<CTransform>
+        SCHEMA_FIELD(CUtlVector<CTransform>          , m_modelSpaceReferencePose                       , 0x48) // CUtlVector<CTransform>
+        SCHEMA_FIELD(std::int32_t                    , m_numBonesToSampleAtLowLOD                      , 0x60) // int32
+        SCHEMA_FIELD(CUtlLeanVector<NmBoneMaskSetDefinition_t>, m_maskDefinitions                               , 0x88) // CUtlLeanVector<NmBoneMaskSetDefinition_t>
+        SCHEMA_FIELD(CUtlLeanVector<CNmSkeleton_SecondarySkeleton_t>, m_secondarySkeletons                            , 0xA8) // CUtlLeanVector<CNmSkeleton::SecondarySkeleton_t>
+        SCHEMA_FIELD(CUtlLeanVector<CNmFloatChannelSet_t>, m_floatChannelSets                              , 0xB8) // CUtlLeanVector<CNmFloatChannelSet_t>
+        SCHEMA_FIELD(bool                            , m_bIsPropSkeleton                               , 0xC8) // bool
+    };
+
+    // CParticleVariableRef
+    //   fields: 2
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyCustomEditor
+    class CParticleVariableRef {
+    public:
+        SCHEMA_FIELD(CKV3MemberNameWithStorage       , m_variableName                                  , 0x0) // CKV3MemberNameWithStorage [MFgdFromSchemaCompletelySkipField]
+        SCHEMA_FIELD(CPulseValueFullType             , m_variableType                                  , 0x38) // CPulseValueFullType [MFgdFromSchemaCompletelySkipField]
+    };
+
+    // CNmRootMotionData
+    //   fields: 5
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CNmRootMotionData {
+    public:
+        SCHEMA_FIELD(CUtlVector<CTransform>          , m_transforms                                    , 0x0) // CUtlVector<CTransform>
+        SCHEMA_FIELD(std::int32_t                    , m_nNumFrames                                    , 0x18) // int32
+        SCHEMA_FIELD(float                           , m_flAverageLinearVelocity                       , 0x1C) // float32
+        SCHEMA_FIELD(float                           , m_flAverageAngularVelocityRadians               , 0x20) // float32
+        SCHEMA_FIELD(CTransform                      , m_totalDelta                                    , 0x30) // CTransform
+    };
+
+    // CNmIDEvent
+    //   fields: 2
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CNmIDEvent {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x18) // CGlobalSymbol
+        SCHEMA_FIELD(CGlobalSymbol                   , m_secondaryID                                   , 0x20) // CGlobalSymbol
+    };
+
+    // CStateActionUpdater
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CStateActionUpdater {
+    public:
+        SCHEMA_FIELD(CSmartPtr<CAnimActionUpdater>   , m_pAction                                       , 0x0) // CSmartPtr<CAnimActionUpdater>
+        SCHEMA_FIELD(StateActionBehavior             , m_eBehavior                                     , 0x8) // StateActionBehavior
+    };
+
+    // CSelectorUpdateNode
+    //   fields: 10
+    //   size: 0xB8
+    //   @MGetKV3ClassDefaults
+    class CSelectorUpdateNode {
+    public:
+        SCHEMA_FIELD(CUtlVector<CAnimUpdateNodeRef>  , m_children                                      , 0x60) // CUtlVector<CAnimUpdateNodeRef>
+        SCHEMA_FIELD(CUtlVector<int8>                , m_tags                                          , 0x78) // CUtlVector<int8>
+        SCHEMA_FIELD(CBlendCurve                     , m_blendCurve                                    , 0x94) // CBlendCurve
+        SCHEMA_FIELD(CAnimValue<float32>             , m_flBlendTime                                   , 0x9C) // CAnimValue<float32>
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParameter                                    , 0xA4) // CAnimParamHandle
+        SCHEMA_FIELD(std::int32_t                    , m_nTagIndex                                     , 0xA8) // int32
+        SCHEMA_FIELD(SelectorTagBehavior_t           , m_eTagBehavior                                  , 0xAC) // SelectorTagBehavior_t
+        SCHEMA_FIELD(bool                            , m_bResetOnChange                                , 0xB0) // bool
+        SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0xB1) // bool
+        SCHEMA_FIELD(bool                            , m_bSyncCyclesOnChange                           , 0xB2) // bool
+    };
+
+    // CAnimFrameSegment
+    //   fields: 4
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CAnimFrameSegment {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nUniqueFrameIndex                             , 0x0) // int32
+        SCHEMA_FIELD(std::uint32_t                   , m_nLocalElementMasks                            , 0x4) // uint32
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalChannel                                 , 0x8) // int32
+        SCHEMA_FIELD(::CUtlBinaryBlock               , m_container                                     , 0x10) // CUtlBinaryBlock
+    };
+
+    // CNmVectorInfoNode::CDefinition
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmVectorInfoNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(CNmVectorInfoNode_Info_t        , m_desiredInfo                                   , 0x12) // CNmVectorInfoNode::Info_t
+    };
+
+    // CPulseCursorFuncs
+    //   fields: 0
+    //   size: 0x1
+    //   @MPropertyDescription
+    class CPulseCursorFuncs {
+    public:
+    };
+
+    // CParticleCollectionBindingInstance
+    //   fields: 0
+    //   size: 0x130
+    class CParticleCollectionBindingInstance {
+    public:
+    };
+
+    // CSceneObjectData
+    //   fields: 7
+    //   size: 0xB8
+    //   @MGetKV3ClassDefaults
+    class CSceneObjectData {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vMinBounds                                    , 0x0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vMaxBounds                                    , 0xC) // Vector
+        SCHEMA_FIELD(CUtlLeanVector<CMaterialDrawDescriptor>, m_drawCalls                                     , 0x18) // CUtlLeanVector<CMaterialDrawDescriptor>
+        SCHEMA_FIELD(CUtlLeanVector<AABB_t>          , m_drawBounds                                    , 0x28) // CUtlLeanVector<AABB_t>
+        SCHEMA_FIELD(CUtlLeanVector<CMeshletDescriptor>, m_meshlets                                      , 0x38) // CUtlLeanVector<CMeshletDescriptor>
+        SCHEMA_FIELD(CUtlLeanVector<CSceneObjectData_RTProxyDrawDescriptor_t>, m_rtProxyDrawCalls                              , 0x48) // CUtlLeanVector<CSceneObjectData::RTProxyDrawDescriptor_t>
+        SCHEMA_FIELD(::Vector4D                      , m_vTintColor                                    , 0x58) // Vector4D
+    };
+
+    // CNmCachedPoseWriteTask
+    //   fields: 0
+    //   size: 0x80
+    class CNmCachedPoseWriteTask {
+    public:
+    };
+
+    // CFollowTargetUpdateNode
+    //   fields: 3
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class CFollowTargetUpdateNode {
+    public:
+        SCHEMA_FIELD(FollowTargetOpFixedSettings_t   , m_opFixedData                                   , 0x70) // FollowTargetOpFixedSettings_t
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterPosition                            , 0x88) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterOrientation                         , 0x8A) // CAnimParamHandle
+    };
+
+    // CMorphConstraint
+    //   fields: 4
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class CMorphConstraint {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_sTargetMorph                                  , 0x60) // CUtlString
+        SCHEMA_FIELD(std::int32_t                    , m_nSlaveChannel                                 , 0x68) // int32
+        SCHEMA_FIELD(float                           , m_flMin                                         , 0x6C) // float32
+        SCHEMA_FIELD(float                           , m_flMax                                         , 0x70) // float32
+    };
+
+    // CWarpSectionAnimTag
+    //   fields: 2
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CWarpSectionAnimTag {
+    public:
+        SCHEMA_FIELD(bool                            , m_bWarpPosition                                 , 0x50) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bWarpOrientation                              , 0x51) // bool [MPropertyFriendlyName]
+    };
+
+    // PulseRegisterMap_t
+    //   fields: 3
+    //   size: 0x30
+    class PulseRegisterMap_t {
+    public:
+        SCHEMA_FIELD(KeyValues3                      , m_Inparams                                      , 0x0) // KeyValues3
+        SCHEMA_FIELD(CKV3MemberNameSet               , m_InparamsWhichCanBeMoved                       , 0x10) // CKV3MemberNameSet
+        SCHEMA_FIELD(KeyValues3                      , m_Outparams                                     , 0x20) // KeyValues3
+    };
+
+    // CNmGraphEventConditionNode::CDefinition
+    //   fields: 3
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class CNmGraphEventConditionNode_CDefinition {
+    public:
+        using _Type0 = CUtlVectorFixedGrowable<CNmGraphEventConditionNode_Condition_t,5>;
+        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
+        SCHEMA_FIELD(_Type0                          , m_conditions                                    , 0x18) // CUtlVectorFixedGrowable<CNmGraphEventConditionNode::Condition_t,5>
+    };
+
+    // CNmFootstepEventIDNode::CDefinition
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmFootstepEventIDNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
+    };
+
+    // CRootUpdateNode
+    //   fields: 0
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class CRootUpdateNode {
+    public:
+    };
+
+    // CSeqMultiFetch
+    //   fields: 10
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class CSeqMultiFetch {
+    public:
+        SCHEMA_FIELD(CSeqMultiFetchFlag              , m_flags                                         , 0x0) // CSeqMultiFetchFlag
+        SCHEMA_FIELD(CUtlVector<int16>               , m_localReferenceArray                           , 0x8) // CUtlVector<int16>
+        SCHEMA_FIELD(std::int32_t                    , m_nGroupSize                                    , 0x20) // int32[2]
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalPose                                    , 0x28) // int32[2]
+        SCHEMA_FIELD(CUtlVector<float32>             , m_poseKeyArray0                                 , 0x30) // CUtlVector<float32>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_poseKeyArray1                                 , 0x48) // CUtlVector<float32>
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalCyclePoseParameter                      , 0x60) // int32
+        SCHEMA_FIELD(bool                            , m_bCalculatePoseParameters                      , 0x64) // bool
+        SCHEMA_FIELD(bool                            , m_bFixedBlendWeight                             , 0x65) // bool
+        SCHEMA_FIELD(float                           , m_flFixedBlendWeightVals                        , 0x68) // float32[2]
+    };
+
+    // CFootCycleMetricEvaluator
+    //   fields: 1
+    //   size: 0x68
+    //   @MGetKV3ClassDefaults
+    class CFootCycleMetricEvaluator {
+    public:
+        SCHEMA_FIELD(CUtlVector<int32>               , m_footIndices                                   , 0x50) // CUtlVector<int32>
+    };
+
+    // CParticleAnimTag
+    //   fields: 11
+    //   size: 0x98
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CParticleAnimTag {
+    public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_hParticleSystem                               , 0x58) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition> [MPropertySuppressField]
+        SCHEMA_FIELD(::CUtlString                    , m_particleSystemName                            , 0x60) // CUtlString [MPropertyAttributeEditor, MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_configName                                    , 0x68) // CUtlString [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDetachFromOwner                              , 0x70) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAggregate                                    , 0x71) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bStopWhenTagEnds                              , 0x72) // bool [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(bool                            , m_bTagEndStopIsInstant                          , 0x73) // bool [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(::CUtlString                    , m_attachmentName                                , 0x78) // CUtlString [MPropertyFriendlyName, MPropertyGroupName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttachment_t            , m_attachmentType                                , 0x80) // ParticleAttachment_t [MPropertyFriendlyName, MPropertyGroupName]
+        SCHEMA_FIELD(::CUtlString                    , m_attachmentCP1Name                             , 0x88) // CUtlString [MPropertyFriendlyName, MPropertyGroupName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttachment_t            , m_attachmentCP1Type                             , 0x90) // ParticleAttachment_t [MPropertyFriendlyName, MPropertyGroupName]
+    };
+
+    // CNmGraphDefinition::ExternalGraphSlot_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmGraphDefinition_ExternalGraphSlot_t {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nNodeIdx                                      , 0x0) // int16
+        SCHEMA_FIELD(CGlobalSymbol                   , m_slotID                                        , 0x8) // CGlobalSymbol
+    };
+
+    // CStopAtGoalUpdateNode
+    //   fields: 5
+    //   size: 0xA0
+    //   @MGetKV3ClassDefaults
+    class CStopAtGoalUpdateNode {
+    public:
+        SCHEMA_FIELD(float                           , m_flOuterRadius                                 , 0x74) // float32
+        SCHEMA_FIELD(float                           , m_flInnerRadius                                 , 0x78) // float32
+        SCHEMA_FIELD(float                           , m_flMaxScale                                    , 0x7C) // float32
+        SCHEMA_FIELD(float                           , m_flMinScale                                    , 0x80) // float32
+        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0x88) // CAnimInputDamping
+    };
+
+    // PerTickSettings_t
+    //   fields: 12
+    //   size: 0x6C0
+    //   @MGetKV3ClassDefaults
+    class PerTickSettings_t {
+    public:
+        SCHEMA_FIELD(CTransform                      , m_startingLocalToWorld                          , 0x0) // CTransform
+        SCHEMA_FIELD(CTransform                      , m_prevLocalToWorld                              , 0x20) // CTransform
+        SCHEMA_FIELD(CTransform                      , m_finalLocalToWorld                             , 0x40) // CTransform
+        SCHEMA_FIELD(CRootMotion                     , m_rootMotion                                    , 0x60) // CRootMotion
+        SCHEMA_FIELD(std::int32_t                    , m_updateID                                      , 0x69C) // int32
+        SCHEMA_FIELD(float                           , m_flLastTimeStep                                , 0x6A4) // float32
+        SCHEMA_FIELD(float                           , m_flPrevAnimTime                                , 0x6A8) // float32
+        SCHEMA_FIELD(float                           , m_flNextAnimTime                                , 0x6AC) // float32
+        SCHEMA_FIELD(bool                            , m_bAwaken                                       , 0x6B4) // bool
+        SCHEMA_FIELD(bool                            , m_bTeleported                                   , 0x6B5) // bool
+        SCHEMA_FIELD(bool                            , m_bIsClient                                     , 0x6B6) // bool
+        SCHEMA_FIELD(bool                            , m_bIsPredicted                                  , 0x6B7) // bool
+    };
+
+    // CJumpHelperUpdateNode
+    //   fields: 8
+    //   size: 0xD8
+    //   @MGetKV3ClassDefaults
+    class CJumpHelperUpdateNode {
+    public:
+        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetParam                                  , 0xB0) // CAnimParamHandle
+        SCHEMA_FIELD(::Vector                        , m_flOriginalJumpMovement                        , 0xB4) // Vector
+        SCHEMA_FIELD(float                           , m_flOriginalJumpDuration                        , 0xC0) // float32
+        SCHEMA_FIELD(float                           , m_flJumpStartCycle                              , 0xC4) // float32
+        SCHEMA_FIELD(float                           , m_flJumpEndCycle                                , 0xC8) // float32
+        SCHEMA_FIELD(JumpCorrectionMethod            , m_eCorrectionMethod                             , 0xCC) // JumpCorrectionMethod
+        SCHEMA_FIELD(bool                            , m_bTranslationAxis                              , 0xD0) // bool[3]
+        SCHEMA_FIELD(bool                            , m_bScaleSpeed                                   , 0xD3) // bool
+    };
+
+    // CPulseCell_Outflow_CycleOrdered::InstanceState_t
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Outflow_CycleOrdered_InstanceState_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nNextIndex                                    , 0x0) // int32
+    };
+
+    // CMovementHandshakeAnimTag
+    //   fields: 0
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CMovementHandshakeAnimTag {
+    public:
+    };
+
+    // CCurrentRotationVelocityMetricEvaluator
+    //   fields: 0
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CCurrentRotationVelocityMetricEvaluator {
+    public:
+    };
+
+    // CSolveIKChainUpdateNode
+    //   fields: 2
+    //   size: 0xA8
+    //   @MGetKV3ClassDefaults
+    class CSolveIKChainUpdateNode {
+    public:
+        SCHEMA_FIELD(CUtlVector<CSolveIKTargetHandle_t>, m_targetHandles                                 , 0x70) // CUtlVector<CSolveIKTargetHandle_t>
+        SCHEMA_FIELD(SolveIKChainPoseOpFixedSettings_t, m_opFixedData                                   , 0x88) // SolveIKChainPoseOpFixedSettings_t
+    };
+
+    // CMotionGraphUpdateNode
+    //   fields: 1
+    //   size: 0x68
+    //   @MGetKV3ClassDefaults
+    class CMotionGraphUpdateNode {
+    public:
+        SCHEMA_FIELD(CSmartPtr<CMotionGraph>         , m_pMotionGraph                                  , 0x58) // CSmartPtr<CMotionGraph>
+    };
+
     // CSeqMultiFetchFlag
     //   fields: 6
     //   size: 0x6
@@ -3209,42 +4410,222 @@ namespace animationsystem {
         SCHEMA_FIELD(bool                            , m_b2D_TRI                                       , 0x5) // bool
     };
 
-    // CParticleVariableRef
+    // CFutureFacingMetricEvaluator
     //   fields: 2
-    //   size: 0x50
+    //   size: 0x58
     //   @MGetKV3ClassDefaults
-    //   @MPropertyCustomEditor
-    class CParticleVariableRef {
+    class CFutureFacingMetricEvaluator {
     public:
-        SCHEMA_FIELD(CKV3MemberNameWithStorage       , m_variableName                                  , 0x0) // CKV3MemberNameWithStorage [MFgdFromSchemaCompletelySkipField]
-        SCHEMA_FIELD(CPulseValueFullType             , m_variableType                                  , 0x38) // CPulseValueFullType [MFgdFromSchemaCompletelySkipField]
+        SCHEMA_FIELD(float                           , m_flDistance                                    , 0x50) // float32
+        SCHEMA_FIELD(float                           , m_flTime                                        , 0x54) // float32
     };
 
-    // CNmFloatChannelSet_t
+    // CSetParameterActionUpdater
     //   fields: 2
-    //   size: 0x18
+    //   size: 0x30
     //   @MGetKV3ClassDefaults
-    class CNmFloatChannelSet_t {
+    class CSetParameterActionUpdater {
     public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x0) // CGlobalSymbol
-        SCHEMA_FIELD(CUtlLeanVector<CGlobalSymbol>   , m_channelIDs                                    , 0x8) // CUtlLeanVector<CGlobalSymbol>
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParam                                        , 0x18) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimVariant                    , m_value                                         , 0x1A) // CAnimVariant
     };
 
-    // ModelEmbeddedMesh_t
+    // CAnimationGraphVisualizerSphere
+    //   fields: 3
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CAnimationGraphVisualizerSphere {
+    public:
+        SCHEMA_FIELD(VectorAligned                   , m_vWsPosition                                   , 0x40) // VectorAligned
+        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x50) // float32
+        SCHEMA_FIELD(::Color                         , m_Color                                         , 0x54) // Color
+    };
+
+    // CMorphData
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CMorphData {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(CUtlVector<CMorphRectData>      , m_morphRectDatas                                , 0x8) // CUtlVector<CMorphRectData>
+    };
+
+    // PulseCursorID_t
+    //   fields: 1
+    //   size: 0x4
+    class PulseCursorID_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
+    };
+
+    // CMotionNodeSequence
+    //   fields: 3
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CMotionNodeSequence {
+    public:
+        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x28) // CUtlVector<TagSpan_t>
+        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x40) // HSequence
+        SCHEMA_FIELD(float                           , m_flPlaybackSpeed                               , 0x44) // float32
+    };
+
+    // CAttachment
+    //   fields: 8
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class CAttachment {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_influenceNames                                , 0x8) // CUtlString[3]
+        SCHEMA_FIELD(::Quaternion                    , m_vInfluenceRotations                           , 0x20) // Quaternion[3]
+        SCHEMA_FIELD(::Vector                        , m_vInfluenceOffsets                             , 0x50) // Vector[3]
+        SCHEMA_FIELD(float                           , m_influenceWeights                              , 0x74) // float32[3]
+        SCHEMA_FIELD(bool                            , m_bInfluenceRootTransform                       , 0x80) // bool[3]
+        SCHEMA_FIELD(std::uint8_t                    , m_nInfluences                                   , 0x83) // uint8
+        SCHEMA_FIELD(bool                            , m_bIgnoreRotation                               , 0x84) // bool
+    };
+
+    // CAnimMotorUpdaterBase
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CAnimMotorUpdaterBase {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x10) // CUtlString
+        SCHEMA_FIELD(bool                            , m_bDefault                                      , 0x18) // bool
+    };
+
+    // CFootPinningUpdateNode
+    //   fields: 4
+    //   size: 0xD0
+    //   @MGetKV3ClassDefaults
+    class CFootPinningUpdateNode {
+    public:
+        SCHEMA_FIELD(FootPinningPoseOpFixedData_t    , m_poseOpFixedData                               , 0x78) // FootPinningPoseOpFixedData_t
+        SCHEMA_FIELD(FootPinningTimingSource         , m_eTimingSource                                 , 0xA8) // FootPinningTimingSource
+        SCHEMA_FIELD(CUtlVector<CAnimParamHandle>    , m_params                                        , 0xB0) // CUtlVector<CAnimParamHandle>
+        SCHEMA_FIELD(bool                            , m_bResetChild                                   , 0xC8) // bool
+    };
+
+    // SequenceData
+    //   fields: 2
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class SequenceData {
+    public:
+        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x0) // HSequence
+        SCHEMA_FIELD(CNetworkedCycle                 , m_cycle                                         , 0x4) // CNetworkedCycle
+    };
+
+    // CNmGraphDefinition::ExternalPoseSlot_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmGraphDefinition_ExternalPoseSlot_t {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nNodeIdx                                      , 0x0) // int16
+        SCHEMA_FIELD(CGlobalSymbol                   , m_slotID                                        , 0x8) // CGlobalSymbol
+    };
+
+    // CSpeedScaleUpdateNode
+    //   fields: 1
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CSpeedScaleUpdateNode {
+    public:
+        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0x70) // CAnimParamHandle
+    };
+
+    // CPulseCell_Inflow_ObservableVariableListener
+    //   fields: 2
+    //   size: 0x88
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Inflow_ObservableVariableListener {
+    public:
+        SCHEMA_FIELD(PulseRuntimeBlackboardReferenceIndex_t, m_nBlackboardReference                          , 0x80) // PulseRuntimeBlackboardReferenceIndex_t
+        SCHEMA_FIELD(bool                            , m_bSelfReference                                , 0x82) // bool
+    };
+
+    // MotionDBIndex
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class MotionDBIndex {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nIndex                                        , 0x0) // uint32
+    };
+
+    // CRootMotion
+    //   fields: 3
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CRootMotion {
+    public:
+        SCHEMA_FIELD(CMotionTransform                , m_deltaTransform                                , 0x0) // CMotionTransform
+        SCHEMA_FIELD(::Vector                        , m_vVelocityMS                                   , 0x10) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vUpOverride                                   , 0x1C) // Vector
+    };
+
+    // CNmFloatCurveEventNode::CDefinition
+    //   fields: 4
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CNmFloatCurveEventNode_CDefinition {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_eventID                                       , 0x10) // CGlobalSymbol
+        SCHEMA_FIELD(std::int16_t                    , m_nDefaultNodeIdx                               , 0x18) // int16
+        SCHEMA_FIELD(float                           , m_flDefaultValue                                , 0x1C) // float32
+        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x20) // CNmBitFlags
+    };
+
+    // PulseGraphInstanceID_t
+    //   fields: 1
+    //   size: 0x4
+    class PulseGraphInstanceID_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_Value                                         , 0x0) // uint32
+    };
+
+    // CNmIDSelectorNode::CDefinition
+    //   fields: 3
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CNmIDSelectorNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,5>;
+        using _Type1 = CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>;
+        SCHEMA_FIELD(_Type0                          , m_conditionNodeIndices                          , 0x10) // CUtlLeanVectorFixedGrowable<int16,5>
+        SCHEMA_FIELD(_Type1                          , m_values                                        , 0x28) // CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>
+        SCHEMA_FIELD(CGlobalSymbol                   , m_defaultValue                                  , 0x58) // CGlobalSymbol
+    };
+
+    // SkeletonAnimCapture_t::Frame_t
     //   fields: 9
-    //   size: 0x70
+    //   size: 0xC0
     //   @MGetKV3ClassDefaults
-    class ModelEmbeddedMesh_t {
+    class SkeletonAnimCapture_t_Frame_t {
     public:
-        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(std::int32_t                    , m_nMeshIndex                                    , 0x10) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nDataBlock                                    , 0x14) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nMorphBlock                                   , 0x18) // int32
-        SCHEMA_FIELD(CUtlVector<ModelMeshBufferData_t>, m_vertexBuffers                                 , 0x20) // CUtlVector<ModelMeshBufferData_t>
-        SCHEMA_FIELD(CUtlVector<ModelMeshBufferData_t>, m_indexBuffers                                  , 0x38) // CUtlVector<ModelMeshBufferData_t>
-        SCHEMA_FIELD(CUtlVector<ModelMeshBufferData_t>, m_toolsBuffers                                  , 0x50) // CUtlVector<ModelMeshBufferData_t>
-        SCHEMA_FIELD(std::int32_t                    , m_nVBIBBlock                                    , 0x68) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nToolsVBBlock                                 , 0x6C) // int32
+        SCHEMA_FIELD(float                           , m_flTime                                        , 0x0) // float32
+        SCHEMA_FIELD(SkeletonAnimCapture_t_FrameStamp_t, m_Stamp                                         , 0x4) // SkeletonAnimCapture_t::FrameStamp_t
+        SCHEMA_FIELD(CTransform                      , m_Transform                                     , 0x20) // CTransform
+        SCHEMA_FIELD(bool                            , m_bTeleport                                     , 0x40) // bool
+        SCHEMA_FIELD(CUtlVector<CTransform>          , m_CompositeBones                                , 0x48) // CUtlVector<CTransform>
+        SCHEMA_FIELD(CUtlVector<CTransform>          , m_SimStateBones                                 , 0x60) // CUtlVector<CTransform>
+        SCHEMA_FIELD(CUtlVector<CTransform>          , m_FeModelAnims                                  , 0x78) // CUtlVector<CTransform>
+        SCHEMA_FIELD(CUtlVector<VectorAligned>       , m_FeModelPos                                    , 0x90) // CUtlVector<VectorAligned>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_FlexControllerWeights                         , 0xA8) // CUtlVector<float32>
+    };
+
+    // CAnimationGraphVisualizerPrimitiveBase
+    //   fields: 3
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class CAnimationGraphVisualizerPrimitiveBase {
+    public:
+        SCHEMA_FIELD(CAnimationGraphVisualizerPrimitiveType, m_Type                                          , 0x8) // CAnimationGraphVisualizerPrimitiveType
+        SCHEMA_FIELD(AnimNodeID                      , m_OwningAnimNodePaths                           , 0xC) // AnimNodeID[11]
+        SCHEMA_FIELD(std::int32_t                    , m_nOwningAnimNodePathCount                      , 0x38) // int32
     };
 
     // CNmCachedFloatNode::CDefinition
@@ -3257,30 +4638,329 @@ namespace animationsystem {
         SCHEMA_FIELD(NmCachedValueMode_t             , m_mode                                          , 0x14) // NmCachedValueMode_t
     };
 
-    // ModelAnimGraph2Ref_t
-    //   fields: 2
-    //   size: 0x10
+    // CPulse_DomainValue
+    //   fields: 3
+    //   size: 0x30
     //   @MGetKV3ClassDefaults
-    class ModelAnimGraph2Ref_t {
+    class CPulse_DomainValue {
     public:
-        SCHEMA_FIELD(::CUtlString                    , m_sIdentifier                                   , 0x0) // CUtlString
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCNmGraphDefinition>, m_hGraph                                        , 0x8) // CStrongHandle<InfoForResourceTypeCNmGraphDefinition>
+        SCHEMA_FIELD(PulseDomainValueType_t          , m_nType                                         , 0x0) // PulseDomainValueType_t
+        SCHEMA_FIELD(CGlobalSymbolCaseSensitive      , m_Value                                         , 0x8) // CGlobalSymbolCaseSensitive
+        SCHEMA_FIELD(CPulseValueFullType             , m_RequiredRuntimeType                           , 0x10) // CPulseValueFullType
     };
 
-    // CNmVelocityBasedSpeedScaleNode::CDefinition
-    //   fields: 0
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmVelocityBasedSpeedScaleNode_CDefinition {
-    public:
-    };
-
-    // CPulseEnumlib
+    // CPulseArraylib
     //   fields: 0
     //   size: 0x1
     //   @MPropertyDescription
-    class CPulseEnumlib {
+    class CPulseArraylib {
     public:
+    };
+
+    // CNmConstTargetNode::CDefinition
+    //   fields: 1
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class CNmConstTargetNode_CDefinition {
+    public:
+        SCHEMA_FIELD(CNmTarget                       , m_value                                         , 0x10) // CNmTarget
+    };
+
+    // CDampedValueComponentUpdater
+    //   fields: 1
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CDampedValueComponentUpdater {
+    public:
+        SCHEMA_FIELD(CUtlVector<CDampedValueUpdateItem>, m_items                                         , 0x30) // CUtlVector<CDampedValueUpdateItem>
+    };
+
+    // CTargetSelectorUpdateNode
+    //   fields: 10
+    //   size: 0xA0
+    //   @MGetKV3ClassDefaults
+    class CTargetSelectorUpdateNode {
+    public:
+        SCHEMA_FIELD(TargetSelectorAngleMode_t       , m_eAngleMode                                    , 0x60) // TargetSelectorAngleMode_t
+        SCHEMA_FIELD(CUtlVector<CAnimUpdateNodeRef>  , m_children                                      , 0x68) // CUtlVector<CAnimUpdateNodeRef>
+        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetPosition                               , 0x84) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetFacePositionParameter                  , 0x86) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hMoveHeadingParameter                         , 0x88) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hDesiredMoveHeadingParameter                  , 0x8A) // CAnimParamHandle
+        SCHEMA_FIELD(bool                            , m_bTargetPositionIsWorldSpace                   , 0x8C) // bool
+        SCHEMA_FIELD(bool                            , m_bTargetFacePositionIsWorldSpace               , 0x8D) // bool
+        SCHEMA_FIELD(bool                            , m_bEnablePhaseMatching                          , 0x8E) // bool
+        SCHEMA_FIELD(float                           , m_flPhaseMatchingMaxRootMotionSkip              , 0x90) // float32
+    };
+
+    // CRenderBufferBinding
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CRenderBufferBinding {
+    public:
+        SCHEMA_FIELD(std::uint64_t                   , m_hBuffer                                       , 0x0) // uint64
+        SCHEMA_FIELD(std::uint32_t                   , m_nBindOffsetBytes                              , 0x10) // uint32
+    };
+
+    // CAnimMorphDifference
+    //   fields: 1
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CAnimMorphDifference {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
+    };
+
+    // CLookComponentUpdater
+    //   fields: 9
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CLookComponentUpdater {
+    public:
+        SCHEMA_FIELD(CAnimParamHandle                , m_hLookHeading                                  , 0x34) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hLookHeadingNormalized                        , 0x36) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hLookHeadingVelocity                          , 0x38) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hLookPitch                                    , 0x3A) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hLookDistance                                 , 0x3C) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hLookDirection                                , 0x3E) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hLookTarget                                   , 0x40) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hLookTargetWorldSpace                         , 0x42) // CAnimParamHandle
+        SCHEMA_FIELD(bool                            , m_bNetworkLookTarget                            , 0x44) // bool
+    };
+
+    // CModelConfigElement_Command
+    //   fields: 2
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CModelConfigElement_Command {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_Command                                       , 0x48) // CUtlString
+        SCHEMA_FIELD(KeyValues3                      , m_Args                                          , 0x50) // KeyValues3
+    };
+
+    // CParticleVecInput
+    //   fields: 23
+    //   size: 0x6B8
+    //   @MGetKV3ClassDefaults
+    //   @MCustomFGDMetadata
+    class CParticleVecInput {
+    public:
+        SCHEMA_FIELD(ParticleVecType_t               , m_nType                                         , 0x10) // ParticleVecType_t
+        SCHEMA_FIELD(::Vector                        , m_vLiteralValue                                 , 0x14) // Vector
+        SCHEMA_FIELD(::Color                         , m_LiteralColor                                  , 0x20) // Color
+        SCHEMA_FIELD(CParticleNamedValueRef          , m_NamedValue                                    , 0x28) // CParticleNamedValueRef
+        SCHEMA_FIELD(bool                            , m_bFollowNamedValue                             , 0x68) // bool
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nVectorAttribute                              , 0x6C) // ParticleAttributeIndex_t
+        SCHEMA_FIELD(::Vector                        , m_vVectorAttributeScale                         , 0x70) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x7C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nDeltaControlPoint                            , 0x80) // int32
+        SCHEMA_FIELD(::Vector                        , m_vCPValueScale                                 , 0x84) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vCPRelativePosition                           , 0x90) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vCPRelativeDir                                , 0x9C) // Vector
+        SCHEMA_FIELD(CParticleFloatInput             , m_FloatComponentX                               , 0xA8) // CParticleFloatInput
+        SCHEMA_FIELD(CParticleFloatInput             , m_FloatComponentY                               , 0x218) // CParticleFloatInput
+        SCHEMA_FIELD(CParticleFloatInput             , m_FloatComponentZ                               , 0x388) // CParticleFloatInput
+        SCHEMA_FIELD(CParticleFloatInput             , m_FloatInterp                                   , 0x4F8) // CParticleFloatInput
+        SCHEMA_FIELD(float                           , m_flInterpInput0                                , 0x668) // float32
+        SCHEMA_FIELD(float                           , m_flInterpInput1                                , 0x66C) // float32
+        SCHEMA_FIELD(::Vector                        , m_vInterpOutput0                                , 0x670) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vInterpOutput1                                , 0x67C) // Vector
+        SCHEMA_FIELD(CColorGradient                  , m_Gradient                                      , 0x688) // CColorGradient
+        SCHEMA_FIELD(::Vector                        , m_vRandomMin                                    , 0x6A0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vRandomMax                                    , 0x6AC) // Vector
+    };
+
+    // CSingleFrameUpdateNode
+    //   fields: 4
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class CSingleFrameUpdateNode {
+    public:
+        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimActionUpdater>>, m_actions                                       , 0x58) // CUtlVector<CSmartPtr<CAnimActionUpdater>>
+        SCHEMA_FIELD(CPoseHandle                     , m_hPoseCacheHandle                              , 0x70) // CPoseHandle
+        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x74) // HSequence
+        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x78) // float32
+    };
+
+    // CNmGraphDefinition
+    //   fields: 14
+    //   size: 0x1B8
+    //   @MGetKV3ClassDefaults
+    class CNmGraphDefinition {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_variationID                                   , 0x0) // CGlobalSymbol
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCNmSkeleton>, m_skeleton                                      , 0x8) // CStrongHandle<InfoForResourceTypeCNmSkeleton>
+        SCHEMA_FIELD(CUtlVector<CStrongHandle<InfoForResourceTypeCNmSkeleton>>, m_supportedSecondarySkeletons                   , 0x10) // CUtlVector<CStrongHandle<InfoForResourceTypeCNmSkeleton>>
+        SCHEMA_FIELD(CNmGraphVariationUserData*      , m_pUserData                                     , 0x28) // CNmGraphVariationUserData*
+        SCHEMA_FIELD(CUtlVector<int16>               , m_persistentNodeIndices                         , 0x30) // CUtlVector<int16>
+        SCHEMA_FIELD(std::int16_t                    , m_nRootNodeIdx                                  , 0x48) // int16
+        SCHEMA_FIELD(CUtlVector<CGlobalSymbol>       , m_controlParameterIDs                           , 0x50) // CUtlVector<CGlobalSymbol>
+        SCHEMA_FIELD(CUtlVector<CGlobalSymbol>       , m_virtualParameterIDs                           , 0x68) // CUtlVector<CGlobalSymbol>
+        SCHEMA_FIELD(CUtlVector<int16>               , m_virtualParameterNodeIndices                   , 0x80) // CUtlVector<int16>
+        SCHEMA_FIELD(CUtlVector<CNmGraphDefinition_ReferencedGraphSlot_t>, m_referencedGraphSlots                          , 0x98) // CUtlVector<CNmGraphDefinition::ReferencedGraphSlot_t>
+        SCHEMA_FIELD(CUtlVector<CNmGraphDefinition_ExternalGraphSlot_t>, m_externalGraphSlots                            , 0xB0) // CUtlVector<CNmGraphDefinition::ExternalGraphSlot_t>
+        SCHEMA_FIELD(CUtlVector<CNmGraphDefinition_ExternalPoseSlot_t>, m_externalPoseSlots                             , 0xC8) // CUtlVector<CNmGraphDefinition::ExternalPoseSlot_t>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_nodePaths                                     , 0x150) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CStrongHandleVoid>   , m_resources                                     , 0x168) // CUtlVector<CStrongHandleVoid>
+    };
+
+    // AnimNodeID
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class AnimNodeID {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
+    };
+
+    // CPulseCell_IntervalTimer
+    //   fields: 2
+    //   size: 0x168
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    //   @MPulseEditorHeaderIcon
+    //   @MPulseEditorCanvasItemSpecKV3
+    class CPulseCell_IntervalTimer {
+    public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_Completed                                     , 0xD8) // CPulse_ResumePoint [MPropertyDescription]
+        SCHEMA_FIELD(SignatureOutflow_Continue       , m_OnInterval                                    , 0x120) // SignatureOutflow_Continue [MPropertyDescription]
+    };
+
+    // CPerParticleFloatInput
+    //   fields: 0
+    //   size: 0x170
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyCustomEditor
+    class CPerParticleFloatInput {
+    public:
+    };
+
+    // CNmVirtualParameterVectorNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmVirtualParameterVectorNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
+    };
+
+    // CParticleBindingRealPulse
+    //   fields: 0
+    //   size: 0x130
+    class CParticleBindingRealPulse {
+    public:
+    };
+
+    // CAnimationGraphVisualizerPie
+    //   fields: 4
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class CAnimationGraphVisualizerPie {
+    public:
+        SCHEMA_FIELD(VectorAligned                   , m_vWsCenter                                     , 0x40) // VectorAligned
+        SCHEMA_FIELD(VectorAligned                   , m_vWsStart                                      , 0x50) // VectorAligned
+        SCHEMA_FIELD(VectorAligned                   , m_vWsEnd                                        , 0x60) // VectorAligned
+        SCHEMA_FIELD(::Color                         , m_Color                                         , 0x70) // Color
+    };
+
+    // CDirectionalBlendInstanceData
+    //   fields: 7
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CDirectionalBlendInstanceData {
+    public:
+        SCHEMA_FIELD(float                           , m_dampedValue                                   , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x14) // float32
+        SCHEMA_FIELD(float                           , m_flPrevCycle                                   , 0x18) // float32
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flPlaybackRate                                , 0x1C) // CAnimNetVar<float32>
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flCycleZeroTime                               , 0x28) // CAnimNetVar<float32>
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_resetCycleValue                               , 0x34) // CAnimNetVar<float32>
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_resetCount                                    , 0x40) // CAnimNetVar<float32>
+    };
+
+    // CNmFloatComparisonNode::CDefinition
+    //   fields: 5
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmFloatComparisonNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nComparandValueNodeIdx                        , 0x12) // int16
+        SCHEMA_FIELD(CNmFloatComparisonNode_Comparison_t, m_comparison                                    , 0x14) // CNmFloatComparisonNode::Comparison_t
+        SCHEMA_FIELD(float                           , m_flEpsilon                                     , 0x18) // float32
+        SCHEMA_FIELD(float                           , m_flComparisonValue                             , 0x1C) // float32
+    };
+
+    // CPulseCell_BaseState
+    //   fields: 0
+    //   size: 0xD8
+    //   @MGetKV3ClassDefaults
+    //   @MPulseEditorHeaderIcon
+    class CPulseCell_BaseState {
+    public:
+    };
+
+    // CNmConstBoolNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmConstBoolNode_CDefinition {
+    public:
+        SCHEMA_FIELD(bool                            , m_bValue                                        , 0x10) // bool
+    };
+
+    // PermModelInfo_t
+    //   fields: 10
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class PermModelInfo_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x0) // uint32
+        SCHEMA_FIELD(::Vector                        , m_vHullMin                                      , 0x4) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vHullMax                                      , 0x10) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vViewMin                                      , 0x1C) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vViewMax                                      , 0x28) // Vector
+        SCHEMA_FIELD(float                           , m_flMass                                        , 0x34) // float32
+        SCHEMA_FIELD(::Vector                        , m_vEyePosition                                  , 0x38) // Vector
+        SCHEMA_FIELD(float                           , m_flMaxEyeDeflection                            , 0x44) // float32
+        SCHEMA_FIELD(::CUtlString                    , m_sSurfaceProperty                              , 0x48) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_keyValueText                                  , 0x50) // CUtlString
+    };
+
+    // CNmZeroPoseTask
+    //   fields: 0
+    //   size: 0x70
+    class CNmZeroPoseTask {
+    public:
+    };
+
+    // CStateNodeInstanceData
+    //   fields: 4
+    //   size: 0x4C
+    //   @MGetKV3ClassDefaults
+    class CStateNodeInstanceData {
+    public:
+        SCHEMA_FIELD(CRelativeArray<float32>         , m_stateWeights                                  , 0x0) // CRelativeArray<float32>
+        SCHEMA_FIELD(::Vector                        , m_vTransitionVelocityDeltaWS                    , 0x8) // Vector
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_currentStateStartTime                         , 0x20) // CAnimNetVar<float32>
+        SCHEMA_FIELD(CAnimNetVar<uint8>              , m_resetCount                                    , 0x3C) // CAnimNetVar<uint8>
+    };
+
+    // CNmFloatSelectorNode::CDefinition
+    //   fields: 5
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CNmFloatSelectorNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,5>;
+        using _Type1 = CUtlLeanVectorFixedGrowable<float32,5>;
+        SCHEMA_FIELD(_Type0                          , m_conditionNodeIndices                          , 0x10) // CUtlLeanVectorFixedGrowable<int16,5>
+        SCHEMA_FIELD(_Type1                          , m_values                                        , 0x28) // CUtlLeanVectorFixedGrowable<float32,5>
+        SCHEMA_FIELD(float                           , m_flDefaultValue                                , 0x48) // float32
+        SCHEMA_FIELD(float                           , m_flEaseTime                                    , 0x4C) // float32
+        SCHEMA_FIELD(NmEasingOperation_t             , m_easingOp                                      , 0x50) // NmEasingOperation_t
     };
 
     // CBoolAnimParameter
@@ -3293,67 +4973,140 @@ namespace animationsystem {
         SCHEMA_FIELD(bool                            , m_bDefaultValue                                 , 0x80) // bool [MPropertyFriendlyName]
     };
 
-    // CBoneConstraintPoseSpaceMorph
-    //   fields: 5
-    //   size: 0xA0
+    // CDirectionalBlendUpdateNode
+    //   fields: 8
+    //   size: 0xB0
     //   @MGetKV3ClassDefaults
-    class CBoneConstraintPoseSpaceMorph {
+    class CDirectionalBlendUpdateNode {
     public:
-        SCHEMA_FIELD(::CUtlString                    , m_sBoneName                                     , 0x20) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_sAttachmentName                               , 0x28) // CUtlString
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_outputMorph                                   , 0x30) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<CBoneConstraintPoseSpaceMorph_Input_t>, m_inputList                                     , 0x48) // CUtlVector<CBoneConstraintPoseSpaceMorph::Input_t>
-        SCHEMA_FIELD(bool                            , m_bClamp                                        , 0x60) // bool
+        SCHEMA_FIELD(HSequence                       , m_hSequences                                    , 0x5C) // HSequence[8]
+        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0x80) // CAnimInputDamping
+        SCHEMA_FIELD(AnimValueSource                 , m_blendValueSource                              , 0x98) // AnimValueSource
+        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0x9C) // CAnimParamHandle
+        SCHEMA_FIELD(float                           , m_playbackSpeed                                 , 0xA0) // float32
+        SCHEMA_FIELD(float                           , m_duration                                      , 0xA4) // float32
+        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0xA8) // bool
+        SCHEMA_FIELD(bool                            , m_bLockBlendOnReset                             , 0xA9) // bool
     };
 
-    // CSymbolAnimParameter
+    // CNmPassthroughNode::CDefinition
     //   fields: 1
-    //   size: 0x88
+    //   size: 0x18
     //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CSymbolAnimParameter {
+    class CNmPassthroughNode_CDefinition {
     public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_defaultValue                                  , 0x80) // CGlobalSymbol [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
     };
 
-    // FollowTargetOpFixedSettings_t
-    //   fields: 5
+    // CSeqPoseSetting
+    //   fields: 8
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class CSeqPoseSetting {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_sPoseParameter                                , 0x0) // CBufferString
+        SCHEMA_FIELD(CBufferString                   , m_sAttachment                                   , 0x10) // CBufferString
+        SCHEMA_FIELD(CBufferString                   , m_sReferenceSequence                            , 0x20) // CBufferString
+        SCHEMA_FIELD(float                           , m_flValue                                       , 0x30) // float32
+        SCHEMA_FIELD(bool                            , m_bX                                            , 0x34) // bool
+        SCHEMA_FIELD(bool                            , m_bY                                            , 0x35) // bool
+        SCHEMA_FIELD(bool                            , m_bZ                                            , 0x36) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_eType                                         , 0x38) // int32
+    };
+
+    // CHitReactUpdateNode
+    //   fields: 8
+    //   size: 0xD0
+    //   @MGetKV3ClassDefaults
+    class CHitReactUpdateNode {
+    public:
+        SCHEMA_FIELD(HitReactFixedSettings_t         , m_opFixedSettings                               , 0x70) // HitReactFixedSettings_t
+        SCHEMA_FIELD(CAnimParamHandle                , m_triggerParam                                  , 0xBC) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hitBoneParam                                  , 0xBE) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hitOffsetParam                                , 0xC0) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hitDirectionParam                             , 0xC2) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hitStrengthParam                              , 0xC4) // CAnimParamHandle
+        SCHEMA_FIELD(float                           , m_flMinDelayBetweenHits                         , 0xC8) // float32
+        SCHEMA_FIELD(bool                            , m_bResetChild                                   , 0xCC) // bool
+    };
+
+    // CFutureVelocityMetricEvaluator
+    //   fields: 4
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CFutureVelocityMetricEvaluator {
+    public:
+        SCHEMA_FIELD(float                           , m_flDistance                                    , 0x50) // float32
+        SCHEMA_FIELD(float                           , m_flStoppingDistance                            , 0x54) // float32
+        SCHEMA_FIELD(float                           , m_flTargetSpeed                                 , 0x58) // float32
+        SCHEMA_FIELD(VelocityMetricMode              , m_eMode                                         , 0x5C) // VelocityMetricMode
+    };
+
+    // CNmConstVectorNode::CDefinition
+    //   fields: 1
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmConstVectorNode_CDefinition {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_value                                         , 0x10) // Vector
+    };
+
+    // CMotionSearchDB
+    //   fields: 3
+    //   size: 0xB8
+    //   @MGetKV3ClassDefaults
+    class CMotionSearchDB {
+    public:
+        SCHEMA_FIELD(CMotionSearchNode               , m_rootNode                                      , 0x0) // CMotionSearchNode
+        SCHEMA_FIELD(CProductQuantizer               , m_residualQuantizer                             , 0x80) // CProductQuantizer
+        SCHEMA_FIELD(CUtlVector<MotionDBIndex>       , m_codeIndices                                   , 0xA0) // CUtlVector<MotionDBIndex>
+    };
+
+    // CNmFloatValueNode::CDefinition
+    //   fields: 0
     //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class FollowTargetOpFixedSettings_t {
+    class CNmFloatValueNode_CDefinition {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_boneIndex                                     , 0x0) // int32
-        SCHEMA_FIELD(bool                            , m_bBoneTarget                                   , 0x4) // bool
-        SCHEMA_FIELD(std::int32_t                    , m_boneTargetIndex                               , 0x8) // int32
-        SCHEMA_FIELD(bool                            , m_bWorldCoodinateTarget                         , 0xC) // bool
-        SCHEMA_FIELD(bool                            , m_bMatchTargetOrientation                       , 0xD) // bool
     };
 
-    // CNmTargetPointNode::CDefinition
+    // SkeletonBoneBounds_t
     //   fields: 2
     //   size: 0x18
     //   @MGetKV3ClassDefaults
-    class CNmTargetPointNode_CDefinition {
+    class SkeletonBoneBounds_t {
     public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(bool                            , m_bIsWorldSpaceTarget                           , 0x12) // bool
+        SCHEMA_FIELD(::Vector                        , m_vecCenter                                     , 0x0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecSize                                       , 0xC) // Vector
     };
 
-    // CParticleCollectionRendererFloatInput
-    //   fields: 0
-    //   size: 0x170
+    // AnimationSnapshotBase_t
+    //   fields: 9
+    //   size: 0x110
     //   @MGetKV3ClassDefaults
-    //   @MPropertyCustomEditor
-    class CParticleCollectionRendererFloatInput {
+    class AnimationSnapshotBase_t {
     public:
+        SCHEMA_FIELD(float                           , m_flRealTime                                    , 0x0) // float32
+        SCHEMA_FIELD(matrix3x4a_t                    , m_rootToWorld                                   , 0x10) // matrix3x4a_t
+        SCHEMA_FIELD(bool                            , m_bBonesInWorldSpace                            , 0x40) // bool
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_boneSetupMask                                 , 0x48) // CUtlVector<uint32>
+        SCHEMA_FIELD(CUtlVector<matrix3x4a_t>        , m_boneTransforms                                , 0x60) // CUtlVector<matrix3x4a_t>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_flexControllers                               , 0x78) // CUtlVector<float32>
+        SCHEMA_FIELD(AnimationSnapshotType_t         , m_SnapshotType                                  , 0x90) // AnimationSnapshotType_t
+        SCHEMA_FIELD(bool                            , m_bHasDecodeDump                                , 0x94) // bool
+        SCHEMA_FIELD(AnimationDecodeDebugDumpElement_t, m_DecodeDump                                    , 0x98) // AnimationDecodeDebugDumpElement_t
     };
 
-    // CNmControlParameterBoolNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
+    // CNmTimeConditionNode::CDefinition
+    //   fields: 5
+    //   size: 0x20
     //   @MGetKV3ClassDefaults
-    class CNmControlParameterBoolNode_CDefinition {
+    class CNmTimeConditionNode_CDefinition {
     public:
+        SCHEMA_FIELD(std::int16_t                    , m_sourceStateNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x12) // int16
+        SCHEMA_FIELD(float                           , m_flComparand                                   , 0x14) // float32
+        SCHEMA_FIELD(CNmTimeConditionNode_ComparisonType_t, m_type                                          , 0x18) // CNmTimeConditionNode::ComparisonType_t
+        SCHEMA_FIELD(CNmTimeConditionNode_Operator_t , m_operator                                      , 0x19) // CNmTimeConditionNode::Operator_t
     };
 
     // SkeletonAnimCapture_t::Camera_t
@@ -3366,148 +5119,231 @@ namespace animationsystem {
         SCHEMA_FIELD(float                           , m_flTime                                        , 0x20) // float32
     };
 
-    // CPulseCell_Timeline
-    //   fields: 3
-    //   size: 0x140
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Timeline {
-    public:
-        SCHEMA_FIELD(CUtlVector<CPulseCell_Timeline_TimelineEvent_t>, m_TimelineEvents                                , 0xD8) // CUtlVector<CPulseCell_Timeline::TimelineEvent_t>
-        SCHEMA_FIELD(bool                            , m_bWaitForChildOutflows                         , 0xF0) // bool
-        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnFinished                                    , 0xF8) // CPulse_ResumePoint
-    };
-
-    // CPulseCell_BaseLerp
-    //   fields: 1
-    //   size: 0x120
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_BaseLerp {
-    public:
-        SCHEMA_FIELD(CPulse_ResumePoint              , m_WakeResume                                    , 0xD8) // CPulse_ResumePoint
-    };
-
-    // CModelConfigElement
+    // CNmCachedTargetNode::CDefinition
     //   fields: 2
-    //   size: 0x48
+    //   size: 0x18
     //   @MGetKV3ClassDefaults
-    class CModelConfigElement {
+    class CNmCachedTargetNode_CDefinition {
     public:
-        SCHEMA_FIELD(::CUtlString                    , m_ElementName                                   , 0x8) // CUtlString
-        SCHEMA_FIELD(CUtlVector<CModelConfigElement*>, m_NestedElements                                , 0x10) // CUtlVector<CModelConfigElement*>
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(NmCachedValueMode_t             , m_mode                                          , 0x14) // NmCachedValueMode_t
     };
 
-    // CLeanMatrixInstanceData
-    //   fields: 2
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class CLeanMatrixInstanceData {
-    public:
-        SCHEMA_FIELD(float                           , m_flValueY                                      , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flValueX                                      , 0x4) // float32
-    };
-
-    // PulseRuntimeEntrypointIndex_t
-    //   fields: 1
-    //   size: 0x4
-    class PulseRuntimeEntrypointIndex_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
-    };
-
-    // ModelBoneFlexDriverControl_t
-    //   fields: 5
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class ModelBoneFlexDriverControl_t {
-    public:
-        SCHEMA_FIELD(ModelBoneFlexComponent_t        , m_nBoneComponent                                , 0x0) // ModelBoneFlexComponent_t
-        SCHEMA_FIELD(::CUtlString                    , m_flexController                                , 0x8) // CUtlString
-        SCHEMA_FIELD(std::uint32_t                   , m_flexControllerToken                           , 0x10) // uint32
-        SCHEMA_FIELD(float                           , m_flMin                                         , 0x14) // float32
-        SCHEMA_FIELD(float                           , m_flMax                                         , 0x18) // float32
-    };
-
-    // CDampedValueUpdateItem
-    //   fields: 3
+    // CModelConfig
+    //   fields: 4
     //   size: 0x28
     //   @MGetKV3ClassDefaults
-    class CDampedValueUpdateItem {
+    class CModelConfig {
     public:
-        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0x0) // CAnimInputDamping
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParamIn                                      , 0x20) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParamOut                                     , 0x22) // CAnimParamHandle
+        SCHEMA_FIELD(::CUtlString                    , m_ConfigName                                    , 0x0) // CUtlString
+        SCHEMA_FIELD(CUtlVector<CModelConfigElement*>, m_Elements                                      , 0x8) // CUtlVector<CModelConfigElement*>
+        SCHEMA_FIELD(bool                            , m_bTopLevel                                     , 0x20) // bool
+        SCHEMA_FIELD(bool                            , m_bActiveInEditorByDefault                      , 0x21) // bool
     };
 
-    // CNmVirtualParameterBoolNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmVirtualParameterBoolNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
-    };
-
-    // CAnimationGraphInstance
-    //   fields: 1
-    //   size: 0x340
-    //   @MGetKV3ClassDefaults
-    class CAnimationGraphInstance {
-    public:
-        SCHEMA_FIELD(bool                            , m_bTagDispatchDirty                             , 0x329) // bool
-    };
-
-    // CNmIsExternalPoseSetNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmIsExternalPoseSetNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nExternalPoseNodeIdx                          , 0x10) // int16
-    };
-
-    // NmCompressionSettings_t::QuantizationRange_t
+    // CNmCachedIDNode::CDefinition
     //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmCachedIDNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(NmCachedValueMode_t             , m_mode                                          , 0x14) // NmCachedValueMode_t
+    };
+
+    // CNmFootstepEventPercentageThroughNode::CDefinition
+    //   fields: 3
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmFootstepEventPercentageThroughNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(NmFootPhaseCondition_t          , m_phaseCondition                                , 0x12) // NmFootPhaseCondition_t
+        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
+    };
+
+    // CNmTargetValueNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    class CNmTargetValueNode_CDefinition {
+    public:
+    };
+
+    // CNmOrNode::CDefinition
+    //   fields: 1
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmOrNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,4>;
+        SCHEMA_FIELD(_Type0                          , m_conditionNodeIndices                          , 0x10) // CUtlLeanVectorFixedGrowable<int16,4>
+    };
+
+    // CAnimEnum
+    //   fields: 1
+    //   size: 0x1
+    class CAnimEnum {
+    public:
+        SCHEMA_FIELD(std::uint8_t                    , m_value                                         , 0x0) // uint8
+    };
+
+    // CSequenceUpdateNode
+    //   fields: 4
+    //   size: 0xB0
+    //   @MGetKV3ClassDefaults
+    class CSequenceUpdateNode {
+    public:
+        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x78) // HSequence
+        SCHEMA_FIELD(float                           , m_duration                                      , 0x7C) // float32
+        SCHEMA_FIELD(CParamSpanUpdater               , m_paramSpans                                    , 0x80) // CParamSpanUpdater
+        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x98) // CUtlVector<TagSpan_t>
+    };
+
+    // CSlopeComponentUpdater
+    //   fields: 7
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CSlopeComponentUpdater {
+    public:
+        SCHEMA_FIELD(float                           , m_flTraceDistance                               , 0x34) // float32
+        SCHEMA_FIELD(CAnimParamHandle                , m_hSlopeAngle                                   , 0x38) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hSlopeAngleFront                              , 0x3A) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hSlopeAngleSide                               , 0x3C) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hSlopeHeading                                 , 0x3E) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hSlopeNormal                                  , 0x40) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hSlopeNormal_WorldSpace                       , 0x42) // CAnimParamHandle
+    };
+
+    // CAnimDataChannelDesc
+    //   fields: 9
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class CAnimDataChannelDesc {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_szChannelClass                                , 0x0) // CBufferString
+        SCHEMA_FIELD(CBufferString                   , m_szVariableName                                , 0x10) // CBufferString
+        SCHEMA_FIELD(std::int32_t                    , m_nFlags                                        , 0x20) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nType                                         , 0x24) // int32
+        SCHEMA_FIELD(CBufferString                   , m_szGrouping                                    , 0x28) // CBufferString
+        SCHEMA_FIELD(CBufferString                   , m_szDescription                                 , 0x38) // CBufferString
+        SCHEMA_FIELD(CUtlVector<CBufferString>       , m_szElementNameArray                            , 0x48) // CUtlVector<CBufferString>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_nElementIndexArray                            , 0x60) // CUtlVector<int32>
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_nElementMaskArray                             , 0x78) // CUtlVector<uint32>
+    };
+
+    // ChainToSolveData_t
+    //   fields: 6
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class ChainToSolveData_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChainIndex                                   , 0x0) // int32
+        SCHEMA_FIELD(IKSolverSettings_t              , m_SolverSettings                                , 0x4) // IKSolverSettings_t
+        SCHEMA_FIELD(IKTargetSettings_t              , m_TargetSettings                                , 0x10) // IKTargetSettings_t
+        SCHEMA_FIELD(SolveIKChainAnimNodeDebugSetting, m_DebugSetting                                  , 0x38) // SolveIKChainAnimNodeDebugSetting
+        SCHEMA_FIELD(float                           , m_flDebugNormalizedValue                        , 0x3C) // float32
+        SCHEMA_FIELD(VectorAligned                   , m_vDebugOffset                                  , 0x40) // VectorAligned
+    };
+
+    // CPulseCell_Inflow_Method
+    //   fields: 5
+    //   size: 0xC8
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Inflow_Method {
+    public:
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_MethodName                                    , 0x80) // PulseSymbol_t
+        SCHEMA_FIELD(::CUtlString                    , m_Description                                   , 0x90) // CUtlString
+        SCHEMA_FIELD(bool                            , m_bIsPublic                                     , 0x98) // bool
+        SCHEMA_FIELD(CPulseValueFullType             , m_ReturnType                                    , 0xA0) // CPulseValueFullType
+        SCHEMA_FIELD(CUtlLeanVector<CPulseRuntimeMethodArg>, m_Args                                          , 0xB8) // CUtlLeanVector<CPulseRuntimeMethodArg>
+    };
+
+    // CPulseStringlib
+    //   fields: 0
+    //   size: 0x1
+    //   @MPropertyDescription
+    class CPulseStringlib {
+    public:
+    };
+
+    // CMotionGraphGroup
+    //   fields: 5
+    //   size: 0x108
+    //   @MGetKV3ClassDefaults
+    class CMotionGraphGroup {
+    public:
+        SCHEMA_FIELD(CMotionSearchDB                 , m_searchDB                                      , 0x0) // CMotionSearchDB
+        SCHEMA_FIELD(CUtlVector<CSmartPtr<CMotionGraph>>, m_motionGraphs                                  , 0xB8) // CUtlVector<CSmartPtr<CMotionGraph>>
+        SCHEMA_FIELD(CUtlVector<CMotionGraphConfig>  , m_motionGraphConfigs                            , 0xD0) // CUtlVector<CMotionGraphConfig>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_sampleToConfig                                , 0xE8) // CUtlVector<int32>
+        SCHEMA_FIELD(AnimScriptHandle                , m_hIsActiveScript                               , 0x100) // AnimScriptHandle
+    };
+
+    // SignatureOutflow_Resume
+    //   fields: 0
+    //   size: 0x48
+    class SignatureOutflow_Resume {
+    public:
+    };
+
+    // CExpressionActionUpdater
+    //   fields: 3
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CExpressionActionUpdater {
+    public:
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParam                                        , 0x18) // CAnimParamHandle
+        SCHEMA_FIELD(AnimParamType_t                 , m_eParamType                                    , 0x1A) // AnimParamType_t
+        SCHEMA_FIELD(AnimScriptHandle                , m_hScript                                       , 0x1C) // AnimScriptHandle
+    };
+
+    // SampleCode
+    //   fields: 1
     //   size: 0x8
     //   @MGetKV3ClassDefaults
-    class NmCompressionSettings_t_QuantizationRange_t {
+    class SampleCode {
     public:
-        SCHEMA_FIELD(float                           , m_flRangeStart                                  , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flRangeLength                                 , 0x4) // float32
+        SCHEMA_FIELD(std::uint8_t                    , m_subCode                                       , 0x0) // uint8[8]
     };
 
-    // CNmClip
-    //   fields: 13
-    //   size: 0x200
+    // CAimConstraint
+    //   fields: 2
+    //   size: 0x80
     //   @MGetKV3ClassDefaults
-    class CNmClip {
+    class CAimConstraint {
     public:
-        using _Type0 = CUtlVectorFixedGrowable<CNmClip*,1>;
-        using _Type1 = CUtlVectorFixedGrowable<CNmFloatChannelData*,2>;
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCNmSkeleton>, m_skeleton                                      , 0x0) // CStrongHandle<InfoForResourceTypeCNmSkeleton>
-        SCHEMA_FIELD(std::uint32_t                   , m_nNumFrames                                    , 0x8) // uint32
-        SCHEMA_FIELD(float                           , m_flDuration                                    , 0xC) // float32
-        SCHEMA_FIELD(::CUtlBinaryBlock               , m_compressedPoseData                            , 0x10) // CUtlBinaryBlock
-        SCHEMA_FIELD(CUtlVector<NmCompressionSettings_t>, m_trackCompressionSettings                      , 0x20) // CUtlVector<NmCompressionSettings_t>
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_compressedPoseOffsets                         , 0x38) // CUtlVector<uint32>
-        SCHEMA_FIELD(_Type0                          , m_secondaryAnimations                           , 0x78) // CUtlVectorFixedGrowable<CNmClip*,1>
-        SCHEMA_FIELD(_Type1                          , m_floatChannelData                              , 0x98) // CUtlVectorFixedGrowable<CNmFloatChannelData*,2>
-        SCHEMA_FIELD(CNmSyncTrack                    , m_syncTrack                                     , 0xC0) // CNmSyncTrack
-        SCHEMA_FIELD(CNmRootMotionData               , m_rootMotion                                    , 0x170) // CNmRootMotionData
-        SCHEMA_FIELD(bool                            , m_bIsAdditive                                   , 0x1C0) // bool
-        SCHEMA_FIELD(CUtlVector<CNmClip_ModelSpaceSamplingChainLink_t>, m_modelSpaceSamplingChain                       , 0x1C8) // CUtlVector<CNmClip::ModelSpaceSamplingChainLink_t>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_modelSpaceBoneSamplingIndices                 , 0x1E0) // CUtlVector<int32>
+        SCHEMA_FIELD(::Quaternion                    , m_qAimOffset                                    , 0x60) // Quaternion
+        SCHEMA_FIELD(std::uint32_t                   , m_nUpType                                       , 0x70) // uint32
     };
 
-    // CTimeRemainingMetricEvaluator
-    //   fields: 4
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CTimeRemainingMetricEvaluator {
+    // CNmIDValueNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    class CNmIDValueNode_CDefinition {
     public:
-        SCHEMA_FIELD(bool                            , m_bMatchByTimeRemaining                         , 0x50) // bool
-        SCHEMA_FIELD(float                           , m_flMaxTimeRemaining                            , 0x54) // float32
-        SCHEMA_FIELD(bool                            , m_bFilterByTimeRemaining                        , 0x58) // bool
-        SCHEMA_FIELD(float                           , m_flMinTimeRemaining                            , 0x5C) // float32
+    };
+
+    // PARTICLE_EHANDLE__
+    //   fields: 1
+    //   size: 0x4
+    class PARTICLE_EHANDLE__ {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , unused                                          , 0x0) // int32
+    };
+
+    // RenderHairStrandInfo_t
+    //   fields: 7
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class RenderHairStrandInfo_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nGuideHairIndices_nSurfaceTriIndex            , 0x0) // uint32[2]
+        SCHEMA_FIELD(std::uint16_t                   , m_vGuideBary_vBaseBary                          , 0x8) // uint16[4]
+        SCHEMA_FIELD(std::uint16_t                   , m_vRootOffset_flLengthScale                     , 0x10) // uint16[4]
+        SCHEMA_FIELD(std::uint16_t                   , m_nPackedBaseUv                                 , 0x18) // uint16[2]
+        SCHEMA_FIELD(std::uint32_t                   , m_nPackedSurfaceNormalOs                        , 0x1C) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nPackedSurfaceTangentOs                       , 0x20) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nDataOffset_Segments                          , 0x24) // uint32
     };
 
     // CBoneConstraintPoseSpaceBone
@@ -3533,48 +5369,1159 @@ namespace animationsystem {
         SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0x151) // bool
     };
 
-    // CSlowDownOnSlopesUpdateNode
-    //   fields: 1
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CSlowDownOnSlopesUpdateNode {
-    public:
-        SCHEMA_FIELD(float                           , m_flSlowDownStrength                            , 0x70) // float32
-    };
-
-    // CNmBitFlags
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class CNmBitFlags {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_flags                                         , 0x0) // uint32
-    };
-
-    // CConcreteAnimParameter
-    //   fields: 6
+    // CAnimAttachment
+    //   fields: 5
     //   size: 0x80
     //   @MGetKV3ClassDefaults
-    class CConcreteAnimParameter {
+    class CAnimAttachment {
     public:
-        SCHEMA_FIELD(AnimParamButton_t               , m_previewButton                                 , 0x70) // AnimParamButton_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(AnimParamNetworkSetting         , m_eNetworkSetting                               , 0x74) // AnimParamNetworkSetting [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseMostRecentValue                           , 0x78) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAutoReset                                    , 0x79) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bGameWritable                                 , 0x7A) // bool [MPropertyFriendlyName, MPropertyGroupName, MPropertyAttrStateCallback]
-        SCHEMA_FIELD(bool                            , m_bGraphWritable                                , 0x7B) // bool [MPropertyFriendlyName, MPropertyGroupName, MPropertyAttrStateCallback]
+        SCHEMA_FIELD(::Quaternion                    , m_influenceRotations                            , 0x0) // Quaternion[3]
+        SCHEMA_FIELD(VectorAligned                   , m_influenceOffsets                              , 0x30) // VectorAligned[3]
+        SCHEMA_FIELD(std::int32_t                    , m_influenceIndices                              , 0x60) // int32[3]
+        SCHEMA_FIELD(float                           , m_influenceWeights                              , 0x6C) // float32[3]
+        SCHEMA_FIELD(std::uint8_t                    , m_numInfluences                                 , 0x78) // uint8
     };
 
-    // CPathMetricEvaluator
-    //   fields: 4
+    // BoneDemoCaptureSettings_t
+    //   fields: 7
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class BoneDemoCaptureSettings_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_boneName                                      , 0x0) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flErrorSplineRotationMax                      , 0x8) // float32 [MPropertySuppressField]
+        SCHEMA_FIELD(float                           , m_flErrorSplineTranslationMax                   , 0xC) // float32 [MPropertySuppressField]
+        SCHEMA_FIELD(float                           , m_flErrorSplineScaleMax                         , 0x10) // float32 [MPropertySuppressField]
+        SCHEMA_FIELD(float                           , m_flErrorQuantizationRotationMax                , 0x14) // float32 [MPropertySuppressField]
+        SCHEMA_FIELD(float                           , m_flErrorQuantizationTranslationMax             , 0x18) // float32 [MPropertySuppressField]
+        SCHEMA_FIELD(float                           , m_flErrorQuantizationScaleMax                   , 0x1C) // float32 [MPropertySuppressField]
+    };
+
+    // CChoreoInstanceData
+    //   fields: 1
+    //   size: 0x398
+    //   @MGetKV3ClassDefaults
+    class CChoreoInstanceData {
+    public:
+        SCHEMA_FIELD(CAnimationLayer                 , m_AnimOverlay                                   , 0x0) // CAnimationLayer[12]
+    };
+
+    // LookData
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class LookData {
+    public:
+        SCHEMA_FIELD(CAnimNetVar<Vector>             , m_vLookTarget                                   , 0x0) // CAnimNetVar<Vector>
+    };
+
+    // CAnimGraphDebugReplay
+    //   fields: 5
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class CAnimGraphDebugReplay {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_animGraphFileName                             , 0x40) // CUtlString
+        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimReplayFrame>>, m_frameList                                     , 0x48) // CUtlVector<CSmartPtr<CAnimReplayFrame>>
+        SCHEMA_FIELD(std::int32_t                    , m_startIndex                                    , 0x60) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_writeIndex                                    , 0x64) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_frameCount                                    , 0x68) // int32
+    };
+
+    // AnimationSnapshot_t
+    //   fields: 2
+    //   size: 0x120
+    //   @MGetKV3ClassDefaults
+    class AnimationSnapshot_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nEntIndex                                     , 0x110) // int32
+        SCHEMA_FIELD(::CUtlString                    , m_modelName                                     , 0x118) // CUtlString
+    };
+
+    // CNmIDSwitchNode::CDefinition
+    //   fields: 5
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CNmIDSwitchNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nSwitchValueNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nTrueValueNodeIdx                             , 0x12) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nFalseValueNodeIdx                            , 0x14) // int16
+        SCHEMA_FIELD(CGlobalSymbol                   , m_falseValue                                    , 0x18) // CGlobalSymbol
+        SCHEMA_FIELD(CGlobalSymbol                   , m_trueValue                                     , 0x20) // CGlobalSymbol
+    };
+
+    // CNmBoneMaskValueNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    class CNmBoneMaskValueNode_CDefinition {
+    public:
+    };
+
+    // CMorphRectData
+    //   fields: 5
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CMorphRectData {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nXLeftDst                                     , 0x0) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nYTopDst                                      , 0x2) // int16
+        SCHEMA_FIELD(float                           , m_flUWidthSrc                                   , 0x4) // float32
+        SCHEMA_FIELD(float                           , m_flVHeightSrc                                  , 0x8) // float32
+        SCHEMA_FIELD(CUtlVector<CMorphBundleData>    , m_bundleDatas                                   , 0x10) // CUtlVector<CMorphBundleData>
+    };
+
+    // CPhysSurfacePropertiesAudio
+    //   fields: 8
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CPhysSurfacePropertiesAudio {
+    public:
+        SCHEMA_FIELD(float                           , m_reflectivity                                  , 0x0) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_hardnessFactor                                , 0x4) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_roughnessFactor                               , 0x8) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_roughThreshold                                , 0xC) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_hardThreshold                                 , 0x10) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_hardVelocityThreshold                         , 0x14) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_flStaticImpactVolume                          , 0x18) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_flOcclusionFactor                             , 0x1C) // float32 [MKV3TransferName]
+    };
+
+    // CBoneConstraintPoseSpaceMorph::Input_t
+    //   fields: 2
+    //   size: 0x28
+    class CBoneConstraintPoseSpaceMorph_Input_t {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_inputValue                                    , 0x0) // Vector
+        SCHEMA_FIELD(CUtlVector<float32>             , m_outputWeightList                              , 0x10) // CUtlVector<float32>
+    };
+
+    // AttachmentHandle_t
+    //   fields: 1
+    //   size: 0x1
+    class AttachmentHandle_t {
+    public:
+        SCHEMA_FIELD(std::uint8_t                    , m_Value                                         , 0x0) // uint8
+    };
+
+    // CAnimGraphSettingsManager
+    //   fields: 1
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CAnimGraphSettingsManager {
+    public:
+        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimGraphSettingsGroup>>, m_settingsGroups                                , 0x18) // CUtlVector<CSmartPtr<CAnimGraphSettingsGroup>>
+    };
+
+    // CNmTargetWarpNode::CDefinition
+    //   fields: 11
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class CNmTargetWarpNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nClipReferenceNodeIdx                         , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nTargetValueNodeIdx                           , 0x12) // int16
+        SCHEMA_FIELD(CNmRootMotionData_SamplingMode_t, m_samplingMode                                  , 0x14) // CNmRootMotionData::SamplingMode_t
+        SCHEMA_FIELD(CNmTargetWarpNode_TargetUpdateRule_t, m_targetUpdateRule                              , 0x15) // CNmTargetWarpNode::TargetUpdateRule_t
+        SCHEMA_FIELD(bool                            , m_bAlignWithTargetAtLastWarpEvent               , 0x16) // bool
+        SCHEMA_FIELD(float                           , m_flSamplingPositionErrorThresholdSq            , 0x18) // float32
+        SCHEMA_FIELD(float                           , m_flMaxTangentLength                            , 0x1C) // float32
+        SCHEMA_FIELD(float                           , m_flLerpFallbackDistanceThreshold               , 0x20) // float32
+        SCHEMA_FIELD(float                           , m_flTargetUpdateDistanceThreshold               , 0x24) // float32
+        SCHEMA_FIELD(float                           , m_flTargetUpdateAngleThresholdRadians           , 0x28) // float32
+        SCHEMA_FIELD(CGlobalSymbol                   , m_alignmentBoneID                               , 0x30) // CGlobalSymbol
+    };
+
+    // CPulseTestScriptLib
+    //   fields: 0
+    //   size: 0x1
+    //   @MPropertyDescription
+    class CPulseTestScriptLib {
+    public:
+    };
+
+    // SlopeData
+    //   fields: 1
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class SlopeData {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vSlopeNormal                                  , 0x0) // Vector
+    };
+
+    // CNmEntityAttributeFloatEvent
+    //   fields: 1
     //   size: 0x78
     //   @MGetKV3ClassDefaults
-    class CPathMetricEvaluator {
+    class CNmEntityAttributeFloatEvent {
     public:
-        SCHEMA_FIELD(CUtlVector<float32>             , m_pathTimeSamples                               , 0x50) // CUtlVector<float32>
-        SCHEMA_FIELD(float                           , m_flDistance                                    , 0x68) // float32
-        SCHEMA_FIELD(bool                            , m_bExtrapolateMovement                          , 0x6C) // bool
-        SCHEMA_FIELD(float                           , m_flMinExtrapolationSpeed                       , 0x70) // float32
+        SCHEMA_FIELD(CPiecewiseCurve                 , m_FloatValue                                    , 0x38) // CPiecewiseCurve
+    };
+
+    // CWarpSectionAnimTagBase
+    //   fields: 0
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CWarpSectionAnimTagBase {
+    public:
+    };
+
+    // FollowAttachmentData
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class FollowAttachmentData {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_boneIndex                                     , 0x0) // int32
+        SCHEMA_FIELD(AttachmentHandle_t              , m_attachmentHandle                              , 0x4) // AttachmentHandle_t
+    };
+
+    // CTwoBoneIKUpdateNode
+    //   fields: 1
+    //   size: 0x1E0
+    //   @MGetKV3ClassDefaults
+    class CTwoBoneIKUpdateNode {
+    public:
+        SCHEMA_FIELD(TwoBoneIKSettings_t             , m_opFixedData                                   , 0x70) // TwoBoneIKSettings_t
+    };
+
+    // CPulseBreakpointLocation
+    //   fields: 3
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CPulseBreakpointLocation {
+    public:
+        SCHEMA_FIELD(::PulseDocNodeID_t              , m_NodeID                                        , 0x0) // PulseDocNodeID_t
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_SequencePoint                                 , 0x8) // PulseSymbol_t
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_PortName                                      , 0x18) // PulseSymbol_t
+    };
+
+    // CPathAnimMotorUpdaterBase
+    //   fields: 1
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CPathAnimMotorUpdaterBase {
+    public:
+        SCHEMA_FIELD(bool                            , m_bLockToPath                                   , 0x20) // bool
+    };
+
+    // PulseCursorYieldToken_t
+    //   fields: 1
+    //   size: 0x4
+    class PulseCursorYieldToken_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
+    };
+
+    // CAimMatrixUpdateNode
+    //   fields: 6
+    //   size: 0x180
+    //   @MGetKV3ClassDefaults
+    class CAimMatrixUpdateNode {
+    public:
+        SCHEMA_FIELD(AimMatrixOpFixedSettings_t      , m_opFixedSettings                               , 0x70) // AimMatrixOpFixedSettings_t
+        SCHEMA_FIELD(AnimVectorSource                , m_target                                        , 0x168) // AnimVectorSource
+        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0x16C) // CAnimParamHandle
+        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x170) // HSequence
+        SCHEMA_FIELD(bool                            , m_bResetChild                                   , 0x174) // bool
+        SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0x175) // bool
+    };
+
+    // PulseRuntimeConstantIndex_t
+    //   fields: 1
+    //   size: 0x2
+    class PulseRuntimeConstantIndex_t {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_Value                                         , 0x0) // int16
+    };
+
+    // MaterialGroup_t
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class MaterialGroup_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(CUtlVector<CStrongHandle<InfoForResourceTypeIMaterial2>>, m_materials                                     , 0x8) // CUtlVector<CStrongHandle<InfoForResourceTypeIMaterial2>>
+    };
+
+    // CNmParameterizedBlendNode::BlendRange_t
+    //   fields: 3
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class CNmParameterizedBlendNode_BlendRange_t {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputIdx0                                    , 0x0) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nInputIdx1                                    , 0x2) // int16
+        SCHEMA_FIELD(Range_t                         , m_parameterValueRange                           , 0x4) // Range_t
+    };
+
+    // TwoBoneIKSettings_t
+    //   fields: 15
+    //   size: 0x160
+    //   @MGetKV3ClassDefaults
+    class TwoBoneIKSettings_t {
+    public:
+        SCHEMA_FIELD(IkEndEffectorType               , m_endEffectorType                               , 0x0) // IkEndEffectorType
+        SCHEMA_FIELD(CAnimAttachment                 , m_endEffectorAttachment                         , 0x10) // CAnimAttachment
+        SCHEMA_FIELD(IkTargetType                    , m_targetType                                    , 0x90) // IkTargetType
+        SCHEMA_FIELD(CAnimAttachment                 , m_targetAttachment                              , 0xA0) // CAnimAttachment
+        SCHEMA_FIELD(std::int32_t                    , m_targetBoneIndex                               , 0x120) // int32
+        SCHEMA_FIELD(CAnimParamHandle                , m_hPositionParam                                , 0x124) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hRotationParam                                , 0x126) // CAnimParamHandle
+        SCHEMA_FIELD(bool                            , m_bAlwaysUseFallbackHinge                       , 0x128) // bool
+        SCHEMA_FIELD(VectorAligned                   , m_vLsFallbackHingeAxis                          , 0x130) // VectorAligned
+        SCHEMA_FIELD(std::int32_t                    , m_nFixedBoneIndex                               , 0x140) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMiddleBoneIndex                              , 0x144) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nEndBoneIndex                                 , 0x148) // int32
+        SCHEMA_FIELD(bool                            , m_bMatchTargetOrientation                       , 0x14C) // bool
+        SCHEMA_FIELD(bool                            , m_bConstrainTwist                               , 0x14D) // bool
+        SCHEMA_FIELD(float                           , m_flMaxTwist                                    , 0x150) // float32
+    };
+
+    // PairedSequence_t
+    //   fields: 3
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class PairedSequence_t {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_sRole                                         , 0x0) // CGlobalSymbol
+        SCHEMA_FIELD(CGlobalSymbol                   , m_sSequenceName                                 , 0x8) // CGlobalSymbol
+        SCHEMA_FIELD(CAnimNetVar<uint32>             , m_hSequence                                     , 0x10) // CAnimNetVar<uint32>
+    };
+
+    // ParamSpanSample_t
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class ParamSpanSample_t {
+    public:
+        SCHEMA_FIELD(CAnimVariant                    , m_value                                         , 0x0) // CAnimVariant
+        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x14) // float32
+    };
+
+    // PulseNodeDynamicOutflows_t::DynamicOutflow_t
+    //   fields: 2
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class PulseNodeDynamicOutflows_t_DynamicOutflow_t {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_OutflowID                                     , 0x0) // CGlobalSymbol
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_Connection                                    , 0x8) // CPulse_OutflowConnection [MFgdFromSchemaCompletelySkipField]
+    };
+
+    // CPulseCell_Inflow_EntOutputHandler
+    //   fields: 3
+    //   size: 0xB8
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Inflow_EntOutputHandler {
+    public:
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_SourceEntity                                  , 0x80) // PulseSymbol_t
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_SourceOutput                                  , 0x90) // PulseSymbol_t
+        SCHEMA_FIELD(CPulseValueFullType             , m_ExpectedParamType                             , 0xA0) // CPulseValueFullType
+    };
+
+    // CPulseCell_FireCursors
+    //   fields: 3
+    //   size: 0x140
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_FireCursors {
+    public:
+        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outflows                                      , 0xD8) // CUtlVector<CPulse_OutflowConnection>
+        SCHEMA_FIELD(bool                            , m_bWaitForChildOutflows                         , 0xF0) // bool
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnFinished                                    , 0xF8) // CPulse_ResumePoint
+    };
+
+    // CNmPoseTask
+    //   fields: 0
+    //   size: 0x70
+    class CNmPoseTask {
+    public:
+    };
+
+    // CNmFloatRangeComparisonNode::CDefinition
+    //   fields: 3
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmFloatRangeComparisonNode_CDefinition {
+    public:
+        SCHEMA_FIELD(Range_t                         , m_range                                         , 0x10) // Range_t
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x18) // int16
+        SCHEMA_FIELD(bool                            , m_bIsInclusiveCheck                             , 0x1A) // bool
+    };
+
+    // CNmSoundEvent
+    //   fields: 7
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CNmSoundEvent {
+    public:
+        SCHEMA_FIELD(CNmEventRelevance_t             , m_relevance                                     , 0x18) // CNmEventRelevance_t
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x20) // CUtlString
+        SCHEMA_FIELD(CNmSoundEvent_Position_t        , m_position                                      , 0x28) // CNmSoundEvent::Position_t
+        SCHEMA_FIELD(::CUtlString                    , m_attachmentName                                , 0x30) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_tags                                          , 0x38) // CUtlString
+        SCHEMA_FIELD(bool                            , m_bContinuePlayingSoundAtDurationEnd            , 0x40) // bool
+        SCHEMA_FIELD(float                           , m_flDurationInterruptionThreshold               , 0x44) // float32
+    };
+
+    // CPulseCell_BaseLerp::CursorState_t
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_BaseLerp_CursorState_t {
+    public:
+        SCHEMA_FIELD(::GameTime_t                    , m_StartTime                                     , 0x0) // GameTime_t
+        SCHEMA_FIELD(::GameTime_t                    , m_EndTime                                       , 0x4) // GameTime_t
+    };
+
+    // PulseRuntimeCellIndex_t
+    //   fields: 1
+    //   size: 0x4
+    class PulseRuntimeCellIndex_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
+    };
+
+    // CPulse_OutflowConnection
+    //   fields: 4
+    //   size: 0x48
+    class CPulse_OutflowConnection {
+    public:
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_SourceOutflowName                             , 0x0) // PulseSymbol_t
+        SCHEMA_FIELD(::PulseRuntimeChunkIndex_t      , m_nDestChunk                                    , 0x10) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nInstruction                                  , 0x14) // int32
+        SCHEMA_FIELD(::PulseRegisterMap_t            , m_OutflowRegisterMap                            , 0x18) // PulseRegisterMap_t
+    };
+
+    // CNmModelSpaceBlendTask
+    //   fields: 0
+    //   size: 0x100
+    class CNmModelSpaceBlendTask {
+    public:
+    };
+
+    // CMoverInstanceData
+    //   fields: 4
+    //   size: 0x2C
+    //   @MGetKV3ClassDefaults
+    class CMoverInstanceData {
+    public:
+        SCHEMA_FIELD(float                           , m_flDampedValue                                 , 0x0) // float32
+        SCHEMA_FIELD(::Vector                        , m_vMovement                                     , 0x4) // Vector
+        SCHEMA_FIELD(CRotation                       , m_Rotation                                      , 0x1C) // CRotation
+        SCHEMA_FIELD(CRotation                       , m_TargetOrientation                             , 0x20) // CRotation
+    };
+
+    // CNmIsExternalGraphSlotFilledNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmIsExternalGraphSlotFilledNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nExternalGraphNodeIdx                         , 0x10) // int16
+    };
+
+    // CNmSyncTrack::Event_t
+    //   fields: 3
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmSyncTrack_Event_t {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x0) // CGlobalSymbol
+        SCHEMA_FIELD(NmPercent_t                     , m_startTime                                     , 0x8) // NmPercent_t
+        SCHEMA_FIELD(NmPercent_t                     , m_duration                                      , 0xC) // NmPercent_t
+    };
+
+    // CNmParameterizedClipSelectorNode::CDefinition
+    //   fields: 5
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class CNmParameterizedClipSelectorNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,8>;
+        using _Type1 = CUtlLeanVectorFixedGrowable<uint8,8>;
+        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,8>
+        SCHEMA_FIELD(_Type1                          , m_optionWeights                                 , 0x28) // CUtlLeanVectorFixedGrowable<uint8,8>
+        SCHEMA_FIELD(std::int16_t                    , m_parameterNodeIdx                              , 0x38) // int16
+        SCHEMA_FIELD(bool                            , m_bIgnoreInvalidOptions                         , 0x3A) // bool
+        SCHEMA_FIELD(bool                            , m_bHasWeightsSet                                , 0x3B) // bool
+    };
+
+    // CAnimBoneDifference
+    //   fields: 5
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CAnimBoneDifference {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
+        SCHEMA_FIELD(CBufferString                   , m_parent                                        , 0x10) // CBufferString
+        SCHEMA_FIELD(::Vector                        , m_posError                                      , 0x20) // Vector
+        SCHEMA_FIELD(bool                            , m_bHasRotation                                  , 0x2C) // bool
+        SCHEMA_FIELD(bool                            , m_bHasMovement                                  , 0x2D) // bool
+    };
+
+    // CNmParameterizedBlendNode::Parameterization_t
+    //   fields: 2
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CNmParameterizedBlendNode_Parameterization_t {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<CNmParameterizedBlendNode_BlendRange_t,5>;
+        SCHEMA_FIELD(_Type0                          , m_blendRanges                                   , 0x0) // CUtlLeanVectorFixedGrowable<CNmParameterizedBlendNode::BlendRange_t,5>
+        SCHEMA_FIELD(Range_t                         , m_parameterRange                                , 0x48) // Range_t
+    };
+
+    // CNmStateMachineNode::TransitionDefinition_t
+    //   fields: 4
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CNmStateMachineNode_TransitionDefinition_t {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nTargetStateIdx                               , 0x0) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nConditionNodeIdx                             , 0x2) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nTransitionNodeIdx                            , 0x4) // int16
+        SCHEMA_FIELD(bool                            , m_bCanBeForced                                  , 0x6) // bool
+    };
+
+    // CFloatAnimParameter
+    //   fields: 4
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CFloatAnimParameter {
+    public:
+        SCHEMA_FIELD(float                           , m_fDefaultValue                                 , 0x80) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fMinValue                                     , 0x84) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fMaxValue                                     , 0x88) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bInterpolate                                  , 0x8C) // bool [MPropertyFriendlyName]
+    };
+
+    // CNmScaleTask
+    //   fields: 0
+    //   size: 0xD0
+    class CNmScaleTask {
+    public:
+    };
+
+    // CFootCycleDefinition
+    //   fields: 9
+    //   size: 0x3C
+    //   @MGetKV3ClassDefaults
+    class CFootCycleDefinition {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vStancePositionMS                             , 0x0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vMidpointPositionMS                           , 0xC) // Vector
+        SCHEMA_FIELD(float                           , m_flStanceDirectionMS                           , 0x18) // float32
+        SCHEMA_FIELD(::Vector                        , m_vToStrideStartPos                             , 0x1C) // Vector
+        SCHEMA_FIELD(CAnimCycle                      , m_stanceCycle                                   , 0x28) // CAnimCycle
+        SCHEMA_FIELD(CFootCycle                      , m_footLiftCycle                                 , 0x2C) // CFootCycle
+        SCHEMA_FIELD(CFootCycle                      , m_footOffCycle                                  , 0x30) // CFootCycle
+        SCHEMA_FIELD(CFootCycle                      , m_footStrikeCycle                               , 0x34) // CFootCycle
+        SCHEMA_FIELD(CFootCycle                      , m_footLandCycle                                 , 0x38) // CFootCycle
+    };
+
+    // CNmGraphNode::CDefinition
+    //   fields: 1
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmGraphNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nNodeIdx                                      , 0x8) // int16
+    };
+
+    // CRagdollUpdateNode
+    //   fields: 2
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CRagdollUpdateNode {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nWeightListIndex                              , 0x70) // int32
+        SCHEMA_FIELD(RagdollPoseControl              , m_poseControlMethod                             , 0x74) // RagdollPoseControl
+    };
+
+    // CAnimKeyData
+    //   fields: 6
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CAnimKeyData {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
+        SCHEMA_FIELD(CUtlVector<CAnimBone>           , m_boneArray                                     , 0x10) // CUtlVector<CAnimBone>
+        SCHEMA_FIELD(CUtlVector<CAnimUser>           , m_userArray                                     , 0x28) // CUtlVector<CAnimUser>
+        SCHEMA_FIELD(CUtlVector<CBufferString>       , m_morphArray                                    , 0x40) // CUtlVector<CBufferString>
+        SCHEMA_FIELD(std::int32_t                    , m_nChannelElements                              , 0x58) // int32
+        SCHEMA_FIELD(CUtlVector<CAnimDataChannelDesc>, m_dataChannelArray                              , 0x60) // CUtlVector<CAnimDataChannelDesc>
+    };
+
+    // CPulseCell_Value_RandomInt
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    //   @MPulseEditorHeaderIcon
+    class CPulseCell_Value_RandomInt {
+    public:
+    };
+
+    // CAnimSkeleton
+    //   fields: 8
+    //   size: 0xD0
+    //   @MGetKV3ClassDefaults
+    class CAnimSkeleton {
+    public:
+        SCHEMA_FIELD(CUtlVector<CTransform>          , m_localSpaceTransforms                          , 0x10) // CUtlVector<CTransform>
+        SCHEMA_FIELD(CUtlVector<CTransform>          , m_modelSpaceTransforms                          , 0x28) // CUtlVector<CTransform>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_boneNames                                     , 0x40) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CUtlVector<int32>>   , m_children                                      , 0x58) // CUtlVector<CUtlVector<int32>>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_parents                                       , 0x70) // CUtlVector<int32>
+        SCHEMA_FIELD(CUtlVector<CAnimFoot>           , m_feet                                          , 0x88) // CUtlVector<CAnimFoot>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_morphNames                                    , 0xA0) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_lodBoneCounts                                 , 0xB8) // CUtlVector<int32>
+    };
+
+    // CAnimParamHandle
+    //   fields: 2
+    //   size: 0x2
+    //   @MGetKV3ClassDefaults
+    class CAnimParamHandle {
+    public:
+        SCHEMA_FIELD(AnimParamType_t                 , m_type                                          , 0x0) // AnimParamType_t
+        SCHEMA_FIELD(std::uint8_t                    , m_index                                         , 0x1) // uint8
+    };
+
+    // CNmFollowBoneTask
+    //   fields: 0
+    //   size: 0x90
+    class CNmFollowBoneTask {
+    public:
+    };
+
+    // CNmFloatRemapNode::CDefinition
+    //   fields: 3
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CNmFloatRemapNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(CNmFloatRemapNode_RemapRange_t  , m_inputRange                                    , 0x14) // CNmFloatRemapNode::RemapRange_t
+        SCHEMA_FIELD(CNmFloatRemapNode_RemapRange_t  , m_outputRange                                   , 0x1C) // CNmFloatRemapNode::RemapRange_t
+    };
+
+    // ModelAnimGraph2Ref_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class ModelAnimGraph2Ref_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_sIdentifier                                   , 0x0) // CUtlString
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCNmGraphDefinition>, m_hGraph                                        , 0x8) // CStrongHandle<InfoForResourceTypeCNmGraphDefinition>
+    };
+
+    // ModelSkeletonData_t
+    //   fields: 7
+    //   size: 0xA8
+    //   @MGetKV3ClassDefaults
+    class ModelSkeletonData_t {
+    public:
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_boneName                                      , 0x0) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<int16>               , m_nParent                                       , 0x18) // CUtlVector<int16>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_boneSphere                                    , 0x30) // CUtlVector<float32>
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_nFlag                                         , 0x48) // CUtlVector<uint32>
+        SCHEMA_FIELD(CUtlVector<Vector>              , m_bonePosParent                                 , 0x60) // CUtlVector<Vector>
+        SCHEMA_FIELD(CUtlVector<QuaternionStorage>   , m_boneRotParent                                 , 0x78) // CUtlVector<QuaternionStorage>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_boneScaleParent                               , 0x90) // CUtlVector<float32>
+    };
+
+    // CWayPointHelperUpdateNode
+    //   fields: 5
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class CWayPointHelperUpdateNode {
+    public:
+        SCHEMA_FIELD(float                           , m_flStartCycle                                  , 0x74) // float32
+        SCHEMA_FIELD(float                           , m_flEndCycle                                    , 0x78) // float32
+        SCHEMA_FIELD(bool                            , m_bOnlyGoals                                    , 0x7C) // bool
+        SCHEMA_FIELD(bool                            , m_bPreventOvershoot                             , 0x7D) // bool
+        SCHEMA_FIELD(bool                            , m_bPreventUndershoot                            , 0x7E) // bool
+    };
+
+    // CNmPoseNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    class CNmPoseNode_CDefinition {
+    public:
+    };
+
+    // CAnimFrameBlockAnim
+    //   fields: 3
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CAnimFrameBlockAnim {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nStartFrame                                   , 0x0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nEndFrame                                     , 0x4) // int32
+        SCHEMA_FIELD(CUtlVector<int32>               , m_segmentIndexArray                             , 0x8) // CUtlVector<int32>
+    };
+
+    // CPulseCell_Inflow_BaseEntrypoint
+    //   fields: 2
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Inflow_BaseEntrypoint {
+    public:
+        SCHEMA_FIELD(::PulseRuntimeChunkIndex_t      , m_EntryChunk                                    , 0x48) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(::PulseRegisterMap_t            , m_RegisterMap                                   , 0x50) // PulseRegisterMap_t
+    };
+
+    // CNmFloatRemapNode::RemapRange_t
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CNmFloatRemapNode_RemapRange_t {
+    public:
+        SCHEMA_FIELD(float                           , m_flBegin                                       , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flEnd                                         , 0x4) // float32
+    };
+
+    // CParticleCollectionRendererFloatInput
+    //   fields: 0
+    //   size: 0x170
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyCustomEditor
+    class CParticleCollectionRendererFloatInput {
+    public:
+    };
+
+    // CAddUpdateNode
+    //   fields: 5
+    //   size: 0xA0
+    //   @MGetKV3ClassDefaults
+    class CAddUpdateNode {
+    public:
+        SCHEMA_FIELD(BinaryNodeChildOption           , m_footMotionTiming                              , 0x94) // BinaryNodeChildOption
+        SCHEMA_FIELD(bool                            , m_bApplyToFootMotion                            , 0x98) // bool
+        SCHEMA_FIELD(bool                            , m_bApplyChannelsSeparately                      , 0x99) // bool
+        SCHEMA_FIELD(bool                            , m_bUseModelSpace                                , 0x9A) // bool
+        SCHEMA_FIELD(bool                            , m_bApplyScale                                   , 0x9B) // bool
+    };
+
+    // CParticleCollectionFloatInput
+    //   fields: 0
+    //   size: 0x170
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyCustomEditor
+    class CParticleCollectionFloatInput {
+    public:
+    };
+
+    // CParticleProperty
+    //   fields: 0
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CParticleProperty {
+    public:
+    };
+
+    // CNmBoneMaskSelectorNode::CDefinition
+    //   fields: 6
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CNmBoneMaskSelectorNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,8>;
+        using _Type1 = CUtlLeanVectorFixedGrowable<CGlobalSymbol,7>;
+        SCHEMA_FIELD(std::int16_t                    , m_defaultMaskNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_parameterValueNodeIdx                         , 0x12) // int16
+        SCHEMA_FIELD(bool                            , m_bSwitchDynamically                            , 0x14) // bool
+        SCHEMA_FIELD(_Type0                          , m_maskNodeIndices                               , 0x18) // CUtlLeanVectorFixedGrowable<int16,8>
+        SCHEMA_FIELD(_Type1                          , m_parameterValues                               , 0x30) // CUtlLeanVectorFixedGrowable<CGlobalSymbol,7>
+        SCHEMA_FIELD(float                           , m_flBlendTimeSeconds                            , 0x70) // float32
+    };
+
+    // CFootAdjustmentUpdateNode
+    //   fields: 9
+    //   size: 0xB0
+    //   @MGetKV3ClassDefaults
+    class CFootAdjustmentUpdateNode {
+    public:
+        SCHEMA_FIELD(CUtlVector<HSequence>           , m_clips                                         , 0x78) // CUtlVector<HSequence>
+        SCHEMA_FIELD(CPoseHandle                     , m_hBasePoseCacheHandle                          , 0x90) // CPoseHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_facingTarget                                  , 0x94) // CAnimParamHandle
+        SCHEMA_FIELD(float                           , m_flTurnTimeMin                                 , 0x98) // float32
+        SCHEMA_FIELD(float                           , m_flTurnTimeMax                                 , 0x9C) // float32
+        SCHEMA_FIELD(float                           , m_flStepHeightMax                               , 0xA0) // float32
+        SCHEMA_FIELD(float                           , m_flStepHeightMaxAngle                          , 0xA4) // float32
+        SCHEMA_FIELD(bool                            , m_bResetChild                                   , 0xA8) // bool
+        SCHEMA_FIELD(bool                            , m_bAnimationDriven                              , 0xA9) // bool
+    };
+
+    // CConstraintSlave
+    //   fields: 5
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CConstraintSlave {
+    public:
+        SCHEMA_FIELD(::Quaternion                    , m_qBaseOrientation                              , 0x0) // Quaternion
+        SCHEMA_FIELD(::Vector                        , m_vBasePosition                                 , 0x10) // Vector
+        SCHEMA_FIELD(std::uint32_t                   , m_nBoneHash                                     , 0x1C) // uint32
+        SCHEMA_FIELD(float                           , m_flWeight                                      , 0x20) // float32
+        SCHEMA_FIELD(::CUtlString                    , m_sName                                         , 0x28) // CUtlString
+    };
+
+    // IKDemoCaptureSettings_t
+    //   fields: 5
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class IKDemoCaptureSettings_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_parentBoneName                                , 0x0) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(IKChannelMode                   , m_eMode                                         , 0x8) // IKChannelMode [MPropertyFriendlyName, MPropertyAutoRebuildOnChange]
+        SCHEMA_FIELD(::CUtlString                    , m_ikChainName                                   , 0x10) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertyAttrStateCallback]
+        SCHEMA_FIELD(::CUtlString                    , m_oneBoneStart                                  , 0x18) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertyAttrStateCallback]
+        SCHEMA_FIELD(::CUtlString                    , m_oneBoneEnd                                    , 0x20) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertyAttrStateCallback]
+    };
+
+    // CLODComponentUpdater
+    //   fields: 1
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class CLODComponentUpdater {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nServerLOD                                    , 0x30) // int32
+    };
+
+    // ScriptInfo_t
+    //   fields: 5
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class ScriptInfo_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_code                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(CUtlVector<CAnimParamHandle>    , m_paramsModified                                , 0x8) // CUtlVector<CAnimParamHandle>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_proxyReadParams                               , 0x20) // CUtlVector<int32>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_proxyWriteParams                              , 0x38) // CUtlVector<int32>
+        SCHEMA_FIELD(AnimScriptType                  , m_eScriptType                                   , 0x50) // AnimScriptType
+    };
+
+    // CSequenceTagSpans
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CSequenceTagSpans {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_sSequenceName                                 , 0x0) // CGlobalSymbol
+        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x8) // CUtlVector<TagSpan_t>
+    };
+
+    // JiggleBoneSettingsList_t
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class JiggleBoneSettingsList_t {
+    public:
+        SCHEMA_FIELD(CUtlVector<JiggleBoneSettings_t>, m_boneSettings                                  , 0x0) // CUtlVector<JiggleBoneSettings_t>
+    };
+
+    // CSequenceFinishedAnimTag
+    //   fields: 1
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CSequenceFinishedAnimTag {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_sequenceName                                  , 0x58) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // CStateNodeStateData
+    //   fields: 3
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CStateNodeStateData {
+    public:
+        SCHEMA_FIELD(CAnimUpdateNodeRef              , m_pChild                                        , 0x0) // CAnimUpdateNodeRef
+        // SKIPPED: m_bExclusiveRootMotion (bitfield type not supported)
+        // SKIPPED: m_bExclusiveRootMotionFirstFrame (bitfield type not supported)
+    };
+
+    // CModelConfigElement_RandomColor
+    //   fields: 1
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CModelConfigElement_RandomColor {
+    public:
+        SCHEMA_FIELD(CColorGradient                  , m_Gradient                                      , 0x48) // CColorGradient
+    };
+
+    // CNmTransitionEventConditionNode::CDefinition
+    //   fields: 4
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmTransitionEventConditionNode_CDefinition {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_requireRuleID                                 , 0x10) // CGlobalSymbol
+        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x18) // CNmBitFlags
+        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x1C) // int16
+        SCHEMA_FIELD(NmTransitionRuleCondition_t     , m_ruleCondition                                 , 0x1E) // NmTransitionRuleCondition_t
+    };
+
+    // CNmLegacyEvent
+    //   fields: 2
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CNmLegacyEvent {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_animEventClassName                            , 0x18) // CUtlString
+        SCHEMA_FIELD(KeyValues3                      , m_KV                                            , 0x20) // KeyValues3
+    };
+
+    // CPhysSurfacePropertiesVehicle
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CPhysSurfacePropertiesVehicle {
+    public:
+        SCHEMA_FIELD(float                           , m_wheelDrag                                     , 0x0) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_wheelFrictionScale                            , 0x4) // float32 [MKV3TransferName]
+    };
+
+    // CNmDurationScaleNode::CDefinition
+    //   fields: 0
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmDurationScaleNode_CDefinition {
+    public:
+    };
+
+    // CStanceOverrideUpdateNode
+    //   fields: 4
+    //   size: 0xA0
+    //   @MGetKV3ClassDefaults
+    class CStanceOverrideUpdateNode {
+    public:
+        SCHEMA_FIELD(CUtlVector<StanceInfo_t>        , m_footStanceInfo                                , 0x70) // CUtlVector<StanceInfo_t>
+        SCHEMA_FIELD(CAnimUpdateNodeRef              , m_pStanceSourceNode                             , 0x88) // CAnimUpdateNodeRef
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParameter                                    , 0x98) // CAnimParamHandle
+        SCHEMA_FIELD(StanceOverrideMode              , m_eMode                                         , 0x9C) // StanceOverrideMode
+    };
+
+    // LookAtOpFixedSettings_t
+    //   fields: 11
+    //   size: 0xD0
+    //   @MGetKV3ClassDefaults
+    class LookAtOpFixedSettings_t {
+    public:
+        SCHEMA_FIELD(CAnimAttachment                 , m_attachment                                    , 0x0) // CAnimAttachment
+        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0x80) // CAnimInputDamping
+        SCHEMA_FIELD(CUtlVector<LookAtBone_t>        , m_bones                                         , 0x98) // CUtlVector<LookAtBone_t>
+        SCHEMA_FIELD(float                           , m_flYawLimit                                    , 0xB0) // float32
+        SCHEMA_FIELD(float                           , m_flPitchLimit                                  , 0xB4) // float32
+        SCHEMA_FIELD(float                           , m_flHysteresisInnerAngle                        , 0xB8) // float32
+        SCHEMA_FIELD(float                           , m_flHysteresisOuterAngle                        , 0xBC) // float32
+        SCHEMA_FIELD(bool                            , m_bRotateYawForward                             , 0xC0) // bool
+        SCHEMA_FIELD(bool                            , m_bMaintainUpDirection                          , 0xC1) // bool
+        SCHEMA_FIELD(bool                            , m_bTargetIsPosition                             , 0xC2) // bool
+        SCHEMA_FIELD(bool                            , m_bUseHysteresis                                , 0xC3) // bool
+    };
+
+    // OutflowWithRequirements_t
+    //   fields: 4
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class OutflowWithRequirements_t {
+    public:
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_Connection                                    , 0x0) // CPulse_OutflowConnection
+        SCHEMA_FIELD(::PulseDocNodeID_t              , m_DestinationFlowNodeID                         , 0x48) // PulseDocNodeID_t
+        SCHEMA_FIELD(CUtlVector<PulseDocNodeID_t>    , m_RequirementNodeIDs                            , 0x50) // CUtlVector<PulseDocNodeID_t>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_nCursorStateBlockIndex                        , 0x68) // CUtlVector<int32>
+    };
+
+    // CAnimationLayer
+    //   fields: 11
+    //   size: 0x4C
+    //   @MGetKV3ClassDefaults
+    class CAnimationLayer {
+    public:
+        SCHEMA_FIELD(CAnimNetVar<int32>              , m_hSequence                                     , 0x0) // CAnimNetVar<int32>
+        SCHEMA_FIELD(float                           , m_flPrevCycle                                   , 0xC) // float32
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flCycle                                       , 0x10) // CAnimNetVar<float32>
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flWeight                                      , 0x1C) // CAnimNetVar<float32>
+        SCHEMA_FIELD(CAnimNetVar<int32>              , m_nOrder                                        , 0x28) // CAnimNetVar<int32>
+        SCHEMA_FIELD(bool                            , m_bLooping                                      , 0x34) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nFlags                                        , 0x38) // int32
+        SCHEMA_FIELD(bool                            , m_bSequenceFinished                             , 0x3C) // bool
+        SCHEMA_FIELD(float                           , m_flKillRate                                    , 0x40) // float32
+        SCHEMA_FIELD(float                           , m_flKillDelay                                   , 0x44) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x48) // int32
+    };
+
+    // CNmSampleTask
+    //   fields: 0
+    //   size: 0x80
+    class CNmSampleTask {
+    public:
+    };
+
+    // CDampedValueUpdateItem
+    //   fields: 3
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CDampedValueUpdateItem {
+    public:
+        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0x0) // CAnimInputDamping
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParamIn                                      , 0x20) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParamOut                                     , 0x22) // CAnimParamHandle
+    };
+
+    // HitReactFixedSettings_t
+    //   fields: 17
+    //   size: 0x44
+    //   @MGetKV3ClassDefaults
+    class HitReactFixedSettings_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nWeightListIndex                              , 0x0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nEffectedBoneCount                            , 0x4) // int32
+        SCHEMA_FIELD(float                           , m_flMaxImpactForce                              , 0x8) // float32
+        SCHEMA_FIELD(float                           , m_flMinImpactForce                              , 0xC) // float32
+        SCHEMA_FIELD(float                           , m_flWhipImpactScale                             , 0x10) // float32
+        SCHEMA_FIELD(float                           , m_flCounterRotationScale                        , 0x14) // float32
+        SCHEMA_FIELD(float                           , m_flDistanceFadeScale                           , 0x18) // float32
+        SCHEMA_FIELD(float                           , m_flPropagationScale                            , 0x1C) // float32
+        SCHEMA_FIELD(float                           , m_flWhipDelay                                   , 0x20) // float32
+        SCHEMA_FIELD(float                           , m_flSpringStrength                              , 0x24) // float32
+        SCHEMA_FIELD(float                           , m_flWhipSpringStrength                          , 0x28) // float32
+        SCHEMA_FIELD(float                           , m_flMaxAngleRadians                             , 0x2C) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nHipBoneIndex                                 , 0x30) // int32
+        SCHEMA_FIELD(float                           , m_flHipBoneTranslationScale                     , 0x34) // float32
+        SCHEMA_FIELD(float                           , m_flHipDipSpringStrength                        , 0x38) // float32
+        SCHEMA_FIELD(float                           , m_flHipDipImpactScale                           , 0x3C) // float32
+        SCHEMA_FIELD(float                           , m_flHipDipDelay                                 , 0x40) // float32
+    };
+
+    // CNmClipNode::CDefinition
+    //   fields: 8
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CNmClipNode_CDefinition {
+    public:
+        using _Type0 = CUtlVectorFixedGrowable<CGlobalSymbol,2>;
+        SCHEMA_FIELD(std::int16_t                    , m_nPlayInReverseValueNodeIdx                    , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nResetTimeValueNodeIdx                        , 0x12) // int16
+        SCHEMA_FIELD(bool                            , m_bSampleRootMotion                             , 0x14) // bool
+        SCHEMA_FIELD(bool                            , m_bAllowLooping                                 , 0x15) // bool
+        SCHEMA_FIELD(std::int16_t                    , m_nDataSlotIdx                                  , 0x16) // int16
+        SCHEMA_FIELD(_Type0                          , m_graphEvents                                   , 0x18) // CUtlVectorFixedGrowable<CGlobalSymbol,2>
+        SCHEMA_FIELD(float                           , m_flSpeedMultiplier                             , 0x40) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nStartSyncEventOffset                         , 0x44) // int32
+    };
+
+    // CSequenceUpdateNodeBase
+    //   fields: 2
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CSequenceUpdateNodeBase {
+    public:
+        SCHEMA_FIELD(float                           , m_playbackSpeed                                 , 0x6C) // float32
+        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x70) // bool
+    };
+
+    // CNmEntityAttributeIntEvent
+    //   fields: 1
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class CNmEntityAttributeIntEvent {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nIntValue                                     , 0x38) // int32
+    };
+
+    // FollowTargetOpFixedSettings_t
+    //   fields: 5
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class FollowTargetOpFixedSettings_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_boneIndex                                     , 0x0) // int32
+        SCHEMA_FIELD(bool                            , m_bBoneTarget                                   , 0x4) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_boneTargetIndex                               , 0x8) // int32
+        SCHEMA_FIELD(bool                            , m_bWorldCoodinateTarget                         , 0xC) // bool
+        SCHEMA_FIELD(bool                            , m_bMatchTargetOrientation                       , 0xD) // bool
+    };
+
+    // CNmFootIKNode::CDefinition
+    //   fields: 8
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class CNmFootIKNode_CDefinition {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_leftEffectorBoneID                            , 0x18) // CGlobalSymbol
+        SCHEMA_FIELD(CGlobalSymbol                   , m_rightEffectorBoneID                           , 0x20) // CGlobalSymbol
+        SCHEMA_FIELD(std::int16_t                    , m_nLeftTargetNodeIdx                            , 0x28) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nRightTargetNodeIdx                           , 0x2A) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nEnabledNodeIdx                               , 0x2C) // int16
+        SCHEMA_FIELD(float                           , m_flBlendTimeSeconds                            , 0x30) // float32
+        SCHEMA_FIELD(NmIKBlendMode_t                 , m_blendMode                                     , 0x34) // NmIKBlendMode_t
+        SCHEMA_FIELD(bool                            , m_bIsTargetInWorldSpace                         , 0x35) // bool
+    };
+
+    // CNmSyncEventIndexConditionNode::CDefinition
+    //   fields: 3
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmSyncEventIndexConditionNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(CNmSyncEventIndexConditionNode_TriggerMode_t, m_triggerMode                                   , 0x12) // CNmSyncEventIndexConditionNode::TriggerMode_t
+        SCHEMA_FIELD(std::int32_t                    , m_syncEventIdx                                  , 0x14) // int32
+    };
+
+    // CNmSyncTrack
+    //   fields: 2
+    //   size: 0xB0
+    //   @MGetKV3ClassDefaults
+    class CNmSyncTrack {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<CNmSyncTrack_Event_t,10>;
+        SCHEMA_FIELD(_Type0                          , m_syncEvents                                    , 0x0) // CUtlLeanVectorFixedGrowable<CNmSyncTrack::Event_t,10>
+        SCHEMA_FIELD(std::int32_t                    , m_nStartEventOffset                             , 0xA8) // int32
+    };
+
+    // SkeletonAnimCapture_t::Bone_t
+    //   fields: 3
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class SkeletonAnimCapture_t_Bone_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(CTransform                      , m_BindPose                                      , 0x10) // CTransform
+        SCHEMA_FIELD(std::int32_t                    , m_nParent                                       , 0x30) // int32
+    };
+
+    // CNetworkedCycle
+    //   fields: 5
+    //   size: 0x34
+    //   @MGetKV3ClassDefaults
+    class CNetworkedCycle {
+    public:
+        SCHEMA_FIELD(float                           , m_flCycleUnclamped                              , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flPrevCycleUnclamped                          , 0x4) // float32
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flCyclesPerSecond                             , 0x10) // CAnimNetVar<float32>
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flCycleZeroTime                               , 0x1C) // CAnimNetVar<float32>
+        SCHEMA_FIELD(CAnimNetVar<uint8>              , m_resetCount                                    , 0x28) // CAnimNetVar<uint8>
+    };
+
+    // DynamicMeshDeformParams_t
+    //   fields: 6
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class DynamicMeshDeformParams_t {
+    public:
+        SCHEMA_FIELD(float                           , m_flTensionCompressScale                        , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flTensionStretchScale                         , 0x4) // float32
+        SCHEMA_FIELD(bool                            , m_bRecomputeSmoothNormalsAfterAnimation         , 0x8) // bool
+        SCHEMA_FIELD(bool                            , m_bComputeDynamicMeshTensionAfterAnimation      , 0x9) // bool
+        SCHEMA_FIELD(bool                            , m_bSmoothNormalsAcrossUvSeams                   , 0xA) // bool
+        SCHEMA_FIELD(bool                            , m_bEnableEyeBulgeDeformation                    , 0xB) // bool
     };
 
     // PermModelData_t
@@ -3610,1684 +6557,6 @@ namespace animationsystem {
         SCHEMA_FIELD(CUtlVector<CStrongHandle<InfoForResourceTypeCNmSkeleton>>, m_vecNmSkeletonRefs                             , 0x2E0) // CUtlVector<CStrongHandle<InfoForResourceTypeCNmSkeleton>>
     };
 
-    // CAnimFrameSegment
-    //   fields: 4
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CAnimFrameSegment {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nUniqueFrameIndex                             , 0x0) // int32
-        SCHEMA_FIELD(std::uint32_t                   , m_nLocalElementMasks                            , 0x4) // uint32
-        SCHEMA_FIELD(std::int32_t                    , m_nLocalChannel                                 , 0x8) // int32
-        SCHEMA_FIELD(::CUtlBinaryBlock               , m_container                                     , 0x10) // CUtlBinaryBlock
-    };
-
-    // CNmModelSpaceBlendTask
-    //   fields: 0
-    //   size: 0x100
-    class CNmModelSpaceBlendTask {
-    public:
-    };
-
-    // CNmVectorValueNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    class CNmVectorValueNode_CDefinition {
-    public:
-    };
-
-    // CExpressionActionUpdater
-    //   fields: 3
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CExpressionActionUpdater {
-    public:
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParam                                        , 0x18) // CAnimParamHandle
-        SCHEMA_FIELD(AnimParamType_t                 , m_eParamType                                    , 0x1A) // AnimParamType_t
-        SCHEMA_FIELD(AnimScriptHandle                , m_hScript                                       , 0x1C) // AnimScriptHandle
-    };
-
-    // CNmTwoBoneIKTask
-    //   fields: 10
-    //   size: 0xF0
-    class CNmTwoBoneIKTask {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nEffectorBoneIdx                              , 0x70) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nEffectorTargetBoneIdx                        , 0x74) // int32
-        SCHEMA_FIELD(CTransform                      , m_targetTransform                               , 0x80) // CTransform
-        SCHEMA_FIELD(CNmTarget                       , m_effectorTarget                                , 0xA0) // CNmTarget
-        SCHEMA_FIELD(NmIKBlendMode_t                 , m_blendMode                                     , 0xD0) // NmIKBlendMode_t
-        SCHEMA_FIELD(float                           , m_flBlendWeight                                 , 0xD4) // float32
-        SCHEMA_FIELD(bool                            , m_bIsTargetInWorldSpace                         , 0xD8) // bool
-        SCHEMA_FIELD(bool                            , m_bIsRunningFromDeserializedData                , 0xD9) // bool
-        SCHEMA_FIELD(float                           , m_flChainRotationWeight                         , 0xDC) // float32
-        SCHEMA_FIELD(CGlobalSymbol                   , m_debugEffectorBoneID                           , 0xE0) // CGlobalSymbol
-    };
-
-    // CMorphData
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CMorphData {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(CUtlVector<CMorphRectData>      , m_morphRectDatas                                , 0x8) // CUtlVector<CMorphRectData>
-    };
-
-    // CNmRootMotionOverrideNode::CDefinition
-    //   fields: 8
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CNmRootMotionOverrideNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_desiredMovingVelocityNodeIdx                  , 0x18) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_desiredFacingDirectionNodeIdx                 , 0x1A) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_linearVelocityLimitNodeIdx                    , 0x1C) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_angularVelocityLimitNodeIdx                   , 0x1E) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_enabledNodeIdx                                , 0x20) // int16
-        SCHEMA_FIELD(float                           , m_maxLinearVelocity                             , 0x24) // float32
-        SCHEMA_FIELD(float                           , m_maxAngularVelocityRadians                     , 0x28) // float32
-        SCHEMA_FIELD(CNmBitFlags                     , m_overrideFlags                                 , 0x2C) // CNmBitFlags
-    };
-
-    // CDirectionalBlendInstanceData
-    //   fields: 7
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CDirectionalBlendInstanceData {
-    public:
-        SCHEMA_FIELD(float                           , m_dampedValue                                   , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x14) // float32
-        SCHEMA_FIELD(float                           , m_flPrevCycle                                   , 0x18) // float32
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flPlaybackRate                                , 0x1C) // CAnimNetVar<float32>
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flCycleZeroTime                               , 0x28) // CAnimNetVar<float32>
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_resetCycleValue                               , 0x34) // CAnimNetVar<float32>
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_resetCount                                    , 0x40) // CAnimNetVar<float32>
-    };
-
-    // CSetParameterActionUpdater
-    //   fields: 2
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CSetParameterActionUpdater {
-    public:
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParam                                        , 0x18) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimVariant                    , m_value                                         , 0x1A) // CAnimVariant
-    };
-
-    // CNmOverlayBlendTask
-    //   fields: 0
-    //   size: 0x100
-    class CNmOverlayBlendTask {
-    public:
-    };
-
-    // CCachedPose
-    //   fields: 4
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CCachedPose {
-    public:
-        SCHEMA_FIELD(CUtlVector<CTransform>          , m_transforms                                    , 0x8) // CUtlVector<CTransform>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_morphWeights                                  , 0x20) // CUtlVector<float32>
-        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x38) // HSequence
-        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x3C) // float32
-    };
-
-    // CHitBoxSetList
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CHitBoxSetList {
-    public:
-        SCHEMA_FIELD(CUtlVector<CHitBoxSet>          , m_HitBoxSets                                    , 0x0) // CUtlVector<CHitBoxSet>
-    };
-
-    // MotionBlendItem
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class MotionBlendItem {
-    public:
-        SCHEMA_FIELD(CSmartPtr<CMotionNode>          , m_pChild                                        , 0x0) // CSmartPtr<CMotionNode>
-        SCHEMA_FIELD(float                           , m_flKeyValue                                    , 0x8) // float32
-    };
-
-    // CNmParameterizedBlendNode::Parameterization_t
-    //   fields: 2
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CNmParameterizedBlendNode_Parameterization_t {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<CNmParameterizedBlendNode_BlendRange_t,5>;
-        SCHEMA_FIELD(_Type0                          , m_blendRanges                                   , 0x0) // CUtlLeanVectorFixedGrowable<CNmParameterizedBlendNode::BlendRange_t,5>
-        SCHEMA_FIELD(Range_t                         , m_parameterRange                                , 0x48) // Range_t
-    };
-
-    // CStateMachineInstanceData
-    //   fields: 4
-    //   size: 0x1C
-    //   @MGetKV3ClassDefaults
-    class CStateMachineInstanceData {
-    public:
-        SCHEMA_FIELD(float                           , m_flTimeInState                                 , 0x0) // float32
-        SCHEMA_FIELD(CAnimNetVar<int32>              , m_currentTransitionIndex                        , 0x4) // CAnimNetVar<int32>
-        SCHEMA_FIELD(std::int32_t                    , m_prevStateIndex                                , 0x10) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_scheduledTransitionIndex                      , 0x14) // int32
-    };
-
-    // CSequenceTagSpans
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CSequenceTagSpans {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_sSequenceName                                 , 0x0) // CGlobalSymbol
-        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x8) // CUtlVector<TagSpan_t>
-    };
-
-    // CNmVirtualParameterBoneMaskNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmVirtualParameterBoneMaskNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
-    };
-
-    // CStepsRemainingMetricEvaluator
-    //   fields: 2
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class CStepsRemainingMetricEvaluator {
-    public:
-        SCHEMA_FIELD(CUtlVector<int32>               , m_footIndices                                   , 0x50) // CUtlVector<int32>
-        SCHEMA_FIELD(float                           , m_flMinStepsRemaining                           , 0x68) // float32
-    };
-
-    // CNmReferencePoseTask
-    //   fields: 0
-    //   size: 0x70
-    class CNmReferencePoseTask {
-    public:
-    };
-
-    // CPlayerInputAnimMotorUpdater
-    //   fields: 6
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CPlayerInputAnimMotorUpdater {
-    public:
-        SCHEMA_FIELD(CUtlVector<float32>             , m_sampleTimes                                   , 0x20) // CUtlVector<float32>
-        SCHEMA_FIELD(float                           , m_flSpringConstant                              , 0x3C) // float32
-        SCHEMA_FIELD(float                           , m_flAnticipationDistance                        , 0x40) // float32
-        SCHEMA_FIELD(CAnimParamHandle                , m_hAnticipationPosParam                         , 0x44) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hAnticipationHeadingParam                     , 0x46) // CAnimParamHandle
-        SCHEMA_FIELD(bool                            , m_bUseAcceleration                              , 0x48) // bool
-    };
-
-    // CWayPointHelperUpdateNode
-    //   fields: 5
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CWayPointHelperUpdateNode {
-    public:
-        SCHEMA_FIELD(float                           , m_flStartCycle                                  , 0x74) // float32
-        SCHEMA_FIELD(float                           , m_flEndCycle                                    , 0x78) // float32
-        SCHEMA_FIELD(bool                            , m_bOnlyGoals                                    , 0x7C) // bool
-        SCHEMA_FIELD(bool                            , m_bPreventOvershoot                             , 0x7D) // bool
-        SCHEMA_FIELD(bool                            , m_bPreventUndershoot                            , 0x7E) // bool
-    };
-
-    // CNmFootstepEventPercentageThroughNode::CDefinition
-    //   fields: 3
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmFootstepEventPercentageThroughNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(NmFootPhaseCondition_t          , m_phaseCondition                                , 0x12) // NmFootPhaseCondition_t
-        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
-    };
-
-    // PulseRuntimeChunkIndex_t
-    //   fields: 1
-    //   size: 0x4
-    class PulseRuntimeChunkIndex_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
-    };
-
-    // CParticleVecInput
-    //   fields: 23
-    //   size: 0x6B8
-    //   @MGetKV3ClassDefaults
-    //   @MCustomFGDMetadata
-    class CParticleVecInput {
-    public:
-        SCHEMA_FIELD(ParticleVecType_t               , m_nType                                         , 0x10) // ParticleVecType_t
-        SCHEMA_FIELD(::Vector                        , m_vLiteralValue                                 , 0x14) // Vector
-        SCHEMA_FIELD(::Color                         , m_LiteralColor                                  , 0x20) // Color
-        SCHEMA_FIELD(CParticleNamedValueRef          , m_NamedValue                                    , 0x28) // CParticleNamedValueRef
-        SCHEMA_FIELD(bool                            , m_bFollowNamedValue                             , 0x68) // bool
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nVectorAttribute                              , 0x6C) // ParticleAttributeIndex_t
-        SCHEMA_FIELD(::Vector                        , m_vVectorAttributeScale                         , 0x70) // Vector
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x7C) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nDeltaControlPoint                            , 0x80) // int32
-        SCHEMA_FIELD(::Vector                        , m_vCPValueScale                                 , 0x84) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vCPRelativePosition                           , 0x90) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vCPRelativeDir                                , 0x9C) // Vector
-        SCHEMA_FIELD(CParticleFloatInput             , m_FloatComponentX                               , 0xA8) // CParticleFloatInput
-        SCHEMA_FIELD(CParticleFloatInput             , m_FloatComponentY                               , 0x218) // CParticleFloatInput
-        SCHEMA_FIELD(CParticleFloatInput             , m_FloatComponentZ                               , 0x388) // CParticleFloatInput
-        SCHEMA_FIELD(CParticleFloatInput             , m_FloatInterp                                   , 0x4F8) // CParticleFloatInput
-        SCHEMA_FIELD(float                           , m_flInterpInput0                                , 0x668) // float32
-        SCHEMA_FIELD(float                           , m_flInterpInput1                                , 0x66C) // float32
-        SCHEMA_FIELD(::Vector                        , m_vInterpOutput0                                , 0x670) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vInterpOutput1                                , 0x67C) // Vector
-        SCHEMA_FIELD(CColorGradient                  , m_Gradient                                      , 0x688) // CColorGradient
-        SCHEMA_FIELD(::Vector                        , m_vRandomMin                                    , 0x6A0) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vRandomMax                                    , 0x6AC) // Vector
-    };
-
-    // CRagdollUpdateNode
-    //   fields: 2
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CRagdollUpdateNode {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nWeightListIndex                              , 0x70) // int32
-        SCHEMA_FIELD(RagdollPoseControl              , m_poseControlMethod                             , 0x74) // RagdollPoseControl
-    };
-
-    // CCurrentVelocityMetricEvaluator
-    //   fields: 0
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CCurrentVelocityMetricEvaluator {
-    public:
-    };
-
-    // CNmTargetInfoNode::CDefinition
-    //   fields: 3
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmTargetInfoNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(CNmTargetInfoNode_Info_t        , m_infoType                                      , 0x14) // CNmTargetInfoNode::Info_t
-        SCHEMA_FIELD(bool                            , m_bIsWorldSpaceTarget                           , 0x18) // bool
-    };
-
-    // CStringAnimTag
-    //   fields: 0
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CStringAnimTag {
-    public:
-    };
-
-    // CTransitionUpdateData
-    //   fields: 4
-    //   size: 0x3
-    //   @MGetKV3ClassDefaults
-    class CTransitionUpdateData {
-    public:
-        SCHEMA_FIELD(std::uint8_t                    , m_srcStateIndex                                 , 0x0) // uint8
-        SCHEMA_FIELD(std::uint8_t                    , m_destStateIndex                                , 0x1) // uint8
-        // SKIPPED: m_nHandshakeMaskToDisableFirst (bitfield type not supported)
-        // SKIPPED: m_bDisabled (bitfield type not supported)
-    };
-
-    // CNmNotNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmNotNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-    };
-
-    // CPhysSurfaceProperties
-    //   fields: 9
-    //   size: 0xC8
-    //   @MGetKV3ClassDefaults
-    class CPhysSurfaceProperties {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(std::uint32_t                   , m_nameHash                                      , 0x8) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_baseNameHash                                  , 0xC) // uint32
-        SCHEMA_FIELD(bool                            , m_bHidden                                       , 0x18) // bool [MKV3TransferName]
-        SCHEMA_FIELD(::CUtlString                    , m_description                                   , 0x20) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(CPhysSurfacePropertiesPhysics   , m_physics                                       , 0x28) // CPhysSurfacePropertiesPhysics [MKV3TransferName]
-        SCHEMA_FIELD(CPhysSurfacePropertiesVehicle   , m_vehicleParams                                 , 0x40) // CPhysSurfacePropertiesVehicle [MKV3TransferName]
-        SCHEMA_FIELD(CPhysSurfacePropertiesSoundNames, m_audioSounds                                   , 0x48) // CPhysSurfacePropertiesSoundNames [MKV3TransferName]
-        SCHEMA_FIELD(CPhysSurfacePropertiesAudio     , m_audioParams                                   , 0xA8) // CPhysSurfacePropertiesAudio [MKV3TransferName]
-    };
-
-    // CMotionMatchingUpdateNode
-    //   fields: 23
-    //   size: 0x148
-    //   @MGetKV3ClassDefaults
-    class CMotionMatchingUpdateNode {
-    public:
-        SCHEMA_FIELD(CMotionDataSet                  , m_dataSet                                       , 0x58) // CMotionDataSet
-        SCHEMA_FIELD(CUtlVector<CSmartPtr<CMotionMetricEvaluator>>, m_metrics                                       , 0x78) // CUtlVector<CSmartPtr<CMotionMetricEvaluator>>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_weights                                       , 0x90) // CUtlVector<float32>
-        SCHEMA_FIELD(bool                            , m_bSearchEveryTick                              , 0xE0) // bool
-        SCHEMA_FIELD(float                           , m_flSearchInterval                              , 0xE4) // float32
-        SCHEMA_FIELD(bool                            , m_bSearchWhenClipEnds                           , 0xE8) // bool
-        SCHEMA_FIELD(bool                            , m_bSearchWhenGoalChanges                        , 0xE9) // bool
-        SCHEMA_FIELD(CBlendCurve                     , m_blendCurve                                    , 0xEC) // CBlendCurve
-        SCHEMA_FIELD(float                           , m_flSampleRate                                  , 0xF4) // float32
-        SCHEMA_FIELD(float                           , m_flBlendTime                                   , 0xF8) // float32
-        SCHEMA_FIELD(bool                            , m_bLockClipWhenWaning                           , 0xFC) // bool
-        SCHEMA_FIELD(float                           , m_flSelectionThreshold                          , 0x100) // float32
-        SCHEMA_FIELD(float                           , m_flReselectionTimeWindow                       , 0x104) // float32
-        SCHEMA_FIELD(bool                            , m_bEnableRotationCorrection                     , 0x108) // bool
-        SCHEMA_FIELD(bool                            , m_bGoalAssist                                   , 0x109) // bool
-        SCHEMA_FIELD(float                           , m_flGoalAssistDistance                          , 0x10C) // float32
-        SCHEMA_FIELD(float                           , m_flGoalAssistTolerance                         , 0x110) // float32
-        SCHEMA_FIELD(CAnimInputDamping               , m_distanceScale_Damping                         , 0x118) // CAnimInputDamping
-        SCHEMA_FIELD(float                           , m_flDistanceScale_OuterRadius                   , 0x130) // float32
-        SCHEMA_FIELD(float                           , m_flDistanceScale_InnerRadius                   , 0x134) // float32
-        SCHEMA_FIELD(float                           , m_flDistanceScale_MaxScale                      , 0x138) // float32
-        SCHEMA_FIELD(float                           , m_flDistanceScale_MinScale                      , 0x13C) // float32
-        SCHEMA_FIELD(bool                            , m_bEnableDistanceScaling                        , 0x140) // bool
-    };
-
-    // CParticleCollectionFloatInput
-    //   fields: 0
-    //   size: 0x170
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyCustomEditor
-    class CParticleCollectionFloatInput {
-    public:
-    };
-
-    // CAnimDesc
-    //   fields: 15
-    //   size: 0x1D0
-    //   @MGetKV3ClassDefaults
-    class CAnimDesc {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
-        SCHEMA_FIELD(CAnimDesc_Flag                  , m_flags                                         , 0x10) // CAnimDesc_Flag
-        SCHEMA_FIELD(float                           , fps                                             , 0x18) // float32
-        SCHEMA_FIELD(CAnimEncodedFrames              , m_Data                                          , 0x20) // CAnimEncodedFrames [MKV3TransferName]
-        SCHEMA_FIELD(CUtlVector<CAnimMovement>       , m_movementArray                                 , 0xF8) // CUtlVector<CAnimMovement>
-        SCHEMA_FIELD(CTransform                      , m_xInitialOffset                                , 0x110) // CTransform
-        SCHEMA_FIELD(CUtlVector<CAnimEventDefinition>, m_eventArray                                    , 0x130) // CUtlVector<CAnimEventDefinition>
-        SCHEMA_FIELD(CUtlVector<CAnimActivity>       , m_activityArray                                 , 0x148) // CUtlVector<CAnimActivity>
-        SCHEMA_FIELD(CUtlVector<CAnimLocalHierarchy> , m_hierarchyArray                                , 0x160) // CUtlVector<CAnimLocalHierarchy>
-        SCHEMA_FIELD(float                           , framestalltime                                  , 0x178) // float32
-        SCHEMA_FIELD(::Vector                        , m_vecRootMin                                    , 0x17C) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vecRootMax                                    , 0x188) // Vector
-        SCHEMA_FIELD(CUtlVector<Vector>              , m_vecBoneWorldMin                               , 0x198) // CUtlVector<Vector>
-        SCHEMA_FIELD(CUtlVector<Vector>              , m_vecBoneWorldMax                               , 0x1B0) // CUtlVector<Vector>
-        SCHEMA_FIELD(CAnimSequenceParams             , m_sequenceParams                                , 0x1C8) // CAnimSequenceParams
-    };
-
-    // CSeqCmdSeqDesc
-    //   fields: 12
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CSeqCmdSeqDesc {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x0) // CBufferString
-        SCHEMA_FIELD(CSeqSeqDescFlag                 , m_flags                                         , 0x10) // CSeqSeqDescFlag
-        SCHEMA_FIELD(CSeqTransition                  , m_transition                                    , 0x1C) // CSeqTransition
-        SCHEMA_FIELD(std::int16_t                    , m_nFrameRangeSequence                           , 0x24) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nFrameCount                                   , 0x26) // int16
-        SCHEMA_FIELD(float                           , m_flFPS                                         , 0x28) // float32
-        SCHEMA_FIELD(std::int16_t                    , m_nSubCycles                                    , 0x2C) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_numLocalResults                               , 0x2E) // int16
-        SCHEMA_FIELD(CUtlVector<CSeqCmdLayer>        , m_cmdLayerArray                                 , 0x30) // CUtlVector<CSeqCmdLayer>
-        SCHEMA_FIELD(CUtlVector<CAnimEventDefinition>, m_eventArray                                    , 0x48) // CUtlVector<CAnimEventDefinition>
-        SCHEMA_FIELD(CUtlVector<CAnimActivity>       , m_activityArray                                 , 0x60) // CUtlVector<CAnimActivity>
-        SCHEMA_FIELD(CUtlVector<CSeqPoseSetting>     , m_poseSettingArray                              , 0x78) // CUtlVector<CSeqPoseSetting>
-    };
-
-    // CNmBoneMaskNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmBoneMaskNode_CDefinition {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_boneMaskID                                    , 0x10) // CGlobalSymbol
-    };
-
-    // CPulseCell_Value_Curve
-    //   fields: 1
-    //   size: 0x88
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CPulseCell_Value_Curve {
-    public:
-        SCHEMA_FIELD(CPiecewiseCurve                 , m_Curve                                         , 0x48) // CPiecewiseCurve
-    };
-
-    // CBonePositionMetricEvaluator
-    //   fields: 1
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CBonePositionMetricEvaluator {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nBoneIndex                                    , 0x50) // int32
-    };
-
-    // CBoneVelocityMetricEvaluator
-    //   fields: 1
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CBoneVelocityMetricEvaluator {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nBoneIndex                                    , 0x50) // int32
-    };
-
-    // CCurrentRotationVelocityMetricEvaluator
-    //   fields: 0
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CCurrentRotationVelocityMetricEvaluator {
-    public:
-    };
-
-    // CNmParameterizedBlendNode::BlendRange_t
-    //   fields: 3
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class CNmParameterizedBlendNode_BlendRange_t {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputIdx0                                    , 0x0) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nInputIdx1                                    , 0x2) // int16
-        SCHEMA_FIELD(Range_t                         , m_parameterValueRange                           , 0x4) // Range_t
-    };
-
-    // ParticleNamedValueConfiguration_t
-    //   fields: 6
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class ParticleNamedValueConfiguration_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_ConfigName                                    , 0x0) // CUtlString
-        SCHEMA_FIELD(KeyValues3                      , m_ConfigValue                                   , 0x8) // KeyValues3
-        SCHEMA_FIELD(::CUtlString                    , m_BoundValuePath                                , 0x18) // CUtlString
-        SCHEMA_FIELD(ParticleAttachment_t            , m_iAttachType                                   , 0x20) // ParticleAttachment_t
-        SCHEMA_FIELD(::CUtlString                    , m_strEntityScope                                , 0x28) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_strAttachmentName                             , 0x30) // CUtlString
-    };
-
-    // CModelConfigElement_AttachedModel
-    //   fields: 13
-    //   size: 0xE8
-    //   @MGetKV3ClassDefaults
-    class CModelConfigElement_AttachedModel {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_InstanceName                                  , 0x48) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_EntityClass                                   , 0x50) // CUtlString
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x58) // CStrongHandle<InfoForResourceTypeCModel>
-        SCHEMA_FIELD(::Vector                        , m_vOffset                                       , 0x60) // Vector
-        SCHEMA_FIELD(::QAngle                        , m_aAngOffset                                    , 0x6C) // QAngle
-        SCHEMA_FIELD(::CUtlString                    , m_AttachmentName                                , 0x78) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_LocalAttachmentOffsetName                     , 0x80) // CUtlString
-        SCHEMA_FIELD(ModelConfigAttachmentType_t     , m_AttachmentType                                , 0x88) // ModelConfigAttachmentType_t
-        SCHEMA_FIELD(bool                            , m_bBoneMergeFlex                                , 0x8C) // bool
-        SCHEMA_FIELD(bool                            , m_bUserSpecifiedColor                           , 0x8D) // bool
-        SCHEMA_FIELD(bool                            , m_bUserSpecifiedMaterialGroup                   , 0x8E) // bool
-        SCHEMA_FIELD(::CUtlString                    , m_BodygroupOnOtherModels                        , 0x90) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_MaterialGroupOnOtherModels                    , 0x98) // CUtlString
-    };
-
-    // CNmClipSelectorNode::CDefinition
-    //   fields: 2
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CNmClipSelectorNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,8>;
-        using _Type1 = CUtlLeanVectorFixedGrowable<int16,8>;
-        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,8>
-        SCHEMA_FIELD(_Type1                          , m_conditionNodeIndices                          , 0x28) // CUtlLeanVectorFixedGrowable<int16,8>
-    };
-
-    // CSubtractUpdateNode
-    //   fields: 4
-    //   size: 0xA0
-    //   @MGetKV3ClassDefaults
-    class CSubtractUpdateNode {
-    public:
-        SCHEMA_FIELD(BinaryNodeChildOption           , m_footMotionTiming                              , 0x94) // BinaryNodeChildOption
-        SCHEMA_FIELD(bool                            , m_bApplyToFootMotion                            , 0x98) // bool
-        SCHEMA_FIELD(bool                            , m_bApplyChannelsSeparately                      , 0x99) // bool
-        SCHEMA_FIELD(bool                            , m_bUseModelSpace                                , 0x9A) // bool
-    };
-
-    // CParticleRemapFloatInput
-    //   fields: 0
-    //   size: 0x170
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyCustomEditor
-    class CParticleRemapFloatInput {
-    public:
-    };
-
-    // CNmFloatChannelData::ChannelSettings_t
-    //   fields: 2
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class CNmFloatChannelData_ChannelSettings_t {
-    public:
-        SCHEMA_FIELD(NmCompressionSettings_t_QuantizationRange_t, m_range                                         , 0x0) // NmCompressionSettings_t::QuantizationRange_t
-        SCHEMA_FIELD(bool                            , m_bIsStatic                                     , 0x8) // bool
-    };
-
-    // CNmIDSelectorNode::CDefinition
-    //   fields: 3
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CNmIDSelectorNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,5>;
-        using _Type1 = CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>;
-        SCHEMA_FIELD(_Type0                          , m_conditionNodeIndices                          , 0x10) // CUtlLeanVectorFixedGrowable<int16,5>
-        SCHEMA_FIELD(_Type1                          , m_values                                        , 0x28) // CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>
-        SCHEMA_FIELD(CGlobalSymbol                   , m_defaultValue                                  , 0x58) // CGlobalSymbol
-    };
-
-    // PulseRuntimeOutputIndex_t
-    //   fields: 1
-    //   size: 0x4
-    class PulseRuntimeOutputIndex_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
-    };
-
-    // CNmAnimationPoseNode::CDefinition
-    //   fields: 5
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CNmAnimationPoseNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nPoseTimeValueNodeIdx                         , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nDataSlotIdx                                  , 0x12) // int16
-        SCHEMA_FIELD(Range_t                         , m_inputTimeRemapRange                           , 0x14) // Range_t
-        SCHEMA_FIELD(float                           , m_flUserSpecifiedTime                           , 0x1C) // float32
-        SCHEMA_FIELD(bool                            , m_bUseFramesAsInput                             , 0x20) // bool
-    };
-
-    // CVectorAnimParameter
-    //   fields: 3
-    //   size: 0x98
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CVectorAnimParameter {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_defaultValue                                  , 0x80) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bInterpolate                                  , 0x8C) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(AnimParamVectorType_t           , m_vectorType                                    , 0x90) // AnimParamVectorType_t [MPropertyFriendlyName]
-    };
-
-    // CPulseCell_BaseYieldingInflow
-    //   fields: 2
-    //   size: 0xD8
-    //   @MGetKV3ClassDefaults
-    //   @MCustomFGDMetadata
-    class CPulseCell_BaseYieldingInflow {
-    public:
-        SCHEMA_FIELD(CPulse_ResumePoint              , m_BaseFlow_OnAfterCancel                        , 0x48) // CPulse_ResumePoint [MPulseFGDSkipField]
-        SCHEMA_FIELD(CPulse_ResumePoint              , m_BaseFlow_WhileActive                          , 0x90) // CPulse_ResumePoint [MPulseFGDSkipField]
-    };
-
-    // CAnimationGraphVisualizerText
-    //   fields: 3
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CAnimationGraphVisualizerText {
-    public:
-        SCHEMA_FIELD(VectorAligned                   , m_vWsPosition                                   , 0x40) // VectorAligned
-        SCHEMA_FIELD(::Color                         , m_Color                                         , 0x50) // Color
-        SCHEMA_FIELD(::CUtlString                    , m_Text                                          , 0x58) // CUtlString
-    };
-
-    // CAnimSequenceParams
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CAnimSequenceParams {
-    public:
-        SCHEMA_FIELD(float                           , m_flFadeInTime                                  , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flFadeOutTime                                 , 0x4) // float32
-    };
-
-    // CMeshletDescriptor
-    //   fields: 6
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CMeshletDescriptor {
-    public:
-        SCHEMA_FIELD(PackedAABB_t                    , m_PackedAABB                                    , 0x0) // PackedAABB_t
-        SCHEMA_FIELD(CDrawCullingData                , m_CullingData                                   , 0x8) // CDrawCullingData
-        SCHEMA_FIELD(std::uint32_t                   , m_nVertexOffset                                 , 0xC) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nTriangleOffset                               , 0x10) // uint32
-        SCHEMA_FIELD(std::uint8_t                    , m_nVertexCount                                  , 0x14) // uint8
-        SCHEMA_FIELD(std::uint8_t                    , m_nTriangleCount                                , 0x15) // uint8
-    };
-
-    // CAnimScriptComponentUpdater
-    //   fields: 1
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class CAnimScriptComponentUpdater {
-    public:
-        SCHEMA_FIELD(AnimScriptHandle                , m_hScript                                       , 0x30) // AnimScriptHandle
-    };
-
-    // DampedPathMotorInstanceData_t
-    //   fields: 3
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class DampedPathMotorInstanceData_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vVelocity                                     , 0x0) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vAcceleration                                 , 0xC) // Vector
-        SCHEMA_FIELD(bool                            , m_bStopping                                     , 0x24) // bool
-    };
-
-    // CSequenceUpdateNodeBase
-    //   fields: 2
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CSequenceUpdateNodeBase {
-    public:
-        SCHEMA_FIELD(float                           , m_playbackSpeed                                 , 0x6C) // float32
-        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x70) // bool
-    };
-
-    // CRenderBufferBinding
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CRenderBufferBinding {
-    public:
-        SCHEMA_FIELD(std::uint64_t                   , m_hBuffer                                       , 0x0) // uint64
-        SCHEMA_FIELD(std::uint32_t                   , m_nBindOffsetBytes                              , 0x10) // uint32
-    };
-
-    // CFootLockUpdateNode
-    //   fields: 20
-    //   size: 0x158
-    //   @MGetKV3ClassDefaults
-    class CFootLockUpdateNode {
-    public:
-        SCHEMA_FIELD(FootLockPoseOpFixedSettings     , m_opFixedSettings                               , 0x70) // FootLockPoseOpFixedSettings
-        SCHEMA_FIELD(CUtlVector<FootFixedSettings>   , m_footSettings                                  , 0xE0) // CUtlVector<FootFixedSettings>
-        SCHEMA_FIELD(CAnimInputDamping               , m_hipShiftDamping                               , 0xF8) // CAnimInputDamping
-        SCHEMA_FIELD(CAnimInputDamping               , m_rootHeightDamping                             , 0x110) // CAnimInputDamping
-        SCHEMA_FIELD(float                           , m_flStrideCurveScale                            , 0x128) // float32
-        SCHEMA_FIELD(float                           , m_flStrideCurveLimitScale                       , 0x12C) // float32
-        SCHEMA_FIELD(float                           , m_flStepHeightIncreaseScale                     , 0x130) // float32
-        SCHEMA_FIELD(float                           , m_flStepHeightDecreaseScale                     , 0x134) // float32
-        SCHEMA_FIELD(float                           , m_flHipShiftScale                               , 0x138) // float32
-        SCHEMA_FIELD(float                           , m_flBlendTime                                   , 0x13C) // float32
-        SCHEMA_FIELD(float                           , m_flMaxRootHeightOffset                         , 0x140) // float32
-        SCHEMA_FIELD(float                           , m_flMinRootHeightOffset                         , 0x144) // float32
-        SCHEMA_FIELD(float                           , m_flTiltPlanePitchSpringStrength                , 0x148) // float32
-        SCHEMA_FIELD(float                           , m_flTiltPlaneRollSpringStrength                 , 0x14C) // float32
-        SCHEMA_FIELD(bool                            , m_bApplyFootRotationLimits                      , 0x150) // bool
-        SCHEMA_FIELD(bool                            , m_bApplyHipShift                                , 0x151) // bool
-        SCHEMA_FIELD(bool                            , m_bModulateStepHeight                           , 0x152) // bool
-        SCHEMA_FIELD(bool                            , m_bResetChild                                   , 0x153) // bool
-        SCHEMA_FIELD(bool                            , m_bEnableVerticalCurvedPaths                    , 0x154) // bool
-        SCHEMA_FIELD(bool                            , m_bEnableRootHeightDamping                      , 0x155) // bool
-    };
-
-    // CPulseRuntimeMethodArg
-    //   fields: 3
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CPulseRuntimeMethodArg {
-    public:
-        SCHEMA_FIELD(CKV3MemberNameWithStorage       , m_Name                                          , 0x0) // CKV3MemberNameWithStorage
-        SCHEMA_FIELD(::CUtlString                    , m_Description                                   , 0x38) // CUtlString
-        SCHEMA_FIELD(CPulseValueFullType             , m_Type                                          , 0x40) // CPulseValueFullType
-    };
-
-    // CSeqSynthAnimDesc
-    //   fields: 6
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CSeqSynthAnimDesc {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x0) // CBufferString
-        SCHEMA_FIELD(CSeqSeqDescFlag                 , m_flags                                         , 0x10) // CSeqSeqDescFlag
-        SCHEMA_FIELD(CSeqTransition                  , m_transition                                    , 0x1C) // CSeqTransition
-        SCHEMA_FIELD(std::int16_t                    , m_nLocalBaseReference                           , 0x24) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nLocalBoneMask                                , 0x26) // int16
-        SCHEMA_FIELD(CUtlVector<CAnimActivity>       , m_activityArray                                 , 0x28) // CUtlVector<CAnimActivity>
-    };
-
-    // SampleCode
-    //   fields: 1
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class SampleCode {
-    public:
-        SCHEMA_FIELD(std::uint8_t                    , m_subCode                                       , 0x0) // uint8[8]
-    };
-
-    // CNmIDEvent
-    //   fields: 2
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CNmIDEvent {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x18) // CGlobalSymbol
-        SCHEMA_FIELD(CGlobalSymbol                   , m_secondaryID                                   , 0x20) // CGlobalSymbol
-    };
-
-    // CParamSpanUpdater
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CParamSpanUpdater {
-    public:
-        SCHEMA_FIELD(CUtlVector<ParamSpan_t>         , m_spans                                         , 0x0) // CUtlVector<ParamSpan_t>
-    };
-
-    // CBoneConstraintPoseSpaceBone::Input_t
-    //   fields: 2
-    //   size: 0x28
-    class CBoneConstraintPoseSpaceBone_Input_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_inputValue                                    , 0x0) // Vector
-        SCHEMA_FIELD(CUtlVector<CTransform>          , m_outputTransformList                           , 0x10) // CUtlVector<CTransform>
-    };
-
-    // PulseRuntimeVarIndex_t
-    //   fields: 1
-    //   size: 0x4
-    class PulseRuntimeVarIndex_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
-    };
-
-    // CPulseCell_IntervalTimer::CursorState_t
-    //   fields: 5
-    //   size: 0x14
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_IntervalTimer_CursorState_t {
-    public:
-        SCHEMA_FIELD(::GameTime_t                    , m_StartTime                                     , 0x0) // GameTime_t
-        SCHEMA_FIELD(::GameTime_t                    , m_EndTime                                       , 0x4) // GameTime_t
-        SCHEMA_FIELD(float                           , m_flWaitInterval                                , 0x8) // float32
-        SCHEMA_FIELD(float                           , m_flWaitIntervalHigh                            , 0xC) // float32
-        SCHEMA_FIELD(bool                            , m_bCompleteOnNextWake                           , 0x10) // bool
-    };
-
-    // PulseRegisterMap_t
-    //   fields: 3
-    //   size: 0x30
-    class PulseRegisterMap_t {
-    public:
-        SCHEMA_FIELD(KeyValues3                      , m_Inparams                                      , 0x0) // KeyValues3
-        SCHEMA_FIELD(CKV3MemberNameSet               , m_InparamsWhichCanBeMoved                       , 0x10) // CKV3MemberNameSet
-        SCHEMA_FIELD(KeyValues3                      , m_Outparams                                     , 0x20) // KeyValues3
-    };
-
-    // CNmGraphNode::CDefinition
-    //   fields: 1
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmGraphNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nNodeIdx                                      , 0x8) // int16
-    };
-
-    // CNmIsInactiveBranchConditionNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmIsInactiveBranchConditionNode_CDefinition {
-    public:
-    };
-
-    // ChainToSolveData_t
-    //   fields: 6
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class ChainToSolveData_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nChainIndex                                   , 0x0) // int32
-        SCHEMA_FIELD(IKSolverSettings_t              , m_SolverSettings                                , 0x4) // IKSolverSettings_t
-        SCHEMA_FIELD(IKTargetSettings_t              , m_TargetSettings                                , 0x10) // IKTargetSettings_t
-        SCHEMA_FIELD(SolveIKChainAnimNodeDebugSetting, m_DebugSetting                                  , 0x38) // SolveIKChainAnimNodeDebugSetting
-        SCHEMA_FIELD(float                           , m_flDebugNormalizedValue                        , 0x3C) // float32
-        SCHEMA_FIELD(VectorAligned                   , m_vDebugOffset                                  , 0x40) // VectorAligned
-    };
-
-    // CSolveIKChainUpdateNode
-    //   fields: 2
-    //   size: 0xA8
-    //   @MGetKV3ClassDefaults
-    class CSolveIKChainUpdateNode {
-    public:
-        SCHEMA_FIELD(CUtlVector<CSolveIKTargetHandle_t>, m_targetHandles                                 , 0x70) // CUtlVector<CSolveIKTargetHandle_t>
-        SCHEMA_FIELD(SolveIKChainPoseOpFixedSettings_t, m_opFixedData                                   , 0x88) // SolveIKChainPoseOpFixedSettings_t
-    };
-
-    // CNmTarget
-    //   fields: 6
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CNmTarget {
-    public:
-        SCHEMA_FIELD(CTransform                      , m_transform                                     , 0x0) // CTransform
-        SCHEMA_FIELD(CGlobalSymbol                   , m_boneID                                        , 0x20) // CGlobalSymbol
-        SCHEMA_FIELD(bool                            , m_bIsBoneTarget                                 , 0x28) // bool
-        SCHEMA_FIELD(bool                            , m_bIsUsingBoneSpaceOffsets                      , 0x29) // bool
-        SCHEMA_FIELD(bool                            , m_bHasOffsets                                   , 0x2A) // bool
-        SCHEMA_FIELD(bool                            , m_bIsSet                                        , 0x2B) // bool
-    };
-
-    // CPulseCell_Outflow_CycleShuffled::InstanceState_t
-    //   fields: 2
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Outflow_CycleShuffled_InstanceState_t {
-    public:
-        using _Type0 = CUtlVectorFixedGrowable<uint8,8>;
-        SCHEMA_FIELD(_Type0                          , m_Shuffle                                       , 0x0) // CUtlVectorFixedGrowable<uint8,8>
-        SCHEMA_FIELD(std::int32_t                    , m_nNextShuffle                                  , 0x20) // int32
-    };
-
-    // CNmParticleEvent
-    //   fields: 14
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class CNmParticleEvent {
-    public:
-        SCHEMA_FIELD(CNmEventRelevance_t             , m_relevance                                     , 0x18) // CNmEventRelevance_t
-        SCHEMA_FIELD(CNmParticleEvent_Type_t         , m_type                                          , 0x1C) // CNmParticleEvent::Type_t
-        SCHEMA_FIELD(CNmEventTargetEntity_t          , m_target                                        , 0x20) // CNmEventTargetEntity_t
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_hParticleSystem                               , 0x28) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>
-        SCHEMA_FIELD(::CUtlString                    , m_tags                                          , 0x30) // CUtlString
-        SCHEMA_FIELD(bool                            , m_bStopImmediately                              , 0x38) // bool
-        SCHEMA_FIELD(bool                            , m_bDetachFromOwner                              , 0x39) // bool
-        SCHEMA_FIELD(bool                            , m_bPlayEndCap                                   , 0x3A) // bool
-        SCHEMA_FIELD(::CUtlString                    , m_attachmentPoint0                              , 0x40) // CUtlString
-        SCHEMA_FIELD(ParticleAttachment_t            , m_attachmentType0                               , 0x48) // ParticleAttachment_t
-        SCHEMA_FIELD(::CUtlString                    , m_attachmentPoint1                              , 0x50) // CUtlString
-        SCHEMA_FIELD(ParticleAttachment_t            , m_attachmentType1                               , 0x58) // ParticleAttachment_t
-        SCHEMA_FIELD(::CUtlString                    , m_config                                        , 0x60) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_effectForConfig                               , 0x68) // CUtlString
-    };
-
-    // CPulseCell_Outflow_CycleRandom
-    //   fields: 1
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Outflow_CycleRandom {
-    public:
-        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outputs                                       , 0x48) // CUtlVector<CPulse_OutflowConnection>
-    };
-
-    // CWayPointHelperInstanceData
-    //   fields: 4
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CWayPointHelperInstanceData {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vMovement                                     , 0x0) // Vector
-        SCHEMA_FIELD(::QAngle                        , m_vRotation                                     , 0xC) // QAngle
-        SCHEMA_FIELD(::Vector                        , m_vWaypointPosWS                                , 0x18) // Vector
-        SCHEMA_FIELD(bool                            , m_bStopUpdatingWaypointPos                      , 0x24) // bool
-    };
-
-    // CAnimGraphModelBinding
-    //   fields: 2
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CAnimGraphModelBinding {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_modelName                                     , 0x8) // CUtlString
-        SCHEMA_FIELD(CSmartPtr<CAnimUpdateSharedData>, m_pSharedData                                   , 0x10) // CSmartPtr<CAnimUpdateSharedData>
-    };
-
-    // AnimationDecodeDebugDump_t
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class AnimationDecodeDebugDump_t {
-    public:
-        SCHEMA_FIELD(AnimationProcessingType_t       , m_processingType                                , 0x0) // AnimationProcessingType_t
-        SCHEMA_FIELD(CUtlVector<AnimationDecodeDebugDumpElement_t>, m_elems                                         , 0x8) // CUtlVector<AnimationDecodeDebugDumpElement_t>
-    };
-
-    // StanceInfo_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class StanceInfo_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vPosition                                     , 0x0) // Vector
-        SCHEMA_FIELD(float                           , m_flDirection                                   , 0xC) // float32
-    };
-
-    // SkeletonAnimCapture_t::FrameStamp_t
-    //   fields: 8
-    //   size: 0x1C
-    //   @MGetKV3ClassDefaults
-    class SkeletonAnimCapture_t_FrameStamp_t {
-    public:
-        SCHEMA_FIELD(float                           , m_flTime                                        , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flEntitySimTime                               , 0x4) // float32
-        SCHEMA_FIELD(bool                            , m_bTeleportTick                                 , 0x8) // bool
-        SCHEMA_FIELD(bool                            , m_bPredicted                                    , 0x9) // bool
-        SCHEMA_FIELD(float                           , m_flCurTime                                     , 0xC) // float32
-        SCHEMA_FIELD(float                           , m_flRealTime                                    , 0x10) // float32
-        SCHEMA_FIELD(std::int32_t                    , m_nFrameCount                                   , 0x14) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nTickCount                                    , 0x18) // int32
-    };
-
-    // CChoreoInstanceData
-    //   fields: 1
-    //   size: 0x398
-    //   @MGetKV3ClassDefaults
-    class CChoreoInstanceData {
-    public:
-        SCHEMA_FIELD(CAnimationLayer                 , m_AnimOverlay                                   , 0x0) // CAnimationLayer[12]
-    };
-
-    // CNmVirtualParameterTargetNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmVirtualParameterTargetNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
-    };
-
-    // JiggleBoneSettingsList_t
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class JiggleBoneSettingsList_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<JiggleBoneSettings_t>, m_boneSettings                                  , 0x0) // CUtlVector<JiggleBoneSettings_t>
-    };
-
-    // CSeqScaleSet
-    //   fields: 5
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CSeqScaleSet {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x0) // CBufferString
-        SCHEMA_FIELD(bool                            , m_bRootOffset                                   , 0x10) // bool
-        SCHEMA_FIELD(::Vector                        , m_vRootOffset                                   , 0x14) // Vector
-        SCHEMA_FIELD(CUtlVector<int16>               , m_nLocalBoneArray                               , 0x20) // CUtlVector<int16>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_flBoneScaleArray                              , 0x38) // CUtlVector<float32>
-    };
-
-    // CPulseCell_Inflow_Wait
-    //   fields: 1
-    //   size: 0x120
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    //   @MPulseEditorHeaderIcon
-    //   @MPulseEditorCanvasItemSpecKV3
-    class CPulseCell_Inflow_Wait {
-    public:
-        SCHEMA_FIELD(CPulse_ResumePoint              , m_WakeResume                                    , 0xD8) // CPulse_ResumePoint
-    };
-
-    // PulseCursorID_t
-    //   fields: 1
-    //   size: 0x4
-    class PulseCursorID_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
-    };
-
-    // CPulseMathlib
-    //   fields: 0
-    //   size: 0x1
-    //   @MPropertyDescription
-    class CPulseMathlib {
-    public:
-    };
-
-    // CFootStride
-    //   fields: 2
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CFootStride {
-    public:
-        SCHEMA_FIELD(CFootCycleDefinition            , m_definition                                    , 0x0) // CFootCycleDefinition
-        SCHEMA_FIELD(CFootTrajectories               , m_trajectories                                  , 0x40) // CFootTrajectories
-    };
-
-    // CNmIDEventConditionNode::CDefinition
-    //   fields: 3
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CNmIDEventConditionNode_CDefinition {
-    public:
-        using _Type0 = CUtlVectorFixedGrowable<CGlobalSymbol,5>;
-        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
-        SCHEMA_FIELD(_Type0                          , m_eventIDs                                      , 0x18) // CUtlVectorFixedGrowable<CGlobalSymbol,5>
-    };
-
-    // CAnimUpdateNodeBase
-    //   fields: 3
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CAnimUpdateNodeBase {
-    public:
-        SCHEMA_FIELD(CAnimNodePath                   , m_nodePath                                      , 0x18) // CAnimNodePath
-        SCHEMA_FIELD(AnimNodeNetworkMode             , m_networkMode                                   , 0x48) // AnimNodeNetworkMode
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x50) // CUtlString
-    };
-
-    // CToggleComponentActionUpdater
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CToggleComponentActionUpdater {
-    public:
-        SCHEMA_FIELD(AnimComponentID                 , m_componentID                                   , 0x18) // AnimComponentID
-        SCHEMA_FIELD(bool                            , m_bSetEnabled                                   , 0x1C) // bool
-    };
-
-    // CNmControlParameterIDNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmControlParameterIDNode_CDefinition {
-    public:
-    };
-
-    // SlopeData
-    //   fields: 1
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class SlopeData {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vSlopeNormal                                  , 0x0) // Vector
-    };
-
-    // CChoreoUpdateNode
-    //   fields: 0
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CChoreoUpdateNode {
-    public:
-    };
-
-    // CAnimActivity
-    //   fields: 4
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CAnimActivity {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
-        SCHEMA_FIELD(std::int32_t                    , m_nActivity                                     , 0x10) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nFlags                                        , 0x14) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nWeight                                       , 0x18) // int32
-    };
-
-    // AnimNodeID
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class AnimNodeID {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
-    };
-
-    // CNmPassthroughNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmPassthroughNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
-    };
-
-    // CNmTimeConditionNode::CDefinition
-    //   fields: 5
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmTimeConditionNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_sourceStateNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x12) // int16
-        SCHEMA_FIELD(float                           , m_flComparand                                   , 0x14) // float32
-        SCHEMA_FIELD(CNmTimeConditionNode_ComparisonType_t, m_type                                          , 0x18) // CNmTimeConditionNode::ComparisonType_t
-        SCHEMA_FIELD(CNmTimeConditionNode_Operator_t , m_operator                                      , 0x19) // CNmTimeConditionNode::Operator_t
-    };
-
-    // CFootTrajectory
-    //   fields: 3
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CFootTrajectory {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vOffset                                       , 0x8) // Vector
-        SCHEMA_FIELD(float                           , m_flRotationOffset                              , 0x14) // float32
-        SCHEMA_FIELD(float                           , m_flProgression                                 , 0x18) // float32
-    };
-
-    // CAnimGraphSettingsManager
-    //   fields: 1
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CAnimGraphSettingsManager {
-    public:
-        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimGraphSettingsGroup>>, m_settingsGroups                                , 0x18) // CUtlVector<CSmartPtr<CAnimGraphSettingsGroup>>
-    };
-
-    // OutflowWithRequirements_t
-    //   fields: 4
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class OutflowWithRequirements_t {
-    public:
-        SCHEMA_FIELD(CPulse_OutflowConnection        , m_Connection                                    , 0x0) // CPulse_OutflowConnection
-        SCHEMA_FIELD(::PulseDocNodeID_t              , m_DestinationFlowNodeID                         , 0x48) // PulseDocNodeID_t
-        SCHEMA_FIELD(CUtlVector<PulseDocNodeID_t>    , m_RequirementNodeIDs                            , 0x50) // CUtlVector<PulseDocNodeID_t>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_nCursorStateBlockIndex                        , 0x68) // CUtlVector<int32>
-    };
-
-    // DynamicMeshDeformParams_t
-    //   fields: 6
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class DynamicMeshDeformParams_t {
-    public:
-        SCHEMA_FIELD(float                           , m_flTensionCompressScale                        , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flTensionStretchScale                         , 0x4) // float32
-        SCHEMA_FIELD(bool                            , m_bRecomputeSmoothNormalsAfterAnimation         , 0x8) // bool
-        SCHEMA_FIELD(bool                            , m_bComputeDynamicMeshTensionAfterAnimation      , 0x9) // bool
-        SCHEMA_FIELD(bool                            , m_bSmoothNormalsAcrossUvSeams                   , 0xA) // bool
-        SCHEMA_FIELD(bool                            , m_bEnableEyeBulgeDeformation                    , 0xB) // bool
-    };
-
-    // FollowAttachmentData
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class FollowAttachmentData {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_boneIndex                                     , 0x0) // int32
-        SCHEMA_FIELD(AttachmentHandle_t              , m_attachmentHandle                              , 0x4) // AttachmentHandle_t
-    };
-
-    // CNmBoneMaskBlendNode::CDefinition
-    //   fields: 3
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmBoneMaskBlendNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nSourceMaskNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nTargetMaskNodeIdx                            , 0x12) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nBlendWeightValueNodeIdx                      , 0x14) // int16
-    };
-
-    // NmBoneMaskSetDefinition_t
-    //   fields: 3
-    //   size: 0x128
-    //   @MGetKV3ClassDefaults
-    class NmBoneMaskSetDefinition_t {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x0) // CGlobalSymbol
-        SCHEMA_FIELD(CNmBoneWeightList               , m_primaryWeightList                             , 0x8) // CNmBoneWeightList
-        SCHEMA_FIELD(CUtlLeanVector<CNmBoneWeightList>, m_secondaryWeightLists                          , 0x118) // CUtlLeanVector<CNmBoneWeightList>
-    };
-
-    // CTargetWarpUpdateNode
-    //   fields: 14
-    //   size: 0x98
-    //   @MGetKV3ClassDefaults
-    class CTargetWarpUpdateNode {
-    public:
-        SCHEMA_FIELD(TargetWarpAngleMode_t           , m_eAngleMode                                    , 0x74) // TargetWarpAngleMode_t
-        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetPositionParameter                      , 0x78) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetUpVectorParameter                      , 0x7A) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetFacePositionParameter                  , 0x7C) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hMoveHeadingParameter                         , 0x7E) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hDesiredMoveHeadingParameter                  , 0x80) // CAnimParamHandle
-        SCHEMA_FIELD(TargetWarpCorrectionMethod      , m_eCorrectionMethod                             , 0x84) // TargetWarpCorrectionMethod
-        SCHEMA_FIELD(TargetWarpTimingMethod          , m_eTargetWarpTimingMethod                       , 0x88) // TargetWarpTimingMethod
-        SCHEMA_FIELD(bool                            , m_bTargetFacePositionIsWorldSpace               , 0x8C) // bool
-        SCHEMA_FIELD(bool                            , m_bTargetPositionIsWorldSpace                   , 0x8D) // bool
-        SCHEMA_FIELD(bool                            , m_bOnlyWarpWhenTagIsFound                       , 0x8E) // bool
-        SCHEMA_FIELD(bool                            , m_bWarpOrientationDuringTranslation             , 0x8F) // bool
-        SCHEMA_FIELD(bool                            , m_bWarpAroundCenter                             , 0x90) // bool
-        SCHEMA_FIELD(float                           , m_flMaxAngle                                    , 0x94) // float32
-    };
-
-    // CBinaryUpdateNode
-    //   fields: 6
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CBinaryUpdateNode {
-    public:
-        SCHEMA_FIELD(CAnimUpdateNodeRef              , m_pChild1                                       , 0x60) // CAnimUpdateNodeRef
-        SCHEMA_FIELD(CAnimUpdateNodeRef              , m_pChild2                                       , 0x70) // CAnimUpdateNodeRef
-        SCHEMA_FIELD(BinaryNodeTiming                , m_timingBehavior                                , 0x80) // BinaryNodeTiming
-        SCHEMA_FIELD(float                           , m_flTimingBlend                                 , 0x84) // float32
-        SCHEMA_FIELD(bool                            , m_bResetChild1                                  , 0x88) // bool
-        SCHEMA_FIELD(bool                            , m_bResetChild2                                  , 0x89) // bool
-    };
-
-    // CInputStreamUpdateNode
-    //   fields: 0
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CInputStreamUpdateNode {
-    public:
-    };
-
-    // PerTickSettings_t
-    //   fields: 12
-    //   size: 0x6C0
-    //   @MGetKV3ClassDefaults
-    class PerTickSettings_t {
-    public:
-        SCHEMA_FIELD(CTransform                      , m_startingLocalToWorld                          , 0x0) // CTransform
-        SCHEMA_FIELD(CTransform                      , m_prevLocalToWorld                              , 0x20) // CTransform
-        SCHEMA_FIELD(CTransform                      , m_finalLocalToWorld                             , 0x40) // CTransform
-        SCHEMA_FIELD(CRootMotion                     , m_rootMotion                                    , 0x60) // CRootMotion
-        SCHEMA_FIELD(std::int32_t                    , m_updateID                                      , 0x69C) // int32
-        SCHEMA_FIELD(float                           , m_flLastTimeStep                                , 0x6A4) // float32
-        SCHEMA_FIELD(float                           , m_flPrevAnimTime                                , 0x6A8) // float32
-        SCHEMA_FIELD(float                           , m_flNextAnimTime                                , 0x6AC) // float32
-        SCHEMA_FIELD(bool                            , m_bAwaken                                       , 0x6B4) // bool
-        SCHEMA_FIELD(bool                            , m_bTeleported                                   , 0x6B5) // bool
-        SCHEMA_FIELD(bool                            , m_bIsClient                                     , 0x6B6) // bool
-        SCHEMA_FIELD(bool                            , m_bIsPredicted                                  , 0x6B7) // bool
-    };
-
-    // CPulseGraphExecutionHistory
-    //   fields: 5
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CPulseGraphExecutionHistory {
-    public:
-        using _Type0 = CUtlOrderedMap<PulseDocNodeID_t,PulseGraphExecutionHistoryNodeDesc_t*>;
-        using _Type1 = CUtlOrderedMap<PulseCursorID_t,PulseGraphExecutionHistoryCursorDesc_t*>;
-        SCHEMA_FIELD(PulseGraphInstanceID_t          , m_nInstanceID                                   , 0x0) // PulseGraphInstanceID_t
-        SCHEMA_FIELD(::CUtlString                    , m_strFileName                                   , 0x8) // CUtlString
-        SCHEMA_FIELD(CUtlVector<PulseGraphExecutionHistoryEntry_t*>, m_vecHistory                                    , 0x10) // CUtlVector<PulseGraphExecutionHistoryEntry_t*>
-        SCHEMA_FIELD(_Type0                          , m_mapCellDesc                                   , 0x28) // CUtlOrderedMap<PulseDocNodeID_t,PulseGraphExecutionHistoryNodeDesc_t*>
-        SCHEMA_FIELD(_Type1                          , m_mapCursorDesc                                 , 0x50) // CUtlOrderedMap<PulseCursorID_t,PulseGraphExecutionHistoryCursorDesc_t*>
-    };
-
-    // CModelConfigList
-    //   fields: 3
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CModelConfigList {
-    public:
-        SCHEMA_FIELD(bool                            , m_bHideMaterialGroupInTools                     , 0x0) // bool
-        SCHEMA_FIELD(bool                            , m_bHideRenderColorInTools                       , 0x1) // bool
-        SCHEMA_FIELD(CUtlVector<CModelConfig*>       , m_Configs                                       , 0x8) // CUtlVector<CModelConfig*>
-    };
-
-    // CFootAdjustmentInstanceData
-    //   fields: 3
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CFootAdjustmentInstanceData {
-    public:
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flStartTime                                   , 0xC) // CAnimNetVar<float32>
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flDuration                                    , 0x18) // CAnimNetVar<float32>
-        SCHEMA_FIELD(float                           , m_flStartHeadingWS                              , 0x3C) // float32
-    };
-
-    // SelectorInstanceData_t
-    //   fields: 4
-    //   size: 0x2C
-    //   @MGetKV3ClassDefaults
-    class SelectorInstanceData_t {
-    public:
-        SCHEMA_FIELD(CRelativeArray<float32>         , m_weights                                       , 0x0) // CRelativeArray<float32>
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_currentIndexStartTime                         , 0x8) // CAnimNetVar<float32>
-        SCHEMA_FIELD(std::int32_t                    , m_currentIndex                                  , 0x14) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_previousIndex                                 , 0x18) // int32
-    };
-
-    // CNmMaterialAttributeEvent
-    //   fields: 7
-    //   size: 0x130
-    //   @MGetKV3ClassDefaults
-    class CNmMaterialAttributeEvent {
-    public:
-        SCHEMA_FIELD(CNmEventTargetEntity_t          , m_target                                        , 0x18) // CNmEventTargetEntity_t
-        SCHEMA_FIELD(::CUtlString                    , m_attributeName                                 , 0x20) // CUtlString
-        SCHEMA_FIELD(CUtlStringToken                 , m_attributeNameToken                            , 0x28) // CUtlStringToken
-        SCHEMA_FIELD(CPiecewiseCurve                 , m_x                                             , 0x30) // CPiecewiseCurve
-        SCHEMA_FIELD(CPiecewiseCurve                 , m_y                                             , 0x70) // CPiecewiseCurve
-        SCHEMA_FIELD(CPiecewiseCurve                 , m_z                                             , 0xB0) // CPiecewiseCurve
-        SCHEMA_FIELD(CPiecewiseCurve                 , m_w                                             , 0xF0) // CPiecewiseCurve
-    };
-
-    // CRemapValueComponentUpdater
-    //   fields: 1
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CRemapValueComponentUpdater {
-    public:
-        SCHEMA_FIELD(CUtlVector<CRemapValueUpdateItem>, m_items                                         , 0x30) // CUtlVector<CRemapValueUpdateItem>
-    };
-
-    // ParamSpanSample_t
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class ParamSpanSample_t {
-    public:
-        SCHEMA_FIELD(CAnimVariant                    , m_value                                         , 0x0) // CAnimVariant
-        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x14) // float32
-    };
-
-    // CNmVirtualParameterIDNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmVirtualParameterIDNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
-    };
-
-    // CNmIsTargetSetNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmIsTargetSetNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-    };
-
-    // CNmBoneWeightList
-    //   fields: 3
-    //   size: 0x110
-    //   @MGetKV3ClassDefaults
-    class CNmBoneWeightList {
-    public:
-        SCHEMA_FIELD(CResourceName                   , m_skeletonName                                  , 0x0) // CResourceName
-        SCHEMA_FIELD(CUtlVector<CGlobalSymbol>       , m_boneIDs                                       , 0xE0) // CUtlVector<CGlobalSymbol>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_weights                                       , 0xF8) // CUtlVector<float32>
-    };
-
-    // CNmFootEvent
-    //   fields: 1
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmFootEvent {
-    public:
-        SCHEMA_FIELD(NmFootPhase_t                   , m_phase                                         , 0x18) // NmFootPhase_t
-    };
-
-    // CNmVectorCreateNode::CDefinition
-    //   fields: 4
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmVectorCreateNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_inputVectorValueNodeIdx                       , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_inputValueXNodeIdx                            , 0x12) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_inputValueYNodeIdx                            , 0x14) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_inputValueZNodeIdx                            , 0x16) // int16
-    };
-
-    // CCycleControlUpdateNode
-    //   fields: 3
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CCycleControlUpdateNode {
-    public:
-        SCHEMA_FIELD(AnimValueSource                 , m_valueSource                                   , 0x70) // AnimValueSource
-        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0x74) // CAnimParamHandle
-        SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0x76) // bool
-    };
-
-    // CConstraintSlave
-    //   fields: 5
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CConstraintSlave {
-    public:
-        SCHEMA_FIELD(::Quaternion                    , m_qBaseOrientation                              , 0x0) // Quaternion
-        SCHEMA_FIELD(::Vector                        , m_vBasePosition                                 , 0x10) // Vector
-        SCHEMA_FIELD(std::uint32_t                   , m_nBoneHash                                     , 0x1C) // uint32
-        SCHEMA_FIELD(float                           , m_flWeight                                      , 0x20) // float32
-        SCHEMA_FIELD(::CUtlString                    , m_sName                                         , 0x28) // CUtlString
-    };
-
-    // CNmAdditiveBlendTask
-    //   fields: 0
-    //   size: 0x100
-    class CNmAdditiveBlendTask {
-    public:
-    };
-
-    // CAnimEnum
-    //   fields: 1
-    //   size: 0x1
-    class CAnimEnum {
-    public:
-        SCHEMA_FIELD(std::uint8_t                    , m_value                                         , 0x0) // uint8
-    };
-
-    // CAnimAttachment
-    //   fields: 5
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CAnimAttachment {
-    public:
-        SCHEMA_FIELD(::Quaternion                    , m_influenceRotations                            , 0x0) // Quaternion[3]
-        SCHEMA_FIELD(VectorAligned                   , m_influenceOffsets                              , 0x30) // VectorAligned[3]
-        SCHEMA_FIELD(std::int32_t                    , m_influenceIndices                              , 0x60) // int32[3]
-        SCHEMA_FIELD(float                           , m_influenceWeights                              , 0x6C) // float32[3]
-        SCHEMA_FIELD(std::uint8_t                    , m_numInfluences                                 , 0x78) // uint8
-    };
-
-    // VPhysics2ShapeDef_t
-    //   fields: 5
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class VPhysics2ShapeDef_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<RnSphereDesc_t>      , m_spheres                                       , 0x0) // CUtlVector<RnSphereDesc_t>
-        SCHEMA_FIELD(CUtlVector<RnCapsuleDesc_t>     , m_capsules                                      , 0x18) // CUtlVector<RnCapsuleDesc_t>
-        SCHEMA_FIELD(CUtlVector<RnHullDesc_t>        , m_hulls                                         , 0x30) // CUtlVector<RnHullDesc_t>
-        SCHEMA_FIELD(CUtlVector<RnMeshDesc_t>        , m_meshes                                        , 0x48) // CUtlVector<RnMeshDesc_t>
-        SCHEMA_FIELD(CUtlVector<uint16>              , m_CollisionAttributeIndices                     , 0x60) // CUtlVector<uint16>
-    };
-
-    // CMovementHandshakeAnimTag
-    //   fields: 0
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CMovementHandshakeAnimTag {
-    public:
-    };
-
-    // CAimConstraint
-    //   fields: 2
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CAimConstraint {
-    public:
-        SCHEMA_FIELD(::Quaternion                    , m_qAimOffset                                    , 0x60) // Quaternion
-        SCHEMA_FIELD(std::uint32_t                   , m_nUpType                                       , 0x70) // uint32
-    };
-
-    // CMotionSearchDB
-    //   fields: 3
-    //   size: 0xB8
-    //   @MGetKV3ClassDefaults
-    class CMotionSearchDB {
-    public:
-        SCHEMA_FIELD(CMotionSearchNode               , m_rootNode                                      , 0x0) // CMotionSearchNode
-        SCHEMA_FIELD(CProductQuantizer               , m_residualQuantizer                             , 0x80) // CProductQuantizer
-        SCHEMA_FIELD(CUtlVector<MotionDBIndex>       , m_codeIndices                                   , 0xA0) // CUtlVector<MotionDBIndex>
-    };
-
-    // CPulse_OutflowConnection
-    //   fields: 4
-    //   size: 0x48
-    class CPulse_OutflowConnection {
-    public:
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_SourceOutflowName                             , 0x0) // PulseSymbol_t
-        SCHEMA_FIELD(::PulseRuntimeChunkIndex_t      , m_nDestChunk                                    , 0x10) // PulseRuntimeChunkIndex_t
-        SCHEMA_FIELD(std::int32_t                    , m_nInstruction                                  , 0x14) // int32
-        SCHEMA_FIELD(::PulseRegisterMap_t            , m_OutflowRegisterMap                            , 0x18) // PulseRegisterMap_t
-    };
-
-    // CPulseArraylib
-    //   fields: 0
-    //   size: 0x1
-    //   @MPropertyDescription
-    class CPulseArraylib {
-    public:
-    };
-
-    // CFootTrajectories
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CFootTrajectories {
-    public:
-        SCHEMA_FIELD(CUtlVector<CFootTrajectory>     , m_trajectories                                  , 0x0) // CUtlVector<CFootTrajectory>
-    };
-
-    // CPulse_Constant
-    //   fields: 2
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CPulse_Constant {
-    public:
-        SCHEMA_FIELD(CPulseValueFullType             , m_Type                                          , 0x0) // CPulseValueFullType
-        SCHEMA_FIELD(KeyValues3                      , m_Value                                         , 0x18) // KeyValues3
-    };
-
-    // HitReactFixedSettings_t
-    //   fields: 17
-    //   size: 0x44
-    //   @MGetKV3ClassDefaults
-    class HitReactFixedSettings_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nWeightListIndex                              , 0x0) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nEffectedBoneCount                            , 0x4) // int32
-        SCHEMA_FIELD(float                           , m_flMaxImpactForce                              , 0x8) // float32
-        SCHEMA_FIELD(float                           , m_flMinImpactForce                              , 0xC) // float32
-        SCHEMA_FIELD(float                           , m_flWhipImpactScale                             , 0x10) // float32
-        SCHEMA_FIELD(float                           , m_flCounterRotationScale                        , 0x14) // float32
-        SCHEMA_FIELD(float                           , m_flDistanceFadeScale                           , 0x18) // float32
-        SCHEMA_FIELD(float                           , m_flPropagationScale                            , 0x1C) // float32
-        SCHEMA_FIELD(float                           , m_flWhipDelay                                   , 0x20) // float32
-        SCHEMA_FIELD(float                           , m_flSpringStrength                              , 0x24) // float32
-        SCHEMA_FIELD(float                           , m_flWhipSpringStrength                          , 0x28) // float32
-        SCHEMA_FIELD(float                           , m_flMaxAngleRadians                             , 0x2C) // float32
-        SCHEMA_FIELD(std::int32_t                    , m_nHipBoneIndex                                 , 0x30) // int32
-        SCHEMA_FIELD(float                           , m_flHipBoneTranslationScale                     , 0x34) // float32
-        SCHEMA_FIELD(float                           , m_flHipDipSpringStrength                        , 0x38) // float32
-        SCHEMA_FIELD(float                           , m_flHipDipImpactScale                           , 0x3C) // float32
-        SCHEMA_FIELD(float                           , m_flHipDipDelay                                 , 0x40) // float32
-    };
-
-    // PulseDocNodeID_t
-    //   fields: 1
-    //   size: 0x4
-    class PulseDocNodeID_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
-    };
-
-    // CDistanceRemainingMetricEvaluator
-    //   fields: 7
-    //   size: 0x68
-    //   @MGetKV3ClassDefaults
-    class CDistanceRemainingMetricEvaluator {
-    public:
-        SCHEMA_FIELD(float                           , m_flMaxDistance                                 , 0x50) // float32
-        SCHEMA_FIELD(float                           , m_flMinDistance                                 , 0x54) // float32
-        SCHEMA_FIELD(float                           , m_flStartGoalFilterDistance                     , 0x58) // float32
-        SCHEMA_FIELD(float                           , m_flMaxGoalOvershootScale                       , 0x5C) // float32
-        SCHEMA_FIELD(bool                            , m_bFilterFixedMinDistance                       , 0x60) // bool
-        SCHEMA_FIELD(bool                            , m_bFilterGoalDistance                           , 0x61) // bool
-        SCHEMA_FIELD(bool                            , m_bFilterGoalOvershoot                          , 0x62) // bool
-    };
-
-    // CNmFootIKTask
-    //   fields: 12
-    //   size: 0x140
-    class CNmFootIKTask {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nLeftEffectorBoneIdx                          , 0x70) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nRightEffectorBoneIdx                         , 0x74) // int32
-        SCHEMA_FIELD(CTransform                      , m_leftTargetTransform                           , 0x80) // CTransform
-        SCHEMA_FIELD(CTransform                      , m_rightTargetTransform                          , 0xA0) // CTransform
-        SCHEMA_FIELD(std::int32_t                    , m_nLeftTargetBoneIdx                            , 0xC0) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nRightTargetBoneIdx                           , 0xC4) // int32
-        SCHEMA_FIELD(CNmTarget                       , m_leftTarget                                    , 0xD0) // CNmTarget
-        SCHEMA_FIELD(CNmTarget                       , m_rightTarget                                   , 0x100) // CNmTarget
-        SCHEMA_FIELD(NmIKBlendMode_t                 , m_blendMode                                     , 0x130) // NmIKBlendMode_t
-        SCHEMA_FIELD(float                           , m_flBlendWeight                                 , 0x134) // float32
-        SCHEMA_FIELD(bool                            , m_bIsTargetInWorldSpace                         , 0x138) // bool
-        SCHEMA_FIELD(bool                            , m_bIsRunningFromDeserializedData                , 0x139) // bool
-    };
-
-    // BlendItem_t
-    //   fields: 6
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class BlendItem_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x0) // CUtlVector<TagSpan_t>
-        SCHEMA_FIELD(CAnimUpdateNodeRef              , m_pChild                                        , 0x18) // CAnimUpdateNodeRef
-        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x28) // HSequence
-        SCHEMA_FIELD(::Vector2D                      , m_vPos                                          , 0x2C) // Vector2D
-        SCHEMA_FIELD(float                           , m_flDuration                                    , 0x34) // float32
-        SCHEMA_FIELD(bool                            , m_bUseCustomDuration                            , 0x38) // bool
-    };
-
-    // CChoiceInstanceData
-    //   fields: 4
-    //   size: 0x34
-    //   @MGetKV3ClassDefaults
-    class CChoiceInstanceData {
-    public:
-        SCHEMA_FIELD(CAnimNetVar<int32>              , m_currentChoice                                 , 0x10) // CAnimNetVar<int32>
-        SCHEMA_FIELD(std::int32_t                    , m_previousChoice                                , 0x1C) // int32
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flClipStartTime                               , 0x20) // CAnimNetVar<float32>
-        SCHEMA_FIELD(float                           , m_choicePreviousCycle                           , 0x2C) // float32
-    };
-
-    // CNmZeroPoseTask
-    //   fields: 0
-    //   size: 0x70
-    class CNmZeroPoseTask {
-    public:
-    };
-
-    // CCycleBase
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class CCycleBase {
-    public:
-        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x0) // float32
-    };
-
     // CCycleClipInstanceData
     //   fields: 2
     //   size: 0x1C
@@ -5296,2114 +6565,6 @@ namespace animationsystem {
     public:
         SCHEMA_FIELD(CAnimNetVar<float32>            , m_flCycle                                       , 0x0) // CAnimNetVar<float32>
         SCHEMA_FIELD(CAnimNetVar<float32>            , m_flPrevCycle                                   , 0xC) // CAnimNetVar<float32>
-    };
-
-    // CNmStateMachineNode::TransitionDefinition_t
-    //   fields: 4
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CNmStateMachineNode_TransitionDefinition_t {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nTargetStateIdx                               , 0x0) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nConditionNodeIdx                             , 0x2) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nTransitionNodeIdx                            , 0x4) // int16
-        SCHEMA_FIELD(bool                            , m_bCanBeForced                                  , 0x6) // bool
-    };
-
-    // CBodyGroupSetting
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyElementNameFn
-    class CBodyGroupSetting {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_BodyGroupName                                 , 0x0) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertyAutoRebuildOnChange]
-        SCHEMA_FIELD(std::int32_t                    , m_nBodyGroupOption                              , 0x8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // CNmEntityAttributeEventBase
-    //   fields: 2
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class CNmEntityAttributeEventBase {
-    public:
-        SCHEMA_FIELD(CNmEventTargetEntity_t          , m_target                                        , 0x18) // CNmEventTargetEntity_t
-        SCHEMA_FIELD(::CUtlString                    , m_attributeName                                 , 0x20) // CUtlString
-    };
-
-    // CAnimParamHandle
-    //   fields: 2
-    //   size: 0x2
-    //   @MGetKV3ClassDefaults
-    class CAnimParamHandle {
-    public:
-        SCHEMA_FIELD(AnimParamType_t                 , m_type                                          , 0x0) // AnimParamType_t
-        SCHEMA_FIELD(std::uint8_t                    , m_index                                         , 0x1) // uint8
-    };
-
-    // CAnimUpdateSharedData
-    //   fields: 10
-    //   size: 0x100
-    //   @MGetKV3ClassDefaults
-    class CAnimUpdateSharedData {
-    public:
-        using _Type0 = CUtlHashtable<CAnimNodePath,int32>;
-        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimUpdateNodeBase>>, m_nodes                                         , 0x10) // CUtlVector<CSmartPtr<CAnimUpdateNodeBase>>
-        SCHEMA_FIELD(_Type0                          , m_nodeIndexMap                                  , 0x28) // CUtlHashtable<CAnimNodePath,int32>
-        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimComponentUpdater>>, m_components                                    , 0x48) // CUtlVector<CSmartPtr<CAnimComponentUpdater>>
-        SCHEMA_FIELD(CSmartPtr<CAnimParameterManagerUpdater>, m_pParamListUpdater                             , 0x60) // CSmartPtr<CAnimParameterManagerUpdater>
-        SCHEMA_FIELD(CSmartPtr<CAnimTagManagerUpdater>, m_pTagManagerUpdater                            , 0x68) // CSmartPtr<CAnimTagManagerUpdater>
-        SCHEMA_FIELD(CSmartPtr<CAnimScriptManager>   , m_scriptManager                                 , 0x70) // CSmartPtr<CAnimScriptManager>
-        SCHEMA_FIELD(CAnimGraphSettingsManager       , m_settings                                      , 0x78) // CAnimGraphSettingsManager
-        SCHEMA_FIELD(CSmartPtr<CStaticPoseCacheBuilder>, m_pStaticPoseCache                              , 0xA8) // CSmartPtr<CStaticPoseCacheBuilder>
-        SCHEMA_FIELD(CSmartPtr<CAnimSkeleton>        , m_pSkeleton                                     , 0xB0) // CSmartPtr<CAnimSkeleton>
-        SCHEMA_FIELD(CAnimNodePath                   , m_rootNodePath                                  , 0xB8) // CAnimNodePath
-    };
-
-    // PhysSoftbodyDesc_t
-    //   fields: 6
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class PhysSoftbodyDesc_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_ParticleBoneHash                              , 0x0) // CUtlVector<uint32>
-        SCHEMA_FIELD(CUtlVector<RnSoftbodyParticle_t>, m_Particles                                     , 0x18) // CUtlVector<RnSoftbodyParticle_t>
-        SCHEMA_FIELD(CUtlVector<RnSoftbodySpring_t>  , m_Springs                                       , 0x30) // CUtlVector<RnSoftbodySpring_t>
-        SCHEMA_FIELD(CUtlVector<RnSoftbodyCapsule_t> , m_Capsules                                      , 0x48) // CUtlVector<RnSoftbodyCapsule_t>
-        SCHEMA_FIELD(CUtlVector<CTransform>          , m_InitPose                                      , 0x60) // CUtlVector<CTransform>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_ParticleBoneName                              , 0x78) // CUtlVector<CUtlString>
-    };
-
-    // CNmVectorNegateNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmVectorNegateNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-    };
-
-    // CNmFootstepEventIDNode::CDefinition
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmFootstepEventIDNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
-    };
-
-    // IAnimationGraphInstance
-    //   fields: 0
-    //   size: 0x18
-    class IAnimationGraphInstance {
-    public:
-    };
-
-    // CAnimInputDamping
-    //   fields: 3
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CAnimInputDamping {
-    public:
-        SCHEMA_FIELD(DampingSpeedFunction            , m_speedFunction                                 , 0x8) // DampingSpeedFunction [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fSpeedScale                                   , 0xC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fFallingSpeedScale                            , 0x10) // float32 [MPropertyFriendlyName]
-    };
-
-    // CDampedValueComponentUpdater
-    //   fields: 1
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CDampedValueComponentUpdater {
-    public:
-        SCHEMA_FIELD(CUtlVector<CDampedValueUpdateItem>, m_items                                         , 0x30) // CUtlVector<CDampedValueUpdateItem>
-    };
-
-    // CNmChainLookatNode::CDefinition
-    //   fields: 9
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CNmChainLookatNode_CDefinition {
-    public:
-        using _Type0 = CUtlVectorFixedGrowable<float32,5>;
-        SCHEMA_FIELD(CGlobalSymbol                   , m_endEffectorBoneID                             , 0x18) // CGlobalSymbol
-        SCHEMA_FIELD(::Vector                        , m_endEffectorForwardAxis                        , 0x20) // Vector
-        SCHEMA_FIELD(::Vector                        , m_endEffectorOffset                             , 0x2C) // Vector
-        SCHEMA_FIELD(std::int16_t                    , m_nLookatTargetNodeIdx                          , 0x38) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nEnabledNodeIdx                               , 0x3A) // int16
-        SCHEMA_FIELD(float                           , m_flBlendTimeSeconds                            , 0x3C) // float32
-        SCHEMA_FIELD(_Type0                          , m_chainWeights                                  , 0x40) // CUtlVectorFixedGrowable<float32,5>
-        SCHEMA_FIELD(std::uint8_t                    , m_nChainLength                                  , 0x70) // uint8
-        SCHEMA_FIELD(bool                            , m_bIsTargetInWorldSpace                         , 0x71) // bool
-    };
-
-    // CNmGraphDefinition::ExternalGraphSlot_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmGraphDefinition_ExternalGraphSlot_t {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nNodeIdx                                      , 0x0) // int16
-        SCHEMA_FIELD(CGlobalSymbol                   , m_slotID                                        , 0x8) // CGlobalSymbol
-    };
-
-    // CVPhysXSurfacePropertiesList
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CVPhysXSurfacePropertiesList {
-    public:
-        SCHEMA_FIELD(CUtlVector<CPhysSurfaceProperties*>, m_surfacePropertiesList                         , 0x0) // CUtlVector<CPhysSurfaceProperties*> [MKV3TransferName]
-    };
-
-    // CNmSyncTrack
-    //   fields: 2
-    //   size: 0xB0
-    //   @MGetKV3ClassDefaults
-    class CNmSyncTrack {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<CNmSyncTrack_Event_t,10>;
-        SCHEMA_FIELD(_Type0                          , m_syncEvents                                    , 0x0) // CUtlLeanVectorFixedGrowable<CNmSyncTrack::Event_t,10>
-        SCHEMA_FIELD(std::int32_t                    , m_nStartEventOffset                             , 0xA8) // int32
-    };
-
-    // PulseGraphExecutionHistoryCursorDesc_t
-    //   fields: 6
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class PulseGraphExecutionHistoryCursorDesc_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<PulseCursorID_t>     , vecAncestorCursorIDs                            , 0x0) // CUtlVector<PulseCursorID_t>
-        SCHEMA_FIELD(::PulseDocNodeID_t              , nSpawnNodeID                                    , 0x18) // PulseDocNodeID_t
-        SCHEMA_FIELD(::PulseDocNodeID_t              , nRetiredAtNodeID                                , 0x1C) // PulseDocNodeID_t
-        SCHEMA_FIELD(float                           , flLastReferenced                                , 0x20) // float32
-        SCHEMA_FIELD(std::int32_t                    , nLastValidEntryIdx                              , 0x24) // int32
-        SCHEMA_FIELD(bool                            , bWasAnObservableComputation                     , 0x28) // bool
-    };
-
-    // CNmEvent
-    //   fields: 3
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmEvent {
-    public:
-        SCHEMA_FIELD(NmPercent_t                     , m_flStartTime                                   , 0x8) // NmPercent_t
-        SCHEMA_FIELD(NmPercent_t                     , m_flDuration                                    , 0xC) // NmPercent_t
-        SCHEMA_FIELD(CGlobalSymbol                   , m_syncID                                        , 0x10) // CGlobalSymbol
-    };
-
-    // CPulseStringlib
-    //   fields: 0
-    //   size: 0x1
-    //   @MPropertyDescription
-    class CPulseStringlib {
-    public:
-    };
-
-    // CNmFloatEaseNode::CDefinition
-    //   fields: 5
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmFloatEaseNode_CDefinition {
-    public:
-        SCHEMA_FIELD(float                           , m_flEaseTime                                    , 0x10) // float32
-        SCHEMA_FIELD(float                           , m_flStartValue                                  , 0x14) // float32
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x18) // int16
-        SCHEMA_FIELD(NmEasingOperation_t             , m_easingOp                                      , 0x1A) // NmEasingOperation_t
-        SCHEMA_FIELD(bool                            , m_bUseStartValue                                , 0x1B) // bool
-    };
-
-    // CPulseCell_Unknown
-    //   fields: 1
-    //   size: 0x58
-    class CPulseCell_Unknown {
-    public:
-        SCHEMA_FIELD(KeyValues3                      , m_UnknownKeys                                   , 0x48) // KeyValues3
-    };
-
-    // MotionIndex
-    //   fields: 2
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class MotionIndex {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , m_nGroup                                        , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nMotion                                       , 0x2) // uint16
-    };
-
-    // CNmCachedIDNode::CDefinition
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmCachedIDNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(NmCachedValueMode_t             , m_mode                                          , 0x14) // NmCachedValueMode_t
-    };
-
-    // CSeqAutoLayerFlag
-    //   fields: 8
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CSeqAutoLayerFlag {
-    public:
-        SCHEMA_FIELD(bool                            , m_bPost                                         , 0x0) // bool
-        SCHEMA_FIELD(bool                            , m_bSpline                                       , 0x1) // bool
-        SCHEMA_FIELD(bool                            , m_bXFade                                        , 0x2) // bool
-        SCHEMA_FIELD(bool                            , m_bNoBlend                                      , 0x3) // bool
-        SCHEMA_FIELD(bool                            , m_bLocal                                        , 0x4) // bool
-        SCHEMA_FIELD(bool                            , m_bPose                                         , 0x5) // bool
-        SCHEMA_FIELD(bool                            , m_bFetchFrame                                   , 0x6) // bool
-        SCHEMA_FIELD(bool                            , m_bSubtract                                     , 0x7) // bool
-    };
-
-    // FootLockPoseOpFixedSettings
-    //   fields: 18
-    //   size: 0x68
-    //   @MGetKV3ClassDefaults
-    class FootLockPoseOpFixedSettings {
-    public:
-        SCHEMA_FIELD(CUtlVector<FootFixedData_t>     , m_footInfo                                      , 0x0) // CUtlVector<FootFixedData_t>
-        SCHEMA_FIELD(CAnimInputDamping               , m_hipDampingSettings                            , 0x18) // CAnimInputDamping
-        SCHEMA_FIELD(std::int32_t                    , m_nHipBoneIndex                                 , 0x30) // int32
-        SCHEMA_FIELD(IKSolverType                    , m_ikSolverType                                  , 0x34) // IKSolverType
-        SCHEMA_FIELD(bool                            , m_bApplyTilt                                    , 0x38) // bool
-        SCHEMA_FIELD(bool                            , m_bApplyHipDrop                                 , 0x39) // bool
-        SCHEMA_FIELD(bool                            , m_bAlwaysUseFallbackHinge                       , 0x3A) // bool
-        SCHEMA_FIELD(bool                            , m_bApplyFootRotationLimits                      , 0x3B) // bool
-        SCHEMA_FIELD(bool                            , m_bApplyLegTwistLimits                          , 0x3C) // bool
-        SCHEMA_FIELD(float                           , m_flMaxFootHeight                               , 0x40) // float32
-        SCHEMA_FIELD(float                           , m_flExtensionScale                              , 0x44) // float32
-        SCHEMA_FIELD(float                           , m_flMaxLegTwist                                 , 0x48) // float32
-        SCHEMA_FIELD(bool                            , m_bEnableLockBreaking                           , 0x4C) // bool
-        SCHEMA_FIELD(float                           , m_flLockBreakTolerance                          , 0x50) // float32
-        SCHEMA_FIELD(float                           , m_flLockBlendTime                               , 0x54) // float32
-        SCHEMA_FIELD(bool                            , m_bEnableStretching                             , 0x58) // bool
-        SCHEMA_FIELD(float                           , m_flMaxStretchAmount                            , 0x5C) // float32
-        SCHEMA_FIELD(float                           , m_flStretchExtensionScale                       , 0x60) // float32
-    };
-
-    // CHitBoxSet
-    //   fields: 4
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CHitBoxSet {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(std::uint32_t                   , m_nNameHash                                     , 0x8) // uint32
-        SCHEMA_FIELD(CUtlVector<CHitBox>             , m_HitBoxes                                      , 0x10) // CUtlVector<CHitBox>
-        SCHEMA_FIELD(::CUtlString                    , m_SourceFilename                                , 0x28) // CUtlString
-    };
-
-    // CStaticPoseCache
-    //   fields: 3
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CStaticPoseCache {
-    public:
-        SCHEMA_FIELD(CUtlVector<CCachedPose>         , m_poses                                         , 0x10) // CUtlVector<CCachedPose>
-        SCHEMA_FIELD(std::int32_t                    , m_nBoneCount                                    , 0x28) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nMorphCount                                   , 0x2C) // int32
-    };
-
-    // VPhysXConstraint2_t
-    //   fields: 4
-    //   size: 0x100
-    //   @MGetKV3ClassDefaults
-    class VPhysXConstraint2_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x0) // uint32
-        SCHEMA_FIELD(std::uint16_t                   , m_nParent                                       , 0x4) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nChild                                        , 0x6) // uint16
-        SCHEMA_FIELD(VPhysXConstraintParams_t        , m_params                                        , 0x8) // VPhysXConstraintParams_t
-    };
-
-    // CParticleBindingRealPulse
-    //   fields: 0
-    //   size: 0x130
-    class CParticleBindingRealPulse {
-    public:
-    };
-
-    // PulseRuntimeInvokeIndex_t
-    //   fields: 1
-    //   size: 0x4
-    class PulseRuntimeInvokeIndex_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
-    };
-
-    // CNmCachedVectorNode::CDefinition
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmCachedVectorNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(NmCachedValueMode_t             , m_mode                                          , 0x14) // NmCachedValueMode_t
-    };
-
-    // CTaskHandshakeAnimTag
-    //   fields: 0
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CTaskHandshakeAnimTag {
-    public:
-    };
-
-    // CNmRootMotionData
-    //   fields: 5
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CNmRootMotionData {
-    public:
-        SCHEMA_FIELD(CUtlVector<CTransform>          , m_transforms                                    , 0x0) // CUtlVector<CTransform>
-        SCHEMA_FIELD(std::int32_t                    , m_nNumFrames                                    , 0x18) // int32
-        SCHEMA_FIELD(float                           , m_flAverageLinearVelocity                       , 0x1C) // float32
-        SCHEMA_FIELD(float                           , m_flAverageAngularVelocityRadians               , 0x20) // float32
-        SCHEMA_FIELD(CTransform                      , m_totalDelta                                    , 0x30) // CTransform
-    };
-
-    // CNmControlParameterTargetNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmControlParameterTargetNode_CDefinition {
-    public:
-    };
-
-    // CPathHelperUpdateNode
-    //   fields: 2
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CPathHelperUpdateNode {
-    public:
-        SCHEMA_FIELD(float                           , m_flStoppingRadius                              , 0x70) // float32
-        SCHEMA_FIELD(float                           , m_flStoppingSpeedScale                          , 0x74) // float32
-    };
-
-    // CNmSyncEventIndexConditionNode::CDefinition
-    //   fields: 3
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmSyncEventIndexConditionNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(CNmSyncEventIndexConditionNode_TriggerMode_t, m_triggerMode                                   , 0x12) // CNmSyncEventIndexConditionNode::TriggerMode_t
-        SCHEMA_FIELD(std::int32_t                    , m_syncEventIdx                                  , 0x14) // int32
-    };
-
-    // CNmBoneMaskSwitchNode::CDefinition
-    //   fields: 5
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmBoneMaskSwitchNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nSwitchValueNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nTrueValueNodeIdx                             , 0x12) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nFalseValueNodeIdx                            , 0x14) // int16
-        SCHEMA_FIELD(float                           , m_flBlendTimeSeconds                            , 0x18) // float32
-        SCHEMA_FIELD(bool                            , m_bSwitchDynamically                            , 0x1C) // bool
-    };
-
-    // CNmFloatClampNode::CDefinition
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmFloatClampNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(Range_t                         , m_clampRange                                    , 0x14) // Range_t
-    };
-
-    // CPhysSurfacePropertiesAudio
-    //   fields: 8
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CPhysSurfacePropertiesAudio {
-    public:
-        SCHEMA_FIELD(float                           , m_reflectivity                                  , 0x0) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_hardnessFactor                                , 0x4) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_roughnessFactor                               , 0x8) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_roughThreshold                                , 0xC) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_hardThreshold                                 , 0x10) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_hardVelocityThreshold                         , 0x14) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_flStaticImpactVolume                          , 0x18) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_flOcclusionFactor                             , 0x1C) // float32 [MKV3TransferName]
-    };
-
-    // CPulseCell_PickBestOutflowSelector
-    //   fields: 2
-    //   size: 0x68
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    //   @MPulseEditorHeaderIcon
-    //   @MPulseEditorCanvasItemSpecKV3
-    class CPulseCell_PickBestOutflowSelector {
-    public:
-        SCHEMA_FIELD(PulseBestOutflowRules_t         , m_nCheckType                                    , 0x48) // PulseBestOutflowRules_t
-        SCHEMA_FIELD(PulseSelectorOutflowList_t      , m_OutflowList                                   , 0x50) // PulseSelectorOutflowList_t
-    };
-
-    // CMotionDataSet
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CMotionDataSet {
-    public:
-        SCHEMA_FIELD(CUtlVector<CMotionGraphGroup>   , m_groups                                        , 0x0) // CUtlVector<CMotionGraphGroup>
-        SCHEMA_FIELD(std::int32_t                    , m_nDimensionCount                               , 0x18) // int32
-    };
-
-    // CLookComponentUpdater
-    //   fields: 9
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CLookComponentUpdater {
-    public:
-        SCHEMA_FIELD(CAnimParamHandle                , m_hLookHeading                                  , 0x34) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hLookHeadingNormalized                        , 0x36) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hLookHeadingVelocity                          , 0x38) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hLookPitch                                    , 0x3A) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hLookDistance                                 , 0x3C) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hLookDirection                                , 0x3E) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hLookTarget                                   , 0x40) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hLookTargetWorldSpace                         , 0x42) // CAnimParamHandle
-        SCHEMA_FIELD(bool                            , m_bNetworkLookTarget                            , 0x44) // bool
-    };
-
-    // CBlockSelectionMetricEvaluator
-    //   fields: 0
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CBlockSelectionMetricEvaluator {
-    public:
-    };
-
-    // CAnimMotorUpdaterBase
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CAnimMotorUpdaterBase {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x10) // CUtlString
-        SCHEMA_FIELD(bool                            , m_bDefault                                      , 0x18) // bool
-    };
-
-    // CAnimActionUpdater
-    //   fields: 0
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CAnimActionUpdater {
-    public:
-    };
-
-    // CPulseCell_BaseState
-    //   fields: 0
-    //   size: 0xD8
-    //   @MGetKV3ClassDefaults
-    //   @MPulseEditorHeaderIcon
-    class CPulseCell_BaseState {
-    public:
-    };
-
-    // CNmIDToFloatNode::CDefinition
-    //   fields: 4
-    //   size: 0x68
-    //   @MGetKV3ClassDefaults
-    class CNmIDToFloatNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>;
-        using _Type1 = CUtlLeanVectorFixedGrowable<float32,5>;
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(float                           , m_defaultValue                                  , 0x14) // float32
-        SCHEMA_FIELD(_Type0                          , m_IDs                                           , 0x18) // CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>
-        SCHEMA_FIELD(_Type1                          , m_values                                        , 0x48) // CUtlLeanVectorFixedGrowable<float32,5>
-    };
-
-    // CNmBoneMaskValueNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    class CNmBoneMaskValueNode_CDefinition {
-    public:
-    };
-
-    // CPulse_RegisterInfo
-    //   fields: 5
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CPulse_RegisterInfo {
-    public:
-        SCHEMA_FIELD(PulseRuntimeRegisterIndex_t     , m_nReg                                          , 0x0) // PulseRuntimeRegisterIndex_t
-        SCHEMA_FIELD(CPulseValueFullType             , m_Type                                          , 0x8) // CPulseValueFullType
-        SCHEMA_FIELD(CKV3MemberNameWithStorage       , m_OriginName                                    , 0x20) // CKV3MemberNameWithStorage
-        SCHEMA_FIELD(std::int32_t                    , m_nWrittenByInstruction                         , 0x58) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nLastReadByInstruction                        , 0x5C) // int32
-    };
-
-    // CModelConfigElement_SetMaterialGroup
-    //   fields: 1
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CModelConfigElement_SetMaterialGroup {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_MaterialGroupName                             , 0x48) // CUtlString
-    };
-
-    // PulseSelectorOutflowList_t
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class PulseSelectorOutflowList_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<OutflowWithRequirements_t>, m_Outflows                                      , 0x0) // CUtlVector<OutflowWithRequirements_t>
-    };
-
-    // CAnimParamHandleMap
-    //   fields: 1
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CAnimParamHandleMap {
-    public:
-        using _Type0 = CUtlHashtable<uint16,int16>;
-        SCHEMA_FIELD(_Type0                          , m_list                                          , 0x0) // CUtlHashtable<uint16,int16>
-    };
-
-    // CNmIDEventNode::CDefinition
-    //   fields: 3
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmIDEventNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
-        SCHEMA_FIELD(CGlobalSymbol                   , m_defaultValue                                  , 0x18) // CGlobalSymbol
-    };
-
-    // CMotionGraphUpdateNode
-    //   fields: 1
-    //   size: 0x68
-    //   @MGetKV3ClassDefaults
-    class CMotionGraphUpdateNode {
-    public:
-        SCHEMA_FIELD(CSmartPtr<CMotionGraph>         , m_pMotionGraph                                  , 0x58) // CSmartPtr<CMotionGraph>
-    };
-
-    // CPulse_ResumePoint
-    //   fields: 0
-    //   size: 0x48
-    class CPulse_ResumePoint {
-    public:
-    };
-
-    // TraceSettings_t
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class TraceSettings_t {
-    public:
-        SCHEMA_FIELD(float                           , m_flTraceHeight                                 , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flTraceRadius                                 , 0x4) // float32
-    };
-
-    // CNmCachedTargetNode::CDefinition
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmCachedTargetNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(NmCachedValueMode_t             , m_mode                                          , 0x14) // NmCachedValueMode_t
-    };
-
-    // CFollowAttachmentUpdateNode
-    //   fields: 1
-    //   size: 0x110
-    //   @MGetKV3ClassDefaults
-    class CFollowAttachmentUpdateNode {
-    public:
-        SCHEMA_FIELD(FollowAttachmentSettings_t      , m_opFixedData                                   , 0x70) // FollowAttachmentSettings_t
-    };
-
-    // CNmVirtualParameterVectorNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmVirtualParameterVectorNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
-    };
-
-    // CCPPScriptComponentUpdater
-    //   fields: 1
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CCPPScriptComponentUpdater {
-    public:
-        SCHEMA_FIELD(CUtlVector<CGlobalSymbol>       , m_scriptsToRun                                  , 0x30) // CUtlVector<CGlobalSymbol> [MPropertyFriendlyName]
-    };
-
-    // CNmIsExternalGraphSlotFilledNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmIsExternalGraphSlotFilledNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nExternalGraphNodeIdx                         , 0x10) // int16
-    };
-
-    // CPulseCursorFuncs
-    //   fields: 0
-    //   size: 0x1
-    //   @MPropertyDescription
-    class CPulseCursorFuncs {
-    public:
-    };
-
-    // CAnimStateMachineUpdater
-    //   fields: 3
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CAnimStateMachineUpdater {
-    public:
-        SCHEMA_FIELD(CUtlVector<CStateUpdateData>    , m_states                                        , 0x8) // CUtlVector<CStateUpdateData>
-        SCHEMA_FIELD(CUtlVector<CTransitionUpdateData>, m_transitions                                   , 0x20) // CUtlVector<CTransitionUpdateData>
-        SCHEMA_FIELD(std::int32_t                    , m_startStateIndex                               , 0x50) // int32
-    };
-
-    // CNmIDValueNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    class CNmIDValueNode_CDefinition {
-    public:
-    };
-
-    // CMoverInstanceData
-    //   fields: 4
-    //   size: 0x2C
-    //   @MGetKV3ClassDefaults
-    class CMoverInstanceData {
-    public:
-        SCHEMA_FIELD(float                           , m_flDampedValue                                 , 0x0) // float32
-        SCHEMA_FIELD(::Vector                        , m_vMovement                                     , 0x4) // Vector
-        SCHEMA_FIELD(CRotation                       , m_Rotation                                      , 0x1C) // CRotation
-        SCHEMA_FIELD(CRotation                       , m_TargetOrientation                             , 0x20) // CRotation
-    };
-
-    // CPulse_PublicOutput
-    //   fields: 3
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CPulse_PublicOutput {
-    public:
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_Name                                          , 0x0) // PulseSymbol_t
-        SCHEMA_FIELD(::CUtlString                    , m_Description                                   , 0x10) // CUtlString
-        SCHEMA_FIELD(CUtlLeanVector<CPulseRuntimeMethodArg>, m_Args                                          , 0x18) // CUtlLeanVector<CPulseRuntimeMethodArg>
-    };
-
-    // CParentConstraint
-    //   fields: 0
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CParentConstraint {
-    public:
-    };
-
-    // CAnimReplayFrame
-    //   fields: 5
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CAnimReplayFrame {
-    public:
-        SCHEMA_FIELD(CUtlVector<CUtlBinaryBlock>     , m_inputDataBlocks                               , 0x10) // CUtlVector<CUtlBinaryBlock>
-        SCHEMA_FIELD(::CUtlBinaryBlock               , m_instanceData                                  , 0x28) // CUtlBinaryBlock
-        SCHEMA_FIELD(CTransform                      , m_startingLocalToWorldTransform                 , 0x40) // CTransform
-        SCHEMA_FIELD(CTransform                      , m_localToWorldTransform                         , 0x60) // CTransform
-        SCHEMA_FIELD(float                           , m_timeStamp                                     , 0x80) // float32
-    };
-
-    // CPulseCell_BooleanSwitchState
-    //   fields: 3
-    //   size: 0x1E0
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    //   @MPulseEditorCanvasItemSpecKV3
-    class CPulseCell_BooleanSwitchState {
-    public:
-        SCHEMA_FIELD(CPulseObservableExpression<bool>, m_Condition                                     , 0xD8) // CPulseObservableExpression<bool> [MPropertyDescription, MPropertyFriendlyName]
-        SCHEMA_FIELD(CPulse_OutflowConnection        , m_WhenTrue                                      , 0x150) // CPulse_OutflowConnection [MPropertyDescription, MPropertyFriendlyName]
-        SCHEMA_FIELD(CPulse_OutflowConnection        , m_WhenFalse                                     , 0x198) // CPulse_OutflowConnection [MPropertyDescription, MPropertyFriendlyName]
-    };
-
-    // CWarpSectionAnimTag
-    //   fields: 2
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CWarpSectionAnimTag {
-    public:
-        SCHEMA_FIELD(bool                            , m_bWarpPosition                                 , 0x50) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bWarpOrientation                              , 0x51) // bool [MPropertyFriendlyName]
-    };
-
-    // CSingleFrameUpdateNode
-    //   fields: 4
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CSingleFrameUpdateNode {
-    public:
-        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimActionUpdater>>, m_actions                                       , 0x58) // CUtlVector<CSmartPtr<CAnimActionUpdater>>
-        SCHEMA_FIELD(CPoseHandle                     , m_hPoseCacheHandle                              , 0x70) // CPoseHandle
-        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x74) // HSequence
-        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x78) // float32
-    };
-
-    // CModelConfigElement_SetMaterialGroupOnAttachedModels
-    //   fields: 1
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CModelConfigElement_SetMaterialGroupOnAttachedModels {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_MaterialGroupName                             , 0x48) // CUtlString
-    };
-
-    // CNmConstIDNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmConstIDNode_CDefinition {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_value                                         , 0x10) // CGlobalSymbol
-    };
-
-    // SignatureOutflow_Resume
-    //   fields: 0
-    //   size: 0x48
-    class SignatureOutflow_Resume {
-    public:
-    };
-
-    // CNmBoneMaskSelectorNode::CDefinition
-    //   fields: 6
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CNmBoneMaskSelectorNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,8>;
-        using _Type1 = CUtlLeanVectorFixedGrowable<CGlobalSymbol,7>;
-        SCHEMA_FIELD(std::int16_t                    , m_defaultMaskNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_parameterValueNodeIdx                         , 0x12) // int16
-        SCHEMA_FIELD(bool                            , m_bSwitchDynamically                            , 0x14) // bool
-        SCHEMA_FIELD(_Type0                          , m_maskNodeIndices                               , 0x18) // CUtlLeanVectorFixedGrowable<int16,8>
-        SCHEMA_FIELD(_Type1                          , m_parameterValues                               , 0x30) // CUtlLeanVectorFixedGrowable<CGlobalSymbol,7>
-        SCHEMA_FIELD(float                           , m_flBlendTimeSeconds                            , 0x70) // float32
-    };
-
-    // CFutureFacingMetricEvaluator
-    //   fields: 2
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CFutureFacingMetricEvaluator {
-    public:
-        SCHEMA_FIELD(float                           , m_flDistance                                    , 0x50) // float32
-        SCHEMA_FIELD(float                           , m_flTime                                        , 0x54) // float32
-    };
-
-    // CPulseCell_Inflow_EventHandler
-    //   fields: 1
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Inflow_EventHandler {
-    public:
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_EventName                                     , 0x80) // PulseSymbol_t
-    };
-
-    // CBindPoseUpdateNode
-    //   fields: 0
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CBindPoseUpdateNode {
-    public:
-    };
-
-    // CNmFloatMathNode::CDefinition
-    //   fields: 6
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmFloatMathNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdxA                           , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdxB                           , 0x12) // int16
-        SCHEMA_FIELD(bool                            , m_bReturnAbsoluteResult                         , 0x14) // bool
-        SCHEMA_FIELD(bool                            , m_bReturnNegatedResult                          , 0x15) // bool
-        SCHEMA_FIELD(CNmFloatMathNode_Operator_t     , m_operator                                      , 0x16) // CNmFloatMathNode::Operator_t
-        SCHEMA_FIELD(float                           , m_flValueB                                      , 0x18) // float32
-    };
-
-    // CPulseCell_IntervalTimer
-    //   fields: 2
-    //   size: 0x168
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    //   @MPulseEditorHeaderIcon
-    //   @MPulseEditorCanvasItemSpecKV3
-    class CPulseCell_IntervalTimer {
-    public:
-        SCHEMA_FIELD(CPulse_ResumePoint              , m_Completed                                     , 0xD8) // CPulse_ResumePoint [MPropertyDescription]
-        SCHEMA_FIELD(SignatureOutflow_Continue       , m_OnInterval                                    , 0x120) // SignatureOutflow_Continue [MPropertyDescription]
-    };
-
-    // CNmParameterizedClipSelectorNode::CDefinition
-    //   fields: 5
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CNmParameterizedClipSelectorNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,8>;
-        using _Type1 = CUtlLeanVectorFixedGrowable<uint8,8>;
-        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,8>
-        SCHEMA_FIELD(_Type1                          , m_optionWeights                                 , 0x28) // CUtlLeanVectorFixedGrowable<uint8,8>
-        SCHEMA_FIELD(std::int16_t                    , m_parameterNodeIdx                              , 0x38) // int16
-        SCHEMA_FIELD(bool                            , m_bIgnoreInvalidOptions                         , 0x3A) // bool
-        SCHEMA_FIELD(bool                            , m_bHasWeightsSet                                , 0x3B) // bool
-    };
-
-    // CEditableMotionGraph
-    //   fields: 0
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CEditableMotionGraph {
-    public:
-    };
-
-    // CAnimScriptManager
-    //   fields: 1
-    //   size: 0x1A0
-    //   @MGetKV3ClassDefaults
-    class CAnimScriptManager {
-    public:
-        SCHEMA_FIELD(CUtlVector<ScriptInfo_t>        , m_scriptInfo                                    , 0x10) // CUtlVector<ScriptInfo_t>
-    };
-
-    // CMotionSearchNode
-    //   fields: 5
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CMotionSearchNode {
-    public:
-        SCHEMA_FIELD(CUtlVector<CMotionSearchNode*>  , m_children                                      , 0x0) // CUtlVector<CMotionSearchNode*>
-        SCHEMA_FIELD(CVectorQuantizer                , m_quantizer                                     , 0x18) // CVectorQuantizer
-        SCHEMA_FIELD(CUtlVector<CUtlVector<SampleCode>>, m_sampleCodes                                   , 0x38) // CUtlVector<CUtlVector<SampleCode>>
-        SCHEMA_FIELD(CUtlVector<CUtlVector<int32>>   , m_sampleIndices                                 , 0x50) // CUtlVector<CUtlVector<int32>>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_selectableSamples                             , 0x68) // CUtlVector<int32>
-    };
-
-    // CAimCameraUpdateNode
-    //   fields: 8
-    //   size: 0xB8
-    //   @MGetKV3ClassDefaults
-    class CAimCameraUpdateNode {
-    public:
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterPosition                            , 0x70) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterOrientation                         , 0x72) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterPelvisOffset                        , 0x74) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterCameraOnly                          , 0x76) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterWeaponDepenetrationDistance         , 0x78) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterWeaponDepenetrationDelta            , 0x7A) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterCameraClearanceDistance             , 0x7C) // CAnimParamHandle
-        SCHEMA_FIELD(AimCameraOpFixedSettings_t      , m_opFixedSettings                               , 0x80) // AimCameraOpFixedSettings_t
-    };
-
-    // CAnimationGraphVisualizerLine
-    //   fields: 3
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class CAnimationGraphVisualizerLine {
-    public:
-        SCHEMA_FIELD(VectorAligned                   , m_vWsPositionStart                              , 0x40) // VectorAligned
-        SCHEMA_FIELD(VectorAligned                   , m_vWsPositionEnd                                , 0x50) // VectorAligned
-        SCHEMA_FIELD(::Color                         , m_Color                                         , 0x60) // Color
-    };
-
-    // CPulse_DomainValue
-    //   fields: 3
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CPulse_DomainValue {
-    public:
-        SCHEMA_FIELD(PulseDomainValueType_t          , m_nType                                         , 0x0) // PulseDomainValueType_t
-        SCHEMA_FIELD(CGlobalSymbolCaseSensitive      , m_Value                                         , 0x8) // CGlobalSymbolCaseSensitive
-        SCHEMA_FIELD(CPulseValueFullType             , m_RequiredRuntimeType                           , 0x10) // CPulseValueFullType
-    };
-
-    // CPerParticleFloatInput
-    //   fields: 0
-    //   size: 0x170
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyCustomEditor
-    class CPerParticleFloatInput {
-    public:
-    };
-
-    // CMaterialAttributeAnimTag
-    //   fields: 4
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CMaterialAttributeAnimTag {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_AttributeName                                 , 0x58) // CUtlString [MPropertyFriendlyName]
-        SCHEMA_FIELD(MatterialAttributeTagType_t     , m_AttributeType                                 , 0x60) // MatterialAttributeTagType_t [MPropertyFriendlyName, MPropertyAutoRebuildOnChange]
-        SCHEMA_FIELD(float                           , m_flValue                                       , 0x64) // float32 [MPropertyFriendlyName, MPropertyAttrStateCallback]
-        SCHEMA_FIELD(::Color                         , m_Color                                         , 0x68) // Color [MPropertyFriendlyName, MPropertyAttrStateCallback]
-    };
-
-    // CEmitTagActionUpdater
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CEmitTagActionUpdater {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nTagIndex                                     , 0x18) // int32
-        SCHEMA_FIELD(bool                            , m_bIsZeroDuration                               , 0x1C) // bool
-    };
-
-    // CNmTargetOffsetNode::CDefinition
-    //   fields: 4
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CNmTargetOffsetNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(bool                            , m_bIsBoneSpaceOffset                            , 0x12) // bool
-        SCHEMA_FIELD(::Quaternion                    , m_rotationOffset                                , 0x20) // Quaternion
-        SCHEMA_FIELD(::Vector                        , m_translationOffset                             , 0x30) // Vector
-    };
-
-    // CBlend2DInstanceData
-    //   fields: 3
-    //   size: 0xA0
-    //   @MGetKV3ClassDefaults
-    class CBlend2DInstanceData {
-    public:
-        SCHEMA_FIELD(::Vector2D                      , m_dampedValue                                   , 0x8) // Vector2D
-        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x44) // float32
-        SCHEMA_FIELD(float                           , m_flPrevCycle                                   , 0x48) // float32
-    };
-
-    // CFootStepTriggerUpdateNode
-    //   fields: 2
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CFootStepTriggerUpdateNode {
-    public:
-        SCHEMA_FIELD(CUtlVector<FootStepTrigger>     , m_triggers                                      , 0x70) // CUtlVector<FootStepTrigger>
-        SCHEMA_FIELD(float                           , m_flTolerance                                   , 0x8C) // float32
-    };
-
-    // PGDInstruction_t
-    //   fields: 12
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class PGDInstruction_t {
-    public:
-        SCHEMA_FIELD(PulseInstructionCode_t          , m_nCode                                         , 0x0) // PulseInstructionCode_t
-        SCHEMA_FIELD(PulseRuntimeVarIndex_t          , m_nVar                                          , 0x4) // PulseRuntimeVarIndex_t
-        SCHEMA_FIELD(PulseRuntimeRegisterIndex_t     , m_nReg0                                         , 0x8) // PulseRuntimeRegisterIndex_t
-        SCHEMA_FIELD(PulseRuntimeRegisterIndex_t     , m_nReg1                                         , 0xA) // PulseRuntimeRegisterIndex_t
-        SCHEMA_FIELD(PulseRuntimeRegisterIndex_t     , m_nReg2                                         , 0xC) // PulseRuntimeRegisterIndex_t
-        SCHEMA_FIELD(PulseRuntimeInvokeIndex_t       , m_nInvokeBindingIndex                           , 0x10) // PulseRuntimeInvokeIndex_t
-        SCHEMA_FIELD(::PulseRuntimeChunkIndex_t      , m_nChunk                                        , 0x14) // PulseRuntimeChunkIndex_t
-        SCHEMA_FIELD(std::int32_t                    , m_nDestInstruction                              , 0x18) // int32
-        SCHEMA_FIELD(PulseRuntimeCallInfoIndex_t     , m_nCallInfoIndex                                , 0x1C) // PulseRuntimeCallInfoIndex_t
-        SCHEMA_FIELD(PulseRuntimeConstantIndex_t     , m_nConstIdx                                     , 0x20) // PulseRuntimeConstantIndex_t
-        SCHEMA_FIELD(PulseRuntimeDomainValueIndex_t  , m_nDomainValueIdx                               , 0x22) // PulseRuntimeDomainValueIndex_t
-        SCHEMA_FIELD(PulseRuntimeBlackboardReferenceIndex_t, m_nBlackboardReferenceIdx                       , 0x24) // PulseRuntimeBlackboardReferenceIndex_t
-    };
-
-    // VPhysXRange_t
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class VPhysXRange_t {
-    public:
-        SCHEMA_FIELD(float                           , m_flMin                                         , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flMax                                         , 0x4) // float32
-    };
-
-    // CNmFloatCurveEventNode::CDefinition
-    //   fields: 4
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CNmFloatCurveEventNode_CDefinition {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_eventID                                       , 0x10) // CGlobalSymbol
-        SCHEMA_FIELD(std::int16_t                    , m_nDefaultNodeIdx                               , 0x18) // int16
-        SCHEMA_FIELD(float                           , m_flDefaultValue                                , 0x1C) // float32
-        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x20) // CNmBitFlags
-    };
-
-    // CNmSyncTrack::EventMarker_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmSyncTrack_EventMarker_t {
-    public:
-        SCHEMA_FIELD(NmPercent_t                     , m_startTime                                     , 0x0) // NmPercent_t
-        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x8) // CGlobalSymbol
-    };
-
-    // VPhysXBodyPart_t
-    //   fields: 12
-    //   size: 0xA8
-    //   @MGetKV3ClassDefaults
-    class VPhysXBodyPart_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x0) // uint32
-        SCHEMA_FIELD(float                           , m_flMass                                        , 0x4) // float32
-        SCHEMA_FIELD(VPhysics2ShapeDef_t             , m_rnShape                                       , 0x8) // VPhysics2ShapeDef_t
-        SCHEMA_FIELD(std::uint16_t                   , m_nCollisionAttributeIndex                      , 0x80) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nReserved                                     , 0x82) // uint16
-        SCHEMA_FIELD(float                           , m_flInertiaScale                                , 0x84) // float32
-        SCHEMA_FIELD(float                           , m_flLinearDamping                               , 0x88) // float32
-        SCHEMA_FIELD(float                           , m_flAngularDamping                              , 0x8C) // float32
-        SCHEMA_FIELD(float                           , m_flLinearDrag                                  , 0x90) // float32
-        SCHEMA_FIELD(float                           , m_flAngularDrag                                 , 0x94) // float32
-        SCHEMA_FIELD(bool                            , m_bOverrideMassCenter                           , 0x98) // bool
-        SCHEMA_FIELD(::Vector                        , m_vMassCenterOverride                           , 0x9C) // Vector
-    };
-
-    // CSeqAutoLayer
-    //   fields: 7
-    //   size: 0x1C
-    //   @MGetKV3ClassDefaults
-    class CSeqAutoLayer {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nLocalReference                               , 0x0) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nLocalPose                                    , 0x2) // int16
-        SCHEMA_FIELD(CSeqAutoLayerFlag               , m_flags                                         , 0x4) // CSeqAutoLayerFlag
-        SCHEMA_FIELD(float                           , m_start                                         , 0xC) // float32
-        SCHEMA_FIELD(float                           , m_peak                                          , 0x10) // float32
-        SCHEMA_FIELD(float                           , m_tail                                          , 0x14) // float32
-        SCHEMA_FIELD(float                           , m_end                                           , 0x18) // float32
-    };
-
-    // CPulseCell_Inflow_GraphHook
-    //   fields: 1
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Inflow_GraphHook {
-    public:
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_HookName                                      , 0x80) // PulseSymbol_t
-    };
-
-    // CNmFloatCurveEvent
-    //   fields: 2
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CNmFloatCurveEvent {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x18) // CGlobalSymbol
-        SCHEMA_FIELD(CPiecewiseCurve                 , m_curve                                         , 0x20) // CPiecewiseCurve
-    };
-
-    // CPairedSequenceComponentUpdater
-    //   fields: 0
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class CPairedSequenceComponentUpdater {
-    public:
-    };
-
-    // CRemapValueUpdateItem
-    //   fields: 6
-    //   size: 0x14
-    //   @MGetKV3ClassDefaults
-    class CRemapValueUpdateItem {
-    public:
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParamIn                                      , 0x0) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParamOut                                     , 0x2) // CAnimParamHandle
-        SCHEMA_FIELD(float                           , m_flMinInputValue                               , 0x4) // float32
-        SCHEMA_FIELD(float                           , m_flMaxInputValue                               , 0x8) // float32
-        SCHEMA_FIELD(float                           , m_flMinOutputValue                              , 0xC) // float32
-        SCHEMA_FIELD(float                           , m_flMaxOutputValue                              , 0x10) // float32
-    };
-
-    // AnimStateID
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class AnimStateID {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
-    };
-
-    // CNmAndNode::CDefinition
-    //   fields: 1
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmAndNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,4>;
-        SCHEMA_FIELD(_Type0                          , m_conditionNodeIndices                          , 0x10) // CUtlLeanVectorFixedGrowable<int16,4>
-    };
-
-    // PlayerInputMotorInstanceData_t
-    //   fields: 3
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class PlayerInputMotorInstanceData_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vInputVectorWS                                , 0x0) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vVelocityWS                                   , 0xC) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vAccelerationWS                               , 0x18) // Vector
-    };
-
-    // CClothSettingsAnimTag
-    //   fields: 4
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CClothSettingsAnimTag {
-    public:
-        SCHEMA_FIELD(float                           , m_flStiffness                                   , 0x58) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(float                           , m_flEaseIn                                      , 0x5C) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(float                           , m_flEaseOut                                     , 0x60) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(::CUtlString                    , m_nVertexSet                                    , 0x68) // CUtlString [MPropertyFriendlyName]
-    };
-
-    // CPulseCell_WaitForCursorsWithTagBase
-    //   fields: 2
-    //   size: 0x128
-    //   @MGetKV3ClassDefaults
-    //   @MPulseEditorCanvasItemSpecKV3
-    class CPulseCell_WaitForCursorsWithTagBase {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCursorsAllowedToWait                         , 0xD8) // int32 [MPropertyDescription]
-        SCHEMA_FIELD(CPulse_ResumePoint              , m_WaitComplete                                  , 0xE0) // CPulse_ResumePoint
-    };
-
-    // CNmCachedPoseWriteTask
-    //   fields: 0
-    //   size: 0x80
-    class CNmCachedPoseWriteTask {
-    public:
-    };
-
-    // TargetSelectorInstanceData_t
-    //   fields: 2
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class TargetSelectorInstanceData_t {
-    public:
-        SCHEMA_FIELD(CAnimNetVar<int32>              , m_currentIndex                                  , 0x0) // CAnimNetVar<int32>
-        SCHEMA_FIELD(CAnimNetVar<Vector>             , m_vMSRootMotionAnlyzerTarget                    , 0x1C) // CAnimNetVar<Vector>
-    };
-
-    // ModelSkeletonData_t
-    //   fields: 7
-    //   size: 0xA8
-    //   @MGetKV3ClassDefaults
-    class ModelSkeletonData_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_boneName                                      , 0x0) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<int16>               , m_nParent                                       , 0x18) // CUtlVector<int16>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_boneSphere                                    , 0x30) // CUtlVector<float32>
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_nFlag                                         , 0x48) // CUtlVector<uint32>
-        SCHEMA_FIELD(CUtlVector<Vector>              , m_bonePosParent                                 , 0x60) // CUtlVector<Vector>
-        SCHEMA_FIELD(CUtlVector<QuaternionStorage>   , m_boneRotParent                                 , 0x78) // CUtlVector<QuaternionStorage>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_boneScaleParent                               , 0x90) // CUtlVector<float32>
-    };
-
-    // CNmSelectorNode::CDefinition
-    //   fields: 2
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CNmSelectorNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,8>;
-        using _Type1 = CUtlLeanVectorFixedGrowable<int16,8>;
-        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,8>
-        SCHEMA_FIELD(_Type1                          , m_conditionNodeIndices                          , 0x28) // CUtlLeanVectorFixedGrowable<int16,8>
-    };
-
-    // CFollowPathInstanceData
-    //   fields: 5
-    //   size: 0x24
-    //   @MGetKV3ClassDefaults
-    class CFollowPathInstanceData {
-    public:
-        SCHEMA_FIELD(CRelativeArray<CMotionTransform>, m_xLastPredictedTransformsDeltas                , 0x0) // CRelativeArray<CMotionTransform>
-        SCHEMA_FIELD(float                           , m_dampedTurnValue                               , 0x8) // float32
-        SCHEMA_FIELD(float                           , m_flTurnAmount                                  , 0xC) // float32
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flPredictionScale                             , 0x10) // CAnimNetVar<float32>
-        SCHEMA_FIELD(float                           , m_flLastPathTime                                , 0x1C) // float32
-    };
-
-    // CIntAnimParameter
-    //   fields: 3
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CIntAnimParameter {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_defaultValue                                  , 0x80) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_minValue                                      , 0x84) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_maxValue                                      , 0x88) // int32 [MPropertyFriendlyName]
-    };
-
-    // NmCompressionSettings_t
-    //   fields: 9
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class NmCompressionSettings_t {
-    public:
-        SCHEMA_FIELD(NmCompressionSettings_t_QuantizationRange_t, m_translationRangeX                             , 0x0) // NmCompressionSettings_t::QuantizationRange_t
-        SCHEMA_FIELD(NmCompressionSettings_t_QuantizationRange_t, m_translationRangeY                             , 0x8) // NmCompressionSettings_t::QuantizationRange_t
-        SCHEMA_FIELD(NmCompressionSettings_t_QuantizationRange_t, m_translationRangeZ                             , 0x10) // NmCompressionSettings_t::QuantizationRange_t
-        SCHEMA_FIELD(NmCompressionSettings_t_QuantizationRange_t, m_scaleRange                                    , 0x18) // NmCompressionSettings_t::QuantizationRange_t
-        SCHEMA_FIELD(std::int32_t                    , m_nTrackReadOffset                              , 0x20) // int32
-        SCHEMA_FIELD(::Quaternion                    , m_constantRotation                              , 0x30) // Quaternion
-        SCHEMA_FIELD(bool                            , m_bIsRotationStatic                             , 0x40) // bool
-        SCHEMA_FIELD(bool                            , m_bIsTranslationStatic                          , 0x41) // bool
-        SCHEMA_FIELD(bool                            , m_bIsScaleStatic                                , 0x42) // bool
-    };
-
-    // AnimNodeOutputID
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class AnimNodeOutputID {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
-    };
-
-    // CRenderMesh
-    //   fields: 7
-    //   size: 0x228
-    //   @MGetKV3ClassDefaults
-    class CRenderMesh {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<CSceneObjectData,1>;
-        SCHEMA_FIELD(_Type0                          , m_sceneObjects                                  , 0x10) // CUtlLeanVectorFixedGrowable<CSceneObjectData,1>
-        SCHEMA_FIELD(CUtlLeanVector<CBaseConstraint*>, m_constraints                                   , 0xD0) // CUtlLeanVector<CBaseConstraint*>
-        SCHEMA_FIELD(CRenderSkeleton                 , m_skeleton                                      , 0xE0) // CRenderSkeleton
-        SCHEMA_FIELD(bool                            , m_bUseUV2ForCharting                            , 0x1EC) // bool
-        SCHEMA_FIELD(bool                            , m_bEmbeddedMapMesh                              , 0x1ED) // bool
-        SCHEMA_FIELD(DynamicMeshDeformParams_t       , m_meshDeformParams                              , 0x210) // DynamicMeshDeformParams_t
-        SCHEMA_FIELD(CRenderGroom*                   , m_pGroomData                                    , 0x220) // CRenderGroom*
-    };
-
-    // CNmFloatValueNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    class CNmFloatValueNode_CDefinition {
-    public:
-    };
-
-    // CNmSkeleton::SecondarySkeleton_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmSkeleton_SecondarySkeleton_t {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_attachToBoneID                                , 0x0) // CGlobalSymbol
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCNmSkeleton>, m_skeleton                                      , 0x8) // CStrongHandle<InfoForResourceTypeCNmSkeleton>
-    };
-
-    // CBoneConstraintRbf
-    //   fields: 2
-    //   size: 0xC8
-    //   @MGetKV3ClassDefaults
-    class CBoneConstraintRbf {
-    public:
-        using _Type0 = CUtlVector<std::pair<CUtlString,uint32>>;
-        using _Type1 = CUtlVector<std::pair<CUtlString,uint32>>;
-        SCHEMA_FIELD(_Type0                          , m_inputBones                                    , 0x20) // CUtlVector<std::pair<CUtlString,uint32>>
-        SCHEMA_FIELD(_Type1                          , m_outputBones                                   , 0x38) // CUtlVector<std::pair<CUtlString,uint32>>
-    };
-
-    // CAnimComponentUpdater
-    //   fields: 4
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CAnimComponentUpdater {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x18) // CUtlString
-        SCHEMA_FIELD(AnimComponentID                 , m_id                                            , 0x20) // AnimComponentID
-        SCHEMA_FIELD(AnimNodeNetworkMode             , m_networkMode                                   , 0x24) // AnimNodeNetworkMode
-        SCHEMA_FIELD(bool                            , m_bStartEnabled                                 , 0x28) // bool
-    };
-
-    // CAnimTagManagerUpdater
-    //   fields: 1
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CAnimTagManagerUpdater {
-    public:
-        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimTagBase>>, m_tags                                          , 0x38) // CUtlVector<CSmartPtr<CAnimTagBase>>
-    };
-
-    // CAnimDataChannelDesc
-    //   fields: 9
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CAnimDataChannelDesc {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_szChannelClass                                , 0x0) // CBufferString
-        SCHEMA_FIELD(CBufferString                   , m_szVariableName                                , 0x10) // CBufferString
-        SCHEMA_FIELD(std::int32_t                    , m_nFlags                                        , 0x20) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nType                                         , 0x24) // int32
-        SCHEMA_FIELD(CBufferString                   , m_szGrouping                                    , 0x28) // CBufferString
-        SCHEMA_FIELD(CBufferString                   , m_szDescription                                 , 0x38) // CBufferString
-        SCHEMA_FIELD(CUtlVector<CBufferString>       , m_szElementNameArray                            , 0x48) // CUtlVector<CBufferString>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_nElementIndexArray                            , 0x60) // CUtlVector<int32>
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_nElementMaskArray                             , 0x78) // CUtlVector<uint32>
-    };
-
-    // MotionSelection
-    //   fields: 5
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class MotionSelection {
-    public:
-        SCHEMA_FIELD(NetVarConfigIndex               , m_nConfigIndex                                  , 0x24) // NetVarConfigIndex
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flCycleZeroTime                               , 0x30) // CAnimNetVar<float32>
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flPlaybackSpeed                               , 0x3C) // CAnimNetVar<float32>
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flStartTime                                   , 0x48) // CAnimNetVar<float32>
-        SCHEMA_FIELD(std::int32_t                    , m_nSample                                       , 0x54) // int32
-    };
-
-    // COrientationWarpUpdateNode
-    //   fields: 13
-    //   size: 0xC0
-    //   @MGetKV3ClassDefaults
-    class COrientationWarpUpdateNode {
-    public:
-        SCHEMA_FIELD(OrientationWarpMode_t           , m_eMode                                         , 0x74) // OrientationWarpMode_t
-        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetParam                                  , 0x78) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetPositionParam                          , 0x7A) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hFallbackTargetPositionParam                  , 0x7C) // CAnimParamHandle
-        SCHEMA_FIELD(OrientationWarpTargetOffsetMode_t, m_eTargetOffsetMode                             , 0x80) // OrientationWarpTargetOffsetMode_t
-        SCHEMA_FIELD(float                           , m_flTargetOffset                                , 0x84) // float32
-        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetOffsetParam                            , 0x88) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0x90) // CAnimInputDamping
-        SCHEMA_FIELD(OrientationWarpRootMotionSource_t, m_eRootMotionSource                             , 0xA8) // OrientationWarpRootMotionSource_t
-        SCHEMA_FIELD(float                           , m_flMaxRootMotionScale                          , 0xAC) // float32
-        SCHEMA_FIELD(bool                            , m_bEnablePreferredRotationDirection             , 0xB0) // bool
-        SCHEMA_FIELD(AnimValueSource                 , m_ePreferredRotationDirection                   , 0xB4) // AnimValueSource
-        SCHEMA_FIELD(float                           , m_flPreferredRotationThreshold                  , 0xB8) // float32
-    };
-
-    // CAnimGraphDebugReplay
-    //   fields: 5
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class CAnimGraphDebugReplay {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_animGraphFileName                             , 0x40) // CUtlString
-        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimReplayFrame>>, m_frameList                                     , 0x48) // CUtlVector<CSmartPtr<CAnimReplayFrame>>
-        SCHEMA_FIELD(std::int32_t                    , m_startIndex                                    , 0x60) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_writeIndex                                    , 0x64) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_frameCount                                    , 0x68) // int32
-    };
-
-    // CBoneConstraintDotToMorph
-    //   fields: 4
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CBoneConstraintDotToMorph {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_sBoneName                                     , 0x20) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_sTargetBoneName                               , 0x28) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_sMorphChannelName                             , 0x30) // CUtlString
-        SCHEMA_FIELD(float                           , m_flRemap                                       , 0x38) // float32[4]
-    };
-
-    // CPulseGraphDef
-    //   fields: 14
-    //   size: 0x1B0
-    //   @MGetKV3ClassDefaults
-    class CPulseGraphDef {
-    public:
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_DomainIdentifier                              , 0x8) // PulseSymbol_t
-        SCHEMA_FIELD(CPulseValueFullType             , m_DomainSubType                                 , 0x18) // CPulseValueFullType
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_ParentMapName                                 , 0x30) // PulseSymbol_t
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_ParentXmlName                                 , 0x40) // PulseSymbol_t
-        SCHEMA_FIELD(CUtlVector<CPulse_Chunk*>       , m_Chunks                                        , 0x50) // CUtlVector<CPulse_Chunk*>
-        SCHEMA_FIELD(CUtlVector<CPulseCell_Base*>    , m_Cells                                         , 0x68) // CUtlVector<CPulseCell_Base*>
-        SCHEMA_FIELD(CUtlVector<CPulse_Variable>     , m_Vars                                          , 0x80) // CUtlVector<CPulse_Variable>
-        SCHEMA_FIELD(CUtlVector<CPulse_PublicOutput> , m_PublicOutputs                                 , 0x98) // CUtlVector<CPulse_PublicOutput>
-        SCHEMA_FIELD(CUtlVector<CPulse_InvokeBinding*>, m_InvokeBindings                                , 0xB0) // CUtlVector<CPulse_InvokeBinding*>
-        SCHEMA_FIELD(CUtlVector<CPulse_CallInfo*>    , m_CallInfos                                     , 0xC8) // CUtlVector<CPulse_CallInfo*>
-        SCHEMA_FIELD(CUtlVector<CPulse_Constant>     , m_Constants                                     , 0xE0) // CUtlVector<CPulse_Constant>
-        SCHEMA_FIELD(CUtlVector<CPulse_DomainValue>  , m_DomainValues                                  , 0xF8) // CUtlVector<CPulse_DomainValue>
-        SCHEMA_FIELD(CUtlVector<CPulse_BlackboardReference>, m_BlackboardReferences                          , 0x110) // CUtlVector<CPulse_BlackboardReference>
-        SCHEMA_FIELD(CUtlVector<CPulse_OutputConnection*>, m_OutputConnections                             , 0x128) // CUtlVector<CPulse_OutputConnection*>
-    };
-
-    // CAnimationGraphVisualizerPrimitiveBase
-    //   fields: 3
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CAnimationGraphVisualizerPrimitiveBase {
-    public:
-        SCHEMA_FIELD(CAnimationGraphVisualizerPrimitiveType, m_Type                                          , 0x8) // CAnimationGraphVisualizerPrimitiveType
-        SCHEMA_FIELD(AnimNodeID                      , m_OwningAnimNodePaths                           , 0xC) // AnimNodeID[11]
-        SCHEMA_FIELD(std::int32_t                    , m_nOwningAnimNodePathCount                      , 0x38) // int32
-    };
-
-    // MoodAnimation_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyArrayElementNameKey
-    class MoodAnimation_t {
-    public:
-        SCHEMA_FIELD(CModelAnimNameWithDeltas        , m_sName                                         , 0x0) // CModelAnimNameWithDeltas [MPropertyDescription]
-        SCHEMA_FIELD(float                           , m_flWeight                                      , 0x8) // float32 [MPropertyDescription]
-    };
-
-    // CMorphBundleData
-    //   fields: 4
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class CMorphBundleData {
-    public:
-        SCHEMA_FIELD(float                           , m_flULeftSrc                                    , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flVTopSrc                                     , 0x4) // float32
-        SCHEMA_FIELD(CUtlVector<float32>             , m_offsets                                       , 0x8) // CUtlVector<float32>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_ranges                                        , 0x20) // CUtlVector<float32>
-    };
-
-    // CBlendNodeInstanceData
-    //   fields: 7
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CBlendNodeInstanceData {
-    public:
-        SCHEMA_FIELD(float                           , m_dampedValue                                   , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x4) // float32
-        SCHEMA_FIELD(float                           , m_flCycleZeroTime                               , 0x8) // float32
-        SCHEMA_FIELD(float                           , m_flPlaybackRate                                , 0xC) // float32
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flBlendValue                                  , 0x10) // CAnimNetVar<float32>
-        SCHEMA_FIELD(float                           , m_flDuration                                    , 0x1C) // float32
-        SCHEMA_FIELD(CAnimNetVar<uint8>              , m_resetCount                                    , 0x20) // CAnimNetVar<uint8>
-    };
-
-    // CPulseCell_Timeline::TimelineEvent_t
-    //   fields: 2
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Timeline_TimelineEvent_t {
-    public:
-        SCHEMA_FIELD(float                           , m_flTimeFromPrevious                            , 0x0) // float32
-        SCHEMA_FIELD(CPulse_OutflowConnection        , m_EventOutflow                                  , 0x8) // CPulse_OutflowConnection
-    };
-
-    // LookAtOpFixedSettings_t
-    //   fields: 11
-    //   size: 0xD0
-    //   @MGetKV3ClassDefaults
-    class LookAtOpFixedSettings_t {
-    public:
-        SCHEMA_FIELD(CAnimAttachment                 , m_attachment                                    , 0x0) // CAnimAttachment
-        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0x80) // CAnimInputDamping
-        SCHEMA_FIELD(CUtlVector<LookAtBone_t>        , m_bones                                         , 0x98) // CUtlVector<LookAtBone_t>
-        SCHEMA_FIELD(float                           , m_flYawLimit                                    , 0xB0) // float32
-        SCHEMA_FIELD(float                           , m_flPitchLimit                                  , 0xB4) // float32
-        SCHEMA_FIELD(float                           , m_flHysteresisInnerAngle                        , 0xB8) // float32
-        SCHEMA_FIELD(float                           , m_flHysteresisOuterAngle                        , 0xBC) // float32
-        SCHEMA_FIELD(bool                            , m_bRotateYawForward                             , 0xC0) // bool
-        SCHEMA_FIELD(bool                            , m_bMaintainUpDirection                          , 0xC1) // bool
-        SCHEMA_FIELD(bool                            , m_bTargetIsPosition                             , 0xC2) // bool
-        SCHEMA_FIELD(bool                            , m_bUseHysteresis                                , 0xC3) // bool
-    };
-
-    // CNmFloatRangeComparisonNode::CDefinition
-    //   fields: 3
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmFloatRangeComparisonNode_CDefinition {
-    public:
-        SCHEMA_FIELD(Range_t                         , m_range                                         , 0x10) // Range_t
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x18) // int16
-        SCHEMA_FIELD(bool                            , m_bIsInclusiveCheck                             , 0x1A) // bool
-    };
-
-    // ModelBoneFlexDriver_t
-    //   fields: 3
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class ModelBoneFlexDriver_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_boneName                                      , 0x0) // CUtlString
-        SCHEMA_FIELD(std::uint32_t                   , m_boneNameToken                                 , 0x8) // uint32
-        SCHEMA_FIELD(CUtlVector<ModelBoneFlexDriverControl_t>, m_controls                                      , 0x10) // CUtlVector<ModelBoneFlexDriverControl_t>
-    };
-
-    // CPulseCell_CursorQueue
-    //   fields: 1
-    //   size: 0x130
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    //   @MPulseEditorHeaderIcon
-    class CPulseCell_CursorQueue {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCursorsAllowedToRunParallel                  , 0x128) // int32 [MPropertyDescription]
-    };
-
-    // VPhysXCollisionAttributes_t
-    //   fields: 11
-    //   size: 0xD0
-    //   @MGetKV3ClassDefaults
-    class VPhysXCollisionAttributes_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nIncludeDetailLayerCount                      , 0x0) // int32
-        SCHEMA_FIELD(std::uint32_t                   , m_CollisionGroup                                , 0x4) // uint32
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_InteractAs                                    , 0x8) // CUtlVector<uint32>
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_InteractWith                                  , 0x20) // CUtlVector<uint32>
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_InteractExclude                               , 0x38) // CUtlVector<uint32>
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_DetailLayers                                  , 0x50) // CUtlVector<uint32>
-        SCHEMA_FIELD(::CUtlString                    , m_CollisionGroupString                          , 0x68) // CUtlString
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_InteractAsStrings                             , 0x70) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_InteractWithStrings                           , 0x88) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_InteractExcludeStrings                        , 0xA0) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_DetailLayerStrings                            , 0xB8) // CUtlVector<CUtlString>
-    };
-
-    // CFootPositionMetricEvaluator
-    //   fields: 2
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class CFootPositionMetricEvaluator {
-    public:
-        SCHEMA_FIELD(CUtlVector<int32>               , m_footIndices                                   , 0x50) // CUtlVector<int32>
-        SCHEMA_FIELD(bool                            , m_bIgnoreSlope                                  , 0x68) // bool
-    };
-
-    // CEnumAnimParameter
-    //   fields: 3
-    //   size: 0xD8
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CEnumAnimParameter {
-    public:
-        SCHEMA_FIELD(std::uint8_t                    , m_defaultValue                                  , 0x88) // uint8 [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_enumOptions                                   , 0x90) // CUtlVector<CUtlString> [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<uint64>              , m_vecEnumReferenced                             , 0xA8) // CUtlVector<uint64> [MPropertySuppressField]
-    };
-
-    // CNmControlParameterFloatNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmControlParameterFloatNode_CDefinition {
-    public:
-    };
-
-    // CTiltTwistConstraint
-    //   fields: 2
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CTiltTwistConstraint {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nTargetAxis                                   , 0x60) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nSlaveAxis                                    , 0x64) // int32
-    };
-
-    // CNmIDComparisonNode::CDefinition
-    //   fields: 3
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CNmIDComparisonNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<CGlobalSymbol,4>;
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(CNmIDComparisonNode_Comparison_t, m_comparison                                    , 0x12) // CNmIDComparisonNode::Comparison_t
-        SCHEMA_FIELD(_Type0                          , m_comparisionIDs                                , 0x18) // CUtlLeanVectorFixedGrowable<CGlobalSymbol,4>
-    };
-
-    // CPhysSurfacePropertiesVehicle
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CPhysSurfacePropertiesVehicle {
-    public:
-        SCHEMA_FIELD(float                           , m_wheelDrag                                     , 0x0) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_wheelFrictionScale                            , 0x4) // float32 [MKV3TransferName]
-    };
-
-    // CNmScaleTask
-    //   fields: 0
-    //   size: 0xD0
-    class CNmScaleTask {
-    public:
-    };
-
-    // CNmFrameSnapEvent
-    //   fields: 1
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmFrameSnapEvent {
-    public:
-        SCHEMA_FIELD(NmFrameSnapEventMode_t          , m_frameSnapMode                                 , 0x18) // NmFrameSnapEventMode_t
-    };
-
-    // CFutureVelocityMetricEvaluator
-    //   fields: 4
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CFutureVelocityMetricEvaluator {
-    public:
-        SCHEMA_FIELD(float                           , m_flDistance                                    , 0x50) // float32
-        SCHEMA_FIELD(float                           , m_flStoppingDistance                            , 0x54) // float32
-        SCHEMA_FIELD(float                           , m_flTargetSpeed                                 , 0x58) // float32
-        SCHEMA_FIELD(VelocityMetricMode              , m_eMode                                         , 0x5C) // VelocityMetricMode
-    };
-
-    // CPulseCell_BaseLerp::CursorState_t
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_BaseLerp_CursorState_t {
-    public:
-        SCHEMA_FIELD(::GameTime_t                    , m_StartTime                                     , 0x0) // GameTime_t
-        SCHEMA_FIELD(::GameTime_t                    , m_EndTime                                       , 0x4) // GameTime_t
-    };
-
-    // AnimationDecodeDebugDumpElement_t
-    //   fields: 6
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class AnimationDecodeDebugDumpElement_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nEntityIndex                                  , 0x0) // int32
-        SCHEMA_FIELD(::CUtlString                    , m_modelName                                     , 0x8) // CUtlString
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_poseParams                                    , 0x10) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_decodeOps                                     , 0x28) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_internalOps                                   , 0x40) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_decodedAnims                                  , 0x58) // CUtlVector<CUtlString>
-    };
-
-    // CNmGraphVariationUserData
-    //   fields: 0
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CNmGraphVariationUserData {
-    public:
-    };
-
-    // CRootMotion
-    //   fields: 3
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CRootMotion {
-    public:
-        SCHEMA_FIELD(CMotionTransform                , m_deltaTransform                                , 0x0) // CMotionTransform
-        SCHEMA_FIELD(::Vector                        , m_vVelocityMS                                   , 0x10) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vUpOverride                                   , 0x1C) // Vector
-    };
-
-    // CNmLayerBlendNode::LayerDefinition_t
-    //   fields: 8
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class CNmLayerBlendNode_LayerDefinition_t {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputNodeIdx                                 , 0x0) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nWeightValueNodeIdx                           , 0x2) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nBoneMaskValueNodeIdx                         , 0x4) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nRootMotionWeightValueNodeIdx                 , 0x6) // int16
-        SCHEMA_FIELD(bool                            , m_bIsSynchronized                               , 0x8) // bool
-        SCHEMA_FIELD(bool                            , m_bIgnoreEvents                                 , 0x9) // bool
-        SCHEMA_FIELD(bool                            , m_bIsStateMachineLayer                          , 0xA) // bool
-        SCHEMA_FIELD(NmPoseBlendMode_t               , m_blendMode                                     , 0xB) // NmPoseBlendMode_t
-    };
-
-    // CSeqPoseParamDesc
-    //   fields: 5
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CSeqPoseParamDesc {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x0) // CBufferString
-        SCHEMA_FIELD(float                           , m_flStart                                       , 0x10) // float32
-        SCHEMA_FIELD(float                           , m_flEnd                                         , 0x14) // float32
-        SCHEMA_FIELD(float                           , m_flLoop                                        , 0x18) // float32
-        SCHEMA_FIELD(bool                            , m_bLooping                                      , 0x1C) // bool
-    };
-
-    // CNmBlend2DNode::CDefinition
-    //   fields: 7
-    //   size: 0xC8
-    //   @MGetKV3ClassDefaults
-    class CNmBlend2DNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,5>;
-        using _Type1 = CUtlLeanVectorFixedGrowable<Vector2D,10>;
-        using _Type2 = CUtlLeanVectorFixedGrowable<uint8,30>;
-        using _Type3 = CUtlLeanVectorFixedGrowable<uint8,10>;
-        SCHEMA_FIELD(_Type0                          , m_sourceNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,5>
-        SCHEMA_FIELD(_Type1                          , m_values                                        , 0x28) // CUtlLeanVectorFixedGrowable<Vector2D,10>
-        SCHEMA_FIELD(_Type2                          , m_indices                                       , 0x80) // CUtlLeanVectorFixedGrowable<uint8,30>
-        SCHEMA_FIELD(_Type3                          , m_hullIndices                                   , 0xA8) // CUtlLeanVectorFixedGrowable<uint8,10>
-        SCHEMA_FIELD(std::int16_t                    , m_nInputParameterNodeIdx0                       , 0xC0) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nInputParameterNodeIdx1                       , 0xC2) // int16
-        SCHEMA_FIELD(bool                            , m_bAllowLooping                                 , 0xC4) // bool
-    };
-
-    // FollowAttachmentSettings_t
-    //   fields: 5
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class FollowAttachmentSettings_t {
-    public:
-        SCHEMA_FIELD(CAnimAttachment                 , m_attachment                                    , 0x0) // CAnimAttachment
-        SCHEMA_FIELD(std::int32_t                    , m_boneIndex                                     , 0x80) // int32
-        SCHEMA_FIELD(AttachmentHandle_t              , m_attachmentHandle                              , 0x84) // AttachmentHandle_t
-        SCHEMA_FIELD(bool                            , m_bMatchTranslation                             , 0x85) // bool
-        SCHEMA_FIELD(bool                            , m_bMatchRotation                                , 0x86) // bool
-    };
-
-    // CNmIDBasedClipSelectorNode::CDefinition
-    //   fields: 5
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CNmIDBasedClipSelectorNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,5>;
-        using _Type1 = CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>;
-        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,5>
-        SCHEMA_FIELD(_Type1                          , m_optionIDs                                     , 0x28) // CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>
-        SCHEMA_FIELD(std::int16_t                    , m_nParameterNodeIdx                             , 0x58) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nFallbackNodeIdx                              , 0x5A) // int16
-        SCHEMA_FIELD(bool                            , m_bIgnoreInvalidOptions                         , 0x5C) // bool
-    };
-
-    // PulseNodeDynamicOutflows_t::DynamicOutflow_t
-    //   fields: 2
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class PulseNodeDynamicOutflows_t_DynamicOutflow_t {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_OutflowID                                     , 0x0) // CGlobalSymbol
-        SCHEMA_FIELD(CPulse_OutflowConnection        , m_Connection                                    , 0x8) // CPulse_OutflowConnection [MFgdFromSchemaCompletelySkipField]
-    };
-
-    // CPulseCell_Value_RandomInt
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    //   @MPulseEditorHeaderIcon
-    class CPulseCell_Value_RandomInt {
-    public:
-    };
-
-    // CNmGraphDefinition
-    //   fields: 14
-    //   size: 0x1B8
-    //   @MGetKV3ClassDefaults
-    class CNmGraphDefinition {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_variationID                                   , 0x0) // CGlobalSymbol
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCNmSkeleton>, m_skeleton                                      , 0x8) // CStrongHandle<InfoForResourceTypeCNmSkeleton>
-        SCHEMA_FIELD(CUtlVector<CStrongHandle<InfoForResourceTypeCNmSkeleton>>, m_supportedSecondarySkeletons                   , 0x10) // CUtlVector<CStrongHandle<InfoForResourceTypeCNmSkeleton>>
-        SCHEMA_FIELD(CNmGraphVariationUserData*      , m_pUserData                                     , 0x28) // CNmGraphVariationUserData*
-        SCHEMA_FIELD(CUtlVector<int16>               , m_persistentNodeIndices                         , 0x30) // CUtlVector<int16>
-        SCHEMA_FIELD(std::int16_t                    , m_nRootNodeIdx                                  , 0x48) // int16
-        SCHEMA_FIELD(CUtlVector<CGlobalSymbol>       , m_controlParameterIDs                           , 0x50) // CUtlVector<CGlobalSymbol>
-        SCHEMA_FIELD(CUtlVector<CGlobalSymbol>       , m_virtualParameterIDs                           , 0x68) // CUtlVector<CGlobalSymbol>
-        SCHEMA_FIELD(CUtlVector<int16>               , m_virtualParameterNodeIndices                   , 0x80) // CUtlVector<int16>
-        SCHEMA_FIELD(CUtlVector<CNmGraphDefinition_ReferencedGraphSlot_t>, m_referencedGraphSlots                          , 0x98) // CUtlVector<CNmGraphDefinition::ReferencedGraphSlot_t>
-        SCHEMA_FIELD(CUtlVector<CNmGraphDefinition_ExternalGraphSlot_t>, m_externalGraphSlots                            , 0xB0) // CUtlVector<CNmGraphDefinition::ExternalGraphSlot_t>
-        SCHEMA_FIELD(CUtlVector<CNmGraphDefinition_ExternalPoseSlot_t>, m_externalPoseSlots                             , 0xC8) // CUtlVector<CNmGraphDefinition::ExternalPoseSlot_t>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_nodePaths                                     , 0x150) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<CStrongHandleVoid>   , m_resources                                     , 0x168) // CUtlVector<CStrongHandleVoid>
-    };
-
-    // CModelConfigElement_SetBodygroup
-    //   fields: 2
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CModelConfigElement_SetBodygroup {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_GroupName                                     , 0x48) // CGlobalSymbol
-        SCHEMA_FIELD(std::int32_t                    , m_nChoice                                       , 0x50) // int32
-    };
-
-    // CNmGraphEventConditionNode::CDefinition
-    //   fields: 3
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CNmGraphEventConditionNode_CDefinition {
-    public:
-        using _Type0 = CUtlVectorFixedGrowable<CNmGraphEventConditionNode_Condition_t,5>;
-        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
-        SCHEMA_FIELD(_Type0                          , m_conditions                                    , 0x18) // CUtlVectorFixedGrowable<CNmGraphEventConditionNode::Condition_t,5>
-    };
-
-    // CAudioAnimTag
-    //   fields: 7
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CAudioAnimTag {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_clipName                                      , 0x58) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(::CUtlString                    , m_attachmentName                                , 0x60) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flVolume                                      , 0x68) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(bool                            , m_bStopWhenTagEnds                              , 0x6C) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bStopWhenGraphEnds                            , 0x6D) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bPlayOnServer                                 , 0x6E) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bPlayOnClient                                 , 0x6F) // bool [MPropertyFriendlyName]
-    };
-
-    // CSequenceGroupData
-    //   fields: 14
-    //   size: 0x138
-    //   @MGetKV3ClassDefaults
-    class CSequenceGroupData {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x10) // CBufferString
-        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x20) // uint32
-        SCHEMA_FIELD(CUtlVector<CBufferString>       , m_localSequenceNameArray                        , 0x28) // CUtlVector<CBufferString>
-        SCHEMA_FIELD(CUtlVector<CSeqS1SeqDesc>       , m_localS1SeqDescArray                           , 0x40) // CUtlVector<CSeqS1SeqDesc>
-        SCHEMA_FIELD(CUtlVector<CSeqS1SeqDesc>       , m_localMultiSeqDescArray                        , 0x58) // CUtlVector<CSeqS1SeqDesc>
-        SCHEMA_FIELD(CUtlVector<CSeqSynthAnimDesc>   , m_localSynthAnimDescArray                       , 0x70) // CUtlVector<CSeqSynthAnimDesc>
-        SCHEMA_FIELD(CUtlVector<CSeqCmdSeqDesc>      , m_localCmdSeqDescArray                          , 0x88) // CUtlVector<CSeqCmdSeqDesc>
-        SCHEMA_FIELD(CUtlVector<CSeqBoneMaskList>    , m_localBoneMaskArray                            , 0xA0) // CUtlVector<CSeqBoneMaskList>
-        SCHEMA_FIELD(CUtlVector<CSeqScaleSet>        , m_localScaleSetArray                            , 0xB8) // CUtlVector<CSeqScaleSet>
-        SCHEMA_FIELD(CUtlVector<CBufferString>       , m_localBoneNameArray                            , 0xD0) // CUtlVector<CBufferString>
-        SCHEMA_FIELD(CBufferString                   , m_localNodeName                                 , 0xE8) // CBufferString
-        SCHEMA_FIELD(CUtlVector<CSeqPoseParamDesc>   , m_localPoseParamArray                           , 0xF8) // CUtlVector<CSeqPoseParamDesc>
-        SCHEMA_FIELD(KeyValues3                      , m_keyValues                                     , 0x110) // KeyValues3
-        SCHEMA_FIELD(CUtlVector<CSeqIKLock>          , m_localIKAutoplayLockArray                      , 0x120) // CUtlVector<CSeqIKLock>
-    };
-
-    // CDirectPlaybackUpdateNode
-    //   fields: 3
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CDirectPlaybackUpdateNode {
-    public:
-        SCHEMA_FIELD(bool                            , m_bFinishEarly                                  , 0x74) // bool
-        SCHEMA_FIELD(bool                            , m_bResetOnFinish                                , 0x75) // bool
-        SCHEMA_FIELD(CUtlVector<CDirectPlaybackTagData>, m_allTags                                       , 0x78) // CUtlVector<CDirectPlaybackTagData>
-    };
-
-    // CBoneConstraintBase
-    //   fields: 0
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CBoneConstraintBase {
-    public:
-    };
-
-    // CHandshakeAnimTagBase
-    //   fields: 1
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CHandshakeAnimTagBase {
-    public:
-        SCHEMA_FIELD(bool                            , m_bIsDisableTag                                 , 0x50) // bool [MPropertyFriendlyName]
-    };
-
-    // CNmGraphDefinition::ReferencedGraphSlot_t
-    //   fields: 2
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class CNmGraphDefinition_ReferencedGraphSlot_t {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nNodeIdx                                      , 0x0) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_dataSlotIdx                                   , 0x2) // int16
-    };
-
-    // CAnimationLayer
-    //   fields: 11
-    //   size: 0x4C
-    //   @MGetKV3ClassDefaults
-    class CAnimationLayer {
-    public:
-        SCHEMA_FIELD(CAnimNetVar<int32>              , m_hSequence                                     , 0x0) // CAnimNetVar<int32>
-        SCHEMA_FIELD(float                           , m_flPrevCycle                                   , 0xC) // float32
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flCycle                                       , 0x10) // CAnimNetVar<float32>
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flWeight                                      , 0x1C) // CAnimNetVar<float32>
-        SCHEMA_FIELD(CAnimNetVar<int32>              , m_nOrder                                        , 0x28) // CAnimNetVar<int32>
-        SCHEMA_FIELD(bool                            , m_bLooping                                      , 0x34) // bool
-        SCHEMA_FIELD(std::int32_t                    , m_nFlags                                        , 0x38) // int32
-        SCHEMA_FIELD(bool                            , m_bSequenceFinished                             , 0x3C) // bool
-        SCHEMA_FIELD(float                           , m_flKillRate                                    , 0x40) // float32
-        SCHEMA_FIELD(float                           , m_flKillDelay                                   , 0x44) // float32
-        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x48) // int32
-    };
-
-    // CPulseCell_Inflow_BaseEntrypoint
-    //   fields: 2
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Inflow_BaseEntrypoint {
-    public:
-        SCHEMA_FIELD(::PulseRuntimeChunkIndex_t      , m_EntryChunk                                    , 0x48) // PulseRuntimeChunkIndex_t
-        SCHEMA_FIELD(::PulseRegisterMap_t            , m_RegisterMap                                   , 0x50) // PulseRegisterMap_t
-    };
-
-    // CNmLegacyEvent
-    //   fields: 2
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CNmLegacyEvent {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_animEventClassName                            , 0x18) // CUtlString
-        SCHEMA_FIELD(KeyValues3                      , m_KV                                            , 0x20) // KeyValues3
-    };
-
-    // CFlexRule
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CFlexRule {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nFlex                                         , 0x0) // int32
-        SCHEMA_FIELD(CUtlVector<CFlexOp>             , m_FlexOps                                       , 0x8) // CUtlVector<CFlexOp>
-    };
-
-    // CNmPoseTask
-    //   fields: 0
-    //   size: 0x70
-    class CNmPoseTask {
-    public:
-    };
-
-    // PulseGraphExecutionHistoryNodeDesc_t
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class PulseGraphExecutionHistoryNodeDesc_t {
-    public:
-        SCHEMA_FIELD(CBufferString                   , strCellDesc                                     , 0x0) // CBufferString
-        SCHEMA_FIELD(::PulseSymbol_t                 , strBindingName                                  , 0x10) // PulseSymbol_t
-    };
-
-    // CQuaternionAnimParameter
-    //   fields: 2
-    //   size: 0xA0
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CQuaternionAnimParameter {
-    public:
-        SCHEMA_FIELD(::Quaternion                    , m_defaultValue                                  , 0x80) // Quaternion [MPropertySuppressField]
-        SCHEMA_FIELD(bool                            , m_bInterpolate                                  , 0x90) // bool [MPropertyFriendlyName]
-    };
-
-    // CNmCachedBoolNode::CDefinition
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmCachedBoolNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(NmCachedValueMode_t             , m_mode                                          , 0x14) // NmCachedValueMode_t
-    };
-
-    // CRenderGroom
-    //   fields: 14
-    //   size: 0xB0
-    //   @MGetKV3ClassDefaults
-    class CRenderGroom {
-    public:
-        SCHEMA_FIELD(CUtlVector<RenderHairStrandInfo_t>, m_hairs                                         , 0x0) // CUtlVector<RenderHairStrandInfo_t>
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_hairPositionOffsets                           , 0x18) // CUtlVector<uint32>
-        SCHEMA_FIELD(CStrongHandleCopyable<InfoForResourceTypeIMaterial2>, m_hSimParamsMat                                 , 0x40) // CStrongHandleCopyable<InfoForResourceTypeIMaterial2>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_strandSegmentCountHist                        , 0x48) // CUtlVector<int32>
-        SCHEMA_FIELD(std::int32_t                    , m_nMaxSegmentsPerHairStrand                     , 0x78) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nGuideHairCount                               , 0x7C) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nHairCount                                    , 0x80) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nTotalVertexCount                             , 0x84) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nTotalSegmentCount                            , 0x88) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nGroomGroupID                                 , 0x8C) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nAttachBoneIdx                                , 0x90) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nAttachMeshIdx                                , 0x94) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nAttachMeshDrawCallIdx                        , 0x98) // int32
-        SCHEMA_FIELD(bool                            , m_bEnableSimulation                             , 0xAC) // bool
-    };
-
-    // CAnimEncodedFrames
-    //   fields: 5
-    //   size: 0xD8
-    //   @MGetKV3ClassDefaults
-    class CAnimEncodedFrames {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_fileName                                      , 0x0) // CBufferString
-        SCHEMA_FIELD(std::int32_t                    , m_nFrames                                       , 0x10) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nFramesPerBlock                               , 0x14) // int32
-        SCHEMA_FIELD(CUtlVector<CAnimFrameBlockAnim> , m_frameblockArray                               , 0x18) // CUtlVector<CAnimFrameBlockAnim>
-        SCHEMA_FIELD(CAnimEncodeDifference           , m_usageDifferences                              , 0x30) // CAnimEncodeDifference
-    };
-
-    // CHitBox
-    //   fields: 13
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class CHitBox {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_sSurfaceProperty                              , 0x8) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_sBoneName                                     , 0x10) // CUtlString
-        SCHEMA_FIELD(::Vector                        , m_vMinBounds                                    , 0x18) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vMaxBounds                                    , 0x24) // Vector
-        SCHEMA_FIELD(float                           , m_flShapeRadius                                 , 0x30) // float32
-        SCHEMA_FIELD(std::uint32_t                   , m_nBoneNameHash                                 , 0x34) // uint32
-        SCHEMA_FIELD(std::int32_t                    , m_nGroupId                                      , 0x38) // int32
-        SCHEMA_FIELD(std::uint8_t                    , m_nShapeType                                    , 0x3C) // uint8
-        SCHEMA_FIELD(bool                            , m_bTranslationOnly                              , 0x3D) // bool
-        SCHEMA_FIELD(std::uint32_t                   , m_CRC                                           , 0x40) // uint32
-        SCHEMA_FIELD(::Color                         , m_cRenderColor                                  , 0x44) // Color
-        SCHEMA_FIELD(std::uint16_t                   , m_nHitBoxIndex                                  , 0x48) // uint16
-    };
-
-    // CSeqBoneMaskList
-    //   fields: 5
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CSeqBoneMaskList {
-    public:
-        using _Type0 = CUtlVector<std::pair<CBufferString,float32>>;
-        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x0) // CBufferString
-        SCHEMA_FIELD(CUtlVector<int16>               , m_nLocalBoneArray                               , 0x10) // CUtlVector<int16>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_flBoneWeightArray                             , 0x28) // CUtlVector<float32>
-        SCHEMA_FIELD(float                           , m_flDefaultMorphCtrlWeight                      , 0x40) // float32
-        SCHEMA_FIELD(_Type0                          , m_morphCtrlWeightArray                          , 0x48) // CUtlVector<std::pair<CBufferString,float32>>
-    };
-
-    // CUnaryUpdateNode
-    //   fields: 1
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class CUnaryUpdateNode {
-    public:
-        SCHEMA_FIELD(CAnimUpdateNodeRef              , m_pChildNode                                    , 0x60) // CAnimUpdateNodeRef
-    };
-
-    // CStateActionUpdater
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CStateActionUpdater {
-    public:
-        SCHEMA_FIELD(CSmartPtr<CAnimActionUpdater>   , m_pAction                                       , 0x0) // CSmartPtr<CAnimActionUpdater>
-        SCHEMA_FIELD(StateActionBehavior             , m_eBehavior                                     , 0x8) // StateActionBehavior
     };
 
     // CParticleFloatInput
@@ -7464,456 +6625,64 @@ namespace animationsystem {
         SCHEMA_FIELD(CPiecewiseCurve                 , m_Curve                                         , 0x130) // CPiecewiseCurve
     };
 
-    // CWarpSectionAnimTagBase
-    //   fields: 0
+    // CPulseCell_Step_CallExternalMethod
+    //   fields: 5
+    //   size: 0x150
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Step_CallExternalMethod {
+    public:
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_MethodName                                    , 0xD8) // PulseSymbol_t
+        SCHEMA_FIELD(PulseRuntimeBlackboardReferenceIndex_t, m_nBlackboardIndex                              , 0xE8) // PulseRuntimeBlackboardReferenceIndex_t
+        SCHEMA_FIELD(CUtlLeanVector<CPulseRuntimeMethodArg>, m_ExpectedArgs                                  , 0xF0) // CUtlLeanVector<CPulseRuntimeMethodArg>
+        SCHEMA_FIELD(PulseMethodCallMode_t           , m_nAsyncCallMode                                , 0x100) // PulseMethodCallMode_t
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnFinished                                    , 0x108) // CPulse_ResumePoint
+    };
+
+    // CStateUpdateData
+    //   fields: 10
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CStateUpdateData {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(AnimScriptHandle                , m_hScript                                       , 0x8) // AnimScriptHandle
+        SCHEMA_FIELD(CUtlVector<int32>               , m_transitionIndices                             , 0x10) // CUtlVector<int32>
+        SCHEMA_FIELD(CUtlVector<CStateActionUpdater> , m_actions                                       , 0x28) // CUtlVector<CStateActionUpdater>
+        SCHEMA_FIELD(AnimStateID                     , m_stateID                                       , 0x40) // AnimStateID
+        // SKIPPED: m_bIsStartState (bitfield type not supported)
+        // SKIPPED: m_bIsEndState (bitfield type not supported)
+        // SKIPPED: m_bIsPassthrough (bitfield type not supported)
+        // SKIPPED: m_bIsPassthroughRootMotion (bitfield type not supported)
+        // SKIPPED: m_bPreEvaluatePassthroughTransitionPath (bitfield type not supported)
+    };
+
+    // CSeqAutoLayerFlag
+    //   fields: 8
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CSeqAutoLayerFlag {
+    public:
+        SCHEMA_FIELD(bool                            , m_bPost                                         , 0x0) // bool
+        SCHEMA_FIELD(bool                            , m_bSpline                                       , 0x1) // bool
+        SCHEMA_FIELD(bool                            , m_bXFade                                        , 0x2) // bool
+        SCHEMA_FIELD(bool                            , m_bNoBlend                                      , 0x3) // bool
+        SCHEMA_FIELD(bool                            , m_bLocal                                        , 0x4) // bool
+        SCHEMA_FIELD(bool                            , m_bPose                                         , 0x5) // bool
+        SCHEMA_FIELD(bool                            , m_bFetchFrame                                   , 0x6) // bool
+        SCHEMA_FIELD(bool                            , m_bSubtract                                     , 0x7) // bool
+    };
+
+    // CAnimTagBase
+    //   fields: 5
     //   size: 0x50
     //   @MGetKV3ClassDefaults
-    class CWarpSectionAnimTagBase {
+    class CAnimTagBase {
     public:
-    };
-
-    // SkeletonAnimCapture_t
-    //   fields: 10
-    //   size: 0xC0
-    //   @MGetKV3ClassDefaults
-    class SkeletonAnimCapture_t {
-    public:
-        SCHEMA_FIELD(CEntityIndex                    , m_nEntIndex                                     , 0x0) // CEntityIndex
-        SCHEMA_FIELD(CEntityIndex                    , m_nEntParent                                    , 0x4) // CEntityIndex
-        SCHEMA_FIELD(CUtlVector<CEntityIndex>        , m_ImportedCollision                             , 0x8) // CUtlVector<CEntityIndex>
-        SCHEMA_FIELD(::CUtlString                    , m_ModelName                                     , 0x20) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_CaptureName                                   , 0x28) // CUtlString
-        SCHEMA_FIELD(CUtlVector<SkeletonAnimCapture_t_Bone_t>, m_ModelBindPose                                 , 0x30) // CUtlVector<SkeletonAnimCapture_t::Bone_t>
-        SCHEMA_FIELD(CUtlVector<SkeletonAnimCapture_t_Bone_t>, m_FeModelInitPose                               , 0x48) // CUtlVector<SkeletonAnimCapture_t::Bone_t>
-        SCHEMA_FIELD(std::int32_t                    , m_nFlexControllers                              , 0x60) // int32
-        SCHEMA_FIELD(bool                            , m_bPredicted                                    , 0x64) // bool
-        SCHEMA_FIELD(CUtlVector<SkeletonAnimCapture_t_Frame_t>, m_Frames                                        , 0xA8) // CUtlVector<SkeletonAnimCapture_t::Frame_t>
-    };
-
-    // CNmConstVectorNode::CDefinition
-    //   fields: 1
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmConstVectorNode_CDefinition {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_value                                         , 0x10) // Vector
-    };
-
-    // RenderSkeletonBone_t
-    //   fields: 5
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class RenderSkeletonBone_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_boneName                                      , 0x0) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_parentName                                    , 0x8) // CUtlString
-        SCHEMA_FIELD(::matrix3x4_t                   , m_invBindPose                                   , 0x10) // matrix3x4_t
-        SCHEMA_FIELD(SkeletonBoneBounds_t            , m_bbox                                          , 0x40) // SkeletonBoneBounds_t
-        SCHEMA_FIELD(float                           , m_flSphereRadius                                , 0x58) // float32
-    };
-
-    // CPulse_Variable
-    //   fields: 9
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CPulse_Variable {
-    public:
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_Name                                          , 0x0) // PulseSymbol_t
-        SCHEMA_FIELD(::CUtlString                    , m_Description                                   , 0x10) // CUtlString
-        SCHEMA_FIELD(CPulseValueFullType             , m_Type                                          , 0x18) // CPulseValueFullType
-        SCHEMA_FIELD(KeyValues3                      , m_DefaultValue                                  , 0x30) // KeyValues3
-        SCHEMA_FIELD(PulseVariableKeysSource_t       , m_nKeysSource                                   , 0x44) // PulseVariableKeysSource_t
-        SCHEMA_FIELD(bool                            , m_bIsPublicBlackboardVariable                   , 0x48) // bool
-        SCHEMA_FIELD(bool                            , m_bIsObservable                                 , 0x49) // bool
-        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nEditorNodeID                                 , 0x4C) // PulseDocNodeID_t
-        SCHEMA_FIELD(KeyValues3                      , m_Metadata                                      , 0x50) // KeyValues3
-    };
-
-    // CMaterialDrawDescriptor
-    //   fields: 18
-    //   size: 0x118
-    //   @MGetKV3ClassDefaults
-    class CMaterialDrawDescriptor {
-    public:
-        SCHEMA_FIELD(float                           , m_flUvDensity                                   , 0x0) // float32
-        SCHEMA_FIELD(::Vector                        , m_vTintColor                                    , 0x4) // Vector
-        SCHEMA_FIELD(float                           , m_flAlpha                                       , 0x10) // float32
-        SCHEMA_FIELD(std::uint16_t                   , m_nNumMeshlets                                  , 0x16) // uint16
-        SCHEMA_FIELD(std::uint32_t                   , m_nFirstMeshlet                                 , 0x1C) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nAppliedIndexOffset                           , 0x20) // uint32
-        SCHEMA_FIELD(std::uint8_t                    , m_nDepthVertexBufferIndex                       , 0x24) // uint8
-        SCHEMA_FIELD(std::uint8_t                    , m_nMeshletPackedIVBIndex                        , 0x25) // uint8
-        SCHEMA_FIELD(CUtlLeanVector<CMaterialDrawDescriptor_RigidMeshPart_t>, m_rigidMeshParts                                , 0x28) // CUtlLeanVector<CMaterialDrawDescriptor::RigidMeshPart_t>
-        SCHEMA_FIELD(CUtlLeanVector<uint16>          , m_rootBvhNodes                                  , 0x38) // CUtlLeanVector<uint16>
-        SCHEMA_FIELD(::rendersystemdx11::RenderPrimitiveType_t, m_nPrimitiveType                                , 0x48) // RenderPrimitiveType_t
-        SCHEMA_FIELD(std::int32_t                    , m_nBaseVertex                                   , 0x4C) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nVertexCount                                  , 0x50) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nStartIndex                                   , 0x54) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nIndexCount                                   , 0x58) // int32
-        SCHEMA_FIELD(::CRenderBufferBinding          , m_indexBuffer                                   , 0xC0) // CRenderBufferBinding
-        SCHEMA_FIELD(::CRenderBufferBinding          , m_meshletPackedIVB                              , 0xE0) // CRenderBufferBinding
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_material                                      , 0x110) // CStrongHandle<InfoForResourceTypeIMaterial2>
-    };
-
-    // CStaticPoseCacheBuilder
-    //   fields: 0
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class CStaticPoseCacheBuilder {
-    public:
-    };
-
-    // CBlend2DUpdateNode
-    //   fields: 15
-    //   size: 0xF8
-    //   @MGetKV3ClassDefaults
-    class CBlend2DUpdateNode {
-    public:
-        SCHEMA_FIELD(CUtlVector<BlendItem_t>         , m_items                                         , 0x60) // CUtlVector<BlendItem_t>
-        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x78) // CUtlVector<TagSpan_t>
-        SCHEMA_FIELD(CParamSpanUpdater               , m_paramSpans                                    , 0x90) // CParamSpanUpdater
-        SCHEMA_FIELD(CUtlVector<int32>               , m_nodeItemIndices                               , 0xA8) // CUtlVector<int32>
-        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0xC0) // CAnimInputDamping
-        SCHEMA_FIELD(AnimValueSource                 , m_blendSourceX                                  , 0xD8) // AnimValueSource
-        SCHEMA_FIELD(CAnimParamHandle                , m_paramX                                        , 0xDC) // CAnimParamHandle
-        SCHEMA_FIELD(AnimValueSource                 , m_blendSourceY                                  , 0xE0) // AnimValueSource
-        SCHEMA_FIELD(CAnimParamHandle                , m_paramY                                        , 0xE4) // CAnimParamHandle
-        SCHEMA_FIELD(Blend2DMode                     , m_eBlendMode                                    , 0xE8) // Blend2DMode
-        SCHEMA_FIELD(float                           , m_playbackSpeed                                 , 0xEC) // float32
-        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0xF0) // bool
-        SCHEMA_FIELD(bool                            , m_bLockBlendOnReset                             , 0xF1) // bool
-        SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0xF2) // bool
-        SCHEMA_FIELD(bool                            , m_bAnimEventsAndTagsOnMostWeightedOnly          , 0xF3) // bool
-    };
-
-    // CNmFloatComparisonNode::CDefinition
-    //   fields: 5
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmFloatComparisonNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nComparandValueNodeIdx                        , 0x12) // int16
-        SCHEMA_FIELD(CNmFloatComparisonNode_Comparison_t, m_comparison                                    , 0x14) // CNmFloatComparisonNode::Comparison_t
-        SCHEMA_FIELD(float                           , m_flEpsilon                                     , 0x18) // float32
-        SCHEMA_FIELD(float                           , m_flComparisonValue                             , 0x1C) // float32
-    };
-
-    // VPhysXJoint_t
-    //   fields: 30
-    //   size: 0xD0
-    //   @MGetKV3ClassDefaults
-    class VPhysXJoint_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , m_nType                                         , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nBody1                                        , 0x2) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nBody2                                        , 0x4) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nFlags                                        , 0x6) // uint16
-        SCHEMA_FIELD(CTransform                      , m_Frame1                                        , 0x10) // CTransform
-        SCHEMA_FIELD(CTransform                      , m_Frame2                                        , 0x30) // CTransform
-        SCHEMA_FIELD(bool                            , m_bEnableCollision                              , 0x50) // bool
-        SCHEMA_FIELD(bool                            , m_bIsLinearConstraintDisabled                   , 0x51) // bool
-        SCHEMA_FIELD(bool                            , m_bIsAngularConstraintDisabled                  , 0x52) // bool
-        SCHEMA_FIELD(bool                            , m_bEnableLinearLimit                            , 0x53) // bool
-        SCHEMA_FIELD(VPhysXRange_t                   , m_LinearLimit                                   , 0x54) // VPhysXRange_t
-        SCHEMA_FIELD(bool                            , m_bEnableLinearMotor                            , 0x5C) // bool
-        SCHEMA_FIELD(::Vector                        , m_vLinearTargetVelocity                         , 0x60) // Vector
-        SCHEMA_FIELD(float                           , m_flMaxForce                                    , 0x6C) // float32
-        SCHEMA_FIELD(bool                            , m_bEnableSwingLimit                             , 0x70) // bool
-        SCHEMA_FIELD(VPhysXRange_t                   , m_SwingLimit                                    , 0x74) // VPhysXRange_t
-        SCHEMA_FIELD(bool                            , m_bEnableTwistLimit                             , 0x7C) // bool
-        SCHEMA_FIELD(VPhysXRange_t                   , m_TwistLimit                                    , 0x80) // VPhysXRange_t
-        SCHEMA_FIELD(bool                            , m_bEnableAngularMotor                           , 0x88) // bool
-        SCHEMA_FIELD(::Vector                        , m_vAngularTargetVelocity                        , 0x8C) // Vector
-        SCHEMA_FIELD(float                           , m_flMaxTorque                                   , 0x98) // float32
-        SCHEMA_FIELD(float                           , m_flLinearFrequency                             , 0x9C) // float32
-        SCHEMA_FIELD(float                           , m_flLinearDampingRatio                          , 0xA0) // float32
-        SCHEMA_FIELD(float                           , m_flAngularFrequency                            , 0xA4) // float32
-        SCHEMA_FIELD(float                           , m_flAngularDampingRatio                         , 0xA8) // float32
-        SCHEMA_FIELD(float                           , m_flFriction                                    , 0xAC) // float32
-        SCHEMA_FIELD(float                           , m_flElasticity                                  , 0xB0) // float32
-        SCHEMA_FIELD(float                           , m_flElasticDamping                              , 0xB4) // float32
-        SCHEMA_FIELD(float                           , m_flPlasticity                                  , 0xB8) // float32
-        SCHEMA_FIELD(::CUtlString                    , m_Tag                                           , 0xC0) // CUtlString
-    };
-
-    // CNmZeroPoseNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmZeroPoseNode_CDefinition {
-    public:
-    };
-
-    // CAnimBone
-    //   fields: 7
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CAnimBone {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
-        SCHEMA_FIELD(std::int32_t                    , m_parent                                        , 0x10) // int32
-        SCHEMA_FIELD(::Vector                        , m_pos                                           , 0x14) // Vector
-        SCHEMA_FIELD(QuaternionStorage               , m_quat                                          , 0x20) // QuaternionStorage
-        SCHEMA_FIELD(float                           , m_scale                                         , 0x30) // float32
-        SCHEMA_FIELD(QuaternionStorage               , m_qAlignment                                    , 0x34) // QuaternionStorage
-        SCHEMA_FIELD(std::int32_t                    , m_flags                                         , 0x44) // int32
-    };
-
-    // CNmTransitionEventConditionNode::CDefinition
-    //   fields: 4
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmTransitionEventConditionNode_CDefinition {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_requireRuleID                                 , 0x10) // CGlobalSymbol
-        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x18) // CNmBitFlags
-        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x1C) // int16
-        SCHEMA_FIELD(NmTransitionRuleCondition_t     , m_ruleCondition                                 , 0x1E) // NmTransitionRuleCondition_t
-    };
-
-    // CNmReferencedGraphNode::CDefinition
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmReferencedGraphNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nReferencedGraphIdx                           , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nFallbackNodeIdx                              , 0x12) // int16
-    };
-
-    // CSeqTransition
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CSeqTransition {
-    public:
-        SCHEMA_FIELD(float                           , m_flFadeInTime                                  , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flFadeOutTime                                 , 0x4) // float32
-    };
-
-    // CTwoBoneIKUpdateNode
-    //   fields: 1
-    //   size: 0x1E0
-    //   @MGetKV3ClassDefaults
-    class CTwoBoneIKUpdateNode {
-    public:
-        SCHEMA_FIELD(TwoBoneIKSettings_t             , m_opFixedData                                   , 0x70) // TwoBoneIKSettings_t
-    };
-
-    // CSceneObjectData::RTProxyDrawDescriptor_t
-    //   fields: 13
-    //   size: 0x160
-    //   @MGetKV3ClassDefaults
-    class CSceneObjectData_RTProxyDrawDescriptor_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_materialGroupToken                            , 0x0) // uint32
-        SCHEMA_FIELD(std::int32_t                    , m_nSrcDrawIndex                                 , 0x4) // int32
-        SCHEMA_FIELD(CMaterialDrawDescriptor         , m_drawDesc                                      , 0x8) // CMaterialDrawDescriptor
-        SCHEMA_FIELD(::matrix3x4_t                   , m_mWorldFromLocal                               , 0x120) // matrix3x4_t
-        SCHEMA_FIELD(VertexAlbedoFormat_t            , m_nVertexAlbedoFormat                           , 0x150) // VertexAlbedoFormat_t
-        SCHEMA_FIELD(std::int8_t                     , m_nVertexAlbedoVB                               , 0x151) // int8
-        SCHEMA_FIELD(std::uint16_t                   , m_nVertexAlbedoOffset                           , 0x152) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nVertexAlbedoStride                           , 0x154) // uint16
-        SCHEMA_FIELD(VertexAlbedoFormat_t            , m_nVertexEmissiveFormat                         , 0x156) // VertexAlbedoFormat_t
-        SCHEMA_FIELD(std::int8_t                     , m_nVertexEmissiveVB                             , 0x157) // int8
-        SCHEMA_FIELD(std::uint16_t                   , m_nVertexEmissiveOffset                         , 0x158) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nVertexEmissiveStride                         , 0x15A) // uint16
-        SCHEMA_FIELD(float                           , m_fEmissiveFactor                               , 0x15C) // float32
-    };
-
-    // CMotionGraph
-    //   fields: 7
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CMotionGraph {
-    public:
-        SCHEMA_FIELD(CParamSpanUpdater               , m_paramSpans                                    , 0x10) // CParamSpanUpdater
-        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x28) // CUtlVector<TagSpan_t>
-        SCHEMA_FIELD(CSmartPtr<CMotionNode>          , m_pRootNode                                     , 0x40) // CSmartPtr<CMotionNode>
-        SCHEMA_FIELD(std::int32_t                    , m_nParameterCount                               , 0x48) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nConfigStartIndex                             , 0x4C) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nConfigCount                                  , 0x50) // int32
-        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x54) // bool
-    };
-
-    // CModelConfigElement_RandomPick
-    //   fields: 2
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CModelConfigElement_RandomPick {
-    public:
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_Choices                                       , 0x48) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_ChoiceWeights                                 , 0x60) // CUtlVector<float32>
-    };
-
-    // LookAtBone_t
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class LookAtBone_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_index                                         , 0x0) // int32
-        SCHEMA_FIELD(float                           , m_weight                                        , 0x4) // float32
-    };
-
-    // CAddUpdateNode
-    //   fields: 5
-    //   size: 0xA0
-    //   @MGetKV3ClassDefaults
-    class CAddUpdateNode {
-    public:
-        SCHEMA_FIELD(BinaryNodeChildOption           , m_footMotionTiming                              , 0x94) // BinaryNodeChildOption
-        SCHEMA_FIELD(bool                            , m_bApplyToFootMotion                            , 0x98) // bool
-        SCHEMA_FIELD(bool                            , m_bApplyChannelsSeparately                      , 0x99) // bool
-        SCHEMA_FIELD(bool                            , m_bUseModelSpace                                , 0x9A) // bool
-        SCHEMA_FIELD(bool                            , m_bApplyScale                                   , 0x9B) // bool
-    };
-
-    // CAnimNodePath
-    //   fields: 2
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CAnimNodePath {
-    public:
-        SCHEMA_FIELD(AnimNodeID                      , m_path                                          , 0x0) // AnimNodeID[11]
-        SCHEMA_FIELD(std::int32_t                    , m_nCount                                        , 0x2C) // int32
-    };
-
-    // CSlopeComponentUpdater
-    //   fields: 7
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CSlopeComponentUpdater {
-    public:
-        SCHEMA_FIELD(float                           , m_flTraceDistance                               , 0x34) // float32
-        SCHEMA_FIELD(CAnimParamHandle                , m_hSlopeAngle                                   , 0x38) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hSlopeAngleFront                              , 0x3A) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hSlopeAngleSide                               , 0x3C) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hSlopeHeading                                 , 0x3E) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hSlopeNormal                                  , 0x40) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hSlopeNormal_WorldSpace                       , 0x42) // CAnimParamHandle
-    };
-
-    // AnimationSnapshotBase_t
-    //   fields: 9
-    //   size: 0x110
-    //   @MGetKV3ClassDefaults
-    class AnimationSnapshotBase_t {
-    public:
-        SCHEMA_FIELD(float                           , m_flRealTime                                    , 0x0) // float32
-        SCHEMA_FIELD(matrix3x4a_t                    , m_rootToWorld                                   , 0x10) // matrix3x4a_t
-        SCHEMA_FIELD(bool                            , m_bBonesInWorldSpace                            , 0x40) // bool
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_boneSetupMask                                 , 0x48) // CUtlVector<uint32>
-        SCHEMA_FIELD(CUtlVector<matrix3x4a_t>        , m_boneTransforms                                , 0x60) // CUtlVector<matrix3x4a_t>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_flexControllers                               , 0x78) // CUtlVector<float32>
-        SCHEMA_FIELD(AnimationSnapshotType_t         , m_SnapshotType                                  , 0x90) // AnimationSnapshotType_t
-        SCHEMA_FIELD(bool                            , m_bHasDecodeDump                                , 0x94) // bool
-        SCHEMA_FIELD(AnimationDecodeDebugDumpElement_t, m_DecodeDump                                    , 0x98) // AnimationDecodeDebugDumpElement_t
-    };
-
-    // CNmFloatCurveNode::CDefinition
-    //   fields: 2
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CNmFloatCurveNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(CPiecewiseCurve                 , m_curve                                         , 0x18) // CPiecewiseCurve
-    };
-
-    // CNmParameterizedSelectorNode::CDefinition
-    //   fields: 5
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CNmParameterizedSelectorNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<int16,8>;
-        using _Type1 = CUtlLeanVectorFixedGrowable<uint8,8>;
-        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,8>
-        SCHEMA_FIELD(_Type1                          , m_optionWeights                                 , 0x28) // CUtlLeanVectorFixedGrowable<uint8,8>
-        SCHEMA_FIELD(std::int16_t                    , m_parameterNodeIdx                              , 0x38) // int16
-        SCHEMA_FIELD(bool                            , m_bIgnoreInvalidOptions                         , 0x3A) // bool
-        SCHEMA_FIELD(bool                            , m_bHasWeightsSet                                , 0x3B) // bool
-    };
-
-    // CNmEntityAttributeFloatEvent
-    //   fields: 1
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CNmEntityAttributeFloatEvent {
-    public:
-        SCHEMA_FIELD(CPiecewiseCurve                 , m_FloatValue                                    , 0x38) // CPiecewiseCurve
-    };
-
-    // CPulse_Chunk
-    //   fields: 3
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CPulse_Chunk {
-    public:
-        SCHEMA_FIELD(CUtlLeanVector<PGDInstruction_t>, m_Instructions                                  , 0x0) // CUtlLeanVector<PGDInstruction_t>
-        SCHEMA_FIELD(CUtlLeanVector<CPulse_RegisterInfo>, m_Registers                                     , 0x10) // CUtlLeanVector<CPulse_RegisterInfo>
-        SCHEMA_FIELD(CUtlLeanVector<CPulse_InstructionDebug>, m_InstructionDebugInfos                         , 0x20) // CUtlLeanVector<CPulse_InstructionDebug>
-    };
-
-    // CModelConfigElement_Command
-    //   fields: 2
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CModelConfigElement_Command {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_Command                                       , 0x48) // CUtlString
-        SCHEMA_FIELD(KeyValues3                      , m_Args                                          , 0x50) // KeyValues3
-    };
-
-    // NetVarConfigIndex
-    //   fields: 1
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class NetVarConfigIndex {
-    public:
-        SCHEMA_FIELD(CAnimNetVar<uint32>             , m_index                                         , 0x0) // CAnimNetVar<uint32>
-    };
-
-    // CPulseCell_Base
-    //   fields: 1
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Base {
-    public:
-        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nEditorNodeID                                 , 0x8) // PulseDocNodeID_t [MFgdFromSchemaCompletelySkipField]
-    };
-
-    // CNmChainLookatTask
-    //   fields: 0
-    //   size: 0x120
-    class CNmChainLookatTask {
-    public:
-    };
-
-    // CAnimDecoder
-    //   fields: 3
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CAnimDecoder {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_szName                                        , 0x0) // CBufferString
-        SCHEMA_FIELD(std::int32_t                    , m_nVersion                                      , 0x10) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nType                                         , 0x14) // int32
-    };
-
-    // CFloatAnimParameter
-    //   fields: 4
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CFloatAnimParameter {
-    public:
-        SCHEMA_FIELD(float                           , m_fDefaultValue                                 , 0x80) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fMinValue                                     , 0x84) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fMaxValue                                     , 0x88) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bInterpolate                                  , 0x8C) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CGlobalSymbol                   , m_name                                          , 0x18) // CGlobalSymbol [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::CUtlString                    , m_sComment                                      , 0x20) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor, MPropertySortPriority]
+        SCHEMA_FIELD(CGlobalSymbol                   , m_group                                         , 0x28) // CGlobalSymbol [MPropertySuppressField]
+        SCHEMA_FIELD(AnimTagID                       , m_tagID                                         , 0x30) // AnimTagID [MPropertySuppressField]
+        SCHEMA_FIELD(bool                            , m_bIsReferenced                                 , 0x48) // bool [MPropertySuppressField]
     };
 
     // MovementData
@@ -7942,1508 +6711,70 @@ namespace animationsystem {
         SCHEMA_FIELD(::Vector                        , m_vPrevFacingPosition                           , 0xDC) // Vector
     };
 
-    // CNmIDSwitchNode::CDefinition
-    //   fields: 5
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CNmIDSwitchNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nSwitchValueNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nTrueValueNodeIdx                             , 0x12) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nFalseValueNodeIdx                            , 0x14) // int16
-        SCHEMA_FIELD(CGlobalSymbol                   , m_falseValue                                    , 0x18) // CGlobalSymbol
-        SCHEMA_FIELD(CGlobalSymbol                   , m_trueValue                                     , 0x20) // CGlobalSymbol
-    };
-
-    // CProductQuantizer
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CProductQuantizer {
-    public:
-        SCHEMA_FIELD(CUtlVector<CVectorQuantizer>    , m_subQuantizers                                 , 0x0) // CUtlVector<CVectorQuantizer>
-        SCHEMA_FIELD(std::int32_t                    , m_nDimensions                                   , 0x18) // int32
-    };
-
-    // CFlexController
-    //   fields: 4
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CFlexController {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_szName                                        , 0x0) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_szType                                        , 0x8) // CUtlString
-        SCHEMA_FIELD(float                           , min                                             , 0x10) // float32
-        SCHEMA_FIELD(float                           , max                                             , 0x14) // float32
-    };
-
-    // AnimComponentID
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class AnimComponentID {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
-    };
-
-    // CNmClipReferenceNode::CDefinition
+    // CPulseExecCursor
     //   fields: 0
-    //   size: 0x10
+    //   size: 0xD8
+    class CPulseExecCursor {
+    public:
+    };
+
+    // CSeqS1SeqDesc
+    //   fields: 11
+    //   size: 0x120
     //   @MGetKV3ClassDefaults
-    class CNmClipReferenceNode_CDefinition {
+    class CSeqS1SeqDesc {
     public:
+        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x0) // CBufferString
+        SCHEMA_FIELD(CSeqSeqDescFlag                 , m_flags                                         , 0x10) // CSeqSeqDescFlag
+        SCHEMA_FIELD(CSeqMultiFetch                  , m_fetch                                         , 0x20) // CSeqMultiFetch
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalWeightlist                              , 0x90) // int32
+        SCHEMA_FIELD(CUtlVector<CSeqAutoLayer>       , m_autoLayerArray                                , 0x98) // CUtlVector<CSeqAutoLayer>
+        SCHEMA_FIELD(CUtlVector<CSeqIKLock>          , m_IKLockArray                                   , 0xB0) // CUtlVector<CSeqIKLock>
+        SCHEMA_FIELD(CSeqTransition                  , m_transition                                    , 0xC8) // CSeqTransition
+        SCHEMA_FIELD(KeyValues3                      , m_SequenceKeys                                  , 0xD0) // KeyValues3
+        SCHEMA_FIELD(CBufferString                   , m_LegacyKeyValueText                            , 0xE0) // CBufferString [MKV3TransferName]
+        SCHEMA_FIELD(CUtlVector<CAnimActivity>       , m_activityArray                                 , 0xF0) // CUtlVector<CAnimActivity>
+        SCHEMA_FIELD(CUtlVector<CFootMotion>         , m_footMotion                                    , 0x108) // CUtlVector<CFootMotion>
     };
 
-    // CNetworkedCycle
-    //   fields: 5
-    //   size: 0x34
-    //   @MGetKV3ClassDefaults
-    class CNetworkedCycle {
-    public:
-        SCHEMA_FIELD(float                           , m_flCycleUnclamped                              , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flPrevCycleUnclamped                          , 0x4) // float32
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flCyclesPerSecond                             , 0x10) // CAnimNetVar<float32>
-        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flCycleZeroTime                               , 0x1C) // CAnimNetVar<float32>
-        SCHEMA_FIELD(CAnimNetVar<uint8>              , m_resetCount                                    , 0x28) // CAnimNetVar<uint8>
-    };
-
-    // CNmTargetValueNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    class CNmTargetValueNode_CDefinition {
-    public:
-    };
-
-    // CSeqMultiFetch
-    //   fields: 10
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class CSeqMultiFetch {
-    public:
-        SCHEMA_FIELD(CSeqMultiFetchFlag              , m_flags                                         , 0x0) // CSeqMultiFetchFlag
-        SCHEMA_FIELD(CUtlVector<int16>               , m_localReferenceArray                           , 0x8) // CUtlVector<int16>
-        SCHEMA_FIELD(std::int32_t                    , m_nGroupSize                                    , 0x20) // int32[2]
-        SCHEMA_FIELD(std::int32_t                    , m_nLocalPose                                    , 0x28) // int32[2]
-        SCHEMA_FIELD(CUtlVector<float32>             , m_poseKeyArray0                                 , 0x30) // CUtlVector<float32>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_poseKeyArray1                                 , 0x48) // CUtlVector<float32>
-        SCHEMA_FIELD(std::int32_t                    , m_nLocalCyclePoseParameter                      , 0x60) // int32
-        SCHEMA_FIELD(bool                            , m_bCalculatePoseParameters                      , 0x64) // bool
-        SCHEMA_FIELD(bool                            , m_bFixedBlendWeight                             , 0x65) // bool
-        SCHEMA_FIELD(float                           , m_flFixedBlendWeightVals                        , 0x68) // float32[2]
-    };
-
-    // CPulseCell_Outflow_CycleShuffled
-    //   fields: 1
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Outflow_CycleShuffled {
-    public:
-        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outputs                                       , 0x48) // CUtlVector<CPulse_OutflowConnection>
-    };
-
-    // FootStepTrigger
+    // CPulse_InstructionDebug
     //   fields: 3
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class FootStepTrigger {
-    public:
-        SCHEMA_FIELD(CUtlVector<int32>               , m_tags                                          , 0x0) // CUtlVector<int32>
-        SCHEMA_FIELD(std::int32_t                    , m_nFootIndex                                    , 0x18) // int32
-        SCHEMA_FIELD(StepPhase                       , m_triggerPhase                                  , 0x1C) // StepPhase
-    };
-
-    // NmSyncTrackTime_t
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class NmSyncTrackTime_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nEventIdx                                     , 0x0) // int32
-        SCHEMA_FIELD(NmPercent_t                     , m_percentageThrough                             , 0x4) // NmPercent_t
-    };
-
-    // CNmConstFloatNode::CDefinition
-    //   fields: 1
     //   size: 0x18
     //   @MGetKV3ClassDefaults
-    class CNmConstFloatNode_CDefinition {
+    class CPulse_InstructionDebug {
     public:
-        SCHEMA_FIELD(float                           , m_flValue                                       , 0x10) // float32
+        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nFlowNodeID                                   , 0x0) // PulseDocNodeID_t
+        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nValueNodeID                                  , 0x4) // PulseDocNodeID_t
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_SequencePointName                             , 0x8) // PulseSymbol_t
     };
 
-    // CDrawCullingData
-    //   fields: 2
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class CDrawCullingData {
-    public:
-        SCHEMA_FIELD(std::int8_t                     , m_ConeAxis                                      , 0x0) // int8[3]
-        SCHEMA_FIELD(std::int8_t                     , m_ConeCutoff                                    , 0x3) // int8
-    };
-
-    // CAnimData
-    //   fields: 5
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class CAnimData {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x10) // CBufferString
-        SCHEMA_FIELD(CUtlVector<CAnimDesc>           , m_animArray                                     , 0x20) // CUtlVector<CAnimDesc>
-        SCHEMA_FIELD(CUtlVector<CAnimDecoder>        , m_decoderArray                                  , 0x38) // CUtlVector<CAnimDecoder>
-        SCHEMA_FIELD(std::int32_t                    , m_nMaxUniqueFrameIndex                          , 0x50) // int32
-        SCHEMA_FIELD(CUtlVector<CAnimFrameSegment>   , m_segmentArray                                  , 0x58) // CUtlVector<CAnimFrameSegment>
-    };
-
-    // CHitReactUpdateNode
-    //   fields: 8
-    //   size: 0xD0
-    //   @MGetKV3ClassDefaults
-    class CHitReactUpdateNode {
-    public:
-        SCHEMA_FIELD(HitReactFixedSettings_t         , m_opFixedSettings                               , 0x70) // HitReactFixedSettings_t
-        SCHEMA_FIELD(CAnimParamHandle                , m_triggerParam                                  , 0xBC) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hitBoneParam                                  , 0xBE) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hitOffsetParam                                , 0xC0) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hitDirectionParam                             , 0xC2) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hitStrengthParam                              , 0xC4) // CAnimParamHandle
-        SCHEMA_FIELD(float                           , m_flMinDelayBetweenHits                         , 0xC8) // float32
-        SCHEMA_FIELD(bool                            , m_bResetChild                                   , 0xCC) // bool
-    };
-
-    // CFootAdjustmentUpdateNode
-    //   fields: 9
-    //   size: 0xB0
-    //   @MGetKV3ClassDefaults
-    class CFootAdjustmentUpdateNode {
-    public:
-        SCHEMA_FIELD(CUtlVector<HSequence>           , m_clips                                         , 0x78) // CUtlVector<HSequence>
-        SCHEMA_FIELD(CPoseHandle                     , m_hBasePoseCacheHandle                          , 0x90) // CPoseHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_facingTarget                                  , 0x94) // CAnimParamHandle
-        SCHEMA_FIELD(float                           , m_flTurnTimeMin                                 , 0x98) // float32
-        SCHEMA_FIELD(float                           , m_flTurnTimeMax                                 , 0x9C) // float32
-        SCHEMA_FIELD(float                           , m_flStepHeightMax                               , 0xA0) // float32
-        SCHEMA_FIELD(float                           , m_flStepHeightMaxAngle                          , 0xA4) // float32
-        SCHEMA_FIELD(bool                            , m_bResetChild                                   , 0xA8) // bool
-        SCHEMA_FIELD(bool                            , m_bAnimationDriven                              , 0xA9) // bool
-    };
-
-    // FootPinningPoseOpFixedData_t
-    //   fields: 7
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class FootPinningPoseOpFixedData_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<FootFixedData_t>     , m_footInfo                                      , 0x0) // CUtlVector<FootFixedData_t>
-        SCHEMA_FIELD(float                           , m_flBlendTime                                   , 0x18) // float32
-        SCHEMA_FIELD(float                           , m_flLockBreakDistance                           , 0x1C) // float32
-        SCHEMA_FIELD(float                           , m_flMaxLegTwist                                 , 0x20) // float32
-        SCHEMA_FIELD(std::int32_t                    , m_nHipBoneIndex                                 , 0x24) // int32
-        SCHEMA_FIELD(bool                            , m_bApplyLegTwistLimits                          , 0x28) // bool
-        SCHEMA_FIELD(bool                            , m_bApplyFootRotationLimits                      , 0x29) // bool
-    };
-
-    // CChoiceUpdateNode
-    //   fields: 10
-    //   size: 0xC0
-    //   @MGetKV3ClassDefaults
-    class CChoiceUpdateNode {
-    public:
-        SCHEMA_FIELD(CUtlVector<CAnimUpdateNodeRef>  , m_children                                      , 0x60) // CUtlVector<CAnimUpdateNodeRef>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_weights                                       , 0x78) // CUtlVector<float32>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_blendTimes                                    , 0x90) // CUtlVector<float32>
-        SCHEMA_FIELD(ChoiceMethod                    , m_choiceMethod                                  , 0xA8) // ChoiceMethod
-        SCHEMA_FIELD(ChoiceChangeMethod              , m_choiceChangeMethod                            , 0xAC) // ChoiceChangeMethod
-        SCHEMA_FIELD(ChoiceBlendMethod               , m_blendMethod                                   , 0xB0) // ChoiceBlendMethod
-        SCHEMA_FIELD(float                           , m_blendTime                                     , 0xB4) // float32
-        SCHEMA_FIELD(bool                            , m_bCrossFade                                    , 0xB8) // bool
-        SCHEMA_FIELD(bool                            , m_bResetChosen                                  , 0xB9) // bool
-        SCHEMA_FIELD(bool                            , m_bDontResetSameSelection                       , 0xBA) // bool
-    };
-
-    // HSequence
+    // PulseRuntimeEntrypointIndex_t
     //   fields: 1
     //   size: 0x4
-    class HSequence {
+    class PulseRuntimeEntrypointIndex_t {
     public:
         SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
     };
 
-    // CNmSpeedScaleNode::CDefinition
-    //   fields: 0
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmSpeedScaleNode_CDefinition {
-    public:
-    };
-
-    // CFootDefinition
-    //   fields: 9
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CFootDefinition {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_ankleBoneName                                 , 0x8) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_toeBoneName                                   , 0x10) // CUtlString
-        SCHEMA_FIELD(::Vector                        , m_vBallOffset                                   , 0x18) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vHeelOffset                                   , 0x24) // Vector
-        SCHEMA_FIELD(float                           , m_flFootLength                                  , 0x30) // float32
-        SCHEMA_FIELD(float                           , m_flBindPoseDirectionMS                         , 0x34) // float32
-        SCHEMA_FIELD(float                           , m_flTraceHeight                                 , 0x38) // float32
-        SCHEMA_FIELD(float                           , m_flTraceRadius                                 , 0x3C) // float32
-    };
-
-    // SequenceData
+    // LookAtBone_t
     //   fields: 2
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class SequenceData {
-    public:
-        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x0) // HSequence
-        SCHEMA_FIELD(CNetworkedCycle                 , m_cycle                                         , 0x4) // CNetworkedCycle
-    };
-
-    // CPulseCell_BaseFlow
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_BaseFlow {
-    public:
-    };
-
-    // CNmFloatSwitchNode::CDefinition
-    //   fields: 5
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmFloatSwitchNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nSwitchValueNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nTrueValueNodeIdx                             , 0x12) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nFalseValueNodeIdx                            , 0x14) // int16
-        SCHEMA_FIELD(float                           , m_flFalseValue                                  , 0x18) // float32
-        SCHEMA_FIELD(float                           , m_flTrueValue                                   , 0x1C) // float32
-    };
-
-    // CNmClipNode::CDefinition
-    //   fields: 8
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CNmClipNode_CDefinition {
-    public:
-        using _Type0 = CUtlVectorFixedGrowable<CGlobalSymbol,2>;
-        SCHEMA_FIELD(std::int16_t                    , m_nPlayInReverseValueNodeIdx                    , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nResetTimeValueNodeIdx                        , 0x12) // int16
-        SCHEMA_FIELD(bool                            , m_bSampleRootMotion                             , 0x14) // bool
-        SCHEMA_FIELD(bool                            , m_bAllowLooping                                 , 0x15) // bool
-        SCHEMA_FIELD(std::int16_t                    , m_nDataSlotIdx                                  , 0x16) // int16
-        SCHEMA_FIELD(_Type0                          , m_graphEvents                                   , 0x18) // CUtlVectorFixedGrowable<CGlobalSymbol,2>
-        SCHEMA_FIELD(float                           , m_flSpeedMultiplier                             , 0x40) // float32
-        SCHEMA_FIELD(std::int32_t                    , m_nStartSyncEventOffset                         , 0x44) // int32
-    };
-
-    // BoneDemoCaptureSettings_t
-    //   fields: 7
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class BoneDemoCaptureSettings_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_boneName                                      , 0x0) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flErrorSplineRotationMax                      , 0x8) // float32 [MPropertySuppressField]
-        SCHEMA_FIELD(float                           , m_flErrorSplineTranslationMax                   , 0xC) // float32 [MPropertySuppressField]
-        SCHEMA_FIELD(float                           , m_flErrorSplineScaleMax                         , 0x10) // float32 [MPropertySuppressField]
-        SCHEMA_FIELD(float                           , m_flErrorQuantizationRotationMax                , 0x14) // float32 [MPropertySuppressField]
-        SCHEMA_FIELD(float                           , m_flErrorQuantizationTranslationMax             , 0x18) // float32 [MPropertySuppressField]
-        SCHEMA_FIELD(float                           , m_flErrorQuantizationScaleMax                   , 0x1C) // float32 [MPropertySuppressField]
-    };
-
-    // CAnimGraphSettingsGroup
-    //   fields: 0
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CAnimGraphSettingsGroup {
-    public:
-    };
-
-    // CPulseCell_InlineNodeSkipSelector
-    //   fields: 4
-    //   size: 0xB0
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_InlineNodeSkipSelector {
-    public:
-        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nFlowNodeID                                   , 0x48) // PulseDocNodeID_t
-        SCHEMA_FIELD(bool                            , m_bAnd                                          , 0x4C) // bool
-        SCHEMA_FIELD(PulseSelectorOutflowList_t      , m_PassOutflow                                   , 0x50) // PulseSelectorOutflowList_t
-        SCHEMA_FIELD(CPulse_OutflowConnection        , m_FailOutflow                                   , 0x68) // CPulse_OutflowConnection
-    };
-
-    // CAnimBoneDifference
-    //   fields: 5
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CAnimBoneDifference {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
-        SCHEMA_FIELD(CBufferString                   , m_parent                                        , 0x10) // CBufferString
-        SCHEMA_FIELD(::Vector                        , m_posError                                      , 0x20) // Vector
-        SCHEMA_FIELD(bool                            , m_bHasRotation                                  , 0x2C) // bool
-        SCHEMA_FIELD(bool                            , m_bHasMovement                                  , 0x2D) // bool
-    };
-
-    // CVirtualAnimParameter
-    //   fields: 2
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CVirtualAnimParameter {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_expressionString                              , 0x70) // CUtlString
-        SCHEMA_FIELD(AnimParamType_t                 , m_eParamType                                    , 0x78) // AnimParamType_t
-    };
-
-    // CPulseCell_IsRequirementValid::Criteria_t
-    //   fields: 1
-    //   size: 0x1
-    class CPulseCell_IsRequirementValid_Criteria_t {
-    public:
-        SCHEMA_FIELD(bool                            , m_bIsValid                                      , 0x0) // bool
-    };
-
-    // CPerParticleVecInput
-    //   fields: 0
-    //   size: 0x6B8
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyCustomEditor
-    class CPerParticleVecInput {
-    public:
-    };
-
-    // CAnimDemoCaptureSettings
-    //   fields: 15
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CAnimDemoCaptureSettings {
-    public:
-        SCHEMA_FIELD(::Vector2D                      , m_vecErrorRangeSplineRotation                   , 0x0) // Vector2D [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(::Vector2D                      , m_vecErrorRangeSplineTranslation                , 0x8) // Vector2D [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(::Vector2D                      , m_vecErrorRangeSplineScale                      , 0x10) // Vector2D [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(float                           , m_flIkRotation_MaxSplineError                   , 0x18) // float32 [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(float                           , m_flIkTranslation_MaxSplineError                , 0x1C) // float32 [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(::Vector2D                      , m_vecErrorRangeQuantizationRotation             , 0x20) // Vector2D [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(::Vector2D                      , m_vecErrorRangeQuantizationTranslation          , 0x28) // Vector2D [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(::Vector2D                      , m_vecErrorRangeQuantizationScale                , 0x30) // Vector2D [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(float                           , m_flIkRotation_MaxQuantizationError             , 0x38) // float32 [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(float                           , m_flIkTranslation_MaxQuantizationError          , 0x3C) // float32 [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(::CUtlString                    , m_baseSequence                                  , 0x40) // CUtlString [MPropertyFriendlyName, MPropertyGroupName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nBaseSequenceFrame                            , 0x48) // int32 [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(EDemoBoneSelectionMode          , m_boneSelectionMode                             , 0x4C) // EDemoBoneSelectionMode [MPropertyFriendlyName, MPropertyGroupName, MPropertyAutoRebuildOnChange]
-        SCHEMA_FIELD(CUtlVector<BoneDemoCaptureSettings_t>, m_bones                                         , 0x50) // CUtlVector<BoneDemoCaptureSettings_t> [MPropertyFriendlyName, MPropertyGroupName, MPropertyAttrStateCallback]
-        SCHEMA_FIELD(CUtlVector<IKDemoCaptureSettings_t>, m_ikChains                                      , 0x68) // CUtlVector<IKDemoCaptureSettings_t> [MPropertyFriendlyName]
-    };
-
-    // CModelConfigElement_UserPick
-    //   fields: 1
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CModelConfigElement_UserPick {
-    public:
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_Choices                                       , 0x48) // CUtlVector<CUtlString>
-    };
-
-    // CAnimFrameBlockAnim
-    //   fields: 3
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CAnimFrameBlockAnim {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nStartFrame                                   , 0x0) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nEndFrame                                     , 0x4) // int32
-        SCHEMA_FIELD(CUtlVector<int32>               , m_segmentIndexArray                             , 0x8) // CUtlVector<int32>
-    };
-
-    // CTargetSelectorUpdateNode
-    //   fields: 10
-    //   size: 0xA0
-    //   @MGetKV3ClassDefaults
-    class CTargetSelectorUpdateNode {
-    public:
-        SCHEMA_FIELD(TargetSelectorAngleMode_t       , m_eAngleMode                                    , 0x60) // TargetSelectorAngleMode_t
-        SCHEMA_FIELD(CUtlVector<CAnimUpdateNodeRef>  , m_children                                      , 0x68) // CUtlVector<CAnimUpdateNodeRef>
-        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetPosition                               , 0x84) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetFacePositionParameter                  , 0x86) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hMoveHeadingParameter                         , 0x88) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hDesiredMoveHeadingParameter                  , 0x8A) // CAnimParamHandle
-        SCHEMA_FIELD(bool                            , m_bTargetPositionIsWorldSpace                   , 0x8C) // bool
-        SCHEMA_FIELD(bool                            , m_bTargetFacePositionIsWorldSpace               , 0x8D) // bool
-        SCHEMA_FIELD(bool                            , m_bEnablePhaseMatching                          , 0x8E) // bool
-        SCHEMA_FIELD(float                           , m_flPhaseMatchingMaxRootMotionSkip              , 0x90) // float32
-    };
-
-    // CPulse_CallInfo
-    //   fields: 6
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CPulse_CallInfo {
-    public:
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_PortName                                      , 0x0) // PulseSymbol_t
-        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nEditorNodeID                                 , 0x10) // PulseDocNodeID_t
-        SCHEMA_FIELD(::PulseRegisterMap_t            , m_RegisterMap                                   , 0x18) // PulseRegisterMap_t
-        SCHEMA_FIELD(::PulseDocNodeID_t              , m_CallMethodID                                  , 0x48) // PulseDocNodeID_t
-        SCHEMA_FIELD(::PulseRuntimeChunkIndex_t      , m_nSrcChunk                                     , 0x4C) // PulseRuntimeChunkIndex_t
-        SCHEMA_FIELD(std::int32_t                    , m_nSrcInstruction                               , 0x50) // int32
-    };
-
-    // CMotionNodeSequence
-    //   fields: 3
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CMotionNodeSequence {
-    public:
-        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x28) // CUtlVector<TagSpan_t>
-        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x40) // HSequence
-        SCHEMA_FIELD(float                           , m_flPlaybackSpeed                               , 0x44) // float32
-    };
-
-    // CAnimParameterBase
-    //   fields: 7
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class CAnimParameterBase {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_name                                          , 0x18) // CGlobalSymbol [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::CUtlString                    , m_sComment                                      , 0x20) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor, MPropertySortPriority]
-        SCHEMA_FIELD(::CUtlString                    , m_group                                         , 0x28) // CUtlString [MPropertyReadOnly, MPropertySortPriority]
-        SCHEMA_FIELD(AnimParamID                     , m_id                                            , 0x30) // AnimParamID [MPropertyReadOnly, MPropertySortPriority]
-        SCHEMA_FIELD(::CUtlString                    , m_componentName                                 , 0x48) // CUtlString [MPropertySuppressField, MPropertyAutoRebuildOnChange]
-        SCHEMA_FIELD(bool                            , m_bNetworkingRequested                          , 0x68) // bool [MPropertySuppressField]
-        SCHEMA_FIELD(bool                            , m_bIsReferenced                                 , 0x69) // bool [MPropertySuppressField]
-    };
-
-    // AnimationSnapshot_t
-    //   fields: 2
-    //   size: 0x120
-    //   @MGetKV3ClassDefaults
-    class AnimationSnapshot_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nEntIndex                                     , 0x110) // int32
-        SCHEMA_FIELD(::CUtlString                    , m_modelName                                     , 0x118) // CUtlString
-    };
-
-    // ModelMeshBufferData_t
-    //   fields: 13
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class ModelMeshBufferData_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nBlockIndex                                   , 0x0) // int32
-        SCHEMA_FIELD(std::uint32_t                   , m_nElementCount                                 , 0x4) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nElementSizeInBytes                           , 0x8) // uint32
-        SCHEMA_FIELD(bool                            , m_bMeshoptCompressed                            , 0xC) // bool
-        SCHEMA_FIELD(bool                            , m_bMeshoptIndexSequence                         , 0xD) // bool
-        SCHEMA_FIELD(std::int8_t                     , m_nMeshoptMeshletEncodeVersion                  , 0xE) // int8
-        SCHEMA_FIELD(bool                            , m_bCompressedZSTD                               , 0xF) // bool
-        SCHEMA_FIELD(bool                            , m_bCreateBufferSRV                              , 0x10) // bool
-        SCHEMA_FIELD(bool                            , m_bCreateBufferUAV                              , 0x11) // bool
-        SCHEMA_FIELD(bool                            , m_bCreateRawBuffer                              , 0x12) // bool
-        SCHEMA_FIELD(bool                            , m_bCreatePooledBuffer                           , 0x13) // bool
-        SCHEMA_FIELD(std::uint8_t                    , m_nBufferUsage                                  , 0x14) // uint8
-        SCHEMA_FIELD(CUtlVector<::rendersystemdx11::RenderInputLayoutField_t>, m_inputLayoutFields                             , 0x18) // CUtlVector<RenderInputLayoutField_t>
-    };
-
-    // CNewParticleEffect
-    //   fields: 33
-    //   size: 0xD8
-    class CNewParticleEffect {
-    public:
-        SCHEMA_FIELD(CNewParticleEffect*             , m_pNext                                         , 0x10) // CNewParticleEffect*
-        SCHEMA_FIELD(CNewParticleEffect*             , m_pPrev                                         , 0x18) // CNewParticleEffect*
-        SCHEMA_FIELD(IParticleCollection*            , m_pParticles                                    , 0x20) // IParticleCollection*
-        SCHEMA_FIELD(char*                           , m_pDebugName                                    , 0x28) // char*
-        // SKIPPED: m_bDontRemove (bitfield type not supported)
-        // SKIPPED: m_bRemove (bitfield type not supported)
-        // SKIPPED: m_bNeedsBBoxUpdate (bitfield type not supported)
-        // SKIPPED: m_bIsFirstFrame (bitfield type not supported)
-        // SKIPPED: m_bAutoUpdateBBox (bitfield type not supported)
-        // SKIPPED: m_bAllocated (bitfield type not supported)
-        // SKIPPED: m_bSimulate (bitfield type not supported)
-        // SKIPPED: m_bShouldPerformCullCheck (bitfield type not supported)
-        // SKIPPED: m_bForceNoDraw (bitfield type not supported)
-        // SKIPPED: m_bSuppressScreenSpaceEffect (bitfield type not supported)
-        // SKIPPED: m_bShouldSave (bitfield type not supported)
-        // SKIPPED: m_bShouldSimulateDuringGamePaused (bitfield type not supported)
-        // SKIPPED: m_bShouldCheckFoW (bitfield type not supported)
-        // SKIPPED: m_bIsAsyncCreate (bitfield type not supported)
-        // SKIPPED: m_bFreezeTransitionActive (bitfield type not supported)
-        // SKIPPED: m_bFreezeTargetState (bitfield type not supported)
-        // SKIPPED: m_bCanFreeze (bitfield type not supported)
-        SCHEMA_FIELD(::Vector                        , m_vSortOrigin                                   , 0x40) // Vector
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x4C) // float32
-        SCHEMA_FIELD(PARTICLE_EHANDLE__*             , m_hOwner                                        , 0x50) // PARTICLE_EHANDLE__*
-        SCHEMA_FIELD(CParticleProperty*              , m_pOwningParticleProperty                       , 0x58) // CParticleProperty*
-        SCHEMA_FIELD(float                           , m_flFreezeTransitionStart                       , 0x70) // float32
-        SCHEMA_FIELD(float                           , m_flFreezeTransitionDuration                    , 0x74) // float32
-        SCHEMA_FIELD(float                           , m_flFreezeTransitionOverride                    , 0x78) // float32
-        SCHEMA_FIELD(::Vector                        , m_LastMin                                       , 0x7C) // Vector
-        SCHEMA_FIELD(::Vector                        , m_LastMax                                       , 0x88) // Vector
-        SCHEMA_FIELD(CSplitScreenSlot                , m_nSplitScreenUser                              , 0x94) // CSplitScreenSlot
-        SCHEMA_FIELD(::Vector                        , m_vecAggregationCenter                          , 0x98) // Vector
-        SCHEMA_FIELD(std::int32_t                    , m_RefCount                                      , 0xD0) // int32
-    };
-
-    // PhysShapeMarkup_t
-    //   fields: 3
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class PhysShapeMarkup_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nBodyInAggregate                              , 0x0) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nShapeInBody                                  , 0x4) // int32
-        SCHEMA_FIELD(CGlobalSymbol                   , m_sHitGroup                                     , 0x8) // CGlobalSymbol
-    };
-
-    // CAnimationGroup
-    //   fields: 8
-    //   size: 0x148
-    //   @MGetKV3ClassDefaults
-    class CAnimationGroup {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x10) // uint32
-        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x18) // CBufferString
-        SCHEMA_FIELD(CUtlVector<CStrongHandle<InfoForResourceTypeCAnimData>>, m_localHAnimArray_Handle                        , 0x60) // CUtlVector<CStrongHandle<InfoForResourceTypeCAnimData>> [MKV3TransferName]
-        SCHEMA_FIELD(CUtlVector<CStrongHandle<InfoForResourceTypeCAnimationGroup>>, m_includedGroupArray_Handle                     , 0x78) // CUtlVector<CStrongHandle<InfoForResourceTypeCAnimationGroup>> [MKV3TransferName]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCSequenceGroupData>, m_directHSeqGroup_Handle                        , 0x90) // CStrongHandle<InfoForResourceTypeCSequenceGroupData> [MKV3TransferName]
-        SCHEMA_FIELD(CAnimKeyData                    , m_decodeKey                                     , 0x98) // CAnimKeyData
-        SCHEMA_FIELD(CUtlVector<CBufferString>       , m_szScripts                                     , 0x110) // CUtlVector<CBufferString>
-        SCHEMA_FIELD(CUtlVector<CStrongHandleVoid>   , m_AdditionalExtRefs                             , 0x128) // CUtlVector<CStrongHandleVoid>
-    };
-
-    // CPointConstraint
-    //   fields: 0
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CPointConstraint {
-    public:
-    };
-
-    // TwoBoneIKSettings_t
-    //   fields: 15
-    //   size: 0x160
-    //   @MGetKV3ClassDefaults
-    class TwoBoneIKSettings_t {
-    public:
-        SCHEMA_FIELD(IkEndEffectorType               , m_endEffectorType                               , 0x0) // IkEndEffectorType
-        SCHEMA_FIELD(CAnimAttachment                 , m_endEffectorAttachment                         , 0x10) // CAnimAttachment
-        SCHEMA_FIELD(IkTargetType                    , m_targetType                                    , 0x90) // IkTargetType
-        SCHEMA_FIELD(CAnimAttachment                 , m_targetAttachment                              , 0xA0) // CAnimAttachment
-        SCHEMA_FIELD(std::int32_t                    , m_targetBoneIndex                               , 0x120) // int32
-        SCHEMA_FIELD(CAnimParamHandle                , m_hPositionParam                                , 0x124) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hRotationParam                                , 0x126) // CAnimParamHandle
-        SCHEMA_FIELD(bool                            , m_bAlwaysUseFallbackHinge                       , 0x128) // bool
-        SCHEMA_FIELD(VectorAligned                   , m_vLsFallbackHingeAxis                          , 0x130) // VectorAligned
-        SCHEMA_FIELD(std::int32_t                    , m_nFixedBoneIndex                               , 0x140) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nMiddleBoneIndex                              , 0x144) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nEndBoneIndex                                 , 0x148) // int32
-        SCHEMA_FIELD(bool                            , m_bMatchTargetOrientation                       , 0x14C) // bool
-        SCHEMA_FIELD(bool                            , m_bConstrainTwist                               , 0x14D) // bool
-        SCHEMA_FIELD(float                           , m_flMaxTwist                                    , 0x150) // float32
-    };
-
-    // PulseRuntimeDomainValueIndex_t
-    //   fields: 1
-    //   size: 0x2
-    class PulseRuntimeDomainValueIndex_t {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_Value                                         , 0x0) // int16
-    };
-
-    // CNmBoolValueNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    class CNmBoolValueNode_CDefinition {
-    public:
-    };
-
-    // CNmDurationScaleNode::CDefinition
-    //   fields: 0
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmDurationScaleNode_CDefinition {
-    public:
-    };
-
-    // CFootFallAnimTag
-    //   fields: 1
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CFootFallAnimTag {
-    public:
-        SCHEMA_FIELD(FootFallTagFoot_t               , m_foot                                          , 0x58) // FootFallTagFoot_t [MPropertyFriendlyName]
-    };
-
-    // CParticleCollectionVecInput
-    //   fields: 0
-    //   size: 0x6B8
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyCustomEditor
-    class CParticleCollectionVecInput {
-    public:
-    };
-
-    // CMorphSetData
-    //   fields: 8
-    //   size: 0x98
-    //   @MGetKV3ClassDefaults
-    class CMorphSetData {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nWidth                                        , 0x10) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nHeight                                       , 0x14) // int32
-        SCHEMA_FIELD(CUtlVector<MorphBundleType_t>   , m_bundleTypes                                   , 0x18) // CUtlVector<MorphBundleType_t>
-        SCHEMA_FIELD(CUtlVector<CMorphData>          , m_morphDatas                                    , 0x30) // CUtlVector<CMorphData>
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureAtlas                                 , 0x48) // CStrongHandle<InfoForResourceTypeCTextureBase>
-        SCHEMA_FIELD(CUtlVector<CFlexDesc>           , m_FlexDesc                                      , 0x50) // CUtlVector<CFlexDesc>
-        SCHEMA_FIELD(CUtlVector<CFlexController>     , m_FlexControllers                               , 0x68) // CUtlVector<CFlexController>
-        SCHEMA_FIELD(CUtlVector<CFlexRule>           , m_FlexRules                                     , 0x80) // CUtlVector<CFlexRule>
-    };
-
-    // CBlendUpdateNode
-    //   fields: 13
-    //   size: 0xE0
-    //   @MGetKV3ClassDefaults
-    class CBlendUpdateNode {
-    public:
-        SCHEMA_FIELD(CUtlVector<CAnimUpdateNodeRef>  , m_children                                      , 0x60) // CUtlVector<CAnimUpdateNodeRef>
-        SCHEMA_FIELD(CUtlVector<uint8>               , m_sortedOrder                                   , 0x78) // CUtlVector<uint8>
-        SCHEMA_FIELD(CUtlVector<float32>             , m_targetValues                                  , 0x90) // CUtlVector<float32>
-        SCHEMA_FIELD(AnimValueSource                 , m_blendValueSource                              , 0xAC) // AnimValueSource
-        SCHEMA_FIELD(LinearRootMotionBlendMode_t     , m_eLinearRootMotionBlendMode                    , 0xB0) // LinearRootMotionBlendMode_t
-        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0xB4) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0xB8) // CAnimInputDamping
-        SCHEMA_FIELD(BlendKeyType                    , m_blendKeyType                                  , 0xD0) // BlendKeyType
-        SCHEMA_FIELD(bool                            , m_bLockBlendOnReset                             , 0xD4) // bool
-        SCHEMA_FIELD(bool                            , m_bSyncCycles                                   , 0xD5) // bool
-        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0xD6) // bool
-        SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0xD7) // bool
-        SCHEMA_FIELD(bool                            , m_bIsAngle                                      , 0xD8) // bool
-    };
-
-    // CPulseCell_LimitCount
-    //   fields: 1
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    class CPulseCell_LimitCount {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nLimitCount                                   , 0x48) // int32 [MPropertyFlattenIntoParentRow]
-    };
-
-    // CDirectPlaybackTagData
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CDirectPlaybackTagData {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_sequenceName                                  , 0x0) // CUtlString
-        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x8) // CUtlVector<TagSpan_t>
-    };
-
-    // ConfigIndex
-    //   fields: 2
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class ConfigIndex {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , m_nGroup                                        , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nConfig                                       , 0x2) // uint16
-    };
-
-    // CAnimEventDefinition
-    //   fields: 7
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CAnimEventDefinition {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nFrame                                        , 0x8) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nEndFrame                                     , 0xC) // int32
-        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x10) // float32
-        SCHEMA_FIELD(float                           , m_flDuration                                    , 0x14) // float32
-        SCHEMA_FIELD(KeyValues3                      , m_EventData                                     , 0x18) // KeyValues3
-        SCHEMA_FIELD(CBufferString                   , m_sLegacyOptions                                , 0x28) // CBufferString [MKV3TransferName]
-        SCHEMA_FIELD(CGlobalSymbol                   , m_sEventName                                    , 0x38) // CGlobalSymbol
-    };
-
-    // PairedSequenceData
-    //   fields: 1
-    //   size: 0x100
-    //   @MGetKV3ClassDefaults
-    class PairedSequenceData {
-    public:
-        SCHEMA_FIELD(PairedSequence_t                , m_vecPairedSequences                            , 0x0) // PairedSequence_t[8]
-    };
-
-    // CAnimParameterManagerUpdater
-    //   fields: 6
-    //   size: 0x100
-    //   @MGetKV3ClassDefaults
-    class CAnimParameterManagerUpdater {
-    public:
-        using _Type0 = CUtlHashtable<AnimParamID,int32>;
-        using _Type1 = CUtlHashtable<CUtlString,int32>;
-        using _Type2 = CUtlVector<std::pair<CAnimParamHandle,CAnimVariant>>;
-        using _Type3 = CUtlHashtable<CAnimParamHandle,int16>;
-        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimParameterBase>>, m_parameters                                    , 0x18) // CUtlVector<CSmartPtr<CAnimParameterBase>>
-        SCHEMA_FIELD(_Type0                          , m_idToIndexMap                                  , 0x30) // CUtlHashtable<AnimParamID,int32>
-        SCHEMA_FIELD(_Type1                          , m_nameToIndexMap                                , 0x50) // CUtlHashtable<CUtlString,int32>
-        SCHEMA_FIELD(CUtlVector<CAnimParamHandle>    , m_indexToHandle                                 , 0x70) // CUtlVector<CAnimParamHandle>
-        SCHEMA_FIELD(_Type2                          , m_autoResetParams                               , 0x88) // CUtlVector<std::pair<CAnimParamHandle,CAnimVariant>>
-        SCHEMA_FIELD(_Type3                          , m_autoResetMap                                  , 0xA0) // CUtlHashtable<CAnimParamHandle,int16>
-    };
-
-    // CMovementComponentUpdater
-    //   fields: 8
-    //   size: 0xB8
-    //   @MGetKV3ClassDefaults
-    class CMovementComponentUpdater {
-    public:
-        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimMotorUpdaterBase>>, m_motors                                        , 0x30) // CUtlVector<CSmartPtr<CAnimMotorUpdaterBase>>
-        SCHEMA_FIELD(CAnimInputDamping               , m_facingDamping                                 , 0x48) // CAnimInputDamping
-        SCHEMA_FIELD(std::int32_t                    , m_nDefaultMotorIndex                            , 0x68) // int32
-        SCHEMA_FIELD(float                           , m_flDefaultRunSpeed                             , 0x6C) // float32
-        SCHEMA_FIELD(bool                            , m_bMoveVarsDisabled                             , 0x70) // bool
-        SCHEMA_FIELD(bool                            , m_bNetworkPath                                  , 0x71) // bool
-        SCHEMA_FIELD(bool                            , m_bNetworkFacing                                , 0x72) // bool
-        SCHEMA_FIELD(CAnimParamHandle                , m_paramHandles                                  , 0x73) // CAnimParamHandle[34]
-    };
-
-    // CNmCurrentSyncEventIDNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmCurrentSyncEventIDNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
-    };
-
-    // CAnimDesc_Flag
-    //   fields: 8
     //   size: 0x8
     //   @MGetKV3ClassDefaults
-    class CAnimDesc_Flag {
+    class LookAtBone_t {
     public:
-        SCHEMA_FIELD(bool                            , m_bLooping                                      , 0x0) // bool
-        SCHEMA_FIELD(bool                            , m_bAllZeros                                     , 0x1) // bool
-        SCHEMA_FIELD(bool                            , m_bHidden                                       , 0x2) // bool
-        SCHEMA_FIELD(bool                            , m_bDelta                                        , 0x3) // bool
-        SCHEMA_FIELD(bool                            , m_bLegacyWorldspace                             , 0x4) // bool
-        SCHEMA_FIELD(bool                            , m_bModelDoc                                     , 0x5) // bool
-        SCHEMA_FIELD(bool                            , m_bImplicitSeqIgnoreDelta                       , 0x6) // bool
-        SCHEMA_FIELD(bool                            , m_bAnimGraphAdditive                            , 0x7) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_index                                         , 0x0) // int32
+        SCHEMA_FIELD(float                           , m_weight                                        , 0x4) // float32
     };
 
-    // CNmTargetWarpEvent
-    //   fields: 2
+    // CNmIDEventPercentageThroughNode::CDefinition
+    //   fields: 3
     //   size: 0x20
     //   @MGetKV3ClassDefaults
-    class CNmTargetWarpEvent {
-    public:
-        SCHEMA_FIELD(NmTargetWarpRule_t              , m_rule                                          , 0x18) // NmTargetWarpRule_t
-        SCHEMA_FIELD(NmTargetWarpAlgorithm_t         , m_algorithm                                     , 0x19) // NmTargetWarpAlgorithm_t
-    };
-
-    // CNmFloatChannelData
-    //   fields: 5
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CNmFloatChannelData {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCNmSkeleton>, m_skeleton                                      , 0x0) // CStrongHandle<InfoForResourceTypeCNmSkeleton>
-        SCHEMA_FIELD(CGlobalSymbol                   , m_setID                                         , 0x8) // CGlobalSymbol
-        SCHEMA_FIELD(CUtlVector<CNmFloatChannelData_ChannelSettings_t>, m_channelSettings                               , 0x10) // CUtlVector<CNmFloatChannelData::ChannelSettings_t>
-        SCHEMA_FIELD(CUtlVector<uint16>              , m_compressedData                                , 0x28) // CUtlVector<uint16>
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_compressedOffsets                             , 0x40) // CUtlVector<uint32>
-    };
-
-    // CNmGraphInstance
-    //   fields: 0
-    //   size: 0x3D0
-    class CNmGraphInstance {
-    public:
-    };
-
-    // CBodyGroupAnimTag
-    //   fields: 2
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CBodyGroupAnimTag {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x58) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<CBodyGroupSetting>   , m_bodyGroupSettings                             , 0x60) // CUtlVector<CBodyGroupSetting> [MPropertyFriendlyName]
-    };
-
-    // CNmTargetWarpNode::CDefinition
-    //   fields: 11
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class CNmTargetWarpNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nClipReferenceNodeIdx                         , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nTargetValueNodeIdx                           , 0x12) // int16
-        SCHEMA_FIELD(CNmRootMotionData_SamplingMode_t, m_samplingMode                                  , 0x14) // CNmRootMotionData::SamplingMode_t
-        SCHEMA_FIELD(CNmTargetWarpNode_TargetUpdateRule_t, m_targetUpdateRule                              , 0x15) // CNmTargetWarpNode::TargetUpdateRule_t
-        SCHEMA_FIELD(bool                            , m_bAlignWithTargetAtLastWarpEvent               , 0x16) // bool
-        SCHEMA_FIELD(float                           , m_flSamplingPositionErrorThresholdSq            , 0x18) // float32
-        SCHEMA_FIELD(float                           , m_flMaxTangentLength                            , 0x1C) // float32
-        SCHEMA_FIELD(float                           , m_flLerpFallbackDistanceThreshold               , 0x20) // float32
-        SCHEMA_FIELD(float                           , m_flTargetUpdateDistanceThreshold               , 0x24) // float32
-        SCHEMA_FIELD(float                           , m_flTargetUpdateAngleThresholdRadians           , 0x28) // float32
-        SCHEMA_FIELD(CGlobalSymbol                   , m_alignmentBoneID                               , 0x30) // CGlobalSymbol
-    };
-
-    // CNmStateMachineNode::CDefinition
-    //   fields: 2
-    //   size: 0x138
-    //   @MGetKV3ClassDefaults
-    class CNmStateMachineNode_CDefinition {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<CNmStateMachineNode_StateDefinition_t,5>;
-        SCHEMA_FIELD(_Type0                          , m_stateDefinitions                              , 0x10) // CUtlLeanVectorFixedGrowable<CNmStateMachineNode::StateDefinition_t,5>
-        SCHEMA_FIELD(std::int16_t                    , m_nDefaultStateIndex                            , 0x130) // int16
-    };
-
-    // CNmFootEventConditionNode::CDefinition
-    //   fields: 3
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmFootEventConditionNode_CDefinition {
+    class CNmIDEventPercentageThroughNode_CDefinition {
     public:
         SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(NmFootPhaseCondition_t          , m_phaseCondition                                , 0x12) // NmFootPhaseCondition_t
         SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
-    };
-
-    // FootFixedData_t
-    //   fields: 11
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class FootFixedData_t {
-    public:
-        SCHEMA_FIELD(VectorAligned                   , m_vToeOffset                                    , 0x0) // VectorAligned
-        SCHEMA_FIELD(VectorAligned                   , m_vHeelOffset                                   , 0x10) // VectorAligned
-        SCHEMA_FIELD(std::int32_t                    , m_nTargetBoneIndex                              , 0x20) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nAnkleBoneIndex                               , 0x24) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nIKAnchorBoneIndex                            , 0x28) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_ikChainIndex                                  , 0x2C) // int32
-        SCHEMA_FIELD(float                           , m_flMaxIKLength                                 , 0x30) // float32
-        SCHEMA_FIELD(std::int32_t                    , m_nFootIndex                                    , 0x34) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nTagIndex                                     , 0x38) // int32
-        SCHEMA_FIELD(float                           , m_flMaxRotationLeft                             , 0x3C) // float32
-        SCHEMA_FIELD(float                           , m_flMaxRotationRight                            , 0x40) // float32
-    };
-
-    // CFootMotion
-    //   fields: 3
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CFootMotion {
-    public:
-        SCHEMA_FIELD(CUtlVector<CFootStride>         , m_strides                                       , 0x0) // CUtlVector<CFootStride>
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x18) // CUtlString
-        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x20) // bool
-    };
-
-    // CNmCurrentSyncEventNode::CDefinition
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmCurrentSyncEventNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(CNmCurrentSyncEventNode_InfoType_t, m_infoType                                      , 0x12) // CNmCurrentSyncEventNode::InfoType_t
-    };
-
-    // CNmRootMotionEvent
-    //   fields: 1
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmRootMotionEvent {
-    public:
-        SCHEMA_FIELD(float                           , m_flBlendTimeSeconds                            , 0x18) // float32
-    };
-
-    // CParticleProperty
-    //   fields: 0
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CParticleProperty {
-    public:
-    };
-
-    // CMaterialDrawDescriptor::RigidMeshPart_t
-    //   fields: 4
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class CMaterialDrawDescriptor_RigidMeshPart_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , m_nRigidBLASIndex                               , 0x0) // uint16
-        SCHEMA_FIELD(std::int16_t                    , m_nBoneIndex                                    , 0x2) // int16
-        SCHEMA_FIELD(std::uint32_t                   , m_nStartIndexOffset                             , 0x4) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nPrimitiveCount                               , 0x8) // uint32
-    };
-
-    // MotionMatchingInstanceData
-    //   fields: 2
-    //   size: 0x120
-    //   @MGetKV3ClassDefaults
-    class MotionMatchingInstanceData {
-    public:
-        SCHEMA_FIELD(MotionSelection                 , m_currentSelection                              , 0x2C) // MotionSelection
-        SCHEMA_FIELD(MotionSelection                 , m_previousSelection                             , 0x84) // MotionSelection
-    };
-
-    // CNmConstTargetNode::CDefinition
-    //   fields: 1
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CNmConstTargetNode_CDefinition {
-    public:
-        SCHEMA_FIELD(CNmTarget                       , m_value                                         , 0x10) // CNmTarget
-    };
-
-    // CPulseCell_Inflow_ObservableVariableListener
-    //   fields: 2
-    //   size: 0x88
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Inflow_ObservableVariableListener {
-    public:
-        SCHEMA_FIELD(PulseRuntimeBlackboardReferenceIndex_t, m_nBlackboardReference                          , 0x80) // PulseRuntimeBlackboardReferenceIndex_t
-        SCHEMA_FIELD(bool                            , m_bSelfReference                                , 0x82) // bool
-    };
-
-    // CPhysSurfacePropertiesPhysics
-    //   fields: 6
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CPhysSurfacePropertiesPhysics {
-    public:
-        SCHEMA_FIELD(float                           , m_friction                                      , 0x0) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_elasticity                                    , 0x4) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_density                                       , 0x8) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_thickness                                     , 0xC) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_softContactFrequency                          , 0x10) // float32 [MKV3TransferName]
-        SCHEMA_FIELD(float                           , m_softContactDampingRatio                       , 0x14) // float32 [MKV3TransferName]
-    };
-
-    // CNmFloatRemapNode::CDefinition
-    //   fields: 3
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CNmFloatRemapNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(CNmFloatRemapNode_RemapRange_t  , m_inputRange                                    , 0x14) // CNmFloatRemapNode::RemapRange_t
-        SCHEMA_FIELD(CNmFloatRemapNode_RemapRange_t  , m_outputRange                                   , 0x1C) // CNmFloatRemapNode::RemapRange_t
-    };
-
-    // CFollowPathUpdateNode
-    //   fields: 13
-    //   size: 0xB8
-    //   @MGetKV3ClassDefaults
-    class CFollowPathUpdateNode {
-    public:
-        SCHEMA_FIELD(float                           , m_flBlendOutTime                                , 0x74) // float32
-        SCHEMA_FIELD(bool                            , m_bBlockNonPathMovement                         , 0x78) // bool
-        SCHEMA_FIELD(bool                            , m_bStopFeetAtGoal                               , 0x79) // bool
-        SCHEMA_FIELD(bool                            , m_bScaleSpeed                                   , 0x7A) // bool
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x7C) // float32
-        SCHEMA_FIELD(float                           , m_flMinAngle                                    , 0x80) // float32
-        SCHEMA_FIELD(float                           , m_flMaxAngle                                    , 0x84) // float32
-        SCHEMA_FIELD(float                           , m_flSpeedScaleBlending                          , 0x88) // float32
-        SCHEMA_FIELD(CAnimInputDamping               , m_turnDamping                                   , 0x90) // CAnimInputDamping
-        SCHEMA_FIELD(AnimValueSource                 , m_facingTarget                                  , 0xA8) // AnimValueSource
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParam                                        , 0xAC) // CAnimParamHandle
-        SCHEMA_FIELD(float                           , m_flTurnToFaceOffset                            , 0xB0) // float32
-        SCHEMA_FIELD(bool                            , m_bTurnToFace                                   , 0xB4) // bool
-    };
-
-    // CSequenceUpdateNode
-    //   fields: 4
-    //   size: 0xB0
-    //   @MGetKV3ClassDefaults
-    class CSequenceUpdateNode {
-    public:
-        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x78) // HSequence
-        SCHEMA_FIELD(float                           , m_duration                                      , 0x7C) // float32
-        SCHEMA_FIELD(CParamSpanUpdater               , m_paramSpans                                    , 0x80) // CParamSpanUpdater
-        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x98) // CUtlVector<TagSpan_t>
-    };
-
-    // CNmGraphDefinition::ExternalPoseSlot_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmGraphDefinition_ExternalPoseSlot_t {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nNodeIdx                                      , 0x0) // int16
-        SCHEMA_FIELD(CGlobalSymbol                   , m_slotID                                        , 0x8) // CGlobalSymbol
-    };
-
-    // CAnimUserDifference
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CAnimUserDifference {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
-        SCHEMA_FIELD(std::int32_t                    , m_nType                                         , 0x10) // int32
-    };
-
-    // PulseNodeDynamicOutflows_t
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class PulseNodeDynamicOutflows_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<PulseNodeDynamicOutflows_t_DynamicOutflow_t>, m_Outflows                                      , 0x0) // CUtlVector<PulseNodeDynamicOutflows_t::DynamicOutflow_t>
-    };
-
-    // CRagdollAnimTag
-    //   fields: 1
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CRagdollAnimTag {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_profileName                                   , 0x58) // CGlobalSymbol [MPropertyFriendlyName, MPropertySortPriority]
-    };
-
-    // CMotionGraphConfig
-    //   fields: 5
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CMotionGraphConfig {
-    public:
-        SCHEMA_FIELD(float                           , m_paramValues                                   , 0x0) // float32[4]
-        SCHEMA_FIELD(float                           , m_flDuration                                    , 0x10) // float32
-        SCHEMA_FIELD(MotionIndex                     , m_nMotionIndex                                  , 0x14) // MotionIndex
-        SCHEMA_FIELD(std::int32_t                    , m_nSampleStart                                  , 0x18) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nSampleCount                                  , 0x1C) // int32
-    };
-
-    // CPhysSurfacePropertiesSoundNames
-    //   fields: 12
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CPhysSurfacePropertiesSoundNames {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_impactSoft                                    , 0x0) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(::CUtlString                    , m_impactHard                                    , 0x8) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(::CUtlString                    , m_scrapeSmooth                                  , 0x10) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(::CUtlString                    , m_scrapeRough                                   , 0x18) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(::CUtlString                    , m_bulletImpact                                  , 0x20) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(::CUtlString                    , m_rolling                                       , 0x28) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(::CUtlString                    , m_break                                         , 0x30) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(::CUtlString                    , m_strain                                        , 0x38) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(::CUtlString                    , m_meleeImpact                                   , 0x40) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(::CUtlString                    , m_pushOff                                       , 0x48) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(::CUtlString                    , m_skidStop                                      , 0x50) // CUtlString [MKV3TransferName]
-        SCHEMA_FIELD(::CUtlString                    , m_resonant                                      , 0x58) // CUtlString [MKV3TransferName]
-    };
-
-    // CPulseCell_WaitForObservable
-    //   fields: 2
-    //   size: 0x198
-    //   @MGetKV3ClassDefaults
-    //   @MPulseEditorHeaderIcon
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    class CPulseCell_WaitForObservable {
-    public:
-        SCHEMA_FIELD(CPulseObservableExpression<bool>, m_Condition                                     , 0xD8) // CPulseObservableExpression<bool> [MPropertyDescription, MPropertyFriendlyName]
-        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnTrue                                        , 0x150) // CPulse_ResumePoint
-    };
-
-    // CAnimUpdateNodeRef
-    //   fields: 1
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CAnimUpdateNodeRef {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nodeIndex                                     , 0x8) // int32
-    };
-
-    // CNmScaleNode::CDefinition
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmScaleNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nMaskNodeIdx                                  , 0x18) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nEnableNodeIdx                                , 0x1A) // int16
-    };
-
-    // CNmVelocityBlendNode::CDefinition
-    //   fields: 0
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CNmVelocityBlendNode_CDefinition {
-    public:
-    };
-
-    // CStateNodeTransitionData
-    //   fields: 5
-    //   size: 0x1C
-    //   @MGetKV3ClassDefaults
-    class CStateNodeTransitionData {
-    public:
-        SCHEMA_FIELD(CBlendCurve                     , m_curve                                         , 0x0) // CBlendCurve
-        SCHEMA_FIELD(CAnimValue<float32>             , m_blendDuration                                 , 0x8) // CAnimValue<float32>
-        SCHEMA_FIELD(CAnimValue<float32>             , m_resetCycleValue                               , 0x10) // CAnimValue<float32>
-        // SKIPPED: m_bReset (bitfield type not supported)
-        // SKIPPED: m_resetCycleOption (bitfield type not supported)
-    };
-
-    // CAnimKeyData
-    //   fields: 6
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class CAnimKeyData {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
-        SCHEMA_FIELD(CUtlVector<CAnimBone>           , m_boneArray                                     , 0x10) // CUtlVector<CAnimBone>
-        SCHEMA_FIELD(CUtlVector<CAnimUser>           , m_userArray                                     , 0x28) // CUtlVector<CAnimUser>
-        SCHEMA_FIELD(CUtlVector<CBufferString>       , m_morphArray                                    , 0x40) // CUtlVector<CBufferString>
-        SCHEMA_FIELD(std::int32_t                    , m_nChannelElements                              , 0x58) // int32
-        SCHEMA_FIELD(CUtlVector<CAnimDataChannelDesc>, m_dataChannelArray                              , 0x60) // CUtlVector<CAnimDataChannelDesc>
-    };
-
-    // WeightList
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class WeightList {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(CUtlVector<float32>             , m_weights                                       , 0x8) // CUtlVector<float32>
-    };
-
-    // CAnimationGraphVisualizerPie
-    //   fields: 4
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CAnimationGraphVisualizerPie {
-    public:
-        SCHEMA_FIELD(VectorAligned                   , m_vWsCenter                                     , 0x40) // VectorAligned
-        SCHEMA_FIELD(VectorAligned                   , m_vWsStart                                      , 0x50) // VectorAligned
-        SCHEMA_FIELD(VectorAligned                   , m_vWsEnd                                        , 0x60) // VectorAligned
-        SCHEMA_FIELD(::Color                         , m_Color                                         , 0x70) // Color
-    };
-
-    // CNmVectorInfoNode::CDefinition
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmVectorInfoNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(CNmVectorInfoNode_Info_t        , m_desiredInfo                                   , 0x12) // CNmVectorInfoNode::Info_t
-    };
-
-    // CAnimEncodeDifference
-    //   fields: 7
-    //   size: 0xA8
-    //   @MGetKV3ClassDefaults
-    class CAnimEncodeDifference {
-    public:
-        SCHEMA_FIELD(CUtlVector<CAnimBoneDifference> , m_boneArray                                     , 0x0) // CUtlVector<CAnimBoneDifference>
-        SCHEMA_FIELD(CUtlVector<CAnimMorphDifference>, m_morphArray                                    , 0x18) // CUtlVector<CAnimMorphDifference>
-        SCHEMA_FIELD(CUtlVector<CAnimUserDifference> , m_userArray                                     , 0x30) // CUtlVector<CAnimUserDifference>
-        SCHEMA_FIELD(CUtlVector<uint8>               , m_bHasRotationBitArray                          , 0x48) // CUtlVector<uint8>
-        SCHEMA_FIELD(CUtlVector<uint8>               , m_bHasMovementBitArray                          , 0x60) // CUtlVector<uint8>
-        SCHEMA_FIELD(CUtlVector<uint8>               , m_bHasMorphBitArray                             , 0x78) // CUtlVector<uint8>
-        SCHEMA_FIELD(CUtlVector<uint8>               , m_bHasUserBitArray                              , 0x90) // CUtlVector<uint8>
-    };
-
-    // CAnimFoot
-    //   fields: 5
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CAnimFoot {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(::Vector                        , m_vBallOffset                                   , 0x8) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vHeelOffset                                   , 0x14) // Vector
-        SCHEMA_FIELD(std::int32_t                    , m_ankleBoneIndex                                , 0x20) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_toeBoneIndex                                  , 0x24) // int32
-    };
-
-    // CStateMachineUpdateNode
-    //   fields: 6
-    //   size: 0x100
-    //   @MGetKV3ClassDefaults
-    class CStateMachineUpdateNode {
-    public:
-        SCHEMA_FIELD(CAnimStateMachineUpdater        , m_stateMachine                                  , 0x70) // CAnimStateMachineUpdater
-        SCHEMA_FIELD(CUtlVector<CStateNodeStateData> , m_stateData                                     , 0xC8) // CUtlVector<CStateNodeStateData>
-        SCHEMA_FIELD(CUtlVector<CStateNodeTransitionData>, m_transitionData                                , 0xE0) // CUtlVector<CStateNodeTransitionData>
-        SCHEMA_FIELD(bool                            , m_bBlockWaningTags                              , 0xFC) // bool
-        SCHEMA_FIELD(bool                            , m_bLockStateWhenWaning                          , 0xFD) // bool
-        SCHEMA_FIELD(bool                            , m_bResetWhenActivated                           , 0xFE) // bool
-    };
-
-    // CPulseCell_IsRequirementValid
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_IsRequirementValid {
-    public:
-    };
-
-    // CPulseCell_Inflow_Yield
-    //   fields: 1
-    //   size: 0x120
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Inflow_Yield {
-    public:
-        SCHEMA_FIELD(CPulse_ResumePoint              , m_UnyieldResume                                 , 0xD8) // CPulse_ResumePoint
-    };
-
-    // CFootCycle
-    //   fields: 0
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class CFootCycle {
-    public:
-    };
-
-    // CNmCachedPoseReadTask
-    //   fields: 0
-    //   size: 0x80
-    class CNmCachedPoseReadTask {
-    public:
-    };
-
-    // CJumpHelperUpdateNode
-    //   fields: 8
-    //   size: 0xD8
-    //   @MGetKV3ClassDefaults
-    class CJumpHelperUpdateNode {
-    public:
-        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetParam                                  , 0xB0) // CAnimParamHandle
-        SCHEMA_FIELD(::Vector                        , m_flOriginalJumpMovement                        , 0xB4) // Vector
-        SCHEMA_FIELD(float                           , m_flOriginalJumpDuration                        , 0xC0) // float32
-        SCHEMA_FIELD(float                           , m_flJumpStartCycle                              , 0xC4) // float32
-        SCHEMA_FIELD(float                           , m_flJumpEndCycle                                , 0xC8) // float32
-        SCHEMA_FIELD(JumpCorrectionMethod            , m_eCorrectionMethod                             , 0xCC) // JumpCorrectionMethod
-        SCHEMA_FIELD(bool                            , m_bTranslationAxis                              , 0xD0) // bool[3]
-        SCHEMA_FIELD(bool                            , m_bScaleSpeed                                   , 0xD3) // bool
-    };
-
-    // CBlendCurve
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CBlendCurve {
-    public:
-        SCHEMA_FIELD(float                           , m_flControlPoint1                               , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flControlPoint2                               , 0x4) // float32
-    };
-
-    // CNmValueNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    class CNmValueNode_CDefinition {
-    public:
-    };
-
-    // SkeletonDemoDb_t
-    //   fields: 3
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class SkeletonDemoDb_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<SkeletonAnimCapture_t*>, m_AnimCaptures                                  , 0x0) // CUtlVector<SkeletonAnimCapture_t*>
-        SCHEMA_FIELD(CUtlVector<SkeletonAnimCapture_t_Camera_t>, m_CameraTrack                                   , 0x18) // CUtlVector<SkeletonAnimCapture_t::Camera_t>
-        SCHEMA_FIELD(float                           , m_flRecordingTime                               , 0x30) // float32
-    };
-
-    // CPulse_BlackboardReference
-    //   fields: 4
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CPulse_BlackboardReference {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIPulseGraphDef>, m_hBlackboardResource                           , 0x0) // CStrongHandle<InfoForResourceTypeIPulseGraphDef>
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_BlackboardResource                            , 0x8) // PulseSymbol_t
-        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nNodeID                                       , 0x18) // PulseDocNodeID_t
-        SCHEMA_FIELD(CGlobalSymbol                   , m_NodeName                                      , 0x20) // CGlobalSymbol
-    };
-
-    // CSeqPoseSetting
-    //   fields: 8
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CSeqPoseSetting {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_sPoseParameter                                , 0x0) // CBufferString
-        SCHEMA_FIELD(CBufferString                   , m_sAttachment                                   , 0x10) // CBufferString
-        SCHEMA_FIELD(CBufferString                   , m_sReferenceSequence                            , 0x20) // CBufferString
-        SCHEMA_FIELD(float                           , m_flValue                                       , 0x30) // float32
-        SCHEMA_FIELD(bool                            , m_bX                                            , 0x34) // bool
-        SCHEMA_FIELD(bool                            , m_bY                                            , 0x35) // bool
-        SCHEMA_FIELD(bool                            , m_bZ                                            , 0x36) // bool
-        SCHEMA_FIELD(std::int32_t                    , m_eType                                         , 0x38) // int32
-    };
-
-    // CFlexDesc
-    //   fields: 1
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CFlexDesc {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_szFacs                                        , 0x0) // CUtlString
-    };
-
-    // COrientConstraint
-    //   fields: 0
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class COrientConstraint {
-    public:
-    };
-
-    // CDirectionalBlendUpdateNode
-    //   fields: 8
-    //   size: 0xB0
-    //   @MGetKV3ClassDefaults
-    class CDirectionalBlendUpdateNode {
-    public:
-        SCHEMA_FIELD(HSequence                       , m_hSequences                                    , 0x5C) // HSequence[8]
-        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0x80) // CAnimInputDamping
-        SCHEMA_FIELD(AnimValueSource                 , m_blendValueSource                              , 0x98) // AnimValueSource
-        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0x9C) // CAnimParamHandle
-        SCHEMA_FIELD(float                           , m_playbackSpeed                                 , 0xA0) // float32
-        SCHEMA_FIELD(float                           , m_duration                                      , 0xA4) // float32
-        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0xA8) // bool
-        SCHEMA_FIELD(bool                            , m_bLockBlendOnReset                             , 0xA9) // bool
-    };
-
-    // PulseRuntimeStateOffset_t
-    //   fields: 1
-    //   size: 0x2
-    class PulseRuntimeStateOffset_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , m_Value                                         , 0x0) // uint16
-    };
-
-    // CStopAtGoalUpdateNode
-    //   fields: 5
-    //   size: 0xA0
-    //   @MGetKV3ClassDefaults
-    class CStopAtGoalUpdateNode {
-    public:
-        SCHEMA_FIELD(float                           , m_flOuterRadius                                 , 0x74) // float32
-        SCHEMA_FIELD(float                           , m_flInnerRadius                                 , 0x78) // float32
-        SCHEMA_FIELD(float                           , m_flMaxScale                                    , 0x7C) // float32
-        SCHEMA_FIELD(float                           , m_flMinScale                                    , 0x80) // float32
-        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0x88) // CAnimInputDamping
-    };
-
-    // SignatureOutflow_Continue
-    //   fields: 0
-    //   size: 0x48
-    class SignatureOutflow_Continue {
-    public:
-    };
-
-    // VPhysXAggregateData_t
-    //   fields: 17
-    //   size: 0x150
-    //   @MGetKV3ClassDefaults
-    class VPhysXAggregateData_t {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , m_nFlags                                        , 0x0) // uint16
-        SCHEMA_FIELD(std::uint16_t                   , m_nRefCounter                                   , 0x2) // uint16
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_bonesHash                                     , 0x8) // CUtlVector<uint32>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_boneNames                                     , 0x20) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<uint16>              , m_indexNames                                    , 0x38) // CUtlVector<uint16>
-        SCHEMA_FIELD(CUtlVector<uint16>              , m_indexHash                                     , 0x50) // CUtlVector<uint16>
-        SCHEMA_FIELD(CUtlVector<matrix3x4a_t>        , m_bindPose                                      , 0x68) // CUtlVector<matrix3x4a_t>
-        SCHEMA_FIELD(CUtlVector<VPhysXBodyPart_t>    , m_parts                                         , 0x80) // CUtlVector<VPhysXBodyPart_t>
-        SCHEMA_FIELD(CUtlVector<PhysShapeMarkup_t>   , m_shapeMarkups                                  , 0x98) // CUtlVector<PhysShapeMarkup_t>
-        SCHEMA_FIELD(CUtlVector<VPhysXConstraint2_t> , m_constraints2                                  , 0xB0) // CUtlVector<VPhysXConstraint2_t>
-        SCHEMA_FIELD(CUtlVector<VPhysXJoint_t>       , m_joints                                        , 0xC8) // CUtlVector<VPhysXJoint_t>
-        SCHEMA_FIELD(::vphysics2::PhysFeModelDesc_t* , m_pFeModel                                      , 0xE0) // PhysFeModelDesc_t*
-        SCHEMA_FIELD(CUtlVector<uint16>              , m_boneParents                                   , 0xE8) // CUtlVector<uint16>
-        SCHEMA_FIELD(CUtlVector<uint32>              , m_surfacePropertyHashes                         , 0x100) // CUtlVector<uint32>
-        SCHEMA_FIELD(CUtlVector<VPhysXCollisionAttributes_t>, m_collisionAttributes                           , 0x118) // CUtlVector<VPhysXCollisionAttributes_t>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_debugPartNames                                , 0x130) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(::CUtlString                    , m_embeddedKeyvalues                             , 0x148) // CUtlString
-    };
-
-    // CPairedSequenceUpdateNode
-    //   fields: 1
-    //   size: 0x88
-    //   @MGetKV3ClassDefaults
-    class CPairedSequenceUpdateNode {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_sPairedSequenceRole                           , 0x78) // CGlobalSymbol
-    };
-
-    // CNmReferencePoseNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmReferencePoseNode_CDefinition {
-    public:
-    };
-
-    // CNmSyncTrack::Event_t
-    //   fields: 3
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmSyncTrack_Event_t {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x0) // CGlobalSymbol
-        SCHEMA_FIELD(NmPercent_t                     , m_startTime                                     , 0x8) // NmPercent_t
-        SCHEMA_FIELD(NmPercent_t                     , m_duration                                      , 0xC) // NmPercent_t
-    };
-
-    // CAnimGraphNetworkSettings
-    //   fields: 1
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CAnimGraphNetworkSettings {
-    public:
-        SCHEMA_FIELD(bool                            , m_bNetworkingEnabled                            , 0x20) // bool [MPropertyFriendlyName]
-    };
-
-    // CParticleModelInput
-    //   fields: 3
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyCustomEditor
-    //   @MCustomFGDMetadata
-    class CParticleModelInput {
-    public:
-        SCHEMA_FIELD(::particles::ParticleModelType_t, m_nType                                         , 0x10) // ParticleModelType_t
-        SCHEMA_FIELD(CParticleNamedValueRef          , m_NamedValue                                    , 0x18) // CParticleNamedValueRef
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x58) // int32
-    };
-
-    // CNmBlendTaskBase
-    //   fields: 0
-    //   size: 0x100
-    class CNmBlendTaskBase {
-    public:
-    };
-
-    // AttachmentHandle_t
-    //   fields: 1
-    //   size: 0x1
-    class AttachmentHandle_t {
-    public:
-        SCHEMA_FIELD(std::uint8_t                    , m_Value                                         , 0x0) // uint8
+        SCHEMA_FIELD(CGlobalSymbol                   , m_eventID                                       , 0x18) // CGlobalSymbol
     };
 
     // CNmStateNode::CDefinition
@@ -9470,18 +6801,1570 @@ namespace animationsystem {
         SCHEMA_FIELD(bool                            , m_bUseActualElapsedTimeInStateForTimedEvents    , 0xAF) // bool
     };
 
-    // CCycleControlClipUpdateNode
-    //   fields: 6
+    // CActionComponentUpdater
+    //   fields: 1
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CActionComponentUpdater {
+    public:
+        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimActionUpdater>>, m_actions                                       , 0x30) // CUtlVector<CSmartPtr<CAnimActionUpdater>>
+    };
+
+    // CAnimReplayFrame
+    //   fields: 5
     //   size: 0x90
     //   @MGetKV3ClassDefaults
-    class CCycleControlClipUpdateNode {
+    class CAnimReplayFrame {
     public:
-        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x60) // CUtlVector<TagSpan_t>
-        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0x7C) // HSequence
-        SCHEMA_FIELD(float                           , m_duration                                      , 0x80) // float32
-        SCHEMA_FIELD(AnimValueSource                 , m_valueSource                                   , 0x84) // AnimValueSource
-        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0x88) // CAnimParamHandle
-        SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0x8A) // bool
+        SCHEMA_FIELD(CUtlVector<CUtlBinaryBlock>     , m_inputDataBlocks                               , 0x10) // CUtlVector<CUtlBinaryBlock>
+        SCHEMA_FIELD(::CUtlBinaryBlock               , m_instanceData                                  , 0x28) // CUtlBinaryBlock
+        SCHEMA_FIELD(CTransform                      , m_startingLocalToWorldTransform                 , 0x40) // CTransform
+        SCHEMA_FIELD(CTransform                      , m_localToWorldTransform                         , 0x60) // CTransform
+        SCHEMA_FIELD(float                           , m_timeStamp                                     , 0x80) // float32
+    };
+
+    // CNmIDBasedClipSelectorNode::CDefinition
+    //   fields: 5
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CNmIDBasedClipSelectorNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,5>;
+        using _Type1 = CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>;
+        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,5>
+        SCHEMA_FIELD(_Type1                          , m_optionIDs                                     , 0x28) // CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>
+        SCHEMA_FIELD(std::int16_t                    , m_nParameterNodeIdx                             , 0x58) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nFallbackNodeIdx                              , 0x5A) // int16
+        SCHEMA_FIELD(bool                            , m_bIgnoreInvalidOptions                         , 0x5C) // bool
+    };
+
+    // CHandshakeAnimTagBase
+    //   fields: 1
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CHandshakeAnimTagBase {
+    public:
+        SCHEMA_FIELD(bool                            , m_bIsDisableTag                                 , 0x50) // bool [MPropertyFriendlyName]
+    };
+
+    // NmBoneMaskSetDefinition_t
+    //   fields: 3
+    //   size: 0x128
+    //   @MGetKV3ClassDefaults
+    class NmBoneMaskSetDefinition_t {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x0) // CGlobalSymbol
+        SCHEMA_FIELD(CNmBoneWeightList               , m_primaryWeightList                             , 0x8) // CNmBoneWeightList
+        SCHEMA_FIELD(CUtlLeanVector<CNmBoneWeightList>, m_secondaryWeightLists                          , 0x118) // CUtlLeanVector<CNmBoneWeightList>
+    };
+
+    // NmSyncTrackTime_t
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class NmSyncTrackTime_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nEventIdx                                     , 0x0) // int32
+        SCHEMA_FIELD(NmPercent_t                     , m_percentageThrough                             , 0x4) // NmPercent_t
+    };
+
+    // CNmTwoBoneIKTask
+    //   fields: 10
+    //   size: 0xF0
+    class CNmTwoBoneIKTask {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nEffectorBoneIdx                              , 0x70) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nEffectorTargetBoneIdx                        , 0x74) // int32
+        SCHEMA_FIELD(CTransform                      , m_targetTransform                               , 0x80) // CTransform
+        SCHEMA_FIELD(CNmTarget                       , m_effectorTarget                                , 0xA0) // CNmTarget
+        SCHEMA_FIELD(NmIKBlendMode_t                 , m_blendMode                                     , 0xD0) // NmIKBlendMode_t
+        SCHEMA_FIELD(float                           , m_flBlendWeight                                 , 0xD4) // float32
+        SCHEMA_FIELD(bool                            , m_bIsTargetInWorldSpace                         , 0xD8) // bool
+        SCHEMA_FIELD(bool                            , m_bIsRunningFromDeserializedData                , 0xD9) // bool
+        SCHEMA_FIELD(float                           , m_flChainRotationWeight                         , 0xDC) // float32
+        SCHEMA_FIELD(CGlobalSymbol                   , m_debugEffectorBoneID                           , 0xE0) // CGlobalSymbol
+    };
+
+    // CNmFloatEaseNode::CDefinition
+    //   fields: 5
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmFloatEaseNode_CDefinition {
+    public:
+        SCHEMA_FIELD(float                           , m_flEaseTime                                    , 0x10) // float32
+        SCHEMA_FIELD(float                           , m_flStartValue                                  , 0x14) // float32
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x18) // int16
+        SCHEMA_FIELD(NmEasingOperation_t             , m_easingOp                                      , 0x1A) // NmEasingOperation_t
+        SCHEMA_FIELD(bool                            , m_bUseStartValue                                , 0x1B) // bool
+    };
+
+    // PulseRuntimeCallInfoIndex_t
+    //   fields: 1
+    //   size: 0x4
+    class PulseRuntimeCallInfoIndex_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
+    };
+
+    // CCPPScriptComponentUpdater
+    //   fields: 1
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CCPPScriptComponentUpdater {
+    public:
+        SCHEMA_FIELD(CUtlVector<CGlobalSymbol>       , m_scriptsToRun                                  , 0x30) // CUtlVector<CGlobalSymbol> [MPropertyFriendlyName]
+    };
+
+    // CNmIDEventNode::CDefinition
+    //   fields: 3
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmIDEventNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
+        SCHEMA_FIELD(CGlobalSymbol                   , m_defaultValue                                  , 0x18) // CGlobalSymbol
+    };
+
+    // CHitBox
+    //   fields: 13
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class CHitBox {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_sSurfaceProperty                              , 0x8) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_sBoneName                                     , 0x10) // CUtlString
+        SCHEMA_FIELD(::Vector                        , m_vMinBounds                                    , 0x18) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vMaxBounds                                    , 0x24) // Vector
+        SCHEMA_FIELD(float                           , m_flShapeRadius                                 , 0x30) // float32
+        SCHEMA_FIELD(std::uint32_t                   , m_nBoneNameHash                                 , 0x34) // uint32
+        SCHEMA_FIELD(std::int32_t                    , m_nGroupId                                      , 0x38) // int32
+        SCHEMA_FIELD(std::uint8_t                    , m_nShapeType                                    , 0x3C) // uint8
+        SCHEMA_FIELD(bool                            , m_bTranslationOnly                              , 0x3D) // bool
+        SCHEMA_FIELD(std::uint32_t                   , m_CRC                                           , 0x40) // uint32
+        SCHEMA_FIELD(::Color                         , m_cRenderColor                                  , 0x44) // Color
+        SCHEMA_FIELD(std::uint16_t                   , m_nHitBoxIndex                                  , 0x48) // uint16
+    };
+
+    // ConfigIndex
+    //   fields: 2
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class ConfigIndex {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , m_nGroup                                        , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nConfig                                       , 0x2) // uint16
+    };
+
+    // CBoneConstraintPoseSpaceBone::Input_t
+    //   fields: 2
+    //   size: 0x28
+    class CBoneConstraintPoseSpaceBone_Input_t {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_inputValue                                    , 0x0) // Vector
+        SCHEMA_FIELD(CUtlVector<CTransform>          , m_outputTransformList                           , 0x10) // CUtlVector<CTransform>
+    };
+
+    // NetVarConfigIndex
+    //   fields: 1
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class NetVarConfigIndex {
+    public:
+        SCHEMA_FIELD(CAnimNetVar<uint32>             , m_index                                         , 0x0) // CAnimNetVar<uint32>
+    };
+
+    // CAnimDesc_Flag
+    //   fields: 8
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CAnimDesc_Flag {
+    public:
+        SCHEMA_FIELD(bool                            , m_bLooping                                      , 0x0) // bool
+        SCHEMA_FIELD(bool                            , m_bAllZeros                                     , 0x1) // bool
+        SCHEMA_FIELD(bool                            , m_bHidden                                       , 0x2) // bool
+        SCHEMA_FIELD(bool                            , m_bDelta                                        , 0x3) // bool
+        SCHEMA_FIELD(bool                            , m_bLegacyWorldspace                             , 0x4) // bool
+        SCHEMA_FIELD(bool                            , m_bModelDoc                                     , 0x5) // bool
+        SCHEMA_FIELD(bool                            , m_bImplicitSeqIgnoreDelta                       , 0x6) // bool
+        SCHEMA_FIELD(bool                            , m_bAnimGraphAdditive                            , 0x7) // bool
+    };
+
+    // CNmFootEvent
+    //   fields: 1
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmFootEvent {
+    public:
+        SCHEMA_FIELD(NmFootPhase_t                   , m_phase                                         , 0x18) // NmFootPhase_t
+    };
+
+    // CNmTarget
+    //   fields: 6
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CNmTarget {
+    public:
+        SCHEMA_FIELD(CTransform                      , m_transform                                     , 0x0) // CTransform
+        SCHEMA_FIELD(CGlobalSymbol                   , m_boneID                                        , 0x20) // CGlobalSymbol
+        SCHEMA_FIELD(bool                            , m_bIsBoneTarget                                 , 0x28) // bool
+        SCHEMA_FIELD(bool                            , m_bIsUsingBoneSpaceOffsets                      , 0x29) // bool
+        SCHEMA_FIELD(bool                            , m_bHasOffsets                                   , 0x2A) // bool
+        SCHEMA_FIELD(bool                            , m_bIsSet                                        , 0x2B) // bool
+    };
+
+    // CNmControlParameterVectorNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmControlParameterVectorNode_CDefinition {
+    public:
+    };
+
+    // CNmIsInactiveBranchConditionNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmIsInactiveBranchConditionNode_CDefinition {
+    public:
+    };
+
+    // CNmControlParameterIDNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmControlParameterIDNode_CDefinition {
+    public:
+    };
+
+    // CAnimationGraphVisualizerAxis
+    //   fields: 2
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class CAnimationGraphVisualizerAxis {
+    public:
+        SCHEMA_FIELD(CTransform                      , m_xWsTransform                                  , 0x40) // CTransform
+        SCHEMA_FIELD(float                           , m_flAxisSize                                    , 0x60) // float32
+    };
+
+    // CMaterialAttributeAnimTag
+    //   fields: 4
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CMaterialAttributeAnimTag {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_AttributeName                                 , 0x58) // CUtlString [MPropertyFriendlyName]
+        SCHEMA_FIELD(MatterialAttributeTagType_t     , m_AttributeType                                 , 0x60) // MatterialAttributeTagType_t [MPropertyFriendlyName, MPropertyAutoRebuildOnChange]
+        SCHEMA_FIELD(float                           , m_flValue                                       , 0x64) // float32 [MPropertyFriendlyName, MPropertyAttrStateCallback]
+        SCHEMA_FIELD(::Color                         , m_Color                                         , 0x68) // Color [MPropertyFriendlyName, MPropertyAttrStateCallback]
+    };
+
+    // CAnimUser
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CAnimUser {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
+        SCHEMA_FIELD(std::int32_t                    , m_nType                                         , 0x10) // int32
+    };
+
+    // ModelBoneFlexDriver_t
+    //   fields: 3
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class ModelBoneFlexDriver_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_boneName                                      , 0x0) // CUtlString
+        SCHEMA_FIELD(std::uint32_t                   , m_boneNameToken                                 , 0x8) // uint32
+        SCHEMA_FIELD(CUtlVector<ModelBoneFlexDriverControl_t>, m_controls                                      , 0x10) // CUtlVector<ModelBoneFlexDriverControl_t>
+    };
+
+    // CNmClip::ModelSpaceSamplingChainLink_t
+    //   fields: 3
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class CNmClip_ModelSpaceSamplingChainLink_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nBoneIdx                                      , 0x0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nParentBoneIdx                                , 0x4) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nParentChainLinkIdx                           , 0x8) // int32
+    };
+
+    // CBlockSelectionMetricEvaluator
+    //   fields: 0
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CBlockSelectionMetricEvaluator {
+    public:
+    };
+
+    // CNmIDBasedSelectorNode::CDefinition
+    //   fields: 5
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CNmIDBasedSelectorNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,5>;
+        using _Type1 = CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>;
+        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,5>
+        SCHEMA_FIELD(_Type1                          , m_optionIDs                                     , 0x28) // CUtlLeanVectorFixedGrowable<CGlobalSymbol,5>
+        SCHEMA_FIELD(std::int16_t                    , m_nParameterNodeIdx                             , 0x58) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nFallbackNodeIdx                              , 0x5A) // int16
+        SCHEMA_FIELD(bool                            , m_bIgnoreInvalidOptions                         , 0x5C) // bool
+    };
+
+    // CPulseCell_LimitCount
+    //   fields: 1
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    class CPulseCell_LimitCount {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nLimitCount                                   , 0x48) // int32 [MPropertyFlattenIntoParentRow]
+    };
+
+    // CNmTargetPointNode::CDefinition
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmTargetPointNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(bool                            , m_bIsWorldSpaceTarget                           , 0x12) // bool
+    };
+
+    // TagStatus
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class TagStatus {
+    public:
+        SCHEMA_FIELD(TagActionStatus                 , m_TagStatus                                     , 0x0) // TagActionStatus
+        SCHEMA_FIELD(float                           , m_flTagStartAnimTime                            , 0x4) // float32
+    };
+
+    // CMoodVData
+    //   fields: 3
+    //   size: 0x100
+    //   @MGetKV3ClassDefaults
+    //   @MVDataOverlayType
+    class CMoodVData {
+    public:
+        SCHEMA_FIELD(CResourceNameTyped<CWeakHandle<InfoForResourceTypeCModel>>, m_sModelName                                    , 0x0) // CResourceNameTyped<CWeakHandle<InfoForResourceTypeCModel>> [MPropertyDescription, MPropertyProvidesEditContextString]
+        SCHEMA_FIELD(MoodType_t                      , m_nMoodType                                     , 0xE0) // MoodType_t [MPropertyDescription]
+        SCHEMA_FIELD(CUtlVector<MoodAnimationLayer_t>, m_animationLayers                               , 0xE8) // CUtlVector<MoodAnimationLayer_t> [MPropertyDescription]
+    };
+
+    // CParticleCollectionRendererVecInput
+    //   fields: 0
+    //   size: 0x6B8
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyCustomEditor
+    class CParticleCollectionRendererVecInput {
+    public:
+    };
+
+    // CSeqTransition
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CSeqTransition {
+    public:
+        SCHEMA_FIELD(float                           , m_flFadeInTime                                  , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flFadeOutTime                                 , 0x4) // float32
+    };
+
+    // CWayPointHelperInstanceData
+    //   fields: 4
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CWayPointHelperInstanceData {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vMovement                                     , 0x0) // Vector
+        SCHEMA_FIELD(::QAngle                        , m_vRotation                                     , 0xC) // QAngle
+        SCHEMA_FIELD(::Vector                        , m_vWaypointPosWS                                , 0x18) // Vector
+        SCHEMA_FIELD(bool                            , m_bStopUpdatingWaypointPos                      , 0x24) // bool
+    };
+
+    // CNmBlend2DNode::CDefinition
+    //   fields: 7
+    //   size: 0xC8
+    //   @MGetKV3ClassDefaults
+    class CNmBlend2DNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,5>;
+        using _Type1 = CUtlLeanVectorFixedGrowable<Vector2D,10>;
+        using _Type2 = CUtlLeanVectorFixedGrowable<uint8,30>;
+        using _Type3 = CUtlLeanVectorFixedGrowable<uint8,10>;
+        SCHEMA_FIELD(_Type0                          , m_sourceNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,5>
+        SCHEMA_FIELD(_Type1                          , m_values                                        , 0x28) // CUtlLeanVectorFixedGrowable<Vector2D,10>
+        SCHEMA_FIELD(_Type2                          , m_indices                                       , 0x80) // CUtlLeanVectorFixedGrowable<uint8,30>
+        SCHEMA_FIELD(_Type3                          , m_hullIndices                                   , 0xA8) // CUtlLeanVectorFixedGrowable<uint8,10>
+        SCHEMA_FIELD(std::int16_t                    , m_nInputParameterNodeIdx0                       , 0xC0) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nInputParameterNodeIdx1                       , 0xC2) // int16
+        SCHEMA_FIELD(bool                            , m_bAllowLooping                                 , 0xC4) // bool
+    };
+
+    // CChoiceUpdateNode
+    //   fields: 10
+    //   size: 0xC0
+    //   @MGetKV3ClassDefaults
+    class CChoiceUpdateNode {
+    public:
+        SCHEMA_FIELD(CUtlVector<CAnimUpdateNodeRef>  , m_children                                      , 0x60) // CUtlVector<CAnimUpdateNodeRef>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_weights                                       , 0x78) // CUtlVector<float32>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_blendTimes                                    , 0x90) // CUtlVector<float32>
+        SCHEMA_FIELD(ChoiceMethod                    , m_choiceMethod                                  , 0xA8) // ChoiceMethod
+        SCHEMA_FIELD(ChoiceChangeMethod              , m_choiceChangeMethod                            , 0xAC) // ChoiceChangeMethod
+        SCHEMA_FIELD(ChoiceBlendMethod               , m_blendMethod                                   , 0xB0) // ChoiceBlendMethod
+        SCHEMA_FIELD(float                           , m_blendTime                                     , 0xB4) // float32
+        SCHEMA_FIELD(bool                            , m_bCrossFade                                    , 0xB8) // bool
+        SCHEMA_FIELD(bool                            , m_bResetChosen                                  , 0xB9) // bool
+        SCHEMA_FIELD(bool                            , m_bDontResetSameSelection                       , 0xBA) // bool
+    };
+
+    // CNmSpeedScaleNode::CDefinition
+    //   fields: 0
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmSpeedScaleNode_CDefinition {
+    public:
+    };
+
+    // CPulseCell_Value_RandomFloat
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    //   @MPulseEditorHeaderIcon
+    class CPulseCell_Value_RandomFloat {
+    public:
+    };
+
+    // CNmCachedBoolNode::CDefinition
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmCachedBoolNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(NmCachedValueMode_t             , m_mode                                          , 0x14) // NmCachedValueMode_t
+    };
+
+    // CNmVelocityBasedSpeedScaleNode::CDefinition
+    //   fields: 0
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmVelocityBasedSpeedScaleNode_CDefinition {
+    public:
+    };
+
+    // CRagdollAnimTag
+    //   fields: 1
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CRagdollAnimTag {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_profileName                                   , 0x58) // CGlobalSymbol [MPropertyFriendlyName, MPropertySortPriority]
+    };
+
+    // CNmFootIKTask
+    //   fields: 12
+    //   size: 0x140
+    class CNmFootIKTask {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nLeftEffectorBoneIdx                          , 0x70) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nRightEffectorBoneIdx                         , 0x74) // int32
+        SCHEMA_FIELD(CTransform                      , m_leftTargetTransform                           , 0x80) // CTransform
+        SCHEMA_FIELD(CTransform                      , m_rightTargetTransform                          , 0xA0) // CTransform
+        SCHEMA_FIELD(std::int32_t                    , m_nLeftTargetBoneIdx                            , 0xC0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nRightTargetBoneIdx                           , 0xC4) // int32
+        SCHEMA_FIELD(CNmTarget                       , m_leftTarget                                    , 0xD0) // CNmTarget
+        SCHEMA_FIELD(CNmTarget                       , m_rightTarget                                   , 0x100) // CNmTarget
+        SCHEMA_FIELD(NmIKBlendMode_t                 , m_blendMode                                     , 0x130) // NmIKBlendMode_t
+        SCHEMA_FIELD(float                           , m_flBlendWeight                                 , 0x134) // float32
+        SCHEMA_FIELD(bool                            , m_bIsTargetInWorldSpace                         , 0x138) // bool
+        SCHEMA_FIELD(bool                            , m_bIsRunningFromDeserializedData                , 0x139) // bool
+    };
+
+    // CCycleControlUpdateNode
+    //   fields: 3
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CCycleControlUpdateNode {
+    public:
+        SCHEMA_FIELD(AnimValueSource                 , m_valueSource                                   , 0x70) // AnimValueSource
+        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0x74) // CAnimParamHandle
+        SCHEMA_FIELD(bool                            , m_bLockWhenWaning                               , 0x76) // bool
+    };
+
+    // CMotionNodeBlend1D
+    //   fields: 2
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CMotionNodeBlend1D {
+    public:
+        SCHEMA_FIELD(CUtlVector<MotionBlendItem>     , m_blendItems                                    , 0x28) // CUtlVector<MotionBlendItem>
+        SCHEMA_FIELD(std::int32_t                    , m_nParamIndex                                   , 0x40) // int32
+    };
+
+    // CPulseCell_LimitCount::InstanceState_t
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_LimitCount_InstanceState_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCurrentCount                                 , 0x0) // int32
+    };
+
+    // CPulseCell_Base
+    //   fields: 1
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Base {
+    public:
+        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nEditorNodeID                                 , 0x8) // PulseDocNodeID_t [MFgdFromSchemaCompletelySkipField]
+    };
+
+    // SignatureOutflow_Continue
+    //   fields: 0
+    //   size: 0x48
+    class SignatureOutflow_Continue {
+    public:
+    };
+
+    // CLeanMatrixUpdateNode
+    //   fields: 10
+    //   size: 0xF0
+    //   @MGetKV3ClassDefaults
+    class CLeanMatrixUpdateNode {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_frameCorners                                  , 0x5C) // int32[3][3]
+        SCHEMA_FIELD(CPoseHandle                     , m_poses                                         , 0x80) // CPoseHandle[9]
+        SCHEMA_FIELD(CAnimInputDamping               , m_damping                                       , 0xA8) // CAnimInputDamping
+        SCHEMA_FIELD(AnimVectorSource                , m_blendSource                                   , 0xC0) // AnimVectorSource
+        SCHEMA_FIELD(CAnimParamHandle                , m_paramIndex                                    , 0xC4) // CAnimParamHandle
+        SCHEMA_FIELD(::Vector                        , m_verticalAxis                                  , 0xC8) // Vector
+        SCHEMA_FIELD(::Vector                        , m_horizontalAxis                                , 0xD4) // Vector
+        SCHEMA_FIELD(HSequence                       , m_hSequence                                     , 0xE0) // HSequence
+        SCHEMA_FIELD(float                           , m_flMaxValue                                    , 0xE4) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMaxFrame                             , 0xE8) // int32
+    };
+
+    // CNmTargetWarpEvent
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmTargetWarpEvent {
+    public:
+        SCHEMA_FIELD(NmTargetWarpRule_t              , m_rule                                          , 0x18) // NmTargetWarpRule_t
+        SCHEMA_FIELD(NmTargetWarpAlgorithm_t         , m_algorithm                                     , 0x19) // NmTargetWarpAlgorithm_t
+    };
+
+    // CAnimSequenceParams
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CAnimSequenceParams {
+    public:
+        SCHEMA_FIELD(float                           , m_flFadeInTime                                  , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flFadeOutTime                                 , 0x4) // float32
+    };
+
+    // CNmFloatSwitchNode::CDefinition
+    //   fields: 5
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmFloatSwitchNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nSwitchValueNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nTrueValueNodeIdx                             , 0x12) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nFalseValueNodeIdx                            , 0x14) // int16
+        SCHEMA_FIELD(float                           , m_flFalseValue                                  , 0x18) // float32
+        SCHEMA_FIELD(float                           , m_flTrueValue                                   , 0x1C) // float32
+    };
+
+    // CAnimFoot
+    //   fields: 5
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CAnimFoot {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(::Vector                        , m_vBallOffset                                   , 0x8) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vHeelOffset                                   , 0x14) // Vector
+        SCHEMA_FIELD(std::int32_t                    , m_ankleBoneIndex                                , 0x20) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_toeBoneIndex                                  , 0x24) // int32
+    };
+
+    // CParticleCollectionVecInput
+    //   fields: 0
+    //   size: 0x6B8
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyCustomEditor
+    class CParticleCollectionVecInput {
+    public:
+    };
+
+    // StanceInfo_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class StanceInfo_t {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vPosition                                     , 0x0) // Vector
+        SCHEMA_FIELD(float                           , m_flDirection                                   , 0xC) // float32
+    };
+
+    // CFootTrajectories
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CFootTrajectories {
+    public:
+        SCHEMA_FIELD(CUtlVector<CFootTrajectory>     , m_trajectories                                  , 0x0) // CUtlVector<CFootTrajectory>
+    };
+
+    // CPulseCell_Inflow_Wait
+    //   fields: 1
+    //   size: 0x120
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    //   @MPulseEditorHeaderIcon
+    //   @MPulseEditorCanvasItemSpecKV3
+    class CPulseCell_Inflow_Wait {
+    public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_WakeResume                                    , 0xD8) // CPulse_ResumePoint
+    };
+
+    // CPulseRuntimeMethodArg
+    //   fields: 3
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class CPulseRuntimeMethodArg {
+    public:
+        SCHEMA_FIELD(CKV3MemberNameWithStorage       , m_Name                                          , 0x0) // CKV3MemberNameWithStorage
+        SCHEMA_FIELD(::CUtlString                    , m_Description                                   , 0x38) // CUtlString
+        SCHEMA_FIELD(CPulseValueFullType             , m_Type                                          , 0x40) // CPulseValueFullType
+    };
+
+    // CAnimEncodeDifference
+    //   fields: 7
+    //   size: 0xA8
+    //   @MGetKV3ClassDefaults
+    class CAnimEncodeDifference {
+    public:
+        SCHEMA_FIELD(CUtlVector<CAnimBoneDifference> , m_boneArray                                     , 0x0) // CUtlVector<CAnimBoneDifference>
+        SCHEMA_FIELD(CUtlVector<CAnimMorphDifference>, m_morphArray                                    , 0x18) // CUtlVector<CAnimMorphDifference>
+        SCHEMA_FIELD(CUtlVector<CAnimUserDifference> , m_userArray                                     , 0x30) // CUtlVector<CAnimUserDifference>
+        SCHEMA_FIELD(CUtlVector<uint8>               , m_bHasRotationBitArray                          , 0x48) // CUtlVector<uint8>
+        SCHEMA_FIELD(CUtlVector<uint8>               , m_bHasMovementBitArray                          , 0x60) // CUtlVector<uint8>
+        SCHEMA_FIELD(CUtlVector<uint8>               , m_bHasMorphBitArray                             , 0x78) // CUtlVector<uint8>
+        SCHEMA_FIELD(CUtlVector<uint8>               , m_bHasUserBitArray                              , 0x90) // CUtlVector<uint8>
+    };
+
+    // CAnimationGraphInstance
+    //   fields: 1
+    //   size: 0x340
+    //   @MGetKV3ClassDefaults
+    class CAnimationGraphInstance {
+    public:
+        SCHEMA_FIELD(bool                            , m_bTagDispatchDirty                             , 0x329) // bool
+    };
+
+    // CNmParameterizedBlendNode::CDefinition
+    //   fields: 3
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CNmParameterizedBlendNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,5>;
+        SCHEMA_FIELD(_Type0                          , m_sourceNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,5>
+        SCHEMA_FIELD(std::int16_t                    , m_nInputParameterValueNodeIdx                   , 0x28) // int16
+        SCHEMA_FIELD(bool                            , m_bAllowLooping                                 , 0x2A) // bool
+    };
+
+    // CMorphBundleData
+    //   fields: 4
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class CMorphBundleData {
+    public:
+        SCHEMA_FIELD(float                           , m_flULeftSrc                                    , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flVTopSrc                                     , 0x4) // float32
+        SCHEMA_FIELD(CUtlVector<float32>             , m_offsets                                       , 0x8) // CUtlVector<float32>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_ranges                                        , 0x20) // CUtlVector<float32>
+    };
+
+    // CPulseCell_PickBestOutflowSelector
+    //   fields: 2
+    //   size: 0x68
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    //   @MPulseEditorHeaderIcon
+    //   @MPulseEditorCanvasItemSpecKV3
+    class CPulseCell_PickBestOutflowSelector {
+    public:
+        SCHEMA_FIELD(PulseBestOutflowRules_t         , m_nCheckType                                    , 0x48) // PulseBestOutflowRules_t
+        SCHEMA_FIELD(PulseSelectorOutflowList_t      , m_OutflowList                                   , 0x50) // PulseSelectorOutflowList_t
+    };
+
+    // CAnimActionUpdater
+    //   fields: 0
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CAnimActionUpdater {
+    public:
+    };
+
+    // CPulseCell_IsRequirementValid::Criteria_t
+    //   fields: 1
+    //   size: 0x1
+    class CPulseCell_IsRequirementValid_Criteria_t {
+    public:
+        SCHEMA_FIELD(bool                            , m_bIsValid                                      , 0x0) // bool
+    };
+
+    // CDirectPlaybackTagData
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CDirectPlaybackTagData {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_sequenceName                                  , 0x0) // CUtlString
+        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x8) // CUtlVector<TagSpan_t>
+    };
+
+    // CFlexController
+    //   fields: 4
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CFlexController {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_szName                                        , 0x0) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_szType                                        , 0x8) // CUtlString
+        SCHEMA_FIELD(float                           , min                                             , 0x10) // float32
+        SCHEMA_FIELD(float                           , max                                             , 0x14) // float32
+    };
+
+    // CNmCachedPoseReadTask
+    //   fields: 0
+    //   size: 0x80
+    class CNmCachedPoseReadTask {
+    public:
+    };
+
+    // CPulseGraphDef
+    //   fields: 14
+    //   size: 0x1B0
+    //   @MGetKV3ClassDefaults
+    class CPulseGraphDef {
+    public:
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_DomainIdentifier                              , 0x8) // PulseSymbol_t
+        SCHEMA_FIELD(CPulseValueFullType             , m_DomainSubType                                 , 0x18) // CPulseValueFullType
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_ParentMapName                                 , 0x30) // PulseSymbol_t
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_ParentXmlName                                 , 0x40) // PulseSymbol_t
+        SCHEMA_FIELD(CUtlVector<CPulse_Chunk*>       , m_Chunks                                        , 0x50) // CUtlVector<CPulse_Chunk*>
+        SCHEMA_FIELD(CUtlVector<CPulseCell_Base*>    , m_Cells                                         , 0x68) // CUtlVector<CPulseCell_Base*>
+        SCHEMA_FIELD(CUtlVector<CPulse_Variable>     , m_Vars                                          , 0x80) // CUtlVector<CPulse_Variable>
+        SCHEMA_FIELD(CUtlVector<CPulse_PublicOutput> , m_PublicOutputs                                 , 0x98) // CUtlVector<CPulse_PublicOutput>
+        SCHEMA_FIELD(CUtlVector<CPulse_InvokeBinding*>, m_InvokeBindings                                , 0xB0) // CUtlVector<CPulse_InvokeBinding*>
+        SCHEMA_FIELD(CUtlVector<CPulse_CallInfo*>    , m_CallInfos                                     , 0xC8) // CUtlVector<CPulse_CallInfo*>
+        SCHEMA_FIELD(CUtlVector<CPulse_Constant>     , m_Constants                                     , 0xE0) // CUtlVector<CPulse_Constant>
+        SCHEMA_FIELD(CUtlVector<CPulse_DomainValue>  , m_DomainValues                                  , 0xF8) // CUtlVector<CPulse_DomainValue>
+        SCHEMA_FIELD(CUtlVector<CPulse_BlackboardReference>, m_BlackboardReferences                          , 0x110) // CUtlVector<CPulse_BlackboardReference>
+        SCHEMA_FIELD(CUtlVector<CPulse_OutputConnection*>, m_OutputConnections                             , 0x128) // CUtlVector<CPulse_OutputConnection*>
+    };
+
+    // CNmMaterialAttributeEvent
+    //   fields: 7
+    //   size: 0x130
+    //   @MGetKV3ClassDefaults
+    class CNmMaterialAttributeEvent {
+    public:
+        SCHEMA_FIELD(CNmEventTargetEntity_t          , m_target                                        , 0x18) // CNmEventTargetEntity_t
+        SCHEMA_FIELD(::CUtlString                    , m_attributeName                                 , 0x20) // CUtlString
+        SCHEMA_FIELD(CUtlStringToken                 , m_attributeNameToken                            , 0x28) // CUtlStringToken
+        SCHEMA_FIELD(CPiecewiseCurve                 , m_x                                             , 0x30) // CPiecewiseCurve
+        SCHEMA_FIELD(CPiecewiseCurve                 , m_y                                             , 0x70) // CPiecewiseCurve
+        SCHEMA_FIELD(CPiecewiseCurve                 , m_z                                             , 0xB0) // CPiecewiseCurve
+        SCHEMA_FIELD(CPiecewiseCurve                 , m_w                                             , 0xF0) // CPiecewiseCurve
+    };
+
+    // PhysShapeMarkup_t
+    //   fields: 3
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class PhysShapeMarkup_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nBodyInAggregate                              , 0x0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nShapeInBody                                  , 0x4) // int32
+        SCHEMA_FIELD(CGlobalSymbol                   , m_sHitGroup                                     , 0x8) // CGlobalSymbol
+    };
+
+    // CAnimMovement
+    //   fields: 7
+    //   size: 0x2C
+    //   @MGetKV3ClassDefaults
+    class CAnimMovement {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , endframe                                        , 0x0) // int32
+        SCHEMA_FIELD(std::int32_t                    , motionflags                                     , 0x4) // int32
+        SCHEMA_FIELD(float                           , v0                                              , 0x8) // float32
+        SCHEMA_FIELD(float                           , v1                                              , 0xC) // float32
+        SCHEMA_FIELD(float                           , angle                                           , 0x10) // float32
+        SCHEMA_FIELD(::Vector                        , vector                                          , 0x14) // Vector
+        SCHEMA_FIELD(::Vector                        , position                                        , 0x20) // Vector
+    };
+
+    // CProductQuantizer
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CProductQuantizer {
+    public:
+        SCHEMA_FIELD(CUtlVector<CVectorQuantizer>    , m_subQuantizers                                 , 0x0) // CUtlVector<CVectorQuantizer>
+        SCHEMA_FIELD(std::int32_t                    , m_nDimensions                                   , 0x18) // int32
+    };
+
+    // CJiggleBoneUpdateNode
+    //   fields: 1
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class CJiggleBoneUpdateNode {
+    public:
+        SCHEMA_FIELD(JiggleBoneSettingsList_t        , m_opFixedData                                   , 0x70) // JiggleBoneSettingsList_t
+    };
+
+    // CFlexDesc
+    //   fields: 1
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CFlexDesc {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_szFacs                                        , 0x0) // CUtlString
+    };
+
+    // CSubtractUpdateNode
+    //   fields: 4
+    //   size: 0xA0
+    //   @MGetKV3ClassDefaults
+    class CSubtractUpdateNode {
+    public:
+        SCHEMA_FIELD(BinaryNodeChildOption           , m_footMotionTiming                              , 0x94) // BinaryNodeChildOption
+        SCHEMA_FIELD(bool                            , m_bApplyToFootMotion                            , 0x98) // bool
+        SCHEMA_FIELD(bool                            , m_bApplyChannelsSeparately                      , 0x99) // bool
+        SCHEMA_FIELD(bool                            , m_bUseModelSpace                                , 0x9A) // bool
+    };
+
+    // IKSolverSettings_t
+    //   fields: 3
+    //   size: 0xC
+    class IKSolverSettings_t {
+    public:
+        SCHEMA_FIELD(IKSolverType                    , m_SolverType                                    , 0x0) // IKSolverType [MPropertyFriendlyName, MPropertyAutoRebuildOnChange]
+        SCHEMA_FIELD(std::int32_t                    , m_nNumIterations                                , 0x4) // int32 [MPropertyFriendlyName, MPropertyAttrStateCallback]
+        SCHEMA_FIELD(EIKEndEffectorRotationFixUpMode , m_EndEffectorRotationFixUpMode                  , 0x8) // EIKEndEffectorRotationFixUpMode [MPropertyFriendlyName]
+    };
+
+    // CNmCurrentSyncEventIDNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmCurrentSyncEventIDNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
+    };
+
+    // CStaticPoseCacheBuilder
+    //   fields: 0
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class CStaticPoseCacheBuilder {
+    public:
+    };
+
+    // CNmOrientationWarpNode::CDefinition
+    //   fields: 6
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmOrientationWarpNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nClipReferenceNodeIdx                         , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nTargetValueNodeIdx                           , 0x12) // int16
+        SCHEMA_FIELD(bool                            , m_bIsOffsetNode                                 , 0x14) // bool
+        SCHEMA_FIELD(bool                            , m_bIsOffsetRelativeToCharacter                  , 0x15) // bool
+        SCHEMA_FIELD(bool                            , m_bWarpTranslation                              , 0x16) // bool
+        SCHEMA_FIELD(CNmRootMotionData_SamplingMode_t, m_samplingMode                                  , 0x17) // CNmRootMotionData::SamplingMode_t
+    };
+
+    // CNmControlParameterFloatNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmControlParameterFloatNode_CDefinition {
+    public:
+    };
+
+    // COrientConstraint
+    //   fields: 0
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class COrientConstraint {
+    public:
+    };
+
+    // CNmClipSelectorNode::CDefinition
+    //   fields: 2
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class CNmClipSelectorNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,8>;
+        using _Type1 = CUtlLeanVectorFixedGrowable<int16,8>;
+        SCHEMA_FIELD(_Type0                          , m_optionNodeIndices                             , 0x10) // CUtlLeanVectorFixedGrowable<int16,8>
+        SCHEMA_FIELD(_Type1                          , m_conditionNodeIndices                          , 0x28) // CUtlLeanVectorFixedGrowable<int16,8>
+    };
+
+    // PulseDocNodeID_t
+    //   fields: 1
+    //   size: 0x4
+    class PulseDocNodeID_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
+    };
+
+    // NmPercent_t
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class NmPercent_t {
+    public:
+        SCHEMA_FIELD(float                           , m_flValue                                       , 0x0) // float32
+    };
+
+    // CSequenceGroupData
+    //   fields: 14
+    //   size: 0x138
+    //   @MGetKV3ClassDefaults
+    class CSequenceGroupData {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x10) // CBufferString
+        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x20) // uint32
+        SCHEMA_FIELD(CUtlVector<CBufferString>       , m_localSequenceNameArray                        , 0x28) // CUtlVector<CBufferString>
+        SCHEMA_FIELD(CUtlVector<CSeqS1SeqDesc>       , m_localS1SeqDescArray                           , 0x40) // CUtlVector<CSeqS1SeqDesc>
+        SCHEMA_FIELD(CUtlVector<CSeqS1SeqDesc>       , m_localMultiSeqDescArray                        , 0x58) // CUtlVector<CSeqS1SeqDesc>
+        SCHEMA_FIELD(CUtlVector<CSeqSynthAnimDesc>   , m_localSynthAnimDescArray                       , 0x70) // CUtlVector<CSeqSynthAnimDesc>
+        SCHEMA_FIELD(CUtlVector<CSeqCmdSeqDesc>      , m_localCmdSeqDescArray                          , 0x88) // CUtlVector<CSeqCmdSeqDesc>
+        SCHEMA_FIELD(CUtlVector<CSeqBoneMaskList>    , m_localBoneMaskArray                            , 0xA0) // CUtlVector<CSeqBoneMaskList>
+        SCHEMA_FIELD(CUtlVector<CSeqScaleSet>        , m_localScaleSetArray                            , 0xB8) // CUtlVector<CSeqScaleSet>
+        SCHEMA_FIELD(CUtlVector<CBufferString>       , m_localBoneNameArray                            , 0xD0) // CUtlVector<CBufferString>
+        SCHEMA_FIELD(CBufferString                   , m_localNodeName                                 , 0xE8) // CBufferString
+        SCHEMA_FIELD(CUtlVector<CSeqPoseParamDesc>   , m_localPoseParamArray                           , 0xF8) // CUtlVector<CSeqPoseParamDesc>
+        SCHEMA_FIELD(KeyValues3                      , m_keyValues                                     , 0x110) // KeyValues3
+        SCHEMA_FIELD(CUtlVector<CSeqIKLock>          , m_localIKAutoplayLockArray                      , 0x120) // CUtlVector<CSeqIKLock>
+    };
+
+    // CPulseCell_BooleanSwitchState
+    //   fields: 3
+    //   size: 0x1E0
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    //   @MPulseEditorCanvasItemSpecKV3
+    class CPulseCell_BooleanSwitchState {
+    public:
+        SCHEMA_FIELD(CPulseObservableExpression<bool>, m_Condition                                     , 0xD8) // CPulseObservableExpression<bool> [MPropertyDescription, MPropertyFriendlyName]
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_WhenTrue                                      , 0x150) // CPulse_OutflowConnection [MPropertyDescription, MPropertyFriendlyName]
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_WhenFalse                                     , 0x198) // CPulse_OutflowConnection [MPropertyDescription, MPropertyFriendlyName]
+    };
+
+    // MotionMatchingInstanceData
+    //   fields: 2
+    //   size: 0x120
+    //   @MGetKV3ClassDefaults
+    class MotionMatchingInstanceData {
+    public:
+        SCHEMA_FIELD(MotionSelection                 , m_currentSelection                              , 0x2C) // MotionSelection
+        SCHEMA_FIELD(MotionSelection                 , m_previousSelection                             , 0x84) // MotionSelection
+    };
+
+    // CRemapValueComponentUpdater
+    //   fields: 1
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CRemapValueComponentUpdater {
+    public:
+        SCHEMA_FIELD(CUtlVector<CRemapValueUpdateItem>, m_items                                         , 0x30) // CUtlVector<CRemapValueUpdateItem>
+    };
+
+    // CNmReferencedGraphNode::CDefinition
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmReferencedGraphNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nReferencedGraphIdx                           , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nFallbackNodeIdx                              , 0x12) // int16
+    };
+
+    // PulseGraphExecutionHistoryCursorDesc_t
+    //   fields: 6
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class PulseGraphExecutionHistoryCursorDesc_t {
+    public:
+        SCHEMA_FIELD(CUtlVector<PulseCursorID_t>     , vecAncestorCursorIDs                            , 0x0) // CUtlVector<PulseCursorID_t>
+        SCHEMA_FIELD(::PulseDocNodeID_t              , nSpawnNodeID                                    , 0x18) // PulseDocNodeID_t
+        SCHEMA_FIELD(::PulseDocNodeID_t              , nRetiredAtNodeID                                , 0x1C) // PulseDocNodeID_t
+        SCHEMA_FIELD(float                           , flLastReferenced                                , 0x20) // float32
+        SCHEMA_FIELD(std::int32_t                    , nLastValidEntryIdx                              , 0x24) // int32
+        SCHEMA_FIELD(bool                            , bWasAnObservableComputation                     , 0x28) // bool
+    };
+
+    // CQuaternionAnimParameter
+    //   fields: 2
+    //   size: 0xA0
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CQuaternionAnimParameter {
+    public:
+        SCHEMA_FIELD(::Quaternion                    , m_defaultValue                                  , 0x80) // Quaternion [MPropertySuppressField]
+        SCHEMA_FIELD(bool                            , m_bInterpolate                                  , 0x90) // bool [MPropertyFriendlyName]
+    };
+
+    // PGDInstruction_t
+    //   fields: 12
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class PGDInstruction_t {
+    public:
+        SCHEMA_FIELD(PulseInstructionCode_t          , m_nCode                                         , 0x0) // PulseInstructionCode_t
+        SCHEMA_FIELD(PulseRuntimeVarIndex_t          , m_nVar                                          , 0x4) // PulseRuntimeVarIndex_t
+        SCHEMA_FIELD(PulseRuntimeRegisterIndex_t     , m_nReg0                                         , 0x8) // PulseRuntimeRegisterIndex_t
+        SCHEMA_FIELD(PulseRuntimeRegisterIndex_t     , m_nReg1                                         , 0xA) // PulseRuntimeRegisterIndex_t
+        SCHEMA_FIELD(PulseRuntimeRegisterIndex_t     , m_nReg2                                         , 0xC) // PulseRuntimeRegisterIndex_t
+        SCHEMA_FIELD(PulseRuntimeInvokeIndex_t       , m_nInvokeBindingIndex                           , 0x10) // PulseRuntimeInvokeIndex_t
+        SCHEMA_FIELD(::PulseRuntimeChunkIndex_t      , m_nChunk                                        , 0x14) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nDestInstruction                              , 0x18) // int32
+        SCHEMA_FIELD(PulseRuntimeCallInfoIndex_t     , m_nCallInfoIndex                                , 0x1C) // PulseRuntimeCallInfoIndex_t
+        SCHEMA_FIELD(PulseRuntimeConstantIndex_t     , m_nConstIdx                                     , 0x20) // PulseRuntimeConstantIndex_t
+        SCHEMA_FIELD(PulseRuntimeDomainValueIndex_t  , m_nDomainValueIdx                               , 0x22) // PulseRuntimeDomainValueIndex_t
+        SCHEMA_FIELD(PulseRuntimeBlackboardReferenceIndex_t, m_nBlackboardReferenceIdx                       , 0x24) // PulseRuntimeBlackboardReferenceIndex_t
+    };
+
+    // CNmFloatSpringNode::CDefinition
+    //   fields: 5
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmFloatSpringNode_CDefinition {
+    public:
+        SCHEMA_FIELD(float                           , m_flStartValue                                  , 0x10) // float32
+        SCHEMA_FIELD(float                           , m_flHertz                                       , 0x14) // float32
+        SCHEMA_FIELD(float                           , m_flDampingRatio                                , 0x18) // float32
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x1C) // int16
+        SCHEMA_FIELD(bool                            , m_bUseStartValue                                , 0x1E) // bool
+    };
+
+    // CPulseCell_BaseFlow
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_BaseFlow {
+    public:
+    };
+
+    // PulseRuntimeInvokeIndex_t
+    //   fields: 1
+    //   size: 0x4
+    class PulseRuntimeInvokeIndex_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
+    };
+
+    // CNmVirtualParameterTargetNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmVirtualParameterTargetNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
+    };
+
+    // CNmVectorCreateNode::CDefinition
+    //   fields: 4
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmVectorCreateNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_inputVectorValueNodeIdx                       , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_inputValueXNodeIdx                            , 0x12) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_inputValueYNodeIdx                            , 0x14) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_inputValueZNodeIdx                            , 0x16) // int16
+    };
+
+    // MotionSelection
+    //   fields: 5
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class MotionSelection {
+    public:
+        SCHEMA_FIELD(NetVarConfigIndex               , m_nConfigIndex                                  , 0x24) // NetVarConfigIndex
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flCycleZeroTime                               , 0x30) // CAnimNetVar<float32>
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flPlaybackSpeed                               , 0x3C) // CAnimNetVar<float32>
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flStartTime                                   , 0x48) // CAnimNetVar<float32>
+        SCHEMA_FIELD(std::int32_t                    , m_nSample                                       , 0x54) // int32
+    };
+
+    // CSeqScaleSet
+    //   fields: 5
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CSeqScaleSet {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x0) // CBufferString
+        SCHEMA_FIELD(bool                            , m_bRootOffset                                   , 0x10) // bool
+        SCHEMA_FIELD(::Vector                        , m_vRootOffset                                   , 0x14) // Vector
+        SCHEMA_FIELD(CUtlVector<int16>               , m_nLocalBoneArray                               , 0x20) // CUtlVector<int16>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_flBoneScaleArray                              , 0x38) // CUtlVector<float32>
+    };
+
+    // CNmFloatCurveNode::CDefinition
+    //   fields: 2
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CNmFloatCurveNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(CPiecewiseCurve                 , m_curve                                         , 0x18) // CPiecewiseCurve
+    };
+
+    // PermModelExtPart_t
+    //   fields: 4
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class PermModelExtPart_t {
+    public:
+        SCHEMA_FIELD(CTransform                      , m_Transform                                     , 0x0) // CTransform
+        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x20) // CUtlString
+        SCHEMA_FIELD(std::int32_t                    , m_nParent                                       , 0x28) // int32
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_refModel                                      , 0x30) // CStrongHandle<InfoForResourceTypeCModel>
+    };
+
+    // CNmBoneMaskSwitchNode::CDefinition
+    //   fields: 5
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmBoneMaskSwitchNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nSwitchValueNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nTrueValueNodeIdx                             , 0x12) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nFalseValueNodeIdx                            , 0x14) // int16
+        SCHEMA_FIELD(float                           , m_flBlendTimeSeconds                            , 0x18) // float32
+        SCHEMA_FIELD(bool                            , m_bSwitchDynamically                            , 0x1C) // bool
+    };
+
+    // CNmFloatClampNode::CDefinition
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmFloatClampNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(Range_t                         , m_clampRange                                    , 0x14) // Range_t
+    };
+
+    // CBoneMaskUpdateNode
+    //   fields: 7
+    //   size: 0xB0
+    //   @MGetKV3ClassDefaults
+    class CBoneMaskUpdateNode {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nWeightListIndex                              , 0x94) // int32
+        SCHEMA_FIELD(float                           , m_flRootMotionBlend                             , 0x98) // float32
+        SCHEMA_FIELD(BoneMaskBlendSpace              , m_blendSpace                                    , 0x9C) // BoneMaskBlendSpace
+        SCHEMA_FIELD(BinaryNodeChildOption           , m_footMotionTiming                              , 0xA0) // BinaryNodeChildOption
+        SCHEMA_FIELD(bool                            , m_bUseBlendScale                                , 0xA4) // bool
+        SCHEMA_FIELD(AnimValueSource                 , m_blendValueSource                              , 0xA8) // AnimValueSource
+        SCHEMA_FIELD(CAnimParamHandle                , m_hBlendParameter                               , 0xAC) // CAnimParamHandle
+    };
+
+    // CNmFootEventConditionNode::CDefinition
+    //   fields: 3
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmFootEventConditionNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(NmFootPhaseCondition_t          , m_phaseCondition                                , 0x12) // NmFootPhaseCondition_t
+        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
+    };
+
+    // CAnimStateMachineUpdater
+    //   fields: 3
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CAnimStateMachineUpdater {
+    public:
+        SCHEMA_FIELD(CUtlVector<CStateUpdateData>    , m_states                                        , 0x8) // CUtlVector<CStateUpdateData>
+        SCHEMA_FIELD(CUtlVector<CTransitionUpdateData>, m_transitions                                   , 0x20) // CUtlVector<CTransitionUpdateData>
+        SCHEMA_FIELD(std::int32_t                    , m_startStateIndex                               , 0x50) // int32
+    };
+
+    // NmSyncTrackTimeRange_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class NmSyncTrackTimeRange_t {
+    public:
+        SCHEMA_FIELD(NmSyncTrackTime_t               , m_startTime                                     , 0x0) // NmSyncTrackTime_t
+        SCHEMA_FIELD(NmSyncTrackTime_t               , m_endTime                                       , 0x8) // NmSyncTrackTime_t
+    };
+
+    // CSeqCmdLayer
+    //   fields: 9
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CSeqCmdLayer {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_cmd                                           , 0x0) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nLocalReference                               , 0x2) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nLocalBonemask                                , 0x4) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nDstResult                                    , 0x6) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nSrcResult                                    , 0x8) // int16
+        SCHEMA_FIELD(bool                            , m_bSpline                                       , 0xA) // bool
+        SCHEMA_FIELD(float                           , m_flVar1                                        , 0xC) // float32
+        SCHEMA_FIELD(float                           , m_flVar2                                        , 0x10) // float32
+        SCHEMA_FIELD(std::int16_t                    , m_nLineNumber                                   , 0x14) // int16
+    };
+
+    // CStaticPoseCache
+    //   fields: 3
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CStaticPoseCache {
+    public:
+        SCHEMA_FIELD(CUtlVector<CCachedPose>         , m_poses                                         , 0x10) // CUtlVector<CCachedPose>
+        SCHEMA_FIELD(std::int32_t                    , m_nBoneCount                                    , 0x28) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nMorphCount                                   , 0x2C) // int32
+    };
+
+    // CAudioAnimTag
+    //   fields: 7
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CAudioAnimTag {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_clipName                                      , 0x58) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(::CUtlString                    , m_attachmentName                                , 0x60) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flVolume                                      , 0x68) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(bool                            , m_bStopWhenTagEnds                              , 0x6C) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bStopWhenGraphEnds                            , 0x6D) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bPlayOnServer                                 , 0x6E) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bPlayOnClient                                 , 0x6F) // bool [MPropertyFriendlyName]
+    };
+
+    // CNmSyncTrack::EventMarker_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmSyncTrack_EventMarker_t {
+    public:
+        SCHEMA_FIELD(NmPercent_t                     , m_startTime                                     , 0x0) // NmPercent_t
+        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x8) // CGlobalSymbol
+    };
+
+    // CNmCurrentSyncEventNode::CDefinition
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmCurrentSyncEventNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
+        SCHEMA_FIELD(CNmCurrentSyncEventNode_InfoType_t, m_infoType                                      , 0x12) // CNmCurrentSyncEventNode::InfoType_t
+    };
+
+    // CTargetWarpUpdateNode
+    //   fields: 14
+    //   size: 0x98
+    //   @MGetKV3ClassDefaults
+    class CTargetWarpUpdateNode {
+    public:
+        SCHEMA_FIELD(TargetWarpAngleMode_t           , m_eAngleMode                                    , 0x74) // TargetWarpAngleMode_t
+        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetPositionParameter                      , 0x78) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetUpVectorParameter                      , 0x7A) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hTargetFacePositionParameter                  , 0x7C) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hMoveHeadingParameter                         , 0x7E) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hDesiredMoveHeadingParameter                  , 0x80) // CAnimParamHandle
+        SCHEMA_FIELD(TargetWarpCorrectionMethod      , m_eCorrectionMethod                             , 0x84) // TargetWarpCorrectionMethod
+        SCHEMA_FIELD(TargetWarpTimingMethod          , m_eTargetWarpTimingMethod                       , 0x88) // TargetWarpTimingMethod
+        SCHEMA_FIELD(bool                            , m_bTargetFacePositionIsWorldSpace               , 0x8C) // bool
+        SCHEMA_FIELD(bool                            , m_bTargetPositionIsWorldSpace                   , 0x8D) // bool
+        SCHEMA_FIELD(bool                            , m_bOnlyWarpWhenTagIsFound                       , 0x8E) // bool
+        SCHEMA_FIELD(bool                            , m_bWarpOrientationDuringTranslation             , 0x8F) // bool
+        SCHEMA_FIELD(bool                            , m_bWarpAroundCenter                             , 0x90) // bool
+        SCHEMA_FIELD(float                           , m_flMaxAngle                                    , 0x94) // float32
+    };
+
+    // CNmFloatAngleMathNode::CDefinition
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmFloatAngleMathNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(CNmFloatAngleMathNode_Operation_t, m_operation                                     , 0x12) // CNmFloatAngleMathNode::Operation_t
+    };
+
+    // CNmFloatMathNode::CDefinition
+    //   fields: 6
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmFloatMathNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdxA                           , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdxB                           , 0x12) // int16
+        SCHEMA_FIELD(bool                            , m_bReturnAbsoluteResult                         , 0x14) // bool
+        SCHEMA_FIELD(bool                            , m_bReturnNegatedResult                          , 0x15) // bool
+        SCHEMA_FIELD(CNmFloatMathNode_Operator_t     , m_operator                                      , 0x16) // CNmFloatMathNode::Operator_t
+        SCHEMA_FIELD(float                           , m_flValueB                                      , 0x18) // float32
+    };
+
+    // CPulseCell_Value_Curve
+    //   fields: 1
+    //   size: 0x88
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CPulseCell_Value_Curve {
+    public:
+        SCHEMA_FIELD(CPiecewiseCurve                 , m_Curve                                         , 0x48) // CPiecewiseCurve
+    };
+
+    // CNmVirtualParameterFloatNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmVirtualParameterFloatNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
+    };
+
+    // CAnimEncodedFrames
+    //   fields: 5
+    //   size: 0xD8
+    //   @MGetKV3ClassDefaults
+    class CAnimEncodedFrames {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_fileName                                      , 0x0) // CBufferString
+        SCHEMA_FIELD(std::int32_t                    , m_nFrames                                       , 0x10) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFramesPerBlock                               , 0x14) // int32
+        SCHEMA_FIELD(CUtlVector<CAnimFrameBlockAnim> , m_frameblockArray                               , 0x18) // CUtlVector<CAnimFrameBlockAnim>
+        SCHEMA_FIELD(CAnimEncodeDifference           , m_usageDifferences                              , 0x30) // CAnimEncodeDifference
+    };
+
+    // JiggleBoneSettings_t
+    //   fields: 7
+    //   size: 0x2C
+    //   @MGetKV3ClassDefaults
+    class JiggleBoneSettings_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nBoneIndex                                    , 0x0) // int32
+        SCHEMA_FIELD(float                           , m_flSpringStrength                              , 0x4) // float32
+        SCHEMA_FIELD(float                           , m_flMaxTimeStep                                 , 0x8) // float32
+        SCHEMA_FIELD(float                           , m_flDamping                                     , 0xC) // float32
+        SCHEMA_FIELD(::Vector                        , m_vBoundsMaxLS                                  , 0x10) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vBoundsMinLS                                  , 0x1C) // Vector
+        SCHEMA_FIELD(JiggleBoneSimSpace              , m_eSimSpace                                     , 0x28) // JiggleBoneSimSpace
+    };
+
+    // CNmTwoBoneIKNode::CDefinition
+    //   fields: 7
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CNmTwoBoneIKNode_CDefinition {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_effectorBoneID                                , 0x18) // CGlobalSymbol
+        SCHEMA_FIELD(std::int16_t                    , m_nEffectorTargetNodeIdx                        , 0x20) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nEnabledNodeIdx                               , 0x22) // int16
+        SCHEMA_FIELD(float                           , m_flBlendTimeSeconds                            , 0x24) // float32
+        SCHEMA_FIELD(NmIKBlendMode_t                 , m_blendMode                                     , 0x28) // NmIKBlendMode_t
+        SCHEMA_FIELD(bool                            , m_bIsTargetInWorldSpace                         , 0x29) // bool
+        SCHEMA_FIELD(float                           , m_flChainRotationWeight                         , 0x2C) // float32
+    };
+
+    // VPhysics2ShapeDef_t
+    //   fields: 5
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class VPhysics2ShapeDef_t {
+    public:
+        SCHEMA_FIELD(CUtlVector<RnSphereDesc_t>      , m_spheres                                       , 0x0) // CUtlVector<RnSphereDesc_t>
+        SCHEMA_FIELD(CUtlVector<RnCapsuleDesc_t>     , m_capsules                                      , 0x18) // CUtlVector<RnCapsuleDesc_t>
+        SCHEMA_FIELD(CUtlVector<RnHullDesc_t>        , m_hulls                                         , 0x30) // CUtlVector<RnHullDesc_t>
+        SCHEMA_FIELD(CUtlVector<RnMeshDesc_t>        , m_meshes                                        , 0x48) // CUtlVector<RnMeshDesc_t>
+        SCHEMA_FIELD(CUtlVector<uint16>              , m_CollisionAttributeIndices                     , 0x60) // CUtlVector<uint16>
+    };
+
+    // CRenderSkeleton
+    //   fields: 3
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CRenderSkeleton {
+    public:
+        SCHEMA_FIELD(CUtlVector<RenderSkeletonBone_t>, m_bones                                         , 0x0) // CUtlVector<RenderSkeletonBone_t>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_boneParents                                   , 0x30) // CUtlVector<int32>
+        SCHEMA_FIELD(std::int32_t                    , m_nBoneWeightCount                              , 0x48) // int32
+    };
+
+    // CPulseCell_InlineNodeSkipSelector
+    //   fields: 4
+    //   size: 0xB0
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_InlineNodeSkipSelector {
+    public:
+        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nFlowNodeID                                   , 0x48) // PulseDocNodeID_t
+        SCHEMA_FIELD(bool                            , m_bAnd                                          , 0x4C) // bool
+        SCHEMA_FIELD(PulseSelectorOutflowList_t      , m_PassOutflow                                   , 0x50) // PulseSelectorOutflowList_t
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_FailOutflow                                   , 0x68) // CPulse_OutflowConnection
+    };
+
+    // CBoneConstraintPoseSpaceMorph
+    //   fields: 5
+    //   size: 0xA0
+    //   @MGetKV3ClassDefaults
+    class CBoneConstraintPoseSpaceMorph {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_sBoneName                                     , 0x20) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_sAttachmentName                               , 0x28) // CUtlString
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_outputMorph                                   , 0x30) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CBoneConstraintPoseSpaceMorph_Input_t>, m_inputList                                     , 0x48) // CUtlVector<CBoneConstraintPoseSpaceMorph::Input_t>
+        SCHEMA_FIELD(bool                            , m_bClamp                                        , 0x60) // bool
+    };
+
+    // CAnimDesc
+    //   fields: 15
+    //   size: 0x1D0
+    //   @MGetKV3ClassDefaults
+    class CAnimDesc {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
+        SCHEMA_FIELD(CAnimDesc_Flag                  , m_flags                                         , 0x10) // CAnimDesc_Flag
+        SCHEMA_FIELD(float                           , fps                                             , 0x18) // float32
+        SCHEMA_FIELD(CAnimEncodedFrames              , m_Data                                          , 0x20) // CAnimEncodedFrames [MKV3TransferName]
+        SCHEMA_FIELD(CUtlVector<CAnimMovement>       , m_movementArray                                 , 0xF8) // CUtlVector<CAnimMovement>
+        SCHEMA_FIELD(CTransform                      , m_xInitialOffset                                , 0x110) // CTransform
+        SCHEMA_FIELD(CUtlVector<CAnimEventDefinition>, m_eventArray                                    , 0x130) // CUtlVector<CAnimEventDefinition>
+        SCHEMA_FIELD(CUtlVector<CAnimActivity>       , m_activityArray                                 , 0x148) // CUtlVector<CAnimActivity>
+        SCHEMA_FIELD(CUtlVector<CAnimLocalHierarchy> , m_hierarchyArray                                , 0x160) // CUtlVector<CAnimLocalHierarchy>
+        SCHEMA_FIELD(float                           , framestalltime                                  , 0x178) // float32
+        SCHEMA_FIELD(::Vector                        , m_vecRootMin                                    , 0x17C) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecRootMax                                    , 0x188) // Vector
+        SCHEMA_FIELD(CUtlVector<Vector>              , m_vecBoneWorldMin                               , 0x198) // CUtlVector<Vector>
+        SCHEMA_FIELD(CUtlVector<Vector>              , m_vecBoneWorldMax                               , 0x1B0) // CUtlVector<Vector>
+        SCHEMA_FIELD(CAnimSequenceParams             , m_sequenceParams                                , 0x1C8) // CAnimSequenceParams
+    };
+
+    // CNmVirtualParameterIDNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmVirtualParameterIDNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
+    };
+
+    // CFootStepTriggerUpdateNode
+    //   fields: 2
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class CFootStepTriggerUpdateNode {
+    public:
+        SCHEMA_FIELD(CUtlVector<FootStepTrigger>     , m_triggers                                      , 0x70) // CUtlVector<FootStepTrigger>
+        SCHEMA_FIELD(float                           , m_flTolerance                                   , 0x8C) // float32
+    };
+
+    // CAnimLocalHierarchy
+    //   fields: 6
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CAnimLocalHierarchy {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_sBone                                         , 0x0) // CBufferString
+        SCHEMA_FIELD(CBufferString                   , m_sNewParent                                    , 0x10) // CBufferString
+        SCHEMA_FIELD(std::int32_t                    , m_nStartFrame                                   , 0x20) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nPeakFrame                                    , 0x24) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nTailFrame                                    , 0x28) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nEndFrame                                     , 0x2C) // int32
+    };
+
+    // CPulseCell_Timeline::TimelineEvent_t
+    //   fields: 2
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Timeline_TimelineEvent_t {
+    public:
+        SCHEMA_FIELD(float                           , m_flTimeFromPrevious                            , 0x0) // float32
+        SCHEMA_FIELD(CPulse_OutflowConnection        , m_EventOutflow                                  , 0x8) // CPulse_OutflowConnection
+    };
+
+    // CNmVirtualParameterBoneMaskNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmVirtualParameterBoneMaskNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nChildNodeIdx                                 , 0x10) // int16
+    };
+
+    // CNmSkeleton::SecondarySkeleton_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmSkeleton_SecondarySkeleton_t {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_attachToBoneID                                , 0x0) // CGlobalSymbol
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCNmSkeleton>, m_skeleton                                      , 0x8) // CStrongHandle<InfoForResourceTypeCNmSkeleton>
+    };
+
+    // CMotionSearchNode
+    //   fields: 5
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class CMotionSearchNode {
+    public:
+        SCHEMA_FIELD(CUtlVector<CMotionSearchNode*>  , m_children                                      , 0x0) // CUtlVector<CMotionSearchNode*>
+        SCHEMA_FIELD(CVectorQuantizer                , m_quantizer                                     , 0x18) // CVectorQuantizer
+        SCHEMA_FIELD(CUtlVector<CUtlVector<SampleCode>>, m_sampleCodes                                   , 0x38) // CUtlVector<CUtlVector<SampleCode>>
+        SCHEMA_FIELD(CUtlVector<CUtlVector<int32>>   , m_sampleIndices                                 , 0x50) // CUtlVector<CUtlVector<int32>>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_selectableSamples                             , 0x68) // CUtlVector<int32>
+    };
+
+    // CCycleBase
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class CCycleBase {
+    public:
+        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x0) // float32
+    };
+
+    // CAnimUserDifference
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CAnimUserDifference {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
+        SCHEMA_FIELD(std::int32_t                    , m_nType                                         , 0x10) // int32
     };
 
     // TagSpan_t
@@ -9495,39 +8378,1303 @@ namespace animationsystem {
         SCHEMA_FIELD(float                           , m_endCycle                                      , 0x8) // float32
     };
 
-    // NmPercent_t
+    // CNmBitFlags
     //   fields: 1
     //   size: 0x4
     //   @MGetKV3ClassDefaults
-    class NmPercent_t {
+    class CNmBitFlags {
     public:
-        SCHEMA_FIELD(float                           , m_flValue                                       , 0x0) // float32
+        SCHEMA_FIELD(std::uint32_t                   , m_flags                                         , 0x0) // uint32
     };
 
-    // CPulseCell_LimitCount::Criteria_t
+    // CNmGraphVariationUserData
+    //   fields: 0
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class CNmGraphVariationUserData {
+    public:
+    };
+
+    // CNmStateMachineNode::CDefinition
+    //   fields: 2
+    //   size: 0x138
+    //   @MGetKV3ClassDefaults
+    class CNmStateMachineNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<CNmStateMachineNode_StateDefinition_t,5>;
+        SCHEMA_FIELD(_Type0                          , m_stateDefinitions                              , 0x10) // CUtlLeanVectorFixedGrowable<CNmStateMachineNode::StateDefinition_t,5>
+        SCHEMA_FIELD(std::int16_t                    , m_nDefaultStateIndex                            , 0x130) // int16
+    };
+
+    // CPulse_BlackboardReference
+    //   fields: 4
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CPulse_BlackboardReference {
+    public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIPulseGraphDef>, m_hBlackboardResource                           , 0x0) // CStrongHandle<InfoForResourceTypeIPulseGraphDef>
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_BlackboardResource                            , 0x8) // PulseSymbol_t
+        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nNodeID                                       , 0x18) // PulseDocNodeID_t
+        SCHEMA_FIELD(CGlobalSymbol                   , m_NodeName                                      , 0x20) // CGlobalSymbol
+    };
+
+    // CStateMachineComponentUpdater
     //   fields: 1
-    //   size: 0x1
-    class CPulseCell_LimitCount_Criteria_t {
+    //   size: 0x88
+    //   @MGetKV3ClassDefaults
+    class CStateMachineComponentUpdater {
     public:
-        SCHEMA_FIELD(bool                            , m_bLimitCountPasses                             , 0x0) // bool
+        SCHEMA_FIELD(CAnimStateMachineUpdater        , m_stateMachine                                  , 0x30) // CAnimStateMachineUpdater
     };
 
-    // PermModelInfo_t
-    //   fields: 10
+    // CTiltTwistConstraint
+    //   fields: 2
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class CTiltTwistConstraint {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nTargetAxis                                   , 0x60) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nSlaveAxis                                    , 0x64) // int32
+    };
+
+    // CStateMachineInstanceData
+    //   fields: 4
+    //   size: 0x1C
+    //   @MGetKV3ClassDefaults
+    class CStateMachineInstanceData {
+    public:
+        SCHEMA_FIELD(float                           , m_flTimeInState                                 , 0x0) // float32
+        SCHEMA_FIELD(CAnimNetVar<int32>              , m_currentTransitionIndex                        , 0x4) // CAnimNetVar<int32>
+        SCHEMA_FIELD(std::int32_t                    , m_prevStateIndex                                , 0x10) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_scheduledTransitionIndex                      , 0x14) // int32
+    };
+
+    // CMeshletDescriptor
+    //   fields: 6
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CMeshletDescriptor {
+    public:
+        SCHEMA_FIELD(PackedAABB_t                    , m_PackedAABB                                    , 0x0) // PackedAABB_t
+        SCHEMA_FIELD(CDrawCullingData                , m_CullingData                                   , 0x8) // CDrawCullingData
+        SCHEMA_FIELD(std::uint32_t                   , m_nVertexOffset                                 , 0xC) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nTriangleOffset                               , 0x10) // uint32
+        SCHEMA_FIELD(std::uint8_t                    , m_nVertexCount                                  , 0x14) // uint8
+        SCHEMA_FIELD(std::uint8_t                    , m_nTriangleCount                                , 0x15) // uint8
+    };
+
+    // CNmBoneMaskBlendNode::CDefinition
+    //   fields: 3
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmBoneMaskBlendNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nSourceMaskNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nTargetMaskNodeIdx                            , 0x12) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nBlendWeightValueNodeIdx                      , 0x14) // int16
+    };
+
+    // CNmScaleNode::CDefinition
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmScaleNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nMaskNodeIdx                                  , 0x18) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nEnableNodeIdx                                , 0x1A) // int16
+    };
+
+    // CParamSpanUpdater
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CParamSpanUpdater {
+    public:
+        SCHEMA_FIELD(CUtlVector<ParamSpan_t>         , m_spans                                         , 0x0) // CUtlVector<ParamSpan_t>
+    };
+
+    // CBoneConstraintRbf
+    //   fields: 2
+    //   size: 0xC8
+    //   @MGetKV3ClassDefaults
+    class CBoneConstraintRbf {
+    public:
+        using _Type0 = CUtlVector<std::pair<CUtlString,uint32>>;
+        using _Type1 = CUtlVector<std::pair<CUtlString,uint32>>;
+        SCHEMA_FIELD(_Type0                          , m_inputBones                                    , 0x20) // CUtlVector<std::pair<CUtlString,uint32>>
+        SCHEMA_FIELD(_Type1                          , m_outputBones                                   , 0x38) // CUtlVector<std::pair<CUtlString,uint32>>
+    };
+
+    // CLeafUpdateNode
+    //   fields: 0
     //   size: 0x58
     //   @MGetKV3ClassDefaults
-    class PermModelInfo_t {
+    class CLeafUpdateNode {
+    public:
+    };
+
+    // CPulseCell_BaseYieldingInflow
+    //   fields: 2
+    //   size: 0xD8
+    //   @MGetKV3ClassDefaults
+    //   @MCustomFGDMetadata
+    class CPulseCell_BaseYieldingInflow {
+    public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_BaseFlow_OnAfterCancel                        , 0x48) // CPulse_ResumePoint [MPulseFGDSkipField]
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_BaseFlow_WhileActive                          , 0x90) // CPulse_ResumePoint [MPulseFGDSkipField]
+    };
+
+    // VPhysXBodyPart_t
+    //   fields: 12
+    //   size: 0xA8
+    //   @MGetKV3ClassDefaults
+    class VPhysXBodyPart_t {
     public:
         SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x0) // uint32
-        SCHEMA_FIELD(::Vector                        , m_vHullMin                                      , 0x4) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vHullMax                                      , 0x10) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vViewMin                                      , 0x1C) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vViewMax                                      , 0x28) // Vector
-        SCHEMA_FIELD(float                           , m_flMass                                        , 0x34) // float32
-        SCHEMA_FIELD(::Vector                        , m_vEyePosition                                  , 0x38) // Vector
-        SCHEMA_FIELD(float                           , m_flMaxEyeDeflection                            , 0x44) // float32
-        SCHEMA_FIELD(::CUtlString                    , m_sSurfaceProperty                              , 0x48) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_keyValueText                                  , 0x50) // CUtlString
+        SCHEMA_FIELD(float                           , m_flMass                                        , 0x4) // float32
+        SCHEMA_FIELD(VPhysics2ShapeDef_t             , m_rnShape                                       , 0x8) // VPhysics2ShapeDef_t
+        SCHEMA_FIELD(std::uint16_t                   , m_nCollisionAttributeIndex                      , 0x80) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nReserved                                     , 0x82) // uint16
+        SCHEMA_FIELD(float                           , m_flInertiaScale                                , 0x84) // float32
+        SCHEMA_FIELD(float                           , m_flLinearDamping                               , 0x88) // float32
+        SCHEMA_FIELD(float                           , m_flAngularDamping                              , 0x8C) // float32
+        SCHEMA_FIELD(float                           , m_flLinearDrag                                  , 0x90) // float32
+        SCHEMA_FIELD(float                           , m_flAngularDrag                                 , 0x94) // float32
+        SCHEMA_FIELD(bool                            , m_bOverrideMassCenter                           , 0x98) // bool
+        SCHEMA_FIELD(::Vector                        , m_vMassCenterOverride                           , 0x9C) // Vector
+    };
+
+    // CMorphSetData
+    //   fields: 8
+    //   size: 0x98
+    //   @MGetKV3ClassDefaults
+    class CMorphSetData {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nWidth                                        , 0x10) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nHeight                                       , 0x14) // int32
+        SCHEMA_FIELD(CUtlVector<MorphBundleType_t>   , m_bundleTypes                                   , 0x18) // CUtlVector<MorphBundleType_t>
+        SCHEMA_FIELD(CUtlVector<CMorphData>          , m_morphDatas                                    , 0x30) // CUtlVector<CMorphData>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureAtlas                                 , 0x48) // CStrongHandle<InfoForResourceTypeCTextureBase>
+        SCHEMA_FIELD(CUtlVector<CFlexDesc>           , m_FlexDesc                                      , 0x50) // CUtlVector<CFlexDesc>
+        SCHEMA_FIELD(CUtlVector<CFlexController>     , m_FlexControllers                               , 0x68) // CUtlVector<CFlexController>
+        SCHEMA_FIELD(CUtlVector<CFlexRule>           , m_FlexRules                                     , 0x80) // CUtlVector<CFlexRule>
+    };
+
+    // CStateMachineUpdateNode
+    //   fields: 6
+    //   size: 0x100
+    //   @MGetKV3ClassDefaults
+    class CStateMachineUpdateNode {
+    public:
+        SCHEMA_FIELD(CAnimStateMachineUpdater        , m_stateMachine                                  , 0x70) // CAnimStateMachineUpdater
+        SCHEMA_FIELD(CUtlVector<CStateNodeStateData> , m_stateData                                     , 0xC8) // CUtlVector<CStateNodeStateData>
+        SCHEMA_FIELD(CUtlVector<CStateNodeTransitionData>, m_transitionData                                , 0xE0) // CUtlVector<CStateNodeTransitionData>
+        SCHEMA_FIELD(bool                            , m_bBlockWaningTags                              , 0xFC) // bool
+        SCHEMA_FIELD(bool                            , m_bLockStateWhenWaning                          , 0xFD) // bool
+        SCHEMA_FIELD(bool                            , m_bResetWhenActivated                           , 0xFE) // bool
+    };
+
+    // CPulseCell_Unknown
+    //   fields: 1
+    //   size: 0x58
+    class CPulseCell_Unknown {
+    public:
+        SCHEMA_FIELD(KeyValues3                      , m_UnknownKeys                                   , 0x48) // KeyValues3
+    };
+
+    // CBonePositionMetricEvaluator
+    //   fields: 1
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CBonePositionMetricEvaluator {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nBoneIndex                                    , 0x50) // int32
+    };
+
+    // PulseGraphExecutionHistoryNodeDesc_t
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class PulseGraphExecutionHistoryNodeDesc_t {
+    public:
+        SCHEMA_FIELD(CBufferString                   , strCellDesc                                     , 0x0) // CBufferString
+        SCHEMA_FIELD(::PulseSymbol_t                 , strBindingName                                  , 0x10) // PulseSymbol_t
+    };
+
+    // CPulseCell_Outflow_CycleShuffled
+    //   fields: 1
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Outflow_CycleShuffled {
+    public:
+        SCHEMA_FIELD(CUtlVector<CPulse_OutflowConnection>, m_Outputs                                       , 0x48) // CUtlVector<CPulse_OutflowConnection>
+    };
+
+    // CBinaryUpdateNode
+    //   fields: 6
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class CBinaryUpdateNode {
+    public:
+        SCHEMA_FIELD(CAnimUpdateNodeRef              , m_pChild1                                       , 0x60) // CAnimUpdateNodeRef
+        SCHEMA_FIELD(CAnimUpdateNodeRef              , m_pChild2                                       , 0x70) // CAnimUpdateNodeRef
+        SCHEMA_FIELD(BinaryNodeTiming                , m_timingBehavior                                , 0x80) // BinaryNodeTiming
+        SCHEMA_FIELD(float                           , m_flTimingBlend                                 , 0x84) // float32
+        SCHEMA_FIELD(bool                            , m_bResetChild1                                  , 0x88) // bool
+        SCHEMA_FIELD(bool                            , m_bResetChild2                                  , 0x89) // bool
+    };
+
+    // CVectorAnimParameter
+    //   fields: 3
+    //   size: 0x98
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CVectorAnimParameter {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_defaultValue                                  , 0x80) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bInterpolate                                  , 0x8C) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(AnimParamVectorType_t           , m_vectorType                                    , 0x90) // AnimParamVectorType_t [MPropertyFriendlyName]
+    };
+
+    // CPulse_ResumePoint
+    //   fields: 0
+    //   size: 0x48
+    class CPulse_ResumePoint {
+    public:
+    };
+
+    // CAnimDecoder
+    //   fields: 3
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CAnimDecoder {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_szName                                        , 0x0) // CBufferString
+        SCHEMA_FIELD(std::int32_t                    , m_nVersion                                      , 0x10) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nType                                         , 0x14) // int32
+    };
+
+    // CNmBodyGroupEvent
+    //   fields: 3
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CNmBodyGroupEvent {
+    public:
+        SCHEMA_FIELD(CNmEventTargetEntity_t          , m_target                                        , 0x18) // CNmEventTargetEntity_t
+        SCHEMA_FIELD(::CUtlString                    , m_groupName                                     , 0x20) // CUtlString
+        SCHEMA_FIELD(std::int32_t                    , m_nGroupValue                                   , 0x28) // int32
+    };
+
+    // CPathAnimMotorUpdater
+    //   fields: 0
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CPathAnimMotorUpdater {
+    public:
+    };
+
+    // CNmBoneWeightList
+    //   fields: 3
+    //   size: 0x110
+    //   @MGetKV3ClassDefaults
+    class CNmBoneWeightList {
+    public:
+        SCHEMA_FIELD(CResourceName                   , m_skeletonName                                  , 0x0) // CResourceName
+        SCHEMA_FIELD(CUtlVector<CGlobalSymbol>       , m_boneIDs                                       , 0xE0) // CUtlVector<CGlobalSymbol>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_weights                                       , 0xF8) // CUtlVector<float32>
+    };
+
+    // SolveIKChainPoseOpFixedSettings_t
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class SolveIKChainPoseOpFixedSettings_t {
+    public:
+        SCHEMA_FIELD(CUtlVector<ChainToSolveData_t>  , m_ChainsToSolveData                             , 0x0) // CUtlVector<ChainToSolveData_t>
+    };
+
+    // FollowAttachmentSettings_t
+    //   fields: 5
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class FollowAttachmentSettings_t {
+    public:
+        SCHEMA_FIELD(CAnimAttachment                 , m_attachment                                    , 0x0) // CAnimAttachment
+        SCHEMA_FIELD(std::int32_t                    , m_boneIndex                                     , 0x80) // int32
+        SCHEMA_FIELD(AttachmentHandle_t              , m_attachmentHandle                              , 0x84) // AttachmentHandle_t
+        SCHEMA_FIELD(bool                            , m_bMatchTranslation                             , 0x85) // bool
+        SCHEMA_FIELD(bool                            , m_bMatchRotation                                , 0x86) // bool
+    };
+
+    // CPulseCell_IntervalTimer::CursorState_t
+    //   fields: 5
+    //   size: 0x14
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_IntervalTimer_CursorState_t {
+    public:
+        SCHEMA_FIELD(::GameTime_t                    , m_StartTime                                     , 0x0) // GameTime_t
+        SCHEMA_FIELD(::GameTime_t                    , m_EndTime                                       , 0x4) // GameTime_t
+        SCHEMA_FIELD(float                           , m_flWaitInterval                                , 0x8) // float32
+        SCHEMA_FIELD(float                           , m_flWaitIntervalHigh                            , 0xC) // float32
+        SCHEMA_FIELD(bool                            , m_bCompleteOnNextWake                           , 0x10) // bool
+    };
+
+    // CChoreoUpdateNode
+    //   fields: 0
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CChoreoUpdateNode {
+    public:
+    };
+
+    // CPulse_InvokeBinding
+    //   fields: 5
+    //   size: 0xB0
+    //   @MGetKV3ClassDefaults
+    class CPulse_InvokeBinding {
+    public:
+        SCHEMA_FIELD(::PulseRegisterMap_t            , m_RegisterMap                                   , 0x0) // PulseRegisterMap_t
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_FuncName                                      , 0x30) // PulseSymbol_t
+        SCHEMA_FIELD(PulseRuntimeCellIndex_t         , m_nCellIndex                                    , 0x40) // PulseRuntimeCellIndex_t
+        SCHEMA_FIELD(::PulseRuntimeChunkIndex_t      , m_nSrcChunk                                     , 0x44) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nSrcInstruction                               , 0x48) // int32
+    };
+
+    // NmFloatCurveCompressionSettings_t
+    //   fields: 2
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class NmFloatCurveCompressionSettings_t {
+    public:
+        SCHEMA_FIELD(NmCompressionSettings_t_QuantizationRange_t, m_range                                         , 0x0) // NmCompressionSettings_t::QuantizationRange_t
+        SCHEMA_FIELD(bool                            , m_bIsStatic                                     , 0x8) // bool
+    };
+
+    // CStepsRemainingMetricEvaluator
+    //   fields: 2
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class CStepsRemainingMetricEvaluator {
+    public:
+        SCHEMA_FIELD(CUtlVector<int32>               , m_footIndices                                   , 0x50) // CUtlVector<int32>
+        SCHEMA_FIELD(float                           , m_flMinStepsRemaining                           , 0x68) // float32
+    };
+
+    // CDampedPathAnimMotorUpdater
+    //   fields: 7
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CDampedPathAnimMotorUpdater {
+    public:
+        SCHEMA_FIELD(float                           , m_flAnticipationTime                            , 0x2C) // float32
+        SCHEMA_FIELD(float                           , m_flMinSpeedScale                               , 0x30) // float32
+        SCHEMA_FIELD(CAnimParamHandle                , m_hAnticipationPosParam                         , 0x34) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hAnticipationHeadingParam                     , 0x36) // CAnimParamHandle
+        SCHEMA_FIELD(float                           , m_flSpringConstant                              , 0x38) // float32
+        SCHEMA_FIELD(float                           , m_flMinSpringTension                            , 0x3C) // float32
+        SCHEMA_FIELD(float                           , m_flMaxSpringTension                            , 0x40) // float32
+    };
+
+    // CDirectPlaybackUpdateNode
+    //   fields: 3
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class CDirectPlaybackUpdateNode {
+    public:
+        SCHEMA_FIELD(bool                            , m_bFinishEarly                                  , 0x74) // bool
+        SCHEMA_FIELD(bool                            , m_bResetOnFinish                                , 0x75) // bool
+        SCHEMA_FIELD(CUtlVector<CDirectPlaybackTagData>, m_allTags                                       , 0x78) // CUtlVector<CDirectPlaybackTagData>
+    };
+
+    // CPulseCell_BaseValue
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_BaseValue {
+    public:
+    };
+
+    // CModelConfigElement_AttachedModel
+    //   fields: 13
+    //   size: 0xE8
+    //   @MGetKV3ClassDefaults
+    class CModelConfigElement_AttachedModel {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_InstanceName                                  , 0x48) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_EntityClass                                   , 0x50) // CUtlString
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x58) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(::Vector                        , m_vOffset                                       , 0x60) // Vector
+        SCHEMA_FIELD(::QAngle                        , m_aAngOffset                                    , 0x6C) // QAngle
+        SCHEMA_FIELD(::CUtlString                    , m_AttachmentName                                , 0x78) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_LocalAttachmentOffsetName                     , 0x80) // CUtlString
+        SCHEMA_FIELD(ModelConfigAttachmentType_t     , m_AttachmentType                                , 0x88) // ModelConfigAttachmentType_t
+        SCHEMA_FIELD(bool                            , m_bBoneMergeFlex                                , 0x8C) // bool
+        SCHEMA_FIELD(bool                            , m_bUserSpecifiedColor                           , 0x8D) // bool
+        SCHEMA_FIELD(bool                            , m_bUserSpecifiedMaterialGroup                   , 0x8E) // bool
+        SCHEMA_FIELD(::CUtlString                    , m_BodygroupOnOtherModels                        , 0x90) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_MaterialGroupOnOtherModels                    , 0x98) // CUtlString
+    };
+
+    // CAnimationGraphVisualizerLine
+    //   fields: 3
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class CAnimationGraphVisualizerLine {
+    public:
+        SCHEMA_FIELD(VectorAligned                   , m_vWsPositionStart                              , 0x40) // VectorAligned
+        SCHEMA_FIELD(VectorAligned                   , m_vWsPositionEnd                                , 0x50) // VectorAligned
+        SCHEMA_FIELD(::Color                         , m_Color                                         , 0x60) // Color
+    };
+
+    // PulseRuntimeDomainValueIndex_t
+    //   fields: 1
+    //   size: 0x2
+    class PulseRuntimeDomainValueIndex_t {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_Value                                         , 0x0) // int16
+    };
+
+    // CFootStride
+    //   fields: 2
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CFootStride {
+    public:
+        SCHEMA_FIELD(CFootCycleDefinition            , m_definition                                    , 0x0) // CFootCycleDefinition
+        SCHEMA_FIELD(CFootTrajectories               , m_trajectories                                  , 0x40) // CFootTrajectories
+    };
+
+    // CPlayerInputAnimMotorUpdater
+    //   fields: 6
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CPlayerInputAnimMotorUpdater {
+    public:
+        SCHEMA_FIELD(CUtlVector<float32>             , m_sampleTimes                                   , 0x20) // CUtlVector<float32>
+        SCHEMA_FIELD(float                           , m_flSpringConstant                              , 0x3C) // float32
+        SCHEMA_FIELD(float                           , m_flAnticipationDistance                        , 0x40) // float32
+        SCHEMA_FIELD(CAnimParamHandle                , m_hAnticipationPosParam                         , 0x44) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hAnticipationHeadingParam                     , 0x46) // CAnimParamHandle
+        SCHEMA_FIELD(bool                            , m_bUseAcceleration                              , 0x48) // bool
+    };
+
+    // CAnimEventDefinition
+    //   fields: 7
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class CAnimEventDefinition {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nFrame                                        , 0x8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nEndFrame                                     , 0xC) // int32
+        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x10) // float32
+        SCHEMA_FIELD(float                           , m_flDuration                                    , 0x14) // float32
+        SCHEMA_FIELD(KeyValues3                      , m_EventData                                     , 0x18) // KeyValues3
+        SCHEMA_FIELD(CBufferString                   , m_sLegacyOptions                                , 0x28) // CBufferString [MKV3TransferName]
+        SCHEMA_FIELD(CGlobalSymbol                   , m_sEventName                                    , 0x38) // CGlobalSymbol
+    };
+
+    // CMovementComponentUpdater
+    //   fields: 8
+    //   size: 0xB8
+    //   @MGetKV3ClassDefaults
+    class CMovementComponentUpdater {
+    public:
+        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimMotorUpdaterBase>>, m_motors                                        , 0x30) // CUtlVector<CSmartPtr<CAnimMotorUpdaterBase>>
+        SCHEMA_FIELD(CAnimInputDamping               , m_facingDamping                                 , 0x48) // CAnimInputDamping
+        SCHEMA_FIELD(std::int32_t                    , m_nDefaultMotorIndex                            , 0x68) // int32
+        SCHEMA_FIELD(float                           , m_flDefaultRunSpeed                             , 0x6C) // float32
+        SCHEMA_FIELD(bool                            , m_bMoveVarsDisabled                             , 0x70) // bool
+        SCHEMA_FIELD(bool                            , m_bNetworkPath                                  , 0x71) // bool
+        SCHEMA_FIELD(bool                            , m_bNetworkFacing                                , 0x72) // bool
+        SCHEMA_FIELD(CAnimParamHandle                , m_paramHandles                                  , 0x73) // CAnimParamHandle[34]
+    };
+
+    // CAnimUpdateSharedData
+    //   fields: 10
+    //   size: 0x100
+    //   @MGetKV3ClassDefaults
+    class CAnimUpdateSharedData {
+    public:
+        using _Type0 = CUtlHashtable<CAnimNodePath,int32>;
+        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimUpdateNodeBase>>, m_nodes                                         , 0x10) // CUtlVector<CSmartPtr<CAnimUpdateNodeBase>>
+        SCHEMA_FIELD(_Type0                          , m_nodeIndexMap                                  , 0x28) // CUtlHashtable<CAnimNodePath,int32>
+        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimComponentUpdater>>, m_components                                    , 0x48) // CUtlVector<CSmartPtr<CAnimComponentUpdater>>
+        SCHEMA_FIELD(CSmartPtr<CAnimParameterManagerUpdater>, m_pParamListUpdater                             , 0x60) // CSmartPtr<CAnimParameterManagerUpdater>
+        SCHEMA_FIELD(CSmartPtr<CAnimTagManagerUpdater>, m_pTagManagerUpdater                            , 0x68) // CSmartPtr<CAnimTagManagerUpdater>
+        SCHEMA_FIELD(CSmartPtr<CAnimScriptManager>   , m_scriptManager                                 , 0x70) // CSmartPtr<CAnimScriptManager>
+        SCHEMA_FIELD(CAnimGraphSettingsManager       , m_settings                                      , 0x78) // CAnimGraphSettingsManager
+        SCHEMA_FIELD(CSmartPtr<CStaticPoseCacheBuilder>, m_pStaticPoseCache                              , 0xA8) // CSmartPtr<CStaticPoseCacheBuilder>
+        SCHEMA_FIELD(CSmartPtr<CAnimSkeleton>        , m_pSkeleton                                     , 0xB0) // CSmartPtr<CAnimSkeleton>
+        SCHEMA_FIELD(CAnimNodePath                   , m_rootNodePath                                  , 0xB8) // CAnimNodePath
+    };
+
+    // CNmTargetInfoNode::CDefinition
+    //   fields: 3
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmTargetInfoNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+        SCHEMA_FIELD(CNmTargetInfoNode_Info_t        , m_infoType                                      , 0x14) // CNmTargetInfoNode::Info_t
+        SCHEMA_FIELD(bool                            , m_bIsWorldSpaceTarget                           , 0x18) // bool
+    };
+
+    // CFootTrajectory
+    //   fields: 3
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CFootTrajectory {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vOffset                                       , 0x8) // Vector
+        SCHEMA_FIELD(float                           , m_flRotationOffset                              , 0x14) // float32
+        SCHEMA_FIELD(float                           , m_flProgression                                 , 0x18) // float32
+    };
+
+    // CNmAdditiveBlendTask
+    //   fields: 0
+    //   size: 0x100
+    class CNmAdditiveBlendTask {
+    public:
+    };
+
+    // CModelConfigList
+    //   fields: 3
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CModelConfigList {
+    public:
+        SCHEMA_FIELD(bool                            , m_bHideMaterialGroupInTools                     , 0x0) // bool
+        SCHEMA_FIELD(bool                            , m_bHideRenderColorInTools                       , 0x1) // bool
+        SCHEMA_FIELD(CUtlVector<CModelConfig*>       , m_Configs                                       , 0x8) // CUtlVector<CModelConfig*>
+    };
+
+    // CNmFloatCurveEvent
+    //   fields: 2
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CNmFloatCurveEvent {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x18) // CGlobalSymbol
+        SCHEMA_FIELD(CPiecewiseCurve                 , m_curve                                         , 0x20) // CPiecewiseCurve
+    };
+
+    // CFootDefinition
+    //   fields: 9
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class CFootDefinition {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_ankleBoneName                                 , 0x8) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_toeBoneName                                   , 0x10) // CUtlString
+        SCHEMA_FIELD(::Vector                        , m_vBallOffset                                   , 0x18) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vHeelOffset                                   , 0x24) // Vector
+        SCHEMA_FIELD(float                           , m_flFootLength                                  , 0x30) // float32
+        SCHEMA_FIELD(float                           , m_flBindPoseDirectionMS                         , 0x34) // float32
+        SCHEMA_FIELD(float                           , m_flTraceHeight                                 , 0x38) // float32
+        SCHEMA_FIELD(float                           , m_flTraceRadius                                 , 0x3C) // float32
+    };
+
+    // CClothSettingsAnimTag
+    //   fields: 4
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CClothSettingsAnimTag {
+    public:
+        SCHEMA_FIELD(float                           , m_flStiffness                                   , 0x58) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(float                           , m_flEaseIn                                      , 0x5C) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(float                           , m_flEaseOut                                     , 0x60) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(::CUtlString                    , m_nVertexSet                                    , 0x68) // CUtlString [MPropertyFriendlyName]
+    };
+
+    // AnimParamID
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class AnimParamID {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
+    };
+
+    // CAnimationGroup
+    //   fields: 8
+    //   size: 0x148
+    //   @MGetKV3ClassDefaults
+    class CAnimationGroup {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nFlags                                        , 0x10) // uint32
+        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x18) // CBufferString
+        SCHEMA_FIELD(CUtlVector<CStrongHandle<InfoForResourceTypeCAnimData>>, m_localHAnimArray_Handle                        , 0x60) // CUtlVector<CStrongHandle<InfoForResourceTypeCAnimData>> [MKV3TransferName]
+        SCHEMA_FIELD(CUtlVector<CStrongHandle<InfoForResourceTypeCAnimationGroup>>, m_includedGroupArray_Handle                     , 0x78) // CUtlVector<CStrongHandle<InfoForResourceTypeCAnimationGroup>> [MKV3TransferName]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCSequenceGroupData>, m_directHSeqGroup_Handle                        , 0x90) // CStrongHandle<InfoForResourceTypeCSequenceGroupData> [MKV3TransferName]
+        SCHEMA_FIELD(CAnimKeyData                    , m_decodeKey                                     , 0x98) // CAnimKeyData
+        SCHEMA_FIELD(CUtlVector<CBufferString>       , m_szScripts                                     , 0x110) // CUtlVector<CBufferString>
+        SCHEMA_FIELD(CUtlVector<CStrongHandleVoid>   , m_AdditionalExtRefs                             , 0x128) // CUtlVector<CStrongHandleVoid>
+    };
+
+    // CModelConfigElement_SetBodygroupOnAttachedModels
+    //   fields: 2
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CModelConfigElement_SetBodygroupOnAttachedModels {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_GroupName                                     , 0x48) // CUtlString
+        SCHEMA_FIELD(std::int32_t                    , m_nChoice                                       , 0x50) // int32
+    };
+
+    // CNmClip
+    //   fields: 13
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class CNmClip {
+    public:
+        using _Type0 = CUtlVectorFixedGrowable<CNmClip*,1>;
+        using _Type1 = CUtlVectorFixedGrowable<CNmFloatChannelData*,2>;
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCNmSkeleton>, m_skeleton                                      , 0x0) // CStrongHandle<InfoForResourceTypeCNmSkeleton>
+        SCHEMA_FIELD(std::uint32_t                   , m_nNumFrames                                    , 0x8) // uint32
+        SCHEMA_FIELD(float                           , m_flDuration                                    , 0xC) // float32
+        SCHEMA_FIELD(::CUtlBinaryBlock               , m_compressedPoseData                            , 0x10) // CUtlBinaryBlock
+        SCHEMA_FIELD(CUtlVector<NmCompressionSettings_t>, m_trackCompressionSettings                      , 0x20) // CUtlVector<NmCompressionSettings_t>
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_compressedPoseOffsets                         , 0x38) // CUtlVector<uint32>
+        SCHEMA_FIELD(_Type0                          , m_secondaryAnimations                           , 0x78) // CUtlVectorFixedGrowable<CNmClip*,1>
+        SCHEMA_FIELD(_Type1                          , m_floatChannelData                              , 0x98) // CUtlVectorFixedGrowable<CNmFloatChannelData*,2>
+        SCHEMA_FIELD(CNmSyncTrack                    , m_syncTrack                                     , 0xC0) // CNmSyncTrack
+        SCHEMA_FIELD(CNmRootMotionData               , m_rootMotion                                    , 0x170) // CNmRootMotionData
+        SCHEMA_FIELD(bool                            , m_bIsAdditive                                   , 0x1C0) // bool
+        SCHEMA_FIELD(CUtlVector<CNmClip_ModelSpaceSamplingChainLink_t>, m_modelSpaceSamplingChain                       , 0x1C8) // CUtlVector<CNmClip::ModelSpaceSamplingChainLink_t>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_modelSpaceBoneSamplingIndices                 , 0x1E0) // CUtlVector<int32>
+    };
+
+    // CSceneObjectData::RTProxyDrawDescriptor_t
+    //   fields: 13
+    //   size: 0x160
+    //   @MGetKV3ClassDefaults
+    class CSceneObjectData_RTProxyDrawDescriptor_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_materialGroupToken                            , 0x0) // uint32
+        SCHEMA_FIELD(std::int32_t                    , m_nSrcDrawIndex                                 , 0x4) // int32
+        SCHEMA_FIELD(CMaterialDrawDescriptor         , m_drawDesc                                      , 0x8) // CMaterialDrawDescriptor
+        SCHEMA_FIELD(::matrix3x4_t                   , m_mWorldFromLocal                               , 0x120) // matrix3x4_t
+        SCHEMA_FIELD(VertexAlbedoFormat_t            , m_nVertexAlbedoFormat                           , 0x150) // VertexAlbedoFormat_t
+        SCHEMA_FIELD(std::int8_t                     , m_nVertexAlbedoVB                               , 0x151) // int8
+        SCHEMA_FIELD(std::uint16_t                   , m_nVertexAlbedoOffset                           , 0x152) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nVertexAlbedoStride                           , 0x154) // uint16
+        SCHEMA_FIELD(VertexAlbedoFormat_t            , m_nVertexEmissiveFormat                         , 0x156) // VertexAlbedoFormat_t
+        SCHEMA_FIELD(std::int8_t                     , m_nVertexEmissiveVB                             , 0x157) // int8
+        SCHEMA_FIELD(std::uint16_t                   , m_nVertexEmissiveOffset                         , 0x158) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nVertexEmissiveStride                         , 0x15A) // uint16
+        SCHEMA_FIELD(float                           , m_fEmissiveFactor                               , 0x15C) // float32
+    };
+
+    // NmCompressionSettings_t::QuantizationRange_t
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class NmCompressionSettings_t_QuantizationRange_t {
+    public:
+        SCHEMA_FIELD(float                           , m_flRangeStart                                  , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flRangeLength                                 , 0x4) // float32
+    };
+
+    // CNmReferencePoseNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmReferencePoseNode_CDefinition {
+    public:
+    };
+
+    // PulseGraphExecutionHistoryEntry_t
+    //   fields: 5
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class PulseGraphExecutionHistoryEntry_t {
+    public:
+        SCHEMA_FIELD(PulseCursorID_t                 , nCursorID                                       , 0x0) // PulseCursorID_t
+        SCHEMA_FIELD(::PulseDocNodeID_t              , nEditorID                                       , 0x4) // PulseDocNodeID_t
+        SCHEMA_FIELD(float                           , flExecTime                                      , 0x8) // float32
+        SCHEMA_FIELD(std::uint32_t                   , unFlags                                         , 0xC) // uint32
+        SCHEMA_FIELD(::PulseSymbol_t                 , tagName                                         , 0x10) // PulseSymbol_t
+    };
+
+    // CVirtualAnimParameter
+    //   fields: 2
+    //   size: 0x80
+    //   @MGetKV3ClassDefaults
+    class CVirtualAnimParameter {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_expressionString                              , 0x70) // CUtlString
+        SCHEMA_FIELD(AnimParamType_t                 , m_eParamType                                    , 0x78) // AnimParamType_t
+    };
+
+    // SkeletonAnimCapture_t::FrameStamp_t
+    //   fields: 8
+    //   size: 0x1C
+    //   @MGetKV3ClassDefaults
+    class SkeletonAnimCapture_t_FrameStamp_t {
+    public:
+        SCHEMA_FIELD(float                           , m_flTime                                        , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flEntitySimTime                               , 0x4) // float32
+        SCHEMA_FIELD(bool                            , m_bTeleportTick                                 , 0x8) // bool
+        SCHEMA_FIELD(bool                            , m_bPredicted                                    , 0x9) // bool
+        SCHEMA_FIELD(float                           , m_flCurTime                                     , 0xC) // float32
+        SCHEMA_FIELD(float                           , m_flRealTime                                    , 0x10) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nFrameCount                                   , 0x14) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nTickCount                                    , 0x18) // int32
+    };
+
+    // CNmGraphDefinition::ReferencedGraphSlot_t
+    //   fields: 2
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class CNmGraphDefinition_ReferencedGraphSlot_t {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nNodeIdx                                      , 0x0) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_dataSlotIdx                                   , 0x2) // int16
+    };
+
+    // CModelConfigElement_SetRenderColor
+    //   fields: 1
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CModelConfigElement_SetRenderColor {
+    public:
+        SCHEMA_FIELD(::Color                         , m_Color                                         , 0x48) // Color
+    };
+
+    // CNmFollowBoneNode::CDefinition
+    //   fields: 4
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CNmFollowBoneNode_CDefinition {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_bone                                          , 0x18) // CGlobalSymbol
+        SCHEMA_FIELD(CGlobalSymbol                   , m_followTargetBone                              , 0x20) // CGlobalSymbol
+        SCHEMA_FIELD(std::int16_t                    , m_nEnabledNodeIdx                               , 0x28) // int16
+        SCHEMA_FIELD(NmFollowBoneMode_t              , m_mode                                          , 0x2A) // NmFollowBoneMode_t
+    };
+
+    // CParentConstraint
+    //   fields: 0
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CParentConstraint {
+    public:
+    };
+
+    // CVectorQuantizer
+    //   fields: 3
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CVectorQuantizer {
+    public:
+        SCHEMA_FIELD(CUtlVector<float32>             , m_centroidVectors                               , 0x0) // CUtlVector<float32>
+        SCHEMA_FIELD(std::int32_t                    , m_nCentroids                                    , 0x18) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nDimensions                                   , 0x1C) // int32
+    };
+
+    // CSeqSynthAnimDesc
+    //   fields: 6
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class CSeqSynthAnimDesc {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x0) // CBufferString
+        SCHEMA_FIELD(CSeqSeqDescFlag                 , m_flags                                         , 0x10) // CSeqSeqDescFlag
+        SCHEMA_FIELD(CSeqTransition                  , m_transition                                    , 0x1C) // CSeqTransition
+        SCHEMA_FIELD(std::int16_t                    , m_nLocalBaseReference                           , 0x24) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nLocalBoneMask                                , 0x26) // int16
+        SCHEMA_FIELD(CUtlVector<CAnimActivity>       , m_activityArray                                 , 0x28) // CUtlVector<CAnimActivity>
+    };
+
+    // CPhysSurfacePropertiesSoundNames
+    //   fields: 12
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CPhysSurfacePropertiesSoundNames {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_impactSoft                                    , 0x0) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(::CUtlString                    , m_impactHard                                    , 0x8) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(::CUtlString                    , m_scrapeSmooth                                  , 0x10) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(::CUtlString                    , m_scrapeRough                                   , 0x18) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(::CUtlString                    , m_bulletImpact                                  , 0x20) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(::CUtlString                    , m_rolling                                       , 0x28) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(::CUtlString                    , m_break                                         , 0x30) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(::CUtlString                    , m_strain                                        , 0x38) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(::CUtlString                    , m_meleeImpact                                   , 0x40) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(::CUtlString                    , m_pushOff                                       , 0x48) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(::CUtlString                    , m_skidStop                                      , 0x50) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(::CUtlString                    , m_resonant                                      , 0x58) // CUtlString [MKV3TransferName]
+    };
+
+    // CPointConstraint
+    //   fields: 0
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CPointConstraint {
+    public:
+    };
+
+    // CBlendNodeInstanceData
+    //   fields: 7
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CBlendNodeInstanceData {
+    public:
+        SCHEMA_FIELD(float                           , m_dampedValue                                   , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flCycle                                       , 0x4) // float32
+        SCHEMA_FIELD(float                           , m_flCycleZeroTime                               , 0x8) // float32
+        SCHEMA_FIELD(float                           , m_flPlaybackRate                                , 0xC) // float32
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flBlendValue                                  , 0x10) // CAnimNetVar<float32>
+        SCHEMA_FIELD(float                           , m_flDuration                                    , 0x1C) // float32
+        SCHEMA_FIELD(CAnimNetVar<uint8>              , m_resetCount                                    , 0x20) // CAnimNetVar<uint8>
+    };
+
+    // AnimationDecodeDebugDump_t
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class AnimationDecodeDebugDump_t {
+    public:
+        SCHEMA_FIELD(AnimationProcessingType_t       , m_processingType                                , 0x0) // AnimationProcessingType_t
+        SCHEMA_FIELD(CUtlVector<AnimationDecodeDebugDumpElement_t>, m_elems                                         , 0x8) // CUtlVector<AnimationDecodeDebugDumpElement_t>
+    };
+
+    // CFootAdjustmentInstanceData
+    //   fields: 3
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CFootAdjustmentInstanceData {
+    public:
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flStartTime                                   , 0xC) // CAnimNetVar<float32>
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flDuration                                    , 0x18) // CAnimNetVar<float32>
+        SCHEMA_FIELD(float                           , m_flStartHeadingWS                              , 0x3C) // float32
+    };
+
+    // CTaskStatusAnimTag
+    //   fields: 0
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CTaskStatusAnimTag {
+    public:
+    };
+
+    // CMotionGraph
+    //   fields: 7
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CMotionGraph {
+    public:
+        SCHEMA_FIELD(CParamSpanUpdater               , m_paramSpans                                    , 0x10) // CParamSpanUpdater
+        SCHEMA_FIELD(CUtlVector<TagSpan_t>           , m_tags                                          , 0x28) // CUtlVector<TagSpan_t>
+        SCHEMA_FIELD(CSmartPtr<CMotionNode>          , m_pRootNode                                     , 0x40) // CSmartPtr<CMotionNode>
+        SCHEMA_FIELD(std::int32_t                    , m_nParameterCount                               , 0x48) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nConfigStartIndex                             , 0x4C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nConfigCount                                  , 0x50) // int32
+        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x54) // bool
+    };
+
+    // AnimStateID
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class AnimStateID {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
+    };
+
+    // CPulse_OutputConnection
+    //   fields: 4
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class CPulse_OutputConnection {
+    public:
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_SourceOutput                                  , 0x0) // PulseSymbol_t
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_TargetEntity                                  , 0x10) // PulseSymbol_t
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_TargetInput                                   , 0x20) // PulseSymbol_t
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_Param                                         , 0x30) // PulseSymbol_t
+    };
+
+    // CNmOrientationWarpEvent
+    //   fields: 0
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmOrientationWarpEvent {
+    public:
+    };
+
+    // CCurrentVelocityMetricEvaluator
+    //   fields: 0
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CCurrentVelocityMetricEvaluator {
+    public:
+    };
+
+    // CPulseCell_IsRequirementValid
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_IsRequirementValid {
+    public:
+    };
+
+    // CPulseGraphExecutionHistory
+    //   fields: 5
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CPulseGraphExecutionHistory {
+    public:
+        using _Type0 = CUtlOrderedMap<PulseDocNodeID_t,PulseGraphExecutionHistoryNodeDesc_t*>;
+        using _Type1 = CUtlOrderedMap<PulseCursorID_t,PulseGraphExecutionHistoryCursorDesc_t*>;
+        SCHEMA_FIELD(PulseGraphInstanceID_t          , m_nInstanceID                                   , 0x0) // PulseGraphInstanceID_t
+        SCHEMA_FIELD(::CUtlString                    , m_strFileName                                   , 0x8) // CUtlString
+        SCHEMA_FIELD(CUtlVector<PulseGraphExecutionHistoryEntry_t*>, m_vecHistory                                    , 0x10) // CUtlVector<PulseGraphExecutionHistoryEntry_t*>
+        SCHEMA_FIELD(_Type0                          , m_mapCellDesc                                   , 0x28) // CUtlOrderedMap<PulseDocNodeID_t,PulseGraphExecutionHistoryNodeDesc_t*>
+        SCHEMA_FIELD(_Type1                          , m_mapCursorDesc                                 , 0x50) // CUtlOrderedMap<PulseCursorID_t,PulseGraphExecutionHistoryCursorDesc_t*>
+    };
+
+    // IParticleEffect
+    //   fields: 0
+    //   size: 0x8
+    class IParticleEffect {
+    public:
+    };
+
+    // CPathMetricEvaluator
+    //   fields: 4
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CPathMetricEvaluator {
+    public:
+        SCHEMA_FIELD(CUtlVector<float32>             , m_pathTimeSamples                               , 0x50) // CUtlVector<float32>
+        SCHEMA_FIELD(float                           , m_flDistance                                    , 0x68) // float32
+        SCHEMA_FIELD(bool                            , m_bExtrapolateMovement                          , 0x6C) // bool
+        SCHEMA_FIELD(float                           , m_flMinExtrapolationSpeed                       , 0x70) // float32
+    };
+
+    // CPhysSurfacePropertiesPhysics
+    //   fields: 6
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CPhysSurfacePropertiesPhysics {
+    public:
+        SCHEMA_FIELD(float                           , m_friction                                      , 0x0) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_elasticity                                    , 0x4) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_density                                       , 0x8) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_thickness                                     , 0xC) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_softContactFrequency                          , 0x10) // float32 [MKV3TransferName]
+        SCHEMA_FIELD(float                           , m_softContactDampingRatio                       , 0x14) // float32 [MKV3TransferName]
+    };
+
+    // CPulse_PublicOutput
+    //   fields: 3
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CPulse_PublicOutput {
+    public:
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_Name                                          , 0x0) // PulseSymbol_t
+        SCHEMA_FIELD(::CUtlString                    , m_Description                                   , 0x10) // CUtlString
+        SCHEMA_FIELD(CUtlLeanVector<CPulseRuntimeMethodArg>, m_Args                                          , 0x18) // CUtlLeanVector<CPulseRuntimeMethodArg>
+    };
+
+    // CModelConfigElement_SetMaterialGroup
+    //   fields: 1
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CModelConfigElement_SetMaterialGroup {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_MaterialGroupName                             , 0x48) // CUtlString
+    };
+
+    // CBoneConstraintDotToMorph
+    //   fields: 4
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CBoneConstraintDotToMorph {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_sBoneName                                     , 0x20) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_sTargetBoneName                               , 0x28) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_sMorphChannelName                             , 0x30) // CUtlString
+        SCHEMA_FIELD(float                           , m_flRemap                                       , 0x38) // float32[4]
+    };
+
+    // CPulseCell_Timeline
+    //   fields: 3
+    //   size: 0x140
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Timeline {
+    public:
+        SCHEMA_FIELD(CUtlVector<CPulseCell_Timeline_TimelineEvent_t>, m_TimelineEvents                                , 0xD8) // CUtlVector<CPulseCell_Timeline::TimelineEvent_t>
+        SCHEMA_FIELD(bool                            , m_bWaitForChildOutflows                         , 0xF0) // bool
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_OnFinished                                    , 0xF8) // CPulse_ResumePoint
+    };
+
+    // CNmGraphEventConditionNode::Condition_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmGraphEventConditionNode_Condition_t {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_eventID                                       , 0x0) // CGlobalSymbol
+        SCHEMA_FIELD(NmGraphEventTypeCondition_t     , m_eventTypeCondition                            , 0x8) // NmGraphEventTypeCondition_t
+    };
+
+    // CPulseCell_Inflow_GraphHook
+    //   fields: 1
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Inflow_GraphHook {
+    public:
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_HookName                                      , 0x80) // PulseSymbol_t
+    };
+
+    // CAnimUpdateNodeRef
+    //   fields: 1
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CAnimUpdateNodeRef {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nodeIndex                                     , 0x8) // int32
+    };
+
+    // CSeqIKLock
+    //   fields: 4
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class CSeqIKLock {
+    public:
+        SCHEMA_FIELD(float                           , m_flPosWeight                                   , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flAngleWeight                                 , 0x4) // float32
+        SCHEMA_FIELD(std::int16_t                    , m_nLocalBone                                    , 0x8) // int16
+        SCHEMA_FIELD(bool                            , m_bBonesOrientedAlongPositiveX                  , 0xA) // bool
+    };
+
+    // CNmBoneMaskNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmBoneMaskNode_CDefinition {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_boneMaskID                                    , 0x10) // CGlobalSymbol
+    };
+
+    // CFollowPathUpdateNode
+    //   fields: 13
+    //   size: 0xB8
+    //   @MGetKV3ClassDefaults
+    class CFollowPathUpdateNode {
+    public:
+        SCHEMA_FIELD(float                           , m_flBlendOutTime                                , 0x74) // float32
+        SCHEMA_FIELD(bool                            , m_bBlockNonPathMovement                         , 0x78) // bool
+        SCHEMA_FIELD(bool                            , m_bStopFeetAtGoal                               , 0x79) // bool
+        SCHEMA_FIELD(bool                            , m_bScaleSpeed                                   , 0x7A) // bool
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x7C) // float32
+        SCHEMA_FIELD(float                           , m_flMinAngle                                    , 0x80) // float32
+        SCHEMA_FIELD(float                           , m_flMaxAngle                                    , 0x84) // float32
+        SCHEMA_FIELD(float                           , m_flSpeedScaleBlending                          , 0x88) // float32
+        SCHEMA_FIELD(CAnimInputDamping               , m_turnDamping                                   , 0x90) // CAnimInputDamping
+        SCHEMA_FIELD(AnimValueSource                 , m_facingTarget                                  , 0xA8) // AnimValueSource
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParam                                        , 0xAC) // CAnimParamHandle
+        SCHEMA_FIELD(float                           , m_flTurnToFaceOffset                            , 0xB0) // float32
+        SCHEMA_FIELD(bool                            , m_bTurnToFace                                   , 0xB4) // bool
+    };
+
+    // CZeroPoseUpdateNode
+    //   fields: 0
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CZeroPoseUpdateNode {
+    public:
+    };
+
+    // CAnimData
+    //   fields: 5
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class CAnimData {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x10) // CBufferString
+        SCHEMA_FIELD(CUtlVector<CAnimDesc>           , m_animArray                                     , 0x20) // CUtlVector<CAnimDesc>
+        SCHEMA_FIELD(CUtlVector<CAnimDecoder>        , m_decoderArray                                  , 0x38) // CUtlVector<CAnimDecoder>
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxUniqueFrameIndex                          , 0x50) // int32
+        SCHEMA_FIELD(CUtlVector<CAnimFrameSegment>   , m_segmentArray                                  , 0x58) // CUtlVector<CAnimFrameSegment>
+    };
+
+    // CPulse_Variable
+    //   fields: 9
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CPulse_Variable {
+    public:
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_Name                                          , 0x0) // PulseSymbol_t
+        SCHEMA_FIELD(::CUtlString                    , m_Description                                   , 0x10) // CUtlString
+        SCHEMA_FIELD(CPulseValueFullType             , m_Type                                          , 0x18) // CPulseValueFullType
+        SCHEMA_FIELD(KeyValues3                      , m_DefaultValue                                  , 0x30) // KeyValues3
+        SCHEMA_FIELD(PulseVariableKeysSource_t       , m_nKeysSource                                   , 0x44) // PulseVariableKeysSource_t
+        SCHEMA_FIELD(bool                            , m_bIsPublicBlackboardVariable                   , 0x48) // bool
+        SCHEMA_FIELD(bool                            , m_bIsObservable                                 , 0x49) // bool
+        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nEditorNodeID                                 , 0x4C) // PulseDocNodeID_t
+        SCHEMA_FIELD(KeyValues3                      , m_Metadata                                      , 0x50) // KeyValues3
+    };
+
+    // CMotionMetricEvaluator
+    //   fields: 4
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class CMotionMetricEvaluator {
+    public:
+        SCHEMA_FIELD(CUtlVector<float32>             , m_means                                         , 0x18) // CUtlVector<float32>
+        SCHEMA_FIELD(CUtlVector<float32>             , m_standardDeviations                            , 0x30) // CUtlVector<float32>
+        SCHEMA_FIELD(float                           , m_flWeight                                      , 0x48) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nDimensionStartIndex                          , 0x4C) // int32
+    };
+
+    // CStanceScaleUpdateNode
+    //   fields: 1
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CStanceScaleUpdateNode {
+    public:
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParam                                        , 0x70) // CAnimParamHandle
+    };
+
+    // CStringAnimTag
+    //   fields: 0
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CStringAnimTag {
+    public:
+    };
+
+    // FootFixedData_t
+    //   fields: 11
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class FootFixedData_t {
+    public:
+        SCHEMA_FIELD(VectorAligned                   , m_vToeOffset                                    , 0x0) // VectorAligned
+        SCHEMA_FIELD(VectorAligned                   , m_vHeelOffset                                   , 0x10) // VectorAligned
+        SCHEMA_FIELD(std::int32_t                    , m_nTargetBoneIndex                              , 0x20) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nAnkleBoneIndex                               , 0x24) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nIKAnchorBoneIndex                            , 0x28) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_ikChainIndex                                  , 0x2C) // int32
+        SCHEMA_FIELD(float                           , m_flMaxIKLength                                 , 0x30) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nFootIndex                                    , 0x34) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nTagIndex                                     , 0x38) // int32
+        SCHEMA_FIELD(float                           , m_flMaxRotationLeft                             , 0x3C) // float32
+        SCHEMA_FIELD(float                           , m_flMaxRotationRight                            , 0x40) // float32
+    };
+
+    // CIntAnimParameter
+    //   fields: 3
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CIntAnimParameter {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_defaultValue                                  , 0x80) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_minValue                                      , 0x84) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_maxValue                                      , 0x88) // int32 [MPropertyFriendlyName]
+    };
+
+    // CNmClipReferenceNode::CDefinition
+    //   fields: 0
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class CNmClipReferenceNode_CDefinition {
+    public:
+    };
+
+    // FootPinningPoseOpFixedData_t
+    //   fields: 7
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class FootPinningPoseOpFixedData_t {
+    public:
+        SCHEMA_FIELD(CUtlVector<FootFixedData_t>     , m_footInfo                                      , 0x0) // CUtlVector<FootFixedData_t>
+        SCHEMA_FIELD(float                           , m_flBlendTime                                   , 0x18) // float32
+        SCHEMA_FIELD(float                           , m_flLockBreakDistance                           , 0x1C) // float32
+        SCHEMA_FIELD(float                           , m_flMaxLegTwist                                 , 0x20) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nHipBoneIndex                                 , 0x24) // int32
+        SCHEMA_FIELD(bool                            , m_bApplyLegTwistLimits                          , 0x28) // bool
+        SCHEMA_FIELD(bool                            , m_bApplyFootRotationLimits                      , 0x29) // bool
+    };
+
+    // IKBoneNameAndIndex_t
+    //   fields: 1
+    //   size: 0x10
+    class IKBoneNameAndIndex_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString [MPropertyAttributeChoiceName]
+    };
+
+    // IAnimationGraphInstance
+    //   fields: 0
+    //   size: 0x18
+    class IAnimationGraphInstance {
+    public:
+    };
+
+    // CNmReferencePoseTask
+    //   fields: 0
+    //   size: 0x70
+    class CNmReferencePoseTask {
+    public:
+    };
+
+    // CEmitTagActionUpdater
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CEmitTagActionUpdater {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nTagIndex                                     , 0x18) // int32
+        SCHEMA_FIELD(bool                            , m_bIsZeroDuration                               , 0x1C) // bool
+    };
+
+    // CAnimGraphNetworkSettings
+    //   fields: 1
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CAnimGraphNetworkSettings {
+    public:
+        SCHEMA_FIELD(bool                            , m_bNetworkingEnabled                            , 0x20) // bool [MPropertyFriendlyName]
+    };
+
+    // CEnumAnimParameter
+    //   fields: 3
+    //   size: 0xD8
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CEnumAnimParameter {
+    public:
+        SCHEMA_FIELD(std::uint8_t                    , m_defaultValue                                  , 0x88) // uint8 [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_enumOptions                                   , 0x90) // CUtlVector<CUtlString> [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<uint64>              , m_vecEnumReferenced                             , 0xA8) // CUtlVector<uint64> [MPropertySuppressField]
+    };
+
+    // CPulseCell_Step_DebugLog
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Step_DebugLog {
+    public:
+    };
+
+    // FootStepTrigger
+    //   fields: 3
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class FootStepTrigger {
+    public:
+        SCHEMA_FIELD(CUtlVector<int32>               , m_tags                                          , 0x0) // CUtlVector<int32>
+        SCHEMA_FIELD(std::int32_t                    , m_nFootIndex                                    , 0x18) // int32
+        SCHEMA_FIELD(StepPhase                       , m_triggerPhase                                  , 0x1C) // StepPhase
     };
 
     // CNmStateNode::TimedEvent_t
@@ -9541,62 +9688,608 @@ namespace animationsystem {
         SCHEMA_FIELD(CNmStateNode_TimedEvent_t_Comparison_t, m_comparisionOperator                           , 0xC) // CNmStateNode::TimedEvent_t::Comparison_t
     };
 
-    // CNmLayerBlendNode::CDefinition
+    // CTwistConstraint
     //   fields: 3
-    //   size: 0x48
+    //   size: 0x90
     //   @MGetKV3ClassDefaults
-    class CNmLayerBlendNode_CDefinition {
+    class CTwistConstraint {
     public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<CNmLayerBlendNode_LayerDefinition_t,3>;
-        SCHEMA_FIELD(std::int16_t                    , m_nBaseNodeIdx                                  , 0x10) // int16
-        SCHEMA_FIELD(bool                            , m_bOnlySampleBaseRootMotion                     , 0x12) // bool
-        SCHEMA_FIELD(_Type0                          , m_layerDefinition                               , 0x18) // CUtlLeanVectorFixedGrowable<CNmLayerBlendNode::LayerDefinition_t,3>
+        SCHEMA_FIELD(bool                            , m_bInverse                                      , 0x60) // bool
+        SCHEMA_FIELD(::Quaternion                    , m_qParentBindRotation                           , 0x70) // Quaternion
+        SCHEMA_FIELD(::Quaternion                    , m_qChildBindRotation                            , 0x80) // Quaternion
     };
 
-    // CMotionNode
+    // CNmAnimationPoseNode::CDefinition
+    //   fields: 5
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CNmAnimationPoseNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nPoseTimeValueNodeIdx                         , 0x10) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nDataSlotIdx                                  , 0x12) // int16
+        SCHEMA_FIELD(Range_t                         , m_inputTimeRemapRange                           , 0x14) // Range_t
+        SCHEMA_FIELD(float                           , m_flUserSpecifiedTime                           , 0x1C) // float32
+        SCHEMA_FIELD(bool                            , m_bUseFramesAsInput                             , 0x20) // bool
+    };
+
+    // CTaskHandshakeAnimTag
+    //   fields: 0
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CTaskHandshakeAnimTag {
+    public:
+    };
+
+    // CSeqAutoLayer
+    //   fields: 7
+    //   size: 0x1C
+    //   @MGetKV3ClassDefaults
+    class CSeqAutoLayer {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nLocalReference                               , 0x0) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nLocalPose                                    , 0x2) // int16
+        SCHEMA_FIELD(CSeqAutoLayerFlag               , m_flags                                         , 0x4) // CSeqAutoLayerFlag
+        SCHEMA_FIELD(float                           , m_start                                         , 0xC) // float32
+        SCHEMA_FIELD(float                           , m_peak                                          , 0x10) // float32
+        SCHEMA_FIELD(float                           , m_tail                                          , 0x14) // float32
+        SCHEMA_FIELD(float                           , m_end                                           , 0x18) // float32
+    };
+
+    // CNmBlendTask
+    //   fields: 0
+    //   size: 0x100
+    class CNmBlendTask {
+    public:
+    };
+
+    // CPulse_Constant
+    //   fields: 2
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CPulse_Constant {
+    public:
+        SCHEMA_FIELD(CPulseValueFullType             , m_Type                                          , 0x0) // CPulseValueFullType
+        SCHEMA_FIELD(KeyValues3                      , m_Value                                         , 0x18) // KeyValues3
+    };
+
+    // CPulseCell_BaseRequirement
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_BaseRequirement {
+    public:
+    };
+
+    // AnimationDecodeDebugDumpElement_t
+    //   fields: 6
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class AnimationDecodeDebugDumpElement_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nEntityIndex                                  , 0x0) // int32
+        SCHEMA_FIELD(::CUtlString                    , m_modelName                                     , 0x8) // CUtlString
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_poseParams                                    , 0x10) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_decodeOps                                     , 0x28) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_internalOps                                   , 0x40) // CUtlVector<CUtlString>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_decodedAnims                                  , 0x58) // CUtlVector<CUtlString>
+    };
+
+    // CModelConfigElement_SetBodygroup
+    //   fields: 2
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CModelConfigElement_SetBodygroup {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_GroupName                                     , 0x48) // CGlobalSymbol
+        SCHEMA_FIELD(std::int32_t                    , m_nChoice                                       , 0x50) // int32
+    };
+
+    // CModelConfigElement_UserPick
+    //   fields: 1
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CModelConfigElement_UserPick {
+    public:
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_Choices                                       , 0x48) // CUtlVector<CUtlString>
+    };
+
+    // CToggleComponentActionUpdater
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CToggleComponentActionUpdater {
+    public:
+        SCHEMA_FIELD(AnimComponentID                 , m_componentID                                   , 0x18) // AnimComponentID
+        SCHEMA_FIELD(bool                            , m_bSetEnabled                                   , 0x1C) // bool
+    };
+
+    // NmCompressionSettings_t
+    //   fields: 9
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    class NmCompressionSettings_t {
+    public:
+        SCHEMA_FIELD(NmCompressionSettings_t_QuantizationRange_t, m_translationRangeX                             , 0x0) // NmCompressionSettings_t::QuantizationRange_t
+        SCHEMA_FIELD(NmCompressionSettings_t_QuantizationRange_t, m_translationRangeY                             , 0x8) // NmCompressionSettings_t::QuantizationRange_t
+        SCHEMA_FIELD(NmCompressionSettings_t_QuantizationRange_t, m_translationRangeZ                             , 0x10) // NmCompressionSettings_t::QuantizationRange_t
+        SCHEMA_FIELD(NmCompressionSettings_t_QuantizationRange_t, m_scaleRange                                    , 0x18) // NmCompressionSettings_t::QuantizationRange_t
+        SCHEMA_FIELD(std::int32_t                    , m_nTrackReadOffset                              , 0x20) // int32
+        SCHEMA_FIELD(::Quaternion                    , m_constantRotation                              , 0x30) // Quaternion
+        SCHEMA_FIELD(bool                            , m_bIsRotationStatic                             , 0x40) // bool
+        SCHEMA_FIELD(bool                            , m_bIsTranslationStatic                          , 0x41) // bool
+        SCHEMA_FIELD(bool                            , m_bIsScaleStatic                                , 0x42) // bool
+    };
+
+    // CAnimBone
+    //   fields: 7
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CAnimBone {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
+        SCHEMA_FIELD(std::int32_t                    , m_parent                                        , 0x10) // int32
+        SCHEMA_FIELD(::Vector                        , m_pos                                           , 0x14) // Vector
+        SCHEMA_FIELD(QuaternionStorage               , m_quat                                          , 0x20) // QuaternionStorage
+        SCHEMA_FIELD(float                           , m_scale                                         , 0x30) // float32
+        SCHEMA_FIELD(QuaternionStorage               , m_qAlignment                                    , 0x34) // QuaternionStorage
+        SCHEMA_FIELD(std::int32_t                    , m_flags                                         , 0x44) // int32
+    };
+
+    // MotionIndex
+    //   fields: 2
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class MotionIndex {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , m_nGroup                                        , 0x0) // uint16
+        SCHEMA_FIELD(std::uint16_t                   , m_nMotion                                       , 0x2) // uint16
+    };
+
+    // CParticleModelInput
+    //   fields: 3
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyCustomEditor
+    //   @MCustomFGDMetadata
+    class CParticleModelInput {
+    public:
+        SCHEMA_FIELD(::particles::ParticleModelType_t, m_nType                                         , 0x10) // ParticleModelType_t
+        SCHEMA_FIELD(CParticleNamedValueRef          , m_NamedValue                                    , 0x18) // CParticleNamedValueRef
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x58) // int32
+    };
+
+    // SkeletonAnimCapture_t
+    //   fields: 10
+    //   size: 0xC0
+    //   @MGetKV3ClassDefaults
+    class SkeletonAnimCapture_t {
+    public:
+        SCHEMA_FIELD(CEntityIndex                    , m_nEntIndex                                     , 0x0) // CEntityIndex
+        SCHEMA_FIELD(CEntityIndex                    , m_nEntParent                                    , 0x4) // CEntityIndex
+        SCHEMA_FIELD(CUtlVector<CEntityIndex>        , m_ImportedCollision                             , 0x8) // CUtlVector<CEntityIndex>
+        SCHEMA_FIELD(::CUtlString                    , m_ModelName                                     , 0x20) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_CaptureName                                   , 0x28) // CUtlString
+        SCHEMA_FIELD(CUtlVector<SkeletonAnimCapture_t_Bone_t>, m_ModelBindPose                                 , 0x30) // CUtlVector<SkeletonAnimCapture_t::Bone_t>
+        SCHEMA_FIELD(CUtlVector<SkeletonAnimCapture_t_Bone_t>, m_FeModelInitPose                               , 0x48) // CUtlVector<SkeletonAnimCapture_t::Bone_t>
+        SCHEMA_FIELD(std::int32_t                    , m_nFlexControllers                              , 0x60) // int32
+        SCHEMA_FIELD(bool                            , m_bPredicted                                    , 0x64) // bool
+        SCHEMA_FIELD(CUtlVector<SkeletonAnimCapture_t_Frame_t>, m_Frames                                        , 0xA8) // CUtlVector<SkeletonAnimCapture_t::Frame_t>
+    };
+
+    // CSolveIKTargetHandle_t
+    //   fields: 2
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class CSolveIKTargetHandle_t {
+    public:
+        SCHEMA_FIELD(CAnimParamHandle                , m_positionHandle                                , 0x0) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_orientationHandle                             , 0x2) // CAnimParamHandle
+    };
+
+    // CNmConstFloatNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmConstFloatNode_CDefinition {
+    public:
+        SCHEMA_FIELD(float                           , m_flValue                                       , 0x10) // float32
+    };
+
+    // CAnimActivity
+    //   fields: 4
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CAnimActivity {
+    public:
+        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
+        SCHEMA_FIELD(std::int32_t                    , m_nActivity                                     , 0x10) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nFlags                                        , 0x14) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nWeight                                       , 0x18) // int32
+    };
+
+    // CUnaryUpdateNode
+    //   fields: 1
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class CUnaryUpdateNode {
+    public:
+        SCHEMA_FIELD(CAnimUpdateNodeRef              , m_pChildNode                                    , 0x60) // CAnimUpdateNodeRef
+    };
+
+    // CPulseEnumlib
+    //   fields: 0
+    //   size: 0x1
+    //   @MPropertyDescription
+    class CPulseEnumlib {
+    public:
+    };
+
+    // PlayerInputMotorInstanceData_t
+    //   fields: 3
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class PlayerInputMotorInstanceData_t {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vInputVectorWS                                , 0x0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vVelocityWS                                   , 0xC) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vAccelerationWS                               , 0x18) // Vector
+    };
+
+    // CNPCPhysicsHull
+    //   fields: 8
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    //   @MFgdHelper
+    //   @MFgdHelper
+    class CNPCPhysicsHull {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_sName                                         , 0x0) // CGlobalSymbol [MPropertyFriendlyName, MPropertySuppressField]
+        SCHEMA_FIELD(NPCPhysicsHullType_t            , m_eType                                         , 0x8) // NPCPhysicsHullType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flCapsuleHeight                               , 0xC) // float32 [MPropertySuppressExpr, MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flCapsuleRadius                               , 0x10) // float32 [MPropertySuppressExpr, MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vCapsuleCenter1                               , 0x14) // Vector [MPropertySuppressExpr, MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vCapsuleCenter2                               , 0x20) // Vector [MPropertySuppressExpr, MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flGroundBoxHeight                             , 0x2C) // float32 [MPropertySuppressExpr, MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flGroundBoxWidth                              , 0x30) // float32 [MPropertySuppressExpr, MPropertyFriendlyName]
+    };
+
+    // CPulseCell_Value_Gradient
+    //   fields: 1
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CPulseCell_Value_Gradient {
+    public:
+        SCHEMA_FIELD(CColorGradient                  , m_Gradient                                      , 0x48) // CColorGradient
+    };
+
+    // CParticleTransformInput
+    //   fields: 8
+    //   size: 0x68
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyCustomEditor
+    //   @MCustomFGDMetadata
+    class CParticleTransformInput {
+    public:
+        SCHEMA_FIELD(ParticleTransformType_t         , m_nType                                         , 0x10) // ParticleTransformType_t
+        SCHEMA_FIELD(CParticleNamedValueRef          , m_NamedValue                                    , 0x18) // CParticleNamedValueRef
+        SCHEMA_FIELD(bool                            , m_bFollowNamedValue                             , 0x58) // bool
+        SCHEMA_FIELD(bool                            , m_bSupportsDisabled                             , 0x59) // bool
+        SCHEMA_FIELD(bool                            , m_bUseOrientation                               , 0x5A) // bool
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x5C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointRangeMax                         , 0x60) // int32
+        SCHEMA_FIELD(float                           , m_flEndCPGrowthTime                             , 0x64) // float32
+    };
+
+    // CRemapValueUpdateItem
+    //   fields: 6
+    //   size: 0x14
+    //   @MGetKV3ClassDefaults
+    class CRemapValueUpdateItem {
+    public:
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParamIn                                      , 0x0) // CAnimParamHandle
+        SCHEMA_FIELD(CAnimParamHandle                , m_hParamOut                                     , 0x2) // CAnimParamHandle
+        SCHEMA_FIELD(float                           , m_flMinInputValue                               , 0x4) // float32
+        SCHEMA_FIELD(float                           , m_flMaxInputValue                               , 0x8) // float32
+        SCHEMA_FIELD(float                           , m_flMinOutputValue                              , 0xC) // float32
+        SCHEMA_FIELD(float                           , m_flMaxOutputValue                              , 0x10) // float32
+    };
+
+    // PulseRuntimeBlackboardReferenceIndex_t
+    //   fields: 1
+    //   size: 0x2
+    class PulseRuntimeBlackboardReferenceIndex_t {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_Value                                         , 0x0) // int16
+    };
+
+    // CPulseCell_Inflow_EventHandler
+    //   fields: 1
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Inflow_EventHandler {
+    public:
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_EventName                                     , 0x80) // PulseSymbol_t
+    };
+
+    // CAnimParameterBase
+    //   fields: 7
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class CAnimParameterBase {
+    public:
+        SCHEMA_FIELD(CGlobalSymbol                   , m_name                                          , 0x18) // CGlobalSymbol [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::CUtlString                    , m_sComment                                      , 0x20) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor, MPropertySortPriority]
+        SCHEMA_FIELD(::CUtlString                    , m_group                                         , 0x28) // CUtlString [MPropertyReadOnly, MPropertySortPriority]
+        SCHEMA_FIELD(AnimParamID                     , m_id                                            , 0x30) // AnimParamID [MPropertyReadOnly, MPropertySortPriority]
+        SCHEMA_FIELD(::CUtlString                    , m_componentName                                 , 0x48) // CUtlString [MPropertySuppressField, MPropertyAutoRebuildOnChange]
+        SCHEMA_FIELD(bool                            , m_bNetworkingRequested                          , 0x68) // bool [MPropertySuppressField]
+        SCHEMA_FIELD(bool                            , m_bIsReferenced                                 , 0x69) // bool [MPropertySuppressField]
+    };
+
+    // RenderSkeletonBone_t
+    //   fields: 5
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class RenderSkeletonBone_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_boneName                                      , 0x0) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_parentName                                    , 0x8) // CUtlString
+        SCHEMA_FIELD(::matrix3x4_t                   , m_invBindPose                                   , 0x10) // matrix3x4_t
+        SCHEMA_FIELD(SkeletonBoneBounds_t            , m_bbox                                          , 0x40) // SkeletonBoneBounds_t
+        SCHEMA_FIELD(float                           , m_flSphereRadius                                , 0x58) // float32
+    };
+
+    // CPulseCell_Outflow_CycleShuffled::InstanceState_t
     //   fields: 2
     //   size: 0x28
     //   @MGetKV3ClassDefaults
-    class CMotionNode {
+    class CPulseCell_Outflow_CycleShuffled_InstanceState_t {
     public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x18) // CUtlString
-        SCHEMA_FIELD(AnimNodeID                      , m_id                                            , 0x20) // AnimNodeID
+        using _Type0 = CUtlVectorFixedGrowable<uint8,8>;
+        SCHEMA_FIELD(_Type0                          , m_Shuffle                                       , 0x0) // CUtlVectorFixedGrowable<uint8,8>
+        SCHEMA_FIELD(std::int32_t                    , m_nNextShuffle                                  , 0x20) // int32
     };
 
-    // CModelConfigElement_SetRenderColor
+    // CPulseCell_CursorQueue
     //   fields: 1
-    //   size: 0x50
+    //   size: 0x130
     //   @MGetKV3ClassDefaults
-    class CModelConfigElement_SetRenderColor {
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    //   @MPulseEditorHeaderIcon
+    class CPulseCell_CursorQueue {
     public:
-        SCHEMA_FIELD(::Color                         , m_Color                                         , 0x48) // Color
+        SCHEMA_FIELD(std::int32_t                    , m_nCursorsAllowedToRunParallel                  , 0x128) // int32 [MPropertyDescription]
     };
 
-    // CNmTransitionNode::CDefinition
-    //   fields: 11
-    //   size: 0x30
+    // CPulse_CallInfo
+    //   fields: 6
+    //   size: 0x58
     //   @MGetKV3ClassDefaults
-    class CNmTransitionNode_CDefinition {
+    class CPulse_CallInfo {
     public:
-        SCHEMA_FIELD(std::int16_t                    , m_nTargetStateNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nDurationOverrideNodeIdx                      , 0x12) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_timeOffsetOverrideNodeIdx                     , 0x14) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_startBoneMaskNodeIdx                          , 0x16) // int16
-        SCHEMA_FIELD(float                           , m_flDuration                                    , 0x18) // float32
-        SCHEMA_FIELD(NmPercent_t                     , m_boneMaskBlendInTimePercentage                 , 0x1C) // NmPercent_t
-        SCHEMA_FIELD(float                           , m_flTimeOffset                                  , 0x20) // float32
-        SCHEMA_FIELD(CNmBitFlags                     , m_transitionOptions                             , 0x24) // CNmBitFlags
-        SCHEMA_FIELD(std::int16_t                    , m_targetSyncIDNodeIdx                           , 0x28) // int16
-        SCHEMA_FIELD(NmEasingOperation_t             , m_blendWeightEasing                             , 0x2A) // NmEasingOperation_t
-        SCHEMA_FIELD(NmRootMotionBlendMode_t         , m_rootMotionBlend                               , 0x2B) // NmRootMotionBlendMode_t
+        SCHEMA_FIELD(::PulseSymbol_t                 , m_PortName                                      , 0x0) // PulseSymbol_t
+        SCHEMA_FIELD(::PulseDocNodeID_t              , m_nEditorNodeID                                 , 0x10) // PulseDocNodeID_t
+        SCHEMA_FIELD(::PulseRegisterMap_t            , m_RegisterMap                                   , 0x18) // PulseRegisterMap_t
+        SCHEMA_FIELD(::PulseDocNodeID_t              , m_CallMethodID                                  , 0x48) // PulseDocNodeID_t
+        SCHEMA_FIELD(::PulseRuntimeChunkIndex_t      , m_nSrcChunk                                     , 0x4C) // PulseRuntimeChunkIndex_t
+        SCHEMA_FIELD(std::int32_t                    , m_nSrcInstruction                               , 0x50) // int32
     };
 
-    // PulseRuntimeConstantIndex_t
+    // CChoiceInstanceData
+    //   fields: 4
+    //   size: 0x34
+    //   @MGetKV3ClassDefaults
+    class CChoiceInstanceData {
+    public:
+        SCHEMA_FIELD(CAnimNetVar<int32>              , m_currentChoice                                 , 0x10) // CAnimNetVar<int32>
+        SCHEMA_FIELD(std::int32_t                    , m_previousChoice                                , 0x1C) // int32
+        SCHEMA_FIELD(CAnimNetVar<float32>            , m_flClipStartTime                               , 0x20) // CAnimNetVar<float32>
+        SCHEMA_FIELD(float                           , m_choicePreviousCycle                           , 0x2C) // float32
+    };
+
+    // CFootPositionMetricEvaluator
+    //   fields: 2
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class CFootPositionMetricEvaluator {
+    public:
+        SCHEMA_FIELD(CUtlVector<int32>               , m_footIndices                                   , 0x50) // CUtlVector<int32>
+        SCHEMA_FIELD(bool                            , m_bIgnoreSlope                                  , 0x68) // bool
+    };
+
+    // CFootFallAnimTag
     //   fields: 1
-    //   size: 0x2
-    class PulseRuntimeConstantIndex_t {
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CFootFallAnimTag {
     public:
-        SCHEMA_FIELD(std::int16_t                    , m_Value                                         , 0x0) // int16
+        SCHEMA_FIELD(FootFallTagFoot_t               , m_foot                                          , 0x58) // FootFallTagFoot_t [MPropertyFriendlyName]
+    };
+
+    // CInputStreamUpdateNode
+    //   fields: 0
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class CInputStreamUpdateNode {
+    public:
+    };
+
+    // CRenderGroom
+    //   fields: 14
+    //   size: 0xB0
+    //   @MGetKV3ClassDefaults
+    class CRenderGroom {
+    public:
+        SCHEMA_FIELD(CUtlVector<RenderHairStrandInfo_t>, m_hairs                                         , 0x0) // CUtlVector<RenderHairStrandInfo_t>
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_hairPositionOffsets                           , 0x18) // CUtlVector<uint32>
+        SCHEMA_FIELD(CStrongHandleCopyable<InfoForResourceTypeIMaterial2>, m_hSimParamsMat                                 , 0x40) // CStrongHandleCopyable<InfoForResourceTypeIMaterial2>
+        SCHEMA_FIELD(CUtlVector<int32>               , m_strandSegmentCountHist                        , 0x48) // CUtlVector<int32>
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxSegmentsPerHairStrand                     , 0x78) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nGuideHairCount                               , 0x7C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nHairCount                                    , 0x80) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nTotalVertexCount                             , 0x84) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nTotalSegmentCount                            , 0x88) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nGroomGroupID                                 , 0x8C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nAttachBoneIdx                                , 0x90) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nAttachMeshIdx                                , 0x94) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nAttachMeshDrawCallIdx                        , 0x98) // int32
+        SCHEMA_FIELD(bool                            , m_bEnableSimulation                             , 0xAC) // bool
+    };
+
+    // CPhysSurfaceProperties
+    //   fields: 9
+    //   size: 0xC8
+    //   @MGetKV3ClassDefaults
+    class CPhysSurfaceProperties {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(std::uint32_t                   , m_nameHash                                      , 0x8) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_baseNameHash                                  , 0xC) // uint32
+        SCHEMA_FIELD(bool                            , m_bHidden                                       , 0x18) // bool [MKV3TransferName]
+        SCHEMA_FIELD(::CUtlString                    , m_description                                   , 0x20) // CUtlString [MKV3TransferName]
+        SCHEMA_FIELD(CPhysSurfacePropertiesPhysics   , m_physics                                       , 0x28) // CPhysSurfacePropertiesPhysics [MKV3TransferName]
+        SCHEMA_FIELD(CPhysSurfacePropertiesVehicle   , m_vehicleParams                                 , 0x40) // CPhysSurfacePropertiesVehicle [MKV3TransferName]
+        SCHEMA_FIELD(CPhysSurfacePropertiesSoundNames, m_audioSounds                                   , 0x48) // CPhysSurfacePropertiesSoundNames [MKV3TransferName]
+        SCHEMA_FIELD(CPhysSurfacePropertiesAudio     , m_audioParams                                   , 0xA8) // CPhysSurfacePropertiesAudio [MKV3TransferName]
+    };
+
+    // CAnimGraphModelBinding
+    //   fields: 2
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class CAnimGraphModelBinding {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_modelName                                     , 0x8) // CUtlString
+        SCHEMA_FIELD(CSmartPtr<CAnimUpdateSharedData>, m_pSharedData                                   , 0x10) // CSmartPtr<CAnimUpdateSharedData>
+    };
+
+    // CNmLayerBlendNode::LayerDefinition_t
+    //   fields: 8
+    //   size: 0xC
+    //   @MGetKV3ClassDefaults
+    class CNmLayerBlendNode_LayerDefinition_t {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputNodeIdx                                 , 0x0) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nWeightValueNodeIdx                           , 0x2) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nBoneMaskValueNodeIdx                         , 0x4) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nRootMotionWeightValueNodeIdx                 , 0x6) // int16
+        SCHEMA_FIELD(bool                            , m_bIsSynchronized                               , 0x8) // bool
+        SCHEMA_FIELD(bool                            , m_bIgnoreEvents                                 , 0x9) // bool
+        SCHEMA_FIELD(bool                            , m_bIsStateMachineLayer                          , 0xA) // bool
+        SCHEMA_FIELD(NmPoseBlendMode_t               , m_blendMode                                     , 0xB) // NmPoseBlendMode_t
+    };
+
+    // CMotionDataSet
+    //   fields: 2
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CMotionDataSet {
+    public:
+        SCHEMA_FIELD(CUtlVector<CMotionGraphGroup>   , m_groups                                        , 0x0) // CUtlVector<CMotionGraphGroup>
+        SCHEMA_FIELD(std::int32_t                    , m_nDimensionCount                               , 0x18) // int32
+    };
+
+    // CParticleRemapFloatInput
+    //   fields: 0
+    //   size: 0x170
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyCustomEditor
+    class CParticleRemapFloatInput {
+    public:
+    };
+
+    // CFootLockUpdateNode
+    //   fields: 20
+    //   size: 0x158
+    //   @MGetKV3ClassDefaults
+    class CFootLockUpdateNode {
+    public:
+        SCHEMA_FIELD(FootLockPoseOpFixedSettings     , m_opFixedSettings                               , 0x70) // FootLockPoseOpFixedSettings
+        SCHEMA_FIELD(CUtlVector<FootFixedSettings>   , m_footSettings                                  , 0xE0) // CUtlVector<FootFixedSettings>
+        SCHEMA_FIELD(CAnimInputDamping               , m_hipShiftDamping                               , 0xF8) // CAnimInputDamping
+        SCHEMA_FIELD(CAnimInputDamping               , m_rootHeightDamping                             , 0x110) // CAnimInputDamping
+        SCHEMA_FIELD(float                           , m_flStrideCurveScale                            , 0x128) // float32
+        SCHEMA_FIELD(float                           , m_flStrideCurveLimitScale                       , 0x12C) // float32
+        SCHEMA_FIELD(float                           , m_flStepHeightIncreaseScale                     , 0x130) // float32
+        SCHEMA_FIELD(float                           , m_flStepHeightDecreaseScale                     , 0x134) // float32
+        SCHEMA_FIELD(float                           , m_flHipShiftScale                               , 0x138) // float32
+        SCHEMA_FIELD(float                           , m_flBlendTime                                   , 0x13C) // float32
+        SCHEMA_FIELD(float                           , m_flMaxRootHeightOffset                         , 0x140) // float32
+        SCHEMA_FIELD(float                           , m_flMinRootHeightOffset                         , 0x144) // float32
+        SCHEMA_FIELD(float                           , m_flTiltPlanePitchSpringStrength                , 0x148) // float32
+        SCHEMA_FIELD(float                           , m_flTiltPlaneRollSpringStrength                 , 0x14C) // float32
+        SCHEMA_FIELD(bool                            , m_bApplyFootRotationLimits                      , 0x150) // bool
+        SCHEMA_FIELD(bool                            , m_bApplyHipShift                                , 0x151) // bool
+        SCHEMA_FIELD(bool                            , m_bModulateStepHeight                           , 0x152) // bool
+        SCHEMA_FIELD(bool                            , m_bResetChild                                   , 0x153) // bool
+        SCHEMA_FIELD(bool                            , m_bEnableVerticalCurvedPaths                    , 0x154) // bool
+        SCHEMA_FIELD(bool                            , m_bEnableRootHeightDamping                      , 0x155) // bool
+    };
+
+    // CPathHelperUpdateNode
+    //   fields: 2
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class CPathHelperUpdateNode {
+    public:
+        SCHEMA_FIELD(float                           , m_flStoppingRadius                              , 0x70) // float32
+        SCHEMA_FIELD(float                           , m_flStoppingSpeedScale                          , 0x74) // float32
+    };
+
+    // CNmIsTargetSetNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmIsTargetSetNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+    };
+
+    // CNmNotNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmNotNode_CDefinition {
+    public:
+        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
+    };
+
+    // CPulseCell_Inflow_Yield
+    //   fields: 1
+    //   size: 0x120
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Inflow_Yield {
+    public:
+        SCHEMA_FIELD(CPulse_ResumePoint              , m_UnyieldResume                                 , 0xD8) // CPulse_ResumePoint
+    };
+
+    // CRenderMesh
+    //   fields: 7
+    //   size: 0x228
+    //   @MGetKV3ClassDefaults
+    class CRenderMesh {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<CSceneObjectData,1>;
+        SCHEMA_FIELD(_Type0                          , m_sceneObjects                                  , 0x10) // CUtlLeanVectorFixedGrowable<CSceneObjectData,1>
+        SCHEMA_FIELD(CUtlLeanVector<CBaseConstraint*>, m_constraints                                   , 0xD0) // CUtlLeanVector<CBaseConstraint*>
+        SCHEMA_FIELD(CRenderSkeleton                 , m_skeleton                                      , 0xE0) // CRenderSkeleton
+        SCHEMA_FIELD(bool                            , m_bUseUV2ForCharting                            , 0x1EC) // bool
+        SCHEMA_FIELD(bool                            , m_bEmbeddedMapMesh                              , 0x1ED) // bool
+        SCHEMA_FIELD(DynamicMeshDeformParams_t       , m_meshDeformParams                              , 0x210) // DynamicMeshDeformParams_t
+        SCHEMA_FIELD(CRenderGroom*                   , m_pGroomData                                    , 0x220) // CRenderGroom*
+    };
+
+    // CNmExternalPoseNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmExternalPoseNode_CDefinition {
+    public:
+        SCHEMA_FIELD(bool                            , m_bShouldSampleRootMotion                       , 0x10) // bool
     };
 
     // AimMatrixOpFixedSettings_t
@@ -9620,810 +10313,6 @@ namespace animationsystem {
         SCHEMA_FIELD(CBlendCurve                     , m_biasAndClampBlendCurve                        , 0xE0) // CBlendCurve
     };
 
-    // CDemoSettingsComponentUpdater
-    //   fields: 1
-    //   size: 0xB0
-    //   @MGetKV3ClassDefaults
-    class CDemoSettingsComponentUpdater {
-    public:
-        SCHEMA_FIELD(CAnimDemoCaptureSettings        , m_settings                                      , 0x30) // CAnimDemoCaptureSettings
-    };
-
-    // CNmTwoBoneIKNode::CDefinition
-    //   fields: 7
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CNmTwoBoneIKNode_CDefinition {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_effectorBoneID                                , 0x18) // CGlobalSymbol
-        SCHEMA_FIELD(std::int16_t                    , m_nEffectorTargetNodeIdx                        , 0x20) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nEnabledNodeIdx                               , 0x22) // int16
-        SCHEMA_FIELD(float                           , m_flBlendTimeSeconds                            , 0x24) // float32
-        SCHEMA_FIELD(NmIKBlendMode_t                 , m_blendMode                                     , 0x28) // NmIKBlendMode_t
-        SCHEMA_FIELD(bool                            , m_bIsTargetInWorldSpace                         , 0x29) // bool
-        SCHEMA_FIELD(float                           , m_flChainRotationWeight                         , 0x2C) // float32
-    };
-
-    // CPulseCell_Inflow_EntOutputHandler
-    //   fields: 3
-    //   size: 0xB8
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Inflow_EntOutputHandler {
-    public:
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_SourceEntity                                  , 0x80) // PulseSymbol_t
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_SourceOutput                                  , 0x90) // PulseSymbol_t
-        SCHEMA_FIELD(CPulseValueFullType             , m_ExpectedParamType                             , 0xA0) // CPulseValueFullType
-    };
-
-    // CAnimationGraphVisualizerAxis
-    //   fields: 2
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class CAnimationGraphVisualizerAxis {
-    public:
-        SCHEMA_FIELD(CTransform                      , m_xWsTransform                                  , 0x40) // CTransform
-        SCHEMA_FIELD(float                           , m_flAxisSize                                    , 0x60) // float32
-    };
-
-    // CNmFollowBoneNode::CDefinition
-    //   fields: 4
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CNmFollowBoneNode_CDefinition {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_bone                                          , 0x18) // CGlobalSymbol
-        SCHEMA_FIELD(CGlobalSymbol                   , m_followTargetBone                              , 0x20) // CGlobalSymbol
-        SCHEMA_FIELD(std::int16_t                    , m_nEnabledNodeIdx                               , 0x28) // int16
-        SCHEMA_FIELD(NmFollowBoneMode_t              , m_mode                                          , 0x2A) // NmFollowBoneMode_t
-    };
-
-    // CSeqIKLock
-    //   fields: 4
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class CSeqIKLock {
-    public:
-        SCHEMA_FIELD(float                           , m_flPosWeight                                   , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flAngleWeight                                 , 0x4) // float32
-        SCHEMA_FIELD(std::int16_t                    , m_nLocalBone                                    , 0x8) // int16
-        SCHEMA_FIELD(bool                            , m_bBonesOrientedAlongPositiveX                  , 0xA) // bool
-    };
-
-    // CPulseCell_Step_DebugLog
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Step_DebugLog {
-    public:
-    };
-
-    // CSeqSeqDescFlag
-    //   fields: 11
-    //   size: 0xB
-    //   @MGetKV3ClassDefaults
-    class CSeqSeqDescFlag {
-    public:
-        SCHEMA_FIELD(bool                            , m_bLooping                                      , 0x0) // bool
-        SCHEMA_FIELD(bool                            , m_bSnap                                         , 0x1) // bool
-        SCHEMA_FIELD(bool                            , m_bAutoplay                                     , 0x2) // bool
-        SCHEMA_FIELD(bool                            , m_bPost                                         , 0x3) // bool
-        SCHEMA_FIELD(bool                            , m_bHidden                                       , 0x4) // bool
-        SCHEMA_FIELD(bool                            , m_bMulti                                        , 0x5) // bool
-        SCHEMA_FIELD(bool                            , m_bLegacyDelta                                  , 0x6) // bool
-        SCHEMA_FIELD(bool                            , m_bLegacyWorldspace                             , 0x7) // bool
-        SCHEMA_FIELD(bool                            , m_bLegacyCyclepose                              , 0x8) // bool
-        SCHEMA_FIELD(bool                            , m_bLegacyRealtime                               , 0x9) // bool
-        SCHEMA_FIELD(bool                            , m_bModelDoc                                     , 0xA) // bool
-    };
-
-    // CDampedPathAnimMotorUpdater
-    //   fields: 7
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CDampedPathAnimMotorUpdater {
-    public:
-        SCHEMA_FIELD(float                           , m_flAnticipationTime                            , 0x2C) // float32
-        SCHEMA_FIELD(float                           , m_flMinSpeedScale                               , 0x30) // float32
-        SCHEMA_FIELD(CAnimParamHandle                , m_hAnticipationPosParam                         , 0x34) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hAnticipationHeadingParam                     , 0x36) // CAnimParamHandle
-        SCHEMA_FIELD(float                           , m_flSpringConstant                              , 0x38) // float32
-        SCHEMA_FIELD(float                           , m_flMinSpringTension                            , 0x3C) // float32
-        SCHEMA_FIELD(float                           , m_flMaxSpringTension                            , 0x40) // float32
-    };
-
-    // CSeqS1SeqDesc
-    //   fields: 11
-    //   size: 0x120
-    //   @MGetKV3ClassDefaults
-    class CSeqS1SeqDesc {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_sName                                         , 0x0) // CBufferString
-        SCHEMA_FIELD(CSeqSeqDescFlag                 , m_flags                                         , 0x10) // CSeqSeqDescFlag
-        SCHEMA_FIELD(CSeqMultiFetch                  , m_fetch                                         , 0x20) // CSeqMultiFetch
-        SCHEMA_FIELD(std::int32_t                    , m_nLocalWeightlist                              , 0x90) // int32
-        SCHEMA_FIELD(CUtlVector<CSeqAutoLayer>       , m_autoLayerArray                                , 0x98) // CUtlVector<CSeqAutoLayer>
-        SCHEMA_FIELD(CUtlVector<CSeqIKLock>          , m_IKLockArray                                   , 0xB0) // CUtlVector<CSeqIKLock>
-        SCHEMA_FIELD(CSeqTransition                  , m_transition                                    , 0xC8) // CSeqTransition
-        SCHEMA_FIELD(KeyValues3                      , m_SequenceKeys                                  , 0xD0) // KeyValues3
-        SCHEMA_FIELD(CBufferString                   , m_LegacyKeyValueText                            , 0xE0) // CBufferString [MKV3TransferName]
-        SCHEMA_FIELD(CUtlVector<CAnimActivity>       , m_activityArray                                 , 0xF0) // CUtlVector<CAnimActivity>
-        SCHEMA_FIELD(CUtlVector<CFootMotion>         , m_footMotion                                    , 0x108) // CUtlVector<CFootMotion>
-    };
-
-    // CNmFootIKNode::CDefinition
-    //   fields: 8
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class CNmFootIKNode_CDefinition {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_leftEffectorBoneID                            , 0x18) // CGlobalSymbol
-        SCHEMA_FIELD(CGlobalSymbol                   , m_rightEffectorBoneID                           , 0x20) // CGlobalSymbol
-        SCHEMA_FIELD(std::int16_t                    , m_nLeftTargetNodeIdx                            , 0x28) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nRightTargetNodeIdx                           , 0x2A) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nEnabledNodeIdx                               , 0x2C) // int16
-        SCHEMA_FIELD(float                           , m_flBlendTimeSeconds                            , 0x30) // float32
-        SCHEMA_FIELD(NmIKBlendMode_t                 , m_blendMode                                     , 0x34) // NmIKBlendMode_t
-        SCHEMA_FIELD(bool                            , m_bIsTargetInWorldSpace                         , 0x35) // bool
-    };
-
-    // CVectorQuantizer
-    //   fields: 3
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CVectorQuantizer {
-    public:
-        SCHEMA_FIELD(CUtlVector<float32>             , m_centroidVectors                               , 0x0) // CUtlVector<float32>
-        SCHEMA_FIELD(std::int32_t                    , m_nCentroids                                    , 0x18) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nDimensions                                   , 0x1C) // int32
-    };
-
-    // CPulseExecCursor
-    //   fields: 0
-    //   size: 0xD8
-    class CPulseExecCursor {
-    public:
-    };
-
-    // CNmFloatAngleMathNode::CDefinition
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmFloatAngleMathNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x10) // int16
-        SCHEMA_FIELD(CNmFloatAngleMathNode_Operation_t, m_operation                                     , 0x12) // CNmFloatAngleMathNode::Operation_t
-    };
-
-    // CPulseCell_Inflow_Method
-    //   fields: 5
-    //   size: 0xC8
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Inflow_Method {
-    public:
-        SCHEMA_FIELD(::PulseSymbol_t                 , m_MethodName                                    , 0x80) // PulseSymbol_t
-        SCHEMA_FIELD(::CUtlString                    , m_Description                                   , 0x90) // CUtlString
-        SCHEMA_FIELD(bool                            , m_bIsPublic                                     , 0x98) // bool
-        SCHEMA_FIELD(CPulseValueFullType             , m_ReturnType                                    , 0xA0) // CPulseValueFullType
-        SCHEMA_FIELD(CUtlLeanVector<CPulseRuntimeMethodArg>, m_Args                                          , 0xB8) // CUtlLeanVector<CPulseRuntimeMethodArg>
-    };
-
-    // CConstraintTarget
-    //   fields: 6
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CConstraintTarget {
-    public:
-        SCHEMA_FIELD(::Quaternion                    , m_qOffset                                       , 0x20) // Quaternion
-        SCHEMA_FIELD(::Vector                        , m_vOffset                                       , 0x30) // Vector
-        SCHEMA_FIELD(std::uint32_t                   , m_nBoneHash                                     , 0x3C) // uint32
-        SCHEMA_FIELD(::CUtlString                    , m_sName                                         , 0x40) // CUtlString
-        SCHEMA_FIELD(float                           , m_flWeight                                      , 0x48) // float32
-        SCHEMA_FIELD(bool                            , m_bIsAttachment                                 , 0x59) // bool
-    };
-
-    // PulseRuntimeCallInfoIndex_t
-    //   fields: 1
-    //   size: 0x4
-    class PulseRuntimeCallInfoIndex_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_Value                                         , 0x0) // int32
-    };
-
-    // CFollowTargetUpdateNode
-    //   fields: 3
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CFollowTargetUpdateNode {
-    public:
-        SCHEMA_FIELD(FollowTargetOpFixedSettings_t   , m_opFixedData                                   , 0x70) // FollowTargetOpFixedSettings_t
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterPosition                            , 0x88) // CAnimParamHandle
-        SCHEMA_FIELD(CAnimParamHandle                , m_hParameterOrientation                         , 0x8A) // CAnimParamHandle
-    };
-
-    // CNmGraphEventConditionNode::Condition_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmGraphEventConditionNode_Condition_t {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_eventID                                       , 0x0) // CGlobalSymbol
-        SCHEMA_FIELD(NmGraphEventTypeCondition_t     , m_eventTypeCondition                            , 0x8) // NmGraphEventTypeCondition_t
-    };
-
-    // CBasePulseGraphInstance
-    //   fields: 0
-    //   size: 0x110
-    class CBasePulseGraphInstance {
-    public:
-    };
-
-    // RenderHairStrandInfo_t
-    //   fields: 7
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class RenderHairStrandInfo_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nGuideHairIndices_nSurfaceTriIndex            , 0x0) // uint32[2]
-        SCHEMA_FIELD(std::uint16_t                   , m_vGuideBary_vBaseBary                          , 0x8) // uint16[4]
-        SCHEMA_FIELD(std::uint16_t                   , m_vRootOffset_flLengthScale                     , 0x10) // uint16[4]
-        SCHEMA_FIELD(std::uint16_t                   , m_nPackedBaseUv                                 , 0x18) // uint16[2]
-        SCHEMA_FIELD(std::uint32_t                   , m_nPackedSurfaceNormalOs                        , 0x1C) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nPackedSurfaceTangentOs                       , 0x20) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nDataOffset_Segments                          , 0x24) // uint32
-    };
-
-    // CAnimMorphDifference
-    //   fields: 1
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CAnimMorphDifference {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_name                                          , 0x0) // CBufferString
-    };
-
-    // CNmConstBoolNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmConstBoolNode_CDefinition {
-    public:
-        SCHEMA_FIELD(bool                            , m_bValue                                        , 0x10) // bool
-    };
-
-    // CNmPoseNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    class CNmPoseNode_CDefinition {
-    public:
-    };
-
-    // IKTargetSettings_t
-    //   fields: 5
-    //   size: 0x28
-    class IKTargetSettings_t {
-    public:
-        SCHEMA_FIELD(IKTargetSource                  , m_TargetSource                                  , 0x0) // IKTargetSource [MPropertyFriendlyName, MPropertyAutoRebuildOnChange]
-        SCHEMA_FIELD(IKBoneNameAndIndex_t            , m_Bone                                          , 0x8) // IKBoneNameAndIndex_t [MPropertyFriendlyName, MPropertyAttrStateCallback]
-        SCHEMA_FIELD(AnimParamID                     , m_AnimgraphParameterNamePosition                , 0x18) // AnimParamID [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertyAttrStateCallback]
-        SCHEMA_FIELD(AnimParamID                     , m_AnimgraphParameterNameOrientation             , 0x1C) // AnimParamID [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertyAttrStateCallback]
-        SCHEMA_FIELD(IKTargetCoordinateSystem        , m_TargetCoordSystem                             , 0x20) // IKTargetCoordinateSystem [MPropertyFriendlyName, MPropertyAttrStateCallback]
-    };
-
-    // CMotionGraphGroup
-    //   fields: 5
-    //   size: 0x108
-    //   @MGetKV3ClassDefaults
-    class CMotionGraphGroup {
-    public:
-        SCHEMA_FIELD(CMotionSearchDB                 , m_searchDB                                      , 0x0) // CMotionSearchDB
-        SCHEMA_FIELD(CUtlVector<CSmartPtr<CMotionGraph>>, m_motionGraphs                                  , 0xB8) // CUtlVector<CSmartPtr<CMotionGraph>>
-        SCHEMA_FIELD(CUtlVector<CMotionGraphConfig>  , m_motionGraphConfigs                            , 0xD0) // CUtlVector<CMotionGraphConfig>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_sampleToConfig                                , 0xE8) // CUtlVector<int32>
-        SCHEMA_FIELD(AnimScriptHandle                , m_hIsActiveScript                               , 0x100) // AnimScriptHandle
-    };
-
-    // CPulseCell_Value_Gradient
-    //   fields: 1
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CPulseCell_Value_Gradient {
-    public:
-        SCHEMA_FIELD(CColorGradient                  , m_Gradient                                      , 0x48) // CColorGradient
-    };
-
-    // CParticleCollectionBindingInstance
-    //   fields: 0
-    //   size: 0x130
-    class CParticleCollectionBindingInstance {
-    public:
-    };
-
-    // CModelConfigElement_SetBodygroupOnAttachedModels
-    //   fields: 2
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CModelConfigElement_SetBodygroupOnAttachedModels {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_GroupName                                     , 0x48) // CUtlString
-        SCHEMA_FIELD(std::int32_t                    , m_nChoice                                       , 0x50) // int32
-    };
-
-    // CAttachment
-    //   fields: 8
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CAttachment {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_influenceNames                                , 0x8) // CUtlString[3]
-        SCHEMA_FIELD(::Quaternion                    , m_vInfluenceRotations                           , 0x20) // Quaternion[3]
-        SCHEMA_FIELD(::Vector                        , m_vInfluenceOffsets                             , 0x50) // Vector[3]
-        SCHEMA_FIELD(float                           , m_influenceWeights                              , 0x74) // float32[3]
-        SCHEMA_FIELD(bool                            , m_bInfluenceRootTransform                       , 0x80) // bool[3]
-        SCHEMA_FIELD(std::uint8_t                    , m_nInfluences                                   , 0x83) // uint8
-        SCHEMA_FIELD(bool                            , m_bIgnoreRotation                               , 0x84) // bool
-    };
-
-    // CRagdollComponentUpdater
-    //   fields: 10
-    //   size: 0xD8
-    //   @MGetKV3ClassDefaults
-    class CRagdollComponentUpdater {
-    public:
-        SCHEMA_FIELD(CUtlVector<CAnimNodePath>       , m_ragdollNodePaths                              , 0x30) // CUtlVector<CAnimNodePath>
-        SCHEMA_FIELD(CUtlVector<CAnimNodePath>       , m_followAttachmentNodePaths                     , 0x48) // CUtlVector<CAnimNodePath>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_boneIndices                                   , 0x60) // CUtlVector<int32>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_boneNames                                     , 0x78) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<WeightList>          , m_weightLists                                   , 0x90) // CUtlVector<WeightList>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_boneToWeightIndices                           , 0xA8) // CUtlVector<int32>
-        SCHEMA_FIELD(float                           , m_flSpringFrequencyMin                          , 0xC0) // float32
-        SCHEMA_FIELD(float                           , m_flSpringFrequencyMax                          , 0xC4) // float32
-        SCHEMA_FIELD(float                           , m_flMaxStretch                                  , 0xC8) // float32
-        SCHEMA_FIELD(bool                            , m_bSolidCollisionAtZeroWeight                   , 0xCC) // bool
-    };
-
-    // CNmFollowBoneTask
-    //   fields: 0
-    //   size: 0x90
-    class CNmFollowBoneTask {
-    public:
-    };
-
-    // CNmFloatRemapNode::RemapRange_t
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CNmFloatRemapNode_RemapRange_t {
-    public:
-        SCHEMA_FIELD(float                           , m_flBegin                                       , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flEnd                                         , 0x4) // float32
-    };
-
-    // LookData
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class LookData {
-    public:
-        SCHEMA_FIELD(CAnimNetVar<Vector>             , m_vLookTarget                                   , 0x0) // CAnimNetVar<Vector>
-    };
-
-    // CLeafUpdateNode
-    //   fields: 0
-    //   size: 0x58
-    //   @MGetKV3ClassDefaults
-    class CLeafUpdateNode {
-    public:
-    };
-
-    // CMotionNodeBlend1D
-    //   fields: 2
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CMotionNodeBlend1D {
-    public:
-        SCHEMA_FIELD(CUtlVector<MotionBlendItem>     , m_blendItems                                    , 0x28) // CUtlVector<MotionBlendItem>
-        SCHEMA_FIELD(std::int32_t                    , m_nParamIndex                                   , 0x40) // int32
-    };
-
-    // FootFixedSettings
-    //   fields: 10
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class FootFixedSettings {
-    public:
-        SCHEMA_FIELD(TraceSettings_t                 , m_traceSettings                                 , 0x0) // TraceSettings_t
-        SCHEMA_FIELD(VectorAligned                   , m_vFootBaseBindPosePositionMS                   , 0x10) // VectorAligned
-        SCHEMA_FIELD(float                           , m_flFootBaseLength                              , 0x20) // float32
-        SCHEMA_FIELD(float                           , m_flMaxRotationLeft                             , 0x24) // float32
-        SCHEMA_FIELD(float                           , m_flMaxRotationRight                            , 0x28) // float32
-        SCHEMA_FIELD(std::int32_t                    , m_footstepLandedTagIndex                        , 0x2C) // int32
-        SCHEMA_FIELD(bool                            , m_bEnableTracing                                , 0x30) // bool
-        SCHEMA_FIELD(float                           , m_flTraceAngleBlend                             , 0x34) // float32
-        SCHEMA_FIELD(std::int32_t                    , m_nDisableTagIndex                              , 0x38) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nFootIndex                                    , 0x3C) // int32
-    };
-
-    // CNmExternalPoseNode::CDefinition
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmExternalPoseNode_CDefinition {
-    public:
-        SCHEMA_FIELD(bool                            , m_bShouldSampleRootMotion                       , 0x10) // bool
-    };
-
-    // CPulseCell_Step_PublicOutput
-    //   fields: 1
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Step_PublicOutput {
-    public:
-        SCHEMA_FIELD(PulseRuntimeOutputIndex_t       , m_OutputIndex                                   , 0x48) // PulseRuntimeOutputIndex_t
-    };
-
-    // IKBoneNameAndIndex_t
-    //   fields: 1
-    //   size: 0x10
-    class IKBoneNameAndIndex_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString [MPropertyAttributeChoiceName]
-    };
-
-    // IKDemoCaptureSettings_t
-    //   fields: 5
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class IKDemoCaptureSettings_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_parentBoneName                                , 0x0) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(IKChannelMode                   , m_eMode                                         , 0x8) // IKChannelMode [MPropertyFriendlyName, MPropertyAutoRebuildOnChange]
-        SCHEMA_FIELD(::CUtlString                    , m_ikChainName                                   , 0x10) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertyAttrStateCallback]
-        SCHEMA_FIELD(::CUtlString                    , m_oneBoneStart                                  , 0x18) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertyAttrStateCallback]
-        SCHEMA_FIELD(::CUtlString                    , m_oneBoneEnd                                    , 0x20) // CUtlString [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertyAttrStateCallback]
-    };
-
-    // CNmSkeleton
-    //   fields: 10
-    //   size: 0xD0
-    //   @MGetKV3ClassDefaults
-    class CNmSkeleton {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_ID                                            , 0x0) // CGlobalSymbol
-        SCHEMA_FIELD(CUtlLeanVector<CGlobalSymbol>   , m_boneIDs                                       , 0x8) // CUtlLeanVector<CGlobalSymbol>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_parentIndices                                 , 0x18) // CUtlVector<int32>
-        SCHEMA_FIELD(CUtlVector<CTransform>          , m_parentSpaceReferencePose                      , 0x30) // CUtlVector<CTransform>
-        SCHEMA_FIELD(CUtlVector<CTransform>          , m_modelSpaceReferencePose                       , 0x48) // CUtlVector<CTransform>
-        SCHEMA_FIELD(std::int32_t                    , m_numBonesToSampleAtLowLOD                      , 0x60) // int32
-        SCHEMA_FIELD(CUtlLeanVector<NmBoneMaskSetDefinition_t>, m_maskDefinitions                               , 0x88) // CUtlLeanVector<NmBoneMaskSetDefinition_t>
-        SCHEMA_FIELD(CUtlLeanVector<CNmSkeleton_SecondarySkeleton_t>, m_secondarySkeletons                            , 0xA8) // CUtlLeanVector<CNmSkeleton::SecondarySkeleton_t>
-        SCHEMA_FIELD(CUtlLeanVector<CNmFloatChannelSet_t>, m_floatChannelSets                              , 0xB8) // CUtlLeanVector<CNmFloatChannelSet_t>
-        SCHEMA_FIELD(bool                            , m_bIsPropSkeleton                               , 0xC8) // bool
-    };
-
-    // CPulseCell_BaseRequirement
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_BaseRequirement {
-    public:
-    };
-
-    // CNmStateMachineNode::StateDefinition_t
-    //   fields: 3
-    //   size: 0x38
-    //   @MGetKV3ClassDefaults
-    class CNmStateMachineNode_StateDefinition_t {
-    public:
-        using _Type0 = CUtlLeanVectorFixedGrowable<CNmStateMachineNode_TransitionDefinition_t,5>;
-        SCHEMA_FIELD(std::int16_t                    , m_nStateNodeIdx                                 , 0x0) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nEntryConditionNodeIdx                        , 0x2) // int16
-        SCHEMA_FIELD(_Type0                          , m_transitionDefinitions                         , 0x8) // CUtlLeanVectorFixedGrowable<CNmStateMachineNode::TransitionDefinition_t,5>
-    };
-
-    // SkeletonAnimCapture_t::Bone_t
-    //   fields: 3
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class SkeletonAnimCapture_t_Bone_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_Name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(CTransform                      , m_BindPose                                      , 0x10) // CTransform
-        SCHEMA_FIELD(std::int32_t                    , m_nParent                                       , 0x30) // int32
-    };
-
-    // MotionDBIndex
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class MotionDBIndex {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nIndex                                        , 0x0) // uint32
-    };
-
-    // CJiggleBoneUpdateNode
-    //   fields: 1
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CJiggleBoneUpdateNode {
-    public:
-        SCHEMA_FIELD(JiggleBoneSettingsList_t        , m_opFixedData                                   , 0x70) // JiggleBoneSettingsList_t
-    };
-
-    // CFootCycleDefinition
-    //   fields: 9
-    //   size: 0x3C
-    //   @MGetKV3ClassDefaults
-    class CFootCycleDefinition {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vStancePositionMS                             , 0x0) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vMidpointPositionMS                           , 0xC) // Vector
-        SCHEMA_FIELD(float                           , m_flStanceDirectionMS                           , 0x18) // float32
-        SCHEMA_FIELD(::Vector                        , m_vToStrideStartPos                             , 0x1C) // Vector
-        SCHEMA_FIELD(CAnimCycle                      , m_stanceCycle                                   , 0x28) // CAnimCycle
-        SCHEMA_FIELD(CFootCycle                      , m_footLiftCycle                                 , 0x2C) // CFootCycle
-        SCHEMA_FIELD(CFootCycle                      , m_footOffCycle                                  , 0x30) // CFootCycle
-        SCHEMA_FIELD(CFootCycle                      , m_footStrikeCycle                               , 0x34) // CFootCycle
-        SCHEMA_FIELD(CFootCycle                      , m_footLandCycle                                 , 0x38) // CFootCycle
-    };
-
-    // SolveIKChainPoseOpFixedSettings_t
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class SolveIKChainPoseOpFixedSettings_t {
-    public:
-        SCHEMA_FIELD(CUtlVector<ChainToSolveData_t>  , m_ChainsToSolveData                             , 0x0) // CUtlVector<ChainToSolveData_t>
-    };
-
-    // IKSolverSettings_t
-    //   fields: 3
-    //   size: 0xC
-    class IKSolverSettings_t {
-    public:
-        SCHEMA_FIELD(IKSolverType                    , m_SolverType                                    , 0x0) // IKSolverType [MPropertyFriendlyName, MPropertyAutoRebuildOnChange]
-        SCHEMA_FIELD(std::int32_t                    , m_nNumIterations                                , 0x4) // int32 [MPropertyFriendlyName, MPropertyAttrStateCallback]
-        SCHEMA_FIELD(EIKEndEffectorRotationFixUpMode , m_EndEffectorRotationFixUpMode                  , 0x8) // EIKEndEffectorRotationFixUpMode [MPropertyFriendlyName]
-    };
-
-    // CRootUpdateNode
-    //   fields: 0
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class CRootUpdateNode {
-    public:
-    };
-
-    // CNmIDEventPercentageThroughNode::CDefinition
-    //   fields: 3
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmIDEventPercentageThroughNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(CNmBitFlags                     , m_eventConditionRules                           , 0x14) // CNmBitFlags
-        SCHEMA_FIELD(CGlobalSymbol                   , m_eventID                                       , 0x18) // CGlobalSymbol
-    };
-
-    // MaterialGroup_t
-    //   fields: 2
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class MaterialGroup_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(CUtlVector<CStrongHandle<InfoForResourceTypeIMaterial2>>, m_materials                                     , 0x8) // CUtlVector<CStrongHandle<InfoForResourceTypeIMaterial2>>
-    };
-
-    // CPathAnimMotorUpdater
-    //   fields: 0
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class CPathAnimMotorUpdater {
-    public:
-    };
-
-    // CParticleAnimTag
-    //   fields: 11
-    //   size: 0x98
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CParticleAnimTag {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_hParticleSystem                               , 0x58) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition> [MPropertySuppressField]
-        SCHEMA_FIELD(::CUtlString                    , m_particleSystemName                            , 0x60) // CUtlString [MPropertyAttributeEditor, MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_configName                                    , 0x68) // CUtlString [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDetachFromOwner                              , 0x70) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAggregate                                    , 0x71) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bStopWhenTagEnds                              , 0x72) // bool [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(bool                            , m_bTagEndStopIsInstant                          , 0x73) // bool [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(::CUtlString                    , m_attachmentName                                , 0x78) // CUtlString [MPropertyFriendlyName, MPropertyGroupName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttachment_t            , m_attachmentType                                , 0x80) // ParticleAttachment_t [MPropertyFriendlyName, MPropertyGroupName]
-        SCHEMA_FIELD(::CUtlString                    , m_attachmentCP1Name                             , 0x88) // CUtlString [MPropertyFriendlyName, MPropertyGroupName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttachment_t            , m_attachmentCP1Type                             , 0x90) // ParticleAttachment_t [MPropertyFriendlyName, MPropertyGroupName]
-    };
-
-    // CSeqCmdLayer
-    //   fields: 9
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CSeqCmdLayer {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_cmd                                           , 0x0) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nLocalReference                               , 0x2) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nLocalBonemask                                , 0x4) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nDstResult                                    , 0x6) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nSrcResult                                    , 0x8) // int16
-        SCHEMA_FIELD(bool                            , m_bSpline                                       , 0xA) // bool
-        SCHEMA_FIELD(float                           , m_flVar1                                        , 0xC) // float32
-        SCHEMA_FIELD(float                           , m_flVar2                                        , 0x10) // float32
-        SCHEMA_FIELD(std::int16_t                    , m_nLineNumber                                   , 0x14) // int16
-    };
-
-    // CTwistConstraint
-    //   fields: 3
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class CTwistConstraint {
-    public:
-        SCHEMA_FIELD(bool                            , m_bInverse                                      , 0x60) // bool
-        SCHEMA_FIELD(::Quaternion                    , m_qParentBindRotation                           , 0x70) // Quaternion
-        SCHEMA_FIELD(::Quaternion                    , m_qChildBindRotation                            , 0x80) // Quaternion
-    };
-
-    // PARTICLE_EHANDLE__
-    //   fields: 1
-    //   size: 0x4
-    class PARTICLE_EHANDLE__ {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , unused                                          , 0x0) // int32
-    };
-
-    // JiggleBoneSettings_t
-    //   fields: 7
-    //   size: 0x2C
-    //   @MGetKV3ClassDefaults
-    class JiggleBoneSettings_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nBoneIndex                                    , 0x0) // int32
-        SCHEMA_FIELD(float                           , m_flSpringStrength                              , 0x4) // float32
-        SCHEMA_FIELD(float                           , m_flMaxTimeStep                                 , 0x8) // float32
-        SCHEMA_FIELD(float                           , m_flDamping                                     , 0xC) // float32
-        SCHEMA_FIELD(::Vector                        , m_vBoundsMaxLS                                  , 0x10) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vBoundsMinLS                                  , 0x1C) // Vector
-        SCHEMA_FIELD(JiggleBoneSimSpace              , m_eSimSpace                                     , 0x28) // JiggleBoneSimSpace
-    };
-
-    // CActionComponentUpdater
-    //   fields: 1
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    class CActionComponentUpdater {
-    public:
-        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimActionUpdater>>, m_actions                                       , 0x30) // CUtlVector<CSmartPtr<CAnimActionUpdater>>
-    };
-
-    // CAnimTagBase
-    //   fields: 5
-    //   size: 0x50
-    //   @MGetKV3ClassDefaults
-    class CAnimTagBase {
-    public:
-        SCHEMA_FIELD(CGlobalSymbol                   , m_name                                          , 0x18) // CGlobalSymbol [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::CUtlString                    , m_sComment                                      , 0x20) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor, MPropertySortPriority]
-        SCHEMA_FIELD(CGlobalSymbol                   , m_group                                         , 0x28) // CGlobalSymbol [MPropertySuppressField]
-        SCHEMA_FIELD(AnimTagID                       , m_tagID                                         , 0x30) // AnimTagID [MPropertySuppressField]
-        SCHEMA_FIELD(bool                            , m_bIsReferenced                                 , 0x48) // bool [MPropertySuppressField]
-    };
-
-    // CNmControlParameterVectorNode::CDefinition
-    //   fields: 0
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class CNmControlParameterVectorNode_CDefinition {
-    public:
-    };
-
-    // CNmStateCompletedConditionNode::CDefinition
-    //   fields: 3
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CNmStateCompletedConditionNode_CDefinition {
-    public:
-        SCHEMA_FIELD(std::int16_t                    , m_nSourceStateNodeIdx                           , 0x10) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nTransitionDurationOverrideNodeIdx            , 0x12) // int16
-        SCHEMA_FIELD(float                           , m_flTransitionDurationSeconds                   , 0x14) // float32
-    };
-
-    // CModelConfigElement_RandomColor
-    //   fields: 1
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    class CModelConfigElement_RandomColor {
-    public:
-        SCHEMA_FIELD(CColorGradient                  , m_Gradient                                      , 0x48) // CColorGradient
-    };
-
-    // CAnimLocalHierarchy
-    //   fields: 6
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CAnimLocalHierarchy {
-    public:
-        SCHEMA_FIELD(CBufferString                   , m_sBone                                         , 0x0) // CBufferString
-        SCHEMA_FIELD(CBufferString                   , m_sNewParent                                    , 0x10) // CBufferString
-        SCHEMA_FIELD(std::int32_t                    , m_nStartFrame                                   , 0x20) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nPeakFrame                                    , 0x24) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nTailFrame                                    , 0x28) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nEndFrame                                     , 0x2C) // int32
-    };
-
-    // CNmFloatSpringNode::CDefinition
-    //   fields: 5
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class CNmFloatSpringNode_CDefinition {
-    public:
-        SCHEMA_FIELD(float                           , m_flStartValue                                  , 0x10) // float32
-        SCHEMA_FIELD(float                           , m_flHertz                                       , 0x14) // float32
-        SCHEMA_FIELD(float                           , m_flDampingRatio                                , 0x18) // float32
-        SCHEMA_FIELD(std::int16_t                    , m_nInputValueNodeIdx                            , 0x1C) // int16
-        SCHEMA_FIELD(bool                            , m_bUseStartValue                                , 0x1E) // bool
-    };
-
-    // NmFloatCurveCompressionSettings_t
-    //   fields: 2
-    //   size: 0xC
-    //   @MGetKV3ClassDefaults
-    class NmFloatCurveCompressionSettings_t {
-    public:
-        SCHEMA_FIELD(NmCompressionSettings_t_QuantizationRange_t, m_range                                         , 0x0) // NmCompressionSettings_t::QuantizationRange_t
-        SCHEMA_FIELD(bool                            , m_bIsStatic                                     , 0x8) // bool
-    };
-
-    // CAnimSkeleton
-    //   fields: 8
-    //   size: 0xD0
-    //   @MGetKV3ClassDefaults
-    class CAnimSkeleton {
-    public:
-        SCHEMA_FIELD(CUtlVector<CTransform>          , m_localSpaceTransforms                          , 0x10) // CUtlVector<CTransform>
-        SCHEMA_FIELD(CUtlVector<CTransform>          , m_modelSpaceTransforms                          , 0x28) // CUtlVector<CTransform>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_boneNames                                     , 0x40) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<CUtlVector<int32>>   , m_children                                      , 0x58) // CUtlVector<CUtlVector<int32>>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_parents                                       , 0x70) // CUtlVector<int32>
-        SCHEMA_FIELD(CUtlVector<CAnimFoot>           , m_feet                                          , 0x88) // CUtlVector<CAnimFoot>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_morphNames                                    , 0xA0) // CUtlVector<CUtlString>
-        SCHEMA_FIELD(CUtlVector<int32>               , m_lodBoneCounts                                 , 0xB8) // CUtlVector<int32>
-    };
-
-    // CAnimCycle
-    //   fields: 0
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class CAnimCycle {
-    public:
-    };
-
-    // CNmEntityAttributeIntEvent
-    //   fields: 1
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CNmEntityAttributeIntEvent {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nIntValue                                     , 0x38) // int32
-    };
-
-    // CNmBlend1DNode::CDefinition
-    //   fields: 1
-    //   size: 0x80
-    //   @MGetKV3ClassDefaults
-    class CNmBlend1DNode_CDefinition {
-    public:
-        SCHEMA_FIELD(CNmParameterizedBlendNode_Parameterization_t, m_parameterization                              , 0x30) // CNmParameterizedBlendNode::Parameterization_t
-    };
-
     // PermModelDataAnimatedMaterialAttribute_t
     //   fields: 2
     //   size: 0x10
@@ -10432,6 +10321,117 @@ namespace animationsystem {
     public:
         SCHEMA_FIELD(::CUtlString                    , m_AttributeName                                 , 0x0) // CUtlString
         SCHEMA_FIELD(std::int32_t                    , m_nNumChannels                                  , 0x8) // int32
+    };
+
+    // CNmFloatChannelData
+    //   fields: 5
+    //   size: 0x58
+    //   @MGetKV3ClassDefaults
+    class CNmFloatChannelData {
+    public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCNmSkeleton>, m_skeleton                                      , 0x0) // CStrongHandle<InfoForResourceTypeCNmSkeleton>
+        SCHEMA_FIELD(CGlobalSymbol                   , m_setID                                         , 0x8) // CGlobalSymbol
+        SCHEMA_FIELD(CUtlVector<CNmFloatChannelData_ChannelSettings_t>, m_channelSettings                               , 0x10) // CUtlVector<CNmFloatChannelData::ChannelSettings_t>
+        SCHEMA_FIELD(CUtlVector<uint16>              , m_compressedData                                , 0x28) // CUtlVector<uint16>
+        SCHEMA_FIELD(CUtlVector<uint32>              , m_compressedOffsets                             , 0x40) // CUtlVector<uint32>
+    };
+
+    // CAnimParameterManagerUpdater
+    //   fields: 6
+    //   size: 0x100
+    //   @MGetKV3ClassDefaults
+    class CAnimParameterManagerUpdater {
+    public:
+        using _Type0 = CUtlHashtable<AnimParamID,int32>;
+        using _Type1 = CUtlHashtable<CUtlString,int32>;
+        using _Type2 = CUtlVector<std::pair<CAnimParamHandle,CAnimVariant>>;
+        using _Type3 = CUtlHashtable<CAnimParamHandle,int16>;
+        SCHEMA_FIELD(CUtlVector<CSmartPtr<CAnimParameterBase>>, m_parameters                                    , 0x18) // CUtlVector<CSmartPtr<CAnimParameterBase>>
+        SCHEMA_FIELD(_Type0                          , m_idToIndexMap                                  , 0x30) // CUtlHashtable<AnimParamID,int32>
+        SCHEMA_FIELD(_Type1                          , m_nameToIndexMap                                , 0x50) // CUtlHashtable<CUtlString,int32>
+        SCHEMA_FIELD(CUtlVector<CAnimParamHandle>    , m_indexToHandle                                 , 0x70) // CUtlVector<CAnimParamHandle>
+        SCHEMA_FIELD(_Type2                          , m_autoResetParams                               , 0x88) // CUtlVector<std::pair<CAnimParamHandle,CAnimVariant>>
+        SCHEMA_FIELD(_Type3                          , m_autoResetMap                                  , 0xA0) // CUtlHashtable<CAnimParamHandle,int16>
+    };
+
+    // SkeletonDemoDb_t
+    //   fields: 3
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class SkeletonDemoDb_t {
+    public:
+        SCHEMA_FIELD(CUtlVector<SkeletonAnimCapture_t*>, m_AnimCaptures                                  , 0x0) // CUtlVector<SkeletonAnimCapture_t*>
+        SCHEMA_FIELD(CUtlVector<SkeletonAnimCapture_t_Camera_t>, m_CameraTrack                                   , 0x18) // CUtlVector<SkeletonAnimCapture_t::Camera_t>
+        SCHEMA_FIELD(float                           , m_flRecordingTime                               , 0x30) // float32
+    };
+
+    // CBoneConstraintBase
+    //   fields: 0
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CBoneConstraintBase {
+    public:
+    };
+
+    // CStateNodeTransitionData
+    //   fields: 5
+    //   size: 0x1C
+    //   @MGetKV3ClassDefaults
+    class CStateNodeTransitionData {
+    public:
+        SCHEMA_FIELD(CBlendCurve                     , m_curve                                         , 0x0) // CBlendCurve
+        SCHEMA_FIELD(CAnimValue<float32>             , m_blendDuration                                 , 0x8) // CAnimValue<float32>
+        SCHEMA_FIELD(CAnimValue<float32>             , m_resetCycleValue                               , 0x10) // CAnimValue<float32>
+        // SKIPPED: m_bReset (bitfield type not supported)
+        // SKIPPED: m_resetCycleOption (bitfield type not supported)
+    };
+
+    // CNmAndNode::CDefinition
+    //   fields: 1
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class CNmAndNode_CDefinition {
+    public:
+        using _Type0 = CUtlLeanVectorFixedGrowable<int16,4>;
+        SCHEMA_FIELD(_Type0                          , m_conditionNodeIndices                          , 0x10) // CUtlLeanVectorFixedGrowable<int16,4>
+    };
+
+    // AnimComponentID
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class AnimComponentID {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_id                                            , 0x0) // uint32
+    };
+
+    // CHitBoxSet
+    //   fields: 4
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CHitBoxSet {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(std::uint32_t                   , m_nNameHash                                     , 0x8) // uint32
+        SCHEMA_FIELD(CUtlVector<CHitBox>             , m_HitBoxes                                      , 0x10) // CUtlVector<CHitBox>
+        SCHEMA_FIELD(::CUtlString                    , m_SourceFilename                                , 0x28) // CUtlString
+    };
+
+    // CNmFixedWeightBoneMaskNode::CDefinition
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CNmFixedWeightBoneMaskNode_CDefinition {
+    public:
+        SCHEMA_FIELD(float                           , m_flBoneWeight                                  , 0x10) // float32
+    };
+
+    // CFootCycle
+    //   fields: 0
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class CFootCycle {
+    public:
     };
 
 } // namespace animationsystem

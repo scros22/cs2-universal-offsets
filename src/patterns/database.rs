@@ -124,14 +124,6 @@ pub static CS2_PATTERNS: &[Pattern] = &[
         prototype: "void __fastcall sub_18084F430(__int64 a1, float *a2, float *a3)",
     },
     Pattern {
-        name: "CalcViewmodelTransform_v2",
-        module: "client.dll",
-        needle: "48 89 5C 24 20 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 80 48 81 EC 80 01 00 00 48 8B FA",
-        resolve: NONE,
-        extra_off: 0,
-        prototype: "__int64 __fastcall sub_1807A24F0(__int64 a1, __int64 a2)",
-    },
-    Pattern {
         name: "CalcViewmodelView",
         module: "client.dll",
         needle: "40 53 48 83 EC 60 48 8B 41 08 49 8B D8 8B 48 30 48 C1 E9 0C F6 C1 01 0F 85 48 01 00 00 41 B8 07",
@@ -566,7 +558,6 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     },
     Pattern { name: "GetEntityHandle",                      module: "client.dll", needle: "48 85 C9 74 32 48 8B 49 10 48 85 C9 74 29 44 8B 41 10 BA", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_18094E8D0(__int64 a1)" },
     Pattern { name: "GetGameModeName",                       module: "client.dll", needle: "48 83 EC ? 48 8B 0D ? ? ? ? ? ? ? FF 90 ? ? ? ? 48 85 C0 74 ? 48 8B 0D ? ? ? ? ? ? ? 4C 8B 42", resolve: NONE, extra_off: 0, prototype: "" },
-    Pattern { name: "GetGlowColor",                         module: "client.dll", needle: "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B F2 48 8B F9 48 8B 54 24", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_180B0ABC0(__int64 a1, float *a2)" },
     Pattern {
         name: "GetHitGroup",
         module: "client.dll",
@@ -642,10 +633,10 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern {
         name: "GloveApply_PerTick",
         module: "client.dll",
-        needle: "40 55 56 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B B9 A8 00 00 00 48 8B F1 48 85 FF 0F 84 ? ? ? ? 48 8D",
+        needle: "40 55 56 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B B9 ? 00 00 00 48 8B F1 48 85 FF 0F 84 ? ? ? ? 48 8D",
         resolve: NONE,
         extra_off: 0,
-        prototype: "void __fastcall sub_180BFA550(int *a1)",
+        prototype: "void __fastcall sub_180BFBBD0(int *a1)",
     },
     Pattern {
         name: "GlowObjectManager_GetInstance",
@@ -1114,10 +1105,10 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern {
         name: "Engine_MountAddon",
         module: "engine2.dll",
-        needle: "48 85 D2 0F 84 DA 0A 00 00 48 8B C4 44 88 40 18 55 57 41 54 41 57 48 8D A8 C8 FC FF FF 48 81 EC",
+        needle: "48 85 D2 0F 84 ? ? ? ? 48 8B C4 44 88 40 18 55 57 41 ? 41 57 48 8D A8 ? ? ? ? 48 81 EC",
         resolve: NONE,
         extra_off: 0,
-        prototype: "void __fastcall sub_180193440(__int64 a1, const char *a2, char a3)",
+        prototype: "void __fastcall sub_180193270(__int64 a1, const char *a2, char a3)",
     },
     Pattern {
         name: "Engine_NetTimeoutDisconnect",
@@ -1480,7 +1471,6 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern { name: "CBasePlayerPawn_RemovePlayerItem", module: "server.dll", needle: "48 85 D2 0F 84 ? ? ? ? 48 89 5C 24 ? 57 48 83 EC ? 48 8B DA 48 8B F9 E8", resolve: NONE, extra_off: 0, prototype: "" },
     Pattern { name: "CBaseTrigger_EndTouch", module: "server.dll", needle: "40 53 41 55 48 83 EC ? 83 BA", resolve: NONE, extra_off: 0, prototype: "" },
     Pattern { name: "CBaseTrigger_StartTouch", module: "server.dll", needle: "40 57 41 56 48 83 EC ? 48 8B 01", resolve: NONE, extra_off: 0, prototype: "" },
-    Pattern { name: "CCSGameRules_sm_mapGcBanInformation", module: "server.dll", needle: "48 8D 0D ? ? ? ? 48 89 45 ? 0F 11 45", resolve: NONE, extra_off: 0, prototype: "" },
     Pattern {
         name: "CCSGameRules_TerminateRound",
         module: "server.dll",

@@ -1,5 +1,5 @@
 {
-  "build_number": 14172,
+  "build_number": 14175,
   "note": "Non-schema client struct layouts, reverse-engineered from client.dll. Offsets drift between builds.",
   "struct_count": 3,
   "structs": [
