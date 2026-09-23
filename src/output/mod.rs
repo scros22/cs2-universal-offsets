@@ -237,21 +237,32 @@ pub fn dump_sdk_extras(
             verified::render_json(build_number),
         )?;
 
-        // 7. engine (non-schema) struct layouts — engine/engine_structs.json
-        //    plus a drop-in .h per struct (CCSGOInput, CUserCmd, CViewSetup).
-        let engine_dir = out_dir.join("engine");
-        fs::create_dir_all(&engine_dir)?;
-        fs::write(
-            engine_dir.join("engine_structs.json"),
-            engine_structs::render_json(build_number),
-        )?;
-        for s in engine_structs::ENGINE_STRUCTS {
-            fs::write(
-                engine_dir.join(format!("{}.h", s.name.to_ascii_lowercase())),
-                engine_structs::render_header(s, build_number),
-            )?;
-        }
+        // 7. engine (non-schema) struct layouts are written after the pattern
+        //    pass (write_engine_structs) so their function/instance RVAs come
+        //    from this run instead of being hardcoded.
 
+    Ok(())
+}
+
+/// engine/engine_structs.json + a drop-in .h per struct. Called after the
+/// pattern pass: function and instance RVAs are looked up in `hits` by name.
+pub fn write_engine_structs(
+    out_dir: &Path,
+    build_number: Option<u32>,
+    hits: &[crate::patterns::PatternHit],
+) -> Result<()> {
+    let engine_dir = out_dir.join("engine");
+    fs::create_dir_all(&engine_dir)?;
+    fs::write(
+        engine_dir.join("engine_structs.json"),
+        engine_structs::render_json(build_number, hits),
+    )?;
+    for s in engine_structs::ENGINE_STRUCTS {
+        fs::write(
+            engine_dir.join(format!("{}.h", s.name.to_ascii_lowercase())),
+            engine_structs::render_header(s, build_number, hits),
+        )?;
+    }
     Ok(())
 }
 

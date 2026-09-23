@@ -86,7 +86,7 @@ fn main() -> Result<()> {
     let now = Local::now();
     let out_dir = args.output.clone();
     let schemas_dir  = out_dir.join("schemas");
-    let sig_dir      = out_dir.join("Patterns");
+    let sig_dir      = out_dir.join("patterns"); // lowercase: the site + git track include/patterns/
     let off_dir      = out_dir.join("offsets");
     let proto_dir    = out_dir.join("protobufs");
     let ifc_dir      = out_dir.join("interfaces");
@@ -206,6 +206,12 @@ fn main() -> Result<()> {
                 fs::write(sig_dir.join("patterns.hpp"), patterns::writers::render_hpp(&report.hits))?;
                 ui::ok("wrote patterns/patterns.{hpp,json}");
 
+                // Engine struct layouts: function/instance RVAs from this run.
+                match output::write_engine_structs(&out_dir, build_number, &report.hits) {
+                    Ok(()) => ui::ok(&format!("engine structs emitted ({})", output::engine_structs::ENGINE_STRUCTS.len())),
+                    Err(e) => ui::warn(&format!("engine structs emit failed: {}", e)),
+                }
+
                 // RIPREL patterns + a2x-style dwXxx aliases + registered-interface RVAs.
                 let empty_offsets = analysis::OffsetMap::new();
                 let empty_ifaces = analysis::InterfaceMap::new();
@@ -266,7 +272,7 @@ fn main() -> Result<()> {
                 if let Some(hit) = report.hits.iter().find(|h| h.name == "pEntitySystem" && h.found)
                     && let Some(va) = hit.va
                 {
-                    match analysis::weapons::walk(&mut process, va) {
+                    match analysis::weapons::walk(&mut process, va, analysis_result.as_ref().map(|r| &r.schemas)) {
                         Ok(weapons) if !weapons.is_empty() => {
                             let wp_dir = out_dir.join("weapons");
                             if fs::create_dir_all(&wp_dir).is_ok() {
@@ -308,7 +314,7 @@ fn main() -> Result<()> {
                 if let Some(hit) = report.hits.iter().find(|h| h.name == "pEntitySystem" && h.found)
                     && let Some(va) = hit.va
                 {
-                    match analysis::entities::walk(&mut process, va) {
+                    match analysis::entities::walk(&mut process, va, analysis_result.as_ref().map(|r| &r.schemas)) {
                         Ok(ents) if !ents.is_empty() => {
                             let en_dir = out_dir.join("entities");
                             if fs::create_dir_all(&en_dir).is_ok() {

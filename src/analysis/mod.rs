@@ -22,6 +22,7 @@ pub mod manual_iface;
 mod offsets;
 mod protobufs;
 pub mod rtti;
+pub mod schema_lookup;
 mod schemas;
 mod vtables;
 pub mod weapons;

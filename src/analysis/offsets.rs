@@ -88,7 +88,8 @@ pattern_map! {
         "dwGlobalVars" => pattern!("488915${'} 488942") => None,
         "dwGlowManager" => pattern!("488b05${'} c3 cccccccccccccccc 8b41") => None,
         "dwLocalPlayerController" => pattern!("488b05${'} 4189be") => None,
-        "dwPlantedC4" => pattern!("488b15${'} 41ffc0 488d4c24? 448905[4]") => None,
+        // 2000914: the old load-form anchor is gone; `cmp [g_pPlantedC4], rbp` site.
+        "dwPlantedC4" => pattern!("48392d${'} 75? 4989ae") => None,
         "dwPrediction" => pattern!("488d05${'} c3 cccccccccccccccc 405356 4154") => Some(|view, map, rva| {
             let mut save = [0; 2];
 
@@ -96,7 +97,8 @@ pattern_map! {
                 map.insert("dwLocalPlayerPawn".to_string(), rva + save[1]);
             }
         }),
-        "dwSensitivity" => pattern!("488d0d${[8]'} 660f6ecd") => None,
+        // 2000914: movd now loads from memory; anchor the sensitivity-scale site.
+        "dwSensitivity" => pattern!("488d0d${[8]'} 660f6e8430") => None,
         "dwSensitivity_sensitivity" => pattern!("488d7eu1 480fbae0? 72? 85d2 490f4fff") => None,
         "dwViewMatrix" => pattern!("488d0d${'} 48c1e006") => None,
         "dwViewRender" => pattern!("488905${'} 488bc8 4885c0") => None,
@@ -123,7 +125,8 @@ pattern_map! {
     },
     soundsystem => {
         "dwSoundSystem" => pattern!("488d05${'} c3 cccccccccccccccc 488915") => None,
-        "dwSoundSystem_engineViewData" => pattern!("0f1147u1 0f104e? 0f118f") => None,
+        // 2000914: same store sequence, different registers (value still 0x7C).
+        "dwSoundSystem_engineViewData" => pattern!("0f1145u1 0f104b? 0f118d") => None,
     },
 }
 

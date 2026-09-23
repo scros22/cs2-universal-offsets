@@ -9,6 +9,9 @@
 
 use anyhow::{Result, bail};
 use memflow::prelude::v1::*;
+
+use super::schema_lookup;
+use super::schemas::SchemaMap;
 use serde::Serialize;
 
 // --- entity-list geometry (verified 14169) ---------------------------------
@@ -20,7 +23,8 @@ const HANDLE_INDEX_MASK: u32 = 0x7FFF;
 const IDENTITY_DESIGNER_NAME: u64 = 0x20;
 const MAX_ENTITY_INDEX: u32 = 16384;
 
-// --- C_BaseEntity field offsets (from the 14169 schema dump) ----------------
+// --- C_BaseEntity field offsets: LAST-KNOWN fallbacks (14169) ----------------
+// `walk` resolves each from this run's schema first.
 const OFF_SCENE_NODE: u64 = 0x330; // CGameSceneNode*
 const OFF_MAX_HEALTH: u64 = 0x348; // int32
 const OFF_HEALTH: u64 = 0x34C; // int32
@@ -44,7 +48,14 @@ pub struct EntitySnapshotEntry {
 pub fn walk<P: Process + MemoryView>(
     process: &mut P,
     entity_system_global_va: u64,
+    schemas: Option<&SchemaMap>,
 ) -> Result<Vec<EntitySnapshotEntry>> {
+    let off_scene_node = schema_lookup::field_or(schemas, "C_BaseEntity", "m_pGameSceneNode", OFF_SCENE_NODE);
+    let off_max_health = schema_lookup::field_or(schemas, "C_BaseEntity", "m_iMaxHealth", OFF_MAX_HEALTH);
+    let off_health = schema_lookup::field_or(schemas, "C_BaseEntity", "m_iHealth", OFF_HEALTH);
+    let off_team = schema_lookup::field_or(schemas, "C_BaseEntity", "m_iTeamNum", OFF_TEAM);
+    let scene_abs_origin = schema_lookup::field_or(schemas, "CGameSceneNode", "m_vecAbsOrigin", SCENE_ABS_ORIGIN);
+
     let list = rd_u64(process, entity_system_global_va);
     if list == 0 {
         bail!("entity system global is null");
@@ -70,19 +81,19 @@ pub fn walk<P: Process + MemoryView>(
 
         // Universal C_BaseEntity fields — sanity-gated so logic/non-spatial
         // entities that don't actually have these don't emit garbage.
-        let health_raw = rd_i32(process, inst + OFF_HEALTH);
+        let health_raw = rd_i32(process, inst + off_health);
         let health = (-16384..=1_000_000).contains(&health_raw).then_some(health_raw);
-        let max_raw = rd_i32(process, inst + OFF_MAX_HEALTH);
+        let max_raw = rd_i32(process, inst + off_max_health);
         let max_health = (0..=1_000_000).contains(&max_raw).then_some(max_raw);
-        let team_raw = rd_u8(process, inst + OFF_TEAM);
+        let team_raw = rd_u8(process, inst + off_team);
         let team = (team_raw <= 4).then_some(team_raw);
 
-        let scene = rd_u64(process, inst + OFF_SCENE_NODE);
+        let scene = rd_u64(process, inst + off_scene_node);
         let origin = if scene > 0x10000 {
             let o = [
-                rd_f32(process, scene + SCENE_ABS_ORIGIN),
-                rd_f32(process, scene + SCENE_ABS_ORIGIN + 4),
-                rd_f32(process, scene + SCENE_ABS_ORIGIN + 8),
+                rd_f32(process, scene + scene_abs_origin),
+                rd_f32(process, scene + scene_abs_origin + 4),
+                rd_f32(process, scene + scene_abs_origin + 8),
             ];
             let ok = o.iter().all(|c| c.is_finite() && c.abs() < 1_048_576.0);
             ok.then_some(o)

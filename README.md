@@ -1,38 +1,44 @@
 # cs2-sdk
 
-External CS2 SDK generator. Reads a live `cs2.exe` and emits a C++ `include/`
-tree containing schema headers, signatures, offsets, interfaces, vtables and
-buttons.
+External CS2 SDK generator. Attaches to a running `cs2.exe` (read-only) and
+emits an `include/` tree: schema classes, IDA-style signatures, offsets,
+interfaces + vtables, protobuf layouts, engine structs and a set of runtime
+catalogues (convars, game events, weapons, entities).
 
-Public mirror of the latest output: <https://cs2-sdk.com>.
+Live browser + API for the latest output: <https://cs2-sdk.com>.
 
 ## What you get
 
 ```
 include/
-├── manifest.json                 # build number, module fingerprints, stage status
-├── sdk/
-│   ├── cs2sdk.hpp                # single-include amalgamation
-│   ├── cs2sdk_macros.hpp         # SCHEMA_FIELD / SCHEMA_PAD macros
-│   ├── client_dll.hpp            # per-module schema classes
-│   ├── server_dll.hpp
-│   ├── engine2_dll.hpp
-│   ├── …                         # one .hpp per non-empty schema module
-│   ├── interfaces_sdk.hpp        # CreateInterface accessor stubs
-│   ├── offsets.{hpp,json}        # dwXxx static globals (a2x-compatible)
-│   ├── buttons.{hpp,json}        # kbutton table
-│   ├── netvars.{hpp,json}        # networked field index (omitted if empty)
-│   ├── vtables.{hpp,json}        # vtable layouts + RTTI names
-│   └── verified_features.{hpp,json,md}
-├── signatures/
-│   ├── signatures.json           # canonical IDA-style patterns + RVAs
-│   ├── signatures.hpp
-│   └── SIGNATURES.md
-└── logs/cs2-sdk.log
+├── manifest.json             # build number, modules, stage status, signature counts
+├── cs2.hpp                   # single-include amalgamation
+├── macros.hpp                # SCHEMA_FIELD helpers
+├── buttons.{hpp,json}        # kbutton table
+├── schemas/
+│   ├── <module>_dll.hpp      # per-module schema classes (size + field metadata)
+│   └── schemas.json          # structured classes/enums for tooling
+├── patterns/
+│   ├── patterns.json         # every signature: pattern, rva, prototype, prologue bytes
+│   └── patterns.hpp
+├── offsets/
+│   └── offsets.{hpp,json}    # dwXxx globals (a2x-compatible) + RIP-relative sig globals
+├── interfaces/
+│   ├── interfaces.hpp        # typed ifc::<module>::<Class> wrappers
+│   └── vtables.json          # primary vtable of every registered interface
+├── protobufs/protobufs.{hpp,json}
+├── engine/                   # hand-verified non-schema structs + drop-in .h each:
+│   └── engine_structs.json   #   CCSGOInput, CUserCmd, CCSGOUserCmdPB, CBaseUserCmdPB,
+│                             #   CSubtickMoveStep, CInButtonStatePB, CCSGOInputHistoryEntryPB,
+│                             #   CSGOInterpolationInfoPB, CMsgQAngle, CMsgVector, CViewSetup
+├── convars/convars.{json,hpp}      # every ConVar / ConCommand with type, value, flags
+├── gameevents/gameevents.json      # every registered game event + typed keys
+├── weapons/weapons.json            # CCSWeaponBaseVData of weapons present at dump time
+├── entities/entities.json          # live entity snapshot at dump time
+└── verified_features.json
 ```
 
-The repo is laid out so you can drop it in as a git submodule and
-`#include "cs2-sdk/sdk/cs2sdk.hpp"` from your project.
+Drop the repo in as a git submodule and `#include "cs2-universal-offsets/include/cs2.hpp"`.
 
 ## Build
 
@@ -40,39 +46,46 @@ The repo is laid out so you can drop it in as a git submodule and
 cargo build --release
 ```
 
-Requires Rust 1.83+ (uses `let … && …` chains). Windows-only by default
-(uses `memflow-native`); pass `--connector` for cross-platform / DMA setups.
+Rust 2024 edition. Windows-only by default (uses `memflow-native`); pass
+`--connector` for other memflow connectors.
 
 ## Run
+
+Start CS2, then from an **elevated** prompt (memflow needs admin to open the
+process):
 
 ```
 .\target\release\cs2-sdk.exe
 ```
 
-Useful flags:
+For the fullest weapons/entities catalogues, dump while in a match.
 
 | flag | default | what it does |
 |---|---|---|
 | `-o, --output <DIR>` | `include` | output root |
 | `-p, --process-name <NAME>` | `cs2.exe` | target process |
-| `--skip-offsets` | off | skip the schema/offsets pass |
-| `--skip-signatures` | off | skip the signatures pass |
-| `--cache <FILE>` | none | warm-start from a previous `signatures.json` |
+| `--skip-offsets` | off | skip interfaces/offsets/schemas |
+| `--skip-patterns` | off | skip the signature pass |
 | `--no-sound` | off | silence the UI cues |
-| `-v / -vv / -vvv` | warn | terminal log verbosity (file log is always trace) |
+| `-v / -vv / -vvv` | warn | terminal log verbosity (the file log is always trace) |
 
-CI publishes a release binary on every `v*` tag — see the latest under
-[Releases](../../releases).
+## How it stays correct across CS2 updates
+
+* Signatures resolve by pattern (`Rel32` / `RipRel` / raw with `extra_off`),
+  and every hit records how many times it matched, so an ambiguous pattern is
+  visible in `patterns.json` instead of silently resolving to the wrong place.
+* Engine-struct function and instance addresses are looked up from the
+  signature pass by name, never hardcoded.
+* The weapon and entity walkers take their field offsets from the schema
+  dumped in the same run, and only fall back to last-known values (logged)
+  when the schema pass is skipped.
 
 ## Output guarantees
 
-* `signatures.json` schema and `sdk/*.hpp` paths are the public contract
-  consumed by cs2-sdk.com — these will not break in a minor version.
-* Per-module `.hpp` files with no classes or enums are skipped, so the
-  tree only contains files that have actual content for the current build.
-* C++ is the only output language. Older Rust / Zig / C# emitters were
-  removed in 1.22 — use the `.json` files if you need to consume the
-  data from another language.
+* `patterns/patterns.json`, `offsets/offsets.json` and `schemas/*.hpp` are the
+  public contract consumed by cs2-sdk.com - their shape will not break in a
+  minor version.
+* Per-module schema headers with no classes or enums are skipped.
 
 ## License
 

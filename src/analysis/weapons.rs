@@ -18,6 +18,9 @@ use std::collections::BTreeMap;
 
 use anyhow::{Result, bail};
 use memflow::prelude::v1::*;
+
+use super::schema_lookup;
+use super::schemas::SchemaMap;
 use serde::Serialize;
 
 // --- CGameEntitySystem chunk geometry (verified 14169) ---------------------
@@ -29,13 +32,14 @@ const HANDLE_INDEX_MASK: u32 = 0x7FFF;
 const IDENTITY_DESIGNER_NAME: u64 = 0x20;
 const MAX_ENTITY_INDEX: u32 = 8192;
 
-/// Candidate offsets of the `CCSWeaponBaseVData*` within a weapon entity. The
-/// generic `GetVData()` reads +0x340 on 14169; older builds used +0x388. We try
-/// each and keep the first that dereferences to a vdata with sane values, so a
-/// silent offset drift degrades to "picks the right one" rather than garbage.
-const VDATA_PTR_CANDIDATES: &[u64] = &[0x340, 0x348, 0x388, 0x338, 0x350, 0x358];
+/// Candidate offsets of the `CCSWeaponBaseVData*` within a weapon entity, tried
+/// AFTER the schema-derived one (`C_BaseEntity::m_nSubclassID` + 8, where the
+/// game keeps the resolved subclass vdata). Each is validated by dereferencing
+/// to a vdata with sane values, so drift picks the right one, never garbage.
+const VDATA_PTR_CANDIDATES: &[u64] = &[0x388, 0x340, 0x348, 0x338, 0x350, 0x358, 0x390];
 
-// --- CCSWeaponBaseVData field offsets (from the 14169 schema dump) ----------
+// --- CCSWeaponBaseVData field offsets: LAST-KNOWN fallbacks (14169) ----------
+// The walker resolves each from this run's schema first (see `Offsets`).
 // CFiringModeFloat fields store the primary-fire value at the field offset.
 const F_PRICE: u64 = 0x70C; // int32
 const F_NUM_BULLETS: u64 = 0x738; // int32
@@ -78,10 +82,55 @@ pub struct Weapon {
 /// Walk the entity list and collect one entry per distinct weapon.
 /// `entity_system_global_va` is the resolved address of the `pEntitySystem`
 /// global (a `CGameEntitySystem*`).
+/// Weapon-vdata field offsets for this run: schema first, last-known fallback.
+struct Offsets {
+    vdata_ptr: Option<u64>,
+    price: u64,
+    num_bullets: u64,
+    cycle_time: u64,
+    max_speed: u64,
+    spread: u64,
+    inaccuracy_stand: u64,
+    inaccuracy_move: u64,
+    recoil_magnitude: u64,
+    damage: u64,
+    headshot_mult: u64,
+    armor_ratio: u64,
+    penetration: u64,
+    range: u64,
+    range_modifier: u64,
+}
+
+impl Offsets {
+    fn resolve(schemas: Option<&SchemaMap>) -> Self {
+        const VD: &str = "CCSWeaponBaseVData";
+        let f = |name: &str, fb: u64| schema_lookup::field_or(schemas, VD, name, fb);
+        Self {
+            vdata_ptr: schema_lookup::field(schemas, "C_BaseEntity", "m_nSubclassID").map(|o| o + 8),
+            price: f("m_nPrice", F_PRICE),
+            num_bullets: f("m_nNumBullets", F_NUM_BULLETS),
+            cycle_time: f("m_flCycleTime", F_CYCLE_TIME),
+            max_speed: f("m_flMaxSpeed", F_MAX_SPEED),
+            spread: f("m_flSpread", F_SPREAD),
+            inaccuracy_stand: f("m_flInaccuracyStand", F_INACCURACY_STAND),
+            inaccuracy_move: f("m_flInaccuracyMove", F_INACCURACY_MOVE),
+            recoil_magnitude: f("m_flRecoilMagnitude", F_RECOIL_MAGNITUDE),
+            damage: f("m_nDamage", F_DAMAGE),
+            headshot_mult: f("m_flHeadshotMultiplier", F_HEADSHOT_MULT),
+            armor_ratio: f("m_flArmorRatio", F_ARMOR_RATIO),
+            penetration: f("m_flPenetration", F_PENETRATION),
+            range: f("m_flRange", F_RANGE),
+            range_modifier: f("m_flRangeModifier", F_RANGE_MODIFIER),
+        }
+    }
+}
+
 pub fn walk<P: Process + MemoryView>(
     process: &mut P,
     entity_system_global_va: u64,
+    schemas: Option<&SchemaMap>,
 ) -> Result<Vec<Weapon>> {
+    let offs = Offsets::resolve(schemas);
     let list = rd_u64(process, entity_system_global_va);
     if list == 0 {
         bail!("entity system global is null");
@@ -104,7 +153,7 @@ pub fn walk<P: Process + MemoryView>(
         if !name.starts_with("weapon_") || by_name.contains_key(&name) {
             continue;
         }
-        if let Some(w) = read_weapon(process, &name, inst) {
+        if let Some(w) = read_weapon(process, &offs, &name, inst) {
             by_name.insert(name, w);
         }
     }
@@ -112,16 +161,18 @@ pub fn walk<P: Process + MemoryView>(
     Ok(by_name.into_values().collect())
 }
 
-fn read_weapon<P: MemoryView>(process: &mut P, name: &str, entity: u64) -> Option<Weapon> {
-    // Find the vdata pointer offset by validating the dereferenced object.
-    for &off in VDATA_PTR_CANDIDATES {
+fn read_weapon<P: MemoryView>(process: &mut P, o: &Offsets, name: &str, entity: u64) -> Option<Weapon> {
+    // Find the vdata pointer offset by validating the dereferenced object:
+    // the schema-derived slot first, then the last-known candidates.
+    let candidates = o.vdata_ptr.into_iter().chain(VDATA_PTR_CANDIDATES.iter().copied());
+    for off in candidates {
         let vd = rd_u64(process, entity + off);
         if vd < 0x10000 {
             continue;
         }
-        let damage = rd_i32(process, vd + F_DAMAGE);
-        let penetration = rd_f32(process, vd + F_PENETRATION);
-        let price = rd_i32(process, vd + F_PRICE);
+        let damage = rd_i32(process, vd + o.damage);
+        let penetration = rd_f32(process, vd + o.penetration);
+        let price = rd_i32(process, vd + o.price);
         // Sanity gate: real weapon vdata has damage in [1,1000], penetration in
         // [0,10], price in [0,20000]. Rejects wrong offsets / uninitialised reads.
         if (1..=1000).contains(&damage)
@@ -131,19 +182,19 @@ fn read_weapon<P: MemoryView>(process: &mut P, name: &str, entity: u64) -> Optio
             return Some(Weapon {
                 name: name.to_string(),
                 damage,
-                headshot_multiplier: rd_f32(process, vd + F_HEADSHOT_MULT),
-                armor_ratio: rd_f32(process, vd + F_ARMOR_RATIO),
+                headshot_multiplier: rd_f32(process, vd + o.headshot_mult),
+                armor_ratio: rd_f32(process, vd + o.armor_ratio),
                 penetration,
-                range: rd_f32(process, vd + F_RANGE),
-                range_modifier: rd_f32(process, vd + F_RANGE_MODIFIER),
-                cycle_time: rd_f32(process, vd + F_CYCLE_TIME),
+                range: rd_f32(process, vd + o.range),
+                range_modifier: rd_f32(process, vd + o.range_modifier),
+                cycle_time: rd_f32(process, vd + o.cycle_time),
                 price,
-                num_bullets: rd_i32(process, vd + F_NUM_BULLETS),
-                max_speed: rd_f32(process, vd + F_MAX_SPEED),
-                spread: rd_f32(process, vd + F_SPREAD),
-                inaccuracy_stand: rd_f32(process, vd + F_INACCURACY_STAND),
-                inaccuracy_move: rd_f32(process, vd + F_INACCURACY_MOVE),
-                recoil_magnitude: rd_f32(process, vd + F_RECOIL_MAGNITUDE),
+                num_bullets: rd_i32(process, vd + o.num_bullets),
+                max_speed: rd_f32(process, vd + o.max_speed),
+                spread: rd_f32(process, vd + o.spread),
+                inaccuracy_stand: rd_f32(process, vd + o.inaccuracy_stand),
+                inaccuracy_move: rd_f32(process, vd + o.inaccuracy_move),
+                recoil_magnitude: rd_f32(process, vd + o.recoil_magnitude),
                 address: vd,
                 vdata_ptr_offset: off,
             });

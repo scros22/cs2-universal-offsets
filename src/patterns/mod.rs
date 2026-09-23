@@ -412,8 +412,12 @@ fn resolve(
 ) -> (u64, u64, Option<String>) {
     match sig.resolve {
         ResolveKind::None => {
+            // extra_off moves BOTH: the published rva used to stay on the match
+            // start while va moved, so entries like ConvarGet (needle begins in
+            // the previous function's tail, extra_off 4) reported the wrong rva.
             let va = (match_va as i64 + sig.extra_off) as u64;
-            (match_rva as u64, va, None)
+            let rva = (match_rva as i64 + sig.extra_off) as u64;
+            (rva, va, None)
         }
         ResolveKind::Rel32 { rel_off } | ResolveKind::RipRel { rel_off } => {
             let idx = match_rva as usize + rel_off;
@@ -461,7 +465,7 @@ impl PatternHit {
     }
 }
 
-fn display_name(raw: &str) -> String {
+pub(crate) fn display_name(raw: &str) -> String {
     if raw.is_empty() {
         return String::new();
     }
