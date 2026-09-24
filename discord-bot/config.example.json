@@ -1,0 +1,10 @@
+{
+  "token": "PUT-BOT-TOKEN-HERE",
+  "clientId": "PUT-APPLICATION-ID-HERE",
+  "apiBase": "http://127.0.0.1:7777/api",
+  "session": "latest",
+  "statusIntervalMinutes": 5,
+  "channels": { "status": "status", "announcements": "announcements" },
+  "githubRepo": "scros22/cs2-universal-offsets",
+  "brand": { "name": "CS2 SDK", "url": "https://cs2-sdk.com", "iconUrl": "" }
+}

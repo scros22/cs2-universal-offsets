@@ -604,8 +604,8 @@ fn format_found_patterns(report: &patterns::PatternReport) -> String {
     s.push_str("  \"patterns\": [\n");
     for (i, h) in found.iter().enumerate() {
         let comma = if i + 1 == found.len() { "" } else { "," };
-        let va = h.va.map(|v| format!("0x{:X}", v)).unwrap_or_else(|| "null".into());
-        let rva = h.rva.map(|v| format!("0x{:X}", v)).unwrap_or_else(|| "null".into());
+        let va = h.va.map(|v| format!("\"0x{:X}\"", v)).unwrap_or_else(|| "null".into());
+        let rva = h.rva.map(|v| format!("\"0x{:X}\"", v)).unwrap_or_else(|| "null".into());
         let bytes_field = h
             .bytes
             .as_deref()
@@ -627,7 +627,7 @@ fn format_found_patterns(report: &patterns::PatternReport) -> String {
             format!(", \"aliases\": [{}]", h.aliases.iter().map(|a| format!("\"{}\"", a)).collect::<Vec<_>>().join(", "))
         };
         s.push_str(&format!(
-            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>12}, \"rva\": {:>10}, \"pattern\": {:<pw$}, \"bytes\": {:<bw$}, \"pattern_synth\": {:<sw$}, \"prototype\": {:<pxw$}{} }}{}\n",
+            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>16}, \"rva\": {:>12}, \"pattern\": {:<pw$}, \"bytes\": {:<bw$}, \"pattern_synth\": {:<sw$}, \"prototype\": {:<pxw$}{} }}{}\n",
             format!("\"{}\"", h.name),
             format!("\"{}\"", h.module),
             format!("\"{}\"", h.resolve),

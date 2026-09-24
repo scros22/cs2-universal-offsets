@@ -1,0 +1,17 @@
+{
+  "name": "cs2-sdk-discord-bot",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Discord bot for cs2-sdk.com: live dump status, new-dump announcements, and slash-command lookups over the site API.",
+  "scripts": {
+    "start": "node src/index.js",
+    "selftest": "node src/selftest.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.3"
+  }
+}

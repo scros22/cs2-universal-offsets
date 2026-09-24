@@ -1,3 +1,5 @@
+> Archived research note (April 2026). The signature names it mentions were part of the database at the time and are not all present today; it is kept for the reverse-engineering method, not as a reference for current builds.
+
 # Source2 VFX/VCS Intel (Apr 25, 2026)
 
 This note captures the latest reverse-engineering pass for the

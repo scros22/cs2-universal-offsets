@@ -1,102 +1,108 @@
-# Signature Pass: End-to-End
+# Signatures
 
-This document walks through a single run of the signature pass — from
-the entry in `src/signatures/database.rs` all the way to the emitted
-multi-language consumer files.
+A signature is an IDA-style byte pattern that finds one function or one global in one module, together with everything needed to use it: the resolved RVA on the current build, the function's Hex-Rays prototype, the first bytes of its prologue, and the other names the community knows it by.
 
-## 1. Anatomy of a Signature Entry
+The database is [`src/patterns/database.rs`](https://github.com/scros22/cs2-universal-offsets/blob/main/src/patterns/database.rs). On build 14183 it holds **586 entries; 585 resolve**, describing **536 unique functions** (some functions are reached by more than one entry — see *Aliases* below). Every published pattern matches **exactly once** in its module: a pattern that matches more than once is treated as broken and fixed before release.
 
-```rust
-SignatureEntry {
-    name:    "CL_RecvUserCmds",
-    module:  "client.dll",
-    pattern: "48 89 5C 24 ?? 48 89 74 24 ?? 57 48 81 EC 50 02 ?? ??",
-    section: ".text",
-    resolve: ResolveKind::None,
-}
-```
-
-Five fields:
-
-- `name` — symbol-style identifier; becomes a constant in every emitter.
-- `module` — the DLL the pattern lives in.
-- `pattern` — IDA-style bytes (see [PATTERNS.md](PATTERNS.md)).
-- `section` — which PE section to scan (almost always `.text`).
-- `resolve` — what to do with the match address (`None` / `Rel32` /
-  `RipRel` / `StringRef`).
-
-## 2. Scan Pipeline
-
-For each entry the scanner:
-
-1. **Resolves the module** from the live process via memflow.
-2. **Slices the section bytes** with pelite — `.text` for code,
-   `.rdata` for string-ref needles.
-3. **Runs `find_all_pattern`** to count matches and pick the canonical
-   first one. The match count is recorded in
-   `SignatureHit::matches` so consumers can flag ambiguous patterns.
-4. **Applies the resolver** to get the final RVA (see PATTERNS.md §2).
-5. **Adds the module base** at runtime to produce a VA and stashes
-   both in `SignatureHit { rva, va, ... }`.
-
-Failures are recorded as `SignatureHit { found: false, error: Some(_),
-... }` rather than aborting — one bad pattern doesn't take the rest
-down.
-
-## 3. Warm Cache
-
-A cache file is just a previous `signatures.json`. When loaded:
-
-```rust
-let cache = SignatureCache::load("dumps/.../signatures/signatures.json")?;
-```
-
-For every entry whose `(module, name, pattern)` triple is in the cache,
-the scanner re-validates the cached `match_rva` against the recorded
-pattern bytes in the live module. If the bytes still match, the entry
-is satisfied without a full module scan; otherwise it falls back to a
-fresh scan.
-
-This makes patch-day re-runs *fast* — only the entries whose anchors
-actually moved get re-scanned.
-
-## 4. Multi-Language Output
-
-After scanning, `src/signatures/writers.rs` emits four parallel views
-of the same hit list:
-
-| File              | Shape                                                           |
-| ----------------- | --------------------------------------------------------------- |
-| `signatures.json` | `total/found/missing` summary + one entry per hit               |
-| `signatures.hpp`  | `namespace cs2::signatures { inline constexpr nint X = 0xX; }`  |
-| `signatures.cs`   | `namespace CS2Sdk.Signatures { static class { const nint ... } }` |
-| `signatures.rs`   | `pub mod cs2_signatures { pub mod client_dll { pub const ... } }` |
-| `SIGNATURES.md`   | Markdown table for humans to skim                                |
-
-## 5. Diff Against the Previous Build
-
-When a previous `signatures.json` is found (either via `--cache <PATH>`
-or auto-detected from the newest sibling session), the scanner also
-emits `diff.json`:
+## `patterns/patterns.json`
 
 ```json
 {
-  "previous": "dumps/20-04-26-CS2-SDK/signatures/signatures.json",
-  "added":            [...],
-  "removed":          [...],
-  "shifted":          [{ "name": "...", "before": 0xA, "after": 0xB }],
-  "pattern_changed":  [...]
+  "total_scanned":  586,
+  "found":          585,
+  "unique_functions": 536,
+  "missing":        1,
+  "modules":        ["animationsystem.dll", "client.dll", "engine2.dll", …],
+  "patterns": [
+    { "name": "CreateMove", "module": "client.dll", "resolve": "raw", "va": "0x7FFA78A74A10", "rva": "0xB64A10",
+      "pattern": "85 D2 0F 85 ? ? ? ? 48 8B C4 44 88 40 18",
+      "bytes": "85 D2 0F 85 CC 12 00 00 48 8B C4 44 88 40 18 89 50 10 48 89 48 08 55 53",
+      "pattern_synth": "85 D2 0F 85 ? ? ? ? 48 8B C4 44 88 40 18 89",
+      "prototype": "void __fastcall CreateMove(_QWORD *a1, int a2, char a3)" },
+    { "name": "CalculateWorldSpaceBones", "module": "client.dll", "resolve": "raw", …,
+      "aliases": ["CalcWorldSpaceBones"] }
+  ]
 }
 ```
 
-Patch-day workflow: dump, look at `diff.json`, react.
+| Field | Meaning |
+|---|---|
+| `name` | The published name: the constant in `patterns.hpp` and the key for `/api/pattern/<name>` |
+| `module` | The DLL the pattern is scanned in |
+| `resolve` | How the match address becomes the final address: `raw`, `rel32` or `riprel` (below) |
+| `pattern` | The database pattern. `?` is a one-byte wildcard |
+| `rva` | The final address relative to the module base, after resolution: the function (or global) itself, not the match |
+| `va` | The same address in the dumped process — only meaningful for that session |
+| `prototype` | The function's prototype as recovered in IDA / Hex-Rays. A `sub_18xxxxxxx` name is the function's address at IDA's default image base |
+| `bytes` | The first 24 bytes at `rva`, no wildcards. Present when `rva` is inside `.text` |
+| `pattern_synth` | An auto-generated pattern for the same function: the shortest prefix of `bytes` that is unique in `.text`, with `?` on relocatable bytes (CALL/JMP and RIP-relative displacements). Pastes straight into IDA, x64dbg or ReClass.NET |
+| `aliases` | Other database names that resolved to the same address; present only when there are any |
 
-## 6. Where to Look in the Source
+Entries that did not resolve are not listed; `missing` counts them and the run log names them.
 
-| Concern                       | File                                |
-| ----------------------------- | ----------------------------------- |
-| Signature catalog             | `src/signatures/database.rs`        |
-| Scanner + ResolveKind         | `src/signatures/mod.rs`             |
-| Warm cache                    | `src/signatures/cache.rs`           |
-| Multi-language emitters       | `src/signatures/writers.rs`         |
-| Diff                          | `src/signatures/diff.rs`            |
+## Resolve kinds
+
+The pattern is scanned in the module's `.text` section (`.rdata` as a fallback for data patterns). `resolve` says what the dumper did with the match address to obtain `rva`:
+
+| `resolve` | Database constant | Used for | `rva` |
+|---|---|---|---|
+| `raw` | `NONE` | Function prologues, inline code | `match + extra_off` |
+| `rel32` | `REL32_1` | Patterns that start on an `E8` call or `E9` jmp | `match + 1 + 4 + int32(match + 1)` — the call target |
+| `riprel` | `RIPREL_3` (`RIPREL_2` without a REX prefix) | A RIP-relative `lea`/`mov` to a global: `48 8D 0D ? ? ? ?`, `48 8B 05 ? ? ? ?` | `match + off + 4 + int32(match + off)` — the global |
+
+`extra_off` (a byte offset applied to a raw match — `ConvarGet` starts 4 bytes before its function, so its entry carries `extra_off: 4`) and `rel_off` (the offset of the displacement inside the pattern) are fixed per entry in the database. You do not need either at runtime: `rva` is already the final address. If you scan the patterns yourself, apply the rule that your entry's `resolve` names.
+
+`riprel` entries are globals, not functions: `pGameRules`, `pCSGOInputInstance`, `pMaterialManager`, … They are also published in `offsets/offsets_all.json` with `kind: "signature"` — see [Offsets](Offsets.md).
+
+## Names, display names and aliases
+
+**Published name.** The database name. It is class-qualified where the class matters (`CCSGOInput_ProcessInputEvent`, `C_CSWeaponBaseGun_GetInaccuracy`) and bare where the community name is unambiguous (`CreateMove`, `TraceShape`).
+
+**Aliases.** When several database entries resolve to the same address they are folded into one published entry. The primary name is the most descriptive one (a class-qualified name beats a bare one; `_v2` / `_raw` / `_legacy` / `_Client` style variants never win) and the rest go into `aliases`. On build 14183, 57 functions had two or three names. Every group was decompiled and checked before being folded, and 16 names that turned out to describe a different function were removed rather than kept as aliases ([Changelog](Changelog.md) v2.1.2).
+
+**Display name.** The site and the Discord bot show a shorter form: the class prefix is stripped when what is left is still descriptive (`CCSGOInput_ProcessInputEvent` → `ProcessInputEvent`), but never down to a bare word (`CCSInventoryManager_Get` stays as it is).
+
+All of these resolve in the API. `/api/pattern/<name>` and `/api/query` accept the published name, any alias, the display name, the `Class::Method` spelling, the method name alone, and `module.dll/Name` to pin a module. A non-exact match is reported in the response, so you can see which entry you got.
+
+## Using a signature at runtime
+
+The dumped `rva` is correct for the build it was dumped from. If you ship the RVA, pin the build (`CS2_BUILD`). If you want to survive small patches, ship the pattern and scan at start-up:
+
+```cpp
+#include <patterns/patterns.hpp>   // pattern::client::CreateMove == "85 D2 0F 85 ? ? ? ? 48 8B C4 44 88 40 18 89"
+
+// Minimal IDA-style scanner. Scan only the module's .text section.
+std::uint8_t* find(std::uint8_t* text, std::size_t size, std::string_view ida) {
+    std::vector<int> needle;                                   // -1 = wildcard
+    for (std::size_t i = 0; i < ida.size();) {
+        if (ida[i] == ' ') { ++i; continue; }
+        if (ida[i] == '?') { needle.push_back(-1); i += (i + 1 < ida.size() && ida[i + 1] == '?') ? 2 : 1; continue; }
+        needle.push_back(std::stoi(std::string(ida.substr(i, 2)), nullptr, 16)); i += 2;
+    }
+    for (std::size_t i = 0; i + needle.size() <= size; ++i) {
+        std::size_t j = 0;
+        while (j < needle.size() && (needle[j] < 0 || text[i + j] == needle[j])) ++j;
+        if (j == needle.size()) return text + i;
+    }
+    return nullptr;
+}
+
+// raw:    fn     = match (+ extra_off)
+// rel32:  target = match + 1 + 4 + *reinterpret_cast<std::int32_t*>(match + 1)
+// riprel: global = match + 3 + 4 + *reinterpret_cast<std::int32_t*>(match + 3)
+```
+
+Treat more than one hit as a failure. That is what the dumper does, and it is why every published pattern is unique.
+
+After a CS2 update, `pattern_synth` and `bytes` give you a second chance: when the database pattern stops matching, the synthesised one often still does, and the raw prologue bytes let you find the function in a disassembler by hand.
+
+## Other views of the same data
+
+- `patterns/patterns.hpp` — `pattern::<module>::<Name>` as `constexpr std::string_view`, with `// also known as:` comments for aliases.
+- `GET /api/patterns` — the list as JSON (`?module=`, `?name=` substring; `?raw=1` for the unfolded list with one entry per database name).
+- `GET /api/export/patterns.txt` — every pattern as an aligned, module-grouped text file.
+- The **Patterns** tab on [cs2-sdk.com](https://cs2-sdk.com): searchable, with a detail drawer per function.
+
+## Coverage on build 14183
+
+585 of 586 entries resolve. The one that does not is `GameSystem_Think_CheckSteamBan` (server.dll): the function still exists, but nothing unique is left to anchor a pattern on. It stays in the database so it is retried on every build instead of being forgotten.

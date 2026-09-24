@@ -6,6 +6,9 @@ interfaces + vtables, protobuf layouts, engine structs and a set of runtime
 catalogues (convars, game events, weapons, entities).
 
 Live browser + API for the latest output: <https://cs2-sdk.com>.
+Documentation: the [wiki](https://github.com/scros22/cs2-universal-offsets/wiki)
+(mirrored in [`docs/`](docs/README.md)). A [Discord bot](discord-bot/README.md)
+answers from the same data.
 
 ## What you get
 
@@ -22,7 +25,8 @@ include/
 │   ├── patterns.json         # every signature: pattern, rva, prototype, prologue bytes
 │   └── patterns.hpp
 ├── offsets/
-│   └── offsets.{hpp,json}    # dwXxx globals (a2x-compatible) + RIP-relative sig globals
+│   ├── offsets.{hpp,json}    # dwXxx globals (a2x-compatible) + RIP-relative sig globals
+│   └── offsets_all.json      # every resolved global, tagged global / signature / interface
 ├── interfaces/
 │   ├── interfaces.hpp        # typed ifc::<module>::<Class> wrappers
 │   └── vtables.json          # primary vtable of every registered interface
@@ -30,7 +34,9 @@ include/
 ├── engine/                   # hand-verified non-schema structs + drop-in .h each:
 │   └── engine_structs.json   #   CCSGOInput, CUserCmd, CCSGOUserCmdPB, CBaseUserCmdPB,
 │                             #   CSubtickMoveStep, CInButtonStatePB, CCSGOInputHistoryEntryPB,
-│                             #   CSGOInterpolationInfoPB, CMsgQAngle, CMsgVector, CViewSetup
+│                             #   CSGOInterpolationInfoPB, CMsgQAngle, CMsgVector, CViewSetup,
+│                             #   CSwapChainDx11
+├── impl/entity_system.hpp    # CGameEntitySystem helpers + CHandle<T>::Get() resolvers
 ├── convars/convars.{json,hpp}      # every ConVar / ConCommand with type, value, flags
 ├── gameevents/gameevents.json      # every registered game event + typed keys
 ├── weapons/weapons.json            # CCSWeaponBaseVData of weapons present at dump time
@@ -71,9 +77,13 @@ For the fullest weapons/entities catalogues, dump while in a match.
 
 ## How it stays correct across CS2 updates
 
-* Signatures resolve by pattern (`Rel32` / `RipRel` / raw with `extra_off`),
-  and every hit records how many times it matched, so an ambiguous pattern is
-  visible in `patterns.json` instead of silently resolving to the wrong place.
+* Signatures resolve by pattern (`Rel32` / `RipRel` / raw with `extra_off`).
+  Every published pattern matches exactly once in its module; the scanner
+  counts matches and reports any ambiguous pattern in the run log, and the
+  database is fixed before a release rather than published on the first hit.
+* Entries that resolve to the same function are folded into one published
+  name with the others listed as `aliases`; every alias still resolves in the
+  site search and the API.
 * Engine-struct function and instance addresses are looked up from the
   signature pass by name, never hardcoded.
 * The weapon and entity walkers take their field offsets from the schema
@@ -85,6 +95,7 @@ For the fullest weapons/entities catalogues, dump while in a match.
 * `patterns/patterns.json`, `offsets/offsets.json` and `schemas/*.hpp` are the
   public contract consumed by cs2-sdk.com - their shape will not break in a
   minor version.
+* Every `.json` file is strict JSON; addresses are hex strings (`"0xB64A10"`).
 * Per-module schema headers with no classes or enums are skipped.
 
 ## License
