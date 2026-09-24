@@ -1,6 +1,6 @@
 [package]
 name = "cs2-sdk"
-version = "2.1.2"
+version = "2.1.3"
 edition = "2024"
 description = "CS2 SDK generator — offsets, signatures, schemas, and interfaces dumped externally from a live process."
 

@@ -1,7 +1,7 @@
 {
   "build_number": 14183,
   "note": "Non-schema client struct layouts, hand-verified. Function/instance RVAs are resolved from this dump's patterns.",
-  "struct_count": 11,
+  "struct_count": 12,
   "structs": [
     {
       "desc": "Client input singleton: turns mouse/keyboard state into the per-tick user command. Not a schema class. View angles verified in a working internal on build 2000914.",
@@ -724,6 +724,29 @@
       "module": "client.dll",
       "name": "CMsgVector",
       "size": "0x28"
+    },
+    {
+      "desc": "The engine's DX11 swap-chain wrapper. CreateSwapChain (this, IDXGIFactory*, device, flags) calls IDXGIFactory::CreateSwapChain (factory vtable slot 10) with &this->m_pSwapChain as the out pointer, then logs 'Successfully created dx11 swap chain %s'. Verified in IDA on build 2000915. Hook IDXGISwapChain::Present / ResizeBuffers through the object stored here.",
+      "fields": [
+        {
+          "name": "m_pSwapChain",
+          "note": "IDXGISwapChain vtable: 8 Present, 9 GetBuffer, 10 SetFullscreenState, 12 GetDesc, 13 ResizeBuffers, 14 ResizeTarget",
+          "offset": "0x170",
+          "type": "IDXGISwapChain*"
+        }
+      ],
+      "functions": [
+        {
+          "name": "CreateSwapChain",
+          "pattern": "CSwapChainDx11_CreateSwapChain",
+          "rva": "0x3E7D0"
+        }
+      ],
+      "instance": "one per window; CreateSwapChain receives the instance in rcx - read m_pSwapChain after it returns",
+      "instance_rva": null,
+      "module": "rendersystemdx11.dll",
+      "name": "CSwapChainDx11",
+      "size": null
     },
     {
       "desc": "The camera/view description filled each frame (fov, origin, angles). Written by OverrideView; read by the renderer. Not a schema class. Verified on build 2000914.",

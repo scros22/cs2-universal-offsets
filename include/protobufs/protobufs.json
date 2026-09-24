@@ -8754,7 +8754,7 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 2030636960, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "begin": { "offset": 2031357856, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
         "end": { "offset": 32762, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     }
@@ -10998,7 +10998,7 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 2307533200, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "begin": { "offset": 2308516240, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
         "end": { "offset": 32762, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     },
@@ -20394,7 +20394,7 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 2073177920, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "begin": { "offset": 2073898816, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
         "end": { "offset": 32762, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     }

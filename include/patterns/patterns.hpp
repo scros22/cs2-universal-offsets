@@ -504,6 +504,7 @@ namespace pattern {
         inline constexpr std::string_view SetMaterialShaderType = "48 89 5C 24 10 48 89 6C 24 18 56 57 41 54 41 56 41 57 48 81";
     }
     namespace rendersystemdx11 {
+        inline constexpr std::string_view CreateSwapChain = "44 88 4C 24 20 55 53 57 41 54 41 55 41 56 41 57";
         inline constexpr std::string_view GetResourceView = "48 89 5C 24 10 48 89 74 24 18 48 89 7C 24 20 48 89 4C 24 08 55 41 54 41 55 41 56 41 57 48 8D 6C 24 E0 48 81 EC 20 01 00 00 33 FF 4D 0F BE F8 89";
         inline constexpr std::string_view RenderThread_ExecuteCommandStream = "44 88 44 24 18 55 53 56 57 41 54 41 55 41 56 48";
     }

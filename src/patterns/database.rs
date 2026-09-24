@@ -1417,6 +1417,9 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     // --- added for build 2000914 (IDA-verified, needles generated + checked unique) ---
     Pattern { name: "RenderThread_ExecuteCommandStream",    module: "rendersystemdx11.dll", needle: "44 88 44 24 18 55 53 56 57 41 54", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_18005EC80(__int64 a1, __int64 a2, unsigned __int8 a3)" },
 
+    // --- added for build 2000914 (IDA-verified, needles generated + checked unique) ---
+    Pattern { name: "CSwapChainDx11_CreateSwapChain",       module: "rendersystemdx11.dll", needle: "44 88 4C 24 20 55 53 57 41 54", resolve: NONE, extra_off: 0, prototype: "bool __fastcall sub_18003E7D0(__int64 a1, __int64 *a2, __int64 a3, char a4)" },
+
     // ============================================================================
     // scenesystem.dll
     // ============================================================================

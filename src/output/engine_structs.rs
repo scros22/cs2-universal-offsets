@@ -254,6 +254,18 @@ pub const ENGINE_STRUCTS: &[EStruct] = &[
         functions: &[],
     },
     EStruct {
+        name: "CSwapChainDx11",
+        module: "rendersystemdx11.dll",
+        desc: "The engine's DX11 swap-chain wrapper. CreateSwapChain (this, IDXGIFactory*, device, flags) calls IDXGIFactory::CreateSwapChain (factory vtable slot 10) with &this->m_pSwapChain as the out pointer, then logs 'Successfully created dx11 swap chain %s'. Verified in IDA on build 2000915. Hook IDXGISwapChain::Present / ResizeBuffers through the object stored here.",
+        size: None,
+        instance_pattern: None,
+        instance_note: "one per window; CreateSwapChain receives the instance in rcx - read m_pSwapChain after it returns",
+        fields: &[
+            EField { name: "m_pSwapChain", offset: 0x170, ty: "IDXGISwapChain*", note: "IDXGISwapChain vtable: 8 Present, 9 GetBuffer, 10 SetFullscreenState, 12 GetDesc, 13 ResizeBuffers, 14 ResizeTarget" },
+        ],
+        functions: &[EFunc { name: "CreateSwapChain", pattern: "CSwapChainDx11_CreateSwapChain" }],
+    },
+    EStruct {
         name: "CViewSetup",
         module: "client.dll",
         desc: "The camera/view description filled each frame (fov, origin, angles). Written by OverrideView; read by the renderer. Not a schema class. Verified on build 2000914.",
