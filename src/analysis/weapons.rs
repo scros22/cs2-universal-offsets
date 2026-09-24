@@ -85,6 +85,11 @@ pub struct Weapon {
 /// Weapon-vdata field offsets for this run: schema first, last-known fallback.
 struct Offsets {
     vdata_ptr: Option<u64>,
+    /// CCSWeaponBaseVData::m_szName (CGlobalSymbol = interned char*). Variants
+    /// share their base entity's designer name (R8 -> weapon_deagle, M4A1-S ->
+    /// weapon_m4a1, USP-S -> weapon_hkp2000, MP5-SD -> weapon_mp7); the vdata
+    /// knows the real one.
+    vdata_name: Option<u64>,
     price: u64,
     num_bullets: u64,
     cycle_time: u64,
@@ -107,6 +112,7 @@ impl Offsets {
         let f = |name: &str, fb: u64| schema_lookup::field_or(schemas, VD, name, fb);
         Self {
             vdata_ptr: schema_lookup::field(schemas, "C_BaseEntity", "m_nSubclassID").map(|o| o + 8),
+            vdata_name: schema_lookup::field(schemas, VD, "m_szName"),
             price: f("m_nPrice", F_PRICE),
             num_bullets: f("m_nNumBullets", F_NUM_BULLETS),
             cycle_time: f("m_flCycleTime", F_CYCLE_TIME),
@@ -150,11 +156,13 @@ pub fn walk<P: Process + MemoryView>(
         }
         let name_ptr = rd_u64(process, ident + IDENTITY_DESIGNER_NAME);
         let name = rd_cstr(process, name_ptr);
-        if !name.starts_with("weapon_") || by_name.contains_key(&name) {
+        if !name.starts_with("weapon_") {
             continue;
         }
         if let Some(w) = read_weapon(process, &offs, &name, inst) {
-            by_name.insert(name, w);
+            // Key by the vdata's own name so variants don't collapse into
+            // their base weapon; first sighting of each wins.
+            by_name.entry(w.name.clone()).or_insert(w);
         }
     }
 
@@ -179,8 +187,16 @@ fn read_weapon<P: MemoryView>(process: &mut P, o: &Offsets, name: &str, entity: 
             && (0.0..=10.0).contains(&penetration)
             && (0..=20000).contains(&price)
         {
+            let wname = match o.vdata_name {
+                Some(off) => {
+                    let sym = rd_u64(process, vd + off);
+                    let n = rd_cstr(process, sym);
+                    if n.starts_with("weapon_") { n } else { name.to_string() }
+                }
+                None => name.to_string(),
+            };
             return Some(Weapon {
-                name: name.to_string(),
+                name: wname,
                 damage,
                 headshot_multiplier: rd_f32(process, vd + o.headshot_mult),
                 armor_ratio: rd_f32(process, vd + o.armor_ratio),

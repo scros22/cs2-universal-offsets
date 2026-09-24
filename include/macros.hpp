@@ -1410,6 +1410,7 @@ namespace client {
     class CBodyComponent;
     class CBuoyancyHelper;
     class CCSGameModeRules;
+    class CCSMinimapVolume;
     class CCSPlayerController;
     class CCSPlayer_ActionTrackingServices;
     class CCSPlayer_AimPunchServices;
@@ -1461,6 +1462,7 @@ namespace engine2 {
 }
 
 namespace particles {
+    class ParticleAttributeIndex_t;
     class ParticleIndex_t;
     class ParticleModelType_t;
 }
@@ -1472,6 +1474,7 @@ namespace rendersystemdx11 {
 
 namespace resourcesystem {
     class FourQuaternions;
+    class NoiseStreamDef_t;
 }
 
 namespace scenesystem {
@@ -1516,7 +1519,9 @@ namespace server {
     enum class CSWeaponType : std::uint32_t;
     class CSkillFloat;
     class CSoundPatch;
+    enum class CustomCameraMode_t : std::uint8_t;
     enum class DamageTypes_t : std::uint32_t;
+    enum class DirectionAlongSimplePath_t : std::uint32_t;
     enum class DoorState_t : std::uint32_t;
     enum class EKillTypes_t : std::uint8_t;
     enum class EntityDissolveType_t : std::int32_t;
@@ -1524,6 +1529,8 @@ namespace server {
     class ExternalAnimGraphHandle_t;
     enum class FixAngleSet_t : std::uint8_t;
     enum class GrenadeType_t : std::uint32_t;
+    class HUDPanelDialogVariableString_t;
+    class HUDPanelHasClass_t;
     enum class HitGroup_t : std::int32_t;
     enum class ItemFlagTypes_t : std::uint8_t;
     enum class MedalRank_t : std::uint32_t;
@@ -1551,6 +1558,7 @@ namespace server {
     enum class SequenceFinishNotifyState_t : std::uint8_t;
     enum class ShardSolid_t : std::uint8_t;
     enum class SolidType_t : std::uint8_t;
+    class SoundeventBoxHelperNetworked_t;
     class SoundeventPathCornerPairNetworked_t;
     enum class SurroundingBoundsType_t : std::uint8_t;
     enum class TakeDamageFlags_t : std::uint64_t;
@@ -1583,6 +1591,7 @@ namespace vphysics2 {
     enum class JointMotion_t : std::uint32_t;
     class PhysFeModelDesc_t;
     enum class PhysInterfaceId_t : std::uint32_t;
+    class RnCompoundDesc_t;
     class constraint_hingeparams_t;
 }
 
@@ -1591,9 +1600,16 @@ namespace vphysics2 {
 template <class...> class CPulseObservableExpression;
 template <class...> class CUtlDict;
 template <class...> class HPulseCell;
+class CFuncMover_FindFollowMoverStrategy_t;
 class CFuncMover_PathRebuildStrategy_t;
 class CFuncRotator_RotationAxis_t;
 class CGameSoundEventName;
+class CNmClothEvent_Type_t;
+class CNmOrientationWarpNode_AlignmentMode_t;
+class CPathMoverEntitySpawner_TemplateChoiceStrategy_t;
+class CPulseArgumentPack;
+class CPulseInputParamMap;
+class CPulseVariant;
 class HPulseCellBase;
 class HYieldedCursor;
 class RnSphere_t;

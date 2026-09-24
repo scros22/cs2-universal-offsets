@@ -1,10 +1,10 @@
 {
-  "build_number": 14175,
-  "note": "Non-schema client struct layouts, reverse-engineered from client.dll. Offsets drift between builds.",
-  "struct_count": 3,
+  "build_number": 14183,
+  "note": "Non-schema client struct layouts, hand-verified. Function/instance RVAs are resolved from this dump's patterns.",
+  "struct_count": 11,
   "structs": [
     {
-      "desc": "Client input singleton — turns raw mouse/keyboard state into the per-tick CUserCmd sent to the server. Not a schema (networked) class.",
+      "desc": "Client input singleton: turns mouse/keyboard state into the per-tick user command. Not a schema class. View angles verified in a working internal on build 2000914.",
       "fields": [
         {
           "name": "vtable",
@@ -13,119 +13,720 @@
           "type": "void**"
         },
         {
-          "name": "m_pButtons",
-          "note": "registered in_* commands (in_forward, in_jump, ...)",
-          "offset": "0x20",
-          "type": "kbutton*[]"
-        },
-        {
-          "name": "m_angSubtickMoveAngle",
-          "note": "per-subtick move-direction source",
-          "offset": "0x270",
-          "type": "QAngle"
-        },
-        {
-          "name": "m_angViewHistory",
-          "note": "previous / interpolated view-angle history",
-          "offset": "0x288",
-          "type": "QAngle"
-        },
-        {
-          "name": "m_angViewAngles",
-          "note": "current command view angles — pitch 0x688 / yaw 0x68C / roll 0x690; mouse delta is added into yaw here each frame",
-          "offset": "0x688",
-          "type": "QAngle"
-        },
-        {
-          "name": "m_mouseAccumHistory",
-          "note": "input-delta smoothing sub-object {int count; void* samples; ...}",
-          "offset": "0x6F8",
+          "name": "m_FrameInput",
+          "note": "per-frame input block (weapon select / frame data)",
+          "offset": "0x228",
           "type": "struct"
         },
         {
-          "name": "m_nCommandNumber",
-          "note": "command / sequence number (add 0x18*slot for splitscreen)",
-          "offset": "0xB50",
-          "type": "int"
-        },
-        {
-          "name": "m_pUserCmds",
-          "note": "ring buffer base, 1088-byte entries (add 0x18*slot for splitscreen)",
-          "offset": "0xB58",
-          "type": "CUserCmd*"
+          "name": "m_angViewAngles",
+          "note": "live view angles - pitch 0x688 / yaw 0x68C / roll 0x690; mouse delta is added into yaw each frame",
+          "offset": "0x688",
+          "type": "QAngle"
         }
       ],
       "functions": [
         {
           "name": "CreateMove",
-          "rva": "0xB1FB80"
+          "pattern": "CreateMove",
+          "rva": "0xB64A10"
+        },
+        {
+          "name": "GetViewAngles",
+          "pattern": "GetViewAngles",
+          "rva": "0xB6FC30"
+        },
+        {
+          "name": "SetViewAngles",
+          "pattern": "SetViewAngles",
+          "rva": "0xB7FA90"
+        },
+        {
+          "name": "ProcessInputEvent",
+          "pattern": "CCSGOInput_ProcessInputEvent",
+          "rva": "0xB7B010"
+        },
+        {
+          "name": "ReadFrameInput",
+          "pattern": "CCSGOInput_ReadFrameInput",
+          "rva": "0xD03D00"
+        },
+        {
+          "name": "AddInputHistoryEntry",
+          "pattern": "CCSGOInput_AddInputHistoryEntry",
+          "rva": "0xCDDA10"
         }
       ],
-      "instance": "(CCSGOInput*)(client.dll + 0x23B95F0) — static object embedded at this RVA (no deref; the GetInput getter returns its address)",
-      "instance_rva": "0x23B95F0",
+      "instance": "static object embedded in client.dll (no deref); pCSGOInput is a global POINTER to this same object",
+      "instance_rva": "0x2571A90",
       "module": "client.dll",
-      "name": "CCSGOInput"
+      "name": "CCSGOInput",
+      "size": null
     },
     {
-      "desc": "One entry in CCSGOInput's per-command ring buffer (1088 bytes / 0x440 each) — the resolved view angle + button masks CreateMove writes each tick. This is the client working buffer, not the networked protobuf.",
+      "desc": "The client's command object (one per tick). Embeds the CCSGOUserCmdPB that is serialised to the server and the live CInButtonState. Lives in a 150-entry ring per controller.",
       "fields": [
         {
-          "name": "m_nButtons",
-          "note": "pressed (down) button mask",
+          "name": "vtable",
+          "note": "CUserCmd vftable",
           "offset": "0x0",
-          "type": "uint64"
+          "type": "void**"
         },
         {
-          "name": "m_nButtonsQueuedDown",
-          "note": "bits forced DOWN this cmd (subtick)",
+          "name": "m_nCommandNumber",
+          "note": "command / sequence number",
           "offset": "0x8",
-          "type": "uint64"
+          "type": "int64"
         },
         {
-          "name": "m_nButtonsQueuedChange",
-          "note": "bits that CHANGED this cmd (subtick gate)",
+          "name": "m_csgoUserCmd",
+          "note": "embedded protobuf message (vtable at +0x10, fields from +0x20)",
           "offset": "0x10",
+          "type": "CCSGOUserCmdPB"
+        },
+        {
+          "name": "m_csgoUserCmd.has_bits",
+          "note": "CCSGOUserCmdPB has-bits (0x1 = base present)",
+          "offset": "0x20",
+          "type": "uint32"
+        },
+        {
+          "name": "m_csgoUserCmd.input_history",
+          "note": "{arena* +0x28, int size +0x30, int capacity +0x34, rep* +0x38}",
+          "offset": "0x28",
+          "type": "RepeatedPtrField<CCSGOInputHistoryEntryPB>"
+        },
+        {
+          "name": "m_csgoUserCmd.base",
+          "note": "the base command (movement, buttons, view angles, subtick steps)",
+          "offset": "0x40",
+          "type": "CBaseUserCmdPB*"
+        },
+        {
+          "name": "m_csgoUserCmd.attack1_start_history_index",
+          "note": "has-bit 0x20",
+          "offset": "0x4C",
+          "type": "int32"
+        },
+        {
+          "name": "m_csgoUserCmd.attack2_start_history_index",
+          "note": "has-bit 0x40",
+          "offset": "0x50",
+          "type": "int32"
+        },
+        {
+          "name": "m_ButtonState",
+          "note": "live button state (vtable +0x58)",
+          "offset": "0x58",
+          "type": "CInButtonState"
+        },
+        {
+          "name": "m_ButtonState.m_nValue",
+          "note": "buttons held (IN_* mask)",
+          "offset": "0x60",
           "type": "uint64"
         },
         {
-          "name": "m_angViewAngles",
-          "note": "clamped view angle for this cmd — pitch 0x18 / yaw 0x1C / roll 0x20",
+          "name": "m_ButtonState.m_nValueChanged",
+          "note": "buttons that changed this command",
+          "offset": "0x68",
+          "type": "uint64"
+        },
+        {
+          "name": "m_ButtonState.m_nValueScroll",
+          "note": "scroll-wheel buttons",
+          "offset": "0x70",
+          "type": "uint64"
+        },
+        {
+          "name": "m_nSubtickState",
+          "note": "== 2 while the engine re-runs this same command for a subtick (repeat pass)",
+          "offset": "0x94",
+          "type": "int32"
+        }
+      ],
+      "functions": [
+        {
+          "name": "GetUserCmdManager",
+          "pattern": "GetUserCmdManager",
+          "rva": "0x943540"
+        },
+        {
+          "name": "GetCUserCmdBySequenceNumber",
+          "pattern": "GetCUserCmdBySequenceNumber",
+          "rva": "0x9434B0"
+        }
+      ],
+      "instance": "ring = GetUserCmdManager(controller); cmd = ring + 0x98 * (sequence % 150); current sequence = *(int*)(ring + 0x5910)  (150 * 0x98 = 0x5910)",
+      "instance_rva": null,
+      "module": "client.dll",
+      "name": "CUserCmd",
+      "size": "0x98"
+    },
+    {
+      "desc": "cs_usercmd.proto CSGOUserCmdPB - the top-level command message the client sends. Layout from its parser/serialiser; verified in a working internal on build 2000914.",
+      "fields": [
+        {
+          "name": "has_bits",
+          "note": "0x1 base, 0x2 left_hand_desired, 0x4 body-shot fx, 0x8 head-shot fx, 0x10 kill ragdolls, 0x20 attack1 idx, 0x40 attack2 idx",
+          "offset": "0x10",
+          "type": "uint32"
+        },
+        {
+          "name": "cached_size",
+          "note": "",
+          "offset": "0x14",
+          "type": "int32"
+        },
+        {
+          "name": "input_history",
+          "note": "field 2; {arena* +0x18, size +0x20, capacity +0x24, rep* +0x28}",
           "offset": "0x18",
-          "type": "QAngle"
+          "type": "RepeatedPtrField<CCSGOInputHistoryEntryPB>"
         },
         {
-          "name": "m_nSubtickCount",
-          "note": "subtick move-step count",
-          "offset": "0x2C",
-          "type": "int"
-        },
-        {
-          "name": "m_pSubtickData",
-          "note": "subtick move-step data",
+          "name": "base",
+          "note": "field 1, has-bit 0x1",
           "offset": "0x30",
+          "type": "CBaseUserCmdPB*"
+        },
+        {
+          "name": "left_hand_desired",
+          "note": "has-bit 0x2",
+          "offset": "0x38",
+          "type": "bool"
+        },
+        {
+          "name": "is_predicting_body_shot_fx",
+          "note": "has-bit 0x4",
+          "offset": "0x39",
+          "type": "bool"
+        },
+        {
+          "name": "is_predicting_head_shot_fx",
+          "note": "has-bit 0x8",
+          "offset": "0x3A",
+          "type": "bool"
+        },
+        {
+          "name": "is_predicting_kill_ragdolls",
+          "note": "has-bit 0x10",
+          "offset": "0x3B",
+          "type": "bool"
+        },
+        {
+          "name": "attack1_start_history_index",
+          "note": "has-bit 0x20",
+          "offset": "0x3C",
+          "type": "int32"
+        },
+        {
+          "name": "attack2_start_history_index",
+          "note": "has-bit 0x40",
+          "offset": "0x40",
+          "type": "int32"
+        }
+      ],
+      "functions": [],
+      "instance": "protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start",
+      "instance_rva": null,
+      "module": "client.dll",
+      "name": "CCSGOUserCmdPB",
+      "size": "0x48"
+    },
+    {
+      "desc": "usercmd.proto CBaseUserCmdPB - movement, buttons, view angles and subtick steps. Ground truth is its _InternalParse (field number -> offset + has-bit); the dumper's protobuf walk has mislabelled the 4-byte fields on older builds, so prefer this table.",
+      "fields": [
+        {
+          "name": "has_bits",
+          "note": "see per-field bits",
+          "offset": "0x10",
+          "type": "uint32"
+        },
+        {
+          "name": "cached_size",
+          "note": "",
+          "offset": "0x14",
+          "type": "int32"
+        },
+        {
+          "name": "subtick_moves",
+          "note": "field 18; {arena* +0x18, size +0x20, capacity +0x24, rep* +0x28}",
+          "offset": "0x18",
+          "type": "RepeatedPtrField<CSubtickMoveStep>"
+        },
+        {
+          "name": "move_crc",
+          "note": "field 19, has-bit 0x1 - server CRC32 over buttons + view angles",
+          "offset": "0x30",
+          "type": "std::string*"
+        },
+        {
+          "name": "buttons_pb",
+          "note": "field 3, has-bit 0x2",
+          "offset": "0x38",
+          "type": "CInButtonStatePB*"
+        },
+        {
+          "name": "viewangles",
+          "note": "field 4, has-bit 0x4",
+          "offset": "0x40",
+          "type": "CMsgQAngle*"
+        },
+        {
+          "name": "execution_notes",
+          "note": "internal",
+          "offset": "0x48",
           "type": "void*"
         },
         {
-          "name": "m_flMouseDX",
-          "note": "raw mouse-delta X (accumulated)",
-          "offset": "0x430",
+          "name": "legacy_command_number",
+          "note": "field 1, has-bit 0x10",
+          "offset": "0x50",
+          "type": "int32"
+        },
+        {
+          "name": "client_tick",
+          "note": "field 2, has-bit 0x20",
+          "offset": "0x54",
+          "type": "int32"
+        },
+        {
+          "name": "forwardmove",
+          "note": "field 5, has-bit 0x40",
+          "offset": "0x58",
           "type": "float"
         },
         {
-          "name": "m_flMouseDY",
-          "note": "raw mouse-delta Y",
-          "offset": "0x434",
+          "name": "leftmove",
+          "note": "field 6, has-bit 0x80 (sidemove - NOT +0x58)",
+          "offset": "0x5C",
+          "type": "float"
+        },
+        {
+          "name": "upmove",
+          "note": "field 7, has-bit 0x100",
+          "offset": "0x60",
+          "type": "float"
+        },
+        {
+          "name": "impulse",
+          "note": "field 8, has-bit 0x200",
+          "offset": "0x64",
+          "type": "int32"
+        },
+        {
+          "name": "weaponselect",
+          "note": "has-bit 0x400",
+          "offset": "0x68",
+          "type": "int32"
+        },
+        {
+          "name": "random_seed",
+          "note": "has-bit 0x800",
+          "offset": "0x6C",
+          "type": "int32"
+        },
+        {
+          "name": "mousedx",
+          "note": "has-bit 0x1000",
+          "offset": "0x70",
+          "type": "int32"
+        },
+        {
+          "name": "mousedy",
+          "note": "has-bit 0x2000",
+          "offset": "0x74",
+          "type": "int32"
+        },
+        {
+          "name": "prediction_offset_ticks_x256",
+          "note": "has-bit 0x4000",
+          "offset": "0x78",
+          "type": "uint32"
+        },
+        {
+          "name": "consumed_server_angle_changes",
+          "note": "has-bit 0x8000",
+          "offset": "0x7C",
+          "type": "uint32"
+        },
+        {
+          "name": "cmd_flags",
+          "note": "has-bit 0x10000",
+          "offset": "0x80",
+          "type": "int32"
+        },
+        {
+          "name": "pawn_entity_handle",
+          "note": "has-bit 0x20000",
+          "offset": "0x84",
+          "type": "uint32"
+        }
+      ],
+      "functions": [
+        {
+          "name": "SerializeMoveCrc",
+          "pattern": "CBaseUserCmdPB_SerializeMoveCrc",
+          "rva": "0x122BF10"
+        }
+      ],
+      "instance": "protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start",
+      "instance_rva": null,
+      "module": "client.dll",
+      "name": "CBaseUserCmdPB",
+      "size": "0x88"
+    },
+    {
+      "desc": "usercmd.proto CSubtickMoveStep - one timed button edge / analog move / view-angle delta inside a tick. The list must ascend by `when`.",
+      "fields": [
+        {
+          "name": "has_bits",
+          "note": "",
+          "offset": "0x10",
+          "type": "uint32"
+        },
+        {
+          "name": "cached_size",
+          "note": "",
+          "offset": "0x14",
+          "type": "int32"
+        },
+        {
+          "name": "button",
+          "note": "IN_* bit, has-bit 0x1",
+          "offset": "0x18",
+          "type": "uint64"
+        },
+        {
+          "name": "pressed",
+          "note": "has-bit 0x2",
+          "offset": "0x20",
+          "type": "bool"
+        },
+        {
+          "name": "when",
+          "note": "fraction of the tick [0,1), has-bit 0x4",
+          "offset": "0x24",
+          "type": "float"
+        },
+        {
+          "name": "analog_forward_delta",
+          "note": "has-bit 0x8",
+          "offset": "0x28",
+          "type": "float"
+        },
+        {
+          "name": "analog_left_delta",
+          "note": "has-bit 0x10",
+          "offset": "0x2C",
+          "type": "float"
+        },
+        {
+          "name": "pitch_delta",
+          "note": "delta vs the command's base view angle, has-bit 0x20",
+          "offset": "0x30",
+          "type": "float"
+        },
+        {
+          "name": "yaw_delta",
+          "note": "delta vs the command's base view angle, has-bit 0x40",
+          "offset": "0x34",
+          "type": "float"
+        }
+      ],
+      "functions": [
+        {
+          "name": "CreateSubtickMoveStep",
+          "pattern": "CreateSubtickMoveStep",
+          "rva": "0x4F6C40"
+        }
+      ],
+      "instance": "protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start",
+      "instance_rva": null,
+      "module": "client.dll",
+      "name": "CSubtickMoveStep",
+      "size": "0x38"
+    },
+    {
+      "desc": "usercmd.proto CInButtonStatePB - the button masks as sent: buttonstate1 = held, buttonstate2 = changed, buttonstate3 = scroll.",
+      "fields": [
+        {
+          "name": "has_bits",
+          "note": "",
+          "offset": "0x10",
+          "type": "uint32"
+        },
+        {
+          "name": "cached_size",
+          "note": "",
+          "offset": "0x14",
+          "type": "int32"
+        },
+        {
+          "name": "buttonstate1",
+          "note": "held (IN_* mask), has-bit 0x1",
+          "offset": "0x18",
+          "type": "uint64"
+        },
+        {
+          "name": "buttonstate2",
+          "note": "changed vs the previous SENT command, has-bit 0x2",
+          "offset": "0x20",
+          "type": "uint64"
+        },
+        {
+          "name": "buttonstate3",
+          "note": "scroll, has-bit 0x4",
+          "offset": "0x28",
+          "type": "uint64"
+        }
+      ],
+      "functions": [
+        {
+          "name": "New",
+          "pattern": "CInButtonStatePB_New",
+          "rva": "0x4F6BC0"
+        }
+      ],
+      "instance": "protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start",
+      "instance_rva": null,
+      "module": "client.dll",
+      "name": "CInButtonStatePB",
+      "size": "0x30"
+    },
+    {
+      "desc": "cs_usercmd.proto CSGOInputHistoryEntryPB - per-frame view/interp record the server uses for lag compensation and shot validation.",
+      "fields": [
+        {
+          "name": "has_bits",
+          "note": "",
+          "offset": "0x10",
+          "type": "uint32"
+        },
+        {
+          "name": "cached_size",
+          "note": "",
+          "offset": "0x14",
+          "type": "int32"
+        },
+        {
+          "name": "view_angles",
+          "note": "has-bit 0x1",
+          "offset": "0x18",
+          "type": "CMsgQAngle*"
+        },
+        {
+          "name": "cl_interp",
+          "note": "has-bit 0x2",
+          "offset": "0x20",
+          "type": "CSGOInterpolationInfoPB_CL*"
+        },
+        {
+          "name": "sv_interp0",
+          "note": "has-bit 0x4",
+          "offset": "0x28",
+          "type": "CSGOInterpolationInfoPB*"
+        },
+        {
+          "name": "sv_interp1",
+          "note": "has-bit 0x8",
+          "offset": "0x30",
+          "type": "CSGOInterpolationInfoPB*"
+        },
+        {
+          "name": "player_interp",
+          "note": "has-bit 0x10",
+          "offset": "0x38",
+          "type": "CSGOInterpolationInfoPB*"
+        },
+        {
+          "name": "shoot_position",
+          "note": "has-bit 0x20",
+          "offset": "0x40",
+          "type": "CMsgVector*"
+        },
+        {
+          "name": "target_head_pos_check",
+          "note": "has-bit 0x40",
+          "offset": "0x48",
+          "type": "CMsgVector*"
+        },
+        {
+          "name": "target_abs_pos_check",
+          "note": "has-bit 0x80",
+          "offset": "0x50",
+          "type": "CMsgVector*"
+        },
+        {
+          "name": "target_abs_ang_check",
+          "note": "has-bit 0x100",
+          "offset": "0x58",
+          "type": "CMsgQAngle*"
+        },
+        {
+          "name": "render_tick_count",
+          "note": "has-bit 0x200",
+          "offset": "0x60",
+          "type": "int32"
+        },
+        {
+          "name": "render_tick_fraction",
+          "note": "has-bit 0x400",
+          "offset": "0x64",
+          "type": "float"
+        },
+        {
+          "name": "player_tick_count",
+          "note": "has-bit 0x800",
+          "offset": "0x68",
+          "type": "int32"
+        },
+        {
+          "name": "player_tick_fraction",
+          "note": "has-bit 0x1000",
+          "offset": "0x6C",
+          "type": "float"
+        },
+        {
+          "name": "frame_number",
+          "note": "has-bit 0x2000",
+          "offset": "0x70",
+          "type": "int32"
+        },
+        {
+          "name": "target_ent_index",
+          "note": "has-bit 0x4000",
+          "offset": "0x74",
+          "type": "int32"
+        }
+      ],
+      "functions": [
+        {
+          "name": "New",
+          "pattern": "CCSGOInputHistoryEntryPB_New",
+          "rva": "0x7B3310"
+        }
+      ],
+      "instance": "protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start",
+      "instance_rva": null,
+      "module": "client.dll",
+      "name": "CCSGOInputHistoryEntryPB",
+      "size": "0x78"
+    },
+    {
+      "desc": "cs_usercmd.proto interpolation record (sv_interp0/1, player_interp). The _CL variant (cl_interp) only has frac at +0x18.",
+      "fields": [
+        {
+          "name": "has_bits",
+          "note": "",
+          "offset": "0x10",
+          "type": "uint32"
+        },
+        {
+          "name": "frac",
+          "note": "has-bit 0x1",
+          "offset": "0x18",
+          "type": "float"
+        },
+        {
+          "name": "src_tick",
+          "note": "has-bit 0x2",
+          "offset": "0x1C",
+          "type": "int32"
+        },
+        {
+          "name": "dst_tick",
+          "note": "has-bit 0x4",
+          "offset": "0x20",
+          "type": "int32"
+        }
+      ],
+      "functions": [],
+      "instance": "protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start",
+      "instance_rva": null,
+      "module": "client.dll",
+      "name": "CSGOInterpolationInfoPB",
+      "size": "0x28"
+    },
+    {
+      "desc": "networkbasetypes.proto CMsgQAngle.",
+      "fields": [
+        {
+          "name": "has_bits",
+          "note": "x 0x1, y 0x2, z 0x4",
+          "offset": "0x10",
+          "type": "uint32"
+        },
+        {
+          "name": "x",
+          "note": "pitch",
+          "offset": "0x18",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "note": "yaw",
+          "offset": "0x1C",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "note": "roll",
+          "offset": "0x20",
           "type": "float"
         }
       ],
       "functions": [],
-      "instance": "CCSGOInput.m_pUserCmds[i]  (base at CCSGOInput+0xB58, stride 1088)",
+      "instance": "protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start",
       "instance_rva": null,
       "module": "client.dll",
-      "name": "CUserCmd"
+      "name": "CMsgQAngle",
+      "size": "0x28"
     },
     {
-      "desc": "The camera/view description filled each frame (fov, world origin, view angles). Written by OverrideView; read by the renderer. Not a schema class.",
+      "desc": "networkbasetypes.proto CMsgVector.",
+      "fields": [
+        {
+          "name": "has_bits",
+          "note": "x 0x1, y 0x2, z 0x4",
+          "offset": "0x10",
+          "type": "uint32"
+        },
+        {
+          "name": "x",
+          "note": "",
+          "offset": "0x18",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "note": "",
+          "offset": "0x1C",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "note": "",
+          "offset": "0x20",
+          "type": "float"
+        },
+        {
+          "name": "w",
+          "note": "",
+          "offset": "0x24",
+          "type": "float"
+        }
+      ],
+      "functions": [],
+      "instance": "protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start",
+      "instance_rva": null,
+      "module": "client.dll",
+      "name": "CMsgVector",
+      "size": "0x28"
+    },
+    {
+      "desc": "The camera/view description filled each frame (fov, origin, angles). Written by OverrideView; read by the renderer. Not a schema class. Verified on build 2000914.",
       "fields": [
         {
           "name": "m_flFov",
@@ -135,13 +736,13 @@
         },
         {
           "name": "m_vecOrigin",
-          "note": "world eye origin — x 0x4A0 / y 0x4A4 / z 0x4A8",
+          "note": "world eye origin - x 0x4A0 / y 0x4A4 / z 0x4A8",
           "offset": "0x4A0",
           "type": "Vector"
         },
         {
           "name": "m_angViewAngles",
-          "note": "view angles — pitch 0x4B8 / yaw 0x4BC / roll 0x4C0",
+          "note": "view angles - pitch 0x4B8 / yaw 0x4BC / roll 0x4C0",
           "offset": "0x4B8",
           "type": "QAngle"
         }
@@ -149,13 +750,15 @@
       "functions": [
         {
           "name": "OverrideView",
-          "rva": "0xC987F0"
+          "pattern": "OverrideView",
+          "rva": "0xD015F0"
         }
       ],
-      "instance": "received by OverrideView (client.dll + 0xC987F0) in rdx",
+      "instance": "passed to OverrideView in rdx",
       "instance_rva": null,
       "module": "client.dll",
-      "name": "CViewSetup"
+      "name": "CViewSetup",
+      "size": null
     }
   ]
 }

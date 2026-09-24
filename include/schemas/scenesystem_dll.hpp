@@ -2,8 +2,8 @@
 //
 // module:        scenesystem.dll
 // classes:       9
-// enums:         6
-// generated_at:  2026-08-14T17:49:22.004126900+00:00
+// enums:         7
+// generated_at:  2026-09-24T10:43:36.513410100+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -28,6 +28,20 @@ namespace scenesystem {
         SCENEOBJECT_MESHLET_VIS_NONE = 0x0,
         SCENEOBJECT_MESHLET_VIS_MESHLET = 0x1,
         SCENEOBJECT_MESHLET_VIS_CULLED = 0x2,
+    };
+
+    enum class SceneStatsSections_t : std::uint32_t {
+        SCENE_STATS_NONE = 0x0,
+        SCENE_STATS_FRAME = 0x1,
+        SCENE_STATS_GEOMETRY = 0x2,
+        SCENE_STATS_CULLING = 0x4,
+        SCENE_STATS_MATERIALS = 0x8,
+        SCENE_STATS_LIGHTING = 0x10,
+        SCENE_STATS_RAYTRACING = 0x20,
+        SCENE_STATS_INTERNALS = 0x40,
+        SCENE_STATS_RENDERDEVICE = 0x80,
+        SCENE_STATS_ALL = 0xFF, // MEnumeratorIsNotAFlag
+        SCENE_STATS_DEFAULT = 0x7F, // MEnumeratorIsNotAFlag
     };
 
     enum class ESceneViewDebugOverlaysListenerDataType_t : std::uint32_t {
@@ -82,6 +96,26 @@ namespace scenesystem {
         SCHEMA_FIELD(CUtlVector<CSSDSEndFrameViewInfo>, m_Views                                         , 0x0) // CUtlVector<CSSDSEndFrameViewInfo>
     };
 
+    // SceneViewId_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class SceneViewId_t {
+    public:
+        SCHEMA_FIELD(std::uint64_t                   , m_nViewId                                       , 0x0) // uint64
+        SCHEMA_FIELD(std::uint64_t                   , m_nFrameCount                                   , 0x8) // uint64
+    };
+
+    // CSSDSMsg_ViewRender
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class CSSDSMsg_ViewRender {
+    public:
+        SCHEMA_FIELD(SceneViewId_t                   , m_viewId                                        , 0x0) // SceneViewId_t
+        SCHEMA_FIELD(::CUtlString                    , m_ViewName                                      , 0x10) // CUtlString
+    };
+
     // CSSDSMsg_ViewTarget
     //   fields: 10
     //   size: 0x30
@@ -108,6 +142,30 @@ namespace scenesystem {
     public:
     };
 
+    // CSSDSMsg_LayerBase
+    //   fields: 5
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CSSDSMsg_LayerBase {
+    public:
+        SCHEMA_FIELD(SceneViewId_t                   , m_viewId                                        , 0x0) // SceneViewId_t
+        SCHEMA_FIELD(::CUtlString                    , m_ViewName                                      , 0x10) // CUtlString
+        SCHEMA_FIELD(std::uint64_t                   , m_nLayerId                                      , 0x18) // uint64
+        SCHEMA_FIELD(::CUtlString                    , m_LayerName                                     , 0x20) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_displayText                                   , 0x28) // CUtlString
+    };
+
+    // CSSDSMsg_ViewTargetList
+    //   fields: 3
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class CSSDSMsg_ViewTargetList {
+    public:
+        SCHEMA_FIELD(SceneViewId_t                   , m_viewId                                        , 0x0) // SceneViewId_t
+        SCHEMA_FIELD(::CUtlString                    , m_ViewName                                      , 0x10) // CUtlString
+        SCHEMA_FIELD(CUtlVector<CSSDSMsg_ViewTarget> , m_Targets                                       , 0x18) // CUtlVector<CSSDSMsg_ViewTarget>
+    };
+
     // CSSDSMsg_PreLayer
     //   fields: 0
     //   size: 0x30
@@ -124,50 +182,6 @@ namespace scenesystem {
     public:
         SCHEMA_FIELD(std::uint64_t                   , m_nViewId                                       , 0x0) // uint64
         SCHEMA_FIELD(::CUtlString                    , m_ViewName                                      , 0x8) // CUtlString
-    };
-
-    // SceneViewId_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class SceneViewId_t {
-    public:
-        SCHEMA_FIELD(std::uint64_t                   , m_nViewId                                       , 0x0) // uint64
-        SCHEMA_FIELD(std::uint64_t                   , m_nFrameCount                                   , 0x8) // uint64
-    };
-
-    // CSSDSMsg_ViewTargetList
-    //   fields: 3
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CSSDSMsg_ViewTargetList {
-    public:
-        SCHEMA_FIELD(SceneViewId_t                   , m_viewId                                        , 0x0) // SceneViewId_t
-        SCHEMA_FIELD(::CUtlString                    , m_ViewName                                      , 0x10) // CUtlString
-        SCHEMA_FIELD(CUtlVector<CSSDSMsg_ViewTarget> , m_Targets                                       , 0x18) // CUtlVector<CSSDSMsg_ViewTarget>
-    };
-
-    // CSSDSMsg_LayerBase
-    //   fields: 5
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class CSSDSMsg_LayerBase {
-    public:
-        SCHEMA_FIELD(SceneViewId_t                   , m_viewId                                        , 0x0) // SceneViewId_t
-        SCHEMA_FIELD(::CUtlString                    , m_ViewName                                      , 0x10) // CUtlString
-        SCHEMA_FIELD(std::uint64_t                   , m_nLayerId                                      , 0x18) // uint64
-        SCHEMA_FIELD(::CUtlString                    , m_LayerName                                     , 0x20) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_displayText                                   , 0x28) // CUtlString
-    };
-
-    // CSSDSMsg_ViewRender
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class CSSDSMsg_ViewRender {
-    public:
-        SCHEMA_FIELD(SceneViewId_t                   , m_viewId                                        , 0x0) // SceneViewId_t
-        SCHEMA_FIELD(::CUtlString                    , m_ViewName                                      , 0x10) // CUtlString
     };
 
     // c_mesh_draw_primitive — per-element mesh draw primitive (0x68 bytes)

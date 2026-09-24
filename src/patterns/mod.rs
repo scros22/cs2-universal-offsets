@@ -147,6 +147,21 @@ where
     }
     ui::progress_clear();
 
+    // Published names drop the class prefix (CCSGOInput_CreateMove -> CreateMove).
+    // When two entries would publish under the same short name (both
+    // CInButtonStatePB_New and CCSGOInputHistoryEntryPB_New -> "New"), keep the
+    // full, class-qualified name for every one of them so consumers can tell
+    // them apart.
+    let mut counts: BTreeMap<String, u32> = BTreeMap::new();
+    for h in &report.hits {
+        *counts.entry(h.name.clone()).or_default() += 1;
+    }
+    for (hit, sig) in report.hits.iter_mut().zip(sigs.iter()) {
+        if counts.get(&hit.name).copied().unwrap_or(0) > 1 && hit.name != sig.name {
+            hit.name = sig.name.to_string();
+        }
+    }
+
     if ambiguous > 0 {
         log::warn!(
             "{} Pattern(s) matched more than once in their .text section — consider tightening",
@@ -505,10 +520,6 @@ pub(crate) fn display_name(raw: &str) -> String {
 fn opt_proto(sig_name: &str, p: &'static str) -> Option<String> {
     if p.is_empty() {
         return None;
-    }
-
-    if sig_name == "CreateMove" {
-        return Some("bool __fastcall CreateMove(void* pthis, int nSlot, float flInputSampleTime, bool bActive)".to_string());
     }
 
     let display = display_name(sig_name);
