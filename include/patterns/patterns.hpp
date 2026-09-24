@@ -249,7 +249,7 @@ namespace pattern {
         inline constexpr std::string_view ModulationUpdate = "48 89 5C 24 08 57 48 83 EC 20 8B FA 48 8B D9 E8 ? ? ? ? 84 C0 0F 84";
         inline constexpr std::string_view MovementServices_CheckJumpButton = "40 55 53 56 57 41 56 41 57 48 8D 6C 24 D1 48 81 EC 88 00 00 00 8B 9A D4";
         inline constexpr std::string_view MovementServices_SetupMove = "80 21 FE 44 08 09 41 0F B6 C1 83 F0 01 44 89 81";
-        inline constexpr std::string_view NoClipOnChange = "48 89 5C 24 10 48 89 74 24 18 48 89 7C 24 20 55 48 8B EC 48 83 EC 30 48 8D 05 BA C7";
+        inline constexpr std::string_view NoClipOnChange = "8B 91 BC 06 00 00 83 FA FF 74 58 48 8B 0D 3E 1A";
         inline constexpr std::string_view NoSpread1 = "48 89 5C 24 08 57 48 81 EC F0 00 00 00 F3 0F 10";
         inline constexpr std::string_view OnAddEntity = "48 89 74 24 10 57 48 83 EC 20 41 B9 FF 7F 00 00 41 8B C0 41 23 C1 48 8B F2 41 83 F8 FF 48 8B F9 44 0F 45 C8 41 81 F9 00 40 00 00 73 0D FF 81 20";
         inline constexpr std::string_view OnBodyGroupChoiceChanged = "48 89 5C 24 08 57 48 83 EC 20 49 63 D8 49 8B F9";
@@ -556,12 +556,14 @@ namespace pattern {
         inline constexpr std::string_view pSchemaSystem = "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 89 5C 24 08 48 89 74";
     }
     namespace server {
+        inline constexpr std::string_view AddEntityIOEvent = "48 89 5C 24 08 48 89 6C 24 18 48 89 74 24 20 57 41 54 41 55 41 56 41 57 48 83 EC 20 48 8B 6C 24";
         inline constexpr std::string_view CBaseModelEntity_SetModel = "40 53 48 83 EC 20 48 8B D9 4C 8B C2 48 8B 0D 3D";
         inline constexpr std::string_view CCSGameRules_TerminateRound = "48 8B C4 4C 89 48 20 48 89 48 08 55 41 54 41 56";
         inline constexpr std::string_view CCSPlayerController_SwitchTeam = "40 53 57 48 81 EC 88 00 00 00 48 8B D9 8B FA 8B";
         inline constexpr std::string_view CCSPlayerPawnBase_SwitchTeam = "40 53 57 48 81 EC 88 00 00 00 48 8B D9 8B FA 8B";
         inline constexpr std::string_view CCSPlayerPawn_GiveNamedItem = "48 89 5C 24 08 48 89 74 24 10 48 89 7C 24 20 44 89 44 24 18";
-        inline constexpr std::string_view CEntityIdentity_AcceptInput = "4C 8B DC 4D 89 43 18 55 53 56 57 41 54 41 57 49";
+        inline constexpr std::string_view CEntityIdentity_AcceptInput = "48 89 54 24 10 48 89 4C 24 08 55 53 56 57 41 55 41 56 41 57 48 8D 6C 24";
+        inline constexpr std::string_view CEntityInstance_AcceptInput = "48 89 5C 24 10 48 89 6C 24 18 56 57 41 56 48 81 EC F0 00 00 00 4D 8B F0 48 8B F1 48";
         inline constexpr std::string_view CGameEventManager_Init = "40 53 48 83 EC 20 48 8B 01 48 8B D9 FF 50 10 48";
         inline constexpr std::string_view CGameRules_TerminateRound = "48 8B C4 4C 89 48 20 48 89 48 08 55 41 54 41 56";
         inline constexpr std::string_view CTakeDamageInfo = "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 56 48 83 EC 20 45 33 F6 48 C7 41 08 01 00 00 00 4C 89 31 48 8B F9 4C 89 71 48 49";
@@ -576,7 +578,7 @@ namespace pattern {
         inline constexpr std::string_view FindEntityByClassName = "48 83 EC 68 45 33 C9 C6 44 24 20 00 48 8D 4C 24";
         inline constexpr std::string_view FindEntityByName = "48 81 EC 88 00 00 00 4D 85 C0 75 0A 33 C0 48 81";
         inline constexpr std::string_view FindUseEntity = "4C 89 44 24 18 F3 0F 11 4C 24 10 55 53 56 57 41";
-        inline constexpr std::string_view FireOutputInternal = "48 8B C4 4C 89 48 20 57 41 54 48 81 EC E8 01 00";
+        inline constexpr std::string_view FireOutputInternal = "48 8B C4 48 89 58 18 48 89 70 20 48 89 48 08 55";
         inline constexpr std::string_view GetCSWeaponDataFromKey = "48 89 5C 24 08 57 48 83 EC 20 33 FF 4C 8B CA 8B";
         inline constexpr std::string_view GetEyeAngles = "48 89 5C 24 10 57 48 81 EC 80 00 00 00 48 8B F9 48 8B DA 48 8B 89 48 0B";
         inline constexpr std::string_view GetSpawnGroups = "40 56 48 83 EC 40 48 89 5C 24 50 48 8D B1 20 01";

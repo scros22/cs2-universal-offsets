@@ -111,3 +111,52 @@ pub fn render_offsets_json(analysis: &OffsetMap) -> String {
     }
     serde_json::to_string_pretty(&root).unwrap_or_default()
 }
+
+/// `offsets/offsets_all.json` - EVERY resolved global in one file, the same set
+/// `offsets.hpp` carries (the a2x `dwXxx` globals, the rip-relative signature
+/// globals, and the registered interface instances), each tagged with where it
+/// came from. `offsets.json` stays the a2x-compatible subset for old consumers.
+///
+/// Shape: { note, count, modules: { "client.dll": [ {name, hpp_name, rva, kind,
+/// deref} ] } } with kind = "global" | "signature" | "interface" and
+/// deref = true when the RVA holds a POINTER to the object (read it first).
+pub fn render_offsets_all_json(hits: &[PatternHit], analysis: &OffsetMap, interfaces: &InterfaceMap) -> String {
+    use serde_json::json;
+    let mut modules: BTreeMap<String, Vec<serde_json::Value>> = BTreeMap::new();
+    let mut count = 0usize;
+    for (module, entries) in analysis {
+        let v = modules.entry(module.clone()).or_default();
+        for (name, rva) in entries {
+            v.push(json!({ "name": name, "hpp_name": clean_off_name(name), "rva": format!("0x{:X}", rva), "kind": "global" }));
+            count += 1;
+        }
+    }
+    for h in hits.iter().filter(|h| h.found && h.resolve == "riprel") {
+        if let Some(rva) = h.rva {
+            modules.entry(h.module.clone()).or_default().push(json!({
+                "name": h.name, "hpp_name": clean_off_name(&h.name), "rva": format!("0x{:X}", rva), "kind": "signature",
+            }));
+            count += 1;
+        }
+    }
+    for (module, ifaces) in interfaces {
+        let v = modules.entry(module.clone()).or_default();
+        for (name, entry) in ifaces {
+            let hpp = if entry.needs_deref { format!("p{}", name) } else { name.clone() };
+            v.push(json!({
+                "name": name, "hpp_name": sanitise_ident(&hpp), "rva": format!("0x{:X}", entry.rva as u64),
+                "kind": "interface", "deref": entry.needs_deref,
+            }));
+            count += 1;
+        }
+    }
+    for v in modules.values_mut() {
+        v.sort_by(|a, b| a["name"].as_str().unwrap_or("").to_ascii_lowercase().cmp(&b["name"].as_str().unwrap_or("").to_ascii_lowercase()));
+    }
+    serde_json::to_string_pretty(&json!({
+        "note": "Every resolved global: a2x dwXxx globals (kind=global), rip-relative signature globals (kind=signature) and registered interface instances (kind=interface). RVAs are module-relative; deref=true means the RVA holds a pointer to the object.",
+        "count": count,
+        "modules": modules,
+    }))
+    .unwrap_or_default()
+}

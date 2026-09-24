@@ -55,13 +55,30 @@ using PulseRegisterMap_t = std::uint64_t;
 using WorldGroupId_t = std::uint32_t;
 using ChangeAccessorFieldPathIndex_t = std::int32_t;
 
-// Handle types - typically 32-bit indices
+// Entity handle resolvers. Declared here so CHandle<T>::Get() can use them;
+// DEFINED inline in impl/entity_system.hpp (include that header to call Get()).
+void* CS2_GetEntityByIndex(int index) noexcept;
+void* CS2_GetEntityByHandle(std::uint32_t handle) noexcept;
+
+// Handle types - 32-bit: low 15 bits = entity index, high bits = serial number.
 template <typename T>
 struct CHandle {
+    static constexpr std::uint32_t kInvalid = 0xFFFFFFFF;
+
     std::uint32_t m_Handle;
 
     std::uint32_t GetIndex() const noexcept { return m_Handle & 0x7FFF; }
-    bool IsValid() const noexcept { return m_Handle != 0xFFFFFFFF; }
+    std::uint32_t GetSerial() const noexcept { return m_Handle >> 15; }
+    bool IsValid() const noexcept { return m_Handle != kInvalid; }
+
+    // The entity this handle points at, or nullptr when the handle is invalid,
+    // the slot is empty, or the slot was reused (serial mismatch). Resolves
+    // through CGameEntitySystem - include impl/entity_system.hpp.
+    T* Get() const noexcept {
+        return IsValid() ? static_cast<T*>(CS2_GetEntityByHandle(m_Handle)) : nullptr;
+    }
+    bool operator==(const CHandle& o) const noexcept { return m_Handle == o.m_Handle; }
+    bool operator!=(const CHandle& o) const noexcept { return m_Handle != o.m_Handle; }
 };
 static_assert(sizeof(CHandle<int>) == 4, "CHandle must be 4 bytes");
 

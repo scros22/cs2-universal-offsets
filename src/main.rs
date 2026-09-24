@@ -219,6 +219,7 @@ fn main() -> Result<()> {
                 let iface_map  = analysis_result.as_ref().map(|r| &r.interfaces).unwrap_or(&empty_ifaces);
                 fs::write(off_dir.join("offsets.hpp"), patterns::offsets_writer::render_offsets_hpp(&report.hits, offset_map, iface_map))?;
                 fs::write(off_dir.join("offsets.json"), patterns::offsets_writer::render_offsets_json(offset_map))?;
+                fs::write(off_dir.join("offsets_all.json"), patterns::offsets_writer::render_offsets_all_json(&report.hits, offset_map, iface_map))?;
 
                 // buttons.{hpp,json}
                 if let Some(result) = analysis_result.as_ref()

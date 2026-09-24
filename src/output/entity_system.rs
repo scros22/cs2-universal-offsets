@@ -95,5 +95,28 @@ pub fn render_hpp(
     writeln!(s, "}};").ok();
     writeln!(s).ok();
 
+    // CHandle<T>::Get() resolvers, declared in macros.hpp.
+    for line in RESOLVERS.lines() {
+        writeln!(s, "{}", line).ok();
+    }
+
     s
 }
+
+const RESOLVERS: &str = r#"// --- CHandle<T>::Get() resolvers (declared in macros.hpp) ---------------------
+inline void* CS2_GetEntityByIndex(int index) noexcept {
+    return CGameEntitySystem::GetEntityByIndex(index);
+}
+// Full-handle lookup: the identity's stored handle must match, so a handle to
+// an entity that has since been freed and its slot reused returns nullptr.
+inline void* CS2_GetEntityByHandle(std::uint32_t handle) noexcept {
+    if (handle == 0xFFFFFFFF) return nullptr;
+    auto* identity = CGameEntitySystem::GetIdentityByIndex(static_cast<int>(handle & 0x7FFF));
+    if (!identity) return nullptr;
+    // CEntityIdentity::m_EHandle is not a schema field; it sits at +0x10 between
+    // m_pEntity (+0x0) and the schema's m_nameStringTableIndex (+0x14).
+    constexpr std::size_t kIdentityHandleOffset = 0x10;
+    if (*reinterpret_cast<const std::uint32_t*>(reinterpret_cast<std::uintptr_t>(identity) + kIdentityHandleOffset) != handle) return nullptr;
+    return *reinterpret_cast<void**>(identity);
+}"#;
+

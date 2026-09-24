@@ -3,7 +3,7 @@
 // module:        pulse_system.dll
 // classes:       33
 // enums:         4
-// generated_at:  2026-09-24T10:43:36.513410100+00:00
+// generated_at:  2026-09-24T11:14:25.486793+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -74,85 +74,25 @@ namespace pulse_system {
         BLUE = 0x4, // MPropertyFriendlyName
     };
 
-    // CPulseCell_TestWaitWithCursorState
-    //   fields: 2
-    //   size: 0x168
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_TestWaitWithCursorState {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPulse_ResumePoint, m_WakeResume                                    , 0xD8) // CPulse_ResumePoint
-        SCHEMA_FIELD(::animationsystem::CPulse_ResumePoint, m_WakeFail                                      , 0x120) // CPulse_ResumePoint
-    };
-
-    // CPulseGraphInstance_TestDomain_FakeEntityOwner
-    //   fields: 0
-    //   size: 0x88
-    class CPulseGraphInstance_TestDomain_FakeEntityOwner {
-    public:
-    };
-
-    // CPulseCell_Step_TestDomainDestroyFakeEntity
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CPulseCell_Step_TestDomainDestroyFakeEntity {
-    public:
-    };
-
-    // CPulseCell_Outflow_TestExplicitYesNo
-    //   fields: 2
+    // CPulseGraphInstance_TestDomain_Derived
+    //   fields: 1
     //   size: 0xD8
+    class CPulseGraphInstance_TestDomain_Derived {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInstanceValueX                               , 0xD0) // int32
+    };
+
+    // CPulseCell_ExampleSelector
+    //   fields: 1
+    //   size: 0x60
     //   @MGetKV3ClassDefaults
     //   @MPropertyFriendlyName
     //   @MPropertyDescription
-    class CPulseCell_Outflow_TestExplicitYesNo {
+    //   @MPulseEditorHeaderIcon
+    //   @MPulseEditorCanvasItemSpecKV3
+    class CPulseCell_ExampleSelector {
     public:
-        SCHEMA_FIELD(::animationsystem::CPulse_OutflowConnection, m_Yes                                           , 0x48) // CPulse_OutflowConnection [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPulse_OutflowConnection, m_No                                            , 0x90) // CPulse_OutflowConnection [MPropertyFriendlyName]
-    };
-
-    // CPulseCell_TestWaitWithAutoTracepoints
-    //   fields: 2
-    //   size: 0x128
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CPulseCell_TestWaitWithAutoTracepoints {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_TracePrefix                                   , 0xD8) // CUtlString
-        SCHEMA_FIELD(::animationsystem::CPulse_ResumePoint, m_WakeResume                                    , 0xE0) // CPulse_ResumePoint
-    };
-
-    // CPulseCell_ExampleCriteria::Criteria_t
-    //   fields: 3
-    //   size: 0xC
-    class CPulseCell_ExampleCriteria_Criteria_t {
-    public:
-        SCHEMA_FIELD(float                           , m_flFloatValue1                                 , 0x0) // float32
-        SCHEMA_FIELD(float                           , m_flFloatValue2                                 , 0x4) // float32
-        SCHEMA_FIELD(bool                            , m_bMyBool                                       , 0x8) // bool
-    };
-
-    // CPulseCell_Outflow_TestRandomYesNo
-    //   fields: 2
-    //   size: 0xD8
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    class CPulseCell_Outflow_TestRandomYesNo {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPulse_OutflowConnection, m_Yes                                           , 0x48) // CPulse_OutflowConnection [MPropertyFriendlyName, MPropertyDescription]
-        SCHEMA_FIELD(::animationsystem::CPulse_OutflowConnection, m_No                                            , 0x90) // CPulse_OutflowConnection [MPropertyFriendlyName, MPropertyDescription]
-    };
-
-    // CPulseCell_ExampleCriteria
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    class CPulseCell_ExampleCriteria {
-    public:
+        SCHEMA_FIELD(::animationsystem::PulseSelectorOutflowList_t, m_OutflowList                                   , 0x48) // PulseSelectorOutflowList_t
     };
 
     // CPulseCell_TestEnums
@@ -164,95 +104,6 @@ namespace pulse_system {
     public:
         SCHEMA_FIELD(PulseTestEnumColor_t            , m_nReferenceColor                               , 0x48) // PulseTestEnumColor_t
         SCHEMA_FIELD(PulseTestEnumFlags_t            , m_nReferenceFlags                               , 0x4C) // PulseTestEnumFlags_t
-    };
-
-    // CPulseCell_TestYieldWithObservables
-    //   fields: 5
-    //   size: 0x250
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_TestYieldWithObservables {
-    public:
-        SCHEMA_FIELD(float                           , m_flWatchForFloatValue                          , 0xD8) // float32
-        SCHEMA_FIELD(CPulseObservableExpression<float32>, m_LiveFloatValue                                , 0xE0) // CPulseObservableExpression<float32>
-        SCHEMA_FIELD(::CUtlString                    , m_WatchForStringValue                           , 0x170) // CUtlString
-        SCHEMA_FIELD(CPulseObservableExpression<CUtlString>, m_LiveStringValue                               , 0x178) // CPulseObservableExpression<CUtlString>
-        SCHEMA_FIELD(::animationsystem::CPulse_ResumePoint, m_WakeResume                                    , 0x208) // CPulse_ResumePoint
-    };
-
-    // CPulseCell_Val_TestDomainFindEntityByName
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CPulseCell_Val_TestDomainFindEntityByName {
-    public:
-    };
-
-    // CPulseCell_Step_TestDomainCreateFakeEntity
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CPulseCell_Step_TestDomainCreateFakeEntity {
-    public:
-    };
-
-    // CPulseCell_TestYieldForever
-    //   fields: 0
-    //   size: 0xD8
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_TestYieldForever {
-    public:
-    };
-
-    // CPulseGraphInstance_TurtleGraphics
-    //   fields: 0
-    //   size: 0xB0
-    class CPulseGraphInstance_TurtleGraphics {
-    public:
-    };
-
-    // CPulseGraphInstance_TestDomain_UseReadOnlyBlackboardView
-    //   fields: 0
-    //   size: 0xD0
-    class CPulseGraphInstance_TestDomain_UseReadOnlyBlackboardView {
-    public:
-    };
-
-    // CPulseGraphInstance_TestDomain_Derived
-    //   fields: 1
-    //   size: 0xD8
-    class CPulseGraphInstance_TestDomain_Derived {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nInstanceValueX                               , 0xD0) // int32
-    };
-
-    // CPulseCell_Value_TestValue50
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    class CPulseCell_Value_TestValue50 {
-    public:
-    };
-
-    // CPulseCell_Test_MultiOutflow_WithParams_Yielding::CursorState_t
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Test_MultiOutflow_WithParams_Yielding_CursorState_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , nTestStep                                       , 0x0) // int32
-    };
-
-    // CPulseCell_Step_TestDomainTracepoint
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CPulseCell_Step_TestDomainTracepoint {
-    public:
     };
 
     // CPulseGraphInstance_TestDomain
@@ -271,12 +122,24 @@ namespace pulse_system {
         SCHEMA_FIELD(bool                            , m_bTestYesOrNoPath                              , 0xC8) // bool
     };
 
-    // CPulseCell_Test_NoInflow
+    // CPulseCell_TestYieldForever
     //   fields: 0
-    //   size: 0x48
+    //   size: 0xD8
     //   @MGetKV3ClassDefaults
-    class CPulseCell_Test_NoInflow {
+    class CPulseCell_TestYieldForever {
     public:
+    };
+
+    // CPulseCell_Outflow_TestExplicitYesNo
+    //   fields: 2
+    //   size: 0xD8
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    class CPulseCell_Outflow_TestExplicitYesNo {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPulse_OutflowConnection, m_Yes                                           , 0x48) // CPulse_OutflowConnection [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPulse_OutflowConnection, m_No                                            , 0x90) // CPulse_OutflowConnection [MPropertyFriendlyName]
     };
 
     // CPulseCell_Test_MultiInflow_WithDefault
@@ -285,71 +148,6 @@ namespace pulse_system {
     //   @MGetKV3ClassDefaults
     class CPulseCell_Test_MultiInflow_WithDefault {
     public:
-    };
-
-    // CPulseCell_Val_TestDomainGetEntityName
-    //   fields: 0
-    //   size: 0x48
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    class CPulseCell_Val_TestDomainGetEntityName {
-    public:
-    };
-
-    // CPulseCell_ExampleSelector
-    //   fields: 1
-    //   size: 0x60
-    //   @MGetKV3ClassDefaults
-    //   @MPropertyFriendlyName
-    //   @MPropertyDescription
-    //   @MPulseEditorHeaderIcon
-    //   @MPulseEditorCanvasItemSpecKV3
-    class CPulseCell_ExampleSelector {
-    public:
-        SCHEMA_FIELD(::animationsystem::PulseSelectorOutflowList_t, m_OutflowList                                   , 0x48) // PulseSelectorOutflowList_t
-    };
-
-    // CPulseTurtleGraphicsCursor
-    //   fields: 4
-    //   size: 0xF0
-    class CPulseTurtleGraphicsCursor {
-    public:
-        SCHEMA_FIELD(::Color                         , m_Color                                         , 0xD8) // Color
-        SCHEMA_FIELD(::Vector2D                      , m_vPos                                          , 0xDC) // Vector2D
-        SCHEMA_FIELD(float                           , m_flHeadingDeg                                  , 0xE4) // float32
-        SCHEMA_FIELD(bool                            , m_bPenUp                                        , 0xE8) // bool
-    };
-
-    // CPulseCell_Test_MultiOutflow_WithParams_Yielding
-    //   fields: 5
-    //   size: 0x240
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Test_MultiOutflow_WithParams_Yielding {
-    public:
-        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Continue, m_Out1                                          , 0xD8) // SignatureOutflow_Continue
-        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Continue, m_AsyncChild1                                   , 0x120) // SignatureOutflow_Continue
-        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Continue, m_AsyncChild2                                   , 0x168) // SignatureOutflow_Continue
-        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Resume, m_YieldResume1                                  , 0x1B0) // SignatureOutflow_Resume
-        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Resume, m_YieldResume2                                  , 0x1F8) // SignatureOutflow_Resume
-    };
-
-    // CTestDomainDerived_Cursor
-    //   fields: 2
-    //   size: 0xE0
-    class CTestDomainDerived_Cursor {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCursorValueA                                 , 0xD8) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nCursorValueB                                 , 0xDC) // int32
-    };
-
-    // CPulseCell_Test_MultiOutflow_WithParams
-    //   fields: 2
-    //   size: 0xD8
-    //   @MGetKV3ClassDefaults
-    class CPulseCell_Test_MultiOutflow_WithParams {
-    public:
-        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Continue, m_Out1                                          , 0x48) // SignatureOutflow_Continue
-        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Continue, m_Out2                                          , 0x90) // SignatureOutflow_Continue
     };
 
     // CPulseCell_TestWaitWithCursorState::CursorState_t
@@ -373,15 +171,31 @@ namespace pulse_system {
     public:
     };
 
-    // CPulseCell_Step_TestDomainEntFire
-    //   fields: 1
-    //   size: 0x50
+    // CPulseCell_Outflow_TestRandomYesNo
+    //   fields: 2
+    //   size: 0xD8
     //   @MGetKV3ClassDefaults
     //   @MPropertyFriendlyName
-    //   @MPulseEditorHeaderText
-    class CPulseCell_Step_TestDomainEntFire {
+    //   @MPropertyDescription
+    class CPulseCell_Outflow_TestRandomYesNo {
     public:
-        SCHEMA_FIELD(::CUtlString                    , m_Input                                         , 0x48) // CUtlString
+        SCHEMA_FIELD(::animationsystem::CPulse_OutflowConnection, m_Yes                                           , 0x48) // CPulse_OutflowConnection [MPropertyFriendlyName, MPropertyDescription]
+        SCHEMA_FIELD(::animationsystem::CPulse_OutflowConnection, m_No                                            , 0x90) // CPulse_OutflowConnection [MPropertyFriendlyName, MPropertyDescription]
+    };
+
+    // CPulseGraphInstance_TurtleGraphics
+    //   fields: 0
+    //   size: 0xB0
+    class CPulseGraphInstance_TurtleGraphics {
+    public:
+    };
+
+    // CPulseCell_Test_NoInflow
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Test_NoInflow {
+    public:
     };
 
     // CPulseCell_TestWaitWithCursorState::InstanceState_t
@@ -393,12 +207,198 @@ namespace pulse_system {
         SCHEMA_FIELD(std::int32_t                    , m_nDummy                                        , 0x0) // int32
     };
 
+    // CPulseCell_Step_TestDomainDestroyFakeEntity
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CPulseCell_Step_TestDomainDestroyFakeEntity {
+    public:
+    };
+
+    // CPulseCell_Value_TestValue50
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    class CPulseCell_Value_TestValue50 {
+    public:
+    };
+
+    // CPulseCell_Step_TestDomainEntFire
+    //   fields: 1
+    //   size: 0x50
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPulseEditorHeaderText
+    class CPulseCell_Step_TestDomainEntFire {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_Input                                         , 0x48) // CUtlString
+    };
+
+    // CPulseCell_TestYieldWithObservables
+    //   fields: 5
+    //   size: 0x250
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_TestYieldWithObservables {
+    public:
+        SCHEMA_FIELD(float                           , m_flWatchForFloatValue                          , 0xD8) // float32
+        SCHEMA_FIELD(CPulseObservableExpression<float32>, m_LiveFloatValue                                , 0xE0) // CPulseObservableExpression<float32>
+        SCHEMA_FIELD(::CUtlString                    , m_WatchForStringValue                           , 0x170) // CUtlString
+        SCHEMA_FIELD(CPulseObservableExpression<CUtlString>, m_LiveStringValue                               , 0x178) // CPulseObservableExpression<CUtlString>
+        SCHEMA_FIELD(::animationsystem::CPulse_ResumePoint, m_WakeResume                                    , 0x208) // CPulse_ResumePoint
+    };
+
     // TestComponent_t
     //   fields: 1
     //   size: 0x10
     class TestComponent_t {
     public:
         SCHEMA_FIELD(::CUtlString                    , m_ComponentData                                 , 0x8) // CUtlString
+    };
+
+    // CPulseCell_TestWaitWithAutoTracepoints
+    //   fields: 2
+    //   size: 0x128
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CPulseCell_TestWaitWithAutoTracepoints {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_TracePrefix                                   , 0xD8) // CUtlString
+        SCHEMA_FIELD(::animationsystem::CPulse_ResumePoint, m_WakeResume                                    , 0xE0) // CPulse_ResumePoint
+    };
+
+    // CPulseGraphInstance_TestDomain_FakeEntityOwner
+    //   fields: 0
+    //   size: 0x88
+    class CPulseGraphInstance_TestDomain_FakeEntityOwner {
+    public:
+    };
+
+    // CPulseTurtleGraphicsCursor
+    //   fields: 4
+    //   size: 0xF0
+    class CPulseTurtleGraphicsCursor {
+    public:
+        SCHEMA_FIELD(::Color                         , m_Color                                         , 0xD8) // Color
+        SCHEMA_FIELD(::Vector2D                      , m_vPos                                          , 0xDC) // Vector2D
+        SCHEMA_FIELD(float                           , m_flHeadingDeg                                  , 0xE4) // float32
+        SCHEMA_FIELD(bool                            , m_bPenUp                                        , 0xE8) // bool
+    };
+
+    // CPulseCell_Test_MultiOutflow_WithParams_Yielding::CursorState_t
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Test_MultiOutflow_WithParams_Yielding_CursorState_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , nTestStep                                       , 0x0) // int32
+    };
+
+    // CPulseCell_Step_TestDomainTracepoint
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CPulseCell_Step_TestDomainTracepoint {
+    public:
+    };
+
+    // CPulseCell_ExampleCriteria
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    //   @MPropertyDescription
+    class CPulseCell_ExampleCriteria {
+    public:
+    };
+
+    // CPulseCell_Step_TestDomainCreateFakeEntity
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CPulseCell_Step_TestDomainCreateFakeEntity {
+    public:
+    };
+
+    // CPulseCell_Val_TestDomainFindEntityByName
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CPulseCell_Val_TestDomainFindEntityByName {
+    public:
+    };
+
+    // CTestDomainDerived_Cursor
+    //   fields: 2
+    //   size: 0xE0
+    class CTestDomainDerived_Cursor {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCursorValueA                                 , 0xD8) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nCursorValueB                                 , 0xDC) // int32
+    };
+
+    // CPulseCell_Test_MultiOutflow_WithParams
+    //   fields: 2
+    //   size: 0xD8
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Test_MultiOutflow_WithParams {
+    public:
+        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Continue, m_Out1                                          , 0x48) // SignatureOutflow_Continue
+        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Continue, m_Out2                                          , 0x90) // SignatureOutflow_Continue
+    };
+
+    // CPulseCell_TestWaitWithCursorState
+    //   fields: 2
+    //   size: 0x168
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_TestWaitWithCursorState {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPulse_ResumePoint, m_WakeResume                                    , 0xD8) // CPulse_ResumePoint
+        SCHEMA_FIELD(::animationsystem::CPulse_ResumePoint, m_WakeFail                                      , 0x120) // CPulse_ResumePoint
+    };
+
+    // CPulseCell_ExampleCriteria::Criteria_t
+    //   fields: 3
+    //   size: 0xC
+    class CPulseCell_ExampleCriteria_Criteria_t {
+    public:
+        SCHEMA_FIELD(float                           , m_flFloatValue1                                 , 0x0) // float32
+        SCHEMA_FIELD(float                           , m_flFloatValue2                                 , 0x4) // float32
+        SCHEMA_FIELD(bool                            , m_bMyBool                                       , 0x8) // bool
+    };
+
+    // CPulseCell_Val_TestDomainGetEntityName
+    //   fields: 0
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    //   @MPropertyFriendlyName
+    class CPulseCell_Val_TestDomainGetEntityName {
+    public:
+    };
+
+    // CPulseCell_Test_MultiOutflow_WithParams_Yielding
+    //   fields: 5
+    //   size: 0x240
+    //   @MGetKV3ClassDefaults
+    class CPulseCell_Test_MultiOutflow_WithParams_Yielding {
+    public:
+        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Continue, m_Out1                                          , 0xD8) // SignatureOutflow_Continue
+        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Continue, m_AsyncChild1                                   , 0x120) // SignatureOutflow_Continue
+        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Continue, m_AsyncChild2                                   , 0x168) // SignatureOutflow_Continue
+        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Resume, m_YieldResume1                                  , 0x1B0) // SignatureOutflow_Resume
+        SCHEMA_FIELD(::animationsystem::SignatureOutflow_Resume, m_YieldResume2                                  , 0x1F8) // SignatureOutflow_Resume
+    };
+
+    // CPulseGraphInstance_TestDomain_UseReadOnlyBlackboardView
+    //   fields: 0
+    //   size: 0xD0
+    class CPulseGraphInstance_TestDomain_UseReadOnlyBlackboardView {
+    public:
     };
 
 } // namespace pulse_system

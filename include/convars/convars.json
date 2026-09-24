@@ -32015,7 +32015,7 @@
       "name": "mp_backup_round_file_last",
       "type": "string",
       "type_id": 9,
-      "value": "backup_round04.txt"
+      "value": "backup_round15.txt"
     },
     {
       "address": "0x4335E37F0F8",
@@ -57980,7 +57980,7 @@
       "name": "sv_full_alltalk",
       "type": "bool",
       "type_id": 0,
-      "value": "false"
+      "value": "true"
     },
     {
       "address": "0x4335E381160",
