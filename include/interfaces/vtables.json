@@ -2121,7 +2121,7 @@
           {
             "index": 4,
             "module": "client.dll",
-            "name": "Shutdown",
+            "name": "CSource2Client_Shutdown",
             "rva": 12060800
           },
           {
@@ -3821,7 +3821,7 @@
           {
             "index": 11,
             "module": "client.dll",
-            "name": "Update",
+            "name": "CPrediction_Update",
             "rva": 12525120
           },
           {
@@ -14386,13 +14386,13 @@
           {
             "index": 64,
             "module": "engine2.dll",
-            "name": "GetLevelName",
+            "name": "Engine_GetLevelName",
             "rva": 482688
           },
           {
             "index": 65,
             "module": "engine2.dll",
-            "name": "GetLevelNameShort",
+            "name": "Engine_GetLevelNameShort",
             "rva": 482784
           },
           {

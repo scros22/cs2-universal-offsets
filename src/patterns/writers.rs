@@ -89,6 +89,9 @@ pub fn render_hpp(hits: &[PatternHit]) -> String {
         s.push_str(&format!("    namespace {} {{\n", module_ident(&module)));
         for h in &items {
             let Some(pattern) = emit_pattern(h) else { continue };
+            if !h.aliases.is_empty() {
+                s.push_str(&format!("        // also known as: {}\n", h.aliases.join(", ")));
+            }
             s.push_str(&format!(
                 "        inline constexpr std::string_view {} = \"{}\";\n",
                 ident(&h.name),

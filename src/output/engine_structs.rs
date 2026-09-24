@@ -271,7 +271,7 @@ pub const ENGINE_STRUCTS: &[EStruct] = &[
 
 fn lookup<'a>(hits: &'a [PatternHit], raw: &str) -> Option<&'a PatternHit> {
     let want = display_name(raw);
-    hits.iter().find(|h| h.found && (h.name == want || h.name == raw))
+    hits.iter().find(|h| h.found && (h.name == want || h.name == raw || h.aliases.iter().any(|a| a == &want || a == raw)))
 }
 
 fn hex(v: Option<u64>) -> Option<String> {

@@ -32015,7 +32015,7 @@
       "name": "mp_backup_round_file_last",
       "type": "string",
       "type_id": 9,
-      "value": "backup_round15.txt"
+      "value": "backup_round05.txt"
     },
     {
       "address": "0x4335E37F0F8",
@@ -41984,7 +41984,7 @@
       "name": "player_teamplayedlast",
       "type": "int32",
       "type_id": 3,
-      "value": "3"
+      "value": "2"
     },
     {
       "address": "0x4335E374CC8",
@@ -56042,7 +56042,7 @@
       "name": "steamworks_sessionid_client",
       "type": "string",
       "type_id": 9,
-      "value": "8948922302838"
+      "value": "8948923788081"
     },
     {
       "address": "0x4335E37B050",
@@ -56057,7 +56057,7 @@
       "name": "steamworks_sessionid_server",
       "type": "string",
       "type_id": 9,
-      "value": "8948922302840"
+      "value": "8948923788084"
     },
     {
       "address": "0x4333FA019B8",
@@ -57980,7 +57980,7 @@
       "name": "sv_full_alltalk",
       "type": "bool",
       "type_id": 0,
-      "value": "true"
+      "value": "false"
     },
     {
       "address": "0x4335E381160",

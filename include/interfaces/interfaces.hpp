@@ -594,7 +594,7 @@ namespace ifc {
             virtual void method_8() = 0;
             virtual void method_9() = 0;
             virtual void method_10() = 0;
-            virtual void Update() = 0; // slot 11 (name recovered, args unverified)
+            virtual void CPrediction_Update() = 0; // slot 11 (name recovered, args unverified)
             virtual void method_12() = 0;
             virtual void method_13() = 0;
             virtual void method_14() = 0;
@@ -624,7 +624,7 @@ namespace ifc {
             virtual void method_1() = 0;
             virtual void method_2() = 0;
             virtual void method_3() = 0;
-            virtual void Shutdown() = 0; // slot 4 (name recovered, args unverified)
+            virtual void CSource2Client_Shutdown() = 0; // slot 4 (name recovered, args unverified)
             virtual void method_5() = 0;
             virtual void method_6() = 0;
             virtual void method_7() = 0;
@@ -1234,8 +1234,8 @@ namespace ifc {
             virtual void method_61() = 0;
             virtual void method_62() = 0;
             virtual void method_63() = 0;
-            virtual void GetLevelName() = 0; // slot 64 (name recovered, args unverified)
-            virtual void GetLevelNameShort() = 0; // slot 65 (name recovered, args unverified)
+            virtual void Engine_GetLevelName() = 0; // slot 64 (name recovered, args unverified)
+            virtual void Engine_GetLevelNameShort() = 0; // slot 65 (name recovered, args unverified)
             virtual void method_66() = 0;
             virtual void method_67() = 0;
             virtual void method_68() = 0;

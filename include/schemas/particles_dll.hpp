@@ -3,7 +3,7 @@
 // module:        particles.dll
 // classes:       435
 // enums:         73
-// generated_at:  2026-09-24T11:14:25.486793+00:00
+// generated_at:  2026-09-24T11:25:49.408798900+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -1021,236 +1021,30 @@ namespace particles {
         TEXTURE_REPETITION_PATH = 0x1, // MPropertyFriendlyName
     };
 
-    // C_OP_RemapScalar
-    //   fields: 7
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapScalar {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOldCode                                      , 0x1F8) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapExternalWindToCP
-    //   fields: 5
-    //   size: 0x8D0
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapExternalWindToCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecScale                                      , 0x1F0) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetMagnitude                                 , 0x8C8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x8CC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
-    };
-
-    // C_OP_ConstrainDistanceToUserSpecifiedPath
-    //   fields: 5
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_OP_ConstrainDistanceToUserSpecifiedPath {
-    public:
-        SCHEMA_FIELD(float                           , m_fMinDistance                                  , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxDistance                                 , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flTimeScale                                   , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLoopedPath                                   , 0x1EC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<PointDefinitionWithTimeValues_t>, m_pointList                                     , 0x1F0) // CUtlVector<PointDefinitionWithTimeValues_t> [MPropertyFriendlyName]
-    };
-
-    // ModelReference_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class ModelReference_t {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_model                                         , 0x0) // CStrongHandle<InfoForResourceTypeCModel> [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRelativeProbabilityOfSpawn                  , 0x8) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_ForceBasedOnDistanceToPlane
-    //   fields: 7
-    //   size: 0x228
-    //   @MGetKV3ClassDefaults
-    class C_OP_ForceBasedOnDistanceToPlane {
-    public:
-        SCHEMA_FIELD(float                           , m_flMinDist                                     , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecForceAtMinDist                             , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(float                           , m_flMaxDist                                     , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecForceAtMaxDist                             , 0x204) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecPlaneNormal                                , 0x210) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x21C) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flExponent                                    , 0x220) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RandomRotationSpeed
-    //   fields: 0
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomRotationSpeed {
-    public:
-    };
-
-    // C_OP_OscillateScalar
-    //   fields: 13
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_OP_OscillateScalar {
-    public:
-        SCHEMA_FIELD(float                           , m_RateMin                                       , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_RateMax                                       , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_FrequencyMin                                  , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_FrequencyMax                                  , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x1F0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x1F4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bProportionalOp                               , 0x1F5) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x204) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOscMult                                     , 0x208) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOscAdd                                      , 0x20C) // float32 [MPropertyFriendlyName]
-    };
-
-    // SequenceWeightedList_t
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class SequenceWeightedList_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nSequence                                     , 0x0) // int32 [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(float                           , m_flRelativeWeight                              , 0x4) // float32 [MPropertyFriendlyName]
-    };
-
-    // CParticleMassCalculationParameters
+    // C_INIT_RemapParticleCountToNamedModelElementScalar
     //   fields: 4
-    //   size: 0x470
+    //   size: 0x238
     //   @MGetKV3ClassDefaults
-    class CParticleMassCalculationParameters {
+    class C_INIT_RemapParticleCountToNamedModelElementScalar {
     public:
-        SCHEMA_FIELD(ParticleMassMode_t              , m_nMassMode                                     , 0x0) // ParticleMassMode_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius                                      , 0x8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flNominalRadius                               , 0x180) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flScale                                       , 0x2F8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x218) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(::CUtlString                    , m_outputMinName                                 , 0x220) // CUtlString [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_outputMaxName                                 , 0x228) // CUtlString [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x230) // bool
     };
 
-    // C_OP_RemapCrossProductOfTwoVectorsToVector
-    //   fields: 4
-    //   size: 0xF98
+    // C_OP_SetVariable
+    //   fields: 6
+    //   size: 0xB08
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapCrossProductOfTwoVectorsToVector {
+    class C_OP_SetVariable {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_InputVec1                                     , 0x1E0) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_InputVec2                                     , 0x8B8) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0xF90) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0xF94) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_ScreenSpaceRotateTowardTarget
-    //   fields: 4
-    //   size: 0xBB0
-    //   @MGetKV3ClassDefaults
-    class C_OP_ScreenSpaceRotateTowardTarget {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecTargetPosition                             , 0x1E0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x8B8) // CParticleRemapFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0xA30) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flScreenEdgeAlignmentDistance                 , 0xA38) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_CreateOnModel
-    //   fields: 16
-    //   size: 0x13F0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreateOnModel {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleModelInput, m_modelInput                                    , 0x1E8) // CParticleModelInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x248) // CParticleTransformInput [MPropertyFriendlyName, MParticleInputOptional]
-        SCHEMA_FIELD(std::int32_t                    , m_nForceInModel                                 , 0x2B0) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bScaleToVolume                                , 0x2B4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bEvenDistribution                             , 0x2B5) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nDesiredHitbox                                , 0x2B8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nHitboxValueFromControlPointIndex             , 0x430) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecHitBoxScale                                , 0x438) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flBoneVelocity                                , 0xB10) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxBoneVelocity                             , 0xB14) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecDirectionBias                              , 0xB18) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate, MPropertySuppressExpr]
-        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x11F0) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x1270) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1271) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bUseMesh                                      , 0x1272) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flShellSize                                   , 0x1278) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // TextureGroup_t
-    //   fields: 9
-    //   size: 0xC18
-    //   @MGetKV3ClassDefaults
-    class TextureGroup_t {
-    public:
-        SCHEMA_FIELD(bool                            , m_bEnabled                                      , 0x0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bReplaceTextureWithGradient                   , 0x1) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_hTexture                                      , 0x8) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertySuppressExpr, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CColorGradient                  , m_Gradient                                      , 0x10) // CColorGradient [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(SpriteCardTextureType_t         , m_nTextureType                                  , 0x28) // SpriteCardTextureType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(SpriteCardTextureChannel_t      , m_nTextureChannels                              , 0x2C) // SpriteCardTextureChannel_t [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleTextureLayerBlendType_t , m_nTextureBlendMode                             , 0x30) // ParticleTextureLayerBlendType_t [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flTextureBlend                                , 0x38) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(TextureControls_t               , m_TextureControls                               , 0x1B0) // TextureControls_t [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // C_OP_RampScalarLinearSimple
-    //   fields: 4
-    //   size: 0x220
-    //   @MGetKV3ClassDefaults
-    class C_OP_RampScalarLinearSimple {
-    public:
-        SCHEMA_FIELD(float                           , m_Rate                                          , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x210) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_OP_WaterImpulseRenderer
-    //   fields: 8
-    //   size: 0x1068
-    //   @MGetKV3ClassDefaults
-    class C_OP_WaterImpulseRenderer {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPos                                        , 0x230) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius                                      , 0x908) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMagnitude                                   , 0xA80) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flShape                                       , 0xBF8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flWindSpeed                                   , 0xD70) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flWobble                                      , 0xEE8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bIsRadialWind                                 , 0x1060) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x1064) // EventTypeSelection_t [MPropertyFriendlyName]
-    };
-
-    // C_OP_SnapshotRigidSkinToBones
-    //   fields: 3
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class C_OP_SnapshotRigidSkinToBones {
-    public:
-        SCHEMA_FIELD(bool                            , m_bTransformNormals                             , 0x1E0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bTransformRadii                               , 0x1E1) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E4) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_LocalAccelerationForce
-    //   fields: 3
-    //   size: 0x8D0
-    //   @MGetKV3ClassDefaults
-    class C_OP_LocalAccelerationForce {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP                                      , 0x1F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecAccel                                      , 0x1F8) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleVariableRef, m_variableReference                             , 0x1E8) // CParticleVariableRef [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x238) // CParticleTransformInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::Vector                        , m_positionOffset                                , 0x2A0) // Vector [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::QAngle                        , m_rotationOffset                                , 0x2AC) // QAngle [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecInput                                      , 0x2B8) // CParticleCollectionVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_floatInput                                    , 0x990) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
     };
 
     // C_INIT_InitVecCollection
@@ -1263,129 +1057,151 @@ namespace particles {
         SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x8C0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
     };
 
-    // C_INIT_RandomTrailLength
+    // C_INIT_CreateAlongPath
+    //   fields: 6
+    //   size: 0x540
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateAlongPath {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fMaxDistance                                  , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fT                                            , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x4E0) // CPathParameters
+        SCHEMA_FIELD(bool                            , m_bUseRandomCPs                                 , 0x520) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vEndOffset                                    , 0x524) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bSaveOffset                                   , 0x530) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_CreateWithinSphereTransform
+    //   fields: 13
+    //   size: 0x1CD8
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateWithinSphereTransform {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fRadiusMin                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fRadiusMax                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecDistanceBias                               , 0x4D8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecDistanceBiasAbs                            , 0xBB0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0xBC0) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMin                                     , 0xC28) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMax                                     , 0xDA0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fSpeedRandExp                                 , 0xF18) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0xF1C) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_LocalCoordinateSystemSpeedMin                 , 0xF20) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_LocalCoordinateSystemSpeedMax                 , 0x15F8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1CD0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldVelocity                                , 0x1CD4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_LazyCullCompareFloat
+    //   fields: 3
+    //   size: 0x648
+    //   @MGetKV3ClassDefaults
+    class C_OP_LazyCullCompareFloat {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flComparsion1                                 , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flComparsion2                                 , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flCullTime                                    , 0x4D0) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_ContinuousEmitter
+    //   fields: 12
+    //   size: 0x680
+    //   @MGetKV3ClassDefaults
+    class C_OP_ContinuousEmitter {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flEmissionDuration                            , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flStartTime                                   , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flEmitRate                                    , 0x4D8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEmissionScale                               , 0x650) // float32 [MPropertyFriendlyName, MParticleMaxVersion]
+        SCHEMA_FIELD(float                           , m_flScalePerParentParticle                      , 0x654) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bInitFromKilledParentParticles                , 0x658) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x65C) // EventTypeSelection_t [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x660) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x668) // CUtlString [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nLimitPerUpdate                               , 0x670) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bForceEmitOnFirstUpdate                       , 0x674) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bForceEmitOnLastUpdate                        , 0x675) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RandomLifeTime
     //   fields: 3
     //   size: 0x1F8
     //   @MGetKV3ClassDefaults
-    class C_INIT_RandomTrailLength {
+    class C_INIT_RandomLifeTime {
     public:
-        SCHEMA_FIELD(float                           , m_flMinLength                                   , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxLength                                   , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLengthRandExponent                          , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fLifetimeMin                                  , 0x1E8) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(float                           , m_fLifetimeMax                                  , 0x1EC) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(float                           , m_fLifetimeRandExponent                         , 0x1F0) // float32 [MPropertyFriendlyName]
     };
 
-    // C_INIT_VelocityRadialRandom
-    //   fields: 8
-    //   size: 0x12A0
+    // TextureControls_t
+    //   fields: 16
+    //   size: 0xA68
     //   @MGetKV3ClassDefaults
-    class C_INIT_VelocityRadialRandom {
+    class TextureControls_t {
     public:
-        SCHEMA_FIELD(bool                            , m_bPerParticleCenter                            , 0x1E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1EC) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPosition                                   , 0x1F0) // CPerParticleVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecFwd                                        , 0x8C8) // CPerParticleVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMin                                     , 0xFA0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMax                                     , 0x1118) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecLocalCoordinateSystemSpeedScale            , 0x1290) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bIgnoreDelta                                  , 0x129D) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFinalTextureScaleU                          , 0x0) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFinalTextureScaleV                          , 0x178) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFinalTextureOffsetU                         , 0x2F0) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFinalTextureOffsetV                         , 0x468) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFinalTextureUVRotation                      , 0x5E0) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flZoomScale                                   , 0x758) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flDistortion                                  , 0x8D0) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRandomizeOffsets                             , 0xA48) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bClampUVs                                     , 0xA49) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleBlend                             , 0xA4C) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleScale                             , 0xA50) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleOffsetU                           , 0xA54) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleOffsetV                           , 0xA58) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleRotation                          , 0xA5C) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleZoom                              , 0xA60) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleDistortion                        , 0xA64) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
     };
 
-    // C_OP_RemapTransformVisibilityToVector
-    //   fields: 8
-    //   size: 0x278
+    // C_OP_MovementSkinnedPositionFromCPSnapshot
+    //   fields: 12
+    //   size: 0x950
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapTransformVisibilityToVector {
+    class C_OP_MovementSkinnedPositionFromCPSnapshot {
     public:
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1E0) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x250) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x254) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x258) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x25C) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x268) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x274) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPointNumber                   , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRandom                                       , 0x1E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x1F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetRadius                                    , 0x1F1) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(SnapshotIndexType_t             , m_nIndexType                                    , 0x1F4) // SnapshotIndexType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flReadIndex                                   , 0x1F8) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flIncrement                                   , 0x370) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nFullLoopIncrement                            , 0x4E8) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nSnapShotStartPoint                           , 0x660) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x7D8) // CPerParticleFloatInput [MPropertyFriendlyName]
     };
 
-    // ParticlePreviewBodyGroup_t
-    //   fields: 2
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class ParticlePreviewBodyGroup_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_bodyGroupName                                 , 0x0) // CUtlString
-        SCHEMA_FIELD(std::int32_t                    , m_nValue                                        , 0x8) // int32
-    };
-
-    // C_OP_RemapVectortoCP
-    //   fields: 3
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapVectortoCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nParticleNumber                               , 0x1E8) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetControlPointPositionToRandomActiveCP
-    //   fields: 4
-    //   size: 0x370
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointPositionToRandomActiveCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nHeadLocationMin                              , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nHeadLocationMax                              , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flResetRate                                   , 0x1F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_ChladniWave
+    // C_INIT_SetHitboxToModel
     //   fields: 10
-    //   size: 0x1588
+    //   size: 0xAD8
     //   @MGetKV3ClassDefaults
-    class C_OP_ChladniWave {
+    class C_INIT_SetHitboxToModel {
     public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMin                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMax                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x4D8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x650) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecWaveLength                                 , 0x7C8) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecHarmonics                                  , 0xEA0) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1578) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceControlPoint                       , 0x157C) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_b3D                                           , 0x1580) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nForceInModel                                 , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bEvenDistribution                             , 0x1F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nDesiredHitbox                                , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecHitBoxScale                                , 0x1F8) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecDirectionBias                              , 0x8D0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bMaintainHitbox                               , 0x8DC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x8DD) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x8DE) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flShellSize                                   , 0x960) // CParticleCollectionFloatInput [MPropertyFriendlyName]
     };
 
-    // C_INIT_CreateParticleImpulse
-    //   fields: 5
-    //   size: 0x660
+    // C_INIT_RemapNamedModelMeshGroupToScalar
+    //   fields: 0
+    //   size: 0x230
     //   @MGetKV3ClassDefaults
-    class C_INIT_CreateParticleImpulse {
+    class C_INIT_RemapNamedModelMeshGroupToScalar {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputRadius                                   , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputMagnitude                                , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleFalloffFunction_t       , m_nFalloffFunction                              , 0x4D8) // ParticleFalloffFunction_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputFalloffExp                               , 0x4E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleImpulseType_t           , m_nImpulseType                                  , 0x658) // ParticleImpulseType_t [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderTreeShake
-    //   fields: 10
-    //   size: 0x258
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderTreeShake {
-    public:
-        SCHEMA_FIELD(float                           , m_flPeakStrength                                , 0x230) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nPeakStrengthFieldOverride                    , 0x234) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x238) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nRadiusFieldOverride                          , 0x23C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flShakeDuration                               , 0x240) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flTransitionTime                              , 0x244) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flTwistAmount                                 , 0x248) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRadialAmount                                , 0x24C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flControlPointOrientationAmount               , 0x250) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointForLinearDirection               , 0x254) // int32 [MPropertyFriendlyName]
     };
 
     // C_OP_RenderPoints
@@ -1397,32 +1213,438 @@ namespace particles {
         SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0x230) // CStrongHandle<InfoForResourceTypeIMaterial2>
     };
 
-    // C_OP_ScreenSpaceDistanceToEdge
-    //   fields: 4
-    //   size: 0x500
+    // C_INIT_AgeNoise
+    //   fields: 8
+    //   size: 0x210
     //   @MGetKV3ClassDefaults
-    class C_OP_ScreenSpaceDistanceToEdge {
+    class C_INIT_AgeNoise {
     public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMaxDistFromEdge                             , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x360) // CParticleRemapFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x4D8) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAbsVal                                       , 0x1E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAbsValInv                                    , 0x1E9) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOffset                                      , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flAgeMin                                      , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flAgeMax                                      , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flNoiseScale                                  , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flNoiseScaleLoc                               , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetLoc                                  , 0x200) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
     };
 
-    // C_OP_RemapTransformVisibilityToScalar
-    //   fields: 8
-    //   size: 0x268
+    // C_OP_SnapshotSkinToBones
+    //   fields: 7
+    //   size: 0x1F8
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapTransformVisibilityToScalar {
+    class C_OP_SnapshotSkinToBones {
     public:
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1E0) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x250) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x254) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x258) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x25C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x260) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x264) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bTransformNormals                             , 0x1E0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bTransformRadii                               , 0x1E1) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLifeTimeFadeStart                           , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLifeTimeFadeEnd                             , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flJumpThreshold                               , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x1F4) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_PinRopeSegmentParticleToParent
+    //   fields: 3
+    //   size: 0x4D8
+    //   @MGetKV3ClassDefaults
+    class C_OP_PinRopeSegmentParticleToParent {
+    public:
+        SCHEMA_FIELD(ParticleSelection_t             , m_nParticleSelection                            , 0x1E0) // ParticleSelection_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nParticleNumber                               , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderBlobs
+    //   fields: 8
+    //   size: 0x6E0
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderBlobs {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_cubeWidth                                     , 0x230) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_cutoffRadius                                  , 0x3A8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_renderRadius                                  , 0x520) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::uint32_t                   , m_nVertexCountKb                                , 0x698) // uint32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(std::uint32_t                   , m_nIndexCountKb                                 , 0x69C) // uint32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP                                      , 0x6A0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<MaterialVariable_t>  , m_MaterialVars                                  , 0x6A8) // CUtlVector<MaterialVariable_t> [MPropertyFriendlyName, MPropertyAutoExpandSelf, MPropertySortPriority]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0x6D8) // CStrongHandle<InfoForResourceTypeIMaterial2>
+    };
+
+    // C_OP_DirectionBetweenVecsToVec
+    //   fields: 3
+    //   size: 0xF98
+    //   @MGetKV3ClassDefaults
+    class C_OP_DirectionBetweenVecsToVec {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPoint1                                     , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPoint2                                     , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_ControlPointToRadialScreenSpace
+    //   fields: 5
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_OP_ControlPointToRadialScreenSpace {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPIn                                         , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOut                                        , 0x1F8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutField                                   , 0x1FC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPSSPosOut                                   , 0x200) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_WorldTraceConstraint
+    //   fields: 28
+    //   size: 0xA08
+    //   @MGetKV3ClassDefaults
+    class C_OP_WorldTraceConstraint {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecCpOffset                                   , 0x1E4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(ParticleCollisionMode_t         , m_nCollisionMode                                , 0x1F0) // ParticleCollisionMode_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleCollisionMode_t         , m_nCollisionModeMin                             , 0x1F4) // ParticleCollisionMode_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x1F8) // ParticleTraceSet_t [MPropertyStartGroup, MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x1FC) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bWorldOnly                                    , 0x27C) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bBrushOnly                                    , 0x27D) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0x27E) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nIgnoreCP                                     , 0x280) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flCpMovementTolerance                         , 0x284) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flRetestRate                                  , 0x288) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flTraceTolerance                              , 0x28C) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flCollisionConfirmationSpeed                  , 0x290) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_nMaxTracesPerFrame                            , 0x294) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadiusScale                                 , 0x298) // CPerParticleFloatInput [MPropertyStartGroup, MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flBounceAmount                                , 0x410) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flSlideAmount                                 , 0x588) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRandomDirScale                              , 0x700) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDecayBounce                                  , 0x878) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bKillonContact                                , 0x879) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMinSpeed                                    , 0x87C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bKillonContactBounce                          , 0x880) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x881) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nStickOnCollisionField                        , 0x884) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flStopSpeed                                   , 0x888) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nEntityStickDataField                         , 0xA00) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nEntityStickNormalField                       , 0xA04) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // CGeneralRandomRotation
+    //   fields: 6
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class CGeneralRandomRotation {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flDegrees                                     , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flDegreesMin                                  , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flDegreesMax                                  , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRotationRandExponent                        , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRandomlyFlipDirection                        , 0x1FC) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapDensityGradientToVectorAttribute
+    //   fields: 2
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapDensityGradientToVectorAttribute {
+    public:
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_ForceControlPointStub
+    //   fields: 1
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_ForceControlPointStub {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_ControlPoint                                  , 0x1E8) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetSimulationRate
+    //   fields: 1
+    //   size: 0x360
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetSimulationRate {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flSimulationScale                             , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderMaterialProxy
+    //   fields: 8
+    //   size: 0xC40
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderMaterialProxy {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nMaterialControlPoint                         , 0x230) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(MaterialProxyType_t             , m_nProxyType                                    , 0x234) // MaterialProxyType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<MaterialVariable_t>  , m_MaterialVars                                  , 0x238) // CUtlVector<MaterialVariable_t> [MPropertyFriendlyName, MPropertyAutoExpandSelf]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hOverrideMaterial                             , 0x250) // CStrongHandle<InfoForResourceTypeIMaterial2> [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMaterialOverrideEnabled                     , 0x258) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorScale                                 , 0x3D0) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flAlpha                                       , 0xAA8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0xC20) // ParticleColorBlendType_t [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapNamedModelSequenceEndCap
+    //   fields: 0
+    //   size: 0x240
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapNamedModelSequenceEndCap {
+    public:
+    };
+
+    // C_OP_FadeInSimple
+    //   fields: 2
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class C_OP_FadeInSimple {
+    public:
+        SCHEMA_FIELD(float                           , m_flFadeInTime                                  , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_INIT_SetHitboxToClosest
+    //   fields: 9
+    //   size: 0xAD0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_SetHitboxToClosest {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nDesiredHitbox                                , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecHitBoxScale                                , 0x1F0) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x8C8) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x948) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseClosestPointOnHitbox                      , 0x949) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ClosestPointTestType_t          , m_nTestType                                     , 0x94C) // ClosestPointTestType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flHybridRatio                                 , 0x950) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUpdatePosition                               , 0xAC8) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapControlPointDirectionToVector
+    //   fields: 3
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapControlPointDirectionToVector {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_LockToSavedSequentialPathV2
+    //   fields: 4
+    //   size: 0x230
+    //   @MParticleMinVersion
+    //   @MGetKV3ClassDefaults
+    class C_OP_LockToSavedSequentialPathV2 {
+    public:
+        SCHEMA_FIELD(float                           , m_flFadeStart                                   , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFadeEnd                                     , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCPPairs                                      , 0x1E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x1F0) // CPathParameters
+    };
+
+    // C_INIT_SequenceFromCP
+    //   fields: 4
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_INIT_SequenceFromCP {
+    public:
+        SCHEMA_FIELD(bool                            , m_bKillUnused                                   , 0x1E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRadiusScale                                  , 0x1E9) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+    };
+
+    // C_OP_RemapNamedModelElementOnceTimed
+    //   fields: 9
+    //   size: 0x240
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapNamedModelElementOnceTimed {
+    public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x1E0) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_inNames                                       , 0x1E8) // CUtlVector<CUtlString> [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_outNames                                      , 0x200) // CUtlVector<CUtlString> [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_fallbackNames                                 , 0x218) // CUtlVector<CUtlString> [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x230) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x231) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x234) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x238) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flRemapTime                                   , 0x23C) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointFieldFromVectorExpression
+    //   fields: 7
+    //   size: 0x1298
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointFieldFromVectorExpression {
+    public:
+        SCHEMA_FIELD(VectorFloatExpressionType_t     , m_nExpression                                   , 0x1E8) // VectorFloatExpressionType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecInput1                                     , 0x1F0) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecInput2                                     , 0x8C8) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLerp                                        , 0xFA0) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x1118) // CParticleRemapFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1290) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x1294) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_LerpEndCapScalar
+    //   fields: 3
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_LerpEndCapScalar {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flOutput                                      , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLerpTime                                    , 0x1E8) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointToImpactPoint
+    //   fields: 12
+    //   size: 0x410
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointToImpactPoint {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOut                                        , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPIn                                         , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flUpdateRate                                  , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flTraceLength                                 , 0x1F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartOffset                                 , 0x370) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOffset                                      , 0x374) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecTraceDir                                   , 0x378) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x384) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x404) // ParticleTraceSet_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetToEndpoint                                , 0x408) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bTraceToClosestSurface                        , 0x409) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0x40A) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_MovementLoopInsideSphere
+    //   fields: 4
+    //   size: 0xA40
+    //   @MGetKV3ClassDefaults
+    class C_OP_MovementLoopInsideSphere {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDistance                                    , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecScale                                      , 0x360) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nDistSqrAttr                                  , 0xA38) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_RemapVelocityToVector
+    //   fields: 3
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapVelocityToVector {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1E8) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_SequenceFromModel
+    //   fields: 8
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_SequenceFromModel {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutputAnim                              , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1FC) // ParticleSetMethod_t [MPropertyFriendlyName]
+    };
+
+    // C_OP_SelectivelyEnableChildren
+    //   fields: 5
+    //   size: 0x658
+    //   @MGetKV3ClassDefaults
+    class C_OP_SelectivelyEnableChildren {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nChildGroupID                                 , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nFirstChild                                   , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nNumChildrenToEnable                          , 0x4D8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bPlayEndcapOnStop                             , 0x650) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDestroyImmediately                           , 0x651) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_DistanceBetweenVecs
+    //   fields: 9
+    //   size: 0x1580
+    //   @MGetKV3ClassDefaults
+    class C_OP_DistanceBetweenVecs {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPoint1                                     , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPoint2                                     , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMin                                    , 0xF98) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMax                                    , 0x1110) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x1288) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x1400) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1578) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDeltaTime                                    , 0x157C) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_CalculateVectorAttribute
+    //   fields: 11
+    //   size: 0x240
+    //   @MGetKV3ClassDefaults
+    class C_OP_CalculateVectorAttribute {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vStartValue                                   , 0x1E0) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput1                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputScale1                                 , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput2                                  , 0x1F4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputScale2                                 , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ControlPointReference_t         , m_nControlPointInput1                           , 0x1FC) // ControlPointReference_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flControlPointScale1                          , 0x210) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ControlPointReference_t         , m_nControlPointInput2                           , 0x214) // ControlPointReference_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flControlPointScale2                          , 0x228) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x22C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::Vector                        , m_vFinalOutputScale                             , 0x230) // Vector [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointToCPVelocity
+    //   fields: 6
+    //   size: 0x8D8
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointToCPVelocity {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutputVel                                  , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutputMag                                  , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPField                                      , 0x1F8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecComparisonVelocity                         , 0x200) // CParticleCollectionVecInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_Callback
+    //   fields: 0
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class C_OP_Callback {
+    public:
+    };
+
+    // C_INIT_AddVectorToVector
+    //   fields: 6
+    //   size: 0x220
+    //   @MGetKV3ClassDefaults
+    class C_INIT_AddVectorToVector {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vecScale                                      , 0x1E8) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1F8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::Vector                        , m_vOffsetMin                                    , 0x1FC) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vOffsetMax                                    , 0x208) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x214) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
     };
 
     // C_OP_MovementPlaceOnGround
@@ -1451,149 +1673,368 @@ namespace particles {
         SCHEMA_FIELD(std::int32_t                    , m_nIgnoreCP                                     , 0xAE8) // int32 [MPropertyFriendlyName]
     };
 
-    // C_OP_RemapTransformToVelocity
-    //   fields: 1
-    //   size: 0x248
+    // C_INIT_CheckParticleForWater
+    //   fields: 4
+    //   size: 0x4E8
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapTransformToVelocity {
+    class C_INIT_CheckParticleForWater {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius                                      , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x360) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x368) // CParticleRemapFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x4E0) // ParticleSetMethod_t [MPropertyFriendlyName]
+    };
+
+    // C_OP_DistanceToTransform
+    //   fields: 15
+    //   size: 0xFA0
+    //   @MGetKV3ClassDefaults
+    class C_OP_DistanceToTransform {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMin                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMax                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x4D8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x650) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformStart                                , 0x7C8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLOS                                          , 0x830) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x831) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x8B4) // ParticleTraceSet_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x8B8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLOSScale                                    , 0x8BC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x8C0) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x8C4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x8C5) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecComponentScale                             , 0x8C8) // CPerParticleVecInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapTransformOrientationToRotations
+    //   fields: 4
+    //   size: 0x258
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapTransformOrientationToRotations {
     public:
         SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E0) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecRotation                                   , 0x248) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseQuat                                      , 0x254) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bWriteNormal                                  , 0x255) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_SetControlPointToHMD
-    //   fields: 3
-    //   size: 0x200
+    // CRandomNumberGeneratorParameters
+    //   fields: 2
+    //   size: 0x8
     //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointToHMD {
+    class CRandomNumberGeneratorParameters {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bOrientToHMD                                  , 0x1F8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDistributeEvenly                             , 0x0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nSeed                                         , 0x4) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
     };
 
-    // C_INIT_InitFromCPSnapshot
-    //   fields: 11
-    //   size: 0x500
+    // ModelReference_t
+    //   fields: 2
+    //   size: 0x10
     //   @MGetKV3ClassDefaults
-    class C_INIT_InitFromCPSnapshot {
+    class ModelReference_t {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x1F0) // CUtlString [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToRead                              , 0x1F8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToWrite                             , 0x1FC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x200) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRandom                                       , 0x204) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x205) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nSnapShotIncrement                            , 0x208) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_nManualSnapshotIndex                          , 0x380) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x4F8) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bLocalSpaceAngles                             , 0x4FC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_model                                         , 0x0) // CStrongHandle<InfoForResourceTypeCModel> [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRelativeProbabilityOfSpawn                  , 0x8) // float32 [MPropertyFriendlyName]
     };
 
-    // C_INIT_PositionOffset
+    // C_INIT_CreateWithinBox
     //   fields: 6
-    //   size: 0x1010
+    //   size: 0xFB0
     //   @MGetKV3ClassDefaults
-    class C_INIT_PositionOffset {
+    class C_INIT_CreateWithinBox {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_OffsetMin                                     , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_OffsetMax                                     , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0xF98) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x1000) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x1001) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x1004) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecMin                                        , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecMax                                        , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0xF98) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0xF9C) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0xFA0) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseNewCode                                   , 0xFA8) // bool [MPropertyFriendlyName]
     };
 
-    // C_INIT_CreateFromCPs
-    //   fields: 4
-    //   size: 0x370
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreateFromCPs {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nMinCP                                        , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nMaxCP                                        , 0x1F0) // int32 [MPropertyFriendlyName, MParticleMinVersion]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nDynamicCPCount                               , 0x1F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetControlPointPositionToTimeOfDayValue
+    // C_INIT_RandomTrailLength
     //   fields: 3
-    //   size: 0x280
+    //   size: 0x1F8
     //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointPositionToTimeOfDayValue {
+    class C_INIT_RandomTrailLength {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_pszTimeOfDayParameter                         , 0x1EC) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecDefaultValue                               , 0x26C) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMinLength                                   , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxLength                                   , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLengthRandExponent                          , 0x1F0) // float32 [MPropertyFriendlyName]
     };
 
-    // C_OP_SetVariable
+    // C_INIT_InitFromParentKilled
+    //   fields: 2
+    //   size: 0x270
+    //   @MGetKV3ClassDefaults
+    class C_INIT_InitFromParentKilled {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToCopy                              , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x1EC) // EventTypeSelection_t [MPropertyFriendlyName]
+    };
+
+    // ParticleControlPointConfiguration_t
+    //   fields: 3
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class ParticleControlPointConfiguration_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
+        SCHEMA_FIELD(CUtlVector<ParticleControlPointDriver_t>, m_drivers                                       , 0x8) // CUtlVector<ParticleControlPointDriver_t>
+        SCHEMA_FIELD(ParticlePreviewState_t          , m_previewState                                  , 0x20) // ParticlePreviewState_t
+    };
+
+    // C_OP_RenderStatusEffectCitadel
     //   fields: 6
-    //   size: 0xB08
+    //   size: 0x260
     //   @MGetKV3ClassDefaults
-    class C_OP_SetVariable {
+    class C_OP_RenderStatusEffectCitadel {
     public:
-        SCHEMA_FIELD(::animationsystem::CParticleVariableRef, m_variableReference                             , 0x1E8) // CParticleVariableRef [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x238) // CParticleTransformInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::Vector                        , m_positionOffset                                , 0x2A0) // Vector [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::QAngle                        , m_rotationOffset                                , 0x2AC) // QAngle [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecInput                                      , 0x2B8) // CParticleCollectionVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_floatInput                                    , 0x990) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureColorWarp                             , 0x230) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureNormal                                , 0x238) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureMetalness                             , 0x240) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureRoughness                             , 0x248) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureSelfIllum                             , 0x250) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureDetail                                , 0x258) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
     };
 
-    // C_OP_RenderVRHapticEvent
-    //   fields: 4
-    //   size: 0x3B8
+    // C_OP_PercentageBetweenTransformsVector
+    //   fields: 10
+    //   size: 0x2E0
     //   @MGetKV3ClassDefaults
-    class C_OP_RenderVRHapticEvent {
+    class C_OP_PercentageBetweenTransformsVector {
     public:
-        SCHEMA_FIELD(ParticleVRHandChoiceList_t      , m_nHand                                         , 0x230) // ParticleVRHandChoiceList_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputHandCP                                 , 0x234) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputField                                  , 0x238) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flAmplitude                                   , 0x240) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1F8) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformStart                                , 0x208) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformEnd                                  , 0x270) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x2D8) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x2DC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRadialCheck                                  , 0x2DD) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_Orient2DRelToCP
-    //   fields: 4
+    // C_OP_RemapVectorComponentToScalar
+    //   fields: 3
     //   size: 0x1F0
     //   @MGetKV3ClassDefaults
-    class C_OP_Orient2DRelToCP {
+    class C_OP_RemapVectorComponentToScalar {
     public:
-        SCHEMA_FIELD(float                           , m_flRotOffset                                   , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSpinStrength                                , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x1E8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
     };
 
-    // C_OP_VectorFieldSnapshot
-    //   fields: 9
-    //   size: 0xA50
+    // C_OP_VelocityDecay
+    //   fields: 1
+    //   size: 0x1E8
     //   @MGetKV3ClassDefaults
-    class C_OP_VectorFieldSnapshot {
+    class C_OP_VelocityDecay {
+    public:
+        SCHEMA_FIELD(float                           , m_flMinVelocity                                 , 0x1E0) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointFieldToWater
+    //   fields: 3
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointFieldToWater {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSourceCP                                     , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nDestCP                                       , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPField                                      , 0x1F0) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_INIT_RemapParticleCountToNamedModelSequenceScalar
+    //   fields: 0
+    //   size: 0x238
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RemapParticleCountToNamedModelSequenceScalar {
+    public:
+    };
+
+    // C_OP_NoiseEmitter
+    //   fields: 15
+    //   size: 0x228
+    //   @MGetKV3ClassDefaults
+    class C_OP_NoiseEmitter {
+    public:
+        SCHEMA_FIELD(float                           , m_flEmissionDuration                            , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEmissionScale                               , 0x1F0) // float32 [MPropertyFriendlyName, MParticleMaxVersion]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPoint                            , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointField                       , 0x1F8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nWorldNoisePoint                              , 0x1FC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAbsVal                                       , 0x200) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAbsValInv                                    , 0x201) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOffset                                      , 0x204) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x208) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x20C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flNoiseScale                                  , 0x210) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flWorldNoiseScale                             , 0x214) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetLoc                                  , 0x218) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(float                           , m_flWorldTimeScale                              , 0x224) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetAttributeToScalarExpression
+    //   fields: 6
+    //   size: 0x680
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetAttributeToScalarExpression {
+    public:
+        SCHEMA_FIELD(ScalarExpressionType_t          , m_nExpression                                   , 0x1E0) // ScalarExpressionType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInput1                                      , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInput2                                      , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x4D8) // CParticleRemapFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x650) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x654) // ParticleSetMethod_t [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetParentControlPointsToChildCP
+    //   fields: 5
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetParentControlPointsToChildCP {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nChildControlPoint                            , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstSourcePoint                             , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x1F8) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_ConnectParentParticleToNearest
+    //   fields: 5
+    //   size: 0x4E0
+    //   @MGetKV3ClassDefaults
+    class C_OP_ConnectParentParticleToNearest {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nSecondControlPoint                           , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseRadius                                    , 0x1E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRadiusScale                                 , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flParentRadiusScale                           , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+    };
+
+    // C_OP_RenderStandardLight
+    //   fields: 34
+    //   size: 0x1828
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderStandardLight {
+    public:
+        SCHEMA_FIELD(ParticleLightTypeChoiceList_t   , m_nLightType                                    , 0x230) // ParticleLightTypeChoiceList_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::uint16_t                   , m_nMaxAllowed                                   , 0x234) // uint16 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorScale                                 , 0x238) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x910) // ParticleColorBlendType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_strLightStyle                                 , 0x918) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLightStyleTime                              , 0x920) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flIntensity                                   , 0xA98) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCastShadows                                  , 0xC10) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bDynamicBounce                                , 0xC11) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flBounceScale                                 , 0xC18) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flTheta                                       , 0xD90) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flPhi                                         , 0xF08) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRadiusMultiplier                            , 0x1080) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(StandardLightingAttenuationStyle_t, m_nAttenuationStyle                             , 0x11F8) // StandardLightingAttenuationStyle_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flFalloffLinearity                            , 0x1200) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flFiftyPercentFalloff                         , 0x1378) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flZeroPercentFalloff                          , 0x14F0) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bRenderDiffuse                                , 0x1668) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bRenderSpecular                               , 0x1669) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::CUtlString                    , m_lightCookie                                   , 0x1670) // CUtlString [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x1678) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleLightFogLightingMode_t  , m_nFogLightingMode                              , 0x167C) // ParticleLightFogLightingMode_t [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFogContribution                             , 0x1680) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleLightBehaviorChoiceList_t, m_nCapsuleLightBehavior                         , 0x17F8) // ParticleLightBehaviorChoiceList_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flCapsuleLength                               , 0x17FC) // float32 [MPropertyStartGroup, MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bReverseOrder                                 , 0x1800) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bClosedLoop                                   , 0x1801) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nPrevPntSource                                , 0x1804) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flMaxLength                                   , 0x1808) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flMinLength                                   , 0x180C) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bIgnoreDT                                     , 0x1810) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flConstrainRadiusToLengthRatio                , 0x1814) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flLengthScale                                 , 0x1818) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flLengthFadeInTime                            , 0x181C) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+    };
+
+    // C_OP_RenderRopes
+    //   fields: 33
+    //   size: 0x3528
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderRopes {
+    public:
+        SCHEMA_FIELD(bool                            , m_bEnableFadingAndClamping                      , 0x2ED8) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flMinSize                                     , 0x2EDC) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flMaxSize                                     , 0x2EE0) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flStartFadeSize                               , 0x2EE4) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flEndFadeSize                                 , 0x2EE8) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flStartFadeDot                                , 0x2EEC) // float32 [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flEndFadeDot                                  , 0x2EF0) // float32 [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flSubPixelAAScale                             , 0x2EF8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySuppressExpr, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flRadiusTaper                                 , 0x3070) // float32 [MPropertyStartGroup, MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nMinTesselation                               , 0x3074) // int32 [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxTesselation                               , 0x3078) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flTessScale                                   , 0x307C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flTextureVWorldSize                           , 0x3080) // CParticleCollectionRendererFloatInput [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flTextureVScrollRate                          , 0x31F8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flTextureVOffset                              , 0x3370) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nTextureVParamsCP                             , 0x34E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bClampV                                       , 0x34EC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP1                                     , 0x34F0) // int32 [MPropertyStartGroup, MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP2                                     , 0x34F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flScaleVSizeByControlPointDistance            , 0x34F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flScaleVScrollByControlPointDistance          , 0x34FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flScaleVOffsetByControlPointDistance          , 0x3500) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseScalarForTextureCoordinate                , 0x3505) // bool [MPropertyStartGroup, MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nScalarFieldForTextureCoordinate              , 0x3508) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flScalarAttributeTextureCoordScale            , 0x350C) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bReverseOrder                                 , 0x3510) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(bool                            , m_bClosedLoop                                   , 0x3511) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nSplitField                                   , 0x3514) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bSortBySegmentID                              , 0x3518) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleOrientationChoiceList_t , m_nOrientationType                              , 0x351C) // ParticleOrientationChoiceList_t [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nVectorFieldForOrientation                    , 0x3520) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bDrawAsOpaque                                 , 0x3524) // bool [MPropertyStartGroup, MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bGenerateNormals                              , 0x3525) // bool [MPropertyStartGroup, MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderClientPhysicsImpulse
+    //   fields: 3
+    //   size: 0x528
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderClientPhysicsImpulse {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius                                      , 0x230) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMagnitude                                   , 0x3A8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nSimIdFilter                                  , 0x520) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_DampenToCP
+    //   fields: 3
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_DampenToCP {
     public:
         SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToWrite                             , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecScale                                      , 0x368) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flBoundaryDampening                           , 0xA40) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetVelocity                                  , 0xA44) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLockToSurface                                , 0xA45) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flGridSpacing                                 , 0xA48) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRange                                       , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E8) // float32 [MPropertyFriendlyName]
     };
 
-    // C_OP_FadeOut
-    //   fields: 6
-    //   size: 0x230
+    // C_OP_LerpToOtherAttribute
+    //   fields: 4
+    //   size: 0x390
     //   @MGetKV3ClassDefaults
-    class C_OP_FadeOut {
+    class C_OP_LerpToOtherAttribute {
     public:
-        SCHEMA_FIELD(float                           , m_flFadeOutTimeMin                              , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFadeOutTimeMax                              , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFadeOutTimeExp                              , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFadeBias                                    , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x220) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bEaseInAndOut                                 , 0x221) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInputFrom                               , 0x358) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x35C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x360) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
     };
 
     // C_OP_SetFloatCollection
@@ -1608,254 +2049,18 @@ namespace particles {
         SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_Lerp                                          , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
     };
 
-    // C_OP_RenderLightBeam
-    //   fields: 20
-    //   size: 0x2038
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderLightBeam {
-    public:
-        SCHEMA_FIELD(std::uint16_t                   , m_nMaxAllowed                                   , 0x230) // uint16 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vColorBlend                                   , 0x238) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x910) // ParticleColorBlendType_t [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::CUtlString                    , m_strLightStyle                                 , 0x918) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLightStyleTime                              , 0x920) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flBrightnessLumensPerMeter                    , 0xA98) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flNumberOfLightsToCreate                      , 0xC10) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCastShadows                                  , 0xD88) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bDynamicBounce                                , 0xD89) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flBounceScale                                 , 0xD90) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flSkirt                                       , 0xF08) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRange                                       , 0x1080) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flThickness                                   , 0x11F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInnerConeAngle                              , 0x1370) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOuterConeAngle                              , 0x14E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecConeRotationOffset                         , 0x1660) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(ParticleLightFogLightingMode_t  , m_nFogLightingMode                              , 0x1D38) // ParticleLightFogLightingMode_t [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFogContribution                             , 0x1D40) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRenderFilter                                , 0x1EB8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDebugOrientation                             , 0x2030) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapVelocityToVector
-    //   fields: 3
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapVelocityToVector {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1E8) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapDistanceToLineSegmentBase
-    //   fields: 5
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapDistanceToLineSegmentBase {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP0                                          , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMinInputValue                               , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxInputValue                               , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bInfiniteLine                                 , 0x1F0) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_InitSkinnedPositionFromCPSnapshot
-    //   fields: 19
-    //   size: 0x398
-    //   @MGetKV3ClassDefaults
-    class C_INIT_InitSkinnedPositionFromCPSnapshot {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPointNumber                   , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRandom                                       , 0x1F0) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1F4) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bRigid                                        , 0x1F8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x1F9) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bIgnoreDt                                     , 0x1FA) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMinNormalVelocity                           , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxNormalVelocity                           , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(SnapshotIndexType_t             , m_nIndexType                                    , 0x204) // SnapshotIndexType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flReadIndex                                   , 0x208) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flIncrement                                   , 0x380) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nFullLoopIncrement                            , 0x384) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nSnapShotStartPoint                           , 0x388) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flBoneVelocity                                , 0x38C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flBoneVelocityMax                             , 0x390) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCopyColor                                    , 0x394) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCopyAlpha                                    , 0x395) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetRadius                                    , 0x396) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapDirectionToCPToVector
-    //   fields: 7
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapDirectionToCPToVector {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOffsetRot                                   , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOffsetAxis                                 , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1FC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldStrength                                , 0x200) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // CParticleFunctionInitializer
-    //   fields: 1
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class CParticleFunctionInitializer {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nAssociatedEmitterIndex                       , 0x1E0) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_CycleScalar
-    //   fields: 10
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_OP_CycleScalar {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nDestField                                    , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flStartValue                                  , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndValue                                    , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flCycleTime                                   , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDoNotRepeatCycle                             , 0x1F0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSynchronizeParticles                         , 0x1F1) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPScale                                      , 0x1F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPFieldMin                                   , 0x1F8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPFieldMax                                   , 0x1FC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x200) // ParticleSetMethod_t [MPropertyFriendlyName]
-    };
-
-    // C_INIT_SetAttributeToScalarExpression
+    // C_INIT_CreateSpiralSphere
     //   fields: 6
-    //   size: 0x680
+    //   size: 0x838
     //   @MGetKV3ClassDefaults
-    class C_INIT_SetAttributeToScalarExpression {
+    class C_INIT_CreateSpiralSphere {
     public:
-        SCHEMA_FIELD(ScalarExpressionType_t          , m_nExpression                                   , 0x1E8) // ScalarExpressionType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInput1                                      , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInput2                                      , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x4E0) // CParticleRemapFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x658) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x65C) // ParticleSetMethod_t [MPropertyFriendlyName]
-    };
-
-    // CRandomNumberGeneratorParameters
-    //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class CRandomNumberGeneratorParameters {
-    public:
-        SCHEMA_FIELD(bool                            , m_bDistributeEvenly                             , 0x0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nSeed                                         , 0x4) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // C_OP_RestartAfterDuration
-    //   fields: 6
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_OP_RestartAfterDuration {
-    public:
-        SCHEMA_FIELD(float                           , m_flDurationMin                                 , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flDurationMax                                 , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPField                                      , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOnlyChildren                                 , 0x1F4) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_OrientTo2dDirection
-    //   fields: 4
-    //   size: 0x8C8
-    //   @MGetKV3ClassDefaults
-    class C_OP_OrientTo2dDirection {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecInput                                      , 0x1E0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(float                           , m_flRotOffset                                   , 0x8B8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSpinStrength                                , 0x8BC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x8C0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_OP_RemapDistanceToLineSegmentToVector
-    //   fields: 3
-    //   size: 0x218
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapDistanceToLineSegmentToVector {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::Vector                        , m_vMinOutputValue                               , 0x1FC) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vMaxOutputValue                               , 0x208) // Vector [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetChildControlPoints
-    //   fields: 7
-    //   size: 0x370
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetChildControlPoints {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nFirstSourcePoint                             , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x368) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x369) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleOrientationType_t       , m_nOrientation                                  , 0x36C) // ParticleOrientationType_t [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // CGeneralSpin
-    //   fields: 3
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class CGeneralSpin {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nSpinRateDegrees                              , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nSpinRateMinDegrees                           , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fSpinRateStopTime                             , 0x1EC) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_InterpolateRadius
-    //   fields: 6
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_OP_InterpolateRadius {
-    public:
-        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartScale                                  , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndScale                                    , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bEaseInAndOut                                 , 0x1F0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flBias                                        , 0x1F4) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_StatusEffectTf
-    //   fields: 20
-    //   size: 0x238
-    //   @MGetKV3ClassDefaults
-    class C_INIT_StatusEffectTf {
-    public:
-        SCHEMA_FIELD(float                           , m_flSFXColorWarpAmount                          , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXNormalAmount                             , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXMetalnessAmount                          , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXRoughnessAmount                          , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSelfIllumAmount                          , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSScale                                   , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSScrollX                                 , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSScrollY                                 , 0x204) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSScrollZ                                 , 0x208) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSOffsetX                                 , 0x20C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSOffsetY                                 , 0x210) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSOffsetZ                                 , 0x214) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(DetailCombo_t                   , m_nDetailCombo                                  , 0x218) // DetailCombo_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSDetailAmount                            , 0x21C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSDetailScale                             , 0x220) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollX                           , 0x224) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollY                           , 0x228) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollZ                           , 0x22C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSUseModelUVs                             , 0x230) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXEnvMapAmount                             , 0x234) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flDensity                                     , 0x250) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInitialRadius                               , 0x3C8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInitialSpeedMin                             , 0x540) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInitialSpeedMax                             , 0x6B8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseParticleCount                             , 0x830) // bool [MPropertyFriendlyName]
     };
 
     // CParticleSystemDefinition
@@ -1932,75 +2137,59 @@ namespace particles {
         SCHEMA_FIELD(CUtlVector<ParticleControlPointConfiguration_t>, m_controlPointConfigurations                    , 0x3C0) // CUtlVector<ParticleControlPointConfiguration_t> [MPropertySuppressField]
     };
 
-    // C_OP_SequenceFromModel
-    //   fields: 8
-    //   size: 0x200
+    // C_OP_CylindricalDistanceToTransform
+    //   fields: 11
+    //   size: 0x8A0
     //   @MGetKV3ClassDefaults
-    class C_OP_SequenceFromModel {
+    class C_OP_CylindricalDistanceToTransform {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutputAnim                              , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1FC) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMin                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMax                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x4D8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x650) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformStart                                , 0x7C8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformEnd                                  , 0x830) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x898) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x89C) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x89D) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCapsule                                      , 0x89E) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_CurlNoiseForce
-    //   fields: 7
-    //   size: 0x2048
+    // C_OP_QuantizeFloat
+    //   fields: 2
+    //   size: 0x380
     //   @MGetKV3ClassDefaults
-    class C_OP_CurlNoiseForce {
+    class C_OP_QuantizeFloat {
     public:
-        SCHEMA_FIELD(ParticleDirectionNoiseType_t    , m_nNoiseType                                    , 0x1F0) // ParticleDirectionNoiseType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecNoiseFreq                                  , 0x1F8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecNoiseScale                                 , 0x8D0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOffset                                     , 0xFA8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOffsetRate                                 , 0x1680) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flWorleySeed                                  , 0x1D58) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flWorleyJitter                                , 0x1ED0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputValue                                    , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x358) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
     };
 
-    // C_INIT_MoveBetweenPoints
-    //   fields: 7
-    //   size: 0x948
+    // C_INIT_SetAttributeToScalarExpression
+    //   fields: 6
+    //   size: 0x680
     //   @MGetKV3ClassDefaults
-    class C_INIT_MoveBetweenPoints {
+    class C_INIT_SetAttributeToScalarExpression {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flSpeedMin                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flSpeedMax                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flEndSpread                                   , 0x4D8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flStartOffset                                 , 0x650) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flEndOffset                                   , 0x7C8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nEndControlPointNumber                        , 0x940) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bTrailBias                                    , 0x944) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ScalarExpressionType_t          , m_nExpression                                   , 0x1E8) // ScalarExpressionType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInput1                                      , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInput2                                      , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x4E0) // CParticleRemapFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x658) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x65C) // ParticleSetMethod_t [MPropertyFriendlyName]
     };
 
-    // C_INIT_RandomLifeTime
-    //   fields: 3
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomLifeTime {
-    public:
-        SCHEMA_FIELD(float                           , m_fLifetimeMin                                  , 0x1E8) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(float                           , m_fLifetimeMax                                  , 0x1EC) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(float                           , m_fLifetimeRandExponent                         , 0x1F0) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_InheritFromParentParticles
+    // C_OP_RemapGravityToVector
     //   fields: 4
-    //   size: 0x1F0
-    //   @MParticleMaxVersion
-    //   @MParticleReplacementOp
+    //   size: 0x930
     //   @MGetKV3ClassDefaults
-    class C_OP_InheritFromParentParticles {
+    class C_OP_RemapGravityToVector {
     public:
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRandomDistribution                           , 0x1EC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput1                                       , 0x1E0) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x8B8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x8BC) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x8C0) // bool [MPropertyFriendlyName]
     };
 
     // C_OP_TeleportBeam
@@ -2022,317 +2211,124 @@ namespace particles {
         SCHEMA_FIELD(float                           , m_flAlpha                                       , 0x210) // float32 [MPropertyFriendlyName]
     };
 
-    // C_OP_LazyCullCompareFloat
-    //   fields: 3
-    //   size: 0x648
+    // C_OP_RepeatedTriggerChildGroup
+    //   fields: 5
+    //   size: 0x660
     //   @MGetKV3ClassDefaults
-    class C_OP_LazyCullCompareFloat {
+    class C_OP_RepeatedTriggerChildGroup {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flComparsion1                                 , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flComparsion2                                 , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flCullTime                                    , 0x4D0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flClusterRefireTime                           , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flClusterSize                                 , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flClusterCooldown                             , 0x4E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLimitChildCount                              , 0x658) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_Noise
-    //   fields: 6
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_OP_Noise {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fl4NoiseScale                                 , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x1F0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flNoiseAnimationTimeScale                     , 0x1F4) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_CreateSequentialPath
-    //   fields: 6
-    //   size: 0x240
-    //   @MParticleMaxVersion
-    //   @MParticleReplacementOp
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreateSequentialPath {
-    public:
-        SCHEMA_FIELD(float                           , m_fMaxDistance                                  , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flNumToAssign                                 , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x1F0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCPPairs                                      , 0x1F1) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSaveOffset                                   , 0x1F2) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x200) // CPathParameters
-    };
-
-    // C_OP_MaintainSequentialPath
-    //   fields: 7
-    //   size: 0x690
-    //   @MGetKV3ClassDefaults
-    class C_OP_MaintainSequentialPath {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_fMaxDistance                                  , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flNumToAssign                                 , 0x358) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flCohesionStrength                            , 0x4D0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flTolerance                                   , 0x648) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x64C) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseParticleCount                             , 0x64D) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x650) // CPathParameters
-    };
-
-    // C_INIT_Orient2DRelToCP
-    //   fields: 3
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_Orient2DRelToCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flRotOffset                                   , 0x1F0) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapNamedModelSequenceOnceTimed
-    //   fields: 0
-    //   size: 0x240
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapNamedModelSequenceOnceTimed {
-    public:
-    };
-
-    // C_OP_RemapTransformOrientationToYaw
+    // C_OP_SetSingleControlPointPosition
     //   fields: 4
-    //   size: 0x258
+    //   size: 0x930
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapTransformOrientationToYaw {
+    class C_OP_SetSingleControlPointPosition {
     public:
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E0) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x248) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flRotOffset                                   , 0x24C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSpinStrength                                , 0x250) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetOnce                                      , 0x1E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecCP1Pos                                     , 0x1F0) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x8C8) // CParticleTransformInput [MPropertyFriendlyName, MParticleInputOptional]
     };
 
-    // C_OP_EndCapTimedFreeze
-    //   fields: 1
-    //   size: 0x358
-    //   @MGetKV3ClassDefaults
-    class C_OP_EndCapTimedFreeze {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flFreezeTime                                  , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RemapInitialDirectionToTransformToVector
+    // C_INIT_PositionWarpScalar
     //   fields: 6
-    //   size: 0x270
+    //   size: 0x388
     //   @MGetKV3ClassDefaults
-    class C_INIT_RemapInitialDirectionToTransformToVector {
+    class C_INIT_PositionWarpScalar {
     public:
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x250) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x254) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOffsetRot                                   , 0x258) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOffsetAxis                                 , 0x25C) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x268) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecWarpMin                                    , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecWarpMax                                    , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputValue                                    , 0x200) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x378) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointNumber                      , 0x37C) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x380) // int32 [MPropertyFriendlyName]
     };
 
-    // C_INIT_CreateInEpitrochoid
-    //   fields: 10
-    //   size: 0x840
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreateInEpitrochoid {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nComponent1                                   , 0x1E8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nComponent2                                   , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1F0) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flParticleDensity                             , 0x258) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOffset                                      , 0x3D0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius1                                     , 0x548) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius2                                     , 0x6C0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseCount                                     , 0x838) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseLocalCoords                               , 0x839) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOffsetExistingPos                            , 0x83A) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RadiusFromCPObject
-    //   fields: 1
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RadiusFromCPObject {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E8) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_QuantizeFloat
-    //   fields: 2
+    // C_OP_RotateVector
+    //   fields: 7
     //   size: 0x380
     //   @MGetKV3ClassDefaults
-    class C_OP_QuantizeFloat {
+    class C_OP_RotateVector {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputValue                                    , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x358) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::Vector                        , m_vecRotAxisMin                                 , 0x1E4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecRotAxisMax                                 , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(float                           , m_flRotRateMin                                  , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRotRateMax                                  , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x204) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flScale                                       , 0x208) // CPerParticleFloatInput [MPropertyFriendlyName]
     };
 
-    // C_OP_LerpToOtherAttribute
-    //   fields: 4
-    //   size: 0x390
+    // C_OP_Spin
+    //   fields: 0
+    //   size: 0x1F8
     //   @MGetKV3ClassDefaults
-    class C_OP_LerpToOtherAttribute {
+    class C_OP_Spin {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInputFrom                               , 0x358) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x35C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x360) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
     };
 
-    // C_OP_SetGravityToCP
-    //   fields: 6
-    //   size: 0x370
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetGravityToCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flScale                                       , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetPosition                                  , 0x368) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x369) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetZDown                                     , 0x36A) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // C_INIT_ChaoticAttractor
-    //   fields: 9
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_INIT_ChaoticAttractor {
-    public:
-        SCHEMA_FIELD(float                           , m_flAParm                                       , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flBParm                                       , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flCParm                                       , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flDParm                                       , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSpeedMin                                    , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSpeedMax                                    , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nBaseCP                                       , 0x204) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUniformSpeed                                 , 0x208) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapCPVelocityToVector
+    // C_OP_InheritFromPeerSystem
     //   fields: 4
     //   size: 0x1F0
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapCPVelocityToVector {
+    class C_OP_InheritFromPeerSystem {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1EC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nGroupID                                      , 0x1EC) // int32 [MPropertyFriendlyName]
     };
 
-    // C_INIT_RandomScalar
-    //   fields: 4
-    //   size: 0x1F8
+    // C_OP_RemapAverageHitboxSpeedtoCP
+    //   fields: 11
+    //   size: 0xF38
     //   @MGetKV3ClassDefaults
-    class C_INIT_RandomScalar {
+    class C_OP_RemapAverageHitboxSpeedtoCP {
     public:
-        SCHEMA_FIELD(float                           , m_flMin                                         , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMax                                         , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flExponent                                    , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nInControlPointNumber                         , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nField                                        , 0x1F0) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleHitboxDataSelection_t   , m_nHitboxDataType                               , 0x1F4) // ParticleHitboxDataSelection_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInputMin                                    , 0x1F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInputMax                                    , 0x370) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOutputMin                                   , 0x4E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOutputMax                                   , 0x660) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nHeightControlPointNumber                     , 0x7D8) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecComparisonVelocity                         , 0x7E0) // CParticleCollectionVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0xEB8) // char[128] [MPropertyFriendlyName]
     };
 
-    // C_OP_RenderPostProcessing
-    //   fields: 3
-    //   size: 0x3B8
+    // CPathParameters
+    //   fields: 9
+    //   size: 0x40
     //   @MGetKV3ClassDefaults
-    class C_OP_RenderPostProcessing {
+    class CPathParameters {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flPostProcessStrength                         , 0x230) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCPostProcessingResource>, m_hPostTexture                                  , 0x3A8) // CStrongHandle<InfoForResourceTypeCPostProcessingResource> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(ParticlePostProcessPriorityGroup_t, m_nPriority                                     , 0x3B0) // ParticlePostProcessPriorityGroup_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nStartControlPointNumber                      , 0x0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nMidControlPointNumber                        , 0x4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nEndControlPointNumber                        , 0x8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nBulgeControl                                 , 0xC) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flBulge                                       , 0x10) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flMidPoint                                    , 0x14) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::Vector                        , m_vStartPointOffset                             , 0x18) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vMidPointOffset                               , 0x24) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vEndOffset                                    , 0x30) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
     };
 
-    // C_OP_RenderClientPhysicsImpulse
-    //   fields: 3
-    //   size: 0x528
+    // C_OP_MaxVelocity
+    //   fields: 2
+    //   size: 0x4D0
     //   @MGetKV3ClassDefaults
-    class C_OP_RenderClientPhysicsImpulse {
+    class C_OP_MaxVelocity {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius                                      , 0x230) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMagnitude                                   , 0x3A8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nSimIdFilter                                  , 0x520) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderStandardLight
-    //   fields: 34
-    //   size: 0x1828
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderStandardLight {
-    public:
-        SCHEMA_FIELD(ParticleLightTypeChoiceList_t   , m_nLightType                                    , 0x230) // ParticleLightTypeChoiceList_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::uint16_t                   , m_nMaxAllowed                                   , 0x234) // uint16 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorScale                                 , 0x238) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x910) // ParticleColorBlendType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_strLightStyle                                 , 0x918) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLightStyleTime                              , 0x920) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flIntensity                                   , 0xA98) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCastShadows                                  , 0xC10) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bDynamicBounce                                , 0xC11) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flBounceScale                                 , 0xC18) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flTheta                                       , 0xD90) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flPhi                                         , 0xF08) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRadiusMultiplier                            , 0x1080) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(StandardLightingAttenuationStyle_t, m_nAttenuationStyle                             , 0x11F8) // StandardLightingAttenuationStyle_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flFalloffLinearity                            , 0x1200) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flFiftyPercentFalloff                         , 0x1378) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flZeroPercentFalloff                          , 0x14F0) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bRenderDiffuse                                , 0x1668) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bRenderSpecular                               , 0x1669) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::CUtlString                    , m_lightCookie                                   , 0x1670) // CUtlString [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nPriority                                     , 0x1678) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleLightFogLightingMode_t  , m_nFogLightingMode                              , 0x167C) // ParticleLightFogLightingMode_t [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFogContribution                             , 0x1680) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleLightBehaviorChoiceList_t, m_nCapsuleLightBehavior                         , 0x17F8) // ParticleLightBehaviorChoiceList_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flCapsuleLength                               , 0x17FC) // float32 [MPropertyStartGroup, MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bReverseOrder                                 , 0x1800) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bClosedLoop                                   , 0x1801) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nPrevPntSource                                , 0x1804) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flMaxLength                                   , 0x1808) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flMinLength                                   , 0x180C) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bIgnoreDT                                     , 0x1810) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flConstrainRadiusToLengthRatio                , 0x1814) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flLengthScale                                 , 0x1818) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flLengthFadeInTime                            , 0x181C) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // C_OP_ClientPhysics
-    //   fields: 15
-    //   size: 0x558
-    //   @MGetKV3ClassDefaults
-    class C_OP_ClientPhysics {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_strPhysicsType                                , 0x230) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(bool                            , m_bStartAsleep                                  , 0x238) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flPlayerWakeRadius                            , 0x240) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flVehicleWakeRadius                           , 0x3B8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseHighQualitySimulation                     , 0x530) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nMaxParticleCount                             , 0x534) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRespectExclusionVolumes                      , 0x538) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bKillParticles                                , 0x539) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDeleteSim                                    , 0x53A) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x53C) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nForcedSimId                                  , 0x540) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x544) // ParticleColorBlendType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttrBoxFlags_t          , m_nForcedStatusEffects                          , 0x548) // ParticleAttrBoxFlags_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nNoCollisionAttribute                         , 0x54C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nZeroGravityAttribute                         , 0x550) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
-    };
-
-    // C_OP_SetControlPointRotation
-    //   fields: 4
-    //   size: 0xA40
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointRotation {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecRotAxis                                    , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRotRate                                     , 0x8C0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0xA38) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nLocalCP                                      , 0xA3C) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMaxVelocity                                 , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMinVelocity                                 , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
     };
 
     // C_INIT_RingWave
@@ -2354,80 +2350,215 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bXYVelocityOnly                               , 0xE11) // bool [MPropertyFriendlyName]
     };
 
-    // C_INIT_DistanceCull
-    //   fields: 3
-    //   size: 0x370
+    // C_INIT_StatusEffectTf
+    //   fields: 20
+    //   size: 0x238
     //   @MGetKV3ClassDefaults
-    class C_INIT_DistanceCull {
+    class C_INIT_StatusEffectTf {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDistance                                    , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCullInside                                   , 0x368) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXColorWarpAmount                          , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXNormalAmount                             , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXMetalnessAmount                          , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXRoughnessAmount                          , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSelfIllumAmount                          , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSScale                                   , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSScrollX                                 , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSScrollY                                 , 0x204) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSScrollZ                                 , 0x208) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSOffsetX                                 , 0x20C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSOffsetY                                 , 0x210) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSOffsetZ                                 , 0x214) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(DetailCombo_t                   , m_nDetailCombo                                  , 0x218) // DetailCombo_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSDetailAmount                            , 0x21C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSDetailScale                             , 0x220) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollX                           , 0x224) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollY                           , 0x228) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollZ                           , 0x22C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSUseModelUVs                             , 0x230) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXEnvMapAmount                             , 0x234) // float32 [MPropertyFriendlyName]
     };
 
-    // C_OP_DistanceBetweenTransforms
-    //   fields: 13
-    //   size: 0x930
+    // C_OP_LerpVector
+    //   fields: 5
+    //   size: 0x200
     //   @MGetKV3ClassDefaults
-    class C_OP_DistanceBetweenTransforms {
+    class C_OP_LerpVector {
     public:
         SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformStart                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformEnd                                  , 0x250) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMin                                    , 0x2B8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMax                                    , 0x430) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x5A8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x720) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x898) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLOSScale                                    , 0x89C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x8A0) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x920) // ParticleTraceSet_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLOS                                          , 0x924) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x928) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOutput                                     , 0x1E4) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F8) // ParticleSetMethod_t [MPropertyFriendlyName]
     };
 
-    // C_OP_SetCPOrientationToGroundNormal
-    //   fields: 9
-    //   size: 0x290
+    // C_OP_EndCapDecay
+    //   fields: 0
+    //   size: 0x1E0
     //   @MGetKV3ClassDefaults
-    class C_OP_SetCPOrientationToGroundNormal {
+    class C_OP_EndCapDecay {
     public:
-        SCHEMA_FIELD(float                           , m_flInterpRate                                  , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flTolerance                                   , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flTraceOffset                                 , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x1F0) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x270) // ParticleTraceSet_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nInputCP                                      , 0x274) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x278) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0x288) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_ScreenSpacePositionOfTarget
+    // C_INIT_ColorLitPerParticle
+    //   fields: 7
+    //   size: 0x220
+    //   @MGetKV3ClassDefaults
+    class C_INIT_ColorLitPerParticle {
+    public:
+        SCHEMA_FIELD(::Color                         , m_ColorMin                                      , 0x200) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_ColorMax                                      , 0x204) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_TintMin                                       , 0x208) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_TintMax                                       , 0x20C) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flTintPerc                                    , 0x210) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleColorBlendMode_t        , m_nTintBlendMode                                , 0x214) // ParticleColorBlendMode_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLightAmplification                          , 0x218) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_DistanceToCPInit
+    //   fields: 15
+    //   size: 0x9F8
+    //   @MGetKV3ClassDefaults
+    class C_INIT_DistanceToCPInit {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMin                                    , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMax                                    , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x4E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x658) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nStartCP                                      , 0x7D0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLOS                                          , 0x7D4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x7D5) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x858) // ParticleTraceSet_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMaxTraceLength                              , 0x860) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLOSScale                                    , 0x9D8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x9DC) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x9E0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecDistanceScale                              , 0x9E4) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRemapBias                                   , 0x9F0) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SpringToVectorConstraint
     //   fields: 5
-    //   size: 0xA40
+    //   size: 0xE98
     //   @MGetKV3ClassDefaults
-    class C_OP_ScreenSpacePositionOfTarget {
+    class C_OP_SpringToVectorConstraint {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecTargetPosition                             , 0x1E0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bOututBehindness                              , 0x8B8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nBehindFieldOutput                            , 0x8BC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flBehindOutputRemap                           , 0x8C0) // CParticleRemapFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nBehindSetMethod                              , 0xA38) // ParticleSetMethod_t [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRestLength                                  , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMinDistance                                 , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMaxDistance                                 , 0x4D0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRestingLength                               , 0x648) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecAnchorVector                               , 0x7C0) // CPerParticleVecInput [MPropertyFriendlyName]
     };
 
-    // C_INIT_CreateWithinBox
+    // C_INIT_RemapInitialDirectionToTransformToVector
     //   fields: 6
-    //   size: 0xFB0
+    //   size: 0x270
     //   @MGetKV3ClassDefaults
-    class C_INIT_CreateWithinBox {
+    class C_INIT_RemapInitialDirectionToTransformToVector {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecMin                                        , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecMax                                        , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0xF98) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0xF9C) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0xFA0) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseNewCode                                   , 0xFA8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x250) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x254) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOffsetRot                                   , 0x258) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetAxis                                 , 0x25C) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x268) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_CreationNoise
+    //   fields: 10
+    //   size: 0x218
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreationNoise {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bAbsVal                                       , 0x1EC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAbsValInv                                    , 0x1ED) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOffset                                      , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flNoiseScale                                  , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flNoiseScaleLoc                               , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetLoc                                  , 0x204) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(float                           , m_flWorldTimeScale                              , 0x210) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapScalarEndCap
+    //   fields: 6
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapScalarEndCap {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F4) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapCPVelocityToVector
+    //   fields: 4
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapCPVelocityToVector {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1EC) // bool [MPropertyFriendlyName]
+    };
+
+    // ParticleChildrenInfo_t
+    //   fields: 5
+    //   size: 0x20
+    //   @MGetKV3ClassDefaults
+    class ParticleChildrenInfo_t {
+    public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_ChildRef                                      , 0x0) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition> [MPropertySuppressField]
+        SCHEMA_FIELD(float                           , m_flDelay                                       , 0x8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bEndCap                                       , 0xC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDisableChild                                 , 0xD) // bool [MPropertySuppressField]
+        SCHEMA_FIELD(ParticleDetailLevel_t           , m_nDetailLevel                                  , 0x10) // ParticleDetailLevel_t [MPropertyFriendlyName]
+    };
+
+    // C_INIT_InitFloatCollection
+    //   fields: 2
+    //   size: 0x368
+    //   @MGetKV3ClassDefaults
+    class C_INIT_InitFloatCollection {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_InputValue                                    , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x360) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_ChladniWave
+    //   fields: 10
+    //   size: 0x1588
+    //   @MGetKV3ClassDefaults
+    class C_OP_ChladniWave {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMin                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMax                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x4D8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x650) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecWaveLength                                 , 0x7C8) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecHarmonics                                  , 0xEA0) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1578) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceControlPoint                       , 0x157C) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_b3D                                           , 0x1580) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_TimeVaryingForce
+    //   fields: 4
+    //   size: 0x210
+    //   @MGetKV3ClassDefaults
+    class C_OP_TimeVaryingForce {
+    public:
+        SCHEMA_FIELD(float                           , m_flStartLerpTime                               , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_StartingForce                                 , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(float                           , m_flEndLerpTime                                 , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_EndingForce                                   , 0x204) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
     };
 
     // C_INIT_PositionPlaceOnGround
@@ -2453,905 +2584,19 @@ namespace particles {
         SCHEMA_FIELD(std::int32_t                    , m_nIgnoreCP                                     , 0xC60) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
     };
 
-    // C_OP_ColorInterpolateRandom
-    //   fields: 6
-    //   size: 0x220
-    //   @MGetKV3ClassDefaults
-    class C_OP_ColorInterpolateRandom {
-    public:
-        SCHEMA_FIELD(::Color                         , m_ColorFadeMin                                  , 0x1E0) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_ColorFadeMax                                  , 0x1FC) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFadeStartTime                               , 0x20C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFadeEndTime                                 , 0x210) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x214) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bEaseInOut                                    , 0x218) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_SetRigidAttachment
-    //   fields: 4
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_SetRigidAttachment {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0x1F4) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_SequenceFromCP
-    //   fields: 4
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_INIT_SequenceFromCP {
-    public:
-        SCHEMA_FIELD(bool                            , m_bKillUnused                                   , 0x1E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRadiusScale                                  , 0x1E9) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-    };
-
-    // C_OP_RemapNamedModelElementEndCap
+    // C_OP_DecayMaintainCount
     //   fields: 7
-    //   size: 0x240
+    //   size: 0x380
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapNamedModelElementEndCap {
+    class C_OP_DecayMaintainCount {
     public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x1E0) // CStrongHandle<InfoForResourceTypeCModel>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_inNames                                       , 0x1E8) // CUtlVector<CUtlString> [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_outNames                                      , 0x200) // CUtlVector<CUtlString> [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_fallbackNames                                 , 0x218) // CUtlVector<CUtlString> [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x230) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x234) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x238) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_OP_PlanarConstraint
-    //   fields: 8
-    //   size: 0x4F8
-    //   @MGetKV3ClassDefaults
-    class C_OP_PlanarConstraint {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_PointOnPlane                                  , 0x1E0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_PlaneNormal                                   , 0x1EC) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1F8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bGlobalOrigin                                 , 0x1FC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bGlobalNormal                                 , 0x1FD) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadiusScale                                 , 0x200) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMaximumDistanceToCP                         , 0x378) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseOldCode                                   , 0x4F0) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_StopAfterCPDuration
-    //   fields: 3
-    //   size: 0x368
-    //   @MGetKV3ClassDefaults
-    class C_OP_StopAfterCPDuration {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDuration                                    , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDestroyImmediately                           , 0x360) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bPlayEndCap                                   , 0x361) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_PercentageBetweenTransformsVector
-    //   fields: 10
-    //   size: 0x2E0
-    //   @MGetKV3ClassDefaults
-    class C_OP_PercentageBetweenTransformsVector {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1F8) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformStart                                , 0x208) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformEnd                                  , 0x270) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x2D8) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x2DC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRadialCheck                                  , 0x2DD) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_NoiseEmitter
-    //   fields: 15
-    //   size: 0x228
-    //   @MGetKV3ClassDefaults
-    class C_OP_NoiseEmitter {
-    public:
-        SCHEMA_FIELD(float                           , m_flEmissionDuration                            , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEmissionScale                               , 0x1F0) // float32 [MPropertyFriendlyName, MParticleMaxVersion]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPoint                            , 0x1F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointField                       , 0x1F8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nWorldNoisePoint                              , 0x1FC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAbsVal                                       , 0x200) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAbsValInv                                    , 0x201) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOffset                                      , 0x204) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x208) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x20C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flNoiseScale                                  , 0x210) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flWorldNoiseScale                             , 0x214) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOffsetLoc                                  , 0x218) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(float                           , m_flWorldTimeScale                              , 0x224) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RtEnvCull
-    //   fields: 8
-    //   size: 0x290
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RtEnvCull {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vecTestDir                                    , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecTestNormal                                 , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bUseVelocity                                  , 0x200) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCullOnMiss                                   , 0x201) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLifeAdjust                                   , 0x202) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_RtEnvName                                     , 0x203) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nRTEnvCP                                      , 0x284) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x288) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // ParticleControlPointConfiguration_t
-    //   fields: 3
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class ParticleControlPointConfiguration_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x0) // CUtlString
-        SCHEMA_FIELD(CUtlVector<ParticleControlPointDriver_t>, m_drivers                                       , 0x8) // CUtlVector<ParticleControlPointDriver_t>
-        SCHEMA_FIELD(ParticlePreviewState_t          , m_previewState                                  , 0x20) // ParticlePreviewState_t
-    };
-
-    // C_OP_SetToCP
-    //   fields: 3
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetToCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x1E4) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOffsetLocal                                  , 0x1F0) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_SequenceLifeTime
-    //   fields: 1
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_SequenceLifeTime {
-    public:
-        SCHEMA_FIELD(float                           , m_flFramerate                                   , 0x1E8) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_VelocityFromCP
-    //   fields: 4
-    //   size: 0x930
-    //   @MGetKV3ClassDefaults
-    class C_INIT_VelocityFromCP {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_velocityInput                                 , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x8C0) // CParticleTransformInput [MPropertyFriendlyName, MParticleInputOptional]
-        SCHEMA_FIELD(float                           , m_flVelocityScale                               , 0x928) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDirectionOnly                                , 0x92C) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_LockToPointList
-    //   fields: 5
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_OP_LockToPointList {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(CUtlVector<PointDefinition_t>   , m_pointList                                     , 0x1E8) // CUtlVector<PointDefinition_t> [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bPlaceAlongPath                               , 0x200) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bClosedLoop                                   , 0x201) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nNumPointsAlongPath                           , 0x204) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetAttributeToScalarExpression
-    //   fields: 6
-    //   size: 0x680
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetAttributeToScalarExpression {
-    public:
-        SCHEMA_FIELD(ScalarExpressionType_t          , m_nExpression                                   , 0x1E0) // ScalarExpressionType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInput1                                      , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInput2                                      , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x4D8) // CParticleRemapFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x650) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x654) // ParticleSetMethod_t [MPropertyFriendlyName]
-    };
-
-    // C_OP_DecayClampCount
-    //   fields: 1
-    //   size: 0x358
-    //   @MGetKV3ClassDefaults
-    class C_OP_DecayClampCount {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nCount                                        , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_SetHitboxToClosest
-    //   fields: 9
-    //   size: 0xAD0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_SetHitboxToClosest {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nDesiredHitbox                                , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecHitBoxScale                                , 0x1F0) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x8C8) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x948) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseClosestPointOnHitbox                      , 0x949) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ClosestPointTestType_t          , m_nTestType                                     , 0x94C) // ClosestPointTestType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flHybridRatio                                 , 0x950) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUpdatePosition                               , 0xAC8) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_AttractToControlPoint
-    //   fields: 7
-    //   size: 0x6E0
-    //   @MGetKV3ClassDefaults
-    class C_OP_AttractToControlPoint {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vecComponentScale                             , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fForceAmount                                  , 0x200) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fMinimumDistance                              , 0x378) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fFalloffPower                                 , 0x4F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x4F8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fForceAmountMin                               , 0x560) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bApplyMinForce                                , 0x6D8) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_LockPoints
-    //   fields: 6
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_OP_LockPoints {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nMinCol                                       , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nMaxCol                                       , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nMinRow                                       , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nMaxRow                                       , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flBlendValue                                  , 0x1F4) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RemapParticleCountToScalar
-    //   fields: 12
-    //   size: 0x218
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RemapParticleCountToScalar {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nInputMin                                     , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nInputMax                                     , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPoint                            , 0x1F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointField                       , 0x1F8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x204) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x208) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bInvert                                       , 0x209) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bWrap                                         , 0x20A) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRemapBias                                   , 0x20C) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_FadeInSimple
-    //   fields: 2
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class C_OP_FadeInSimple {
-    public:
-        SCHEMA_FIELD(float                           , m_flFadeInTime                                  , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_OP_RepeatedTriggerChildGroup
-    //   fields: 5
-    //   size: 0x660
-    //   @MGetKV3ClassDefaults
-    class C_OP_RepeatedTriggerChildGroup {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flClusterRefireTime                           , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flClusterSize                                 , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flClusterCooldown                             , 0x4E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLimitChildCount                              , 0x658) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderGpuImplicit
-    //   fields: 8
-    //   size: 0x6B8
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderGpuImplicit {
-    public:
-        SCHEMA_FIELD(bool                            , m_bUsePerParticleRadius                         , 0x230) // bool [MPropertySortPriority, MPropertyDescription]
-        SCHEMA_FIELD(std::uint32_t                   , m_nVertexCountKb                                , 0x234) // uint32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(std::uint32_t                   , m_nIndexCountKb                                 , 0x238) // uint32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_fGridSize                                     , 0x240) // CParticleCollectionRendererFloatInput
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_fRadiusScale                                  , 0x3B8) // CParticleCollectionRendererFloatInput
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_fIsosurfaceThreshold                          , 0x530) // CParticleCollectionRendererFloatInput [MPropertyAttributeRange]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP                                      , 0x6A8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0x6B0) // CStrongHandle<InfoForResourceTypeIMaterial2>
-    };
-
-    // C_OP_RemapScalarEndCap
-    //   fields: 6
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapScalarEndCap {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F4) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_EndCapTimedDecay
-    //   fields: 1
-    //   size: 0x358
-    //   @MGetKV3ClassDefaults
-    class C_OP_EndCapTimedDecay {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDecayTime                                   , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_DensityForce
-    //   fields: 3
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_DensityForce {
-    public:
-        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flForceScale                                  , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flTargetDensity                               , 0x1F8) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RandomAlphaWindowThreshold
-    //   fields: 3
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomAlphaWindowThreshold {
-    public:
-        SCHEMA_FIELD(float                           , m_flMin                                         , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMax                                         , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flExponent                                    , 0x1F0) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetCPOrientationToPointAtCP
-    //   fields: 6
-    //   size: 0x370
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetCPOrientationToPointAtCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nInputCP                                      , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInterpolation                               , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_b2DOrientation                                , 0x368) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAvoidSingularity                             , 0x369) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bPointAway                                    , 0x36A) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_Diffusion
-    //   fields: 3
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_OP_Diffusion {
-    public:
-        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nVoxelGridResolution                          , 0x1E8) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_PositionWarp
-    //   fields: 10
-    //   size: 0xFB8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_PositionWarp {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecWarpMin                                    , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecWarpMax                                    , 0x8C0) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointNumber                      , 0xF98) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0xF9C) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nRadiusComponent                              , 0xFA0) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flWarpTime                                    , 0xFA4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flWarpStartTime                               , 0xFA8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0xFAC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bInvertWarp                                   , 0xFB0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseCount                                     , 0xFB1) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapDotProductToCP
-    //   fields: 8
-    //   size: 0x7D8
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapDotProductToCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nInputCP1                                     , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nInputCP2                                     , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x1F4) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInputMin                                    , 0x1F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInputMax                                    , 0x370) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOutputMin                                   , 0x4E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOutputMax                                   , 0x660) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetCPtoVector
-    //   fields: 2
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetCPtoVector {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_INIT_GlobalScale
-    //   fields: 6
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_GlobalScale {
-    public:
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointNumber                      , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bScaleRadius                                  , 0x1F4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bScalePosition                                , 0x1F5) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bScaleVelocity                                , 0x1F6) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_TurbulenceForce
-    //   fields: 8
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_OP_TurbulenceForce {
-    public:
-        SCHEMA_FIELD(float                           , m_flNoiseCoordScale0                            , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flNoiseCoordScale1                            , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flNoiseCoordScale2                            , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flNoiseCoordScale3                            , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecNoiseAmount0                               , 0x200) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecNoiseAmount1                               , 0x20C) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecNoiseAmount2                               , 0x218) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecNoiseAmount3                               , 0x224) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-    };
-
-    // C_OP_RenderBlobs
-    //   fields: 8
-    //   size: 0x6E0
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderBlobs {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_cubeWidth                                     , 0x230) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_cutoffRadius                                  , 0x3A8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_renderRadius                                  , 0x520) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::uint32_t                   , m_nVertexCountKb                                , 0x698) // uint32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(std::uint32_t                   , m_nIndexCountKb                                 , 0x69C) // uint32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP                                      , 0x6A0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<MaterialVariable_t>  , m_MaterialVars                                  , 0x6A8) // CUtlVector<MaterialVariable_t> [MPropertyFriendlyName, MPropertyAutoExpandSelf, MPropertySortPriority]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0x6D8) // CStrongHandle<InfoForResourceTypeIMaterial2>
-    };
-
-    // C_INIT_RemapScalarToVector
-    //   fields: 12
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RemapScalarToVector {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1F8) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x204) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x210) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x214) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x218) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x21C) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x220) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRemapBias                                   , 0x224) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapSpeed
-    //   fields: 7
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapSpeed {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F4) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bIgnoreDelta                                  , 0x1F8) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_PercentageBetweenTransformLerpCPs
-    //   fields: 12
-    //   size: 0x2D8
-    //   @MGetKV3ClassDefaults
-    class C_OP_PercentageBetweenTransformLerpCPs {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformStart                                , 0x1F0) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformEnd                                  , 0x258) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputStartCP                                , 0x2C0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputStartField                             , 0x2C4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputEndCP                                  , 0x2C8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputEndField                               , 0x2CC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x2D0) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x2D4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRadialCheck                                  , 0x2D5) // bool [MPropertyFriendlyName]
-    };
-
-    // CParticleFunctionForce
-    //   fields: 0
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class CParticleFunctionForce {
-    public:
-    };
-
-    // C_OP_Cull
-    //   fields: 4
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_OP_Cull {
-    public:
-        SCHEMA_FIELD(float                           , m_flCullPerc                                    , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flCullStart                                   , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flCullEnd                                     , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flCullExp                                     , 0x1EC) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_PositionLock
-    //   fields: 15
-    //   size: 0xAD0
-    //   @MGetKV3ClassDefaults
-    class C_OP_PositionLock {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E0) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x248) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x24C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime_exp                               , 0x250) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x254) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x258) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime_exp                                 , 0x25C) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flRange                                       , 0x260) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRangeBias                                   , 0x268) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flJumpThreshold                               , 0x3E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x3E4) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bLockRot                                      , 0x3E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecScale                                      , 0x3F0) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0xAC8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutputPrev                              , 0xACC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_OP_RopeSpringConstraint
-    //   fields: 5
-    //   size: 0x7C8
-    //   @MGetKV3ClassDefaults
-    class C_OP_RopeSpringConstraint {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRestLength                                  , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMinDistance                                 , 0x358) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMaxDistance                                 , 0x4D0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flAdjustmentScale                             , 0x648) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInitialRestingLength                        , 0x650) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapNamedModelMeshGroupOnceTimed
-    //   fields: 0
-    //   size: 0x240
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapNamedModelMeshGroupOnceTimed {
-    public:
-    };
-
-    // C_INIT_RemapQAnglesToRotation
-    //   fields: 1
-    //   size: 0x250
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RemapQAnglesToRotation {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_DampenToCP
-    //   fields: 3
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_OP_DampenToCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRange                                       , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E8) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RandomSequence
-    //   fields: 5
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomSequence {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMin                                  , 0x1E8) // int32 [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMax                                  , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(bool                            , m_bShuffle                                      , 0x1F0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLinear                                       , 0x1F1) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<SequenceWeightedList_t>, m_WeightedList                                  , 0x1F8) // CUtlVector<SequenceWeightedList_t> [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RandomRadius
-    //   fields: 3
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomRadius {
-    public:
-        SCHEMA_FIELD(float                           , m_flRadiusMin                                   , 0x1E8) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(float                           , m_flRadiusMax                                   , 0x1EC) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(float                           , m_flRadiusRandExponent                          , 0x1F0) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
-    };
-
-    // C_OP_ConstrainDistance
-    //   fields: 5
-    //   size: 0xC18
-    //   @MGetKV3ClassDefaults
-    class C_OP_ConstrainDistance {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_fMinDistance                                  , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_fMaxDistance                                  , 0x358) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_nControlPointNumber                           , 0x4D0) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_CenterOffset                                  , 0x538) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bGlobalCenter                                 , 0xC10) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_RandomForce
-    //   fields: 2
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_OP_RandomForce {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_MinForce                                      , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_MaxForce                                      , 0x1FC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-    };
-
-    // C_OP_FadeAndKill
-    //   fields: 7
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_FadeAndKill {
-    public:
-        SCHEMA_FIELD(float                           , m_flStartFadeInTime                             , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndFadeInTime                               , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartFadeOutTime                            , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndFadeOutTime                              , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartAlpha                                  , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndAlpha                                    , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bForcePreserveParticleOrder                   , 0x1F8) // bool [MPropertyFriendlyName]
-    };
-
-    // PointDefinitionWithTimeValues_t
-    //   fields: 1
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class PointDefinitionWithTimeValues_t {
-    public:
-        SCHEMA_FIELD(float                           , m_flTimeDuration                                , 0x14) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_ExternalGameImpulseForce
-    //   fields: 5
-    //   size: 0x370
-    //   @MGetKV3ClassDefaults
-    class C_OP_ExternalGameImpulseForce {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flForceScale                                  , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRopes                                        , 0x368) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRopesZOnly                                   , 0x369) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bExplosions                                   , 0x36A) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bParticles                                    , 0x36B) // bool [MPropertyFriendlyName]
-    };
-
-    // CParticleFunctionPreEmission
-    //   fields: 1
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class CParticleFunctionPreEmission {
-    public:
-        SCHEMA_FIELD(bool                            , m_bRunOnce                                      , 0x1E0) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_WorldCollideConstraint
-    //   fields: 0
-    //   size: 0x1E0
-    //   @MGetKV3ClassDefaults
-    class C_OP_WorldCollideConstraint {
-    public:
-    };
-
-    // C_OP_LerpScalar
-    //   fields: 4
-    //   size: 0x368
-    //   @MGetKV3ClassDefaults
-    class C_OP_LerpScalar {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutput                                      , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x360) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x364) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_CreateParticleSystemRenderer
-    //   fields: 5
-    //   size: 0x930
-    //   @MGetKV3ClassDefaults
-    class C_OP_CreateParticleSystemRenderer {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_hEffect                                       , 0x230) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition> [MPropertyFriendlyName]
-        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x238) // EventTypeSelection_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlLeanVector<CPAssignment_t>  , m_vecCPs                                        , 0x240) // CUtlLeanVector<CPAssignment_t> [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_szParticleConfig                              , 0x250) // CUtlString [MPropertyDescription, MPropertyAttributeEditor, MPropertyEditContextOverrideKey, MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_AggregationPos                                , 0x258) // CPerParticleVecInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetControlPointsToParticle
-    //   fields: 8
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointsToParticle {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nFirstSourcePoint                             , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x1F0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x1F1) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleOrientationSetMode_t    , m_nOrientationMode                              , 0x1F4) // ParticleOrientationSetMode_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleParentSetMode_t         , m_nSetParent                                    , 0x1F8) // ParticleParentSetMode_t [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RemapInitialVisibilityScalar
-    //   fields: 5
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RemapInitialVisibilityScalar {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1FC) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapVisibilityScalar
-    //   fields: 7
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapVisibilityScalar {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1F8) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_ConnectParentParticleToNearest
-    //   fields: 5
-    //   size: 0x4E0
-    //   @MGetKV3ClassDefaults
-    class C_OP_ConnectParentParticleToNearest {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nSecondControlPoint                           , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseRadius                                    , 0x1E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRadiusScale                                 , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flParentRadiusScale                           , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // C_OP_SetControlPointPositions
-    //   fields: 12
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointPositions {
-    public:
-        SCHEMA_FIELD(bool                            , m_bUseWorldLocation                             , 0x1E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOrient                                       , 0x1E9) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetOnce                                      , 0x1EA) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP2                                          , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP3                                          , 0x1F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP4                                          , 0x1F8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1FC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecCP2Pos                                     , 0x208) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecCP3Pos                                     , 0x214) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecCP4Pos                                     , 0x220) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(std::int32_t                    , m_nHeadLocation                                 , 0x22C) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapNamedModelElementOnceTimed
-    //   fields: 9
-    //   size: 0x240
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapNamedModelElementOnceTimed {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x1E0) // CStrongHandle<InfoForResourceTypeCModel>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_inNames                                       , 0x1E8) // CUtlVector<CUtlString> [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_outNames                                      , 0x200) // CUtlVector<CUtlString> [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_fallbackNames                                 , 0x218) // CUtlVector<CUtlString> [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x230) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x231) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x234) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x238) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flRemapTime                                   , 0x23C) // float32 [MPropertyFriendlyName]
-    };
-
-    // ParticleChildrenInfo_t
-    //   fields: 5
-    //   size: 0x20
-    //   @MGetKV3ClassDefaults
-    class ParticleChildrenInfo_t {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_ChildRef                                      , 0x0) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition> [MPropertySuppressField]
-        SCHEMA_FIELD(float                           , m_flDelay                                       , 0x8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bEndCap                                       , 0xC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDisableChild                                 , 0xD) // bool [MPropertySuppressField]
-        SCHEMA_FIELD(ParticleDetailLevel_t           , m_nDetailLevel                                  , 0x10) // ParticleDetailLevel_t [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderCables
-    //   fields: 24
-    //   size: 0x15A8
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderCables {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRadiusScale                                 , 0x230) // CParticleCollectionFloatInput [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flAlphaScale                                  , 0x3A8) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorScale                                 , 0x520) // CParticleCollectionVecInput [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0xBF8) // ParticleColorBlendType_t [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0xC00) // CStrongHandle<InfoForResourceTypeIMaterial2> [MPropertyStartGroup, MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(TextureRepetitionMode_t         , m_nTextureRepetitionMode                        , 0xC08) // TextureRepetitionMode_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flTextureRepeatsPerSegment                    , 0xC10) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flTextureRepeatsCircumference                 , 0xD88) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flColorMapOffsetV                             , 0xF00) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flColorMapOffsetU                             , 0x1078) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flNormalMapOffsetV                            , 0x11F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flNormalMapOffsetU                            , 0x1368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDrawCableCaps                                , 0x14E0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flCapRoundness                                , 0x14E4) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(float                           , m_flCapOffsetAmount                             , 0x14E8) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(float                           , m_flTessScale                                   , 0x14EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nMinTesselation                               , 0x14F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nMaxTesselation                               , 0x14F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nRoundness                                    , 0x14F8) // int32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(bool                            , m_nForceRoundnessFixed                          , 0x14FC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOnlyRenderInEffectsBloomPass                 , 0x14FD) // bool [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_LightingTransform                             , 0x1500) // CParticleTransformInput [MPropertyFriendlyName, MParticleInputOptional]
-        SCHEMA_FIELD(CUtlLeanVector<FloatInputMaterialVariable_t>, m_MaterialFloatVars                             , 0x1568) // CUtlLeanVector<FloatInputMaterialVariable_t> [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlLeanVector<VecInputMaterialVariable_t>, m_MaterialVecVars                               , 0x1588) // CUtlLeanVector<VecInputMaterialVariable_t> [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapDensityToVector
-    //   fields: 8
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapDensityToVector {
-    public:
-        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flDensityMin                                  , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flDensityMax                                  , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1F0) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1FC) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseParentDensity                             , 0x208) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nVoxelGridResolution                          , 0x20C) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nParticlesToMaintain                          , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flDecayDelay                                  , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x1F0) // CUtlString [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bLifespanDecay                                , 0x1F8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flScale                                       , 0x200) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bKillNewest                                   , 0x378) // bool [MPropertyFriendlyName]
     };
 
     // C_OP_SetRandomControlPointPosition
@@ -3370,114 +2615,64 @@ namespace particles {
         SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInterpolation                               , 0x388) // CParticleCollectionFloatInput [MPropertyFriendlyName]
     };
 
-    // C_OP_PlayEndCapWhenFinished
-    //   fields: 2
-    //   size: 0x1F0
+    // C_INIT_RandomYaw
+    //   fields: 0
+    //   size: 0x208
     //   @MGetKV3ClassDefaults
-    class C_OP_PlayEndCapWhenFinished {
+    class C_INIT_RandomYaw {
     public:
-        SCHEMA_FIELD(bool                            , m_bFireOnEmissionEnd                            , 0x1E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bIncludeChildren                              , 0x1E9) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_CylindricalDistanceToTransform
-    //   fields: 11
-    //   size: 0x8A0
+    // C_OP_LerpScalar
+    //   fields: 4
+    //   size: 0x368
     //   @MGetKV3ClassDefaults
-    class C_OP_CylindricalDistanceToTransform {
+    class C_OP_LerpScalar {
     public:
         SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMin                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMax                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x4D8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x650) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformStart                                , 0x7C8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformEnd                                  , 0x830) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x898) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x89C) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x89D) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCapsule                                      , 0x89E) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutput                                      , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x360) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x364) // float32 [MPropertyFriendlyName]
     };
 
-    // C_OP_LockToBone
-    //   fields: 15
-    //   size: 0xBA0
+    // C_OP_RenderProjected
+    //   fields: 18
+    //   size: 0xF58
     //   @MGetKV3ClassDefaults
-    class C_OP_LockToBone {
+    class C_OP_RenderProjected {
     public:
-        SCHEMA_FIELD(::animationsystem::CParticleModelInput, m_modelInput                                    , 0x1E0) // CParticleModelInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x240) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLifeTimeFadeStart                           , 0x2A8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLifeTimeFadeEnd                             , 0x2AC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flJumpThreshold                               , 0x2B0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x2B4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x2B8) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRigid                                        , 0x338) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x339) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x33C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutputPrev                              , 0x340) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleRotationLockType_t      , m_nRotationSetType                              , 0x344) // ParticleRotationLockType_t [MPropertyStartGroup, MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRigidRotationLock                            , 0x348) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecRotation                                   , 0x350) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRotLerp                                     , 0xA28) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bProjectCharacter                             , 0x230) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bProjectWorld                                 , 0x231) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bProjectWater                                 , 0x232) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bFlipHorizontal                               , 0x233) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bEnableProjectedDepthControls                 , 0x234) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMinProjectionDepth                          , 0x238) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flMaxProjectionDepth                          , 0x23C) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(CUtlVector<RenderProjectedMaterial_t>, m_vecProjectedMaterials                         , 0x240) // CUtlVector<RenderProjectedMaterial_t> [MPropertyFriendlyName, MParticleRequireDefaultArrayEntry, MPropertyAutoExpandSelf]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMaterialSelection                           , 0x258) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flAnimationTimeScale                          , 0x3D0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOrientToNormal                               , 0x3D4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<MaterialVariable_t>  , m_MaterialVars                                  , 0x3D8) // CUtlVector<MaterialVariable_t> [MPropertyFriendlyName, MPropertyAutoExpandSelf]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRadiusScale                                 , 0x3F0) // CParticleCollectionFloatInput [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flAlphaScale                                  , 0x568) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRollScale                                   , 0x6E0) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlpha2Field                                  , 0x858) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorScale                                 , 0x860) // CParticleCollectionVecInput [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0xF38) // ParticleColorBlendType_t [MPropertyFriendlyName, MPropertySortPriority]
     };
 
-    // CBaseTrailRenderer
-    //   fields: 8
-    //   size: 0x3358
-    //   @MGetKV3ClassDefaults
-    class CBaseTrailRenderer {
-    public:
-        SCHEMA_FIELD(ParticleOrientationChoiceList_t , m_nOrientationType                              , 0x2ED8) // ParticleOrientationChoiceList_t [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(std::int32_t                    , m_nOrientationControlPoint                      , 0x2EDC) // int32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flMinSize                                     , 0x2EE0) // float32 [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flMaxSize                                     , 0x2EE4) // float32 [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flStartFadeSize                               , 0x2EE8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flEndFadeSize                                 , 0x3060) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flSubPixelAAScale                             , 0x31D8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySuppressExpr, MPropertySortPriority]
-        SCHEMA_FIELD(bool                            , m_bClampV                                       , 0x3350) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-    };
-
-    // C_OP_PercentageBetweenTransforms
-    //   fields: 10
-    //   size: 0x2D0
-    //   @MGetKV3ClassDefaults
-    class C_OP_PercentageBetweenTransforms {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformStart                                , 0x1F8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformEnd                                  , 0x260) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x2C8) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x2CC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRadialCheck                                  , 0x2CD) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_LerpEndCapVector
-    //   fields: 3
+    // C_OP_UpdateLightSource
+    //   fields: 6
     //   size: 0x1F8
     //   @MGetKV3ClassDefaults
-    class C_OP_LerpEndCapVector {
+    class C_OP_UpdateLightSource {
     public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::Vector                        , m_vecOutput                                     , 0x1E4) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(float                           , m_flLerpTime                                    , 0x1F0) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RampScalarSplineSimple
-    //   fields: 5
-    //   size: 0x220
-    //   @MGetKV3ClassDefaults
-    class C_OP_RampScalarSplineSimple {
-    public:
-        SCHEMA_FIELD(float                           , m_Rate                                          , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x210) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bEaseOut                                      , 0x214) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_vColorTint                                    , 0x1E0) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flBrightnessScale                             , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMinimumLightingRadius                       , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaximumLightingRadius                       , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flPositionDampingConstant                     , 0x1F4) // float32 [MPropertyFriendlyName]
     };
 
     // C_OP_GameDecalRenderer
@@ -3502,6 +2697,1232 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bRandomlySelectDecalInGroup                   , 0x1CBA) // bool [MPropertyFriendlyName]
         SCHEMA_FIELD(bool                            , m_bNoDecalsOnOwner                              , 0x1CBB) // bool [MPropertyFriendlyName]
         SCHEMA_FIELD(bool                            , m_bVisualizeTraces                              , 0x1CBC) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapTransformToVelocity
+    //   fields: 1
+    //   size: 0x248
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapTransformToVelocity {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E0) // CParticleTransformInput [MPropertyFriendlyName]
+    };
+
+    // C_INIT_InitVec
+    //   fields: 5
+    //   size: 0x8D0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_InitVec {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_InputValue                                    , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x8C0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x8C4) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x8C8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bWritePreviousPosition                        , 0x8C9) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+    };
+
+    // C_INIT_InheritFromParentParticles
+    //   fields: 5
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_INIT_InheritFromParentParticles {
+    public:
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRandomDistribution                           , 0x1F4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1F8) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RandomNamedModelMeshGroup
+    //   fields: 0
+    //   size: 0x210
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RandomNamedModelMeshGroup {
+    public:
+    };
+
+    // C_INIT_InheritVelocity
+    //   fields: 2
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_InheritVelocity {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flVelocityScale                               , 0x1EC) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapDensityToVector
+    //   fields: 8
+    //   size: 0x210
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapDensityToVector {
+    public:
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flDensityMin                                  , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flDensityMax                                  , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1F0) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1FC) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseParentDensity                             , 0x208) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nVoxelGridResolution                          , 0x20C) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RandomForce
+    //   fields: 2
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_OP_RandomForce {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_MinForce                                      , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_MaxForce                                      , 0x1FC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+    };
+
+    // C_OP_LocalAccelerationForce
+    //   fields: 3
+    //   size: 0x8D0
+    //   @MGetKV3ClassDefaults
+    class C_OP_LocalAccelerationForce {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP                                      , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecAccel                                      , 0x1F8) // CParticleCollectionVecInput [MPropertyFriendlyName]
+    };
+
+    // RenderProjectedMaterial_t
+    //   fields: 1
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class RenderProjectedMaterial_t {
+    public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0x0) // CStrongHandle<InfoForResourceTypeIMaterial2> [MPropertyFriendlyName]
+    };
+
+    // C_INIT_CreateFromParentParticles
+    //   fields: 6
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateFromParentParticles {
+    public:
+        SCHEMA_FIELD(float                           , m_flVelocityScale                               , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flIncrement                                   , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRandomDistribution                           , 0x1F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSubFrame                                     , 0x1F8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetRopeSegmentID                             , 0x1F9) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_ConstrainDistance
+    //   fields: 5
+    //   size: 0xC18
+    //   @MGetKV3ClassDefaults
+    class C_OP_ConstrainDistance {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_fMinDistance                                  , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_fMaxDistance                                  , 0x358) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_nControlPointNumber                           , 0x4D0) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_CenterOffset                                  , 0x538) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bGlobalCenter                                 , 0xC10) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_TurbulenceForce
+    //   fields: 8
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class C_OP_TurbulenceForce {
+    public:
+        SCHEMA_FIELD(float                           , m_flNoiseCoordScale0                            , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flNoiseCoordScale1                            , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flNoiseCoordScale2                            , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flNoiseCoordScale3                            , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecNoiseAmount0                               , 0x200) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecNoiseAmount1                               , 0x20C) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecNoiseAmount2                               , 0x218) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecNoiseAmount3                               , 0x224) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+    };
+
+    // C_OP_EndCapTimedFreeze
+    //   fields: 1
+    //   size: 0x358
+    //   @MGetKV3ClassDefaults
+    class C_OP_EndCapTimedFreeze {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flFreezeTime                                  , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_INIT_InitFromCPSnapshot
+    //   fields: 11
+    //   size: 0x500
+    //   @MGetKV3ClassDefaults
+    class C_INIT_InitFromCPSnapshot {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x1F0) // CUtlString [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToRead                              , 0x1F8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToWrite                             , 0x1FC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x200) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRandom                                       , 0x204) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x205) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nSnapShotIncrement                            , 0x208) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_nManualSnapshotIndex                          , 0x380) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x4F8) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bLocalSpaceAngles                             , 0x4FC) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_ShapeMatchingConstraint
+    //   fields: 1
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class C_OP_ShapeMatchingConstraint {
+    public:
+        SCHEMA_FIELD(float                           , m_flShapeRestorationTime                        , 0x1E0) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapTransformVisibilityToScalar
+    //   fields: 8
+    //   size: 0x268
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapTransformVisibilityToScalar {
+    public:
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1E0) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x250) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x254) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x258) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x25C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x260) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x264) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapNamedModelBodyPartEndCap
+    //   fields: 0
+    //   size: 0x240
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapNamedModelBodyPartEndCap {
+    public:
+    };
+
+    // C_OP_OscillateVector
+    //   fields: 15
+    //   size: 0x690
+    //   @MGetKV3ClassDefaults
+    class C_OP_OscillateVector {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_RateMin                                       , 0x1E0) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_RateMax                                       , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_FrequencyMin                                  , 0x1F8) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_FrequencyMax                                  , 0x204) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x210) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x214) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bProportionalOp                               , 0x215) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x216) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x218) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x21C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x220) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x224) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOscMult                                     , 0x228) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOscAdd                                      , 0x3A0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRateScale                                   , 0x518) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapNamedModelMeshGroupEndCap
+    //   fields: 0
+    //   size: 0x240
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapNamedModelMeshGroupEndCap {
+    public:
+    };
+
+    // C_INIT_RandomNamedModelElement
+    //   fields: 6
+    //   size: 0x210
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RandomNamedModelElement {
+    public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x1E8) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_names                                         , 0x1F0) // CUtlVector<CUtlString> [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bShuffle                                      , 0x208) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLinear                                       , 0x209) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x20A) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x20C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_ControlpointLight
+    //   fields: 33
+    //   size: 0x6F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_ControlpointLight {
+    public:
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint1                                , 0x670) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint2                                , 0x674) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint3                                , 0x678) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint4                                , 0x67C) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecCPOffset1                                  , 0x680) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecCPOffset2                                  , 0x68C) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecCPOffset3                                  , 0x698) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecCPOffset4                                  , 0x6A4) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_LightFiftyDist1                               , 0x6B0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_LightZeroDist1                                , 0x6B4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_LightFiftyDist2                               , 0x6B8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_LightZeroDist2                                , 0x6BC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_LightFiftyDist3                               , 0x6C0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_LightZeroDist3                                , 0x6C4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_LightFiftyDist4                               , 0x6C8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_LightZeroDist4                                , 0x6CC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_LightColor1                                   , 0x6D0) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_LightColor2                                   , 0x6D4) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_LightColor3                                   , 0x6D8) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_LightColor4                                   , 0x6DC) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLightType1                                   , 0x6E0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLightType2                                   , 0x6E1) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLightType3                                   , 0x6E2) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLightType4                                   , 0x6E3) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLightDynamic1                                , 0x6E4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLightDynamic2                                , 0x6E5) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLightDynamic3                                , 0x6E6) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLightDynamic4                                , 0x6E7) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseNormal                                    , 0x6E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseHLambert                                  , 0x6E9) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bClampLowerRange                              , 0x6EE) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bClampUpperRange                              , 0x6EF) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_GameLiquidSpill
+    //   fields: 5
+    //   size: 0x6A0
+    //   @MGetKV3ClassDefaults
+    class C_OP_GameLiquidSpill {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flLiquidContentsField                         , 0x230) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flExpirationTime                              , 0x3A8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRadius                                      , 0x520) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCheckExposedToSky                            , 0x698) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAmountAttribute                              , 0x69C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_SetControlPointToCenter
+    //   fields: 4
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointToCenter {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bUseAvgParticlePos                            , 0x1F8) // bool [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(ParticleParentSetMode_t         , m_nSetParent                                    , 0x1FC) // ParticleParentSetMode_t [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapVectorToRotations
+    //   fields: 2
+    //   size: 0xF90
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapVectorToRotations {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecInput                                      , 0x1E0) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecRotation                                   , 0x8B8) // CPerParticleVecInput [MPropertyFriendlyName]
+    };
+
+    // C_INIT_CreateFromPlaneCache
+    //   fields: 3
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateFromPlaneCache {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetMin                                  , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetMax                                  , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bUseNormal                                    , 0x201) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_InitialVelocityFromHitbox
+    //   fields: 5
+    //   size: 0x278
+    //   @MGetKV3ClassDefaults
+    class C_INIT_InitialVelocityFromHitbox {
+    public:
+        SCHEMA_FIELD(float                           , m_flVelocityMin                                 , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flVelocityMax                                 , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x1F4) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x274) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_PlaneCull
+    //   fields: 4
+    //   size: 0x8C8
+    //   @MGetKV3ClassDefaults
+    class C_OP_PlaneCull {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nPlaneControlPoint                            , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecPlaneDirection                             , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0x8C0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flPlaneOffset                                 , 0x8C4) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointPositionToRandomActiveCP
+    //   fields: 4
+    //   size: 0x370
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointPositionToRandomActiveCP {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nHeadLocationMin                              , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nHeadLocationMax                              , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flResetRate                                   , 0x1F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_MultiSegmentDisplaySnapshotGenerator
+    //   fields: 15
+    //   size: 0x1A18
+    //   @MGetKV3ClassDefaults
+    class C_OP_MultiSegmentDisplaySnapshotGenerator {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPSnapshot                                   , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleMultiSegmentCountSelection_t, m_nSegCount                                     , 0x1EC) // ParticleMultiSegmentCountSelection_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleMultiSegmentInputSelection_t, m_nInputType                                    , 0x1F0) // ParticleMultiSegmentInputSelection_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_strDefaultString                              , 0x1F8) // CUtlString [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flValue                                       , 0x200) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flScollOffset                                 , 0x378) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<ParticleMultiSegmentSpecialCharacter_t>, m_SpecialCharList                               , 0x4F0) // CUtlVector<ParticleMultiSegmentSpecialCharacter_t> [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorUnlit                                 , 0x508) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorLit                                   , 0xBE0) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRadius                                      , 0x12B8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flSpacing                                     , 0x1430) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMinCount                                    , 0x15A8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMaxCount                                    , 0x1720) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bPrependEmpty                                 , 0x1898) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDigitsAfterDecimal                          , 0x18A0) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+    };
+
+    // C_OP_DragRelativeToPlane
+    //   fields: 5
+    //   size: 0xBB8
+    //   @MGetKV3ClassDefaults
+    class C_OP_DragRelativeToPlane {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDragAtPlane                                 , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flFalloff                                     , 0x358) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDirectional                                  , 0x4D0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecPlaneNormal                                , 0x4D8) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0xBB0) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderText
+    //   fields: 2
+    //   size: 0x240
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderText {
+    public:
+        SCHEMA_FIELD(::Color                         , m_OutlineColor                                  , 0x230) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_DefaultText                                   , 0x238) // CUtlString [MPropertyFriendlyName]
+    };
+
+    // CParticleFunction
+    //   fields: 17
+    //   size: 0x1E0
+    //   @MGetKV3ClassDefaults
+    class CParticleFunction {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOpStrength                                  , 0x8) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(ParticleEndcapMode_t            , m_nOpEndCapState                                , 0x180) // ParticleEndcapMode_t [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(ParticleToolsState_t            , m_nToolsState                                   , 0x184) // ParticleToolsState_t [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flOpStartFadeInTime                           , 0x188) // float32 [MPropertyStartGroup, MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flOpEndFadeInTime                             , 0x18C) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flOpStartFadeOutTime                          , 0x190) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flOpEndFadeOutTime                            , 0x194) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flOpFadeOscillatePeriod                       , 0x198) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
+        SCHEMA_FIELD(bool                            , m_bNormalizeToStopTime                          , 0x19C) // bool [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flOpTimeOffsetMin                             , 0x1A0) // float32 [MPropertyStartGroup, MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flOpTimeOffsetMax                             , 0x1A4) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
+        SCHEMA_FIELD(std::int32_t                    , m_nOpTimeOffsetSeed                             , 0x1A8) // int32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
+        SCHEMA_FIELD(std::int32_t                    , m_nOpTimeScaleSeed                              , 0x1AC) // int32 [MPropertyStartGroup, MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flOpTimeScaleMin                              , 0x1B0) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flOpTimeScaleMax                              , 0x1B4) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
+        SCHEMA_FIELD(bool                            , m_bDisableOperator                              , 0x1BA) // bool [MPropertyStartGroup, MPropertySuppressField]
+        SCHEMA_FIELD(::CUtlString                    , m_Notes                                         , 0x1C0) // CUtlString [MPropertyFriendlyName, MParticleHelpField, MPropertyAttributeEditor, MPropertySortPriority]
+    };
+
+    // C_OP_CollideWithSelf
+    //   fields: 2
+    //   size: 0x4D0
+    //   @MGetKV3ClassDefaults
+    class C_OP_CollideWithSelf {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadiusScale                                 , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMinimumSpeed                                , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // IParticleCollection
+    //   fields: 0
+    //   size: 0x10
+    class IParticleCollection {
+    public:
+    };
+
+    // C_OP_FadeOut
+    //   fields: 6
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class C_OP_FadeOut {
+    public:
+        SCHEMA_FIELD(float                           , m_flFadeOutTimeMin                              , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFadeOutTimeMax                              , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFadeOutTimeExp                              , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFadeBias                                    , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x220) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bEaseInAndOut                                 , 0x221) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapCPtoScalar
+    //   fields: 11
+    //   size: 0x210
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapCPtoScalar {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nField                                        , 0x1E8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInterpRate                                  , 0x204) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x208) // ParticleSetMethod_t [MPropertyFriendlyName]
+    };
+
+    // C_INIT_SetVectorAttributeToVectorExpression
+    //   fields: 7
+    //   size: 0x1190
+    //   @MGetKV3ClassDefaults
+    class C_INIT_SetVectorAttributeToVectorExpression {
+    public:
+        SCHEMA_FIELD(VectorExpressionType_t          , m_nExpression                                   , 0x1E8) // VectorExpressionType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput1                                       , 0x1F0) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput2                                       , 0x8C8) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLerp                                        , 0xFA0) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x1118) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x111C) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x1120) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_InitSkinnedPositionFromCPSnapshot
+    //   fields: 19
+    //   size: 0x398
+    //   @MGetKV3ClassDefaults
+    class C_INIT_InitSkinnedPositionFromCPSnapshot {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPointNumber                   , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRandom                                       , 0x1F0) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1F4) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bRigid                                        , 0x1F8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x1F9) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bIgnoreDt                                     , 0x1FA) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMinNormalVelocity                           , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxNormalVelocity                           , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(SnapshotIndexType_t             , m_nIndexType                                    , 0x204) // SnapshotIndexType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flReadIndex                                   , 0x208) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flIncrement                                   , 0x380) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nFullLoopIncrement                            , 0x384) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapShotStartPoint                           , 0x388) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flBoneVelocity                                , 0x38C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flBoneVelocityMax                             , 0x390) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCopyColor                                    , 0x394) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCopyAlpha                                    , 0x395) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetRadius                                    , 0x396) // bool [MPropertyFriendlyName]
+    };
+
+    // TextureGroup_t
+    //   fields: 9
+    //   size: 0xC18
+    //   @MGetKV3ClassDefaults
+    class TextureGroup_t {
+    public:
+        SCHEMA_FIELD(bool                            , m_bEnabled                                      , 0x0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bReplaceTextureWithGradient                   , 0x1) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_hTexture                                      , 0x8) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertySuppressExpr, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CColorGradient                  , m_Gradient                                      , 0x10) // CColorGradient [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(SpriteCardTextureType_t         , m_nTextureType                                  , 0x28) // SpriteCardTextureType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(SpriteCardTextureChannel_t      , m_nTextureChannels                              , 0x2C) // SpriteCardTextureChannel_t [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleTextureLayerBlendType_t , m_nTextureBlendMode                             , 0x30) // ParticleTextureLayerBlendType_t [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flTextureBlend                                , 0x38) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(TextureControls_t               , m_TextureControls                               , 0x1B0) // TextureControls_t [MPropertyFriendlyName, MPropertySuppressExpr]
+    };
+
+    // C_INIT_SkyVisCull
+    //   fields: 3
+    //   size: 0x8C8
+    //   @MGetKV3ClassDefaults
+    class C_INIT_SkyVisCull {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecTestDir                                    , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x8C0) // ParticleTraceSet_t [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bCullOnSky                                    , 0x8C4) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderSprites
+    //   fields: 29
+    //   size: 0x41C8
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderSprites {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_nSequenceOverride                             , 0x2ED8) // CParticleCollectionRendererFloatInput [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(bool                            , m_bSequenceNumbersAreRawSequenceIndices         , 0x3050) // bool [MPropertyFriendlyName, MParticleAdvancedField]
+        SCHEMA_FIELD(ParticleOrientationChoiceList_t , m_nOrientationType                              , 0x3054) // ParticleOrientationChoiceList_t [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(std::int32_t                    , m_nOrientationControlPoint                      , 0x3058) // int32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bUseYawWithNormalAligned                      , 0x305C) // bool [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flMinSize                                     , 0x3060) // CParticleCollectionRendererFloatInput [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flMaxSize                                     , 0x31D8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flSubPixelAAScale                             , 0x3350) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySuppressExpr, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flStartFadeSize                               , 0x34C8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flEndFadeSize                                 , 0x3640) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flStartFadeDot                                , 0x37B8) // float32 [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flEndFadeDot                                  , 0x37BC) // float32 [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(bool                            , m_bDistanceAlpha                                , 0x37C0) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(bool                            , m_bSoftEdges                                    , 0x37C1) // bool [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flEdgeSoftnessStart                           , 0x37C4) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flEdgeSoftnessEnd                             , 0x37C8) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bOutline                                      , 0x37CC) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::Color                         , m_OutlineColor                                  , 0x37D0) // Color [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutlineAlpha                                 , 0x37D4) // int32 [MPropertyFriendlyName, MPropertyAttributeRange, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flOutlineStart0                               , 0x37D8) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flOutlineStart1                               , 0x37DC) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flOutlineEnd0                                 , 0x37E0) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flOutlineEnd1                                 , 0x37E4) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleLightingQuality_t       , m_nLightingMode                                 , 0x37E8) // ParticleLightingQuality_t [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererVecInput, m_vecLightingOverride                           , 0x37F0) // CParticleCollectionRendererVecInput [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flLightingTessellation                        , 0x3EC8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertyAttributeRange, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flLightingDirectionality                      , 0x4040) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bParticleShadows                              , 0x41B8) // bool [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flShadowDensity                               , 0x41BC) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+    };
+
+    // C_OP_InterpolateRadius
+    //   fields: 6
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class C_OP_InterpolateRadius {
+    public:
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartScale                                  , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndScale                                    , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bEaseInAndOut                                 , 0x1F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flBias                                        , 0x1F4) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetCPOrientationToGroundNormal
+    //   fields: 9
+    //   size: 0x290
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetCPOrientationToGroundNormal {
+    public:
+        SCHEMA_FIELD(float                           , m_flInterpRate                                  , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flTolerance                                   , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flTraceOffset                                 , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x1F0) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x270) // ParticleTraceSet_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nInputCP                                      , 0x274) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x278) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0x288) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapParticleCountToScalar
+    //   fields: 7
+    //   size: 0x7D0
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapParticleCountToScalar {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nInputMin                                     , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nInputMax                                     , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOutputMin                                   , 0x4D8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOutputMax                                   , 0x650) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x7C8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x7CC) // ParticleSetMethod_t [MPropertyFriendlyName]
+    };
+
+    // ControlPointReference_t
+    //   fields: 3
+    //   size: 0x14
+    //   @MGetKV3ClassDefaults
+    class ControlPointReference_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_controlPointNameString                        , 0x0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vOffsetFromControlPoint                       , 0x4) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOffsetInLocalSpace                           , 0x10) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapCPtoVector
+    //   fields: 13
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapCPtoVector {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vInputMin                                     , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vInputMax                                     , 0x1F8) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vOutputMin                                    , 0x204) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vOutputMax                                    , 0x210) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x21C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x220) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInterpRate                                  , 0x224) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x228) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x22C) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAccelerate                                   , 0x22D) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_ScreenSpaceDistanceToEdge
+    //   fields: 4
+    //   size: 0x500
+    //   @MGetKV3ClassDefaults
+    class C_OP_ScreenSpaceDistanceToEdge {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMaxDistFromEdge                             , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x360) // CParticleRemapFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x4D8) // ParticleSetMethod_t [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetCPOrientationToPointAtCP
+    //   fields: 6
+    //   size: 0x370
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetCPOrientationToPointAtCP {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInputCP                                      , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInterpolation                               , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_b2DOrientation                                , 0x368) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAvoidSingularity                             , 0x369) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bPointAway                                    , 0x36A) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointToHand
+    //   fields: 4
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointToHand {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nHand                                         , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bOrientToHand                                 , 0x1FC) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapScalar
+    //   fields: 7
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapScalar {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOldCode                                      , 0x1F8) // bool [MPropertyFriendlyName]
+    };
+
+    // CollisionGroupContext_t
+    //   fields: 1
+    //   size: 0x4
+    //   @MGetKV3ClassDefaults
+    class CollisionGroupContext_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCollisionGroupNumber                         , 0x0) // int32
+    };
+
+    // C_INIT_RandomNamedModelSequence
+    //   fields: 0
+    //   size: 0x210
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RandomNamedModelSequence {
+    public:
+    };
+
+    // C_INIT_RemapNamedModelSequenceToScalar
+    //   fields: 0
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RemapNamedModelSequenceToScalar {
+    public:
+    };
+
+    // C_INIT_RandomAlphaWindowThreshold
+    //   fields: 3
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RandomAlphaWindowThreshold {
+    public:
+        SCHEMA_FIELD(float                           , m_flMin                                         , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMax                                         , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flExponent                                    , 0x1F0) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_CreateParticleImpulse
+    //   fields: 5
+    //   size: 0x660
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateParticleImpulse {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputRadius                                   , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputMagnitude                                , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleFalloffFunction_t       , m_nFalloffFunction                              , 0x4D8) // ParticleFalloffFunction_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputFalloffExp                               , 0x4E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleImpulseType_t           , m_nImpulseType                                  , 0x658) // ParticleImpulseType_t [MPropertyFriendlyName]
+    };
+
+    // IParticleSystemDefinition
+    //   fields: 0
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class IParticleSystemDefinition {
+    public:
+    };
+
+    // C_OP_SpinUpdate
+    //   fields: 0
+    //   size: 0x1E0
+    //   @MGetKV3ClassDefaults
+    class C_OP_SpinUpdate {
+    public:
+    };
+
+    // C_INIT_InitFromVectorFieldSnapshot
+    //   fields: 5
+    //   size: 0x8D0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_InitFromVectorFieldSnapshot {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nWeightUpdateCP                               , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseVerticalVelocity                          , 0x1F4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecScale                                      , 0x1F8) // CPerParticleVecInput [MPropertyFriendlyName]
+    };
+
+    // C_INIT_CreateSequentialPathV2
+    //   fields: 6
+    //   size: 0x530
+    //   @MParticleMinVersion
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateSequentialPathV2 {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fMaxDistance                                  , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flNumToAssign                                 , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x4D8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCPPairs                                      , 0x4D9) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSaveOffset                                   , 0x4DA) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x4E0) // CPathParameters
+    };
+
+    // C_INIT_GlobalScale
+    //   fields: 6
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_INIT_GlobalScale {
+    public:
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointNumber                      , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bScaleRadius                                  , 0x1F4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bScalePosition                                , 0x1F5) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bScaleVelocity                                , 0x1F6) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RadiusDecay
+    //   fields: 1
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class C_OP_RadiusDecay {
+    public:
+        SCHEMA_FIELD(float                           , m_flMinRadius                                   , 0x1E0) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RemapNamedModelBodyPartToScalar
+    //   fields: 0
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RemapNamedModelBodyPartToScalar {
+    public:
+    };
+
+    // CParticleFunctionInitializer
+    //   fields: 1
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class CParticleFunctionInitializer {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nAssociatedEmitterIndex                       , 0x1E0) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderVRHapticEvent
+    //   fields: 4
+    //   size: 0x3B8
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderVRHapticEvent {
+    public:
+        SCHEMA_FIELD(ParticleVRHandChoiceList_t      , m_nHand                                         , 0x230) // ParticleVRHandChoiceList_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputHandCP                                 , 0x234) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputField                                  , 0x238) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flAmplitude                                   , 0x240) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_RtEnvCull
+    //   fields: 7
+    //   size: 0x288
+    //   @MGetKV3ClassDefaults
+    class C_OP_RtEnvCull {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vecTestDir                                    , 0x1E0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecTestNormal                                 , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bCullOnMiss                                   , 0x1F8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bStickInsteadOfCull                           , 0x1F9) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_RtEnvName                                     , 0x1FA) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nRTEnvCP                                      , 0x27C) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x280) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_LockToSavedSequentialPath
+    //   fields: 4
+    //   size: 0x230
+    //   @MParticleMaxVersion
+    //   @MParticleReplacementOp
+    //   @MGetKV3ClassDefaults
+    class C_OP_LockToSavedSequentialPath {
+    public:
+        SCHEMA_FIELD(float                           , m_flFadeStart                                   , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFadeEnd                                     , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCPPairs                                      , 0x1EC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x1F0) // CPathParameters
+    };
+
+    // C_INIT_SequenceLifeTime
+    //   fields: 1
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_SequenceLifeTime {
+    public:
+        SCHEMA_FIELD(float                           , m_flFramerate                                   , 0x1E8) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_CreateWithinCapsuleTransform
+    //   fields: 11
+    //   size: 0x1768
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateWithinCapsuleTransform {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fRadiusMin                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fRadiusMax                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fHeight                                       , 0x4D8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x650) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMin                                     , 0x6B8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMax                                     , 0x830) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fSpeedRandExp                                 , 0x9A8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_LocalCoordinateSystemSpeedMin                 , 0x9B0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_LocalCoordinateSystemSpeedMax                 , 0x1088) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1760) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldVelocity                                , 0x1764) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_INIT_RandomSequence
+    //   fields: 5
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RandomSequence {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMin                                  , 0x1E8) // int32 [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMax                                  , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(bool                            , m_bShuffle                                      , 0x1F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLinear                                       , 0x1F1) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<SequenceWeightedList_t>, m_WeightedList                                  , 0x1F8) // CUtlVector<SequenceWeightedList_t> [MPropertyFriendlyName]
+    };
+
+    // C_OP_PlanarConstraint
+    //   fields: 8
+    //   size: 0x4F8
+    //   @MGetKV3ClassDefaults
+    class C_OP_PlanarConstraint {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_PointOnPlane                                  , 0x1E0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_PlaneNormal                                   , 0x1EC) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1F8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bGlobalOrigin                                 , 0x1FC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bGlobalNormal                                 , 0x1FD) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadiusScale                                 , 0x200) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMaximumDistanceToCP                         , 0x378) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseOldCode                                   , 0x4F0) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_CPVelocityForce
+    //   fields: 2
+    //   size: 0x370
+    //   @MGetKV3ClassDefaults
+    class C_OP_CPVelocityForce {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flScale                                       , 0x1F8) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // CParticleFunctionOperator
+    //   fields: 0
+    //   size: 0x1E0
+    //   @MGetKV3ClassDefaults
+    class CParticleFunctionOperator {
+    public:
+    };
+
+    // C_OP_DifferencePreviousParticle
+    //   fields: 9
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_DifferencePreviousParticle {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F8) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x1FC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetPreviousParticle                          , 0x1FD) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_StatusEffectCitadel
+    //   fields: 19
+    //   size: 0x238
+    //   @MGetKV3ClassDefaults
+    class C_INIT_StatusEffectCitadel {
+    public:
+        SCHEMA_FIELD(float                           , m_flSFXColorWarpAmount                          , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXNormalAmount                             , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXMetalnessAmount                          , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXRoughnessAmount                          , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSelfIllumAmount                          , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSScale                                   , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSScrollX                                 , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSScrollY                                 , 0x204) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSScrollZ                                 , 0x208) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSOffsetX                                 , 0x20C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSOffsetY                                 , 0x210) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSOffsetZ                                 , 0x214) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(DetailCombo_t                   , m_nDetailCombo                                  , 0x218) // DetailCombo_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSDetailAmount                            , 0x21C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSDetailScale                             , 0x220) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollX                           , 0x224) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollY                           , 0x228) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollZ                           , 0x22C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSFXSUseModelUVs                             , 0x230) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_CreateOnModelAtHeight
+    //   fields: 14
+    //   size: 0x1498
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateOnModelAtHeight {
+    public:
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bForceZ                                       , 0x1E9) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nHeightCP                                     , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseWaterHeight                               , 0x1F4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDesiredHeight                               , 0x1F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecHitBoxScale                                , 0x370) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecDirectionBias                              , 0xA48) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(ParticleHitboxBiasType_t        , m_nBiasType                                     , 0x1120) // ParticleHitboxBiasType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x1124) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bPreferMovingBoxes                            , 0x1125) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x1126) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flHitboxVelocityScale                         , 0x11A8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMaxBoneVelocity                             , 0x1320) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_NormalLock
+    //   fields: 1
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class C_OP_NormalLock {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_CollideWithParentParticles
+    //   fields: 2
+    //   size: 0x4D0
+    //   @MGetKV3ClassDefaults
+    class C_OP_CollideWithParentParticles {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flParentRadiusScale                           , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadiusScale                                 , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_InstantaneousEmitter
+    //   fields: 8
+    //   size: 0x668
+    //   @MGetKV3ClassDefaults
+    class C_OP_InstantaneousEmitter {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nParticlesToEmit                              , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flStartTime                                   , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInitFromKilledParentParticles               , 0x4D8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x4DC) // EventTypeSelection_t [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flParentParticleScale                         , 0x4E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxEmittedPerFrame                           , 0x658) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x65C) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x660) // CUtlString [MPropertyFriendlyName, MPropertySuppressExpr]
+    };
+
+    // C_OP_DecayOffscreen
+    //   fields: 1
+    //   size: 0x358
+    //   @MGetKV3ClassDefaults
+    class C_OP_DecayOffscreen {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOffscreenTime                               , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_DriveCPFromGlobalSoundFloat
+    //   fields: 9
+    //   size: 0x220
+    //   @MGetKV3ClassDefaults
+    class C_OP_DriveCPFromGlobalSoundFloat {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputControlPoint                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputField                                  , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_StackName                                     , 0x200) // CUtlString [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_OperatorName                                  , 0x208) // CUtlString [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_FieldName                                     , 0x210) // CUtlString [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetPerChildControlPointFromAttribute
+    //   fields: 8
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetPerChildControlPointFromAttribute {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nParticleIncrement                            , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstSourcePoint                             , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bNumBasedOnParticleCount                      , 0x1F4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToRead                              , 0x1F8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPField                                      , 0x1FC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_MovementMaintainOffset
+    //   fields: 3
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_OP_MovementMaintainOffset {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x1E0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRadiusScale                                  , 0x1F0) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RemapParticleCountToScalar
+    //   fields: 12
+    //   size: 0x218
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RemapParticleCountToScalar {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nInputMin                                     , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nInputMax                                     , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPoint                            , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointField                       , 0x1F8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x204) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x208) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bInvert                                       , 0x209) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bWrap                                         , 0x20A) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRemapBias                                   , 0x20C) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RampScalarLinearSimple
+    //   fields: 4
+    //   size: 0x220
+    //   @MGetKV3ClassDefaults
+    class C_OP_RampScalarLinearSimple {
+    public:
+        SCHEMA_FIELD(float                           , m_Rate                                          , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x210) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_INIT_SetRigidAttachment
+    //   fields: 4
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_INIT_SetRigidAttachment {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0x1F4) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapSpeed
+    //   fields: 7
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapSpeed {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F4) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bIgnoreDelta                                  , 0x1F8) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_GlobalLight
+    //   fields: 3
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class C_OP_GlobalLight {
+    public:
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bClampLowerRange                              , 0x1E4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bClampUpperRange                              , 0x1E5) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapCrossProductOfTwoVectorsToVector
+    //   fields: 4
+    //   size: 0xF98
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapCrossProductOfTwoVectorsToVector {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_InputVec1                                     , 0x1E0) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_InputVec2                                     , 0x8B8) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0xF90) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0xF94) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_QuantizeFloat
+    //   fields: 2
+    //   size: 0x368
+    //   @MGetKV3ClassDefaults
+    class C_INIT_QuantizeFloat {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputValue                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x360) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
     };
 
     // C_OP_RenderOmni2Light
@@ -3542,111 +3963,477 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bSphericalCookie                              , 0x2E78) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
     };
 
-    // C_OP_SetControlPointFieldToWater
-    //   fields: 3
-    //   size: 0x1F8
+    // CSpinUpdateBase
+    //   fields: 0
+    //   size: 0x1E0
     //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointFieldToWater {
+    class CSpinUpdateBase {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nSourceCP                                     , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nDestCP                                       , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPField                                      , 0x1F0) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
     };
 
-    // C_INIT_RemapParticleCountToNamedModelSequenceScalar
+    // C_OP_IntraParticleForce
+    //   fields: 7
+    //   size: 0x210
+    //   @MGetKV3ClassDefaults
+    class C_OP_IntraParticleForce {
+    public:
+        SCHEMA_FIELD(float                           , m_flAttractionMinDistance                       , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flAttractionMaxDistance                       , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flAttractionMaxStrength                       , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRepulsionMinDistance                        , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRepulsionMaxDistance                        , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRepulsionMaxStrength                        , 0x204) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseAABB                                      , 0x208) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointsToParticle
+    //   fields: 8
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointsToParticle {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstSourcePoint                             , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x1F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x1F1) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleOrientationSetMode_t    , m_nOrientationMode                              , 0x1F4) // ParticleOrientationSetMode_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleParentSetMode_t         , m_nSetParent                                    , 0x1F8) // ParticleParentSetMode_t [MPropertyFriendlyName]
+    };
+
+    // C_INIT_CreatePhyllotaxis
+    //   fields: 14
+    //   size: 0x218
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreatePhyllotaxis {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP                                      , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x1F0) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_fRadCentCore                                  , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fRadPerPoint                                  , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fRadPerPointTo                                , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fpointAngle                                   , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fsizeOverall                                  , 0x204) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fRadBias                                      , 0x208) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fMinRad                                       , 0x20C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fDistBias                                     , 0x210) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseLocalCoords                               , 0x214) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseWithContEmit                              , 0x215) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseOrigRadius                                , 0x216) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderLightBeam
+    //   fields: 20
+    //   size: 0x2038
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderLightBeam {
+    public:
+        SCHEMA_FIELD(std::uint16_t                   , m_nMaxAllowed                                   , 0x230) // uint16 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vColorBlend                                   , 0x238) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x910) // ParticleColorBlendType_t [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::CUtlString                    , m_strLightStyle                                 , 0x918) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLightStyleTime                              , 0x920) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flBrightnessLumensPerMeter                    , 0xA98) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flNumberOfLightsToCreate                      , 0xC10) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCastShadows                                  , 0xD88) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bDynamicBounce                                , 0xD89) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flBounceScale                                 , 0xD90) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flSkirt                                       , 0xF08) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRange                                       , 0x1080) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flThickness                                   , 0x11F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInnerConeAngle                              , 0x1370) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOuterConeAngle                              , 0x14E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecConeRotationOffset                         , 0x1660) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(ParticleLightFogLightingMode_t  , m_nFogLightingMode                              , 0x1D38) // ParticleLightFogLightingMode_t [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFogContribution                             , 0x1D40) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRenderFilter                                , 0x1EB8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDebugOrientation                             , 0x2030) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_LockToBone
+    //   fields: 15
+    //   size: 0xBA0
+    //   @MGetKV3ClassDefaults
+    class C_OP_LockToBone {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleModelInput, m_modelInput                                    , 0x1E0) // CParticleModelInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x240) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLifeTimeFadeStart                           , 0x2A8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLifeTimeFadeEnd                             , 0x2AC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flJumpThreshold                               , 0x2B0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x2B4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x2B8) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRigid                                        , 0x338) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x339) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x33C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutputPrev                              , 0x340) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleRotationLockType_t      , m_nRotationSetType                              , 0x344) // ParticleRotationLockType_t [MPropertyStartGroup, MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRigidRotationLock                            , 0x348) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecRotation                                   , 0x350) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRotLerp                                     , 0xA28) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_MaintainEmitter
+    //   fields: 9
+    //   size: 0x670
+    //   @MGetKV3ClassDefaults
+    class C_OP_MaintainEmitter {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nParticlesToMaintain                          , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x360) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flEmissionDuration                            , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEmissionRate                                , 0x4E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x4E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x4E8) // CUtlString [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bEmitInstantaneously                          , 0x4F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bFinalEmitOnStop                              , 0x4F1) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flScale                                       , 0x4F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_LerpToInitialPosition
+    //   fields: 5
+    //   size: 0xBB8
+    //   @MGetKV3ClassDefaults
+    class C_OP_LerpToInitialPosition {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nCacheField                                   , 0x360) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flScale                                       , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecScale                                      , 0x4E0) // CParticleCollectionVecInput [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RemapParticleCountToNamedModelBodyPartScalar
     //   fields: 0
     //   size: 0x238
     //   @MGetKV3ClassDefaults
-    class C_INIT_RemapParticleCountToNamedModelSequenceScalar {
+    class C_INIT_RemapParticleCountToNamedModelBodyPartScalar {
     public:
     };
 
-    // C_OP_RemapNamedModelBodyPartEndCap
-    //   fields: 0
-    //   size: 0x240
+    // C_INIT_CreateInEpitrochoid
+    //   fields: 10
+    //   size: 0x840
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapNamedModelBodyPartEndCap {
+    class C_INIT_CreateInEpitrochoid {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent1                                   , 0x1E8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent2                                   , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1F0) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flParticleDensity                             , 0x258) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOffset                                      , 0x3D0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius1                                     , 0x548) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius2                                     , 0x6C0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseCount                                     , 0x838) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseLocalCoords                               , 0x839) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOffsetExistingPos                            , 0x83A) // bool [MPropertyFriendlyName]
     };
 
-    // C_INIT_RandomNamedModelSequence
-    //   fields: 0
-    //   size: 0x210
+    // C_OP_ExternalWindForce
+    //   fields: 11
+    //   size: 0x2050
     //   @MGetKV3ClassDefaults
-    class C_INIT_RandomNamedModelSequence {
+    class C_OP_ExternalWindForce {
     public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecSamplePosition                             , 0x1F0) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecScale                                      , 0x8C8) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSampleWind                                   , 0xFA0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSampleWater                                  , 0xFA1) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDampenNearWaterPlane                         , 0xFA2) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bSampleGravity                                , 0xFA3) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecGravityForce                               , 0xFA8) // CPerParticleVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bUseBasicMovementGravity                      , 0x1680) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLocalGravityScale                           , 0x1688) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLocalBuoyancyScale                          , 0x1800) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecBuoyancyForce                              , 0x1978) // CPerParticleVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
     };
 
-    // C_OP_RemapDensityGradientToVectorAttribute
+    // C_OP_SetControlPointPositionToTimeOfDayValue
+    //   fields: 3
+    //   size: 0x280
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointPositionToTimeOfDayValue {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_pszTimeOfDayParameter                         , 0x1EC) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecDefaultValue                               , 0x26C) // Vector [MPropertyFriendlyName]
+    };
+
+    // C_OP_VectorNoise
+    //   fields: 7
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_OP_VectorNoise {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1E4) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(float                           , m_fl4NoiseScale                                 , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x200) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x201) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flNoiseAnimationTimeScale                     , 0x204) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RemapQAnglesToRotation
+    //   fields: 1
+    //   size: 0x250
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RemapQAnglesToRotation {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_CreateParticleSystemRenderer
+    //   fields: 5
+    //   size: 0x930
+    //   @MGetKV3ClassDefaults
+    class C_OP_CreateParticleSystemRenderer {
+    public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>, m_hEffect                                       , 0x230) // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition> [MPropertyFriendlyName]
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x238) // EventTypeSelection_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlLeanVector<CPAssignment_t>  , m_vecCPs                                        , 0x240) // CUtlLeanVector<CPAssignment_t> [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_szParticleConfig                              , 0x250) // CUtlString [MPropertyDescription, MPropertyAttributeEditor, MPropertyEditContextOverrideKey, MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_AggregationPos                                , 0x258) // CPerParticleVecInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_ChooseRandomChildrenInGroup
+    //   fields: 2
+    //   size: 0x368
+    //   @MGetKV3ClassDefaults
+    class C_OP_ChooseRandomChildrenInGroup {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flNumberOfChildren                            , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetCPOrientationToDirection
     //   fields: 2
     //   size: 0x1E8
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapDensityGradientToVectorAttribute {
+    class C_OP_SetCPOrientationToDirection {
     public:
-        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nInputControlPoint                            , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputControlPoint                           , 0x1E4) // int32 [MPropertyFriendlyName]
     };
 
-    // C_OP_RenderStatusEffectCitadel
-    //   fields: 6
-    //   size: 0x260
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderStatusEffectCitadel {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureColorWarp                             , 0x230) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureNormal                                , 0x238) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureMetalness                             , 0x240) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureRoughness                             , 0x248) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureSelfIllum                             , 0x250) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureDetail                                , 0x258) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-    };
-
-    // C_INIT_RemapNamedModelBodyPartToScalar
+    // C_INIT_RandomNamedModelBodyPart
     //   fields: 0
-    //   size: 0x230
+    //   size: 0x210
     //   @MGetKV3ClassDefaults
-    class C_INIT_RemapNamedModelBodyPartToScalar {
+    class C_INIT_RandomNamedModelBodyPart {
     public:
     };
 
-    // C_INIT_RemapTransformToVector
-    //   fields: 13
-    //   size: 0x308
+    // C_OP_RenderCables
+    //   fields: 24
+    //   size: 0x15A8
     //   @MGetKV3ClassDefaults
-    class C_INIT_RemapTransformToVector {
+    class C_OP_RenderCables {
     public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::Vector                        , m_vInputMin                                     , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vInputMax                                     , 0x1F8) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vOutputMin                                    , 0x204) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vOutputMax                                    , 0x210) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x220) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_LocalSpaceTransform                           , 0x288) // CParticleTransformInput [MPropertyFriendlyName, MParticleInputOptional]
-        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x2F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x2F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x2F8) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x2FC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAccelerate                                   , 0x2FD) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRemapBias                                   , 0x300) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRadiusScale                                 , 0x230) // CParticleCollectionFloatInput [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flAlphaScale                                  , 0x3A8) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorScale                                 , 0x520) // CParticleCollectionVecInput [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0xBF8) // ParticleColorBlendType_t [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0xC00) // CStrongHandle<InfoForResourceTypeIMaterial2> [MPropertyStartGroup, MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(TextureRepetitionMode_t         , m_nTextureRepetitionMode                        , 0xC08) // TextureRepetitionMode_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flTextureRepeatsPerSegment                    , 0xC10) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flTextureRepeatsCircumference                 , 0xD88) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flColorMapOffsetV                             , 0xF00) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flColorMapOffsetU                             , 0x1078) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flNormalMapOffsetV                            , 0x11F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flNormalMapOffsetU                            , 0x1368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDrawCableCaps                                , 0x14E0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flCapRoundness                                , 0x14E4) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(float                           , m_flCapOffsetAmount                             , 0x14E8) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(float                           , m_flTessScale                                   , 0x14EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nMinTesselation                               , 0x14F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxTesselation                               , 0x14F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nRoundness                                    , 0x14F8) // int32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(bool                            , m_nForceRoundnessFixed                          , 0x14FC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOnlyRenderInEffectsBloomPass                 , 0x14FD) // bool [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_LightingTransform                             , 0x1500) // CParticleTransformInput [MPropertyFriendlyName, MParticleInputOptional]
+        SCHEMA_FIELD(CUtlLeanVector<FloatInputMaterialVariable_t>, m_MaterialFloatVars                             , 0x1568) // CUtlLeanVector<FloatInputMaterialVariable_t> [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlLeanVector<VecInputMaterialVariable_t>, m_MaterialVecVars                               , 0x1588) // CUtlLeanVector<VecInputMaterialVariable_t> [MPropertyFriendlyName]
     };
 
-    // C_OP_MovementMaintainOffset
-    //   fields: 3
-    //   size: 0x1F8
+    // C_OP_PercentageBetweenTransformLerpCPs
+    //   fields: 12
+    //   size: 0x2D8
     //   @MGetKV3ClassDefaults
-    class C_OP_MovementMaintainOffset {
+    class C_OP_PercentageBetweenTransformLerpCPs {
     public:
-        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x1E0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRadiusScale                                  , 0x1F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformStart                                , 0x1F0) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformEnd                                  , 0x258) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputStartCP                                , 0x2C0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputStartField                             , 0x2C4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputEndCP                                  , 0x2C8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputEndField                               , 0x2CC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x2D0) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x2D4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRadialCheck                                  , 0x2D5) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_RemapNamedModelMeshGroupEndCap
-    //   fields: 0
+    // C_INIT_PositionWarp
+    //   fields: 10
+    //   size: 0xFB8
+    //   @MGetKV3ClassDefaults
+    class C_INIT_PositionWarp {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecWarpMin                                    , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecWarpMax                                    , 0x8C0) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointNumber                      , 0xF98) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0xF9C) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nRadiusComponent                              , 0xFA0) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flWarpTime                                    , 0xFA4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flWarpStartTime                               , 0xFA8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0xFAC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bInvertWarp                                   , 0xFB0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseCount                                     , 0xFB1) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapParticleCountOnScalarEndCap
+    //   fields: 7
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapParticleCountOnScalarEndCap {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nInputMin                                     , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nInputMax                                     , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bBackwards                                    , 0x1F4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F8) // ParticleSetMethod_t [MPropertyFriendlyName]
+    };
+
+    // C_OP_ConstrainDistanceToPath
+    //   fields: 8
     //   size: 0x240
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapNamedModelMeshGroupEndCap {
+    class C_OP_ConstrainDistanceToPath {
     public:
+        SCHEMA_FIELD(float                           , m_fMinDistance                                  , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxDistance0                                , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxDistanceMid                              , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxDistance1                                , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(CPathParameters                 , m_PathParameters                                , 0x1F0) // CPathParameters
+        SCHEMA_FIELD(float                           , m_flTravelTime                                  , 0x230) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldScale                                   , 0x234) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nManualTField                                 , 0x238) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_INIT_RemapTransformOrientationToRotations
+    //   fields: 4
+    //   size: 0x260
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RemapTransformOrientationToRotations {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecRotation                                   , 0x250) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseQuat                                      , 0x25C) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bWriteNormal                                  , 0x25D) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_MovementRigidAttachToCP
+    //   fields: 6
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_OP_MovementRigidAttachToCP {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPoint                            , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCPField                                 , 0x1E8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bOffsetLocal                                  , 0x1F4) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RandomSecondSequence
+    //   fields: 2
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RandomSecondSequence {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMin                                  , 0x1E8) // int32 [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMax                                  , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeEditor]
+    };
+
+    // C_OP_MoveToHitbox
+    //   fields: 9
+    //   size: 0x4B8
+    //   @MGetKV3ClassDefaults
+    class C_OP_MoveToHitbox {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleModelInput, m_modelInput                                    , 0x1E0) // CParticleModelInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x240) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLifeTimeLerpStart                           , 0x2AC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLifeTimeLerpEnd                             , 0x2B0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x2B4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x2B8) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x338) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(HitboxLerpType_t                , m_nLerpType                                     , 0x33C) // HitboxLerpType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x340) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_INIT_CreateOnGrid
+    //   fields: 10
+    //   size: 0xAC0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateOnGrid {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nXCount                                       , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nYCount                                       , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nZCount                                       , 0x4D8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nXSpacing                                     , 0x650) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nYSpacing                                     , 0x7C8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nZSpacing                                     , 0x940) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0xAB8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0xABC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCenter                                       , 0xABD) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bHollow                                       , 0xABE) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_DistanceBetweenCPsToCP
+    //   fields: 15
+    //   size: 0x2A0
+    //   @MGetKV3ClassDefaults
+    class C_OP_DistanceBetweenCPsToCP {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nStartCP                                      , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nEndCP                                        , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCPField                                , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetOnce                                      , 0x1F8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x204) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x208) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x20C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLOSScale                                    , 0x210) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLOS                                          , 0x214) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x215) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x298) // ParticleTraceSet_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleParentSetMode_t         , m_nSetParent                                    , 0x29C) // ParticleParentSetMode_t [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderStatusEffect
+    //   fields: 7
+    //   size: 0x268
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderStatusEffect {
+    public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureColorWarp                             , 0x230) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureDetail2                               , 0x238) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureDiffuseWarp                           , 0x240) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureFresnelColorWarp                      , 0x248) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureFresnelWarp                           , 0x250) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureSpecularWarp                          , 0x258) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureEnvMap                                , 0x260) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
     };
 
     // C_OP_SetControlPointToVectorExpression
@@ -3663,131 +4450,147 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x1118) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_BoxConstraint
-    //   fields: 5
-    //   size: 0xF98
-    //   @MGetKV3ClassDefaults
-    class C_OP_BoxConstraint {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecMin                                        , 0x1E0) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecMax                                        , 0x8B8) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0xF90) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0xF94) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAccountForRadius                             , 0xF95) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_ConstrainLineLength
-    //   fields: 2
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class C_OP_ConstrainLineLength {
-    public:
-        SCHEMA_FIELD(float                           , m_flMinDistance                                 , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxDistance                                 , 0x1E4) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_MovementRotateParticleAroundAxis
-    //   fields: 4
-    //   size: 0xAA0
-    //   @MGetKV3ClassDefaults
-    class C_OP_MovementRotateParticleAroundAxis {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecRotAxis                                    , 0x1E0) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRotRate                                     , 0x8B8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0xA30) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0xA98) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RemapNamedModelElementToScalar
-    //   fields: 7
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RemapNamedModelElementToScalar {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x1E8) // CStrongHandle<InfoForResourceTypeCModel>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_names                                         , 0x1F0) // CUtlVector<CUtlString> [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<float32>             , m_values                                        , 0x208) // CUtlVector<float32> [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x220) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x224) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x228) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x22C) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_SkyVisCull
+    // C_OP_RemapVectortoCP
     //   fields: 3
-    //   size: 0x8C8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_SkyVisCull {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecTestDir                                    , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x8C0) // ParticleTraceSet_t [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bCullOnSky                                    , 0x8C4) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetControlPointOrientationToCPVelocity
-    //   fields: 2
     //   size: 0x1F0
     //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointOrientationToCPVelocity {
+    class C_OP_RemapVectortoCP {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nParticleNumber                               , 0x1E8) // int32 [MPropertyFriendlyName]
     };
 
-    // C_INIT_RandomYaw
-    //   fields: 0
-    //   size: 0x208
+    // C_INIT_DistanceToNeighborCull
+    //   fields: 7
+    //   size: 0x668
     //   @MGetKV3ClassDefaults
-    class C_INIT_RandomYaw {
+    class C_INIT_DistanceToNeighborCull {
     public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flDistance                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bIncludeRadii                                 , 0x360) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLifespanOverlap                             , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldModify                                  , 0x4E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flModify                                      , 0x4E8) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x660) // ParticleSetMethod_t [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bUseNeighbor                                  , 0x664) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
     };
 
-    // C_INIT_RandomNamedModelMeshGroup
-    //   fields: 0
+    // C_OP_RenderGpuImplicit
+    //   fields: 8
+    //   size: 0x6B8
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderGpuImplicit {
+    public:
+        SCHEMA_FIELD(bool                            , m_bUsePerParticleRadius                         , 0x230) // bool [MPropertySortPriority, MPropertyDescription]
+        SCHEMA_FIELD(std::uint32_t                   , m_nVertexCountKb                                , 0x234) // uint32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(std::uint32_t                   , m_nIndexCountKb                                 , 0x238) // uint32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_fGridSize                                     , 0x240) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_fRadiusScale                                  , 0x3B8) // CParticleCollectionRendererFloatInput
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_fIsosurfaceThreshold                          , 0x530) // CParticleCollectionRendererFloatInput [MPropertyAttributeRange]
+        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP                                      , 0x6A8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0x6B0) // CStrongHandle<InfoForResourceTypeIMaterial2>
+    };
+
+    // C_INIT_RadiusFromCPObject
+    //   fields: 1
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RadiusFromCPObject {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E8) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointsToModelParticles
+    //   fields: 7
+    //   size: 0x2F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointsToModelParticles {
+    public:
+        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x1E0) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_AttachmentName                                , 0x260) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x2E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x2E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstSourcePoint                             , 0x2E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSkin                                         , 0x2EC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAttachment                                   , 0x2ED) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_ClampVector
+    //   fields: 3
+    //   size: 0xF98
+    //   @MGetKV3ClassDefaults
+    class C_OP_ClampVector {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOutputMin                                  , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOutputMax                                  , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+    };
+
+    // C_OP_RemapExternalWindToCP
+    //   fields: 5
+    //   size: 0x8D0
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapExternalWindToCP {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecScale                                      , 0x1F0) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetMagnitude                                 , 0x8C8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x8CC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
+    };
+
+    // C_OP_SetFloat
+    //   fields: 4
+    //   size: 0x510
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetFloat {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputValue                                    , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x358) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x35C) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_Lerp                                          , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapCPtoCP
+    //   fields: 10
     //   size: 0x210
     //   @MGetKV3ClassDefaults
-    class C_INIT_RandomNamedModelMeshGroup {
+    class C_OP_RemapCPtoCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInputControlPoint                            , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputControlPoint                           , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nInputField                                   , 0x1F0) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputField                                  , 0x1F4) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x204) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDerivative                                   , 0x208) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInterpRate                                  , 0x20C) // float32 [MPropertyFriendlyName]
     };
 
-    // C_OP_ParentVortices
+    // MaterialVariable_t
     //   fields: 3
-    //   size: 0x208
+    //   size: 0x10
     //   @MGetKV3ClassDefaults
-    class C_OP_ParentVortices {
+    class MaterialVariable_t {
     public:
-        SCHEMA_FIELD(float                           , m_flForceScale                                  , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecTwistAxis                                  , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bFlipBasedOnYaw                               , 0x200) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::CUtlString                    , m_strVariable                                   , 0x0) // CUtlString [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nVariableField                                , 0x8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0xC) // float32 [MPropertyFriendlyName]
     };
 
-    // C_INIT_SetFloatAttributeToVectorExpression
-    //   fields: 6
-    //   size: 0x1120
+    // C_OP_ScreenSpaceRotateTowardTarget
+    //   fields: 4
+    //   size: 0xBB0
     //   @MGetKV3ClassDefaults
-    class C_INIT_SetFloatAttributeToVectorExpression {
+    class C_OP_ScreenSpaceRotateTowardTarget {
     public:
-        SCHEMA_FIELD(VectorFloatExpressionType_t     , m_nExpression                                   , 0x1E8) // VectorFloatExpressionType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput1                                       , 0x1F0) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput2                                       , 0x8C8) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0xFA0) // CParticleRemapFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x1118) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x111C) // ParticleSetMethod_t [MPropertyFriendlyName]
-    };
-
-    // C_OP_SnapshotSkinToBones
-    //   fields: 7
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_OP_SnapshotSkinToBones {
-    public:
-        SCHEMA_FIELD(bool                            , m_bTransformNormals                             , 0x1E0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bTransformRadii                               , 0x1E1) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLifeTimeFadeStart                           , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLifeTimeFadeEnd                             , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flJumpThreshold                               , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecTargetPosition                             , 0x1E0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x8B8) // CParticleRemapFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0xA30) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flScreenEdgeAlignmentDistance                 , 0xA38) // CPerParticleFloatInput [MPropertyFriendlyName]
     };
 
     // C_OP_RenderAsModels
@@ -3806,141 +4609,12 @@ namespace particles {
         SCHEMA_FIELD(std::int32_t                    , m_nSizeCullBloat                                , 0x260) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
     };
 
-    // C_OP_SetSingleControlPointPosition
-    //   fields: 4
-    //   size: 0x930
+    // CParticleFunctionConstraint
+    //   fields: 0
+    //   size: 0x1E0
     //   @MGetKV3ClassDefaults
-    class C_OP_SetSingleControlPointPosition {
+    class CParticleFunctionConstraint {
     public:
-        SCHEMA_FIELD(bool                            , m_bSetOnce                                      , 0x1E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecCP1Pos                                     , 0x1F0) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x8C8) // CParticleTransformInput [MPropertyFriendlyName, MParticleInputOptional]
-    };
-
-    // C_OP_ChooseRandomChildrenInGroup
-    //   fields: 2
-    //   size: 0x368
-    //   @MGetKV3ClassDefaults
-    class C_OP_ChooseRandomChildrenInGroup {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flNumberOfChildren                            , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_NormalAlignToCP
-    //   fields: 2
-    //   size: 0x258
-    //   @MGetKV3ClassDefaults
-    class C_INIT_NormalAlignToCP {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleControlPointAxis_t      , m_nControlPointAxis                             , 0x250) // ParticleControlPointAxis_t [MPropertyFriendlyName]
-    };
-
-    // C_INIT_InheritVelocity
-    //   fields: 2
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_InheritVelocity {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flVelocityScale                               , 0x1EC) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_IntraParticleForce
-    //   fields: 7
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_OP_IntraParticleForce {
-    public:
-        SCHEMA_FIELD(float                           , m_flAttractionMinDistance                       , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flAttractionMaxDistance                       , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flAttractionMaxStrength                       , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRepulsionMinDistance                        , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRepulsionMaxDistance                        , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRepulsionMaxStrength                        , 0x204) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseAABB                                      , 0x208) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_TimeVaryingForce
-    //   fields: 4
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_OP_TimeVaryingForce {
-    public:
-        SCHEMA_FIELD(float                           , m_flStartLerpTime                               , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_StartingForce                                 , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(float                           , m_flEndLerpTime                                 , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_EndingForce                                   , 0x204) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-    };
-
-    // C_OP_RadiusDecay
-    //   fields: 1
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class C_OP_RadiusDecay {
-    public:
-        SCHEMA_FIELD(float                           , m_flMinRadius                                   , 0x1E0) // float32 [MPropertyFriendlyName]
-    };
-
-    // CParticleFunctionRenderer
-    //   fields: 2
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class CParticleFunctionRenderer {
-    public:
-        SCHEMA_FIELD(CParticleVisibilityInputs       , VisibilityInputs                                , 0x1E0) // CParticleVisibilityInputs [MPropertySortPriority]
-        SCHEMA_FIELD(bool                            , m_bCannotBeRefracted                            , 0x228) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-    };
-
-    // C_OP_ReinitializeScalarEndCap
-    //   fields: 3
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_OP_ReinitializeScalarEndCap {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1E8) // float32 [MPropertyFriendlyName]
-    };
-
-    // VecInputMaterialVariable_t
-    //   fields: 2
-    //   size: 0x6E0
-    //   @MGetKV3ClassDefaults
-    class VecInputMaterialVariable_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_strVariable                                   , 0x0) // CUtlString [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecInput                                      , 0x8) // CParticleCollectionVecInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_CreateSpiralSphere
-    //   fields: 6
-    //   size: 0x838
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreateSpiralSphere {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flDensity                                     , 0x250) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInitialRadius                               , 0x3C8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInitialSpeedMin                             , 0x540) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInitialSpeedMax                             , 0x6B8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseParticleCount                             , 0x830) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_EnableChildrenFromParentParticleCount
-    //   fields: 6
-    //   size: 0x370
-    //   @MGetKV3ClassDefaults
-    class C_OP_EnableChildrenFromParentParticleCount {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nFirstChild                                   , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nNumChildrenToEnable                          , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDisableChildren                              , 0x368) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bPlayEndcapOnStop                             , 0x369) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bDestroyImmediately                           , 0x36A) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
     };
 
     // C_OP_RenderModels
@@ -4009,393 +4683,27 @@ namespace particles {
         SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLightStyleTime                              , 0x2D30) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr, MPropertySortPriority]
     };
 
-    // RenderProjectedMaterial_t
+    // CParticleFunctionEmitter
     //   fields: 1
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class RenderProjectedMaterial_t {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hMaterial                                     , 0x0) // CStrongHandle<InfoForResourceTypeIMaterial2> [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RemapNamedModelSequenceToScalar
-    //   fields: 0
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RemapNamedModelSequenceToScalar {
-    public:
-    };
-
-    // C_OP_RenderRopes
-    //   fields: 33
-    //   size: 0x3528
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderRopes {
-    public:
-        SCHEMA_FIELD(bool                            , m_bEnableFadingAndClamping                      , 0x2ED8) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flMinSize                                     , 0x2EDC) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flMaxSize                                     , 0x2EE0) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flStartFadeSize                               , 0x2EE4) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flEndFadeSize                                 , 0x2EE8) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flStartFadeDot                                , 0x2EEC) // float32 [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flEndFadeDot                                  , 0x2EF0) // float32 [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flSubPixelAAScale                             , 0x2EF8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySuppressExpr, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flRadiusTaper                                 , 0x3070) // float32 [MPropertyStartGroup, MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nMinTesselation                               , 0x3074) // int32 [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(std::int32_t                    , m_nMaxTesselation                               , 0x3078) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flTessScale                                   , 0x307C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flTextureVWorldSize                           , 0x3080) // CParticleCollectionRendererFloatInput [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flTextureVScrollRate                          , 0x31F8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flTextureVOffset                              , 0x3370) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nTextureVParamsCP                             , 0x34E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bClampV                                       , 0x34EC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP1                                     , 0x34F0) // int32 [MPropertyStartGroup, MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP2                                     , 0x34F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flScaleVSizeByControlPointDistance            , 0x34F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flScaleVScrollByControlPointDistance          , 0x34FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flScaleVOffsetByControlPointDistance          , 0x3500) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseScalarForTextureCoordinate                , 0x3505) // bool [MPropertyStartGroup, MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nScalarFieldForTextureCoordinate              , 0x3508) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flScalarAttributeTextureCoordScale            , 0x350C) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bReverseOrder                                 , 0x3510) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(bool                            , m_bClosedLoop                                   , 0x3511) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nSplitField                                   , 0x3514) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bSortBySegmentID                              , 0x3518) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleOrientationChoiceList_t , m_nOrientationType                              , 0x351C) // ParticleOrientationChoiceList_t [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nVectorFieldForOrientation                    , 0x3520) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bDrawAsOpaque                                 , 0x3524) // bool [MPropertyStartGroup, MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bGenerateNormals                              , 0x3525) // bool [MPropertyStartGroup, MPropertyFriendlyName]
-    };
-
-    // C_OP_SpinUpdate
-    //   fields: 0
-    //   size: 0x1E0
-    //   @MGetKV3ClassDefaults
-    class C_OP_SpinUpdate {
-    public:
-    };
-
-    // C_INIT_ScaleVelocity
-    //   fields: 1
-    //   size: 0x8C0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_ScaleVelocity {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecScale                                      , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-    };
-
-    // C_OP_QuantizeCPComponent
-    //   fields: 4
-    //   size: 0x4E0
-    //   @MGetKV3ClassDefaults
-    class C_OP_QuantizeCPComponent {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInputValue                                  , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x360) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x364) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flQuantizeValue                               , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_ClampVector
-    //   fields: 3
-    //   size: 0xF98
-    //   @MGetKV3ClassDefaults
-    class C_OP_ClampVector {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOutputMin                                  , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOutputMax                                  , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-    };
-
-    // C_OP_CPVelocityForce
-    //   fields: 2
-    //   size: 0x370
-    //   @MGetKV3ClassDefaults
-    class C_OP_CPVelocityForce {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flScale                                       , 0x1F8) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_GlobalLight
-    //   fields: 3
     //   size: 0x1E8
     //   @MGetKV3ClassDefaults
-    class C_OP_GlobalLight {
+    class CParticleFunctionEmitter {
     public:
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bClampLowerRange                              , 0x1E4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bClampUpperRange                              , 0x1E5) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nEmitterIndex                                 , 0x1E0) // int32 [MPropertyFriendlyName]
     };
 
-    // C_INIT_StatusEffectCitadel
-    //   fields: 19
-    //   size: 0x238
-    //   @MGetKV3ClassDefaults
-    class C_INIT_StatusEffectCitadel {
-    public:
-        SCHEMA_FIELD(float                           , m_flSFXColorWarpAmount                          , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXNormalAmount                             , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXMetalnessAmount                          , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXRoughnessAmount                          , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSelfIllumAmount                          , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSScale                                   , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSScrollX                                 , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSScrollY                                 , 0x204) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSScrollZ                                 , 0x208) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSOffsetX                                 , 0x20C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSOffsetY                                 , 0x210) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSOffsetZ                                 , 0x214) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(DetailCombo_t                   , m_nDetailCombo                                  , 0x218) // DetailCombo_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSDetailAmount                            , 0x21C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSDetailScale                             , 0x220) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollX                           , 0x224) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollY                           , 0x228) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSDetailScrollZ                           , 0x22C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSFXSUseModelUVs                             , 0x230) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapAverageHitboxSpeedtoCP
-    //   fields: 11
-    //   size: 0xF38
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapAverageHitboxSpeedtoCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nInControlPointNumber                         , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nField                                        , 0x1F0) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleHitboxDataSelection_t   , m_nHitboxDataType                               , 0x1F4) // ParticleHitboxDataSelection_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInputMin                                    , 0x1F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInputMax                                    , 0x370) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOutputMin                                   , 0x4E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOutputMax                                   , 0x660) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nHeightControlPointNumber                     , 0x7D8) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecComparisonVelocity                         , 0x7E0) // CParticleCollectionVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0xEB8) // char[128] [MPropertyFriendlyName]
-    };
-
-    // C_INIT_PlaneCull
-    //   fields: 3
+    // C_OP_SetGravityToCP
+    //   fields: 6
     //   size: 0x370
     //   @MGetKV3ClassDefaults
-    class C_INIT_PlaneCull {
+    class C_OP_SetGravityToCP {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDistance                                    , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCullInside                                   , 0x368) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RemapParticleCountToNamedModelElementScalar
-    //   fields: 4
-    //   size: 0x238
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RemapParticleCountToNamedModelElementScalar {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x218) // CStrongHandle<InfoForResourceTypeCModel>
-        SCHEMA_FIELD(::CUtlString                    , m_outputMinName                                 , 0x220) // CUtlString [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_outputMaxName                                 , 0x228) // CUtlString [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x230) // bool
-    };
-
-    // C_INIT_RandomModelSequence
-    //   fields: 3
-    //   size: 0x3F0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomModelSequence {
-    public:
-        SCHEMA_FIELD(char                            , m_ActivityName                                  , 0x1E8) // char[256] [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(char                            , m_SequenceName                                  , 0x2E8) // char[256] [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x3E8) // CStrongHandle<InfoForResourceTypeCModel> [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderVolumetricEmitter
-    //   fields: 15
-    //   size: 0x2290
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderVolumetricEmitter {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_strChannelType                                , 0x230) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleVolumetricSmokeType_t   , m_nType                                         , 0x238) // ParticleVolumetricSmokeType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleVolumetricSmokeCreationType_t, m_nCreationType                                 , 0x23C) // ParticleVolumetricSmokeCreationType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x240) // EventTypeSelection_t [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPos                                        , 0x248) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecVelocity                                   , 0x920) // CPerParticleVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vPrevPosition                                 , 0xFF8) // CPerParticleVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flSpeed                                       , 0x16D0) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius                                      , 0x1848) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flDensity                                     , 0x19C0) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flTemperature                                 , 0x1B38) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMagnitude                                   , 0x1CB0) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flKillRadius                                  , 0x1E28) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flKillDensityScale                            , 0x1FA0) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flFalloff                                     , 0x2118) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // C_INIT_RandomYawFlip
-    //   fields: 1
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomYawFlip {
-    public:
-        SCHEMA_FIELD(float                           , m_flPercent                                     , 0x1E8) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_PositionWarpScalar
-    //   fields: 6
-    //   size: 0x388
-    //   @MGetKV3ClassDefaults
-    class C_INIT_PositionWarpScalar {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vecWarpMin                                    , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecWarpMax                                    , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputValue                                    , 0x200) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x378) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPointNumber                      , 0x37C) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x380) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderSprites
-    //   fields: 29
-    //   size: 0x41C8
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderSprites {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_nSequenceOverride                             , 0x2ED8) // CParticleCollectionRendererFloatInput [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(bool                            , m_bSequenceNumbersAreRawSequenceIndices         , 0x3050) // bool [MPropertyFriendlyName, MParticleAdvancedField]
-        SCHEMA_FIELD(ParticleOrientationChoiceList_t , m_nOrientationType                              , 0x3054) // ParticleOrientationChoiceList_t [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(std::int32_t                    , m_nOrientationControlPoint                      , 0x3058) // int32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bUseYawWithNormalAligned                      , 0x305C) // bool [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flMinSize                                     , 0x3060) // CParticleCollectionRendererFloatInput [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flMaxSize                                     , 0x31D8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flSubPixelAAScale                             , 0x3350) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySuppressExpr, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flStartFadeSize                               , 0x34C8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flEndFadeSize                                 , 0x3640) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flStartFadeDot                                , 0x37B8) // float32 [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flEndFadeDot                                  , 0x37BC) // float32 [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(bool                            , m_bDistanceAlpha                                , 0x37C0) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(bool                            , m_bSoftEdges                                    , 0x37C1) // bool [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flEdgeSoftnessStart                           , 0x37C4) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flEdgeSoftnessEnd                             , 0x37C8) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bOutline                                      , 0x37CC) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::Color                         , m_OutlineColor                                  , 0x37D0) // Color [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutlineAlpha                                 , 0x37D4) // int32 [MPropertyFriendlyName, MPropertyAttributeRange, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flOutlineStart0                               , 0x37D8) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flOutlineStart1                               , 0x37DC) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flOutlineEnd0                                 , 0x37E0) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flOutlineEnd1                                 , 0x37E4) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleLightingQuality_t       , m_nLightingMode                                 , 0x37E8) // ParticleLightingQuality_t [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererVecInput, m_vecLightingOverride                           , 0x37F0) // CParticleCollectionRendererVecInput [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flLightingTessellation                        , 0x3EC8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertyAttributeRange, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flLightingDirectionality                      , 0x4040) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bParticleShadows                              , 0x41B8) // bool [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flShadowDensity                               , 0x41BC) // float32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
-    };
-
-    // C_OP_RenderScreenVelocityRotate
-    //   fields: 2
-    //   size: 0x238
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderScreenVelocityRotate {
-    public:
-        SCHEMA_FIELD(float                           , m_flRotateRateDegrees                           , 0x230) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flForwardDegrees                              , 0x234) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderSimpleModelCollection
-    //   fields: 9
-    //   size: 0x5B0
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderSimpleModelCollection {
-    public:
-        SCHEMA_FIELD(bool                            , m_bCenterOffset                                 , 0x230) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x238) // CStrongHandle<InfoForResourceTypeCModel> [MPropertyStartGroup, MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleModelInput, m_modelInput                                    , 0x240) // CParticleModelInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_fSizeCullScale                                , 0x2A0) // CParticleCollectionFloatInput [MPropertyStartGroup, MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDisableShadows                               , 0x418) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDisableMotionBlur                            , 0x419) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAcceptsDecals                                , 0x41A) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fDrawFilter                                   , 0x420) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAngularVelocityField                         , 0x598) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_OP_MovementLoopInsideSphere
-    //   fields: 4
-    //   size: 0xA40
-    //   @MGetKV3ClassDefaults
-    class C_OP_MovementLoopInsideSphere {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDistance                                    , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecScale                                      , 0x360) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nDistSqrAttr                                  , 0xA38) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_INIT_StatusEffect
-    //   fields: 18
-    //   size: 0x248
-    //   @MGetKV3ClassDefaults
-    class C_INIT_StatusEffect {
-    public:
-        SCHEMA_FIELD(Detail2Combo_t                  , m_nDetail2Combo                                 , 0x1E8) // Detail2Combo_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flDetail2Rotation                             , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flDetail2Scale                                , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flDetail2BlendFactor                          , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flColorWarpIntensity                          , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flDiffuseWarpBlendToFull                      , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEnvMapIntensity                             , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flAmbientScale                                , 0x204) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_specularColor                                 , 0x208) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSpecularScale                               , 0x20C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSpecularExponent                            , 0x210) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSpecularExponentBlendToFull                 , 0x214) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSpecularBlendToFull                         , 0x218) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_rimLightColor                                 , 0x21C) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRimLightScale                               , 0x220) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flReflectionsTintByBaseBlendToNone            , 0x224) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMetalnessBlendToFull                        , 0x228) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSelfIllumBlendToFull                        , 0x22C) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_PinParticleToCP
-    //   fields: 14
-    //   size: 0x11B0
-    //   @MGetKV3ClassDefaults
-    class C_OP_PinParticleToCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecOffset                                     , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOffsetLocal                                  , 0x8C0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSelection_t             , m_nParticleSelection                            , 0x8C4) // ParticleSelection_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nParticleNumber                               , 0x8C8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticlePinDistance_t           , m_nPinBreakType                                 , 0xA40) // ParticlePinDistance_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flBreakDistance                               , 0xA48) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flBreakSpeed                                  , 0xBC0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flAge                                         , 0xD38) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nBreakControlPointNumber                      , 0xEB0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nBreakControlPointNumber2                     , 0xEB4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flBreakValue                                  , 0xEB8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x1030) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRetainInitialVelocity                        , 0x11A8) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // FloatInputMaterialVariable_t
-    //   fields: 2
-    //   size: 0x180
-    //   @MGetKV3ClassDefaults
-    class FloatInputMaterialVariable_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_strVariable                                   , 0x0) // CUtlString [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInput                                       , 0x8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapVectorToRotations
-    //   fields: 2
-    //   size: 0xF90
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapVectorToRotations {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecInput                                      , 0x1E0) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecRotation                                   , 0x8B8) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flScale                                       , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetPosition                                  , 0x368) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x369) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetZDown                                     , 0x36A) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
     };
 
     // C_OP_SetFromCPSnapshot
@@ -4419,325 +4727,145 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bPrev                                         , 0x671) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_DistanceBetweenVecs
-    //   fields: 9
-    //   size: 0x1580
-    //   @MGetKV3ClassDefaults
-    class C_OP_DistanceBetweenVecs {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPoint1                                     , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPoint2                                     , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMin                                    , 0xF98) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMax                                    , 0x1110) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x1288) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x1400) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1578) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDeltaTime                                    , 0x157C) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_CreateFromParentParticles
-    //   fields: 6
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreateFromParentParticles {
-    public:
-        SCHEMA_FIELD(float                           , m_flVelocityScale                               , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flIncrement                                   , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRandomDistribution                           , 0x1F0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSubFrame                                     , 0x1F8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetRopeSegmentID                             , 0x1F9) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RemapParticleCountToNamedModelBodyPartScalar
+    // C_OP_RemapNamedModelBodyPartOnceTimed
     //   fields: 0
-    //   size: 0x238
+    //   size: 0x240
     //   @MGetKV3ClassDefaults
-    class C_INIT_RemapParticleCountToNamedModelBodyPartScalar {
+    class C_OP_RemapNamedModelBodyPartOnceTimed {
     public:
     };
 
-    // C_OP_Decay
-    //   fields: 2
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class C_OP_Decay {
-    public:
-        SCHEMA_FIELD(bool                            , m_bRopeDecay                                    , 0x1E0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bForcePreserveParticleOrder                   , 0x1E1) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_AddVectorToVector
-    //   fields: 6
-    //   size: 0x220
-    //   @MGetKV3ClassDefaults
-    class C_INIT_AddVectorToVector {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vecScale                                      , 0x1E8) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1F8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::Vector                        , m_vOffsetMin                                    , 0x1FC) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vOffsetMax                                    , 0x208) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x214) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
-    };
-
-    // C_INIT_SetVectorAttributeToVectorExpression
-    //   fields: 7
-    //   size: 0x1190
-    //   @MGetKV3ClassDefaults
-    class C_INIT_SetVectorAttributeToVectorExpression {
-    public:
-        SCHEMA_FIELD(VectorExpressionType_t          , m_nExpression                                   , 0x1E8) // VectorExpressionType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput1                                       , 0x1F0) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput2                                       , 0x8C8) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLerp                                        , 0xFA0) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x1118) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x111C) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x1120) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RandomSecondSequence
-    //   fields: 2
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomSecondSequence {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMin                                  , 0x1E8) // int32 [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(std::int32_t                    , m_nSequenceMax                                  , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeEditor]
-    };
-
-    // ParticleControlPointDriver_t
-    //   fields: 6
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class ParticleControlPointDriver_t {
-    public:
-        SCHEMA_FIELD(ParticleParamID_t               , m_iControlPoint                                 , 0x0) // ParticleParamID_t
-        SCHEMA_FIELD(::animationsystem::ParticleAttachment_t, m_iAttachType                                   , 0x10) // ParticleAttachment_t
-        SCHEMA_FIELD(::CUtlString                    , m_attachmentName                                , 0x18) // CUtlString
-        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x20) // Vector
-        SCHEMA_FIELD(::QAngle                        , m_angOffset                                     , 0x2C) // QAngle
-        SCHEMA_FIELD(::CUtlString                    , m_entityName                                    , 0x38) // CUtlString
-    };
-
-    // C_OP_RemapParticleCountToScalar
-    //   fields: 7
-    //   size: 0x7D0
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapParticleCountToScalar {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nInputMin                                     , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nInputMax                                     , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOutputMin                                   , 0x4D8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOutputMax                                   , 0x650) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x7C8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x7CC) // ParticleSetMethod_t [MPropertyFriendlyName]
-    };
-
-    // CParticleFunctionOperator
-    //   fields: 0
-    //   size: 0x1E0
-    //   @MGetKV3ClassDefaults
-    class CParticleFunctionOperator {
-    public:
-    };
-
-    // C_OP_SetControlPointFieldFromVectorExpression
-    //   fields: 7
-    //   size: 0x1298
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointFieldFromVectorExpression {
-    public:
-        SCHEMA_FIELD(VectorFloatExpressionType_t     , m_nExpression                                   , 0x1E8) // VectorFloatExpressionType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecInput1                                     , 0x1F0) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecInput2                                     , 0x8C8) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLerp                                        , 0xFA0) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x1118) // CParticleRemapFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1290) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x1294) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_OP_DecayMaintainCount
-    //   fields: 7
-    //   size: 0x380
-    //   @MGetKV3ClassDefaults
-    class C_OP_DecayMaintainCount {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nParticlesToMaintain                          , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flDecayDelay                                  , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x1F0) // CUtlString [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bLifespanDecay                                , 0x1F8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flScale                                       , 0x200) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bKillNewest                                   , 0x378) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_FadeAndKillForTracers
-    //   fields: 6
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_OP_FadeAndKillForTracers {
-    public:
-        SCHEMA_FIELD(float                           , m_flStartFadeInTime                             , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndFadeInTime                               , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartFadeOutTime                            , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndFadeOutTime                              , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartAlpha                                  , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndAlpha                                    , 0x1F4) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_DistanceBetweenCPsToCP
-    //   fields: 15
-    //   size: 0x2A0
-    //   @MGetKV3ClassDefaults
-    class C_OP_DistanceBetweenCPsToCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nStartCP                                      , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nEndCP                                        , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputCPField                                , 0x1F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetOnce                                      , 0x1F8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x204) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x208) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x20C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLOSScale                                    , 0x210) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLOS                                          , 0x214) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x215) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x298) // ParticleTraceSet_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleParentSetMode_t         , m_nSetParent                                    , 0x29C) // ParticleParentSetMode_t [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RandomRotation
-    //   fields: 0
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomRotation {
-    public:
-    };
-
-    // C_OP_MovementRigidAttachToCP
-    //   fields: 6
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_OP_MovementRigidAttachToCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleControlPoint                            , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleCPField                                 , 0x1E8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bOffsetLocal                                  , 0x1F4) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_DistanceToCPInit
-    //   fields: 15
-    //   size: 0x9F8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_DistanceToCPInit {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMin                                    , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMax                                    , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x4E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x658) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nStartCP                                      , 0x7D0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLOS                                          , 0x7D4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x7D5) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x858) // ParticleTraceSet_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMaxTraceLength                              , 0x860) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLOSScale                                    , 0x9D8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x9DC) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x9E0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecDistanceScale                              , 0x9E4) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRemapBias                                   , 0x9F0) // float32 [MPropertyFriendlyName]
-    };
-
-    // ControlPointReference_t
-    //   fields: 3
-    //   size: 0x14
-    //   @MGetKV3ClassDefaults
-    class ControlPointReference_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_controlPointNameString                        , 0x0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vOffsetFromControlPoint                       , 0x4) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOffsetInLocalSpace                           , 0x10) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_CheckParticleForWater
+    // C_INIT_InitFloat
     //   fields: 4
     //   size: 0x4E8
     //   @MGetKV3ClassDefaults
-    class C_INIT_CheckParticleForWater {
+    class C_INIT_InitFloat {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius                                      , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x360) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x368) // CParticleRemapFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x4E0) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputValue                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x360) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x364) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputStrength                                 , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
     };
 
-    // C_OP_GameLiquidSpill
-    //   fields: 5
-    //   size: 0x6A0
-    //   @MGetKV3ClassDefaults
-    class C_OP_GameLiquidSpill {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flLiquidContentsField                         , 0x230) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flExpirationTime                              , 0x3A8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRadius                                      , 0x520) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCheckExposedToSky                            , 0x698) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAmountAttribute                              , 0x69C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // CPAssignment_t
-    //   fields: 3
-    //   size: 0x6E8
-    //   @MGetKV3ClassDefaults
-    class CPAssignment_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCPNumber                                     , 0x0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_Pos                                           , 0x8) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleOrientationSetMode_t    , m_nOrientationMode                              , 0x6E0) // ParticleOrientationSetMode_t [MPropertyFriendlyName]
-    };
-
-    // C_INIT_CreateSequentialPathV2
+    // C_OP_Noise
     //   fields: 6
-    //   size: 0x530
-    //   @MParticleMinVersion
+    //   size: 0x1F8
     //   @MGetKV3ClassDefaults
-    class C_INIT_CreateSequentialPathV2 {
+    class C_OP_Noise {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fMaxDistance                                  , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flNumToAssign                                 , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x4D8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCPPairs                                      , 0x4D9) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSaveOffset                                   , 0x4DA) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x4E0) // CPathParameters
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fl4NoiseScale                                 , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x1F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flNoiseAnimationTimeScale                     , 0x1F4) // float32 [MPropertyFriendlyName]
     };
 
-    // C_OP_SetControlPointFromObjectScale
-    //   fields: 2
+    // CGeneralSpin
+    //   fields: 3
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class CGeneralSpin {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSpinRateDegrees                              , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nSpinRateMinDegrees                           , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fSpinRateStopTime                             , 0x1EC) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_ModelCull
+    //   fields: 5
+    //   size: 0x270
+    //   @MGetKV3ClassDefaults
+    class C_INIT_ModelCull {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bBoundBox                                     , 0x1EC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCullOutside                                  , 0x1ED) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1EE) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x1EF) // char[128] [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderLights
+    //   fields: 7
+    //   size: 0x258
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderLights {
+    public:
+        SCHEMA_FIELD(float                           , m_flAnimationRate                               , 0x238) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::AnimationType_t, m_nAnimationType                                , 0x23C) // AnimationType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAnimateInFPS                                 , 0x240) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMinSize                                     , 0x244) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxSize                                     , 0x248) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartFadeSize                               , 0x24C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndFadeSize                                 , 0x250) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_ColorInterpolate
+    //   fields: 5
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_ColorInterpolate {
+    public:
+        SCHEMA_FIELD(::Color                         , m_ColorFade                                     , 0x1E0) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFadeStartTime                               , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFadeEndTime                                 , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bEaseInOut                                    , 0x1FC) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_NormalOffset
+    //   fields: 5
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_INIT_NormalOffset {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_OffsetMin                                     , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_OffsetMax                                     , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x200) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x204) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x205) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_Orient2DRelToCP
+    //   fields: 4
     //   size: 0x1F0
     //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointFromObjectScale {
+    class C_OP_Orient2DRelToCP {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRotOffset                                   , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSpinStrength                                , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
     };
 
-    // C_OP_PlaneCull
-    //   fields: 4
-    //   size: 0x8C8
+    // C_OP_RampScalarSpline
+    //   fields: 10
+    //   size: 0x230
     //   @MGetKV3ClassDefaults
-    class C_OP_PlaneCull {
+    class C_OP_RampScalarSpline {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nPlaneControlPoint                            , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecPlaneDirection                             , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0x8C0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flPlaneOffset                                 , 0x8C4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_RateMin                                       , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_RateMax                                       , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flBias                                        , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x220) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bProportionalOp                               , 0x224) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bEaseOut                                      , 0x225) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_LagCompensation
+    //   fields: 4
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_LagCompensation {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nDesiredVelocityCP                            , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nLatencyCP                                    , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nLatencyCPField                               , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nDesiredVelocityCPField                       , 0x1EC) // int32 [MPropertyFriendlyName]
     };
 
     // CBaseRendererSource2
@@ -4813,60 +4941,459 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bMaxLuminanceBlendingSequence0                , 0x2C5D) // bool [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
     };
 
-    // C_OP_SetPerChildControlPoint
-    //   fields: 8
-    //   size: 0x4F0
+    // C_OP_StopAfterCPDuration
+    //   fields: 3
+    //   size: 0x368
     //   @MGetKV3ClassDefaults
-    class C_OP_SetPerChildControlPoint {
+    class C_OP_StopAfterCPDuration {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nParticleIncrement                            , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nFirstSourcePoint                             , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x4E0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOrientationField                             , 0x4E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bNumBasedOnParticleCount                      , 0x4E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDuration                                    , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDestroyImmediately                           , 0x360) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bPlayEndCap                                   , 0x361) // bool [MPropertyFriendlyName]
     };
 
-    // CParticleFunction
-    //   fields: 17
-    //   size: 0x1E0
-    //   @MGetKV3ClassDefaults
-    class CParticleFunction {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOpStrength                                  , 0x8) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(ParticleEndcapMode_t            , m_nOpEndCapState                                , 0x180) // ParticleEndcapMode_t [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(ParticleToolsState_t            , m_nToolsState                                   , 0x184) // ParticleToolsState_t [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flOpStartFadeInTime                           , 0x188) // float32 [MPropertyStartGroup, MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flOpEndFadeInTime                             , 0x18C) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flOpStartFadeOutTime                          , 0x190) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flOpEndFadeOutTime                            , 0x194) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flOpFadeOscillatePeriod                       , 0x198) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
-        SCHEMA_FIELD(bool                            , m_bNormalizeToStopTime                          , 0x19C) // bool [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flOpTimeOffsetMin                             , 0x1A0) // float32 [MPropertyStartGroup, MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flOpTimeOffsetMax                             , 0x1A4) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
-        SCHEMA_FIELD(std::int32_t                    , m_nOpTimeOffsetSeed                             , 0x1A8) // int32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
-        SCHEMA_FIELD(std::int32_t                    , m_nOpTimeScaleSeed                              , 0x1AC) // int32 [MPropertyStartGroup, MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flOpTimeScaleMin                              , 0x1B0) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flOpTimeScaleMax                              , 0x1B4) // float32 [MPropertyFriendlyName, MParticleAdvancedField, MPropertySortPriority]
-        SCHEMA_FIELD(bool                            , m_bDisableOperator                              , 0x1BA) // bool [MPropertyStartGroup, MPropertySuppressField]
-        SCHEMA_FIELD(::CUtlString                    , m_Notes                                         , 0x1C0) // CUtlString [MPropertyFriendlyName, MParticleHelpField, MPropertyAttributeEditor, MPropertySortPriority]
-    };
-
-    // C_OP_ModelDampenMovement
+    // C_INIT_RemapNamedModelElementToScalar
     //   fields: 7
-    //   size: 0x948
+    //   size: 0x230
     //   @MGetKV3ClassDefaults
-    class C_OP_ModelDampenMovement {
+    class C_INIT_RemapNamedModelElementToScalar {
+    public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x1E8) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_names                                         , 0x1F0) // CUtlVector<CUtlString> [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<float32>             , m_values                                        , 0x208) // CUtlVector<float32> [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x220) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x224) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x228) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x22C) // bool [MPropertyFriendlyName]
+    };
+
+    // ParticlePreviewBodyGroup_t
+    //   fields: 2
+    //   size: 0x10
+    //   @MGetKV3ClassDefaults
+    class ParticlePreviewBodyGroup_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_bodyGroupName                                 , 0x0) // CUtlString
+        SCHEMA_FIELD(std::int32_t                    , m_nValue                                        , 0x8) // int32
+    };
+
+    // C_OP_ModelCull
+    //   fields: 5
+    //   size: 0x268
+    //   @MGetKV3ClassDefaults
+    class C_OP_ModelCull {
     public:
         SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
         SCHEMA_FIELD(bool                            , m_bBoundBox                                     , 0x1E4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOutside                                      , 0x1E5) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCullOutside                                  , 0x1E5) // bool [MPropertyFriendlyName]
         SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1E6) // bool [MPropertyFriendlyName]
         SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x1E7) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPosOffset                                  , 0x268) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(float                           , m_fDrag                                         , 0x940) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+    };
+
+    // C_OP_RenderStatusEffectTf
+    //   fields: 7
+    //   size: 0x268
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderStatusEffectTf {
+    public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureColorWarp                             , 0x230) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureNormal                                , 0x238) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureMetalness                             , 0x240) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureRoughness                             , 0x248) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureSelfIllum                             , 0x250) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureDetail                                , 0x258) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureEnvMap                                , 0x260) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
+    };
+
+    // C_INIT_CreateOnModel
+    //   fields: 16
+    //   size: 0x13F0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateOnModel {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleModelInput, m_modelInput                                    , 0x1E8) // CParticleModelInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x248) // CParticleTransformInput [MPropertyFriendlyName, MParticleInputOptional]
+        SCHEMA_FIELD(std::int32_t                    , m_nForceInModel                                 , 0x2B0) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bScaleToVolume                                , 0x2B4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bEvenDistribution                             , 0x2B5) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nDesiredHitbox                                , 0x2B8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nHitboxValueFromControlPointIndex             , 0x430) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecHitBoxScale                                , 0x438) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flBoneVelocity                                , 0xB10) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxBoneVelocity                             , 0xB14) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecDirectionBias                              , 0xB18) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate, MPropertySuppressExpr]
+        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x11F0) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x1270) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1271) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bUseMesh                                      , 0x1272) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flShellSize                                   , 0x1278) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+    };
+
+    // C_INIT_RemapScalarToVector
+    //   fields: 12
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RemapScalarToVector {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1F8) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x204) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x210) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x214) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x218) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x21C) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x220) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRemapBias                                   , 0x224) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RandomModelSequence
+    //   fields: 3
+    //   size: 0x3F0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RandomModelSequence {
+    public:
+        SCHEMA_FIELD(char                            , m_ActivityName                                  , 0x1E8) // char[256] [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(char                            , m_SequenceName                                  , 0x2E8) // char[256] [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x3E8) // CStrongHandle<InfoForResourceTypeCModel> [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderClothForce
+    //   fields: 0
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderClothForce {
+    public:
+    };
+
+    // C_OP_EnableChildrenFromParentParticleCount
+    //   fields: 6
+    //   size: 0x370
+    //   @MGetKV3ClassDefaults
+    class C_OP_EnableChildrenFromParentParticleCount {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstChild                                   , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nNumChildrenToEnable                          , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDisableChildren                              , 0x368) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bPlayEndcapOnStop                             , 0x369) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bDestroyImmediately                           , 0x36A) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+    };
+
+    // C_INIT_CreateWithinCone
+    //   fields: 7
+    //   size: 0x840
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateWithinCone {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInnerAngle                                  , 0x250) // CPerParticleFloatInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOuterAngle                                  , 0x3C8) // CPerParticleFloatInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flSpeed                                       , 0x540) // CPerParticleFloatInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOffset                                      , 0x6B8) // CPerParticleFloatInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bCollapseOffset                               , 0x830) // bool [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x834) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointOrientationToCPVelocity
+    //   fields: 2
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointOrientationToCPVelocity {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x1EC) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetToCP
+    //   fields: 3
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetToCP {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x1E4) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOffsetLocal                                  , 0x1F0) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapSpeedtoCP
+    //   fields: 8
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapSpeedtoCP {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInControlPointNumber                         , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nField                                        , 0x1F0) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseDeltaV                                    , 0x204) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapVisibilityScalar
+    //   fields: 7
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapVisibilityScalar {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1F8) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointFromObjectScale
+    //   fields: 2
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointFromObjectScale {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x1EC) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RandomAlpha
+    //   fields: 4
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RandomAlpha {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nAlphaMin                                     , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(std::int32_t                    , m_nAlphaMax                                     , 0x1F0) // int32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(float                           , m_flAlphaRandExponent                           , 0x1FC) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointToPlayer
+    //   fields: 6
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointToPlayer {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bOrientToEyes                                 , 0x1F8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleEntityPos_t             , m_nPosition                                     , 0x1FC) // ParticleEntityPos_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nRadiusCP                                     , 0x200) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nRadiusCPField                                , 0x204) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
+    };
+
+    // C_OP_LockPoints
+    //   fields: 6
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_OP_LockPoints {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nMinCol                                       , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxCol                                       , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nMinRow                                       , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxRow                                       , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flBlendValue                                  , 0x1F4) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_CreateSequentialPath
+    //   fields: 6
+    //   size: 0x240
+    //   @MParticleMaxVersion
+    //   @MParticleReplacementOp
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateSequentialPath {
+    public:
+        SCHEMA_FIELD(float                           , m_fMaxDistance                                  , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flNumToAssign                                 , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x1F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCPPairs                                      , 0x1F1) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSaveOffset                                   , 0x1F2) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x200) // CPathParameters
+    };
+
+    // C_OP_SpinYaw
+    //   fields: 0
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_OP_SpinYaw {
+    public:
+    };
+
+    // C_OP_WorldCollideConstraint
+    //   fields: 0
+    //   size: 0x1E0
+    //   @MGetKV3ClassDefaults
+    class C_OP_WorldCollideConstraint {
+    public:
+    };
+
+    // C_OP_ConstrainDistanceToUserSpecifiedPath
+    //   fields: 5
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_OP_ConstrainDistanceToUserSpecifiedPath {
+    public:
+        SCHEMA_FIELD(float                           , m_fMinDistance                                  , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxDistance                                 , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flTimeScale                                   , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLoopedPath                                   , 0x1EC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<PointDefinitionWithTimeValues_t>, m_pointList                                     , 0x1F0) // CUtlVector<PointDefinitionWithTimeValues_t> [MPropertyFriendlyName]
+    };
+
+    // C_OP_RampScalarLinear
+    //   fields: 8
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class C_OP_RampScalarLinear {
+    public:
+        SCHEMA_FIELD(float                           , m_RateMin                                       , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_RateMax                                       , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x220) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bProportionalOp                               , 0x224) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_VelocityRandom
+    //   fields: 7
+    //   size: 0x12A0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_VelocityRandom {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMin                                     , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMax                                     , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_LocalCoordinateSystemSpeedMin                 , 0x4E0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_LocalCoordinateSystemSpeedMax                 , 0xBB8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bIgnoreDT                                     , 0x1290) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x1294) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
+    };
+
+    // ParticleControlPointDriver_t
+    //   fields: 6
+    //   size: 0x40
+    //   @MGetKV3ClassDefaults
+    class ParticleControlPointDriver_t {
+    public:
+        SCHEMA_FIELD(ParticleParamID_t               , m_iControlPoint                                 , 0x0) // ParticleParamID_t
+        SCHEMA_FIELD(::animationsystem::ParticleAttachment_t, m_iAttachType                                   , 0x10) // ParticleAttachment_t
+        SCHEMA_FIELD(::CUtlString                    , m_attachmentName                                , 0x18) // CUtlString
+        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x20) // Vector
+        SCHEMA_FIELD(::QAngle                        , m_angOffset                                     , 0x2C) // QAngle
+        SCHEMA_FIELD(::CUtlString                    , m_entityName                                    , 0x38) // CUtlString
+    };
+
+    // C_OP_RemapControlPointOrientationToRotation
+    //   fields: 4
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapControlPointOrientationToRotation {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flOffsetRot                                   , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName, MVectorIsSometimesCoordinate]
+    };
+
+    // C_OP_SetControlPointRotation
+    //   fields: 4
+    //   size: 0xA40
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointRotation {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecRotAxis                                    , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRotRate                                     , 0x8C0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0xA38) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalCP                                      , 0xA3C) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_BoxConstraint
+    //   fields: 5
+    //   size: 0xF98
+    //   @MGetKV3ClassDefaults
+    class C_OP_BoxConstraint {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecMin                                        , 0x1E0) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecMax                                        , 0x8B8) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0xF90) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0xF94) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAccountForRadius                             , 0xF95) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RtEnvCull
+    //   fields: 8
+    //   size: 0x290
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RtEnvCull {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vecTestDir                                    , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecTestNormal                                 , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bUseVelocity                                  , 0x200) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCullOnMiss                                   , 0x201) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLifeAdjust                                   , 0x202) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_RtEnvName                                     , 0x203) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nRTEnvCP                                      , 0x284) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x288) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_RemapDotProductToCP
+    //   fields: 8
+    //   size: 0x7D8
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapDotProductToCP {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nInputCP1                                     , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nInputCP2                                     , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x1F4) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInputMin                                    , 0x1F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInputMax                                    , 0x370) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOutputMin                                   , 0x4E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOutputMax                                   , 0x660) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RandomRadius
+    //   fields: 3
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RandomRadius {
+    public:
+        SCHEMA_FIELD(float                           , m_flRadiusMin                                   , 0x1E8) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(float                           , m_flRadiusMax                                   , 0x1EC) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+        SCHEMA_FIELD(float                           , m_flRadiusRandExponent                          , 0x1F0) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+    };
+
+    // C_INIT_OffsetVectorToVector
+    //   fields: 5
+    //   size: 0x210
+    //   @MGetKV3ClassDefaults
+    class C_INIT_OffsetVectorToVector {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1FC) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x208) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
+    };
+
+    // C_OP_InheritFromParentParticles
+    //   fields: 4
+    //   size: 0x1F0
+    //   @MParticleMaxVersion
+    //   @MParticleReplacementOp
+    //   @MGetKV3ClassDefaults
+    class C_OP_InheritFromParentParticles {
+    public:
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRandomDistribution                           , 0x1EC) // bool [MPropertyFriendlyName]
     };
 
     // C_OP_SetVec
@@ -4880,6 +5407,149 @@ namespace particles {
         SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x8BC) // ParticleSetMethod_t [MPropertyFriendlyName]
         SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_Lerp                                          , 0x8C0) // CPerParticleFloatInput [MPropertyFriendlyName]
         SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0xA38) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_PlayEndCapWhenFinished
+    //   fields: 2
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_PlayEndCapWhenFinished {
+    public:
+        SCHEMA_FIELD(bool                            , m_bFireOnEmissionEnd                            , 0x1E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bIncludeChildren                              , 0x1E9) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapDistanceToLineSegmentToVector
+    //   fields: 3
+    //   size: 0x218
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapDistanceToLineSegmentToVector {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::Vector                        , m_vMinOutputValue                               , 0x1FC) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vMaxOutputValue                               , 0x208) // Vector [MPropertyFriendlyName]
+    };
+
+    // C_INIT_InitialVelocityNoise
+    //   fields: 10
+    //   size: 0x1B60
+    //   @MGetKV3ClassDefaults
+    class C_INIT_InitialVelocityNoise {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vecAbsVal                                     , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecAbsValInv                                  , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOffsetLoc                                  , 0x200) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOffset                                      , 0x8D8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOutputMin                                  , 0xA50) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOutputMax                                  , 0x1128) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flNoiseScale                                  , 0x1800) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flNoiseScaleLoc                               , 0x1978) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1AF0) // CParticleTransformInput [MPropertyFriendlyName, MParticleInputOptional]
+        SCHEMA_FIELD(bool                            , m_bIgnoreDt                                     , 0x1B58) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_MoveBetweenPoints
+    //   fields: 7
+    //   size: 0x948
+    //   @MGetKV3ClassDefaults
+    class C_INIT_MoveBetweenPoints {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flSpeedMin                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flSpeedMax                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flEndSpread                                   , 0x4D8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flStartOffset                                 , 0x650) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flEndOffset                                   , 0x7C8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nEndControlPointNumber                        , 0x940) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bTrailBias                                    , 0x944) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetUserEvent
+    //   fields: 5
+    //   size: 0x658
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetUserEvent {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInput                                       , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRisingEdge                                  , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nRisingEventType                              , 0x4D0) // EventTypeSelection_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flFallingEdge                                 , 0x4D8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nFallingEventType                             , 0x650) // EventTypeSelection_t [MPropertyFriendlyName]
+    };
+
+    // C_OP_RampCPLinearRandom
+    //   fields: 3
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_OP_RampCPLinearRandom {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecRateMin                                    , 0x1EC) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecRateMax                                    , 0x1F8) // Vector [MPropertyFriendlyName]
+    };
+
+    // C_OP_RestartAfterDuration
+    //   fields: 6
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_OP_RestartAfterDuration {
+    public:
+        SCHEMA_FIELD(float                           , m_flDurationMin                                 , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flDurationMax                                 , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPField                                      , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOnlyChildren                                 , 0x1F4) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_SetFloatAttributeToVectorExpression
+    //   fields: 6
+    //   size: 0x1120
+    //   @MGetKV3ClassDefaults
+    class C_INIT_SetFloatAttributeToVectorExpression {
+    public:
+        SCHEMA_FIELD(VectorFloatExpressionType_t     , m_nExpression                                   , 0x1E8) // VectorFloatExpressionType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput1                                       , 0x1F0) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput2                                       , 0x8C8) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0xFA0) // CParticleRemapFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x1118) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x111C) // ParticleSetMethod_t [MPropertyFriendlyName]
+    };
+
+    // C_OP_MaintainSequentialPath
+    //   fields: 7
+    //   size: 0x690
+    //   @MGetKV3ClassDefaults
+    class C_OP_MaintainSequentialPath {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_fMaxDistance                                  , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flNumToAssign                                 , 0x358) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flCohesionStrength                            , 0x4D0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flTolerance                                   , 0x648) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLoop                                         , 0x64C) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseParticleCount                             , 0x64D) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x650) // CPathParameters
+    };
+
+    // SequenceWeightedList_t
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class SequenceWeightedList_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nSequence                                     , 0x0) // int32 [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(float                           , m_flRelativeWeight                              , 0x4) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RemapInitialTransformDirectionToRotation
+    //   fields: 4
+    //   size: 0x260
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RemapInitialTransformDirectionToRotation {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x250) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flOffsetRot                                   , 0x254) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x258) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName, MVectorIsSometimesCoordinate]
     };
 
     // C_OP_OscillateVectorSimple
@@ -4896,35 +5566,49 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x204) // bool [MPropertyFriendlyName]
     };
 
-    // C_INIT_LifespanFromVelocity
-    //   fields: 8
-    //   size: 0x2A0
+    // C_INIT_RemapParticleCountToNamedModelMeshGroupScalar
+    //   fields: 0
+    //   size: 0x238
     //   @MGetKV3ClassDefaults
-    class C_INIT_LifespanFromVelocity {
+    class C_INIT_RemapParticleCountToNamedModelMeshGroupScalar {
     public:
-        SCHEMA_FIELD(::Vector                        , m_vecComponentScale                             , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(float                           , m_flTraceOffset                                 , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flTraceTolerance                              , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nMaxPlanes                                    , 0x200) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x208) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x288) // ParticleTraceSet_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0x298) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_SetControlPointFieldToScalarExpression
-    //   fields: 7
-    //   size: 0x7D8
+    // C_INIT_ScaleVelocity
+    //   fields: 1
+    //   size: 0x8C0
     //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointFieldToScalarExpression {
+    class C_INIT_ScaleVelocity {
     public:
-        SCHEMA_FIELD(ScalarExpressionType_t          , m_nExpression                                   , 0x1E8) // ScalarExpressionType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInput1                                      , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInput2                                      , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x4E0) // CParticleRemapFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x658) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x65C) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInterpolation                               , 0x660) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecScale                                      , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+    };
+
+    // C_OP_ColorInterpolateRandom
+    //   fields: 6
+    //   size: 0x220
+    //   @MGetKV3ClassDefaults
+    class C_OP_ColorInterpolateRandom {
+    public:
+        SCHEMA_FIELD(::Color                         , m_ColorFadeMin                                  , 0x1E0) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_ColorFadeMax                                  , 0x1FC) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFadeStartTime                               , 0x20C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFadeEndTime                                 , 0x210) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x214) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bEaseInOut                                    , 0x218) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetFloatAttributeToVectorExpression
+    //   fields: 6
+    //   size: 0x1118
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetFloatAttributeToVectorExpression {
+    public:
+        SCHEMA_FIELD(VectorFloatExpressionType_t     , m_nExpression                                   , 0x1E0) // VectorFloatExpressionType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput1                                       , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput2                                       , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0xF98) // CParticleRemapFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x1110) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1114) // ParticleSetMethod_t [MPropertyFriendlyName]
     };
 
     // CParticleVisibilityInputs
@@ -4954,275 +5638,88 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bRightEye                                     , 0x44) // bool [MPropertyFriendlyName, MParticleAdvancedField]
     };
 
-    // C_OP_ModelSurfaceSnapshotGenerator
-    //   fields: 10
-    //   size: 0x838
-    //   @MGetKV3ClassDefaults
-    class C_OP_ModelSurfaceSnapshotGenerator {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCPSnapshot                                   , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleModelInput, m_modelInput                                    , 0x1F0) // CParticleModelInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRecalcRate                                  , 0x250) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flUSpacing                                    , 0x3C8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flVSpacing                                    , 0x540) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flSurfaceOffset                               , 0x6B8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x830) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetUp                                        , 0x831) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetGravity                                   , 0x832) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetUV                                        , 0x833) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetVectorAttributeToVectorExpression
-    //   fields: 7
-    //   size: 0x1180
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetVectorAttributeToVectorExpression {
-    public:
-        SCHEMA_FIELD(VectorExpressionType_t          , m_nExpression                                   , 0x1E0) // VectorExpressionType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput1                                       , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput2                                       , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLerp                                        , 0xF98) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x1110) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1114) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x1118) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_ShapeMatchingConstraint
-    //   fields: 1
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class C_OP_ShapeMatchingConstraint {
-    public:
-        SCHEMA_FIELD(float                           , m_flShapeRestorationTime                        , 0x1E0) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderFlattenGrass
+    // C_OP_ClampScalar
     //   fields: 3
-    //   size: 0x240
+    //   size: 0x4D8
     //   @MGetKV3ClassDefaults
-    class C_OP_RenderFlattenGrass {
+    class C_OP_ClampScalar {
     public:
-        SCHEMA_FIELD(float                           , m_flFlattenStrength                             , 0x230) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nStrengthFieldOverride                        , 0x234) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x238) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
     };
 
-    // C_OP_ExternalWindForce
-    //   fields: 11
-    //   size: 0x2050
-    //   @MGetKV3ClassDefaults
-    class C_OP_ExternalWindForce {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecSamplePosition                             , 0x1F0) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecScale                                      , 0x8C8) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSampleWind                                   , 0xFA0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSampleWater                                  , 0xFA1) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDampenNearWaterPlane                         , 0xFA2) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bSampleGravity                                , 0xFA3) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecGravityForce                               , 0xFA8) // CPerParticleVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bUseBasicMovementGravity                      , 0x1680) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLocalGravityScale                           , 0x1688) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLocalBuoyancyScale                          , 0x1800) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecBuoyancyForce                              , 0x1978) // CPerParticleVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // C_OP_ControlPointToRadialScreenSpace
-    //   fields: 5
+    // C_OP_CycleScalar
+    //   fields: 10
     //   size: 0x208
     //   @MGetKV3ClassDefaults
-    class C_OP_ControlPointToRadialScreenSpace {
+    class C_OP_CycleScalar {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCPIn                                         , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPOut                                        , 0x1F8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPOutField                                   , 0x1FC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPSSPosOut                                   , 0x200) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nDestField                                    , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flStartValue                                  , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndValue                                    , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flCycleTime                                   , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDoNotRepeatCycle                             , 0x1F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSynchronizeParticles                         , 0x1F1) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPScale                                      , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPFieldMin                                   , 0x1F8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPFieldMax                                   , 0x1FC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x200) // ParticleSetMethod_t [MPropertyFriendlyName]
     };
 
-    // C_INIT_CreateWithinCone
-    //   fields: 7
-    //   size: 0x840
+    // C_OP_CPOffsetToPercentageBetweenCPs
+    //   fields: 11
+    //   size: 0x210
     //   @MGetKV3ClassDefaults
-    class C_INIT_CreateWithinCone {
+    class C_OP_CPOffsetToPercentageBetweenCPs {
     public:
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInnerAngle                                  , 0x250) // CPerParticleFloatInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOuterAngle                                  , 0x3C8) // CPerParticleFloatInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flSpeed                                       , 0x540) // CPerParticleFloatInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOffset                                      , 0x6B8) // CPerParticleFloatInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bCollapseOffset                               , 0x830) // bool [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x834) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputBias                                   , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nStartCP                                      , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nEndCP                                        , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOffsetCP                                     , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOuputCP                                      , 0x1F8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nInputCP                                      , 0x1FC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRadialCheck                                  , 0x200) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bScaleOffset                                  , 0x201) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x204) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
     };
 
-    // C_OP_RemapVectorComponentToScalar
+    // C_OP_Diffusion
     //   fields: 3
     //   size: 0x1F0
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapVectorComponentToScalar {
+    class C_OP_Diffusion {
     public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1E0) // float32 [MPropertyFriendlyName]
         SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x1E8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nVoxelGridResolution                          , 0x1E8) // int32 [MPropertyFriendlyName]
     };
 
-    // C_OP_ColorInterpolate
+    // C_INIT_PointList
     //   fields: 5
-    //   size: 0x200
+    //   size: 0x210
     //   @MGetKV3ClassDefaults
-    class C_OP_ColorInterpolate {
-    public:
-        SCHEMA_FIELD(::Color                         , m_ColorFade                                     , 0x1E0) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFadeStartTime                               , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFadeEndTime                                 , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bEaseInOut                                    , 0x1FC) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_RampScalarLinear
-    //   fields: 8
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_OP_RampScalarLinear {
-    public:
-        SCHEMA_FIELD(float                           , m_RateMin                                       , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_RateMax                                       , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x220) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bProportionalOp                               , 0x224) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_WindForce
-    //   fields: 1
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_WindForce {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vForce                                        , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-    };
-
-    // C_OP_MultiSegmentDisplaySnapshotGenerator
-    //   fields: 15
-    //   size: 0x1A18
-    //   @MGetKV3ClassDefaults
-    class C_OP_MultiSegmentDisplaySnapshotGenerator {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCPSnapshot                                   , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleMultiSegmentCountSelection_t, m_nSegCount                                     , 0x1EC) // ParticleMultiSegmentCountSelection_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleMultiSegmentInputSelection_t, m_nInputType                                    , 0x1F0) // ParticleMultiSegmentInputSelection_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_strDefaultString                              , 0x1F8) // CUtlString [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flValue                                       , 0x200) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flScollOffset                                 , 0x378) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<ParticleMultiSegmentSpecialCharacter_t>, m_SpecialCharList                               , 0x4F0) // CUtlVector<ParticleMultiSegmentSpecialCharacter_t> [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorUnlit                                 , 0x508) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorLit                                   , 0xBE0) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRadius                                      , 0x12B8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flSpacing                                     , 0x1430) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMinCount                                    , 0x15A8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMaxCount                                    , 0x1720) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bPrependEmpty                                 , 0x1898) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDigitsAfterDecimal                          , 0x18A0) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // C_OP_InheritFromParentParticlesV2
-    //   fields: 8
-    //   size: 0x658
-    //   @MParticleMinVersion
-    //   @MGetKV3ClassDefaults
-    class C_OP_InheritFromParentParticlesV2 {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flScale                                       , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x358) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_nIncrement                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSubSample                                    , 0x4D8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRandomDistribution                           , 0x4D9) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x4DA) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(MissingParentInheritBehavior_t  , m_nMissingParentBehavior                        , 0x4DC) // MissingParentInheritBehavior_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x4E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_CreatePhyllotaxis
-    //   fields: 14
-    //   size: 0x218
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreatePhyllotaxis {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nScaleCP                                      , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x1F0) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_fRadCentCore                                  , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fRadPerPoint                                  , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fRadPerPointTo                                , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fpointAngle                                   , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fsizeOverall                                  , 0x204) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fRadBias                                      , 0x208) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fMinRad                                       , 0x20C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fDistBias                                     , 0x210) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseLocalCoords                               , 0x214) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseWithContEmit                              , 0x215) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseOrigRadius                                , 0x216) // bool [MPropertyFriendlyName]
-    };
-
-    // CPathParameters
-    //   fields: 9
-    //   size: 0x40
-    //   @MGetKV3ClassDefaults
-    class CPathParameters {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nStartControlPointNumber                      , 0x0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nMidControlPointNumber                        , 0x4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nEndControlPointNumber                        , 0x8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nBulgeControl                                 , 0xC) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flBulge                                       , 0x10) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flMidPoint                                    , 0x14) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::Vector                        , m_vStartPointOffset                             , 0x18) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vMidPointOffset                               , 0x24) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vEndOffset                                    , 0x30) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-    };
-
-    // C_OP_NormalLock
-    //   fields: 1
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class C_OP_NormalLock {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RandomAlpha
-    //   fields: 4
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomAlpha {
+    class C_INIT_PointList {
     public:
         SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nAlphaMin                                     , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(std::int32_t                    , m_nAlphaMax                                     , 0x1F0) // int32 [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(float                           , m_flAlphaRandExponent                           , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<PointDefinition_t>   , m_pointList                                     , 0x1F0) // CUtlVector<PointDefinition_t> [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bPlaceAlongPath                               , 0x208) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bClosedLoop                                   , 0x209) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nNumPointsAlongPath                           , 0x20C) // int32 [MPropertyFriendlyName]
     };
 
-    // C_OP_FadeIn
+    // C_INIT_RandomVectorComponent
     //   fields: 4
-    //   size: 0x1F0
+    //   size: 0x1F8
     //   @MGetKV3ClassDefaults
-    class C_OP_FadeIn {
+    class C_INIT_RandomVectorComponent {
     public:
-        SCHEMA_FIELD(float                           , m_flFadeInTimeMin                               , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFadeInTimeMax                               , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFadeInTimeExp                               , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x1EC) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_QuantizeFloat
-    //   fields: 2
-    //   size: 0x368
-    //   @MGetKV3ClassDefaults
-    class C_INIT_QuantizeFloat {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputValue                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x360) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flMin                                         , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMax                                         , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x1F4) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName, MVectorIsSometimesCoordinate]
     };
 
     // C_OP_RemapModelVolumetoCP
@@ -5244,494 +5741,19 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bCubeRoot                                     , 0x20D) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
     };
 
-    // C_INIT_RemapTransformOrientationToRotations
-    //   fields: 4
-    //   size: 0x260
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RemapTransformOrientationToRotations {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecRotation                                   , 0x250) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseQuat                                      , 0x25C) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bWriteNormal                                  , 0x25D) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetSimulationRate
-    //   fields: 1
-    //   size: 0x360
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetSimulationRate {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flSimulationScale                             , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_MaintainEmitter
-    //   fields: 9
-    //   size: 0x670
-    //   @MGetKV3ClassDefaults
-    class C_OP_MaintainEmitter {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nParticlesToMaintain                          , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x360) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flEmissionDuration                            , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEmissionRate                                , 0x4E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x4E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x4E8) // CUtlString [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bEmitInstantaneously                          , 0x4F0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bFinalEmitOnStop                              , 0x4F1) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flScale                                       , 0x4F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RandomVector
-    //   fields: 4
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomVector {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vecMin                                        , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecMax                                        , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x200) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x204) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
-    };
-
-    // CollisionGroupContext_t
-    //   fields: 1
-    //   size: 0x4
-    //   @MGetKV3ClassDefaults
-    class CollisionGroupContext_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCollisionGroupNumber                         , 0x0) // int32
-    };
-
-    // C_INIT_InitFloatCollection
-    //   fields: 2
-    //   size: 0x368
-    //   @MGetKV3ClassDefaults
-    class C_INIT_InitFloatCollection {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_InputValue                                    , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x360) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_OP_CollideWithParentParticles
-    //   fields: 2
-    //   size: 0x4D0
-    //   @MGetKV3ClassDefaults
-    class C_OP_CollideWithParentParticles {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flParentRadiusScale                           , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadiusScale                                 , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_InheritFromParentParticles
-    //   fields: 5
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_INIT_InheritFromParentParticles {
-    public:
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRandomDistribution                           , 0x1F4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1F8) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_OscillateVector
-    //   fields: 15
-    //   size: 0x690
-    //   @MGetKV3ClassDefaults
-    class C_OP_OscillateVector {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_RateMin                                       , 0x1E0) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_RateMax                                       , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_FrequencyMin                                  , 0x1F8) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_FrequencyMax                                  , 0x204) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x210) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x214) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bProportionalOp                               , 0x215) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x216) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x218) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x21C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x220) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x224) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOscMult                                     , 0x228) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOscAdd                                      , 0x3A0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRateScale                                   , 0x518) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_DirectionBetweenVecsToVec
-    //   fields: 3
-    //   size: 0xF98
-    //   @MGetKV3ClassDefaults
-    class C_OP_DirectionBetweenVecsToVec {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPoint1                                     , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPoint2                                     , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapScalarOnceTimed
-    //   fields: 8
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapScalarOnceTimed {
-    public:
-        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x1E0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRemapTime                                   , 0x1FC) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_InitialVelocityNoise
-    //   fields: 10
-    //   size: 0x1B60
-    //   @MGetKV3ClassDefaults
-    class C_INIT_InitialVelocityNoise {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vecAbsVal                                     , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecAbsValInv                                  , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOffsetLoc                                  , 0x200) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOffset                                      , 0x8D8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOutputMin                                  , 0xA50) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOutputMax                                  , 0x1128) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flNoiseScale                                  , 0x1800) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flNoiseScaleLoc                               , 0x1978) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1AF0) // CParticleTransformInput [MPropertyFriendlyName, MParticleInputOptional]
-        SCHEMA_FIELD(bool                            , m_bIgnoreDt                                     , 0x1B58) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetControlPointToImpactPoint
-    //   fields: 12
-    //   size: 0x410
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointToImpactPoint {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCPOut                                        , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPIn                                         , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flUpdateRate                                  , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flTraceLength                                 , 0x1F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartOffset                                 , 0x370) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOffset                                      , 0x374) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecTraceDir                                   , 0x378) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x384) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x404) // ParticleTraceSet_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetToEndpoint                                , 0x408) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bTraceToClosestSurface                        , 0x409) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0x40A) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetCPOrientationToDirection
-    //   fields: 2
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetCPOrientationToDirection {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nInputControlPoint                            , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputControlPoint                           , 0x1E4) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_DriveCPFromGlobalSoundFloat
-    //   fields: 9
-    //   size: 0x220
-    //   @MGetKV3ClassDefaults
-    class C_OP_DriveCPFromGlobalSoundFloat {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputControlPoint                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputField                                  , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_StackName                                     , 0x200) // CUtlString [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_OperatorName                                  , 0x208) // CUtlString [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_FieldName                                     , 0x210) // CUtlString [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapCPtoCP
-    //   fields: 10
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapCPtoCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nInputControlPoint                            , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputControlPoint                           , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nInputField                                   , 0x1F0) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputField                                  , 0x1F4) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x204) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDerivative                                   , 0x208) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInterpRate                                  , 0x20C) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RandomColor
-    //   fields: 10
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomColor {
-    public:
-        SCHEMA_FIELD(::Color                         , m_ColorMin                                      , 0x204) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_ColorMax                                      , 0x208) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_TintMin                                       , 0x20C) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_TintMax                                       , 0x210) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flTintPerc                                    , 0x214) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flUpdateThreshold                             , 0x218) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nTintCP                                       , 0x21C) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x220) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleColorBlendMode_t        , m_nTintBlendMode                                , 0x224) // ParticleColorBlendMode_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLightAmplification                          , 0x228) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_InstantaneousEmitter
-    //   fields: 8
-    //   size: 0x668
-    //   @MGetKV3ClassDefaults
-    class C_OP_InstantaneousEmitter {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nParticlesToEmit                              , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertyAttributeRange]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flStartTime                                   , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInitFromKilledParentParticles               , 0x4D8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x4DC) // EventTypeSelection_t [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flParentParticleScale                         , 0x4E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nMaxEmittedPerFrame                           , 0x658) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x65C) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x660) // CUtlString [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // C_OP_ModelCull
-    //   fields: 5
-    //   size: 0x268
-    //   @MGetKV3ClassDefaults
-    class C_OP_ModelCull {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bBoundBox                                     , 0x1E4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCullOutside                                  , 0x1E5) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1E6) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x1E7) // char[128] [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetFloatAttributeToVectorExpression
-    //   fields: 6
-    //   size: 0x1118
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetFloatAttributeToVectorExpression {
-    public:
-        SCHEMA_FIELD(VectorFloatExpressionType_t     , m_nExpression                                   , 0x1E0) // VectorFloatExpressionType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput1                                       , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput2                                       , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0xF98) // CParticleRemapFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x1110) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1114) // ParticleSetMethod_t [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RandomNamedModelBodyPart
-    //   fields: 0
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomNamedModelBodyPart {
-    public:
-    };
-
-    // C_OP_RemapBoundingVolumetoCP
-    //   fields: 5
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapBoundingVolumetoCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_LerpVector
-    //   fields: 5
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_LerpVector {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::Vector                        , m_vecOutput                                     , 0x1E4) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F8) // ParticleSetMethod_t [MPropertyFriendlyName]
-    };
-
-    // C_INIT_CreateAlongPath
-    //   fields: 6
-    //   size: 0x540
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreateAlongPath {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fMaxDistance                                  , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fT                                            , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x4E0) // CPathParameters
-        SCHEMA_FIELD(bool                            , m_bUseRandomCPs                                 , 0x520) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vEndOffset                                    , 0x524) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bSaveOffset                                   , 0x530) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_PinRopeSegmentParticleToParent
-    //   fields: 3
-    //   size: 0x4D8
-    //   @MGetKV3ClassDefaults
-    class C_OP_PinRopeSegmentParticleToParent {
-    public:
-        SCHEMA_FIELD(ParticleSelection_t             , m_nParticleSelection                            , 0x1E0) // ParticleSelection_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nParticleNumber                               , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_RotateVector
+    // C_OP_AttractToControlPoint
     //   fields: 7
-    //   size: 0x380
+    //   size: 0x6E0
     //   @MGetKV3ClassDefaults
-    class C_OP_RotateVector {
+    class C_OP_AttractToControlPoint {
     public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::Vector                        , m_vecRotAxisMin                                 , 0x1E4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecRotAxisMax                                 , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(float                           , m_flRotRateMin                                  , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRotRateMax                                  , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x204) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flScale                                       , 0x208) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_OffsetVectorToVector
-    //   fields: 5
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_INIT_OffsetVectorToVector {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1FC) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x208) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderText
-    //   fields: 2
-    //   size: 0x240
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderText {
-    public:
-        SCHEMA_FIELD(::Color                         , m_OutlineColor                                  , 0x230) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_DefaultText                                   , 0x238) // CUtlString [MPropertyFriendlyName]
-    };
-
-    // C_INIT_NormalOffset
-    //   fields: 5
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_INIT_NormalOffset {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_OffsetMin                                     , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_OffsetMax                                     , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x200) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x204) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x205) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetControlPointToCenter
-    //   fields: 4
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointToCenter {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bUseAvgParticlePos                            , 0x1F8) // bool [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(ParticleParentSetMode_t         , m_nSetParent                                    , 0x1FC) // ParticleParentSetMode_t [MPropertyFriendlyName]
-    };
-
-    // C_INIT_PointList
-    //   fields: 5
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_INIT_PointList {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(CUtlVector<PointDefinition_t>   , m_pointList                                     , 0x1F0) // CUtlVector<PointDefinition_t> [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bPlaceAlongPath                               , 0x208) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bClosedLoop                                   , 0x209) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nNumPointsAlongPath                           , 0x20C) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_EndCapDecay
-    //   fields: 0
-    //   size: 0x1E0
-    //   @MGetKV3ClassDefaults
-    class C_OP_EndCapDecay {
-    public:
-    };
-
-    // ParticlePreviewState_t
-    //   fields: 18
-    //   size: 0x70
-    //   @MGetKV3ClassDefaults
-    class ParticlePreviewState_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_previewModel                                  , 0x0) // CUtlString
-        SCHEMA_FIELD(std::uint32_t                   , m_nModSpecificData                              , 0x8) // uint32
-        SCHEMA_FIELD(PetGroundType_t                 , m_groundType                                    , 0xC) // PetGroundType_t
-        SCHEMA_FIELD(::CUtlString                    , m_sequenceName                                  , 0x10) // CUtlString
-        SCHEMA_FIELD(std::int32_t                    , m_nFireParticleOnSequenceFrame                  , 0x18) // int32
-        SCHEMA_FIELD(::CUtlString                    , m_hitboxSetName                                 , 0x20) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_materialGroupName                             , 0x28) // CUtlString
-        SCHEMA_FIELD(CUtlVector<ParticlePreviewBodyGroup_t>, m_vecBodyGroups                                 , 0x30) // CUtlVector<ParticlePreviewBodyGroup_t>
-        SCHEMA_FIELD(float                           , m_flPlaybackSpeed                               , 0x48) // float32
-        SCHEMA_FIELD(float                           , m_flParticleSimulationRate                      , 0x4C) // float32
-        SCHEMA_FIELD(bool                            , m_bShouldDrawHitboxes                           , 0x50) // bool
-        SCHEMA_FIELD(bool                            , m_bShouldDrawAttachments                        , 0x51) // bool
-        SCHEMA_FIELD(bool                            , m_bShouldDrawAttachmentNames                    , 0x52) // bool
-        SCHEMA_FIELD(bool                            , m_bShouldDrawControlPointAxes                   , 0x53) // bool
-        SCHEMA_FIELD(bool                            , m_bAnimationNonLooping                          , 0x54) // bool
-        SCHEMA_FIELD(bool                            , m_bSequenceNameIsAnimClipPath                   , 0x55) // bool
-        SCHEMA_FIELD(::Vector                        , m_vecPreviewGravity                             , 0x58) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vecPreviewWind                                , 0x64) // Vector
-    };
-
-    // C_OP_RemapParticleCountOnScalarEndCap
-    //   fields: 7
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapParticleCountOnScalarEndCap {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nInputMin                                     , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nInputMax                                     , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bBackwards                                    , 0x1F4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F8) // ParticleSetMethod_t [MPropertyFriendlyName]
-    };
-
-    // C_OP_InheritFromPeerSystem
-    //   fields: 4
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_OP_InheritFromPeerSystem {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nGroupID                                      , 0x1EC) // int32 [MPropertyFriendlyName]
-    };
-
-    // CParticleFunctionConstraint
-    //   fields: 0
-    //   size: 0x1E0
-    //   @MGetKV3ClassDefaults
-    class CParticleFunctionConstraint {
-    public:
+        SCHEMA_FIELD(::Vector                        , m_vecComponentScale                             , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fForceAmount                                  , 0x200) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fMinimumDistance                              , 0x378) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fFalloffPower                                 , 0x4F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x4F8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fForceAmountMin                               , 0x560) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bApplyMinForce                                , 0x6D8) // bool [MPropertyFriendlyName]
     };
 
     // C_OP_LightningSnapshotGenerator
@@ -5762,698 +5784,13 @@ namespace particles {
         SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDedicatedPool                               , 0x1528) // CParticleCollectionFloatInput [MPropertyFriendlyName]
     };
 
-    // C_OP_SetPerChildControlPointFromAttribute
-    //   fields: 8
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetPerChildControlPointFromAttribute {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nParticleIncrement                            , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nFirstSourcePoint                             , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bNumBasedOnParticleCount                      , 0x1F4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToRead                              , 0x1F8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPField                                      , 0x1FC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_OP_FadeOutSimple
-    //   fields: 2
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class C_OP_FadeOutSimple {
-    public:
-        SCHEMA_FIELD(float                           , m_flFadeOutTime                                 , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_OP_RampCPLinearRandom
-    //   fields: 3
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_OP_RampCPLinearRandom {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecRateMin                                    , 0x1EC) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecRateMax                                    , 0x1F8) // Vector [MPropertyFriendlyName]
-    };
-
-    // C_OP_CalculateVectorAttribute
-    //   fields: 11
-    //   size: 0x240
-    //   @MGetKV3ClassDefaults
-    class C_OP_CalculateVectorAttribute {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vStartValue                                   , 0x1E0) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput1                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputScale1                                 , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput2                                  , 0x1F4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputScale2                                 , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ControlPointReference_t         , m_nControlPointInput1                           , 0x1FC) // ControlPointReference_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flControlPointScale1                          , 0x210) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ControlPointReference_t         , m_nControlPointInput2                           , 0x214) // ControlPointReference_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flControlPointScale2                          , 0x228) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x22C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::Vector                        , m_vFinalOutputScale                             , 0x230) // Vector [MPropertyFriendlyName]
-    };
-
-    // C_OP_MovementMoveAlongSkinnedCPSnapshot
-    //   fields: 6
-    //   size: 0x4E0
-    //   @MGetKV3ClassDefaults
-    class C_OP_MovementMoveAlongSkinnedCPSnapshot {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPointNumber                   , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x1E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetRadius                                    , 0x1E9) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flTValue                                      , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_VelocityRandom
-    //   fields: 7
-    //   size: 0x12A0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_VelocityRandom {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMin                                     , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMax                                     , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_LocalCoordinateSystemSpeedMin                 , 0x4E0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_LocalCoordinateSystemSpeedMax                 , 0xBB8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bIgnoreDT                                     , 0x1290) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x1294) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapNamedModelBodyPartOnceTimed
-    //   fields: 0
-    //   size: 0x240
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapNamedModelBodyPartOnceTimed {
-    public:
-    };
-
-    // C_OP_ClampScalar
-    //   fields: 3
-    //   size: 0x4D8
-    //   @MGetKV3ClassDefaults
-    class C_OP_ClampScalar {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_RampScalarSpline
-    //   fields: 10
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_OP_RampScalarSpline {
-    public:
-        SCHEMA_FIELD(float                           , m_RateMin                                       , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_RateMax                                       , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flBias                                        , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x220) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bProportionalOp                               , 0x224) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bEaseOut                                      , 0x225) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_VelocityDecay
+    // C_INIT_RandomYawFlip
     //   fields: 1
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class C_OP_VelocityDecay {
-    public:
-        SCHEMA_FIELD(float                           , m_flMinVelocity                                 , 0x1E0) // float32 [MPropertyFriendlyName]
-    };
-
-    // PointDefinition_t
-    //   fields: 3
-    //   size: 0x14
-    //   @MGetKV3ClassDefaults
-    class PointDefinition_t {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vOffset                                       , 0x8) // Vector [MPropertyFriendlyName]
-    };
-
-    // C_OP_UpdateLightSource
-    //   fields: 6
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_OP_UpdateLightSource {
-    public:
-        SCHEMA_FIELD(::Color                         , m_vColorTint                                    , 0x1E0) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flBrightnessScale                             , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMinimumLightingRadius                       , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaximumLightingRadius                       , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flPositionDampingConstant                     , 0x1F4) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_DecayOffscreen
-    //   fields: 1
-    //   size: 0x358
-    //   @MGetKV3ClassDefaults
-    class C_OP_DecayOffscreen {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flOffscreenTime                               , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_ColorLitPerParticle
-    //   fields: 7
-    //   size: 0x220
-    //   @MGetKV3ClassDefaults
-    class C_INIT_ColorLitPerParticle {
-    public:
-        SCHEMA_FIELD(::Color                         , m_ColorMin                                      , 0x200) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_ColorMax                                      , 0x204) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_TintMin                                       , 0x208) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_TintMax                                       , 0x20C) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flTintPerc                                    , 0x210) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleColorBlendMode_t        , m_nTintBlendMode                                , 0x214) // ParticleColorBlendMode_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLightAmplification                          , 0x218) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RemapNamedModelMeshGroupToScalar
-    //   fields: 0
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RemapNamedModelMeshGroupToScalar {
-    public:
-    };
-
-    // C_OP_SetControlPointToWaterSurface
-    //   fields: 7
-    //   size: 0x380
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointToWaterSurface {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nSourceCP                                     , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nDestCP                                       , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nFlowCP                                       , 0x1F0) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nActiveCP                                     , 0x1F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nActiveCPField                                , 0x1F8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRetestRate                                  , 0x200) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAdaptiveThreshold                            , 0x378) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapCPtoVector
-    //   fields: 13
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapCPtoVector {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vInputMin                                     , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vInputMax                                     , 0x1F8) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vOutputMin                                    , 0x204) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vOutputMax                                    , 0x210) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x21C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x220) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInterpRate                                  , 0x224) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x228) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x22C) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAccelerate                                   , 0x22D) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_CreationNoise
-    //   fields: 10
-    //   size: 0x218
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreationNoise {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(bool                            , m_bAbsVal                                       , 0x1EC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAbsValInv                                    , 0x1ED) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOffset                                      , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flNoiseScale                                  , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flNoiseScaleLoc                               , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOffsetLoc                                  , 0x204) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(float                           , m_flWorldTimeScale                              , 0x210) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapGravityToVector
-    //   fields: 4
-    //   size: 0x930
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapGravityToVector {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput1                                       , 0x1E0) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x8B8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x8BC) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x8C0) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderClothForce
-    //   fields: 0
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderClothForce {
-    public:
-    };
-
-    // C_OP_OscillateScalarSimple
-    //   fields: 5
-    //   size: 0x220
-    //   @MGetKV3ClassDefaults
-    class C_OP_OscillateScalarSimple {
-    public:
-        SCHEMA_FIELD(float                           , m_Rate                                          , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_Frequency                                     , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flOscMult                                     , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOscAdd                                      , 0x1F0) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_CreateOnModelAtHeight
-    //   fields: 14
-    //   size: 0x1498
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreateOnModelAtHeight {
-    public:
-        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bForceZ                                       , 0x1E9) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nHeightCP                                     , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseWaterHeight                               , 0x1F4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDesiredHeight                               , 0x1F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecHitBoxScale                                , 0x370) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecDirectionBias                              , 0xA48) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(ParticleHitboxBiasType_t        , m_nBiasType                                     , 0x1120) // ParticleHitboxBiasType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x1124) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bPreferMovingBoxes                            , 0x1125) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x1126) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flHitboxVelocityScale                         , 0x11A8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMaxBoneVelocity                             , 0x1320) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_ContinuousEmitter
-    //   fields: 12
-    //   size: 0x680
-    //   @MGetKV3ClassDefaults
-    class C_OP_ContinuousEmitter {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flEmissionDuration                            , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flStartTime                                   , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flEmitRate                                    , 0x4D8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEmissionScale                               , 0x650) // float32 [MPropertyFriendlyName, MParticleMaxVersion]
-        SCHEMA_FIELD(float                           , m_flScalePerParentParticle                      , 0x654) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bInitFromKilledParentParticles                , 0x658) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x65C) // EventTypeSelection_t [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPoint                         , 0x660) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::CUtlString                    , m_strSnapshotSubset                             , 0x668) // CUtlString [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nLimitPerUpdate                               , 0x670) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bForceEmitOnFirstUpdate                       , 0x674) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bForceEmitOnLastUpdate                        , 0x675) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_CollideWithSelf
-    //   fields: 2
-    //   size: 0x4D0
-    //   @MGetKV3ClassDefaults
-    class C_OP_CollideWithSelf {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadiusScale                                 , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMinimumSpeed                                , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_InitVec
-    //   fields: 5
-    //   size: 0x8D0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_InitVec {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_InputValue                                    , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x8C0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x8C4) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x8C8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bWritePreviousPosition                        , 0x8C9) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // C_OP_RemapNamedModelSequenceEndCap
-    //   fields: 0
-    //   size: 0x240
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapNamedModelSequenceEndCap {
-    public:
-    };
-
-    // C_OP_MaxVelocity
-    //   fields: 2
-    //   size: 0x4D0
-    //   @MGetKV3ClassDefaults
-    class C_OP_MaxVelocity {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMaxVelocity                                 , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMinVelocity                                 , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_InitialSequenceFromModel
-    //   fields: 8
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_INIT_InitialSequenceFromModel {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutputAnim                              , 0x1F0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x204) // ParticleSetMethod_t [MPropertyFriendlyName]
-    };
-
-    // C_OP_LockToSavedSequentialPathV2
-    //   fields: 4
-    //   size: 0x230
-    //   @MParticleMinVersion
-    //   @MGetKV3ClassDefaults
-    class C_OP_LockToSavedSequentialPathV2 {
-    public:
-        SCHEMA_FIELD(float                           , m_flFadeStart                                   , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFadeEnd                                     , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCPPairs                                      , 0x1E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x1F0) // CPathParameters
-    };
-
-    // C_OP_SelectivelyEnableChildren
-    //   fields: 5
-    //   size: 0x658
-    //   @MGetKV3ClassDefaults
-    class C_OP_SelectivelyEnableChildren {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nChildGroupID                                 , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nFirstChild                                   , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nNumChildrenToEnable                          , 0x4D8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bPlayEndcapOnStop                             , 0x650) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDestroyImmediately                           , 0x651) // bool [MPropertyFriendlyName]
-    };
-
-    // CSpinUpdateBase
-    //   fields: 0
-    //   size: 0x1E0
-    //   @MGetKV3ClassDefaults
-    class CSpinUpdateBase {
-    public:
-    };
-
-    // C_OP_RemapTransformOrientationToRotations
-    //   fields: 4
-    //   size: 0x258
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapTransformOrientationToRotations {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E0) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecRotation                                   , 0x248) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseQuat                                      , 0x254) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bWriteNormal                                  , 0x255) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderScreenShake
-    //   fields: 9
-    //   size: 0x258
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderScreenShake {
-    public:
-        SCHEMA_FIELD(float                           , m_flDurationScale                               , 0x230) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x234) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFrequencyScale                              , 0x238) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flAmplitudeScale                              , 0x23C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nRadiusField                                  , 0x240) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nDurationField                                , 0x244) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFrequencyField                               , 0x248) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAmplitudeField                               , 0x24C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nFilterCP                                     , 0x250) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_MoveToHitbox
-    //   fields: 9
-    //   size: 0x4B8
-    //   @MGetKV3ClassDefaults
-    class C_OP_MoveToHitbox {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleModelInput, m_modelInput                                    , 0x1E0) // CParticleModelInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x240) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLifeTimeLerpStart                           , 0x2AC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLifeTimeLerpEnd                             , 0x2B0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x2B4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x2B8) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x338) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(HitboxLerpType_t                , m_nLerpType                                     , 0x33C) // HitboxLerpType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x340) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_LagCompensation
-    //   fields: 4
     //   size: 0x1F0
     //   @MGetKV3ClassDefaults
-    class C_OP_LagCompensation {
+    class C_INIT_RandomYawFlip {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nDesiredVelocityCP                            , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nLatencyCP                                    , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nLatencyCPField                               , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nDesiredVelocityCPField                       , 0x1EC) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_VectorNoise
-    //   fields: 7
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_OP_VectorNoise {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x1E4) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
-        SCHEMA_FIELD(float                           , m_fl4NoiseScale                                 , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x200) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x201) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flNoiseAnimationTimeScale                     , 0x204) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_ModelCull
-    //   fields: 5
-    //   size: 0x270
-    //   @MGetKV3ClassDefaults
-    class C_INIT_ModelCull {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bBoundBox                                     , 0x1EC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCullOutside                                  , 0x1ED) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1EE) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x1EF) // char[128] [MPropertyFriendlyName]
-    };
-
-    // C_INIT_RemapParticleCountToNamedModelMeshGroupScalar
-    //   fields: 0
-    //   size: 0x238
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RemapParticleCountToNamedModelMeshGroupScalar {
-    public:
-    };
-
-    // MaterialVariable_t
-    //   fields: 3
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class MaterialVariable_t {
-    public:
-        SCHEMA_FIELD(::CUtlString                    , m_strVariable                                   , 0x0) // CUtlString [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nVariableField                                , 0x8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0xC) // float32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RemapCPtoScalar
-    //   fields: 11
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapCPtoScalar {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nField                                        , 0x1E8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInterpRate                                  , 0x204) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x208) // ParticleSetMethod_t [MPropertyFriendlyName]
-    };
-
-    // C_OP_HSVShiftToCP
-    //   fields: 4
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_OP_HSVShiftToCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nColorCP                                      , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nColorGemEnableCP                             , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_DefaultHSVColor                               , 0x1F4) // Color [MPropertyFriendlyName]
-    };
-
-    // C_OP_CPOffsetToPercentageBetweenCPs
-    //   fields: 11
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_OP_CPOffsetToPercentageBetweenCPs {
-    public:
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputBias                                   , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nStartCP                                      , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nEndCP                                        , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOffsetCP                                     , 0x1F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOuputCP                                      , 0x1F8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nInputCP                                      , 0x1FC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRadialCheck                                  , 0x200) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bScaleOffset                                  , 0x201) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOffset                                     , 0x204) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-    };
-
-    // C_OP_Spin
-    //   fields: 0
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_OP_Spin {
-    public:
-    };
-
-    // IParticleSystemDefinition
-    //   fields: 0
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class IParticleSystemDefinition {
-    public:
-    };
-
-    // C_OP_SetParentControlPointsToChildCP
-    //   fields: 5
-    //   size: 0x200
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetParentControlPointsToChildCP {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nChildControlPoint                            , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nFirstSourcePoint                             , 0x1F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x1F8) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetControlPointToPlayer
-    //   fields: 6
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointToPlayer {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bOrientToEyes                                 , 0x1F8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleEntityPos_t             , m_nPosition                                     , 0x1FC) // ParticleEntityPos_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nRadiusCP                                     , 0x200) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nRadiusCPField                                , 0x204) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
-    };
-
-    // C_OP_SpringToVectorConstraint
-    //   fields: 5
-    //   size: 0xE98
-    //   @MGetKV3ClassDefaults
-    class C_OP_SpringToVectorConstraint {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRestLength                                  , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMinDistance                                 , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMaxDistance                                 , 0x4D0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRestingLength                               , 0x648) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecAnchorVector                               , 0x7C0) // CPerParticleVecInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_Callback
-    //   fields: 0
-    //   size: 0x230
-    //   @MGetKV3ClassDefaults
-    class C_OP_Callback {
-    public:
-    };
-
-    // C_INIT_VelocityFromNormal
-    //   fields: 3
-    //   size: 0x1F8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_VelocityFromNormal {
-    public:
-        SCHEMA_FIELD(float                           , m_fSpeedMin                                     , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fSpeedMax                                     , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bIgnoreDt                                     , 0x1F0) // bool [MPropertyFriendlyName]
-    };
-
-    // C_INIT_DistanceToNeighborCull
-    //   fields: 7
-    //   size: 0x668
-    //   @MGetKV3ClassDefaults
-    class C_INIT_DistanceToNeighborCull {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flDistance                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bIncludeRadii                                 , 0x360) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLifespanOverlap                             , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldModify                                  , 0x4E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flModify                                      , 0x4E8) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x660) // ParticleSetMethod_t [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bUseNeighbor                                  , 0x664) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // C_OP_ControlpointLight
-    //   fields: 33
-    //   size: 0x6F0
-    //   @MGetKV3ClassDefaults
-    class C_OP_ControlpointLight {
-    public:
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint1                                , 0x670) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint2                                , 0x674) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint3                                , 0x678) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint4                                , 0x67C) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecCPOffset1                                  , 0x680) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecCPOffset2                                  , 0x68C) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecCPOffset3                                  , 0x698) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecCPOffset4                                  , 0x6A4) // Vector [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_LightFiftyDist1                               , 0x6B0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_LightZeroDist1                                , 0x6B4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_LightFiftyDist2                               , 0x6B8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_LightZeroDist2                                , 0x6BC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_LightFiftyDist3                               , 0x6C0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_LightZeroDist3                                , 0x6C4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_LightFiftyDist4                               , 0x6C8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_LightZeroDist4                                , 0x6CC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_LightColor1                                   , 0x6D0) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_LightColor2                                   , 0x6D4) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_LightColor3                                   , 0x6D8) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Color                         , m_LightColor4                                   , 0x6DC) // Color [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLightType1                                   , 0x6E0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLightType2                                   , 0x6E1) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLightType3                                   , 0x6E2) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLightType4                                   , 0x6E3) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLightDynamic1                                , 0x6E4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLightDynamic2                                , 0x6E5) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLightDynamic3                                , 0x6E6) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLightDynamic4                                , 0x6E7) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseNormal                                    , 0x6E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseHLambert                                  , 0x6E9) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bClampLowerRange                              , 0x6EE) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bClampUpperRange                              , 0x6EF) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flPercent                                     , 0x1E8) // float32 [MPropertyFriendlyName]
     };
 
     // C_OP_RemapDotProductToScalar
@@ -6475,160 +5812,50 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bUseParticleNormal                            , 0x205) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_WorldTraceConstraint
-    //   fields: 28
-    //   size: 0xA08
+    // C_OP_HSVShiftToCP
+    //   fields: 4
+    //   size: 0x208
     //   @MGetKV3ClassDefaults
-    class C_OP_WorldTraceConstraint {
+    class C_OP_HSVShiftToCP {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecCpOffset                                   , 0x1E4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(ParticleCollisionMode_t         , m_nCollisionMode                                , 0x1F0) // ParticleCollisionMode_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleCollisionMode_t         , m_nCollisionModeMin                             , 0x1F4) // ParticleCollisionMode_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x1F8) // ParticleTraceSet_t [MPropertyStartGroup, MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x1FC) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bWorldOnly                                    , 0x27C) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bBrushOnly                                    , 0x27D) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0x27E) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nIgnoreCP                                     , 0x280) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flCpMovementTolerance                         , 0x284) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flRetestRate                                  , 0x288) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flTraceTolerance                              , 0x28C) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flCollisionConfirmationSpeed                  , 0x290) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_nMaxTracesPerFrame                            , 0x294) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadiusScale                                 , 0x298) // CPerParticleFloatInput [MPropertyStartGroup, MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flBounceAmount                                , 0x410) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flSlideAmount                                 , 0x588) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRandomDirScale                              , 0x700) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDecayBounce                                  , 0x878) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bKillonContact                                , 0x879) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMinSpeed                                    , 0x87C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bKillonContactBounce                          , 0x880) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x881) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nStickOnCollisionField                        , 0x884) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flStopSpeed                                   , 0x888) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nEntityStickDataField                         , 0xA00) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nEntityStickNormalField                       , 0xA04) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nColorCP                                      , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nColorGemEnableCP                             , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_DefaultHSVColor                               , 0x1F4) // Color [MPropertyFriendlyName]
     };
 
-    // C_OP_VelocityMatchingForce
-    //   fields: 6
-    //   size: 0x1F8
+    // C_INIT_RandomColor
+    //   fields: 10
+    //   size: 0x230
     //   @MGetKV3ClassDefaults
-    class C_OP_VelocityMatchingForce {
+    class C_INIT_RandomColor {
     public:
-        SCHEMA_FIELD(float                           , m_flDirScale                                    , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSpdScale                                    , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flNeighborDistance                            , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFacingStrength                              , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseAABB                                      , 0x1F0) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPBroadcast                                  , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_ColorMin                                      , 0x204) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_ColorMax                                      , 0x208) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_TintMin                                       , 0x20C) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_TintMax                                       , 0x210) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flTintPerc                                    , 0x214) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flUpdateThreshold                             , 0x218) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nTintCP                                       , 0x21C) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x220) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleColorBlendMode_t        , m_nTintBlendMode                                , 0x224) // ParticleColorBlendMode_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLightAmplification                          , 0x228) // float32 [MPropertyFriendlyName]
     };
 
-    // C_OP_ColorAdjustHSL
-    //   fields: 3
-    //   size: 0x648
-    //   @MGetKV3ClassDefaults
-    class C_OP_ColorAdjustHSL {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flHueAdjust                                   , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flSaturationAdjust                            , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLightnessAdjust                             , 0x4D0) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_InitialRepulsionVelocity
-    //   fields: 13
-    //   size: 0x2A0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_InitialRepulsionVelocity {
-    public:
-        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x1E8) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x268) // ParticleTraceSet_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x26C) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x278) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x284) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bPerParticle                                  , 0x288) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bTranslate                                    , 0x289) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x28A) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flTraceLength                                 , 0x28C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bPerParticleTR                                , 0x290) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bInherit                                      , 0x291) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nChildCP                                      , 0x294) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x298) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderMaterialProxy
+    // C_OP_SetPerChildControlPoint
     //   fields: 8
-    //   size: 0xC40
+    //   size: 0x4F0
     //   @MGetKV3ClassDefaults
-    class C_OP_RenderMaterialProxy {
+    class C_OP_SetPerChildControlPoint {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nMaterialControlPoint                         , 0x230) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(MaterialProxyType_t             , m_nProxyType                                    , 0x234) // MaterialProxyType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<MaterialVariable_t>  , m_MaterialVars                                  , 0x238) // CUtlVector<MaterialVariable_t> [MPropertyFriendlyName, MPropertyAutoExpandSelf]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_hOverrideMaterial                             , 0x250) // CStrongHandle<InfoForResourceTypeIMaterial2> [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMaterialOverrideEnabled                     , 0x258) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorScale                                 , 0x3D0) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flAlpha                                       , 0xAA8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0xC20) // ParticleColorBlendType_t [MPropertyFriendlyName]
-    };
-
-    // C_INIT_InitFromVectorFieldSnapshot
-    //   fields: 5
-    //   size: 0x8D0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_InitFromVectorFieldSnapshot {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nWeightUpdateCP                               , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseVerticalVelocity                          , 0x1F4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecScale                                      , 0x1F8) // CPerParticleVecInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_CreateWithinCapsuleTransform
-    //   fields: 11
-    //   size: 0x1768
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreateWithinCapsuleTransform {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fRadiusMin                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fRadiusMax                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fHeight                                       , 0x4D8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x650) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMin                                     , 0x6B8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMax                                     , 0x830) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fSpeedRandExp                                 , 0x9A8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_LocalCoordinateSystemSpeedMin                 , 0x9B0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_LocalCoordinateSystemSpeedMax                 , 0x1088) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1760) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldVelocity                                , 0x1764) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // CParticleFunctionEmitter
-    //   fields: 1
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class CParticleFunctionEmitter {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nEmitterIndex                                 , 0x1E0) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_NormalizeVector
-    //   fields: 2
-    //   size: 0x1E8
-    //   @MGetKV3ClassDefaults
-    class C_OP_NormalizeVector {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E4) // float32 [MPropertyFriendlyName]
-    };
-
-    // IParticleCollection
-    //   fields: 0
-    //   size: 0x10
-    class IParticleCollection {
-    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nParticleIncrement                            , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nFirstSourcePoint                             , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x4E0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOrientationField                             , 0x4E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bNumBasedOnParticleCount                      , 0x4E8) // bool [MPropertyFriendlyName]
     };
 
     // C_OP_RemapDistanceToLineSegmentToScalar
@@ -6642,195 +5869,162 @@ namespace particles {
         SCHEMA_FIELD(float                           , m_flMaxOutputValue                              , 0x200) // float32 [MPropertyFriendlyName]
     };
 
-    // CGeneralRandomRotation
-    //   fields: 6
+    // C_INIT_InitialSequenceFromModel
+    //   fields: 8
     //   size: 0x208
     //   @MGetKV3ClassDefaults
-    class CGeneralRandomRotation {
+    class C_INIT_InitialSequenceFromModel {
     public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flDegrees                                     , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flDegreesMin                                  , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flDegreesMax                                  , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flRotationRandExponent                        , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRandomlyFlipDirection                        , 0x1FC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutputAnim                              , 0x1F0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x204) // ParticleSetMethod_t [MPropertyFriendlyName]
     };
 
-    // C_OP_RemapAverageScalarValuetoCP
-    //   fields: 6
-    //   size: 0x4F0
+    // C_OP_SetCPtoVector
+    //   fields: 2
+    //   size: 0x1E8
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapAverageScalarValuetoCP {
+    class C_OP_SetCPtoVector {
     public:
-        SCHEMA_FIELD(SetStatisticExpressionType_t    , m_nExpression                                   , 0x1E8) // SetStatisticExpressionType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDecimalPlaces                               , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x368) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x36C) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x370) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x378) // CParticleRemapFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
     };
 
-    // C_OP_ForceControlPointStub
-    //   fields: 1
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_OP_ForceControlPointStub {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_ControlPoint                                  , 0x1E8) // int32 [MPropertyFriendlyName]
-    };
-
-    // TextureControls_t
-    //   fields: 16
-    //   size: 0xA68
-    //   @MGetKV3ClassDefaults
-    class TextureControls_t {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFinalTextureScaleU                          , 0x0) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFinalTextureScaleV                          , 0x178) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFinalTextureOffsetU                         , 0x2F0) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFinalTextureOffsetV                         , 0x468) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flFinalTextureUVRotation                      , 0x5E0) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flZoomScale                                   , 0x758) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flDistortion                                  , 0x8D0) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRandomizeOffsets                             , 0xA48) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bClampUVs                                     , 0xA49) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleBlend                             , 0xA4C) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleScale                             , 0xA50) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleOffsetU                           , 0xA54) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleOffsetV                           , 0xA58) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleRotation                          , 0xA5C) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleZoom                              , 0xA60) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(SpriteCardPerParticleScale_t    , m_nPerParticleDistortion                        , 0xA64) // SpriteCardPerParticleScale_t [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetControlPointToHand
+    // C_OP_RemapTransformOrientationToYaw
     //   fields: 4
+    //   size: 0x258
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapTransformOrientationToYaw {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E0) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x248) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flRotOffset                                   , 0x24C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSpinStrength                                , 0x250) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_LockToPointList
+    //   fields: 5
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_OP_LockToPointList {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(CUtlVector<PointDefinition_t>   , m_pointList                                     , 0x1E8) // CUtlVector<PointDefinition_t> [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bPlaceAlongPath                               , 0x200) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bClosedLoop                                   , 0x201) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nNumPointsAlongPath                           , 0x204) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RemapInitialVisibilityScalar
+    //   fields: 5
     //   size: 0x200
     //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointToHand {
+    class C_INIT_RemapInitialVisibilityScalar {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nHand                                         , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bOrientToHand                                 , 0x1FC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1FC) // float32 [MPropertyFriendlyName]
     };
 
-    // C_OP_PerParticleForce
+    // C_OP_DensityForce
     //   fields: 3
-    //   size: 0xA48
+    //   size: 0x200
     //   @MGetKV3ClassDefaults
-    class C_OP_PerParticleForce {
+    class C_OP_DensityForce {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flForceScale                                  , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vForce                                        , 0x368) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0xA40) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flForceScale                                  , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flTargetDensity                               , 0x1F8) // float32 [MPropertyFriendlyName]
     };
 
-    // C_OP_LockToSavedSequentialPath
-    //   fields: 4
-    //   size: 0x230
-    //   @MParticleMaxVersion
-    //   @MParticleReplacementOp
-    //   @MGetKV3ClassDefaults
-    class C_OP_LockToSavedSequentialPath {
-    public:
-        SCHEMA_FIELD(float                           , m_flFadeStart                                   , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flFadeEnd                                     , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCPPairs                                      , 0x1EC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(CPathParameters                 , m_PathParams                                    , 0x1F0) // CPathParameters
-    };
-
-    // C_INIT_InitialVelocityFromHitbox
-    //   fields: 5
-    //   size: 0x278
-    //   @MGetKV3ClassDefaults
-    class C_INIT_InitialVelocityFromHitbox {
-    public:
-        SCHEMA_FIELD(float                           , m_flVelocityMin                                 , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flVelocityMax                                 , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1F0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x1F4) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x274) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetControlPointToCPVelocity
-    //   fields: 6
-    //   size: 0x8D8
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointToCPVelocity {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCPInput                                      , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPOutputVel                                  , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1F0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPOutputMag                                  , 0x1F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nCPField                                      , 0x1F8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecComparisonVelocity                         , 0x200) // CParticleCollectionVecInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_SetControlPointsToModelParticles
+    // C_OP_SetControlPointToWaterSurface
     //   fields: 7
-    //   size: 0x2F0
+    //   size: 0x380
     //   @MGetKV3ClassDefaults
-    class C_OP_SetControlPointsToModelParticles {
+    class C_OP_SetControlPointToWaterSurface {
     public:
-        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x1E0) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_AttachmentName                                , 0x260) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x2E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x2E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nFirstSourcePoint                             , 0x2E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSkin                                         , 0x2EC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAttachment                                   , 0x2ED) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nSourceCP                                     , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nDestCP                                       , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nFlowCP                                       , 0x1F0) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nActiveCP                                     , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nActiveCPField                                , 0x1F8) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRetestRate                                  , 0x200) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAdaptiveThreshold                            , 0x378) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_SetFloat
-    //   fields: 4
-    //   size: 0x510
+    // C_OP_RemapNamedModelMeshGroupOnceTimed
+    //   fields: 0
+    //   size: 0x240
     //   @MGetKV3ClassDefaults
-    class C_OP_SetFloat {
+    class C_OP_RemapNamedModelMeshGroupOnceTimed {
     public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputValue                                    , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x358) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x35C) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_Lerp                                          , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
     };
 
-    // C_INIT_PositionOffsetToCP
+    // C_OP_LerpEndCapVector
     //   fields: 3
     //   size: 0x1F8
     //   @MGetKV3ClassDefaults
-    class C_INIT_PositionOffsetToCP {
+    class C_OP_LerpEndCapVector {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumberStart                      , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumberEnd                        , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x1F0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::Vector                        , m_vecOutput                                     , 0x1E4) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(float                           , m_flLerpTime                                    , 0x1F0) // float32 [MPropertyFriendlyName]
     };
 
-    // C_OP_ConstrainDistanceToPath
-    //   fields: 8
-    //   size: 0x240
+    // VecInputMaterialVariable_t
+    //   fields: 2
+    //   size: 0x6E0
     //   @MGetKV3ClassDefaults
-    class C_OP_ConstrainDistanceToPath {
+    class VecInputMaterialVariable_t {
     public:
-        SCHEMA_FIELD(float                           , m_fMinDistance                                  , 0x1E0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxDistance0                                , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxDistanceMid                              , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxDistance1                                , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(CPathParameters                 , m_PathParameters                                , 0x1F0) // CPathParameters
-        SCHEMA_FIELD(float                           , m_flTravelTime                                  , 0x230) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldScale                                   , 0x234) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nManualTField                                 , 0x238) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::CUtlString                    , m_strVariable                                   , 0x0) // CUtlString [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecInput                                      , 0x8) // CParticleCollectionVecInput [MPropertyFriendlyName]
     };
 
-    // C_INIT_RemapInitialTransformDirectionToRotation
+    // C_OP_CurlNoiseForce
+    //   fields: 7
+    //   size: 0x2048
+    //   @MGetKV3ClassDefaults
+    class C_OP_CurlNoiseForce {
+    public:
+        SCHEMA_FIELD(ParticleDirectionNoiseType_t    , m_nNoiseType                                    , 0x1F0) // ParticleDirectionNoiseType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecNoiseFreq                                  , 0x1F8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecNoiseScale                                 , 0x8D0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOffset                                     , 0xFA8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecOffsetRate                                 , 0x1680) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flWorleySeed                                  , 0x1D58) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flWorleyJitter                                , 0x1ED0) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_INIT_VelocityFromCP
     //   fields: 4
-    //   size: 0x260
+    //   size: 0x930
     //   @MGetKV3ClassDefaults
-    class C_INIT_RemapInitialTransformDirectionToRotation {
+    class C_INIT_VelocityFromCP {
     public:
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x250) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flOffsetRot                                   , 0x254) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x258) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_velocityInput                                 , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x8C0) // CParticleTransformInput [MPropertyFriendlyName, MParticleInputOptional]
+        SCHEMA_FIELD(float                           , m_flVelocityScale                               , 0x928) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDirectionOnly                                , 0x92C) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_MovementRotateParticleAroundAxis
+    //   fields: 4
+    //   size: 0xAA0
+    //   @MGetKV3ClassDefaults
+    class C_OP_MovementRotateParticleAroundAxis {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecRotAxis                                    , 0x1E0) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRotRate                                     , 0x8B8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0xA30) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0xA98) // bool [MPropertyFriendlyName]
     };
 
     // C_OP_RenderSound
@@ -6853,104 +6047,99 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bSuppressStopSoundEvent                       , 0x358) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_DistanceToTransform
-    //   fields: 15
-    //   size: 0xFA0
-    //   @MGetKV3ClassDefaults
-    class C_OP_DistanceToTransform {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMin                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMax                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x4D8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x650) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformStart                                , 0x7C8) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLOS                                          , 0x830) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x831) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x8B4) // ParticleTraceSet_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x8B8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLOSScale                                    , 0x8BC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x8C0) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x8C4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAdditive                                     , 0x8C5) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecComponentScale                             , 0x8C8) // CPerParticleVecInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_MovementSkinnedPositionFromCPSnapshot
-    //   fields: 12
-    //   size: 0x950
-    //   @MGetKV3ClassDefaults
-    class C_OP_MovementSkinnedPositionFromCPSnapshot {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPointNumber                   , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bRandom                                       , 0x1E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nRandomSeed                                   , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x1F0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetRadius                                    , 0x1F1) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(SnapshotIndexType_t             , m_nIndexType                                    , 0x1F4) // SnapshotIndexType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flReadIndex                                   , 0x1F8) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flIncrement                                   , 0x370) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nFullLoopIncrement                            , 0x4E8) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nSnapShotStartPoint                           , 0x660) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x7D8) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderStatusEffect
-    //   fields: 7
-    //   size: 0x268
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderStatusEffect {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureColorWarp                             , 0x230) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureDetail2                               , 0x238) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureDiffuseWarp                           , 0x240) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureFresnelColorWarp                      , 0x248) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureFresnelWarp                           , 0x250) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureSpecularWarp                          , 0x258) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureEnvMap                                , 0x260) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-    };
-
-    // C_OP_SpinYaw
+    // CParticleFunctionForce
     //   fields: 0
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class CParticleFunctionForce {
+    public:
+    };
+
+    // C_OP_SetChildControlPoints
+    //   fields: 7
+    //   size: 0x370
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetChildControlPoints {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nFirstControlPoint                            , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nNumControlPoints                             , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nFirstSourcePoint                             , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x368) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetOrientation                               , 0x369) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleOrientationType_t       , m_nOrientation                                  , 0x36C) // ParticleOrientationType_t [MPropertyFriendlyName, MPropertySuppressExpr]
+    };
+
+    // C_INIT_PositionOffsetToCP
+    //   fields: 3
     //   size: 0x1F8
     //   @MGetKV3ClassDefaults
-    class C_OP_SpinYaw {
+    class C_INIT_PositionOffsetToCP {
     public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumberStart                      , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumberEnd                        , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x1F0) // bool [MPropertyFriendlyName]
     };
 
-    // C_INIT_InitFromParentKilled
-    //   fields: 2
-    //   size: 0x270
+    // C_OP_RenderScreenShake
+    //   fields: 9
+    //   size: 0x258
     //   @MGetKV3ClassDefaults
-    class C_INIT_InitFromParentKilled {
+    class C_OP_RenderScreenShake {
     public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToCopy                              , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x1EC) // EventTypeSelection_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flDurationScale                               , 0x230) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x234) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFrequencyScale                              , 0x238) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flAmplitudeScale                              , 0x23C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nRadiusField                                  , 0x240) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nDurationField                                , 0x244) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFrequencyField                               , 0x248) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAmplitudeField                               , 0x24C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nFilterCP                                     , 0x250) // int32 [MPropertyFriendlyName]
     };
 
-    // C_OP_RtEnvCull
-    //   fields: 7
-    //   size: 0x288
-    //   @MGetKV3ClassDefaults
-    class C_OP_RtEnvCull {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vecTestDir                                    , 0x1E0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecTestNormal                                 , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bCullOnMiss                                   , 0x1F8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bStickInsteadOfCull                           , 0x1F9) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_RtEnvName                                     , 0x1FA) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nRTEnvCP                                      , 0x27C) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x280) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_OP_AlphaDecay
+    // C_OP_EndCapTimedDecay
     //   fields: 1
-    //   size: 0x1E8
+    //   size: 0x358
     //   @MGetKV3ClassDefaults
-    class C_OP_AlphaDecay {
+    class C_OP_EndCapTimedDecay {
     public:
-        SCHEMA_FIELD(float                           , m_flMinAlpha                                    , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDecayTime                                   , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_DistanceCull
+    //   fields: 5
+    //   size: 0x370
+    //   @MGetKV3ClassDefaults
+    class C_OP_DistanceCull {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecPointOffset                                , 0x1E4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDistance                                    , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCullInside                                   , 0x368) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttribute                                    , 0x36C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_RenderPostProcessing
+    //   fields: 3
+    //   size: 0x3B8
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderPostProcessing {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flPostProcessStrength                         , 0x230) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCPostProcessingResource>, m_hPostTexture                                  , 0x3A8) // CStrongHandle<InfoForResourceTypeCPostProcessingResource> [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(ParticlePostProcessPriorityGroup_t, m_nPriority                                     , 0x3B0) // ParticlePostProcessPriorityGroup_t [MPropertyFriendlyName]
+    };
+
+    // C_OP_ColorAdjustHSL
+    //   fields: 3
+    //   size: 0x648
+    //   @MGetKV3ClassDefaults
+    class C_OP_ColorAdjustHSL {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flHueAdjust                                   , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flSaturationAdjust                            , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLightnessAdjust                             , 0x4D0) // CPerParticleFloatInput [MPropertyFriendlyName]
     };
 
     // C_OP_PointVectorAtNextParticle
@@ -6962,6 +6151,122 @@ namespace particles {
         SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
         SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
         SCHEMA_FIELD(bool                            , m_bPrevious                                     , 0x360) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_MovementMoveAlongSkinnedCPSnapshot
+    //   fields: 6
+    //   size: 0x4E0
+    //   @MGetKV3ClassDefaults
+    class C_OP_MovementMoveAlongSkinnedCPSnapshot {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nSnapshotControlPointNumber                   , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x1E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetRadius                                    , 0x1E9) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flTValue                                      , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_INIT_VelocityFromNormal
+    //   fields: 3
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_INIT_VelocityFromNormal {
+    public:
+        SCHEMA_FIELD(float                           , m_fSpeedMin                                     , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fSpeedMax                                     , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bIgnoreDt                                     , 0x1F0) // bool [MPropertyFriendlyName]
+    };
+
+    // ParticlePreviewState_t
+    //   fields: 18
+    //   size: 0x70
+    //   @MGetKV3ClassDefaults
+    class ParticlePreviewState_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_previewModel                                  , 0x0) // CUtlString
+        SCHEMA_FIELD(std::uint32_t                   , m_nModSpecificData                              , 0x8) // uint32
+        SCHEMA_FIELD(PetGroundType_t                 , m_groundType                                    , 0xC) // PetGroundType_t
+        SCHEMA_FIELD(::CUtlString                    , m_sequenceName                                  , 0x10) // CUtlString
+        SCHEMA_FIELD(std::int32_t                    , m_nFireParticleOnSequenceFrame                  , 0x18) // int32
+        SCHEMA_FIELD(::CUtlString                    , m_hitboxSetName                                 , 0x20) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_materialGroupName                             , 0x28) // CUtlString
+        SCHEMA_FIELD(CUtlVector<ParticlePreviewBodyGroup_t>, m_vecBodyGroups                                 , 0x30) // CUtlVector<ParticlePreviewBodyGroup_t>
+        SCHEMA_FIELD(float                           , m_flPlaybackSpeed                               , 0x48) // float32
+        SCHEMA_FIELD(float                           , m_flParticleSimulationRate                      , 0x4C) // float32
+        SCHEMA_FIELD(bool                            , m_bShouldDrawHitboxes                           , 0x50) // bool
+        SCHEMA_FIELD(bool                            , m_bShouldDrawAttachments                        , 0x51) // bool
+        SCHEMA_FIELD(bool                            , m_bShouldDrawAttachmentNames                    , 0x52) // bool
+        SCHEMA_FIELD(bool                            , m_bShouldDrawControlPointAxes                   , 0x53) // bool
+        SCHEMA_FIELD(bool                            , m_bAnimationNonLooping                          , 0x54) // bool
+        SCHEMA_FIELD(bool                            , m_bSequenceNameIsAnimClipPath                   , 0x55) // bool
+        SCHEMA_FIELD(::Vector                        , m_vecPreviewGravity                             , 0x58) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vecPreviewWind                                , 0x64) // Vector
+    };
+
+    // C_OP_DecayClampCount
+    //   fields: 1
+    //   size: 0x358
+    //   @MGetKV3ClassDefaults
+    class C_OP_DecayClampCount {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nCount                                        , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_WindForce
+    //   fields: 1
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_WindForce {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vForce                                        , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+    };
+
+    // C_OP_ParentVortices
+    //   fields: 3
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_OP_ParentVortices {
+    public:
+        SCHEMA_FIELD(float                           , m_flForceScale                                  , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecTwistAxis                                  , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bFlipBasedOnYaw                               , 0x200) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapAverageScalarValuetoCP
+    //   fields: 6
+    //   size: 0x4F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapAverageScalarValuetoCP {
+    public:
+        SCHEMA_FIELD(SetStatisticExpressionType_t    , m_nExpression                                   , 0x1E8) // SetStatisticExpressionType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDecimalPlaces                               , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x368) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x36C) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x370) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x378) // CParticleRemapFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderFlattenGrass
+    //   fields: 3
+    //   size: 0x240
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderFlattenGrass {
+    public:
+        SCHEMA_FIELD(float                           , m_flFlattenStrength                             , 0x230) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nStrengthFieldOverride                        , 0x234) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x238) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_DistanceCull
+    //   fields: 3
+    //   size: 0x370
+    //   @MGetKV3ClassDefaults
+    class C_INIT_DistanceCull {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDistance                                    , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCullInside                                   , 0x368) // bool [MPropertyFriendlyName]
     };
 
     // C_OP_BasicMovement
@@ -6977,311 +6282,115 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bUseNewCode                                   , 0xEA4) // bool [MPropertyFriendlyName]
     };
 
-    // C_INIT_CreateOnGrid
-    //   fields: 10
-    //   size: 0xAC0
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreateOnGrid {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nXCount                                       , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nYCount                                       , 0x360) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nZCount                                       , 0x4D8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nXSpacing                                     , 0x650) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nYSpacing                                     , 0x7C8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nZSpacing                                     , 0x940) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0xAB8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0xABC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCenter                                       , 0xABD) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bHollow                                       , 0xABE) // bool [MPropertyFriendlyName]
-    };
-
-    // C_OP_LerpToInitialPosition
-    //   fields: 5
-    //   size: 0xBB8
-    //   @MGetKV3ClassDefaults
-    class C_OP_LerpToInitialPosition {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nCacheField                                   , 0x360) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flScale                                       , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecScale                                      , 0x4E0) // CParticleCollectionVecInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderDeferredLight
-    //   fields: 16
-    //   size: 0x948
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderDeferredLight {
-    public:
-        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x230) // float32 [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(float                           , m_flAlphaScale                                  , 0x234) // float32 [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlpha2Field                                  , 0x238) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorScale                                 , 0x240) // CParticleCollectionVecInput [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x918) // ParticleColorBlendType_t [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(bool                            , m_bUseTexture                                   , 0x91C) // bool [MPropertyStartGroup, MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseAlphaTestWindow                           , 0x91D) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_hTexture                                      , 0x920) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlphaTestPointField                          , 0x928) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlphaTestRangeField                          , 0x92C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlphaTestSharpnessField                      , 0x930) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flLightDistance                               , 0x934) // float32 [MPropertyStartGroup, MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartFalloff                                , 0x938) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flDistanceFalloff                             , 0x93C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flSpotFoV                                     , 0x940) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nHSVShiftControlPoint                         , 0x944) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_DifferencePreviousParticle
-    //   fields: 9
+    // C_OP_FadeAndKill
+    //   fields: 7
     //   size: 0x200
     //   @MGetKV3ClassDefaults
-    class C_OP_DifferencePreviousParticle {
+    class C_OP_FadeAndKill {
     public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1F8) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x1FC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bSetPreviousParticle                          , 0x1FD) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartFadeInTime                             , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndFadeInTime                               , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartFadeOutTime                            , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndFadeOutTime                              , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartAlpha                                  , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndAlpha                                    , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bForcePreserveParticleOrder                   , 0x1F8) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_TwistAroundAxis
-    //   fields: 4
-    //   size: 0x208
-    //   @MGetKV3ClassDefaults
-    class C_OP_TwistAroundAxis {
-    public:
-        SCHEMA_FIELD(float                           , m_fForceAmount                                  , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_TwistAxis                                     , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0x200) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x204) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_INIT_SetHitboxToModel
-    //   fields: 10
-    //   size: 0xAD8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_SetHitboxToModel {
-    public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nForceInModel                                 , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bEvenDistribution                             , 0x1F0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nDesiredHitbox                                , 0x1F4) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecHitBoxScale                                , 0x1F8) // CParticleCollectionVecInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecDirectionBias                              , 0x8D0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bMaintainHitbox                               , 0x8DC) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x8DD) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x8DE) // char[128] [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flShellSize                                   , 0x960) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_INIT_ScreenSpacePositionOfTarget
-    //   fields: 4
-    //   size: 0xA40
-    //   @MGetKV3ClassDefaults
-    class C_INIT_ScreenSpacePositionOfTarget {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecTargetPosition                             , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bOututBehindness                              , 0x8C0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nBehindFieldOutput                            , 0x8C4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
-        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flBehindOutputRemap                           , 0x8C8) // CParticleRemapFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
-    };
-
-    // C_INIT_CreateWithinSphereTransform
-    //   fields: 13
-    //   size: 0x1CD8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_CreateWithinSphereTransform {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fRadiusMin                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fRadiusMax                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecDistanceBias                               , 0x4D8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecDistanceBiasAbs                            , 0xBB0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0xBC0) // CParticleTransformInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMin                                     , 0xC28) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMax                                     , 0xDA0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_fSpeedRandExp                                 , 0xF18) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0xF1C) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_LocalCoordinateSystemSpeedMin                 , 0xF20) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_LocalCoordinateSystemSpeedMax                 , 0x15F8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1CD0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldVelocity                                , 0x1CD4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_INIT_RandomNamedModelElement
-    //   fields: 6
-    //   size: 0x210
-    //   @MGetKV3ClassDefaults
-    class C_INIT_RandomNamedModelElement {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x1E8) // CStrongHandle<InfoForResourceTypeCModel>
-        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_names                                         , 0x1F0) // CUtlVector<CUtlString> [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bShuffle                                      , 0x208) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bLinear                                       , 0x209) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x20A) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x20C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-    };
-
-    // C_INIT_InitFloat
-    //   fields: 4
-    //   size: 0x4E8
-    //   @MGetKV3ClassDefaults
-    class C_INIT_InitFloat {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputValue                                    , 0x1E8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x360) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x364) // ParticleSetMethod_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_InputStrength                                 , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_DragRelativeToPlane
-    //   fields: 5
-    //   size: 0xBB8
-    //   @MGetKV3ClassDefaults
-    class C_OP_DragRelativeToPlane {
-    public:
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDragAtPlane                                 , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flFalloff                                     , 0x358) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bDirectional                                  , 0x4D0) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecPlaneNormal                                , 0x4D8) // CParticleCollectionVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0xBB0) // int32 [MPropertyFriendlyName]
-    };
-
-    // C_OP_ReadFromNeighboringParticle
-    //   fields: 5
-    //   size: 0x4E0
-    //   @MGetKV3ClassDefaults
-    class C_OP_ReadFromNeighboringParticle {
-    public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_DistanceCheck                                 , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
-    };
-
-    // C_OP_RenderStatusEffectTf
-    //   fields: 7
-    //   size: 0x268
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderStatusEffectTf {
-    public:
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureColorWarp                             , 0x230) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureNormal                                , 0x238) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureMetalness                             , 0x240) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureRoughness                             , 0x248) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureSelfIllum                             , 0x250) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureDetail                                , 0x258) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_pTextureEnvMap                                , 0x260) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertyAttributeEditor]
-    };
-
-    // C_OP_RemapSpeedtoCP
+    // C_OP_RemapTransformVisibilityToVector
     //   fields: 8
-    //   size: 0x208
+    //   size: 0x278
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapSpeedtoCP {
+    class C_OP_RemapTransformVisibilityToVector {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nInControlPointNumber                         , 0x1E8) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1EC) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nField                                        , 0x1F0) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x200) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bUseDeltaV                                    , 0x204) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1E0) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x250) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x254) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x258) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x25C) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x268) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x274) // float32 [MPropertyFriendlyName]
     };
 
-    // C_OP_RemapControlPointOrientationToRotation
-    //   fields: 4
-    //   size: 0x1F0
+    // C_INIT_NormalAlignToCP
+    //   fields: 2
+    //   size: 0x258
     //   @MGetKV3ClassDefaults
-    class C_OP_RemapControlPointOrientationToRotation {
+    class C_INIT_NormalAlignToCP {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flOffsetRot                                   , 0x1E8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x1EC) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_transformInput                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleControlPointAxis_t      , m_nControlPointAxis                             , 0x250) // ParticleControlPointAxis_t [MPropertyFriendlyName]
     };
 
-    // C_INIT_AgeNoise
-    //   fields: 8
-    //   size: 0x210
+    // C_OP_NormalizeVector
+    //   fields: 2
+    //   size: 0x1E8
     //   @MGetKV3ClassDefaults
-    class C_INIT_AgeNoise {
-    public:
-        SCHEMA_FIELD(bool                            , m_bAbsVal                                       , 0x1E8) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAbsValInv                                    , 0x1E9) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flOffset                                      , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flAgeMin                                      , 0x1F0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flAgeMax                                      , 0x1F4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flNoiseScale                                  , 0x1F8) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flNoiseScaleLoc                               , 0x1FC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecOffsetLoc                                  , 0x200) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-    };
-
-    // C_OP_RemapControlPointDirectionToVector
-    //   fields: 3
-    //   size: 0x1F0
-    //   @MGetKV3ClassDefaults
-    class C_OP_RemapControlPointDirectionToVector {
+    class C_OP_NormalizeVector {
     public:
         SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
         SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E8) // int32 [MPropertyFriendlyName]
     };
 
-    // C_OP_RenderProjected
-    //   fields: 18
-    //   size: 0xF58
-    //   @MGetKV3ClassDefaults
-    class C_OP_RenderProjected {
-    public:
-        SCHEMA_FIELD(bool                            , m_bProjectCharacter                             , 0x230) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bProjectWorld                                 , 0x231) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bProjectWater                                 , 0x232) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(bool                            , m_bFlipHorizontal                               , 0x233) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bEnableProjectedDepthControls                 , 0x234) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMinProjectionDepth                          , 0x238) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(float                           , m_flMaxProjectionDepth                          , 0x23C) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
-        SCHEMA_FIELD(CUtlVector<RenderProjectedMaterial_t>, m_vecProjectedMaterials                         , 0x240) // CUtlVector<RenderProjectedMaterial_t> [MPropertyFriendlyName, MParticleRequireDefaultArrayEntry, MPropertyAutoExpandSelf]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMaterialSelection                           , 0x258) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flAnimationTimeScale                          , 0x3D0) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bOrientToNormal                               , 0x3D4) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(CUtlVector<MaterialVariable_t>  , m_MaterialVars                                  , 0x3D8) // CUtlVector<MaterialVariable_t> [MPropertyFriendlyName, MPropertyAutoExpandSelf]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRadiusScale                                 , 0x3F0) // CParticleCollectionFloatInput [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flAlphaScale                                  , 0x568) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRollScale                                   , 0x6E0) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlpha2Field                                  , 0x858) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySortPriority]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorScale                                 , 0x860) // CParticleCollectionVecInput [MPropertyFriendlyName, MPropertySortPriority]
-        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0xF38) // ParticleColorBlendType_t [MPropertyFriendlyName, MPropertySortPriority]
-    };
-
-    // C_OP_SetUserEvent
-    //   fields: 5
-    //   size: 0x658
-    //   @MGetKV3ClassDefaults
-    class C_OP_SetUserEvent {
-    public:
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInput                                       , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRisingEdge                                  , 0x358) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(EventTypeSelection_t            , m_nRisingEventType                              , 0x4D0) // EventTypeSelection_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flFallingEdge                                 , 0x4D8) // CPerParticleFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(EventTypeSelection_t            , m_nFallingEventType                             , 0x650) // EventTypeSelection_t [MPropertyFriendlyName]
-    };
-
-    // C_OP_LerpEndCapScalar
-    //   fields: 3
+    // C_OP_Cull
+    //   fields: 4
     //   size: 0x1F0
     //   @MGetKV3ClassDefaults
-    class C_OP_LerpEndCapScalar {
+    class C_OP_Cull {
     public:
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(float                           , m_flOutput                                      , 0x1E4) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flLerpTime                                    , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flCullPerc                                    , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flCullStart                                   , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flCullEnd                                     , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flCullExp                                     , 0x1EC) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_PinParticleToCP
+    //   fields: 14
+    //   size: 0x11B0
+    //   @MGetKV3ClassDefaults
+    class C_OP_PinParticleToCP {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecOffset                                     , 0x1E8) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOffsetLocal                                  , 0x8C0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSelection_t             , m_nParticleSelection                            , 0x8C4) // ParticleSelection_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nParticleNumber                               , 0x8C8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticlePinDistance_t           , m_nPinBreakType                                 , 0xA40) // ParticlePinDistance_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flBreakDistance                               , 0xA48) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flBreakSpeed                                  , 0xBC0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flAge                                         , 0xD38) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nBreakControlPointNumber                      , 0xEB0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nBreakControlPointNumber2                     , 0xEB4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flBreakValue                                  , 0xEB8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x1030) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRetainInitialVelocity                        , 0x11A8) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+    };
+
+    // C_OP_Decay
+    //   fields: 2
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class C_OP_Decay {
+    public:
+        SCHEMA_FIELD(bool                            , m_bRopeDecay                                    , 0x1E0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bForcePreserveParticleOrder                   , 0x1E1) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_WaterImpulseRenderer
+    //   fields: 8
+    //   size: 0x1068
+    //   @MGetKV3ClassDefaults
+    class C_OP_WaterImpulseRenderer {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPos                                        , 0x230) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius                                      , 0x908) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMagnitude                                   , 0xA80) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flShape                                       , 0xBF8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flWindSpeed                                   , 0xD70) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flWobble                                      , 0xEE8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bIsRadialWind                                 , 0x1060) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x1064) // EventTypeSelection_t [MPropertyFriendlyName]
     };
 
     // C_OP_RenderTrails
@@ -7312,44 +6421,726 @@ namespace particles {
         SCHEMA_FIELD(bool                            , m_bFlipUVBasedOnPitchYaw                        , 0x471C) // bool [MPropertyFriendlyName]
     };
 
-    // C_OP_DistanceCull
+    // C_OP_RemapScalarOnceTimed
+    //   fields: 8
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapScalarOnceTimed {
+    public:
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x1E0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRemapTime                                   , 0x1FC) // float32 [MPropertyFriendlyName]
+    };
+
+    // CParticleFunctionPreEmission
+    //   fields: 1
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class CParticleFunctionPreEmission {
+    public:
+        SCHEMA_FIELD(bool                            , m_bRunOnce                                      , 0x1E0) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_ScreenSpacePositionOfTarget
     //   fields: 5
-    //   size: 0x370
+    //   size: 0xA40
     //   @MGetKV3ClassDefaults
-    class C_OP_DistanceCull {
+    class C_OP_ScreenSpacePositionOfTarget {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E0) // int32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::Vector                        , m_vecPointOffset                                , 0x1E4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDistance                                    , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bCullInside                                   , 0x368) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttribute                                    , 0x36C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecTargetPosition                             , 0x1E0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bOututBehindness                              , 0x8B8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nBehindFieldOutput                            , 0x8BC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flBehindOutputRemap                           , 0x8C0) // CParticleRemapFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nBehindSetMethod                              , 0xA38) // ParticleSetMethod_t [MPropertyFriendlyName, MPropertySuppressExpr]
     };
 
-    // C_OP_RenderLights
-    //   fields: 7
-    //   size: 0x258
+    // C_OP_InheritFromParentParticlesV2
+    //   fields: 8
+    //   size: 0x658
+    //   @MParticleMinVersion
     //   @MGetKV3ClassDefaults
-    class C_OP_RenderLights {
+    class C_OP_InheritFromParentParticlesV2 {
     public:
-        SCHEMA_FIELD(float                           , m_flAnimationRate                               , 0x238) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(::animationsystem::AnimationType_t, m_nAnimationType                                , 0x23C) // AnimationType_t [MPropertyFriendlyName]
-        SCHEMA_FIELD(bool                            , m_bAnimateInFPS                                 , 0x240) // bool [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMinSize                                     , 0x244) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flMaxSize                                     , 0x248) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flStartFadeSize                               , 0x24C) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(float                           , m_flEndFadeSize                                 , 0x250) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flScale                                       , 0x1E0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x358) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_nIncrement                                    , 0x360) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSubSample                                    , 0x4D8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRandomDistribution                           , 0x4D9) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bReverse                                      , 0x4DA) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(MissingParentInheritBehavior_t  , m_nMissingParentBehavior                        , 0x4DC) // MissingParentInheritBehavior_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x4E0) // CPerParticleFloatInput [MPropertyFriendlyName]
     };
 
-    // C_INIT_RandomVectorComponent
+    // C_OP_RemapDistanceToLineSegmentBase
+    //   fields: 5
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapDistanceToLineSegmentBase {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP0                                          , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMinInputValue                               , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxInputValue                               , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bInfiniteLine                                 , 0x1F0) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_FadeAndKillForTracers
+    //   fields: 6
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_OP_FadeAndKillForTracers {
+    public:
+        SCHEMA_FIELD(float                           , m_flStartFadeInTime                             , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndFadeInTime                               , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartFadeOutTime                            , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndFadeOutTime                              , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartAlpha                                  , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndAlpha                                    , 0x1F4) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointPositions
+    //   fields: 12
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointPositions {
+    public:
+        SCHEMA_FIELD(bool                            , m_bUseWorldLocation                             , 0x1E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOrient                                       , 0x1E9) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetOnce                                      , 0x1EA) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP2                                          , 0x1F0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP3                                          , 0x1F4) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP4                                          , 0x1F8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1FC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecCP2Pos                                     , 0x208) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecCP3Pos                                     , 0x214) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecCP4Pos                                     , 0x220) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(std::int32_t                    , m_nHeadLocation                                 , 0x22C) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_ClientPhysics
+    //   fields: 15
+    //   size: 0x558
+    //   @MGetKV3ClassDefaults
+    class C_OP_ClientPhysics {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_strPhysicsType                                , 0x230) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor]
+        SCHEMA_FIELD(bool                            , m_bStartAsleep                                  , 0x238) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flPlayerWakeRadius                            , 0x240) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flVehicleWakeRadius                           , 0x3B8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseHighQualitySimulation                     , 0x530) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxParticleCount                             , 0x534) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRespectExclusionVolumes                      , 0x538) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bKillParticles                                , 0x539) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDeleteSim                                    , 0x53A) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x53C) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nForcedSimId                                  , 0x540) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x544) // ParticleColorBlendType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttrBoxFlags_t          , m_nForcedStatusEffects                          , 0x548) // ParticleAttrBoxFlags_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nNoCollisionAttribute                         , 0x54C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nZeroGravityAttribute                         , 0x550) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
+    };
+
+    // C_INIT_RandomScalar
     //   fields: 4
     //   size: 0x1F8
     //   @MGetKV3ClassDefaults
-    class C_INIT_RandomVectorComponent {
+    class C_INIT_RandomScalar {
     public:
         SCHEMA_FIELD(float                           , m_flMin                                         , 0x1E8) // float32 [MPropertyFriendlyName]
         SCHEMA_FIELD(float                           , m_flMax                                         , 0x1EC) // float32 [MPropertyFriendlyName]
-        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
-        SCHEMA_FIELD(std::int32_t                    , m_nComponent                                    , 0x1F4) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(float                           , m_flExponent                                    , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1F4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_INIT_RandomRotation
+    //   fields: 0
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RandomRotation {
+    public:
+    };
+
+    // PointDefinitionWithTimeValues_t
+    //   fields: 1
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class PointDefinitionWithTimeValues_t {
+    public:
+        SCHEMA_FIELD(float                           , m_flTimeDuration                                , 0x14) // float32 [MPropertyFriendlyName]
+    };
+
+    // FloatInputMaterialVariable_t
+    //   fields: 2
+    //   size: 0x180
+    //   @MGetKV3ClassDefaults
+    class FloatInputMaterialVariable_t {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_strVariable                                   , 0x0) // CUtlString [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInput                                       , 0x8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderVolumetricEmitter
+    //   fields: 15
+    //   size: 0x2290
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderVolumetricEmitter {
+    public:
+        SCHEMA_FIELD(::CUtlString                    , m_strChannelType                                , 0x230) // CUtlString [MPropertyFriendlyName, MPropertyAttributeEditor, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleVolumetricSmokeType_t   , m_nType                                         , 0x238) // ParticleVolumetricSmokeType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleVolumetricSmokeCreationType_t, m_nCreationType                                 , 0x23C) // ParticleVolumetricSmokeCreationType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(EventTypeSelection_t            , m_nEventType                                    , 0x240) // EventTypeSelection_t [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPos                                        , 0x248) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecVelocity                                   , 0x920) // CPerParticleVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vPrevPosition                                 , 0xFF8) // CPerParticleVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flSpeed                                       , 0x16D0) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius                                      , 0x1848) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flDensity                                     , 0x19C0) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flTemperature                                 , 0x1B38) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flMagnitude                                   , 0x1CB0) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flKillRadius                                  , 0x1E28) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flKillDensityScale                            , 0x1FA0) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flFalloff                                     , 0x2118) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+    };
+
+    // PointDefinition_t
+    //   fields: 3
+    //   size: 0x14
+    //   @MGetKV3ClassDefaults
+    class PointDefinition_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vOffset                                       , 0x8) // Vector [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RandomVector
+    //   fields: 4
+    //   size: 0x210
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RandomVector {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vecMin                                        , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecMax                                        , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x200) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x204) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
+    };
+
+    // C_INIT_PlaneCull
+    //   fields: 3
+    //   size: 0x370
+    //   @MGetKV3ClassDefaults
+    class C_INIT_PlaneCull {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPoint                                 , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flDistance                                    , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bCullInside                                   , 0x368) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointToHMD
+    //   fields: 3
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointToHMD {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP1                                          , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecCP1Pos                                     , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bOrientToHMD                                  , 0x1F8) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetControlPointFieldToScalarExpression
+    //   fields: 7
+    //   size: 0x7D8
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetControlPointFieldToScalarExpression {
+    public:
+        SCHEMA_FIELD(ScalarExpressionType_t          , m_nExpression                                   , 0x1E8) // ScalarExpressionType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInput1                                      , 0x1F0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInput2                                      , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flOutputRemap                                 , 0x4E0) // CParticleRemapFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutputCP                                     , 0x658) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x65C) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInterpolation                               , 0x660) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_PercentageBetweenTransforms
+    //   fields: 10
+    //   size: 0x2D0
+    //   @MGetKV3ClassDefaults
+    class C_OP_PercentageBetweenTransforms {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformStart                                , 0x1F8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformEnd                                  , 0x260) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x2C8) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bActiveRange                                  , 0x2CC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRadialCheck                                  , 0x2CD) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_OscillateScalarSimple
+    //   fields: 5
+    //   size: 0x220
+    //   @MGetKV3ClassDefaults
+    class C_OP_OscillateScalarSimple {
+    public:
+        SCHEMA_FIELD(float                           , m_Rate                                          , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_Frequency                                     , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flOscMult                                     , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOscAdd                                      , 0x1F0) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_PositionLock
+    //   fields: 15
+    //   size: 0xAD0
+    //   @MGetKV3ClassDefaults
+    class C_OP_PositionLock {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x1E0) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x248) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x24C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime_exp                               , 0x250) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x254) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x258) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime_exp                                 , 0x25C) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flRange                                       , 0x260) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRangeBias                                   , 0x268) // CParticleCollectionFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flJumpThreshold                               , 0x3E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flPrevPosScale                                , 0x3E4) // float32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(bool                            , m_bLockRot                                      , 0x3E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecScale                                      , 0x3F0) // CParticleCollectionVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0xAC8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutputPrev                              , 0xACC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_VectorFieldSnapshot
+    //   fields: 9
+    //   size: 0xA50
+    //   @MGetKV3ClassDefaults
+    class C_OP_VectorFieldSnapshot {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAttributeToWrite                             , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nLocalSpaceCP                                 , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecScale                                      , 0x368) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flBoundaryDampening                           , 0xA40) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetVelocity                                  , 0xA44) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLockToSurface                                , 0xA45) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flGridSpacing                                 , 0xA48) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_VelocityMatchingForce
+    //   fields: 6
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_OP_VelocityMatchingForce {
+    public:
+        SCHEMA_FIELD(float                           , m_flDirScale                                    , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSpdScale                                    , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flNeighborDistance                            , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFacingStrength                              , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseAABB                                      , 0x1F0) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPBroadcast                                  , 0x1F4) // int32 [MPropertyFriendlyName]
+    };
+
+    // CParticleFunctionRenderer
+    //   fields: 2
+    //   size: 0x230
+    //   @MGetKV3ClassDefaults
+    class CParticleFunctionRenderer {
+    public:
+        SCHEMA_FIELD(CParticleVisibilityInputs       , VisibilityInputs                                , 0x1E0) // CParticleVisibilityInputs [MPropertySortPriority]
+        SCHEMA_FIELD(bool                            , m_bCannotBeRefracted                            , 0x228) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+    };
+
+    // C_OP_ModelDampenMovement
+    //   fields: 7
+    //   size: 0x948
+    //   @MGetKV3ClassDefaults
+    class C_OP_ModelDampenMovement {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bBoundBox                                     , 0x1E4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOutside                                      , 0x1E5) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseBones                                     , 0x1E6) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_HitboxSetName                                 , 0x1E7) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPosOffset                                  , 0x268) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(float                           , m_fDrag                                         , 0x940) // float32 [MPropertyFriendlyName, MPropertyAttributeRange]
+    };
+
+    // C_INIT_PositionOffset
+    //   fields: 6
+    //   size: 0x1010
+    //   @MGetKV3ClassDefaults
+    class C_INIT_PositionOffset {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_OffsetMin                                     , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_OffsetMax                                     , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0xF98) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLocalCoords                                  , 0x1000) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x1001) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(CRandomNumberGeneratorParameters, m_randomnessParameters                          , 0x1004) // CRandomNumberGeneratorParameters [MPropertyFriendlyName]
+    };
+
+    // C_OP_DistanceBetweenTransforms
+    //   fields: 13
+    //   size: 0x930
+    //   @MGetKV3ClassDefaults
+    class C_OP_DistanceBetweenTransforms {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformStart                                , 0x1E8) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformEnd                                  , 0x250) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMin                                    , 0x2B8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInputMax                                    , 0x430) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMin                                   , 0x5A8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flOutputMax                                   , 0x720) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x898) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flLOSScale                                    , 0x89C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x8A0) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x920) // ParticleTraceSet_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bLOS                                          , 0x924) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x928) // ParticleSetMethod_t [MPropertyFriendlyName]
+    };
+
+    // C_OP_SnapshotRigidSkinToBones
+    //   fields: 3
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class C_OP_SnapshotRigidSkinToBones {
+    public:
+        SCHEMA_FIELD(bool                            , m_bTransformNormals                             , 0x1E0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bTransformRadii                               , 0x1E1) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1E4) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderScreenVelocityRotate
+    //   fields: 2
+    //   size: 0x238
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderScreenVelocityRotate {
+    public:
+        SCHEMA_FIELD(float                           , m_flRotateRateDegrees                           , 0x230) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flForwardDegrees                              , 0x234) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_OscillateScalar
+    //   fields: 13
+    //   size: 0x210
+    //   @MGetKV3ClassDefaults
+    class C_OP_OscillateScalar {
+    public:
+        SCHEMA_FIELD(float                           , m_RateMin                                       , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_RateMax                                       , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_FrequencyMin                                  , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_FrequencyMax                                  , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x1F0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x1F4) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bProportionalOp                               , 0x1F5) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime_min                               , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime_max                               , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime_min                                 , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime_max                                 , 0x204) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOscMult                                     , 0x208) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOscAdd                                      , 0x20C) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_ExternalGameImpulseForce
+    //   fields: 5
+    //   size: 0x370
+    //   @MGetKV3ClassDefaults
+    class C_OP_ExternalGameImpulseForce {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flForceScale                                  , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRopes                                        , 0x368) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bRopesZOnly                                   , 0x369) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bExplosions                                   , 0x36A) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bParticles                                    , 0x36B) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_SetVectorAttributeToVectorExpression
+    //   fields: 7
+    //   size: 0x1180
+    //   @MGetKV3ClassDefaults
+    class C_OP_SetVectorAttributeToVectorExpression {
+    public:
+        SCHEMA_FIELD(VectorExpressionType_t          , m_nExpression                                   , 0x1E0) // VectorExpressionType_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput1                                       , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vInput2                                       , 0x8C0) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flLerp                                        , 0xF98) // CPerParticleFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nOutputField                                  , 0x1110) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x1114) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bNormalizedOutput                             , 0x1118) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapDirectionToCPToVector
+    //   fields: 7
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapDirectionToCPToVector {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOffsetRot                                   , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOffsetAxis                                 , 0x1F0) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bNormalize                                    , 0x1FC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldStrength                                , 0x200) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_RemapNamedModelSequenceOnceTimed
+    //   fields: 0
+    //   size: 0x240
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapNamedModelSequenceOnceTimed {
+    public:
+    };
+
+    // CPAssignment_t
+    //   fields: 3
+    //   size: 0x6E8
+    //   @MGetKV3ClassDefaults
+    class CPAssignment_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPNumber                                     , 0x0) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_Pos                                           , 0x8) // CPerParticleVecInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleOrientationSetMode_t    , m_nOrientationMode                              , 0x6E0) // ParticleOrientationSetMode_t [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RemapTransformToVector
+    //   fields: 13
+    //   size: 0x308
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RemapTransformToVector {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E8) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::Vector                        , m_vInputMin                                     , 0x1EC) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vInputMax                                     , 0x1F8) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vOutputMin                                    , 0x204) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vOutputMax                                    , 0x210) // Vector [MPropertyFriendlyName, MVectorIsSometimesCoordinate]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_TransformInput                                , 0x220) // CParticleTransformInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleTransformInput, m_LocalSpaceTransform                           , 0x288) // CParticleTransformInput [MPropertyFriendlyName, MParticleInputOptional]
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x2F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x2F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleSetMethod_t             , m_nSetMethod                                    , 0x2F8) // ParticleSetMethod_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bOffset                                       , 0x2FC) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAccelerate                                   , 0x2FD) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRemapBias                                   , 0x300) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_ReadFromNeighboringParticle
+    //   fields: 5
+    //   size: 0x4E0
+    //   @MGetKV3ClassDefaults
+    class C_OP_ReadFromNeighboringParticle {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_DistanceCheck                                 , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flInterpolation                               , 0x368) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_OP_PerParticleForce
+    //   fields: 3
+    //   size: 0xA48
+    //   @MGetKV3ClassDefaults
+    class C_OP_PerParticleForce {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flForceScale                                  , 0x1F0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vForce                                        , 0x368) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0xA40) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_FadeIn
+    //   fields: 4
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_FadeIn {
+    public:
+        SCHEMA_FIELD(float                           , m_flFadeInTimeMin                               , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFadeInTimeMax                               , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flFadeInTimeExp                               , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x1EC) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapNamedModelElementEndCap
+    //   fields: 7
+    //   size: 0x240
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapNamedModelElementEndCap {
+    public:
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x1E0) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_inNames                                       , 0x1E8) // CUtlVector<CUtlString> [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_outNames                                      , 0x200) // CUtlVector<CUtlString> [MPropertyFriendlyName]
+        SCHEMA_FIELD(CUtlVector<CUtlString>          , m_fallbackNames                                 , 0x218) // CUtlVector<CUtlString> [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bModelFromRenderer                            , 0x230) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldInput                                   , 0x234) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x238) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // CParticleMassCalculationParameters
+    //   fields: 4
+    //   size: 0x470
+    //   @MGetKV3ClassDefaults
+    class CParticleMassCalculationParameters {
+    public:
+        SCHEMA_FIELD(ParticleMassMode_t              , m_nMassMode                                     , 0x0) // ParticleMassMode_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flRadius                                      , 0x8) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flNominalRadius                               , 0x180) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_flScale                                       , 0x2F8) // CPerParticleFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_INIT_ScreenSpacePositionOfTarget
+    //   fields: 4
+    //   size: 0xA40
+    //   @MGetKV3ClassDefaults
+    class C_INIT_ScreenSpacePositionOfTarget {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecTargetPosition                             , 0x1E8) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bOututBehindness                              , 0x8C0) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nBehindFieldOutput                            , 0x8C4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CParticleRemapFloatInput, m_flBehindOutputRemap                           , 0x8C8) // CParticleRemapFloatInput [MPropertyFriendlyName, MPropertySuppressExpr]
+    };
+
+    // C_OP_ForceBasedOnDistanceToPlane
+    //   fields: 7
+    //   size: 0x228
+    //   @MGetKV3ClassDefaults
+    class C_OP_ForceBasedOnDistanceToPlane {
+    public:
+        SCHEMA_FIELD(float                           , m_flMinDist                                     , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecForceAtMinDist                             , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(float                           , m_flMaxDist                                     , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecForceAtMaxDist                             , 0x204) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecPlaneNormal                                , 0x210) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x21C) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flExponent                                    , 0x220) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_VelocityRadialRandom
+    //   fields: 8
+    //   size: 0x12A0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_VelocityRadialRandom {
+    public:
+        SCHEMA_FIELD(bool                            , m_bPerParticleCenter                            , 0x1E8) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x1EC) // int32 [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecPosition                                   , 0x1F0) // CPerParticleVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecFwd                                        , 0x8C8) // CPerParticleVecInput [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMin                                     , 0xFA0) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fSpeedMax                                     , 0x1118) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecLocalCoordinateSystemSpeedScale            , 0x1290) // Vector [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bIgnoreDelta                                  , 0x129D) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_QuantizeCPComponent
+    //   fields: 4
+    //   size: 0x4E0
+    //   @MGetKV3ClassDefaults
+    class C_OP_QuantizeCPComponent {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInputValue                                  , 0x1E8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nCPOutput                                     , 0x360) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nOutVectorField                               , 0x364) // int32 [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flQuantizeValue                               , 0x368) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_INIT_LifespanFromVelocity
+    //   fields: 8
+    //   size: 0x2A0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_LifespanFromVelocity {
+    public:
+        SCHEMA_FIELD(::Vector                        , m_vecComponentScale                             , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(float                           , m_flTraceOffset                                 , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxTraceLength                              , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flTraceTolerance                              , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxPlanes                                    , 0x200) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x208) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x288) // ParticleTraceSet_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bIncludeWater                                 , 0x298) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_CreateFromCPs
+    //   fields: 4
+    //   size: 0x370
+    //   @MGetKV3ClassDefaults
+    class C_INIT_CreateFromCPs {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nIncrement                                    , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nMinCP                                        , 0x1EC) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nMaxCP                                        , 0x1F0) // int32 [MPropertyFriendlyName, MParticleMinVersion]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_nDynamicCPCount                               , 0x1F8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // C_INIT_ChaoticAttractor
+    //   fields: 9
+    //   size: 0x210
+    //   @MGetKV3ClassDefaults
+    class C_INIT_ChaoticAttractor {
+    public:
+        SCHEMA_FIELD(float                           , m_flAParm                                       , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flBParm                                       , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flCParm                                       , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flDParm                                       , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flScale                                       , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSpeedMin                                    , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSpeedMax                                    , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nBaseCP                                       , 0x204) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUniformSpeed                                 , 0x208) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_InitialRepulsionVelocity
+    //   fields: 13
+    //   size: 0x2A0
+    //   @MGetKV3ClassDefaults
+    class C_INIT_InitialRepulsionVelocity {
+    public:
+        SCHEMA_FIELD(char                            , m_CollisionGroupName                            , 0x1E8) // char[128] [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleTraceSet_t              , m_nTraceSet                                     , 0x268) // ParticleTraceSet_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMin                                  , 0x26C) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(::Vector                        , m_vecOutputMax                                  , 0x278) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x284) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bPerParticle                                  , 0x288) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bTranslate                                    , 0x289) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bProportional                                 , 0x28A) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flTraceLength                                 , 0x28C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bPerParticleTR                                , 0x290) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bInherit                                      , 0x291) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nChildCP                                      , 0x294) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nChildGroupID                                 , 0x298) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RampScalarSplineSimple
+    //   fields: 5
+    //   size: 0x220
+    //   @MGetKV3ClassDefaults
+    class C_OP_RampScalarSplineSimple {
+    public:
+        SCHEMA_FIELD(float                           , m_Rate                                          , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartTime                                   , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEndTime                                     , 0x1E8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nField                                        , 0x210) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(bool                            , m_bEaseOut                                      , 0x214) // bool [MPropertyFriendlyName]
+    };
+
+    // C_INIT_RandomRotationSpeed
+    //   fields: 0
+    //   size: 0x208
+    //   @MGetKV3ClassDefaults
+    class C_INIT_RandomRotationSpeed {
+    public:
     };
 
     // C_OP_SetControlPointOrientation
@@ -7368,15 +7159,224 @@ namespace particles {
         SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInterpolation                               , 0x210) // CParticleCollectionFloatInput [MPropertyFriendlyName]
     };
 
-    // C_INIT_CreateFromPlaneCache
-    //   fields: 3
+    // C_OP_RenderTreeShake
+    //   fields: 10
+    //   size: 0x258
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderTreeShake {
+    public:
+        SCHEMA_FIELD(float                           , m_flPeakStrength                                , 0x230) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nPeakStrengthFieldOverride                    , 0x234) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flRadius                                      , 0x238) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nRadiusFieldOverride                          , 0x23C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flShakeDuration                               , 0x240) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flTransitionTime                              , 0x244) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flTwistAmount                                 , 0x248) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRadialAmount                                , 0x24C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flControlPointOrientationAmount               , 0x250) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointForLinearDirection               , 0x254) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_ConstrainLineLength
+    //   fields: 2
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class C_OP_ConstrainLineLength {
+    public:
+        SCHEMA_FIELD(float                           , m_flMinDistance                                 , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMaxDistance                                 , 0x1E4) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_ModelSurfaceSnapshotGenerator
+    //   fields: 10
+    //   size: 0x838
+    //   @MGetKV3ClassDefaults
+    class C_OP_ModelSurfaceSnapshotGenerator {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCPSnapshot                                   , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleModelInput, m_modelInput                                    , 0x1F0) // CParticleModelInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRecalcRate                                  , 0x250) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flUSpacing                                    , 0x3C8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flVSpacing                                    , 0x540) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flSurfaceOffset                               , 0x6B8) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetNormal                                    , 0x830) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetUp                                        , 0x831) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetGravity                                   , 0x832) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bSetUV                                        , 0x833) // bool [MPropertyFriendlyName]
+    };
+
+    // C_OP_RenderDeferredLight
+    //   fields: 16
+    //   size: 0x948
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderDeferredLight {
+    public:
+        SCHEMA_FIELD(float                           , m_flRadiusScale                                 , 0x230) // float32 [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flAlphaScale                                  , 0x234) // float32 [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlpha2Field                                  , 0x238) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionVecInput, m_vecColorScale                                 , 0x240) // CParticleCollectionVecInput [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(ParticleColorBlendType_t        , m_nColorBlendType                               , 0x918) // ParticleColorBlendType_t [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(bool                            , m_bUseTexture                                   , 0x91C) // bool [MPropertyStartGroup, MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bUseAlphaTestWindow                           , 0x91D) // bool [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCTextureBase>, m_hTexture                                      , 0x920) // CStrongHandle<InfoForResourceTypeCTextureBase> [MPropertyFriendlyName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlphaTestPointField                          , 0x928) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlphaTestRangeField                          , 0x92C) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAlphaTestSharpnessField                      , 0x930) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flLightDistance                               , 0x934) // float32 [MPropertyStartGroup, MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flStartFalloff                                , 0x938) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flDistanceFalloff                             , 0x93C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSpotFoV                                     , 0x940) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nHSVShiftControlPoint                         , 0x944) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_OrientTo2dDirection
+    //   fields: 4
+    //   size: 0x8C8
+    //   @MGetKV3ClassDefaults
+    class C_OP_OrientTo2dDirection {
+    public:
+        SCHEMA_FIELD(::animationsystem::CPerParticleVecInput, m_vecInput                                      , 0x1E0) // CPerParticleVecInput [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(float                           , m_flRotOffset                                   , 0x8B8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSpinStrength                                , 0x8BC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x8C0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_FadeOutSimple
+    //   fields: 2
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class C_OP_FadeOutSimple {
+    public:
+        SCHEMA_FIELD(float                           , m_flFadeOutTime                                 , 0x1E0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E4) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_AlphaDecay
+    //   fields: 1
+    //   size: 0x1E8
+    //   @MGetKV3ClassDefaults
+    class C_OP_AlphaDecay {
+    public:
+        SCHEMA_FIELD(float                           , m_flMinAlpha                                    , 0x1E0) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RemapBoundingVolumetoCP
+    //   fields: 5
+    //   size: 0x200
+    //   @MGetKV3ClassDefaults
+    class C_OP_RemapBoundingVolumetoCP {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nOutControlPointNumber                        , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMin                                    , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flInputMax                                    , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1F8) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_RopeSpringConstraint
+    //   fields: 5
+    //   size: 0x7C8
+    //   @MGetKV3ClassDefaults
+    class C_OP_RopeSpringConstraint {
+    public:
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flRestLength                                  , 0x1E0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMinDistance                                 , 0x358) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flMaxDistance                                 , 0x4D0) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flAdjustmentScale                             , 0x648) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_flInitialRestingLength                        , 0x650) // CParticleCollectionFloatInput [MPropertyFriendlyName]
+    };
+
+    // CBaseTrailRenderer
+    //   fields: 8
+    //   size: 0x3358
+    //   @MGetKV3ClassDefaults
+    class CBaseTrailRenderer {
+    public:
+        SCHEMA_FIELD(ParticleOrientationChoiceList_t , m_nOrientationType                              , 0x2ED8) // ParticleOrientationChoiceList_t [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(std::int32_t                    , m_nOrientationControlPoint                      , 0x2EDC) // int32 [MPropertyFriendlyName, MPropertySortPriority, MPropertySuppressExpr]
+        SCHEMA_FIELD(float                           , m_flMinSize                                     , 0x2EE0) // float32 [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(float                           , m_flMaxSize                                     , 0x2EE4) // float32 [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flStartFadeSize                               , 0x2EE8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flEndFadeSize                                 , 0x3060) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionRendererFloatInput, m_flSubPixelAAScale                             , 0x31D8) // CParticleCollectionRendererFloatInput [MPropertyFriendlyName, MPropertySuppressExpr, MPropertySortPriority]
+        SCHEMA_FIELD(bool                            , m_bClampV                                       , 0x3350) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+    };
+
+    // C_OP_RenderSimpleModelCollection
+    //   fields: 9
+    //   size: 0x5B0
+    //   @MGetKV3ClassDefaults
+    class C_OP_RenderSimpleModelCollection {
+    public:
+        SCHEMA_FIELD(bool                            , m_bCenterOffset                                 , 0x230) // bool [MPropertyStartGroup, MPropertyFriendlyName, MPropertySortPriority]
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_hModel                                        , 0x238) // CStrongHandle<InfoForResourceTypeCModel> [MPropertyStartGroup, MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleModelInput, m_modelInput                                    , 0x240) // CParticleModelInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CParticleCollectionFloatInput, m_fSizeCullScale                                , 0x2A0) // CParticleCollectionFloatInput [MPropertyStartGroup, MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDisableShadows                               , 0x418) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bDisableMotionBlur                            , 0x419) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(bool                            , m_bAcceptsDecals                                , 0x41A) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(::animationsystem::CPerParticleFloatInput, m_fDrawFilter                                   , 0x420) // CPerParticleFloatInput [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nAngularVelocityField                         , 0x598) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+    };
+
+    // C_OP_TwistAroundAxis
+    //   fields: 4
     //   size: 0x208
     //   @MGetKV3ClassDefaults
-    class C_INIT_CreateFromPlaneCache {
+    class C_OP_TwistAroundAxis {
     public:
-        SCHEMA_FIELD(::Vector                        , m_vecOffsetMin                                  , 0x1E8) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(::Vector                        , m_vecOffsetMax                                  , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
-        SCHEMA_FIELD(bool                            , m_bUseNormal                                    , 0x201) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_fForceAmount                                  , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Vector                        , m_TwistAxis                                     , 0x1F4) // Vector [MPropertyFriendlyName, MVectorIsCoordinate]
+        SCHEMA_FIELD(bool                            , m_bLocalSpace                                   , 0x200) // bool [MPropertyFriendlyName]
+        SCHEMA_FIELD(std::int32_t                    , m_nControlPointNumber                           , 0x204) // int32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_Orient2DRelToCP
+    //   fields: 3
+    //   size: 0x1F8
+    //   @MGetKV3ClassDefaults
+    class C_INIT_Orient2DRelToCP {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nCP                                           , 0x1E8) // int32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1EC) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flRotOffset                                   , 0x1F0) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_OP_ReinitializeScalarEndCap
+    //   fields: 3
+    //   size: 0x1F0
+    //   @MGetKV3ClassDefaults
+    class C_OP_ReinitializeScalarEndCap {
+    public:
+        SCHEMA_FIELD(ParticleAttributeIndex_t        , m_nFieldOutput                                  , 0x1E0) // ParticleAttributeIndex_t [MPropertyFriendlyName, MPropertyAttributeChoiceName]
+        SCHEMA_FIELD(float                           , m_flOutputMin                                   , 0x1E4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flOutputMax                                   , 0x1E8) // float32 [MPropertyFriendlyName]
+    };
+
+    // C_INIT_StatusEffect
+    //   fields: 18
+    //   size: 0x248
+    //   @MGetKV3ClassDefaults
+    class C_INIT_StatusEffect {
+    public:
+        SCHEMA_FIELD(Detail2Combo_t                  , m_nDetail2Combo                                 , 0x1E8) // Detail2Combo_t [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flDetail2Rotation                             , 0x1EC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flDetail2Scale                                , 0x1F0) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flDetail2BlendFactor                          , 0x1F4) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flColorWarpIntensity                          , 0x1F8) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flDiffuseWarpBlendToFull                      , 0x1FC) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flEnvMapIntensity                             , 0x200) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flAmbientScale                                , 0x204) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_specularColor                                 , 0x208) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSpecularScale                               , 0x20C) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSpecularExponent                            , 0x210) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSpecularExponentBlendToFull                 , 0x214) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSpecularBlendToFull                         , 0x218) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(::Color                         , m_rimLightColor                                 , 0x21C) // Color [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flRimLightScale                               , 0x220) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flReflectionsTintByBaseBlendToNone            , 0x224) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flMetalnessBlendToFull                        , 0x228) // float32 [MPropertyFriendlyName]
+        SCHEMA_FIELD(float                           , m_flSelfIllumBlendToFull                        , 0x22C) // float32 [MPropertyFriendlyName]
     };
 
 } // namespace particles

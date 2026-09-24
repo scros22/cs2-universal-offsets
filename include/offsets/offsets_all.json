@@ -1,5 +1,5 @@
 {
-  "count": 208,
+  "count": 202,
   "modules": {
     "animationsystem.dll": [
       {
@@ -192,12 +192,6 @@
         "rva": "0x256F7F0"
       },
       {
-        "hpp_name": "pCSGOInput",
-        "kind": "signature",
-        "name": "pCSGOInput",
-        "rva": "0x22343C0"
-      },
-      {
         "hpp_name": "pCSGOInputInstance",
         "kind": "signature",
         "name": "pCSGOInputInstance",
@@ -228,12 +222,6 @@
         "rva": "0x25EA900"
       },
       {
-        "hpp_name": "pEntityList",
-        "kind": "signature",
-        "name": "pEntityList",
-        "rva": "0x2711048"
-      },
-      {
         "hpp_name": "pEntitySystem",
         "kind": "signature",
         "name": "pEntitySystem",
@@ -262,12 +250,6 @@
         "kind": "signature",
         "name": "pGameTraceManager",
         "rva": "0x221F1E8"
-      },
-      {
-        "hpp_name": "pGetBBox",
-        "kind": "signature",
-        "name": "pGetBBox",
-        "rva": "0x255BA98"
       },
       {
         "hpp_name": "pGlobalVariables",
@@ -384,12 +366,6 @@
         "rva": "0x2521EF8"
       },
       {
-        "hpp_name": "pViewMatrix",
-        "kind": "signature",
-        "name": "pViewMatrix",
-        "rva": "0x25618F0"
-      },
-      {
         "hpp_name": "pViewRender",
         "kind": "signature",
         "name": "pViewRender",
@@ -400,12 +376,6 @@
         "kind": "signature",
         "name": "pViewToProjectionMatrix",
         "rva": "0x25618B0"
-      },
-      {
-        "hpp_name": "pVPhys2World",
-        "kind": "signature",
-        "name": "pVPhys2World",
-        "rva": "0x221F1E8"
       },
       {
         "hpp_name": "pWeaponC4",
@@ -922,12 +892,6 @@
         "hpp_name": "InputSystemVersion001",
         "kind": "interface",
         "name": "InputSystemVersion001",
-        "rva": "0x46BC0"
-      },
-      {
-        "hpp_name": "pInputSystem",
-        "kind": "signature",
-        "name": "pInputSystem",
         "rva": "0x46BC0"
       },
       {

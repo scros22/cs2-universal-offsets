@@ -91,12 +91,18 @@ pub struct PatternHit {
     /// `1` is ideal; `>1` means the pattern is ambiguous and should be tightened.
     pub matches: u32,
     pub error: Option<String>,
+    /// Other database names that resolve to this same function. The entry is
+    /// published once under `name`; these still identify it (site search/API).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub aliases: Vec<String>,
 }
 
 #[derive(Default, Debug, serde::Serialize)]
 pub struct PatternReport {
     pub total: usize,
     pub found: usize,
+    /// Distinct functions/globals among the found hits (aliases folded).
+    pub unique_functions: usize,
     pub modules: Vec<String>,
     pub hits: Vec<PatternHit>,
 }
@@ -162,6 +168,8 @@ where
         }
     }
 
+    fold_aliases(&mut report);
+
     if ambiguous > 0 {
         log::warn!(
             "{} Pattern(s) matched more than once in their .text section — consider tightening",
@@ -170,6 +178,61 @@ where
     }
 
     Ok(report)
+}
+
+/// The database carries several community names for some functions
+/// (TraceShape / CGameTrace_TraceShape_Client). Two entries that resolve to the
+/// same address ARE the same function, so publish it once: the most descriptive
+/// name becomes `name`, the rest go under `aliases`. Preference: not a
+/// `_v2` / `_raw` / `_E8` / `_caller` / `_Client` variant, then class-qualified
+/// (`CClass_Method`), then the longest name, then alphabetical.
+fn fold_aliases(report: &mut PatternReport) {
+    fn is_variant(n: &str) -> bool {
+        ["_v2", "_v3", "_raw", "_E8", "_caller", "_legacy", "_Client", "_inv"]
+            .iter()
+            .any(|s| n.ends_with(s))
+    }
+    fn class_qualified(n: &str) -> bool {
+        let b = n.as_bytes();
+        b.len() > 2
+            && (b[0] == b'C' || b[0] == b'I')
+            && (b[1].is_ascii_uppercase() || b[1] == b'_')
+            && n[1..].find('_').map(|i| n[i + 2..].chars().next().map(|c| c.is_ascii_uppercase()).unwrap_or(false)).unwrap_or(false)
+    }
+    fn rank(n: &str) -> (u8, u8, isize, String) {
+        (is_variant(n) as u8, (!class_qualified(n)) as u8, -(n.len() as isize), n.to_string())
+    }
+    let mut groups: BTreeMap<(String, u64), Vec<usize>> = BTreeMap::new();
+    for (i, h) in report.hits.iter().enumerate() {
+        if let (true, Some(rva)) = (h.found, h.rva) {
+            groups.entry((h.module.to_ascii_lowercase(), rva)).or_default().push(i);
+        }
+    }
+    let mut drop = std::collections::BTreeSet::new();
+    for idxs in groups.values() {
+        if idxs.len() < 2 {
+            continue;
+        }
+        let mut order = idxs.clone();
+        order.sort_by_key(|&i| rank(&report.hits[i].name));
+        let primary = order[0];
+        let mut aliases: Vec<String> = order[1..].iter().map(|&i| report.hits[i].name.clone()).collect();
+        aliases.sort();
+        aliases.dedup();
+        // keep a prototype if only an alias entry carried one
+        if report.hits[primary].prototype.is_none() {
+            if let Some(p) = order[1..].iter().find_map(|&i| report.hits[i].prototype.clone()) {
+                report.hits[primary].prototype = Some(p);
+            }
+        }
+        report.hits[primary].aliases = aliases;
+        drop.extend(order[1..].iter().copied());
+    }
+    if !drop.is_empty() {
+        let mut i = 0usize;
+        report.hits.retain(|_| { let keep = !drop.contains(&i); i += 1; keep });
+    }
+    report.unique_functions = report.hits.iter().filter(|h| h.found).count();
 }
 
 // ---------------------------------------------------------------------------
@@ -385,6 +448,7 @@ fn scan_pattern(mc: &ModuleCache, sig: &Pattern) -> PatternHit {
         bytes: capture_prologue(mc, res_rva),
         pattern_synth: synthesize_pattern(mc, res_rva),
         found: true,
+        aliases: Vec::new(),
         match_rva: Some(match_rva as u64),
         match_va: Some(match_va),
         rva: Some(res_rva),
@@ -470,6 +534,7 @@ impl PatternHit {
                 bytes: None,
             pattern_synth: None,
             found: false,
+            aliases: Vec::new(),
             match_rva: None,
             match_va: None,
             rva: None,
@@ -509,7 +574,11 @@ pub(crate) fn display_name(raw: &str) -> String {
             // Only strip when the remainder reads as a real method name (starts
             // uppercase). Otherwise keep the full name so we don't reduce it to a
             // meaningless fragment (`CSGOInput_ptr` -> `ptr`).
-            if rest.chars().next().map(|c| c.is_ascii_uppercase()).unwrap_or(false) {
+            // ... and reads as a real method name: a single bare word
+            // (`Get`, `New`, `Init`, `Think`) says nothing without its class,
+            // so those keep the prefix (`CCSInventoryManager_Get`).
+            let multi_word = rest.chars().skip(1).any(|c| c.is_ascii_uppercase() || c == '_');
+            if rest.chars().next().map(|c| c.is_ascii_uppercase()).unwrap_or(false) && multi_word {
                 return rest;
             }
         }

@@ -589,6 +589,7 @@ fn format_found_patterns(report: &patterns::PatternReport) -> String {
     s.push_str("{\n");
     s.push_str(&format!("  \"total_scanned\":  {},\n", report.total));
     s.push_str(&format!("  \"found\":          {},\n", report.found));
+    s.push_str(&format!("  \"unique_functions\": {},\n", report.unique_functions));
     s.push_str(&format!("  \"missing\":        {},\n", report.total - report.found));
 
     s.push_str(&format!(
@@ -620,8 +621,13 @@ fn format_found_patterns(report: &patterns::PatternReport) -> String {
             .as_deref()
             .map(|b| format!("\"{}\"", b.replace('\\', "\\\\").replace('"', "\\\"")))
             .unwrap_or_else(|| "\"\"".into());
+        let alias_field = if h.aliases.is_empty() {
+            String::new()
+        } else {
+            format!(", \"aliases\": [{}]", h.aliases.iter().map(|a| format!("\"{}\"", a)).collect::<Vec<_>>().join(", "))
+        };
         s.push_str(&format!(
-            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>12}, \"rva\": {:>10}, \"pattern\": {:<pw$}, \"bytes\": {:<bw$}, \"pattern_synth\": {:<sw$}, \"prototype\": {:<pxw$} }}{}\n",
+            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>12}, \"rva\": {:>10}, \"pattern\": {:<pw$}, \"bytes\": {:<bw$}, \"pattern_synth\": {:<sw$}, \"prototype\": {:<pxw$}{} }}{}\n",
             format!("\"{}\"", h.name),
             format!("\"{}\"", h.module),
             format!("\"{}\"", h.resolve),
@@ -631,6 +637,7 @@ fn format_found_patterns(report: &patterns::PatternReport) -> String {
             bytes_field,
             synth_field,
             proto_field,
+            alias_field,
             comma,
             nw = name_w + 2,
             mw = mod_w + 2,

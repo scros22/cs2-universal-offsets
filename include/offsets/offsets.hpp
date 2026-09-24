@@ -48,20 +48,17 @@ namespace offsets {
         constexpr std::ptrdiff_t ViewMatrix = 0x25618F0;
         constexpr std::ptrdiff_t ViewRender = 0x25621B0;
         constexpr std::ptrdiff_t WeaponC4 = 0x24C0530;
-        constexpr std::ptrdiff_t pCSGOInput = 0x22343C0;
         constexpr std::ptrdiff_t pCSGOInputInstance = 0x2571A90;
         constexpr std::ptrdiff_t pCSInventoryManager = 0x24CF3D0;
         constexpr std::ptrdiff_t pClientMode = 0x256F7F0;
         constexpr std::ptrdiff_t pCvar = 0x2793478;
         constexpr std::ptrdiff_t pDynamicLightManager = 0x25523F8;
         constexpr std::ptrdiff_t pEconItemSystem = 0x25EA900;
-        constexpr std::ptrdiff_t pEntityList = 0x2711048;
         constexpr std::ptrdiff_t pEntitySystem = 0x23B2100;
         constexpr std::ptrdiff_t pGameEntitySystem = 0x2711048;
         constexpr std::ptrdiff_t pGameEventManager = 0x2542330;
         constexpr std::ptrdiff_t pGameRules = 0x255BA98;
         constexpr std::ptrdiff_t pGameTraceManager = 0x221F1E8;
-        constexpr std::ptrdiff_t pGetBBox = 0x255BA98;
         constexpr std::ptrdiff_t pGlobalVariables = 0x2227F08;
         constexpr std::ptrdiff_t pGlowManager = 0x25587B0;
         constexpr std::ptrdiff_t pHudPanel = 0x25CC7E8;
@@ -81,8 +78,6 @@ namespace offsets {
         constexpr std::ptrdiff_t pSensitivity = 0x25613C0;
         constexpr std::ptrdiff_t pUIInventory = 0x2521EF8;
         constexpr std::ptrdiff_t pUiEngine = 0x272A680;
-        constexpr std::ptrdiff_t pVPhys2World = 0x221F1E8;
-        constexpr std::ptrdiff_t pViewMatrix = 0x25618F0;
         constexpr std::ptrdiff_t pViewRender = 0x25621B0;
         constexpr std::ptrdiff_t pViewToProjectionMatrix = 0x25618B0;
         constexpr std::ptrdiff_t pWeaponC4 = 0x24C0530;
@@ -163,7 +158,6 @@ namespace offsets {
         constexpr std::ptrdiff_t InputStackSystemVersion001 = 0x44E90;
         constexpr std::ptrdiff_t InputSystem = 0x46BC0;
         constexpr std::ptrdiff_t InputSystemVersion001 = 0x46BC0;
-        constexpr std::ptrdiff_t pInputSystem = 0x46BC0;
         constexpr std::ptrdiff_t pInputSystemSvc = 0x46BC0;
     }
     namespace localize {
