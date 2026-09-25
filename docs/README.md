@@ -12,7 +12,7 @@ The `include/` tree committed to this repository is always the latest dump. The 
 |---|---|
 | CS2 build | **14184** (Steam client build 2000917), dumped 2026-09-25 |
 | Dumper | **v2.1.5** — [releases](https://github.com/scros22/cs2-universal-offsets/releases) |
-| Signatures | 577 entries, 576 resolve, 527 unique functions, 0 ambiguous matches; every one verified against fresh IDA analysis |
+| Signatures | 577 entries, 576 resolve, 527 unique functions, 0 ambiguous matches; every one verified against fresh IDA analysis, self-checked on every dump |
 | Globals | 205 — the 32 a2x-compatible `dwXxx` (values identical to a2x), 62 resolved by signature, 111 interface instances |
 | Schema | 3,301 classes and 570 enums across 18 modules |
 | Interfaces | 110 registered interfaces, primary vtable walked, every one RTTI-named |
@@ -50,6 +50,7 @@ Or add the repository as a submodule and `#include <cs2.hpp>` — see [Getting S
 | [Engine Structs](Engine-Structs.md) | Hand-verified non-schema layouts: `CUserCmd`, `CCSGOInput`, `CSwapChainDx11`, … |
 | [Catalogues](Catalogues.md) | ConVars, game events, weapons, entities, buttons, verified features |
 | [Website](Website.md) | cs2-sdk.com: tabs, search, bookmarks and collections, downloads |
+| [Status and Self-Healing](Status-and-Self-Healing.md) | The self-checks behind `status.json` and how stale signatures re-anchor themselves |
 | [API](API.md) | Full reference for the JSON API, including the batch query |
 | [Discord Bot](Discord-Bot.md) | Slash commands, status channel, self-hosting |
 | [Contributing](Contributing.md) | Adding or fixing a signature, the verification standard, code layout |

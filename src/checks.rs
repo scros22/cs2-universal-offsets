@@ -166,6 +166,22 @@ pub fn run<P: Process + MemoryView>(
         } else {
             Check::new("patterns_unique", "fail", format!("{} pattern(s) match more than once", ambiguous.len()), ambiguous)
         });
+        let healed: Vec<Value> = r
+            .hits
+            .iter()
+            .filter(|h| h.healed_from.is_some())
+            .map(|h| json!({ "name": h.name, "module": h.module, "rva": h.rva.map(hex), "pattern": h.pattern, "old_pattern": h.healed_from }))
+            .collect();
+        checks.push(if healed.is_empty() {
+            Check::new("patterns_healed", "pass", "no pattern needed re-anchoring", vec![])
+        } else {
+            Check::new(
+                "patterns_healed",
+                "warn",
+                format!("{} pattern(s) stopped matching and were re-anchored through the previous dump's prologue bytes; the new patterns are published here and must be copied into database.rs (tools/verify/heal.py --apply)", healed.len()),
+                healed,
+            )
+        });
     }
 
     // --- globals: a2x-style vs signature twins ----------------------------
@@ -259,6 +275,12 @@ pub fn run<P: Process + MemoryView>(
                 if sec == ".text" {
                     data_in_text.push(json!({ "name": h.name, "module": h.module, "rva": hex(rva) }));
                 }
+                continue;
+            }
+            // A rip-relative reference that lands in data is a data reference
+            // (vtables, manager pointers) whatever it is called; nothing to
+            // check about a prologue there.
+            if h.resolve == "riprel" && sec != ".text" {
                 continue;
             }
             if site_names.iter().any(|n| *n == h.name) || SITES.iter().any(|n| *n == h.name) {
@@ -390,6 +412,9 @@ pub fn run<P: Process + MemoryView>(
             "total": r.total, "found": r.found, "unique_functions": r.unique_functions,
             "missing": r.hits.iter().filter(|h| !h.found).map(|h| json!({ "name": h.name, "module": h.module })).collect::<Vec<_>>(),
         })),
+        "auto_healed": report.map(|r| r.hits.iter().filter(|h| h.healed_from.is_some()).map(|h| json!({
+            "name": h.name, "module": h.module, "to": h.rva.map(hex), "pattern": h.pattern, "old_pattern": h.healed_from,
+        })).collect::<Vec<_>>()).unwrap_or_default(),
         "note": "Written by cs2-sdk after every dump. `ok` is false when a check failed; warnings list what to look at. The auto-dump pipeline adds `update`, `auto_healed` and `known_issues`.",
     });
     fs::write(out_dir.join("status.json"), serde_json::to_string_pretty(&status)?)?;

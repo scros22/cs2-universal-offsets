@@ -82,6 +82,12 @@ pub struct PatternHit {
     /// when the resolved RVA is outside `.text`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pattern_synth: Option<String>,
+    /// Set when the database pattern stopped matching (or matched several
+    /// places) and the function was re-found through the previous dump's
+    /// prologue bytes: holds the old pattern; `pattern` is the fresh unique
+    /// one generated at the new address. See [`heal`].
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub healed_from: Option<String>,
     pub found: bool,
     pub match_rva: Option<u64>,
     pub match_va: Option<u64>,
@@ -111,7 +117,104 @@ pub struct PatternReport {
 /// Entry point
 // ---------------------------------------------------------------------------
 
-pub fn scan_all<P>(process: &mut P, sigs: &[Pattern]) -> Result<PatternReport>
+/// What the previous dump knew about a published entry: its 24 prologue
+/// bytes and where it was. Keyed by published name and by every alias.
+pub struct PrevHit {
+    pub bytes: Vec<u8>,
+    pub rva: u64,
+}
+pub type PrevMap = BTreeMap<String, PrevHit>;
+
+/// Load `patterns/patterns.json` from a previous dump (strict JSON, dumper
+/// >= 2.1.4). Missing or unreadable files just disable self-healing.
+pub fn load_previous(path: &std::path::Path) -> Option<PrevMap> {
+    let text = std::fs::read_to_string(path).ok()?;
+    let text = text.trim_start_matches('\u{feff}');
+    let v: serde_json::Value = serde_json::from_str(text).ok()?;
+    let mut map = PrevMap::new();
+    for p in v.get("patterns")?.as_array()? {
+        let (Some(name), Some(bytes), Some(rva)) = (
+            p.get("name").and_then(|x| x.as_str()),
+            p.get("bytes").and_then(|x| x.as_str()),
+            p.get("rva").and_then(|x| x.as_str()),
+        ) else { continue };
+        let Ok((b, _)) = parse_ida(bytes) else { continue };
+        let Ok(rva) = u64::from_str_radix(rva.trim_start_matches("0x"), 16) else { continue };
+        if b.len() < 16 {
+            continue;
+        }
+        let mut names = vec![name.to_string()];
+        if let Some(al) = p.get("aliases").and_then(|x| x.as_array()) {
+            names.extend(al.iter().filter_map(|a| a.as_str().map(String::from)));
+        }
+        for n in names {
+            map.entry(n).or_insert_with(|| PrevHit { bytes: b.clone(), rva });
+        }
+    }
+    Some(map)
+}
+
+/// Re-anchor a function entry whose database pattern no longer works.
+///
+/// If the previous dump's prologue bytes for this entry occur exactly once in
+/// the new module's `.text`, right after padding, the function is still there
+/// and only moved. A fresh pattern that is unique in `.text` is generated at
+/// that address and published in place of the stale one, flagged through
+/// `healed_from` so the database can be updated (tools/verify/heal.py).
+/// Globals (`RipRel`) cannot be healed this way and stay unresolved.
+fn heal(mc: &ModuleCache, sig: &Pattern, prev: &PrevMap) -> Option<PatternHit> {
+    if matches!(sig.resolve, ResolveKind::RipRel { .. }) {
+        return None;
+    }
+    let ph = prev.get(&display_name(sig.name)).or_else(|| prev.get(sig.name))?;
+    let mask = vec![true; ph.bytes.len()];
+    let hits = find_all_pattern(mc.text(), &ph.bytes, &mask);
+    if hits.len() != 1 {
+        return None;
+    }
+    let rva = mc.text_rva as u64 + hits[0] as u64;
+    let before = mc.image.get(rva as usize - 1).copied()?;
+    if !matches!(before, 0xCC | 0xC3 | 0x00) {
+        return None;
+    }
+    // Prefer the wildcarded synthesised pattern; fall back to the concrete
+    // prologue when the synthesiser could not make a unique one.
+    let unique = |p: &str| parse_ida(p).map(|(b, m)| count_matches_capped(mc.text(), &b, &m, 2) == 1).unwrap_or(false);
+    let pattern = match synthesize_pattern(mc, rva) {
+        Some(p) if unique(&p) => p,
+        _ => {
+            let concrete = format_ida(&ph.bytes, &mask);
+            if !unique(&concrete) {
+                return None;
+            }
+            concrete
+        }
+    };
+    log::warn!(
+        "{}: pattern re-anchored via previous prologue: {} -> 0x{:X} (was 0x{:X}); database needs the new pattern",
+        sig.name, sig.module, rva, ph.rva
+    );
+    Some(PatternHit {
+        name: display_name(sig.name),
+        module: mc.name.clone(),
+        resolve: "raw",
+        pattern,
+        prototype: opt_proto(sig.name, sig.prototype),
+        bytes: capture_prologue(mc, rva),
+        pattern_synth: synthesize_pattern(mc, rva),
+        healed_from: Some(sig.needle.to_string()),
+        found: true,
+        aliases: Vec::new(),
+        match_rva: Some(rva),
+        match_va: Some(mc.base + rva),
+        rva: Some(rva),
+        va: Some(mc.base + rva),
+        matches: 1,
+        error: None,
+    })
+}
+
+pub fn scan_all<P>(process: &mut P, sigs: &[Pattern], prev: Option<&PrevMap>) -> Result<PatternReport>
 where
     P: Process + MemoryView,
 {
@@ -137,14 +240,27 @@ where
     for (idx, sig) in sigs.iter().enumerate() {
         ui::progress(idx + 1, total, sig.name);
 
-        let hit = match module_cache.get(&sig.module.to_ascii_lowercase()) {
+        let mc = module_cache.get(&sig.module.to_ascii_lowercase());
+        let mut hit = match mc {
             Some(mc) => scan_one(mc, sig),
             None     => PatternHit::fail(sig, "module not loaded"),
         };
+        // Stale or ambiguous pattern: try to re-find the function through
+        // the previous dump's prologue bytes before giving up on it.
+        if (!hit.found || hit.matches > 1)
+            && let (Some(mc), Some(prev)) = (mc, prev)
+            && let Some(h) = heal(mc, sig, prev)
+        {
+            hit = h;
+        }
 
         if hit.found {
             if hit.matches > 1 { ambiguous += 1; }
-            ui::found(&hit.name, hit.va.unwrap_or(0), &format!("[{}, {}]", hit.resolve, hit.module));
+            if hit.healed_from.is_some() {
+                ui::warn(&format!("{} re-anchored via previous prologue -> 0x{:X} ({}); update the database", hit.name, hit.rva.unwrap_or(0), hit.module));
+            } else {
+                ui::found(&hit.name, hit.va.unwrap_or(0), &format!("[{}, {}]", hit.resolve, hit.module));
+            }
             report.found += 1;
         } else {
             ui::not_found(&hit.name, hit.error.as_deref().unwrap_or("no hit"));
@@ -447,6 +563,7 @@ fn scan_pattern(mc: &ModuleCache, sig: &Pattern) -> PatternHit {
         prototype: opt_proto(sig.name, sig.prototype),
         bytes: capture_prologue(mc, res_rva),
         pattern_synth: synthesize_pattern(mc, res_rva),
+        healed_from: None,
         found: true,
         aliases: Vec::new(),
         match_rva: Some(match_rva as u64),
@@ -533,6 +650,7 @@ impl PatternHit {
             prototype: opt_proto(sig.name, sig.prototype),
                 bytes: None,
             pattern_synth: None,
+            healed_from: None,
             found: false,
             aliases: Vec::new(),
             match_rva: None,

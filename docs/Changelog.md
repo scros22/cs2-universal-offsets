@@ -2,6 +2,13 @@
 
 Each release carries a `cs2-sdk.exe` build and the dump for the CS2 build named in its title. Full notes are on the [releases page](https://github.com/scros22/cs2-universal-offsets/releases).
 
+## v2.1.6 — 2026-09-25 — self-checks, status page, self-healing
+
+- **Self-checks after every dump**, written to `include/status.json`: signature coverage and uniqueness, `dwXxx` globals versus their signature twins, globals in a data section, function targets after padding, `pXxx` globals not in code, protobuf layouts versus the hand-verified engine structs, weapon-table coverage, plus the game's `ClientVersion` / `PatchVersion` from `steam.inf`. A failed check makes the dumper exit 1. Four of the five defects fixed in v2.1.5 would have been caught by these.
+- **Status on the site, API and bot**: a Status tab and `GET /api/status` with every check, its details, unresolved signatures and known issues; a banner on every page when a check failed; `/status` in the Discord bot and a self-check line in its status embed.
+- **Self-healing signatures**: when a database pattern stops matching after an update but the function did not change, the dumper re-finds it through the previous dump's 24 prologue bytes (`--previous`, default `include`), generates a fresh unique pattern and publishes it with a `healed_from` field. `tools/verify/heal.py --apply` writes those into the database.
+- `tools/verify/`: the offline rescan (`dbscan.py`) and pattern generator (`genpat.py`) used for every release are in the repository.
+
 ## v2.1.5 — 2026-09-25 — CS2 build 14184, full verification pass
 
 CS2 updated to build 14184 on the evening of 2026-09-24 (client, server, engine2 and networksystem changed). Every module was re-analysed from scratch in IDA and the whole dump was checked, not just re-scanned. What was wrong, and is now fixed:

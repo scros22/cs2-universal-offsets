@@ -75,6 +75,11 @@ struct Args {
     #[arg(long)]
     no_sound: bool,
 
+    /// Previous dump directory. Its patterns/patterns.json lets the scanner
+    /// re-anchor patterns that stopped matching after a CS2 update, as long
+    /// as the function itself did not change (see status.json auto_healed).
+    #[arg(long, default_value = "include")]
+    previous: PathBuf,
 }
 
 fn main() -> Result<()> {
@@ -194,7 +199,13 @@ fn main() -> Result<()> {
         ui::section("Patterns (PE/section aware)");
         ui::sound(ui::Cue::Step);
 
-        match patterns::scan_all(&mut process, patterns::database::CS2_PATTERNS) {
+        let prev_file = args.previous.join("patterns").join("patterns.json");
+        let previous = patterns::load_previous(&prev_file);
+        match &previous {
+            Some(p) => ui::kv("Previous dump", &format!("{} ({} entries with prologues)", prev_file.display(), p.len())),
+            None => ui::kv("Previous dump", "none (self-healing off)"),
+        }
+        match patterns::scan_all(&mut process, patterns::database::CS2_PATTERNS, previous.as_ref()) {
             Ok(report) => {
                 ui::ok(&format!(
                     "{}/{} patterns resolved across {} module(s)",
@@ -203,6 +214,14 @@ fn main() -> Result<()> {
                     report.modules.len()
                 ));
 
+                let healed: Vec<&str> = report.hits.iter().filter(|h| h.healed_from.is_some()).map(|h| h.name.as_str()).collect();
+                if !healed.is_empty() {
+                    ui::warn(&format!(
+                        "{} pattern(s) re-anchored from the previous dump's prologues: {} — run `py tools/verify/heal.py --apply` to put the new patterns in database.rs",
+                        healed.len(),
+                        healed.join(", ")
+                    ));
+                }
                 fs::write(sig_dir.join("patterns.json"), format_found_patterns(&report))?;
                 fs::write(sig_dir.join("patterns.hpp"), patterns::writers::render_hpp(&report.hits))?;
                 ui::ok("wrote patterns/patterns.{hpp,json}");
@@ -645,13 +664,18 @@ fn format_found_patterns(report: &patterns::PatternReport) -> String {
             .as_deref()
             .map(|b| format!("\"{}\"", b.replace('\\', "\\\\").replace('"', "\\\"")))
             .unwrap_or_else(|| "\"\"".into());
+        let healed_field = h
+            .healed_from
+            .as_deref()
+            .map(|p| format!(", \"healed_from\": \"{}\"", p))
+            .unwrap_or_default();
         let alias_field = if h.aliases.is_empty() {
             String::new()
         } else {
             format!(", \"aliases\": [{}]", h.aliases.iter().map(|a| format!("\"{}\"", a)).collect::<Vec<_>>().join(", "))
         };
         s.push_str(&format!(
-            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>16}, \"rva\": {:>12}, \"pattern\": {:<pw$}, \"bytes\": {:<bw$}, \"pattern_synth\": {:<sw$}, \"prototype\": {:<pxw$}{} }}{}\n",
+            "    {{ \"name\": {:<nw$}, \"module\": {:<mw$}, \"resolve\": {:<rw$}, \"va\": {:>16}, \"rva\": {:>12}, \"pattern\": {:<pw$}, \"bytes\": {:<bw$}, \"pattern_synth\": {:<sw$}, \"prototype\": {:<pxw$}{}{} }}{}\n",
             format!("\"{}\"", h.name),
             format!("\"{}\"", h.module),
             format!("\"{}\"", h.resolve),
@@ -662,6 +686,7 @@ fn format_found_patterns(report: &patterns::PatternReport) -> String {
             synth_field,
             proto_field,
             alias_field,
+            healed_field,
             comma,
             nw = name_w + 2,
             mw = mod_w + 2,

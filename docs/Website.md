@@ -7,6 +7,7 @@
 | Tab | Shows |
 |---|---|
 | Overview | Build, dump time, counts, and links into every dataset |
+| Status | The dumper's self-checks for this dump, unresolved and auto-healed signatures, known issues; a banner appears on every page when a check failed |
 | Patterns | Every signature with pattern, RVA, prototype, prologue bytes and aliases; a detail drawer per function |
 | Offsets | Every resolved global, with a kind filter (global / signature / interface) and a module picker |
 | Interfaces | Registered interfaces, RTTI class, method count, and each vtable slot |

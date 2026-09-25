@@ -9,6 +9,7 @@ Every name argument has autocomplete backed by the live index: signatures with t
 | Command | What you get |
 |---|---|
 | `/build` | Current CS2 build, dump time and dataset counts |
+| `/status` | Self-check results for the current dump, unresolved and auto-healed signatures, known issues |
 | `/sig <name>` | Pattern, RVA, module, prototype and aliases — any alias or display name works |
 | `/offset <name>` | RVA of a global: a `dwXxx`, a signature global or an interface instance |
 | `/schema <class> [field]` | The class layout (parent, size, fields), or one field's offset and type |

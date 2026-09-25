@@ -45,6 +45,10 @@ cargo run --release -- -o include_new     # CS2 running, elevated prompt
 
 Title `add signature: <Name>` or `fix signature: <Name>`. Say which build you verified on and how. One logical change per PR; do not commit `include_new/`.
 
+## Verification tools
+
+`tools/verify/dbscan.py` rescans the whole database against the DLLs on disk without the game running (missing, ambiguous and drifted entries), `tools/verify/genpat.py` generates unique patterns for an address, and `tools/verify/heal.py` copies patterns the dumper re-anchored on its own into `database.rs`. The dumper's own self-checks and the self-healing pass are described in [Status and Self-Healing](Status-and-Self-Healing.md).
+
 ## Engine structs
 
 Hand-verified layouts live in [`src/output/engine_structs.rs`](https://github.com/scros22/cs2-universal-offsets/blob/main/src/output/engine_structs.rs) as

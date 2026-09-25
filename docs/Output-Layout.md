@@ -5,6 +5,7 @@ A run writes one `include/` tree. Everything in it is generated; nothing is hand
 ```text
 include/
 ├── manifest.json                 build number, modules, stage status, signature counts
+├── status.json                   self-check results, unresolved and auto-healed signatures (Status tab / api/status)
 ├── cs2.hpp                       single-include amalgamation (defines CS2_BUILD)
 ├── macros.hpp                    SCHEMA_FIELD, Source 2 type aliases, CHandle<T>
 ├── buttons.{hpp,json}            kbutton table (button::attack, …)
@@ -50,7 +51,7 @@ include/
 | Call or hook interface methods | `interfaces/interfaces.hpp` + `interfaces/vtables.json` — [Interfaces and Vtables](Interfaces-and-Vtables.md) |
 | Read or build user commands | `engine/*.h` + `protobufs/protobufs.hpp` — [Engine Structs](Engine-Structs.md), [Protobufs](Protobufs.md) |
 | Look up a convar, event or weapon value | the catalogues — [Catalogues](Catalogues.md) |
-| Check that a run was complete | `manifest.json` |
+| Check that a run was complete and correct | `manifest.json`, `status.json` — [Status and Self-Healing](Status-and-Self-Healing.md) |
 
 ## Namespaces
 

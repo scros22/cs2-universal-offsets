@@ -37,6 +37,7 @@ The database is [`src/patterns/database.rs`](https://github.com/scros22/cs2-univ
 | `bytes` | The first 24 bytes at `rva`, no wildcards. Present when `rva` is inside `.text` |
 | `pattern_synth` | An auto-generated pattern for the same function: the shortest prefix of `bytes` that is unique in `.text`, with `?` on relocatable bytes (CALL/JMP and RIP-relative displacements). Pastes straight into IDA, x64dbg or ReClass.NET |
 | `aliases` | Other database names that resolved to the same address; present only when there are any |
+| `healed_from` | Present when the database pattern stopped matching and the entry was re-anchored through the previous dump's prologue bytes; holds the old pattern, `pattern` is the fresh unique one — see [Status and Self-Healing](Status-and-Self-Healing.md) |
 
 Entries that did not resolve are not listed; `missing` counts them and the run log names them.
 
@@ -94,7 +95,7 @@ std::uint8_t* find(std::uint8_t* text, std::size_t size, std::string_view ida) {
 
 Treat more than one hit as a failure. That is what the dumper does, and it is why every published pattern is unique.
 
-After a CS2 update, `pattern_synth` and `bytes` give you a second chance: when the database pattern stops matching, the synthesised one often still does, and the raw prologue bytes let you find the function in a disassembler by hand.
+After a CS2 update the dumper itself uses `bytes` from the previous dump to re-anchor entries whose pattern stopped matching but whose function did not change ([Status and Self-Healing](Status-and-Self-Healing.md)). For your own scanner, `pattern_synth` and `bytes` give the same second chance: the synthesised pattern often still matches, and the raw prologue bytes let you find the function in a disassembler by hand.
 
 ## Other views of the same data
 
