@@ -82,9 +82,11 @@ pattern_map! {
         "dwEntityList" => pattern!("48890d${'} e9${} cc") => None,
         "dwGameEntitySystem" => pattern!("488b1d${'} 48891d[4] 4c63b3") => None,
         "dwGameEntitySystem_highestEntityIndex" => pattern!("ff81u4 4885d2") => None,
-        // Updated 2026-04: store-form (48 89 1D ...) is gone; use load-form (48 8B 1D ...)
-        // anchor near GameRules write site.
-        "dwGameRules" => pattern!("488d05${'} 488906 488d4e44") => None,
+        // 2026-09-25: the old lea anchor resolved to a vtable pointer in .rdata
+        // (off_181BAEBF8 on 14184). This is the `test cl,1; jnz; mov r8,[g_pGameRules]`
+        // read site; IDA-verified to land on qword_18255A858 (651 xrefs), the same
+        // global the pGameRules signature resolves.
+        "dwGameRules" => pattern!("f6c1010f85${} 4c8b05${'} 4d85") => None,
         "dwGlobalVars" => pattern!("488915${'} 488942") => None,
         "dwGlowManager" => pattern!("488b05${'} c3 cccccccccccccccc 8b41") => None,
         "dwLocalPlayerController" => pattern!("488b05${'} 4189be") => None,
@@ -98,8 +100,15 @@ pattern_map! {
             }
         }),
         // 2000914: movd now loads from memory; anchor the sensitivity-scale site.
-        "dwSensitivity" => pattern!("488d0d${[8]'} 660f6e8430") => None,
-        "dwSensitivity_sensitivity" => pattern!("488d7eu1 480fbae0? 72? 85d2 490f4fff") => None,
+        // 2026-09-25: the previous anchor was the ConVarRef of `cl_leveloverview`
+        // (IDA: registered at client 0xDCB20 on 14184), not `sensitivity`. This site
+        // (client 0xB22410) is `sensitivity * zoom ratio` and its lea targets the
+        // ConVarRef registered with "sensitivity" / "Mouse sensitivity.". +8 is the
+        // slot holding the resolved ConVarInfo_t*; its value union is at +0x58
+        // (tier0 ConVarInfo_t layout), which is the a2x `dwSensitivity_sensitivity`.
+        "dwSensitivity" => pattern!("488d0d${[8]'} 0f57c90f28f0") => Some(|_view, map, _rva| {
+            map.insert("dwSensitivity_sensitivity".to_string(), 0x58);
+        }),
         "dwViewMatrix" => pattern!("488d0d${'} 48c1e006") => None,
         "dwViewRender" => pattern!("488905${'} 488bc8 4885c0") => None,
         "dwWeaponC4" => pattern!("488b15${'} 488b5c24? ffc0 8905${} 488bc6 488934ea 80be") => None,
@@ -109,7 +118,8 @@ pattern_map! {
         "dwNetworkGameClient" => pattern!("48893d${'} ff87") => None,
         "dwNetworkGameClient_clientTickCount" => pattern!("8b81u4 c3 cccccccccccccccccc 8b81${} c3 cccccccccccccccccc 83b9") => None,
         "dwNetworkGameClient_deltaTick" => pattern!("4c8db7u4 4c897c24") => None,
-        "dwNetworkGameClient_isBackgroundMap" => pattern!("0fb681u4 c3 cccccccccccccccc 0fb681${} c3 cccccccccccccccc 4053") => None,
+        // 2026-09-25: the getter pair is now followed by `sub rsp` (4883ec), not `push rbx`.
+        "dwNetworkGameClient_isBackgroundMap" => pattern!("0fb681u4 c3 cccccccccccccccc 0fb681${} c3 cccccccccccccccc 4883ec") => None,
         "dwNetworkGameClient_localPlayer" => pattern!("428b94d3u4 5b 49ffe3 32c0 5b c3 cccccccccccccccc 4053") => None,
         "dwNetworkGameClient_maxClients" => pattern!("8b81u4 c3????????? 8b81[4] c3????????? 8b81") => None,
         "dwNetworkGameClient_serverTickCount" => pattern!("8b81u4 c3 cccccccccccccccccc 83b9") => None,
@@ -124,9 +134,15 @@ pattern_map! {
         "dwGameTypes" => pattern!("488d0d${'} ff90") => None,
     },
     soundsystem => {
-        "dwSoundSystem" => pattern!("488d05${'} c3 cccccccccccccccc 488915") => None,
+        // 2026-09-25: the `lea rax; ret` accessor is gone; anchor on the
+        // `lea rcx,[g_SoundSystem]; call; mov rcx,[..]` site. Same object the
+        // pSoundSystem signature resolves (0x535340 on 14184).
+        "dwSoundSystem" => pattern!("488d0d${'} e8${} 488b0d${} [3] 4c8b82") => None,
         // 2000914: same store sequence, different registers (value still 0x7C).
-        "dwSoundSystem_engineViewData" => pattern!("0f1145u1 0f104b? 0f118d") => None,
+        // 2026-09-25: the old anchor was a stack store ([rbp+7Ch]) in an unrelated
+        // function. This is the view-setup writer (soundsystem 0x33C040 on 14184):
+        // `movups [rdi+6Ch],xmm0; movups xmm1,[rdi+10h]; movups [rdi+7Ch],xmm1`.
+        "dwSoundSystem_engineViewData" => pattern!("0f1147u1 0f104f10 0f114f7c") => None,
     },
 }
 

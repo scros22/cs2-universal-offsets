@@ -359,6 +359,18 @@ fn emit_auto_forward_decls(
             extract_type_idents(targ, &defined, module_ns_set, &mut plain, &mut templated, &mut qual);
             from = from + p + TAG.len();
         }
+        // Types that only appear behind a `using _TypeN = ...;` alias (template
+        // arguments with commas are hoisted into one) would otherwise be missed.
+        let mut from = 0;
+        const ALIAS: &str = "using _Type";
+        while let Some(p) = body[from..].find(ALIAS) {
+            let start = from + p;
+            let end = body[start..].find(';').map(|e| start + e).unwrap_or(body.len());
+            if let Some(eq) = body[start..end].find('=') {
+                extract_type_idents(&body[start + eq + 1..end], &defined, module_ns_set, &mut plain, &mut templated, &mut qual);
+            }
+            from = end;
+        }
     }
     for t in templated.iter() {
         plain.remove(t);

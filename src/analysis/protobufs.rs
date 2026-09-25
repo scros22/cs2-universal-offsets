@@ -17,7 +17,7 @@
 //! `MigrationSchema = { i32 offsets_index, i32 has_bit_indices_index, i32 _, u32 object_size }`.
 //! `offsets[]` per message = `[6-entry header][field offsets...][has-bit indices...]`,
 //! header[0] = `_has_bits_` byte offset. Field offsets/has-bit indices are in
-//! field-number order (matches protoc codegen). Verified against CS2's
+//! the descriptor's DECLARATION order (not field-number order). Verified against CS2's
 //! `CSubtickMoveStep` (fields @ 0x18/0x20/0x24, has-bits 0/1/2).
 
 use std::collections::BTreeMap;
@@ -320,8 +320,13 @@ fn parse_descriptor_proto(buf: &[u8], prefix: &str, out: &mut Vec<PMessage>) {
         (3, 2) => nested.push(payload),
         _ => {}
     });
-    // protoc lays out fields by ascending field number.
-    fields.sort_by_key(|f| f.number);
+    // Keep DECLARATION order: `offsets[]` and the has-bit indices are indexed by
+    // the descriptor's field index, i.e. the order the fields appear in the
+    // .proto, which is not always ascending field number. CBaseUserCmdPB declares
+    // prediction_offset_ticks_x256 (= 17) third and pawn_entity_handle (= 14)
+    // after mousedy; sorting by number shifted every field between them by one
+    // slot (verified against CBaseUserCmdPB::_InternalParse, client 0x4F8400 on
+    // build 14184). The emitter orders the struct by offset anyway.
     let full = if prefix.is_empty() {
         name
     } else {

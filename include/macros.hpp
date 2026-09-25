@@ -20,6 +20,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>   // std::unique_ptr appears in soundsystem schema fields
 #include <utility>
 
 
@@ -863,6 +864,12 @@ public:
 };
 
 class CUtlStringToken {
+public:
+    std::uint32_t m_nHashCode;
+};
+
+// Same 32-bit hash, minus the debug-name registration (engine2 attribute maps).
+class CUtlStringTokenNoRegistration {
 public:
     std::uint32_t m_nHashCode;
 };
