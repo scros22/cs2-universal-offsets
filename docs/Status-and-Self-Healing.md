@@ -26,11 +26,11 @@ After the protobuf stage the dumper runs a set of self-checks against the live p
   "client_version": "2000917",
   "patch_version": "1.41.8.4",
   "generated_at": "…",
-  "dumper_version": "2.1.6",
+  "dumper_version": "2.1.7",
   "ok": true,
-  "summary": { "pass": 7, "warn": 2, "fail": 0 },
+  "summary": { "pass": 10, "warn": 1, "fail": 0 },
   "checks": [ { "name": "global_twins", "status": "pass", "detail": "11 global pairs agree", "items": [ … ] }, … ],
-  "signatures": { "total": 577, "found": 576, "unique_functions": 527, "missing": [ { "name": "GameSystem_Think_CheckSteamBan", "module": "server.dll" } ] },
+  "signatures": { "total": 578, "found": 577, "unique_functions": 527, "missing": [ { "name": "GameSystem_Think_CheckSteamBan", "module": "server.dll" } ] },
   "auto_healed": []
 }
 ```

@@ -21,7 +21,7 @@ Pattern { name: "CSwapChainDx11_CreateSwapChain",       module: "rendersystemdx1
 
 | Field | Rule |
 |---|---|
-| `name` | `Class_Method` when the class matters, the bare method name when the community name is unambiguous. Globals resolved by `RIPREL_*` start with `p`. Never a bare word such as `Get` or `New` on its own. The published name strips the class prefix when the rest is still descriptive (see [Signatures](Signatures.md)) |
+| `name` | `Class_Method` when the class matters, the bare method name when the community name is unambiguous. Globals resolved by `RIPREL_*` start with `p`. Never a bare word such as `Get` or `New` on its own. The published name strips the class prefix when the rest is still descriptive (see [Signatures](Signatures)) |
 | `module` | The DLL the bytes are in |
 | `needle` | IDA-style, space-separated, `?` per wildcard byte. It must match **exactly once** in the module's `.text`. Prefer the function's own prologue; wildcard every CALL/JMP and RIP-relative displacement and any immediate that is a build-specific address |
 | `resolve` | `NONE` when the match *is* the address; `REL32_1` when the needle starts on the `E8`/`E9` of a call/jmp to the function; `RIPREL_3` (or `RIPREL_2`) when it starts on a RIP-relative `lea`/`mov` to a global |

@@ -11,8 +11,8 @@ The `include/` tree committed to this repository is always the latest dump. The 
 | | |
 |---|---|
 | CS2 build | **14184** (Steam client build 2000917), dumped 2026-09-25 |
-| Dumper | **v2.1.5** — [releases](https://github.com/scros22/cs2-universal-offsets/releases) |
-| Signatures | 577 entries, 576 resolve, 527 unique functions, 0 ambiguous matches; every one verified against fresh IDA analysis, self-checked on every dump |
+| Dumper | **v2.1.7** — [releases](https://github.com/scros22/cs2-universal-offsets/releases) |
+| Signatures | 578 entries, 577 resolve, 527 unique functions, 0 ambiguous matches; every one verified against fresh IDA analysis, self-checked on every dump |
 | Globals | 205 — the 32 a2x-compatible `dwXxx` (values identical to a2x), 62 resolved by signature, 111 interface instances |
 | Schema | 3,301 classes and 570 enums across 18 modules |
 | Interfaces | 110 registered interfaces, primary vtable walked, every one RTTI-named |
@@ -40,20 +40,20 @@ Or add the repository as a submodule and `#include <cs2.hpp>` — see [Getting S
 
 | Page | What it covers |
 |---|---|
-| [Getting Started](Getting-Started.md) | Using the committed `include/`, the site, or running the dumper yourself |
-| [Output Layout](Output-Layout.md) | Every file the dumper writes and which one to depend on |
-| [Signatures](Signatures.md) | `patterns.json`: fields, resolve kinds, naming and aliases, scanning at runtime |
-| [Offsets](Offsets.md) | The three kinds of resolved globals and how to read them |
-| [Schemas](Schemas.md) | Schema class headers, `SCHEMA_FIELD`, `CHandle<T>::Get()`, entity helpers |
-| [Interfaces and Vtables](Interfaces-and-Vtables.md) | Typed interface structs and `vtables.json` |
-| [Protobufs](Protobufs.md) | Packed protobuf message structs and the net-message table |
-| [Engine Structs](Engine-Structs.md) | Hand-verified non-schema layouts: `CUserCmd`, `CCSGOInput`, `CSwapChainDx11`, … |
-| [Catalogues](Catalogues.md) | ConVars, game events, weapons, entities, buttons, verified features |
-| [Website](Website.md) | cs2-sdk.com: tabs, search, bookmarks and collections, downloads |
-| [Status and Self-Healing](Status-and-Self-Healing.md) | The self-checks behind `status.json` and how stale signatures re-anchor themselves |
-| [API](API.md) | Full reference for the JSON API, including the batch query |
-| [Discord Bot](Discord-Bot.md) | Slash commands, status channel, self-hosting |
-| [Contributing](Contributing.md) | Adding or fixing a signature, the verification standard, code layout |
-| [Changelog](Changelog.md) | Release history |
-| [FAQ](FAQ.md) | Short answers to the questions that come up most |
+| [Getting Started](Getting-Started) | Using the committed `include/`, the site, or running the dumper yourself |
+| [Output Layout](Output-Layout) | Every file the dumper writes and which one to depend on |
+| [Signatures](Signatures) | `patterns.json`: fields, resolve kinds, naming and aliases, scanning at runtime |
+| [Offsets](Offsets) | The three kinds of resolved globals and how to read them |
+| [Schemas](Schemas) | Schema class headers, `SCHEMA_FIELD`, `CHandle<T>::Get()`, entity helpers |
+| [Interfaces and Vtables](Interfaces-and-Vtables) | Typed interface structs and `vtables.json` |
+| [Protobufs](Protobufs) | Packed protobuf message structs and the net-message table |
+| [Engine Structs](Engine-Structs) | Hand-verified non-schema layouts: `CUserCmd`, `CCSGOInput`, `CSwapChainDx11`, … |
+| [Catalogues](Catalogues) | ConVars, game events, weapons, entities, buttons, verified features |
+| [Website](Website) | cs2-sdk.com: tabs, search, bookmarks and collections, downloads |
+| [Status and Self-Healing](Status-and-Self-Healing) | The self-checks behind `status.json` and how stale signatures re-anchor themselves |
+| [API](API) | Full reference for the JSON API, including the batch query |
+| [Discord Bot](Discord-Bot) | Slash commands, status channel, self-hosting |
+| [Contributing](Contributing) | Adding or fixing a signature, the verification standard, code layout |
+| [Changelog](Changelog) | Release history |
+| [FAQ](FAQ) | Short answers to the questions that come up most |
 | [Source 2 VFX/VCS notes](research/SOURCE2_VFX_VCS_INTEL.md) | Archived reverse-engineering note on the material / shader-compile path (April 2026) |

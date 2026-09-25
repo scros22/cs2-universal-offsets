@@ -44,14 +44,14 @@ include/
 | I want to… | Use |
 |---|---|
 | Write an internal in C++ | `cs2.hpp`, or the individual headers below |
-| Find functions at runtime | `patterns/patterns.json` or `patterns/patterns.hpp` — [Signatures](Signatures.md) |
-| Read the classic `dwXxx` globals | `offsets/offsets.json` (same names as the a2x dumper) — [Offsets](Offsets.md) |
+| Find functions at runtime | `patterns/patterns.json` or `patterns/patterns.hpp` — [Signatures](Signatures) |
+| Read the classic `dwXxx` globals | `offsets/offsets.json` (same names as the a2x dumper) — [Offsets](Offsets) |
 | Read every global, including interface instances | `offsets/offsets_all.json` or `offsets/offsets.hpp` |
-| Get field offsets from another language | `schemas/schemas.json` — [Schemas](Schemas.md) |
-| Call or hook interface methods | `interfaces/interfaces.hpp` + `interfaces/vtables.json` — [Interfaces and Vtables](Interfaces-and-Vtables.md) |
-| Read or build user commands | `engine/*.h` + `protobufs/protobufs.hpp` — [Engine Structs](Engine-Structs.md), [Protobufs](Protobufs.md) |
-| Look up a convar, event or weapon value | the catalogues — [Catalogues](Catalogues.md) |
-| Check that a run was complete and correct | `manifest.json`, `status.json` — [Status and Self-Healing](Status-and-Self-Healing.md) |
+| Get field offsets from another language | `schemas/schemas.json` — [Schemas](Schemas) |
+| Call or hook interface methods | `interfaces/interfaces.hpp` + `interfaces/vtables.json` — [Interfaces and Vtables](Interfaces-and-Vtables) |
+| Read or build user commands | `engine/*.h` + `protobufs/protobufs.hpp` — [Engine Structs](Engine-Structs), [Protobufs](Protobufs) |
+| Look up a convar, event or weapon value | the catalogues — [Catalogues](Catalogues) |
+| Check that a run was complete and correct | `manifest.json`, `status.json` — [Status and Self-Healing](Status-and-Self-Healing) |
 
 ## Namespaces
 

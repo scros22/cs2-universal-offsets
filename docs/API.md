@@ -100,7 +100,7 @@ At most 1,000 names per request and 256 characters per name. Unknown keys in the
 | `GET /api/weapons` | `q` | Per-weapon `CCSWeaponBaseVData` values |
 | `GET /api/gameevents` | `q` | Game events with typed fields |
 | `GET /api/entities` | `q` | The entity snapshot and per-class counts |
-| `GET /api/status` | | Dump status: build + game client version, self-checks with details, unresolved and auto-healed signatures, known issues — [Status and Self-Healing](Status-and-Self-Healing.md) |
+| `GET /api/status` | | Dump status: build + game client version, self-checks with details, unresolved and auto-healed signatures, known issues — [Status and Self-Healing](Status-and-Self-Healing) |
 | `GET /api/engine` | | Engine struct layouts, with the header link for each |
 | `GET /api/downloads` | | Exportable artifacts: label, href, format, size |
 | `GET /api/export/patterns.txt` | | Every pattern as an aligned text file |

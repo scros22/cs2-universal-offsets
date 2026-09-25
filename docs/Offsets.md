@@ -7,7 +7,7 @@ The dumper resolves about two hundred globals per build, of three kinds:
 | `kind` | Count | Where they come from | Examples |
 |---|---|---|---|
 | `global` | 32 | The classic pattern-scanned globals, with the same names, patterns and semantics as the a2x dumper, so existing code keeps working and the two dumps can be diffed | `dwEntityList`, `dwLocalPlayerPawn`, `dwViewMatrix`, `dwGlobalVars` |
-| `signature` | 62 | `riprel` entries of the signature database ([Signatures](Signatures.md)): a RIP-relative load inside a verified function | `pGameRules`, `pCSGOInputInstance`, `pMaterialManager`, `pEconItemSystem` |
+| `signature` | 62 | `riprel` entries of the signature database ([Signatures](Signatures)): a RIP-relative load inside a verified function | `pGameRules`, `pCSGOInputInstance`, `pMaterialManager`, `pEconItemSystem` |
 | `interface` | 111 | Every interface registered through `CreateInterface`, resolved to the object the factory returns | `Source2Client002`, `InputSystemVersion001`, `EngineTraceClient001` |
 
 ## Files

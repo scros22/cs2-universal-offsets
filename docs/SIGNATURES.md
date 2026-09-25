@@ -2,7 +2,7 @@
 
 A signature is an IDA-style byte pattern that finds one function or one global in one module, together with everything needed to use it: the resolved RVA on the current build, the function's Hex-Rays prototype, the first bytes of its prologue, and the other names the community knows it by.
 
-The database is [`src/patterns/database.rs`](https://github.com/scros22/cs2-universal-offsets/blob/main/src/patterns/database.rs). On build 14184 it holds **577 entries; 576 resolve** (some functions are reached by more than one entry — see *Aliases* below). Every published pattern matches **exactly once** in its module: a pattern that matches more than once is treated as broken and fixed before release.
+The database is [`src/patterns/database.rs`](https://github.com/scros22/cs2-universal-offsets/blob/main/src/patterns/database.rs). On build 14184 it holds **578 entries; 577 resolve** (some functions are reached by more than one entry — see *Aliases* below). Every published pattern matches **exactly once** in its module: a pattern that matches more than once is treated as broken and fixed before release.
 
 ## `patterns/patterns.json`
 
@@ -37,7 +37,7 @@ The database is [`src/patterns/database.rs`](https://github.com/scros22/cs2-univ
 | `bytes` | The first 24 bytes at `rva`, no wildcards. Present when `rva` is inside `.text` |
 | `pattern_synth` | An auto-generated pattern for the same function: the shortest prefix of `bytes` that is unique in `.text`, with `?` on relocatable bytes (CALL/JMP and RIP-relative displacements). Pastes straight into IDA, x64dbg or ReClass.NET |
 | `aliases` | Other database names that resolved to the same address; present only when there are any |
-| `healed_from` | Present when the database pattern stopped matching and the entry was re-anchored through the previous dump's prologue bytes; holds the old pattern, `pattern` is the fresh unique one — see [Status and Self-Healing](Status-and-Self-Healing.md) |
+| `healed_from` | Present when the database pattern stopped matching and the entry was re-anchored through the previous dump's prologue bytes; holds the old pattern, `pattern` is the fresh unique one — see [Status and Self-Healing](Status-and-Self-Healing) |
 
 Entries that did not resolve are not listed; `missing` counts them and the run log names them.
 
@@ -124,4 +124,4 @@ Every function entry is checked against a fresh IDA analysis of the current buil
 
 ## Coverage on build 14184
 
-576 of 577 entries resolve. The one that does not is `GameSystem_Think_CheckSteamBan` (server.dll): the function still exists, but nothing unique is left to anchor a pattern on. It stays in the database so it is retried on every build instead of being forgotten.
+577 of 578 entries resolve. The one that does not is `GameSystem_Think_CheckSteamBan` (server.dll): the function still exists, but nothing unique is left to anchor a pattern on. It stays in the database so it is retried on every build instead of being forgotten.
