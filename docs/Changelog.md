@@ -2,6 +2,12 @@
 
 Each release carries a `cs2-sdk.exe` build and the dump for the CS2 build named in its title. Full notes are on the [releases page](https://github.com/scros22/cs2-universal-offsets/releases).
 
+## v2.1.8 — 2026-09-25 — feature recipes, internal and external
+
+- **The Features tab was rebuilt** around recipes that are checked against a working implementation and the current build, each with an **Internal** and an **External** version (a switch on the site): Entity list, ESP, FOV changer, Aimbot, Skin changer, Knife changer. Numbered steps, the exact offsets, globals and functions (with this build's RVA and pattern), and **Copy as C++** per recipe.
+- Corrected along the way: entity tracking now hooks `CGameEntitySystem::OnAddEntity` / `OnRemoveEntity` (vtable slots 15/16; the old "listener vector at +0x30" was wrong — it is at `+0x2150`); the head bone is **7** (`head_0`), not 6 (`neck_0`) — read from the live model; the FOV recipe follows the game's own resolver (camera `m_iFOV`, else controller `m_iDesiredFOV`, else 90); the aimbot uses `C_CSPlayerPawn_GetAimPunch` for recoil and `SetViewAngles` to steer; the skin and knife changers follow the flow that works on build 14184 (client-side item identity, fallback paint + paint attributes, composite rebuild; subclass token, model change, animation-graph rebind).
+- Offsets in the recipes resolve from this dump (schema, engine structs, or schema + fixed delta); the few hand-verified values carry the build they were checked on, and a new `verified_manual` check warns when that is not the current build.
+
 ## v2.1.7 — 2026-09-25 — exact feature offsets, polish
 
 - **`verified_features.json` offsets were stale.** 38 of the 67 field offsets had been typed in on an older build (`m_iTeamNum 0x3EB`, `m_iClip1 0x16D8`, `m_iShotsFired 0x1C5C`, …) and ten named the wrong class or a field that is not where they said (`m_iKills` / `m_iDeaths` live in `m_matchStats`, the fallback paint-kit fields on `C_EconEntity`, `m_iFOV` on `CCSPlayerBase_CameraServices`, `m_iItemDefinitionIndex` under `m_AttributeManager.m_Item`). Offsets are now resolved from the schema dumped in the same run; only the two non-schema fields keep hand-verified values. The knife changer's `UpdateSubclass` hook pointed 11 bytes into its function — it now names a new function-start signature, `C_BaseEntity_UpdateSubclass` (IDA-verified: it writes the subclass-data pointer at `+0x388`). The FOV changer's hook named a signature that does not exist; it now names `GetWorldFovResolver`.

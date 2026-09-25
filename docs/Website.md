@@ -18,7 +18,7 @@
 | Game Events | Every registered event with its typed keys |
 | Entities | The entity snapshot taken at dump time, with per-class counts |
 | Engine | The hand-verified engine structs, with a link to each drop-in header |
-| Features | The verified feature recipes from `verified_features.json` |
+| Features | How each feature is built — Internal or External (switch at the top), numbered steps, the exact offsets, globals and functions for this build, and Copy as C++ |
 | Collections | Your bookmarks, grouped |
 | API | The API reference with live examples |
 | Downloads | Every exportable artifact with its size |

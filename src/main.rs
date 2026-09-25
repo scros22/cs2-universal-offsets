@@ -226,6 +226,18 @@ fn main() -> Result<()> {
                 fs::write(sig_dir.join("patterns.hpp"), patterns::writers::render_hpp(&report.hits))?;
                 ui::ok("wrote patterns/patterns.{hpp,json}");
 
+                // Feature recipes: offsets from this run's schema, globals from the
+                // offset pass, function RVAs/patterns from this pattern pass.
+                let _ = fs::write(
+                    out_dir.join("verified_features.json"),
+                    output::verified::render_json(
+                        build_number,
+                        analysis_result.as_ref().map(|r| &r.schemas),
+                        analysis_result.as_ref().map(|r| &r.offsets),
+                        &report.hits,
+                    ),
+                );
+
                 // Engine struct layouts: function/instance RVAs from this run.
                 match output::write_engine_structs(&out_dir, build_number, &report.hits) {
                     Ok(()) => ui::ok(&format!("engine structs emitted ({})", output::engine_structs::ENGINE_STRUCTS.len())),

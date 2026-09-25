@@ -63,28 +63,44 @@ A snapshot of the entity list at dump time: `index`, `classname`, `health`, `max
 
 The RVAs of the client's `kbutton_t` objects (`attack`, `attack2`, `jump`, `duck`, `forward`, `back`, `left`, `right`, `use`, `reload`, `zoom`, `sprint`, `showscores`, `lookatweapon`, `turnleft`, `turnright`). `buttons.json` stores them as decimal integers, `buttons.hpp` as `button::<name>` hex constants, and `client_dll.hpp` repeats them as the `client::InputButton` enum.
 
-## Verified features — `verified_features.json`
+## Feature recipes — `verified_features.json`
 
-Seven hand-written recipes that name the exact schema fields, hooks and functions a working internal uses for a feature, so the pieces of the SDK can be seen together:
+How the features on the site's **Features** tab are built, each in two flavours:
 
-| Feature | Summary |
-|---|---|
-| Entity tracking | Hook the entity system's `IEntityListener` (`OnAddEntity` / `OnRemoveEntity`) instead of walking the entity list every frame |
-| ESP | The state, scene-node and bone fields that give each pawn's health, team, position and skeleton |
-| FOV changer | Hook `GetWorldFov` (via the `SetWorldFov` call site) and the view-setup fields |
-| Aimbot | A per-tick phase machine driven from `CCSGOInput::CreateMove`, with the fields it reads and writes |
-| Triggerbot (seeded) | Re-running the spread calculation from the live seed to fire only on a certain hit |
-| Skin changer | The fallback paint-kit / seed / wear / quality fields and the refresh calls |
-| Knife changer | `m_nSubclassID` spoofing and the subclass rebind |
+- **Internal** — code running inside `cs2.exe`: hooks, direct reads, calls into game functions.
+- **External** — a separate process using `ReadProcessMemory` / `WriteProcessMemory`: no hooks, no calls. Features that cannot work that way (the skin and knife changers need game code to rebuild materials and models) say why instead.
+
+| Feature | Category | External |
+|---|---|---|
+| Entity list | Core | yes — walk the chunked identity list |
+| ESP | Visuals | yes |
+| FOV changer | Visuals | yes — the controller's `m_iDesiredFOV` |
+| Aimbot | Aim | yes — write `dwViewAngles` or move the mouse |
+| Skin changer | Skins | no |
+| Knife changer | Skins | no |
+
+Every recipe was checked against a working implementation and against the current build — IDA on the binaries, plus read-only checks of the live process (the entity-list walk, bone indices, view angles, sensitivity). Nothing numeric is typed into the recipes: each offset is resolved from this dump's schema (`"source": "schema"`), from the hand-verified [engine structs](Engine-Structs) (`"engine"`), or as a schema field plus a fixed delta (`"schema+manual"`, e.g. the bone array at `m_modelState + 0x80`). The handful of values that exist nowhere else are `"manual"` and carry `verified_build`; `stale: true` means they were verified on an older build. Globals come from `offsets.json`, and every function carries this build's RVA and pattern.
 
 ```json
-{ "name": "…", "summary": "…",
-  "fields": [ { "class": "CEntitySystem", "field": "m_entityListeners (CUtlVector)", "offset": "0x30", "type": "CUtlVector<IEntityListener*>", "note": "AddTail your shim here" } ],
-  "hooks":  [ { "function": "IEntityListener::OnAddEntity", "module": "client.dll", "signature": "(virtual)", "action": "Insert into the cheat's entity cache." } ],
-  "convars": [] }
+{
+  "name": "FOV changer",
+  "category": "Visuals",
+  "summary": "Change your first-person field of view without touching the scope zoom.",
+  "internal": {
+    "summary": "Override the camera the game is about to render with: hook OverrideView and write the view setup's FOV.",
+    "steps": [ "Hook ClientMode::OverrideView(this, CViewSetup*). Call the original first.", "…" ],
+    "fields": [ { "class": "CViewSetup", "field": "m_flFov", "offset": "0x498", "source": "engine", "type": "float", "note": "…" } ],
+    "globals": [ { "module": "client.dll", "name": "dwLocalPlayerPawn", "value": "0x255E658" } ],
+    "functions": [ { "name": "OverrideView", "module": "client.dll", "role": "hook", "rva": "0xD02650", "pattern": "…" } ],
+    "convars": [ { "name": "zoom_sensitivity_ratio", "use": "…" } ],
+    "notes": [ "…" ]
+  },
+  "external": { "…": "same shape" },
+  "external_unavailable": null
+}
 ```
 
-Since v2.1.7 every field offset in this file is resolved from the schema dumped in the same run (`"source": "schema"`, with `declared_in` when the field is inherited), so it can never go stale; only the two non-schema fields — `CEntitySystem`'s listener vector and `CEntityIdentity::m_pEntity` — carry hand-verified values (`"source": "manual"`). Every hook names a signature from the database, and the dumper's `verified_fields` / `verified_hooks` self-checks fail the run if any of them stops resolving. They are documentation of what was verified, shown on the site's **Features** tab. They are not code.
+The dumper's `verified_fields`, `verified_hooks` and `verified_manual` self-checks fail (or warn, for manual values) when any reference stops resolving — see [Status and Self-Healing](Status-and-Self-Healing). On the site, **Copy as C++** turns a recipe into a header of `constexpr` offsets, globals and RVAs for the current build.
 
 ## API
 

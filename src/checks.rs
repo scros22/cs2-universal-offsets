@@ -351,18 +351,32 @@ pub fn run<P: Process + MemoryView>(
         });
     }
 
-    // --- verified feature fields all resolved from the schema --------------
+    // --- feature recipes: every field and global resolves -------------------
     {
-        let unresolved: Vec<String> = crate::output::verified::UNRESOLVED.lock().map(|u| u.clone()).unwrap_or_default();
+        let unresolved: Vec<(String, String, String)> = crate::output::verified::UNRESOLVED
+            .lock()
+            .map(|u| u.iter().filter(|(k, _, _)| k != "function").cloned().collect())
+            .unwrap_or_default();
         checks.push(if unresolved.is_empty() {
-            Check::new("verified_fields", "pass", "every verified-feature field resolves from this build's schema", vec![])
+            Check::new("verified_fields", "pass", "every field and global in the feature recipes resolves on this build", vec![])
         } else {
             Check::new(
                 "verified_fields",
                 "fail",
-                format!("{} verified-feature field(s) are not in this build's schema", unresolved.len()),
-                unresolved.iter().map(|n| json!({ "field": n })).collect(),
+                format!("{} field(s) or global(s) in the feature recipes do not resolve on this build", unresolved.len()),
+                unresolved.iter().map(|(k, f, n)| json!({ "kind": k, "feature": f, "name": n })).collect(),
             )
+        });
+        // Offsets that exist nowhere else carry the build they were verified on.
+        let stale: Vec<Value> = crate::output::verified::manual_fields()
+            .into_iter()
+            .filter(|(_, _, _, b)| Some(*b) != build_number)
+            .map(|(feat, class, field, b)| json!({ "feature": feat, "field": format!("{class}::{field}"), "verified_on": b }))
+            .collect();
+        checks.push(if stale.is_empty() {
+            Check::new("verified_manual", "pass", "every hand-verified offset in the feature recipes was verified on this build", vec![])
+        } else {
+            Check::new("verified_manual", "warn", format!("{} hand-verified offset(s) were verified on an older build — re-check them", stale.len()), stale)
         });
     }
 

@@ -18,11 +18,9 @@ pub const BOLD: &str = "\x1b[1m";
 pub const FG_WHITE: &str = "\x1b[97m";
 pub const FG_GRAY: &str = "\x1b[38;5;245m";
 pub const FG_SOFT: &str = "\x1b[38;5;250m";
-pub const FG_CYAN: &str = "\x1b[38;5;117m";
 pub const FG_GREEN: &str = "\x1b[38;5;114m";
 pub const FG_RED: &str = "\x1b[38;5;203m";
 pub const FG_YELLOW: &str = "\x1b[38;5;222m";
-pub const FG_MAG: &str = "\x1b[38;5;183m";
 /// Brand accent — the same gold as cs2-sdk.com (#fbac18) and the icon.
 pub const FG_GOLD: &str = "\x1b[38;5;214m";
 pub const FG_RULE: &str = "\x1b[38;5;238m";
@@ -30,18 +28,11 @@ pub const FG_RULE: &str = "\x1b[38;5;238m";
 // smooth / rounded glyphs only
 pub const BULLET: &str = "•";
 pub const ARROW: &str = "›";
-pub const DIAMOND: &str = "◆";
-pub const CIRCLE: &str = "◉";
 pub const CHECK: &str = "✓";
 pub const CROSS: &str = "✗";
 pub const WARN: &str = "!";
 
 pub const HLINE: &str = "─";
-pub const CORNER_TL: &str = "╭";
-pub const CORNER_TR: &str = "╮";
-pub const CORNER_BL: &str = "╰";
-pub const CORNER_BR: &str = "╯";
-pub const VLINE: &str = "│";
 
 static mut NO_SOUND: bool = false;
 
@@ -172,9 +163,6 @@ pub fn err(msg: &str) {
     println!("    {FG_RED}{CROSS}{RESET} {FG_WHITE}{msg}{RESET}");
 }
 
-pub fn step(msg: &str) {
-    println!("    {FG_GOLD}{DIAMOND}{RESET} {BOLD}{FG_WHITE}{msg}{RESET}");
-}
 
 /// Closing line of a run: one sentence, coloured by outcome.
 pub fn done(ok: bool, msg: &str) {

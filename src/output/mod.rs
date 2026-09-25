@@ -231,11 +231,8 @@ pub fn dump_sdk_extras(
             amalgamation::render_hpp(&module_stems, build_number),
         )?;
 
-        // 6. verified-working features catalogue (json only).
-        fs::write(
-            out_dir.join("verified_features.json"),
-            verified::render_json(build_number, Some(&result.schemas)),
-        )?;
+        // 6. verified_features.json is written after the pattern pass (main.rs)
+        //    so each recipe carries this build's function RVAs and patterns.
 
         // 7. engine (non-schema) struct layouts are written after the pattern
         //    pass (write_engine_structs) so their function/instance RVAs come

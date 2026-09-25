@@ -1,425 +1,439 @@
-﻿//! Verified working features — hand-curated catalogue of offsets, hooks
-//! and ConVar tricks that have been **confirmed working in a live CS2
-//! internal cheat** against the current build.
+//! Verified feature recipes — how the features on cs2-sdk.com's Features tab
+//! are built, in two flavours: **internal** (code running inside cs2.exe:
+//! hooks, direct reads, calling game functions) and **external** (a separate
+//! process reading and writing memory, no hooks, no calls).
 //!
-//! Most of this data is already present in the auto-extracted offset
-//! / Pattern / schema files this tool produces. The point of this
-//! module is to give consumers a single place that says, in plain
-//! English, *"yes, this offset on this entity does this exact thing,
-//! and here is the gotcha you need to know to make it work."*
+//! Every recipe was checked against a working implementation and against the
+//! current build (IDA on the binaries, plus read-only checks of the live
+//! process). Nothing numeric is typed in here: field offsets are resolved from
+//! the schema dumped in the same run, engine-struct offsets from
+//! `engine_structs.rs`, globals from the offset pass and function addresses
+//! from the signature pass. The few values that exist nowhere else are marked
+//! `manual` with the build they were verified on, and the self-checks fail the
+//! run if any reference stops resolving.
 //!
-//! a2x's pelite-based pipeline gives us the canonical RVAs and schema
-//! offsets — that data is the source of truth and lives in the regular
-//! `offsets.*` / `client_dll.*` / `patterns.*` files. This catalogue
-//! cross-references those values with verified live-engine notes so a
-//! cheat developer can copy-paste a feature and have it work first try.
+//! Output: `verified_features.json`.
 
-use serde_json::json;
-use crate::analysis::{Class, ClassField, SchemaMap};
+use serde_json::{json, Value};
 
-#[derive(Clone, Copy)]
-pub struct VerifiedField {
-    /// Schema class the offset is relative to, e.g. "C_CSPlayerPawn".
+use crate::analysis::{Class, ClassField, OffsetMap, SchemaMap};
+use crate::output::engine_structs::ENGINE_STRUCTS;
+use crate::patterns::{display_name, PatternHit};
+
+/// A memory offset the recipe reads or writes.
+pub struct Field {
+    /// Schema class, or an engine struct from engine_structs.rs.
     pub class: &'static str,
-    /// Schema field name, or a dotted path through embedded structs
-    /// ("m_AttributeManager.m_Item.m_iItemDefinitionIndex"). A trailing
-    /// " (note)" is ignored for the lookup.
+    /// Field name, a dotted path through embedded structs
+    /// (`m_AttributeManager.m_Item.m_iItemDefinitionIndex`), `sizeof`, or a
+    /// field plus a fixed delta (`m_modelState+0x80`).
     pub field: &'static str,
-    /// Only for fields the schema does not describe (CEntitySystem's
-    /// listener vector, CEntityIdentity's entity pointer): the hand-verified
-    /// offset. Everything else is resolved from the live schema at dump
-    /// time, so it can never go stale.
-    pub manual: Option<u32>,
-    /// e.g. "int32" / "Vector3" / "bool"
+    /// Offsets that exist in no schema or engine struct: (value, build it was
+    /// verified on).
+    pub manual: Option<(u32, u32)>,
     pub ty: &'static str,
-    /// short note about what to write / how to read
     pub note: &'static str,
 }
 
-#[derive(Clone, Copy)]
-pub struct VerifiedFeature {
-    /// e.g. "No Smoke"
+/// A game function the recipe hooks or calls, by signature-database name.
+pub struct Func {
     pub name: &'static str,
-    /// "working" / "broken" / "partial" — at-a-glance status from the
-    /// last live confirmation of this feature in the internal cheat.
-    pub status: &'static str,
-    /// short paragraph explaining what we tested + where to write
-    pub summary: &'static str,
-    /// fields touched
-    pub fields: &'static [VerifiedField],
-    /// ConVar tricks (name + flags-to-strip + value-slot offset) — empty if N/A
-    pub convars: &'static [VerifiedConVar],
-    /// Hooks installed (function + module + Pattern key in database.rs)
-    pub hooks: &'static [VerifiedHook],
-}
-
-#[derive(Clone, Copy)]
-pub struct VerifiedConVar {
-    /// ConVar name
-    pub name: &'static str,
-    /// flags to strip from cvar+0x30 (e.g. FCVAR_CHEAT=0x400)
-    pub strip_flags: u32,
-    /// modern Source 2 ConVar<T> value lives at cvar+0x58 — set true
-    /// if we have to write *both* the legacy +0x40 union AND the
-    /// modern +0x58 slot
-    pub write_both_slots: bool,
-    /// what value(s) we write
-    pub value: &'static str,
-}
-
-#[derive(Clone, Copy)]
-pub struct VerifiedHook {
-    /// e.g. "DrawSkyboxArray"
-    pub function: &'static str,
-    /// e.g. "scenesystem.dll"
     pub module: &'static str,
-    /// Pattern database key (look up in src/patterns/database.rs)
-    pub signature: &'static str,
-    /// what we do once hooked
-    pub action: &'static str,
+    /// "hook" or "call".
+    pub role: &'static str,
+    pub purpose: &'static str,
 }
 
-// ----------------------------------------------------------------------
-// Catalogue. Add entries as new features are verified working in-game.
-// Build target: CS2 14152+ (April 2026).
-// ----------------------------------------------------------------------
-pub static FEATURES: &[VerifiedFeature] = &[
-    // ------------------------------------------------------------------
-    // ==================================================================
-    // PREREQUISITES — the plumbing every feature below assumes is in
-    // place. These are the wiring tasks reviewed and stabilized in the
-    // internal cheat; nothing else in the catalogue works without them.
-    // ==================================================================
+/// A module-relative global from offsets.json (`dwXxx`).
+pub struct Global {
+    pub module: &'static str,
+    pub name: &'static str,
+    pub note: &'static str,
+}
 
-    VerifiedFeature {
-        name: "Entity tracking (OnAddEntity / OnRemoveEntity)",
-        status: "working",
-        summary: "Hook the engine's entity-system listener instead of \
-                  walking dwEntityList every frame. CEntitySystem keeps a \
-                  CUtlVector<IEntityListener*> at +0x30; install a small \
-                  shim with two virtuals (OnAddEntity, OnRemoveEntity) and \
-                  the engine will call it whenever a CEntityIdentity is \
-                  bound or torn down. Cache (handle → entity*) in your own \
-                  flat array and you skip ~16k pointer-chases per second \
-                  versus the loop. \n\nFalls back automatically: on the \
-                  first frame after attach, do one full walk to seed the \
-                  cache, then run from listener events thereafter.",
-        fields: &[
-            VerifiedField { class: "CEntitySystem",   field: "m_entityListeners (CUtlVector)", manual: Some(0x30),  ty: "CUtlVector<IEntityListener*>", note: "AddTail your shim here" },
-            VerifiedField { class: "CEntityIdentity", field: "m_pEntity",                      manual: Some(0x0),   ty: "C_BaseEntity*",              note: "passed to OnAddEntity / OnRemoveEntity" },
-            VerifiedField { class: "CEntityIdentity", field: "m_designerName",                 manual: None,  ty: "const char*",                note: "schema class name; cheap filter" },
-        ],
-        convars: &[],
-        hooks: &[
-            VerifiedHook { function: "IEntityListener::OnAddEntity",    module: "client.dll", signature: "(virtual)", action: "Insert into the cheat's entity cache." },
-            VerifiedHook { function: "IEntityListener::OnRemoveEntity", module: "client.dll", signature: "(virtual)", action: "Remove from the cheat's entity cache; cancel any pending visual state." },
-        ],
+pub struct Variant {
+    pub summary: &'static str,
+    pub steps: &'static [&'static str],
+    pub fields: &'static [Field],
+    pub globals: &'static [Global],
+    pub funcs: &'static [Func],
+    /// (ConVar, how it is used)
+    pub convars: &'static [(&'static str, &'static str)],
+    pub notes: &'static [&'static str],
+}
+
+pub struct Feature {
+    pub name: &'static str,
+    pub category: &'static str,
+    pub summary: &'static str,
+    pub internal: Variant,
+    pub external: Option<Variant>,
+    /// Why there is no external version, when there is none.
+    pub external_unavailable: &'static str,
+}
+
+const fn f(class: &'static str, field: &'static str, ty: &'static str, note: &'static str) -> Field {
+    Field { class, field, manual: None, ty, note }
+}
+const fn m(class: &'static str, field: &'static str, value: u32, build: u32, ty: &'static str, note: &'static str) -> Field {
+    Field { class, field, manual: Some((value, build)), ty, note }
+}
+const fn hook(name: &'static str, purpose: &'static str) -> Func {
+    Func { name, module: "client.dll", role: "hook", purpose }
+}
+const fn call(name: &'static str, purpose: &'static str) -> Func {
+    Func { name, module: "client.dll", role: "call", purpose }
+}
+const fn g(name: &'static str, note: &'static str) -> Global {
+    Global { module: "client.dll", name, note }
+}
+
+// ---------------------------------------------------------------------------
+// Shared pieces
+// ---------------------------------------------------------------------------
+
+const ENTITY_LIST_FIELDS: &[Field] = &[
+    m("CGameEntitySystem", "chunk array", 0x10, 14184, "CEntityIdentity*[64]", "entity_system + 0x10 + 8 * (index >> 9) -> chunk of 512 identities"),
+    f("CEntityIdentity", "sizeof", "", "identity stride inside a chunk: chunk + sizeof * (index & 0x1FF)"),
+    m("CEntityIdentity", "m_pEntity", 0x0, 14184, "C_BaseEntity*", "the entity; 0 = empty slot"),
+    m("CEntityIdentity", "handle", 0x10, 14184, "uint32", "the slot's current handle; compare with the handle you resolved to reject a reused slot"),
+    f("CEntityIdentity", "m_designerName", "char*", "classname: \"cs_player_controller\", \"weapon_ak47\", ..."),
+];
+
+const BONE_NOTE: &str = "bone array = read(scene_node + offset); bone i is 32 bytes: Vector position, float scale, Quaternion rotation";
+
+// ---------------------------------------------------------------------------
+// Catalogue
+// ---------------------------------------------------------------------------
+
+pub static FEATURES: &[Feature] = &[
+    Feature {
+        name: "Entity list",
+        category: "Core",
+        summary: "Find every player, weapon and projectile. Everything else on this page starts from here.",
+        internal: Variant {
+            summary: "Let the game tell you when entities come and go: hook the entity system's own add/remove notifications and keep a small cache, instead of rescanning the list every frame.",
+            steps: &[
+                "Hook CGameEntitySystem::OnAddEntity (vtable slot 15) and OnRemoveEntity (slot 16). Both are called with (entity_system, entity, handle); the entity index is handle & 0x7FFF.",
+                "Always call the original, and never let an exception leave your handler: the engine calls these from inside its spawn and destroy loops, and unwinding out of them leaves the entity system half-updated.",
+                "On add: read the classname (entity -> CEntityInstance::m_pEntity -> CEntityIdentity::m_designerName) and keep {index, pointer} for the types you use: cs_player_controller, the player pawns, weapons, projectiles.",
+                "On remove: drop the entry with that index. Remove before the original runs so nothing of yours outlives the entity.",
+                "When you attach (and after a map change) seed the cache once by walking the list the external way; the hooks only report changes.",
+            ],
+            fields: &[
+                f("CEntityInstance", "m_pEntity", "CEntityIdentity*", "entity -> its identity"),
+                f("CEntityIdentity", "m_designerName", "char*", "classname used to classify"),
+            ],
+            globals: &[],
+            funcs: &[
+                hook("OnAddEntity", "CGameEntitySystem vtable slot 15: an entity became valid"),
+                hook("OnRemoveEntity", "CGameEntitySystem vtable slot 16: an entity is being destroyed"),
+            ],
+            convars: &[],
+            notes: &["Player controllers are not guaranteed to sit at indices 1-10: walk or cache all of 1-64."],
+        },
+        external: Some(Variant {
+            summary: "Walk the entity list directly. It is a chunked array of CEntityIdentity, 512 per chunk.",
+            steps: &[
+                "entity_system = read<u64>(client + dwEntityList).",
+                "highest = read<i32>(entity_system + dwGameEntitySystem_highestEntityIndex) bounds the walk.",
+                "For index i: chunk = read<u64>(entity_system + 0x10 + 8 * (i >> 9)); identity = chunk + sizeof(CEntityIdentity) * (i & 0x1FF); entity = read<u64>(identity). 0 = empty.",
+                "Players are CCSPlayerController entities in 1-64 (classname at identity + m_designerName). Their pawn comes from m_hPlayerPawn: resolve the handle with index = handle & 0x7FFF, and accept the entity only if read<u32>(identity + 0x10) == handle — otherwise the slot was reused.",
+                "Cache the chunk pointers and re-read them only when the entity_system pointer changes (map change).",
+            ],
+            fields: ENTITY_LIST_FIELDS,
+            globals: &[
+                g("dwEntityList", "CGameEntitySystem*"),
+                g("dwGameEntitySystem_highestEntityIndex", "member offset inside CGameEntitySystem"),
+            ],
+            funcs: &[],
+            convars: &[],
+            notes: &["Verified live on build 14184: all 10 players of a 5v5 resolve controller -> pawn with the handle check."],
+        }),
+        external_unavailable: "",
     },
-
-    VerifiedFeature {
-        name: "Tracing",
-        status: "placeholder",
-        summary: "Engine-trace pipeline (TraceInitData → TraceInfo → \
-                  TraceFilter → TraceCreate → TraceGetInfo → \
-                  TraceHandleBulletPen) is the prerequisite for any \
-                  visibility-aware feature: aimbot vis-check, triggerbot \
-                  shot prediction, autowall damage estimation. patterns \
-                  are resolved in the database but the canonical wrapper \
-                  prototypes are placeholders — they were not exhaustively \
-                  reverse-engineered and the argument types are best-guess. \
-                  Use the patterns to locate the calls, then replicate the \
-                  argument shape from your own IDA pass before relying on \
-                  the wrapper.",
-        fields: &[],
-        convars: &[],
-        hooks: &[
-            VerifiedHook { function: "TraceInitData",          module: "client.dll", signature: "TraceInitData",          action: "Build the per-call data block. Prototype is a placeholder." },
-            VerifiedHook { function: "TraceInfo",              module: "client.dll", signature: "TraceInfo",              action: "Populate trace info struct. Prototype is a placeholder." },
-            VerifiedHook { function: "TraceFilter",            module: "client.dll", signature: "TraceFilter",            action: "Owner-skip filter. Prototype is a placeholder." },
-            VerifiedHook { function: "TraceCreate",            module: "client.dll", signature: "TraceCreate",            action: "Issue the trace; verified working as the entry point." },
-            VerifiedHook { function: "TraceGetInfo",           module: "client.dll", signature: "TraceGetInfo",           action: "Read back the result. Prototype is a placeholder." },
-            VerifiedHook { function: "TraceHandleBulletPen",   module: "client.dll", signature: "TraceHandleBulletPen",   action: "Bullet-penetration secondary trace. Prototype is a placeholder." },
-        ],
-    },
-
-    // ==================================================================
-    // FEATURES — assume the cache from OnAddEntity is populated and the
-    // trace pipeline is wired before reading these.
-    // ==================================================================
-
-    VerifiedFeature {
+    Feature {
         name: "ESP",
-        status: "working",
-        summary: "Render data for each cached pawn: state (m_iHealth, \
-                  m_lifeState, m_iTeamNum), world position via \
-                  m_pGameSceneNode → CGameSceneNode::m_vecAbsOrigin, named \
-                  via m_hController → CCSPlayerController::m_iszPlayerName, \
-                  weapon via m_hActiveWeapon. Project to screen with \
-                  dwViewMatrix (4×4 row-major). \n\nSkeleton: \
-                  m_pGameSceneNode is actually CSkeletonInstance; the live \
-                  bone array hangs off CSkeletonInstance::m_modelState. Bone 6 = \
-                  head, 5 = chest on the standard CSPlayer skeleton. \
-                  Money / armor / scoreboard / rank live on the \
-                  controller-side service blocks listed below.",
-        fields: &[
-            VerifiedField { class: "C_BaseEntity",            field: "m_pGameSceneNode",     manual: None,  ty: "CSkeletonInstance*", note: "→ bone matrix + abs origin" },
-            VerifiedField { class: "C_BaseEntity",            field: "m_iHealth",            manual: None,  ty: "int32",              note: "0 == dead" },
-            VerifiedField { class: "C_BaseEntity",            field: "m_lifeState",          manual: None,  ty: "uint8",              note: "0 == ALIVE" },
-            VerifiedField { class: "C_BaseEntity",            field: "m_iTeamNum",           manual: None,  ty: "uint8",              note: "2 = T, 3 = CT" },
-            VerifiedField { class: "CGameSceneNode",          field: "m_vecAbsOrigin",       manual: None,   ty: "Vector3",            note: "world position (ESP root)" },
-            VerifiedField { class: "CSkeletonInstance",       field: "m_modelState",         manual: None,  ty: "CModelState",        note: "embedded; live bone array inside" },
-            VerifiedField { class: "CCSPlayerController",     field: "m_iszPlayerName",      manual: None,  ty: "char[128]",          note: "UTF-8 nickname" },
-            VerifiedField { class: "CCSPlayerController",     field: "m_hPawn",              manual: None,  ty: "CHandle",            note: "controller → pawn handle" },
-            VerifiedField { class: "CCSPlayerController",     field: "m_iCompetitiveRanking", manual: None, ty: "int32",              note: "Premier rating (revealed pre-warmup)" },
-            VerifiedField { class: "C_CSPlayerPawnBase",      field: "m_pWeaponServices",    manual: None, ty: "ptr",                note: "→ active weapon handle" },
-            VerifiedField { class: "C_EconEntity",      field: "m_AttributeManager.m_Item.m_iItemDefinitionIndex", manual: None, ty: "uint16",           note: "CSWeaponID for the held weapon" },
-            VerifiedField { class: "C_BasePlayerWeapon",      field: "m_iClip1",             manual: None, ty: "int32",              note: "current magazine count" },
-            VerifiedField { class: "CCSPlayerController_InGameMoneyServices", field: "m_iAccount", manual: None,  ty: "int32", note: "current cash" },
-            VerifiedField { class: "C_CSPlayerPawn",          field: "m_ArmorValue",         manual: None, ty: "int32",              note: "armor 0..100" },
-            VerifiedField { class: "CCSPlayer_ItemServices",  field: "m_bHasHelmet",         manual: None,   ty: "bool",               note: "kevlar+helmet flag" },
-            VerifiedField { class: "CCSPlayerController_ActionTrackingServices", field: "m_matchStats.m_iKills",   manual: None, ty: "int32", note: "scoreboard kills" },
-            VerifiedField { class: "CCSPlayerController_ActionTrackingServices", field: "m_matchStats.m_iDeaths",  manual: None, ty: "int32", note: "scoreboard deaths" },
-            VerifiedField { class: "EntitySpottedState_t",    field: "m_bSpotted",           manual: None,    ty: "bool",               note: "force true to reveal on radar" },
-            VerifiedField { class: "EntitySpottedState_t",    field: "m_bSpottedByMask",     manual: None,    ty: "uint32[2]",          note: "OR with 0xFFFFFFFF to spot for everyone" },
-        ],
-        convars: &[],
-        hooks: &[],
+        category: "Visuals",
+        summary: "Boxes, health, names and skeletons for every player you can see on screen.",
+        internal: Variant {
+            summary: "Gather player data once per frame from the game thread, draw it from a Present hook.",
+            steps: &[
+                "From the entity cache take each cs_player_controller with m_bPawnIsAlive set and resolve its pawn from m_hPlayerPawn. Skip your own pawn (dwLocalPlayerPawn).",
+                "Skip dormant pawns (m_pGameSceneNode -> m_bDormant): their data stops updating outside your PVS.",
+                "Read health (m_iHealth), team (m_iTeamNum: 2 T, 3 CT) and the feet position (scene node m_vecAbsOrigin).",
+                "Bones: resolve names once per model with C_BaseEntity_GetBoneIdByName(pawn, \"head_0\") (\"pelvis\", \"neck_0\", \"hand_L\", ...), then read positions from the bone array at scene node + m_modelState + 0x80.",
+                "Project with the view matrix (dwViewMatrix, 4x4 row-major): w = m[3]·p; skip w < 0.001; screen x = W/2 * (1 + m[0]·p / w), y = H/2 * (1 - m[1]·p / w).",
+                "Box from the projected head (plus headroom) and feet, or fit it to the projected bones; name from m_iszPlayerName; weapon from m_pWeaponServices -> m_hActiveWeapon.",
+                "Draw from IDXGISwapChain::Present (vtable slot 8). The swap chain is CSwapChainDx11::m_pSwapChain, filled in by CreateSwapChain.",
+            ],
+            fields: &[
+                f("CCSPlayerController", "m_bPawnIsAlive", "bool", ""),
+                f("CCSPlayerController", "m_hPlayerPawn", "CHandle<C_CSPlayerPawn>", "always the player pawn, also while dead (m_hPawn can be the observer)"),
+                f("CBasePlayerController", "m_iszPlayerName", "char[128]", "inline UTF-8 name"),
+                f("C_BaseEntity", "m_iHealth", "int32", ""),
+                f("C_BaseEntity", "m_iTeamNum", "uint8", "2 = T, 3 = CT"),
+                f("C_BaseEntity", "m_pGameSceneNode", "CGameSceneNode*", "a CSkeletonInstance on pawns"),
+                f("CGameSceneNode", "m_vecAbsOrigin", "Vector", "feet"),
+                f("CGameSceneNode", "m_bDormant", "bool", "skip when set"),
+                f("CSkeletonInstance", "m_modelState+0x80", "CTransform*", BONE_NOTE),
+                f("C_BasePlayerPawn", "m_pWeaponServices", "CPlayer_WeaponServices*", ""),
+                f("CPlayer_WeaponServices", "m_hActiveWeapon", "CHandle<C_BasePlayerWeapon>", ""),
+                f("C_EconEntity", "m_AttributeManager.m_Item.m_iItemDefinitionIndex", "uint16", "weapon id of the active weapon"),
+                f("CSwapChainDx11", "m_pSwapChain", "IDXGISwapChain*", "Present = vtable slot 8, ResizeBuffers = 13"),
+            ],
+            globals: &[g("dwViewMatrix", "float[4][4], row-major"), g("dwLocalPlayerPawn", "C_CSPlayerPawn*")],
+            funcs: &[
+                hook("FrameStageNotify", "gather player data on the game thread"),
+                call("C_BaseEntity_GetBoneIdByName", "bone name -> index, once per model"),
+                Func { name: "CreateSwapChain", module: "rendersystemdx11.dll", role: "hook", purpose: "catch the CSwapChainDx11 instance to reach IDXGISwapChain::Present" },
+            ],
+            convars: &[],
+            notes: &[
+                "Stock agent skeleton (read from the live model on 14184): 1 pelvis, 2-5 spine_0-3, 6 neck_0, 7 head_0, 8-11 left arm (clavicle, upper, lower, hand), 12-15 right arm, 17-19 left leg (upper, lower, ankle), 20-22 right leg. Resolve by name rather than trusting these.",
+            ],
+        },
+        external: Some(Variant {
+            summary: "The same data through ReadProcessMemory, drawn on your own overlay window.",
+            steps: &[
+                "Once per frame: read the view matrix (client + dwViewMatrix, 64 bytes) and walk controllers 1-64 as in Entity list.",
+                "For each controller with m_bPawnIsAlive: resolve m_hPlayerPawn (with the handle check), skip your own pawn (client + dwLocalPlayerPawn) and dormant pawns.",
+                "Read m_iHealth, m_iTeamNum, the scene node's m_vecAbsOrigin (feet) and m_iszPlayerName.",
+                "Bones: bone_array = read<u64>(scene_node + m_modelState + 0x80); bone i position = read<Vector>(bone_array + 32 * i). Head is head_0 = 7 on the stock skeleton — or read the model's own names: model = read<u64>(read<u64>(scene_node + m_modelState + m_hModel)); names = read<char**>(model + 0x168), count = read<i32>(model + 0x160).",
+                "Project exactly as internal: w = m[3]·p; skip w < 0.001; x = W/2 * (1 + m[0]·p / w), y = H/2 * (1 - m[1]·p / w).",
+                "Batch reads: read each pawn's small field ranges in one call, and only walk the bones you draw.",
+            ],
+            fields: &[
+                f("CCSPlayerController", "m_bPawnIsAlive", "bool", ""),
+                f("CCSPlayerController", "m_hPlayerPawn", "CHandle<C_CSPlayerPawn>", "resolve through the entity list"),
+                f("CBasePlayerController", "m_iszPlayerName", "char[128]", ""),
+                f("C_BaseEntity", "m_iHealth", "int32", ""),
+                f("C_BaseEntity", "m_iTeamNum", "uint8", "2 = T, 3 = CT"),
+                f("C_BaseEntity", "m_pGameSceneNode", "CGameSceneNode*", ""),
+                f("CGameSceneNode", "m_vecAbsOrigin", "Vector", "feet"),
+                f("CGameSceneNode", "m_bDormant", "bool", "skip when set"),
+                f("CSkeletonInstance", "m_modelState+0x80", "CTransform*", BONE_NOTE),
+                f("CModelState", "m_hModel", "CModel**", "-> CModel, for bone names"),
+                m("CModel", "bone count", 0x160, 14184, "int32", "number of bones"),
+                m("CModel", "bone names", 0x168, 14184, "char**", "names[i] is bone i (\"head_0\", \"pelvis\", ...)"),
+            ],
+            globals: &[
+                g("dwEntityList", "CGameEntitySystem*"),
+                g("dwLocalPlayerPawn", "C_CSPlayerPawn*"),
+                g("dwViewMatrix", "float[4][4], row-major"),
+            ],
+            funcs: &[],
+            convars: &[],
+            notes: &["Verified live on build 14184: head_0 = bone 7 sits 58-65 units above the feet on every player; w < 0 for players behind the camera."],
+        }),
+        external_unavailable: "",
     },
-
-    VerifiedFeature {
-        name: "FOV Changer",
-        status: "working",
-        summary: "Two-prong approach. (1) Hook the world-FOV resolver in \
-                  client.dll (signature GetWorldFovResolver) and return the \
-                  desired value when the local pawn is not scoped — keeps \
-                  the value sticky against engine resets. (2) Every tick \
-                  write the desired FOV into m_iFOV and m_iFOVStart on the \
-                  camera services AND into m_iDesiredFOV on the local \
-                  controller. The controller-level field is the canonical \
-                  source the renderer reads; without it the camera-services \
-                  side gets clobbered back to default.",
-        fields: &[
-            VerifiedField { class: "CBasePlayerController",     field: "m_iDesiredFOV",      manual: None,  ty: "uint32",                       note: "a2x-named m_iDesiredFOV_OnController — canonical write" },
-            VerifiedField { class: "CCSPlayerBase_CameraServices",  field: "m_iFOV",             manual: None,  ty: "uint32",                       note: "current camera FOV" },
-            VerifiedField { class: "CCSPlayerBase_CameraServices",  field: "m_iFOVStart",        manual: None,  ty: "uint32",                       note: "target camera FOV" },
-            VerifiedField { class: "C_BasePlayerPawn",            field: "m_pCameraServices", manual: None, ty: "CCSPlayer_CameraServices*", note: "deref to reach m_iFOV / m_iFOVStart" },
-        ],
-        convars: &[],
-        hooks: &[
-            VerifiedHook { function: "GetWorldFov", module: "client.dll", signature: "GetWorldFovResolver", action: "Return cfg.fovValue when not scoped, else delegate to original." },
-        ],
+    Feature {
+        name: "FOV changer",
+        category: "Visuals",
+        summary: "Change your first-person field of view without touching the scope zoom.",
+        internal: Variant {
+            summary: "Override the camera the game is about to render with: hook OverrideView and write the view setup's FOV.",
+            steps: &[
+                "Hook ClientMode::OverrideView(this, CViewSetup*). Call the original first.",
+                "If your pawn is alive and not scoped (C_CSPlayerPawn::m_bIsScoped), write your FOV (degrees, float) to CViewSetup::m_flFov.",
+                "Optional: keep aim feeling the same at a wider FOV — write C_BasePlayerPawn::m_flFOVSensitivityAdjust = zoom_sensitivity_ratio * fov / 90.",
+            ],
+            fields: &[
+                f("CViewSetup", "m_flFov", "float", "the FOV the frame renders with"),
+                f("C_CSPlayerPawn", "m_bIsScoped", "bool", "leave the scope zoom alone"),
+                f("C_BasePlayerPawn", "m_flFOVSensitivityAdjust", "float", "optional sensitivity scale"),
+            ],
+            globals: &[g("dwLocalPlayerPawn", "C_CSPlayerPawn*")],
+            funcs: &[hook("OverrideView", "ClientMode::OverrideView(this, CViewSetup*)")],
+            convars: &[("zoom_sensitivity_ratio", "read, for the optional sensitivity scale")],
+            notes: &["OverrideView writes origin (+0x4A0), angles (+0x4B8) and FOV (+0x498) of the view setup — see CViewSetup under Engine structs."],
+        },
+        external: Some(Variant {
+            summary: "Set the FOV the game itself falls back to when you are not zoomed: the controller's m_iDesiredFOV.",
+            steps: &[
+                "controller = read<u64>(client + dwLocalPlayerController).",
+                "Write your FOV as an integer to controller + m_iDesiredFOV.",
+                "Re-write it now and then (every second, or on respawn): the server can replicate its own value back.",
+                "Do not write the camera services' m_iFOV: while it is non-zero it overrides the default, and the server sets it itself when you zoom.",
+            ],
+            fields: &[
+                f("CBasePlayerController", "m_iDesiredFOV", "uint32", "0 = game default (90)"),
+                f("CCSPlayerBase_CameraServices", "m_iFOV", "uint32", "read-only for you: 0 means \"use m_iDesiredFOV\""),
+            ],
+            globals: &[g("dwLocalPlayerController", "CCSPlayerController*")],
+            funcs: &[],
+            convars: &[],
+            notes: &["How the game picks the FOV each frame (IDA, 14184): camera m_iFOV if non-zero, else controller m_iDesiredFOV if non-zero, else the game rules default (90); the scope zoom is applied on top."],
+        }),
+        external_unavailable: "",
     },
-
-    VerifiedFeature {
+    Feature {
         name: "Aimbot",
-        status: "working",
-        summary: "Per-tick phase machine driven from CCSGOInput::CreateMove \
-                  (IDLE → REACTING → ATTACKING → CORRECTING → LOCKED). \
-                  Target selection scores enemies on FOV delta, distance, \
-                  visibility (engine trace) and weighting flags. Final angle \
-                  delivery happens via a hooked CSGOInputHistoryEntry::\
-                  WriteSubtick (Pattern `48 89 5C 24 ? 55 57 41 56 48 8D \
-                  6C 24 ? 48 81 EC B0 00 00 00 8B 01 48 8B F9 81 4A 10 00 \
-                  02`, unique match @ 0x180C53DB0 in build 14152) so the \
-                  override only touches per-subtick shoot angles \
-                  (fe[7..9]) on attack subticks (a3 != 0). The real \
-                  view-angle stream replayed for spectators / GOTV / \
-                  Overwatch (fe[4..6]) is NEVER touched. \n\nHard-suppress \
-                  gates (any true ⇒ skip the angle write entirely): freeze \
-                  / warmup, m_bWaitForNoAttack, no-scope sniper, \
-                  m_bNeedsBoltAction, m_bInReload, m_iClip1 == 0, \
-                  m_nNextPrimaryAttackTick > tickBase + 1, m_bIsDefusing, \
-                  m_bIsGrabbingHostage, MoveType not WALK / FLYGRAVITY. \
-                  Soft throttle scales the 28°/subtick flick cap: \
-                  m_bIsValveDS × 0.55, observerCount × 0.55, m_bSpotted + \
-                  observers × 0.65, horizontal speed > 80 u/s linearly \
-                  ramps to 0.5 (caps at 180 u/s), ±0.10° LCG jitter. \
-                  Crosshair-aligned bypass: when local m_iIDEntIndex \
-                  resolves to the silent-aim target, the throttle is \
-                  bypassed.",
-        fields: &[
-            VerifiedField { class: "C_CSGameRules",         field: "m_bFreezePeriod",          manual: None,   ty: "bool",            note: "freeze — no attacks possible" },
-            VerifiedField { class: "C_CSGameRules",         field: "m_bWarmupPeriod",          manual: None,   ty: "bool",            note: "warmup — no attacks possible" },
-            VerifiedField { class: "C_CSGameRules",         field: "m_bIsValveDS",             manual: None,   ty: "bool",            note: "TRUE on Valve official MM — soft 0.55×" },
-            VerifiedField { class: "C_CSGameRules",         field: "m_bHasMatchStarted",       manual: None,   ty: "bool",            note: "match-state gate" },
-            VerifiedField { class: "C_CSPlayerPawn",        field: "m_bWaitForNoAttack",       manual: None, ty: "bool",            note: "post-respawn / weapon-switch lockout" },
-            VerifiedField { class: "C_CSPlayerPawn",        field: "m_bIsDefusing",            manual: None, ty: "bool",            note: "server forbids attack while defusing" },
-            VerifiedField { class: "C_CSPlayerPawn",        field: "m_bIsGrabbingHostage",     manual: None, ty: "bool",            note: "server forbids attack while grabbing hostage" },
-            VerifiedField { class: "C_BaseEntity",          field: "m_MoveType",               manual: None,  ty: "MoveType_t",      note: "only WALK(2) / FLYGRAVITY(4) are normal play" },
-            VerifiedField { class: "C_CSWeaponBaseGun",     field: "m_zoomLevel",              manual: None, ty: "int32",           note: "0 = unscoped — refuse silent fire on snipers when zoom == 0" },
-            VerifiedField { class: "C_CSWeaponBaseGun",     field: "m_bNeedsBoltAction",       manual: None, ty: "bool",            note: "AWP/SSG/Scout bolt-cycle lockout" },
-            VerifiedField { class: "C_CSWeaponBase",        field: "m_bInReload",              manual: None, ty: "bool",            note: "weapon mid-reload" },
-            VerifiedField { class: "C_BasePlayerWeapon",    field: "m_iClip1",                 manual: None, ty: "int32",           note: "0 ⇒ no bullet possible" },
-            VerifiedField { class: "C_BasePlayerWeapon",    field: "m_nNextPrimaryAttackTick", manual: None, ty: "int32",           note: "absolute server tick when next attack allowed" },
-            VerifiedField { class: "CBasePlayerController", field: "m_nTickBase",              manual: None,  ty: "int32",           note: "compare against m_nNextPrimaryAttackTick" },
-            VerifiedField { class: "EntitySpottedState_t",  field: "m_bSpottedByMask",         manual: None,    ty: "uint32[2]",       note: "real enemy in PVS ⇒ throttle 0.65×" },
-            VerifiedField { class: "C_CSPlayerPawn",        field: "m_iIDEntIndex",            manual: None, ty: "int32",           note: "matches target ⇒ bypass throttle" },
-            VerifiedField { class: "C_BaseEntity",          field: "m_vecVelocity",            manual: None,  ty: "Vector3",         note: "soft throttle 1.0 → 0.5 from 80 → 180 u/s" },
-            VerifiedField { class: "C_CSPlayerPawn",        field: "m_pAimPunchServices",      manual: None, ty: "CCSPlayer_AimPunchServices*", note: "owns aim-punch cache vector" },
-            VerifiedField { class: "C_CSPlayerPawn",        field: "m_iShotsFired",            manual: None, ty: "int32",           note: "drives spread seed" },
-            VerifiedField { class: "C_CSWeaponBase",        field: "m_flRecoilIndex",          manual: None, ty: "float",           note: "recoil pattern index" },
-        ],
-        convars: &[],
-        hooks: &[
-            VerifiedHook { function: "CCSGOInput::CreateMove",                 module: "client.dll", signature: "CreateMove", action: "Phase machine + target select + angle snap; sets fire latch." },
-            VerifiedHook { function: "CSGOInputHistoryEntry::WriteSubtick",   module: "client.dll", signature: "48 89 5C 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC B0 00 00 00 8B 01 48 8B F9 81 4A 10 00 02", action: "Per-subtick angle override — attack subticks only; fe[7..9] only." },
-        ],
+        category: "Aim",
+        summary: "Turn your view onto the closest visible enemy, with recoil control and smoothing.",
+        internal: Variant {
+            summary: "Steer inside CCSGOInput::CreateMove, before the game builds the user command from the input's view angles.",
+            steps: &[
+                "Hook CCSGOInput::CreateMove. It runs before the command is built, so angles you set are the angles the command carries.",
+                "Eye position: your pawn's scene node m_vecAbsOrigin + m_vecViewOffset.",
+                "Candidates: enemy pawns from the entity cache that are alive, not dormant, on the other team. Aim point: the head_0 bone (C_BaseEntity_GetBoneIdByName) from the bone array.",
+                "Angle to a point: pitch = -atan2(dz, sqrt(dx² + dy²)), yaw = atan2(dy, dx), in degrees. Pick the target with the smallest angle to your current view (GetViewAngles) inside your FOV limit, and confirm it is visible with a trace (TraceShape) before locking.",
+                "Recoil: subtract the aim punch from C_CSPlayerPawn_GetAimPunch(m_pAimPunchServices, &out, 0) — already doubled — once m_iShotsFired > 1.",
+                "Smooth: move by a fraction of the remaining angle each call. Clamp pitch to ±89 and wrap yaw to ±180.",
+                "Apply with SetViewAngles(input, 0, &angles) (the input's view angles at +0x688): the command and the camera both follow.",
+            ],
+            fields: &[
+                f("CCSGOInput", "m_angViewAngles", "QAngle", "what CreateMove sends"),
+                f("CGameSceneNode", "m_vecAbsOrigin", "Vector", ""),
+                f("C_BaseModelEntity", "m_vecViewOffset", "Vector", "origin + this = eye"),
+                f("CSkeletonInstance", "m_modelState+0x80", "CTransform*", BONE_NOTE),
+                f("C_BaseEntity", "m_iHealth", "int32", ""),
+                f("C_BaseEntity", "m_iTeamNum", "uint8", ""),
+                f("CGameSceneNode", "m_bDormant", "bool", ""),
+                f("C_CSPlayerPawn", "m_pAimPunchServices", "CCSPlayer_AimPunchServices*", "argument for GetAimPunch"),
+                f("C_CSPlayerPawn", "m_iShotsFired", "int32", "recoil control from the second shot"),
+            ],
+            globals: &[],
+            funcs: &[
+                hook("CreateMove", "CCSGOInput::CreateMove: aim here"),
+                call("GetViewAngles", "current view (input, slot 0)"),
+                call("SetViewAngles", "apply the new view (input, slot 0, &angles)"),
+                call("C_CSPlayerPawn_GetAimPunch", "aim punch (services, &out, 0)"),
+                call("C_BaseEntity_GetBoneIdByName", "\"head_0\" -> bone index"),
+                call("TraceShape", "visibility check"),
+            ],
+            convars: &[],
+            notes: &[],
+        },
+        external: Some(Variant {
+            summary: "Same maths from outside the process; steer by writing the view angles the game reads, or by moving the mouse.",
+            steps: &[
+                "Read your view from client + dwViewAngles (pitch, yaw, roll floats — the same storage CreateMove sends) and your eye position (pawn scene node m_vecAbsOrigin + m_vecViewOffset).",
+                "Candidates and head_0 positions as in ESP (external).",
+                "Visibility without traces: the enemy pawn's m_entitySpottedState.m_bSpottedByMask has the bit of your own player slot set when the game considers them visible to you (slot = your controller's index - 1).",
+                "Recoil: the aim punch is not a readable field any more; the game integrates it from CCSPlayer_AimPunchServices (base tick, angle, angular velocity) in 1/128-tick steps. Reproduce that, or leave recoil control out.",
+                "Apply: write the new angles to client + dwViewAngles, or move the mouse — counts = degrees / (sensitivity * 0.022 * m_flFOVSensitivityAdjust), with sensitivity = read<float>(read<u64>(client + dwSensitivity) + dwSensitivity_sensitivity).",
+            ],
+            fields: &[
+                f("CGameSceneNode", "m_vecAbsOrigin", "Vector", ""),
+                f("C_BaseModelEntity", "m_vecViewOffset", "Vector", "origin + this = eye"),
+                f("CSkeletonInstance", "m_modelState+0x80", "CTransform*", BONE_NOTE),
+                f("C_CSPlayerPawn", "m_entitySpottedState.m_bSpottedByMask", "uint32[2]", "bit (your slot) = visible to you"),
+                f("C_BasePlayerPawn", "m_flFOVSensitivityAdjust", "float", "mouse scaling (scoped)"),
+                f("CCSPlayer_AimPunchServices", "m_predictableBaseAngle", "QAngle", "recoil state, see notes"),
+            ],
+            globals: &[
+                g("dwViewAngles", "QAngle, read and write"),
+                g("dwSensitivity", "ConVar pointer; value at dwSensitivity_sensitivity"),
+                g("dwSensitivity_sensitivity", "value offset inside the ConVar"),
+                g("dwLocalPlayerPawn", "C_CSPlayerPawn*"),
+                g("dwLocalPlayerController", "CCSPlayerController*"),
+                g("dwEntityList", "CGameEntitySystem*"),
+            ],
+            funcs: &[],
+            convars: &[("sensitivity", "read through dwSensitivity"), ("m_yaw", "0.022 unless changed")],
+            notes: &["Verified live on build 14184: dwViewAngles holds the current view; dwSensitivity reads the player's sensitivity."],
+        }),
+        external_unavailable: "",
     },
-
-    VerifiedFeature {
-        name: "Triggerbot (Seeded)",
-        status: "working",
-        summary: "Per-tick seeded prediction. Reads the live spread seed \
-                  (m_iShotsFired + aim-punch) and re-runs Valve's spread \
-                  RNG via SpreadSeedGen + CalcSpread to compute exactly \
-                  where the next bullet would fly, then traces from local \
-                  eye to that point. Strict-window mode tests only ticks \
-                  {0, +1} and ALL must hit before firing; wide-window mode \
-                  accepts ANY hit in {0, +1, -1, +2}. Local eye position is \
-                  projected by localVel × leadTime so test geometry matches \
-                  engine fire-time eye pos. \n\nUses the REAL \
-                  m_fAccuracyPenalty + m_flTurningInaccuracy in the \
-                  predictor — the earlier 'perfect-shot' override that \
-                  zeroed client spread caused server desync (kill sound \
-                  but no damage); that path is OFF by default. \n\nCooperates \
-                  with aimbot: trigger defers whenever Aimbot::state.phase \
-                  ∈ {REACTING, ATTACKING, CORRECTING}. SendInput LBUTTON \
-                  edges from trigger are masked out of aimbot's rawAim \
-                  filter via an 80 ms synth-click window so the synthetic \
-                  click can't wake aimbot uninvited.",
-        fields: &[
-            VerifiedField { class: "C_CSPlayerPawn", field: "m_iIDEntIndex",       manual: None, ty: "int32",                       note: "primary target signal" },
-            VerifiedField { class: "C_CSPlayerPawn", field: "m_iShotsFired",       manual: None, ty: "int32",                       note: "drives spread seed" },
-            VerifiedField { class: "C_CSPlayerPawn", field: "m_pAimPunchServices", manual: None, ty: "CCSPlayer_AimPunchServices*", note: "deref for live aim-punch vec used in the seed" },
-        ],
-        convars: &[],
-        hooks: &[
-            VerifiedHook { function: "CCSPlayerAnimGraphState::CalcSpread", module: "client.dll", signature: "CalcSpread",  action: "Cache (mode, baseSpread, inaccuracy) per itemDef." },
-            VerifiedHook { function: "NoSpread1",                            module: "client.dll", signature: "NoSpread1",   action: "Optional perfect-shot path — DISABLED by default." },
-        ],
+    Feature {
+        name: "Skin changer",
+        category: "Skins",
+        summary: "Show any paint kit, seed and wear on your weapons.",
+        internal: Variant {
+            summary: "Turn each weapon's item into a client-side item that carries your paint, then have the game rebuild the weapon's material.",
+            steps: &[
+                "Hook FrameStageNotify and work after the network update. Your weapons: pawn m_pWeaponServices -> m_hMyWeapons.",
+                "Item view = weapon + m_AttributeManager.m_Item. Give it a client-side identity: m_iItemID = 0xF000000000000010 (and m_iItemIDHigh / m_iItemIDLow to its halves), m_iAccountID = your account id, m_bInitialized = true, m_bDisallowSOC = true (stops the game re-resolving it from your real inventory).",
+                "Write the paint on the weapon: m_nFallbackPaintKit, m_nFallbackSeed, m_flFallbackWear, m_nFallbackStatTrak (-1 = none).",
+                "Write the same paint as item attributes with C_EconItemView_SetAttribute: \"set item texture prefab\", \"set item texture seed\", \"set item texture wear\", as floats. The weapon's name and rarity are built from these, not from the fallback fields.",
+                "Rebuild: m_nCustomEconReloadEventId = -1; call the weapon's PostDataUpdate (vtable slot 10) with 1; call ApplyEconCustomization(weapon, 1); if the weapon already has composite materials, C_CSWeaponBase_UpdateCompositeMaterial on its composite set; SetMeshGroupMask on the scene node (2 for legacy-model paint kits, else 1); finally C_CSWeaponBase_UpdateCompositeMaterialSet(weapon, 1).",
+                "For the weapon in your hand, set the same mesh group on the view model (m_hHudModelArms). If the name changed, C_EconItemView_InvalidateDescription so the HUD re-reads it.",
+                "Only re-apply when the game has rebuilt the weapon over you (paint attributes or composite gone), not every frame: the rebuild is asynchronous and restarting it cancels it.",
+            ],
+            fields: &[
+                f("C_BasePlayerPawn", "m_pWeaponServices", "CPlayer_WeaponServices*", ""),
+                f("CPlayer_WeaponServices", "m_hMyWeapons", "CUtlVector<CHandle<C_BasePlayerWeapon>>", ""),
+                f("C_EconEntity", "m_AttributeManager.m_Item", "C_EconItemView", "the weapon's item view"),
+                f("C_EconItemView", "m_iItemID", "uint64", "0xF000000000000010: a client-side item"),
+                f("C_EconItemView", "m_iItemIDHigh", "uint32", "high half of m_iItemID"),
+                f("C_EconItemView", "m_iItemIDLow", "uint32", "low half of m_iItemID"),
+                f("C_EconItemView", "m_iAccountID", "uint32", "your account id"),
+                f("C_EconItemView", "m_bInitialized", "bool", "true"),
+                f("C_EconItemView", "m_bDisallowSOC", "bool", "true: never re-resolve from the real inventory"),
+                f("C_EconEntity", "m_nFallbackPaintKit", "int32", ""),
+                f("C_EconEntity", "m_nFallbackSeed", "int32", ""),
+                f("C_EconEntity", "m_flFallbackWear", "float", "0.0 factory new … 1.0 battle-scarred"),
+                f("C_EconEntity", "m_nFallbackStatTrak", "int32", "-1 = none"),
+                f("C_CSWeaponBase", "m_nCustomEconReloadEventId", "int32", "-1 before the rebuild"),
+                m("C_CSWeaponBase", "composite material set", 0x610, 14184, "", "argument for UpdateCompositeMaterial; live material count at +0x4A0"),
+                f("C_CSPlayerPawn", "m_hHudModelArms", "CHandle", "first-person arms -> view-model weapon"),
+            ],
+            globals: &[],
+            funcs: &[
+                hook("FrameStageNotify", "apply after the network update"),
+                call("C_EconItemView_SetAttribute", "paint attributes on the item view"),
+                call("ApplyEconCustomization", "queue the econ reload (weapon, 1)"),
+                call("C_CSWeaponBase_UpdateCompositeMaterial", "rebuild the composite material"),
+                call("SetMeshGroupMask", "legacy (2) or modern (1) model"),
+                call("C_CSWeaponBase_UpdateCompositeMaterialSet", "regenerate the weapon skin (weapon, 1)"),
+                call("C_EconItemView_InvalidateDescription", "refresh the HUD name"),
+            ],
+            convars: &[("cl_weapon_selection_rarity_color", "defaults to 0; the rarity outline only shows when it is 1")],
+            notes: &["The client-side item id marks the item as not coming from the Game Coordinator, so the game uses the fallback paint instead of looking the item up."],
+        },
+        external: None,
+        external_unavailable: "The new paint only renders after the game rebuilds the weapon's composite material, and that means calling game functions (ApplyEconCustomization, UpdateCompositeMaterial, ...). An external process can write the fields but cannot make the game repaint.",
     },
-
-    VerifiedFeature {
-        name: "Skin Changer",
-        status: "working",
-        summary: "Writes m_nFallbackPaintKit / m_nFallbackSeed / \
-                  m_flFallbackWear / m_iEntityQuality on each weapon then \
-                  forces the modern paint-apply path: \
-                  ApplyEconCustomization(weapon, 1) → sub_181079790 → \
-                  sub_18105AAF0 (which actually consumes the fallback \
-                  fields and queues 'clientside_reload_custom_econ' to \
-                  rebuild the composite material). RegenerateWeaponSkin \
-                  alone is INSUFFICIENT — it only handles the legacy static \
-                  paint table. GetCustomPaintKitIndex is polled to detect \
-                  rejection and gate re-apply work instead of hammering \
-                  ApplyEconCustomization every tick. Setting m_iItemIDLow / \
-                  High to 0xFFFFFFFF forces the EconItemView lookup to fail \
-                  → fallback path taken.",
-        fields: &[
-            VerifiedField { class: "C_EconItemView", field: "m_iItemDefinitionIndex", manual: None, ty: "uint16", note: "weapon definition (CSWeaponID)" },
-            VerifiedField { class: "C_EconItemView", field: "m_iItemIDLow",           manual: None, ty: "uint32", note: "set 0xFFFFFFFF to force EconItemView lookup miss → fallback path" },
-            VerifiedField { class: "C_EconItemView", field: "m_iItemIDHigh",          manual: None, ty: "uint32", note: "set 0xFFFFFFFF (paired with m_iItemIDLow)" },
-            VerifiedField { class: "C_EconItemView", field: "m_iEntityQuality",       manual: None, ty: "int32",  note: "quality slot used by the composite shader" },
-            VerifiedField { class: "C_EconEntity", field: "m_nFallbackPaintKit",    manual: None, ty: "uint32", note: "paint kit ID (the actual 'skin')" },
-            VerifiedField { class: "C_EconEntity", field: "m_nFallbackSeed",        manual: None, ty: "int32",  note: "pattern seed" },
-            VerifiedField { class: "C_EconEntity", field: "m_flFallbackWear",       manual: None, ty: "float",  note: "0.0 = factory new, 1.0 = battle-scarred" },
-            VerifiedField { class: "C_EconEntity", field: "m_nFallbackStatTrak",    manual: None, ty: "int32",  note: "StatTrak counter (-1 disables)" },
-        ],
-        convars: &[],
-        hooks: &[
-            VerifiedHook { function: "ApplyEconCustomization", module: "client.dll", signature: "ApplyEconCustomization",                action: "Modern paint-apply entry; consumes m_nFallback* and queues composite rebuild." },
-            VerifiedHook { function: "RegenerateWeaponSkin",   module: "client.dll", signature: "RegenerateWeaponSkin",                  action: "Legacy static-paint pass; called for completeness." },
-            VerifiedHook { function: "GetCustomPaintKitIndex", module: "client.dll", signature: "CEconItemView::GetCustomPaintKitIndex", action: "Read live paint kit to detect rejection and gate re-apply." },
-        ],
-    },
-
-    VerifiedFeature {
-        name: "Knife Changer",
-        status: "working",
-        summary: "Spoofs m_nSubclassID on the knife entity, calls \
-                  UpdateSubclass to re-bind the subclass-data pointer \
-                  (weapon+0x388, right after m_nSubclassID; the per-knife \
-                  VData and sequence set), then \
-                  AnimGraphRebuild(controller, 2) to tear down the existing \
-                  CNmGraphInstance (m_pGraphInstanceAG2) and let the manager \
-                  re-bind from the (now-updated) vdata's animgraph. \
-                  Without the rebuild the knife mesh swaps but inspect / \
-                  deploy / swing animations stay on the OLD subclass's \
-                  sequences (Emerald Butterfly mesh + default-knife \
-                  inspect anim was the symptom). SetMeshGroupMask \
-                  refreshes the visible mesh after the subclass change.",
-        fields: &[
-            VerifiedField { class: "C_BasePlayerWeapon", field: "m_nSubclassID",          manual: None, ty: "uint32", note: "knife subclass key (drives mesh + sequences + animgraph)" },
-            VerifiedField { class: "C_EconEntity", field: "m_AttributeManager.m_Item.m_iItemDefinitionIndex", manual: None, ty: "uint16", note: "must match the knife type for the chosen subclass" },
-        ],
-        convars: &[],
-        hooks: &[
-            VerifiedHook { function: "UpdateSubclass",   module: "client.dll", signature: "C_BaseEntity_UpdateSubclass", action: "Re-bind the subclass-data pointer at weapon+0x388 (IDA-verified: writes a1[113] after looking up m_nSubclassID)." },
-            VerifiedHook { function: "AnimGraphRebuild", module: "client.dll", signature: "AnimGraphRebuild",              action: "Mode = 2: destroy CNmGraphInstance and re-bind." },
-            VerifiedHook { function: "SetMeshGroupMask", module: "client.dll", signature: "SetMeshGroupMask",              action: "Refresh visible mesh after subclass change." },
-        ],
-    },
-
-    VerifiedFeature {
-        name: "Glove Changer",
-        status: "placeholder",
-        summary: "WIP. Schema writes (m_nFallbackPaintKit on \
-                  C_EconWearable, m_unMusicID etc.) propagate but the \
-                  composite material fails to rebuild on the wearable's \
-                  render slot in the current build. Suspected missing \
-                  call: BuildLegacyGloveSkinMaterial + \
-                  CompositeMaterialPanoramaPanel_Init + the per-panel \
-                  render-request path. Sigs resolve cleanly — wiring is \
-                  the blocker. Listed for visibility; do not rely on it \
-                  yet.",
-        fields: &[],
-        convars: &[],
-        hooks: &[],
-    },
-
-    // ------------------------------------------------------------------
-    VerifiedFeature {
-        name: "Engine Prediction Simulation",
-        status: "partial",
-        summary: "Per-tick re-execution of Valve's movement pipeline on the \
-                  local pawn to obtain post-prediction flags (FL_ONGROUND, \
-                  FL_DUCKING, etc.) for features that have to branch on the \
-                  next-tick server view — bhop, autostrafe, predicted eye \
-                  pos for ragebot. The engine itself ALREADY runs prediction \
-                  via engine2!RunPrediction (sig `RunPrediction`); the \
-                  cheap path is to hook that and snapshot m_fFlags before / \
-                  after the original call. The simulation-from-scratch path \
-                  (RunCommand + ProcessMovement + CalculateJumpHeight + \
-                  FinishMove + ProcessImpacts) reproduces it for arbitrary \
-                  CUserCmd inputs and is required for ragebot extrapolation. \
-                  Schema offsets confirmed from C_BaseEntity::ScriptDesc in \
-                  IDA: m_fFlags @ 0x3F8, m_vecAbsVelocity @ 0x3FC, \
-                  m_vecVelocity @ 0x430, m_MoveType @ 0x525.",
-        fields: &[
-            VerifiedField { class: "C_BaseEntity",                field: "m_fFlags",            manual: None,  ty: "uint32",       note: "FL_ONGROUND=1, FL_DUCKING=2, FL_WATERJUMP=8 — post-prediction view of next-tick state" },
-            VerifiedField { class: "C_BaseEntity",                field: "m_vecAbsVelocity",    manual: None,  ty: "Vector3",      note: "absolute world velocity, post-prediction" },
-            VerifiedField { class: "C_BaseEntity",                field: "m_vecVelocity",       manual: None,  ty: "Vector3",      note: "local velocity, net-replicated" },
-            VerifiedField { class: "C_BaseEntity",                field: "m_MoveType",          manual: None,  ty: "MoveType_t",   note: "2=WALK 4=FLYGRAVITY — only these allow normal prediction" },
-            VerifiedField { class: "C_BasePlayerPawn",            field: "m_pMovementServices", manual: None, ty: "CPlayer_MovementServices*", note: "→ ProcessMovement / SetupMove / FinishMove receiver" },
-            VerifiedField { class: "CCSPlayerController",         field: "m_hPawn",             manual: None,  ty: "CHandle",      note: "controller→pawn handle for local-player resolution" },
-            VerifiedField { class: "CCSPlayerController",         field: "m_nTickBase",         manual: None,  ty: "uint32",      note: "absolute server tick — clock the simulation against this" },
-            VerifiedField { class: "CCSPlayerController",         field: "m_bPawnIsAlive",      manual: None,  ty: "bool",         note: "guard: do not run prediction on dead pawn" },
-        ],
-        convars: &[],
-        hooks: &[
-            VerifiedHook { function: "CNetworkGameClient::RunPrediction", module: "engine2.dll", signature: "RunPrediction",      action: "Bracket original: capture pawn->m_fFlags + velocity before, then after. Diff exposes what engine predicted this tick." },
-            VerifiedHook { function: "CCSGOInput::CreateMovePrePrediction", module: "client.dll", signature: "create_move_v2",   action: "Per-tick driver — refresh local pawn/controller ptrs, optionally drive manual RunSimulation here for ragebot extrapolation." },
-        ],
+    Feature {
+        name: "Knife changer",
+        category: "Skins",
+        summary: "Swap your knife for any other knife model, with a paint.",
+        internal: Variant {
+            summary: "Change the knife's definition and subclass, load the new model, rebind its animations, then paint it like any skin.",
+            steps: &[
+                "Hook FrameStageNotify; find your knife among m_hMyWeapons.",
+                "Item view: set the client-side identity as for skins, m_iItemDefinitionIndex = the new knife, m_iEntityQuality = 3 (the ★).",
+                "m_nSubclassID = MurmurHash2 of the definition index as a lowercase decimal string, seed 0x31415926. It selects the knife's data: model, sequences, animation graph.",
+                "Call C_CSWeaponBase_GetViewModel(weapon), then ChangeModel(weapon, C_CSWeaponBase_GetModelPath(item_view)).",
+                "Rebind the animation graph for the new model: the weapon's CBaseAnimGraphController, vtable slot 15, mode 2 (animgraph2) — only when m_nAnimationAlgorithm is 2 and the model is loaded. Without it the new knife plays the old knife's animations.",
+                "Paint it exactly like the skin changer (fallback fields, paint attributes, rebuild), and set the mesh group on the view model too.",
+                "Remember the original definition, subclass and paint, and put them back when the feature is turned off.",
+            ],
+            fields: &[
+                f("C_EconEntity", "m_AttributeManager.m_Item.m_iItemDefinitionIndex", "uint16", "the new knife"),
+                f("C_EconItemView", "m_iEntityQuality", "int32", "3 = unusual (★)"),
+                f("C_BaseEntity", "m_nSubclassID", "CUtlStringToken", "MurmurHash2(lowercase \"<def index>\", 0x31415926)"),
+                f("CBaseAnimGraphController", "m_nAnimationAlgorithm", "AnimationAlgorithm_t", "rebind only when 2"),
+                f("CBaseAnimGraphController", "m_sAnimGraph2Identifier", "CGlobalSymbol", "graph the new model must provide"),
+                f("C_CSPlayerPawn", "m_hHudModelArms", "CHandle", "view model"),
+            ],
+            globals: &[],
+            funcs: &[
+                hook("FrameStageNotify", "apply after the network update"),
+                call("C_CSWeaponBase_GetViewModel", "refresh after the subclass change"),
+                call("C_CSWeaponBase_GetModelPath", "model for the item view's definition"),
+                call("ChangeModel", "load the new knife model (weapon, path)"),
+                call("C_EconItemView_SetAttribute", "paint attributes"),
+                call("ApplyEconCustomization", "queue the econ reload"),
+                call("SetMeshGroupMask", "legacy (2) or modern (1) model"),
+                call("C_CSWeaponBase_UpdateCompositeMaterialSet", "regenerate the skin"),
+            ],
+            convars: &[],
+            notes: &[],
+        },
+        external: None,
+        external_unavailable: "Changing the knife needs the game to load a model and rebind its animation graph, which only game code can do.",
     },
 ];
 
-// ----------------------------------------------------------------------
-// Renderers
-// ----------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// Resolution
+// ---------------------------------------------------------------------------
 
 fn find_class<'a>(map: &'a SchemaMap, name: &str) -> Option<&'a Class> {
-    // Client first: every feature here is client-side and client/server
-    // share class names with different layouts.
+    // Client first: client and server share class names with different layouts.
     if let Some((cs, _)) = map.get("client.dll")
         && let Some(c) = cs.iter().find(|c| c.name == name)
     {
@@ -432,7 +446,10 @@ fn find_class<'a>(map: &'a SchemaMap, name: &str) -> Option<&'a Class> {
 
 /// Base classes the schema binding does not record. Checked at use: the
 /// derived class's first own field must start at or after the base's size.
-const IMPLICIT_BASES: &[(&str, &str)] = &[("CSMatchStats_t", "CSPerRoundStats_t")];
+const IMPLICIT_BASES: &[(&str, &str)] = &[
+    ("CSMatchStats_t", "CSPerRoundStats_t"),
+    ("CCSPlayer_CameraServices", "CCSPlayerBase_CameraServices"),
+];
 
 fn parent_of(map: &SchemaMap, c: &Class) -> Option<String> {
     if let Some(p) = &c.parent_name {
@@ -444,7 +461,6 @@ fn parent_of(map: &SchemaMap, c: &Class) -> Option<String> {
     (first >= b.size as i32).then(|| base.to_string())
 }
 
-/// Field lookup that climbs the parent chain, like the game's own accessors.
 fn find_field<'a>(map: &'a SchemaMap, class: &str, field: &str) -> Option<(&'a ClassField, String)> {
     let mut cur = class.to_string();
     for _ in 0..32 {
@@ -457,101 +473,200 @@ fn find_field<'a>(map: &'a SchemaMap, class: &str, field: &str) -> Option<(&'a C
     None
 }
 
-/// Resolve `class` + dotted `path` to an offset relative to `class`.
-/// Returns the offset and the class that declares the last segment.
-fn resolve(map: Option<&SchemaMap>, class: &str, path: &str) -> Option<(u64, String)> {
+/// Resolve a field reference. Returns (offset, source, declared_in).
+fn resolve_field(map: Option<&SchemaMap>, fld: &Field) -> Option<(u64, &'static str, Option<String>)> {
+    if let Some((v, _)) = fld.manual {
+        return Some((v as u64, "manual", None));
+    }
+    // Engine structs (hand-verified, see engine_structs.rs).
+    if let Some(es) = ENGINE_STRUCTS.iter().find(|s| s.name == fld.class) {
+        return es.fields.iter().find(|x| x.name == fld.field).map(|x| (x.offset as u64, "engine", None));
+    }
     let map = map?;
-    let mut cls = class.to_string();
+    if fld.field == "sizeof" {
+        return find_class(map, fld.class).map(|c| (c.size as u64, "schema", None));
+    }
+    let (path, delta) = match fld.field.split_once('+') {
+        Some((p, d)) => (p, u64::from_str_radix(d.trim().trim_start_matches("0x"), 16).ok()?),
+        None => (fld.field, 0),
+    };
+    let segs: Vec<&str> = path.split('.').collect();
+    let mut cls = fld.class.to_string();
     let mut off = 0u64;
     let mut declared = String::new();
-    let segs: Vec<&str> = path.split('.').collect();
     for (i, seg) in segs.iter().enumerate() {
         let (f, d) = find_field(map, &cls, seg.trim())?;
         off += f.offset.max(0) as u64;
         declared = d;
         let ty = f.type_name.trim();
-        // A path may only continue through an embedded struct; offsets past a
-        // pointer are not relative to `class` any more.
+        // A path may only continue through an embedded struct.
         if i + 1 < segs.len() && (ty.ends_with('*') || ty.starts_with("CHandle")) {
             return None;
         }
         cls = ty.to_string();
     }
-    Some((off, declared))
+    let source = if delta != 0 { "schema+manual" } else { "schema" };
+    let declared_in = (segs.len() == 1 && declared != fld.class).then_some(declared);
+    Some((off + delta, source, declared_in))
 }
 
-/// Signature-database names referenced by the hooks of published features
-/// (raw byte patterns and "(virtual)" excluded), for the self-checks.
+fn find_hit<'a>(hits: &'a [PatternHit], module: &str, name: &str) -> Option<&'a PatternHit> {
+    let dn = display_name(name);
+    hits.iter().find(|h| {
+        h.found
+            && h.module.eq_ignore_ascii_case(module)
+            && (h.name == name || h.name == dn || h.aliases.iter().any(|a| a == name))
+    })
+}
+
+/// Hand-verified offsets: (feature, class, field, build verified on).
+pub fn manual_fields() -> Vec<(&'static str, &'static str, &'static str, u32)> {
+    let mut v = Vec::new();
+    for ft in FEATURES {
+        for var in std::iter::once(&ft.internal).chain(ft.external.as_ref()) {
+            for fl in var.fields {
+                if let Some((_, b)) = fl.manual
+                    && !v.iter().any(|(_, c, n, _): &(&str, &str, &str, u32)| *c == fl.class && *n == fl.field)
+                {
+                    v.push((ft.name, fl.class, fl.field, b));
+                }
+            }
+        }
+    }
+    v
+}
+
+/// References that did not resolve in the last render: (kind, feature, name).
+pub static UNRESOLVED: std::sync::Mutex<Vec<(String, String, String)>> = std::sync::Mutex::new(Vec::new());
+
+/// Signature-database names the published recipes reference (for the checks).
 pub fn hook_signatures() -> Vec<(&'static str, &'static str, &'static str)> {
-    FEATURES
-        .iter()
-        .filter(|f| f.status == "working")
-        .flat_map(|f| f.hooks.iter().map(move |h| (f.name, h.module, h.signature)))
-        .filter(|(_, _, s)| *s != "(virtual)" && !s.chars().all(|c| c.is_ascii_hexdigit() || c == ' ' || c == '?'))
-        .collect()
+    let mut v = Vec::new();
+    for ft in FEATURES {
+        for var in std::iter::once(&ft.internal).chain(ft.external.as_ref()) {
+            for fu in var.funcs {
+                v.push((ft.name, fu.module, fu.name));
+            }
+        }
+    }
+    v
 }
 
-/// Number of fields that could not be resolved in the last render, for
-/// the self-checks.
-pub static UNRESOLVED: std::sync::Mutex<Vec<String>> = std::sync::Mutex::new(Vec::new());
-
-pub fn render_json(build_number: Option<u32>, schemas: Option<&SchemaMap>) -> String {
-    let working: Vec<&VerifiedFeature> = FEATURES.iter().filter(|f| f.status == "working").collect();
-    let mut unresolved: Vec<String> = Vec::new();
-    let features: Vec<_> = working
+fn render_variant(
+    feature: &str,
+    v: &Variant,
+    build: Option<u32>,
+    schemas: Option<&SchemaMap>,
+    offsets: Option<&OffsetMap>,
+    hits: &[PatternHit],
+    unresolved: &mut Vec<(String, String, String)>,
+) -> Value {
+    let fields: Vec<Value> = v
+        .fields
         .iter()
-        .map(|f| {
+        .map(|fld| {
+            let r = resolve_field(schemas, fld);
+            if r.is_none() {
+                unresolved.push(("field".into(), feature.into(), format!("{}::{}", fld.class, fld.field)));
+            }
+            let (offset, source, declared_in) = r.map(|(o, s, d)| (format!("0x{:X}", o), s, d)).unwrap_or_default();
+            let verified_build = fld.manual.map(|(_, b)| b);
             json!({
-                "name":    f.name,
-                "summary": f.summary,
-                "fields":  f.fields.iter().map(|fld| {
-                    let path = fld.field.split(' ').next().unwrap_or(fld.field);
-                    let (offset, source, declared_in) = match (fld.manual, resolve(schemas, fld.class, path)) {
-                        (_, Some((off, d))) => (format!("0x{:X}", off), "schema", if d != fld.class { Some(d) } else { None }),
-                        (Some(m), None) => (format!("0x{:X}", m), "manual", None),
-                        (None, None) => {
-                            unresolved.push(format!("{}::{}", fld.class, path));
-                            (String::new(), "unresolved", None)
-                        }
-                    };
-                    json!({
-                        "class":  fld.class,
-                        "field":  fld.field,
-                        "offset": offset,
-                        "source": source,
-                        "declared_in": declared_in,
-                        "type":   fld.ty,
-                        "note":   fld.note,
-                    })
-                }).collect::<Vec<_>>(),
-                "convars": f.convars.iter().map(|c| json!({
-                    "name":             c.name,
-                    "strip_flags":      format!("0x{:X}", c.strip_flags),
-                    "write_both_slots": c.write_both_slots,
-                    "value":            c.value,
-                })).collect::<Vec<_>>(),
-                "hooks":   f.hooks.iter().map(|h| json!({
-                    "function":  h.function,
-                    "module":    h.module,
-                    "signature": h.signature,
-                    "action":    h.action,
-                })).collect::<Vec<_>>(),
+                "class": fld.class,
+                "field": fld.field,
+                "offset": offset,
+                "source": if source.is_empty() { "unresolved" } else { source },
+                "declared_in": declared_in,
+                "verified_build": verified_build,
+                "stale": verified_build.zip(build).map(|(vb, b)| vb != b),
+                "type": fld.ty,
+                "note": fld.note,
             })
         })
         .collect();
+    let globals: Vec<Value> = v
+        .globals
+        .iter()
+        .map(|gl| {
+            let value = offsets.and_then(|o| o.get(gl.module)).and_then(|m| m.get(gl.name)).map(|r| format!("0x{:X}", *r as u64));
+            if value.is_none() {
+                unresolved.push(("global".into(), feature.into(), format!("{}!{}", gl.module, gl.name)));
+            }
+            json!({ "module": gl.module, "name": gl.name, "value": value, "note": gl.note })
+        })
+        .collect();
+    let funcs: Vec<Value> = v
+        .funcs
+        .iter()
+        .map(|fu| {
+            let h = find_hit(hits, fu.module, fu.name);
+            if h.is_none() {
+                unresolved.push(("function".into(), feature.into(), format!("{}!{}", fu.module, fu.name)));
+            }
+            json!({
+                "name": fu.name,
+                "module": fu.module,
+                "role": fu.role,
+                "purpose": fu.purpose,
+                "rva": h.and_then(|h| h.rva).map(|r| format!("0x{:X}", r)),
+                "pattern": h.map(|h| h.pattern.clone()),
+                "prototype": h.and_then(|h| h.prototype.clone()),
+            })
+        })
+        .collect();
+    json!({
+        "summary": v.summary,
+        "steps": v.steps,
+        "fields": fields,
+        "globals": globals,
+        "functions": funcs,
+        "convars": v.convars.iter().map(|(n, u)| json!({ "name": n, "use": u })).collect::<Vec<_>>(),
+        "notes": v.notes,
+    })
+}
 
+pub fn render_json(
+    build_number: Option<u32>,
+    schemas: Option<&SchemaMap>,
+    offsets: Option<&OffsetMap>,
+    hits: &[PatternHit],
+) -> String {
+    let mut unresolved = Vec::new();
+    let features: Vec<Value> = FEATURES
+        .iter()
+        .map(|ft| {
+            let internal = render_variant(ft.name, &ft.internal, build_number, schemas, offsets, hits, &mut unresolved);
+            let external = ft
+                .external
+                .as_ref()
+                .map(|v| render_variant(ft.name, v, build_number, schemas, offsets, hits, &mut unresolved));
+            // `summary`, `fields`, `hooks`, `convars` at the top level mirror the
+            // internal variant for consumers of the pre-2.1.8 shape.
+            json!({
+                "name": ft.name,
+                "status": "working",
+                "category": ft.category,
+                "summary": ft.summary,
+                "internal": internal,
+                "external": external,
+                "external_unavailable": if ft.external.is_none() { Some(ft.external_unavailable) } else { None },
+                "fields": internal["fields"],
+                "hooks": internal["functions"].as_array().map(|a| a.iter().map(|x| json!({
+                    "function": x["name"], "module": x["module"], "signature": x["name"], "action": x["purpose"],
+                })).collect::<Vec<_>>()).unwrap_or_default(),
+                "convars": internal["convars"],
+            })
+        })
+        .collect();
     if let Ok(mut u) = UNRESOLVED.lock() {
         *u = unresolved.clone();
     }
     let doc = json!({
-        "cs2_build":      build_number,
-        "feature_count":  working.len(),
-        "note":           "Field offsets are resolved from the schema dumped in the same run (source: schema); only non-schema fields carry hand-verified values (source: manual). An empty offset means the field is not in this build's schema.",
-        "unresolved":     unresolved,
-        "features":       features,
+        "cs2_build": build_number,
+        "feature_count": features.len(),
+        "note": "How each feature is built, internal (in-process) and external (out-of-process). Offsets are resolved from this dump: source schema = schema field, engine = engine struct, schema+manual = schema field plus a fixed delta, manual = not described anywhere else (verified_build says where it was checked; stale = true when that is not this build). Functions carry this build's RVA and pattern.",
+        "unresolved": unresolved.iter().map(|(k, f, n)| json!({ "kind": k, "feature": f, "name": n })).collect::<Vec<_>>(),
+        "features": features,
     });
-
     serde_json::to_string_pretty(&doc).unwrap_or_else(|_| String::from("{}"))
 }
-
-
