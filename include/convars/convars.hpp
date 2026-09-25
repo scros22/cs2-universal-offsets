@@ -606,7 +606,7 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // cl_prediction_savedata_postentitypacketreceived           bool     false                 FCVAR_CLIENTDLL|FCVAR_RELEASE  // Experimental optimization.  If you are reading this in 2026, please delete this convar.
 // cl_predictioncopy_runs                                    bool     true                  FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // cl_prefer_lefthanded                                      bool     false                 FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO|FCVAR_PER_USER  // Left handed preference
-// cl_promoted_settings_acknowledged                         string   1:1790344606371       FCVAR_CLIENTDLL|FCVAR_ARCHIVE
+// cl_promoted_settings_acknowledged                         string   1:1790347197328       FCVAR_CLIENTDLL|FCVAR_ARCHIVE
 // cl_quickinventory_filename                                string   radial_quickinvento…  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
 // cl_quickinventory_lastinv                                 bool     true                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
 // cl_quickinventory_line_update_speed                       float32  65                    FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
@@ -1562,7 +1562,7 @@ If the server is behind NAT, y
 // mp_backup_restore_load_autopause                          bool     true                  FCVAR_GAMEDLL|FCVAR_RELEASE  // Whether to automatically pause the match after restoring round data from backup
 // mp_backup_round_auto                                      bool     true                  FCVAR_GAMEDLL|FCVAR_RELEASE  // If enabled will keep in-memory backups to handle reconnecting players even if the backup files aren't written to disk
 // mp_backup_round_file                                      string   backup                FCVAR_GAMEDLL|FCVAR_RELEASE  // If set then server will save all played rounds information to files filename_date_time_team1_team2_mapname_roundnum_score1_score2.txt
-// mp_backup_round_file_last                                 string   backup_round05.txt    FCVAR_GAMEDLL|FCVAR_RELEASE  // Every time a backup file is written the value of this convar gets updated to hold the name of the backup file.
+// mp_backup_round_file_last                                 string   backup_round00.txt    FCVAR_GAMEDLL|FCVAR_RELEASE  // Every time a backup file is written the value of this convar gets updated to hold the name of the backup file.
 // mp_backup_round_file_pattern                              string   %prefix%_round%roun…  FCVAR_GAMEDLL|FCVAR_RELEASE  // If set then server will save all played rounds information to files named by this pattern, e.g.'%prefix%_%date%_%time%_%team1%_%team2%_%map%_round%round%_score_%score1%_%score2%.txt'
 // mp_bot_ai_bt                                              string                         FCVAR_GAMEDLL|FCVAR_RELEASE  // Use the specified behavior tree file to drive the bot behavior.
 // mp_buy_allow_grenades                                     bool     true                  FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // Whether players can purchase grenades from the buy menu or not.
@@ -3035,10 +3035,10 @@ If the server is behind NAT, y
 // snd_chicken_obscured_fade_time                            float32  0.25                  FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Seconds to fade the ChickensObscuredLayer mix layer in and out.
 // snd_compare_KV_convert                                    bool     false                 FCVAR_DEVELOPMENTONLY
 // snd_deathcamera_volume                                    float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of Deathcam Timers
-// snd_deathcamera_volume_armsrace                           float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Deathcam Timers
-// snd_deathcamera_volume_casual                             float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Deathcam Timers
-// snd_deathcamera_volume_deathmatch                         float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Deathcam Timers
-// snd_deathcamera_volume_rush                               float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Deathcam Timers
+// snd_deathcamera_volume_armsrace                           float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Deathcam Timers
+// snd_deathcamera_volume_casual                             float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Deathcam Timers
+// snd_deathcamera_volume_deathmatch                         float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Deathcam Timers
+// snd_deathcamera_volume_rush                               float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Deathcam Timers
 // snd_delay_sound_ms_max                                    float32  40                    FCVAR_DEVELOPMENTONLY  // Sound device synchronization max delay (ms)
 // snd_delay_sound_ms_shift                                  float32  23                    FCVAR_DEVELOPMENTONLY  // Sound device synchronization shift (ms)
 // snd_diffusor_simd                                         bool     false                 FCVAR_DEVELOPMENTONLY  // Enable SIMD code path for diffusor processor.
@@ -3085,17 +3085,17 @@ If the server is behind NAT, y
 // snd_mainmenu_music_break_time_max                         int32    0                     FCVAR_CLIENTDLL|FCVAR_CHEAT  // Maximum amount of time to pause between playing main menu music
 // snd_mainmenu_music_break_time_min                         int32    0                     FCVAR_CLIENTDLL|FCVAR_CHEAT  // Minimum amount of time to pause between playing main menu music
 // snd_mapobjective_volume                                   float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of Map Objective Music
-// snd_mapobjective_volume_armsrace                          float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Map Objective Music
-// snd_mapobjective_volume_casual                            float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Map Objective Music
-// snd_mapobjective_volume_deathmatch                        float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Map Objective Music
-// snd_mapobjective_volume_rush                              float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Map Objective Music
+// snd_mapobjective_volume_armsrace                          float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Map Objective Music
+// snd_mapobjective_volume_casual                            float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Map Objective Music
+// snd_mapobjective_volume_deathmatch                        float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Map Objective Music
+// snd_mapobjective_volume_rush                              float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Map Objective Music
 // snd_max_pitch_shift_inaccuracy                            float32  0.08                  FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED
 // snd_menumap_volume                                        float32  1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of background sounds for maps
 // snd_menumusic_volume                                      float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of Menu / Non-gameplay music
-// snd_menumusic_volume_armsrace                             float32  0.040000003           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Menu / Non-gameplay music
-// snd_menumusic_volume_casual                               float32  0.040000003           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Menu / Non-gameplay music
-// snd_menumusic_volume_deathmatch                           float32  0.040000003           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Menu / Non-gameplay music
-// snd_menumusic_volume_rush                                 float32  0.040000003           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Menu / Non-gameplay music
+// snd_menumusic_volume_armsrace                             float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Menu / Non-gameplay music
+// snd_menumusic_volume_casual                               float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Menu / Non-gameplay music
+// snd_menumusic_volume_deathmatch                           float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Menu / Non-gameplay music
+// snd_menumusic_volume_rush                                 float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Menu / Non-gameplay music
 // snd_mergemethod                                           int32    1                     FCVAR_DEVELOPMENTONLY  // Sound merge method (0 == sum and clip, 1 == max, 2 == avg).
 // snd_min_latency                                           bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CHEAT
 // snd_mix_async                                             bool     true                  FCVAR_DEVELOPMENTONLY|FCVAR_CHEAT
@@ -3108,10 +3108,10 @@ If the server is behind NAT, y
 // snd_mute_losefocus                                        bool     true                  FCVAR_ARCHIVE
 // snd_mute_mvp_music_live_players                           bool     false                 FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // If set, MVP music is muted if players from both teams are still alive.
 // snd_mvp_volume                                            float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of MVP Music
-// snd_mvp_volume_armsrace                                   float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of MVP Music
-// snd_mvp_volume_casual                                     float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of MVP Music
-// snd_mvp_volume_deathmatch                                 float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of MVP Music
-// snd_mvp_volume_rush                                       float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of MVP Music
+// snd_mvp_volume_armsrace                                   float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of MVP Music
+// snd_mvp_volume_casual                                     float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of MVP Music
+// snd_mvp_volume_deathmatch                                 float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of MVP Music
+// snd_mvp_volume_rush                                       float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of MVP Music
 // snd_new_visualize                                         bool     false                 FCVAR_GAMEDLL|FCVAR_CHEAT  // Displays soundevent name played at it's 3d position
 // snd_occlusion_bounces                                     int32    1                     FCVAR_REPLICATED|FCVAR_CHEAT
 // snd_occlusion_debug                                       bool     false                 FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_CHEAT
@@ -3145,10 +3145,10 @@ If the server is behind NAT, y
 // snd_roundaction_volume_deathmatch                         float32  0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Move Action Music
 // snd_roundaction_volume_rush                               float32  0.0064                FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Move Action Music
 // snd_roundend_volume                                       float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of Won/Lost Music
-// snd_roundend_volume_armsrace                              float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Won/Lost Music
-// snd_roundend_volume_casual                                float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Won/Lost Music
-// snd_roundend_volume_deathmatch                            float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Won/Lost Music
-// snd_roundend_volume_rush                                  float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Won/Lost Music
+// snd_roundend_volume_armsrace                              float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Won/Lost Music
+// snd_roundend_volume_casual                                float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Won/Lost Music
+// snd_roundend_volume_deathmatch                            float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Won/Lost Music
+// snd_roundend_volume_rush                                  float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Won/Lost Music
 // snd_roundstart_volume                                     float32  0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of Round Start Music
 // snd_roundstart_volume_armsrace                            float32  0.0225                FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Round Start Music
 // snd_roundstart_volume_casual                              float32  0.0225                FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Round Start Music
@@ -3291,10 +3291,10 @@ If the server is behind NAT, y
 // snd_surf_volume_map                                       float32  0.3                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // The volume of ambient sounds when surfing is enabled.
 // snd_surf_volume_slide                                     float32  0.5                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // The volume of sliding along surfaces when surfing.
 // snd_tensecondwarning_volume                               float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of Ten Second Warnings
-// snd_tensecondwarning_volume_armsrace                      float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Ten Second Warnings
-// snd_tensecondwarning_volume_casual                        float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Ten Second Warnings
-// snd_tensecondwarning_volume_deathmatch                    float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Ten Second Warnings
-// snd_tensecondwarning_volume_rush                          float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Ten Second Warnings
+// snd_tensecondwarning_volume_armsrace                      float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Ten Second Warnings
+// snd_tensecondwarning_volume_casual                        float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Ten Second Warnings
+// snd_tensecondwarning_volume_deathmatch                    float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Ten Second Warnings
+// snd_tensecondwarning_volume_rush                          float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Ten Second Warnings
 // snd_toolvolume                                            float32  1                     FCVAR_ARCHIVE  // Volume of sounds in tools (e.g. Hammer, SFM)
 // snd_ui_positional                                         bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CHEAT
 // snd_ui_spatialization_spread                              float32  1                     FCVAR_DEVELOPMENTONLY|FCVAR_CHEAT
@@ -3399,8 +3399,8 @@ If the server is behind NAT, y
 // stats_highlight_interval                                  float32  10                    FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Interval between hightlight screens in the transition stats panel
 // steam_controller_haptics                                  bool     true                  FCVAR_CLIENTDLL|FCVAR_RELEASE
 // steamaudio_customdata_dimensions_numrays                  int32    32768                 FCVAR_DEVELOPMENTONLY  // Number of rays to trace for estimating inside outside status of a probe.
-// steamworks_sessionid_client                               string   8948985822163         FCVAR_CLIENTDLL|FCVAR_USERINFO  // The client session ID for the new steamworks gamestats.
-// steamworks_sessionid_server                               string   8948985818617         FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED  // The server session ID for the new steamworks gamestats.
+// steamworks_sessionid_client                               string   8948988362756         FCVAR_CLIENTDLL|FCVAR_USERINFO  // The client session ID for the new steamworks gamestats.
+// steamworks_sessionid_server                               string   8948988362750         FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED  // The server session ID for the new steamworks gamestats.
 // sticky_tooltips                                           bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Don't ever hide tooltips. Helpful when debugging complicated tooltip layouts.
 // surf_speed_slow                                           float32  50                    FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // Speed above which surf sounds are played.
 // suspicious_hit_odds_threshold                             float32  0.01                  FCVAR_GAMEDLL|FCVAR_RELEASE

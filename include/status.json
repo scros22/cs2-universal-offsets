@@ -1,0 +1,194 @@
+{
+  "build_number": 14184,
+  "checks": [
+    {
+      "detail": "576 of 577 entries resolve; 1 need re-anchoring",
+      "items": [
+        {
+          "module": "server.dll",
+          "name": "GameSystem_Think_CheckSteamBan"
+        }
+      ],
+      "name": "signatures_resolve",
+      "status": "warn"
+    },
+    {
+      "detail": "every pattern matches exactly once in its module",
+      "items": [],
+      "name": "patterns_unique",
+      "status": "pass"
+    },
+    {
+      "detail": "11 global pairs agree",
+      "items": [
+        {
+          "global": "dwGameRules",
+          "global_rva": "0x255A858",
+          "module": "client.dll",
+          "ok": true,
+          "signature": "pGameRules",
+          "signature_rva": "0x255A858"
+        },
+        {
+          "global": "dwSensitivity",
+          "global_rva": "0x255B3A8",
+          "module": "client.dll",
+          "ok": true,
+          "signature": "pSensitivity",
+          "signature_rva": "0x255B3A8"
+        },
+        {
+          "global": "dwPrediction",
+          "global_rva": "0x255E560",
+          "module": "client.dll",
+          "ok": true,
+          "signature": "pPrediction",
+          "signature_rva": "0x255E560"
+        },
+        {
+          "global": "dwGlowManager",
+          "global_rva": "0x255A870",
+          "module": "client.dll",
+          "ok": true,
+          "signature": "pGlowManager",
+          "signature_rva": "0x255A870"
+        },
+        {
+          "global": "dwLocalPlayerController",
+          "global_rva": "0x2535598",
+          "module": "client.dll",
+          "ok": true,
+          "signature": "pLocalPlayerController",
+          "signature_rva": "0x2535598"
+        },
+        {
+          "global": "dwCSGOInput",
+          "global_rva": "0x2573B40",
+          "module": "client.dll",
+          "ok": true,
+          "signature": "pCSGOInputInstance",
+          "signature_rva": "0x2573B40"
+        },
+        {
+          "global": "dwBuildNumber",
+          "global_rva": "0x61D1E8",
+          "module": "engine2.dll",
+          "ok": true,
+          "signature": "pBuildNumber",
+          "signature_rva": "0x61D1E8"
+        },
+        {
+          "global": "dwNetworkGameClient",
+          "global_rva": "0x91B1C0",
+          "module": "engine2.dll",
+          "ok": true,
+          "signature": "pNetworkGameClient",
+          "signature_rva": "0x91B1C0"
+        },
+        {
+          "global": "dwWindowWidth",
+          "global_rva": "0x91F540",
+          "module": "engine2.dll",
+          "ok": true,
+          "signature": "pWindowWidth",
+          "signature_rva": "0x91F540"
+        },
+        {
+          "global": "dwWindowHeight",
+          "global_rva": "0x91F544",
+          "module": "engine2.dll",
+          "ok": true,
+          "signature": "pWindowHeight",
+          "signature_rva": "0x91F544"
+        },
+        {
+          "global": "dwSoundSystem",
+          "global_rva": "0x535340",
+          "module": "soundsystem.dll",
+          "ok": true,
+          "signature": "pSoundSystem",
+          "signature_rva": "0x535340"
+        }
+      ],
+      "name": "global_twins",
+      "status": "pass"
+    },
+    {
+      "detail": "every module-relative global lands in a data section",
+      "items": [],
+      "name": "globals_in_data",
+      "status": "pass"
+    },
+    {
+      "detail": "4 of 468 function targets do not follow padding (review)",
+      "items": [
+        {
+          "module": "client.dll",
+          "name": "CInputPtrGlobal",
+          "reason": "in .data",
+          "rva": "0x2236440"
+        },
+        {
+          "module": "client.dll",
+          "name": "TransformScale3dVMT",
+          "reason": "in .rdata",
+          "rva": "0x1CB92A8"
+        },
+        {
+          "module": "client.dll",
+          "name": "TransformTranslate3dVMT",
+          "reason": "in .rdata",
+          "rva": "0x1CB9268"
+        },
+        {
+          "module": "particles.dll",
+          "name": "GetParticleManager",
+          "reason": "in .data",
+          "rva": "0x5FD8D0"
+        }
+      ],
+      "name": "function_prologues",
+      "status": "warn"
+    },
+    {
+      "detail": "no signature global resolves into .text",
+      "items": [],
+      "name": "globals_not_code",
+      "status": "pass"
+    },
+    {
+      "detail": "62 fields agree with the hand-verified engine structs",
+      "items": [],
+      "name": "protobufs_vs_engine",
+      "status": "pass"
+    },
+    {
+      "detail": "44 weapons: the session had 6 spawned, so the full table read on the previous build was kept (CCSWeaponBaseVData did not change in this patch)",
+      "items": [],
+      "name": "weapons_snapshot",
+      "status": "pass"
+    }
+  ],
+  "client_version": "2000917",
+  "dumper_version": "2.1.5",
+  "generated_at": "2026-09-25T15:40:51.134141100+01:00",
+  "note": "Written by cs2-sdk after every dump. `ok` is false when a check failed; warnings list what to look at. The auto-dump pipeline adds `update`, `auto_healed` and `known_issues`.",
+  "ok": true,
+  "patch_version": "1.41.8.4",
+  "signatures": {
+    "found": 576,
+    "missing": [
+      {
+        "module": "server.dll",
+        "name": "GameSystem_Think_CheckSteamBan"
+      }
+    ],
+    "total": 577,
+    "unique_functions": 527
+  },
+  "summary": {
+    "pass": 6,
+    "warn": 2,
+    "fail": 0
+  }
+}
