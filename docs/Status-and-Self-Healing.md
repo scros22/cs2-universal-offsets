@@ -16,6 +16,8 @@ After the protobuf stage the dumper runs a set of self-checks against the live p
 | `function_prologues` | A function target should sit right after padding (`int3` / `ret`). The deliberate instruction sites are exempt | no (warn) |
 | `globals_not_code` | `pXxx` signature globals must not resolve into `.text` | yes |
 | `protobufs_vs_engine` | Every field of the hand-verified engine structs (`CBaseUserCmdPB`, `CSubtickMoveStep`, …) must have the same offset in the protobuf layout read from the reflection tables | yes |
+| `verified_fields` | Every field in `verified_features.json` must resolve from this build's schema | yes |
+| `verified_hooks` | Every hook in `verified_features.json` must name a signature that resolved on this build | yes |
 | `weapons_snapshot` | How many weapons the session had; the full table needs a match with every weapon spawned | no (warn) |
 
 ```json

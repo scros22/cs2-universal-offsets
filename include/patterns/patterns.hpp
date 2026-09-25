@@ -51,6 +51,8 @@ namespace pattern {
         inline constexpr std::string_view C_BaseEntity_SaveData = "48 8B C4 55 56 57 41 56 41 57 48 8D A8 E8 FD FF";
         inline constexpr std::string_view C_BaseEntity_StartParticleSystem = "48 89 5C 24 08 55 48 8B EC 48 83 EC 40 E8 2E 47";
         inline constexpr std::string_view C_BaseEntity_UpdateBodyGroupChoice = "48 8B C4 55 48 8B EC 48 83 EC 70 48 89 58 10 48 89 70 18 48";
+        // also known as: UpdateSubClass
+        inline constexpr std::string_view C_BaseEntity_UpdateSubclass = "4C 8B DC 53 48 81 EC 90 01 00 00 48 8B 41 10 48";
         inline constexpr std::string_view C_BaseModelEntity_SetBodygroupByName = "48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 41 8B F8 48 8B F2 48 8B D9 E8 93 8C 8B";
         inline constexpr std::string_view C_BaseModelEntity_UpdateOnRemove = "40 53 48 83 EC 20 48 8B D9 48 81 C1 E8 0D 00 00";
         inline constexpr std::string_view C_CSPlayerPawn_GetAimPunch = "48 89 5C 24 08 55 56 57 48 8D 6C 24 B9 48 81 EC";
@@ -353,7 +355,6 @@ namespace pattern {
         inline constexpr std::string_view UpdateOnRemove = "48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 40 48 8B D9 C6 05";
         inline constexpr std::string_view UpdatePlayerIdPanels = "48 89 4C 24 08 55 53 48 8D AC 24 E8 ? ? ? ?";
         inline constexpr std::string_view UpdateSkybox = "48 89 5C 24 08 57 48 83 EC 30 48 8B F9 E8 2E DD";
-        inline constexpr std::string_view UpdateSubClass = "4C 8B DC 53 48 81 EC 90 01 00 00 48 8B 41 10 48";
         inline constexpr std::string_view UpdateTurningInAccuracy = "40 56 48 83 EC 70 48 8B 05 ? ? ? ? 48 8B F1";
         inline constexpr std::string_view UseTool = "48 85 D2 0F 84 ? ? ? ? 53 41 57 48 83 EC 28";
         inline constexpr std::string_view UseToolWithIntArg = "48 85 D2 0F 84 ? ? ? ? 53 41 54 41 57 48 83";

@@ -514,13 +514,14 @@ fn main() -> Result<()> {
 
     ui::divider();
     let all_ok = offsets_ok && sigs_ok && checks_ok;
+    let build = build_number.map(|b| format!("build {b}")).unwrap_or_else(|| "unknown build".into());
     if all_ok {
         ui::sound(ui::Cue::Success);
-        ui::step("All stages completed successfully.");
+        ui::done(true, &format!("Dump complete for {build} — written to {}", out_dir.display()));
         Ok(())
     } else {
         ui::sound(ui::Cue::Failure);
-        ui::err("One or more stages failed — see cs2-sdk.log.");
+        ui::done(false, &format!("Dump for {build} failed a check — see status.json and cs2-sdk.log in {}", out_dir.display()));
         std::process::exit(1);
     }
 }

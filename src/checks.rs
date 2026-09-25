@@ -351,6 +351,43 @@ pub fn run<P: Process + MemoryView>(
         });
     }
 
+    // --- verified feature fields all resolved from the schema --------------
+    {
+        let unresolved: Vec<String> = crate::output::verified::UNRESOLVED.lock().map(|u| u.clone()).unwrap_or_default();
+        checks.push(if unresolved.is_empty() {
+            Check::new("verified_fields", "pass", "every verified-feature field resolves from this build's schema", vec![])
+        } else {
+            Check::new(
+                "verified_fields",
+                "fail",
+                format!("{} verified-feature field(s) are not in this build's schema", unresolved.len()),
+                unresolved.iter().map(|n| json!({ "field": n })).collect(),
+            )
+        });
+    }
+
+    // --- verified feature hooks name signatures that resolved --------------
+    if let Some(r) = report {
+        let mut bad = Vec::new();
+        let hooks = crate::output::verified::hook_signatures();
+        for (feature, module, sig) in &hooks {
+            let key = sig.replace("::", "_");
+            let dn = display_name(&key);
+            let ok = r.hits.iter().any(|h| {
+                h.found && h.module.eq_ignore_ascii_case(module)
+                    && (h.name == *sig || h.name == key || h.name == dn || h.aliases.iter().any(|a| a == sig || *a == key))
+            });
+            if !ok {
+                bad.push(json!({ "feature": feature, "module": module, "signature": sig }));
+            }
+        }
+        checks.push(if bad.is_empty() {
+            Check::new("verified_hooks", "pass", format!("{} feature hooks name signatures that resolved", hooks.len()), vec![])
+        } else {
+            Check::new("verified_hooks", "fail", format!("{} feature hook(s) name a signature that did not resolve", bad.len()), bad)
+        });
+    }
+
     // --- weapons snapshot (informational) ---------------------------------
     let weapons = fs::read_to_string(out_dir.join("weapons").join("weapons.json"))
         .ok()

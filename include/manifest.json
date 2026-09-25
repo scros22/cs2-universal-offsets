@@ -1,7 +1,7 @@
 {
   "build_number": 14184,
   "checks_ok": true,
-  "generated_at": "2026-09-25T15:40:51.134141100+01:00",
+  "generated_at": "2026-09-25T17:47:49.048640300+01:00",
   "modules": [
     "client.dll",
     "engine2.dll",
@@ -26,8 +26,8 @@
   "offsets_ok": true,
   "process": "cs2.exe",
   "signature_counts": {
-    "found": 576,
-    "total": 577
+    "found": 577,
+    "total": 578
   },
   "signatures_ok": true
 }

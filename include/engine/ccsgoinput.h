@@ -18,6 +18,5 @@ inline constexpr std::ptrdiff_t kAddInputHistoryEntry_rva = 0xCDEA70; // pattern
 
 // --- fields ---
 inline constexpr std::ptrdiff_t vtable          = 0x0   ; // void** - CCSGOInput vftable
-inline constexpr std::ptrdiff_t m_FrameInput    = 0x228 ; // struct - per-frame input block (weapon select / frame data)
 inline constexpr std::ptrdiff_t m_angViewAngles = 0x688 ; // QAngle - live view angles - pitch 0x688 / yaw 0x68C / roll 0x690; mouse delta is added into yaw each frame
 } // namespace CCSGOInput

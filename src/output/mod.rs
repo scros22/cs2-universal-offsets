@@ -234,7 +234,7 @@ pub fn dump_sdk_extras(
         // 6. verified-working features catalogue (json only).
         fs::write(
             out_dir.join("verified_features.json"),
-            verified::render_json(build_number),
+            verified::render_json(build_number, Some(&result.schemas)),
         )?;
 
         // 7. engine (non-schema) struct layouts are written after the pattern

@@ -36,6 +36,7 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     // ============================================================================
     Pattern { name: "AddNametagEntity",                     module: "client.dll", needle: "40 55 53 56 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B DA", resolve: NONE, extra_off: 0, prototype: "char __fastcall sub_1808010A0(__int64 a1, __int64 a2)" },
     Pattern { name: "AddStattrakEntity",                    module: "client.dll", needle: "48 89 5C 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 ? 48 81 EC 40 01 00 00 48 8B DA", resolve: NONE, extra_off: 0, prototype: "char __fastcall sub_1807C51A0(__int64 a1, __int64 a2)" },
+    Pattern { name: "C_BaseEntity_UpdateSubclass",          module: "client.dll", needle: "4C 8B DC 53 48 81 EC ? ? ? ? 48 8B 41 10", resolve: NONE, extra_off: 0, prototype: "void __fastcall C_BaseEntity_UpdateSubclass(_QWORD *a1)" },
     Pattern {
         name: "AnimGraphRebuild",
         module: "client.dll",

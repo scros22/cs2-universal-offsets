@@ -2,6 +2,14 @@
 
 Each release carries a `cs2-sdk.exe` build and the dump for the CS2 build named in its title. Full notes are on the [releases page](https://github.com/scros22/cs2-universal-offsets/releases).
 
+## v2.1.7 — 2026-09-25 — exact feature offsets, polish
+
+- **`verified_features.json` offsets were stale.** 38 of the 67 field offsets had been typed in on an older build (`m_iTeamNum 0x3EB`, `m_iClip1 0x16D8`, `m_iShotsFired 0x1C5C`, …) and ten named the wrong class or a field that is not where they said (`m_iKills` / `m_iDeaths` live in `m_matchStats`, the fallback paint-kit fields on `C_EconEntity`, `m_iFOV` on `CCSPlayerBase_CameraServices`, `m_iItemDefinitionIndex` under `m_AttributeManager.m_Item`). Offsets are now resolved from the schema dumped in the same run; only the two non-schema fields keep hand-verified values. The knife changer's `UpdateSubclass` hook pointed 11 bytes into its function — it now names a new function-start signature, `C_BaseEntity_UpdateSubclass` (IDA-verified: it writes the subclass-data pointer at `+0x388`). The FOV changer's hook named a signature that does not exist; it now names `GetWorldFovResolver`.
+- New self-checks `verified_fields` and `verified_hooks` fail the run if a feature field or hook stops resolving.
+- `CCSGOInput::m_FrameInput` (`+0x228`) removed from the engine structs: nothing on build 14184 confirms it. Every remaining engine-struct field was re-checked against the code that reads or writes it.
+- The three hand-typed interface slots (`CInputSystem::SetRelativeMouseMode`, `CPanoramaUIEngine::GetUIEngine`, `CEnginePVSManager::SetPvsEnabled`) re-checked in IDA.
+- New icon (a gold C) for `cs2-sdk.exe` and the site; the exe carries proper version details; the terminal output is restyled.
+
 ## v2.1.6 — 2026-09-25 — self-checks, status page, self-healing
 
 - **Self-checks after every dump**, written to `include/status.json`: signature coverage and uniqueness, `dwXxx` globals versus their signature twins, globals in a data section, function targets after padding, `pXxx` globals not in code, protobuf layouts versus the hand-verified engine structs, weapon-table coverage, plus the game's `ClientVersion` / `PatchVersion` from `steam.inf`. A failed check makes the dumper exit 1. Four of the five defects fixed in v2.1.5 would have been caught by these.

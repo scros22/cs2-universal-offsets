@@ -8,7 +8,7 @@ Their field offsets are curated in [`src/output/engine_structs.rs`](https://gith
 
 | Struct | Module | Size | What it is | Functions resolved with it |
 |---|---|---|---|---|
-| `CCSGOInput` | client.dll | — | The client input singleton; turns mouse/keyboard state into the per-tick user command. `m_angViewAngles` at `+0x688` (pitch / yaw `+0x68C` / roll `+0x690`) | `CreateMove`, `GetViewAngles`, `SetViewAngles`, `ProcessInputEvent`, `ReadFrameInput`, `AddInputHistoryEntry` |
+| `CCSGOInput` | client.dll | — | The client input singleton; turns mouse/keyboard state into the per-tick user command. `m_angViewAngles` at `+0x688` (pitch / yaw `+0x68C` / roll `+0x690`; read by `GetViewAngles`, written by `SetViewAngles`) | `CreateMove`, `GetViewAngles`, `SetViewAngles`, `ProcessInputEvent`, `ReadFrameInput`, `AddInputHistoryEntry` |
 | `CUserCmd` | client.dll | 0x98 | The client's command object, one per tick, in a 150-entry ring per controller. Embeds the `CCSGOUserCmdPB` that is sent to the server and the live `CInButtonState` | `GetUserCmdManager`, `GetCUserCmdBySequenceNumber` |
 | `CCSGOUserCmdPB` | client.dll | 0x48 | `cs_usercmd.proto` — the top-level command message | — |
 | `CBaseUserCmdPB` | client.dll | 0x88 | `usercmd.proto` — movement, buttons, view angles, subtick steps | `SerializeMoveCrc` |

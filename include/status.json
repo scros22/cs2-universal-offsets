@@ -1,8 +1,9 @@
 {
+  "auto_healed": [],
   "build_number": 14184,
   "checks": [
     {
-      "detail": "576 of 577 entries resolve; 1 need re-anchoring",
+      "detail": "577 of 578 entries resolve; 1 need re-anchoring",
       "items": [
         {
           "module": "server.dll",
@@ -16,6 +17,12 @@
       "detail": "every pattern matches exactly once in its module",
       "items": [],
       "name": "patterns_unique",
+      "status": "pass"
+    },
+    {
+      "detail": "no pattern needed re-anchoring",
+      "items": [],
+      "name": "patterns_healed",
       "status": "pass"
     },
     {
@@ -120,35 +127,10 @@
       "status": "pass"
     },
     {
-      "detail": "4 of 468 function targets do not follow padding (review)",
-      "items": [
-        {
-          "module": "client.dll",
-          "name": "CInputPtrGlobal",
-          "reason": "in .data",
-          "rva": "0x2236440"
-        },
-        {
-          "module": "client.dll",
-          "name": "TransformScale3dVMT",
-          "reason": "in .rdata",
-          "rva": "0x1CB92A8"
-        },
-        {
-          "module": "client.dll",
-          "name": "TransformTranslate3dVMT",
-          "reason": "in .rdata",
-          "rva": "0x1CB9268"
-        },
-        {
-          "module": "particles.dll",
-          "name": "GetParticleManager",
-          "reason": "in .data",
-          "rva": "0x5FD8D0"
-        }
-      ],
+      "detail": "464 function targets start after padding",
+      "items": [],
       "name": "function_prologues",
-      "status": "warn"
+      "status": "pass"
     },
     {
       "detail": "no signature global resolves into .text",
@@ -163,32 +145,44 @@
       "status": "pass"
     },
     {
-      "detail": "44 weapons: the session had 6 spawned, so the full table read on the previous build was kept (CCSWeaponBaseVData did not change in this patch)",
+      "detail": "every verified-feature field resolves from this build's schema",
+      "items": [],
+      "name": "verified_fields",
+      "status": "pass"
+    },
+    {
+      "detail": "10 feature hooks name signatures that resolved",
+      "items": [],
+      "name": "verified_hooks",
+      "status": "pass"
+    },
+    {
+      "detail": "44 weapons: the session had 5 spawned, so the full table read earlier on this CS2 patch was kept (CCSWeaponBaseVData did not change)",
       "items": [],
       "name": "weapons_snapshot",
       "status": "pass"
     }
   ],
   "client_version": "2000917",
-  "dumper_version": "2.1.5",
-  "generated_at": "2026-09-25T15:40:51.134141100+01:00",
+  "dumper_version": "2.1.7",
+  "generated_at": "2026-09-25T17:47:49.048640300+01:00",
   "note": "Written by cs2-sdk after every dump. `ok` is false when a check failed; warnings list what to look at. The auto-dump pipeline adds `update`, `auto_healed` and `known_issues`.",
   "ok": true,
   "patch_version": "1.41.8.4",
   "signatures": {
-    "found": 576,
+    "found": 577,
     "missing": [
       {
         "module": "server.dll",
         "name": "GameSystem_Think_CheckSteamBan"
       }
     ],
-    "total": 577,
+    "total": 578,
     "unique_functions": 527
   },
   "summary": {
-    "pass": 6,
-    "warn": 2,
+    "pass": 10,
+    "warn": 1,
     "fail": 0
   }
 }

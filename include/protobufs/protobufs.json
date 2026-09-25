@@ -8762,7 +8762,7 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 3653705856, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "begin": { "offset": 3667075200, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
         "end": { "offset": 32765, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     }
@@ -9055,7 +9055,7 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 4097693680, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "begin": { "offset": 4102412272, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
         "end": { "offset": 32765, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     },
@@ -11014,7 +11014,7 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 3917559456, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "begin": { "offset": 4053743264, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
         "end": { "offset": 32765, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     },
@@ -20426,7 +20426,7 @@
       "fields": {
         "path": { "offset": 16, "number": 1, "has_bit": -1, "type": 5, "label": 3 },
         "source_file": { "offset": 0, "number": 2, "has_bit": -1, "type": 9, "label": 1 },
-        "begin": { "offset": 3696246864, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
+        "begin": { "offset": 3709616208, "number": 3, "has_bit": -1, "type": 5, "label": 1 },
         "end": { "offset": 32765, "number": 4, "has_bit": -1, "type": 5, "label": 1 }
       }
     }

@@ -13,12 +13,6 @@
           "type": "void**"
         },
         {
-          "name": "m_FrameInput",
-          "note": "per-frame input block (weapon select / frame data)",
-          "offset": "0x228",
-          "type": "struct"
-        },
-        {
           "name": "m_angViewAngles",
           "note": "live view angles - pitch 0x688 / yaw 0x68C / roll 0x690; mouse delta is added into yaw each frame",
           "offset": "0x688",

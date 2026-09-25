@@ -84,7 +84,7 @@ Seven hand-written recipes that name the exact schema fields, hooks and function
   "convars": [] }
 ```
 
-They are documentation of what was verified on this build, shown on the site's **Features** tab. They are not code.
+Since v2.1.7 every field offset in this file is resolved from the schema dumped in the same run (`"source": "schema"`, with `declared_in` when the field is inherited), so it can never go stale; only the two non-schema fields — `CEntitySystem`'s listener vector and `CEntityIdentity::m_pEntity` — carry hand-verified values (`"source": "manual"`). Every hook names a signature from the database, and the dumper's `verified_fields` / `verified_hooks` self-checks fail the run if any of them stops resolving. They are documentation of what was verified, shown on the site's **Features** tab. They are not code.
 
 ## API
 

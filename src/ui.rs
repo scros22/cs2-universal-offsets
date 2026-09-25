@@ -23,6 +23,9 @@ pub const FG_GREEN: &str = "\x1b[38;5;114m";
 pub const FG_RED: &str = "\x1b[38;5;203m";
 pub const FG_YELLOW: &str = "\x1b[38;5;222m";
 pub const FG_MAG: &str = "\x1b[38;5;183m";
+/// Brand accent — the same gold as cs2-sdk.com (#fbac18) and the icon.
+pub const FG_GOLD: &str = "\x1b[38;5;214m";
+pub const FG_RULE: &str = "\x1b[38;5;238m";
 
 // smooth / rounded glyphs only
 pub const BULLET: &str = "•";
@@ -130,27 +133,24 @@ fn flush() {
     let _ = io::stdout().flush();
 }
 
+/// Width of rules and the progress line, in columns.
+const WIDTH: usize = 72;
+
 pub fn banner() {
+    let v = env!("CARGO_PKG_VERSION");
     println!();
-    println!("    {FG_CYAN}{BOLD}cs2-sdk{RESET} {DIM}{FG_GRAY}— CS2 SDK generator{RESET}");
-    println!();
+    println!("    {FG_GOLD}{BOLD} ▄█▀▀▀█▄{RESET}");
+    println!("    {FG_GOLD}{BOLD}██      {RESET}   {BOLD}{FG_WHITE}cs2-sdk{RESET} {FG_GOLD}v{v}{RESET}");
+    println!("    {FG_GOLD}{BOLD}██      {RESET}   {FG_GRAY}CS2 SDK generator · https://cs2-sdk.com{RESET}");
+    println!("    {FG_GOLD}{BOLD} ▀█▄▄▄█▀{RESET}");
 }
 
 pub fn section(title: &str) {
-    let title_u = title.to_string();
-    let pad = 62usize.saturating_sub(title_u.chars().count() + 2);
+    let used = title.chars().count() + 5;
     println!();
     println!(
-        "  {FG_CYAN}{CORNER_TL}{line}{CORNER_TR}{RESET}",
-        line = HLINE.repeat(64)
-    );
-    println!(
-        "  {FG_CYAN}{VLINE}{RESET} {BOLD}{FG_WHITE}{title_u}{RESET}{pad_sp}{FG_CYAN}{VLINE}{RESET}",
-        pad_sp = " ".repeat(pad)
-    );
-    println!(
-        "  {FG_CYAN}{CORNER_BL}{line}{CORNER_BR}{RESET}",
-        line = HLINE.repeat(64)
+        "  {FG_GOLD}{BOLD}▍{RESET} {BOLD}{FG_WHITE}{title}{RESET} {FG_RULE}{rule}{RESET}",
+        rule = HLINE.repeat(WIDTH.saturating_sub(used))
     );
 }
 
@@ -173,7 +173,18 @@ pub fn err(msg: &str) {
 }
 
 pub fn step(msg: &str) {
-    println!("    {FG_MAG}{DIAMOND}{RESET} {BOLD}{FG_WHITE}{msg}{RESET}");
+    println!("    {FG_GOLD}{DIAMOND}{RESET} {BOLD}{FG_WHITE}{msg}{RESET}");
+}
+
+/// Closing line of a run: one sentence, coloured by outcome.
+pub fn done(ok: bool, msg: &str) {
+    println!();
+    if ok {
+        println!("  {FG_GREEN}{BOLD}{CHECK} {msg}{RESET}");
+    } else {
+        println!("  {FG_RED}{BOLD}{CROSS} {msg}{RESET}");
+    }
+    println!();
 }
 
 /// Redrawable progress line (carriage return, no newline).
@@ -190,8 +201,8 @@ pub fn progress(done: usize, total: usize, label: &str) {
     let bar_rest = "─".repeat(BAR - filled);
     let label_short = trim_label(label, 28);
     print!(
-        "\r    {FG_CYAN}{CIRCLE}{RESET} {FG_GREEN}{bar_done}{RESET}{DIM}{FG_GRAY}{bar_rest}{RESET} \
-         {FG_WHITE}{pct:>5.1}%{RESET} {FG_SOFT}{done:>4}/{total:<4}{RESET} {FG_GRAY}{label_short}{RESET}   ",
+        "\r    {FG_GOLD}{bar_done}{RESET}{FG_RULE}{bar_rest}{RESET} \
+         {FG_WHITE}{pct:>5.1}%{RESET} {FG_GRAY}{done:>4}/{total:<4}{RESET} {FG_GRAY}{label_short}{RESET}   ",
         pct = pct * 100.0
     );
     flush();
@@ -216,8 +227,8 @@ fn trim_label(s: &str, max: usize) -> String {
 pub fn found(name: &str, addr: u64, detail: &str) {
     progress_clear();
     println!(
-        "    {FG_GREEN}{CHECK}{RESET} {FG_WHITE}{name:<44}{RESET} {FG_CYAN}{ARROW}{RESET} \
-         {FG_YELLOW}0x{addr:016X}{RESET} {DIM}{FG_GRAY}{detail}{RESET}"
+        "    {FG_GREEN}{CHECK}{RESET} {FG_SOFT}{name:<44}{RESET} {FG_RULE}{ARROW}{RESET} \
+         {FG_GOLD}0x{addr:012X}{RESET} {FG_GRAY}{detail}{RESET}"
     );
 }
 
@@ -229,5 +240,5 @@ pub fn not_found(name: &str, reason: &str) {
 }
 
 pub fn divider() {
-    println!("  {DIM}{FG_GRAY}{}{RESET}", HLINE.repeat(66));
+    println!("  {FG_RULE}{}{RESET}", HLINE.repeat(WIDTH));
 }

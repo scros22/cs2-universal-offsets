@@ -51,7 +51,6 @@ pub const ENGINE_STRUCTS: &[EStruct] = &[
         instance_note: "static object embedded in client.dll (no deref); pCSGOInput is a global POINTER to this same object",
         fields: &[
             EField { name: "vtable",            offset: 0x000, ty: "void**", note: "CCSGOInput vftable" },
-            EField { name: "m_FrameInput",      offset: 0x228, ty: "struct", note: "per-frame input block (weapon select / frame data)" },
             EField { name: "m_angViewAngles",   offset: 0x688, ty: "QAngle", note: "live view angles - pitch 0x688 / yaw 0x68C / roll 0x690; mouse delta is added into yaw each frame" },
         ],
         functions: &[
