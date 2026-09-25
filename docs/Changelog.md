@@ -2,6 +2,24 @@
 
 Each release carries a `cs2-sdk.exe` build and the dump for the CS2 build named in its title. Full notes are on the [releases page](https://github.com/scros22/cs2-universal-offsets/releases).
 
+## v2.1.5 — 2026-09-25 — CS2 build 14184, full verification pass
+
+CS2 updated to build 14184 on the evening of 2026-09-24 (client, server, engine2 and networksystem changed). Every module was re-analysed from scratch in IDA and the whole dump was checked, not just re-scanned. What was wrong, and is now fixed:
+
+- **`dwGameRules` pointed at a vtable pointer in `.rdata`**, not at `g_pGameRules`. It now uses the same read-site anchor as a2x and resolves to the global the `pGameRules` signature already found (651 references).
+- **`dwSensitivity` was the `cl_leveloverview` ConVar**, not `sensitivity` (both are resolved through the same ConVarRef helper; the registration site names them). Re-anchored on the `sensitivity * zoom_sensitivity_ratio` site, with `dwSensitivity_sensitivity = 0x58` (the value offset inside `ConVarInfo_t`). The `pSensitivity` signature resolves to the same slot.
+- **`dwSoundSystem_engineViewData` was `0x7C`**, read from a stack store in an unrelated function; the view block is at `0x6C` (`movups [rdi+6Ch]` in the view-setup writer).
+- `dwSoundSystem` and `dwNetworkGameClient_isBackgroundMap` had stopped resolving and were silently missing; both re-anchored. The classic globals are now the same 32 a2x publishes, and every one matches a2x's value for the build.
+- **`CBaseUserCmdPB` in `protobufs.json` / `protobufs.hpp` was wrong**: the reader sorted fields by number while libprotobuf's offset table is in declaration order, which shifted `viewangles`, `forwardmove`, `leftmove`, … by one slot. Fixed at the source; the layout now agrees with `_InternalParse` and with the hand-verified engine struct.
+- **The generated headers did not compile under MSVC**: `engine2_dll.hpp` used `CUtlStringTokenNoRegistration` without a declaration (it only appeared inside a `using` alias the forward-declaration pass did not scan) and `soundsystem_dll.hpp` used `std::unique_ptr` without `<memory>`. Both fixed; `cs2.hpp` now compiles cleanly with `cl /std:c++17` and `/std:c++20 /permissive-`.
+- Signatures, verified entry by entry against fresh IDA analysis (function start, prototype, behaviour):
+  - two patterns started one byte into the function (`BulkRegenIterator`, `SDL_EventHandler`) and published an RVA one byte late;
+  - `CreateEntityByClassName` had drifted onto a flex-controller warning; re-anchored on the client's networked entity creator (`CL: Forcing ExecuteQueuedOperations …`);
+  - renamed to what the function does: `SetupCmd` → `GetUserCmdSequence`, `DrawOverHead` → `IsRenderingEnabledForSlot`, `UnlockInventory` → `IsInventoryUnlocked`, `DrawViewPunch2` → `CalcLocalPlayerView`, `DrawCrosshair` → `ShouldDrawCrosshair`, `DynamicLight_SetDieTime` → `GetGameTimeOrCurrent`, `CreateParticleEffect` → `Particles_SetControlPointPosition`, `AutowallInit` → `C_BaseModelEntity_UpdateOnRemove` (vtable slot 14 of the model-entity classes), `PrepareSceneMaterial` → `CMaterial2_GetFloatParam`, `UtlBuffer` → `CBufferString_Purge`, `LoadKeyValues` → `LoadKV3`;
+  - removed, because the name described a different function: `ReportHit` (a `CCLCMsg_HltvReplay` destructor), `SetupMove` (the quick-buy radial), `SetupMovementMoves` (a call site in a schema helper), `AutowallTracePos` (`C_GlobalLight` skybox slots), `CCSGOInput_HandleViewAngles` (an input-state reset), `UpdatePostProcessing` (watch-menu match selection), `DrawLightScene` (a struct copy), and the placeholders `UnknownParticleFunction` and `SomeTimingFromPawn`;
+  - 162 prototypes filled in or refreshed from the current build's Hex-Rays output.
+- 577 entries, 576 resolve, 0 ambiguous. Schema field offsets (9,249 compared), buttons and interface instances match a2x's dump exactly.
+
 ## v2.1.4 — 2026-09-24 — strict JSON, documentation
 
 - `patterns/patterns.json` is strict JSON: `va` and `rva` are hex strings (`"0xB64A10"`), as in every other file. Earlier dumps wrote them as bare hex literals, which standard JSON parsers reject. The one-entry-per-line, column-aligned layout is unchanged.

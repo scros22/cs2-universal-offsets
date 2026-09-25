@@ -8,7 +8,7 @@
 
 #pragma once
 
-inline constexpr unsigned int CS2_BUILD = 14183;
+inline constexpr unsigned int CS2_BUILD = 14184;
 
 #include "macros.hpp"
 

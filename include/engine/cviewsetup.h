@@ -1,4 +1,4 @@
-// cviewsetup.h  -  CS2 build 14183  -  cs2-sdk.com
+// cviewsetup.h  -  CS2 build 14184  -  cs2-sdk.com
 // The camera/view description filled each frame (fov, origin, angles). Written by OverrideView; read by the renderer. Not a schema class. Verified on build 2000914.
 // Module: client.dll. Offsets drift between builds - regenerate after a CS2 update.
 #pragma once
@@ -8,7 +8,7 @@
 namespace CViewSetup {
 
 // passed to OverrideView in rdx
-inline constexpr std::ptrdiff_t kOverrideView_rva = 0xD015F0; // pattern OverrideView
+inline constexpr std::ptrdiff_t kOverrideView_rva = 0xD02650; // pattern OverrideView
 
 // --- fields ---
 inline constexpr std::ptrdiff_t m_flFov         = 0x498 ; // float - field of view

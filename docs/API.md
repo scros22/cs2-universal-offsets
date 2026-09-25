@@ -1,6 +1,6 @@
 # API
 
-Base URL: `https://cs2-sdk.com`. Every endpoint returns JSON, sets `Access-Control-Allow-Origin: *`, needs no authentication, and accepts `?session=<id>` (default `latest`). Addresses are hex strings (`"0x2711048"`).
+Base URL: `https://cs2-sdk.com`. Every endpoint returns JSON, sets `Access-Control-Allow-Origin: *`, needs no authentication, and accepts `?session=<id>` (default `latest`). Addresses are hex strings (`"0x27130E8"`).
 
 `GET /api` returns a machine-readable index of everything below, and [`/llms.txt`](https://cs2-sdk.com/llms.txt) is a compact description written for AI agents and IDE assistants.
 
@@ -21,14 +21,14 @@ curl -X POST https://cs2-sdk.com/api/query -H 'content-type: application/json' -
 ```json
 {
   "success": true,
-  "build": 14183,
-  "generated_at": "2026-09-24T13:07:34.494787200+01:00",
+  "build": 14184,
+  "generated_at": "2026-09-25T15:06:58.227900400+01:00",
   "session": "latest",
   "detail": false,
   "found": {
     "signatures": { "CreateMove": "85 D2 0F 85 ? ? ? ? 48 8B C4 44 88 40 18",
                     "GetInaccuracy": "48 89 5C 24 10 55 56 57 48 81 EC ? ? ? ? 44 0F 29 84 24 80 00 00 00" },
-    "offsets":    { "dwEntityList": "0x2711048", "client.dll/dwLocalPlayerPawn": "0x255C5A8" },
+    "offsets":    { "dwEntityList": "0x27130E8", "client.dll/dwLocalPlayerPawn": "0x255E658" },
     "schemas":    { "C_CSPlayerPawn.m_iHealth": "0x34C", "CCSPlayerController": { "m_hPlayerPawn": "0x92C", … } },
     "convars":    { "sv_cheats": { "kind": "convar", "value": "false", "type": "bool", "flags": "0x82100",
                                    "flag_names": ["FCVAR_NOTIFY", "FCVAR_REPLICATED", "FCVAR_RELEASE"],

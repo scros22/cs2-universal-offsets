@@ -4,22 +4,22 @@ Besides the SDK proper, a run records several tables that are read from the live
 
 ## ConVars and ConCommands — `convars/convars.json`, `convars.hpp`
 
-Every entry of the tier0 `CCvar` registry: 4,110 convars and 1,185 commands on build 14183.
+Every entry of the tier0 `CCvar` registry: 4,110 convars and 1,185 commands on build 14184.
 
 ```json
 {
-  "build_number": 14183,
+  "build_number": 14184,
   "convar_count": 4110,
   "convars": [
     { "name": "CS_WarnFriendlyDamageInterval", "type": "int32", "type_id": 3, "value": "3",
       "flags": "0x4004", "flag_names": ["FCVAR_GAMEDLL", "FCVAR_CHEAT"],
       "description": "Defines how frequently the server notifies clients that a player damaged a friend",
-      "address": "0x503BF8F8690" }
+      "address": "0x341E0348690" }
   ],
   "command_count": 1185,
   "commands": [
     { "name": "+bugvoice", "flags": "0x20002", "flag_names": ["FCVAR_DEVELOPMENTONLY", "FCVAR_DONTRECORD"],
-      "description": "Start recording bug voice attachment.", "address": "0x50312223480" }
+      "description": "Start recording bug voice attachment.", "address": "0x34114223480" }
   ]
 }
 ```
@@ -32,7 +32,7 @@ Every event registered with the game event manager (273), with its numeric id an
 
 ```json
 {
-  "build_number": 14183,
+  "build_number": 14184,
   "event_count": 273,
   "events": [
     { "name": "achievement_earned", "id": 68, "local": false,
@@ -57,7 +57,7 @@ Field types are the ones the event definition declares: `bool`, `byte`, `int16`,
 
 ## Entities — `entities/entities.json`
 
-A snapshot of the entity list at dump time: `index`, `classname`, `health`, `max_health`, `team` and `origin` for every entity (220 in the current dump), plus per-classname counts (`by_class`). It exists to show what a live entity list looks like on the current build and to give the walkers something to verify against; it is not a reference table.
+A snapshot of the entity list at dump time: `index`, `classname`, `health`, `max_health`, `team` and `origin` for every entity (177 in the current dump), plus per-classname counts (`by_class`). It exists to show what a live entity list looks like on the current build and to give the walkers something to verify against; it is not a reference table.
 
 ## Buttons — `buttons.json`, `buttons.hpp`
 

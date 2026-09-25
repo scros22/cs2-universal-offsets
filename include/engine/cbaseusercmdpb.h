@@ -1,4 +1,4 @@
-// cbaseusercmdpb.h  -  CS2 build 14183  -  cs2-sdk.com
+// cbaseusercmdpb.h  -  CS2 build 14184  -  cs2-sdk.com
 // usercmd.proto CBaseUserCmdPB - movement, buttons, view angles and subtick steps. Ground truth is its _InternalParse (field number -> offset + has-bit); the dumper's protobuf walk has mislabelled the 4-byte fields on older builds, so prefer this table.
 // Module: client.dll. Offsets drift between builds - regenerate after a CS2 update.
 #pragma once
@@ -9,7 +9,7 @@ namespace CBaseUserCmdPB {
 
 // protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start
 inline constexpr std::size_t kSize = 0x88;
-inline constexpr std::ptrdiff_t kSerializeMoveCrc_rva = 0x122BF10; // pattern CBaseUserCmdPB_SerializeMoveCrc
+inline constexpr std::ptrdiff_t kSerializeMoveCrc_rva = 0x122CFF0; // pattern CBaseUserCmdPB_SerializeMoveCrc
 
 // --- fields ---
 inline constexpr std::ptrdiff_t has_bits                      = 0x10  ; // uint32 - see per-field bits

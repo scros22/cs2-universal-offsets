@@ -70,7 +70,7 @@ Module namespaces are the DLL name without the extension: `client`, `server`, `e
 
 ## Formats
 
-- Every `.json` file is strict JSON. Addresses are hex strings (`"0xB64A10"`), except in `vtables.json` and `buttons.json`, where RVAs are plain integers.
+- Every `.json` file is strict JSON. Addresses are hex strings (`"0xB65A70"`), except in `vtables.json` and `buttons.json`, where RVAs are plain integers.
 - Offsets inside `schemas.json` and `protobufs.json` are decimal integers; the headers print them in hex.
 - Headers are UTF-8, `#pragma once`, and compile standalone with a C++17 compiler.
 - Per-module schema headers with no classes or enums are not written.

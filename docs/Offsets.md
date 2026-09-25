@@ -2,11 +2,11 @@
 
 "Offsets" here means **resolved globals**: addresses relative to a module base that hold a pointer or an object you read at runtime. Field offsets inside classes are a different thing — see [Schemas](Schemas.md).
 
-The dumper resolves 202 globals on build 14183, of three kinds:
+The dumper resolves about two hundred globals per build, of three kinds:
 
 | `kind` | Count | Where they come from | Examples |
 |---|---|---|---|
-| `global` | 29 | The classic pattern-scanned globals, with the same `dwXxx` names the a2x dumper uses, so existing code keeps working | `dwEntityList`, `dwLocalPlayerPawn`, `dwViewMatrix`, `dwGlobalVars` |
+| `global` | 32 | The classic pattern-scanned globals, with the same names, patterns and semantics as the a2x dumper, so existing code keeps working and the two dumps can be diffed | `dwEntityList`, `dwLocalPlayerPawn`, `dwViewMatrix`, `dwGlobalVars` |
 | `signature` | 62 | `riprel` entries of the signature database ([Signatures](Signatures.md)): a RIP-relative load inside a verified function | `pGameRules`, `pCSGOInputInstance`, `pMaterialManager`, `pEconItemSystem` |
 | `interface` | 111 | Every interface registered through `CreateInterface`, resolved to the object the factory returns | `Source2Client002`, `InputSystemVersion001`, `EngineTraceClient001` |
 
@@ -17,16 +17,25 @@ The dumper resolves 202 globals on build 14183, of three kinds:
 ```json
 {
   "client.dll": {
-    "dwEntityList": "0x2711048",
-    "dwLocalPlayerPawn": "0x255C5A8",
-    "dwViewMatrix": "0x25618F0",
+    "dwEntityList": "0x27130E8",
+    "dwLocalPlayerPawn": "0x255E658",
+    "dwViewMatrix": "0x25639A0",
     …
   },
   "engine2.dll": { … }
 }
 ```
 
-Names and semantics follow the a2x conventions the community already uses. Most hold a pointer that you read once (`dwLocalPlayerPawn`, `dwLocalPlayerController`, `dwEntityList`, `dwGameRules`, `dwGlobalVars`); `dwViewMatrix` and `dwViewAngles` are the data itself. `dwGameEntitySystem_highestEntityIndex` is the one value that is not relative to a module base: it is the offset of the highest-index field *inside* `CGameEntitySystem`.
+Names and semantics follow the a2x conventions the community already uses, and the values are cross-checked against a2x's dump of the same build. Most hold a pointer that you read once (`dwLocalPlayerPawn`, `dwLocalPlayerController`, `dwEntityList`, `dwGameRules`, `dwGlobalVars`); `dwViewMatrix` and `dwViewAngles` are the data itself.
+
+A few entries are member offsets rather than module-relative addresses, and are named `dwOwner_member`:
+
+| Name | Meaning |
+|---|---|
+| `dwGameEntitySystem_highestEntityIndex` | offset of the highest-index field inside `CGameEntitySystem` |
+| `dwSensitivity_sensitivity` (`0x58`) | `client + dwSensitivity` holds a `ConVarInfo_t*` for the `sensitivity` ConVar; the float value is at that offset inside it (the tier0 ConVar value union) |
+| `dwNetworkGameClient_*` | fields of `CNetworkGameClient` (`engine2 + dwNetworkGameClient` holds the pointer) |
+| `dwSoundSystem_engineViewData` (`0x6C`) | the view block (origin, then angles at `+0x10`) inside the sound system object at `soundsystem + dwSoundSystem` |
 
 ### `offsets/offsets_all.json` — every global, tagged
 
@@ -35,8 +44,8 @@ Names and semantics follow the a2x conventions the community already uses. Most 
   "count": 202,
   "modules": {
     "client.dll": [
-      { "name": "dwEntityList",     "hpp_name": "EntityList",       "rva": "0x2711048", "kind": "global" },
-      { "name": "pGameRules",       "hpp_name": "GameRules",        "rva": "0x1BADA70", "kind": "signature" },
+      { "name": "dwEntityList",     "hpp_name": "EntityList",       "rva": "0x27130E8", "kind": "global" },
+      { "name": "pGameRules",       "hpp_name": "GameRules",        "rva": "0x255A858", "kind": "signature" },
       { "name": "Source2Client002", "hpp_name": "Source2Client002", "rva": "0x…",       "kind": "interface", "deref": false },
       …
     ]
@@ -51,10 +60,10 @@ Names and semantics follow the a2x conventions the community already uses. Most 
 ```cpp
 namespace offsets {
     namespace client {
-        constexpr std::ptrdiff_t EntityList = 0x2711048;
-        constexpr std::ptrdiff_t GameRules = 0x1BADA70;
-        constexpr std::ptrdiff_t LocalPlayerPawn = 0x255C5A8;
-        constexpr std::ptrdiff_t Prediction = 0x255C4B0;
+        constexpr std::ptrdiff_t EntityList = 0x27130E8;
+        constexpr std::ptrdiff_t GameRules = 0x255A858;
+        constexpr std::ptrdiff_t LocalPlayerPawn = 0x255E658;
+        constexpr std::ptrdiff_t Prediction = 0x255E560;
         …
     }
     namespace inputsystem {

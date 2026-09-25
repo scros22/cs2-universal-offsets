@@ -1,6 +1,6 @@
 # Protobufs
 
-CS2 talks to the server, the Game Coordinator and itself in protobuf messages, and the client keeps live copies of many of them (`CBaseUserCmdPB`, `CCSGOInputHistoryEntryPB`, …). The dumper reads libprotobuf's reflection tables from the running modules and emits the exact in-memory layout of every message — field offsets, field numbers, has-bits — so you can cast a live message pointer and read it directly. Build 14183: 2,003 messages across 4 modules.
+CS2 talks to the server, the Game Coordinator and itself in protobuf messages, and the client keeps live copies of many of them (`CBaseUserCmdPB`, `CCSGOInputHistoryEntryPB`, …). The dumper reads libprotobuf's reflection tables from the running modules and emits the exact in-memory layout of every message — field offsets, field numbers, has-bits — so you can cast a live message pointer and read it directly. Build 14184: 2,003 messages across 4 modules.
 
 ## `protobufs/protobufs.hpp`
 
@@ -74,13 +74,15 @@ bool has_viewangles = (has_bits >> 1) & 1;   // viewangles: has-bit 1
 
 Offsets and sizes are decimal.
 
+Field offsets and has-bit indices are read in the descriptor's **declaration** order, which is what libprotobuf's `offsets[]` table is indexed by. That order is not always ascending field number: `CBaseUserCmdPB` declares `prediction_offset_ticks_x256 (17)` third and `pawn_entity_handle (14)` after `mousedy`. Dumps before v2.1.5 sorted by number and shifted every field between those two by one slot in that message; the layout is verified against `CBaseUserCmdPB::_InternalParse` on the current build.
+
 ## User commands
 
 The user-command messages are also documented as [engine structs](Engine-Structs.md) (`CBaseUserCmdPB`, `CCSGOUserCmdPB`, `CSubtickMoveStep`, `CInButtonStatePB`, `CCSGOInputHistoryEntryPB`, `CSGOInterpolationInfoPB`, `CMsgQAngle`, `CMsgVector`), with a note per field on what the game does with the value. The two views agree; the engine-struct one is the annotated version.
 
 ## Net messages
 
-`GET /api/netmessages` joins the message ids the engine routes (`NET_Messages`, `SVC_Messages`, `CLC_Messages`, the user-message and entity-message enums — 196 ids on build 14183, read from the schema enums) to their names and, where the client holds one, to the protobuf layout above. `?group=SVC` and `?q=usercmd` filter. The **Net Messages** tab on the site shows the same table.
+`GET /api/netmessages` joins the message ids the engine routes (`NET_Messages`, `SVC_Messages`, `CLC_Messages`, the user-message and entity-message enums — 196 ids on build 14184, read from the schema enums) to their names and, where the client holds one, to the protobuf layout above. `?group=SVC` and `?q=usercmd` filter. The **Net Messages** tab on the site shows the same table.
 
 ## API
 

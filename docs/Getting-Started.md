@@ -21,7 +21,7 @@ git submodule add https://github.com/scros22/cs2-universal-offsets.git external/
 ```cpp
 #include <cs2.hpp>   // external/cs2-sdk/include is on the include path
 
-static_assert(CS2_BUILD == 14183, "regenerate the SDK for this CS2 build");
+static_assert(CS2_BUILD == 14184, "regenerate the SDK for this CS2 build");
 
 void heal(client::C_CSPlayerPawn* pawn) {
     if (pawn->m_iHealth() < 100)

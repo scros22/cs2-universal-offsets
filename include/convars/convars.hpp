@@ -1,5 +1,5 @@
 // convars.hpp — CS2 ConVar / ConCommand catalogue (auto-generated)
-// build: 14183
+// build: 14184
 // 4110 convars, 1185 commands. Read-only snapshot of the tier0 CCvar registry.
 #pragma once
 
@@ -212,8 +212,8 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // c_thirdpersonshoulderdist                                 float32  40                    FCVAR_CLIENTDLL|FCVAR_ARCHIVE
 // c_thirdpersonshoulderheight                               float32  5                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE
 // c_thirdpersonshoulderoffset                               float32  20                    FCVAR_CLIENTDLL|FCVAR_ARCHIVE
-// cachedvalue_count_partybrowser                            int32    1790206222            FCVAR_CLIENTDLL|FCVAR_ARCHIVE
-// cachedvalue_count_teammates                               int32    1790206227            FCVAR_CLIENTDLL|FCVAR_ARCHIVE
+// cachedvalue_count_partybrowser                            int32    1790344456            FCVAR_CLIENTDLL|FCVAR_ARCHIVE
+// cachedvalue_count_teammates                               int32    1790344459            FCVAR_CLIENTDLL|FCVAR_ARCHIVE
 // cam_collision                                             int32    1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE  // When in thirdperson and cam_collision is set to 1, an attempt is made to keep the camera from passing though walls.
 // cam_idealdelta                                            float32  4                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE  // Controls the speed when matching offset to ideal angles in thirdperson view
 // cam_idealdist                                             float32  150                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE
@@ -321,32 +321,32 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // cl_clockdbg                                               bool     false                 FCVAR_DEVELOPMENTONLY
 // cl_clockdrift_max_ticks                                   int32    3                     FCVAR_RELEASE  // Maximum number of ticks the clock is allowed to drift before the client snaps its clock to the server's.
 // cl_clutch_mode                                            bool     false                 FCVAR_CLIENTDLL|FCVAR_RELEASE  // Silence voice and other distracting sounds until the end of round or next death.
-// cl_color                                                  int32    4                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO  // Preferred teammate color
+// cl_color                                                  int32    2                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO  // Preferred teammate color
 // cl_connectionretrytime_p2p                                float32  20                    FCVAR_RELEASE  // Number of seconds over which to spread retry attempts for P2P.
 // cl_cq_min_queue                                           int32    0                     FCVAR_USERINFO  // Used by the client to inform the server of their desired queue length.  Derived from cl_tickpacket_recvmargin_desired and cl_tickpacket_desired_queuelength
 // cl_crosshair_drawoutline                                  int32    1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Draw a black outline around the crosshair for better visibility. 0 = No outline, 1 = Full outline, 2 = Half outline
-// cl_crosshair_dynamic_maxdist_splitratio                   float32  0.3                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Style 2 only: how the bar length is divided between inner and outer bars once split. inner = cl_crosshairsize * (1 - ratio), outer = cl_crosshairsize * ratio. [0 - 1]
-// cl_crosshair_dynamic_splitalpha_innermod                  float32  1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Style 2 only: alpha multiplier for the INNER crosshair bars once they have split. [0 - 1]
-// cl_crosshair_dynamic_splitalpha_outermod                  float32  0.45                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Style 2 only: alpha multiplier for the OUTER crosshair bars once they have split. [0.3 - 1]
-// cl_crosshair_dynamic_splitdist                            int32    7                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Style 2: distance at which the crosshair bars split in two.
-// cl_crosshair_dynamic_spread_limit                         int32    191                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // The additional distance the dynamic elements are allowed to spread out to from the baseline of 128 pixels.
+// cl_crosshair_dynamic_maxdist_splitratio                   float32  1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Style 2 only: how the bar length is divided between inner and outer bars once split. inner = cl_crosshairsize * (1 - ratio), outer = cl_crosshairsize * ratio. [0 - 1]
+// cl_crosshair_dynamic_splitalpha_innermod                  float32  0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Style 2 only: alpha multiplier for the INNER crosshair bars once they have split. [0 - 1]
+// cl_crosshair_dynamic_splitalpha_outermod                  float32  1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Style 2 only: alpha multiplier for the OUTER crosshair bars once they have split. [0.3 - 1]
+// cl_crosshair_dynamic_splitdist                            int32    3                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Style 2: distance at which the crosshair bars split in two.
+// cl_crosshair_dynamic_spread_limit                         int32    255                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // The additional distance the dynamic elements are allowed to spread out to from the baseline of 128 pixels.
 // cl_crosshair_friendly_warning                             int32    1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // 0: off, 1: on
-// cl_crosshair_gap                                          int32    0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Offset added to the gap between the crosshair center and the bars.
-// cl_crosshair_length                                       int32    4                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Length of each crosshair bar, scaled with screen resolution
-// cl_crosshair_recoil                                       bool     false                 FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Crosshair follows the weapon's predicted recoil (aim punch)
+// cl_crosshair_gap                                          int32    4                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Offset added to the gap between the crosshair center and the bars.
+// cl_crosshair_length                                       int32    8                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Length of each crosshair bar, scaled with screen resolution
+// cl_crosshair_recoil                                       bool     true                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Crosshair follows the weapon's predicted recoil (aim punch)
 // cl_crosshair_screen_height                                int32    1080                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // The res at which the user authored their size settings at - changes whenever a size setting is updated
 // cl_crosshair_sniper_width                                 int32    1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // If >1 sniper scope cross lines gain extra width (1 for single-pixel hairline)
 // cl_crosshair_t                                            bool     false                 FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // T-style crosshair: hide the top bar
 // cl_crosshair_thickness                                    int32    2                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Thickness of the crosshair bars and circle, scaled with screen resolution (minimum 1 pixel)
-// cl_crosshairalpha                                         int32    255                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
+// cl_crosshairalpha                                         int32    200                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
 // cl_crosshaircolor_a                                       int32    255                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Crosshair opacity. 0 = fully transparent, 255 = fully opaque
 // cl_crosshaircolor_b                                       int32    0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Crosshair color, blue component
-// cl_crosshaircolor_g                                       int32    0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Crosshair color, green component
-// cl_crosshaircolor_r                                       int32    255                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Crosshair color, red component
+// cl_crosshaircolor_g                                       int32    255                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Crosshair color, green component
+// cl_crosshaircolor_r                                       int32    0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Crosshair color, red component
 // cl_crosshairdot                                           bool     false                 FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Draw a dot at the center of the crosshair
-// cl_crosshairsize                                          float32  2                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
-// cl_crosshairstyle                                         int32    4                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Crosshair style. 0 = Dynamic Cross, 1 = Dynamic Circle, 2 = Dynamic Cross (Legacy), 3 = Static Circle, 4 = Static Cross, 5 = Static Cross (Shot Feedback), 6 = Dot Only, 7 = Dynamic Quad, 8 = Static Square. Styles 0, 1 and 7 track the weapon's actual inaccu
-// cl_crosshairthickness                                     float32  0.5                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
+// cl_crosshairsize                                          float32  3.9                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
+// cl_crosshairstyle                                         int32    2                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Crosshair style. 0 = Dynamic Cross, 1 = Dynamic Circle, 2 = Dynamic Cross (Legacy), 3 = Static Circle, 4 = Static Cross, 5 = Static Cross (Shot Feedback), 6 = Dot Only, 7 = Dynamic Quad, 8 = Static Square. Styles 0, 1 and 7 track the weapon's actual inaccu
+// cl_crosshairthickness                                     float32  0.6                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
 // cl_csgo_shoot_debugvis_rdp_text_l                         int32    10                    FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // cl_csgo_shoot_debugvis_rdp_text_x                         int32    45                    FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // cl_csgo_shoot_debugvis_show_los                           bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Show line of last shot.
@@ -359,7 +359,7 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // cl_deathcam_audio_mix_phase2_fade_time                    float32  0.4                   FCVAR_CLIENTDLL|FCVAR_RELEASE  // Sets the amount of time we fade out over.
 // cl_deathcampanel_position_dynamic                         int32    1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE  // Turn on/off deathcam's kill panel dynamic Y movement
 // cl_deathnotices_show_numbers                              int32    0                     FCVAR_CLIENTDLL|FCVAR_RELEASE  // 0: default; 1: draw names as just numbers; 2: append number on killer and victim to the name
-// cl_debounce_zoom                                          bool     false                 FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO|FCVAR_PER_USER  // Whether or not to disable holding secondary fire to cycle zoom levels
+// cl_debounce_zoom                                          bool     true                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO|FCVAR_PER_USER  // Whether or not to disable holding secondary fire to cycle zoom levels
 // cl_debug_build_recvmargin_min                             float32  2                     FCVAR_DEVELOPMENTONLY  // Min size of the recv margin queue when in tools/debug mode
 // cl_debug_force_push_to_talk                               bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // cl_debug_overlay_fullposition                             bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
@@ -453,11 +453,11 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // cl_grenadecrosshair_tickinterval                          float32  10                    FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Spacing between ticks on the grenade throw crosshair
 // cl_grenadecrosshair_ticklabels                            bool     true                  FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Draw labels on grenade throw crosshair ticks
 // cl_grenadecrosshair_tickscaling                           float32  1.1                   FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Scale applied to grenade throw crosshair ticks
-// cl_grenadecrosshairdelay_decoy                            float32  0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // How long should the pin be pulled for before showing the grenade crosshair
-// cl_grenadecrosshairdelay_explosive                        float32  0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // How long should the pin be pulled for before showing the grenade crosshair
-// cl_grenadecrosshairdelay_fire                             float32  0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // How long should the pin be pulled for before showing the grenade crosshair
-// cl_grenadecrosshairdelay_flash                            float32  0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // How long should the pin be pulled for before showing the grenade crosshair
-// cl_grenadecrosshairdelay_smoke                            float32  0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // How long should the pin be pulled for before showing the grenade crosshair
+// cl_grenadecrosshairdelay_decoy                            float32  2                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // How long should the pin be pulled for before showing the grenade crosshair
+// cl_grenadecrosshairdelay_explosive                        float32  2                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // How long should the pin be pulled for before showing the grenade crosshair
+// cl_grenadecrosshairdelay_fire                             float32  2                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // How long should the pin be pulled for before showing the grenade crosshair
+// cl_grenadecrosshairdelay_flash                            float32  2                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // How long should the pin be pulled for before showing the grenade crosshair
+// cl_grenadecrosshairdelay_smoke                            float32  2                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // How long should the pin be pulled for before showing the grenade crosshair
 // cl_hide_avatar_images                                     int32    0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE  // Hide avatar images for other players. 
 	0 - Off.
 	1 - Block All
@@ -475,7 +475,7 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // cl_hud_telemetry_frametime_poor                           float32  100                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Frame time greater than this is considered 'poor'.
 // cl_hud_telemetry_frametime_show                           int32    1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Show frame time (FPS) in the HUD.  0=never, 1=only if poor, 2=always
 // cl_hud_telemetry_net_detailed                             int32    0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Show breakdown network misdelivery (loss, late delivery, and peak jitter).  0=never, 1=only in poor network conditions, 2=always
-// cl_hud_telemetry_net_misdelivery_poor                     float32  2                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Packet delivery anomaly rate (0..100) higher than this is considered 'poor'.
+// cl_hud_telemetry_net_misdelivery_poor                     float32  5                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Packet delivery anomaly rate (0..100) higher than this is considered 'poor'.
 // cl_hud_telemetry_net_misdelivery_show                     int32    1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Show percentage of user commands & server snapshots that are missed due to network conditions.  0=never, 1=only in poor conditions, 2=always
 // cl_hud_telemetry_net_quality_graph_show                   int32    0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Show packet jitter and netframe loss/reordering in the HUD.  0=never, 1=only in poor conditions, 2=always
 // cl_hud_telemetry_ping_poor                                float32  100                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Ping higher than this (ms) is considered 'poor'.
@@ -606,7 +606,7 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // cl_prediction_savedata_postentitypacketreceived           bool     false                 FCVAR_CLIENTDLL|FCVAR_RELEASE  // Experimental optimization.  If you are reading this in 2026, please delete this convar.
 // cl_predictioncopy_runs                                    bool     true                  FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // cl_prefer_lefthanded                                      bool     false                 FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO|FCVAR_PER_USER  // Left handed preference
-// cl_promoted_settings_acknowledged                         string   1:1790251632381       FCVAR_CLIENTDLL|FCVAR_ARCHIVE
+// cl_promoted_settings_acknowledged                         string   1:1790344606371       FCVAR_CLIENTDLL|FCVAR_ARCHIVE
 // cl_quickinventory_filename                                string   radial_quickinvento…  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
 // cl_quickinventory_lastinv                                 bool     true                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
 // cl_quickinventory_line_update_speed                       float32  65                    FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
@@ -700,7 +700,7 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // cl_showerror                                              int32    0                     FCVAR_CLIENTDLL|FCVAR_RELEASE  // Show prediction errors, 2 for above plus detailed field deltas, 3 to filter out serverside known prediction errors, -entindex for specific entity.
 // cl_showfps                                                int32    0                     FCVAR_CLIENTDLL|FCVAR_RELEASE  // Draw fps meter at top of screen (1 = fps, 2 = smooth fps, 3 = server MS, 4 = Show FPS and Log to file )
 // cl_showframenumber                                        bool     false                 FCVAR_CLIENTDLL|FCVAR_RELEASE  // Show current framenumber
-// cl_showloadout                                            bool     false                 FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Toggles display of current loadout.
+// cl_showloadout                                            bool     true                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER  // Toggles display of current loadout.
 // cl_showmem                                                int32    0                     FCVAR_CLIENTDLL|FCVAR_RELEASE  // Draw approximate memory use at top of screen
 // cl_showpos                                                int32    0                     FCVAR_CLIENTDLL|FCVAR_CHEAT|FCVAR_RELEASE  // Draw current position at top of screen
 // cl_showtextmsg                                            bool     true                  FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Enable/disable text messages printing on the screen.
@@ -833,7 +833,7 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // composite_material_use_gpu_endpoint_optimization          bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // composite_material_use_gpu_perceptual_error_metric        bool     true                  FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // compositematerial_showdebugwindow                         bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_REPLICATED|FCVAR_CHEAT|FCVAR_MENUBAR_ITEM  // Source2/Composite Material Debug
-// con_enable                                                bool     true                  FCVAR_ARCHIVE|FCVAR_PER_USER  // Allows the console to be activated.
+// con_enable                                                bool     false                 FCVAR_ARCHIVE|FCVAR_PER_USER  // Allows the console to be activated.
 // con_logfile_suffix                                        string                         FCVAR_DEVELOPMENTONLY  // Suffix to append to the console log, may be changed to reopen the log
 // connect_lobby                                             uint64   0                     FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Sets the lobby ID to connect to on start.
 // contributionscore_assist                                  int32    1                     FCVAR_GAMEDLL|FCVAR_RELEASE  // amount of contribution score added for an assist
@@ -887,7 +887,7 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // csgo_disable_preview_maps                                 bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // csgo_fatdemo_enable                                       bool     false                 FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE
 // csgo_fatdemo_output                                       string   test.fatdem           FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE
-// csgo_map_preview_scale                                    float32  0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE
+// csgo_map_preview_scale                                    float32  2                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE
 // csgo_nav_jump_link_detour_threshold                       float32  1500                  FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL|FCVAR_REPLICATED  // don't traverse a jump link if there's a detour that costs less than this amount
 // csgo_use_fullsort_for_opaque                              bool     true                  FCVAR_CLIENTDLL|FCVAR_CHEAT  // fullsort the opaque pass when there wasn't a depth prepass
 // csm_bias_override_0                                       float32  1                     FCVAR_CLIENTDLL|FCVAR_CHEAT
@@ -1124,7 +1124,7 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // fov_cs_super_ultrawide_near_z                             float32  1                     FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL|FCVAR_CHEAT
 // fov_cs_ultrawide_near_z                                   float32  4                     FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL|FCVAR_CHEAT
 // fov_desired                                               float32  75                    FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO  // Sets the base field-of-view.
-// fps_max                                                   float32  30                    FCVAR_ARCHIVE|FCVAR_RELEASE  // Frame rate limiter.  0=no limit.  Does not apply to dedicated server.
+// fps_max                                                   float32  400                   FCVAR_ARCHIVE|FCVAR_RELEASE  // Frame rate limiter.  0=no limit.  Does not apply to dedicated server.
 // fps_max_tools                                             float32  120                   FCVAR_ARCHIVE  // Additional frame rate limit while in tools mode and a window other than the game window has focus. Note that fps_max still applies, this only allows the maximum frame rate for tools mode to be lower. 0=no tools specific limit.
 // fps_max_ui                                                float32  200                   FCVAR_ARCHIVE  // Frame rate limiter while the game UI is displayed.  0=no limit.  Does not apply to dedicated server.
 // frag_grenade_blip_frequency                               float32  1                     FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED
@@ -1209,7 +1209,7 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // hostage_is_silent                                         bool     false                 FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_CHEAT  // When set, the hostage won't play any code driven response rules lines
 // hostfile                                                  string   host.txt              FCVAR_GAMEDLL|FCVAR_RELEASE  // The HOST file to load.
 // hostip                                                    int32    -1062717439           FCVAR_RELEASE  // Host game server ip
-// hostname                                                  string   daniladick1           FCVAR_RELEASE  // Hostname for server.
+// hostname                                                  string   Mai Nica              FCVAR_RELEASE  // Hostname for server.
 // hostname_in_client_status                                 bool     false                 FCVAR_RELEASE  // Show server hostname in client status.
 // hostport                                                  int32    27015                 FCVAR_RELEASE  // Host game server port
 // hud_fastswitch                                            int32    0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE
@@ -1339,9 +1339,9 @@ If 'match', the server will maintain a 1:N ratio of humans to bots, where N is b
 // joy_name                                                  string   joystick              FCVAR_CLIENTDLL|FCVAR_ARCHIVE
 // joy_pegged                                                float32  0.75                  FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // joy_pitch_sensitivity                                     float32  3                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
-// joy_pitchsensitivity                                      float32  -1                    FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
+// joy_pitchsensitivity                                      float32  1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
 // joy_response_look                                         int32    0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
-// joy_response_move                                         int32    1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
+// joy_response_move                                         int32    9                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
 // joy_response_move_vehicle                                 int32    6                     FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // joy_sensitive_step0                                       float32  0.1                   FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // joy_sensitive_step1                                       float32  0.4                   FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
@@ -1562,7 +1562,7 @@ If the server is behind NAT, y
 // mp_backup_restore_load_autopause                          bool     true                  FCVAR_GAMEDLL|FCVAR_RELEASE  // Whether to automatically pause the match after restoring round data from backup
 // mp_backup_round_auto                                      bool     true                  FCVAR_GAMEDLL|FCVAR_RELEASE  // If enabled will keep in-memory backups to handle reconnecting players even if the backup files aren't written to disk
 // mp_backup_round_file                                      string   backup                FCVAR_GAMEDLL|FCVAR_RELEASE  // If set then server will save all played rounds information to files filename_date_time_team1_team2_mapname_roundnum_score1_score2.txt
-// mp_backup_round_file_last                                 string   backup_round00.txt    FCVAR_GAMEDLL|FCVAR_RELEASE  // Every time a backup file is written the value of this convar gets updated to hold the name of the backup file.
+// mp_backup_round_file_last                                 string   backup_round05.txt    FCVAR_GAMEDLL|FCVAR_RELEASE  // Every time a backup file is written the value of this convar gets updated to hold the name of the backup file.
 // mp_backup_round_file_pattern                              string   %prefix%_round%roun…  FCVAR_GAMEDLL|FCVAR_RELEASE  // If set then server will save all played rounds information to files named by this pattern, e.g.'%prefix%_%date%_%time%_%team1%_%team2%_%map%_round%round%_score_%score1%_%score2%.txt'
 // mp_bot_ai_bt                                              string                         FCVAR_GAMEDLL|FCVAR_RELEASE  // Use the specified behavior tree file to drive the bot behavior.
 // mp_buy_allow_grenades                                     bool     true                  FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // Whether players can purchase grenades from the buy menu or not.
@@ -1718,7 +1718,7 @@ If the server is behind NAT, y
 // mp_shorthanded_cash_bonus_round_delay                     int32    2                     FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // number of previous rounds that a team needs to have been shorthanded before they are eligible for the short-handed bonus
 // mp_solid_enemies                                          int32    1                     FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // How solid are enemies: 0 = transparent; 1 = fully solid
 // mp_solid_teammates                                        int32    2                     FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // How solid are teammates: 0 = transparent; 1 = fully solid; 2 = can stand on top of heads
-// mp_spawnprotectiontime                                    int32    5                     FCVAR_GAMEDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // Kick players who team-kill within this many seconds of a round restart.
+// mp_spawnprotectiontime                                    int32    5                     FCVAR_GAMEDLL|FCVAR_RELEASE  // Kick players who team-kill within this many seconds of a round restart.
 // mp_spectators_max                                         int32    2                     FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // How many spectators are allowed in a match.
 // mp_starting_losses                                        int32    0                     FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // Determines what the initial loss streak is.
 // mp_startmoney                                             int32    1000                  FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // amount of money each player gets when they reset
@@ -1729,9 +1729,9 @@ If the server is behind NAT, y
 // mp_t_default_secondary                                    string   weapon_glock          FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // The default secondary (pistol) weapon that the Ts will spawn with
 // mp_tagging_scale                                          float32  1                     FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // Scalar for player tagging modifier when hit. Lower values for greater tagging.
 // mp_taser_recharge_time                                    float32  30                    FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // Determines recharge time for taser. -1 = disabled.
-// mp_td_dmgtokick                                           int32    300                   FCVAR_GAMEDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // The damage threshhold players have to exceed in a match to get kicked.
-// mp_td_dmgtowarn                                           int32    200                   FCVAR_GAMEDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // The damage threshhold players have to exceed in a match to get warned that they are about to be kicked.
-// mp_td_spawndmgthreshold                                   int32    50                    FCVAR_GAMEDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // The damage threshold players have to exceed at the start of the round to be warned/kick.
+// mp_td_dmgtokick                                           int32    300                   FCVAR_GAMEDLL|FCVAR_RELEASE  // The damage threshhold players have to exceed in a match to get kicked.
+// mp_td_dmgtowarn                                           int32    200                   FCVAR_GAMEDLL|FCVAR_RELEASE  // The damage threshhold players have to exceed in a match to get warned that they are about to be kicked.
+// mp_td_spawndmgthreshold                                   int32    50                    FCVAR_GAMEDLL|FCVAR_RELEASE  // The damage threshold players have to exceed at the start of the round to be warned/kick.
 // mp_team_intro_time                                        float32  6.5                   FCVAR_GAMEDLL|FCVAR_NOTIFY|FCVAR_REPLICATED|FCVAR_RELEASE  // How many seconds for team intro
 // mp_team_intro_type                                        string   auto                  FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // none, normal, wingman, rush, or auto (implies normal if mp_halftime is set, none otherwise)
 // mp_team_timeout_max                                       int32    1                     FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // Number of timeouts each team gets per match.
@@ -1793,7 +1793,7 @@ If the server is behind NAT, y
 // multigpu_skip_semaphores                                  bool     false                 FCVAR_DEVELOPMENTONLY
 // multigpu_skip_transfers                                   bool     false                 FCVAR_DEVELOPMENTONLY
 // muzzle_flash_debug                                        bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
-// name                                                      string   daniladick1           FCVAR_ARCHIVE|FCVAR_PER_USER
+// name                                                      string   Mai Nica              FCVAR_ARCHIVE|FCVAR_PER_USER
 // nav_approach_points_area_size_threshold                   float32  200                   FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL  // Ignore nav areas with at least one side smaller than this amount during approach point calculation.
 // nav_attribute_obstacle_draw                               bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL
 // nav_attribute_obstacle_draw_attribute                     string                         FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL
@@ -2149,7 +2149,7 @@ If the server is behind NAT, y
 // panorama_console_max_autocomplete                         int32    100                   FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // panorama_console_max_history                              int32    100                   FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // panorama_console_max_lines                                int32    2000                  FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
-// panorama_console_position_and_size                        string   20.00|20.00|1000.00…  FCVAR_CLIENTDLL|FCVAR_ARCHIVE
+// panorama_console_position_and_size                        string                         FCVAR_CLIENTDLL|FCVAR_ARCHIVE
 // panorama_content_size_fixes                               bool     true                  FCVAR_DEVELOPMENTONLY  // Fix content size issues
 // panorama_daisy_wheel                                      string   ABXY                  FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Daisy wheel input mode: RS | ABXY
 // panorama_dash_gap_ratio                                   float32  0.5                   FCVAR_DEVELOPMENTONLY
@@ -2302,7 +2302,7 @@ If the server is behind NAT, y
 // player_competitive_maplist_8_10_0_A062AC6A                string   mg_de_dust2,mg_de_t…  FCVAR_CLIENTDLL|FCVAR_ARCHIVE
 // player_debug_off_nav                                      bool     false                 FCVAR_GAMEDLL|FCVAR_CHEAT
 // player_debug_print_damage                                 bool     false                 FCVAR_GAMEDLL|FCVAR_CHEAT  // When true, print amount and type of all damage received by player to console.
-// player_nevershow_communityservermessage                   string   1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
+// player_nevershow_communityservermessage                   string   0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
 // player_ping_token_cooldown                                float32  20                    FCVAR_GAMEDLL|FCVAR_CHEAT|FCVAR_RELEASE  // Cooldown for how long it takes for a player's ping token to refresh allowing them to ping again (they get 5 tokens).
 // player_survival_list_10_0_303                             string   mg_dz_blacksite,mg_…  FCVAR_CLIENTDLL|FCVAR_ARCHIVE
 // player_teamplayedlast                                     int32    3                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_PER_USER
@@ -3035,10 +3035,10 @@ If the server is behind NAT, y
 // snd_chicken_obscured_fade_time                            float32  0.25                  FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Seconds to fade the ChickensObscuredLayer mix layer in and out.
 // snd_compare_KV_convert                                    bool     false                 FCVAR_DEVELOPMENTONLY
 // snd_deathcamera_volume                                    float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of Deathcam Timers
-// snd_deathcamera_volume_armsrace                           float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Deathcam Timers
-// snd_deathcamera_volume_casual                             float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Deathcam Timers
-// snd_deathcamera_volume_deathmatch                         float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Deathcam Timers
-// snd_deathcamera_volume_rush                               float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Deathcam Timers
+// snd_deathcamera_volume_armsrace                           float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Deathcam Timers
+// snd_deathcamera_volume_casual                             float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Deathcam Timers
+// snd_deathcamera_volume_deathmatch                         float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Deathcam Timers
+// snd_deathcamera_volume_rush                               float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Deathcam Timers
 // snd_delay_sound_ms_max                                    float32  40                    FCVAR_DEVELOPMENTONLY  // Sound device synchronization max delay (ms)
 // snd_delay_sound_ms_shift                                  float32  23                    FCVAR_DEVELOPMENTONLY  // Sound device synchronization shift (ms)
 // snd_diffusor_simd                                         bool     false                 FCVAR_DEVELOPMENTONLY  // Enable SIMD code path for diffusor processor.
@@ -3085,17 +3085,17 @@ If the server is behind NAT, y
 // snd_mainmenu_music_break_time_max                         int32    0                     FCVAR_CLIENTDLL|FCVAR_CHEAT  // Maximum amount of time to pause between playing main menu music
 // snd_mainmenu_music_break_time_min                         int32    0                     FCVAR_CLIENTDLL|FCVAR_CHEAT  // Minimum amount of time to pause between playing main menu music
 // snd_mapobjective_volume                                   float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of Map Objective Music
-// snd_mapobjective_volume_armsrace                          float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Map Objective Music
-// snd_mapobjective_volume_casual                            float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Map Objective Music
-// snd_mapobjective_volume_deathmatch                        float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Map Objective Music
-// snd_mapobjective_volume_rush                              float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Map Objective Music
+// snd_mapobjective_volume_armsrace                          float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Map Objective Music
+// snd_mapobjective_volume_casual                            float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Map Objective Music
+// snd_mapobjective_volume_deathmatch                        float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Map Objective Music
+// snd_mapobjective_volume_rush                              float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Map Objective Music
 // snd_max_pitch_shift_inaccuracy                            float32  0.08                  FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED
 // snd_menumap_volume                                        float32  1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of background sounds for maps
 // snd_menumusic_volume                                      float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of Menu / Non-gameplay music
-// snd_menumusic_volume_armsrace                             float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Menu / Non-gameplay music
-// snd_menumusic_volume_casual                               float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Menu / Non-gameplay music
-// snd_menumusic_volume_deathmatch                           float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Menu / Non-gameplay music
-// snd_menumusic_volume_rush                                 float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Menu / Non-gameplay music
+// snd_menumusic_volume_armsrace                             float32  0.040000003           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Menu / Non-gameplay music
+// snd_menumusic_volume_casual                               float32  0.040000003           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Menu / Non-gameplay music
+// snd_menumusic_volume_deathmatch                           float32  0.040000003           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Menu / Non-gameplay music
+// snd_menumusic_volume_rush                                 float32  0.040000003           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Menu / Non-gameplay music
 // snd_mergemethod                                           int32    1                     FCVAR_DEVELOPMENTONLY  // Sound merge method (0 == sum and clip, 1 == max, 2 == avg).
 // snd_min_latency                                           bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CHEAT
 // snd_mix_async                                             bool     true                  FCVAR_DEVELOPMENTONLY|FCVAR_CHEAT
@@ -3108,10 +3108,10 @@ If the server is behind NAT, y
 // snd_mute_losefocus                                        bool     true                  FCVAR_ARCHIVE
 // snd_mute_mvp_music_live_players                           bool     false                 FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // If set, MVP music is muted if players from both teams are still alive.
 // snd_mvp_volume                                            float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of MVP Music
-// snd_mvp_volume_armsrace                                   float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of MVP Music
-// snd_mvp_volume_casual                                     float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of MVP Music
-// snd_mvp_volume_deathmatch                                 float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of MVP Music
-// snd_mvp_volume_rush                                       float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of MVP Music
+// snd_mvp_volume_armsrace                                   float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of MVP Music
+// snd_mvp_volume_casual                                     float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of MVP Music
+// snd_mvp_volume_deathmatch                                 float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of MVP Music
+// snd_mvp_volume_rush                                       float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of MVP Music
 // snd_new_visualize                                         bool     false                 FCVAR_GAMEDLL|FCVAR_CHEAT  // Displays soundevent name played at it's 3d position
 // snd_occlusion_bounces                                     int32    1                     FCVAR_REPLICATED|FCVAR_CHEAT
 // snd_occlusion_debug                                       bool     false                 FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_CHEAT
@@ -3145,10 +3145,10 @@ If the server is behind NAT, y
 // snd_roundaction_volume_deathmatch                         float32  0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Move Action Music
 // snd_roundaction_volume_rush                               float32  0.0064                FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Move Action Music
 // snd_roundend_volume                                       float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of Won/Lost Music
-// snd_roundend_volume_armsrace                              float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Won/Lost Music
-// snd_roundend_volume_casual                                float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Won/Lost Music
-// snd_roundend_volume_deathmatch                            float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Won/Lost Music
-// snd_roundend_volume_rush                                  float32  0.16                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Won/Lost Music
+// snd_roundend_volume_armsrace                              float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Won/Lost Music
+// snd_roundend_volume_casual                                float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Won/Lost Music
+// snd_roundend_volume_deathmatch                            float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Won/Lost Music
+// snd_roundend_volume_rush                                  float32  0.16000001            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Won/Lost Music
 // snd_roundstart_volume                                     float32  0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of Round Start Music
 // snd_roundstart_volume_armsrace                            float32  0.0225                FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Round Start Music
 // snd_roundstart_volume_casual                              float32  0.0225                FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Round Start Music
@@ -3291,10 +3291,10 @@ If the server is behind NAT, y
 // snd_surf_volume_map                                       float32  0.3                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // The volume of ambient sounds when surfing is enabled.
 // snd_surf_volume_slide                                     float32  0.5                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // The volume of sliding along surfaces when surfing.
 // snd_tensecondwarning_volume                               float32  0.04                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Volume of Ten Second Warnings
-// snd_tensecondwarning_volume_armsrace                      float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Ten Second Warnings
-// snd_tensecondwarning_volume_casual                        float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Ten Second Warnings
-// snd_tensecondwarning_volume_deathmatch                    float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Ten Second Warnings
-// snd_tensecondwarning_volume_rush                          float32  0.01                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Ten Second Warnings
+// snd_tensecondwarning_volume_armsrace                      float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Arms Race volume of Ten Second Warnings
+// snd_tensecondwarning_volume_casual                        float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Casual volume of Ten Second Warnings
+// snd_tensecondwarning_volume_deathmatch                    float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Deathmatch volume of Ten Second Warnings
+// snd_tensecondwarning_volume_rush                          float32  0.010000001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE  // Rush volume of Ten Second Warnings
 // snd_toolvolume                                            float32  1                     FCVAR_ARCHIVE  // Volume of sounds in tools (e.g. Hammer, SFM)
 // snd_ui_positional                                         bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CHEAT
 // snd_ui_spatialization_spread                              float32  1                     FCVAR_DEVELOPMENTONLY|FCVAR_CHEAT
@@ -3319,7 +3319,7 @@ If the server is behind NAT, y
 // soundscape_message                                        bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // soundscape_radius_debug                                   bool     false                 FCVAR_CLIENTDLL|FCVAR_CHEAT  // Prints current volume of radius sounds
 // soundscape_update_include_bots                            bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL|FCVAR_CHEAT  // Enable to calculate soundscape audio params for bots.
-// soundsystem_device_used                                   string   HISENSE (NVIDIA Hig…  FCVAR_DEVELOPMENTONLY  // Sound device in use (changing this does not change the soundsystem).
+// soundsystem_device_used                                   string   ZOWIE XL LCD (NVIDI…  FCVAR_DEVELOPMENTONLY  // Sound device in use (changing this does not change the soundsystem).
 // soundsystem_update_async                                  bool     true                  FCVAR_DEVELOPMENTONLY
 // sparseshadowtree_cascade_mask                             int32    4                     FCVAR_DEVELOPMENTONLY  // Bitfield describing which cascades to generate/use SST for. (OR'd 1UL<<cascadeIndex, default is 1UL<<2 only, i.e. just cascade 2)
 // sparseshadowtree_copy_to_shadow_atlas_ps                  bool     true                  FCVAR_DEVELOPMENTONLY  // Copy layer from CS output to shadow atlas uses PS copy (vs CopyTexture).
@@ -3399,8 +3399,8 @@ If the server is behind NAT, y
 // stats_highlight_interval                                  float32  10                    FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Interval between hightlight screens in the transition stats panel
 // steam_controller_haptics                                  bool     true                  FCVAR_CLIENTDLL|FCVAR_RELEASE
 // steamaudio_customdata_dimensions_numrays                  int32    32768                 FCVAR_DEVELOPMENTONLY  // Number of rays to trace for estimating inside outside status of a probe.
-// steamworks_sessionid_client                               string   8948926048182         FCVAR_CLIENTDLL|FCVAR_USERINFO  // The client session ID for the new steamworks gamestats.
-// steamworks_sessionid_server                               string   8948926042343         FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED  // The server session ID for the new steamworks gamestats.
+// steamworks_sessionid_client                               string   8948985822163         FCVAR_CLIENTDLL|FCVAR_USERINFO  // The client session ID for the new steamworks gamestats.
+// steamworks_sessionid_server                               string   8948985818617         FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED  // The server session ID for the new steamworks gamestats.
 // sticky_tooltips                                           bool     false                 FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL  // Don't ever hide tooltips. Helpful when debugging complicated tooltip layouts.
 // surf_speed_slow                                           float32  50                    FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_RELEASE  // Speed above which surf sounds are played.
 // suspicious_hit_odds_threshold                             float32  0.01                  FCVAR_GAMEDLL|FCVAR_RELEASE
@@ -4012,7 +4012,7 @@ If the server is behind NAT, y
 // ui_playsettings_maps_official_rush                        string   mg_rush_001           FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
 // ui_playsettings_maps_workshop                             string                         FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
 // ui_playsettings_mode_listen                               string   casual                FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
-// ui_playsettings_mode_official_v20                         string   retakes               FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
+// ui_playsettings_mode_official_v20                         string   deathmatch            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
 // ui_playsettings_survival_solo                             string   0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
 // ui_playsettings_warmup_map_name                           string   de_mirage             FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
 // ui_popup_weaponupdate_version                             string   0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
@@ -4027,9 +4027,9 @@ If the server is behind NAT, y
 // ui_steam_overlay_notification_position                    string   bottomleft            FCVAR_CLIENTDLL|FCVAR_ARCHIVE  // Steam overlay notification position
 // ui_steam_overlay_notification_position_horz               int32    0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE  // Steam overlay notification position horizontal offset
 // ui_steam_overlay_notification_position_vert               int32    0                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE  // Steam overlay notification position vertical offset
-// ui_vanitysetting_loadoutslot_ct                           string   secondary2            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
-// ui_vanitysetting_loadoutslot_t                            string                         FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
-// ui_vanitysetting_team                                     string   ct                    FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
+// ui_vanitysetting_loadoutslot_ct                           string   smg2                  FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
+// ui_vanitysetting_loadoutslot_t                            string   secondary1            FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
+// ui_vanitysetting_team                                     string   t                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_RELEASE
 // update_all_keyframed_in_spatial_partition_update          bool     true                  FCVAR_DEVELOPMENTONLY|FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED
 // update_voices_low_priority                                bool     false                 FCVAR_DEVELOPMENTONLY
 // v8_jitless                                                bool     true                  FCVAR_DEVELOPMENTONLY  // Disable runtime allocation of executable memory for V8.
@@ -4045,9 +4045,9 @@ If the server is behind NAT, y
 // videocfg_texture_detail                                   int32    2                     FCVAR_DEVELOPMENTONLY|FCVAR_CLIENTDLL
 // view_punch_decay                                          float32  18                    FCVAR_GAMEDLL|FCVAR_CLIENTDLL|FCVAR_REPLICATED|FCVAR_CHEAT|FCVAR_RELEASE  // Decay factor exponent for view punch
 // viewmodel_fov                                             float32  60                    FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO|FCVAR_PER_USER  // Viewmodel FOV
-// viewmodel_offset_x                                        float32  2.5                   FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO|FCVAR_PER_USER  // viewmodel_offset_x
-// viewmodel_offset_y                                        float32  -2                    FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO|FCVAR_PER_USER  // viewmodel_offset_y
-// viewmodel_offset_z                                        float32  -0.621117             FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO|FCVAR_PER_USER  // viewmodel_offset_z
+// viewmodel_offset_x                                        float32  1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO|FCVAR_PER_USER  // viewmodel_offset_x
+// viewmodel_offset_y                                        float32  1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO|FCVAR_PER_USER  // viewmodel_offset_y
+// viewmodel_offset_z                                        float32  -1                    FCVAR_CLIENTDLL|FCVAR_ARCHIVE|FCVAR_USERINFO|FCVAR_PER_USER  // viewmodel_offset_z
 // viewmodel_presetpos                                       int32    1                     FCVAR_CLIENTDLL|FCVAR_ARCHIVE  // 1:"Desktop", 2:"Classic" 
 // violence_ablood                                           bool     true                  FCVAR_ARCHIVE  // Draw alien blood
 // violence_agibs                                            bool     true                  FCVAR_ARCHIVE  // Show alien gib entities

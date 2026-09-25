@@ -2,7 +2,7 @@
 
 A signature is an IDA-style byte pattern that finds one function or one global in one module, together with everything needed to use it: the resolved RVA on the current build, the function's Hex-Rays prototype, the first bytes of its prologue, and the other names the community knows it by.
 
-The database is [`src/patterns/database.rs`](https://github.com/scros22/cs2-universal-offsets/blob/main/src/patterns/database.rs). On build 14183 it holds **586 entries; 585 resolve**, describing **536 unique functions** (some functions are reached by more than one entry — see *Aliases* below). Every published pattern matches **exactly once** in its module: a pattern that matches more than once is treated as broken and fixed before release.
+The database is [`src/patterns/database.rs`](https://github.com/scros22/cs2-universal-offsets/blob/main/src/patterns/database.rs). On build 14184 it holds **577 entries; 576 resolve** (some functions are reached by more than one entry — see *Aliases* below). Every published pattern matches **exactly once** in its module: a pattern that matches more than once is treated as broken and fixed before release.
 
 ## `patterns/patterns.json`
 
@@ -14,7 +14,7 @@ The database is [`src/patterns/database.rs`](https://github.com/scros22/cs2-univ
   "missing":        1,
   "modules":        ["animationsystem.dll", "client.dll", "engine2.dll", …],
   "patterns": [
-    { "name": "CreateMove", "module": "client.dll", "resolve": "raw", "va": "0x7FFA78A74A10", "rva": "0xB64A10",
+    { "name": "CreateMove", "module": "client.dll", "resolve": "raw", "va": "0x7FFDD6665A70", "rva": "0xB65A70",
       "pattern": "85 D2 0F 85 ? ? ? ? 48 8B C4 44 88 40 18",
       "bytes": "85 D2 0F 85 CC 12 00 00 48 8B C4 44 88 40 18 89 50 10 48 89 48 08 55 53",
       "pattern_synth": "85 D2 0F 85 ? ? ? ? 48 8B C4 44 88 40 18 89",
@@ -56,13 +56,13 @@ The pattern is scanned in the module's `.text` section (`.rdata` as a fallback f
 
 ## Names, display names and aliases
 
-**Published name.** The database name. It is class-qualified where the class matters (`CCSGOInput_ProcessInputEvent`, `C_CSWeaponBaseGun_GetInaccuracy`) and bare where the community name is unambiguous (`CreateMove`, `TraceShape`).
+**Database name.** Entries in `database.rs` are named `Class_Method` when the class matters (`CCSGOInput_ProcessInputEvent`, `CSwapChainDx11_CreateSwapChain`) and bare when the community name is unambiguous (`CreateMove`, `TraceShape`). Globals resolved by `riprel` start with `p`.
 
-**Aliases.** When several database entries resolve to the same address they are folded into one published entry. The primary name is the most descriptive one (a class-qualified name beats a bare one; `_v2` / `_raw` / `_legacy` / `_Client` style variants never win) and the rest go into `aliases`. On build 14183, 57 functions had two or three names. Every group was decompiled and checked before being folded, and 16 names that turned out to describe a different function were removed rather than kept as aliases ([Changelog](Changelog.md) v2.1.2).
+**Published name.** What `patterns.json` carries is the database name with its C++ class prefix stripped, as long as what is left is still a descriptive method name: `CCSGOInput_ProcessInputEvent` is published as `ProcessInputEvent`, `CSwapChainDx11_CreateSwapChain` as `CreateSwapChain`. The prefix is kept when stripping would leave a bare word (`CCSInventoryManager_Get`), and names that start with `C_` (client entity classes), `dw`, `g_` or `m_` are never touched (`C_CSWeaponBaseGun_GetInaccuracy` stays whole).
 
-**Display name.** The site and the Discord bot show a shorter form: the class prefix is stripped when what is left is still descriptive (`CCSGOInput_ProcessInputEvent` → `ProcessInputEvent`), but never down to a bare word (`CCSInventoryManager_Get` stays as it is).
+**Aliases.** When several database entries resolve to the same address they are folded into one published entry. The primary is the most descriptive name — a class-qualified one beats a bare one, and `_v2` / `_raw` / `_legacy` / `_Client` style variants never win — and the rest go into `aliases`. On build 14183, 57 functions had two or three names; every group was decompiled and checked before being folded, and 16 names that turned out to describe a different function were removed rather than kept as aliases ([Changelog](Changelog.md) v2.1.2).
 
-All of these resolve in the API. `/api/pattern/<name>` and `/api/query` accept the published name, any alias, the display name, the `Class::Method` spelling, the method name alone, and `module.dll/Name` to pin a module. A non-exact match is reported in the response, so you can see which entry you got.
+All of these resolve in the API. `/api/pattern/<name>` and `/api/query` accept the published name, the full database name, any alias, the `Class::Method` spelling, the method name alone, and `module.dll/Name` to pin a module. A non-exact match is reported in the response, so you can see which entry you got.
 
 ## Using a signature at runtime
 
@@ -103,6 +103,24 @@ After a CS2 update, `pattern_synth` and `bytes` give you a second chance: when t
 - `GET /api/export/patterns.txt` — every pattern as an aligned, module-grouped text file.
 - The **Patterns** tab on [cs2-sdk.com](https://cs2-sdk.com): searchable, with a detail drawer per function.
 
-## Coverage on build 14183
+## Code sites
 
-585 of 586 entries resolve. The one that does not is `GameSystem_Think_CheckSteamBan` (server.dll): the function still exists, but nothing unique is left to anchor a pattern on. It stays in the database so it is retried on every build instead of being forgotten.
+A handful of entries are deliberately **not** function starts: they resolve to one instruction inside a function, for people who patch or read at that exact place. They have no prototype and are not meant to be hooked as functions:
+
+| Entry | Module | What the address is |
+|---|---|---|
+| `UntrustedFlagSetter` | client.dll | the `mov byte [g_bUntrusted], 1` store |
+| `CAM_ThinkReturn` | client.dll | the instruction after `CAM_Think`'s early return |
+| `CCSPlayer_ThirdPersonReset` | client.dll | the `cmp [cvar+58h], 0` that guards the third-person reset |
+| `DisablePvsAccessor` | engine2.dll | the `lea rcx, [g_pPVSManager]` read |
+| `IGameSystem_InitAllSystems_pFirst`, `IGameSystem_LoopDestroyAllSystems_s_GameSystems`, `IGameSystem_LoopPostInitAllSystems_pEventDispatcher` | server.dll | the global references named in the entry |
+
+Everything else resolves to the first byte of a function (or, for `riprel` entries, to a global in `.data`).
+
+## How the database is verified
+
+Every function entry is checked against a fresh IDA analysis of the current build, not just re-scanned: the resolved address must be a function start, its Hex-Rays prototype is compared with (and refreshed into) the database, and the name is checked against what the function does — the strings it references, its callers, the vtable it sits in. Entries that fail are fixed or, when the name describes a different function, removed and listed in the [Changelog](Changelog.md). Cross-checks against the a2x dumper's output for the same build cover the classic globals, buttons, interfaces and every schema field offset.
+
+## Coverage on build 14184
+
+576 of 577 entries resolve. The one that does not is `GameSystem_Think_CheckSteamBan` (server.dll): the function still exists, but nothing unique is left to anchor a pattern on. It stays in the database so it is retried on every build instead of being forgotten.

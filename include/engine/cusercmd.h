@@ -1,4 +1,4 @@
-// cusercmd.h  -  CS2 build 14183  -  cs2-sdk.com
+// cusercmd.h  -  CS2 build 14184  -  cs2-sdk.com
 // The client's command object (one per tick). Embeds the CCSGOUserCmdPB that is serialised to the server and the live CInButtonState. Lives in a 150-entry ring per controller.
 // Module: client.dll. Offsets drift between builds - regenerate after a CS2 update.
 #pragma once
@@ -9,8 +9,8 @@ namespace CUserCmd {
 
 // ring = GetUserCmdManager(controller); cmd = ring + 0x98 * (sequence % 150); current sequence = *(int*)(ring + 0x5910)  (150 * 0x98 = 0x5910)
 inline constexpr std::size_t kSize = 0x98;
-inline constexpr std::ptrdiff_t kGetUserCmdManager_rva = 0x943540; // pattern GetUserCmdManager
-inline constexpr std::ptrdiff_t kGetCUserCmdBySequenceNumber_rva = 0x9434B0; // pattern GetCUserCmdBySequenceNumber
+inline constexpr std::ptrdiff_t kGetUserCmdManager_rva = 0x944590; // pattern GetUserCmdManager
+inline constexpr std::ptrdiff_t kGetCUserCmdBySequenceNumber_rva = 0x944500; // pattern GetCUserCmdBySequenceNumber
 
 // --- fields ---
 inline constexpr std::ptrdiff_t vtable                                    = 0x0   ; // void** - CUserCmd vftable

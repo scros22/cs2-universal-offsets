@@ -4,7 +4,7 @@ Some of the structures tool authors need most never appear in a schema dump: the
 
 Their field offsets are curated in [`src/output/engine_structs.rs`](https://github.com/scros22/cs2-universal-offsets/blob/main/src/output/engine_structs.rs). Their function and instance addresses are **not** typed in: each names a signature from the database and is resolved from the same run's pattern pass, so they stay correct across updates for as long as the pattern does.
 
-## The structs on build 14183
+## The structs on build 14184
 
 | Struct | Module | Size | What it is | Functions resolved with it |
 |---|---|---|---|---|
@@ -25,7 +25,7 @@ Their field offsets are curated in [`src/output/engine_structs.rs`](https://gith
 
 ```json
 {
-  "build_number": 14183,
+  "build_number": 14184,
   "struct_count": 12,
   "structs": [
     {
@@ -34,15 +34,15 @@ Their field offsets are curated in [`src/output/engine_structs.rs`](https://gith
       "desc": "Client input singleton: turns mouse/keyboard state into the per-tick user command. …",
       "size": null,
       "instance": "static object embedded in client.dll (no deref); pCSGOInput is a global POINTER to this same object",
-      "instance_rva": "0x2571A90",
+      "instance_rva": "0x2573B40",
       "fields": [
         { "name": "vtable",          "offset": "0x0",   "type": "void**", "note": "CCSGOInput vftable" },
         { "name": "m_FrameInput",    "offset": "0x228", "type": "struct", "note": "per-frame input block (weapon select / frame data)" },
         { "name": "m_angViewAngles", "offset": "0x688", "type": "QAngle", "note": "live view angles - pitch 0x688 / yaw 0x68C / roll 0x690; mouse delta is added into yaw each frame" }
       ],
       "functions": [
-        { "name": "CreateMove",    "pattern": "CreateMove",    "rva": "0xB64A10" },
-        { "name": "GetViewAngles", "pattern": "GetViewAngles", "rva": "0xB6FC30" },
+        { "name": "CreateMove",    "pattern": "CreateMove",    "rva": "0xB65A70" },
+        { "name": "GetViewAngles", "pattern": "GetViewAngles", "rva": "0xB70C90" },
         …
       ]
     }
@@ -57,12 +57,12 @@ Their field offsets are curated in [`src/output/engine_structs.rs`](https://gith
 Each struct is also written as a header of constants, ready to include on its own:
 
 ```cpp
-// cusercmd.h  -  CS2 build 14183  -  cs2-sdk.com
+// cusercmd.h  -  CS2 build 14184  -  cs2-sdk.com
 namespace CUserCmd {
 // ring = GetUserCmdManager(controller); cmd = ring + 0x98 * (sequence % 150); current sequence = *(int*)(ring + 0x5910)
 inline constexpr std::size_t    kSize = 0x98;
-inline constexpr std::ptrdiff_t kGetUserCmdManager_rva          = 0x943540; // pattern GetUserCmdManager
-inline constexpr std::ptrdiff_t kGetCUserCmdBySequenceNumber_rva = 0x9434B0; // pattern GetCUserCmdBySequenceNumber
+inline constexpr std::ptrdiff_t kGetUserCmdManager_rva          = 0x944590; // pattern GetUserCmdManager
+inline constexpr std::ptrdiff_t kGetCUserCmdBySequenceNumber_rva = 0x944500; // pattern GetCUserCmdBySequenceNumber
 
 inline constexpr std::ptrdiff_t m_nCommandNumber            = 0x8;  // int64 - command / sequence number
 inline constexpr std::ptrdiff_t m_csgoUserCmd               = 0x10; // CCSGOUserCmdPB - embedded protobuf message

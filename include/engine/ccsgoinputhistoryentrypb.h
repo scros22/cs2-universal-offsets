@@ -1,4 +1,4 @@
-// ccsgoinputhistoryentrypb.h  -  CS2 build 14183  -  cs2-sdk.com
+// ccsgoinputhistoryentrypb.h  -  CS2 build 14184  -  cs2-sdk.com
 // cs_usercmd.proto CSGOInputHistoryEntryPB - per-frame view/interp record the server uses for lag compensation and shot validation.
 // Module: client.dll. Offsets drift between builds - regenerate after a CS2 update.
 #pragma once
@@ -9,7 +9,7 @@ namespace CCSGOInputHistoryEntryPB {
 
 // protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start
 inline constexpr std::size_t kSize = 0x78;
-inline constexpr std::ptrdiff_t kNew_rva = 0x7B3310; // pattern CCSGOInputHistoryEntryPB_New
+inline constexpr std::ptrdiff_t kNew_rva = 0x7B3BD0; // pattern CCSGOInputHistoryEntryPB_New
 
 // --- fields ---
 inline constexpr std::ptrdiff_t has_bits              = 0x10  ; // uint32

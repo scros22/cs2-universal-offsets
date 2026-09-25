@@ -1,6 +1,6 @@
 # Interfaces and Vtables
 
-Every Source 2 module exports `CreateInterface`, and every interface registered through it (`Source2Client002`, `EngineTraceClient001`, `InputSystemVersion001`, …) is a C++ object with a vtable. The dumper enumerates the registrations, resolves each factory to the object it returns, walks that object's primary vtable, and recovers the implementing class name from RTTI. On build 14183 that is 110 interfaces, all of them named.
+Every Source 2 module exports `CreateInterface`, and every interface registered through it (`Source2Client002`, `EngineTraceClient001`, `InputSystemVersion001`, …) is a C++ object with a vtable. The dumper enumerates the registrations, resolves each factory to the object it returns, walks that object's primary vtable, and recovers the implementing class name from RTTI. On build 14184 that is 110 interfaces, all of them named.
 
 ## `interfaces/interfaces.hpp`
 
@@ -40,9 +40,9 @@ Only the **primary** vtable (`*(void**)instance`) is walked. A class reached sol
       "Source2Client002": {
         "rtti_class": "CSource2Client",
         "vtable_module": "client.dll",
-        "vtable_rva": 29740608,
+        "vtable_rva": 29745216,
         "methods": [
-          { "index": 0, "module": "client.dll", "rva": 11942688, "name": null },
+          { "index": 0, "module": "client.dll", "rva": 11946880, "name": null },
           …
         ]
       }

@@ -32415,68 +32415,68 @@
           {
             "metadata": [],
             "name": "m_activeLightParticleIndex",
-            "offset": 7952,
+            "offset": 7968,
             "type": "ParticleIndex_t"
           },
           {
             "metadata": [],
             "name": "m_eActiveLightEffect",
-            "offset": 7956,
+            "offset": 7972,
             "type": "C4LightEffect_t"
           },
           {
             "metadata": [],
             "name": "m_bStartedArming",
-            "offset": 7960,
+            "offset": 7976,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_fArmedTime",
-            "offset": 7964,
+            "offset": 7980,
             "type": "GameTime_t"
           },
           {
             "metadata": [],
             "name": "m_bBombPlacedAnimation",
-            "offset": 7968,
+            "offset": 7984,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_bIsPlantingViaUse",
-            "offset": 7969,
+            "offset": 7985,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_entitySpottedState",
-            "offset": 7976,
+            "offset": 7992,
             "type": "EntitySpottedState_t"
           },
           {
             "metadata": [],
             "name": "m_nSpotRules",
-            "offset": 8000,
+            "offset": 8016,
             "type": "int32"
           },
           {
             "metadata": [],
             "name": "m_bPlayedArmingBeeps",
-            "offset": 8004,
+            "offset": 8020,
             "type": "bool[7]"
           },
           {
             "metadata": [],
             "name": "m_bBombPlanted",
-            "offset": 8011,
+            "offset": 8027,
             "type": "bool"
           }
         ],
         "metadata": [],
         "name": "C_C4",
         "parent": null,
-        "size": 8016
+        "size": 8032
       },
       {
         "fields": [
@@ -33023,7 +33023,7 @@
         "metadata": [],
         "name": "C_WeaponAWP",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -33369,14 +33369,14 @@
         "metadata": [],
         "name": "C_WeaponUMP45",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [],
         "metadata": [],
         "name": "C_WeaponG3SG1",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -33599,7 +33599,7 @@
         "metadata": [],
         "name": "C_WeaponFamas",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -34114,7 +34114,7 @@
         "metadata": [],
         "name": "C_WeaponNOVA",
         "parent": null,
-        "size": 7952
+        "size": 7968
       },
       {
         "fields": [],
@@ -34128,7 +34128,7 @@
         "metadata": [],
         "name": "C_DEagle",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [],
@@ -35056,7 +35056,7 @@
         "metadata": [],
         "name": "C_MolotovGrenade",
         "parent": null,
-        "size": 8144
+        "size": 8160
       },
       {
         "fields": [],
@@ -35086,7 +35086,7 @@
         "metadata": [],
         "name": "C_WeaponM4A1Silencer",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -35963,159 +35963,165 @@
           },
           {
             "metadata": [],
-            "name": "m_flWeaponActionPlaybackRate",
+            "name": "m_bReloadHeldSinceStart",
             "offset": 6748,
+            "type": "bool"
+          },
+          {
+            "metadata": [],
+            "name": "m_flWeaponActionPlaybackRate",
+            "offset": 6752,
             "type": "float32"
           },
           {
             "metadata": [],
             "name": "m_iOriginalTeamNumber",
-            "offset": 6752,
-            "type": "int32"
-          },
-          {
-            "metadata": [],
-            "name": "m_iMostRecentTeamNumber",
             "offset": 6756,
             "type": "int32"
           },
           {
             "metadata": [],
-            "name": "m_bDroppedNearBuyZone",
+            "name": "m_iMostRecentTeamNumber",
             "offset": 6760,
+            "type": "int32"
+          },
+          {
+            "metadata": [],
+            "name": "m_bDroppedNearBuyZone",
+            "offset": 6764,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_flNextAttackRenderTimeOffset",
-            "offset": 6764,
+            "offset": 6768,
             "type": "float32"
           },
           {
             "metadata": [],
             "name": "m_bClearWeaponIdentifyingUGC",
-            "offset": 6936,
+            "offset": 6944,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_bVisualsDataSet",
-            "offset": 6937,
+            "offset": 6945,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_bUIWeapon",
-            "offset": 6938,
+            "offset": 6946,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_nCustomEconReloadEventId",
-            "offset": 6940,
+            "offset": 6948,
             "type": "int32"
           },
           {
             "metadata": [],
             "name": "m_bCanBePickedUp",
-            "offset": 6952,
+            "offset": 6960,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_nextPrevOwnerUseTime",
-            "offset": 6956,
+            "offset": 6964,
             "type": "GameTime_t"
           },
           {
             "metadata": [],
             "name": "m_hPrevOwner",
-            "offset": 6960,
+            "offset": 6968,
             "type": "CHandle<C_CSPlayerPawn>"
           },
           {
             "metadata": [],
             "name": "m_nDropTick",
-            "offset": 6964,
+            "offset": 6972,
             "type": "GameTick_t"
           },
           {
             "metadata": [],
             "name": "m_bWasActiveWeaponWhenDropped",
-            "offset": 6968,
+            "offset": 6976,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_donated",
-            "offset": 7004,
-            "type": "bool"
-          },
-          {
-            "metadata": [],
-            "name": "m_fLastShotTime",
-            "offset": 7008,
-            "type": "GameTime_t"
-          },
-          {
-            "metadata": [],
-            "name": "m_bWasOwnedByCT",
             "offset": 7012,
             "type": "bool"
           },
           {
             "metadata": [],
+            "name": "m_fLastShotTime",
+            "offset": 7016,
+            "type": "GameTime_t"
+          },
+          {
+            "metadata": [],
+            "name": "m_bWasOwnedByCT",
+            "offset": 7020,
+            "type": "bool"
+          },
+          {
+            "metadata": [],
             "name": "m_bWasOwnedByTerrorist",
-            "offset": 7013,
+            "offset": 7021,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_flNextClientFireBulletTime",
-            "offset": 7016,
+            "offset": 7024,
             "type": "float32"
           },
           {
             "metadata": [],
             "name": "m_flNextClientFireBulletTime_Repredict",
-            "offset": 7020,
+            "offset": 7028,
             "type": "float32"
           },
           {
             "metadata": [],
             "name": "m_IronSightController",
-            "offset": 7104,
+            "offset": 7120,
             "type": "C_IronSightController"
           },
           {
             "metadata": [],
             "name": "m_iIronSightMode",
-            "offset": 7280,
+            "offset": 7296,
             "type": "int32"
           },
           {
             "metadata": [],
             "name": "m_flLastLOSTraceFailureTime",
-            "offset": 7400,
+            "offset": 7416,
             "type": "GameTime_t"
           },
           {
             "metadata": [],
             "name": "m_flWatTickOffset",
-            "offset": 7496,
+            "offset": 7512,
             "type": "float32"
           },
           {
             "metadata": [],
             "name": "m_flLastShakeTime",
-            "offset": 7516,
+            "offset": 7532,
             "type": "GameTime_t"
           }
         ],
         "metadata": [],
         "name": "C_CSWeaponBase",
         "parent": "C_BasePlayerWeapon",
-        "size": 7952
+        "size": 7968
       },
       {
         "fields": [
@@ -36291,7 +36297,7 @@
         "metadata": [],
         "name": "C_WeaponMag7",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -36713,7 +36719,7 @@
         "metadata": [],
         "name": "C_Flashbang",
         "parent": null,
-        "size": 8144
+        "size": 8160
       },
       {
         "fields": [
@@ -36864,7 +36870,7 @@
         "metadata": [],
         "name": "C_WeaponMP5SD",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [],
@@ -36885,7 +36891,7 @@
         "metadata": [],
         "name": "C_WeaponGalilAR",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -36965,7 +36971,7 @@
         "metadata": [],
         "name": "C_WeaponSG556",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -38383,7 +38389,7 @@
         "metadata": [],
         "name": "C_HEGrenade",
         "parent": null,
-        "size": 8144
+        "size": 8160
       },
       {
         "fields": [
@@ -38544,7 +38550,7 @@
         "metadata": [],
         "name": "C_WeaponMAC10",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -39337,7 +39343,7 @@
         "metadata": [],
         "name": "C_WeaponXM1014",
         "parent": null,
-        "size": 7952
+        "size": 7968
       },
       {
         "fields": [],
@@ -39394,7 +39400,7 @@
         "metadata": [],
         "name": "C_WeaponAug",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -39538,7 +39544,7 @@
         "metadata": [],
         "name": "C_Item_Healthshot",
         "parent": null,
-        "size": 7968
+        "size": 7984
       },
       {
         "fields": [
@@ -40808,7 +40814,7 @@
         "metadata": [],
         "name": "C_WeaponSSG08",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -41089,7 +41095,7 @@
         "metadata": [],
         "name": "C_WeaponBizon",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -41284,14 +41290,14 @@
           {
             "metadata": [],
             "name": "m_bFirstAttack",
-            "offset": 7952,
+            "offset": 7968,
             "type": "bool"
           }
         ],
         "metadata": [],
         "name": "C_Knife",
         "parent": null,
-        "size": 7968
+        "size": 7984
       },
       {
         "fields": [],
@@ -41480,7 +41486,7 @@
         "metadata": [],
         "name": "C_WeaponUSPSilencer",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -41508,14 +41514,14 @@
         "metadata": [],
         "name": "C_WeaponRevolver",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [],
         "metadata": [],
         "name": "C_WeaponElite",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [],
@@ -42430,92 +42436,92 @@
           {
             "metadata": [],
             "name": "m_bClientPredictDelete",
-            "offset": 7952,
+            "offset": 7968,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_bRedraw",
-            "offset": 7953,
+            "offset": 7969,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_bIsHeldByPlayer",
-            "offset": 7954,
+            "offset": 7970,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_bPinPulled",
-            "offset": 7955,
+            "offset": 7971,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_bJumpThrow",
-            "offset": 7956,
+            "offset": 7972,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_bThrowAnimating",
-            "offset": 7957,
+            "offset": 7973,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_fThrowTime",
-            "offset": 7960,
+            "offset": 7976,
             "type": "GameTime_t"
           },
           {
             "metadata": [],
             "name": "m_flThrowStrength",
-            "offset": 7968,
+            "offset": 7984,
             "type": "float32"
           },
           {
             "metadata": [],
             "name": "m_fDropTime",
-            "offset": 8088,
+            "offset": 8104,
             "type": "GameTime_t"
           },
           {
             "metadata": [],
             "name": "m_fPinPullTime",
-            "offset": 8092,
+            "offset": 8108,
             "type": "GameTime_t"
           },
           {
             "metadata": [],
             "name": "m_bJustPulledPin",
-            "offset": 8096,
+            "offset": 8112,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_nNextHoldTick",
-            "offset": 8100,
+            "offset": 8116,
             "type": "GameTick_t"
           },
           {
             "metadata": [],
             "name": "m_flNextHoldFrac",
-            "offset": 8104,
+            "offset": 8120,
             "type": "float32"
           },
           {
             "metadata": [],
             "name": "m_hSwitchToWeaponAfterThrow",
-            "offset": 8108,
+            "offset": 8124,
             "type": "CHandle<C_CSWeaponBase>"
           }
         ],
         "metadata": [],
         "name": "C_BaseCSGrenade",
         "parent": null,
-        "size": 8144
+        "size": 8160
       },
       {
         "fields": [
@@ -43527,20 +43533,20 @@
           {
             "metadata": [],
             "name": "m_bSequenceInProgress",
-            "offset": 7952,
+            "offset": 7968,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_bRedraw",
-            "offset": 7953,
+            "offset": 7969,
             "type": "bool"
           }
         ],
         "metadata": [],
         "name": "C_WeaponBaseItem",
         "parent": null,
-        "size": 7968
+        "size": 7984
       },
       {
         "fields": [],
@@ -43677,14 +43683,14 @@
           {
             "metadata": [],
             "name": "m_bMagazineRemoved",
-            "offset": 8000,
+            "offset": 8016,
             "type": "bool"
           }
         ],
         "metadata": [],
         "name": "C_WeaponCZ75a",
         "parent": null,
-        "size": 8016
+        "size": 8032
       },
       {
         "fields": [
@@ -44385,7 +44391,7 @@
         "metadata": [],
         "name": "C_WeaponP90",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -44643,7 +44649,7 @@
         "metadata": [],
         "name": "C_WeaponTec9",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -44950,50 +44956,50 @@
           {
             "metadata": [],
             "name": "m_zoomLevel",
-            "offset": 7952,
+            "offset": 7968,
             "type": "int32"
           },
           {
             "metadata": [],
             "name": "m_iBurstShotsRemaining",
-            "offset": 7956,
+            "offset": 7972,
             "type": "int32"
           },
           {
             "metadata": [],
             "name": "m_iSilencerBodygroup",
-            "offset": 7960,
-            "type": "int32"
-          },
-          {
-            "metadata": [],
-            "name": "m_silencedModelIndex",
             "offset": 7976,
             "type": "int32"
           },
           {
             "metadata": [],
+            "name": "m_silencedModelIndex",
+            "offset": 7992,
+            "type": "int32"
+          },
+          {
+            "metadata": [],
             "name": "m_inPrecache",
-            "offset": 7980,
+            "offset": 7996,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_bNeedsBoltAction",
-            "offset": 7981,
+            "offset": 7997,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_nRevolverCylinderIdx",
-            "offset": 7984,
+            "offset": 8000,
             "type": "int32"
           }
         ],
         "metadata": [],
         "name": "C_CSWeaponBaseGun",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -45130,7 +45136,7 @@
         "metadata": [],
         "name": "C_WeaponP250",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -46902,7 +46908,7 @@
         "metadata": [],
         "name": "C_WeaponSCAR20",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [],
@@ -47460,7 +47466,7 @@
         "metadata": [],
         "name": "C_DecoyGrenade",
         "parent": null,
-        "size": 8144
+        "size": 8160
       },
       {
         "fields": [],
@@ -47894,7 +47900,7 @@
         "metadata": [],
         "name": "C_WeaponHKP2000",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -48718,7 +48724,7 @@
         "metadata": [],
         "name": "C_WeaponMP7",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -49935,7 +49941,7 @@
         "metadata": [],
         "name": "C_CSWeaponBaseShotgun",
         "parent": null,
-        "size": 7952
+        "size": 7968
       },
       {
         "fields": [
@@ -50413,7 +50419,7 @@
         "metadata": [],
         "name": "C_WeaponM4A1",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -51463,7 +51469,7 @@
         "metadata": [],
         "name": "C_WeaponM249",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -51678,20 +51684,20 @@
           {
             "metadata": [],
             "name": "m_fFireTime",
-            "offset": 8000,
+            "offset": 8016,
             "type": "GameTime_t"
           },
           {
             "metadata": [],
             "name": "m_nLastAttackTick",
-            "offset": 8004,
+            "offset": 8020,
             "type": "int32"
           }
         ],
         "metadata": [],
         "name": "C_WeaponTaser",
         "parent": null,
-        "size": 8016
+        "size": 8032
       },
       {
         "fields": [],
@@ -51772,21 +51778,21 @@
         "metadata": [],
         "name": "C_WeaponNegev",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [],
         "metadata": [],
         "name": "C_WeaponFiveSeven",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [],
         "metadata": [],
         "name": "C_WeaponSawedoff",
         "parent": null,
-        "size": 7952
+        "size": 7968
       },
       {
         "fields": [],
@@ -51860,7 +51866,7 @@
         "metadata": [],
         "name": "C_WeaponMP9",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [],
@@ -51919,7 +51925,7 @@
         "metadata": [],
         "name": "C_AK47",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -52084,7 +52090,7 @@
         "metadata": [],
         "name": "C_IncendiaryGrenade",
         "parent": null,
-        "size": 8144
+        "size": 8160
       },
       {
         "fields": [
@@ -53142,7 +53148,7 @@
         "metadata": [],
         "name": "C_WeaponGlock",
         "parent": null,
-        "size": 8000
+        "size": 8016
       },
       {
         "fields": [
@@ -53465,7 +53471,7 @@
         "metadata": [],
         "name": "C_SmokeGrenade",
         "parent": null,
-        "size": 8144
+        "size": 8160
       },
       {
         "fields": [],
@@ -122417,32 +122423,38 @@
           },
           {
             "metadata": [],
-            "name": "m_flWeaponActionPlaybackRate",
+            "name": "m_bReloadHeldSinceStart",
             "offset": 4040,
+            "type": "bool"
+          },
+          {
+            "metadata": [],
+            "name": "m_flWeaponActionPlaybackRate",
+            "offset": 4044,
             "type": "float32"
           },
           {
             "metadata": [],
             "name": "m_iOriginalTeamNumber",
-            "offset": 4044,
-            "type": "int32"
-          },
-          {
-            "metadata": [],
-            "name": "m_iMostRecentTeamNumber",
             "offset": 4048,
             "type": "int32"
           },
           {
             "metadata": [],
-            "name": "m_bDroppedNearBuyZone",
+            "name": "m_iMostRecentTeamNumber",
             "offset": 4052,
+            "type": "int32"
+          },
+          {
+            "metadata": [],
+            "name": "m_bDroppedNearBuyZone",
+            "offset": 4056,
             "type": "bool"
           },
           {
             "metadata": [],
             "name": "m_flNextAttackRenderTimeOffset",
-            "offset": 4056,
+            "offset": 4060,
             "type": "float32"
           },
           {

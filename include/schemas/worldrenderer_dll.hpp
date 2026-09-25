@@ -3,7 +3,7 @@
 // module:        worldrenderer.dll
 // classes:       29
 // enums:         3
-// generated_at:  2026-09-24T12:07:36.654184900+00:00
+// generated_at:  2026-09-25T14:06:59.452558900+00:00
 //
 // Use:
 //   auto* pawn = reinterpret_cast<C_CSPlayerPawn*>(addr);
@@ -76,63 +76,44 @@ namespace worldrenderer {
         AGGREGATE_INSTANCE_STREAM_VERTEXBLEND_UNORM8 = 0x4,
     };
 
-    // WorldBuilderParams_t
-    //   fields: 6
-    //   size: 0x60
+    // AggregateVertexEmissiveStreamOnDiskData_t
+    //   fields: 1
+    //   size: 0x10
     //   @MGetKV3ClassDefaults
-    class WorldBuilderParams_t {
+    class AggregateVertexEmissiveStreamOnDiskData_t {
     public:
-        SCHEMA_FIELD(float                           , m_flMinDrawVolumeSize                           , 0x0) // float32
-        SCHEMA_FIELD(bool                            , m_bBuildBakedLighting                           , 0x4) // bool
-        SCHEMA_FIELD(bool                            , m_bAggregateInstanceStreams                     , 0x5) // bool
-        SCHEMA_FIELD(BakedLightingInfo_t             , m_bakedLightingInfo                             , 0x8) // BakedLightingInfo_t
-        SCHEMA_FIELD(std::uint64_t                   , m_nCompileTimestamp                             , 0x50) // uint64
-        SCHEMA_FIELD(std::uint64_t                   , m_nCompileFingerprint                           , 0x58) // uint64
+        SCHEMA_FIELD(::CUtlBinaryBlock               , m_BufferData                                    , 0x0) // CUtlBinaryBlock
     };
 
-    // EntityIOConnectionData_t
-    //   fields: 8
-    //   size: 0x40
+    // BakedLightingInfo_t::BakedShadowAssignment_t
+    //   fields: 3
+    //   size: 0xC
     //   @MGetKV3ClassDefaults
-    class EntityIOConnectionData_t {
+    class BakedLightingInfo_t_BakedShadowAssignment_t {
     public:
-        SCHEMA_FIELD(::CUtlString                    , m_outputName                                    , 0x0) // CUtlString
-        SCHEMA_FIELD(std::uint32_t                   , m_targetType                                    , 0x8) // uint32
-        SCHEMA_FIELD(::CUtlString                    , m_targetName                                    , 0x10) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_inputName                                     , 0x18) // CUtlString
-        SCHEMA_FIELD(::CUtlString                    , m_overrideParam                                 , 0x20) // CUtlString
-        SCHEMA_FIELD(float                           , m_flDelay                                       , 0x28) // float32
-        SCHEMA_FIELD(std::int32_t                    , m_nTimesToFire                                  , 0x2C) // int32
-        SCHEMA_FIELD(KeyValues3                      , m_paramMap                                      , 0x30) // KeyValues3
+        SCHEMA_FIELD(std::uint32_t                   , m_nLightHash                                    , 0x0) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nMapHash                                      , 0x4) // uint32
+        SCHEMA_FIELD(std::int8_t                     , m_nShadowChannel                                , 0x8) // int8
     };
 
-    // World_t
-    //   fields: 4
-    //   size: 0xD8
+    // ClutterTile_t
+    //   fields: 3
+    //   size: 0x20
     //   @MGetKV3ClassDefaults
-    class World_t {
+    class ClutterTile_t {
     public:
-        SCHEMA_FIELD(WorldBuilderParams_t            , m_builderParams                                 , 0x0) // WorldBuilderParams_t
-        SCHEMA_FIELD(CUtlVector<NodeData_t>          , m_worldNodes                                    , 0x60) // CUtlVector<NodeData_t>
-        SCHEMA_FIELD(BakedLightingInfo_t             , m_worldLightingInfo                             , 0x78) // BakedLightingInfo_t
-        SCHEMA_FIELD(CUtlVector<CStrongHandleCopyable<InfoForResourceTypeCEntityLump>>, m_entityLumps                                   , 0xC0) // CUtlVector<CStrongHandleCopyable<InfoForResourceTypeCEntityLump>>
+        SCHEMA_FIELD(std::uint32_t                   , m_nFirstInstance                                , 0x0) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nLastInstance                                 , 0x4) // uint32
+        SCHEMA_FIELD(::AABB_t                        , m_BoundsWs                                      , 0x8) // AABB_t
     };
 
-    // RTProxyBLAS_t
-    //   fields: 9
-    //   size: 0x44
+    // AggregateVertexAlbedoStreamOnDiskData_t
+    //   fields: 1
+    //   size: 0x10
     //   @MGetKV3ClassDefaults
-    class RTProxyBLAS_t {
+    class AggregateVertexAlbedoStreamOnDiskData_t {
     public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nFirstIndex                                   , 0x0) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nIndexCount                                   , 0x4) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nVBByteOffset                                 , 0x8) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nBaseVertex                                   , 0xC) // uint32
-        SCHEMA_FIELD(std::uint16_t                   , m_nVertexCount                                  , 0x10) // uint16
-        SCHEMA_FIELD(::animationsystem::VertexAlbedoFormat_t, m_albedoFormat                                  , 0x12) // VertexAlbedoFormat_t
-        SCHEMA_FIELD(::AABB_t                        , m_boundLs                                       , 0x14) // AABB_t
-        SCHEMA_FIELD(::Vector                        , m_vVertexOriginLs                               , 0x2C) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vVertexExtentLs                               , 0x38) // Vector
+        SCHEMA_FIELD(::CUtlBinaryBlock               , m_BufferData                                    , 0x0) // CUtlBinaryBlock
     };
 
     // BaseSceneObjectOverride_t
@@ -144,48 +125,12 @@ namespace worldrenderer {
         SCHEMA_FIELD(std::uint32_t                   , m_nSceneObjectIndex                             , 0x0) // uint32
     };
 
-    // AggregateVertexEmissiveStreamOnDiskData_t
-    //   fields: 1
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class AggregateVertexEmissiveStreamOnDiskData_t {
+    // InfoForResourceTypeVMapResourceData_t
+    //   fields: 0
+    //   size: 0x1
+    //   @MResourceTypeForInfoType
+    class InfoForResourceTypeVMapResourceData_t {
     public:
-        SCHEMA_FIELD(::CUtlBinaryBlock               , m_BufferData                                    , 0x0) // CUtlBinaryBlock
-    };
-
-    // AggregateLODSetup_t
-    //   fields: 3
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class AggregateLODSetup_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vLODOrigin                                    , 0x0) // Vector
-        SCHEMA_FIELD(float                           , m_fMaxObjectScale                               , 0xC) // float32
-        SCHEMA_FIELD(CUtlVector<float32>             , m_fSwitchDistances                              , 0x10) // CUtlVector<float32>
-    };
-
-    // MaterialOverride_t
-    //   fields: 4
-    //   size: 0x28
-    //   @MGetKV3ClassDefaults
-    class MaterialOverride_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nSubSceneObject                               , 0x4) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nDrawCallIndex                                , 0x8) // uint32
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_pMaterial                                     , 0x10) // CStrongHandle<InfoForResourceTypeIMaterial2>
-        SCHEMA_FIELD(::Vector                        , m_vLinearTintColor                              , 0x18) // Vector
-    };
-
-    // ExtraVertexStreamOverride_t
-    //   fields: 4
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class ExtraVertexStreamOverride_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nSubSceneObject                               , 0x4) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nDrawCallIndex                                , 0x8) // uint32
-        SCHEMA_FIELD(::animationsystem::MeshDrawPrimitiveFlags_t, m_nAdditionalMeshDrawPrimitiveFlags             , 0xC) // MeshDrawPrimitiveFlags_t
-        SCHEMA_FIELD(::CRenderBufferBinding          , m_extraBufferBinding                            , 0x10) // CRenderBufferBinding
     };
 
     // ClutterSceneObject_t
@@ -207,83 +152,71 @@ namespace worldrenderer {
         SCHEMA_FIELD(float                           , m_flEndCullSize                                 , 0xA8) // float32
     };
 
-    // VoxelVisBlockOffset_t
+    // SceneObject_t
+    //   fields: 15
+    //   size: 0x90
+    //   @MGetKV3ClassDefaults
+    class SceneObject_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nObjectID                                     , 0x0) // uint32
+        SCHEMA_FIELD(::Vector4D                      , m_vTransform                                    , 0x4) // Vector4D[3]
+        SCHEMA_FIELD(float                           , m_flFadeStartDistance                           , 0x34) // float32
+        SCHEMA_FIELD(float                           , m_flFadeEndDistance                             , 0x38) // float32
+        SCHEMA_FIELD(::Vector4D                      , m_vTintColor                                    , 0x3C) // Vector4D
+        SCHEMA_FIELD(::CUtlString                    , m_skin                                          , 0x50) // CUtlString
+        SCHEMA_FIELD(ObjectTypeFlags_t               , m_nObjectTypeFlags                              , 0x58) // ObjectTypeFlags_t
+        SCHEMA_FIELD(::Vector                        , m_vLightingOrigin                               , 0x5C) // Vector
+        SCHEMA_FIELD(std::int16_t                    , m_nOverlayRenderOrder                           , 0x68) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_nLODOverride                                  , 0x6A) // int16
+        SCHEMA_FIELD(std::int32_t                    , m_nCubeMapPrecomputedHandshake                  , 0x6C) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nLightProbeVolumePrecomputedHandshake         , 0x70) // int32
+        SCHEMA_FIELD(float                           , m_flEmissiveLightingBoost                       , 0x74) // float32
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_renderableModel                               , 0x80) // CStrongHandle<InfoForResourceTypeCModel>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCRenderMesh>, m_renderable                                    , 0x88) // CStrongHandle<InfoForResourceTypeCRenderMesh>
+    };
+
+    // EntityKeyValueData_t
     //   fields: 2
-    //   size: 0x8
-    //   @MGetKV3ClassDefaults
-    class VoxelVisBlockOffset_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nOffset                                       , 0x0) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nElementCount                                 , 0x4) // uint32
-    };
-
-    // AggregateSceneObject_t
-    //   fields: 11
-    //   size: 0x78
-    //   @MGetKV3ClassDefaults
-    class AggregateSceneObject_t {
-    public:
-        SCHEMA_FIELD(ObjectTypeFlags_t               , m_allFlags                                      , 0x0) // ObjectTypeFlags_t
-        SCHEMA_FIELD(ObjectTypeFlags_t               , m_anyFlags                                      , 0x4) // ObjectTypeFlags_t
-        SCHEMA_FIELD(std::int16_t                    , m_nLayer                                        , 0x8) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_instanceStream                                , 0xA) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_vertexAlbedoStream                            , 0xC) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_vertexEmissiveStream                          , 0xE) // int16
-        SCHEMA_FIELD(CUtlVector<AggregateMeshInfo_t> , m_aggregateMeshes                               , 0x10) // CUtlVector<AggregateMeshInfo_t>
-        SCHEMA_FIELD(CUtlVector<AggregateLODSetup_t> , m_lodSetups                                     , 0x28) // CUtlVector<AggregateLODSetup_t>
-        SCHEMA_FIELD(CUtlVector<uint16>              , m_visClusterMembership                          , 0x40) // CUtlVector<uint16>
-        SCHEMA_FIELD(CUtlVector<matrix3x4_t>         , m_fragmentTransforms                            , 0x58) // CUtlVector<matrix3x4_t>
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_renderableModel                               , 0x70) // CStrongHandle<InfoForResourceTypeCModel>
-    };
-
-    // AggregateInstanceStreamOnDiskData_t
-    //   fields: 2
-    //   size: 0x18
-    //   @MGetKV3ClassDefaults
-    class AggregateInstanceStreamOnDiskData_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_DecodedSize                                   , 0x0) // uint32
-        SCHEMA_FIELD(::CUtlBinaryBlock               , m_BufferData                                    , 0x8) // CUtlBinaryBlock
-    };
-
-    // WorldNodeOnDiskBufferData_t
-    //   fields: 4
     //   size: 0x38
     //   @MGetKV3ClassDefaults
-    class WorldNodeOnDiskBufferData_t {
+    class EntityKeyValueData_t {
     public:
-        SCHEMA_FIELD(std::int32_t                    , m_nElementCount                                 , 0x0) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nElementSizeInBytes                           , 0x4) // int32
-        SCHEMA_FIELD(CUtlVector<::rendersystemdx11::RenderInputLayoutField_t>, m_inputLayoutFields                             , 0x8) // CUtlVector<RenderInputLayoutField_t>
-        SCHEMA_FIELD(CUtlVector<uint8>               , m_pData                                         , 0x20) // CUtlVector<uint8>
+        SCHEMA_FIELD(CUtlVector<EntityIOConnectionData_t>, m_connections                                   , 0x8) // CUtlVector<EntityIOConnectionData_t>
+        SCHEMA_FIELD(::CUtlBinaryBlock               , m_keyValuesData                                 , 0x20) // CUtlBinaryBlock
     };
 
-    // AggregateVertexAlbedoStreamOnDiskData_t
-    //   fields: 1
-    //   size: 0x10
-    //   @MGetKV3ClassDefaults
-    class AggregateVertexAlbedoStreamOnDiskData_t {
-    public:
-        SCHEMA_FIELD(::CUtlBinaryBlock               , m_BufferData                                    , 0x0) // CUtlBinaryBlock
-    };
-
-    // BakedLightingInfo_t::BakedShadowAssignment_t
+    // PermEntityLumpData_t
     //   fields: 3
-    //   size: 0xC
+    //   size: 0x38
     //   @MGetKV3ClassDefaults
-    class BakedLightingInfo_t_BakedShadowAssignment_t {
+    class PermEntityLumpData_t {
     public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nLightHash                                    , 0x0) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nMapHash                                      , 0x4) // uint32
-        SCHEMA_FIELD(std::int8_t                     , m_nShadowChannel                                , 0x8) // int8
+        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x8) // CUtlString
+        SCHEMA_FIELD(CUtlVector<CStrongHandleCopyable<InfoForResourceTypeCEntityLump>>, m_childLumps                                    , 0x10) // CUtlVector<CStrongHandleCopyable<InfoForResourceTypeCEntityLump>>
+        SCHEMA_FIELD(CUtlLeanVector<EntityKeyValueData_t>, m_entityKeyValues                               , 0x28) // CUtlLeanVector<EntityKeyValueData_t>
     };
 
-    // InfoForResourceTypeVMapResourceData_t
-    //   fields: 0
-    //   size: 0x1
-    //   @MResourceTypeForInfoType
-    class InfoForResourceTypeVMapResourceData_t {
+    // AggregateLODSetup_t
+    //   fields: 3
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class AggregateLODSetup_t {
     public:
+        SCHEMA_FIELD(::Vector                        , m_vLODOrigin                                    , 0x0) // Vector
+        SCHEMA_FIELD(float                           , m_fMaxObjectScale                               , 0xC) // float32
+        SCHEMA_FIELD(CUtlVector<float32>             , m_fSwitchDistances                              , 0x10) // CUtlVector<float32>
+    };
+
+    // ExtraVertexStreamOverride_t
+    //   fields: 4
+    //   size: 0x30
+    //   @MGetKV3ClassDefaults
+    class ExtraVertexStreamOverride_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nSubSceneObject                               , 0x4) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nDrawCallIndex                                , 0x8) // uint32
+        SCHEMA_FIELD(::animationsystem::MeshDrawPrimitiveFlags_t, m_nAdditionalMeshDrawPrimitiveFlags             , 0xC) // MeshDrawPrimitiveFlags_t
+        SCHEMA_FIELD(::CRenderBufferBinding          , m_extraBufferBinding                            , 0x10) // CRenderBufferBinding
     };
 
     // AggregateRTProxySceneObject_t
@@ -301,42 +234,73 @@ namespace worldrenderer {
         SCHEMA_FIELD(::CUtlBinaryBlock               , m_InstanceEmissiveData                          , 0x68) // CUtlBinaryBlock
     };
 
-    // BakedLightingInfo_t
-    //   fields: 12
-    //   size: 0x48
+    // NodeData_t
+    //   fields: 4
+    //   size: 0x30
     //   @MGetKV3ClassDefaults
-    class BakedLightingInfo_t {
+    class NodeData_t {
     public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nLightmapVersionNumber                        , 0x0) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nLightmapGameVersionNumber                    , 0x4) // uint32
-        SCHEMA_FIELD(::Vector2D                      , m_vLightmapUvScale                              , 0x8) // Vector2D
-        SCHEMA_FIELD(bool                            , m_bHasLightmaps                                 , 0x10) // bool
-        SCHEMA_FIELD(bool                            , m_bBakedShadowsGamma20                          , 0x11) // bool
-        SCHEMA_FIELD(bool                            , m_bCompressionEnabled                           , 0x12) // bool
-        SCHEMA_FIELD(std::int8_t                     , m_nLPVEncoding                                  , 0x13) // int8
-        SCHEMA_FIELD(std::int8_t                     , m_nLightmapEncoding                             , 0x14) // int8
-        SCHEMA_FIELD(std::uint8_t                    , m_nChartPackIterations                          , 0x15) // uint8
-        SCHEMA_FIELD(std::uint8_t                    , m_nVradQuality                                  , 0x16) // uint8
-        SCHEMA_FIELD(CUtlVector<CStrongHandle<InfoForResourceTypeCTextureBase>>, m_lightMaps                                     , 0x18) // CUtlVector<CStrongHandle<InfoForResourceTypeCTextureBase>>
-        SCHEMA_FIELD(CUtlVector<BakedLightingInfo_t_BakedShadowAssignment_t>, m_bakedShadows                                  , 0x30) // CUtlVector<BakedLightingInfo_t::BakedShadowAssignment_t>
+        SCHEMA_FIELD(::Vector                        , m_vOrigin                                       , 0x0) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vMinBounds                                    , 0xC) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vMaxBounds                                    , 0x18) // Vector
+        SCHEMA_FIELD(::CUtlString                    , m_worldNodePrefix                               , 0x28) // CUtlString
     };
 
-    // RTProxyInstanceInfo_t
-    //   fields: 10
-    //   size: 0x4C
+    // World_t
+    //   fields: 4
+    //   size: 0xD8
     //   @MGetKV3ClassDefaults
-    class RTProxyInstanceInfo_t {
+    class World_t {
     public:
-        SCHEMA_FIELD(RTProxyInstanceFlags_t          , m_nFlags                                        , 0x0) // RTProxyInstanceFlags_t
-        SCHEMA_FIELD(::animationsystem::VertexAlbedoFormat_t, m_albedoFormat                                  , 0x1) // VertexAlbedoFormat_t
-        SCHEMA_FIELD(::animationsystem::VertexAlbedoFormat_t, m_emissiveFormat                                , 0x2) // VertexAlbedoFormat_t
-        SCHEMA_FIELD(std::uint16_t                   , m_nBLASCount                                    , 0x4) // uint16
-        SCHEMA_FIELD(std::uint32_t                   , m_nBLASIndex                                    , 0x8) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nVertexAlbedoByteOffset                       , 0xC) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nVertexEmissiveByteOffset                     , 0x10) // uint32
-        SCHEMA_FIELD(float                           , m_fEmissiveFactor                               , 0x14) // float32
-        SCHEMA_FIELD(::matrix3x4_t                   , m_mWorldFromLocal                               , 0x18) // matrix3x4_t
-        SCHEMA_FIELD(::Color                         , m_vTintColorSRGB                                , 0x48) // Color
+        SCHEMA_FIELD(WorldBuilderParams_t            , m_builderParams                                 , 0x0) // WorldBuilderParams_t
+        SCHEMA_FIELD(CUtlVector<NodeData_t>          , m_worldNodes                                    , 0x60) // CUtlVector<NodeData_t>
+        SCHEMA_FIELD(BakedLightingInfo_t             , m_worldLightingInfo                             , 0x78) // BakedLightingInfo_t
+        SCHEMA_FIELD(CUtlVector<CStrongHandleCopyable<InfoForResourceTypeCEntityLump>>, m_entityLumps                                   , 0xC0) // CUtlVector<CStrongHandleCopyable<InfoForResourceTypeCEntityLump>>
+    };
+
+    // CVoxelVisibility
+    //   fields: 13
+    //   size: 0xA0
+    //   @MGetKV3ClassDefaults
+    class CVoxelVisibility {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nBaseClusterCount                             , 0x40) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nPVSBytesPerCluster                           , 0x44) // uint32
+        SCHEMA_FIELD(::Vector                        , m_vMinBounds                                    , 0x48) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vMaxBounds                                    , 0x54) // Vector
+        SCHEMA_FIELD(float                           , m_flGridSize                                    , 0x60) // float32
+        SCHEMA_FIELD(std::uint32_t                   , m_nSkyVisibilityCluster                         , 0x64) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nSunVisibilityCluster                         , 0x68) // uint32
+        SCHEMA_FIELD(VoxelVisBlockOffset_t           , m_NodeBlock                                     , 0x6C) // VoxelVisBlockOffset_t
+        SCHEMA_FIELD(VoxelVisBlockOffset_t           , m_RegionBlock                                   , 0x74) // VoxelVisBlockOffset_t
+        SCHEMA_FIELD(VoxelVisBlockOffset_t           , m_EnclosedClusterListBlock                      , 0x7C) // VoxelVisBlockOffset_t
+        SCHEMA_FIELD(VoxelVisBlockOffset_t           , m_EnclosedClustersBlock                         , 0x84) // VoxelVisBlockOffset_t
+        SCHEMA_FIELD(VoxelVisBlockOffset_t           , m_MasksBlock                                    , 0x8C) // VoxelVisBlockOffset_t
+        SCHEMA_FIELD(VoxelVisBlockOffset_t           , m_nVisBlocks                                    , 0x94) // VoxelVisBlockOffset_t
+    };
+
+    // VoxelVisBlockOffset_t
+    //   fields: 2
+    //   size: 0x8
+    //   @MGetKV3ClassDefaults
+    class VoxelVisBlockOffset_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nOffset                                       , 0x0) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nElementCount                                 , 0x4) // uint32
+    };
+
+    // WorldBuilderParams_t
+    //   fields: 6
+    //   size: 0x60
+    //   @MGetKV3ClassDefaults
+    class WorldBuilderParams_t {
+    public:
+        SCHEMA_FIELD(float                           , m_flMinDrawVolumeSize                           , 0x0) // float32
+        SCHEMA_FIELD(bool                            , m_bBuildBakedLighting                           , 0x4) // bool
+        SCHEMA_FIELD(bool                            , m_bAggregateInstanceStreams                     , 0x5) // bool
+        SCHEMA_FIELD(BakedLightingInfo_t             , m_bakedLightingInfo                             , 0x8) // BakedLightingInfo_t
+        SCHEMA_FIELD(std::uint64_t                   , m_nCompileTimestamp                             , 0x50) // uint64
+        SCHEMA_FIELD(std::uint64_t                   , m_nCompileFingerprint                           , 0x58) // uint64
     };
 
     // AggregateMeshInfo_t
@@ -361,36 +325,55 @@ namespace worldrenderer {
         SCHEMA_FIELD(float                           , m_fEmissiveFactor                               , 0x28) // float32
     };
 
-    // EntityKeyValueData_t
-    //   fields: 2
-    //   size: 0x38
+    // EntityIOConnectionData_t
+    //   fields: 8
+    //   size: 0x40
     //   @MGetKV3ClassDefaults
-    class EntityKeyValueData_t {
+    class EntityIOConnectionData_t {
     public:
-        SCHEMA_FIELD(CUtlVector<EntityIOConnectionData_t>, m_connections                                   , 0x8) // CUtlVector<EntityIOConnectionData_t>
-        SCHEMA_FIELD(::CUtlBinaryBlock               , m_keyValuesData                                 , 0x20) // CUtlBinaryBlock
+        SCHEMA_FIELD(::CUtlString                    , m_outputName                                    , 0x0) // CUtlString
+        SCHEMA_FIELD(std::uint32_t                   , m_targetType                                    , 0x8) // uint32
+        SCHEMA_FIELD(::CUtlString                    , m_targetName                                    , 0x10) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_inputName                                     , 0x18) // CUtlString
+        SCHEMA_FIELD(::CUtlString                    , m_overrideParam                                 , 0x20) // CUtlString
+        SCHEMA_FIELD(float                           , m_flDelay                                       , 0x28) // float32
+        SCHEMA_FIELD(std::int32_t                    , m_nTimesToFire                                  , 0x2C) // int32
+        SCHEMA_FIELD(KeyValues3                      , m_paramMap                                      , 0x30) // KeyValues3
     };
 
-    // ClutterTile_t
-    //   fields: 3
-    //   size: 0x20
+    // RTProxyInstanceInfo_t
+    //   fields: 10
+    //   size: 0x4C
     //   @MGetKV3ClassDefaults
-    class ClutterTile_t {
+    class RTProxyInstanceInfo_t {
     public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nFirstInstance                                , 0x0) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nLastInstance                                 , 0x4) // uint32
-        SCHEMA_FIELD(::AABB_t                        , m_BoundsWs                                      , 0x8) // AABB_t
+        SCHEMA_FIELD(RTProxyInstanceFlags_t          , m_nFlags                                        , 0x0) // RTProxyInstanceFlags_t
+        SCHEMA_FIELD(::animationsystem::VertexAlbedoFormat_t, m_albedoFormat                                  , 0x1) // VertexAlbedoFormat_t
+        SCHEMA_FIELD(::animationsystem::VertexAlbedoFormat_t, m_emissiveFormat                                , 0x2) // VertexAlbedoFormat_t
+        SCHEMA_FIELD(std::uint16_t                   , m_nBLASCount                                    , 0x4) // uint16
+        SCHEMA_FIELD(std::uint32_t                   , m_nBLASIndex                                    , 0x8) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nVertexAlbedoByteOffset                       , 0xC) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nVertexEmissiveByteOffset                     , 0x10) // uint32
+        SCHEMA_FIELD(float                           , m_fEmissiveFactor                               , 0x14) // float32
+        SCHEMA_FIELD(::matrix3x4_t                   , m_mWorldFromLocal                               , 0x18) // matrix3x4_t
+        SCHEMA_FIELD(::Color                         , m_vTintColorSRGB                                , 0x48) // Color
     };
 
-    // PermEntityLumpData_t
-    //   fields: 3
-    //   size: 0x38
+    // RTProxyBLAS_t
+    //   fields: 9
+    //   size: 0x44
     //   @MGetKV3ClassDefaults
-    class PermEntityLumpData_t {
+    class RTProxyBLAS_t {
     public:
-        SCHEMA_FIELD(::CUtlString                    , m_name                                          , 0x8) // CUtlString
-        SCHEMA_FIELD(CUtlVector<CStrongHandleCopyable<InfoForResourceTypeCEntityLump>>, m_childLumps                                    , 0x10) // CUtlVector<CStrongHandleCopyable<InfoForResourceTypeCEntityLump>>
-        SCHEMA_FIELD(CUtlLeanVector<EntityKeyValueData_t>, m_entityKeyValues                               , 0x28) // CUtlLeanVector<EntityKeyValueData_t>
+        SCHEMA_FIELD(std::uint32_t                   , m_nFirstIndex                                   , 0x0) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nIndexCount                                   , 0x4) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nVBByteOffset                                 , 0x8) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nBaseVertex                                   , 0xC) // uint32
+        SCHEMA_FIELD(std::uint16_t                   , m_nVertexCount                                  , 0x10) // uint16
+        SCHEMA_FIELD(::animationsystem::VertexAlbedoFormat_t, m_albedoFormat                                  , 0x12) // VertexAlbedoFormat_t
+        SCHEMA_FIELD(::AABB_t                        , m_boundLs                                       , 0x14) // AABB_t
+        SCHEMA_FIELD(::Vector                        , m_vVertexOriginLs                               , 0x2C) // Vector
+        SCHEMA_FIELD(::Vector                        , m_vVertexExtentLs                               , 0x38) // Vector
     };
 
     // WorldNode_t
@@ -417,67 +400,84 @@ namespace worldrenderer {
         SCHEMA_FIELD(bool                            , m_bHasBakedGeometryFlag                         , 0x188) // bool
     };
 
-    // SceneObject_t
-    //   fields: 15
-    //   size: 0x90
-    //   @MGetKV3ClassDefaults
-    class SceneObject_t {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nObjectID                                     , 0x0) // uint32
-        SCHEMA_FIELD(::Vector4D                      , m_vTransform                                    , 0x4) // Vector4D[3]
-        SCHEMA_FIELD(float                           , m_flFadeStartDistance                           , 0x34) // float32
-        SCHEMA_FIELD(float                           , m_flFadeEndDistance                             , 0x38) // float32
-        SCHEMA_FIELD(::Vector4D                      , m_vTintColor                                    , 0x3C) // Vector4D
-        SCHEMA_FIELD(::CUtlString                    , m_skin                                          , 0x50) // CUtlString
-        SCHEMA_FIELD(ObjectTypeFlags_t               , m_nObjectTypeFlags                              , 0x58) // ObjectTypeFlags_t
-        SCHEMA_FIELD(::Vector                        , m_vLightingOrigin                               , 0x5C) // Vector
-        SCHEMA_FIELD(std::int16_t                    , m_nOverlayRenderOrder                           , 0x68) // int16
-        SCHEMA_FIELD(std::int16_t                    , m_nLODOverride                                  , 0x6A) // int16
-        SCHEMA_FIELD(std::int32_t                    , m_nCubeMapPrecomputedHandshake                  , 0x6C) // int32
-        SCHEMA_FIELD(std::int32_t                    , m_nLightProbeVolumePrecomputedHandshake         , 0x70) // int32
-        SCHEMA_FIELD(float                           , m_flEmissiveLightingBoost                       , 0x74) // float32
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_renderableModel                               , 0x80) // CStrongHandle<InfoForResourceTypeCModel>
-        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCRenderMesh>, m_renderable                                    , 0x88) // CStrongHandle<InfoForResourceTypeCRenderMesh>
-    };
-
-    // NodeData_t
-    //   fields: 4
-    //   size: 0x30
-    //   @MGetKV3ClassDefaults
-    class NodeData_t {
-    public:
-        SCHEMA_FIELD(::Vector                        , m_vOrigin                                       , 0x0) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vMinBounds                                    , 0xC) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vMaxBounds                                    , 0x18) // Vector
-        SCHEMA_FIELD(::CUtlString                    , m_worldNodePrefix                               , 0x28) // CUtlString
-    };
-
-    // CVoxelVisibility
-    //   fields: 13
-    //   size: 0xA0
-    //   @MGetKV3ClassDefaults
-    class CVoxelVisibility {
-    public:
-        SCHEMA_FIELD(std::uint32_t                   , m_nBaseClusterCount                             , 0x40) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nPVSBytesPerCluster                           , 0x44) // uint32
-        SCHEMA_FIELD(::Vector                        , m_vMinBounds                                    , 0x48) // Vector
-        SCHEMA_FIELD(::Vector                        , m_vMaxBounds                                    , 0x54) // Vector
-        SCHEMA_FIELD(float                           , m_flGridSize                                    , 0x60) // float32
-        SCHEMA_FIELD(std::uint32_t                   , m_nSkyVisibilityCluster                         , 0x64) // uint32
-        SCHEMA_FIELD(std::uint32_t                   , m_nSunVisibilityCluster                         , 0x68) // uint32
-        SCHEMA_FIELD(VoxelVisBlockOffset_t           , m_NodeBlock                                     , 0x6C) // VoxelVisBlockOffset_t
-        SCHEMA_FIELD(VoxelVisBlockOffset_t           , m_RegionBlock                                   , 0x74) // VoxelVisBlockOffset_t
-        SCHEMA_FIELD(VoxelVisBlockOffset_t           , m_EnclosedClusterListBlock                      , 0x7C) // VoxelVisBlockOffset_t
-        SCHEMA_FIELD(VoxelVisBlockOffset_t           , m_EnclosedClustersBlock                         , 0x84) // VoxelVisBlockOffset_t
-        SCHEMA_FIELD(VoxelVisBlockOffset_t           , m_MasksBlock                                    , 0x8C) // VoxelVisBlockOffset_t
-        SCHEMA_FIELD(VoxelVisBlockOffset_t           , m_nVisBlocks                                    , 0x94) // VoxelVisBlockOffset_t
-    };
-
     // VMapResourceData_t
     //   fields: 0
     //   size: 0x1
     class VMapResourceData_t {
     public:
+    };
+
+    // WorldNodeOnDiskBufferData_t
+    //   fields: 4
+    //   size: 0x38
+    //   @MGetKV3ClassDefaults
+    class WorldNodeOnDiskBufferData_t {
+    public:
+        SCHEMA_FIELD(std::int32_t                    , m_nElementCount                                 , 0x0) // int32
+        SCHEMA_FIELD(std::int32_t                    , m_nElementSizeInBytes                           , 0x4) // int32
+        SCHEMA_FIELD(CUtlVector<::rendersystemdx11::RenderInputLayoutField_t>, m_inputLayoutFields                             , 0x8) // CUtlVector<RenderInputLayoutField_t>
+        SCHEMA_FIELD(CUtlVector<uint8>               , m_pData                                         , 0x20) // CUtlVector<uint8>
+    };
+
+    // MaterialOverride_t
+    //   fields: 4
+    //   size: 0x28
+    //   @MGetKV3ClassDefaults
+    class MaterialOverride_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nSubSceneObject                               , 0x4) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nDrawCallIndex                                , 0x8) // uint32
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeIMaterial2>, m_pMaterial                                     , 0x10) // CStrongHandle<InfoForResourceTypeIMaterial2>
+        SCHEMA_FIELD(::Vector                        , m_vLinearTintColor                              , 0x18) // Vector
+    };
+
+    // AggregateSceneObject_t
+    //   fields: 11
+    //   size: 0x78
+    //   @MGetKV3ClassDefaults
+    class AggregateSceneObject_t {
+    public:
+        SCHEMA_FIELD(ObjectTypeFlags_t               , m_allFlags                                      , 0x0) // ObjectTypeFlags_t
+        SCHEMA_FIELD(ObjectTypeFlags_t               , m_anyFlags                                      , 0x4) // ObjectTypeFlags_t
+        SCHEMA_FIELD(std::int16_t                    , m_nLayer                                        , 0x8) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_instanceStream                                , 0xA) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_vertexAlbedoStream                            , 0xC) // int16
+        SCHEMA_FIELD(std::int16_t                    , m_vertexEmissiveStream                          , 0xE) // int16
+        SCHEMA_FIELD(CUtlVector<AggregateMeshInfo_t> , m_aggregateMeshes                               , 0x10) // CUtlVector<AggregateMeshInfo_t>
+        SCHEMA_FIELD(CUtlVector<AggregateLODSetup_t> , m_lodSetups                                     , 0x28) // CUtlVector<AggregateLODSetup_t>
+        SCHEMA_FIELD(CUtlVector<uint16>              , m_visClusterMembership                          , 0x40) // CUtlVector<uint16>
+        SCHEMA_FIELD(CUtlVector<matrix3x4_t>         , m_fragmentTransforms                            , 0x58) // CUtlVector<matrix3x4_t>
+        SCHEMA_FIELD(CStrongHandle<InfoForResourceTypeCModel>, m_renderableModel                               , 0x70) // CStrongHandle<InfoForResourceTypeCModel>
+    };
+
+    // BakedLightingInfo_t
+    //   fields: 12
+    //   size: 0x48
+    //   @MGetKV3ClassDefaults
+    class BakedLightingInfo_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_nLightmapVersionNumber                        , 0x0) // uint32
+        SCHEMA_FIELD(std::uint32_t                   , m_nLightmapGameVersionNumber                    , 0x4) // uint32
+        SCHEMA_FIELD(::Vector2D                      , m_vLightmapUvScale                              , 0x8) // Vector2D
+        SCHEMA_FIELD(bool                            , m_bHasLightmaps                                 , 0x10) // bool
+        SCHEMA_FIELD(bool                            , m_bBakedShadowsGamma20                          , 0x11) // bool
+        SCHEMA_FIELD(bool                            , m_bCompressionEnabled                           , 0x12) // bool
+        SCHEMA_FIELD(std::int8_t                     , m_nLPVEncoding                                  , 0x13) // int8
+        SCHEMA_FIELD(std::int8_t                     , m_nLightmapEncoding                             , 0x14) // int8
+        SCHEMA_FIELD(std::uint8_t                    , m_nChartPackIterations                          , 0x15) // uint8
+        SCHEMA_FIELD(std::uint8_t                    , m_nVradQuality                                  , 0x16) // uint8
+        SCHEMA_FIELD(CUtlVector<CStrongHandle<InfoForResourceTypeCTextureBase>>, m_lightMaps                                     , 0x18) // CUtlVector<CStrongHandle<InfoForResourceTypeCTextureBase>>
+        SCHEMA_FIELD(CUtlVector<BakedLightingInfo_t_BakedShadowAssignment_t>, m_bakedShadows                                  , 0x30) // CUtlVector<BakedLightingInfo_t::BakedShadowAssignment_t>
+    };
+
+    // AggregateInstanceStreamOnDiskData_t
+    //   fields: 2
+    //   size: 0x18
+    //   @MGetKV3ClassDefaults
+    class AggregateInstanceStreamOnDiskData_t {
+    public:
+        SCHEMA_FIELD(std::uint32_t                   , m_DecodedSize                                   , 0x0) // uint32
+        SCHEMA_FIELD(::CUtlBinaryBlock               , m_BufferData                                    , 0x8) // CUtlBinaryBlock
     };
 
 } // namespace worldrenderer

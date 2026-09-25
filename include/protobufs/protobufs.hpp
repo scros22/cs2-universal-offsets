@@ -8,7 +8,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace pb { inline constexpr std::uint32_t CS2_BUILD = 14183; }
+namespace pb { inline constexpr std::uint32_t CS2_BUILD = 14184; }
 
 namespace pb {
     // std::string the message owns (ArenaStringPtr points at one). Opaque.
@@ -401,7 +401,6 @@ namespace pb::client {
     struct CP2P_VRAvatarPosition;
     struct CP2P_VRAvatarPosition_COrientation;
     struct CP2P_WatchSynchronization;
-    struct CEngineGotvSyncPacket;
     struct CMsgSOIDOwner;
     struct CMsgSOSingleObject;
     struct CMsgSOMultipleObjects;
@@ -452,6 +451,7 @@ namespace pb::client {
     struct CMsgSerializedSOCache_TypeCache;
     struct CMsgSerializedSOCache_Cache;
     struct CMsgSerializedSOCache_Cache_Version;
+    struct CEngineGotvSyncPacket;
     struct CDemoFileHeader;
     struct CGameInfo;
     struct CGameInfo_CDotaGameInfo;
@@ -652,6 +652,15 @@ namespace pb::client {
     struct CSource2Metrics_FetchMapData_Response;
     struct CSource2Metrics_FetchMapData_Response_MapData;
     struct CUserMessage_UserSentBugBug;
+    struct CCloud_GetUploadServerInfo_Request;
+    struct CCloud_GetUploadServerInfo_Response;
+    struct CCloud_GetFileDetails_Request;
+    struct CCloud_UserFile;
+    struct CCloud_GetFileDetails_Response;
+    struct CCloud_EnumerateUserFiles_Request;
+    struct CCloud_EnumerateUserFiles_Response;
+    struct CCloud_Delete_Request;
+    struct CCloud_Delete_Response;
     struct CPublishedFile_Subscribe_Request;
     struct CPublishedFile_Subscribe_Response;
     struct CPublishedFile_Unsubscribe_Request;
@@ -701,8 +710,6 @@ namespace pb::client {
     struct CMsgTEPhysicsProp;
     struct CMsgTESmoke;
     struct CMsgTEWorldDecal;
-    struct CHelpRequestLogs_UploadUserApplicationLog_Request;
-    struct CHelpRequestLogs_UploadUserApplicationLog_Response;
     struct CUserMessageAchievementEvent;
     struct CUserMessageCloseCaptionPlaceholder;
     struct CUserMessageCurrentTimescale;
@@ -812,6 +819,8 @@ namespace pb::client {
     struct CUserMessage_UsageReport;
     struct CUserMessage_RemoteServerCommand;
     struct CUserMessageRemoteServerResponse;
+    struct CHelpRequestLogs_UploadUserApplicationLog_Request;
+    struct CHelpRequestLogs_UploadUserApplicationLog_Response;
     struct COAuthToken_ImplicitGrantNoPrompt_Request;
     struct COAuthToken_ImplicitGrantNoPrompt_Response;
     struct CPlayer_GetMutualFriendsForIncomingInvites_Request;
@@ -852,15 +861,6 @@ namespace pb::client {
     struct CPlayer_GetNewSteamAnnouncementState_Response;
     struct CPlayer_UpdateSteamAnnouncementLastRead_Request;
     struct CPlayer_UpdateSteamAnnouncementLastRead_Response;
-    struct CCloud_GetUploadServerInfo_Request;
-    struct CCloud_GetUploadServerInfo_Response;
-    struct CCloud_GetFileDetails_Request;
-    struct CCloud_UserFile;
-    struct CCloud_GetFileDetails_Response;
-    struct CCloud_EnumerateUserFiles_Request;
-    struct CCloud_EnumerateUserFiles_Response;
-    struct CCloud_Delete_Request;
-    struct CCloud_Delete_Response;
     struct CSGOInterpolationInfoPB;
     struct CSGOInterpolationInfoPB_CL;
     struct CSGOInputHistoryEntryPB;
@@ -1244,6 +1244,87 @@ namespace pb::server {
     struct CBaseUserCmdExecutionNotes;
     struct CBaseUserCmdPB;
     struct CUserCmdBasePB;
+    struct CGCStorePurchaseInit_LineItem;
+    struct CMsgGCStorePurchaseInit;
+    struct CMsgGCStorePurchaseInitResponse;
+    struct CSOPartyInvite;
+    struct CSOLobbyInvite;
+    struct CMsgSystemBroadcast;
+    struct CMsgInviteToParty;
+    struct CMsgInvitationCreated;
+    struct CMsgPartyInviteResponse;
+    struct CMsgKickFromParty;
+    struct CMsgLeaveParty;
+    struct CMsgServerAvailable;
+    struct CMsgLANServerAvailable;
+    struct CSOEconGameAccountClient;
+    struct CSOItemCriteriaCondition;
+    struct CSOItemCriteria;
+    struct CSOItemRecipe;
+    struct CMsgDevNewItemRequest;
+    struct CMsgIncrementKillCountAttribute;
+    struct CMsgApplySticker;
+    struct CMsgModifyItemAttribute;
+    struct CMsgApplyStatTrakSwap;
+    struct CMsgApplyStrangePart;
+    struct CMsgApplyPennantUpgrade;
+    struct CMsgApplyEggEssence;
+    struct CSOEconItemAttribute;
+    struct CSOEconItemEquipped;
+    struct CSOEconItem;
+    struct CMsgSortItems;
+    struct CSOEconClaimCode;
+    struct CMsgStoreGetUserData;
+    struct CMsgStoreGetUserDataResponse;
+    struct CMsgUpdateItemSchema;
+    struct CMsgGCError;
+    struct CMsgRequestInventoryRefresh;
+    struct CMsgUseItem;
+    struct CMsgReplayUploadedToYouTube;
+    struct CMsgConsumableExhausted;
+    struct CMsgItemAcknowledged__DEPRECATED;
+    struct CMsgSetItemPositions;
+    struct CMsgSetItemPositions_ItemPosition;
+    struct CMsgGCReportAbuse;
+    struct CMsgGCReportAbuseResponse;
+    struct CMsgGCNameItemNotification;
+    struct CMsgGCClientDisplayNotification;
+    struct CMsgGCShowItemsPickedUp;
+    struct CMsgGCIncrementKillCountResponse;
+    struct CSOEconItemDropRateBonus;
+    struct CSOEconItemLeagueViewPass;
+    struct CSOEconItemEventTicket;
+    struct CMsgGCItemPreviewItemBoughtNotification;
+    struct CMsgGCStorePurchaseCancel;
+    struct CMsgGCStorePurchaseCancelResponse;
+    struct CMsgGCStorePurchaseFinalize;
+    struct CMsgGCStorePurchaseFinalizeResponse;
+    struct CMsgGCBannedWordListRequest;
+    struct CMsgGCRequestAnnouncements;
+    struct CMsgGCRequestAnnouncementsResponse;
+    struct CMsgGCBannedWord;
+    struct CMsgGCBannedWordListResponse;
+    struct CMsgGCToGCBannedWordListBroadcast;
+    struct CMsgGCToGCBannedWordListUpdated;
+    struct CMsgGCToGCDirtySDOCache;
+    struct CMsgGCToGCDirtyMultipleSDOCache;
+    struct CMsgGCCollectItem;
+    struct CMsgSDONoMemcached;
+    struct CMsgGCToGCUpdateSQLKeyValue;
+    struct CMsgGCToGCIsTrustedServer;
+    struct CMsgGCToGCIsTrustedServerResponse;
+    struct CMsgGCToGCBroadcastConsoleCommand;
+    struct CMsgGCServerVersionUpdated;
+    struct CMsgGCClientVersionUpdated;
+    struct CMsgGCToGCWebAPIAccountChanged;
+    struct CMsgGCToGCRequestPassportItemGrant;
+    struct CMsgGameServerInfo;
+    struct CSOEconEquipSlot;
+    struct CMsgAdjustEquipSlot;
+    struct CMsgAdjustEquipSlots;
+    struct CMsgOpenCrate;
+    struct CSOEconRentalHistory;
+    struct CMsgAcknowledgeRentalExpiration;
     struct GameServerPing;
     struct DataCenterPing;
     struct DetailedSearchStatistic;
@@ -1425,87 +1506,6 @@ namespace pb::server {
     struct CMsgRequestRecurringMissionSchedule;
     struct CMsgRecurringMissionSchema;
     struct CMsgRecurringMissionSchema_MissionTemplateList;
-    struct CGCStorePurchaseInit_LineItem;
-    struct CMsgGCStorePurchaseInit;
-    struct CMsgGCStorePurchaseInitResponse;
-    struct CSOPartyInvite;
-    struct CSOLobbyInvite;
-    struct CMsgSystemBroadcast;
-    struct CMsgInviteToParty;
-    struct CMsgInvitationCreated;
-    struct CMsgPartyInviteResponse;
-    struct CMsgKickFromParty;
-    struct CMsgLeaveParty;
-    struct CMsgServerAvailable;
-    struct CMsgLANServerAvailable;
-    struct CSOEconGameAccountClient;
-    struct CSOItemCriteriaCondition;
-    struct CSOItemCriteria;
-    struct CSOItemRecipe;
-    struct CMsgDevNewItemRequest;
-    struct CMsgIncrementKillCountAttribute;
-    struct CMsgApplySticker;
-    struct CMsgModifyItemAttribute;
-    struct CMsgApplyStatTrakSwap;
-    struct CMsgApplyStrangePart;
-    struct CMsgApplyPennantUpgrade;
-    struct CMsgApplyEggEssence;
-    struct CSOEconItemAttribute;
-    struct CSOEconItemEquipped;
-    struct CSOEconItem;
-    struct CMsgSortItems;
-    struct CSOEconClaimCode;
-    struct CMsgStoreGetUserData;
-    struct CMsgStoreGetUserDataResponse;
-    struct CMsgUpdateItemSchema;
-    struct CMsgGCError;
-    struct CMsgRequestInventoryRefresh;
-    struct CMsgUseItem;
-    struct CMsgReplayUploadedToYouTube;
-    struct CMsgConsumableExhausted;
-    struct CMsgItemAcknowledged__DEPRECATED;
-    struct CMsgSetItemPositions;
-    struct CMsgSetItemPositions_ItemPosition;
-    struct CMsgGCReportAbuse;
-    struct CMsgGCReportAbuseResponse;
-    struct CMsgGCNameItemNotification;
-    struct CMsgGCClientDisplayNotification;
-    struct CMsgGCShowItemsPickedUp;
-    struct CMsgGCIncrementKillCountResponse;
-    struct CSOEconItemDropRateBonus;
-    struct CSOEconItemLeagueViewPass;
-    struct CSOEconItemEventTicket;
-    struct CMsgGCItemPreviewItemBoughtNotification;
-    struct CMsgGCStorePurchaseCancel;
-    struct CMsgGCStorePurchaseCancelResponse;
-    struct CMsgGCStorePurchaseFinalize;
-    struct CMsgGCStorePurchaseFinalizeResponse;
-    struct CMsgGCBannedWordListRequest;
-    struct CMsgGCRequestAnnouncements;
-    struct CMsgGCRequestAnnouncementsResponse;
-    struct CMsgGCBannedWord;
-    struct CMsgGCBannedWordListResponse;
-    struct CMsgGCToGCBannedWordListBroadcast;
-    struct CMsgGCToGCBannedWordListUpdated;
-    struct CMsgGCToGCDirtySDOCache;
-    struct CMsgGCToGCDirtyMultipleSDOCache;
-    struct CMsgGCCollectItem;
-    struct CMsgSDONoMemcached;
-    struct CMsgGCToGCUpdateSQLKeyValue;
-    struct CMsgGCToGCIsTrustedServer;
-    struct CMsgGCToGCIsTrustedServerResponse;
-    struct CMsgGCToGCBroadcastConsoleCommand;
-    struct CMsgGCServerVersionUpdated;
-    struct CMsgGCClientVersionUpdated;
-    struct CMsgGCToGCWebAPIAccountChanged;
-    struct CMsgGCToGCRequestPassportItemGrant;
-    struct CMsgGameServerInfo;
-    struct CSOEconEquipSlot;
-    struct CMsgAdjustEquipSlot;
-    struct CMsgAdjustEquipSlots;
-    struct CMsgOpenCrate;
-    struct CSOEconRentalHistory;
-    struct CMsgAcknowledgeRentalExpiration;
     struct CMsgTEPlayerAnimEvent;
     struct CMsgTERadioIcon;
     struct CMsgTEFireBullets;
@@ -1647,16 +1647,6 @@ namespace pb::server {
     struct CMsgCasketItem;
     struct CMsgGCUserTrackTimePlayedConsecutively;
     struct CMsgGCItemCustomizationNotification;
-    struct MLDict;
-    struct MLEvent;
-    struct MLMatchState;
-    struct MLRoundState;
-    struct MLWeaponState;
-    struct MLPlayerState;
-    struct MLGameState;
-    struct MLDemoHeader;
-    struct MLTick;
-    struct VacNetShot;
     struct CMsgSOIDOwner;
     struct CMsgSOSingleObject;
     struct CMsgSOMultipleObjects;
@@ -1707,6 +1697,16 @@ namespace pb::server {
     struct CMsgSerializedSOCache_TypeCache;
     struct CMsgSerializedSOCache_Cache;
     struct CMsgSerializedSOCache_Cache_Version;
+    struct MLDict;
+    struct MLEvent;
+    struct MLMatchState;
+    struct MLRoundState;
+    struct MLWeaponState;
+    struct MLPlayerState;
+    struct MLGameState;
+    struct MLDemoHeader;
+    struct MLTick;
+    struct VacNetShot;
     struct CMsgVDebugGameSessionIDEvent;
     struct CMsgPlaceDecalEvent;
     struct CMsgClearWorldDecalsEvent;
@@ -1960,6 +1960,22 @@ namespace pb::server {
     struct CUserMessage_UsageReport;
     struct CUserMessage_RemoteServerCommand;
     struct CUserMessageRemoteServerResponse;
+    struct CMsgSource2SystemSpecs;
+    struct CMsgSource2VProfLiteReportItem;
+    struct CMsgSource2VProfLiteReport;
+    struct CMsgSource2NetworkFlowQuality;
+    struct CMsgSource2PerfIntervalSample;
+    struct CMsgSource2PerfIntervalSample_Tag;
+    struct CSource2Metrics_MatchPerfSummary_Notification;
+    struct CSource2Metrics_MatchPerfSummary_Notification_Client;
+    struct CMsgSource2PlayStatsPackedRecordList;
+    struct CMsgSource2PlayStatsPackedRecordList_FieldDef;
+    struct CMsgSource2PlayStatsPackedRecordList_SteamIDList;
+    struct CSource2Metrics_RecordPlayStats_Notification;
+    struct CSource2Metrics_FetchMapData_Request;
+    struct CSource2Metrics_FetchMapData_Response;
+    struct CSource2Metrics_FetchMapData_Response_MapData;
+    struct CUserMessage_UserSentBugBug;
     struct CMsgTEArmorRicochet;
     struct CMsgTEBaseBeam;
     struct CMsgTEBeamEntPoint;
@@ -1985,22 +2001,6 @@ namespace pb::server {
     struct CMsgTEPhysicsProp;
     struct CMsgTESmoke;
     struct CMsgTEWorldDecal;
-    struct CMsgSource2SystemSpecs;
-    struct CMsgSource2VProfLiteReportItem;
-    struct CMsgSource2VProfLiteReport;
-    struct CMsgSource2NetworkFlowQuality;
-    struct CMsgSource2PerfIntervalSample;
-    struct CMsgSource2PerfIntervalSample_Tag;
-    struct CSource2Metrics_MatchPerfSummary_Notification;
-    struct CSource2Metrics_MatchPerfSummary_Notification_Client;
-    struct CMsgSource2PlayStatsPackedRecordList;
-    struct CMsgSource2PlayStatsPackedRecordList_FieldDef;
-    struct CMsgSource2PlayStatsPackedRecordList_SteamIDList;
-    struct CSource2Metrics_RecordPlayStats_Notification;
-    struct CSource2Metrics_FetchMapData_Request;
-    struct CSource2Metrics_FetchMapData_Response;
-    struct CSource2Metrics_FetchMapData_Response_MapData;
-    struct CUserMessage_UserSentBugBug;
     struct CSGOInterpolationInfoPB;
     struct CSGOInterpolationInfoPB_CL;
     struct CSGOInputHistoryEntryPB;
@@ -2090,24 +2090,23 @@ struct CBaseUserCmdPB { // sizeof 0x88, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::RepeatedPtrField<pb::client::CSubtickMoveStep> subtick_moves; // #18 repeated message CSubtickMoveStep, no has-bit
     pb::string_t* move_crc; // #19 bytes, has-bit 0
-    pb::client::CMsgQAngle* viewangles; // #4 message CMsgQAngle, has-bit 1
-    float forwardmove; // #5 float, has-bit 2
-    uint8_t _pad_44[0x4];
+    pb::client::CInButtonStatePB* buttons_pb; // #3 message CInButtonStatePB, has-bit 1
+    pb::client::CMsgQAngle* viewangles; // #4 message CMsgQAngle, has-bit 2
     pb::client::CBaseUserCmdExecutionNotes* execution_notes; // #22 message CBaseUserCmdExecutionNotes, has-bit 3
     int32_t legacy_command_number; // #1 int32, has-bit 4
     int32_t client_tick; // #2 int32, has-bit 5
-    float leftmove; // #6 float, has-bit 6
-    float upmove; // #7 float, has-bit 7
-    int32_t impulse; // #8 int32, has-bit 8
-    int32_t weaponselect; // #9 int32, has-bit 9
-    int32_t random_seed; // #10 int32, has-bit 10
-    int32_t mousedx; // #11 int32, has-bit 11
-    int32_t mousedy; // #12 int32, has-bit 12
-    uint32_t pawn_entity_handle; // #14 uint32, has-bit 13
-    uint8_t buttons_pb[0x4]; // #3 message CInButtonStatePB, has-bit 14
+    float forwardmove; // #5 float, has-bit 6
+    float leftmove; // #6 float, has-bit 7
+    float upmove; // #7 float, has-bit 8
+    int32_t impulse; // #8 int32, has-bit 9
+    int32_t weaponselect; // #9 int32, has-bit 10
+    int32_t random_seed; // #10 int32, has-bit 11
+    int32_t mousedx; // #11 int32, has-bit 12
+    int32_t mousedy; // #12 int32, has-bit 13
+    uint32_t prediction_offset_ticks_x256; // #17 uint32, has-bit 14
     uint32_t consumed_server_angle_changes; // #20 uint32, has-bit 15
     int32_t cmd_flags; // #21 int32, has-bit 16
-    uint32_t prediction_offset_ticks_x256; // #17 uint32, has-bit 17
+    uint32_t pawn_entity_handle; // #14 uint32, has-bit 17
     static constexpr std::ptrdiff_t kSizeOf = 0x88;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
@@ -2115,23 +2114,23 @@ struct CBaseUserCmdPB { // sizeof 0x88, _has_bits_ @ 0x10
 static_assert(sizeof(CBaseUserCmdPB) == 0x88);
 static_assert(offsetof(CBaseUserCmdPB, subtick_moves) == 0x18);
 static_assert(offsetof(CBaseUserCmdPB, move_crc) == 0x30);
-static_assert(offsetof(CBaseUserCmdPB, viewangles) == 0x38);
-static_assert(offsetof(CBaseUserCmdPB, forwardmove) == 0x40);
+static_assert(offsetof(CBaseUserCmdPB, buttons_pb) == 0x38);
+static_assert(offsetof(CBaseUserCmdPB, viewangles) == 0x40);
 static_assert(offsetof(CBaseUserCmdPB, execution_notes) == 0x48);
 static_assert(offsetof(CBaseUserCmdPB, legacy_command_number) == 0x50);
 static_assert(offsetof(CBaseUserCmdPB, client_tick) == 0x54);
-static_assert(offsetof(CBaseUserCmdPB, leftmove) == 0x58);
-static_assert(offsetof(CBaseUserCmdPB, upmove) == 0x5c);
-static_assert(offsetof(CBaseUserCmdPB, impulse) == 0x60);
-static_assert(offsetof(CBaseUserCmdPB, weaponselect) == 0x64);
-static_assert(offsetof(CBaseUserCmdPB, random_seed) == 0x68);
-static_assert(offsetof(CBaseUserCmdPB, mousedx) == 0x6c);
-static_assert(offsetof(CBaseUserCmdPB, mousedy) == 0x70);
-static_assert(offsetof(CBaseUserCmdPB, pawn_entity_handle) == 0x74);
-static_assert(offsetof(CBaseUserCmdPB, buttons_pb) == 0x78);
+static_assert(offsetof(CBaseUserCmdPB, forwardmove) == 0x58);
+static_assert(offsetof(CBaseUserCmdPB, leftmove) == 0x5c);
+static_assert(offsetof(CBaseUserCmdPB, upmove) == 0x60);
+static_assert(offsetof(CBaseUserCmdPB, impulse) == 0x64);
+static_assert(offsetof(CBaseUserCmdPB, weaponselect) == 0x68);
+static_assert(offsetof(CBaseUserCmdPB, random_seed) == 0x6c);
+static_assert(offsetof(CBaseUserCmdPB, mousedx) == 0x70);
+static_assert(offsetof(CBaseUserCmdPB, mousedy) == 0x74);
+static_assert(offsetof(CBaseUserCmdPB, prediction_offset_ticks_x256) == 0x78);
 static_assert(offsetof(CBaseUserCmdPB, consumed_server_angle_changes) == 0x7c);
 static_assert(offsetof(CBaseUserCmdPB, cmd_flags) == 0x80);
-static_assert(offsetof(CBaseUserCmdPB, prediction_offset_ticks_x256) == 0x84);
+static_assert(offsetof(CBaseUserCmdPB, pawn_entity_handle) == 0x84);
 
 #pragma pack(push, 1)
 struct CUserCmdBasePB { // sizeof 0x20, _has_bits_ @ 0x10
@@ -2849,12 +2848,12 @@ struct DeepPlayerMatchEvent { // sizeof 0x58, _has_bits_ @ 0x10
     uint8_t _pad_2d[0x3];
     int32_t user_pos_x; // #6 int32, has-bit 5
     int32_t user_pos_y; // #7 int32, has-bit 6
-    int32_t other_pos_x; // #9 int32, has-bit 7
-    int32_t other_pos_y; // #10 int32, has-bit 8
-    uint32_t other_defidx; // #11 uint32, has-bit 9
-    int32_t other_pos_z; // #13 int32, has-bit 10
-    uint32_t user_defidx; // #8 uint32, has-bit 11
-    int32_t user_pos_z; // #12 int32, has-bit 12
+    uint32_t user_defidx; // #8 uint32, has-bit 7
+    int32_t other_pos_x; // #9 int32, has-bit 8
+    int32_t other_pos_y; // #10 int32, has-bit 9
+    uint32_t other_defidx; // #11 uint32, has-bit 10
+    int32_t user_pos_z; // #12 int32, has-bit 11
+    int32_t other_pos_z; // #13 int32, has-bit 12
     int32_t event_data; // #14 int32, has-bit 13
     uint8_t _pad_54[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x58;
@@ -2869,12 +2868,12 @@ static_assert(offsetof(DeepPlayerMatchEvent, event_type) == 0x28);
 static_assert(offsetof(DeepPlayerMatchEvent, b_playing_ct) == 0x2c);
 static_assert(offsetof(DeepPlayerMatchEvent, user_pos_x) == 0x30);
 static_assert(offsetof(DeepPlayerMatchEvent, user_pos_y) == 0x34);
-static_assert(offsetof(DeepPlayerMatchEvent, other_pos_x) == 0x38);
-static_assert(offsetof(DeepPlayerMatchEvent, other_pos_y) == 0x3c);
-static_assert(offsetof(DeepPlayerMatchEvent, other_defidx) == 0x40);
-static_assert(offsetof(DeepPlayerMatchEvent, other_pos_z) == 0x44);
-static_assert(offsetof(DeepPlayerMatchEvent, user_defidx) == 0x48);
-static_assert(offsetof(DeepPlayerMatchEvent, user_pos_z) == 0x4c);
+static_assert(offsetof(DeepPlayerMatchEvent, user_defidx) == 0x38);
+static_assert(offsetof(DeepPlayerMatchEvent, other_pos_x) == 0x3c);
+static_assert(offsetof(DeepPlayerMatchEvent, other_pos_y) == 0x40);
+static_assert(offsetof(DeepPlayerMatchEvent, other_defidx) == 0x44);
+static_assert(offsetof(DeepPlayerMatchEvent, user_pos_z) == 0x48);
+static_assert(offsetof(DeepPlayerMatchEvent, other_pos_z) == 0x4c);
 static_assert(offsetof(DeepPlayerMatchEvent, event_data) == 0x50);
 
 #pragma pack(push, 1)
@@ -3127,29 +3126,25 @@ static_assert(offsetof(CPreMatchInfoData_TeamStats, match_info_idxtxt) == 0x48);
 struct CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve { // sizeof 0x120, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     uint8_t account_ids[0x10]; // #1 repeated uint32, no has-bit
-    uint64_t encryption_key; // #6 uint64, no has-bit
-    uint8_t _pad_30[0x10];
-    uint8_t whitelist[0x10]; // #9 repeated message IpAddressMask, no has-bit
-    uint64_t tv_master_steamid; // #10 uint64, no has-bit
-    uint8_t _pad_58[0x10];
-    pb::RepeatedField<uint32_t> tournament_casters_account_ids; // #13 repeated uint32, no has-bit
-    uint64_t tv_relay_steamid; // #14 uint64, no has-bit
-    uint8_t _pad_88[0x8];
+    pb::RepeatedPtrField<pb::client::PlayerRankingInfo> rankings; // #5 repeated message PlayerRankingInfo, no has-bit
+    uint8_t party_ids[0x10]; // #8 repeated uint32, no has-bit
+    pb::RepeatedPtrField<pb::client::IpAddressMask> whitelist; // #9 repeated message IpAddressMask, no has-bit
+    pb::RepeatedPtrField<pb::client::TournamentTeam> tournament_teams; // #12 repeated message TournamentTeam, no has-bit
+    uint8_t tournament_casters_account_ids[0x10]; // #13 repeated uint32, no has-bit
     pb::RepeatedPtrField<pb::client::OperationalVarValue> op_var_values; // #19 repeated message OperationalVarValue, no has-bit
     uint8_t teammate_colors[0x10]; // #21 repeated int32, no has-bit
     pb::RepeatedPtrField<pb::string_t> clan_tags; // #23 repeated string, no has-bit
-    uint8_t tournament_teams[0x8]; // #12 repeated message TournamentTeam, has-bit 0
-    uint32_t tv_control; // #17 uint32, has-bit 1
-    uint8_t _pad_dc[0x4];
+    pb::client::TournamentEvent* tournament_event; // #11 message TournamentEvent, has-bit 0
+    pb::client::CPreMatchInfoData* pre_match_data; // #15 message CPreMatchInfoData, has-bit 1
     uint64_t match_id; // #3 uint64, has-bit 2
     uint32_t game_type; // #2 uint32, has-bit 3
     uint32_t server_version; // #4 uint32, has-bit 4
-    uint64_t encryption_key_pub; // #7 uint64, has-bit 5
-    uint8_t party_ids[0x8]; // #8 repeated uint32, has-bit 6
-    pb::client::TournamentEvent* tournament_event; // #11 message TournamentEvent, has-bit 7
-    pb::client::CPreMatchInfoData* pre_match_data; // #15 message CPreMatchInfoData, has-bit 8
-    uint32_t flags; // #18 uint32, has-bit 9
-    uint8_t rankings[0x4]; // #5 repeated message PlayerRankingInfo, has-bit 10
+    uint64_t encryption_key; // #6 uint64, has-bit 5
+    uint64_t encryption_key_pub; // #7 uint64, has-bit 6
+    uint64_t tv_master_steamid; // #10 uint64, has-bit 7
+    uint64_t tv_relay_steamid; // #14 uint64, has-bit 8
+    uint32_t tv_control; // #17 uint32, has-bit 9
+    uint32_t flags; // #18 uint32, has-bit 10
     uint32_t socache_control; // #20 uint32, has-bit 11
     uint32_t match_id_additional; // #22 uint32, has-bit 12
     static constexpr std::ptrdiff_t kSizeOf = 0x120;
@@ -3158,25 +3153,25 @@ struct CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve { // sizeof 0x120, _has_bi
 #pragma pack(pop)
 static_assert(sizeof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve) == 0x120);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, account_ids) == 0x18);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, encryption_key) == 0x28);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, whitelist) == 0x40);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tv_master_steamid) == 0x50);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tournament_casters_account_ids) == 0x68);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tv_relay_steamid) == 0x80);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, rankings) == 0x28);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, party_ids) == 0x40);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, whitelist) == 0x50);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tournament_teams) == 0x68);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tournament_casters_account_ids) == 0x80);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, op_var_values) == 0x90);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, teammate_colors) == 0xa8);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, clan_tags) == 0xb8);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tournament_teams) == 0xd0);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tv_control) == 0xd8);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tournament_event) == 0xd0);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, pre_match_data) == 0xd8);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, match_id) == 0xe0);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, game_type) == 0xe8);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, server_version) == 0xec);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, encryption_key_pub) == 0xf0);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, party_ids) == 0xf8);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tournament_event) == 0x100);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, pre_match_data) == 0x108);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, flags) == 0x110);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, rankings) == 0x114);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, encryption_key) == 0xf0);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, encryption_key_pub) == 0xf8);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tv_master_steamid) == 0x100);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tv_relay_steamid) == 0x108);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tv_control) == 0x110);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, flags) == 0x114);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, socache_control) == 0x118);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, match_id_additional) == 0x11c);
 
@@ -3197,9 +3192,9 @@ struct CMsgGCCStrike15_v2_MatchmakingServerReservationResponse { // sizeof 0x98,
     uint32_t reward_item_attr_reward_idx; // #11 uint32, has-bit 9
     uint32_t reward_drop_list; // #12 uint32, has-bit 10
     uint32_t legacy_steamdatagram_port; // #14 uint32, has-bit 11
-    uint32_t flags; // #16 uint32, has-bit 12
-    uint32_t steamdatagram_routing; // #17 uint32, has-bit 13
-    uint32_t test_token; // #15 fixed32, has-bit 14
+    uint32_t test_token; // #15 fixed32, has-bit 12
+    uint32_t flags; // #16 uint32, has-bit 13
+    uint32_t steamdatagram_routing; // #17 uint32, has-bit 14
     uint32_t system_load; // #18 uint32, has-bit 15
     uint32_t cpus_online; // #19 uint32, has-bit 16
     uint8_t _pad_94[0x4];
@@ -3222,9 +3217,9 @@ static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, 
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, reward_item_attr_reward_idx) == 0x74);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, reward_drop_list) == 0x78);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, legacy_steamdatagram_port) == 0x7c);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, flags) == 0x80);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, steamdatagram_routing) == 0x84);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, test_token) == 0x88);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, test_token) == 0x80);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, flags) == 0x84);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, steamdatagram_routing) == 0x88);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, system_load) == 0x8c);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, cpus_online) == 0x90);
 
@@ -6317,13 +6312,11 @@ static_assert(offsetof(CMsgSetItemPositions_ItemPosition, legacy_item_id) == 0x1
 #pragma pack(push, 1)
 struct CMsgGCReportAbuse { // sizeof 0x40, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
-    uint32_t abuse_type; // #2 uint32, has-bit 0
-    uint8_t _pad_1c[0x4];
+    pb::string_t* description; // #4 string, has-bit 0
     uint64_t target_steam_id; // #1 fixed64, has-bit 1
-    uint8_t description[0x4]; // #4 string, has-bit 2
-    uint8_t gid[0x4]; // #5 uint64, has-bit 3
-    uint32_t content_type; // #3 uint32, has-bit 4
-    uint8_t _pad_34[0x4];
+    uint32_t abuse_type; // #2 uint32, has-bit 2
+    uint32_t content_type; // #3 uint32, has-bit 3
+    uint64_t gid; // #5 uint64, has-bit 4
     uint32_t target_game_server_ip; // #6 fixed32, has-bit 5
     uint32_t target_game_server_port; // #7 uint32, has-bit 6
     static constexpr std::ptrdiff_t kSizeOf = 0x40;
@@ -6331,11 +6324,11 @@ struct CMsgGCReportAbuse { // sizeof 0x40, _has_bits_ @ 0x10
 };
 #pragma pack(pop)
 static_assert(sizeof(CMsgGCReportAbuse) == 0x40);
-static_assert(offsetof(CMsgGCReportAbuse, abuse_type) == 0x18);
+static_assert(offsetof(CMsgGCReportAbuse, description) == 0x18);
 static_assert(offsetof(CMsgGCReportAbuse, target_steam_id) == 0x20);
-static_assert(offsetof(CMsgGCReportAbuse, description) == 0x28);
-static_assert(offsetof(CMsgGCReportAbuse, gid) == 0x2c);
-static_assert(offsetof(CMsgGCReportAbuse, content_type) == 0x30);
+static_assert(offsetof(CMsgGCReportAbuse, abuse_type) == 0x28);
+static_assert(offsetof(CMsgGCReportAbuse, content_type) == 0x2c);
+static_assert(offsetof(CMsgGCReportAbuse, gid) == 0x30);
 static_assert(offsetof(CMsgGCReportAbuse, target_game_server_ip) == 0x38);
 static_assert(offsetof(CMsgGCReportAbuse, target_game_server_port) == 0x3c);
 
@@ -7366,8 +7359,8 @@ struct CCSUsrMsg_ReportHit { // sizeof 0x28, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     float pos_x; // #1 float, has-bit 0
     float pos_y; // #2 float, has-bit 1
-    float timestamp; // #4 float, has-bit 2
-    float pos_z; // #3 float, has-bit 3
+    float pos_z; // #3 float, has-bit 2
+    float timestamp; // #4 float, has-bit 3
     static constexpr std::ptrdiff_t kSizeOf = 0x28;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
@@ -7375,8 +7368,8 @@ struct CCSUsrMsg_ReportHit { // sizeof 0x28, _has_bits_ @ 0x10
 static_assert(sizeof(CCSUsrMsg_ReportHit) == 0x28);
 static_assert(offsetof(CCSUsrMsg_ReportHit, pos_x) == 0x18);
 static_assert(offsetof(CCSUsrMsg_ReportHit, pos_y) == 0x1c);
-static_assert(offsetof(CCSUsrMsg_ReportHit, timestamp) == 0x20);
-static_assert(offsetof(CCSUsrMsg_ReportHit, pos_z) == 0x24);
+static_assert(offsetof(CCSUsrMsg_ReportHit, pos_z) == 0x20);
+static_assert(offsetof(CCSUsrMsg_ReportHit, timestamp) == 0x24);
 
 #pragma pack(push, 1)
 struct CCSUsrMsg_KillCam { // sizeof 0x28, _has_bits_ @ 0x10
@@ -7816,21 +7809,22 @@ static_assert(offsetof(CCSUsrMsg_SSUI, end_time) == 0x20);
 
 #pragma pack(push, 1)
 struct CCSUsrMsg_SurvivalStats { // sizeof 0x28, _has_bits_ @ 0x10
-    pb::RepeatedPtrField<pb::client::CCSUsrMsg_SurvivalStats_Damage> damages; // #5 repeated message CCSUsrMsg_SurvivalStats.Damage, has-bit 16
+    int32_t ticknumber; // #4 int32, has-bit 16
+    uint8_t _pad_4[0x14];
     uint8_t xuid[0x4]; // #1 uint64, has-bit 0
     uint8_t facts[0x4]; // #2 repeated message CCSUsrMsg_SurvivalStats.Fact, has-bit 1
     uint8_t users[0x4]; // #3 repeated message CCSUsrMsg_SurvivalStats.Placement, has-bit 2
-    int32_t ticknumber; // #4 int32, has-bit 3
+    uint8_t damages[0x4]; // #5 repeated message CCSUsrMsg_SurvivalStats.Damage, has-bit 3
     static constexpr std::ptrdiff_t kSizeOf = 0x28;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
 #pragma pack(pop)
 static_assert(sizeof(CCSUsrMsg_SurvivalStats) == 0x28);
-static_assert(offsetof(CCSUsrMsg_SurvivalStats, damages) == 0x0);
+static_assert(offsetof(CCSUsrMsg_SurvivalStats, ticknumber) == 0x0);
 static_assert(offsetof(CCSUsrMsg_SurvivalStats, xuid) == 0x18);
 static_assert(offsetof(CCSUsrMsg_SurvivalStats, facts) == 0x1c);
 static_assert(offsetof(CCSUsrMsg_SurvivalStats, users) == 0x20);
-static_assert(offsetof(CCSUsrMsg_SurvivalStats, ticknumber) == 0x24);
+static_assert(offsetof(CCSUsrMsg_SurvivalStats, damages) == 0x24);
 
 #pragma pack(push, 1)
 struct CCSUsrMsg_SurvivalStats_Fact { // sizeof 0x28, _has_bits_ @ 0x10
@@ -8383,10 +8377,10 @@ struct CMsgTEFireBullets { // sizeof 0x40, _has_bits_ @ 0x10
     uint8_t ent_origin[0x1]; // #13 message CMsgVector, no has-bit
     uint8_t num_bullets_remaining[0x1]; // #14 uint32, no has-bit
     uint8_t attack_type[0x1]; // #15 uint32, has-bit 24
-    uint8_t extra[0x1]; // #16 message CMsgTEFireBullets.Extra, has-bit 32
-    bool player_scoped; // #18 bool, has-bit 56
-    uint8_t _pad_9[0x7];
-    bool player_inair; // #17 bool, has-bit 104
+    bool player_inair; // #17 bool, has-bit 32
+    int32_t tick; // #19 int32, has-bit 56
+    uint8_t _pad_c[0x4];
+    bool player_scoped; // #18 bool, has-bit 104
     uint8_t _pad_11[0x7];
     pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
     uint8_t angles[0x4]; // #2 message CMsgQAngle, has-bit 1
@@ -8409,9 +8403,9 @@ static_assert(offsetof(CMsgTEFireBullets, sound_dsp_effect) == 0x3);
 static_assert(offsetof(CMsgTEFireBullets, ent_origin) == 0x4);
 static_assert(offsetof(CMsgTEFireBullets, num_bullets_remaining) == 0x5);
 static_assert(offsetof(CMsgTEFireBullets, attack_type) == 0x6);
-static_assert(offsetof(CMsgTEFireBullets, extra) == 0x7);
-static_assert(offsetof(CMsgTEFireBullets, player_scoped) == 0x8);
-static_assert(offsetof(CMsgTEFireBullets, player_inair) == 0x10);
+static_assert(offsetof(CMsgTEFireBullets, player_inair) == 0x7);
+static_assert(offsetof(CMsgTEFireBullets, tick) == 0x8);
+static_assert(offsetof(CMsgTEFireBullets, player_scoped) == 0x10);
 static_assert(offsetof(CMsgTEFireBullets, origin) == 0x18);
 static_assert(offsetof(CMsgTEFireBullets, angles) == 0x20);
 static_assert(offsetof(CMsgTEFireBullets, weapon_id) == 0x24);
@@ -8582,36 +8576,6 @@ static_assert(offsetof(CP2P_WatchSynchronization, dota_spectator_mode) == 0x28);
 static_assert(offsetof(CP2P_WatchSynchronization, dota_spectator_hero_index) == 0x2c);
 static_assert(offsetof(CP2P_WatchSynchronization, dota_spectator_autospeed) == 0x30);
 static_assert(offsetof(CP2P_WatchSynchronization, dota_replay_speed) == 0x34);
-
-#pragma pack(push, 1)
-struct CEngineGotvSyncPacket { // sizeof 0x48, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t match_id; // #1 uint64, has-bit 0
-    uint32_t instance_id; // #2 uint32, has-bit 1
-    uint32_t signupfragment; // #3 uint32, has-bit 2
-    uint32_t currentfragment; // #4 uint32, has-bit 3
-    float tickrate; // #5 float, has-bit 4
-    uint32_t tick; // #6 uint32, has-bit 5
-    float rtdelay; // #8 float, has-bit 6
-    float rcvage; // #9 float, has-bit 7
-    float keyframe_interval; // #10 float, has-bit 8
-    uint32_t cdndelay; // #11 uint32, has-bit 9
-    uint8_t _pad_44[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x48;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CEngineGotvSyncPacket) == 0x48);
-static_assert(offsetof(CEngineGotvSyncPacket, match_id) == 0x18);
-static_assert(offsetof(CEngineGotvSyncPacket, instance_id) == 0x20);
-static_assert(offsetof(CEngineGotvSyncPacket, signupfragment) == 0x24);
-static_assert(offsetof(CEngineGotvSyncPacket, currentfragment) == 0x28);
-static_assert(offsetof(CEngineGotvSyncPacket, tickrate) == 0x2c);
-static_assert(offsetof(CEngineGotvSyncPacket, tick) == 0x30);
-static_assert(offsetof(CEngineGotvSyncPacket, rtdelay) == 0x34);
-static_assert(offsetof(CEngineGotvSyncPacket, rcvage) == 0x38);
-static_assert(offsetof(CEngineGotvSyncPacket, keyframe_interval) == 0x3c);
-static_assert(offsetof(CEngineGotvSyncPacket, cdndelay) == 0x40);
 
 #pragma pack(push, 1)
 struct CMsgSOIDOwner { // sizeof 0x28, _has_bits_ @ 0x10
@@ -9388,6 +9352,36 @@ struct CMsgSerializedSOCache_Cache_Version { // sizeof 0x38, _has_bits_ @ 0x10
 static_assert(sizeof(CMsgSerializedSOCache_Cache_Version) == 0x38);
 static_assert(offsetof(CMsgSerializedSOCache_Cache_Version, version) == 0x18);
 static_assert(offsetof(CMsgSerializedSOCache_Cache_Version, service) == 0x30);
+
+#pragma pack(push, 1)
+struct CEngineGotvSyncPacket { // sizeof 0x48, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t match_id; // #1 uint64, has-bit 0
+    uint32_t instance_id; // #2 uint32, has-bit 1
+    uint32_t signupfragment; // #3 uint32, has-bit 2
+    uint32_t currentfragment; // #4 uint32, has-bit 3
+    float tickrate; // #5 float, has-bit 4
+    uint32_t tick; // #6 uint32, has-bit 5
+    float rtdelay; // #8 float, has-bit 6
+    float rcvage; // #9 float, has-bit 7
+    float keyframe_interval; // #10 float, has-bit 8
+    uint32_t cdndelay; // #11 uint32, has-bit 9
+    uint8_t _pad_44[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x48;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CEngineGotvSyncPacket) == 0x48);
+static_assert(offsetof(CEngineGotvSyncPacket, match_id) == 0x18);
+static_assert(offsetof(CEngineGotvSyncPacket, instance_id) == 0x20);
+static_assert(offsetof(CEngineGotvSyncPacket, signupfragment) == 0x24);
+static_assert(offsetof(CEngineGotvSyncPacket, currentfragment) == 0x28);
+static_assert(offsetof(CEngineGotvSyncPacket, tickrate) == 0x2c);
+static_assert(offsetof(CEngineGotvSyncPacket, tick) == 0x30);
+static_assert(offsetof(CEngineGotvSyncPacket, rtdelay) == 0x34);
+static_assert(offsetof(CEngineGotvSyncPacket, rcvage) == 0x38);
+static_assert(offsetof(CEngineGotvSyncPacket, keyframe_interval) == 0x3c);
+static_assert(offsetof(CEngineGotvSyncPacket, cdndelay) == 0x40);
 
 #pragma pack(push, 1)
 struct CDemoFileHeader { // sizeof 0x78, _has_bits_ @ 0x10
@@ -10264,16 +10258,16 @@ struct CMsgPlaceDecalEvent { // sizeof 0x70, _has_bits_ @ 0x10
     pb::client::CMsgVector* position_objectspace; // #14 message CMsgVector, has-bit 3
     pb::client::CMsgVector* normal_objectspace; // #15 message CMsgVector, has-bit 4
     int32_t boneindex; // #4 int32, has-bit 5
-    uint32_t color; // #6 fixed32, has-bit 6
-    int32_t random_seed; // #7 int32, has-bit 7
-    uint32_t decal_group_name; // #8 uint32, has-bit 8
-    float size_override; // #9 float, has-bit 9
-    uint32_t entityhandle; // #10 uint32, has-bit 10
-    uint32_t sequence_name; // #12 uint32, has-bit 11
-    uint8_t _pad_5c[0x4];
-    int32_t triangleindex; // #13 int32, has-bit 12
-    uint32_t flags; // #5 uint32, has-bit 13
-    uint64_t material_id; // #11 uint64, has-bit 14
+    uint32_t flags; // #5 uint32, has-bit 6
+    uint32_t color; // #6 fixed32, has-bit 7
+    int32_t random_seed; // #7 int32, has-bit 8
+    uint32_t decal_group_name; // #8 uint32, has-bit 9
+    float size_override; // #9 float, has-bit 10
+    uint64_t material_id; // #11 uint64, has-bit 11
+    uint32_t sequence_name; // #12 uint32, has-bit 12
+    int32_t triangleindex; // #13 int32, has-bit 13
+    uint32_t entityhandle; // #10 uint32, has-bit 14
+    uint8_t _pad_6c[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x70;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
@@ -10285,15 +10279,15 @@ static_assert(offsetof(CMsgPlaceDecalEvent, saxis) == 0x28);
 static_assert(offsetof(CMsgPlaceDecalEvent, position_objectspace) == 0x30);
 static_assert(offsetof(CMsgPlaceDecalEvent, normal_objectspace) == 0x38);
 static_assert(offsetof(CMsgPlaceDecalEvent, boneindex) == 0x40);
-static_assert(offsetof(CMsgPlaceDecalEvent, color) == 0x44);
-static_assert(offsetof(CMsgPlaceDecalEvent, random_seed) == 0x48);
-static_assert(offsetof(CMsgPlaceDecalEvent, decal_group_name) == 0x4c);
-static_assert(offsetof(CMsgPlaceDecalEvent, size_override) == 0x50);
-static_assert(offsetof(CMsgPlaceDecalEvent, entityhandle) == 0x54);
-static_assert(offsetof(CMsgPlaceDecalEvent, sequence_name) == 0x58);
-static_assert(offsetof(CMsgPlaceDecalEvent, triangleindex) == 0x60);
-static_assert(offsetof(CMsgPlaceDecalEvent, flags) == 0x64);
-static_assert(offsetof(CMsgPlaceDecalEvent, material_id) == 0x68);
+static_assert(offsetof(CMsgPlaceDecalEvent, flags) == 0x44);
+static_assert(offsetof(CMsgPlaceDecalEvent, color) == 0x48);
+static_assert(offsetof(CMsgPlaceDecalEvent, random_seed) == 0x4c);
+static_assert(offsetof(CMsgPlaceDecalEvent, decal_group_name) == 0x50);
+static_assert(offsetof(CMsgPlaceDecalEvent, size_override) == 0x54);
+static_assert(offsetof(CMsgPlaceDecalEvent, material_id) == 0x58);
+static_assert(offsetof(CMsgPlaceDecalEvent, sequence_name) == 0x60);
+static_assert(offsetof(CMsgPlaceDecalEvent, triangleindex) == 0x64);
+static_assert(offsetof(CMsgPlaceDecalEvent, entityhandle) == 0x68);
 
 #pragma pack(push, 1)
 struct CMsgClearWorldDecalsEvent { // sizeof 0x20, _has_bits_ @ 0x10
@@ -12371,9 +12365,8 @@ struct CSVCMsg_GameSessionConfiguration { // sizeof 0x90, _has_bits_ @ 0x10
     pb::string_t* gamemode; // #12 string, has-bit 3
     pb::string_t* server_ip_address; // #13 string, has-bit 4
     pb::string_t* data; // #14 bytes, has-bit 5
-    pb::string_t* landmarkname; // #18 string, has-bit 6
-    bool no_steam_server; // #19 bool, has-bit 7
-    uint8_t _pad_69[0x7];
+    pb::string_t* previouslevel; // #17 string, has-bit 6
+    pb::string_t* landmarkname; // #18 string, has-bit 7
     bool is_multiplayer; // #1 bool, has-bit 8
     bool is_loadsavegame; // #2 bool, has-bit 9
     bool is_background_map; // #3 bool, has-bit 10
@@ -12383,8 +12376,9 @@ struct CSVCMsg_GameSessionConfiguration { // sizeof 0x90, _has_bits_ @ 0x10
     uint32_t max_clients; // #7 uint32, has-bit 14
     uint32_t tick_interval; // #8 fixed32, has-bit 15
     bool is_localonly; // #15 bool, has-bit 16
-    bool is_transition; // #16 bool, has-bit 17
-    uint8_t previouslevel[0x2]; // #17 string, has-bit 18
+    bool no_steam_server; // #19 bool, has-bit 17
+    bool is_transition; // #16 bool, has-bit 18
+    uint8_t _pad_87[0x1];
     float max_coord; // #21 float, has-bit 19
     uint8_t _pad_8c[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x90;
@@ -12399,8 +12393,8 @@ static_assert(offsetof(CSVCMsg_GameSessionConfiguration, s1_mapname) == 0x40);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, gamemode) == 0x48);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, server_ip_address) == 0x50);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, data) == 0x58);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, landmarkname) == 0x60);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, no_steam_server) == 0x68);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, previouslevel) == 0x60);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, landmarkname) == 0x68);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_multiplayer) == 0x70);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_loadsavegame) == 0x71);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_background_map) == 0x72);
@@ -12410,8 +12404,8 @@ static_assert(offsetof(CSVCMsg_GameSessionConfiguration, max_client_limit) == 0x
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, max_clients) == 0x7c);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, tick_interval) == 0x80);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_localonly) == 0x84);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_transition) == 0x85);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, previouslevel) == 0x86);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, no_steam_server) == 0x85);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_transition) == 0x86);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, max_coord) == 0x88);
 
 #pragma pack(push, 1)
@@ -12540,8 +12534,8 @@ struct CMsgSource2VProfLiteReportItem { // sizeof 0x68, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::string_t* name; // #1 string, has-bit 0
     uint32_t active_samples; // #2 uint32, has-bit 1
-    uint32_t active_samples_1secmax; // #4 uint32, has-bit 2
-    uint32_t usec_max; // #3 uint32, has-bit 3
+    uint32_t usec_max; // #3 uint32, has-bit 2
+    uint32_t active_samples_1secmax; // #4 uint32, has-bit 3
     uint32_t usec_avg_active; // #11 uint32, has-bit 4
     uint32_t usec_p50_active; // #12 uint32, has-bit 5
     uint32_t usec_p99_active; // #13 uint32, has-bit 6
@@ -12564,8 +12558,8 @@ struct CMsgSource2VProfLiteReportItem { // sizeof 0x68, _has_bits_ @ 0x10
 static_assert(sizeof(CMsgSource2VProfLiteReportItem) == 0x68);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, name) == 0x18);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples) == 0x20);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples_1secmax) == 0x24);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_max) == 0x28);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_max) == 0x24);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples_1secmax) == 0x28);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_avg_active) == 0x2c);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p50_active) == 0x30);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p99_active) == 0x34);
@@ -12598,7 +12592,7 @@ static_assert(offsetof(CMsgSource2VProfLiteReport, total) == 0x30);
 static_assert(offsetof(CMsgSource2VProfLiteReport, discarded_frames) == 0x38);
 
 #pragma pack(push, 1)
-struct CMsgSource2NetworkFlowQuality { // sizeof 0x110, _has_bits_ @ 0x10
+struct CMsgSource2NetworkFlowQuality { // sizeof 0x130, _has_bits_ @ 0x10
     uint8_t _pad_0[0x20];
     uint64_t bytes_total; // #5 uint64, has-bit 0
     uint32_t duration; // #1 uint32, has-bit 1
@@ -12606,118 +12600,134 @@ struct CMsgSource2NetworkFlowQuality { // sizeof 0x110, _has_bits_ @ 0x10
     uint64_t bytes_total_reliable; // #6 uint64, has-bit 3
     uint64_t bytes_total_voice; // #7 uint64, has-bit 4
     uint32_t bytes_sec_p99; // #11 uint32, has-bit 5
-    uint32_t enginemsgs_total; // #20 uint32, has-bit 6
-    uint32_t enginemsgs_sec_p95; // #21 uint32, has-bit 7
-    uint32_t enginemsgs_sec_p99; // #22 uint32, has-bit 8
-    uint32_t netframes_total; // #30 uint32, has-bit 9
-    uint32_t netframes_dropped; // #31 uint32, has-bit 10
-    uint32_t netframes_outoforder; // #32 uint32, has-bit 11
-    uint32_t netframes_size_exceeds_mtu; // #34 uint32, has-bit 12
-    uint32_t netframes_size_p95; // #35 uint32, has-bit 13
-    uint32_t netframes_size_p99; // #36 uint32, has-bit 14
-    uint32_t ticks_total; // #40 uint32, has-bit 15
-    uint32_t ticks_good; // #41 uint32, has-bit 16
-    uint32_t ticks_good_almost_late; // #42 uint32, has-bit 17
-    uint32_t ticks_fixed_dropped; // #43 uint32, has-bit 18
-    uint32_t ticks_fixed_late; // #44 uint32, has-bit 19
-    uint32_t ticks_bad_dropped; // #45 uint32, has-bit 20
-    uint32_t ticks_bad_late; // #46 uint32, has-bit 21
-    uint32_t ticks_bad_other; // #47 uint32, has-bit 22
-    uint32_t tick_missrate_samples_total; // #50 uint32, has-bit 23
-    uint32_t tick_missrate_samples_perfect; // #51 uint32, has-bit 24
-    uint32_t tick_missrate_samples_perfectnet; // #52 uint32, has-bit 25
-    uint32_t tick_missratenet_p75_x10; // #53 uint32, has-bit 26
-    uint32_t tick_missratenet_p95_x10; // #54 uint32, has-bit 27
-    uint32_t tick_missratenet_p99_x10; // #55 uint32, has-bit 28
-    int32_t recvmargin_p1; // #61 sint32, has-bit 29
-    int32_t recvmargin_p5; // #62 sint32, has-bit 30
-    int32_t recvmargin_p25; // #63 sint32, has-bit 31
-    int32_t recvmargin_p50; // #64 sint32, has-bit 32
-    int32_t recvmargin_p75; // #65 sint32, has-bit 33
-    int32_t recvmargin_p95; // #66 sint32, has-bit 34
-    uint32_t netframe_jitter_p50; // #70 uint32, has-bit 35
-    uint32_t netframe_jitter_p99; // #71 uint32, has-bit 36
-    uint32_t interval_peakjitter_p50; // #72 uint32, has-bit 37
-    uint32_t interval_peakjitter_p95; // #73 uint32, has-bit 38
-    uint32_t packet_misdelivery_rate_p50_x4; // #74 uint32, has-bit 39
-    uint32_t packet_misdelivery_rate_p95_x4; // #75 uint32, has-bit 40
-    uint32_t net_ping_p5; // #80 uint32, has-bit 41
-    uint32_t net_ping_p50; // #81 uint32, has-bit 42
-    uint32_t net_ping_p95; // #82 uint32, has-bit 43
-    uint32_t msgproc_usec_p50; // #90 uint32, has-bit 44
-    uint32_t msgproc_usec_p95; // #91 uint32, has-bit 45
-    uint32_t msgproc_usec_p99; // #92 uint32, has-bit 46
-    uint32_t msgproc_usec_max; // #93 uint32, has-bit 47
-    uint32_t msgproc_usec_avg_p50; // #94 uint32, has-bit 48
-    uint32_t msgproc_usec_avg_p95; // #95 uint32, has-bit 49
-    uint32_t msgproc_usec_avg_p99; // #96 uint32, has-bit 50
-    uint32_t msgproc_usec_avg_max; // #97 uint32, has-bit 51
-    uint32_t queuedmsgs_p50; // #100 uint32, has-bit 52
-    uint32_t queuedmsgs_p95; // #101 uint32, has-bit 53
-    uint32_t queuedmsgs_p99; // #102 uint32, has-bit 54
-    uint32_t queuedmsgs_max; // #103 uint32, has-bit 55
-    uint8_t _pad_10c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x110;
+    uint32_t netframes_size_uncompressed_p50; // #12 uint32, has-bit 6
+    uint32_t netframes_size_uncompressed_p95; // #13 uint32, has-bit 7
+    uint32_t netframes_size_uncompressed_p99; // #14 uint32, has-bit 8
+    uint32_t netframes_size_uncompressed_max; // #15 uint32, has-bit 9
+    uint32_t netframes_msgs_p50; // #16 uint32, has-bit 10
+    uint32_t netframes_msgs_p95; // #17 uint32, has-bit 11
+    uint32_t netframes_msgs_p99; // #18 uint32, has-bit 12
+    uint32_t netframes_msgs_max; // #19 uint32, has-bit 13
+    uint32_t enginemsgs_total; // #20 uint32, has-bit 14
+    uint32_t enginemsgs_sec_p95; // #21 uint32, has-bit 15
+    uint32_t enginemsgs_sec_p99; // #22 uint32, has-bit 16
+    uint32_t netframes_total; // #30 uint32, has-bit 17
+    uint32_t netframes_dropped; // #31 uint32, has-bit 18
+    uint32_t netframes_outoforder; // #32 uint32, has-bit 19
+    uint32_t netframes_size_exceeds_mtu; // #34 uint32, has-bit 20
+    uint32_t netframes_size_p95; // #35 uint32, has-bit 21
+    uint32_t netframes_size_p99; // #36 uint32, has-bit 22
+    uint32_t ticks_total; // #40 uint32, has-bit 23
+    uint32_t ticks_good; // #41 uint32, has-bit 24
+    uint32_t ticks_good_almost_late; // #42 uint32, has-bit 25
+    uint32_t ticks_fixed_dropped; // #43 uint32, has-bit 26
+    uint32_t ticks_fixed_late; // #44 uint32, has-bit 27
+    uint32_t ticks_bad_dropped; // #45 uint32, has-bit 28
+    uint32_t ticks_bad_late; // #46 uint32, has-bit 29
+    uint32_t ticks_bad_other; // #47 uint32, has-bit 30
+    uint32_t tick_missrate_samples_total; // #50 uint32, has-bit 31
+    uint32_t tick_missrate_samples_perfect; // #51 uint32, has-bit 32
+    uint32_t tick_missrate_samples_perfectnet; // #52 uint32, has-bit 33
+    uint32_t tick_missratenet_p75_x10; // #53 uint32, has-bit 34
+    uint32_t tick_missratenet_p95_x10; // #54 uint32, has-bit 35
+    uint32_t tick_missratenet_p99_x10; // #55 uint32, has-bit 36
+    int32_t recvmargin_p1; // #61 sint32, has-bit 37
+    int32_t recvmargin_p5; // #62 sint32, has-bit 38
+    int32_t recvmargin_p25; // #63 sint32, has-bit 39
+    int32_t recvmargin_p50; // #64 sint32, has-bit 40
+    int32_t recvmargin_p75; // #65 sint32, has-bit 41
+    int32_t recvmargin_p95; // #66 sint32, has-bit 42
+    uint32_t netframe_jitter_p50; // #70 uint32, has-bit 43
+    uint32_t netframe_jitter_p99; // #71 uint32, has-bit 44
+    uint32_t interval_peakjitter_p50; // #72 uint32, has-bit 45
+    uint32_t interval_peakjitter_p95; // #73 uint32, has-bit 46
+    uint32_t packet_misdelivery_rate_p50_x4; // #74 uint32, has-bit 47
+    uint32_t packet_misdelivery_rate_p95_x4; // #75 uint32, has-bit 48
+    uint32_t net_ping_p5; // #80 uint32, has-bit 49
+    uint32_t net_ping_p50; // #81 uint32, has-bit 50
+    uint32_t net_ping_p95; // #82 uint32, has-bit 51
+    uint32_t msgproc_usec_p50; // #90 uint32, has-bit 52
+    uint32_t msgproc_usec_p95; // #91 uint32, has-bit 53
+    uint32_t msgproc_usec_p99; // #92 uint32, has-bit 54
+    uint32_t msgproc_usec_max; // #93 uint32, has-bit 55
+    uint32_t msgproc_usec_avg_p50; // #94 uint32, has-bit 56
+    uint32_t msgproc_usec_avg_p95; // #95 uint32, has-bit 57
+    uint32_t msgproc_usec_avg_p99; // #96 uint32, has-bit 58
+    uint32_t msgproc_usec_avg_max; // #97 uint32, has-bit 59
+    uint32_t queuedmsgs_p50; // #100 uint32, has-bit 60
+    uint32_t queuedmsgs_p95; // #101 uint32, has-bit 61
+    uint32_t queuedmsgs_p99; // #102 uint32, has-bit 62
+    uint32_t queuedmsgs_max; // #103 uint32, has-bit 63
+    uint8_t _pad_12c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x130;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
 #pragma pack(pop)
-static_assert(sizeof(CMsgSource2NetworkFlowQuality) == 0x110);
+static_assert(sizeof(CMsgSource2NetworkFlowQuality) == 0x130);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total) == 0x20);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, duration) == 0x28);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_sec_p95) == 0x2c);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total_reliable) == 0x30);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total_voice) == 0x38);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_sec_p99) == 0x40);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_total) == 0x44);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p95) == 0x48);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p99) == 0x4c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_total) == 0x50);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_dropped) == 0x54);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_outoforder) == 0x58);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_exceeds_mtu) == 0x5c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p95) == 0x60);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p99) == 0x64);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_total) == 0x68);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good) == 0x6c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good_almost_late) == 0x70);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_dropped) == 0x74);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_late) == 0x78);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_dropped) == 0x7c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_late) == 0x80);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_other) == 0x84);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_total) == 0x88);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfect) == 0x8c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfectnet) == 0x90);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p75_x10) == 0x94);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p95_x10) == 0x98);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p99_x10) == 0x9c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p1) == 0xa0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p5) == 0xa4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p25) == 0xa8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p50) == 0xac);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p75) == 0xb0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p95) == 0xb4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p50) == 0xb8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p99) == 0xbc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p50) == 0xc0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p95) == 0xc4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p50_x4) == 0xc8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p95_x4) == 0xcc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p5) == 0xd0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p50) == 0xd4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p95) == 0xd8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p50) == 0xdc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p95) == 0xe0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p99) == 0xe4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_max) == 0xe8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p50) == 0xec);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p95) == 0xf0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p99) == 0xf4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_max) == 0xf8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p50) == 0xfc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p95) == 0x100);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p99) == 0x104);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_max) == 0x108);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_p50) == 0x44);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_p95) == 0x48);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_p99) == 0x4c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_max) == 0x50);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_p50) == 0x54);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_p95) == 0x58);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_p99) == 0x5c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_max) == 0x60);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_total) == 0x64);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p95) == 0x68);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p99) == 0x6c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_total) == 0x70);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_dropped) == 0x74);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_outoforder) == 0x78);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_exceeds_mtu) == 0x7c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p95) == 0x80);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p99) == 0x84);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_total) == 0x88);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good) == 0x8c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good_almost_late) == 0x90);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_dropped) == 0x94);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_late) == 0x98);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_dropped) == 0x9c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_late) == 0xa0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_other) == 0xa4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_total) == 0xa8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfect) == 0xac);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfectnet) == 0xb0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p75_x10) == 0xb4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p95_x10) == 0xb8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p99_x10) == 0xbc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p1) == 0xc0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p5) == 0xc4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p25) == 0xc8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p50) == 0xcc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p75) == 0xd0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p95) == 0xd4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p50) == 0xd8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p99) == 0xdc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p50) == 0xe0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p95) == 0xe4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p50_x4) == 0xe8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p95_x4) == 0xec);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p5) == 0xf0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p50) == 0xf4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p95) == 0xf8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p50) == 0xfc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p95) == 0x100);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p99) == 0x104);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_max) == 0x108);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p50) == 0x10c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p95) == 0x110);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p99) == 0x114);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_max) == 0x118);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p50) == 0x11c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p95) == 0x120);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p99) == 0x124);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_max) == 0x128);
 
 #pragma pack(push, 1)
 struct CMsgSource2PerfIntervalSample { // sizeof 0x28, _has_bits_ @ 0x10
@@ -12932,6 +12942,131 @@ static_assert(offsetof(CUserMessage_UserSentBugBug, system_specs) == 0x30);
 static_assert(offsetof(CUserMessage_UserSentBugBug, build_id) == 0x38);
 static_assert(offsetof(CUserMessage_UserSentBugBug, osversion) == 0x3c);
 static_assert(offsetof(CUserMessage_UserSentBugBug, bugbug_no) == 0x40);
+
+#pragma pack(push, 1)
+struct CCloud_GetUploadServerInfo_Request { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t appid; // #1 uint32, has-bit 0
+    uint8_t _pad_1c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CCloud_GetUploadServerInfo_Request) == 0x20);
+static_assert(offsetof(CCloud_GetUploadServerInfo_Request, appid) == 0x18);
+
+#pragma pack(push, 1)
+struct CCloud_GetUploadServerInfo_Response { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* server_url; // #1 string, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CCloud_GetUploadServerInfo_Response) == 0x20);
+static_assert(offsetof(CCloud_GetUploadServerInfo_Response, server_url) == 0x18);
+
+#pragma pack(push, 1)
+struct CCloud_GetFileDetails_Request { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t ugcid; // #1 uint64, has-bit 0
+    uint32_t appid; // #2 uint32, has-bit 1
+    uint8_t _pad_24[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CCloud_GetFileDetails_Request) == 0x28);
+static_assert(offsetof(CCloud_GetFileDetails_Request, ugcid) == 0x18);
+static_assert(offsetof(CCloud_GetFileDetails_Request, appid) == 0x20);
+
+#pragma pack(push, 1)
+struct CCloud_UserFile { // sizeof 0x48, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* filename; // #3 string, has-bit 0
+    pb::string_t* url; // #6 string, has-bit 1
+    uint64_t ugcid; // #2 uint64, has-bit 2
+    uint32_t appid; // #1 uint32, has-bit 3
+    uint32_t file_size; // #5 uint32, has-bit 4
+    uint64_t timestamp; // #4 uint64, has-bit 5
+    uint64_t steamid_creator; // #7 fixed64, has-bit 6
+    static constexpr std::ptrdiff_t kSizeOf = 0x48;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CCloud_UserFile) == 0x48);
+static_assert(offsetof(CCloud_UserFile, filename) == 0x18);
+static_assert(offsetof(CCloud_UserFile, url) == 0x20);
+static_assert(offsetof(CCloud_UserFile, ugcid) == 0x28);
+static_assert(offsetof(CCloud_UserFile, appid) == 0x30);
+static_assert(offsetof(CCloud_UserFile, file_size) == 0x34);
+static_assert(offsetof(CCloud_UserFile, timestamp) == 0x38);
+static_assert(offsetof(CCloud_UserFile, steamid_creator) == 0x40);
+
+#pragma pack(push, 1)
+struct CCloud_GetFileDetails_Response { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::client::CCloud_UserFile* details; // #1 message CCloud_UserFile, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CCloud_GetFileDetails_Response) == 0x20);
+static_assert(offsetof(CCloud_GetFileDetails_Response, details) == 0x18);
+
+#pragma pack(push, 1)
+struct CCloud_EnumerateUserFiles_Request { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t appid; // #1 uint32, has-bit 0
+    bool extended_details; // #2 bool, has-bit 1
+    uint8_t _pad_1d[0x3];
+    uint32_t count; // #3 uint32, has-bit 2
+    uint32_t start_index; // #4 uint32, has-bit 3
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CCloud_EnumerateUserFiles_Request) == 0x28);
+static_assert(offsetof(CCloud_EnumerateUserFiles_Request, appid) == 0x18);
+static_assert(offsetof(CCloud_EnumerateUserFiles_Request, extended_details) == 0x1c);
+static_assert(offsetof(CCloud_EnumerateUserFiles_Request, count) == 0x20);
+static_assert(offsetof(CCloud_EnumerateUserFiles_Request, start_index) == 0x24);
+
+#pragma pack(push, 1)
+struct CCloud_EnumerateUserFiles_Response { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::client::CCloud_UserFile> files; // #1 repeated message CCloud_UserFile, no has-bit
+    uint32_t total_files; // #2 uint32, has-bit 0
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CCloud_EnumerateUserFiles_Response) == 0x38);
+static_assert(offsetof(CCloud_EnumerateUserFiles_Response, files) == 0x18);
+static_assert(offsetof(CCloud_EnumerateUserFiles_Response, total_files) == 0x30);
+
+#pragma pack(push, 1)
+struct CCloud_Delete_Request { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* filename; // #1 string, has-bit 0
+    uint32_t appid; // #2 uint32, has-bit 1
+    uint8_t _pad_24[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CCloud_Delete_Request) == 0x28);
+static_assert(offsetof(CCloud_Delete_Request, filename) == 0x18);
+static_assert(offsetof(CCloud_Delete_Request, appid) == 0x20);
+
+#pragma pack(push, 1)
+struct CCloud_Delete_Response { // sizeof 0x18, no _has_bits_
+    uint8_t _data[0x18];
+    static constexpr std::ptrdiff_t kSizeOf = 0x18;
+};
+#pragma pack(pop)
+static_assert(sizeof(CCloud_Delete_Response) == 0x18);
 
 #pragma pack(push, 1)
 struct CPublishedFile_Subscribe_Request { // sizeof 0x30, _has_bits_ @ 0x10
@@ -13742,17 +13877,17 @@ struct CMsgTEExplosion { // sizeof 0x58, _has_bits_ @ 0x10
     pb::string_t* sound_name; // #10 string, has-bit 0
     pb::client::CMsgVector* origin; // #1 message CMsgVector, has-bit 1
     pb::client::CMsgVector* normal; // #4 message CMsgVector, has-bit 2
-    uint32_t debris_surfaceprop; // #14 fixed32, has-bit 3
-    uint8_t _pad_34[0x4];
+    pb::client::CMsgVector* debris_origin; // #13 message CMsgVector, has-bit 3
     uint32_t flags; // #3 uint32, has-bit 4
     uint32_t radius; // #6 uint32, has-bit 5
     uint32_t magnitude; // #7 uint32, has-bit 6
     bool affect_ragdolls; // #9 bool, has-bit 7
-    uint8_t debris_origin[0x3]; // #13 message CMsgVector, has-bit 8
+    bool create_debris; // #12 bool, has-bit 8
+    uint8_t _pad_46[0x2];
     uint32_t explosion_type; // #11 uint32, has-bit 9
-    uint32_t explosion_type_name; // #15 uint32, has-bit 10
-    bool create_debris; // #12 bool, has-bit 11
-    uint8_t _pad_51[0x7];
+    uint32_t debris_surfaceprop; // #14 fixed32, has-bit 10
+    uint32_t explosion_type_name; // #15 uint32, has-bit 11
+    uint8_t _pad_54[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x58;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
@@ -13761,15 +13896,15 @@ static_assert(sizeof(CMsgTEExplosion) == 0x58);
 static_assert(offsetof(CMsgTEExplosion, sound_name) == 0x18);
 static_assert(offsetof(CMsgTEExplosion, origin) == 0x20);
 static_assert(offsetof(CMsgTEExplosion, normal) == 0x28);
-static_assert(offsetof(CMsgTEExplosion, debris_surfaceprop) == 0x30);
+static_assert(offsetof(CMsgTEExplosion, debris_origin) == 0x30);
 static_assert(offsetof(CMsgTEExplosion, flags) == 0x38);
 static_assert(offsetof(CMsgTEExplosion, radius) == 0x3c);
 static_assert(offsetof(CMsgTEExplosion, magnitude) == 0x40);
 static_assert(offsetof(CMsgTEExplosion, affect_ragdolls) == 0x44);
-static_assert(offsetof(CMsgTEExplosion, debris_origin) == 0x45);
+static_assert(offsetof(CMsgTEExplosion, create_debris) == 0x45);
 static_assert(offsetof(CMsgTEExplosion, explosion_type) == 0x48);
-static_assert(offsetof(CMsgTEExplosion, explosion_type_name) == 0x4c);
-static_assert(offsetof(CMsgTEExplosion, create_debris) == 0x50);
+static_assert(offsetof(CMsgTEExplosion, debris_surfaceprop) == 0x4c);
+static_assert(offsetof(CMsgTEExplosion, explosion_type_name) == 0x50);
 
 #pragma pack(push, 1)
 struct CMsgTEDust { // sizeof 0x30, _has_bits_ @ 0x10
@@ -13884,35 +14019,6 @@ static_assert(sizeof(CMsgTEWorldDecal) == 0x30);
 static_assert(offsetof(CMsgTEWorldDecal, origin) == 0x18);
 static_assert(offsetof(CMsgTEWorldDecal, normal) == 0x20);
 static_assert(offsetof(CMsgTEWorldDecal, index) == 0x28);
-
-#pragma pack(push, 1)
-struct CHelpRequestLogs_UploadUserApplicationLog_Request { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* log_type; // #2 string, has-bit 0
-    pb::string_t* version_string; // #3 string, has-bit 1
-    pb::string_t* log_contents; // #4 string, has-bit 2
-    uint32_t appid; // #1 uint32, has-bit 3
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CHelpRequestLogs_UploadUserApplicationLog_Request) == 0x38);
-static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, log_type) == 0x18);
-static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, version_string) == 0x20);
-static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, log_contents) == 0x28);
-static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, appid) == 0x30);
-
-#pragma pack(push, 1)
-struct CHelpRequestLogs_UploadUserApplicationLog_Response { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t id; // #1 uint64, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CHelpRequestLogs_UploadUserApplicationLog_Response) == 0x20);
-static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Response, id) == 0x18);
 
 #pragma pack(push, 1)
 struct CUserMessageAchievementEvent { // sizeof 0x20, _has_bits_ @ 0x10
@@ -15413,9 +15519,9 @@ static_assert(offsetof(CUserMessageRequestInventory, options) == 0x20);
 #pragma pack(push, 1)
 struct CUserMessage_Inventory_Response { // sizeof 0x58, _has_bits_ @ 0x10
     uint8_t _pad_0[0x2];
-    uint8_t inventories3[0x1]; // #14 repeated message CUserMessage_Inventory_Response.InventoryDetail, has-bit 8
+    uint8_t instance[0x1]; // #13 int32, has-bit 8
     uint8_t start_time[0x2]; // #15 int64, no has-bit
-    int32_t instance; // #13 int32, has-bit 16
+    int32_t build_version; // #12 int32, has-bit 16
     uint8_t _pad_9[0xf];
     int32_t platform; // #8 int32, has-bit 0
     uint8_t _pad_1c[0x4];
@@ -15430,16 +15536,16 @@ struct CUserMessage_Inventory_Response { // sizeof 0x58, _has_bits_ @ 0x10
     uint8_t inventories2[0x4]; // #10 repeated message CUserMessage_Inventory_Response.InventoryDetail, has-bit 6
     int32_t client_timestamp; // #7 int32, has-bit 7
     uint8_t _pad_4c[0x4];
-    int32_t inv_type; // #11 int32, has-bit 8
-    int32_t build_version; // #12 int32, has-bit 9
+    uint8_t inventories3[0x4]; // #14 repeated message CUserMessage_Inventory_Response.InventoryDetail, has-bit 8
+    int32_t inv_type; // #11 int32, has-bit 9
     static constexpr std::ptrdiff_t kSizeOf = 0x58;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
 #pragma pack(pop)
 static_assert(sizeof(CUserMessage_Inventory_Response) == 0x58);
-static_assert(offsetof(CUserMessage_Inventory_Response, inventories3) == 0x2);
+static_assert(offsetof(CUserMessage_Inventory_Response, instance) == 0x2);
 static_assert(offsetof(CUserMessage_Inventory_Response, start_time) == 0x3);
-static_assert(offsetof(CUserMessage_Inventory_Response, instance) == 0x5);
+static_assert(offsetof(CUserMessage_Inventory_Response, build_version) == 0x5);
 static_assert(offsetof(CUserMessage_Inventory_Response, platform) == 0x18);
 static_assert(offsetof(CUserMessage_Inventory_Response, inventories) == 0x20);
 static_assert(offsetof(CUserMessage_Inventory_Response, item_count) == 0x28);
@@ -15448,8 +15554,8 @@ static_assert(offsetof(CUserMessage_Inventory_Response, perf_time) == 0x38);
 static_assert(offsetof(CUserMessage_Inventory_Response, crc) == 0x40);
 static_assert(offsetof(CUserMessage_Inventory_Response, inventories2) == 0x44);
 static_assert(offsetof(CUserMessage_Inventory_Response, client_timestamp) == 0x48);
-static_assert(offsetof(CUserMessage_Inventory_Response, inv_type) == 0x50);
-static_assert(offsetof(CUserMessage_Inventory_Response, build_version) == 0x54);
+static_assert(offsetof(CUserMessage_Inventory_Response, inventories3) == 0x50);
+static_assert(offsetof(CUserMessage_Inventory_Response, inv_type) == 0x54);
 
 #pragma pack(push, 1)
 struct CUserMessage_Inventory_Response_InventoryDetail { // sizeof 0x90, _has_bits_ @ 0x10
@@ -15693,6 +15799,35 @@ static_assert(sizeof(CUserMessageRemoteServerResponse) == 0x30);
 static_assert(offsetof(CUserMessageRemoteServerResponse, convar) == 0x18);
 static_assert(offsetof(CUserMessageRemoteServerResponse, results) == 0x20);
 static_assert(offsetof(CUserMessageRemoteServerResponse, command_result) == 0x28);
+
+#pragma pack(push, 1)
+struct CHelpRequestLogs_UploadUserApplicationLog_Request { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* log_type; // #2 string, has-bit 0
+    pb::string_t* version_string; // #3 string, has-bit 1
+    pb::string_t* log_contents; // #4 string, has-bit 2
+    uint32_t appid; // #1 uint32, has-bit 3
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CHelpRequestLogs_UploadUserApplicationLog_Request) == 0x38);
+static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, log_type) == 0x18);
+static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, version_string) == 0x20);
+static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, log_contents) == 0x28);
+static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Request, appid) == 0x30);
+
+#pragma pack(push, 1)
+struct CHelpRequestLogs_UploadUserApplicationLog_Response { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t id; // #1 uint64, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CHelpRequestLogs_UploadUserApplicationLog_Response) == 0x20);
+static_assert(offsetof(CHelpRequestLogs_UploadUserApplicationLog_Response, id) == 0x18);
 
 #pragma pack(push, 1)
 struct COAuthToken_ImplicitGrantNoPrompt_Request { // sizeof 0x20, _has_bits_ @ 0x10
@@ -16096,9 +16231,8 @@ static_assert(sizeof(CPlayer_GetCommunityPreferences_Request) == 0x18);
 #pragma pack(push, 1)
 struct CPlayer_CommunityPreferences { // sizeof 0x20, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
-    bool parenthesize_nicknames; // #4 bool, has-bit 0
-    uint8_t _pad_19[0x3];
-    uint8_t timestamp_updated[0x1]; // #3 uint32, has-bit 1
+    uint32_t timestamp_updated; // #3 uint32, has-bit 0
+    bool parenthesize_nicknames; // #4 bool, has-bit 1
     bool hide_adult_content_violence; // #1 bool, has-bit 2
     bool hide_adult_content_sex; // #2 bool, has-bit 3
     uint8_t _pad_1f[0x1];
@@ -16107,8 +16241,8 @@ struct CPlayer_CommunityPreferences { // sizeof 0x20, _has_bits_ @ 0x10
 };
 #pragma pack(pop)
 static_assert(sizeof(CPlayer_CommunityPreferences) == 0x20);
-static_assert(offsetof(CPlayer_CommunityPreferences, parenthesize_nicknames) == 0x18);
-static_assert(offsetof(CPlayer_CommunityPreferences, timestamp_updated) == 0x1c);
+static_assert(offsetof(CPlayer_CommunityPreferences, timestamp_updated) == 0x18);
+static_assert(offsetof(CPlayer_CommunityPreferences, parenthesize_nicknames) == 0x1c);
 static_assert(offsetof(CPlayer_CommunityPreferences, hide_adult_content_violence) == 0x1d);
 static_assert(offsetof(CPlayer_CommunityPreferences, hide_adult_content_sex) == 0x1e);
 
@@ -16194,131 +16328,6 @@ struct CPlayer_UpdateSteamAnnouncementLastRead_Response { // sizeof 0x18, no _ha
 };
 #pragma pack(pop)
 static_assert(sizeof(CPlayer_UpdateSteamAnnouncementLastRead_Response) == 0x18);
-
-#pragma pack(push, 1)
-struct CCloud_GetUploadServerInfo_Request { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t appid; // #1 uint32, has-bit 0
-    uint8_t _pad_1c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CCloud_GetUploadServerInfo_Request) == 0x20);
-static_assert(offsetof(CCloud_GetUploadServerInfo_Request, appid) == 0x18);
-
-#pragma pack(push, 1)
-struct CCloud_GetUploadServerInfo_Response { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* server_url; // #1 string, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CCloud_GetUploadServerInfo_Response) == 0x20);
-static_assert(offsetof(CCloud_GetUploadServerInfo_Response, server_url) == 0x18);
-
-#pragma pack(push, 1)
-struct CCloud_GetFileDetails_Request { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t ugcid; // #1 uint64, has-bit 0
-    uint32_t appid; // #2 uint32, has-bit 1
-    uint8_t _pad_24[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CCloud_GetFileDetails_Request) == 0x28);
-static_assert(offsetof(CCloud_GetFileDetails_Request, ugcid) == 0x18);
-static_assert(offsetof(CCloud_GetFileDetails_Request, appid) == 0x20);
-
-#pragma pack(push, 1)
-struct CCloud_UserFile { // sizeof 0x48, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* filename; // #3 string, has-bit 0
-    pb::string_t* url; // #6 string, has-bit 1
-    uint64_t ugcid; // #2 uint64, has-bit 2
-    uint32_t appid; // #1 uint32, has-bit 3
-    uint32_t file_size; // #5 uint32, has-bit 4
-    uint64_t timestamp; // #4 uint64, has-bit 5
-    uint64_t steamid_creator; // #7 fixed64, has-bit 6
-    static constexpr std::ptrdiff_t kSizeOf = 0x48;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CCloud_UserFile) == 0x48);
-static_assert(offsetof(CCloud_UserFile, filename) == 0x18);
-static_assert(offsetof(CCloud_UserFile, url) == 0x20);
-static_assert(offsetof(CCloud_UserFile, ugcid) == 0x28);
-static_assert(offsetof(CCloud_UserFile, appid) == 0x30);
-static_assert(offsetof(CCloud_UserFile, file_size) == 0x34);
-static_assert(offsetof(CCloud_UserFile, timestamp) == 0x38);
-static_assert(offsetof(CCloud_UserFile, steamid_creator) == 0x40);
-
-#pragma pack(push, 1)
-struct CCloud_GetFileDetails_Response { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::client::CCloud_UserFile* details; // #1 message CCloud_UserFile, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CCloud_GetFileDetails_Response) == 0x20);
-static_assert(offsetof(CCloud_GetFileDetails_Response, details) == 0x18);
-
-#pragma pack(push, 1)
-struct CCloud_EnumerateUserFiles_Request { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t appid; // #1 uint32, has-bit 0
-    bool extended_details; // #2 bool, has-bit 1
-    uint8_t _pad_1d[0x3];
-    uint32_t count; // #3 uint32, has-bit 2
-    uint32_t start_index; // #4 uint32, has-bit 3
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CCloud_EnumerateUserFiles_Request) == 0x28);
-static_assert(offsetof(CCloud_EnumerateUserFiles_Request, appid) == 0x18);
-static_assert(offsetof(CCloud_EnumerateUserFiles_Request, extended_details) == 0x1c);
-static_assert(offsetof(CCloud_EnumerateUserFiles_Request, count) == 0x20);
-static_assert(offsetof(CCloud_EnumerateUserFiles_Request, start_index) == 0x24);
-
-#pragma pack(push, 1)
-struct CCloud_EnumerateUserFiles_Response { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::client::CCloud_UserFile> files; // #1 repeated message CCloud_UserFile, no has-bit
-    uint32_t total_files; // #2 uint32, has-bit 0
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CCloud_EnumerateUserFiles_Response) == 0x38);
-static_assert(offsetof(CCloud_EnumerateUserFiles_Response, files) == 0x18);
-static_assert(offsetof(CCloud_EnumerateUserFiles_Response, total_files) == 0x30);
-
-#pragma pack(push, 1)
-struct CCloud_Delete_Request { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* filename; // #1 string, has-bit 0
-    uint32_t appid; // #2 uint32, has-bit 1
-    uint8_t _pad_24[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CCloud_Delete_Request) == 0x28);
-static_assert(offsetof(CCloud_Delete_Request, filename) == 0x18);
-static_assert(offsetof(CCloud_Delete_Request, appid) == 0x20);
-
-#pragma pack(push, 1)
-struct CCloud_Delete_Response { // sizeof 0x18, no _has_bits_
-    uint8_t _data[0x18];
-    static constexpr std::ptrdiff_t kSizeOf = 0x18;
-};
-#pragma pack(pop)
-static_assert(sizeof(CCloud_Delete_Response) == 0x18);
 
 #pragma pack(push, 1)
 struct CSGOInterpolationInfoPB { // sizeof 0x28, _has_bits_ @ 0x10
@@ -16428,45 +16437,43 @@ static_assert(offsetof(FileDescriptorSet, file) == 0x10);
 struct FileDescriptorProto { // sizeof 0xd8, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::RepeatedPtrField<pb::string_t> dependency; // #3 repeated string, no has-bit
+    pb::RepeatedPtrField<void> message_type; // #4 repeated message google.protobuf.DescriptorProto, no has-bit
+    pb::RepeatedPtrField<void> enum_type; // #5 repeated message google.protobuf.EnumDescriptorProto, no has-bit
     pb::RepeatedPtrField<void> service; // #6 repeated message google.protobuf.ServiceDescriptorProto, no has-bit
     pb::RepeatedPtrField<void> extension; // #7 repeated message google.protobuf.FieldDescriptorProto, no has-bit
-    void* options; // #8 message google.protobuf.FileOptions, no has-bit
-    uint8_t _pad_68[0x10];
-    void* source_code_info; // #9 message google.protobuf.SourceCodeInfo, no has-bit
-    uint8_t _pad_80[0x10];
-    uint8_t message_type[0x10]; // #4 repeated message google.protobuf.DescriptorProto, no has-bit
-    uint8_t enum_type[0x10]; // #5 repeated message google.protobuf.EnumDescriptorProto, no has-bit
+    uint8_t public_dependency[0x10]; // #10 repeated int32, no has-bit
+    uint8_t weak_dependency[0x10]; // #11 repeated int32, no has-bit
     pb::string_t* name; // #1 string, has-bit 0
     pb::string_t* package; // #2 string, has-bit 1
     pb::string_t* syntax; // #12 string, has-bit 2
-    uint8_t public_dependency[0x8]; // #10 repeated int32, has-bit 3
-    uint8_t weak_dependency[0x8]; // #11 repeated int32, has-bit 4
+    void* options; // #8 message google.protobuf.FileOptions, has-bit 3
+    void* source_code_info; // #9 message google.protobuf.SourceCodeInfo, has-bit 4
     static constexpr std::ptrdiff_t kSizeOf = 0xd8;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
 #pragma pack(pop)
 static_assert(sizeof(FileDescriptorProto) == 0xd8);
 static_assert(offsetof(FileDescriptorProto, dependency) == 0x18);
-static_assert(offsetof(FileDescriptorProto, service) == 0x30);
-static_assert(offsetof(FileDescriptorProto, extension) == 0x48);
-static_assert(offsetof(FileDescriptorProto, options) == 0x60);
-static_assert(offsetof(FileDescriptorProto, source_code_info) == 0x78);
-static_assert(offsetof(FileDescriptorProto, message_type) == 0x90);
-static_assert(offsetof(FileDescriptorProto, enum_type) == 0xa0);
+static_assert(offsetof(FileDescriptorProto, message_type) == 0x30);
+static_assert(offsetof(FileDescriptorProto, enum_type) == 0x48);
+static_assert(offsetof(FileDescriptorProto, service) == 0x60);
+static_assert(offsetof(FileDescriptorProto, extension) == 0x78);
+static_assert(offsetof(FileDescriptorProto, public_dependency) == 0x90);
+static_assert(offsetof(FileDescriptorProto, weak_dependency) == 0xa0);
 static_assert(offsetof(FileDescriptorProto, name) == 0xb0);
 static_assert(offsetof(FileDescriptorProto, package) == 0xb8);
 static_assert(offsetof(FileDescriptorProto, syntax) == 0xc0);
-static_assert(offsetof(FileDescriptorProto, public_dependency) == 0xc8);
-static_assert(offsetof(FileDescriptorProto, weak_dependency) == 0xd0);
+static_assert(offsetof(FileDescriptorProto, options) == 0xc8);
+static_assert(offsetof(FileDescriptorProto, source_code_info) == 0xd0);
 
 #pragma pack(push, 1)
 struct DescriptorProto { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t extension[0x1]; // #6 repeated message google.protobuf.FieldDescriptorProto, no has-bit
-    uint8_t enum_type[0x1]; // #4 repeated message google.protobuf.EnumDescriptorProto, has-bit 16
-    uint8_t extension_range[0x6]; // #5 repeated message google.protobuf.DescriptorProto.ExtensionRange, has-bit 8
-    uint8_t oneof_decl[0x8]; // #8 repeated message google.protobuf.OneofDescriptorProto, no has-bit
+    uint8_t extension_range[0x1]; // #5 repeated message google.protobuf.DescriptorProto.ExtensionRange, no has-bit
+    uint8_t nested_type[0x1]; // #3 repeated message google.protobuf.DescriptorProto, has-bit 16
+    uint8_t enum_type[0x6]; // #4 repeated message google.protobuf.EnumDescriptorProto, has-bit 8
     void* options; // #7 message google.protobuf.MessageOptions, no has-bit
-    uint8_t nested_type[0x8]; // #3 repeated message google.protobuf.DescriptorProto, has-bit 0
+    uint8_t oneof_decl[0x8]; // #8 repeated message google.protobuf.OneofDescriptorProto, no has-bit
+    uint8_t extension[0x8]; // #6 repeated message google.protobuf.FieldDescriptorProto, has-bit 0
     uint8_t name[0x4]; // #1 string, has-bit 1
     uint8_t field[0x4]; // #2 repeated message google.protobuf.FieldDescriptorProto, has-bit 2
     static constexpr std::ptrdiff_t kSizeOf = 0x28;
@@ -16474,12 +16481,12 @@ struct DescriptorProto { // sizeof 0x28, _has_bits_ @ 0x10
 };
 #pragma pack(pop)
 static_assert(sizeof(DescriptorProto) == 0x28);
-static_assert(offsetof(DescriptorProto, extension) == 0x0);
-static_assert(offsetof(DescriptorProto, enum_type) == 0x1);
-static_assert(offsetof(DescriptorProto, extension_range) == 0x2);
-static_assert(offsetof(DescriptorProto, oneof_decl) == 0x8);
-static_assert(offsetof(DescriptorProto, options) == 0x10);
-static_assert(offsetof(DescriptorProto, nested_type) == 0x18);
+static_assert(offsetof(DescriptorProto, extension_range) == 0x0);
+static_assert(offsetof(DescriptorProto, nested_type) == 0x1);
+static_assert(offsetof(DescriptorProto, enum_type) == 0x2);
+static_assert(offsetof(DescriptorProto, options) == 0x8);
+static_assert(offsetof(DescriptorProto, oneof_decl) == 0x10);
+static_assert(offsetof(DescriptorProto, extension) == 0x18);
 static_assert(offsetof(DescriptorProto, name) == 0x20);
 static_assert(offsetof(DescriptorProto, field) == 0x24);
 
@@ -16528,19 +16535,17 @@ static_assert(offsetof(ExtensionRangeOptions, uninterpreted_option) == 0x28);
 struct FieldDescriptorProto { // sizeof 0x60, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::string_t* name; // #1 string, has-bit 0
-    pb::string_t* type_name; // #6 string, has-bit 1
-    int32_t type; // #5 enum google.protobuf.FieldDescriptorProto.Type, has-bit 2
-    uint8_t _pad_2c[0x4];
+    pb::string_t* extendee; // #2 string, has-bit 1
+    pb::string_t* type_name; // #6 string, has-bit 2
     pb::string_t* default_value; // #7 string, has-bit 3
-    int32_t oneof_index; // #9 int32, has-bit 4
-    uint8_t _pad_3c[0x4];
-    pb::string_t* json_name; // #10 string, has-bit 5
-    uint8_t extendee[0x4]; // #2 string, has-bit 6
-    uint8_t options[0x4]; // #8 message google.protobuf.FieldOptions, has-bit 7
+    pb::string_t* json_name; // #10 string, has-bit 4
+    void* options; // #8 message google.protobuf.FieldOptions, has-bit 5
+    int32_t number; // #3 int32, has-bit 6
+    int32_t oneof_index; // #9 int32, has-bit 7
     bool proto3_optional; // #17 bool, has-bit 8
     uint8_t _pad_51[0x3];
-    int32_t number; // #3 int32, has-bit 9
-    int32_t label; // #4 enum google.protobuf.FieldDescriptorProto.Label, has-bit 10
+    int32_t label; // #4 enum google.protobuf.FieldDescriptorProto.Label, has-bit 9
+    int32_t type; // #5 enum google.protobuf.FieldDescriptorProto.Type, has-bit 10
     uint8_t _pad_5c[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x60;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
@@ -16548,16 +16553,16 @@ struct FieldDescriptorProto { // sizeof 0x60, _has_bits_ @ 0x10
 #pragma pack(pop)
 static_assert(sizeof(FieldDescriptorProto) == 0x60);
 static_assert(offsetof(FieldDescriptorProto, name) == 0x18);
-static_assert(offsetof(FieldDescriptorProto, type_name) == 0x20);
-static_assert(offsetof(FieldDescriptorProto, type) == 0x28);
+static_assert(offsetof(FieldDescriptorProto, extendee) == 0x20);
+static_assert(offsetof(FieldDescriptorProto, type_name) == 0x28);
 static_assert(offsetof(FieldDescriptorProto, default_value) == 0x30);
-static_assert(offsetof(FieldDescriptorProto, oneof_index) == 0x38);
-static_assert(offsetof(FieldDescriptorProto, json_name) == 0x40);
-static_assert(offsetof(FieldDescriptorProto, extendee) == 0x48);
-static_assert(offsetof(FieldDescriptorProto, options) == 0x4c);
+static_assert(offsetof(FieldDescriptorProto, json_name) == 0x38);
+static_assert(offsetof(FieldDescriptorProto, options) == 0x40);
+static_assert(offsetof(FieldDescriptorProto, number) == 0x48);
+static_assert(offsetof(FieldDescriptorProto, oneof_index) == 0x4c);
 static_assert(offsetof(FieldDescriptorProto, proto3_optional) == 0x50);
-static_assert(offsetof(FieldDescriptorProto, number) == 0x54);
-static_assert(offsetof(FieldDescriptorProto, label) == 0x58);
+static_assert(offsetof(FieldDescriptorProto, label) == 0x54);
+static_assert(offsetof(FieldDescriptorProto, type) == 0x58);
 
 #pragma pack(push, 1)
 struct OneofDescriptorProto { // sizeof 0x28, _has_bits_ @ 0x10
@@ -16665,27 +16670,25 @@ struct FileOptions { // sizeof 0xc0, _has_bits_ @ 0x28
     pb::RepeatedPtrField<void> uninterpreted_option; // #999 repeated message google.protobuf.UninterpretedOption, no has-bit
     pb::string_t* java_package; // #1 string, has-bit 0
     pb::string_t* java_outer_classname; // #8 string, has-bit 1
-    bool java_generic_services; // #17 bool, has-bit 2
-    uint8_t _pad_71[0x7];
-    pb::string_t* csharp_namespace; // #37 string, has-bit 3
-    pb::string_t* swift_prefix; // #39 string, has-bit 4
-    pb::string_t* php_class_prefix; // #40 string, has-bit 5
-    pb::string_t* php_namespace; // #41 string, has-bit 6
-    bool php_generic_services; // #42 bool, has-bit 7
-    uint8_t _pad_99[0x7];
+    pb::string_t* go_package; // #11 string, has-bit 2
+    pb::string_t* objc_class_prefix; // #36 string, has-bit 3
+    pb::string_t* csharp_namespace; // #37 string, has-bit 4
+    pb::string_t* swift_prefix; // #39 string, has-bit 5
+    pb::string_t* php_class_prefix; // #40 string, has-bit 6
+    pb::string_t* php_namespace; // #41 string, has-bit 7
     pb::string_t* php_metadata_namespace; // #44 string, has-bit 8
     pb::string_t* ruby_package; // #45 string, has-bit 9
-    uint8_t optimize_for[0x1]; // #9 enum google.protobuf.FileOptions.OptimizeMode, has-bit 10
-    bool java_multiple_files; // #10 bool, has-bit 11
-    uint8_t go_package[0x1]; // #11 string, has-bit 12
-    bool py_generic_services; // #18 bool, has-bit 13
-    bool java_generate_equals_and_hash; // #20 bool, has-bit 14
-    bool deprecated; // #23 bool, has-bit 15
-    bool java_string_check_utf8; // #27 bool, has-bit 16
-    bool cc_enable_arenas; // #31 bool, has-bit 17
-    bool cc_generic_services; // #16 bool, has-bit 18
-    uint8_t _pad_b9[0x3];
-    uint8_t objc_class_prefix[0x4]; // #36 string, has-bit 19
+    bool java_multiple_files; // #10 bool, has-bit 10
+    bool java_generate_equals_and_hash; // #20 bool, has-bit 11
+    bool java_string_check_utf8; // #27 bool, has-bit 12
+    bool cc_generic_services; // #16 bool, has-bit 13
+    bool java_generic_services; // #17 bool, has-bit 14
+    bool py_generic_services; // #18 bool, has-bit 15
+    bool php_generic_services; // #42 bool, has-bit 16
+    bool deprecated; // #23 bool, has-bit 17
+    int32_t optimize_for; // #9 enum google.protobuf.FileOptions.OptimizeMode, has-bit 18
+    bool cc_enable_arenas; // #31 bool, has-bit 19
+    uint8_t _pad_bd[0x3];
     static constexpr std::ptrdiff_t kSizeOf = 0xc0;
     static constexpr std::ptrdiff_t kHasBits = 0x28;
 };
@@ -16695,24 +16698,24 @@ static_assert(offsetof(FileOptions, additional_includes) == 0x30);
 static_assert(offsetof(FileOptions, uninterpreted_option) == 0x48);
 static_assert(offsetof(FileOptions, java_package) == 0x60);
 static_assert(offsetof(FileOptions, java_outer_classname) == 0x68);
-static_assert(offsetof(FileOptions, java_generic_services) == 0x70);
-static_assert(offsetof(FileOptions, csharp_namespace) == 0x78);
-static_assert(offsetof(FileOptions, swift_prefix) == 0x80);
-static_assert(offsetof(FileOptions, php_class_prefix) == 0x88);
-static_assert(offsetof(FileOptions, php_namespace) == 0x90);
-static_assert(offsetof(FileOptions, php_generic_services) == 0x98);
+static_assert(offsetof(FileOptions, go_package) == 0x70);
+static_assert(offsetof(FileOptions, objc_class_prefix) == 0x78);
+static_assert(offsetof(FileOptions, csharp_namespace) == 0x80);
+static_assert(offsetof(FileOptions, swift_prefix) == 0x88);
+static_assert(offsetof(FileOptions, php_class_prefix) == 0x90);
+static_assert(offsetof(FileOptions, php_namespace) == 0x98);
 static_assert(offsetof(FileOptions, php_metadata_namespace) == 0xa0);
 static_assert(offsetof(FileOptions, ruby_package) == 0xa8);
-static_assert(offsetof(FileOptions, optimize_for) == 0xb0);
-static_assert(offsetof(FileOptions, java_multiple_files) == 0xb1);
-static_assert(offsetof(FileOptions, go_package) == 0xb2);
-static_assert(offsetof(FileOptions, py_generic_services) == 0xb3);
-static_assert(offsetof(FileOptions, java_generate_equals_and_hash) == 0xb4);
-static_assert(offsetof(FileOptions, deprecated) == 0xb5);
-static_assert(offsetof(FileOptions, java_string_check_utf8) == 0xb6);
-static_assert(offsetof(FileOptions, cc_enable_arenas) == 0xb7);
-static_assert(offsetof(FileOptions, cc_generic_services) == 0xb8);
-static_assert(offsetof(FileOptions, objc_class_prefix) == 0xbc);
+static_assert(offsetof(FileOptions, java_multiple_files) == 0xb0);
+static_assert(offsetof(FileOptions, java_generate_equals_and_hash) == 0xb1);
+static_assert(offsetof(FileOptions, java_string_check_utf8) == 0xb2);
+static_assert(offsetof(FileOptions, cc_generic_services) == 0xb3);
+static_assert(offsetof(FileOptions, java_generic_services) == 0xb4);
+static_assert(offsetof(FileOptions, py_generic_services) == 0xb5);
+static_assert(offsetof(FileOptions, php_generic_services) == 0xb6);
+static_assert(offsetof(FileOptions, deprecated) == 0xb7);
+static_assert(offsetof(FileOptions, optimize_for) == 0xb8);
+static_assert(offsetof(FileOptions, cc_enable_arenas) == 0xbc);
 
 #pragma pack(push, 1)
 struct MessageOptions { // sizeof 0x50, _has_bits_ @ 0x28
@@ -16741,13 +16744,12 @@ struct FieldOptions { // sizeof 0x68, _has_bits_ @ 0x28
     pb::string_t* boxed_type; // #20 string, has-bit 0
     pb::string_t* synthetic_default; // #21 string, has-bit 1
     int32_t ctype; // #1 enum google.protobuf.FieldOptions.CType, has-bit 2
-    bool deprecated; // #3 bool, has-bit 3
-    uint8_t _pad_5d[0x3];
+    int32_t jstype; // #6 enum google.protobuf.FieldOptions.JSType, has-bit 3
     bool packed; // #2 bool, has-bit 4
     bool lazy; // #5 bool, has-bit 5
-    uint8_t jstype[0x1]; // #6 enum google.protobuf.FieldOptions.JSType, has-bit 6
-    bool weak; // #10 bool, has-bit 7
-    bool unverified_lazy; // #15 bool, has-bit 8
+    bool unverified_lazy; // #15 bool, has-bit 6
+    bool deprecated; // #3 bool, has-bit 7
+    bool weak; // #10 bool, has-bit 8
     uint8_t _pad_65[0x3];
     static constexpr std::ptrdiff_t kSizeOf = 0x68;
     static constexpr std::ptrdiff_t kHasBits = 0x28;
@@ -16758,12 +16760,12 @@ static_assert(offsetof(FieldOptions, uninterpreted_option) == 0x30);
 static_assert(offsetof(FieldOptions, boxed_type) == 0x48);
 static_assert(offsetof(FieldOptions, synthetic_default) == 0x50);
 static_assert(offsetof(FieldOptions, ctype) == 0x58);
-static_assert(offsetof(FieldOptions, deprecated) == 0x5c);
+static_assert(offsetof(FieldOptions, jstype) == 0x5c);
 static_assert(offsetof(FieldOptions, packed) == 0x60);
 static_assert(offsetof(FieldOptions, lazy) == 0x61);
-static_assert(offsetof(FieldOptions, jstype) == 0x62);
-static_assert(offsetof(FieldOptions, weak) == 0x63);
-static_assert(offsetof(FieldOptions, unverified_lazy) == 0x64);
+static_assert(offsetof(FieldOptions, unverified_lazy) == 0x62);
+static_assert(offsetof(FieldOptions, deprecated) == 0x63);
+static_assert(offsetof(FieldOptions, weak) == 0x64);
 
 #pragma pack(push, 1)
 struct OneofOptions { // sizeof 0x48, no _has_bits_
@@ -16939,45 +16941,43 @@ static_assert(offsetof(FileDescriptorSet, file) == 0x10);
 struct FileDescriptorProto { // sizeof 0xd8, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::RepeatedPtrField<pb::string_t> dependency; // #3 repeated string, no has-bit
+    pb::RepeatedPtrField<void> message_type; // #4 repeated message google.protobuf.DescriptorProto, no has-bit
+    pb::RepeatedPtrField<void> enum_type; // #5 repeated message google.protobuf.EnumDescriptorProto, no has-bit
     pb::RepeatedPtrField<void> service; // #6 repeated message google.protobuf.ServiceDescriptorProto, no has-bit
     pb::RepeatedPtrField<void> extension; // #7 repeated message google.protobuf.FieldDescriptorProto, no has-bit
-    void* options; // #8 message google.protobuf.FileOptions, no has-bit
-    uint8_t _pad_68[0x10];
-    void* source_code_info; // #9 message google.protobuf.SourceCodeInfo, no has-bit
-    uint8_t _pad_80[0x10];
-    uint8_t message_type[0x10]; // #4 repeated message google.protobuf.DescriptorProto, no has-bit
-    uint8_t enum_type[0x10]; // #5 repeated message google.protobuf.EnumDescriptorProto, no has-bit
+    uint8_t public_dependency[0x10]; // #10 repeated int32, no has-bit
+    uint8_t weak_dependency[0x10]; // #11 repeated int32, no has-bit
     pb::string_t* name; // #1 string, has-bit 0
     pb::string_t* package; // #2 string, has-bit 1
     pb::string_t* syntax; // #12 string, has-bit 2
-    uint8_t public_dependency[0x8]; // #10 repeated int32, has-bit 3
-    uint8_t weak_dependency[0x8]; // #11 repeated int32, has-bit 4
+    void* options; // #8 message google.protobuf.FileOptions, has-bit 3
+    void* source_code_info; // #9 message google.protobuf.SourceCodeInfo, has-bit 4
     static constexpr std::ptrdiff_t kSizeOf = 0xd8;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
 #pragma pack(pop)
 static_assert(sizeof(FileDescriptorProto) == 0xd8);
 static_assert(offsetof(FileDescriptorProto, dependency) == 0x18);
-static_assert(offsetof(FileDescriptorProto, service) == 0x30);
-static_assert(offsetof(FileDescriptorProto, extension) == 0x48);
-static_assert(offsetof(FileDescriptorProto, options) == 0x60);
-static_assert(offsetof(FileDescriptorProto, source_code_info) == 0x78);
-static_assert(offsetof(FileDescriptorProto, message_type) == 0x90);
-static_assert(offsetof(FileDescriptorProto, enum_type) == 0xa0);
+static_assert(offsetof(FileDescriptorProto, message_type) == 0x30);
+static_assert(offsetof(FileDescriptorProto, enum_type) == 0x48);
+static_assert(offsetof(FileDescriptorProto, service) == 0x60);
+static_assert(offsetof(FileDescriptorProto, extension) == 0x78);
+static_assert(offsetof(FileDescriptorProto, public_dependency) == 0x90);
+static_assert(offsetof(FileDescriptorProto, weak_dependency) == 0xa0);
 static_assert(offsetof(FileDescriptorProto, name) == 0xb0);
 static_assert(offsetof(FileDescriptorProto, package) == 0xb8);
 static_assert(offsetof(FileDescriptorProto, syntax) == 0xc0);
-static_assert(offsetof(FileDescriptorProto, public_dependency) == 0xc8);
-static_assert(offsetof(FileDescriptorProto, weak_dependency) == 0xd0);
+static_assert(offsetof(FileDescriptorProto, options) == 0xc8);
+static_assert(offsetof(FileDescriptorProto, source_code_info) == 0xd0);
 
 #pragma pack(push, 1)
 struct DescriptorProto { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t extension[0x1]; // #6 repeated message google.protobuf.FieldDescriptorProto, no has-bit
-    uint8_t enum_type[0x1]; // #4 repeated message google.protobuf.EnumDescriptorProto, has-bit 16
-    uint8_t extension_range[0x6]; // #5 repeated message google.protobuf.DescriptorProto.ExtensionRange, has-bit 8
-    uint8_t oneof_decl[0x8]; // #8 repeated message google.protobuf.OneofDescriptorProto, no has-bit
+    uint8_t extension_range[0x1]; // #5 repeated message google.protobuf.DescriptorProto.ExtensionRange, no has-bit
+    uint8_t nested_type[0x1]; // #3 repeated message google.protobuf.DescriptorProto, has-bit 16
+    uint8_t enum_type[0x6]; // #4 repeated message google.protobuf.EnumDescriptorProto, has-bit 8
     void* options; // #7 message google.protobuf.MessageOptions, no has-bit
-    uint8_t nested_type[0x8]; // #3 repeated message google.protobuf.DescriptorProto, has-bit 0
+    uint8_t oneof_decl[0x8]; // #8 repeated message google.protobuf.OneofDescriptorProto, no has-bit
+    uint8_t extension[0x8]; // #6 repeated message google.protobuf.FieldDescriptorProto, has-bit 0
     uint8_t name[0x4]; // #1 string, has-bit 1
     uint8_t field[0x4]; // #2 repeated message google.protobuf.FieldDescriptorProto, has-bit 2
     static constexpr std::ptrdiff_t kSizeOf = 0x28;
@@ -16985,12 +16985,12 @@ struct DescriptorProto { // sizeof 0x28, _has_bits_ @ 0x10
 };
 #pragma pack(pop)
 static_assert(sizeof(DescriptorProto) == 0x28);
-static_assert(offsetof(DescriptorProto, extension) == 0x0);
-static_assert(offsetof(DescriptorProto, enum_type) == 0x1);
-static_assert(offsetof(DescriptorProto, extension_range) == 0x2);
-static_assert(offsetof(DescriptorProto, oneof_decl) == 0x8);
-static_assert(offsetof(DescriptorProto, options) == 0x10);
-static_assert(offsetof(DescriptorProto, nested_type) == 0x18);
+static_assert(offsetof(DescriptorProto, extension_range) == 0x0);
+static_assert(offsetof(DescriptorProto, nested_type) == 0x1);
+static_assert(offsetof(DescriptorProto, enum_type) == 0x2);
+static_assert(offsetof(DescriptorProto, options) == 0x8);
+static_assert(offsetof(DescriptorProto, oneof_decl) == 0x10);
+static_assert(offsetof(DescriptorProto, extension) == 0x18);
 static_assert(offsetof(DescriptorProto, name) == 0x20);
 static_assert(offsetof(DescriptorProto, field) == 0x24);
 
@@ -17039,19 +17039,17 @@ static_assert(offsetof(ExtensionRangeOptions, uninterpreted_option) == 0x28);
 struct FieldDescriptorProto { // sizeof 0x60, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::string_t* name; // #1 string, has-bit 0
-    pb::string_t* type_name; // #6 string, has-bit 1
-    int32_t type; // #5 enum google.protobuf.FieldDescriptorProto.Type, has-bit 2
-    uint8_t _pad_2c[0x4];
+    pb::string_t* extendee; // #2 string, has-bit 1
+    pb::string_t* type_name; // #6 string, has-bit 2
     pb::string_t* default_value; // #7 string, has-bit 3
-    int32_t oneof_index; // #9 int32, has-bit 4
-    uint8_t _pad_3c[0x4];
-    pb::string_t* json_name; // #10 string, has-bit 5
-    uint8_t extendee[0x4]; // #2 string, has-bit 6
-    uint8_t options[0x4]; // #8 message google.protobuf.FieldOptions, has-bit 7
+    pb::string_t* json_name; // #10 string, has-bit 4
+    void* options; // #8 message google.protobuf.FieldOptions, has-bit 5
+    int32_t number; // #3 int32, has-bit 6
+    int32_t oneof_index; // #9 int32, has-bit 7
     bool proto3_optional; // #17 bool, has-bit 8
     uint8_t _pad_51[0x3];
-    int32_t number; // #3 int32, has-bit 9
-    int32_t label; // #4 enum google.protobuf.FieldDescriptorProto.Label, has-bit 10
+    int32_t label; // #4 enum google.protobuf.FieldDescriptorProto.Label, has-bit 9
+    int32_t type; // #5 enum google.protobuf.FieldDescriptorProto.Type, has-bit 10
     uint8_t _pad_5c[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x60;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
@@ -17059,16 +17057,16 @@ struct FieldDescriptorProto { // sizeof 0x60, _has_bits_ @ 0x10
 #pragma pack(pop)
 static_assert(sizeof(FieldDescriptorProto) == 0x60);
 static_assert(offsetof(FieldDescriptorProto, name) == 0x18);
-static_assert(offsetof(FieldDescriptorProto, type_name) == 0x20);
-static_assert(offsetof(FieldDescriptorProto, type) == 0x28);
+static_assert(offsetof(FieldDescriptorProto, extendee) == 0x20);
+static_assert(offsetof(FieldDescriptorProto, type_name) == 0x28);
 static_assert(offsetof(FieldDescriptorProto, default_value) == 0x30);
-static_assert(offsetof(FieldDescriptorProto, oneof_index) == 0x38);
-static_assert(offsetof(FieldDescriptorProto, json_name) == 0x40);
-static_assert(offsetof(FieldDescriptorProto, extendee) == 0x48);
-static_assert(offsetof(FieldDescriptorProto, options) == 0x4c);
+static_assert(offsetof(FieldDescriptorProto, json_name) == 0x38);
+static_assert(offsetof(FieldDescriptorProto, options) == 0x40);
+static_assert(offsetof(FieldDescriptorProto, number) == 0x48);
+static_assert(offsetof(FieldDescriptorProto, oneof_index) == 0x4c);
 static_assert(offsetof(FieldDescriptorProto, proto3_optional) == 0x50);
-static_assert(offsetof(FieldDescriptorProto, number) == 0x54);
-static_assert(offsetof(FieldDescriptorProto, label) == 0x58);
+static_assert(offsetof(FieldDescriptorProto, label) == 0x54);
+static_assert(offsetof(FieldDescriptorProto, type) == 0x58);
 
 #pragma pack(push, 1)
 struct OneofDescriptorProto { // sizeof 0x28, _has_bits_ @ 0x10
@@ -17176,27 +17174,25 @@ struct FileOptions { // sizeof 0xc0, _has_bits_ @ 0x28
     pb::RepeatedPtrField<void> uninterpreted_option; // #999 repeated message google.protobuf.UninterpretedOption, no has-bit
     pb::string_t* java_package; // #1 string, has-bit 0
     pb::string_t* java_outer_classname; // #8 string, has-bit 1
-    bool java_generic_services; // #17 bool, has-bit 2
-    uint8_t _pad_71[0x7];
-    pb::string_t* csharp_namespace; // #37 string, has-bit 3
-    pb::string_t* swift_prefix; // #39 string, has-bit 4
-    pb::string_t* php_class_prefix; // #40 string, has-bit 5
-    pb::string_t* php_namespace; // #41 string, has-bit 6
-    bool php_generic_services; // #42 bool, has-bit 7
-    uint8_t _pad_99[0x7];
+    pb::string_t* go_package; // #11 string, has-bit 2
+    pb::string_t* objc_class_prefix; // #36 string, has-bit 3
+    pb::string_t* csharp_namespace; // #37 string, has-bit 4
+    pb::string_t* swift_prefix; // #39 string, has-bit 5
+    pb::string_t* php_class_prefix; // #40 string, has-bit 6
+    pb::string_t* php_namespace; // #41 string, has-bit 7
     pb::string_t* php_metadata_namespace; // #44 string, has-bit 8
     pb::string_t* ruby_package; // #45 string, has-bit 9
-    uint8_t optimize_for[0x1]; // #9 enum google.protobuf.FileOptions.OptimizeMode, has-bit 10
-    bool java_multiple_files; // #10 bool, has-bit 11
-    uint8_t go_package[0x1]; // #11 string, has-bit 12
-    bool py_generic_services; // #18 bool, has-bit 13
-    bool java_generate_equals_and_hash; // #20 bool, has-bit 14
-    bool deprecated; // #23 bool, has-bit 15
-    bool java_string_check_utf8; // #27 bool, has-bit 16
-    bool cc_enable_arenas; // #31 bool, has-bit 17
-    bool cc_generic_services; // #16 bool, has-bit 18
-    uint8_t _pad_b9[0x3];
-    uint8_t objc_class_prefix[0x4]; // #36 string, has-bit 19
+    bool java_multiple_files; // #10 bool, has-bit 10
+    bool java_generate_equals_and_hash; // #20 bool, has-bit 11
+    bool java_string_check_utf8; // #27 bool, has-bit 12
+    bool cc_generic_services; // #16 bool, has-bit 13
+    bool java_generic_services; // #17 bool, has-bit 14
+    bool py_generic_services; // #18 bool, has-bit 15
+    bool php_generic_services; // #42 bool, has-bit 16
+    bool deprecated; // #23 bool, has-bit 17
+    int32_t optimize_for; // #9 enum google.protobuf.FileOptions.OptimizeMode, has-bit 18
+    bool cc_enable_arenas; // #31 bool, has-bit 19
+    uint8_t _pad_bd[0x3];
     static constexpr std::ptrdiff_t kSizeOf = 0xc0;
     static constexpr std::ptrdiff_t kHasBits = 0x28;
 };
@@ -17206,24 +17202,24 @@ static_assert(offsetof(FileOptions, additional_includes) == 0x30);
 static_assert(offsetof(FileOptions, uninterpreted_option) == 0x48);
 static_assert(offsetof(FileOptions, java_package) == 0x60);
 static_assert(offsetof(FileOptions, java_outer_classname) == 0x68);
-static_assert(offsetof(FileOptions, java_generic_services) == 0x70);
-static_assert(offsetof(FileOptions, csharp_namespace) == 0x78);
-static_assert(offsetof(FileOptions, swift_prefix) == 0x80);
-static_assert(offsetof(FileOptions, php_class_prefix) == 0x88);
-static_assert(offsetof(FileOptions, php_namespace) == 0x90);
-static_assert(offsetof(FileOptions, php_generic_services) == 0x98);
+static_assert(offsetof(FileOptions, go_package) == 0x70);
+static_assert(offsetof(FileOptions, objc_class_prefix) == 0x78);
+static_assert(offsetof(FileOptions, csharp_namespace) == 0x80);
+static_assert(offsetof(FileOptions, swift_prefix) == 0x88);
+static_assert(offsetof(FileOptions, php_class_prefix) == 0x90);
+static_assert(offsetof(FileOptions, php_namespace) == 0x98);
 static_assert(offsetof(FileOptions, php_metadata_namespace) == 0xa0);
 static_assert(offsetof(FileOptions, ruby_package) == 0xa8);
-static_assert(offsetof(FileOptions, optimize_for) == 0xb0);
-static_assert(offsetof(FileOptions, java_multiple_files) == 0xb1);
-static_assert(offsetof(FileOptions, go_package) == 0xb2);
-static_assert(offsetof(FileOptions, py_generic_services) == 0xb3);
-static_assert(offsetof(FileOptions, java_generate_equals_and_hash) == 0xb4);
-static_assert(offsetof(FileOptions, deprecated) == 0xb5);
-static_assert(offsetof(FileOptions, java_string_check_utf8) == 0xb6);
-static_assert(offsetof(FileOptions, cc_enable_arenas) == 0xb7);
-static_assert(offsetof(FileOptions, cc_generic_services) == 0xb8);
-static_assert(offsetof(FileOptions, objc_class_prefix) == 0xbc);
+static_assert(offsetof(FileOptions, java_multiple_files) == 0xb0);
+static_assert(offsetof(FileOptions, java_generate_equals_and_hash) == 0xb1);
+static_assert(offsetof(FileOptions, java_string_check_utf8) == 0xb2);
+static_assert(offsetof(FileOptions, cc_generic_services) == 0xb3);
+static_assert(offsetof(FileOptions, java_generic_services) == 0xb4);
+static_assert(offsetof(FileOptions, py_generic_services) == 0xb5);
+static_assert(offsetof(FileOptions, php_generic_services) == 0xb6);
+static_assert(offsetof(FileOptions, deprecated) == 0xb7);
+static_assert(offsetof(FileOptions, optimize_for) == 0xb8);
+static_assert(offsetof(FileOptions, cc_enable_arenas) == 0xbc);
 
 #pragma pack(push, 1)
 struct MessageOptions { // sizeof 0x50, _has_bits_ @ 0x28
@@ -17252,13 +17248,12 @@ struct FieldOptions { // sizeof 0x68, _has_bits_ @ 0x28
     pb::string_t* boxed_type; // #20 string, has-bit 0
     pb::string_t* synthetic_default; // #21 string, has-bit 1
     int32_t ctype; // #1 enum google.protobuf.FieldOptions.CType, has-bit 2
-    bool deprecated; // #3 bool, has-bit 3
-    uint8_t _pad_5d[0x3];
+    int32_t jstype; // #6 enum google.protobuf.FieldOptions.JSType, has-bit 3
     bool packed; // #2 bool, has-bit 4
     bool lazy; // #5 bool, has-bit 5
-    uint8_t jstype[0x1]; // #6 enum google.protobuf.FieldOptions.JSType, has-bit 6
-    bool weak; // #10 bool, has-bit 7
-    bool unverified_lazy; // #15 bool, has-bit 8
+    bool unverified_lazy; // #15 bool, has-bit 6
+    bool deprecated; // #3 bool, has-bit 7
+    bool weak; // #10 bool, has-bit 8
     uint8_t _pad_65[0x3];
     static constexpr std::ptrdiff_t kSizeOf = 0x68;
     static constexpr std::ptrdiff_t kHasBits = 0x28;
@@ -17269,12 +17264,12 @@ static_assert(offsetof(FieldOptions, uninterpreted_option) == 0x30);
 static_assert(offsetof(FieldOptions, boxed_type) == 0x48);
 static_assert(offsetof(FieldOptions, synthetic_default) == 0x50);
 static_assert(offsetof(FieldOptions, ctype) == 0x58);
-static_assert(offsetof(FieldOptions, deprecated) == 0x5c);
+static_assert(offsetof(FieldOptions, jstype) == 0x5c);
 static_assert(offsetof(FieldOptions, packed) == 0x60);
 static_assert(offsetof(FieldOptions, lazy) == 0x61);
-static_assert(offsetof(FieldOptions, jstype) == 0x62);
-static_assert(offsetof(FieldOptions, weak) == 0x63);
-static_assert(offsetof(FieldOptions, unverified_lazy) == 0x64);
+static_assert(offsetof(FieldOptions, unverified_lazy) == 0x62);
+static_assert(offsetof(FieldOptions, deprecated) == 0x63);
+static_assert(offsetof(FieldOptions, weak) == 0x64);
 
 #pragma pack(push, 1)
 struct OneofOptions { // sizeof 0x48, no _has_bits_
@@ -19678,9 +19673,8 @@ struct CSVCMsg_GameSessionConfiguration { // sizeof 0x90, _has_bits_ @ 0x10
     pb::string_t* gamemode; // #12 string, has-bit 3
     pb::string_t* server_ip_address; // #13 string, has-bit 4
     pb::string_t* data; // #14 bytes, has-bit 5
-    pb::string_t* landmarkname; // #18 string, has-bit 6
-    bool no_steam_server; // #19 bool, has-bit 7
-    uint8_t _pad_69[0x7];
+    pb::string_t* previouslevel; // #17 string, has-bit 6
+    pb::string_t* landmarkname; // #18 string, has-bit 7
     bool is_multiplayer; // #1 bool, has-bit 8
     bool is_loadsavegame; // #2 bool, has-bit 9
     bool is_background_map; // #3 bool, has-bit 10
@@ -19690,8 +19684,9 @@ struct CSVCMsg_GameSessionConfiguration { // sizeof 0x90, _has_bits_ @ 0x10
     uint32_t max_clients; // #7 uint32, has-bit 14
     uint32_t tick_interval; // #8 fixed32, has-bit 15
     bool is_localonly; // #15 bool, has-bit 16
-    bool is_transition; // #16 bool, has-bit 17
-    uint8_t previouslevel[0x2]; // #17 string, has-bit 18
+    bool no_steam_server; // #19 bool, has-bit 17
+    bool is_transition; // #16 bool, has-bit 18
+    uint8_t _pad_87[0x1];
     float max_coord; // #21 float, has-bit 19
     uint8_t _pad_8c[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x90;
@@ -19706,8 +19701,8 @@ static_assert(offsetof(CSVCMsg_GameSessionConfiguration, s1_mapname) == 0x40);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, gamemode) == 0x48);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, server_ip_address) == 0x50);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, data) == 0x58);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, landmarkname) == 0x60);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, no_steam_server) == 0x68);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, previouslevel) == 0x60);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, landmarkname) == 0x68);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_multiplayer) == 0x70);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_loadsavegame) == 0x71);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_background_map) == 0x72);
@@ -19717,8 +19712,8 @@ static_assert(offsetof(CSVCMsg_GameSessionConfiguration, max_client_limit) == 0x
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, max_clients) == 0x7c);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, tick_interval) == 0x80);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_localonly) == 0x84);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_transition) == 0x85);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, previouslevel) == 0x86);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, no_steam_server) == 0x85);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_transition) == 0x86);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, max_coord) == 0x88);
 
 #pragma pack(push, 1)
@@ -19845,8 +19840,8 @@ struct CMsgSource2VProfLiteReportItem { // sizeof 0x68, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::string_t* name; // #1 string, has-bit 0
     uint32_t active_samples; // #2 uint32, has-bit 1
-    uint32_t active_samples_1secmax; // #4 uint32, has-bit 2
-    uint32_t usec_max; // #3 uint32, has-bit 3
+    uint32_t usec_max; // #3 uint32, has-bit 2
+    uint32_t active_samples_1secmax; // #4 uint32, has-bit 3
     uint32_t usec_avg_active; // #11 uint32, has-bit 4
     uint32_t usec_p50_active; // #12 uint32, has-bit 5
     uint32_t usec_p99_active; // #13 uint32, has-bit 6
@@ -19869,8 +19864,8 @@ struct CMsgSource2VProfLiteReportItem { // sizeof 0x68, _has_bits_ @ 0x10
 static_assert(sizeof(CMsgSource2VProfLiteReportItem) == 0x68);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, name) == 0x18);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples) == 0x20);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples_1secmax) == 0x24);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_max) == 0x28);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_max) == 0x24);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples_1secmax) == 0x28);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_avg_active) == 0x2c);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p50_active) == 0x30);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p99_active) == 0x34);
@@ -19903,7 +19898,7 @@ static_assert(offsetof(CMsgSource2VProfLiteReport, total) == 0x30);
 static_assert(offsetof(CMsgSource2VProfLiteReport, discarded_frames) == 0x38);
 
 #pragma pack(push, 1)
-struct CMsgSource2NetworkFlowQuality { // sizeof 0x110, _has_bits_ @ 0x10
+struct CMsgSource2NetworkFlowQuality { // sizeof 0x130, _has_bits_ @ 0x10
     uint8_t _pad_0[0x20];
     uint64_t bytes_total; // #5 uint64, has-bit 0
     uint32_t duration; // #1 uint32, has-bit 1
@@ -19911,118 +19906,134 @@ struct CMsgSource2NetworkFlowQuality { // sizeof 0x110, _has_bits_ @ 0x10
     uint64_t bytes_total_reliable; // #6 uint64, has-bit 3
     uint64_t bytes_total_voice; // #7 uint64, has-bit 4
     uint32_t bytes_sec_p99; // #11 uint32, has-bit 5
-    uint32_t enginemsgs_total; // #20 uint32, has-bit 6
-    uint32_t enginemsgs_sec_p95; // #21 uint32, has-bit 7
-    uint32_t enginemsgs_sec_p99; // #22 uint32, has-bit 8
-    uint32_t netframes_total; // #30 uint32, has-bit 9
-    uint32_t netframes_dropped; // #31 uint32, has-bit 10
-    uint32_t netframes_outoforder; // #32 uint32, has-bit 11
-    uint32_t netframes_size_exceeds_mtu; // #34 uint32, has-bit 12
-    uint32_t netframes_size_p95; // #35 uint32, has-bit 13
-    uint32_t netframes_size_p99; // #36 uint32, has-bit 14
-    uint32_t ticks_total; // #40 uint32, has-bit 15
-    uint32_t ticks_good; // #41 uint32, has-bit 16
-    uint32_t ticks_good_almost_late; // #42 uint32, has-bit 17
-    uint32_t ticks_fixed_dropped; // #43 uint32, has-bit 18
-    uint32_t ticks_fixed_late; // #44 uint32, has-bit 19
-    uint32_t ticks_bad_dropped; // #45 uint32, has-bit 20
-    uint32_t ticks_bad_late; // #46 uint32, has-bit 21
-    uint32_t ticks_bad_other; // #47 uint32, has-bit 22
-    uint32_t tick_missrate_samples_total; // #50 uint32, has-bit 23
-    uint32_t tick_missrate_samples_perfect; // #51 uint32, has-bit 24
-    uint32_t tick_missrate_samples_perfectnet; // #52 uint32, has-bit 25
-    uint32_t tick_missratenet_p75_x10; // #53 uint32, has-bit 26
-    uint32_t tick_missratenet_p95_x10; // #54 uint32, has-bit 27
-    uint32_t tick_missratenet_p99_x10; // #55 uint32, has-bit 28
-    int32_t recvmargin_p1; // #61 sint32, has-bit 29
-    int32_t recvmargin_p5; // #62 sint32, has-bit 30
-    int32_t recvmargin_p25; // #63 sint32, has-bit 31
-    int32_t recvmargin_p50; // #64 sint32, has-bit 32
-    int32_t recvmargin_p75; // #65 sint32, has-bit 33
-    int32_t recvmargin_p95; // #66 sint32, has-bit 34
-    uint32_t netframe_jitter_p50; // #70 uint32, has-bit 35
-    uint32_t netframe_jitter_p99; // #71 uint32, has-bit 36
-    uint32_t interval_peakjitter_p50; // #72 uint32, has-bit 37
-    uint32_t interval_peakjitter_p95; // #73 uint32, has-bit 38
-    uint32_t packet_misdelivery_rate_p50_x4; // #74 uint32, has-bit 39
-    uint32_t packet_misdelivery_rate_p95_x4; // #75 uint32, has-bit 40
-    uint32_t net_ping_p5; // #80 uint32, has-bit 41
-    uint32_t net_ping_p50; // #81 uint32, has-bit 42
-    uint32_t net_ping_p95; // #82 uint32, has-bit 43
-    uint32_t msgproc_usec_p50; // #90 uint32, has-bit 44
-    uint32_t msgproc_usec_p95; // #91 uint32, has-bit 45
-    uint32_t msgproc_usec_p99; // #92 uint32, has-bit 46
-    uint32_t msgproc_usec_max; // #93 uint32, has-bit 47
-    uint32_t msgproc_usec_avg_p50; // #94 uint32, has-bit 48
-    uint32_t msgproc_usec_avg_p95; // #95 uint32, has-bit 49
-    uint32_t msgproc_usec_avg_p99; // #96 uint32, has-bit 50
-    uint32_t msgproc_usec_avg_max; // #97 uint32, has-bit 51
-    uint32_t queuedmsgs_p50; // #100 uint32, has-bit 52
-    uint32_t queuedmsgs_p95; // #101 uint32, has-bit 53
-    uint32_t queuedmsgs_p99; // #102 uint32, has-bit 54
-    uint32_t queuedmsgs_max; // #103 uint32, has-bit 55
-    uint8_t _pad_10c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x110;
+    uint32_t netframes_size_uncompressed_p50; // #12 uint32, has-bit 6
+    uint32_t netframes_size_uncompressed_p95; // #13 uint32, has-bit 7
+    uint32_t netframes_size_uncompressed_p99; // #14 uint32, has-bit 8
+    uint32_t netframes_size_uncompressed_max; // #15 uint32, has-bit 9
+    uint32_t netframes_msgs_p50; // #16 uint32, has-bit 10
+    uint32_t netframes_msgs_p95; // #17 uint32, has-bit 11
+    uint32_t netframes_msgs_p99; // #18 uint32, has-bit 12
+    uint32_t netframes_msgs_max; // #19 uint32, has-bit 13
+    uint32_t enginemsgs_total; // #20 uint32, has-bit 14
+    uint32_t enginemsgs_sec_p95; // #21 uint32, has-bit 15
+    uint32_t enginemsgs_sec_p99; // #22 uint32, has-bit 16
+    uint32_t netframes_total; // #30 uint32, has-bit 17
+    uint32_t netframes_dropped; // #31 uint32, has-bit 18
+    uint32_t netframes_outoforder; // #32 uint32, has-bit 19
+    uint32_t netframes_size_exceeds_mtu; // #34 uint32, has-bit 20
+    uint32_t netframes_size_p95; // #35 uint32, has-bit 21
+    uint32_t netframes_size_p99; // #36 uint32, has-bit 22
+    uint32_t ticks_total; // #40 uint32, has-bit 23
+    uint32_t ticks_good; // #41 uint32, has-bit 24
+    uint32_t ticks_good_almost_late; // #42 uint32, has-bit 25
+    uint32_t ticks_fixed_dropped; // #43 uint32, has-bit 26
+    uint32_t ticks_fixed_late; // #44 uint32, has-bit 27
+    uint32_t ticks_bad_dropped; // #45 uint32, has-bit 28
+    uint32_t ticks_bad_late; // #46 uint32, has-bit 29
+    uint32_t ticks_bad_other; // #47 uint32, has-bit 30
+    uint32_t tick_missrate_samples_total; // #50 uint32, has-bit 31
+    uint32_t tick_missrate_samples_perfect; // #51 uint32, has-bit 32
+    uint32_t tick_missrate_samples_perfectnet; // #52 uint32, has-bit 33
+    uint32_t tick_missratenet_p75_x10; // #53 uint32, has-bit 34
+    uint32_t tick_missratenet_p95_x10; // #54 uint32, has-bit 35
+    uint32_t tick_missratenet_p99_x10; // #55 uint32, has-bit 36
+    int32_t recvmargin_p1; // #61 sint32, has-bit 37
+    int32_t recvmargin_p5; // #62 sint32, has-bit 38
+    int32_t recvmargin_p25; // #63 sint32, has-bit 39
+    int32_t recvmargin_p50; // #64 sint32, has-bit 40
+    int32_t recvmargin_p75; // #65 sint32, has-bit 41
+    int32_t recvmargin_p95; // #66 sint32, has-bit 42
+    uint32_t netframe_jitter_p50; // #70 uint32, has-bit 43
+    uint32_t netframe_jitter_p99; // #71 uint32, has-bit 44
+    uint32_t interval_peakjitter_p50; // #72 uint32, has-bit 45
+    uint32_t interval_peakjitter_p95; // #73 uint32, has-bit 46
+    uint32_t packet_misdelivery_rate_p50_x4; // #74 uint32, has-bit 47
+    uint32_t packet_misdelivery_rate_p95_x4; // #75 uint32, has-bit 48
+    uint32_t net_ping_p5; // #80 uint32, has-bit 49
+    uint32_t net_ping_p50; // #81 uint32, has-bit 50
+    uint32_t net_ping_p95; // #82 uint32, has-bit 51
+    uint32_t msgproc_usec_p50; // #90 uint32, has-bit 52
+    uint32_t msgproc_usec_p95; // #91 uint32, has-bit 53
+    uint32_t msgproc_usec_p99; // #92 uint32, has-bit 54
+    uint32_t msgproc_usec_max; // #93 uint32, has-bit 55
+    uint32_t msgproc_usec_avg_p50; // #94 uint32, has-bit 56
+    uint32_t msgproc_usec_avg_p95; // #95 uint32, has-bit 57
+    uint32_t msgproc_usec_avg_p99; // #96 uint32, has-bit 58
+    uint32_t msgproc_usec_avg_max; // #97 uint32, has-bit 59
+    uint32_t queuedmsgs_p50; // #100 uint32, has-bit 60
+    uint32_t queuedmsgs_p95; // #101 uint32, has-bit 61
+    uint32_t queuedmsgs_p99; // #102 uint32, has-bit 62
+    uint32_t queuedmsgs_max; // #103 uint32, has-bit 63
+    uint8_t _pad_12c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x130;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
 #pragma pack(pop)
-static_assert(sizeof(CMsgSource2NetworkFlowQuality) == 0x110);
+static_assert(sizeof(CMsgSource2NetworkFlowQuality) == 0x130);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total) == 0x20);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, duration) == 0x28);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_sec_p95) == 0x2c);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total_reliable) == 0x30);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total_voice) == 0x38);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_sec_p99) == 0x40);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_total) == 0x44);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p95) == 0x48);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p99) == 0x4c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_total) == 0x50);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_dropped) == 0x54);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_outoforder) == 0x58);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_exceeds_mtu) == 0x5c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p95) == 0x60);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p99) == 0x64);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_total) == 0x68);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good) == 0x6c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good_almost_late) == 0x70);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_dropped) == 0x74);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_late) == 0x78);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_dropped) == 0x7c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_late) == 0x80);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_other) == 0x84);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_total) == 0x88);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfect) == 0x8c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfectnet) == 0x90);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p75_x10) == 0x94);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p95_x10) == 0x98);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p99_x10) == 0x9c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p1) == 0xa0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p5) == 0xa4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p25) == 0xa8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p50) == 0xac);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p75) == 0xb0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p95) == 0xb4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p50) == 0xb8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p99) == 0xbc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p50) == 0xc0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p95) == 0xc4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p50_x4) == 0xc8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p95_x4) == 0xcc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p5) == 0xd0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p50) == 0xd4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p95) == 0xd8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p50) == 0xdc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p95) == 0xe0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p99) == 0xe4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_max) == 0xe8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p50) == 0xec);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p95) == 0xf0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p99) == 0xf4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_max) == 0xf8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p50) == 0xfc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p95) == 0x100);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p99) == 0x104);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_max) == 0x108);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_p50) == 0x44);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_p95) == 0x48);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_p99) == 0x4c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_max) == 0x50);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_p50) == 0x54);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_p95) == 0x58);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_p99) == 0x5c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_max) == 0x60);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_total) == 0x64);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p95) == 0x68);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p99) == 0x6c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_total) == 0x70);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_dropped) == 0x74);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_outoforder) == 0x78);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_exceeds_mtu) == 0x7c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p95) == 0x80);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p99) == 0x84);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_total) == 0x88);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good) == 0x8c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good_almost_late) == 0x90);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_dropped) == 0x94);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_late) == 0x98);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_dropped) == 0x9c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_late) == 0xa0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_other) == 0xa4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_total) == 0xa8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfect) == 0xac);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfectnet) == 0xb0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p75_x10) == 0xb4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p95_x10) == 0xb8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p99_x10) == 0xbc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p1) == 0xc0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p5) == 0xc4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p25) == 0xc8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p50) == 0xcc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p75) == 0xd0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p95) == 0xd4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p50) == 0xd8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p99) == 0xdc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p50) == 0xe0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p95) == 0xe4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p50_x4) == 0xe8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p95_x4) == 0xec);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p5) == 0xf0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p50) == 0xf4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p95) == 0xf8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p50) == 0xfc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p95) == 0x100);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p99) == 0x104);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_max) == 0x108);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p50) == 0x10c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p95) == 0x110);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p99) == 0x114);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_max) == 0x118);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p50) == 0x11c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p95) == 0x120);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p99) == 0x124);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_max) == 0x128);
 
 #pragma pack(push, 1)
 struct CMsgSource2PerfIntervalSample { // sizeof 0x28, _has_bits_ @ 0x10
@@ -20256,45 +20267,43 @@ static_assert(offsetof(FileDescriptorSet, file) == 0x10);
 struct FileDescriptorProto { // sizeof 0xd8, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::RepeatedPtrField<pb::string_t> dependency; // #3 repeated string, no has-bit
+    pb::RepeatedPtrField<void> message_type; // #4 repeated message google.protobuf.DescriptorProto, no has-bit
+    pb::RepeatedPtrField<void> enum_type; // #5 repeated message google.protobuf.EnumDescriptorProto, no has-bit
     pb::RepeatedPtrField<void> service; // #6 repeated message google.protobuf.ServiceDescriptorProto, no has-bit
     pb::RepeatedPtrField<void> extension; // #7 repeated message google.protobuf.FieldDescriptorProto, no has-bit
-    void* options; // #8 message google.protobuf.FileOptions, no has-bit
-    uint8_t _pad_68[0x10];
-    void* source_code_info; // #9 message google.protobuf.SourceCodeInfo, no has-bit
-    uint8_t _pad_80[0x10];
-    uint8_t message_type[0x10]; // #4 repeated message google.protobuf.DescriptorProto, no has-bit
-    uint8_t enum_type[0x10]; // #5 repeated message google.protobuf.EnumDescriptorProto, no has-bit
+    uint8_t public_dependency[0x10]; // #10 repeated int32, no has-bit
+    uint8_t weak_dependency[0x10]; // #11 repeated int32, no has-bit
     pb::string_t* name; // #1 string, has-bit 0
     pb::string_t* package; // #2 string, has-bit 1
     pb::string_t* syntax; // #12 string, has-bit 2
-    uint8_t public_dependency[0x8]; // #10 repeated int32, has-bit 3
-    uint8_t weak_dependency[0x8]; // #11 repeated int32, has-bit 4
+    void* options; // #8 message google.protobuf.FileOptions, has-bit 3
+    void* source_code_info; // #9 message google.protobuf.SourceCodeInfo, has-bit 4
     static constexpr std::ptrdiff_t kSizeOf = 0xd8;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
 #pragma pack(pop)
 static_assert(sizeof(FileDescriptorProto) == 0xd8);
 static_assert(offsetof(FileDescriptorProto, dependency) == 0x18);
-static_assert(offsetof(FileDescriptorProto, service) == 0x30);
-static_assert(offsetof(FileDescriptorProto, extension) == 0x48);
-static_assert(offsetof(FileDescriptorProto, options) == 0x60);
-static_assert(offsetof(FileDescriptorProto, source_code_info) == 0x78);
-static_assert(offsetof(FileDescriptorProto, message_type) == 0x90);
-static_assert(offsetof(FileDescriptorProto, enum_type) == 0xa0);
+static_assert(offsetof(FileDescriptorProto, message_type) == 0x30);
+static_assert(offsetof(FileDescriptorProto, enum_type) == 0x48);
+static_assert(offsetof(FileDescriptorProto, service) == 0x60);
+static_assert(offsetof(FileDescriptorProto, extension) == 0x78);
+static_assert(offsetof(FileDescriptorProto, public_dependency) == 0x90);
+static_assert(offsetof(FileDescriptorProto, weak_dependency) == 0xa0);
 static_assert(offsetof(FileDescriptorProto, name) == 0xb0);
 static_assert(offsetof(FileDescriptorProto, package) == 0xb8);
 static_assert(offsetof(FileDescriptorProto, syntax) == 0xc0);
-static_assert(offsetof(FileDescriptorProto, public_dependency) == 0xc8);
-static_assert(offsetof(FileDescriptorProto, weak_dependency) == 0xd0);
+static_assert(offsetof(FileDescriptorProto, options) == 0xc8);
+static_assert(offsetof(FileDescriptorProto, source_code_info) == 0xd0);
 
 #pragma pack(push, 1)
 struct DescriptorProto { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t extension[0x1]; // #6 repeated message google.protobuf.FieldDescriptorProto, no has-bit
-    uint8_t enum_type[0x1]; // #4 repeated message google.protobuf.EnumDescriptorProto, has-bit 16
-    uint8_t extension_range[0x6]; // #5 repeated message google.protobuf.DescriptorProto.ExtensionRange, has-bit 8
-    uint8_t oneof_decl[0x8]; // #8 repeated message google.protobuf.OneofDescriptorProto, no has-bit
+    uint8_t extension_range[0x1]; // #5 repeated message google.protobuf.DescriptorProto.ExtensionRange, no has-bit
+    uint8_t nested_type[0x1]; // #3 repeated message google.protobuf.DescriptorProto, has-bit 16
+    uint8_t enum_type[0x6]; // #4 repeated message google.protobuf.EnumDescriptorProto, has-bit 8
     void* options; // #7 message google.protobuf.MessageOptions, no has-bit
-    uint8_t nested_type[0x8]; // #3 repeated message google.protobuf.DescriptorProto, has-bit 0
+    uint8_t oneof_decl[0x8]; // #8 repeated message google.protobuf.OneofDescriptorProto, no has-bit
+    uint8_t extension[0x8]; // #6 repeated message google.protobuf.FieldDescriptorProto, has-bit 0
     uint8_t name[0x4]; // #1 string, has-bit 1
     uint8_t field[0x4]; // #2 repeated message google.protobuf.FieldDescriptorProto, has-bit 2
     static constexpr std::ptrdiff_t kSizeOf = 0x28;
@@ -20302,12 +20311,12 @@ struct DescriptorProto { // sizeof 0x28, _has_bits_ @ 0x10
 };
 #pragma pack(pop)
 static_assert(sizeof(DescriptorProto) == 0x28);
-static_assert(offsetof(DescriptorProto, extension) == 0x0);
-static_assert(offsetof(DescriptorProto, enum_type) == 0x1);
-static_assert(offsetof(DescriptorProto, extension_range) == 0x2);
-static_assert(offsetof(DescriptorProto, oneof_decl) == 0x8);
-static_assert(offsetof(DescriptorProto, options) == 0x10);
-static_assert(offsetof(DescriptorProto, nested_type) == 0x18);
+static_assert(offsetof(DescriptorProto, extension_range) == 0x0);
+static_assert(offsetof(DescriptorProto, nested_type) == 0x1);
+static_assert(offsetof(DescriptorProto, enum_type) == 0x2);
+static_assert(offsetof(DescriptorProto, options) == 0x8);
+static_assert(offsetof(DescriptorProto, oneof_decl) == 0x10);
+static_assert(offsetof(DescriptorProto, extension) == 0x18);
 static_assert(offsetof(DescriptorProto, name) == 0x20);
 static_assert(offsetof(DescriptorProto, field) == 0x24);
 
@@ -20356,19 +20365,17 @@ static_assert(offsetof(ExtensionRangeOptions, uninterpreted_option) == 0x28);
 struct FieldDescriptorProto { // sizeof 0x60, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::string_t* name; // #1 string, has-bit 0
-    pb::string_t* type_name; // #6 string, has-bit 1
-    int32_t type; // #5 enum google.protobuf.FieldDescriptorProto.Type, has-bit 2
-    uint8_t _pad_2c[0x4];
+    pb::string_t* extendee; // #2 string, has-bit 1
+    pb::string_t* type_name; // #6 string, has-bit 2
     pb::string_t* default_value; // #7 string, has-bit 3
-    int32_t oneof_index; // #9 int32, has-bit 4
-    uint8_t _pad_3c[0x4];
-    pb::string_t* json_name; // #10 string, has-bit 5
-    uint8_t extendee[0x4]; // #2 string, has-bit 6
-    uint8_t options[0x4]; // #8 message google.protobuf.FieldOptions, has-bit 7
+    pb::string_t* json_name; // #10 string, has-bit 4
+    void* options; // #8 message google.protobuf.FieldOptions, has-bit 5
+    int32_t number; // #3 int32, has-bit 6
+    int32_t oneof_index; // #9 int32, has-bit 7
     bool proto3_optional; // #17 bool, has-bit 8
     uint8_t _pad_51[0x3];
-    int32_t number; // #3 int32, has-bit 9
-    int32_t label; // #4 enum google.protobuf.FieldDescriptorProto.Label, has-bit 10
+    int32_t label; // #4 enum google.protobuf.FieldDescriptorProto.Label, has-bit 9
+    int32_t type; // #5 enum google.protobuf.FieldDescriptorProto.Type, has-bit 10
     uint8_t _pad_5c[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x60;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
@@ -20376,16 +20383,16 @@ struct FieldDescriptorProto { // sizeof 0x60, _has_bits_ @ 0x10
 #pragma pack(pop)
 static_assert(sizeof(FieldDescriptorProto) == 0x60);
 static_assert(offsetof(FieldDescriptorProto, name) == 0x18);
-static_assert(offsetof(FieldDescriptorProto, type_name) == 0x20);
-static_assert(offsetof(FieldDescriptorProto, type) == 0x28);
+static_assert(offsetof(FieldDescriptorProto, extendee) == 0x20);
+static_assert(offsetof(FieldDescriptorProto, type_name) == 0x28);
 static_assert(offsetof(FieldDescriptorProto, default_value) == 0x30);
-static_assert(offsetof(FieldDescriptorProto, oneof_index) == 0x38);
-static_assert(offsetof(FieldDescriptorProto, json_name) == 0x40);
-static_assert(offsetof(FieldDescriptorProto, extendee) == 0x48);
-static_assert(offsetof(FieldDescriptorProto, options) == 0x4c);
+static_assert(offsetof(FieldDescriptorProto, json_name) == 0x38);
+static_assert(offsetof(FieldDescriptorProto, options) == 0x40);
+static_assert(offsetof(FieldDescriptorProto, number) == 0x48);
+static_assert(offsetof(FieldDescriptorProto, oneof_index) == 0x4c);
 static_assert(offsetof(FieldDescriptorProto, proto3_optional) == 0x50);
-static_assert(offsetof(FieldDescriptorProto, number) == 0x54);
-static_assert(offsetof(FieldDescriptorProto, label) == 0x58);
+static_assert(offsetof(FieldDescriptorProto, label) == 0x54);
+static_assert(offsetof(FieldDescriptorProto, type) == 0x58);
 
 #pragma pack(push, 1)
 struct OneofDescriptorProto { // sizeof 0x28, _has_bits_ @ 0x10
@@ -20493,27 +20500,25 @@ struct FileOptions { // sizeof 0xc0, _has_bits_ @ 0x28
     pb::RepeatedPtrField<void> uninterpreted_option; // #999 repeated message google.protobuf.UninterpretedOption, no has-bit
     pb::string_t* java_package; // #1 string, has-bit 0
     pb::string_t* java_outer_classname; // #8 string, has-bit 1
-    bool java_generic_services; // #17 bool, has-bit 2
-    uint8_t _pad_71[0x7];
-    pb::string_t* csharp_namespace; // #37 string, has-bit 3
-    pb::string_t* swift_prefix; // #39 string, has-bit 4
-    pb::string_t* php_class_prefix; // #40 string, has-bit 5
-    pb::string_t* php_namespace; // #41 string, has-bit 6
-    bool php_generic_services; // #42 bool, has-bit 7
-    uint8_t _pad_99[0x7];
+    pb::string_t* go_package; // #11 string, has-bit 2
+    pb::string_t* objc_class_prefix; // #36 string, has-bit 3
+    pb::string_t* csharp_namespace; // #37 string, has-bit 4
+    pb::string_t* swift_prefix; // #39 string, has-bit 5
+    pb::string_t* php_class_prefix; // #40 string, has-bit 6
+    pb::string_t* php_namespace; // #41 string, has-bit 7
     pb::string_t* php_metadata_namespace; // #44 string, has-bit 8
     pb::string_t* ruby_package; // #45 string, has-bit 9
-    uint8_t optimize_for[0x1]; // #9 enum google.protobuf.FileOptions.OptimizeMode, has-bit 10
-    bool java_multiple_files; // #10 bool, has-bit 11
-    uint8_t go_package[0x1]; // #11 string, has-bit 12
-    bool py_generic_services; // #18 bool, has-bit 13
-    bool java_generate_equals_and_hash; // #20 bool, has-bit 14
-    bool deprecated; // #23 bool, has-bit 15
-    bool java_string_check_utf8; // #27 bool, has-bit 16
-    bool cc_enable_arenas; // #31 bool, has-bit 17
-    bool cc_generic_services; // #16 bool, has-bit 18
-    uint8_t _pad_b9[0x3];
-    uint8_t objc_class_prefix[0x4]; // #36 string, has-bit 19
+    bool java_multiple_files; // #10 bool, has-bit 10
+    bool java_generate_equals_and_hash; // #20 bool, has-bit 11
+    bool java_string_check_utf8; // #27 bool, has-bit 12
+    bool cc_generic_services; // #16 bool, has-bit 13
+    bool java_generic_services; // #17 bool, has-bit 14
+    bool py_generic_services; // #18 bool, has-bit 15
+    bool php_generic_services; // #42 bool, has-bit 16
+    bool deprecated; // #23 bool, has-bit 17
+    int32_t optimize_for; // #9 enum google.protobuf.FileOptions.OptimizeMode, has-bit 18
+    bool cc_enable_arenas; // #31 bool, has-bit 19
+    uint8_t _pad_bd[0x3];
     static constexpr std::ptrdiff_t kSizeOf = 0xc0;
     static constexpr std::ptrdiff_t kHasBits = 0x28;
 };
@@ -20523,24 +20528,24 @@ static_assert(offsetof(FileOptions, additional_includes) == 0x30);
 static_assert(offsetof(FileOptions, uninterpreted_option) == 0x48);
 static_assert(offsetof(FileOptions, java_package) == 0x60);
 static_assert(offsetof(FileOptions, java_outer_classname) == 0x68);
-static_assert(offsetof(FileOptions, java_generic_services) == 0x70);
-static_assert(offsetof(FileOptions, csharp_namespace) == 0x78);
-static_assert(offsetof(FileOptions, swift_prefix) == 0x80);
-static_assert(offsetof(FileOptions, php_class_prefix) == 0x88);
-static_assert(offsetof(FileOptions, php_namespace) == 0x90);
-static_assert(offsetof(FileOptions, php_generic_services) == 0x98);
+static_assert(offsetof(FileOptions, go_package) == 0x70);
+static_assert(offsetof(FileOptions, objc_class_prefix) == 0x78);
+static_assert(offsetof(FileOptions, csharp_namespace) == 0x80);
+static_assert(offsetof(FileOptions, swift_prefix) == 0x88);
+static_assert(offsetof(FileOptions, php_class_prefix) == 0x90);
+static_assert(offsetof(FileOptions, php_namespace) == 0x98);
 static_assert(offsetof(FileOptions, php_metadata_namespace) == 0xa0);
 static_assert(offsetof(FileOptions, ruby_package) == 0xa8);
-static_assert(offsetof(FileOptions, optimize_for) == 0xb0);
-static_assert(offsetof(FileOptions, java_multiple_files) == 0xb1);
-static_assert(offsetof(FileOptions, go_package) == 0xb2);
-static_assert(offsetof(FileOptions, py_generic_services) == 0xb3);
-static_assert(offsetof(FileOptions, java_generate_equals_and_hash) == 0xb4);
-static_assert(offsetof(FileOptions, deprecated) == 0xb5);
-static_assert(offsetof(FileOptions, java_string_check_utf8) == 0xb6);
-static_assert(offsetof(FileOptions, cc_enable_arenas) == 0xb7);
-static_assert(offsetof(FileOptions, cc_generic_services) == 0xb8);
-static_assert(offsetof(FileOptions, objc_class_prefix) == 0xbc);
+static_assert(offsetof(FileOptions, java_multiple_files) == 0xb0);
+static_assert(offsetof(FileOptions, java_generate_equals_and_hash) == 0xb1);
+static_assert(offsetof(FileOptions, java_string_check_utf8) == 0xb2);
+static_assert(offsetof(FileOptions, cc_generic_services) == 0xb3);
+static_assert(offsetof(FileOptions, java_generic_services) == 0xb4);
+static_assert(offsetof(FileOptions, py_generic_services) == 0xb5);
+static_assert(offsetof(FileOptions, php_generic_services) == 0xb6);
+static_assert(offsetof(FileOptions, deprecated) == 0xb7);
+static_assert(offsetof(FileOptions, optimize_for) == 0xb8);
+static_assert(offsetof(FileOptions, cc_enable_arenas) == 0xbc);
 
 #pragma pack(push, 1)
 struct MessageOptions { // sizeof 0x50, _has_bits_ @ 0x28
@@ -20569,13 +20574,12 @@ struct FieldOptions { // sizeof 0x68, _has_bits_ @ 0x28
     pb::string_t* boxed_type; // #20 string, has-bit 0
     pb::string_t* synthetic_default; // #21 string, has-bit 1
     int32_t ctype; // #1 enum google.protobuf.FieldOptions.CType, has-bit 2
-    bool deprecated; // #3 bool, has-bit 3
-    uint8_t _pad_5d[0x3];
+    int32_t jstype; // #6 enum google.protobuf.FieldOptions.JSType, has-bit 3
     bool packed; // #2 bool, has-bit 4
     bool lazy; // #5 bool, has-bit 5
-    uint8_t jstype[0x1]; // #6 enum google.protobuf.FieldOptions.JSType, has-bit 6
-    bool weak; // #10 bool, has-bit 7
-    bool unverified_lazy; // #15 bool, has-bit 8
+    bool unverified_lazy; // #15 bool, has-bit 6
+    bool deprecated; // #3 bool, has-bit 7
+    bool weak; // #10 bool, has-bit 8
     uint8_t _pad_65[0x3];
     static constexpr std::ptrdiff_t kSizeOf = 0x68;
     static constexpr std::ptrdiff_t kHasBits = 0x28;
@@ -20586,12 +20590,12 @@ static_assert(offsetof(FieldOptions, uninterpreted_option) == 0x30);
 static_assert(offsetof(FieldOptions, boxed_type) == 0x48);
 static_assert(offsetof(FieldOptions, synthetic_default) == 0x50);
 static_assert(offsetof(FieldOptions, ctype) == 0x58);
-static_assert(offsetof(FieldOptions, deprecated) == 0x5c);
+static_assert(offsetof(FieldOptions, jstype) == 0x5c);
 static_assert(offsetof(FieldOptions, packed) == 0x60);
 static_assert(offsetof(FieldOptions, lazy) == 0x61);
-static_assert(offsetof(FieldOptions, jstype) == 0x62);
-static_assert(offsetof(FieldOptions, weak) == 0x63);
-static_assert(offsetof(FieldOptions, unverified_lazy) == 0x64);
+static_assert(offsetof(FieldOptions, unverified_lazy) == 0x62);
+static_assert(offsetof(FieldOptions, deprecated) == 0x63);
+static_assert(offsetof(FieldOptions, weak) == 0x64);
 
 #pragma pack(push, 1)
 struct OneofOptions { // sizeof 0x48, no _has_bits_
@@ -22551,9 +22555,8 @@ struct CSVCMsg_GameSessionConfiguration { // sizeof 0x90, _has_bits_ @ 0x10
     pb::string_t* gamemode; // #12 string, has-bit 3
     pb::string_t* server_ip_address; // #13 string, has-bit 4
     pb::string_t* data; // #14 bytes, has-bit 5
-    pb::string_t* landmarkname; // #18 string, has-bit 6
-    bool no_steam_server; // #19 bool, has-bit 7
-    uint8_t _pad_69[0x7];
+    pb::string_t* previouslevel; // #17 string, has-bit 6
+    pb::string_t* landmarkname; // #18 string, has-bit 7
     bool is_multiplayer; // #1 bool, has-bit 8
     bool is_loadsavegame; // #2 bool, has-bit 9
     bool is_background_map; // #3 bool, has-bit 10
@@ -22563,8 +22566,9 @@ struct CSVCMsg_GameSessionConfiguration { // sizeof 0x90, _has_bits_ @ 0x10
     uint32_t max_clients; // #7 uint32, has-bit 14
     uint32_t tick_interval; // #8 fixed32, has-bit 15
     bool is_localonly; // #15 bool, has-bit 16
-    bool is_transition; // #16 bool, has-bit 17
-    uint8_t previouslevel[0x2]; // #17 string, has-bit 18
+    bool no_steam_server; // #19 bool, has-bit 17
+    bool is_transition; // #16 bool, has-bit 18
+    uint8_t _pad_87[0x1];
     float max_coord; // #21 float, has-bit 19
     uint8_t _pad_8c[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x90;
@@ -22579,8 +22583,8 @@ static_assert(offsetof(CSVCMsg_GameSessionConfiguration, s1_mapname) == 0x40);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, gamemode) == 0x48);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, server_ip_address) == 0x50);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, data) == 0x58);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, landmarkname) == 0x60);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, no_steam_server) == 0x68);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, previouslevel) == 0x60);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, landmarkname) == 0x68);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_multiplayer) == 0x70);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_loadsavegame) == 0x71);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_background_map) == 0x72);
@@ -22590,8 +22594,8 @@ static_assert(offsetof(CSVCMsg_GameSessionConfiguration, max_client_limit) == 0x
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, max_clients) == 0x7c);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, tick_interval) == 0x80);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_localonly) == 0x84);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_transition) == 0x85);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, previouslevel) == 0x86);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, no_steam_server) == 0x85);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_transition) == 0x86);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, max_coord) == 0x88);
 
 #pragma pack(push, 1)
@@ -22662,8 +22666,8 @@ struct CMsgSource2VProfLiteReportItem { // sizeof 0x68, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::string_t* name; // #1 string, has-bit 0
     uint32_t active_samples; // #2 uint32, has-bit 1
-    uint32_t active_samples_1secmax; // #4 uint32, has-bit 2
-    uint32_t usec_max; // #3 uint32, has-bit 3
+    uint32_t usec_max; // #3 uint32, has-bit 2
+    uint32_t active_samples_1secmax; // #4 uint32, has-bit 3
     uint32_t usec_avg_active; // #11 uint32, has-bit 4
     uint32_t usec_p50_active; // #12 uint32, has-bit 5
     uint32_t usec_p99_active; // #13 uint32, has-bit 6
@@ -22686,8 +22690,8 @@ struct CMsgSource2VProfLiteReportItem { // sizeof 0x68, _has_bits_ @ 0x10
 static_assert(sizeof(CMsgSource2VProfLiteReportItem) == 0x68);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, name) == 0x18);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples) == 0x20);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples_1secmax) == 0x24);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_max) == 0x28);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_max) == 0x24);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples_1secmax) == 0x28);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_avg_active) == 0x2c);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p50_active) == 0x30);
 static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p99_active) == 0x34);
@@ -22720,7 +22724,7 @@ static_assert(offsetof(CMsgSource2VProfLiteReport, total) == 0x30);
 static_assert(offsetof(CMsgSource2VProfLiteReport, discarded_frames) == 0x38);
 
 #pragma pack(push, 1)
-struct CMsgSource2NetworkFlowQuality { // sizeof 0x110, _has_bits_ @ 0x10
+struct CMsgSource2NetworkFlowQuality { // sizeof 0x130, _has_bits_ @ 0x10
     uint8_t _pad_0[0x20];
     uint64_t bytes_total; // #5 uint64, has-bit 0
     uint32_t duration; // #1 uint32, has-bit 1
@@ -22728,118 +22732,134 @@ struct CMsgSource2NetworkFlowQuality { // sizeof 0x110, _has_bits_ @ 0x10
     uint64_t bytes_total_reliable; // #6 uint64, has-bit 3
     uint64_t bytes_total_voice; // #7 uint64, has-bit 4
     uint32_t bytes_sec_p99; // #11 uint32, has-bit 5
-    uint32_t enginemsgs_total; // #20 uint32, has-bit 6
-    uint32_t enginemsgs_sec_p95; // #21 uint32, has-bit 7
-    uint32_t enginemsgs_sec_p99; // #22 uint32, has-bit 8
-    uint32_t netframes_total; // #30 uint32, has-bit 9
-    uint32_t netframes_dropped; // #31 uint32, has-bit 10
-    uint32_t netframes_outoforder; // #32 uint32, has-bit 11
-    uint32_t netframes_size_exceeds_mtu; // #34 uint32, has-bit 12
-    uint32_t netframes_size_p95; // #35 uint32, has-bit 13
-    uint32_t netframes_size_p99; // #36 uint32, has-bit 14
-    uint32_t ticks_total; // #40 uint32, has-bit 15
-    uint32_t ticks_good; // #41 uint32, has-bit 16
-    uint32_t ticks_good_almost_late; // #42 uint32, has-bit 17
-    uint32_t ticks_fixed_dropped; // #43 uint32, has-bit 18
-    uint32_t ticks_fixed_late; // #44 uint32, has-bit 19
-    uint32_t ticks_bad_dropped; // #45 uint32, has-bit 20
-    uint32_t ticks_bad_late; // #46 uint32, has-bit 21
-    uint32_t ticks_bad_other; // #47 uint32, has-bit 22
-    uint32_t tick_missrate_samples_total; // #50 uint32, has-bit 23
-    uint32_t tick_missrate_samples_perfect; // #51 uint32, has-bit 24
-    uint32_t tick_missrate_samples_perfectnet; // #52 uint32, has-bit 25
-    uint32_t tick_missratenet_p75_x10; // #53 uint32, has-bit 26
-    uint32_t tick_missratenet_p95_x10; // #54 uint32, has-bit 27
-    uint32_t tick_missratenet_p99_x10; // #55 uint32, has-bit 28
-    int32_t recvmargin_p1; // #61 sint32, has-bit 29
-    int32_t recvmargin_p5; // #62 sint32, has-bit 30
-    int32_t recvmargin_p25; // #63 sint32, has-bit 31
-    int32_t recvmargin_p50; // #64 sint32, has-bit 32
-    int32_t recvmargin_p75; // #65 sint32, has-bit 33
-    int32_t recvmargin_p95; // #66 sint32, has-bit 34
-    uint32_t netframe_jitter_p50; // #70 uint32, has-bit 35
-    uint32_t netframe_jitter_p99; // #71 uint32, has-bit 36
-    uint32_t interval_peakjitter_p50; // #72 uint32, has-bit 37
-    uint32_t interval_peakjitter_p95; // #73 uint32, has-bit 38
-    uint32_t packet_misdelivery_rate_p50_x4; // #74 uint32, has-bit 39
-    uint32_t packet_misdelivery_rate_p95_x4; // #75 uint32, has-bit 40
-    uint32_t net_ping_p5; // #80 uint32, has-bit 41
-    uint32_t net_ping_p50; // #81 uint32, has-bit 42
-    uint32_t net_ping_p95; // #82 uint32, has-bit 43
-    uint32_t msgproc_usec_p50; // #90 uint32, has-bit 44
-    uint32_t msgproc_usec_p95; // #91 uint32, has-bit 45
-    uint32_t msgproc_usec_p99; // #92 uint32, has-bit 46
-    uint32_t msgproc_usec_max; // #93 uint32, has-bit 47
-    uint32_t msgproc_usec_avg_p50; // #94 uint32, has-bit 48
-    uint32_t msgproc_usec_avg_p95; // #95 uint32, has-bit 49
-    uint32_t msgproc_usec_avg_p99; // #96 uint32, has-bit 50
-    uint32_t msgproc_usec_avg_max; // #97 uint32, has-bit 51
-    uint32_t queuedmsgs_p50; // #100 uint32, has-bit 52
-    uint32_t queuedmsgs_p95; // #101 uint32, has-bit 53
-    uint32_t queuedmsgs_p99; // #102 uint32, has-bit 54
-    uint32_t queuedmsgs_max; // #103 uint32, has-bit 55
-    uint8_t _pad_10c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x110;
+    uint32_t netframes_size_uncompressed_p50; // #12 uint32, has-bit 6
+    uint32_t netframes_size_uncompressed_p95; // #13 uint32, has-bit 7
+    uint32_t netframes_size_uncompressed_p99; // #14 uint32, has-bit 8
+    uint32_t netframes_size_uncompressed_max; // #15 uint32, has-bit 9
+    uint32_t netframes_msgs_p50; // #16 uint32, has-bit 10
+    uint32_t netframes_msgs_p95; // #17 uint32, has-bit 11
+    uint32_t netframes_msgs_p99; // #18 uint32, has-bit 12
+    uint32_t netframes_msgs_max; // #19 uint32, has-bit 13
+    uint32_t enginemsgs_total; // #20 uint32, has-bit 14
+    uint32_t enginemsgs_sec_p95; // #21 uint32, has-bit 15
+    uint32_t enginemsgs_sec_p99; // #22 uint32, has-bit 16
+    uint32_t netframes_total; // #30 uint32, has-bit 17
+    uint32_t netframes_dropped; // #31 uint32, has-bit 18
+    uint32_t netframes_outoforder; // #32 uint32, has-bit 19
+    uint32_t netframes_size_exceeds_mtu; // #34 uint32, has-bit 20
+    uint32_t netframes_size_p95; // #35 uint32, has-bit 21
+    uint32_t netframes_size_p99; // #36 uint32, has-bit 22
+    uint32_t ticks_total; // #40 uint32, has-bit 23
+    uint32_t ticks_good; // #41 uint32, has-bit 24
+    uint32_t ticks_good_almost_late; // #42 uint32, has-bit 25
+    uint32_t ticks_fixed_dropped; // #43 uint32, has-bit 26
+    uint32_t ticks_fixed_late; // #44 uint32, has-bit 27
+    uint32_t ticks_bad_dropped; // #45 uint32, has-bit 28
+    uint32_t ticks_bad_late; // #46 uint32, has-bit 29
+    uint32_t ticks_bad_other; // #47 uint32, has-bit 30
+    uint32_t tick_missrate_samples_total; // #50 uint32, has-bit 31
+    uint32_t tick_missrate_samples_perfect; // #51 uint32, has-bit 32
+    uint32_t tick_missrate_samples_perfectnet; // #52 uint32, has-bit 33
+    uint32_t tick_missratenet_p75_x10; // #53 uint32, has-bit 34
+    uint32_t tick_missratenet_p95_x10; // #54 uint32, has-bit 35
+    uint32_t tick_missratenet_p99_x10; // #55 uint32, has-bit 36
+    int32_t recvmargin_p1; // #61 sint32, has-bit 37
+    int32_t recvmargin_p5; // #62 sint32, has-bit 38
+    int32_t recvmargin_p25; // #63 sint32, has-bit 39
+    int32_t recvmargin_p50; // #64 sint32, has-bit 40
+    int32_t recvmargin_p75; // #65 sint32, has-bit 41
+    int32_t recvmargin_p95; // #66 sint32, has-bit 42
+    uint32_t netframe_jitter_p50; // #70 uint32, has-bit 43
+    uint32_t netframe_jitter_p99; // #71 uint32, has-bit 44
+    uint32_t interval_peakjitter_p50; // #72 uint32, has-bit 45
+    uint32_t interval_peakjitter_p95; // #73 uint32, has-bit 46
+    uint32_t packet_misdelivery_rate_p50_x4; // #74 uint32, has-bit 47
+    uint32_t packet_misdelivery_rate_p95_x4; // #75 uint32, has-bit 48
+    uint32_t net_ping_p5; // #80 uint32, has-bit 49
+    uint32_t net_ping_p50; // #81 uint32, has-bit 50
+    uint32_t net_ping_p95; // #82 uint32, has-bit 51
+    uint32_t msgproc_usec_p50; // #90 uint32, has-bit 52
+    uint32_t msgproc_usec_p95; // #91 uint32, has-bit 53
+    uint32_t msgproc_usec_p99; // #92 uint32, has-bit 54
+    uint32_t msgproc_usec_max; // #93 uint32, has-bit 55
+    uint32_t msgproc_usec_avg_p50; // #94 uint32, has-bit 56
+    uint32_t msgproc_usec_avg_p95; // #95 uint32, has-bit 57
+    uint32_t msgproc_usec_avg_p99; // #96 uint32, has-bit 58
+    uint32_t msgproc_usec_avg_max; // #97 uint32, has-bit 59
+    uint32_t queuedmsgs_p50; // #100 uint32, has-bit 60
+    uint32_t queuedmsgs_p95; // #101 uint32, has-bit 61
+    uint32_t queuedmsgs_p99; // #102 uint32, has-bit 62
+    uint32_t queuedmsgs_max; // #103 uint32, has-bit 63
+    uint8_t _pad_12c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x130;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
 #pragma pack(pop)
-static_assert(sizeof(CMsgSource2NetworkFlowQuality) == 0x110);
+static_assert(sizeof(CMsgSource2NetworkFlowQuality) == 0x130);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total) == 0x20);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, duration) == 0x28);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_sec_p95) == 0x2c);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total_reliable) == 0x30);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total_voice) == 0x38);
 static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_sec_p99) == 0x40);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_total) == 0x44);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p95) == 0x48);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p99) == 0x4c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_total) == 0x50);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_dropped) == 0x54);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_outoforder) == 0x58);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_exceeds_mtu) == 0x5c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p95) == 0x60);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p99) == 0x64);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_total) == 0x68);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good) == 0x6c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good_almost_late) == 0x70);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_dropped) == 0x74);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_late) == 0x78);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_dropped) == 0x7c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_late) == 0x80);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_other) == 0x84);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_total) == 0x88);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfect) == 0x8c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfectnet) == 0x90);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p75_x10) == 0x94);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p95_x10) == 0x98);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p99_x10) == 0x9c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p1) == 0xa0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p5) == 0xa4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p25) == 0xa8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p50) == 0xac);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p75) == 0xb0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p95) == 0xb4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p50) == 0xb8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p99) == 0xbc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p50) == 0xc0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p95) == 0xc4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p50_x4) == 0xc8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p95_x4) == 0xcc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p5) == 0xd0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p50) == 0xd4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p95) == 0xd8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p50) == 0xdc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p95) == 0xe0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p99) == 0xe4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_max) == 0xe8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p50) == 0xec);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p95) == 0xf0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p99) == 0xf4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_max) == 0xf8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p50) == 0xfc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p95) == 0x100);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p99) == 0x104);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_max) == 0x108);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_p50) == 0x44);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_p95) == 0x48);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_p99) == 0x4c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_max) == 0x50);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_p50) == 0x54);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_p95) == 0x58);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_p99) == 0x5c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_max) == 0x60);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_total) == 0x64);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p95) == 0x68);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p99) == 0x6c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_total) == 0x70);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_dropped) == 0x74);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_outoforder) == 0x78);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_exceeds_mtu) == 0x7c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p95) == 0x80);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p99) == 0x84);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_total) == 0x88);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good) == 0x8c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good_almost_late) == 0x90);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_dropped) == 0x94);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_late) == 0x98);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_dropped) == 0x9c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_late) == 0xa0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_other) == 0xa4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_total) == 0xa8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfect) == 0xac);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfectnet) == 0xb0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p75_x10) == 0xb4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p95_x10) == 0xb8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p99_x10) == 0xbc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p1) == 0xc0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p5) == 0xc4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p25) == 0xc8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p50) == 0xcc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p75) == 0xd0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p95) == 0xd4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p50) == 0xd8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p99) == 0xdc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p50) == 0xe0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p95) == 0xe4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p50_x4) == 0xe8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p95_x4) == 0xec);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p5) == 0xf0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p50) == 0xf4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p95) == 0xf8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p50) == 0xfc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p95) == 0x100);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p99) == 0x104);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_max) == 0x108);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p50) == 0x10c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p95) == 0x110);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p99) == 0x114);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_max) == 0x118);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p50) == 0x11c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p95) == 0x120);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p99) == 0x124);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_max) == 0x128);
 
 #pragma pack(push, 1)
 struct CMsgSource2PerfIntervalSample { // sizeof 0x28, _has_bits_ @ 0x10
@@ -23113,24 +23133,23 @@ struct CBaseUserCmdPB { // sizeof 0x88, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::RepeatedPtrField<pb::server::CSubtickMoveStep> subtick_moves; // #18 repeated message CSubtickMoveStep, no has-bit
     pb::string_t* move_crc; // #19 bytes, has-bit 0
-    pb::server::CMsgQAngle* viewangles; // #4 message CMsgQAngle, has-bit 1
-    float forwardmove; // #5 float, has-bit 2
-    uint8_t _pad_44[0x4];
+    pb::server::CInButtonStatePB* buttons_pb; // #3 message CInButtonStatePB, has-bit 1
+    pb::server::CMsgQAngle* viewangles; // #4 message CMsgQAngle, has-bit 2
     pb::server::CBaseUserCmdExecutionNotes* execution_notes; // #22 message CBaseUserCmdExecutionNotes, has-bit 3
     int32_t legacy_command_number; // #1 int32, has-bit 4
     int32_t client_tick; // #2 int32, has-bit 5
-    float leftmove; // #6 float, has-bit 6
-    float upmove; // #7 float, has-bit 7
-    int32_t impulse; // #8 int32, has-bit 8
-    int32_t weaponselect; // #9 int32, has-bit 9
-    int32_t random_seed; // #10 int32, has-bit 10
-    int32_t mousedx; // #11 int32, has-bit 11
-    int32_t mousedy; // #12 int32, has-bit 12
-    uint32_t pawn_entity_handle; // #14 uint32, has-bit 13
-    uint8_t buttons_pb[0x4]; // #3 message CInButtonStatePB, has-bit 14
+    float forwardmove; // #5 float, has-bit 6
+    float leftmove; // #6 float, has-bit 7
+    float upmove; // #7 float, has-bit 8
+    int32_t impulse; // #8 int32, has-bit 9
+    int32_t weaponselect; // #9 int32, has-bit 10
+    int32_t random_seed; // #10 int32, has-bit 11
+    int32_t mousedx; // #11 int32, has-bit 12
+    int32_t mousedy; // #12 int32, has-bit 13
+    uint32_t prediction_offset_ticks_x256; // #17 uint32, has-bit 14
     uint32_t consumed_server_angle_changes; // #20 uint32, has-bit 15
     int32_t cmd_flags; // #21 int32, has-bit 16
-    uint32_t prediction_offset_ticks_x256; // #17 uint32, has-bit 17
+    uint32_t pawn_entity_handle; // #14 uint32, has-bit 17
     static constexpr std::ptrdiff_t kSizeOf = 0x88;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
@@ -23138,23 +23157,23 @@ struct CBaseUserCmdPB { // sizeof 0x88, _has_bits_ @ 0x10
 static_assert(sizeof(CBaseUserCmdPB) == 0x88);
 static_assert(offsetof(CBaseUserCmdPB, subtick_moves) == 0x18);
 static_assert(offsetof(CBaseUserCmdPB, move_crc) == 0x30);
-static_assert(offsetof(CBaseUserCmdPB, viewangles) == 0x38);
-static_assert(offsetof(CBaseUserCmdPB, forwardmove) == 0x40);
+static_assert(offsetof(CBaseUserCmdPB, buttons_pb) == 0x38);
+static_assert(offsetof(CBaseUserCmdPB, viewangles) == 0x40);
 static_assert(offsetof(CBaseUserCmdPB, execution_notes) == 0x48);
 static_assert(offsetof(CBaseUserCmdPB, legacy_command_number) == 0x50);
 static_assert(offsetof(CBaseUserCmdPB, client_tick) == 0x54);
-static_assert(offsetof(CBaseUserCmdPB, leftmove) == 0x58);
-static_assert(offsetof(CBaseUserCmdPB, upmove) == 0x5c);
-static_assert(offsetof(CBaseUserCmdPB, impulse) == 0x60);
-static_assert(offsetof(CBaseUserCmdPB, weaponselect) == 0x64);
-static_assert(offsetof(CBaseUserCmdPB, random_seed) == 0x68);
-static_assert(offsetof(CBaseUserCmdPB, mousedx) == 0x6c);
-static_assert(offsetof(CBaseUserCmdPB, mousedy) == 0x70);
-static_assert(offsetof(CBaseUserCmdPB, pawn_entity_handle) == 0x74);
-static_assert(offsetof(CBaseUserCmdPB, buttons_pb) == 0x78);
+static_assert(offsetof(CBaseUserCmdPB, forwardmove) == 0x58);
+static_assert(offsetof(CBaseUserCmdPB, leftmove) == 0x5c);
+static_assert(offsetof(CBaseUserCmdPB, upmove) == 0x60);
+static_assert(offsetof(CBaseUserCmdPB, impulse) == 0x64);
+static_assert(offsetof(CBaseUserCmdPB, weaponselect) == 0x68);
+static_assert(offsetof(CBaseUserCmdPB, random_seed) == 0x6c);
+static_assert(offsetof(CBaseUserCmdPB, mousedx) == 0x70);
+static_assert(offsetof(CBaseUserCmdPB, mousedy) == 0x74);
+static_assert(offsetof(CBaseUserCmdPB, prediction_offset_ticks_x256) == 0x78);
 static_assert(offsetof(CBaseUserCmdPB, consumed_server_angle_changes) == 0x7c);
 static_assert(offsetof(CBaseUserCmdPB, cmd_flags) == 0x80);
-static_assert(offsetof(CBaseUserCmdPB, prediction_offset_ticks_x256) == 0x84);
+static_assert(offsetof(CBaseUserCmdPB, pawn_entity_handle) == 0x84);
 
 #pragma pack(push, 1)
 struct CUserCmdBasePB { // sizeof 0x20, _has_bits_ @ 0x10
@@ -23166,6 +23185,1300 @@ struct CUserCmdBasePB { // sizeof 0x20, _has_bits_ @ 0x10
 #pragma pack(pop)
 static_assert(sizeof(CUserCmdBasePB) == 0x20);
 static_assert(offsetof(CUserCmdBasePB, base) == 0x18);
+
+#pragma pack(push, 1)
+struct CGCStorePurchaseInit_LineItem { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t item_def_id; // #1 uint32, has-bit 0
+    uint32_t quantity; // #2 uint32, has-bit 1
+    uint64_t cost_in_local_currency; // #3 uint64, has-bit 2
+    uint64_t supplemental_data; // #5 uint64, has-bit 3
+    uint32_t purchase_type; // #4 uint32, has-bit 4
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CGCStorePurchaseInit_LineItem) == 0x38);
+static_assert(offsetof(CGCStorePurchaseInit_LineItem, item_def_id) == 0x18);
+static_assert(offsetof(CGCStorePurchaseInit_LineItem, quantity) == 0x1c);
+static_assert(offsetof(CGCStorePurchaseInit_LineItem, cost_in_local_currency) == 0x20);
+static_assert(offsetof(CGCStorePurchaseInit_LineItem, supplemental_data) == 0x28);
+static_assert(offsetof(CGCStorePurchaseInit_LineItem, purchase_type) == 0x30);
+
+#pragma pack(push, 1)
+struct CMsgGCStorePurchaseInit { // sizeof 0x40, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::CGCStorePurchaseInit_LineItem> line_items; // #4 repeated message CGCStorePurchaseInit_LineItem, no has-bit
+    pb::string_t* country; // #1 string, has-bit 0
+    int32_t language; // #2 int32, has-bit 1
+    int32_t currency; // #3 int32, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x40;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCStorePurchaseInit) == 0x40);
+static_assert(offsetof(CMsgGCStorePurchaseInit, line_items) == 0x18);
+static_assert(offsetof(CMsgGCStorePurchaseInit, country) == 0x30);
+static_assert(offsetof(CMsgGCStorePurchaseInit, language) == 0x38);
+static_assert(offsetof(CMsgGCStorePurchaseInit, currency) == 0x3c);
+
+#pragma pack(push, 1)
+struct CMsgGCStorePurchaseInitResponse { // sizeof 0x40, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint8_t item_ids[0x10]; // #4 repeated uint64, no has-bit
+    pb::string_t* url; // #3 string, has-bit 0
+    uint64_t txn_id; // #2 uint64, has-bit 1
+    int32_t result; // #1 int32, has-bit 2
+    uint8_t _pad_3c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x40;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCStorePurchaseInitResponse) == 0x40);
+static_assert(offsetof(CMsgGCStorePurchaseInitResponse, item_ids) == 0x18);
+static_assert(offsetof(CMsgGCStorePurchaseInitResponse, url) == 0x28);
+static_assert(offsetof(CMsgGCStorePurchaseInitResponse, txn_id) == 0x30);
+static_assert(offsetof(CMsgGCStorePurchaseInitResponse, result) == 0x38);
+
+#pragma pack(push, 1)
+struct CSOPartyInvite { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* sender_name; // #3 string, has-bit 0
+    uint64_t group_id; // #1 uint64, has-bit 1
+    uint64_t sender_id; // #2 fixed64, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOPartyInvite) == 0x30);
+static_assert(offsetof(CSOPartyInvite, sender_name) == 0x18);
+static_assert(offsetof(CSOPartyInvite, group_id) == 0x20);
+static_assert(offsetof(CSOPartyInvite, sender_id) == 0x28);
+
+#pragma pack(push, 1)
+struct CSOLobbyInvite { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* sender_name; // #3 string, has-bit 0
+    uint64_t group_id; // #1 uint64, has-bit 1
+    uint64_t sender_id; // #2 fixed64, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOLobbyInvite) == 0x30);
+static_assert(offsetof(CSOLobbyInvite, sender_name) == 0x18);
+static_assert(offsetof(CSOLobbyInvite, group_id) == 0x20);
+static_assert(offsetof(CSOLobbyInvite, sender_id) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgSystemBroadcast { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* message; // #1 string, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSystemBroadcast) == 0x20);
+static_assert(offsetof(CMsgSystemBroadcast, message) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgInviteToParty { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t steam_id; // #1 fixed64, has-bit 0
+    uint32_t client_version; // #2 uint32, has-bit 1
+    uint32_t team_invite; // #3 uint32, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgInviteToParty) == 0x28);
+static_assert(offsetof(CMsgInviteToParty, steam_id) == 0x18);
+static_assert(offsetof(CMsgInviteToParty, client_version) == 0x20);
+static_assert(offsetof(CMsgInviteToParty, team_invite) == 0x24);
+
+#pragma pack(push, 1)
+struct CMsgInvitationCreated { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t group_id; // #1 uint64, has-bit 0
+    uint64_t steam_id; // #2 fixed64, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgInvitationCreated) == 0x28);
+static_assert(offsetof(CMsgInvitationCreated, group_id) == 0x18);
+static_assert(offsetof(CMsgInvitationCreated, steam_id) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgPartyInviteResponse { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t party_id; // #1 uint64, has-bit 0
+    bool accept; // #2 bool, has-bit 1
+    uint8_t _pad_21[0x3];
+    uint32_t client_version; // #3 uint32, has-bit 2
+    uint32_t team_invite; // #4 uint32, has-bit 3
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgPartyInviteResponse) == 0x30);
+static_assert(offsetof(CMsgPartyInviteResponse, party_id) == 0x18);
+static_assert(offsetof(CMsgPartyInviteResponse, accept) == 0x20);
+static_assert(offsetof(CMsgPartyInviteResponse, client_version) == 0x24);
+static_assert(offsetof(CMsgPartyInviteResponse, team_invite) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgKickFromParty { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t steam_id; // #1 fixed64, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgKickFromParty) == 0x20);
+static_assert(offsetof(CMsgKickFromParty, steam_id) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgLeaveParty { // sizeof 0x18, no _has_bits_
+    uint8_t _data[0x18];
+    static constexpr std::ptrdiff_t kSizeOf = 0x18;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgLeaveParty) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgServerAvailable { // sizeof 0x18, no _has_bits_
+    uint8_t _data[0x18];
+    static constexpr std::ptrdiff_t kSizeOf = 0x18;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgServerAvailable) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgLANServerAvailable { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t lobby_id; // #1 fixed64, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgLANServerAvailable) == 0x20);
+static_assert(offsetof(CMsgLANServerAvailable, lobby_id) == 0x18);
+
+#pragma pack(push, 1)
+struct CSOEconGameAccountClient { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t additional_backpack_slots; // #1 uint32, has-bit 0
+    uint32_t trade_ban_expiration; // #6 fixed32, has-bit 1
+    uint32_t bonus_xp_timestamp_refresh; // #12 fixed32, has-bit 2
+    uint32_t bonus_xp_usedflags; // #13 uint32, has-bit 3
+    uint32_t elevated_state; // #14 uint32, has-bit 4
+    uint32_t elevated_timestamp; // #15 uint32, has-bit 5
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOEconGameAccountClient) == 0x30);
+static_assert(offsetof(CSOEconGameAccountClient, additional_backpack_slots) == 0x18);
+static_assert(offsetof(CSOEconGameAccountClient, trade_ban_expiration) == 0x1c);
+static_assert(offsetof(CSOEconGameAccountClient, bonus_xp_timestamp_refresh) == 0x20);
+static_assert(offsetof(CSOEconGameAccountClient, bonus_xp_usedflags) == 0x24);
+static_assert(offsetof(CSOEconGameAccountClient, elevated_state) == 0x28);
+static_assert(offsetof(CSOEconGameAccountClient, elevated_timestamp) == 0x2c);
+
+#pragma pack(push, 1)
+struct CSOItemCriteriaCondition { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* field; // #2 string, has-bit 0
+    pb::string_t* string_value; // #5 string, has-bit 1
+    int32_t op; // #1 int32, has-bit 2
+    bool required; // #3 bool, has-bit 3
+    uint8_t _pad_2d[0x3];
+    float float_value; // #4 float, has-bit 4
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOItemCriteriaCondition) == 0x38);
+static_assert(offsetof(CSOItemCriteriaCondition, field) == 0x18);
+static_assert(offsetof(CSOItemCriteriaCondition, string_value) == 0x20);
+static_assert(offsetof(CSOItemCriteriaCondition, op) == 0x28);
+static_assert(offsetof(CSOItemCriteriaCondition, required) == 0x2c);
+static_assert(offsetof(CSOItemCriteriaCondition, float_value) == 0x30);
+
+#pragma pack(push, 1)
+struct CSOItemCriteria { // sizeof 0x50, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::CSOItemCriteriaCondition> conditions; // #9 repeated message CSOItemCriteriaCondition, no has-bit
+    uint32_t item_level; // #1 uint32, has-bit 0
+    int32_t item_quality; // #2 int32, has-bit 1
+    uint32_t initial_inventory; // #5 uint32, has-bit 2
+    uint32_t initial_quantity; // #6 uint32, has-bit 3
+    bool item_level_set; // #3 bool, has-bit 4
+    bool item_quality_set; // #4 bool, has-bit 5
+    bool ignore_enabled_flag; // #8 bool, has-bit 6
+    bool item_rarity_set; // #11 bool, has-bit 7
+    int32_t item_rarity; // #10 int32, has-bit 8
+    bool recent_only; // #12 bool, has-bit 9
+    uint8_t _pad_49[0x7];
+    static constexpr std::ptrdiff_t kSizeOf = 0x50;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOItemCriteria) == 0x50);
+static_assert(offsetof(CSOItemCriteria, conditions) == 0x18);
+static_assert(offsetof(CSOItemCriteria, item_level) == 0x30);
+static_assert(offsetof(CSOItemCriteria, item_quality) == 0x34);
+static_assert(offsetof(CSOItemCriteria, initial_inventory) == 0x38);
+static_assert(offsetof(CSOItemCriteria, initial_quantity) == 0x3c);
+static_assert(offsetof(CSOItemCriteria, item_level_set) == 0x40);
+static_assert(offsetof(CSOItemCriteria, item_quality_set) == 0x41);
+static_assert(offsetof(CSOItemCriteria, ignore_enabled_flag) == 0x42);
+static_assert(offsetof(CSOItemCriteria, item_rarity_set) == 0x43);
+static_assert(offsetof(CSOItemCriteria, item_rarity) == 0x44);
+static_assert(offsetof(CSOItemCriteria, recent_only) == 0x48);
+
+#pragma pack(push, 1)
+struct CSOItemRecipe { // sizeof 0xc0, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::CSOItemCriteria> input_items_criteria; // #20 repeated message CSOItemCriteria, no has-bit
+    pb::RepeatedPtrField<pb::server::CSOItemCriteria> output_items_criteria; // #21 repeated message CSOItemCriteria, no has-bit
+    uint8_t input_item_dupe_counts[0x10]; // #22 repeated uint32, no has-bit
+    pb::string_t* name; // #2 string, has-bit 0
+    pb::string_t* n_a; // #3 string, has-bit 1
+    pb::string_t* desc_inputs; // #4 string, has-bit 2
+    pb::string_t* desc_outputs; // #5 string, has-bit 3
+    pb::string_t* di_a; // #6 string, has-bit 4
+    pb::string_t* di_b; // #7 string, has-bit 5
+    pb::string_t* di_c; // #8 string, has-bit 6
+    pb::string_t* do_a; // #9 string, has-bit 7
+    pb::string_t* do_b; // #10 string, has-bit 8
+    pb::string_t* do_c; // #11 string, has-bit 9
+    uint32_t def_index; // #1 uint32, has-bit 10
+    bool requires_all_same_class; // #12 bool, has-bit 11
+    bool requires_all_same_slot; // #13 bool, has-bit 12
+    uint8_t _pad_ae[0x2];
+    int32_t class_usage_for_output; // #14 int32, has-bit 13
+    int32_t slot_usage_for_output; // #15 int32, has-bit 14
+    int32_t set_for_output; // #16 int32, has-bit 15
+    uint8_t _pad_bc[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0xc0;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOItemRecipe) == 0xc0);
+static_assert(offsetof(CSOItemRecipe, input_items_criteria) == 0x18);
+static_assert(offsetof(CSOItemRecipe, output_items_criteria) == 0x30);
+static_assert(offsetof(CSOItemRecipe, input_item_dupe_counts) == 0x48);
+static_assert(offsetof(CSOItemRecipe, name) == 0x58);
+static_assert(offsetof(CSOItemRecipe, n_a) == 0x60);
+static_assert(offsetof(CSOItemRecipe, desc_inputs) == 0x68);
+static_assert(offsetof(CSOItemRecipe, desc_outputs) == 0x70);
+static_assert(offsetof(CSOItemRecipe, di_a) == 0x78);
+static_assert(offsetof(CSOItemRecipe, di_b) == 0x80);
+static_assert(offsetof(CSOItemRecipe, di_c) == 0x88);
+static_assert(offsetof(CSOItemRecipe, do_a) == 0x90);
+static_assert(offsetof(CSOItemRecipe, do_b) == 0x98);
+static_assert(offsetof(CSOItemRecipe, do_c) == 0xa0);
+static_assert(offsetof(CSOItemRecipe, def_index) == 0xa8);
+static_assert(offsetof(CSOItemRecipe, requires_all_same_class) == 0xac);
+static_assert(offsetof(CSOItemRecipe, requires_all_same_slot) == 0xad);
+static_assert(offsetof(CSOItemRecipe, class_usage_for_output) == 0xb0);
+static_assert(offsetof(CSOItemRecipe, slot_usage_for_output) == 0xb4);
+static_assert(offsetof(CSOItemRecipe, set_for_output) == 0xb8);
+
+#pragma pack(push, 1)
+struct CMsgDevNewItemRequest { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::server::CSOItemCriteria* criteria; // #2 message CSOItemCriteria, has-bit 0
+    uint64_t receiver; // #1 fixed64, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgDevNewItemRequest) == 0x28);
+static_assert(offsetof(CMsgDevNewItemRequest, criteria) == 0x18);
+static_assert(offsetof(CMsgDevNewItemRequest, receiver) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgIncrementKillCountAttribute { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t killer_account_id; // #1 fixed32, has-bit 0
+    uint32_t victim_account_id; // #2 fixed32, has-bit 1
+    uint64_t item_id; // #3 uint64, has-bit 2
+    uint32_t event_type; // #4 uint32, has-bit 3
+    uint32_t amount; // #5 uint32, has-bit 4
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgIncrementKillCountAttribute) == 0x30);
+static_assert(offsetof(CMsgIncrementKillCountAttribute, killer_account_id) == 0x18);
+static_assert(offsetof(CMsgIncrementKillCountAttribute, victim_account_id) == 0x1c);
+static_assert(offsetof(CMsgIncrementKillCountAttribute, item_id) == 0x20);
+static_assert(offsetof(CMsgIncrementKillCountAttribute, event_type) == 0x28);
+static_assert(offsetof(CMsgIncrementKillCountAttribute, amount) == 0x2c);
+
+#pragma pack(push, 1)
+struct CMsgApplySticker { // sizeof 0x50, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t sticker_item_id; // #1 uint64, has-bit 0
+    uint64_t item_item_id; // #2 uint64, has-bit 1
+    uint32_t sticker_slot; // #3 uint32, has-bit 2
+    uint32_t baseitem_defidx; // #4 uint32, has-bit 3
+    float sticker_wear; // #5 float, has-bit 4
+    float sticker_rotation; // #6 float, has-bit 5
+    float sticker_scale; // #7 float, has-bit 6
+    float sticker_offset_x; // #8 float, has-bit 7
+    float sticker_offset_y; // #9 float, has-bit 8
+    float sticker_offset_z; // #10 float, has-bit 9
+    float sticker_wear_target; // #11 float, has-bit 10
+    uint8_t _pad_4c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x50;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgApplySticker) == 0x50);
+static_assert(offsetof(CMsgApplySticker, sticker_item_id) == 0x18);
+static_assert(offsetof(CMsgApplySticker, item_item_id) == 0x20);
+static_assert(offsetof(CMsgApplySticker, sticker_slot) == 0x28);
+static_assert(offsetof(CMsgApplySticker, baseitem_defidx) == 0x2c);
+static_assert(offsetof(CMsgApplySticker, sticker_wear) == 0x30);
+static_assert(offsetof(CMsgApplySticker, sticker_rotation) == 0x34);
+static_assert(offsetof(CMsgApplySticker, sticker_scale) == 0x38);
+static_assert(offsetof(CMsgApplySticker, sticker_offset_x) == 0x3c);
+static_assert(offsetof(CMsgApplySticker, sticker_offset_y) == 0x40);
+static_assert(offsetof(CMsgApplySticker, sticker_offset_z) == 0x44);
+static_assert(offsetof(CMsgApplySticker, sticker_wear_target) == 0x48);
+
+#pragma pack(push, 1)
+struct CMsgModifyItemAttribute { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t item_id; // #1 uint64, has-bit 0
+    uint32_t attr_defidx; // #2 uint32, has-bit 1
+    uint32_t attr_value; // #3 uint32, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgModifyItemAttribute) == 0x28);
+static_assert(offsetof(CMsgModifyItemAttribute, item_id) == 0x18);
+static_assert(offsetof(CMsgModifyItemAttribute, attr_defidx) == 0x20);
+static_assert(offsetof(CMsgModifyItemAttribute, attr_value) == 0x24);
+
+#pragma pack(push, 1)
+struct CMsgApplyStatTrakSwap { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t tool_item_id; // #1 uint64, has-bit 0
+    uint64_t item_1_item_id; // #2 uint64, has-bit 1
+    uint64_t item_2_item_id; // #3 uint64, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgApplyStatTrakSwap) == 0x30);
+static_assert(offsetof(CMsgApplyStatTrakSwap, tool_item_id) == 0x18);
+static_assert(offsetof(CMsgApplyStatTrakSwap, item_1_item_id) == 0x20);
+static_assert(offsetof(CMsgApplyStatTrakSwap, item_2_item_id) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgApplyStrangePart { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t strange_part_item_id; // #1 uint64, has-bit 0
+    uint64_t item_item_id; // #2 uint64, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgApplyStrangePart) == 0x28);
+static_assert(offsetof(CMsgApplyStrangePart, strange_part_item_id) == 0x18);
+static_assert(offsetof(CMsgApplyStrangePart, item_item_id) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgApplyPennantUpgrade { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t upgrade_item_id; // #1 uint64, has-bit 0
+    uint64_t pennant_item_id; // #2 uint64, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgApplyPennantUpgrade) == 0x28);
+static_assert(offsetof(CMsgApplyPennantUpgrade, upgrade_item_id) == 0x18);
+static_assert(offsetof(CMsgApplyPennantUpgrade, pennant_item_id) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgApplyEggEssence { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t essence_item_id; // #1 uint64, has-bit 0
+    uint64_t egg_item_id; // #2 uint64, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgApplyEggEssence) == 0x28);
+static_assert(offsetof(CMsgApplyEggEssence, essence_item_id) == 0x18);
+static_assert(offsetof(CMsgApplyEggEssence, egg_item_id) == 0x20);
+
+#pragma pack(push, 1)
+struct CSOEconItemAttribute { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* value_bytes; // #3 bytes, has-bit 0
+    uint32_t def_index; // #1 uint32, has-bit 1
+    uint32_t value; // #2 uint32, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOEconItemAttribute) == 0x28);
+static_assert(offsetof(CSOEconItemAttribute, value_bytes) == 0x18);
+static_assert(offsetof(CSOEconItemAttribute, def_index) == 0x20);
+static_assert(offsetof(CSOEconItemAttribute, value) == 0x24);
+
+#pragma pack(push, 1)
+struct CSOEconItemEquipped { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t new_class; // #1 uint32, has-bit 0
+    uint32_t new_slot; // #2 uint32, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOEconItemEquipped) == 0x20);
+static_assert(offsetof(CSOEconItemEquipped, new_class) == 0x18);
+static_assert(offsetof(CSOEconItemEquipped, new_slot) == 0x1c);
+
+#pragma pack(push, 1)
+struct CSOEconItem { // sizeof 0xa0, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::CSOEconItemAttribute> attribute; // #12 repeated message CSOEconItemAttribute, no has-bit
+    pb::RepeatedPtrField<pb::server::CSOEconItemEquipped> equipped_state; // #18 repeated message CSOEconItemEquipped, no has-bit
+    pb::string_t* custom_name; // #10 string, has-bit 0
+    pb::string_t* custom_desc; // #11 string, has-bit 1
+    pb::server::CSOEconItem* interior_item; // #13 message CSOEconItem, has-bit 2
+    uint64_t id; // #1 uint64, has-bit 3
+    uint32_t account_id; // #2 uint32, has-bit 4
+    uint32_t inventory; // #3 uint32, has-bit 5
+    uint32_t def_index; // #4 uint32, has-bit 6
+    uint32_t quantity; // #5 uint32, has-bit 7
+    uint32_t level; // #6 uint32, has-bit 8
+    uint32_t quality; // #7 uint32, has-bit 9
+    uint32_t flags; // #8 uint32, has-bit 10
+    uint32_t origin; // #9 uint32, has-bit 11
+    bool in_use; // #14 bool, has-bit 12
+    uint8_t _pad_89[0x3];
+    uint32_t style; // #15 uint32, has-bit 13
+    uint64_t original_id; // #16 uint64, has-bit 14
+    uint32_t rarity; // #19 uint32, has-bit 15
+    uint8_t _pad_9c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0xa0;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOEconItem) == 0xa0);
+static_assert(offsetof(CSOEconItem, attribute) == 0x18);
+static_assert(offsetof(CSOEconItem, equipped_state) == 0x30);
+static_assert(offsetof(CSOEconItem, custom_name) == 0x48);
+static_assert(offsetof(CSOEconItem, custom_desc) == 0x50);
+static_assert(offsetof(CSOEconItem, interior_item) == 0x58);
+static_assert(offsetof(CSOEconItem, id) == 0x60);
+static_assert(offsetof(CSOEconItem, account_id) == 0x68);
+static_assert(offsetof(CSOEconItem, inventory) == 0x6c);
+static_assert(offsetof(CSOEconItem, def_index) == 0x70);
+static_assert(offsetof(CSOEconItem, quantity) == 0x74);
+static_assert(offsetof(CSOEconItem, level) == 0x78);
+static_assert(offsetof(CSOEconItem, quality) == 0x7c);
+static_assert(offsetof(CSOEconItem, flags) == 0x80);
+static_assert(offsetof(CSOEconItem, origin) == 0x84);
+static_assert(offsetof(CSOEconItem, in_use) == 0x88);
+static_assert(offsetof(CSOEconItem, style) == 0x8c);
+static_assert(offsetof(CSOEconItem, original_id) == 0x90);
+static_assert(offsetof(CSOEconItem, rarity) == 0x98);
+
+#pragma pack(push, 1)
+struct CMsgSortItems { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t sort_type; // #1 uint32, has-bit 0
+    uint8_t _pad_1c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSortItems) == 0x20);
+static_assert(offsetof(CMsgSortItems, sort_type) == 0x18);
+
+#pragma pack(push, 1)
+struct CSOEconClaimCode { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* code; // #4 string, has-bit 0
+    uint32_t account_id; // #1 uint32, has-bit 1
+    uint32_t code_type; // #2 uint32, has-bit 2
+    uint32_t time_acquired; // #3 uint32, has-bit 3
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOEconClaimCode) == 0x30);
+static_assert(offsetof(CSOEconClaimCode, code) == 0x18);
+static_assert(offsetof(CSOEconClaimCode, account_id) == 0x20);
+static_assert(offsetof(CSOEconClaimCode, code_type) == 0x24);
+static_assert(offsetof(CSOEconClaimCode, time_acquired) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgStoreGetUserData { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t price_sheet_version; // #1 fixed32, has-bit 0
+    int32_t currency; // #2 int32, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgStoreGetUserData) == 0x20);
+static_assert(offsetof(CMsgStoreGetUserData, price_sheet_version) == 0x18);
+static_assert(offsetof(CMsgStoreGetUserData, currency) == 0x1c);
+
+#pragma pack(push, 1)
+struct CMsgStoreGetUserDataResponse { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* country_deprecated; // #3 string, has-bit 0
+    pb::string_t* price_sheet; // #8 bytes, has-bit 1
+    int32_t result; // #1 int32, has-bit 2
+    int32_t currency_deprecated; // #2 int32, has-bit 3
+    uint32_t price_sheet_version; // #4 fixed32, has-bit 4
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgStoreGetUserDataResponse) == 0x38);
+static_assert(offsetof(CMsgStoreGetUserDataResponse, country_deprecated) == 0x18);
+static_assert(offsetof(CMsgStoreGetUserDataResponse, price_sheet) == 0x20);
+static_assert(offsetof(CMsgStoreGetUserDataResponse, result) == 0x28);
+static_assert(offsetof(CMsgStoreGetUserDataResponse, currency_deprecated) == 0x2c);
+static_assert(offsetof(CMsgStoreGetUserDataResponse, price_sheet_version) == 0x30);
+
+#pragma pack(push, 1)
+struct CMsgUpdateItemSchema { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* items_game; // #1 bytes, has-bit 0
+    pb::string_t* items_game_url; // #4 string, has-bit 1
+    uint32_t item_schema_version; // #2 fixed32, has-bit 2
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgUpdateItemSchema) == 0x30);
+static_assert(offsetof(CMsgUpdateItemSchema, items_game) == 0x18);
+static_assert(offsetof(CMsgUpdateItemSchema, items_game_url) == 0x20);
+static_assert(offsetof(CMsgUpdateItemSchema, item_schema_version) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgGCError { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* error_text; // #1 string, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCError) == 0x20);
+static_assert(offsetof(CMsgGCError, error_text) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgRequestInventoryRefresh { // sizeof 0x18, no _has_bits_
+    uint8_t _data[0x18];
+    static constexpr std::ptrdiff_t kSizeOf = 0x18;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgRequestInventoryRefresh) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgUseItem { // sizeof 0x48, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint8_t gift__potential_targets[0x10]; // #3 repeated uint32, no has-bit
+    uint64_t item_id; // #1 uint64, has-bit 0
+    uint64_t target_steam_id; // #2 fixed64, has-bit 1
+    uint64_t initiator_steam_id; // #5 fixed64, has-bit 2
+    uint32_t duel__class_lock; // #4 uint32, has-bit 3
+    uint8_t _pad_44[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x48;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgUseItem) == 0x48);
+static_assert(offsetof(CMsgUseItem, gift__potential_targets) == 0x18);
+static_assert(offsetof(CMsgUseItem, item_id) == 0x28);
+static_assert(offsetof(CMsgUseItem, target_steam_id) == 0x30);
+static_assert(offsetof(CMsgUseItem, initiator_steam_id) == 0x38);
+static_assert(offsetof(CMsgUseItem, duel__class_lock) == 0x40);
+
+#pragma pack(push, 1)
+struct CMsgReplayUploadedToYouTube { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* youtube_url; // #1 string, has-bit 0
+    pb::string_t* youtube_account_name; // #2 string, has-bit 1
+    uint64_t session_id; // #3 uint64, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgReplayUploadedToYouTube) == 0x30);
+static_assert(offsetof(CMsgReplayUploadedToYouTube, youtube_url) == 0x18);
+static_assert(offsetof(CMsgReplayUploadedToYouTube, youtube_account_name) == 0x20);
+static_assert(offsetof(CMsgReplayUploadedToYouTube, session_id) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgConsumableExhausted { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    int32_t item_def_id; // #1 int32, has-bit 0
+    uint8_t _pad_1c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgConsumableExhausted) == 0x20);
+static_assert(offsetof(CMsgConsumableExhausted, item_def_id) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgItemAcknowledged__DEPRECATED { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t account_id; // #1 uint32, has-bit 0
+    uint32_t inventory; // #2 uint32, has-bit 1
+    uint32_t def_index; // #3 uint32, has-bit 2
+    uint32_t quality; // #4 uint32, has-bit 3
+    uint32_t rarity; // #5 uint32, has-bit 4
+    uint32_t origin; // #6 uint32, has-bit 5
+    uint64_t item_id; // #7 uint64, has-bit 6
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgItemAcknowledged__DEPRECATED) == 0x38);
+static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, account_id) == 0x18);
+static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, inventory) == 0x1c);
+static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, def_index) == 0x20);
+static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, quality) == 0x24);
+static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, rarity) == 0x28);
+static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, origin) == 0x2c);
+static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, item_id) == 0x30);
+
+#pragma pack(push, 1)
+struct CMsgSetItemPositions { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint8_t item_positions[0x10]; // #1 repeated message CMsgSetItemPositions.ItemPosition, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSetItemPositions) == 0x28);
+static_assert(offsetof(CMsgSetItemPositions, item_positions) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgSetItemPositions_ItemPosition { // sizeof 0x30, no _has_bits_
+    uint8_t _pad_0[0x8];
+    uint64_t item_id; // #3 uint64, no has-bit
+    uint32_t legacy_item_id; // #1 uint32, no has-bit
+    uint8_t _pad_14[0x1c];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSetItemPositions_ItemPosition) == 0x30);
+static_assert(offsetof(CMsgSetItemPositions_ItemPosition, item_id) == 0x8);
+static_assert(offsetof(CMsgSetItemPositions_ItemPosition, legacy_item_id) == 0x10);
+
+#pragma pack(push, 1)
+struct CMsgGCReportAbuse { // sizeof 0x40, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* description; // #4 string, has-bit 0
+    uint64_t target_steam_id; // #1 fixed64, has-bit 1
+    uint32_t abuse_type; // #2 uint32, has-bit 2
+    uint32_t content_type; // #3 uint32, has-bit 3
+    uint64_t gid; // #5 uint64, has-bit 4
+    uint32_t target_game_server_ip; // #6 fixed32, has-bit 5
+    uint32_t target_game_server_port; // #7 uint32, has-bit 6
+    static constexpr std::ptrdiff_t kSizeOf = 0x40;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCReportAbuse) == 0x40);
+static_assert(offsetof(CMsgGCReportAbuse, description) == 0x18);
+static_assert(offsetof(CMsgGCReportAbuse, target_steam_id) == 0x20);
+static_assert(offsetof(CMsgGCReportAbuse, abuse_type) == 0x28);
+static_assert(offsetof(CMsgGCReportAbuse, content_type) == 0x2c);
+static_assert(offsetof(CMsgGCReportAbuse, gid) == 0x30);
+static_assert(offsetof(CMsgGCReportAbuse, target_game_server_ip) == 0x38);
+static_assert(offsetof(CMsgGCReportAbuse, target_game_server_port) == 0x3c);
+
+#pragma pack(push, 1)
+struct CMsgGCReportAbuseResponse { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* error_message; // #3 string, has-bit 0
+    uint64_t target_steam_id; // #1 fixed64, has-bit 1
+    uint32_t result; // #2 uint32, has-bit 2
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCReportAbuseResponse) == 0x30);
+static_assert(offsetof(CMsgGCReportAbuseResponse, error_message) == 0x18);
+static_assert(offsetof(CMsgGCReportAbuseResponse, target_steam_id) == 0x20);
+static_assert(offsetof(CMsgGCReportAbuseResponse, result) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgGCNameItemNotification { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* item_name_custom; // #3 string, has-bit 0
+    uint64_t player_steamid; // #1 fixed64, has-bit 1
+    uint32_t item_def_index; // #2 uint32, has-bit 2
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCNameItemNotification) == 0x30);
+static_assert(offsetof(CMsgGCNameItemNotification, item_name_custom) == 0x18);
+static_assert(offsetof(CMsgGCNameItemNotification, player_steamid) == 0x20);
+static_assert(offsetof(CMsgGCNameItemNotification, item_def_index) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgGCClientDisplayNotification { // sizeof 0x58, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::string_t> body_substring_keys; // #3 repeated string, no has-bit
+    pb::RepeatedPtrField<pb::string_t> body_substring_values; // #4 repeated string, no has-bit
+    pb::string_t* notification_title_localization_key; // #1 string, has-bit 0
+    pb::string_t* notification_body_localization_key; // #2 string, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x58;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCClientDisplayNotification) == 0x58);
+static_assert(offsetof(CMsgGCClientDisplayNotification, body_substring_keys) == 0x18);
+static_assert(offsetof(CMsgGCClientDisplayNotification, body_substring_values) == 0x30);
+static_assert(offsetof(CMsgGCClientDisplayNotification, notification_title_localization_key) == 0x48);
+static_assert(offsetof(CMsgGCClientDisplayNotification, notification_body_localization_key) == 0x50);
+
+#pragma pack(push, 1)
+struct CMsgGCShowItemsPickedUp { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t player_steamid; // #1 fixed64, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCShowItemsPickedUp) == 0x20);
+static_assert(offsetof(CMsgGCShowItemsPickedUp, player_steamid) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCIncrementKillCountResponse { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t killer_account_id; // #1 uint32, has-bit 0
+    uint32_t num_kills; // #2 uint32, has-bit 1
+    uint32_t item_def; // #3 uint32, has-bit 2
+    uint32_t level_type; // #4 uint32, has-bit 3
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCIncrementKillCountResponse) == 0x28);
+static_assert(offsetof(CMsgGCIncrementKillCountResponse, killer_account_id) == 0x18);
+static_assert(offsetof(CMsgGCIncrementKillCountResponse, num_kills) == 0x1c);
+static_assert(offsetof(CMsgGCIncrementKillCountResponse, item_def) == 0x20);
+static_assert(offsetof(CMsgGCIncrementKillCountResponse, level_type) == 0x24);
+
+#pragma pack(push, 1)
+struct CSOEconItemDropRateBonus { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t account_id; // #1 uint32, has-bit 0
+    uint32_t expiration_date; // #2 fixed32, has-bit 1
+    float bonus; // #3 float, has-bit 2
+    uint32_t bonus_count; // #4 uint32, has-bit 3
+    uint64_t item_id; // #5 uint64, has-bit 4
+    uint32_t def_index; // #6 uint32, has-bit 5
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOEconItemDropRateBonus) == 0x38);
+static_assert(offsetof(CSOEconItemDropRateBonus, account_id) == 0x18);
+static_assert(offsetof(CSOEconItemDropRateBonus, expiration_date) == 0x1c);
+static_assert(offsetof(CSOEconItemDropRateBonus, bonus) == 0x20);
+static_assert(offsetof(CSOEconItemDropRateBonus, bonus_count) == 0x24);
+static_assert(offsetof(CSOEconItemDropRateBonus, item_id) == 0x28);
+static_assert(offsetof(CSOEconItemDropRateBonus, def_index) == 0x30);
+
+#pragma pack(push, 1)
+struct CSOEconItemLeagueViewPass { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t account_id; // #1 uint32, has-bit 0
+    uint32_t league_id; // #2 uint32, has-bit 1
+    uint32_t admin; // #3 uint32, has-bit 2
+    uint32_t itemindex; // #4 uint32, has-bit 3
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOEconItemLeagueViewPass) == 0x28);
+static_assert(offsetof(CSOEconItemLeagueViewPass, account_id) == 0x18);
+static_assert(offsetof(CSOEconItemLeagueViewPass, league_id) == 0x1c);
+static_assert(offsetof(CSOEconItemLeagueViewPass, admin) == 0x20);
+static_assert(offsetof(CSOEconItemLeagueViewPass, itemindex) == 0x24);
+
+#pragma pack(push, 1)
+struct CSOEconItemEventTicket { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t account_id; // #1 uint32, has-bit 0
+    uint32_t event_id; // #2 uint32, has-bit 1
+    uint64_t item_id; // #3 uint64, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOEconItemEventTicket) == 0x28);
+static_assert(offsetof(CSOEconItemEventTicket, account_id) == 0x18);
+static_assert(offsetof(CSOEconItemEventTicket, event_id) == 0x1c);
+static_assert(offsetof(CSOEconItemEventTicket, item_id) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgGCItemPreviewItemBoughtNotification { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t item_def_index; // #1 uint32, has-bit 0
+    uint8_t _pad_1c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCItemPreviewItemBoughtNotification) == 0x20);
+static_assert(offsetof(CMsgGCItemPreviewItemBoughtNotification, item_def_index) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCStorePurchaseCancel { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t txn_id; // #1 uint64, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCStorePurchaseCancel) == 0x20);
+static_assert(offsetof(CMsgGCStorePurchaseCancel, txn_id) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCStorePurchaseCancelResponse { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t result; // #1 uint32, has-bit 0
+    uint8_t _pad_1c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCStorePurchaseCancelResponse) == 0x20);
+static_assert(offsetof(CMsgGCStorePurchaseCancelResponse, result) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCStorePurchaseFinalize { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t txn_id; // #1 uint64, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCStorePurchaseFinalize) == 0x20);
+static_assert(offsetof(CMsgGCStorePurchaseFinalize, txn_id) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCStorePurchaseFinalizeResponse { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint8_t item_ids[0x10]; // #2 repeated uint64, no has-bit
+    uint32_t result; // #1 uint32, has-bit 0
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCStorePurchaseFinalizeResponse) == 0x30);
+static_assert(offsetof(CMsgGCStorePurchaseFinalizeResponse, item_ids) == 0x18);
+static_assert(offsetof(CMsgGCStorePurchaseFinalizeResponse, result) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgGCBannedWordListRequest { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t ban_list_group_id; // #1 uint32, has-bit 0
+    uint32_t word_id; // #2 uint32, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCBannedWordListRequest) == 0x20);
+static_assert(offsetof(CMsgGCBannedWordListRequest, ban_list_group_id) == 0x18);
+static_assert(offsetof(CMsgGCBannedWordListRequest, word_id) == 0x1c);
+
+#pragma pack(push, 1)
+struct CMsgGCRequestAnnouncements { // sizeof 0x18, no _has_bits_
+    uint8_t _data[0x18];
+    static constexpr std::ptrdiff_t kSizeOf = 0x18;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCRequestAnnouncements) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCRequestAnnouncementsResponse { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* announcement_title; // #1 string, has-bit 0
+    pb::string_t* announcement; // #2 string, has-bit 1
+    pb::string_t* nextmatch_title; // #3 string, has-bit 2
+    pb::string_t* nextmatch; // #4 string, has-bit 3
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCRequestAnnouncementsResponse) == 0x38);
+static_assert(offsetof(CMsgGCRequestAnnouncementsResponse, announcement_title) == 0x18);
+static_assert(offsetof(CMsgGCRequestAnnouncementsResponse, announcement) == 0x20);
+static_assert(offsetof(CMsgGCRequestAnnouncementsResponse, nextmatch_title) == 0x28);
+static_assert(offsetof(CMsgGCRequestAnnouncementsResponse, nextmatch) == 0x30);
+
+#pragma pack(push, 1)
+struct CMsgGCBannedWord { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* word; // #3 string, has-bit 0
+    uint32_t word_id; // #1 uint32, has-bit 1
+    int32_t word_type; // #2 enum GC_BannedWordType, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCBannedWord) == 0x28);
+static_assert(offsetof(CMsgGCBannedWord, word) == 0x18);
+static_assert(offsetof(CMsgGCBannedWord, word_id) == 0x20);
+static_assert(offsetof(CMsgGCBannedWord, word_type) == 0x24);
+
+#pragma pack(push, 1)
+struct CMsgGCBannedWordListResponse { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::CMsgGCBannedWord> word_list; // #2 repeated message CMsgGCBannedWord, no has-bit
+    uint32_t ban_list_group_id; // #1 uint32, has-bit 0
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCBannedWordListResponse) == 0x38);
+static_assert(offsetof(CMsgGCBannedWordListResponse, word_list) == 0x18);
+static_assert(offsetof(CMsgGCBannedWordListResponse, ban_list_group_id) == 0x30);
+
+#pragma pack(push, 1)
+struct CMsgGCToGCBannedWordListBroadcast { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::server::CMsgGCBannedWordListResponse* broadcast; // #1 message CMsgGCBannedWordListResponse, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCToGCBannedWordListBroadcast) == 0x20);
+static_assert(offsetof(CMsgGCToGCBannedWordListBroadcast, broadcast) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCToGCBannedWordListUpdated { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t group_id; // #1 uint32, has-bit 0
+    uint8_t _pad_1c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCToGCBannedWordListUpdated) == 0x20);
+static_assert(offsetof(CMsgGCToGCBannedWordListUpdated, group_id) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCToGCDirtySDOCache { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t key_uint64; // #2 uint64, has-bit 0
+    uint32_t sdo_type; // #1 uint32, has-bit 1
+    uint8_t _pad_24[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCToGCDirtySDOCache) == 0x28);
+static_assert(offsetof(CMsgGCToGCDirtySDOCache, key_uint64) == 0x18);
+static_assert(offsetof(CMsgGCToGCDirtySDOCache, sdo_type) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgGCToGCDirtyMultipleSDOCache { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint8_t key_uint64[0x10]; // #2 repeated uint64, no has-bit
+    uint32_t sdo_type; // #1 uint32, has-bit 0
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCToGCDirtyMultipleSDOCache) == 0x30);
+static_assert(offsetof(CMsgGCToGCDirtyMultipleSDOCache, key_uint64) == 0x18);
+static_assert(offsetof(CMsgGCToGCDirtyMultipleSDOCache, sdo_type) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgGCCollectItem { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t collection_item_id; // #1 uint64, has-bit 0
+    uint64_t subject_item_id; // #2 uint64, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCCollectItem) == 0x28);
+static_assert(offsetof(CMsgGCCollectItem, collection_item_id) == 0x18);
+static_assert(offsetof(CMsgGCCollectItem, subject_item_id) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgSDONoMemcached { // sizeof 0x18, no _has_bits_
+    uint8_t _data[0x18];
+    static constexpr std::ptrdiff_t kSizeOf = 0x18;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSDONoMemcached) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCToGCUpdateSQLKeyValue { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* key_name; // #1 string, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCToGCUpdateSQLKeyValue) == 0x20);
+static_assert(offsetof(CMsgGCToGCUpdateSQLKeyValue, key_name) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCToGCIsTrustedServer { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t steam_id; // #1 fixed64, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCToGCIsTrustedServer) == 0x20);
+static_assert(offsetof(CMsgGCToGCIsTrustedServer, steam_id) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCToGCIsTrustedServerResponse { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    bool is_trusted; // #1 bool, has-bit 0
+    uint8_t _pad_19[0x7];
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCToGCIsTrustedServerResponse) == 0x20);
+static_assert(offsetof(CMsgGCToGCIsTrustedServerResponse, is_trusted) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCToGCBroadcastConsoleCommand { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* con_command; // #1 string, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCToGCBroadcastConsoleCommand) == 0x20);
+static_assert(offsetof(CMsgGCToGCBroadcastConsoleCommand, con_command) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCServerVersionUpdated { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t server_version; // #1 uint32, has-bit 0
+    uint8_t _pad_1c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCServerVersionUpdated) == 0x20);
+static_assert(offsetof(CMsgGCServerVersionUpdated, server_version) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCClientVersionUpdated { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t client_version; // #1 uint32, has-bit 0
+    uint8_t _pad_1c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCClientVersionUpdated) == 0x20);
+static_assert(offsetof(CMsgGCClientVersionUpdated, client_version) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCToGCWebAPIAccountChanged { // sizeof 0x18, no _has_bits_
+    uint8_t _data[0x18];
+    static constexpr std::ptrdiff_t kSizeOf = 0x18;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCToGCWebAPIAccountChanged) == 0x18);
+
+#pragma pack(push, 1)
+struct CMsgGCToGCRequestPassportItemGrant { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t steam_id; // #1 fixed64, has-bit 0
+    uint32_t league_id; // #2 uint32, has-bit 1
+    int32_t reward_flag; // #3 int32, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGCToGCRequestPassportItemGrant) == 0x28);
+static_assert(offsetof(CMsgGCToGCRequestPassportItemGrant, steam_id) == 0x18);
+static_assert(offsetof(CMsgGCToGCRequestPassportItemGrant, league_id) == 0x20);
+static_assert(offsetof(CMsgGCToGCRequestPassportItemGrant, reward_flag) == 0x24);
+
+#pragma pack(push, 1)
+struct CMsgGameServerInfo { // sizeof 0x70, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* server_key; // #5 string, has-bit 0
+    uint32_t server_public_ip_addr; // #1 fixed32, has-bit 1
+    uint32_t server_private_ip_addr; // #2 fixed32, has-bit 2
+    uint32_t server_port; // #3 uint32, has-bit 3
+    uint32_t server_tv_port; // #4 uint32, has-bit 4
+    bool server_hibernation; // #6 bool, has-bit 5
+    uint8_t _pad_31[0x3];
+    int32_t server_type; // #7 enum CMsgGameServerInfo.ServerType, has-bit 6
+    uint32_t server_region; // #8 uint32, has-bit 7
+    float server_loadavg; // #9 float, has-bit 8
+    float server_tv_broadcast_time; // #10 float, has-bit 9
+    float server_game_time; // #11 float, has-bit 10
+    uint64_t server_relay_connected_steam_id; // #12 fixed64, has-bit 11
+    uint32_t relay_slots_max; // #13 uint32, has-bit 12
+    int32_t relays_connected; // #14 int32, has-bit 13
+    uint64_t relayed_game_server_steam_id; // #16 fixed64, has-bit 14
+    int32_t relay_clients_connected; // #15 int32, has-bit 15
+    uint32_t parent_relay_count; // #17 uint32, has-bit 16
+    uint64_t tv_secret_code; // #18 fixed64, has-bit 17
+    static constexpr std::ptrdiff_t kSizeOf = 0x70;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgGameServerInfo) == 0x70);
+static_assert(offsetof(CMsgGameServerInfo, server_key) == 0x18);
+static_assert(offsetof(CMsgGameServerInfo, server_public_ip_addr) == 0x20);
+static_assert(offsetof(CMsgGameServerInfo, server_private_ip_addr) == 0x24);
+static_assert(offsetof(CMsgGameServerInfo, server_port) == 0x28);
+static_assert(offsetof(CMsgGameServerInfo, server_tv_port) == 0x2c);
+static_assert(offsetof(CMsgGameServerInfo, server_hibernation) == 0x30);
+static_assert(offsetof(CMsgGameServerInfo, server_type) == 0x34);
+static_assert(offsetof(CMsgGameServerInfo, server_region) == 0x38);
+static_assert(offsetof(CMsgGameServerInfo, server_loadavg) == 0x3c);
+static_assert(offsetof(CMsgGameServerInfo, server_tv_broadcast_time) == 0x40);
+static_assert(offsetof(CMsgGameServerInfo, server_game_time) == 0x44);
+static_assert(offsetof(CMsgGameServerInfo, server_relay_connected_steam_id) == 0x48);
+static_assert(offsetof(CMsgGameServerInfo, relay_slots_max) == 0x50);
+static_assert(offsetof(CMsgGameServerInfo, relays_connected) == 0x54);
+static_assert(offsetof(CMsgGameServerInfo, relayed_game_server_steam_id) == 0x58);
+static_assert(offsetof(CMsgGameServerInfo, relay_clients_connected) == 0x60);
+static_assert(offsetof(CMsgGameServerInfo, parent_relay_count) == 0x64);
+static_assert(offsetof(CMsgGameServerInfo, tv_secret_code) == 0x68);
+
+#pragma pack(push, 1)
+struct CSOEconEquipSlot { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t account_id; // #1 uint32, has-bit 0
+    uint32_t class_id; // #2 uint32, has-bit 1
+    uint64_t item_id; // #4 uint64, has-bit 2
+    uint32_t slot_id; // #3 uint32, has-bit 3
+    uint32_t item_definition; // #5 uint32, has-bit 4
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOEconEquipSlot) == 0x30);
+static_assert(offsetof(CSOEconEquipSlot, account_id) == 0x18);
+static_assert(offsetof(CSOEconEquipSlot, class_id) == 0x1c);
+static_assert(offsetof(CSOEconEquipSlot, item_id) == 0x20);
+static_assert(offsetof(CSOEconEquipSlot, slot_id) == 0x28);
+static_assert(offsetof(CSOEconEquipSlot, item_definition) == 0x2c);
+
+#pragma pack(push, 1)
+struct CMsgAdjustEquipSlot { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint32_t class_id; // #1 uint32, has-bit 0
+    uint32_t slot_id; // #2 uint32, has-bit 1
+    uint64_t item_id; // #3 uint64, has-bit 2
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgAdjustEquipSlot) == 0x28);
+static_assert(offsetof(CMsgAdjustEquipSlot, class_id) == 0x18);
+static_assert(offsetof(CMsgAdjustEquipSlot, slot_id) == 0x1c);
+static_assert(offsetof(CMsgAdjustEquipSlot, item_id) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgAdjustEquipSlots { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::CMsgAdjustEquipSlot> slots; // #1 repeated message CMsgAdjustEquipSlot, no has-bit
+    uint32_t change_num; // #2 uint32, has-bit 0
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgAdjustEquipSlots) == 0x38);
+static_assert(offsetof(CMsgAdjustEquipSlots, slots) == 0x18);
+static_assert(offsetof(CMsgAdjustEquipSlots, change_num) == 0x30);
+
+#pragma pack(push, 1)
+struct CMsgOpenCrate { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t tool_item_id; // #1 uint64, has-bit 0
+    uint64_t subject_item_id; // #2 uint64, has-bit 1
+    bool for_rental; // #3 bool, has-bit 2
+    uint8_t _pad_29[0x3];
+    uint32_t points_remaining; // #4 uint32, has-bit 3
+    uint32_t volatile_limit; // #5 uint32, has-bit 4
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgOpenCrate) == 0x38);
+static_assert(offsetof(CMsgOpenCrate, tool_item_id) == 0x18);
+static_assert(offsetof(CMsgOpenCrate, subject_item_id) == 0x20);
+static_assert(offsetof(CMsgOpenCrate, for_rental) == 0x28);
+static_assert(offsetof(CMsgOpenCrate, points_remaining) == 0x2c);
+static_assert(offsetof(CMsgOpenCrate, volatile_limit) == 0x30);
+
+#pragma pack(push, 1)
+struct CSOEconRentalHistory { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t crate_item_id; // #2 uint64, has-bit 0
+    uint32_t account_id; // #1 uint32, has-bit 1
+    uint32_t crate_def_index; // #3 uint32, has-bit 2
+    uint32_t issue_date; // #4 uint32, has-bit 3
+    uint32_t expiration_date; // #5 uint32, has-bit 4
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSOEconRentalHistory) == 0x30);
+static_assert(offsetof(CSOEconRentalHistory, crate_item_id) == 0x18);
+static_assert(offsetof(CSOEconRentalHistory, account_id) == 0x20);
+static_assert(offsetof(CSOEconRentalHistory, crate_def_index) == 0x24);
+static_assert(offsetof(CSOEconRentalHistory, issue_date) == 0x28);
+static_assert(offsetof(CSOEconRentalHistory, expiration_date) == 0x2c);
+
+#pragma pack(push, 1)
+struct CMsgAcknowledgeRentalExpiration { // sizeof 0x20, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t crate_item_id; // #1 uint64, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x20;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgAcknowledgeRentalExpiration) == 0x20);
+static_assert(offsetof(CMsgAcknowledgeRentalExpiration, crate_item_id) == 0x18);
 
 #pragma pack(push, 1)
 struct GameServerPing { // sizeof 0x28, _has_bits_ @ 0x10
@@ -23782,12 +25095,12 @@ struct DeepPlayerMatchEvent { // sizeof 0x58, _has_bits_ @ 0x10
     uint8_t _pad_2d[0x3];
     int32_t user_pos_x; // #6 int32, has-bit 5
     int32_t user_pos_y; // #7 int32, has-bit 6
-    int32_t other_pos_x; // #9 int32, has-bit 7
-    int32_t other_pos_y; // #10 int32, has-bit 8
-    uint32_t other_defidx; // #11 uint32, has-bit 9
-    int32_t other_pos_z; // #13 int32, has-bit 10
-    uint32_t user_defidx; // #8 uint32, has-bit 11
-    int32_t user_pos_z; // #12 int32, has-bit 12
+    uint32_t user_defidx; // #8 uint32, has-bit 7
+    int32_t other_pos_x; // #9 int32, has-bit 8
+    int32_t other_pos_y; // #10 int32, has-bit 9
+    uint32_t other_defidx; // #11 uint32, has-bit 10
+    int32_t user_pos_z; // #12 int32, has-bit 11
+    int32_t other_pos_z; // #13 int32, has-bit 12
     int32_t event_data; // #14 int32, has-bit 13
     uint8_t _pad_54[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x58;
@@ -23802,12 +25115,12 @@ static_assert(offsetof(DeepPlayerMatchEvent, event_type) == 0x28);
 static_assert(offsetof(DeepPlayerMatchEvent, b_playing_ct) == 0x2c);
 static_assert(offsetof(DeepPlayerMatchEvent, user_pos_x) == 0x30);
 static_assert(offsetof(DeepPlayerMatchEvent, user_pos_y) == 0x34);
-static_assert(offsetof(DeepPlayerMatchEvent, other_pos_x) == 0x38);
-static_assert(offsetof(DeepPlayerMatchEvent, other_pos_y) == 0x3c);
-static_assert(offsetof(DeepPlayerMatchEvent, other_defidx) == 0x40);
-static_assert(offsetof(DeepPlayerMatchEvent, other_pos_z) == 0x44);
-static_assert(offsetof(DeepPlayerMatchEvent, user_defidx) == 0x48);
-static_assert(offsetof(DeepPlayerMatchEvent, user_pos_z) == 0x4c);
+static_assert(offsetof(DeepPlayerMatchEvent, user_defidx) == 0x38);
+static_assert(offsetof(DeepPlayerMatchEvent, other_pos_x) == 0x3c);
+static_assert(offsetof(DeepPlayerMatchEvent, other_pos_y) == 0x40);
+static_assert(offsetof(DeepPlayerMatchEvent, other_defidx) == 0x44);
+static_assert(offsetof(DeepPlayerMatchEvent, user_pos_z) == 0x48);
+static_assert(offsetof(DeepPlayerMatchEvent, other_pos_z) == 0x4c);
 static_assert(offsetof(DeepPlayerMatchEvent, event_data) == 0x50);
 
 #pragma pack(push, 1)
@@ -24060,29 +25373,25 @@ static_assert(offsetof(CPreMatchInfoData_TeamStats, match_info_idxtxt) == 0x48);
 struct CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve { // sizeof 0x120, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     uint8_t account_ids[0x10]; // #1 repeated uint32, no has-bit
-    uint64_t encryption_key; // #6 uint64, no has-bit
-    uint8_t _pad_30[0x10];
-    uint8_t whitelist[0x10]; // #9 repeated message IpAddressMask, no has-bit
-    uint64_t tv_master_steamid; // #10 uint64, no has-bit
-    uint8_t _pad_58[0x10];
-    pb::RepeatedField<uint32_t> tournament_casters_account_ids; // #13 repeated uint32, no has-bit
-    uint64_t tv_relay_steamid; // #14 uint64, no has-bit
-    uint8_t _pad_88[0x8];
+    pb::RepeatedPtrField<pb::server::PlayerRankingInfo> rankings; // #5 repeated message PlayerRankingInfo, no has-bit
+    uint8_t party_ids[0x10]; // #8 repeated uint32, no has-bit
+    pb::RepeatedPtrField<pb::server::IpAddressMask> whitelist; // #9 repeated message IpAddressMask, no has-bit
+    pb::RepeatedPtrField<pb::server::TournamentTeam> tournament_teams; // #12 repeated message TournamentTeam, no has-bit
+    uint8_t tournament_casters_account_ids[0x10]; // #13 repeated uint32, no has-bit
     pb::RepeatedPtrField<pb::server::OperationalVarValue> op_var_values; // #19 repeated message OperationalVarValue, no has-bit
     uint8_t teammate_colors[0x10]; // #21 repeated int32, no has-bit
     pb::RepeatedPtrField<pb::string_t> clan_tags; // #23 repeated string, no has-bit
-    uint8_t tournament_teams[0x8]; // #12 repeated message TournamentTeam, has-bit 0
-    uint32_t tv_control; // #17 uint32, has-bit 1
-    uint8_t _pad_dc[0x4];
+    pb::server::TournamentEvent* tournament_event; // #11 message TournamentEvent, has-bit 0
+    pb::server::CPreMatchInfoData* pre_match_data; // #15 message CPreMatchInfoData, has-bit 1
     uint64_t match_id; // #3 uint64, has-bit 2
     uint32_t game_type; // #2 uint32, has-bit 3
     uint32_t server_version; // #4 uint32, has-bit 4
-    uint64_t encryption_key_pub; // #7 uint64, has-bit 5
-    uint8_t party_ids[0x8]; // #8 repeated uint32, has-bit 6
-    pb::server::TournamentEvent* tournament_event; // #11 message TournamentEvent, has-bit 7
-    pb::server::CPreMatchInfoData* pre_match_data; // #15 message CPreMatchInfoData, has-bit 8
-    uint32_t flags; // #18 uint32, has-bit 9
-    uint8_t rankings[0x4]; // #5 repeated message PlayerRankingInfo, has-bit 10
+    uint64_t encryption_key; // #6 uint64, has-bit 5
+    uint64_t encryption_key_pub; // #7 uint64, has-bit 6
+    uint64_t tv_master_steamid; // #10 uint64, has-bit 7
+    uint64_t tv_relay_steamid; // #14 uint64, has-bit 8
+    uint32_t tv_control; // #17 uint32, has-bit 9
+    uint32_t flags; // #18 uint32, has-bit 10
     uint32_t socache_control; // #20 uint32, has-bit 11
     uint32_t match_id_additional; // #22 uint32, has-bit 12
     static constexpr std::ptrdiff_t kSizeOf = 0x120;
@@ -24091,25 +25400,25 @@ struct CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve { // sizeof 0x120, _has_bi
 #pragma pack(pop)
 static_assert(sizeof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve) == 0x120);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, account_ids) == 0x18);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, encryption_key) == 0x28);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, whitelist) == 0x40);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tv_master_steamid) == 0x50);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tournament_casters_account_ids) == 0x68);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tv_relay_steamid) == 0x80);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, rankings) == 0x28);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, party_ids) == 0x40);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, whitelist) == 0x50);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tournament_teams) == 0x68);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tournament_casters_account_ids) == 0x80);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, op_var_values) == 0x90);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, teammate_colors) == 0xa8);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, clan_tags) == 0xb8);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tournament_teams) == 0xd0);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tv_control) == 0xd8);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tournament_event) == 0xd0);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, pre_match_data) == 0xd8);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, match_id) == 0xe0);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, game_type) == 0xe8);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, server_version) == 0xec);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, encryption_key_pub) == 0xf0);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, party_ids) == 0xf8);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tournament_event) == 0x100);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, pre_match_data) == 0x108);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, flags) == 0x110);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, rankings) == 0x114);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, encryption_key) == 0xf0);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, encryption_key_pub) == 0xf8);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tv_master_steamid) == 0x100);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tv_relay_steamid) == 0x108);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, tv_control) == 0x110);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, flags) == 0x114);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, socache_control) == 0x118);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve, match_id_additional) == 0x11c);
 
@@ -24130,9 +25439,9 @@ struct CMsgGCCStrike15_v2_MatchmakingServerReservationResponse { // sizeof 0x98,
     uint32_t reward_item_attr_reward_idx; // #11 uint32, has-bit 9
     uint32_t reward_drop_list; // #12 uint32, has-bit 10
     uint32_t legacy_steamdatagram_port; // #14 uint32, has-bit 11
-    uint32_t flags; // #16 uint32, has-bit 12
-    uint32_t steamdatagram_routing; // #17 uint32, has-bit 13
-    uint32_t test_token; // #15 fixed32, has-bit 14
+    uint32_t test_token; // #15 fixed32, has-bit 12
+    uint32_t flags; // #16 uint32, has-bit 13
+    uint32_t steamdatagram_routing; // #17 uint32, has-bit 14
     uint32_t system_load; // #18 uint32, has-bit 15
     uint32_t cpus_online; // #19 uint32, has-bit 16
     uint8_t _pad_94[0x4];
@@ -24155,9 +25464,9 @@ static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, 
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, reward_item_attr_reward_idx) == 0x74);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, reward_drop_list) == 0x78);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, legacy_steamdatagram_port) == 0x7c);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, flags) == 0x80);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, steamdatagram_routing) == 0x84);
-static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, test_token) == 0x88);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, test_token) == 0x80);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, flags) == 0x84);
+static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, steamdatagram_routing) == 0x88);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, system_load) == 0x8c);
 static_assert(offsetof(CMsgGCCStrike15_v2_MatchmakingServerReservationResponse, cpus_online) == 0x90);
 
@@ -26510,1302 +27819,6 @@ static_assert(offsetof(CMsgRecurringMissionSchema_MissionTemplateList, mission_t
 static_assert(offsetof(CMsgRecurringMissionSchema_MissionTemplateList, period) == 0x10);
 
 #pragma pack(push, 1)
-struct CGCStorePurchaseInit_LineItem { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t item_def_id; // #1 uint32, has-bit 0
-    uint32_t quantity; // #2 uint32, has-bit 1
-    uint64_t cost_in_local_currency; // #3 uint64, has-bit 2
-    uint64_t supplemental_data; // #5 uint64, has-bit 3
-    uint32_t purchase_type; // #4 uint32, has-bit 4
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CGCStorePurchaseInit_LineItem) == 0x38);
-static_assert(offsetof(CGCStorePurchaseInit_LineItem, item_def_id) == 0x18);
-static_assert(offsetof(CGCStorePurchaseInit_LineItem, quantity) == 0x1c);
-static_assert(offsetof(CGCStorePurchaseInit_LineItem, cost_in_local_currency) == 0x20);
-static_assert(offsetof(CGCStorePurchaseInit_LineItem, supplemental_data) == 0x28);
-static_assert(offsetof(CGCStorePurchaseInit_LineItem, purchase_type) == 0x30);
-
-#pragma pack(push, 1)
-struct CMsgGCStorePurchaseInit { // sizeof 0x40, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::CGCStorePurchaseInit_LineItem> line_items; // #4 repeated message CGCStorePurchaseInit_LineItem, no has-bit
-    pb::string_t* country; // #1 string, has-bit 0
-    int32_t language; // #2 int32, has-bit 1
-    int32_t currency; // #3 int32, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x40;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCStorePurchaseInit) == 0x40);
-static_assert(offsetof(CMsgGCStorePurchaseInit, line_items) == 0x18);
-static_assert(offsetof(CMsgGCStorePurchaseInit, country) == 0x30);
-static_assert(offsetof(CMsgGCStorePurchaseInit, language) == 0x38);
-static_assert(offsetof(CMsgGCStorePurchaseInit, currency) == 0x3c);
-
-#pragma pack(push, 1)
-struct CMsgGCStorePurchaseInitResponse { // sizeof 0x40, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint8_t item_ids[0x10]; // #4 repeated uint64, no has-bit
-    pb::string_t* url; // #3 string, has-bit 0
-    uint64_t txn_id; // #2 uint64, has-bit 1
-    int32_t result; // #1 int32, has-bit 2
-    uint8_t _pad_3c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x40;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCStorePurchaseInitResponse) == 0x40);
-static_assert(offsetof(CMsgGCStorePurchaseInitResponse, item_ids) == 0x18);
-static_assert(offsetof(CMsgGCStorePurchaseInitResponse, url) == 0x28);
-static_assert(offsetof(CMsgGCStorePurchaseInitResponse, txn_id) == 0x30);
-static_assert(offsetof(CMsgGCStorePurchaseInitResponse, result) == 0x38);
-
-#pragma pack(push, 1)
-struct CSOPartyInvite { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* sender_name; // #3 string, has-bit 0
-    uint64_t group_id; // #1 uint64, has-bit 1
-    uint64_t sender_id; // #2 fixed64, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOPartyInvite) == 0x30);
-static_assert(offsetof(CSOPartyInvite, sender_name) == 0x18);
-static_assert(offsetof(CSOPartyInvite, group_id) == 0x20);
-static_assert(offsetof(CSOPartyInvite, sender_id) == 0x28);
-
-#pragma pack(push, 1)
-struct CSOLobbyInvite { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* sender_name; // #3 string, has-bit 0
-    uint64_t group_id; // #1 uint64, has-bit 1
-    uint64_t sender_id; // #2 fixed64, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOLobbyInvite) == 0x30);
-static_assert(offsetof(CSOLobbyInvite, sender_name) == 0x18);
-static_assert(offsetof(CSOLobbyInvite, group_id) == 0x20);
-static_assert(offsetof(CSOLobbyInvite, sender_id) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgSystemBroadcast { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* message; // #1 string, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSystemBroadcast) == 0x20);
-static_assert(offsetof(CMsgSystemBroadcast, message) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgInviteToParty { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t steam_id; // #1 fixed64, has-bit 0
-    uint32_t client_version; // #2 uint32, has-bit 1
-    uint32_t team_invite; // #3 uint32, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgInviteToParty) == 0x28);
-static_assert(offsetof(CMsgInviteToParty, steam_id) == 0x18);
-static_assert(offsetof(CMsgInviteToParty, client_version) == 0x20);
-static_assert(offsetof(CMsgInviteToParty, team_invite) == 0x24);
-
-#pragma pack(push, 1)
-struct CMsgInvitationCreated { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t group_id; // #1 uint64, has-bit 0
-    uint64_t steam_id; // #2 fixed64, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgInvitationCreated) == 0x28);
-static_assert(offsetof(CMsgInvitationCreated, group_id) == 0x18);
-static_assert(offsetof(CMsgInvitationCreated, steam_id) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgPartyInviteResponse { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t party_id; // #1 uint64, has-bit 0
-    bool accept; // #2 bool, has-bit 1
-    uint8_t _pad_21[0x3];
-    uint32_t client_version; // #3 uint32, has-bit 2
-    uint32_t team_invite; // #4 uint32, has-bit 3
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgPartyInviteResponse) == 0x30);
-static_assert(offsetof(CMsgPartyInviteResponse, party_id) == 0x18);
-static_assert(offsetof(CMsgPartyInviteResponse, accept) == 0x20);
-static_assert(offsetof(CMsgPartyInviteResponse, client_version) == 0x24);
-static_assert(offsetof(CMsgPartyInviteResponse, team_invite) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgKickFromParty { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t steam_id; // #1 fixed64, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgKickFromParty) == 0x20);
-static_assert(offsetof(CMsgKickFromParty, steam_id) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgLeaveParty { // sizeof 0x18, no _has_bits_
-    uint8_t _data[0x18];
-    static constexpr std::ptrdiff_t kSizeOf = 0x18;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgLeaveParty) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgServerAvailable { // sizeof 0x18, no _has_bits_
-    uint8_t _data[0x18];
-    static constexpr std::ptrdiff_t kSizeOf = 0x18;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgServerAvailable) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgLANServerAvailable { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t lobby_id; // #1 fixed64, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgLANServerAvailable) == 0x20);
-static_assert(offsetof(CMsgLANServerAvailable, lobby_id) == 0x18);
-
-#pragma pack(push, 1)
-struct CSOEconGameAccountClient { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t additional_backpack_slots; // #1 uint32, has-bit 0
-    uint32_t trade_ban_expiration; // #6 fixed32, has-bit 1
-    uint32_t bonus_xp_timestamp_refresh; // #12 fixed32, has-bit 2
-    uint32_t bonus_xp_usedflags; // #13 uint32, has-bit 3
-    uint32_t elevated_state; // #14 uint32, has-bit 4
-    uint32_t elevated_timestamp; // #15 uint32, has-bit 5
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOEconGameAccountClient) == 0x30);
-static_assert(offsetof(CSOEconGameAccountClient, additional_backpack_slots) == 0x18);
-static_assert(offsetof(CSOEconGameAccountClient, trade_ban_expiration) == 0x1c);
-static_assert(offsetof(CSOEconGameAccountClient, bonus_xp_timestamp_refresh) == 0x20);
-static_assert(offsetof(CSOEconGameAccountClient, bonus_xp_usedflags) == 0x24);
-static_assert(offsetof(CSOEconGameAccountClient, elevated_state) == 0x28);
-static_assert(offsetof(CSOEconGameAccountClient, elevated_timestamp) == 0x2c);
-
-#pragma pack(push, 1)
-struct CSOItemCriteriaCondition { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* field; // #2 string, has-bit 0
-    pb::string_t* string_value; // #5 string, has-bit 1
-    int32_t op; // #1 int32, has-bit 2
-    bool required; // #3 bool, has-bit 3
-    uint8_t _pad_2d[0x3];
-    float float_value; // #4 float, has-bit 4
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOItemCriteriaCondition) == 0x38);
-static_assert(offsetof(CSOItemCriteriaCondition, field) == 0x18);
-static_assert(offsetof(CSOItemCriteriaCondition, string_value) == 0x20);
-static_assert(offsetof(CSOItemCriteriaCondition, op) == 0x28);
-static_assert(offsetof(CSOItemCriteriaCondition, required) == 0x2c);
-static_assert(offsetof(CSOItemCriteriaCondition, float_value) == 0x30);
-
-#pragma pack(push, 1)
-struct CSOItemCriteria { // sizeof 0x50, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::CSOItemCriteriaCondition> conditions; // #9 repeated message CSOItemCriteriaCondition, no has-bit
-    uint32_t item_level; // #1 uint32, has-bit 0
-    int32_t item_quality; // #2 int32, has-bit 1
-    uint32_t initial_inventory; // #5 uint32, has-bit 2
-    uint32_t initial_quantity; // #6 uint32, has-bit 3
-    bool item_level_set; // #3 bool, has-bit 4
-    bool item_quality_set; // #4 bool, has-bit 5
-    bool ignore_enabled_flag; // #8 bool, has-bit 6
-    bool item_rarity_set; // #11 bool, has-bit 7
-    int32_t item_rarity; // #10 int32, has-bit 8
-    bool recent_only; // #12 bool, has-bit 9
-    uint8_t _pad_49[0x7];
-    static constexpr std::ptrdiff_t kSizeOf = 0x50;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOItemCriteria) == 0x50);
-static_assert(offsetof(CSOItemCriteria, conditions) == 0x18);
-static_assert(offsetof(CSOItemCriteria, item_level) == 0x30);
-static_assert(offsetof(CSOItemCriteria, item_quality) == 0x34);
-static_assert(offsetof(CSOItemCriteria, initial_inventory) == 0x38);
-static_assert(offsetof(CSOItemCriteria, initial_quantity) == 0x3c);
-static_assert(offsetof(CSOItemCriteria, item_level_set) == 0x40);
-static_assert(offsetof(CSOItemCriteria, item_quality_set) == 0x41);
-static_assert(offsetof(CSOItemCriteria, ignore_enabled_flag) == 0x42);
-static_assert(offsetof(CSOItemCriteria, item_rarity_set) == 0x43);
-static_assert(offsetof(CSOItemCriteria, item_rarity) == 0x44);
-static_assert(offsetof(CSOItemCriteria, recent_only) == 0x48);
-
-#pragma pack(push, 1)
-struct CSOItemRecipe { // sizeof 0xc0, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::CSOItemCriteria> input_items_criteria; // #20 repeated message CSOItemCriteria, no has-bit
-    pb::RepeatedPtrField<pb::server::CSOItemCriteria> output_items_criteria; // #21 repeated message CSOItemCriteria, no has-bit
-    uint8_t input_item_dupe_counts[0x10]; // #22 repeated uint32, no has-bit
-    pb::string_t* name; // #2 string, has-bit 0
-    pb::string_t* n_a; // #3 string, has-bit 1
-    pb::string_t* desc_inputs; // #4 string, has-bit 2
-    pb::string_t* desc_outputs; // #5 string, has-bit 3
-    pb::string_t* di_a; // #6 string, has-bit 4
-    pb::string_t* di_b; // #7 string, has-bit 5
-    pb::string_t* di_c; // #8 string, has-bit 6
-    pb::string_t* do_a; // #9 string, has-bit 7
-    pb::string_t* do_b; // #10 string, has-bit 8
-    pb::string_t* do_c; // #11 string, has-bit 9
-    uint32_t def_index; // #1 uint32, has-bit 10
-    bool requires_all_same_class; // #12 bool, has-bit 11
-    bool requires_all_same_slot; // #13 bool, has-bit 12
-    uint8_t _pad_ae[0x2];
-    int32_t class_usage_for_output; // #14 int32, has-bit 13
-    int32_t slot_usage_for_output; // #15 int32, has-bit 14
-    int32_t set_for_output; // #16 int32, has-bit 15
-    uint8_t _pad_bc[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0xc0;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOItemRecipe) == 0xc0);
-static_assert(offsetof(CSOItemRecipe, input_items_criteria) == 0x18);
-static_assert(offsetof(CSOItemRecipe, output_items_criteria) == 0x30);
-static_assert(offsetof(CSOItemRecipe, input_item_dupe_counts) == 0x48);
-static_assert(offsetof(CSOItemRecipe, name) == 0x58);
-static_assert(offsetof(CSOItemRecipe, n_a) == 0x60);
-static_assert(offsetof(CSOItemRecipe, desc_inputs) == 0x68);
-static_assert(offsetof(CSOItemRecipe, desc_outputs) == 0x70);
-static_assert(offsetof(CSOItemRecipe, di_a) == 0x78);
-static_assert(offsetof(CSOItemRecipe, di_b) == 0x80);
-static_assert(offsetof(CSOItemRecipe, di_c) == 0x88);
-static_assert(offsetof(CSOItemRecipe, do_a) == 0x90);
-static_assert(offsetof(CSOItemRecipe, do_b) == 0x98);
-static_assert(offsetof(CSOItemRecipe, do_c) == 0xa0);
-static_assert(offsetof(CSOItemRecipe, def_index) == 0xa8);
-static_assert(offsetof(CSOItemRecipe, requires_all_same_class) == 0xac);
-static_assert(offsetof(CSOItemRecipe, requires_all_same_slot) == 0xad);
-static_assert(offsetof(CSOItemRecipe, class_usage_for_output) == 0xb0);
-static_assert(offsetof(CSOItemRecipe, slot_usage_for_output) == 0xb4);
-static_assert(offsetof(CSOItemRecipe, set_for_output) == 0xb8);
-
-#pragma pack(push, 1)
-struct CMsgDevNewItemRequest { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::server::CSOItemCriteria* criteria; // #2 message CSOItemCriteria, has-bit 0
-    uint64_t receiver; // #1 fixed64, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgDevNewItemRequest) == 0x28);
-static_assert(offsetof(CMsgDevNewItemRequest, criteria) == 0x18);
-static_assert(offsetof(CMsgDevNewItemRequest, receiver) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgIncrementKillCountAttribute { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t killer_account_id; // #1 fixed32, has-bit 0
-    uint32_t victim_account_id; // #2 fixed32, has-bit 1
-    uint64_t item_id; // #3 uint64, has-bit 2
-    uint32_t event_type; // #4 uint32, has-bit 3
-    uint32_t amount; // #5 uint32, has-bit 4
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgIncrementKillCountAttribute) == 0x30);
-static_assert(offsetof(CMsgIncrementKillCountAttribute, killer_account_id) == 0x18);
-static_assert(offsetof(CMsgIncrementKillCountAttribute, victim_account_id) == 0x1c);
-static_assert(offsetof(CMsgIncrementKillCountAttribute, item_id) == 0x20);
-static_assert(offsetof(CMsgIncrementKillCountAttribute, event_type) == 0x28);
-static_assert(offsetof(CMsgIncrementKillCountAttribute, amount) == 0x2c);
-
-#pragma pack(push, 1)
-struct CMsgApplySticker { // sizeof 0x50, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t sticker_item_id; // #1 uint64, has-bit 0
-    uint64_t item_item_id; // #2 uint64, has-bit 1
-    uint32_t sticker_slot; // #3 uint32, has-bit 2
-    uint32_t baseitem_defidx; // #4 uint32, has-bit 3
-    float sticker_wear; // #5 float, has-bit 4
-    float sticker_rotation; // #6 float, has-bit 5
-    float sticker_scale; // #7 float, has-bit 6
-    float sticker_offset_x; // #8 float, has-bit 7
-    float sticker_offset_y; // #9 float, has-bit 8
-    float sticker_offset_z; // #10 float, has-bit 9
-    float sticker_wear_target; // #11 float, has-bit 10
-    uint8_t _pad_4c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x50;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgApplySticker) == 0x50);
-static_assert(offsetof(CMsgApplySticker, sticker_item_id) == 0x18);
-static_assert(offsetof(CMsgApplySticker, item_item_id) == 0x20);
-static_assert(offsetof(CMsgApplySticker, sticker_slot) == 0x28);
-static_assert(offsetof(CMsgApplySticker, baseitem_defidx) == 0x2c);
-static_assert(offsetof(CMsgApplySticker, sticker_wear) == 0x30);
-static_assert(offsetof(CMsgApplySticker, sticker_rotation) == 0x34);
-static_assert(offsetof(CMsgApplySticker, sticker_scale) == 0x38);
-static_assert(offsetof(CMsgApplySticker, sticker_offset_x) == 0x3c);
-static_assert(offsetof(CMsgApplySticker, sticker_offset_y) == 0x40);
-static_assert(offsetof(CMsgApplySticker, sticker_offset_z) == 0x44);
-static_assert(offsetof(CMsgApplySticker, sticker_wear_target) == 0x48);
-
-#pragma pack(push, 1)
-struct CMsgModifyItemAttribute { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t item_id; // #1 uint64, has-bit 0
-    uint32_t attr_defidx; // #2 uint32, has-bit 1
-    uint32_t attr_value; // #3 uint32, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgModifyItemAttribute) == 0x28);
-static_assert(offsetof(CMsgModifyItemAttribute, item_id) == 0x18);
-static_assert(offsetof(CMsgModifyItemAttribute, attr_defidx) == 0x20);
-static_assert(offsetof(CMsgModifyItemAttribute, attr_value) == 0x24);
-
-#pragma pack(push, 1)
-struct CMsgApplyStatTrakSwap { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t tool_item_id; // #1 uint64, has-bit 0
-    uint64_t item_1_item_id; // #2 uint64, has-bit 1
-    uint64_t item_2_item_id; // #3 uint64, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgApplyStatTrakSwap) == 0x30);
-static_assert(offsetof(CMsgApplyStatTrakSwap, tool_item_id) == 0x18);
-static_assert(offsetof(CMsgApplyStatTrakSwap, item_1_item_id) == 0x20);
-static_assert(offsetof(CMsgApplyStatTrakSwap, item_2_item_id) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgApplyStrangePart { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t strange_part_item_id; // #1 uint64, has-bit 0
-    uint64_t item_item_id; // #2 uint64, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgApplyStrangePart) == 0x28);
-static_assert(offsetof(CMsgApplyStrangePart, strange_part_item_id) == 0x18);
-static_assert(offsetof(CMsgApplyStrangePart, item_item_id) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgApplyPennantUpgrade { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t upgrade_item_id; // #1 uint64, has-bit 0
-    uint64_t pennant_item_id; // #2 uint64, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgApplyPennantUpgrade) == 0x28);
-static_assert(offsetof(CMsgApplyPennantUpgrade, upgrade_item_id) == 0x18);
-static_assert(offsetof(CMsgApplyPennantUpgrade, pennant_item_id) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgApplyEggEssence { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t essence_item_id; // #1 uint64, has-bit 0
-    uint64_t egg_item_id; // #2 uint64, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgApplyEggEssence) == 0x28);
-static_assert(offsetof(CMsgApplyEggEssence, essence_item_id) == 0x18);
-static_assert(offsetof(CMsgApplyEggEssence, egg_item_id) == 0x20);
-
-#pragma pack(push, 1)
-struct CSOEconItemAttribute { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* value_bytes; // #3 bytes, has-bit 0
-    uint32_t def_index; // #1 uint32, has-bit 1
-    uint32_t value; // #2 uint32, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOEconItemAttribute) == 0x28);
-static_assert(offsetof(CSOEconItemAttribute, value_bytes) == 0x18);
-static_assert(offsetof(CSOEconItemAttribute, def_index) == 0x20);
-static_assert(offsetof(CSOEconItemAttribute, value) == 0x24);
-
-#pragma pack(push, 1)
-struct CSOEconItemEquipped { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t new_class; // #1 uint32, has-bit 0
-    uint32_t new_slot; // #2 uint32, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOEconItemEquipped) == 0x20);
-static_assert(offsetof(CSOEconItemEquipped, new_class) == 0x18);
-static_assert(offsetof(CSOEconItemEquipped, new_slot) == 0x1c);
-
-#pragma pack(push, 1)
-struct CSOEconItem { // sizeof 0xa0, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::CSOEconItemAttribute> attribute; // #12 repeated message CSOEconItemAttribute, no has-bit
-    pb::RepeatedPtrField<pb::server::CSOEconItemEquipped> equipped_state; // #18 repeated message CSOEconItemEquipped, no has-bit
-    pb::string_t* custom_name; // #10 string, has-bit 0
-    pb::string_t* custom_desc; // #11 string, has-bit 1
-    pb::server::CSOEconItem* interior_item; // #13 message CSOEconItem, has-bit 2
-    uint64_t id; // #1 uint64, has-bit 3
-    uint32_t account_id; // #2 uint32, has-bit 4
-    uint32_t inventory; // #3 uint32, has-bit 5
-    uint32_t def_index; // #4 uint32, has-bit 6
-    uint32_t quantity; // #5 uint32, has-bit 7
-    uint32_t level; // #6 uint32, has-bit 8
-    uint32_t quality; // #7 uint32, has-bit 9
-    uint32_t flags; // #8 uint32, has-bit 10
-    uint32_t origin; // #9 uint32, has-bit 11
-    bool in_use; // #14 bool, has-bit 12
-    uint8_t _pad_89[0x3];
-    uint32_t style; // #15 uint32, has-bit 13
-    uint64_t original_id; // #16 uint64, has-bit 14
-    uint32_t rarity; // #19 uint32, has-bit 15
-    uint8_t _pad_9c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0xa0;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOEconItem) == 0xa0);
-static_assert(offsetof(CSOEconItem, attribute) == 0x18);
-static_assert(offsetof(CSOEconItem, equipped_state) == 0x30);
-static_assert(offsetof(CSOEconItem, custom_name) == 0x48);
-static_assert(offsetof(CSOEconItem, custom_desc) == 0x50);
-static_assert(offsetof(CSOEconItem, interior_item) == 0x58);
-static_assert(offsetof(CSOEconItem, id) == 0x60);
-static_assert(offsetof(CSOEconItem, account_id) == 0x68);
-static_assert(offsetof(CSOEconItem, inventory) == 0x6c);
-static_assert(offsetof(CSOEconItem, def_index) == 0x70);
-static_assert(offsetof(CSOEconItem, quantity) == 0x74);
-static_assert(offsetof(CSOEconItem, level) == 0x78);
-static_assert(offsetof(CSOEconItem, quality) == 0x7c);
-static_assert(offsetof(CSOEconItem, flags) == 0x80);
-static_assert(offsetof(CSOEconItem, origin) == 0x84);
-static_assert(offsetof(CSOEconItem, in_use) == 0x88);
-static_assert(offsetof(CSOEconItem, style) == 0x8c);
-static_assert(offsetof(CSOEconItem, original_id) == 0x90);
-static_assert(offsetof(CSOEconItem, rarity) == 0x98);
-
-#pragma pack(push, 1)
-struct CMsgSortItems { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t sort_type; // #1 uint32, has-bit 0
-    uint8_t _pad_1c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSortItems) == 0x20);
-static_assert(offsetof(CMsgSortItems, sort_type) == 0x18);
-
-#pragma pack(push, 1)
-struct CSOEconClaimCode { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* code; // #4 string, has-bit 0
-    uint32_t account_id; // #1 uint32, has-bit 1
-    uint32_t code_type; // #2 uint32, has-bit 2
-    uint32_t time_acquired; // #3 uint32, has-bit 3
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOEconClaimCode) == 0x30);
-static_assert(offsetof(CSOEconClaimCode, code) == 0x18);
-static_assert(offsetof(CSOEconClaimCode, account_id) == 0x20);
-static_assert(offsetof(CSOEconClaimCode, code_type) == 0x24);
-static_assert(offsetof(CSOEconClaimCode, time_acquired) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgStoreGetUserData { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t price_sheet_version; // #1 fixed32, has-bit 0
-    int32_t currency; // #2 int32, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgStoreGetUserData) == 0x20);
-static_assert(offsetof(CMsgStoreGetUserData, price_sheet_version) == 0x18);
-static_assert(offsetof(CMsgStoreGetUserData, currency) == 0x1c);
-
-#pragma pack(push, 1)
-struct CMsgStoreGetUserDataResponse { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* country_deprecated; // #3 string, has-bit 0
-    pb::string_t* price_sheet; // #8 bytes, has-bit 1
-    int32_t result; // #1 int32, has-bit 2
-    int32_t currency_deprecated; // #2 int32, has-bit 3
-    uint32_t price_sheet_version; // #4 fixed32, has-bit 4
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgStoreGetUserDataResponse) == 0x38);
-static_assert(offsetof(CMsgStoreGetUserDataResponse, country_deprecated) == 0x18);
-static_assert(offsetof(CMsgStoreGetUserDataResponse, price_sheet) == 0x20);
-static_assert(offsetof(CMsgStoreGetUserDataResponse, result) == 0x28);
-static_assert(offsetof(CMsgStoreGetUserDataResponse, currency_deprecated) == 0x2c);
-static_assert(offsetof(CMsgStoreGetUserDataResponse, price_sheet_version) == 0x30);
-
-#pragma pack(push, 1)
-struct CMsgUpdateItemSchema { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* items_game; // #1 bytes, has-bit 0
-    pb::string_t* items_game_url; // #4 string, has-bit 1
-    uint32_t item_schema_version; // #2 fixed32, has-bit 2
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgUpdateItemSchema) == 0x30);
-static_assert(offsetof(CMsgUpdateItemSchema, items_game) == 0x18);
-static_assert(offsetof(CMsgUpdateItemSchema, items_game_url) == 0x20);
-static_assert(offsetof(CMsgUpdateItemSchema, item_schema_version) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgGCError { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* error_text; // #1 string, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCError) == 0x20);
-static_assert(offsetof(CMsgGCError, error_text) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgRequestInventoryRefresh { // sizeof 0x18, no _has_bits_
-    uint8_t _data[0x18];
-    static constexpr std::ptrdiff_t kSizeOf = 0x18;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgRequestInventoryRefresh) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgUseItem { // sizeof 0x48, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint8_t gift__potential_targets[0x10]; // #3 repeated uint32, no has-bit
-    uint64_t item_id; // #1 uint64, has-bit 0
-    uint64_t target_steam_id; // #2 fixed64, has-bit 1
-    uint64_t initiator_steam_id; // #5 fixed64, has-bit 2
-    uint32_t duel__class_lock; // #4 uint32, has-bit 3
-    uint8_t _pad_44[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x48;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgUseItem) == 0x48);
-static_assert(offsetof(CMsgUseItem, gift__potential_targets) == 0x18);
-static_assert(offsetof(CMsgUseItem, item_id) == 0x28);
-static_assert(offsetof(CMsgUseItem, target_steam_id) == 0x30);
-static_assert(offsetof(CMsgUseItem, initiator_steam_id) == 0x38);
-static_assert(offsetof(CMsgUseItem, duel__class_lock) == 0x40);
-
-#pragma pack(push, 1)
-struct CMsgReplayUploadedToYouTube { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* youtube_url; // #1 string, has-bit 0
-    pb::string_t* youtube_account_name; // #2 string, has-bit 1
-    uint64_t session_id; // #3 uint64, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgReplayUploadedToYouTube) == 0x30);
-static_assert(offsetof(CMsgReplayUploadedToYouTube, youtube_url) == 0x18);
-static_assert(offsetof(CMsgReplayUploadedToYouTube, youtube_account_name) == 0x20);
-static_assert(offsetof(CMsgReplayUploadedToYouTube, session_id) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgConsumableExhausted { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    int32_t item_def_id; // #1 int32, has-bit 0
-    uint8_t _pad_1c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgConsumableExhausted) == 0x20);
-static_assert(offsetof(CMsgConsumableExhausted, item_def_id) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgItemAcknowledged__DEPRECATED { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t account_id; // #1 uint32, has-bit 0
-    uint32_t inventory; // #2 uint32, has-bit 1
-    uint32_t def_index; // #3 uint32, has-bit 2
-    uint32_t quality; // #4 uint32, has-bit 3
-    uint32_t rarity; // #5 uint32, has-bit 4
-    uint32_t origin; // #6 uint32, has-bit 5
-    uint64_t item_id; // #7 uint64, has-bit 6
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgItemAcknowledged__DEPRECATED) == 0x38);
-static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, account_id) == 0x18);
-static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, inventory) == 0x1c);
-static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, def_index) == 0x20);
-static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, quality) == 0x24);
-static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, rarity) == 0x28);
-static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, origin) == 0x2c);
-static_assert(offsetof(CMsgItemAcknowledged__DEPRECATED, item_id) == 0x30);
-
-#pragma pack(push, 1)
-struct CMsgSetItemPositions { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint8_t item_positions[0x10]; // #1 repeated message CMsgSetItemPositions.ItemPosition, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSetItemPositions) == 0x28);
-static_assert(offsetof(CMsgSetItemPositions, item_positions) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgSetItemPositions_ItemPosition { // sizeof 0x30, no _has_bits_
-    uint8_t _pad_0[0x8];
-    uint64_t item_id; // #3 uint64, no has-bit
-    uint32_t legacy_item_id; // #1 uint32, no has-bit
-    uint8_t _pad_14[0x1c];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSetItemPositions_ItemPosition) == 0x30);
-static_assert(offsetof(CMsgSetItemPositions_ItemPosition, item_id) == 0x8);
-static_assert(offsetof(CMsgSetItemPositions_ItemPosition, legacy_item_id) == 0x10);
-
-#pragma pack(push, 1)
-struct CMsgGCReportAbuse { // sizeof 0x40, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t abuse_type; // #2 uint32, has-bit 0
-    uint8_t _pad_1c[0x4];
-    uint64_t target_steam_id; // #1 fixed64, has-bit 1
-    uint8_t description[0x4]; // #4 string, has-bit 2
-    uint8_t gid[0x4]; // #5 uint64, has-bit 3
-    uint32_t content_type; // #3 uint32, has-bit 4
-    uint8_t _pad_34[0x4];
-    uint32_t target_game_server_ip; // #6 fixed32, has-bit 5
-    uint32_t target_game_server_port; // #7 uint32, has-bit 6
-    static constexpr std::ptrdiff_t kSizeOf = 0x40;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCReportAbuse) == 0x40);
-static_assert(offsetof(CMsgGCReportAbuse, abuse_type) == 0x18);
-static_assert(offsetof(CMsgGCReportAbuse, target_steam_id) == 0x20);
-static_assert(offsetof(CMsgGCReportAbuse, description) == 0x28);
-static_assert(offsetof(CMsgGCReportAbuse, gid) == 0x2c);
-static_assert(offsetof(CMsgGCReportAbuse, content_type) == 0x30);
-static_assert(offsetof(CMsgGCReportAbuse, target_game_server_ip) == 0x38);
-static_assert(offsetof(CMsgGCReportAbuse, target_game_server_port) == 0x3c);
-
-#pragma pack(push, 1)
-struct CMsgGCReportAbuseResponse { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* error_message; // #3 string, has-bit 0
-    uint64_t target_steam_id; // #1 fixed64, has-bit 1
-    uint32_t result; // #2 uint32, has-bit 2
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCReportAbuseResponse) == 0x30);
-static_assert(offsetof(CMsgGCReportAbuseResponse, error_message) == 0x18);
-static_assert(offsetof(CMsgGCReportAbuseResponse, target_steam_id) == 0x20);
-static_assert(offsetof(CMsgGCReportAbuseResponse, result) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgGCNameItemNotification { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* item_name_custom; // #3 string, has-bit 0
-    uint64_t player_steamid; // #1 fixed64, has-bit 1
-    uint32_t item_def_index; // #2 uint32, has-bit 2
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCNameItemNotification) == 0x30);
-static_assert(offsetof(CMsgGCNameItemNotification, item_name_custom) == 0x18);
-static_assert(offsetof(CMsgGCNameItemNotification, player_steamid) == 0x20);
-static_assert(offsetof(CMsgGCNameItemNotification, item_def_index) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgGCClientDisplayNotification { // sizeof 0x58, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::string_t> body_substring_keys; // #3 repeated string, no has-bit
-    pb::RepeatedPtrField<pb::string_t> body_substring_values; // #4 repeated string, no has-bit
-    pb::string_t* notification_title_localization_key; // #1 string, has-bit 0
-    pb::string_t* notification_body_localization_key; // #2 string, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x58;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCClientDisplayNotification) == 0x58);
-static_assert(offsetof(CMsgGCClientDisplayNotification, body_substring_keys) == 0x18);
-static_assert(offsetof(CMsgGCClientDisplayNotification, body_substring_values) == 0x30);
-static_assert(offsetof(CMsgGCClientDisplayNotification, notification_title_localization_key) == 0x48);
-static_assert(offsetof(CMsgGCClientDisplayNotification, notification_body_localization_key) == 0x50);
-
-#pragma pack(push, 1)
-struct CMsgGCShowItemsPickedUp { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t player_steamid; // #1 fixed64, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCShowItemsPickedUp) == 0x20);
-static_assert(offsetof(CMsgGCShowItemsPickedUp, player_steamid) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCIncrementKillCountResponse { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t killer_account_id; // #1 uint32, has-bit 0
-    uint32_t num_kills; // #2 uint32, has-bit 1
-    uint32_t item_def; // #3 uint32, has-bit 2
-    uint32_t level_type; // #4 uint32, has-bit 3
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCIncrementKillCountResponse) == 0x28);
-static_assert(offsetof(CMsgGCIncrementKillCountResponse, killer_account_id) == 0x18);
-static_assert(offsetof(CMsgGCIncrementKillCountResponse, num_kills) == 0x1c);
-static_assert(offsetof(CMsgGCIncrementKillCountResponse, item_def) == 0x20);
-static_assert(offsetof(CMsgGCIncrementKillCountResponse, level_type) == 0x24);
-
-#pragma pack(push, 1)
-struct CSOEconItemDropRateBonus { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t account_id; // #1 uint32, has-bit 0
-    uint32_t expiration_date; // #2 fixed32, has-bit 1
-    float bonus; // #3 float, has-bit 2
-    uint32_t bonus_count; // #4 uint32, has-bit 3
-    uint64_t item_id; // #5 uint64, has-bit 4
-    uint32_t def_index; // #6 uint32, has-bit 5
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOEconItemDropRateBonus) == 0x38);
-static_assert(offsetof(CSOEconItemDropRateBonus, account_id) == 0x18);
-static_assert(offsetof(CSOEconItemDropRateBonus, expiration_date) == 0x1c);
-static_assert(offsetof(CSOEconItemDropRateBonus, bonus) == 0x20);
-static_assert(offsetof(CSOEconItemDropRateBonus, bonus_count) == 0x24);
-static_assert(offsetof(CSOEconItemDropRateBonus, item_id) == 0x28);
-static_assert(offsetof(CSOEconItemDropRateBonus, def_index) == 0x30);
-
-#pragma pack(push, 1)
-struct CSOEconItemLeagueViewPass { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t account_id; // #1 uint32, has-bit 0
-    uint32_t league_id; // #2 uint32, has-bit 1
-    uint32_t admin; // #3 uint32, has-bit 2
-    uint32_t itemindex; // #4 uint32, has-bit 3
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOEconItemLeagueViewPass) == 0x28);
-static_assert(offsetof(CSOEconItemLeagueViewPass, account_id) == 0x18);
-static_assert(offsetof(CSOEconItemLeagueViewPass, league_id) == 0x1c);
-static_assert(offsetof(CSOEconItemLeagueViewPass, admin) == 0x20);
-static_assert(offsetof(CSOEconItemLeagueViewPass, itemindex) == 0x24);
-
-#pragma pack(push, 1)
-struct CSOEconItemEventTicket { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t account_id; // #1 uint32, has-bit 0
-    uint32_t event_id; // #2 uint32, has-bit 1
-    uint64_t item_id; // #3 uint64, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOEconItemEventTicket) == 0x28);
-static_assert(offsetof(CSOEconItemEventTicket, account_id) == 0x18);
-static_assert(offsetof(CSOEconItemEventTicket, event_id) == 0x1c);
-static_assert(offsetof(CSOEconItemEventTicket, item_id) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgGCItemPreviewItemBoughtNotification { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t item_def_index; // #1 uint32, has-bit 0
-    uint8_t _pad_1c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCItemPreviewItemBoughtNotification) == 0x20);
-static_assert(offsetof(CMsgGCItemPreviewItemBoughtNotification, item_def_index) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCStorePurchaseCancel { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t txn_id; // #1 uint64, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCStorePurchaseCancel) == 0x20);
-static_assert(offsetof(CMsgGCStorePurchaseCancel, txn_id) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCStorePurchaseCancelResponse { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t result; // #1 uint32, has-bit 0
-    uint8_t _pad_1c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCStorePurchaseCancelResponse) == 0x20);
-static_assert(offsetof(CMsgGCStorePurchaseCancelResponse, result) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCStorePurchaseFinalize { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t txn_id; // #1 uint64, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCStorePurchaseFinalize) == 0x20);
-static_assert(offsetof(CMsgGCStorePurchaseFinalize, txn_id) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCStorePurchaseFinalizeResponse { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint8_t item_ids[0x10]; // #2 repeated uint64, no has-bit
-    uint32_t result; // #1 uint32, has-bit 0
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCStorePurchaseFinalizeResponse) == 0x30);
-static_assert(offsetof(CMsgGCStorePurchaseFinalizeResponse, item_ids) == 0x18);
-static_assert(offsetof(CMsgGCStorePurchaseFinalizeResponse, result) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgGCBannedWordListRequest { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t ban_list_group_id; // #1 uint32, has-bit 0
-    uint32_t word_id; // #2 uint32, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCBannedWordListRequest) == 0x20);
-static_assert(offsetof(CMsgGCBannedWordListRequest, ban_list_group_id) == 0x18);
-static_assert(offsetof(CMsgGCBannedWordListRequest, word_id) == 0x1c);
-
-#pragma pack(push, 1)
-struct CMsgGCRequestAnnouncements { // sizeof 0x18, no _has_bits_
-    uint8_t _data[0x18];
-    static constexpr std::ptrdiff_t kSizeOf = 0x18;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCRequestAnnouncements) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCRequestAnnouncementsResponse { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* announcement_title; // #1 string, has-bit 0
-    pb::string_t* announcement; // #2 string, has-bit 1
-    pb::string_t* nextmatch_title; // #3 string, has-bit 2
-    pb::string_t* nextmatch; // #4 string, has-bit 3
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCRequestAnnouncementsResponse) == 0x38);
-static_assert(offsetof(CMsgGCRequestAnnouncementsResponse, announcement_title) == 0x18);
-static_assert(offsetof(CMsgGCRequestAnnouncementsResponse, announcement) == 0x20);
-static_assert(offsetof(CMsgGCRequestAnnouncementsResponse, nextmatch_title) == 0x28);
-static_assert(offsetof(CMsgGCRequestAnnouncementsResponse, nextmatch) == 0x30);
-
-#pragma pack(push, 1)
-struct CMsgGCBannedWord { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* word; // #3 string, has-bit 0
-    uint32_t word_id; // #1 uint32, has-bit 1
-    int32_t word_type; // #2 enum GC_BannedWordType, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCBannedWord) == 0x28);
-static_assert(offsetof(CMsgGCBannedWord, word) == 0x18);
-static_assert(offsetof(CMsgGCBannedWord, word_id) == 0x20);
-static_assert(offsetof(CMsgGCBannedWord, word_type) == 0x24);
-
-#pragma pack(push, 1)
-struct CMsgGCBannedWordListResponse { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::CMsgGCBannedWord> word_list; // #2 repeated message CMsgGCBannedWord, no has-bit
-    uint32_t ban_list_group_id; // #1 uint32, has-bit 0
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCBannedWordListResponse) == 0x38);
-static_assert(offsetof(CMsgGCBannedWordListResponse, word_list) == 0x18);
-static_assert(offsetof(CMsgGCBannedWordListResponse, ban_list_group_id) == 0x30);
-
-#pragma pack(push, 1)
-struct CMsgGCToGCBannedWordListBroadcast { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::server::CMsgGCBannedWordListResponse* broadcast; // #1 message CMsgGCBannedWordListResponse, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCToGCBannedWordListBroadcast) == 0x20);
-static_assert(offsetof(CMsgGCToGCBannedWordListBroadcast, broadcast) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCToGCBannedWordListUpdated { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t group_id; // #1 uint32, has-bit 0
-    uint8_t _pad_1c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCToGCBannedWordListUpdated) == 0x20);
-static_assert(offsetof(CMsgGCToGCBannedWordListUpdated, group_id) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCToGCDirtySDOCache { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t key_uint64; // #2 uint64, has-bit 0
-    uint32_t sdo_type; // #1 uint32, has-bit 1
-    uint8_t _pad_24[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCToGCDirtySDOCache) == 0x28);
-static_assert(offsetof(CMsgGCToGCDirtySDOCache, key_uint64) == 0x18);
-static_assert(offsetof(CMsgGCToGCDirtySDOCache, sdo_type) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgGCToGCDirtyMultipleSDOCache { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint8_t key_uint64[0x10]; // #2 repeated uint64, no has-bit
-    uint32_t sdo_type; // #1 uint32, has-bit 0
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCToGCDirtyMultipleSDOCache) == 0x30);
-static_assert(offsetof(CMsgGCToGCDirtyMultipleSDOCache, key_uint64) == 0x18);
-static_assert(offsetof(CMsgGCToGCDirtyMultipleSDOCache, sdo_type) == 0x28);
-
-#pragma pack(push, 1)
-struct CMsgGCCollectItem { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t collection_item_id; // #1 uint64, has-bit 0
-    uint64_t subject_item_id; // #2 uint64, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCCollectItem) == 0x28);
-static_assert(offsetof(CMsgGCCollectItem, collection_item_id) == 0x18);
-static_assert(offsetof(CMsgGCCollectItem, subject_item_id) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgSDONoMemcached { // sizeof 0x18, no _has_bits_
-    uint8_t _data[0x18];
-    static constexpr std::ptrdiff_t kSizeOf = 0x18;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSDONoMemcached) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCToGCUpdateSQLKeyValue { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* key_name; // #1 string, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCToGCUpdateSQLKeyValue) == 0x20);
-static_assert(offsetof(CMsgGCToGCUpdateSQLKeyValue, key_name) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCToGCIsTrustedServer { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t steam_id; // #1 fixed64, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCToGCIsTrustedServer) == 0x20);
-static_assert(offsetof(CMsgGCToGCIsTrustedServer, steam_id) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCToGCIsTrustedServerResponse { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    bool is_trusted; // #1 bool, has-bit 0
-    uint8_t _pad_19[0x7];
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCToGCIsTrustedServerResponse) == 0x20);
-static_assert(offsetof(CMsgGCToGCIsTrustedServerResponse, is_trusted) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCToGCBroadcastConsoleCommand { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* con_command; // #1 string, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCToGCBroadcastConsoleCommand) == 0x20);
-static_assert(offsetof(CMsgGCToGCBroadcastConsoleCommand, con_command) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCServerVersionUpdated { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t server_version; // #1 uint32, has-bit 0
-    uint8_t _pad_1c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCServerVersionUpdated) == 0x20);
-static_assert(offsetof(CMsgGCServerVersionUpdated, server_version) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCClientVersionUpdated { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t client_version; // #1 uint32, has-bit 0
-    uint8_t _pad_1c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCClientVersionUpdated) == 0x20);
-static_assert(offsetof(CMsgGCClientVersionUpdated, client_version) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCToGCWebAPIAccountChanged { // sizeof 0x18, no _has_bits_
-    uint8_t _data[0x18];
-    static constexpr std::ptrdiff_t kSizeOf = 0x18;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCToGCWebAPIAccountChanged) == 0x18);
-
-#pragma pack(push, 1)
-struct CMsgGCToGCRequestPassportItemGrant { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t steam_id; // #1 fixed64, has-bit 0
-    uint32_t league_id; // #2 uint32, has-bit 1
-    int32_t reward_flag; // #3 int32, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGCToGCRequestPassportItemGrant) == 0x28);
-static_assert(offsetof(CMsgGCToGCRequestPassportItemGrant, steam_id) == 0x18);
-static_assert(offsetof(CMsgGCToGCRequestPassportItemGrant, league_id) == 0x20);
-static_assert(offsetof(CMsgGCToGCRequestPassportItemGrant, reward_flag) == 0x24);
-
-#pragma pack(push, 1)
-struct CMsgGameServerInfo { // sizeof 0x70, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* server_key; // #5 string, has-bit 0
-    uint32_t server_public_ip_addr; // #1 fixed32, has-bit 1
-    uint32_t server_private_ip_addr; // #2 fixed32, has-bit 2
-    uint32_t server_port; // #3 uint32, has-bit 3
-    uint32_t server_tv_port; // #4 uint32, has-bit 4
-    bool server_hibernation; // #6 bool, has-bit 5
-    uint8_t _pad_31[0x3];
-    int32_t server_type; // #7 enum CMsgGameServerInfo.ServerType, has-bit 6
-    uint32_t server_region; // #8 uint32, has-bit 7
-    float server_loadavg; // #9 float, has-bit 8
-    float server_tv_broadcast_time; // #10 float, has-bit 9
-    float server_game_time; // #11 float, has-bit 10
-    uint64_t server_relay_connected_steam_id; // #12 fixed64, has-bit 11
-    uint32_t relay_slots_max; // #13 uint32, has-bit 12
-    int32_t relays_connected; // #14 int32, has-bit 13
-    uint64_t relayed_game_server_steam_id; // #16 fixed64, has-bit 14
-    int32_t relay_clients_connected; // #15 int32, has-bit 15
-    uint32_t parent_relay_count; // #17 uint32, has-bit 16
-    uint64_t tv_secret_code; // #18 fixed64, has-bit 17
-    static constexpr std::ptrdiff_t kSizeOf = 0x70;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgGameServerInfo) == 0x70);
-static_assert(offsetof(CMsgGameServerInfo, server_key) == 0x18);
-static_assert(offsetof(CMsgGameServerInfo, server_public_ip_addr) == 0x20);
-static_assert(offsetof(CMsgGameServerInfo, server_private_ip_addr) == 0x24);
-static_assert(offsetof(CMsgGameServerInfo, server_port) == 0x28);
-static_assert(offsetof(CMsgGameServerInfo, server_tv_port) == 0x2c);
-static_assert(offsetof(CMsgGameServerInfo, server_hibernation) == 0x30);
-static_assert(offsetof(CMsgGameServerInfo, server_type) == 0x34);
-static_assert(offsetof(CMsgGameServerInfo, server_region) == 0x38);
-static_assert(offsetof(CMsgGameServerInfo, server_loadavg) == 0x3c);
-static_assert(offsetof(CMsgGameServerInfo, server_tv_broadcast_time) == 0x40);
-static_assert(offsetof(CMsgGameServerInfo, server_game_time) == 0x44);
-static_assert(offsetof(CMsgGameServerInfo, server_relay_connected_steam_id) == 0x48);
-static_assert(offsetof(CMsgGameServerInfo, relay_slots_max) == 0x50);
-static_assert(offsetof(CMsgGameServerInfo, relays_connected) == 0x54);
-static_assert(offsetof(CMsgGameServerInfo, relayed_game_server_steam_id) == 0x58);
-static_assert(offsetof(CMsgGameServerInfo, relay_clients_connected) == 0x60);
-static_assert(offsetof(CMsgGameServerInfo, parent_relay_count) == 0x64);
-static_assert(offsetof(CMsgGameServerInfo, tv_secret_code) == 0x68);
-
-#pragma pack(push, 1)
-struct CSOEconEquipSlot { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t account_id; // #1 uint32, has-bit 0
-    uint32_t class_id; // #2 uint32, has-bit 1
-    uint64_t item_id; // #4 uint64, has-bit 2
-    uint32_t slot_id; // #3 uint32, has-bit 3
-    uint32_t item_definition; // #5 uint32, has-bit 4
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOEconEquipSlot) == 0x30);
-static_assert(offsetof(CSOEconEquipSlot, account_id) == 0x18);
-static_assert(offsetof(CSOEconEquipSlot, class_id) == 0x1c);
-static_assert(offsetof(CSOEconEquipSlot, item_id) == 0x20);
-static_assert(offsetof(CSOEconEquipSlot, slot_id) == 0x28);
-static_assert(offsetof(CSOEconEquipSlot, item_definition) == 0x2c);
-
-#pragma pack(push, 1)
-struct CMsgAdjustEquipSlot { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint32_t class_id; // #1 uint32, has-bit 0
-    uint32_t slot_id; // #2 uint32, has-bit 1
-    uint64_t item_id; // #3 uint64, has-bit 2
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgAdjustEquipSlot) == 0x28);
-static_assert(offsetof(CMsgAdjustEquipSlot, class_id) == 0x18);
-static_assert(offsetof(CMsgAdjustEquipSlot, slot_id) == 0x1c);
-static_assert(offsetof(CMsgAdjustEquipSlot, item_id) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgAdjustEquipSlots { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::CMsgAdjustEquipSlot> slots; // #1 repeated message CMsgAdjustEquipSlot, no has-bit
-    uint32_t change_num; // #2 uint32, has-bit 0
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgAdjustEquipSlots) == 0x38);
-static_assert(offsetof(CMsgAdjustEquipSlots, slots) == 0x18);
-static_assert(offsetof(CMsgAdjustEquipSlots, change_num) == 0x30);
-
-#pragma pack(push, 1)
-struct CMsgOpenCrate { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t tool_item_id; // #1 uint64, has-bit 0
-    uint64_t subject_item_id; // #2 uint64, has-bit 1
-    bool for_rental; // #3 bool, has-bit 2
-    uint8_t _pad_29[0x3];
-    uint32_t points_remaining; // #4 uint32, has-bit 3
-    uint32_t volatile_limit; // #5 uint32, has-bit 4
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgOpenCrate) == 0x38);
-static_assert(offsetof(CMsgOpenCrate, tool_item_id) == 0x18);
-static_assert(offsetof(CMsgOpenCrate, subject_item_id) == 0x20);
-static_assert(offsetof(CMsgOpenCrate, for_rental) == 0x28);
-static_assert(offsetof(CMsgOpenCrate, points_remaining) == 0x2c);
-static_assert(offsetof(CMsgOpenCrate, volatile_limit) == 0x30);
-
-#pragma pack(push, 1)
-struct CSOEconRentalHistory { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t crate_item_id; // #2 uint64, has-bit 0
-    uint32_t account_id; // #1 uint32, has-bit 1
-    uint32_t crate_def_index; // #3 uint32, has-bit 2
-    uint32_t issue_date; // #4 uint32, has-bit 3
-    uint32_t expiration_date; // #5 uint32, has-bit 4
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSOEconRentalHistory) == 0x30);
-static_assert(offsetof(CSOEconRentalHistory, crate_item_id) == 0x18);
-static_assert(offsetof(CSOEconRentalHistory, account_id) == 0x20);
-static_assert(offsetof(CSOEconRentalHistory, crate_def_index) == 0x24);
-static_assert(offsetof(CSOEconRentalHistory, issue_date) == 0x28);
-static_assert(offsetof(CSOEconRentalHistory, expiration_date) == 0x2c);
-
-#pragma pack(push, 1)
-struct CMsgAcknowledgeRentalExpiration { // sizeof 0x20, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t crate_item_id; // #1 uint64, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x20;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgAcknowledgeRentalExpiration) == 0x20);
-static_assert(offsetof(CMsgAcknowledgeRentalExpiration, crate_item_id) == 0x18);
-
-#pragma pack(push, 1)
 struct CMsgTEPlayerAnimEvent { // sizeof 0x28, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     uint32_t event; // #2 uint32, has-bit 0
@@ -27842,10 +27855,10 @@ struct CMsgTEFireBullets { // sizeof 0x40, _has_bits_ @ 0x10
     uint8_t ent_origin[0x1]; // #13 message CMsgVector, no has-bit
     uint8_t num_bullets_remaining[0x1]; // #14 uint32, no has-bit
     uint8_t attack_type[0x1]; // #15 uint32, has-bit 24
-    uint8_t extra[0x1]; // #16 message CMsgTEFireBullets.Extra, has-bit 32
-    bool player_scoped; // #18 bool, has-bit 56
-    uint8_t _pad_9[0x7];
-    bool player_inair; // #17 bool, has-bit 104
+    bool player_inair; // #17 bool, has-bit 32
+    int32_t tick; // #19 int32, has-bit 56
+    uint8_t _pad_c[0x4];
+    bool player_scoped; // #18 bool, has-bit 104
     uint8_t _pad_11[0x7];
     pb::server::CMsgVector* origin; // #1 message CMsgVector, has-bit 0
     uint8_t angles[0x4]; // #2 message CMsgQAngle, has-bit 1
@@ -27868,9 +27881,9 @@ static_assert(offsetof(CMsgTEFireBullets, sound_dsp_effect) == 0x3);
 static_assert(offsetof(CMsgTEFireBullets, ent_origin) == 0x4);
 static_assert(offsetof(CMsgTEFireBullets, num_bullets_remaining) == 0x5);
 static_assert(offsetof(CMsgTEFireBullets, attack_type) == 0x6);
-static_assert(offsetof(CMsgTEFireBullets, extra) == 0x7);
-static_assert(offsetof(CMsgTEFireBullets, player_scoped) == 0x8);
-static_assert(offsetof(CMsgTEFireBullets, player_inair) == 0x10);
+static_assert(offsetof(CMsgTEFireBullets, player_inair) == 0x7);
+static_assert(offsetof(CMsgTEFireBullets, tick) == 0x8);
+static_assert(offsetof(CMsgTEFireBullets, player_scoped) == 0x10);
 static_assert(offsetof(CMsgTEFireBullets, origin) == 0x18);
 static_assert(offsetof(CMsgTEFireBullets, angles) == 0x20);
 static_assert(offsetof(CMsgTEFireBullets, weapon_id) == 0x24);
@@ -28393,8 +28406,8 @@ struct CCSUsrMsg_ReportHit { // sizeof 0x28, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     float pos_x; // #1 float, has-bit 0
     float pos_y; // #2 float, has-bit 1
-    float timestamp; // #4 float, has-bit 2
-    float pos_z; // #3 float, has-bit 3
+    float pos_z; // #3 float, has-bit 2
+    float timestamp; // #4 float, has-bit 3
     static constexpr std::ptrdiff_t kSizeOf = 0x28;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
@@ -28402,8 +28415,8 @@ struct CCSUsrMsg_ReportHit { // sizeof 0x28, _has_bits_ @ 0x10
 static_assert(sizeof(CCSUsrMsg_ReportHit) == 0x28);
 static_assert(offsetof(CCSUsrMsg_ReportHit, pos_x) == 0x18);
 static_assert(offsetof(CCSUsrMsg_ReportHit, pos_y) == 0x1c);
-static_assert(offsetof(CCSUsrMsg_ReportHit, timestamp) == 0x20);
-static_assert(offsetof(CCSUsrMsg_ReportHit, pos_z) == 0x24);
+static_assert(offsetof(CCSUsrMsg_ReportHit, pos_z) == 0x20);
+static_assert(offsetof(CCSUsrMsg_ReportHit, timestamp) == 0x24);
 
 #pragma pack(push, 1)
 struct CCSUsrMsg_KillCam { // sizeof 0x28, _has_bits_ @ 0x10
@@ -28843,21 +28856,22 @@ static_assert(offsetof(CCSUsrMsg_SSUI, end_time) == 0x20);
 
 #pragma pack(push, 1)
 struct CCSUsrMsg_SurvivalStats { // sizeof 0x28, _has_bits_ @ 0x10
-    pb::RepeatedPtrField<pb::server::CCSUsrMsg_SurvivalStats_Damage> damages; // #5 repeated message CCSUsrMsg_SurvivalStats.Damage, has-bit 16
+    int32_t ticknumber; // #4 int32, has-bit 16
+    uint8_t _pad_4[0x14];
     uint8_t xuid[0x4]; // #1 uint64, has-bit 0
     uint8_t facts[0x4]; // #2 repeated message CCSUsrMsg_SurvivalStats.Fact, has-bit 1
     uint8_t users[0x4]; // #3 repeated message CCSUsrMsg_SurvivalStats.Placement, has-bit 2
-    int32_t ticknumber; // #4 int32, has-bit 3
+    uint8_t damages[0x4]; // #5 repeated message CCSUsrMsg_SurvivalStats.Damage, has-bit 3
     static constexpr std::ptrdiff_t kSizeOf = 0x28;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
 #pragma pack(pop)
 static_assert(sizeof(CCSUsrMsg_SurvivalStats) == 0x28);
-static_assert(offsetof(CCSUsrMsg_SurvivalStats, damages) == 0x0);
+static_assert(offsetof(CCSUsrMsg_SurvivalStats, ticknumber) == 0x0);
 static_assert(offsetof(CCSUsrMsg_SurvivalStats, xuid) == 0x18);
 static_assert(offsetof(CCSUsrMsg_SurvivalStats, facts) == 0x1c);
 static_assert(offsetof(CCSUsrMsg_SurvivalStats, users) == 0x20);
-static_assert(offsetof(CCSUsrMsg_SurvivalStats, ticknumber) == 0x24);
+static_assert(offsetof(CCSUsrMsg_SurvivalStats, damages) == 0x24);
 
 #pragma pack(push, 1)
 struct CCSUsrMsg_SurvivalStats_Fact { // sizeof 0x28, _has_bits_ @ 0x10
@@ -30019,220 +30033,6 @@ static_assert(offsetof(CMsgGCItemCustomizationNotification, extra_data) == 0x28)
 static_assert(offsetof(CMsgGCItemCustomizationNotification, request) == 0x38);
 
 #pragma pack(push, 1)
-struct MLDict { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* key; // #1 string, has-bit 0
-    pb::string_t* val_string; // #2 string, has-bit 1
-    int32_t val_int; // #3 int32, has-bit 2
-    float val_float; // #4 float, has-bit 3
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(MLDict) == 0x30);
-static_assert(offsetof(MLDict, key) == 0x18);
-static_assert(offsetof(MLDict, val_string) == 0x20);
-static_assert(offsetof(MLDict, val_int) == 0x28);
-static_assert(offsetof(MLDict, val_float) == 0x2c);
-
-#pragma pack(push, 1)
-struct MLEvent { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::MLDict> data; // #2 repeated message MLDict, no has-bit
-    pb::string_t* event_name; // #1 string, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(MLEvent) == 0x38);
-static_assert(offsetof(MLEvent, data) == 0x18);
-static_assert(offsetof(MLEvent, event_name) == 0x30);
-
-#pragma pack(push, 1)
-struct MLMatchState { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* game_mode; // #1 string, has-bit 0
-    pb::string_t* phase; // #2 string, has-bit 1
-    int32_t round; // #3 int32, has-bit 2
-    int32_t score_ct; // #4 int32, has-bit 3
-    int32_t score_t; // #5 int32, has-bit 4
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(MLMatchState) == 0x38);
-static_assert(offsetof(MLMatchState, game_mode) == 0x18);
-static_assert(offsetof(MLMatchState, phase) == 0x20);
-static_assert(offsetof(MLMatchState, round) == 0x28);
-static_assert(offsetof(MLMatchState, score_ct) == 0x2c);
-static_assert(offsetof(MLMatchState, score_t) == 0x30);
-
-#pragma pack(push, 1)
-struct MLRoundState { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* phase; // #1 string, has-bit 0
-    pb::string_t* bomb_state; // #3 string, has-bit 1
-    int32_t win_team; // #2 enum ETeam, has-bit 2
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(MLRoundState) == 0x30);
-static_assert(offsetof(MLRoundState, phase) == 0x18);
-static_assert(offsetof(MLRoundState, bomb_state) == 0x20);
-static_assert(offsetof(MLRoundState, win_team) == 0x28);
-
-#pragma pack(push, 1)
-struct MLWeaponState { // sizeof 0x40, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* name; // #2 string, has-bit 0
-    pb::string_t* state; // #7 string, has-bit 1
-    int32_t index; // #1 int32, has-bit 2
-    int32_t type; // #3 enum EWeaponType, has-bit 3
-    int32_t ammo_clip; // #4 int32, has-bit 4
-    int32_t ammo_clip_max; // #5 int32, has-bit 5
-    int32_t ammo_reserve; // #6 int32, has-bit 6
-    float recoil_index; // #8 float, has-bit 7
-    static constexpr std::ptrdiff_t kSizeOf = 0x40;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(MLWeaponState) == 0x40);
-static_assert(offsetof(MLWeaponState, name) == 0x18);
-static_assert(offsetof(MLWeaponState, state) == 0x20);
-static_assert(offsetof(MLWeaponState, index) == 0x28);
-static_assert(offsetof(MLWeaponState, type) == 0x2c);
-static_assert(offsetof(MLWeaponState, ammo_clip) == 0x30);
-static_assert(offsetof(MLWeaponState, ammo_clip_max) == 0x34);
-static_assert(offsetof(MLWeaponState, ammo_reserve) == 0x38);
-static_assert(offsetof(MLWeaponState, recoil_index) == 0x3c);
-
-#pragma pack(push, 1)
-struct MLPlayerState { // sizeof 0x90, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::MLWeaponState> weapons; // #20 repeated message MLWeaponState, no has-bit
-    pb::string_t* name; // #4 string, has-bit 0
-    pb::string_t* clan; // #5 string, has-bit 1
-    pb::server::CMsgVector* abspos; // #7 message CMsgVector, has-bit 2
-    pb::server::CMsgQAngle* eyeangle; // #8 message CMsgQAngle, has-bit 3
-    pb::server::CMsgVector* eyeangle_fwd; // #9 message CMsgVector, has-bit 4
-    int32_t account_id; // #1 int32, has-bit 5
-    int32_t entindex; // #3 int32, has-bit 6
-    int32_t team; // #6 enum ETeam, has-bit 7
-    int32_t health; // #10 int32, has-bit 8
-    int32_t armor; // #11 int32, has-bit 9
-    float flashed; // #12 float, has-bit 10
-    float smoked; // #13 float, has-bit 11
-    int32_t money; // #14 int32, has-bit 12
-    int32_t round_kills; // #15 int32, has-bit 13
-    int32_t round_killhs; // #16 int32, has-bit 14
-    float burning; // #17 float, has-bit 15
-    bool helmet; // #18 bool, has-bit 16
-    bool defuse_kit; // #19 bool, has-bit 17
-    uint8_t _pad_86[0x2];
-    int32_t player_slot; // #2 int32, has-bit 18
-    uint8_t _pad_8c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x90;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(MLPlayerState) == 0x90);
-static_assert(offsetof(MLPlayerState, weapons) == 0x18);
-static_assert(offsetof(MLPlayerState, name) == 0x30);
-static_assert(offsetof(MLPlayerState, clan) == 0x38);
-static_assert(offsetof(MLPlayerState, abspos) == 0x40);
-static_assert(offsetof(MLPlayerState, eyeangle) == 0x48);
-static_assert(offsetof(MLPlayerState, eyeangle_fwd) == 0x50);
-static_assert(offsetof(MLPlayerState, account_id) == 0x58);
-static_assert(offsetof(MLPlayerState, entindex) == 0x5c);
-static_assert(offsetof(MLPlayerState, team) == 0x60);
-static_assert(offsetof(MLPlayerState, health) == 0x64);
-static_assert(offsetof(MLPlayerState, armor) == 0x68);
-static_assert(offsetof(MLPlayerState, flashed) == 0x6c);
-static_assert(offsetof(MLPlayerState, smoked) == 0x70);
-static_assert(offsetof(MLPlayerState, money) == 0x74);
-static_assert(offsetof(MLPlayerState, round_kills) == 0x78);
-static_assert(offsetof(MLPlayerState, round_killhs) == 0x7c);
-static_assert(offsetof(MLPlayerState, burning) == 0x80);
-static_assert(offsetof(MLPlayerState, helmet) == 0x84);
-static_assert(offsetof(MLPlayerState, defuse_kit) == 0x85);
-static_assert(offsetof(MLPlayerState, player_slot) == 0x88);
-
-#pragma pack(push, 1)
-struct MLGameState { // sizeof 0x40, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::MLPlayerState> players; // #3 repeated message MLPlayerState, no has-bit
-    pb::server::MLMatchState* match; // #1 message MLMatchState, has-bit 0
-    pb::server::MLRoundState* round; // #2 message MLRoundState, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x40;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(MLGameState) == 0x40);
-static_assert(offsetof(MLGameState, players) == 0x18);
-static_assert(offsetof(MLGameState, match) == 0x30);
-static_assert(offsetof(MLGameState, round) == 0x38);
-
-#pragma pack(push, 1)
-struct MLDemoHeader { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* map_name; // #1 string, has-bit 0
-    int32_t tick_rate; // #2 int32, has-bit 1
-    uint32_t version; // #3 uint32, has-bit 2
-    uint32_t steam_universe; // #4 uint32, has-bit 3
-    uint8_t _pad_2c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(MLDemoHeader) == 0x30);
-static_assert(offsetof(MLDemoHeader, map_name) == 0x18);
-static_assert(offsetof(MLDemoHeader, tick_rate) == 0x20);
-static_assert(offsetof(MLDemoHeader, version) == 0x24);
-static_assert(offsetof(MLDemoHeader, steam_universe) == 0x28);
-
-#pragma pack(push, 1)
-struct MLTick { // sizeof 0x40, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::MLEvent> events; // #3 repeated message MLEvent, no has-bit
-    pb::server::MLGameState* state; // #2 message MLGameState, has-bit 0
-    int32_t tick_count; // #1 int32, has-bit 1
-    uint8_t _pad_3c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x40;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(MLTick) == 0x40);
-static_assert(offsetof(MLTick, events) == 0x18);
-static_assert(offsetof(MLTick, state) == 0x30);
-static_assert(offsetof(MLTick, tick_count) == 0x38);
-
-#pragma pack(push, 1)
-struct VacNetShot { // sizeof 0x50, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint8_t delta_yaw_window[0x10]; // #6 repeated float, no has-bit
-    uint8_t delta_pitch_window[0x10]; // #7 repeated float, no has-bit
-    uint64_t steamid_player; // #1 fixed64, has-bit 0
-    int32_t round_number; // #2 int32, has-bit 1
-    int32_t hit_type; // #3 int32, has-bit 2
-    int32_t weapon_type; // #4 int32, has-bit 3
-    float distance_to_hurt_target; // #5 float, has-bit 4
-    static constexpr std::ptrdiff_t kSizeOf = 0x50;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(VacNetShot) == 0x50);
-static_assert(offsetof(VacNetShot, delta_yaw_window) == 0x18);
-static_assert(offsetof(VacNetShot, delta_pitch_window) == 0x28);
-static_assert(offsetof(VacNetShot, steamid_player) == 0x38);
-static_assert(offsetof(VacNetShot, round_number) == 0x40);
-static_assert(offsetof(VacNetShot, hit_type) == 0x44);
-static_assert(offsetof(VacNetShot, weapon_type) == 0x48);
-static_assert(offsetof(VacNetShot, distance_to_hurt_target) == 0x4c);
-
-#pragma pack(push, 1)
 struct CMsgSOIDOwner { // sizeof 0x28, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     uint64_t id; // #2 uint64, has-bit 0
@@ -31009,6 +30809,220 @@ static_assert(offsetof(CMsgSerializedSOCache_Cache_Version, version) == 0x18);
 static_assert(offsetof(CMsgSerializedSOCache_Cache_Version, service) == 0x30);
 
 #pragma pack(push, 1)
+struct MLDict { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* key; // #1 string, has-bit 0
+    pb::string_t* val_string; // #2 string, has-bit 1
+    int32_t val_int; // #3 int32, has-bit 2
+    float val_float; // #4 float, has-bit 3
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(MLDict) == 0x30);
+static_assert(offsetof(MLDict, key) == 0x18);
+static_assert(offsetof(MLDict, val_string) == 0x20);
+static_assert(offsetof(MLDict, val_int) == 0x28);
+static_assert(offsetof(MLDict, val_float) == 0x2c);
+
+#pragma pack(push, 1)
+struct MLEvent { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::MLDict> data; // #2 repeated message MLDict, no has-bit
+    pb::string_t* event_name; // #1 string, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(MLEvent) == 0x38);
+static_assert(offsetof(MLEvent, data) == 0x18);
+static_assert(offsetof(MLEvent, event_name) == 0x30);
+
+#pragma pack(push, 1)
+struct MLMatchState { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* game_mode; // #1 string, has-bit 0
+    pb::string_t* phase; // #2 string, has-bit 1
+    int32_t round; // #3 int32, has-bit 2
+    int32_t score_ct; // #4 int32, has-bit 3
+    int32_t score_t; // #5 int32, has-bit 4
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(MLMatchState) == 0x38);
+static_assert(offsetof(MLMatchState, game_mode) == 0x18);
+static_assert(offsetof(MLMatchState, phase) == 0x20);
+static_assert(offsetof(MLMatchState, round) == 0x28);
+static_assert(offsetof(MLMatchState, score_ct) == 0x2c);
+static_assert(offsetof(MLMatchState, score_t) == 0x30);
+
+#pragma pack(push, 1)
+struct MLRoundState { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* phase; // #1 string, has-bit 0
+    pb::string_t* bomb_state; // #3 string, has-bit 1
+    int32_t win_team; // #2 enum ETeam, has-bit 2
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(MLRoundState) == 0x30);
+static_assert(offsetof(MLRoundState, phase) == 0x18);
+static_assert(offsetof(MLRoundState, bomb_state) == 0x20);
+static_assert(offsetof(MLRoundState, win_team) == 0x28);
+
+#pragma pack(push, 1)
+struct MLWeaponState { // sizeof 0x40, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* name; // #2 string, has-bit 0
+    pb::string_t* state; // #7 string, has-bit 1
+    int32_t index; // #1 int32, has-bit 2
+    int32_t type; // #3 enum EWeaponType, has-bit 3
+    int32_t ammo_clip; // #4 int32, has-bit 4
+    int32_t ammo_clip_max; // #5 int32, has-bit 5
+    int32_t ammo_reserve; // #6 int32, has-bit 6
+    float recoil_index; // #8 float, has-bit 7
+    static constexpr std::ptrdiff_t kSizeOf = 0x40;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(MLWeaponState) == 0x40);
+static_assert(offsetof(MLWeaponState, name) == 0x18);
+static_assert(offsetof(MLWeaponState, state) == 0x20);
+static_assert(offsetof(MLWeaponState, index) == 0x28);
+static_assert(offsetof(MLWeaponState, type) == 0x2c);
+static_assert(offsetof(MLWeaponState, ammo_clip) == 0x30);
+static_assert(offsetof(MLWeaponState, ammo_clip_max) == 0x34);
+static_assert(offsetof(MLWeaponState, ammo_reserve) == 0x38);
+static_assert(offsetof(MLWeaponState, recoil_index) == 0x3c);
+
+#pragma pack(push, 1)
+struct MLPlayerState { // sizeof 0x90, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::MLWeaponState> weapons; // #20 repeated message MLWeaponState, no has-bit
+    pb::string_t* name; // #4 string, has-bit 0
+    pb::string_t* clan; // #5 string, has-bit 1
+    pb::server::CMsgVector* abspos; // #7 message CMsgVector, has-bit 2
+    pb::server::CMsgQAngle* eyeangle; // #8 message CMsgQAngle, has-bit 3
+    pb::server::CMsgVector* eyeangle_fwd; // #9 message CMsgVector, has-bit 4
+    int32_t account_id; // #1 int32, has-bit 5
+    int32_t entindex; // #3 int32, has-bit 6
+    int32_t team; // #6 enum ETeam, has-bit 7
+    int32_t health; // #10 int32, has-bit 8
+    int32_t armor; // #11 int32, has-bit 9
+    float flashed; // #12 float, has-bit 10
+    float smoked; // #13 float, has-bit 11
+    int32_t money; // #14 int32, has-bit 12
+    int32_t round_kills; // #15 int32, has-bit 13
+    int32_t round_killhs; // #16 int32, has-bit 14
+    float burning; // #17 float, has-bit 15
+    bool helmet; // #18 bool, has-bit 16
+    bool defuse_kit; // #19 bool, has-bit 17
+    uint8_t _pad_86[0x2];
+    int32_t player_slot; // #2 int32, has-bit 18
+    uint8_t _pad_8c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x90;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(MLPlayerState) == 0x90);
+static_assert(offsetof(MLPlayerState, weapons) == 0x18);
+static_assert(offsetof(MLPlayerState, name) == 0x30);
+static_assert(offsetof(MLPlayerState, clan) == 0x38);
+static_assert(offsetof(MLPlayerState, abspos) == 0x40);
+static_assert(offsetof(MLPlayerState, eyeangle) == 0x48);
+static_assert(offsetof(MLPlayerState, eyeangle_fwd) == 0x50);
+static_assert(offsetof(MLPlayerState, account_id) == 0x58);
+static_assert(offsetof(MLPlayerState, entindex) == 0x5c);
+static_assert(offsetof(MLPlayerState, team) == 0x60);
+static_assert(offsetof(MLPlayerState, health) == 0x64);
+static_assert(offsetof(MLPlayerState, armor) == 0x68);
+static_assert(offsetof(MLPlayerState, flashed) == 0x6c);
+static_assert(offsetof(MLPlayerState, smoked) == 0x70);
+static_assert(offsetof(MLPlayerState, money) == 0x74);
+static_assert(offsetof(MLPlayerState, round_kills) == 0x78);
+static_assert(offsetof(MLPlayerState, round_killhs) == 0x7c);
+static_assert(offsetof(MLPlayerState, burning) == 0x80);
+static_assert(offsetof(MLPlayerState, helmet) == 0x84);
+static_assert(offsetof(MLPlayerState, defuse_kit) == 0x85);
+static_assert(offsetof(MLPlayerState, player_slot) == 0x88);
+
+#pragma pack(push, 1)
+struct MLGameState { // sizeof 0x40, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::MLPlayerState> players; // #3 repeated message MLPlayerState, no has-bit
+    pb::server::MLMatchState* match; // #1 message MLMatchState, has-bit 0
+    pb::server::MLRoundState* round; // #2 message MLRoundState, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x40;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(MLGameState) == 0x40);
+static_assert(offsetof(MLGameState, players) == 0x18);
+static_assert(offsetof(MLGameState, match) == 0x30);
+static_assert(offsetof(MLGameState, round) == 0x38);
+
+#pragma pack(push, 1)
+struct MLDemoHeader { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* map_name; // #1 string, has-bit 0
+    int32_t tick_rate; // #2 int32, has-bit 1
+    uint32_t version; // #3 uint32, has-bit 2
+    uint32_t steam_universe; // #4 uint32, has-bit 3
+    uint8_t _pad_2c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(MLDemoHeader) == 0x30);
+static_assert(offsetof(MLDemoHeader, map_name) == 0x18);
+static_assert(offsetof(MLDemoHeader, tick_rate) == 0x20);
+static_assert(offsetof(MLDemoHeader, version) == 0x24);
+static_assert(offsetof(MLDemoHeader, steam_universe) == 0x28);
+
+#pragma pack(push, 1)
+struct MLTick { // sizeof 0x40, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::MLEvent> events; // #3 repeated message MLEvent, no has-bit
+    pb::server::MLGameState* state; // #2 message MLGameState, has-bit 0
+    int32_t tick_count; // #1 int32, has-bit 1
+    uint8_t _pad_3c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x40;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(MLTick) == 0x40);
+static_assert(offsetof(MLTick, events) == 0x18);
+static_assert(offsetof(MLTick, state) == 0x30);
+static_assert(offsetof(MLTick, tick_count) == 0x38);
+
+#pragma pack(push, 1)
+struct VacNetShot { // sizeof 0x50, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint8_t delta_yaw_window[0x10]; // #6 repeated float, no has-bit
+    uint8_t delta_pitch_window[0x10]; // #7 repeated float, no has-bit
+    uint64_t steamid_player; // #1 fixed64, has-bit 0
+    int32_t round_number; // #2 int32, has-bit 1
+    int32_t hit_type; // #3 int32, has-bit 2
+    int32_t weapon_type; // #4 int32, has-bit 3
+    float distance_to_hurt_target; // #5 float, has-bit 4
+    static constexpr std::ptrdiff_t kSizeOf = 0x50;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(VacNetShot) == 0x50);
+static_assert(offsetof(VacNetShot, delta_yaw_window) == 0x18);
+static_assert(offsetof(VacNetShot, delta_pitch_window) == 0x28);
+static_assert(offsetof(VacNetShot, steamid_player) == 0x38);
+static_assert(offsetof(VacNetShot, round_number) == 0x40);
+static_assert(offsetof(VacNetShot, hit_type) == 0x44);
+static_assert(offsetof(VacNetShot, weapon_type) == 0x48);
+static_assert(offsetof(VacNetShot, distance_to_hurt_target) == 0x4c);
+
+#pragma pack(push, 1)
 struct CMsgVDebugGameSessionIDEvent { // sizeof 0x28, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::string_t* gamesessionid; // #2 string, has-bit 0
@@ -31031,16 +31045,16 @@ struct CMsgPlaceDecalEvent { // sizeof 0x70, _has_bits_ @ 0x10
     pb::server::CMsgVector* position_objectspace; // #14 message CMsgVector, has-bit 3
     pb::server::CMsgVector* normal_objectspace; // #15 message CMsgVector, has-bit 4
     int32_t boneindex; // #4 int32, has-bit 5
-    uint32_t color; // #6 fixed32, has-bit 6
-    int32_t random_seed; // #7 int32, has-bit 7
-    uint32_t decal_group_name; // #8 uint32, has-bit 8
-    float size_override; // #9 float, has-bit 9
-    uint32_t entityhandle; // #10 uint32, has-bit 10
-    uint32_t sequence_name; // #12 uint32, has-bit 11
-    uint8_t _pad_5c[0x4];
-    int32_t triangleindex; // #13 int32, has-bit 12
-    uint32_t flags; // #5 uint32, has-bit 13
-    uint64_t material_id; // #11 uint64, has-bit 14
+    uint32_t flags; // #5 uint32, has-bit 6
+    uint32_t color; // #6 fixed32, has-bit 7
+    int32_t random_seed; // #7 int32, has-bit 8
+    uint32_t decal_group_name; // #8 uint32, has-bit 9
+    float size_override; // #9 float, has-bit 10
+    uint64_t material_id; // #11 uint64, has-bit 11
+    uint32_t sequence_name; // #12 uint32, has-bit 12
+    int32_t triangleindex; // #13 int32, has-bit 13
+    uint32_t entityhandle; // #10 uint32, has-bit 14
+    uint8_t _pad_6c[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x70;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
@@ -31052,15 +31066,15 @@ static_assert(offsetof(CMsgPlaceDecalEvent, saxis) == 0x28);
 static_assert(offsetof(CMsgPlaceDecalEvent, position_objectspace) == 0x30);
 static_assert(offsetof(CMsgPlaceDecalEvent, normal_objectspace) == 0x38);
 static_assert(offsetof(CMsgPlaceDecalEvent, boneindex) == 0x40);
-static_assert(offsetof(CMsgPlaceDecalEvent, color) == 0x44);
-static_assert(offsetof(CMsgPlaceDecalEvent, random_seed) == 0x48);
-static_assert(offsetof(CMsgPlaceDecalEvent, decal_group_name) == 0x4c);
-static_assert(offsetof(CMsgPlaceDecalEvent, size_override) == 0x50);
-static_assert(offsetof(CMsgPlaceDecalEvent, entityhandle) == 0x54);
-static_assert(offsetof(CMsgPlaceDecalEvent, sequence_name) == 0x58);
-static_assert(offsetof(CMsgPlaceDecalEvent, triangleindex) == 0x60);
-static_assert(offsetof(CMsgPlaceDecalEvent, flags) == 0x64);
-static_assert(offsetof(CMsgPlaceDecalEvent, material_id) == 0x68);
+static_assert(offsetof(CMsgPlaceDecalEvent, flags) == 0x44);
+static_assert(offsetof(CMsgPlaceDecalEvent, color) == 0x48);
+static_assert(offsetof(CMsgPlaceDecalEvent, random_seed) == 0x4c);
+static_assert(offsetof(CMsgPlaceDecalEvent, decal_group_name) == 0x50);
+static_assert(offsetof(CMsgPlaceDecalEvent, size_override) == 0x54);
+static_assert(offsetof(CMsgPlaceDecalEvent, material_id) == 0x58);
+static_assert(offsetof(CMsgPlaceDecalEvent, sequence_name) == 0x60);
+static_assert(offsetof(CMsgPlaceDecalEvent, triangleindex) == 0x64);
+static_assert(offsetof(CMsgPlaceDecalEvent, entityhandle) == 0x68);
 
 #pragma pack(push, 1)
 struct CMsgClearWorldDecalsEvent { // sizeof 0x20, _has_bits_ @ 0x10
@@ -33296,9 +33310,8 @@ struct CSVCMsg_GameSessionConfiguration { // sizeof 0x90, _has_bits_ @ 0x10
     pb::string_t* gamemode; // #12 string, has-bit 3
     pb::string_t* server_ip_address; // #13 string, has-bit 4
     pb::string_t* data; // #14 bytes, has-bit 5
-    pb::string_t* landmarkname; // #18 string, has-bit 6
-    bool no_steam_server; // #19 bool, has-bit 7
-    uint8_t _pad_69[0x7];
+    pb::string_t* previouslevel; // #17 string, has-bit 6
+    pb::string_t* landmarkname; // #18 string, has-bit 7
     bool is_multiplayer; // #1 bool, has-bit 8
     bool is_loadsavegame; // #2 bool, has-bit 9
     bool is_background_map; // #3 bool, has-bit 10
@@ -33308,8 +33321,9 @@ struct CSVCMsg_GameSessionConfiguration { // sizeof 0x90, _has_bits_ @ 0x10
     uint32_t max_clients; // #7 uint32, has-bit 14
     uint32_t tick_interval; // #8 fixed32, has-bit 15
     bool is_localonly; // #15 bool, has-bit 16
-    bool is_transition; // #16 bool, has-bit 17
-    uint8_t previouslevel[0x2]; // #17 string, has-bit 18
+    bool no_steam_server; // #19 bool, has-bit 17
+    bool is_transition; // #16 bool, has-bit 18
+    uint8_t _pad_87[0x1];
     float max_coord; // #21 float, has-bit 19
     uint8_t _pad_8c[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x90;
@@ -33324,8 +33338,8 @@ static_assert(offsetof(CSVCMsg_GameSessionConfiguration, s1_mapname) == 0x40);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, gamemode) == 0x48);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, server_ip_address) == 0x50);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, data) == 0x58);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, landmarkname) == 0x60);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, no_steam_server) == 0x68);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, previouslevel) == 0x60);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, landmarkname) == 0x68);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_multiplayer) == 0x70);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_loadsavegame) == 0x71);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_background_map) == 0x72);
@@ -33335,8 +33349,8 @@ static_assert(offsetof(CSVCMsg_GameSessionConfiguration, max_client_limit) == 0x
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, max_clients) == 0x7c);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, tick_interval) == 0x80);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_localonly) == 0x84);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_transition) == 0x85);
-static_assert(offsetof(CSVCMsg_GameSessionConfiguration, previouslevel) == 0x86);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, no_steam_server) == 0x85);
+static_assert(offsetof(CSVCMsg_GameSessionConfiguration, is_transition) == 0x86);
 static_assert(offsetof(CSVCMsg_GameSessionConfiguration, max_coord) == 0x88);
 
 #pragma pack(push, 1)
@@ -34969,9 +34983,9 @@ static_assert(offsetof(CUserMessageRequestInventory, options) == 0x20);
 #pragma pack(push, 1)
 struct CUserMessage_Inventory_Response { // sizeof 0x58, _has_bits_ @ 0x10
     uint8_t _pad_0[0x2];
-    uint8_t inventories3[0x1]; // #14 repeated message CUserMessage_Inventory_Response.InventoryDetail, has-bit 8
+    uint8_t instance[0x1]; // #13 int32, has-bit 8
     uint8_t start_time[0x2]; // #15 int64, no has-bit
-    int32_t instance; // #13 int32, has-bit 16
+    int32_t build_version; // #12 int32, has-bit 16
     uint8_t _pad_9[0xf];
     int32_t platform; // #8 int32, has-bit 0
     uint8_t _pad_1c[0x4];
@@ -34986,16 +35000,16 @@ struct CUserMessage_Inventory_Response { // sizeof 0x58, _has_bits_ @ 0x10
     uint8_t inventories2[0x4]; // #10 repeated message CUserMessage_Inventory_Response.InventoryDetail, has-bit 6
     int32_t client_timestamp; // #7 int32, has-bit 7
     uint8_t _pad_4c[0x4];
-    int32_t inv_type; // #11 int32, has-bit 8
-    int32_t build_version; // #12 int32, has-bit 9
+    uint8_t inventories3[0x4]; // #14 repeated message CUserMessage_Inventory_Response.InventoryDetail, has-bit 8
+    int32_t inv_type; // #11 int32, has-bit 9
     static constexpr std::ptrdiff_t kSizeOf = 0x58;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
 #pragma pack(pop)
 static_assert(sizeof(CUserMessage_Inventory_Response) == 0x58);
-static_assert(offsetof(CUserMessage_Inventory_Response, inventories3) == 0x2);
+static_assert(offsetof(CUserMessage_Inventory_Response, instance) == 0x2);
 static_assert(offsetof(CUserMessage_Inventory_Response, start_time) == 0x3);
-static_assert(offsetof(CUserMessage_Inventory_Response, instance) == 0x5);
+static_assert(offsetof(CUserMessage_Inventory_Response, build_version) == 0x5);
 static_assert(offsetof(CUserMessage_Inventory_Response, platform) == 0x18);
 static_assert(offsetof(CUserMessage_Inventory_Response, inventories) == 0x20);
 static_assert(offsetof(CUserMessage_Inventory_Response, item_count) == 0x28);
@@ -35004,8 +35018,8 @@ static_assert(offsetof(CUserMessage_Inventory_Response, perf_time) == 0x38);
 static_assert(offsetof(CUserMessage_Inventory_Response, crc) == 0x40);
 static_assert(offsetof(CUserMessage_Inventory_Response, inventories2) == 0x44);
 static_assert(offsetof(CUserMessage_Inventory_Response, client_timestamp) == 0x48);
-static_assert(offsetof(CUserMessage_Inventory_Response, inv_type) == 0x50);
-static_assert(offsetof(CUserMessage_Inventory_Response, build_version) == 0x54);
+static_assert(offsetof(CUserMessage_Inventory_Response, inventories3) == 0x50);
+static_assert(offsetof(CUserMessage_Inventory_Response, inv_type) == 0x54);
 
 #pragma pack(push, 1)
 struct CUserMessage_Inventory_Response_InventoryDetail { // sizeof 0x90, _has_bits_ @ 0x10
@@ -35249,6 +35263,457 @@ static_assert(sizeof(CUserMessageRemoteServerResponse) == 0x30);
 static_assert(offsetof(CUserMessageRemoteServerResponse, convar) == 0x18);
 static_assert(offsetof(CUserMessageRemoteServerResponse, results) == 0x20);
 static_assert(offsetof(CUserMessageRemoteServerResponse, command_result) == 0x28);
+
+#pragma pack(push, 1)
+struct CMsgSource2SystemSpecs { // sizeof 0x60, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* cpu_id; // #1 string, has-bit 0
+    pb::string_t* cpu_brand; // #2 string, has-bit 1
+    pb::string_t* gpu_rendersystem_dll_name; // #41 string, has-bit 2
+    pb::string_t* gpu_driver_name; // #43 string, has-bit 3
+    uint32_t cpu_model; // #3 uint32, has-bit 4
+    uint32_t cpu_num_physical; // #4 uint32, has-bit 5
+    uint32_t ram_physical_total_mb; // #21 uint32, has-bit 6
+    uint32_t gpu_vendor_id; // #42 uint32, has-bit 7
+    uint32_t gpu_driver_version_high; // #44 uint32, has-bit 8
+    uint32_t gpu_driver_version_low; // #45 uint32, has-bit 9
+    uint32_t gpu_dx_support_level; // #46 uint32, has-bit 10
+    uint32_t gpu_texture_memory_size_mb; // #47 uint32, has-bit 11
+    uint32_t backbuffer_width; // #51 uint32, has-bit 12
+    uint32_t backbuffer_height; // #52 uint32, has-bit 13
+    static constexpr std::ptrdiff_t kSizeOf = 0x60;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSource2SystemSpecs) == 0x60);
+static_assert(offsetof(CMsgSource2SystemSpecs, cpu_id) == 0x18);
+static_assert(offsetof(CMsgSource2SystemSpecs, cpu_brand) == 0x20);
+static_assert(offsetof(CMsgSource2SystemSpecs, gpu_rendersystem_dll_name) == 0x28);
+static_assert(offsetof(CMsgSource2SystemSpecs, gpu_driver_name) == 0x30);
+static_assert(offsetof(CMsgSource2SystemSpecs, cpu_model) == 0x38);
+static_assert(offsetof(CMsgSource2SystemSpecs, cpu_num_physical) == 0x3c);
+static_assert(offsetof(CMsgSource2SystemSpecs, ram_physical_total_mb) == 0x40);
+static_assert(offsetof(CMsgSource2SystemSpecs, gpu_vendor_id) == 0x44);
+static_assert(offsetof(CMsgSource2SystemSpecs, gpu_driver_version_high) == 0x48);
+static_assert(offsetof(CMsgSource2SystemSpecs, gpu_driver_version_low) == 0x4c);
+static_assert(offsetof(CMsgSource2SystemSpecs, gpu_dx_support_level) == 0x50);
+static_assert(offsetof(CMsgSource2SystemSpecs, gpu_texture_memory_size_mb) == 0x54);
+static_assert(offsetof(CMsgSource2SystemSpecs, backbuffer_width) == 0x58);
+static_assert(offsetof(CMsgSource2SystemSpecs, backbuffer_height) == 0x5c);
+
+#pragma pack(push, 1)
+struct CMsgSource2VProfLiteReportItem { // sizeof 0x68, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* name; // #1 string, has-bit 0
+    uint32_t active_samples; // #2 uint32, has-bit 1
+    uint32_t usec_max; // #3 uint32, has-bit 2
+    uint32_t active_samples_1secmax; // #4 uint32, has-bit 3
+    uint32_t usec_avg_active; // #11 uint32, has-bit 4
+    uint32_t usec_p50_active; // #12 uint32, has-bit 5
+    uint32_t usec_p99_active; // #13 uint32, has-bit 6
+    uint32_t usec_avg_all; // #21 uint32, has-bit 7
+    uint32_t usec_p50_all; // #22 uint32, has-bit 8
+    uint32_t usec_p99_all; // #23 uint32, has-bit 9
+    uint32_t usec_1secmax_avg_active; // #31 uint32, has-bit 10
+    uint32_t usec_1secmax_p50_active; // #32 uint32, has-bit 11
+    uint32_t usec_1secmax_p95_active; // #33 uint32, has-bit 12
+    uint32_t usec_1secmax_p99_active; // #34 uint32, has-bit 13
+    uint32_t usec_1secmax_avg_all; // #41 uint32, has-bit 14
+    uint32_t usec_1secmax_p50_all; // #42 uint32, has-bit 15
+    uint32_t usec_1secmax_p95_all; // #43 uint32, has-bit 16
+    uint32_t usec_1secmax_p99_all; // #44 uint32, has-bit 17
+    uint8_t _pad_64[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x68;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSource2VProfLiteReportItem) == 0x68);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, name) == 0x18);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples) == 0x20);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_max) == 0x24);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples_1secmax) == 0x28);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_avg_active) == 0x2c);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p50_active) == 0x30);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p99_active) == 0x34);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_avg_all) == 0x38);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p50_all) == 0x3c);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p99_all) == 0x40);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_avg_active) == 0x44);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_p50_active) == 0x48);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_p95_active) == 0x4c);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_p99_active) == 0x50);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_avg_all) == 0x54);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_p50_all) == 0x58);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_p95_all) == 0x5c);
+static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_p99_all) == 0x60);
+
+#pragma pack(push, 1)
+struct CMsgSource2VProfLiteReport { // sizeof 0x40, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::CMsgSource2VProfLiteReportItem> items; // #2 repeated message CMsgSource2VProfLiteReportItem, no has-bit
+    pb::server::CMsgSource2VProfLiteReportItem* total; // #1 message CMsgSource2VProfLiteReportItem, has-bit 0
+    uint32_t discarded_frames; // #3 uint32, has-bit 1
+    uint8_t _pad_3c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x40;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSource2VProfLiteReport) == 0x40);
+static_assert(offsetof(CMsgSource2VProfLiteReport, items) == 0x18);
+static_assert(offsetof(CMsgSource2VProfLiteReport, total) == 0x30);
+static_assert(offsetof(CMsgSource2VProfLiteReport, discarded_frames) == 0x38);
+
+#pragma pack(push, 1)
+struct CMsgSource2NetworkFlowQuality { // sizeof 0x130, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x20];
+    uint64_t bytes_total; // #5 uint64, has-bit 0
+    uint32_t duration; // #1 uint32, has-bit 1
+    uint32_t bytes_sec_p95; // #10 uint32, has-bit 2
+    uint64_t bytes_total_reliable; // #6 uint64, has-bit 3
+    uint64_t bytes_total_voice; // #7 uint64, has-bit 4
+    uint32_t bytes_sec_p99; // #11 uint32, has-bit 5
+    uint32_t netframes_size_uncompressed_p50; // #12 uint32, has-bit 6
+    uint32_t netframes_size_uncompressed_p95; // #13 uint32, has-bit 7
+    uint32_t netframes_size_uncompressed_p99; // #14 uint32, has-bit 8
+    uint32_t netframes_size_uncompressed_max; // #15 uint32, has-bit 9
+    uint32_t netframes_msgs_p50; // #16 uint32, has-bit 10
+    uint32_t netframes_msgs_p95; // #17 uint32, has-bit 11
+    uint32_t netframes_msgs_p99; // #18 uint32, has-bit 12
+    uint32_t netframes_msgs_max; // #19 uint32, has-bit 13
+    uint32_t enginemsgs_total; // #20 uint32, has-bit 14
+    uint32_t enginemsgs_sec_p95; // #21 uint32, has-bit 15
+    uint32_t enginemsgs_sec_p99; // #22 uint32, has-bit 16
+    uint32_t netframes_total; // #30 uint32, has-bit 17
+    uint32_t netframes_dropped; // #31 uint32, has-bit 18
+    uint32_t netframes_outoforder; // #32 uint32, has-bit 19
+    uint32_t netframes_size_exceeds_mtu; // #34 uint32, has-bit 20
+    uint32_t netframes_size_p95; // #35 uint32, has-bit 21
+    uint32_t netframes_size_p99; // #36 uint32, has-bit 22
+    uint32_t ticks_total; // #40 uint32, has-bit 23
+    uint32_t ticks_good; // #41 uint32, has-bit 24
+    uint32_t ticks_good_almost_late; // #42 uint32, has-bit 25
+    uint32_t ticks_fixed_dropped; // #43 uint32, has-bit 26
+    uint32_t ticks_fixed_late; // #44 uint32, has-bit 27
+    uint32_t ticks_bad_dropped; // #45 uint32, has-bit 28
+    uint32_t ticks_bad_late; // #46 uint32, has-bit 29
+    uint32_t ticks_bad_other; // #47 uint32, has-bit 30
+    uint32_t tick_missrate_samples_total; // #50 uint32, has-bit 31
+    uint32_t tick_missrate_samples_perfect; // #51 uint32, has-bit 32
+    uint32_t tick_missrate_samples_perfectnet; // #52 uint32, has-bit 33
+    uint32_t tick_missratenet_p75_x10; // #53 uint32, has-bit 34
+    uint32_t tick_missratenet_p95_x10; // #54 uint32, has-bit 35
+    uint32_t tick_missratenet_p99_x10; // #55 uint32, has-bit 36
+    int32_t recvmargin_p1; // #61 sint32, has-bit 37
+    int32_t recvmargin_p5; // #62 sint32, has-bit 38
+    int32_t recvmargin_p25; // #63 sint32, has-bit 39
+    int32_t recvmargin_p50; // #64 sint32, has-bit 40
+    int32_t recvmargin_p75; // #65 sint32, has-bit 41
+    int32_t recvmargin_p95; // #66 sint32, has-bit 42
+    uint32_t netframe_jitter_p50; // #70 uint32, has-bit 43
+    uint32_t netframe_jitter_p99; // #71 uint32, has-bit 44
+    uint32_t interval_peakjitter_p50; // #72 uint32, has-bit 45
+    uint32_t interval_peakjitter_p95; // #73 uint32, has-bit 46
+    uint32_t packet_misdelivery_rate_p50_x4; // #74 uint32, has-bit 47
+    uint32_t packet_misdelivery_rate_p95_x4; // #75 uint32, has-bit 48
+    uint32_t net_ping_p5; // #80 uint32, has-bit 49
+    uint32_t net_ping_p50; // #81 uint32, has-bit 50
+    uint32_t net_ping_p95; // #82 uint32, has-bit 51
+    uint32_t msgproc_usec_p50; // #90 uint32, has-bit 52
+    uint32_t msgproc_usec_p95; // #91 uint32, has-bit 53
+    uint32_t msgproc_usec_p99; // #92 uint32, has-bit 54
+    uint32_t msgproc_usec_max; // #93 uint32, has-bit 55
+    uint32_t msgproc_usec_avg_p50; // #94 uint32, has-bit 56
+    uint32_t msgproc_usec_avg_p95; // #95 uint32, has-bit 57
+    uint32_t msgproc_usec_avg_p99; // #96 uint32, has-bit 58
+    uint32_t msgproc_usec_avg_max; // #97 uint32, has-bit 59
+    uint32_t queuedmsgs_p50; // #100 uint32, has-bit 60
+    uint32_t queuedmsgs_p95; // #101 uint32, has-bit 61
+    uint32_t queuedmsgs_p99; // #102 uint32, has-bit 62
+    uint32_t queuedmsgs_max; // #103 uint32, has-bit 63
+    uint8_t _pad_12c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x130;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSource2NetworkFlowQuality) == 0x130);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total) == 0x20);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, duration) == 0x28);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_sec_p95) == 0x2c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total_reliable) == 0x30);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total_voice) == 0x38);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_sec_p99) == 0x40);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_p50) == 0x44);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_p95) == 0x48);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_p99) == 0x4c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_uncompressed_max) == 0x50);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_p50) == 0x54);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_p95) == 0x58);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_p99) == 0x5c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_msgs_max) == 0x60);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_total) == 0x64);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p95) == 0x68);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p99) == 0x6c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_total) == 0x70);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_dropped) == 0x74);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_outoforder) == 0x78);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_exceeds_mtu) == 0x7c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p95) == 0x80);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p99) == 0x84);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_total) == 0x88);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good) == 0x8c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good_almost_late) == 0x90);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_dropped) == 0x94);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_late) == 0x98);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_dropped) == 0x9c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_late) == 0xa0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_other) == 0xa4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_total) == 0xa8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfect) == 0xac);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfectnet) == 0xb0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p75_x10) == 0xb4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p95_x10) == 0xb8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p99_x10) == 0xbc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p1) == 0xc0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p5) == 0xc4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p25) == 0xc8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p50) == 0xcc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p75) == 0xd0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p95) == 0xd4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p50) == 0xd8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p99) == 0xdc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p50) == 0xe0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p95) == 0xe4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p50_x4) == 0xe8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p95_x4) == 0xec);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p5) == 0xf0);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p50) == 0xf4);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p95) == 0xf8);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p50) == 0xfc);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p95) == 0x100);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p99) == 0x104);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_max) == 0x108);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p50) == 0x10c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p95) == 0x110);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p99) == 0x114);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_max) == 0x118);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p50) == 0x11c);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p95) == 0x120);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p99) == 0x124);
+static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_max) == 0x128);
+
+#pragma pack(push, 1)
+struct CMsgSource2PerfIntervalSample { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t frame_time_min_ms[0x1]; // #3 float, has-bit 16
+    int32_t frame_count; // #4 int32, has-bit 8
+    uint8_t _pad_5[0x3];
+    uint8_t tags[0x8]; // #6 repeated message CMsgSource2PerfIntervalSample.Tag, no has-bit
+    float frame_time_total_ms; // #5 float, no has-bit
+    uint8_t _pad_14[0x4];
+    float frame_time_max_ms; // #1 float, has-bit 0
+    uint8_t _pad_1c[0x4];
+    float frame_time_avg_ms; // #2 float, has-bit 1
+    uint8_t _pad_24[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSource2PerfIntervalSample) == 0x28);
+static_assert(offsetof(CMsgSource2PerfIntervalSample, frame_time_min_ms) == 0x0);
+static_assert(offsetof(CMsgSource2PerfIntervalSample, frame_count) == 0x1);
+static_assert(offsetof(CMsgSource2PerfIntervalSample, tags) == 0x8);
+static_assert(offsetof(CMsgSource2PerfIntervalSample, frame_time_total_ms) == 0x10);
+static_assert(offsetof(CMsgSource2PerfIntervalSample, frame_time_max_ms) == 0x18);
+static_assert(offsetof(CMsgSource2PerfIntervalSample, frame_time_avg_ms) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgSource2PerfIntervalSample_Tag { // sizeof 0x48, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x30];
+    uint8_t tag[0x4]; // #1 string, has-bit 0
+    uint32_t max_value; // #2 uint32, has-bit 1
+    uint8_t _pad_38[0x10];
+    static constexpr std::ptrdiff_t kSizeOf = 0x48;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSource2PerfIntervalSample_Tag) == 0x48);
+static_assert(offsetof(CMsgSource2PerfIntervalSample_Tag, tag) == 0x30);
+static_assert(offsetof(CMsgSource2PerfIntervalSample_Tag, max_value) == 0x34);
+
+#pragma pack(push, 1)
+struct CSource2Metrics_MatchPerfSummary_Notification { // sizeof 0x60, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* map; // #20 string, no has-bit
+    uint8_t _pad_20[0x10];
+    uint32_t appid; // #1 uint32, has-bit 0
+    uint8_t _pad_34[0x4];
+    pb::string_t* game_mode; // #2 string, has-bit 1
+    uint32_t server_popid; // #4 fixed32, has-bit 2
+    uint8_t _pad_44[0x4];
+    pb::server::CMsgSource2VProfLiteReport* server_profile; // #10 message CMsgSource2VProfLiteReport, has-bit 3
+    uint8_t clients[0x8]; // #11 repeated message CSource2Metrics_MatchPerfSummary_Notification.Client, has-bit 4
+    uint32_t server_build_id; // #3 uint32, has-bit 5
+    uint8_t _pad_5c[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x60;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSource2Metrics_MatchPerfSummary_Notification) == 0x60);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, map) == 0x18);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, appid) == 0x30);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, game_mode) == 0x38);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, server_popid) == 0x40);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, server_profile) == 0x48);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, clients) == 0x50);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, server_build_id) == 0x58);
+
+#pragma pack(push, 1)
+struct CSource2Metrics_MatchPerfSummary_Notification_Client { // sizeof 0x58, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    uint64_t steamid; // #10 fixed64, no has-bit
+    uint8_t _pad_20[0x10];
+    pb::server::CMsgSource2VProfLiteReport* profile; // #2 message CMsgSource2VProfLiteReport, has-bit 0
+    uint8_t perf_samples[0x8]; // #11 repeated message CMsgSource2PerfIntervalSample, has-bit 1
+    pb::server::CMsgSource2NetworkFlowQuality* upstream_flow; // #5 message CMsgSource2NetworkFlowQuality, has-bit 2
+    uint8_t system_specs[0x4]; // #1 message CMsgSource2SystemSpecs, has-bit 3
+    uint32_t build_id; // #3 uint32, has-bit 4
+    pb::server::CMsgSource2NetworkFlowQuality* downstream_flow; // #4 message CMsgSource2NetworkFlowQuality, has-bit 5
+    static constexpr std::ptrdiff_t kSizeOf = 0x58;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSource2Metrics_MatchPerfSummary_Notification_Client) == 0x58);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, steamid) == 0x18);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, profile) == 0x30);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, perf_samples) == 0x38);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, upstream_flow) == 0x40);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, system_specs) == 0x48);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, build_id) == 0x4c);
+static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, downstream_flow) == 0x50);
+
+#pragma pack(push, 1)
+struct CMsgSource2PlayStatsPackedRecordList { // sizeof 0x28, _has_bits_ @ 0x10
+    uint8_t record_count[0x1]; // #3 uint32, no has-bit
+    uint8_t uint64_vals[0x7]; // #4 repeated uint64, has-bit 8
+    uint8_t uint16_vals[0x8]; // #6 repeated uint32, no has-bit
+    uint8_t int8_vals[0x8]; // #11 repeated int32, has-bit 8
+    pb::string_t* record_name; // #1 string, has-bit 0
+    uint8_t field_defs[0x8]; // #2 repeated message CMsgSource2PlayStatsPackedRecordList.FieldDef, has-bit 1
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSource2PlayStatsPackedRecordList) == 0x28);
+static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList, record_count) == 0x0);
+static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList, uint64_vals) == 0x1);
+static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList, uint16_vals) == 0x8);
+static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList, int8_vals) == 0x10);
+static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList, record_name) == 0x18);
+static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList, field_defs) == 0x20);
+
+#pragma pack(push, 1)
+struct CMsgSource2PlayStatsPackedRecordList_FieldDef { // sizeof 0x28, no _has_bits_
+    uint8_t _pad_0[0x10];
+    pb::string_t* field_name; // #1 string, no has-bit
+    uint8_t _pad_18[0x10];
+    static constexpr std::ptrdiff_t kSizeOf = 0x28;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSource2PlayStatsPackedRecordList_FieldDef) == 0x28);
+static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList_FieldDef, field_name) == 0x10);
+
+#pragma pack(push, 1)
+struct CMsgSource2PlayStatsPackedRecordList_SteamIDList { // sizeof 0x1b0, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x1a0];
+    uint8_t steamid[0x10]; // #1 repeated fixed64, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x1b0;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CMsgSource2PlayStatsPackedRecordList_SteamIDList) == 0x1b0);
+static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList_SteamIDList, steamid) == 0x1a0);
+
+#pragma pack(push, 1)
+struct CSource2Metrics_RecordPlayStats_Notification { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::CMsgSource2PlayStatsPackedRecordList> record_types; // #1 repeated message CMsgSource2PlayStatsPackedRecordList, no has-bit
+    uint32_t appid; // #2 uint32, has-bit 0
+    uint8_t _pad_34[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSource2Metrics_RecordPlayStats_Notification) == 0x38);
+static_assert(offsetof(CSource2Metrics_RecordPlayStats_Notification, record_types) == 0x18);
+static_assert(offsetof(CSource2Metrics_RecordPlayStats_Notification, appid) == 0x30);
+
+#pragma pack(push, 1)
+struct CSource2Metrics_FetchMapData_Request { // sizeof 0x38, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* map_name; // #2 string, has-bit 0
+    pb::string_t* param; // #5 string, has-bit 1
+    uint32_t appid; // #1 uint32, has-bit 2
+    uint32_t game_type; // #3 uint32, has-bit 3
+    uint32_t game_mode; // #4 uint32, has-bit 4
+    uint32_t time_span; // #6 uint32, has-bit 5
+    static constexpr std::ptrdiff_t kSizeOf = 0x38;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSource2Metrics_FetchMapData_Request) == 0x38);
+static_assert(offsetof(CSource2Metrics_FetchMapData_Request, map_name) == 0x18);
+static_assert(offsetof(CSource2Metrics_FetchMapData_Request, param) == 0x20);
+static_assert(offsetof(CSource2Metrics_FetchMapData_Request, appid) == 0x28);
+static_assert(offsetof(CSource2Metrics_FetchMapData_Request, game_type) == 0x2c);
+static_assert(offsetof(CSource2Metrics_FetchMapData_Request, game_mode) == 0x30);
+static_assert(offsetof(CSource2Metrics_FetchMapData_Request, time_span) == 0x34);
+
+#pragma pack(push, 1)
+struct CSource2Metrics_FetchMapData_Response { // sizeof 0x30, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::RepeatedPtrField<pb::server::CSource2Metrics_FetchMapData_Response_MapData> results; // #1 repeated message CSource2Metrics_FetchMapData_Response.MapData, has-bit 0
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSource2Metrics_FetchMapData_Response) == 0x30);
+static_assert(offsetof(CSource2Metrics_FetchMapData_Response, results) == 0x18);
+
+#pragma pack(push, 1)
+struct CSource2Metrics_FetchMapData_Response_MapData { // sizeof 0x30, no _has_bits_
+    uint8_t _pad_0[0x8];
+    pb::string_t* data; // #3 string, no has-bit
+    pb::string_t* name; // #1 string, no has-bit
+    uint8_t _pad_18[0x18];
+    static constexpr std::ptrdiff_t kSizeOf = 0x30;
+};
+#pragma pack(pop)
+static_assert(sizeof(CSource2Metrics_FetchMapData_Response_MapData) == 0x30);
+static_assert(offsetof(CSource2Metrics_FetchMapData_Response_MapData, data) == 0x8);
+static_assert(offsetof(CSource2Metrics_FetchMapData_Response_MapData, name) == 0x10);
+
+#pragma pack(push, 1)
+struct CUserMessage_UserSentBugBug { // sizeof 0x48, _has_bits_ @ 0x10
+    uint8_t _pad_0[0x18];
+    pb::string_t* command_line; // #1 string, has-bit 0
+    pb::string_t* autoexec_cfg; // #2 string, has-bit 1
+    pb::string_t* command_logs; // #6 string, has-bit 2
+    pb::server::CMsgSource2SystemSpecs* system_specs; // #3 message CMsgSource2SystemSpecs, has-bit 3
+    uint32_t build_id; // #4 uint32, has-bit 4
+    int32_t osversion; // #5 int32, has-bit 5
+    int32_t bugbug_no; // #7 int32, has-bit 6
+    uint8_t _pad_44[0x4];
+    static constexpr std::ptrdiff_t kSizeOf = 0x48;
+    static constexpr std::ptrdiff_t kHasBits = 0x10;
+};
+#pragma pack(pop)
+static_assert(sizeof(CUserMessage_UserSentBugBug) == 0x48);
+static_assert(offsetof(CUserMessage_UserSentBugBug, command_line) == 0x18);
+static_assert(offsetof(CUserMessage_UserSentBugBug, autoexec_cfg) == 0x20);
+static_assert(offsetof(CUserMessage_UserSentBugBug, command_logs) == 0x28);
+static_assert(offsetof(CUserMessage_UserSentBugBug, system_specs) == 0x30);
+static_assert(offsetof(CUserMessage_UserSentBugBug, build_id) == 0x38);
+static_assert(offsetof(CUserMessage_UserSentBugBug, osversion) == 0x3c);
+static_assert(offsetof(CUserMessage_UserSentBugBug, bugbug_no) == 0x40);
 
 #pragma pack(push, 1)
 struct CMsgTEArmorRicochet { // sizeof 0x28, _has_bits_ @ 0x10
@@ -35613,17 +36078,17 @@ struct CMsgTEExplosion { // sizeof 0x58, _has_bits_ @ 0x10
     pb::string_t* sound_name; // #10 string, has-bit 0
     pb::server::CMsgVector* origin; // #1 message CMsgVector, has-bit 1
     pb::server::CMsgVector* normal; // #4 message CMsgVector, has-bit 2
-    uint32_t debris_surfaceprop; // #14 fixed32, has-bit 3
-    uint8_t _pad_34[0x4];
+    pb::server::CMsgVector* debris_origin; // #13 message CMsgVector, has-bit 3
     uint32_t flags; // #3 uint32, has-bit 4
     uint32_t radius; // #6 uint32, has-bit 5
     uint32_t magnitude; // #7 uint32, has-bit 6
     bool affect_ragdolls; // #9 bool, has-bit 7
-    uint8_t debris_origin[0x3]; // #13 message CMsgVector, has-bit 8
+    bool create_debris; // #12 bool, has-bit 8
+    uint8_t _pad_46[0x2];
     uint32_t explosion_type; // #11 uint32, has-bit 9
-    uint32_t explosion_type_name; // #15 uint32, has-bit 10
-    bool create_debris; // #12 bool, has-bit 11
-    uint8_t _pad_51[0x7];
+    uint32_t debris_surfaceprop; // #14 fixed32, has-bit 10
+    uint32_t explosion_type_name; // #15 uint32, has-bit 11
+    uint8_t _pad_54[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x58;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
@@ -35632,15 +36097,15 @@ static_assert(sizeof(CMsgTEExplosion) == 0x58);
 static_assert(offsetof(CMsgTEExplosion, sound_name) == 0x18);
 static_assert(offsetof(CMsgTEExplosion, origin) == 0x20);
 static_assert(offsetof(CMsgTEExplosion, normal) == 0x28);
-static_assert(offsetof(CMsgTEExplosion, debris_surfaceprop) == 0x30);
+static_assert(offsetof(CMsgTEExplosion, debris_origin) == 0x30);
 static_assert(offsetof(CMsgTEExplosion, flags) == 0x38);
 static_assert(offsetof(CMsgTEExplosion, radius) == 0x3c);
 static_assert(offsetof(CMsgTEExplosion, magnitude) == 0x40);
 static_assert(offsetof(CMsgTEExplosion, affect_ragdolls) == 0x44);
-static_assert(offsetof(CMsgTEExplosion, debris_origin) == 0x45);
+static_assert(offsetof(CMsgTEExplosion, create_debris) == 0x45);
 static_assert(offsetof(CMsgTEExplosion, explosion_type) == 0x48);
-static_assert(offsetof(CMsgTEExplosion, explosion_type_name) == 0x4c);
-static_assert(offsetof(CMsgTEExplosion, create_debris) == 0x50);
+static_assert(offsetof(CMsgTEExplosion, debris_surfaceprop) == 0x4c);
+static_assert(offsetof(CMsgTEExplosion, explosion_type_name) == 0x50);
 
 #pragma pack(push, 1)
 struct CMsgTEDust { // sizeof 0x30, _has_bits_ @ 0x10
@@ -35757,441 +36222,6 @@ static_assert(offsetof(CMsgTEWorldDecal, normal) == 0x20);
 static_assert(offsetof(CMsgTEWorldDecal, index) == 0x28);
 
 #pragma pack(push, 1)
-struct CMsgSource2SystemSpecs { // sizeof 0x60, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* cpu_id; // #1 string, has-bit 0
-    pb::string_t* cpu_brand; // #2 string, has-bit 1
-    pb::string_t* gpu_rendersystem_dll_name; // #41 string, has-bit 2
-    pb::string_t* gpu_driver_name; // #43 string, has-bit 3
-    uint32_t cpu_model; // #3 uint32, has-bit 4
-    uint32_t cpu_num_physical; // #4 uint32, has-bit 5
-    uint32_t ram_physical_total_mb; // #21 uint32, has-bit 6
-    uint32_t gpu_vendor_id; // #42 uint32, has-bit 7
-    uint32_t gpu_driver_version_high; // #44 uint32, has-bit 8
-    uint32_t gpu_driver_version_low; // #45 uint32, has-bit 9
-    uint32_t gpu_dx_support_level; // #46 uint32, has-bit 10
-    uint32_t gpu_texture_memory_size_mb; // #47 uint32, has-bit 11
-    uint32_t backbuffer_width; // #51 uint32, has-bit 12
-    uint32_t backbuffer_height; // #52 uint32, has-bit 13
-    static constexpr std::ptrdiff_t kSizeOf = 0x60;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSource2SystemSpecs) == 0x60);
-static_assert(offsetof(CMsgSource2SystemSpecs, cpu_id) == 0x18);
-static_assert(offsetof(CMsgSource2SystemSpecs, cpu_brand) == 0x20);
-static_assert(offsetof(CMsgSource2SystemSpecs, gpu_rendersystem_dll_name) == 0x28);
-static_assert(offsetof(CMsgSource2SystemSpecs, gpu_driver_name) == 0x30);
-static_assert(offsetof(CMsgSource2SystemSpecs, cpu_model) == 0x38);
-static_assert(offsetof(CMsgSource2SystemSpecs, cpu_num_physical) == 0x3c);
-static_assert(offsetof(CMsgSource2SystemSpecs, ram_physical_total_mb) == 0x40);
-static_assert(offsetof(CMsgSource2SystemSpecs, gpu_vendor_id) == 0x44);
-static_assert(offsetof(CMsgSource2SystemSpecs, gpu_driver_version_high) == 0x48);
-static_assert(offsetof(CMsgSource2SystemSpecs, gpu_driver_version_low) == 0x4c);
-static_assert(offsetof(CMsgSource2SystemSpecs, gpu_dx_support_level) == 0x50);
-static_assert(offsetof(CMsgSource2SystemSpecs, gpu_texture_memory_size_mb) == 0x54);
-static_assert(offsetof(CMsgSource2SystemSpecs, backbuffer_width) == 0x58);
-static_assert(offsetof(CMsgSource2SystemSpecs, backbuffer_height) == 0x5c);
-
-#pragma pack(push, 1)
-struct CMsgSource2VProfLiteReportItem { // sizeof 0x68, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* name; // #1 string, has-bit 0
-    uint32_t active_samples; // #2 uint32, has-bit 1
-    uint32_t active_samples_1secmax; // #4 uint32, has-bit 2
-    uint32_t usec_max; // #3 uint32, has-bit 3
-    uint32_t usec_avg_active; // #11 uint32, has-bit 4
-    uint32_t usec_p50_active; // #12 uint32, has-bit 5
-    uint32_t usec_p99_active; // #13 uint32, has-bit 6
-    uint32_t usec_avg_all; // #21 uint32, has-bit 7
-    uint32_t usec_p50_all; // #22 uint32, has-bit 8
-    uint32_t usec_p99_all; // #23 uint32, has-bit 9
-    uint32_t usec_1secmax_avg_active; // #31 uint32, has-bit 10
-    uint32_t usec_1secmax_p50_active; // #32 uint32, has-bit 11
-    uint32_t usec_1secmax_p95_active; // #33 uint32, has-bit 12
-    uint32_t usec_1secmax_p99_active; // #34 uint32, has-bit 13
-    uint32_t usec_1secmax_avg_all; // #41 uint32, has-bit 14
-    uint32_t usec_1secmax_p50_all; // #42 uint32, has-bit 15
-    uint32_t usec_1secmax_p95_all; // #43 uint32, has-bit 16
-    uint32_t usec_1secmax_p99_all; // #44 uint32, has-bit 17
-    uint8_t _pad_64[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x68;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSource2VProfLiteReportItem) == 0x68);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, name) == 0x18);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples) == 0x20);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, active_samples_1secmax) == 0x24);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_max) == 0x28);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_avg_active) == 0x2c);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p50_active) == 0x30);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p99_active) == 0x34);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_avg_all) == 0x38);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p50_all) == 0x3c);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_p99_all) == 0x40);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_avg_active) == 0x44);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_p50_active) == 0x48);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_p95_active) == 0x4c);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_p99_active) == 0x50);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_avg_all) == 0x54);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_p50_all) == 0x58);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_p95_all) == 0x5c);
-static_assert(offsetof(CMsgSource2VProfLiteReportItem, usec_1secmax_p99_all) == 0x60);
-
-#pragma pack(push, 1)
-struct CMsgSource2VProfLiteReport { // sizeof 0x40, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::CMsgSource2VProfLiteReportItem> items; // #2 repeated message CMsgSource2VProfLiteReportItem, no has-bit
-    pb::server::CMsgSource2VProfLiteReportItem* total; // #1 message CMsgSource2VProfLiteReportItem, has-bit 0
-    uint32_t discarded_frames; // #3 uint32, has-bit 1
-    uint8_t _pad_3c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x40;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSource2VProfLiteReport) == 0x40);
-static_assert(offsetof(CMsgSource2VProfLiteReport, items) == 0x18);
-static_assert(offsetof(CMsgSource2VProfLiteReport, total) == 0x30);
-static_assert(offsetof(CMsgSource2VProfLiteReport, discarded_frames) == 0x38);
-
-#pragma pack(push, 1)
-struct CMsgSource2NetworkFlowQuality { // sizeof 0x110, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x20];
-    uint64_t bytes_total; // #5 uint64, has-bit 0
-    uint32_t duration; // #1 uint32, has-bit 1
-    uint32_t bytes_sec_p95; // #10 uint32, has-bit 2
-    uint64_t bytes_total_reliable; // #6 uint64, has-bit 3
-    uint64_t bytes_total_voice; // #7 uint64, has-bit 4
-    uint32_t bytes_sec_p99; // #11 uint32, has-bit 5
-    uint32_t enginemsgs_total; // #20 uint32, has-bit 6
-    uint32_t enginemsgs_sec_p95; // #21 uint32, has-bit 7
-    uint32_t enginemsgs_sec_p99; // #22 uint32, has-bit 8
-    uint32_t netframes_total; // #30 uint32, has-bit 9
-    uint32_t netframes_dropped; // #31 uint32, has-bit 10
-    uint32_t netframes_outoforder; // #32 uint32, has-bit 11
-    uint32_t netframes_size_exceeds_mtu; // #34 uint32, has-bit 12
-    uint32_t netframes_size_p95; // #35 uint32, has-bit 13
-    uint32_t netframes_size_p99; // #36 uint32, has-bit 14
-    uint32_t ticks_total; // #40 uint32, has-bit 15
-    uint32_t ticks_good; // #41 uint32, has-bit 16
-    uint32_t ticks_good_almost_late; // #42 uint32, has-bit 17
-    uint32_t ticks_fixed_dropped; // #43 uint32, has-bit 18
-    uint32_t ticks_fixed_late; // #44 uint32, has-bit 19
-    uint32_t ticks_bad_dropped; // #45 uint32, has-bit 20
-    uint32_t ticks_bad_late; // #46 uint32, has-bit 21
-    uint32_t ticks_bad_other; // #47 uint32, has-bit 22
-    uint32_t tick_missrate_samples_total; // #50 uint32, has-bit 23
-    uint32_t tick_missrate_samples_perfect; // #51 uint32, has-bit 24
-    uint32_t tick_missrate_samples_perfectnet; // #52 uint32, has-bit 25
-    uint32_t tick_missratenet_p75_x10; // #53 uint32, has-bit 26
-    uint32_t tick_missratenet_p95_x10; // #54 uint32, has-bit 27
-    uint32_t tick_missratenet_p99_x10; // #55 uint32, has-bit 28
-    int32_t recvmargin_p1; // #61 sint32, has-bit 29
-    int32_t recvmargin_p5; // #62 sint32, has-bit 30
-    int32_t recvmargin_p25; // #63 sint32, has-bit 31
-    int32_t recvmargin_p50; // #64 sint32, has-bit 32
-    int32_t recvmargin_p75; // #65 sint32, has-bit 33
-    int32_t recvmargin_p95; // #66 sint32, has-bit 34
-    uint32_t netframe_jitter_p50; // #70 uint32, has-bit 35
-    uint32_t netframe_jitter_p99; // #71 uint32, has-bit 36
-    uint32_t interval_peakjitter_p50; // #72 uint32, has-bit 37
-    uint32_t interval_peakjitter_p95; // #73 uint32, has-bit 38
-    uint32_t packet_misdelivery_rate_p50_x4; // #74 uint32, has-bit 39
-    uint32_t packet_misdelivery_rate_p95_x4; // #75 uint32, has-bit 40
-    uint32_t net_ping_p5; // #80 uint32, has-bit 41
-    uint32_t net_ping_p50; // #81 uint32, has-bit 42
-    uint32_t net_ping_p95; // #82 uint32, has-bit 43
-    uint32_t msgproc_usec_p50; // #90 uint32, has-bit 44
-    uint32_t msgproc_usec_p95; // #91 uint32, has-bit 45
-    uint32_t msgproc_usec_p99; // #92 uint32, has-bit 46
-    uint32_t msgproc_usec_max; // #93 uint32, has-bit 47
-    uint32_t msgproc_usec_avg_p50; // #94 uint32, has-bit 48
-    uint32_t msgproc_usec_avg_p95; // #95 uint32, has-bit 49
-    uint32_t msgproc_usec_avg_p99; // #96 uint32, has-bit 50
-    uint32_t msgproc_usec_avg_max; // #97 uint32, has-bit 51
-    uint32_t queuedmsgs_p50; // #100 uint32, has-bit 52
-    uint32_t queuedmsgs_p95; // #101 uint32, has-bit 53
-    uint32_t queuedmsgs_p99; // #102 uint32, has-bit 54
-    uint32_t queuedmsgs_max; // #103 uint32, has-bit 55
-    uint8_t _pad_10c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x110;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSource2NetworkFlowQuality) == 0x110);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total) == 0x20);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, duration) == 0x28);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_sec_p95) == 0x2c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total_reliable) == 0x30);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_total_voice) == 0x38);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, bytes_sec_p99) == 0x40);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_total) == 0x44);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p95) == 0x48);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, enginemsgs_sec_p99) == 0x4c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_total) == 0x50);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_dropped) == 0x54);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_outoforder) == 0x58);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_exceeds_mtu) == 0x5c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p95) == 0x60);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframes_size_p99) == 0x64);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_total) == 0x68);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good) == 0x6c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_good_almost_late) == 0x70);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_dropped) == 0x74);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_fixed_late) == 0x78);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_dropped) == 0x7c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_late) == 0x80);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, ticks_bad_other) == 0x84);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_total) == 0x88);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfect) == 0x8c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missrate_samples_perfectnet) == 0x90);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p75_x10) == 0x94);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p95_x10) == 0x98);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, tick_missratenet_p99_x10) == 0x9c);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p1) == 0xa0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p5) == 0xa4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p25) == 0xa8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p50) == 0xac);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p75) == 0xb0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, recvmargin_p95) == 0xb4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p50) == 0xb8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, netframe_jitter_p99) == 0xbc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p50) == 0xc0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, interval_peakjitter_p95) == 0xc4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p50_x4) == 0xc8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, packet_misdelivery_rate_p95_x4) == 0xcc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p5) == 0xd0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p50) == 0xd4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, net_ping_p95) == 0xd8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p50) == 0xdc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p95) == 0xe0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_p99) == 0xe4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_max) == 0xe8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p50) == 0xec);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p95) == 0xf0);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_p99) == 0xf4);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, msgproc_usec_avg_max) == 0xf8);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p50) == 0xfc);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p95) == 0x100);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_p99) == 0x104);
-static_assert(offsetof(CMsgSource2NetworkFlowQuality, queuedmsgs_max) == 0x108);
-
-#pragma pack(push, 1)
-struct CMsgSource2PerfIntervalSample { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t frame_time_min_ms[0x1]; // #3 float, has-bit 16
-    int32_t frame_count; // #4 int32, has-bit 8
-    uint8_t _pad_5[0x3];
-    uint8_t tags[0x8]; // #6 repeated message CMsgSource2PerfIntervalSample.Tag, no has-bit
-    float frame_time_total_ms; // #5 float, no has-bit
-    uint8_t _pad_14[0x4];
-    float frame_time_max_ms; // #1 float, has-bit 0
-    uint8_t _pad_1c[0x4];
-    float frame_time_avg_ms; // #2 float, has-bit 1
-    uint8_t _pad_24[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSource2PerfIntervalSample) == 0x28);
-static_assert(offsetof(CMsgSource2PerfIntervalSample, frame_time_min_ms) == 0x0);
-static_assert(offsetof(CMsgSource2PerfIntervalSample, frame_count) == 0x1);
-static_assert(offsetof(CMsgSource2PerfIntervalSample, tags) == 0x8);
-static_assert(offsetof(CMsgSource2PerfIntervalSample, frame_time_total_ms) == 0x10);
-static_assert(offsetof(CMsgSource2PerfIntervalSample, frame_time_max_ms) == 0x18);
-static_assert(offsetof(CMsgSource2PerfIntervalSample, frame_time_avg_ms) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgSource2PerfIntervalSample_Tag { // sizeof 0x48, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x30];
-    uint8_t tag[0x4]; // #1 string, has-bit 0
-    uint32_t max_value; // #2 uint32, has-bit 1
-    uint8_t _pad_38[0x10];
-    static constexpr std::ptrdiff_t kSizeOf = 0x48;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSource2PerfIntervalSample_Tag) == 0x48);
-static_assert(offsetof(CMsgSource2PerfIntervalSample_Tag, tag) == 0x30);
-static_assert(offsetof(CMsgSource2PerfIntervalSample_Tag, max_value) == 0x34);
-
-#pragma pack(push, 1)
-struct CSource2Metrics_MatchPerfSummary_Notification { // sizeof 0x60, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* map; // #20 string, no has-bit
-    uint8_t _pad_20[0x10];
-    uint32_t appid; // #1 uint32, has-bit 0
-    uint8_t _pad_34[0x4];
-    pb::string_t* game_mode; // #2 string, has-bit 1
-    uint32_t server_popid; // #4 fixed32, has-bit 2
-    uint8_t _pad_44[0x4];
-    pb::server::CMsgSource2VProfLiteReport* server_profile; // #10 message CMsgSource2VProfLiteReport, has-bit 3
-    uint8_t clients[0x8]; // #11 repeated message CSource2Metrics_MatchPerfSummary_Notification.Client, has-bit 4
-    uint32_t server_build_id; // #3 uint32, has-bit 5
-    uint8_t _pad_5c[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x60;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSource2Metrics_MatchPerfSummary_Notification) == 0x60);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, map) == 0x18);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, appid) == 0x30);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, game_mode) == 0x38);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, server_popid) == 0x40);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, server_profile) == 0x48);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, clients) == 0x50);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification, server_build_id) == 0x58);
-
-#pragma pack(push, 1)
-struct CSource2Metrics_MatchPerfSummary_Notification_Client { // sizeof 0x58, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    uint64_t steamid; // #10 fixed64, no has-bit
-    uint8_t _pad_20[0x10];
-    pb::server::CMsgSource2VProfLiteReport* profile; // #2 message CMsgSource2VProfLiteReport, has-bit 0
-    uint8_t perf_samples[0x8]; // #11 repeated message CMsgSource2PerfIntervalSample, has-bit 1
-    pb::server::CMsgSource2NetworkFlowQuality* upstream_flow; // #5 message CMsgSource2NetworkFlowQuality, has-bit 2
-    uint8_t system_specs[0x4]; // #1 message CMsgSource2SystemSpecs, has-bit 3
-    uint32_t build_id; // #3 uint32, has-bit 4
-    pb::server::CMsgSource2NetworkFlowQuality* downstream_flow; // #4 message CMsgSource2NetworkFlowQuality, has-bit 5
-    static constexpr std::ptrdiff_t kSizeOf = 0x58;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSource2Metrics_MatchPerfSummary_Notification_Client) == 0x58);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, steamid) == 0x18);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, profile) == 0x30);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, perf_samples) == 0x38);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, upstream_flow) == 0x40);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, system_specs) == 0x48);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, build_id) == 0x4c);
-static_assert(offsetof(CSource2Metrics_MatchPerfSummary_Notification_Client, downstream_flow) == 0x50);
-
-#pragma pack(push, 1)
-struct CMsgSource2PlayStatsPackedRecordList { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t record_count[0x1]; // #3 uint32, no has-bit
-    uint8_t uint64_vals[0x7]; // #4 repeated uint64, has-bit 8
-    uint8_t uint16_vals[0x8]; // #6 repeated uint32, no has-bit
-    uint8_t int8_vals[0x8]; // #11 repeated int32, has-bit 8
-    pb::string_t* record_name; // #1 string, has-bit 0
-    uint8_t field_defs[0x8]; // #2 repeated message CMsgSource2PlayStatsPackedRecordList.FieldDef, has-bit 1
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSource2PlayStatsPackedRecordList) == 0x28);
-static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList, record_count) == 0x0);
-static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList, uint64_vals) == 0x1);
-static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList, uint16_vals) == 0x8);
-static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList, int8_vals) == 0x10);
-static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList, record_name) == 0x18);
-static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList, field_defs) == 0x20);
-
-#pragma pack(push, 1)
-struct CMsgSource2PlayStatsPackedRecordList_FieldDef { // sizeof 0x28, no _has_bits_
-    uint8_t _pad_0[0x10];
-    pb::string_t* field_name; // #1 string, no has-bit
-    uint8_t _pad_18[0x10];
-    static constexpr std::ptrdiff_t kSizeOf = 0x28;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSource2PlayStatsPackedRecordList_FieldDef) == 0x28);
-static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList_FieldDef, field_name) == 0x10);
-
-#pragma pack(push, 1)
-struct CMsgSource2PlayStatsPackedRecordList_SteamIDList { // sizeof 0x1b0, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x1a0];
-    uint8_t steamid[0x10]; // #1 repeated fixed64, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x1b0;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CMsgSource2PlayStatsPackedRecordList_SteamIDList) == 0x1b0);
-static_assert(offsetof(CMsgSource2PlayStatsPackedRecordList_SteamIDList, steamid) == 0x1a0);
-
-#pragma pack(push, 1)
-struct CSource2Metrics_RecordPlayStats_Notification { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::CMsgSource2PlayStatsPackedRecordList> record_types; // #1 repeated message CMsgSource2PlayStatsPackedRecordList, no has-bit
-    uint32_t appid; // #2 uint32, has-bit 0
-    uint8_t _pad_34[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSource2Metrics_RecordPlayStats_Notification) == 0x38);
-static_assert(offsetof(CSource2Metrics_RecordPlayStats_Notification, record_types) == 0x18);
-static_assert(offsetof(CSource2Metrics_RecordPlayStats_Notification, appid) == 0x30);
-
-#pragma pack(push, 1)
-struct CSource2Metrics_FetchMapData_Request { // sizeof 0x38, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* map_name; // #2 string, has-bit 0
-    pb::string_t* param; // #5 string, has-bit 1
-    uint32_t appid; // #1 uint32, has-bit 2
-    uint32_t game_type; // #3 uint32, has-bit 3
-    uint32_t game_mode; // #4 uint32, has-bit 4
-    uint32_t time_span; // #6 uint32, has-bit 5
-    static constexpr std::ptrdiff_t kSizeOf = 0x38;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSource2Metrics_FetchMapData_Request) == 0x38);
-static_assert(offsetof(CSource2Metrics_FetchMapData_Request, map_name) == 0x18);
-static_assert(offsetof(CSource2Metrics_FetchMapData_Request, param) == 0x20);
-static_assert(offsetof(CSource2Metrics_FetchMapData_Request, appid) == 0x28);
-static_assert(offsetof(CSource2Metrics_FetchMapData_Request, game_type) == 0x2c);
-static_assert(offsetof(CSource2Metrics_FetchMapData_Request, game_mode) == 0x30);
-static_assert(offsetof(CSource2Metrics_FetchMapData_Request, time_span) == 0x34);
-
-#pragma pack(push, 1)
-struct CSource2Metrics_FetchMapData_Response { // sizeof 0x30, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::RepeatedPtrField<pb::server::CSource2Metrics_FetchMapData_Response_MapData> results; // #1 repeated message CSource2Metrics_FetchMapData_Response.MapData, has-bit 0
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSource2Metrics_FetchMapData_Response) == 0x30);
-static_assert(offsetof(CSource2Metrics_FetchMapData_Response, results) == 0x18);
-
-#pragma pack(push, 1)
-struct CSource2Metrics_FetchMapData_Response_MapData { // sizeof 0x30, no _has_bits_
-    uint8_t _pad_0[0x8];
-    pb::string_t* data; // #3 string, no has-bit
-    pb::string_t* name; // #1 string, no has-bit
-    uint8_t _pad_18[0x18];
-    static constexpr std::ptrdiff_t kSizeOf = 0x30;
-};
-#pragma pack(pop)
-static_assert(sizeof(CSource2Metrics_FetchMapData_Response_MapData) == 0x30);
-static_assert(offsetof(CSource2Metrics_FetchMapData_Response_MapData, data) == 0x8);
-static_assert(offsetof(CSource2Metrics_FetchMapData_Response_MapData, name) == 0x10);
-
-#pragma pack(push, 1)
-struct CUserMessage_UserSentBugBug { // sizeof 0x48, _has_bits_ @ 0x10
-    uint8_t _pad_0[0x18];
-    pb::string_t* command_line; // #1 string, has-bit 0
-    pb::string_t* autoexec_cfg; // #2 string, has-bit 1
-    pb::string_t* command_logs; // #6 string, has-bit 2
-    pb::server::CMsgSource2SystemSpecs* system_specs; // #3 message CMsgSource2SystemSpecs, has-bit 3
-    uint32_t build_id; // #4 uint32, has-bit 4
-    int32_t osversion; // #5 int32, has-bit 5
-    int32_t bugbug_no; // #7 int32, has-bit 6
-    uint8_t _pad_44[0x4];
-    static constexpr std::ptrdiff_t kSizeOf = 0x48;
-    static constexpr std::ptrdiff_t kHasBits = 0x10;
-};
-#pragma pack(pop)
-static_assert(sizeof(CUserMessage_UserSentBugBug) == 0x48);
-static_assert(offsetof(CUserMessage_UserSentBugBug, command_line) == 0x18);
-static_assert(offsetof(CUserMessage_UserSentBugBug, autoexec_cfg) == 0x20);
-static_assert(offsetof(CUserMessage_UserSentBugBug, command_logs) == 0x28);
-static_assert(offsetof(CUserMessage_UserSentBugBug, system_specs) == 0x30);
-static_assert(offsetof(CUserMessage_UserSentBugBug, build_id) == 0x38);
-static_assert(offsetof(CUserMessage_UserSentBugBug, osversion) == 0x3c);
-static_assert(offsetof(CUserMessage_UserSentBugBug, bugbug_no) == 0x40);
-
-#pragma pack(push, 1)
 struct CSGOInterpolationInfoPB { // sizeof 0x28, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     float frac; // #3 float, has-bit 0
@@ -36299,45 +36329,43 @@ static_assert(offsetof(FileDescriptorSet, file) == 0x10);
 struct FileDescriptorProto { // sizeof 0xd8, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::RepeatedPtrField<pb::string_t> dependency; // #3 repeated string, no has-bit
+    pb::RepeatedPtrField<void> message_type; // #4 repeated message google.protobuf.DescriptorProto, no has-bit
+    pb::RepeatedPtrField<void> enum_type; // #5 repeated message google.protobuf.EnumDescriptorProto, no has-bit
     pb::RepeatedPtrField<void> service; // #6 repeated message google.protobuf.ServiceDescriptorProto, no has-bit
     pb::RepeatedPtrField<void> extension; // #7 repeated message google.protobuf.FieldDescriptorProto, no has-bit
-    void* options; // #8 message google.protobuf.FileOptions, no has-bit
-    uint8_t _pad_68[0x10];
-    void* source_code_info; // #9 message google.protobuf.SourceCodeInfo, no has-bit
-    uint8_t _pad_80[0x10];
-    uint8_t message_type[0x10]; // #4 repeated message google.protobuf.DescriptorProto, no has-bit
-    uint8_t enum_type[0x10]; // #5 repeated message google.protobuf.EnumDescriptorProto, no has-bit
+    uint8_t public_dependency[0x10]; // #10 repeated int32, no has-bit
+    uint8_t weak_dependency[0x10]; // #11 repeated int32, no has-bit
     pb::string_t* name; // #1 string, has-bit 0
     pb::string_t* package; // #2 string, has-bit 1
     pb::string_t* syntax; // #12 string, has-bit 2
-    uint8_t public_dependency[0x8]; // #10 repeated int32, has-bit 3
-    uint8_t weak_dependency[0x8]; // #11 repeated int32, has-bit 4
+    void* options; // #8 message google.protobuf.FileOptions, has-bit 3
+    void* source_code_info; // #9 message google.protobuf.SourceCodeInfo, has-bit 4
     static constexpr std::ptrdiff_t kSizeOf = 0xd8;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
 };
 #pragma pack(pop)
 static_assert(sizeof(FileDescriptorProto) == 0xd8);
 static_assert(offsetof(FileDescriptorProto, dependency) == 0x18);
-static_assert(offsetof(FileDescriptorProto, service) == 0x30);
-static_assert(offsetof(FileDescriptorProto, extension) == 0x48);
-static_assert(offsetof(FileDescriptorProto, options) == 0x60);
-static_assert(offsetof(FileDescriptorProto, source_code_info) == 0x78);
-static_assert(offsetof(FileDescriptorProto, message_type) == 0x90);
-static_assert(offsetof(FileDescriptorProto, enum_type) == 0xa0);
+static_assert(offsetof(FileDescriptorProto, message_type) == 0x30);
+static_assert(offsetof(FileDescriptorProto, enum_type) == 0x48);
+static_assert(offsetof(FileDescriptorProto, service) == 0x60);
+static_assert(offsetof(FileDescriptorProto, extension) == 0x78);
+static_assert(offsetof(FileDescriptorProto, public_dependency) == 0x90);
+static_assert(offsetof(FileDescriptorProto, weak_dependency) == 0xa0);
 static_assert(offsetof(FileDescriptorProto, name) == 0xb0);
 static_assert(offsetof(FileDescriptorProto, package) == 0xb8);
 static_assert(offsetof(FileDescriptorProto, syntax) == 0xc0);
-static_assert(offsetof(FileDescriptorProto, public_dependency) == 0xc8);
-static_assert(offsetof(FileDescriptorProto, weak_dependency) == 0xd0);
+static_assert(offsetof(FileDescriptorProto, options) == 0xc8);
+static_assert(offsetof(FileDescriptorProto, source_code_info) == 0xd0);
 
 #pragma pack(push, 1)
 struct DescriptorProto { // sizeof 0x28, _has_bits_ @ 0x10
-    uint8_t extension[0x1]; // #6 repeated message google.protobuf.FieldDescriptorProto, no has-bit
-    uint8_t enum_type[0x1]; // #4 repeated message google.protobuf.EnumDescriptorProto, has-bit 16
-    uint8_t extension_range[0x6]; // #5 repeated message google.protobuf.DescriptorProto.ExtensionRange, has-bit 8
-    uint8_t oneof_decl[0x8]; // #8 repeated message google.protobuf.OneofDescriptorProto, no has-bit
+    uint8_t extension_range[0x1]; // #5 repeated message google.protobuf.DescriptorProto.ExtensionRange, no has-bit
+    uint8_t nested_type[0x1]; // #3 repeated message google.protobuf.DescriptorProto, has-bit 16
+    uint8_t enum_type[0x6]; // #4 repeated message google.protobuf.EnumDescriptorProto, has-bit 8
     void* options; // #7 message google.protobuf.MessageOptions, no has-bit
-    uint8_t nested_type[0x8]; // #3 repeated message google.protobuf.DescriptorProto, has-bit 0
+    uint8_t oneof_decl[0x8]; // #8 repeated message google.protobuf.OneofDescriptorProto, no has-bit
+    uint8_t extension[0x8]; // #6 repeated message google.protobuf.FieldDescriptorProto, has-bit 0
     uint8_t name[0x4]; // #1 string, has-bit 1
     uint8_t field[0x4]; // #2 repeated message google.protobuf.FieldDescriptorProto, has-bit 2
     static constexpr std::ptrdiff_t kSizeOf = 0x28;
@@ -36345,12 +36373,12 @@ struct DescriptorProto { // sizeof 0x28, _has_bits_ @ 0x10
 };
 #pragma pack(pop)
 static_assert(sizeof(DescriptorProto) == 0x28);
-static_assert(offsetof(DescriptorProto, extension) == 0x0);
-static_assert(offsetof(DescriptorProto, enum_type) == 0x1);
-static_assert(offsetof(DescriptorProto, extension_range) == 0x2);
-static_assert(offsetof(DescriptorProto, oneof_decl) == 0x8);
-static_assert(offsetof(DescriptorProto, options) == 0x10);
-static_assert(offsetof(DescriptorProto, nested_type) == 0x18);
+static_assert(offsetof(DescriptorProto, extension_range) == 0x0);
+static_assert(offsetof(DescriptorProto, nested_type) == 0x1);
+static_assert(offsetof(DescriptorProto, enum_type) == 0x2);
+static_assert(offsetof(DescriptorProto, options) == 0x8);
+static_assert(offsetof(DescriptorProto, oneof_decl) == 0x10);
+static_assert(offsetof(DescriptorProto, extension) == 0x18);
 static_assert(offsetof(DescriptorProto, name) == 0x20);
 static_assert(offsetof(DescriptorProto, field) == 0x24);
 
@@ -36399,19 +36427,17 @@ static_assert(offsetof(ExtensionRangeOptions, uninterpreted_option) == 0x28);
 struct FieldDescriptorProto { // sizeof 0x60, _has_bits_ @ 0x10
     uint8_t _pad_0[0x18];
     pb::string_t* name; // #1 string, has-bit 0
-    pb::string_t* type_name; // #6 string, has-bit 1
-    int32_t type; // #5 enum google.protobuf.FieldDescriptorProto.Type, has-bit 2
-    uint8_t _pad_2c[0x4];
+    pb::string_t* extendee; // #2 string, has-bit 1
+    pb::string_t* type_name; // #6 string, has-bit 2
     pb::string_t* default_value; // #7 string, has-bit 3
-    int32_t oneof_index; // #9 int32, has-bit 4
-    uint8_t _pad_3c[0x4];
-    pb::string_t* json_name; // #10 string, has-bit 5
-    uint8_t extendee[0x4]; // #2 string, has-bit 6
-    uint8_t options[0x4]; // #8 message google.protobuf.FieldOptions, has-bit 7
+    pb::string_t* json_name; // #10 string, has-bit 4
+    void* options; // #8 message google.protobuf.FieldOptions, has-bit 5
+    int32_t number; // #3 int32, has-bit 6
+    int32_t oneof_index; // #9 int32, has-bit 7
     bool proto3_optional; // #17 bool, has-bit 8
     uint8_t _pad_51[0x3];
-    int32_t number; // #3 int32, has-bit 9
-    int32_t label; // #4 enum google.protobuf.FieldDescriptorProto.Label, has-bit 10
+    int32_t label; // #4 enum google.protobuf.FieldDescriptorProto.Label, has-bit 9
+    int32_t type; // #5 enum google.protobuf.FieldDescriptorProto.Type, has-bit 10
     uint8_t _pad_5c[0x4];
     static constexpr std::ptrdiff_t kSizeOf = 0x60;
     static constexpr std::ptrdiff_t kHasBits = 0x10;
@@ -36419,16 +36445,16 @@ struct FieldDescriptorProto { // sizeof 0x60, _has_bits_ @ 0x10
 #pragma pack(pop)
 static_assert(sizeof(FieldDescriptorProto) == 0x60);
 static_assert(offsetof(FieldDescriptorProto, name) == 0x18);
-static_assert(offsetof(FieldDescriptorProto, type_name) == 0x20);
-static_assert(offsetof(FieldDescriptorProto, type) == 0x28);
+static_assert(offsetof(FieldDescriptorProto, extendee) == 0x20);
+static_assert(offsetof(FieldDescriptorProto, type_name) == 0x28);
 static_assert(offsetof(FieldDescriptorProto, default_value) == 0x30);
-static_assert(offsetof(FieldDescriptorProto, oneof_index) == 0x38);
-static_assert(offsetof(FieldDescriptorProto, json_name) == 0x40);
-static_assert(offsetof(FieldDescriptorProto, extendee) == 0x48);
-static_assert(offsetof(FieldDescriptorProto, options) == 0x4c);
+static_assert(offsetof(FieldDescriptorProto, json_name) == 0x38);
+static_assert(offsetof(FieldDescriptorProto, options) == 0x40);
+static_assert(offsetof(FieldDescriptorProto, number) == 0x48);
+static_assert(offsetof(FieldDescriptorProto, oneof_index) == 0x4c);
 static_assert(offsetof(FieldDescriptorProto, proto3_optional) == 0x50);
-static_assert(offsetof(FieldDescriptorProto, number) == 0x54);
-static_assert(offsetof(FieldDescriptorProto, label) == 0x58);
+static_assert(offsetof(FieldDescriptorProto, label) == 0x54);
+static_assert(offsetof(FieldDescriptorProto, type) == 0x58);
 
 #pragma pack(push, 1)
 struct OneofDescriptorProto { // sizeof 0x28, _has_bits_ @ 0x10
@@ -36536,27 +36562,25 @@ struct FileOptions { // sizeof 0xc0, _has_bits_ @ 0x28
     pb::RepeatedPtrField<void> uninterpreted_option; // #999 repeated message google.protobuf.UninterpretedOption, no has-bit
     pb::string_t* java_package; // #1 string, has-bit 0
     pb::string_t* java_outer_classname; // #8 string, has-bit 1
-    bool java_generic_services; // #17 bool, has-bit 2
-    uint8_t _pad_71[0x7];
-    pb::string_t* csharp_namespace; // #37 string, has-bit 3
-    pb::string_t* swift_prefix; // #39 string, has-bit 4
-    pb::string_t* php_class_prefix; // #40 string, has-bit 5
-    pb::string_t* php_namespace; // #41 string, has-bit 6
-    bool php_generic_services; // #42 bool, has-bit 7
-    uint8_t _pad_99[0x7];
+    pb::string_t* go_package; // #11 string, has-bit 2
+    pb::string_t* objc_class_prefix; // #36 string, has-bit 3
+    pb::string_t* csharp_namespace; // #37 string, has-bit 4
+    pb::string_t* swift_prefix; // #39 string, has-bit 5
+    pb::string_t* php_class_prefix; // #40 string, has-bit 6
+    pb::string_t* php_namespace; // #41 string, has-bit 7
     pb::string_t* php_metadata_namespace; // #44 string, has-bit 8
     pb::string_t* ruby_package; // #45 string, has-bit 9
-    uint8_t optimize_for[0x1]; // #9 enum google.protobuf.FileOptions.OptimizeMode, has-bit 10
-    bool java_multiple_files; // #10 bool, has-bit 11
-    uint8_t go_package[0x1]; // #11 string, has-bit 12
-    bool py_generic_services; // #18 bool, has-bit 13
-    bool java_generate_equals_and_hash; // #20 bool, has-bit 14
-    bool deprecated; // #23 bool, has-bit 15
-    bool java_string_check_utf8; // #27 bool, has-bit 16
-    bool cc_enable_arenas; // #31 bool, has-bit 17
-    bool cc_generic_services; // #16 bool, has-bit 18
-    uint8_t _pad_b9[0x3];
-    uint8_t objc_class_prefix[0x4]; // #36 string, has-bit 19
+    bool java_multiple_files; // #10 bool, has-bit 10
+    bool java_generate_equals_and_hash; // #20 bool, has-bit 11
+    bool java_string_check_utf8; // #27 bool, has-bit 12
+    bool cc_generic_services; // #16 bool, has-bit 13
+    bool java_generic_services; // #17 bool, has-bit 14
+    bool py_generic_services; // #18 bool, has-bit 15
+    bool php_generic_services; // #42 bool, has-bit 16
+    bool deprecated; // #23 bool, has-bit 17
+    int32_t optimize_for; // #9 enum google.protobuf.FileOptions.OptimizeMode, has-bit 18
+    bool cc_enable_arenas; // #31 bool, has-bit 19
+    uint8_t _pad_bd[0x3];
     static constexpr std::ptrdiff_t kSizeOf = 0xc0;
     static constexpr std::ptrdiff_t kHasBits = 0x28;
 };
@@ -36566,24 +36590,24 @@ static_assert(offsetof(FileOptions, additional_includes) == 0x30);
 static_assert(offsetof(FileOptions, uninterpreted_option) == 0x48);
 static_assert(offsetof(FileOptions, java_package) == 0x60);
 static_assert(offsetof(FileOptions, java_outer_classname) == 0x68);
-static_assert(offsetof(FileOptions, java_generic_services) == 0x70);
-static_assert(offsetof(FileOptions, csharp_namespace) == 0x78);
-static_assert(offsetof(FileOptions, swift_prefix) == 0x80);
-static_assert(offsetof(FileOptions, php_class_prefix) == 0x88);
-static_assert(offsetof(FileOptions, php_namespace) == 0x90);
-static_assert(offsetof(FileOptions, php_generic_services) == 0x98);
+static_assert(offsetof(FileOptions, go_package) == 0x70);
+static_assert(offsetof(FileOptions, objc_class_prefix) == 0x78);
+static_assert(offsetof(FileOptions, csharp_namespace) == 0x80);
+static_assert(offsetof(FileOptions, swift_prefix) == 0x88);
+static_assert(offsetof(FileOptions, php_class_prefix) == 0x90);
+static_assert(offsetof(FileOptions, php_namespace) == 0x98);
 static_assert(offsetof(FileOptions, php_metadata_namespace) == 0xa0);
 static_assert(offsetof(FileOptions, ruby_package) == 0xa8);
-static_assert(offsetof(FileOptions, optimize_for) == 0xb0);
-static_assert(offsetof(FileOptions, java_multiple_files) == 0xb1);
-static_assert(offsetof(FileOptions, go_package) == 0xb2);
-static_assert(offsetof(FileOptions, py_generic_services) == 0xb3);
-static_assert(offsetof(FileOptions, java_generate_equals_and_hash) == 0xb4);
-static_assert(offsetof(FileOptions, deprecated) == 0xb5);
-static_assert(offsetof(FileOptions, java_string_check_utf8) == 0xb6);
-static_assert(offsetof(FileOptions, cc_enable_arenas) == 0xb7);
-static_assert(offsetof(FileOptions, cc_generic_services) == 0xb8);
-static_assert(offsetof(FileOptions, objc_class_prefix) == 0xbc);
+static_assert(offsetof(FileOptions, java_multiple_files) == 0xb0);
+static_assert(offsetof(FileOptions, java_generate_equals_and_hash) == 0xb1);
+static_assert(offsetof(FileOptions, java_string_check_utf8) == 0xb2);
+static_assert(offsetof(FileOptions, cc_generic_services) == 0xb3);
+static_assert(offsetof(FileOptions, java_generic_services) == 0xb4);
+static_assert(offsetof(FileOptions, py_generic_services) == 0xb5);
+static_assert(offsetof(FileOptions, php_generic_services) == 0xb6);
+static_assert(offsetof(FileOptions, deprecated) == 0xb7);
+static_assert(offsetof(FileOptions, optimize_for) == 0xb8);
+static_assert(offsetof(FileOptions, cc_enable_arenas) == 0xbc);
 
 #pragma pack(push, 1)
 struct MessageOptions { // sizeof 0x50, _has_bits_ @ 0x28
@@ -36612,13 +36636,12 @@ struct FieldOptions { // sizeof 0x68, _has_bits_ @ 0x28
     pb::string_t* boxed_type; // #20 string, has-bit 0
     pb::string_t* synthetic_default; // #21 string, has-bit 1
     int32_t ctype; // #1 enum google.protobuf.FieldOptions.CType, has-bit 2
-    bool deprecated; // #3 bool, has-bit 3
-    uint8_t _pad_5d[0x3];
+    int32_t jstype; // #6 enum google.protobuf.FieldOptions.JSType, has-bit 3
     bool packed; // #2 bool, has-bit 4
     bool lazy; // #5 bool, has-bit 5
-    uint8_t jstype[0x1]; // #6 enum google.protobuf.FieldOptions.JSType, has-bit 6
-    bool weak; // #10 bool, has-bit 7
-    bool unverified_lazy; // #15 bool, has-bit 8
+    bool unverified_lazy; // #15 bool, has-bit 6
+    bool deprecated; // #3 bool, has-bit 7
+    bool weak; // #10 bool, has-bit 8
     uint8_t _pad_65[0x3];
     static constexpr std::ptrdiff_t kSizeOf = 0x68;
     static constexpr std::ptrdiff_t kHasBits = 0x28;
@@ -36629,12 +36652,12 @@ static_assert(offsetof(FieldOptions, uninterpreted_option) == 0x30);
 static_assert(offsetof(FieldOptions, boxed_type) == 0x48);
 static_assert(offsetof(FieldOptions, synthetic_default) == 0x50);
 static_assert(offsetof(FieldOptions, ctype) == 0x58);
-static_assert(offsetof(FieldOptions, deprecated) == 0x5c);
+static_assert(offsetof(FieldOptions, jstype) == 0x5c);
 static_assert(offsetof(FieldOptions, packed) == 0x60);
 static_assert(offsetof(FieldOptions, lazy) == 0x61);
-static_assert(offsetof(FieldOptions, jstype) == 0x62);
-static_assert(offsetof(FieldOptions, weak) == 0x63);
-static_assert(offsetof(FieldOptions, unverified_lazy) == 0x64);
+static_assert(offsetof(FieldOptions, unverified_lazy) == 0x62);
+static_assert(offsetof(FieldOptions, deprecated) == 0x63);
+static_assert(offsetof(FieldOptions, weak) == 0x64);
 
 #pragma pack(push, 1)
 struct OneofOptions { // sizeof 0x48, no _has_bits_

@@ -1,4 +1,4 @@
-// cmsgvector.h  -  CS2 build 14183  -  cs2-sdk.com
+// cmsgvector.h  -  CS2 build 14184  -  cs2-sdk.com
 // networkbasetypes.proto CMsgVector.
 // Module: client.dll. Offsets drift between builds - regenerate after a CS2 update.
 #pragma once

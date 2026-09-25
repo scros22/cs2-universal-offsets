@@ -1,4 +1,4 @@
-// ccsgousercmdpb.h  -  CS2 build 14183  -  cs2-sdk.com
+// ccsgousercmdpb.h  -  CS2 build 14184  -  cs2-sdk.com
 // cs_usercmd.proto CSGOUserCmdPB - the top-level command message the client sends. Layout from its parser/serialiser; verified in a working internal on build 2000914.
 // Module: client.dll. Offsets drift between builds - regenerate after a CS2 update.
 #pragma once

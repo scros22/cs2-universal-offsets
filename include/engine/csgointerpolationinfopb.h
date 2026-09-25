@@ -1,4 +1,4 @@
-// csgointerpolationinfopb.h  -  CS2 build 14183  -  cs2-sdk.com
+// csgointerpolationinfopb.h  -  CS2 build 14184  -  cs2-sdk.com
 // cs_usercmd.proto interpolation record (sv_interp0/1, player_interp). The _CL variant (cl_interp) only has frac at +0x18.
 // Module: client.dll. Offsets drift between builds - regenerate after a CS2 update.
 #pragma once
