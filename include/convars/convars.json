@@ -56038,7 +56038,7 @@
       "name": "steamworks_sessionid_client",
       "type": "string",
       "type_id": 9,
-      "value": "8948995689756"
+      "value": "8948998181927"
     },
     {
       "address": "0x2A7418FB050",
@@ -56053,7 +56053,7 @@
       "name": "steamworks_sessionid_server",
       "type": "string",
       "type_id": 9,
-      "value": "8948995689763"
+      "value": "8948998181906"
     },
     {
       "address": "0x2A741AB19B8",

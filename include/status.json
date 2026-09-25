@@ -145,13 +145,19 @@
       "status": "pass"
     },
     {
-      "detail": "every verified-feature field resolves from this build's schema",
+      "detail": "every field and global in the feature recipes resolves on this build",
       "items": [],
       "name": "verified_fields",
       "status": "pass"
     },
     {
-      "detail": "10 feature hooks name signatures that resolved",
+      "detail": "every hand-verified offset in the feature recipes was verified on this build",
+      "items": [],
+      "name": "verified_manual",
+      "status": "pass"
+    },
+    {
+      "detail": "27 feature hooks name signatures that resolved",
       "items": [],
       "name": "verified_hooks",
       "status": "pass"
@@ -164,8 +170,8 @@
     }
   ],
   "client_version": "2000917",
-  "dumper_version": "2.1.7",
-  "generated_at": "2026-09-25T17:47:49.048640300+01:00",
+  "dumper_version": "2.1.8",
+  "generated_at": "2026-09-25T18:31:54.394461100+01:00",
   "note": "Written by cs2-sdk after every dump. `ok` is false when a check failed; warnings list what to look at. The auto-dump pipeline adds `update`, `auto_healed` and `known_issues`.",
   "ok": true,
   "patch_version": "1.41.8.4",
@@ -181,7 +187,7 @@
     "unique_functions": 527
   },
   "summary": {
-    "pass": 10,
+    "pass": 11,
     "warn": 1,
     "fail": 0
   }
