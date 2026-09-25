@@ -36,6 +36,7 @@ use simplelog::*;
 
 
 mod analysis;
+mod checks;
 mod memory;
 mod output;
 mod patterns;
@@ -427,6 +428,24 @@ fn main() -> Result<()> {
         ));
     }
 
+    // --- self-checks + status.json ----------------------------------------
+    ui::section("Self-checks");
+    let checks_ok = match checks::run(
+        &mut process,
+        &out_dir,
+        &now.to_rfc3339(),
+        build_number,
+        sig_report.as_ref(),
+        analysis_result.as_ref().map(|r| &r.offsets),
+        &protobufs,
+    ) {
+        Ok(ok) => ok,
+        Err(e) => {
+            ui::warn(&format!("self-checks could not run: {}", e));
+            true
+        }
+    };
+
     // --- manifest ----------------------------------------------------------
     // Minimal: timestamp, process, build, success flags, Pattern counts,
     // and just the names of the modules we attached to. Per-module
@@ -447,6 +466,7 @@ fn main() -> Result<()> {
         "offsets_ok": offsets_ok,
         "signatures_ok": sigs_ok,
         "signature_counts": sig_counts,
+        "checks_ok": checks_ok,
     });
     fs::write(
         out_dir.join("manifest.json"),
@@ -469,8 +489,12 @@ fn main() -> Result<()> {
         ui::kv("Build number", &bn.to_string());
     }
 
+    if !args.skip_patterns {
+        ui::kv("Self-checks", if checks_ok { "ok" } else { "FAIL (see status.json)" });
+    }
+
     ui::divider();
-    let all_ok = offsets_ok && sigs_ok;
+    let all_ok = offsets_ok && sigs_ok && checks_ok;
     if all_ok {
         ui::sound(ui::Cue::Success);
         ui::step("All stages completed successfully.");
