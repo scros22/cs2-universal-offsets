@@ -1,4 +1,4 @@
-﻿//! CS2 Pattern database (ported + deduplicated from
+//! CS2 Pattern database (ported + deduplicated from
 //! `Pattern-dumper/cs2sign/CS2EnhancedSignatures.h`).
 //!
 //! Every entry is module-scoped to its DLL (.text first, .rdata fallback)
@@ -58,7 +58,7 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern {
         name: "BulkRegenIterator",
         module: "client.dll",
-        needle: "40 57 48 83 EC 40 0F B6 F9 E8 ? ? ? ? 48 85 C0 0F 84",
+        needle: "40 57 48 83 EC 30 48 8B F9 E8 ? ? ? ? 48 85 C0 0F 85",
         resolve: NONE,
         extra_off: 0,
         prototype: "__int64 __fastcall sub_18078E570(char a1)",
@@ -434,7 +434,8 @@ pub static CS2_PATTERNS: &[Pattern] = &[
         prototype: "void __fastcall sub_18085EE50(__int64 a1, _QWORD *a2, __int64 a3)",
     },
     Pattern { name: "DestroyParticle",                      module: "client.dll", needle: "83 FA ? 0F 84 ? ? ? ? 41 54", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_1809463E0(__int64 a1, __int64 a2, unsigned __int8 a3, char a4)" },
-    Pattern { name: "DispatchEffect",                       module: "client.dll", needle: "48 89 5C 24 ? 57 48 83 EC ? 48 8B F9 48 8B DA 48 8D 4C 24", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_18035A570(__int64 a1, __int64 a2)" },
+    Pattern { name: "DispatchEffect",                       module: "client.dll", needle: "48 89 5C 24 08 57 48 83 EC 40 48 8B F9 48 8B DA 48 8D 4C 24 20",
+        resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_18035A570(__int64 a1, __int64 a2)" },
     Pattern {
         name: "DispatchSpawn_caller",
         module: "client.dll",
@@ -448,7 +449,7 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern {
         name: "DrawLegs",
         module: "client.dll",
-        needle: "4C 8B DC 55 53 56 57 41 57 49 8D AB",
+        needle: "4C 8B DC 55 53 49 8D AB ? ? ? ? 48 81 EC ? ? ? ? 8B 41 08",
         resolve: NONE,
         extra_off: 0,
         prototype: "void __fastcall sub_1811D1E20(__int64 *a1, __int64 *a2, __int64 a3, __int64 a4, __int64 a5)",
@@ -483,10 +484,12 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     },
     Pattern { name: "FindHudElement",                       module: "client.dll", needle: "40 53 48 83 EC 20 48 8B 05 ? ? ? ? 48 8B D9 48 85 C0 74 ? 48 89 5C 24 38", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180E7B7A0(const char *a1)" },
     Pattern { name: "FindSOCache",                          module: "client.dll", needle: "48 89 5C 24 08 57 48 83 EC 30 4C 8B 52 08 48 8B D9 8B 0A", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_18181F080(__int64 a1, int *a2, __int64 a3, __int64 a4)" },
-    Pattern { name: "FirstPersonLegs",                      module: "client.dll", needle: "4C 8B DC 55 53 56 57 41 57 49 8D AB", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_1811D1E20(__int64 *a1, __int64 *a2, __int64 a3, __int64 a4, __int64 a5)" },
+    Pattern { name: "FirstPersonLegs",                      module: "client.dll", needle: "4C 8B DC 55 53 49 8D AB ? ? ? ? 48 81 EC ? ? ? ? 8B 41 08",
+        resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_1811D1E20(__int64 *a1, __int64 *a2, __int64 a3, __int64 a4, __int64 a5)" },
     Pattern { name: "FlashOverlay",                         module: "client.dll", needle: "85 D2 0F 88 ? ? ? ? 48 89 4C 24 08 55 56", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_1811D3860(__int64 a1, int a2, __int64 *a3, __int64 a4, __m128 *a5)" },
     Pattern { name: "ForceButtonsDown",                     module: "client.dll", needle: "48 89 5C 24 18 48 89 6C 24 20 57 48 81 EC ? ? ? ? 48 83 79 38 00", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_180A65B70(_QWORD *a1, __int64 a2)" },
-    Pattern { name: "FrameStageNotify",        module: "client.dll",  needle: "48 89 5C 24 ? 48 89 6C 24 ? 57 48 83 EC ? 48 8B F9 33 ED", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180B6D390(__int64 a1, int a2)" },
+    Pattern { name: "FrameStageNotify",        module: "client.dll",  needle: "48 89 5C 24 18 48 89 6C 24 20 57 48 83 EC 40 48 8B F9 33 ED",
+        resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180B6D390(__int64 a1, int a2)" },
     Pattern {
         name: "FX_FireBullets",
         module: "client.dll",
@@ -592,7 +595,7 @@ pub static CS2_PATTERNS: &[Pattern] = &[
         extra_off: 0,
         prototype: "void __fastcall sub_1808CEC10(__int64 a1, float *a2, float *a3)",
     },
-    Pattern { name: "GetWeaponInAccuracyRecoveryTime",      module: "client.dll", needle: "E8 ? ? ? ? F3 0F 10 B7 ? ? ? ? F3 0F 5E F8", resolve: REL32_1, extra_off: 0, prototype: "__m128 __fastcall sub_180796600(__int64 a1)" },
+    Pattern { name: "GetWeaponInAccuracyRecoveryTime",      module: "client.dll", needle: "E8 ? ? ? ? F3 0F 10 B3 ? ? ? ? 48 8B CB", resolve: REL32_1, extra_off: 0, prototype: "__m128 __fastcall sub_180796600(__int64 a1)" },
     Pattern {
         name: "GetWorldFovResolver",
         module: "client.dll",
@@ -612,7 +615,7 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern {
         name: "GloveApply_PerTick",
         module: "client.dll",
-        needle: "40 55 56 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B B9 ? 00 00 00 48 8B F1 48 85 FF 0F 84 ? ? ? ? 48 8D",
+        needle: "40 55 56 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 83 79 38 00",
         resolve: NONE,
         extra_off: 0,
         prototype: "void __fastcall sub_180BFBBD0(int *a1)",
@@ -641,7 +644,8 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern { name: "InsecureEmitter",                      module: "client.dll", needle: "48 89 5C 24 20 56 48 83 EC 20 48 8B D9 48 89 6C 24 30 48 8B E9 48 8B 0D ? ? ? ? 48 8B 01", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180CEFF60(const char *a1)" },
     Pattern { name: "IsDemoOrHltv",                      module: "client.dll", needle: "48 83 EC ? 48 8B 0D ? ? ? ? ? ? ? FF 90 ? ? ? ? 84 C0 75 ? 38 05", resolve: NONE, extra_off: 0, prototype: "char sub_180EFE9B0()" },
     Pattern { name: "IsLocalPlayerWatchingOwnDemo",          module: "client.dll", needle: "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8B 0D ? ? ? ? 48 8B 01", resolve: NONE, extra_off: 0, prototype: "char sub_180FCAA20()" },
-    Pattern { name: "IsOverwatch",                           module: "client.dll", needle: "48 83 EC 28 E8 ? ? ? ? 0F B6 40 72", resolve: NONE, extra_off: 0, prototype: "__int64 sub_180FC95D0()" },
+    Pattern { name: "IsOverwatch",                           module: "client.dll", needle: "48 83 EC 28 E8 ? ? ? ? 48 8B 0D ? ? ? ? 48 89 48 20 48 89 05 ? ? ? ? 48 83 C4 28 C3 48 89 5C 24 08",
+        resolve: NONE, extra_off: 0, prototype: "__int64 sub_180FC95D0()" },
     Pattern {
         name: "KillFeedbackEmitter",
         module: "client.dll",
@@ -711,11 +715,12 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern { name: "pViewToProjectionMatrix", module: "client.dll", needle: "48 89 4C 24 ? 4C 8D 0D ? ? ? ? 48 8B 0D", resolve: ResolveKind::RipRel { rel_off: 8 }, extra_off: 0, prototype: "" },
     Pattern { name: "pWeaponC4",                         module: "client.dll", needle: "48 8B 15 ? ? ? ? 48 8B 5C 24 ? FF C0 89 05 ? ? ? ? 48 8B C6 48 89 34 EA 80 BE", resolve: RIPREL_3, extra_off: 0, prototype: "" },
     Pattern { name: "pWorldToProjectionMatrix", module: "client.dll", needle: "48 8D 0D ? ? ? ? 48 C1 E0 06", resolve: ResolveKind::RipRel { rel_off: 3 }, extra_off: 0, prototype: "" },
-    Pattern { name: "RegenerateWeaponSkin",                 module: "client.dll", needle: "40 55 53 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B 05", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_180802630(__int64 a1, char a2)" },
+    Pattern { name: "RegenerateWeaponSkin",                 module: "client.dll", needle: "40 55 53 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 85 D2",
+        resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_180802630(__int64 a1, char a2)" },
     Pattern {
         name: "RegenerateWeaponSkin_v2",
         module: "client.dll",
-        needle: "40 55 53 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B 05",
+        needle: "40 55 53 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 85 D2",
         resolve: NONE,
         extra_off: 0,
         prototype: "void __fastcall sub_180802630(__int64 a1, char a2)",
@@ -949,10 +954,10 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern { name: "C_CSPlayerPawn_GetAimPunchAtTick",     module: "client.dll", needle: "4C 8B DC 49 89 5B 08 49 89 6B 10 49 89 73 18 57 48 83 EC 70 48 8B D9", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180851940(__int64 a1, __int64 a2, __int64 a3, int a4)" },
     Pattern { name: "C_CSPlayerPawn_GetInterpolatedShootPosition", module: "client.dll", needle: "40 55 56 41 56 48 81 EC ? ? ? ? 48 8B 05", resolve: NONE, extra_off: 0, prototype: "float *__fastcall sub_180902A40(__int64 a1, float *a2, float *a3)" },
     Pattern { name: "C_CSWeaponBase_GetModelPath",          module: "client.dll", needle: "48 89 5C 24 10 56 48 83 EC 20 48 8B 1D", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_1811896D0(__int64 a1)" },
-    Pattern { name: "C_CSWeaponBase_GetRecoilOffset",       module: "client.dll", needle: "44 89 44 24 18 55 57 41 55 41 56", resolve: NONE, extra_off: 0, prototype: "_DWORD *__fastcall sub_1807CEC50(__int64 a1, __int64 a2, int a3, char a4, _DWORD *a5, _DWORD *a6)" },
+    Pattern { name: "C_CSWeaponBase_GetRecoilOffset",       module: "client.dll", needle: "40 57 41 56 48 83 EC 78 48 8B F9", resolve: NONE, extra_off: 0, prototype: "_DWORD *__fastcall sub_1807CEC50(__int64 a1, __int64 a2, int a3, char a4, _DWORD *a5, _DWORD *a6)" },
     Pattern { name: "C_CSWeaponBase_GetViewModel",          module: "client.dll", needle: "40 53 48 83 EC 20 48 8B D9 E8 ? ? ? ? 48 83 BB ? ? ? ? 00 74 ? 48 8B 03", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_180B06110(_QWORD *a1)" },
     Pattern { name: "C_CSWeaponBase_ReloadCustomEconVisuals", module: "client.dll", needle: "48 89 5C 24 20 55 48 8D 6C 24 A9 48 81 EC ? ? ? ? 80 B9 ? ? ? ? 00", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_180805320(__int64 a1)" },
-    Pattern { name: "C_CSWeaponBase_UpdateAccuracyPenalty", module: "client.dll", needle: "40 57 41 56 48 83 EC 68 48 8B F9", resolve: NONE, extra_off: 0, prototype: "_DWORD *__fastcall sub_180827300(unsigned int *a1)" },
+    Pattern { name: "C_CSWeaponBase_UpdateAccuracyPenalty", module: "client.dll", needle: "0F 2F BF 18 1A 00 00 76 ? F3 0F 11 BF 18 1A 00 00", resolve: NONE, extra_off: 0, prototype: "_DWORD *__fastcall sub_180827300(unsigned int *a1)" },
     Pattern { name: "C_EconItemView_GetCustomName",         module: "client.dll", needle: "48 89 5C 24 08 57 48 83 EC 20 48 83 B9 ? ? ? ? 00 0F B6 FA", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_1811883E0(__int64 a1, unsigned __int8 a2)" },
     Pattern { name: "C_EconItemView_InvalidateDescription", module: "client.dll", needle: "48 89 5C 24 10 48 89 74 24 18 57 48 83 EC 20 48 8D B9", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_1811967E0(__int64 a1)" },
     Pattern { name: "C_EconItemView_RemoveAttribute",       module: "client.dll", needle: "40 53 48 83 EC 20 48 63 81 ? ? ? ? 44 0F B7 CA", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_18119A570(__int64 a1, __int16 a2)" },
@@ -1021,7 +1026,7 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern { name: "pPredictionRandomSeed",                module: "client.dll", needle: "8B 3D ? ? ? ? 48 8B 03 48 8B CB", resolve: RIPREL_2, extra_off: 0, prototype: "" },
     Pattern { name: "pRenderGameSystem",                    module: "client.dll", needle: "48 8B 0D ? ? ? ? 0F B6 9F", resolve: RIPREL_3, extra_off: 0, prototype: "" },
     Pattern { name: "pUIInventory",                         module: "client.dll", needle: "48 89 1D ? ? ? ? 48 85 FF", resolve: RIPREL_3, extra_off: 0, prototype: "" },
-    Pattern { name: "pWeaponRecoilTable",                   module: "client.dll", needle: "4C 8D 05 ? ? ? ? 66 89 3B", resolve: RIPREL_3, extra_off: 0, prototype: "" },
+    Pattern { name: "pWeaponRecoilTable",                   module: "client.dll", needle: "48 8D 05 ? ? ? ? 48 89 03 66 89 4B 08 4D 85 ED", resolve: RIPREL_3, extra_off: 0, prototype: "" },
     Pattern { name: "RenderSmokeVolumes",                   module: "client.dll", needle: "48 89 54 24 10 55 57 41 54 48 8D AC 24", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180D1EC30(__int64 a1, __int64 a2, __int64 a3, __int64 a4, __int64 a5, unsigned int *a6)" },
     Pattern { name: "SetShaderParamInt",                    module: "client.dll", needle: "48 89 6C 24 10 48 89 74 24 18 57 48 83 EC 20 66 0F 6E CA 41 8B F0", resolve: NONE, extra_off: 0, prototype: "__m128i *__fastcall sub_18016A1A0(__m128i *a1, unsigned int a2, __int32 a3)" },
     Pattern { name: "SetupFog",                             module: "client.dll", needle: "48 89 5C 24 10 48 89 6C 24 18 48 89 74 24 20 48 89 4C 24 08 57 41 54 41 55 41 56 41 57 48 83 EC 20 48 63 02", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180282F30(__m128i *a1, int *a2)" },
@@ -1345,7 +1350,7 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern {
         name: "CNetChan_ProcessMessages",
         module: "networksystem.dll",
-        needle: "40 55 53 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 E1 48 81 EC ? ? ? ? 48 8B F9",
+        needle: "40 55 53 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 E1 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 48 33 C4 48 89 45 0F 41 0F B6 D9",
         resolve: NONE,
         extra_off: 0,
         prototype: "__int64 __fastcall sub_1800C03C0(__int64 a1)",
@@ -1585,7 +1590,7 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern { name: "CTriggerGravity_GravityTouch", module: "server.dll", needle: "48 89 5C 24 ? 57 48 83 EC ? 48 8B 02 48 8B F9 48 8B CA 48 8B DA FF 90 ? ? ? ? 84 C0 74 ? F3 0F 10 8F", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180FC77B0(__int64 a1, __int64 a2)" },
     Pattern { name: "DispatchParticleEffect", module: "server.dll", needle: "48 89 5C 24 08 48 89 74 24 10 48 89 7C 24 18 4C 89 74 24 20 55 48 8D 6C 24 D1", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180C49860(__int64 a1, int a2, __int64 a3, char a4, int a5, char a6, int a7, __int64 a8, char a9)" },
     Pattern { name: "FindUseEntity", module: "server.dll", needle: "4C 89 44 24 ? F3 0F 11 4C 24 ? 55 53 56", resolve: NONE, extra_off: 0, prototype: "_QWORD *__fastcall sub_180ABDC50(_QWORD *a1, float a2, float *a3)" },
-    Pattern { name: "GameSystem_Think_CheckSteamBan", module: "server.dll", needle: "41 54 48 81 EC ? ? ? ? BA ? ? ? ? 48 8D 0D ? ? ? ? E8 ? ? ? ? 48 85 C0", resolve: NONE, extra_off: 0, prototype: "" },
+    Pattern { name: "GameSystem_Think_CheckSteamBan", module: "server.dll", needle: "41 54 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 44 8B 60", resolve: NONE, extra_off: 0, prototype: "" },
     Pattern { name: "GetCSWeaponDataFromKey", module: "server.dll", needle: "48 89 5C 24 ? 57 48 83 EC ? 33 FF 4C 8B CA 8B D9", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180542AE0(int a1, _BYTE *a2, __int64 a3)" },
     Pattern { name: "GetSpawnGroups", module: "server.dll", needle: "40 56 48 83 EC ? 48 89 5C 24 ? 48 8D B1", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_18058A950(__int64 a1, __int64 a2)" },
     Pattern { name: "GiveNamedItem", module: "server.dll", needle: "48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 44 89 44 24", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180AB2D20(__int64 a1, const char *a2, int a3, __int64 a4, char a5, __int64 *a6)" },
@@ -1616,9 +1621,10 @@ pub static CS2_PATTERNS: &[Pattern] = &[
         prototype: "_DWORD *__fastcall sub_1801C5B70(__int64 a1, _DWORD *a2, __int64 a3)",
     },
     Pattern { name: "PlayVSound",              module: "soundsystem.dll", needle: "48 8B C4 48 89 58 08 57 48 81 EC ? ? ? ? 33 FF 48 8B D9", resolve: NONE, extra_off: 0, prototype: "_UNKNOWN **__fastcall sub_180349840(__int64 a1, __int64 a2, int a3, int a4)" },
-    Pattern { name: "pSoundChannels", module: "soundsystem.dll", needle: "48 8B 15 ? ? ? ? 85 C9 78", resolve: RIPREL_3, extra_off: 0, prototype: "" },
-    Pattern { name: "pSoundSystem",                      module: "soundsystem.dll", needle: "48 8D 05 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 83 EC 28 48 89 15 ? ? ? ? 4C 89 05 ? ? ? ?", resolve: RIPREL_3, extra_off: 0, prototype: "__int64 (__fastcall ***sub_18005D880())()" },
-    Pattern { name: "SomeUtlSymbolFunc",       module: "soundsystem.dll", needle: "48 89 74 24 18 57 48 83 EC 20 48 63 F2 48 8B F9 3B 71 30", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_1800B0740(__int64 a1, unsigned int a2)" },
+    Pattern { name: "pSoundChannels", module: "soundsystem.dll", needle: "48 8B 3D ? ? ? ? 48 85 FF 0F 84", resolve: RIPREL_3, extra_off: 0, prototype: "" },
+    Pattern { name: "pSoundSystem",                      module: "soundsystem.dll", needle: "48 8D 0D ? ? ? ? E8 ? ? ? ? 48 8B 0D ? ? ? ? 48 8B 11", resolve: RIPREL_3, extra_off: 0, prototype: "__int64 (__fastcall ***sub_18005D880())()" },
+    Pattern { name: "SomeUtlSymbolFunc",       module: "soundsystem.dll", needle: "48 89 74 24 18 57 48 83 EC 20 48 63 F2",
+        resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_1800B0740(__int64 a1, unsigned int a2)" },
 
     // --- cspatterns.dev additions (verified 07/06/2026) -----------------------
     Pattern { name: "PlayVSnd", module: "soundsystem.dll", needle: "48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 55 48 8D 6C 24 ? 48 81 EC ? ? ? ? 33 F6 C7 45 ? ? ? ? ? 4C 8B C1", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_1801EC870(const char *a1)" },
@@ -1656,7 +1662,8 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern { name: "C_EconItemView_GetStaticData", module: "client.dll", needle: "40 56 48 83 EC ? 48 89 5C 24 ? 48 8B F1 48 8B 1D ? ? ? ? 48 85 DB 75 ? B9 ? ? ? ? 48 89 7C 24 ? E8 ? ? ? ? 33 FF 48 8B D8 48 85 C0 74 ? 48 8D 05 ? ? ? ? 48 89 7B ? B9 ? ? ? ? 48 89 03 E8 ? ? ? ? 48 85 C0 74 ? 48 8B C8 E8 ? ? ? ? 48 8B F8 48 8D 05 ? ? ? ? 48 89 7B ? 48 89 03 EB ? 48 8B DF 48 8B 7C 24 ? 48 89 1D ? ? ? ? 48 8B 4B ? 48 8B 5C 24 ? 48 85 C9 75", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_1810F4AF0(__int64 a1)" },
     Pattern { name: "CSkeletonInstance_CalcWorldSpaceBones", module: "client.dll", needle: "48 89 4C 24 ? 55 53 56 57 41 54 41 55 41 56 41 57 B8 ? ? ? ? E8 ? ? ? ? 48 2B E0 48 8D 6C 24 ? 48 8B 81", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_180A49A00(__int64 a1, unsigned int a2)" },
     Pattern { name: "C_BaseEntity_GetBoneIdByName", module: "client.dll", needle: "E8 ? ? ? ? 48 8B CF 85 C0 78 ? 44 8B C0", resolve: REL32_1, extra_off: 0, prototype: "__int64 __fastcall sub_18090F4D0(__int64 a1, __int64 a2)" },
-    Pattern { name: "C_EconItemView_GetBasePlayerWeaponVData", module: "client.dll", needle: "48 81 EC ? ? ? ? 48 85 C9 75 ? 33 C0 48 81 C4 ? ? ? ? C3 48 89 9C 24", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180791CC0(__int64 a1)" },
+    Pattern { name: "C_EconItemView_GetBasePlayerWeaponVData", module: "client.dll", needle: "48 83 EC 28 48 85 C9 74 ? E8 ? ? ? ? 48 8B D0",
+        resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_180791CC0(__int64 a1)" },
     Pattern { name: "C_CSWeaponBaseGun_GetInaccuracy", module: "client.dll", needle: "48 89 5C 24 10 55 56 57 48 81 EC ? ? ? ? 44 0F 29 84 24 80 00 00 00", resolve: NONE, extra_off: 0, prototype: "double __fastcall sub_1807CE850(float *a1, float *a2, float *a3)" },
     Pattern { name: "C_CSWeaponBaseGun_GetSpread", module: "client.dll", needle: "48 63 91 ? ? ? ? 48 8B 81 ? ? ? ? 85 D2 78 ? 48 83 FA 02 73 ? F3 0F 10 84 90 ? ? ? ? C3 F3 0F 10 80 ? ? ? ? C3 CC CC CC CC CC 40 53", resolve: NONE, extra_off: 0, prototype: "float __fastcall sub_18080D5F0(__int64 a1)" },
     Pattern { name: "SetLocalPlayerReady", module: "client.dll", needle: "40 53 48 83 EC 20 48 8B DA 48 8D 15 ? ? ? ? 48 8B CB FF", resolve: NONE, extra_off: 0, prototype: "char __fastcall sub_180F5ABF0(__int64 a1, __int64 a2)" },
@@ -1669,5 +1676,6 @@ pub static CS2_PATTERNS: &[Pattern] = &[
     Pattern { name: "CEconItem_SerializeToProtoBufItem", module: "client.dll", needle: "40 55 56 48 83 EC ? 48 8B 41 ? 48 8B F2", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_1810DA780(__int64 a1, __int64 a2)" },
     Pattern { name: "C_BaseEntity_GetHitBoxSet", module: "client.dll", needle: "48 89 5C 24 ? 48 89 74 24 ? 57 48 81 EC ? ? ? ? 8B DA 48 8B F9 E8 ? ? ? ? 48 8B F0", resolve: NONE, extra_off: 0, prototype: "__int64 __fastcall sub_1808FD710(__int64 a1, unsigned int a2)" },
     Pattern { name: "C_BaseEntity_UpdateBodyGroupChoice", module: "client.dll", needle: "E8 ? ? ? ? 48 8B 9C 24 ? ? ? ? 4C 8B B4 24 ? ? ? ? 48 83 C4", resolve: REL32_1, extra_off: 0, prototype: "__int64 __fastcall sub_180911290(__int64 a1)" },
-    Pattern { name: "C_CSWeaponBase_UpdateCompositeMaterialSet", module: "client.dll", needle: "40 55 53 41 57 48 8D AC 24 00 FE ? ?", resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_1807C5CA0(__int64 a1, char a2)" },
+    Pattern { name: "C_CSWeaponBase_UpdateCompositeMaterialSet", module: "client.dll", needle: "40 55 53 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 85 D2",
+        resolve: NONE, extra_off: 0, prototype: "void __fastcall sub_1807C5CA0(__int64 a1, char a2)" },
 ];
