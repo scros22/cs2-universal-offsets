@@ -1,4 +1,4 @@
-// csubtickmovestep.h  -  CS2 build 14184  -  cs2-sdk.com
+// csubtickmovestep.h  -  CS2 build 14198  -  cs2-sdk.com
 // usercmd.proto CSubtickMoveStep - one timed button edge / analog move / view-angle delta inside a tick. The list must ascend by `when`.
 // Module: client.dll. Offsets drift between builds - regenerate after a CS2 update.
 #pragma once
@@ -9,7 +9,7 @@ namespace CSubtickMoveStep {
 
 // protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start
 inline constexpr std::size_t kSize = 0x38;
-inline constexpr std::ptrdiff_t kCreateSubtickMoveStep_rva = 0x4F6C40; // pattern CreateSubtickMoveStep
+inline constexpr std::ptrdiff_t kCreateSubtickMoveStep_rva = 0x4F5700; // pattern CreateSubtickMoveStep
 
 // --- fields ---
 inline constexpr std::ptrdiff_t has_bits             = 0x10  ; // uint32

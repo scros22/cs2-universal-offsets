@@ -1,4 +1,4 @@
-// cinbuttonstatepb.h  -  CS2 build 14184  -  cs2-sdk.com
+// cinbuttonstatepb.h  -  CS2 build 14198  -  cs2-sdk.com
 // usercmd.proto CInButtonStatePB - the button masks as sent: buttonstate1 = held, buttonstate2 = changed, buttonstate3 = scroll.
 // Module: client.dll. Offsets drift between builds - regenerate after a CS2 update.
 #pragma once
@@ -9,7 +9,7 @@ namespace CInButtonStatePB {
 
 // protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start
 inline constexpr std::size_t kSize = 0x30;
-inline constexpr std::ptrdiff_t kNew_rva = 0x4F6BC0; // pattern CInButtonStatePB_New
+inline constexpr std::ptrdiff_t kNew_rva = 0x4F5680; // pattern CInButtonStatePB_New
 
 // --- fields ---
 inline constexpr std::ptrdiff_t has_bits     = 0x10  ; // uint32

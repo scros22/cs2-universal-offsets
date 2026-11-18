@@ -1,7 +1,7 @@
 # FAQ
 
 **Which build is this for?**
-The one in `manifest.json` and `GET /api/summary` — CS2 build 14184 at the time of writing. CS2 has two numbers: the game's build number (14184, what the console shows) and Steam's client build id (2000917). The site and the dump use the game's build number; release notes mention both.
+The repository dump uses the in-game build number recorded in `include/manifest.json`. The current snapshot is build 14198, with client version 2000946 recorded separately in `include/status.json`. The hosted API reports its deployed build via `GET /api/summary`.
 
 **The game updated. When is the dump refreshed?**
 Usually the same day. Signatures are re-verified after every update, and anything that broke is fixed rather than dropped. Watch the #announcements channel of the Discord, the [releases](https://github.com/scros22/cs2-universal-offsets/releases) page, or poll `GET /api/summary` and compare `build_number`.

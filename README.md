@@ -57,6 +57,8 @@ Rust 2024 edition. Windows-only by default (uses `memflow-native`); pass
 
 ## Run
 
+Windows MSVC builds request administrator privileges through UAC when opened from File Explorer.
+
 Start CS2, then from an **elevated** prompt (memflow needs admin to open the
 process):
 

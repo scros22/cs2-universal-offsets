@@ -1,6 +1,6 @@
 {
   "auto_healed": [],
-  "build_number": 14184,
+  "build_number": 14198,
   "checks": [
     {
       "detail": "577 of 578 entries resolve; 1 need re-anchoring",
@@ -30,91 +30,91 @@
       "items": [
         {
           "global": "dwGameRules",
-          "global_rva": "0x255A858",
+          "global_rva": "0x2556E78",
           "module": "client.dll",
           "ok": true,
           "signature": "pGameRules",
-          "signature_rva": "0x255A858"
+          "signature_rva": "0x2556E78"
         },
         {
           "global": "dwSensitivity",
-          "global_rva": "0x255B3A8",
+          "global_rva": "0x25546C8",
           "module": "client.dll",
           "ok": true,
           "signature": "pSensitivity",
-          "signature_rva": "0x255B3A8"
+          "signature_rva": "0x25546C8"
         },
         {
           "global": "dwPrediction",
-          "global_rva": "0x255E560",
+          "global_rva": "0x2557440",
           "module": "client.dll",
           "ok": true,
           "signature": "pPrediction",
-          "signature_rva": "0x255E560"
+          "signature_rva": "0x2557440"
         },
         {
           "global": "dwGlowManager",
-          "global_rva": "0x255A870",
+          "global_rva": "0x2553B90",
           "module": "client.dll",
           "ok": true,
           "signature": "pGlowManager",
-          "signature_rva": "0x255A870"
+          "signature_rva": "0x2553B90"
         },
         {
           "global": "dwLocalPlayerController",
-          "global_rva": "0x2535598",
+          "global_rva": "0x252ED78",
           "module": "client.dll",
           "ok": true,
           "signature": "pLocalPlayerController",
-          "signature_rva": "0x2535598"
+          "signature_rva": "0x252ED78"
         },
         {
           "global": "dwCSGOInput",
-          "global_rva": "0x2573B40",
+          "global_rva": "0x256CFE0",
           "module": "client.dll",
           "ok": true,
           "signature": "pCSGOInputInstance",
-          "signature_rva": "0x2573B40"
+          "signature_rva": "0x256CFE0"
         },
         {
           "global": "dwBuildNumber",
-          "global_rva": "0x61D1E8",
+          "global_rva": "0x6B2D1C",
           "module": "engine2.dll",
           "ok": true,
           "signature": "pBuildNumber",
-          "signature_rva": "0x61D1E8"
+          "signature_rva": "0x6B2D1C"
         },
         {
           "global": "dwNetworkGameClient",
-          "global_rva": "0x91B1C0",
+          "global_rva": "0x9AFB90",
           "module": "engine2.dll",
           "ok": true,
           "signature": "pNetworkGameClient",
-          "signature_rva": "0x91B1C0"
+          "signature_rva": "0x9AFB90"
         },
         {
           "global": "dwWindowWidth",
-          "global_rva": "0x91F540",
+          "global_rva": "0x9B42E8",
           "module": "engine2.dll",
           "ok": true,
           "signature": "pWindowWidth",
-          "signature_rva": "0x91F540"
+          "signature_rva": "0x9B42E8"
         },
         {
           "global": "dwWindowHeight",
-          "global_rva": "0x91F544",
+          "global_rva": "0x9B42EC",
           "module": "engine2.dll",
           "ok": true,
           "signature": "pWindowHeight",
-          "signature_rva": "0x91F544"
+          "signature_rva": "0x9B42EC"
         },
         {
           "global": "dwSoundSystem",
-          "global_rva": "0x535340",
+          "global_rva": "0x532470",
           "module": "soundsystem.dll",
           "ok": true,
           "signature": "pSoundSystem",
-          "signature_rva": "0x535340"
+          "signature_rva": "0x532470"
         }
       ],
       "name": "global_twins",
@@ -151,10 +151,41 @@
       "status": "pass"
     },
     {
-      "detail": "every hand-verified offset in the feature recipes was verified on this build",
-      "items": [],
+      "detail": "6 hand-verified offset(s) were verified on an older build — re-check them",
+      "items": [
+        {
+          "feature": "Entity list",
+          "field": "CGameEntitySystem::chunk array",
+          "verified_on": 14184
+        },
+        {
+          "feature": "Entity list",
+          "field": "CEntityIdentity::m_pEntity",
+          "verified_on": 14184
+        },
+        {
+          "feature": "Entity list",
+          "field": "CEntityIdentity::handle",
+          "verified_on": 14184
+        },
+        {
+          "feature": "ESP",
+          "field": "CModel::bone count",
+          "verified_on": 14184
+        },
+        {
+          "feature": "ESP",
+          "field": "CModel::bone names",
+          "verified_on": 14184
+        },
+        {
+          "feature": "Skin changer",
+          "field": "C_CSWeaponBase::composite material set",
+          "verified_on": 14184
+        }
+      ],
       "name": "verified_manual",
-      "status": "pass"
+      "status": "warn"
     },
     {
       "detail": "27 feature hooks name signatures that resolved",
@@ -163,18 +194,18 @@
       "status": "pass"
     },
     {
-      "detail": "44 weapons: the session had 5 spawned, so the full table read earlier on this CS2 patch was kept (CCSWeaponBaseVData did not change)",
+      "detail": "no weapon entities in the session",
       "items": [],
       "name": "weapons_snapshot",
-      "status": "pass"
+      "status": "warn"
     }
   ],
-  "client_version": "2000917",
+  "client_version": "2000946",
   "dumper_version": "2.1.8",
-  "generated_at": "2026-09-25T18:31:54.394461100+01:00",
+  "generated_at": "2026-11-18T15:41:37.987684600+01:00",
   "note": "Written by cs2-sdk after every dump. `ok` is false when a check failed; warnings list what to look at. The auto-dump pipeline adds `update`, `auto_healed` and `known_issues`.",
   "ok": true,
-  "patch_version": "1.41.8.4",
+  "patch_version": "1.41.9.8",
   "signatures": {
     "found": 577,
     "missing": [
@@ -187,8 +218,8 @@
     "unique_functions": 527
   },
   "summary": {
-    "pass": 11,
-    "warn": 1,
-    "fail": 0
+    "fail": 0,
+    "pass": 9,
+    "warn": 3
   }
 }

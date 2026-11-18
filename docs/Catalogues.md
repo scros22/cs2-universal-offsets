@@ -4,7 +4,7 @@ Besides the SDK proper, a run records several tables that are read from the live
 
 ## ConVars and ConCommands — `convars/convars.json`, `convars.hpp`
 
-Every entry of the tier0 `CCvar` registry: 4,110 convars and 1,185 commands on build 14184.
+Every entry of the tier0 `CCvar` registry: 4,140 convars and 1,191 commands on build 14198.
 
 ```json
 {
@@ -46,7 +46,7 @@ Field types are the ones the event definition declares: `bool`, `byte`, `int16`,
 
 ## Weapons — `weapons/weapons.json`
 
-`CCSWeaponBaseVData` of every weapon entity present at dump time, read through the schema of the same run — 44 weapons when the dump is taken in a match with every weapon spawned:
+`CCSWeaponBaseVData` of every weapon entity present at dump time, read through the schema of the same run — 44 weapons in the published build 14184 snapshot. The build 14198 session contained no weapon entities, so the repository retains that earlier snapshot:
 
 ```json
 { "name": "weapon_ak47", "damage": 36, "armor_ratio": 1.55, "penetration": 2.0, "range": 8192.0, "range_modifier": 0.98,
@@ -57,7 +57,7 @@ Field types are the ones the event definition declares: `bool`, `byte`, `int16`,
 
 ## Entities — `entities/entities.json`
 
-A snapshot of the entity list at dump time: `index`, `classname`, `health`, `max_health`, `team` and `origin` for every entity (177 in the current dump), plus per-classname counts (`by_class`). It exists to show what a live entity list looks like on the current build and to give the walkers something to verify against; it is not a reference table.
+A snapshot of the entity list at dump time: `index`, `classname`, `health`, `max_health`, `team` and `origin` for every entity (9 in the build 14198 snapshot), plus per-classname counts (`by_class`). It exists to show what a live entity list looks like on the current build and to give the walkers something to verify against; it is not a reference table.
 
 ## Buttons — `buttons.json`, `buttons.hpp`
 
@@ -79,7 +79,7 @@ How the features on the site's **Features** tab are built, each in two flavours:
 | Skin changer | Skins | no |
 | Knife changer | Skins | no |
 
-Every recipe was checked against a working implementation and against the current build — IDA on the binaries, plus read-only checks of the live process (the entity-list walk, bone indices, view angles, sensitivity). Nothing numeric is typed into the recipes: each offset is resolved from this dump's schema (`"source": "schema"`), from the hand-verified [engine structs](Engine-Structs) (`"engine"`), or as a schema field plus a fixed delta (`"schema+manual"`, e.g. the bone array at `m_modelState + 0x80`). The handful of values that exist nowhere else are `"manual"` and carry `verified_build`; `stale: true` means they were verified on an older build. Globals come from `offsets.json`, and every function carries this build's RVA and pattern.
+Build 14198 resolves every recipe field, global and hook. Six manually verified offsets still carry an earlier verification build. Nothing numeric is typed into the recipes: each offset is resolved from this dump's schema (`"source": "schema"`), from the hand-verified [engine structs](Engine-Structs) (`"engine"`), or as a schema field plus a fixed delta (`"schema+manual"`, e.g. the bone array at `m_modelState + 0x80`). The handful of values that exist nowhere else are `"manual"` and carry `verified_build`; `stale: true` means they were verified on an older build. Globals come from `offsets.json`, and every function carries this build's RVA and pattern.
 
 ```json
 {

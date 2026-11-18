@@ -1434,7 +1434,6 @@ namespace client {
     class CBodyComponent;
     class CBuoyancyHelper;
     class CCSGameModeRules;
-    class CCSMinimapVolume;
     class CCSPlayerController;
     class CCSPlayer_ActionTrackingServices;
     class CCSPlayer_AimPunchServices;

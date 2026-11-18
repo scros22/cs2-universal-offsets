@@ -90,11 +90,12 @@ pub fn render_hpp(dump: &ConVarsDump, build: Option<u32>) -> String {
             "// {:name_w$}  {:type_w$}  {:val_w$}  {}",
             c.name,
             c.type_name,
-            trunc(&c.value, 20),
+            trunc(&c.value.replace(['\r', '\n'], " "), 20),
             flags,
         ));
         if !c.description.is_empty() {
-            s.push_str(&format!("  // {}", c.description));
+            let description = c.description.lines().map(str::trim).collect::<Vec<_>>().join(" ");
+            s.push_str(&format!("  // {}", description.trim_end()));
         }
         s.push('\n');
     }
@@ -110,7 +111,8 @@ pub fn render_hpp(dump: &ConVarsDump, build: Option<u32>) -> String {
         };
         s.push_str(&format!("// {:name_w$}  {}", c.name, flags));
         if !c.description.is_empty() {
-            s.push_str(&format!("  // {}", c.description));
+            let description = c.description.lines().map(str::trim).collect::<Vec<_>>().join(" ");
+            s.push_str(&format!("  // {}", description.trim_end()));
         }
         s.push('\n');
     }

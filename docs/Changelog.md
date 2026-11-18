@@ -2,6 +2,13 @@
 
 Each release carries a `cs2-sdk.exe` build and the dump for the CS2 build named in its title. Full notes are on the [releases page](https://github.com/scros22/cs2-universal-offsets/releases).
 
+## v2.1.9 — 2026-11-18 — CS2 build 14198
+
+- Updated the dumper signatures and regenerated the SDK for CS2 build 14198 (game version 1.41.9.8). The dump resolves 577 of 578 signatures with no ambiguous matches.
+- Windows MSVC builds request administrator privileges through UAC when launched.
+- Fixed the generated `convars.hpp` header so multiline descriptions stay inside comments.
+- The weapon catalogue remains the 44-weapon snapshot from build 14184. Six manually verified offsets still carry an earlier verification build.
+
 ## v2.1.8 — 2026-09-25 — feature recipes, internal and external
 
 - **The Features tab was rebuilt** around recipes that are checked against a working implementation and the current build, each with an **Internal** and an **External** version (a switch on the site): Entity list, ESP, FOV changer, Aimbot, Skin changer, Knife changer. Numbered steps, the exact offsets, globals and functions (with this build's RVA and pattern), and **Copy as C++** per recipe.
