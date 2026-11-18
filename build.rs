@@ -13,6 +13,12 @@ fn main() {
         if let Err(e) = res.compile() {
             eprintln!("warning: failed to embed icon: {e}");
         }
+        if std::env::var("CARGO_CFG_TARGET_ENV").as_deref() == Ok("msvc") {
+            println!("cargo:rustc-link-arg-bin=cs2-sdk=/MANIFEST:EMBED");
+            println!(
+                "cargo:rustc-link-arg-bin=cs2-sdk=/MANIFESTUAC:level='requireAdministrator' uiAccess='false'"
+            );
+        }
         println!("cargo:rerun-if-changed=assets/icon.ico");
     }
 }
