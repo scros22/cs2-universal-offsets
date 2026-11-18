@@ -10,14 +10,14 @@ The `include/` tree committed to this repository is always the latest dump. The 
 
 | | |
 |---|---|
-| CS2 build | **14184** (Steam client build 2000917), dumped 2026-09-25 |
+| CS2 build | **14198** (client version 2000946), dumped 2026-11-18 |
 | Dumper | **v2.1.8** — [releases](https://github.com/scros22/cs2-universal-offsets/releases) |
-| Signatures | 578 entries, 577 resolve, 527 unique functions, 0 ambiguous matches; every one verified against fresh IDA analysis, self-checked on every dump |
+| Signatures | 578 entries, 577 resolve, 527 unique functions, 0 ambiguous matches; checked by the dumper on this run |
 | Globals | 205 — the 32 a2x-compatible `dwXxx` (values identical to a2x), 62 resolved by signature, 111 interface instances |
-| Schema | 3,301 classes and 570 enums across 18 modules |
+| Schema | 3,300 classes and 569 enums across 18 modules |
 | Interfaces | 110 registered interfaces, primary vtable walked, every one RTTI-named |
-| Protobufs | 2,003 message layouts |
-| Catalogues | 4,110 convars, 1,185 commands, 196 net messages, 273 game events, 44 weapons, 12 engine structs |
+| Protobufs | 1,993 message layouts |
+| Catalogues | 4,140 convars, 1,191 commands, 273 game events, 12 engine structs, and a 44-weapon snapshot from build 14184 |
 
 ## Thirty-second start
 

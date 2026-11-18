@@ -28,39 +28,39 @@
         "hpp_name": "CInputPtrGlobal",
         "kind": "signature",
         "name": "CInputPtrGlobal",
-        "rva": "0x2236440"
+        "rva": "0x2230210"
       },
       {
         "deref": false,
         "hpp_name": "ClientBugBugServic001_Client",
         "kind": "interface",
         "name": "ClientBugBugServic001_Client",
-        "rva": "0x222D8D0"
+        "rva": "0x2227190"
       },
       {
         "deref": false,
         "hpp_name": "ClientToolsInfo_001",
         "kind": "interface",
         "name": "ClientToolsInfo_001",
-        "rva": "0x222D8A0"
+        "rva": "0x2227160"
       },
       {
         "hpp_name": "CSGOInput",
         "kind": "global",
         "name": "dwCSGOInput",
-        "rva": "0x2573B40"
+        "rva": "0x256CFE0"
       },
       {
         "hpp_name": "EntityList",
         "kind": "global",
         "name": "dwEntityList",
-        "rva": "0x27130E8"
+        "rva": "0x270C680"
       },
       {
         "hpp_name": "GameEntitySystem",
         "kind": "global",
         "name": "dwGameEntitySystem",
-        "rva": "0x27130E8"
+        "rva": "0x270C680"
       },
       {
         "hpp_name": "GameEntitySystem_highestEntityIndex",
@@ -72,49 +72,49 @@
         "hpp_name": "GameRules",
         "kind": "global",
         "name": "dwGameRules",
-        "rva": "0x255A858"
+        "rva": "0x2556E78"
       },
       {
         "hpp_name": "GlobalVars",
         "kind": "global",
         "name": "dwGlobalVars",
-        "rva": "0x2229F88"
+        "rva": "0x2223AD0"
       },
       {
         "hpp_name": "GlowManager",
         "kind": "global",
         "name": "dwGlowManager",
-        "rva": "0x255A870"
+        "rva": "0x2553B90"
       },
       {
         "hpp_name": "LocalPlayerController",
         "kind": "global",
         "name": "dwLocalPlayerController",
-        "rva": "0x2535598"
+        "rva": "0x252ED78"
       },
       {
         "hpp_name": "LocalPlayerPawn",
         "kind": "global",
         "name": "dwLocalPlayerPawn",
-        "rva": "0x255E658"
+        "rva": "0x2557538"
       },
       {
         "hpp_name": "PlantedC4",
         "kind": "global",
         "name": "dwPlantedC4",
-        "rva": "0x24C7380"
+        "rva": "0x24BD9E8"
       },
       {
         "hpp_name": "Prediction",
         "kind": "global",
         "name": "dwPrediction",
-        "rva": "0x255E560"
+        "rva": "0x2557440"
       },
       {
         "hpp_name": "Sensitivity",
         "kind": "global",
         "name": "dwSensitivity",
-        "rva": "0x255B3A8"
+        "rva": "0x25546C8"
       },
       {
         "hpp_name": "Sensitivity_sensitivity",
@@ -126,332 +126,332 @@
         "hpp_name": "ViewAngles",
         "kind": "global",
         "name": "dwViewAngles",
-        "rva": "0x25741C8"
+        "rva": "0x256D668"
       },
       {
         "hpp_name": "ViewMatrix",
         "kind": "global",
         "name": "dwViewMatrix",
-        "rva": "0x25639A0"
+        "rva": "0x255CE50"
       },
       {
         "hpp_name": "ViewRender",
         "kind": "global",
         "name": "dwViewRender",
-        "rva": "0x2564260"
+        "rva": "0x255D818"
       },
       {
         "hpp_name": "WeaponC4",
         "kind": "global",
         "name": "dwWeaponC4",
-        "rva": "0x24C2650"
+        "rva": "0x24BB680"
       },
       {
         "deref": false,
         "hpp_name": "EmptyWorldService001_Client",
         "kind": "interface",
         "name": "EmptyWorldService001_Client",
-        "rva": "0x2211370"
+        "rva": "0x220AEA0"
       },
       {
         "deref": false,
         "hpp_name": "GameClientExports001",
         "kind": "interface",
         "name": "GameClientExports001",
-        "rva": "0x222A548"
+        "rva": "0x2223E08"
       },
       {
         "hpp_name": "GetAbsOrigin",
         "kind": "signature",
         "name": "GetAbsOrigin",
-        "rva": "0x219230"
+        "rva": "0x219050"
       },
       {
         "hpp_name": "GetBombsiteACenter",
         "kind": "signature",
         "name": "GetBombsiteACenter",
-        "rva": "0x8CCC30"
+        "rva": "0x8C8F30"
       },
       {
         "hpp_name": "GetBombsiteBCenter",
         "kind": "signature",
         "name": "GetBombsiteBCenter",
-        "rva": "0x8CCC90"
+        "rva": "0x8C8F90"
       },
       {
         "deref": false,
         "hpp_name": "LegacyGameUI001",
         "kind": "interface",
         "name": "LegacyGameUI001",
-        "rva": "0x223A1E0"
+        "rva": "0x22351A0"
       },
       {
         "hpp_name": "ManageGlowSceneObject",
         "kind": "signature",
         "name": "ManageGlowSceneObject",
-        "rva": "0xB77D10"
+        "rva": "0xB6DF80"
       },
       {
         "hpp_name": "pClientMode",
         "kind": "signature",
         "name": "pClientMode",
-        "rva": "0x25718A0"
+        "rva": "0x256AD40"
       },
       {
         "hpp_name": "pCSGOInputInstance",
         "kind": "signature",
         "name": "pCSGOInputInstance",
-        "rva": "0x2573B40"
+        "rva": "0x256CFE0"
       },
       {
         "hpp_name": "pCSInventoryManager",
         "kind": "signature",
         "name": "pCSInventoryManager",
-        "rva": "0x24D14A0"
+        "rva": "0x24CA630"
       },
       {
         "hpp_name": "pCvar",
         "kind": "signature",
         "name": "pCvar",
-        "rva": "0x2795518"
+        "rva": "0x278EB78"
       },
       {
         "hpp_name": "pDynamicLightManager",
         "kind": "signature",
         "name": "pDynamicLightManager",
-        "rva": "0x2554878"
+        "rva": "0x254B968"
       },
       {
         "hpp_name": "pEconItemSystem",
         "kind": "signature",
         "name": "pEconItemSystem",
-        "rva": "0x25EC9A0"
+        "rva": "0x25E5EA8"
       },
       {
         "hpp_name": "pEntitySystem",
         "kind": "signature",
         "name": "pEntitySystem",
-        "rva": "0x23B41F0"
+        "rva": "0x23AD148"
       },
       {
         "hpp_name": "pGameEntitySystem",
         "kind": "signature",
         "name": "pGameEntitySystem",
-        "rva": "0x27130E8"
+        "rva": "0x270C680"
       },
       {
         "hpp_name": "pGameEventManager",
         "kind": "signature",
         "name": "pGameEventManager",
-        "rva": "0x2544440"
+        "rva": "0x253D740"
       },
       {
         "hpp_name": "pGameRules",
         "kind": "signature",
         "name": "pGameRules",
-        "rva": "0x255A858"
+        "rva": "0x2556E78"
       },
       {
         "hpp_name": "pGameTraceManager",
         "kind": "signature",
         "name": "pGameTraceManager",
-        "rva": "0x2221248"
+        "rva": "0x221AB18"
       },
       {
         "hpp_name": "pGlobalVariables",
         "kind": "signature",
         "name": "pGlobalVariables",
-        "rva": "0x2229F88"
+        "rva": "0x2223AD0"
       },
       {
         "hpp_name": "pGlowManager",
         "kind": "signature",
         "name": "pGlowManager",
-        "rva": "0x255A870"
+        "rva": "0x2553B90"
       },
       {
         "hpp_name": "pHudPanel",
         "kind": "signature",
         "name": "pHudPanel",
-        "rva": "0x25CE8B8"
+        "rva": "0x25C8148"
       },
       {
         "hpp_name": "pInterpolationPhase",
         "kind": "signature",
         "name": "pInterpolationPhase",
-        "rva": "0x21B90A0"
+        "rva": "0x21B3088"
       },
       {
         "hpp_name": "pInventoryCategoryTree",
         "kind": "signature",
         "name": "pInventoryCategoryTree",
-        "rva": "0x25EB850"
+        "rva": "0x25E4BE0"
       },
       {
         "hpp_name": "pLocalPlayerController",
         "kind": "signature",
         "name": "pLocalPlayerController",
-        "rva": "0x2535598"
+        "rva": "0x252ED78"
       },
       {
         "hpp_name": "pMainMenuPanel",
         "kind": "signature",
         "name": "pMainMenuPanel",
-        "rva": "0x25C1FD0"
+        "rva": "0x25BB3B8"
       },
       {
         "hpp_name": "pMatchFramework",
         "kind": "signature",
         "name": "pMatchFramework",
-        "rva": "0x2795630"
+        "rva": "0x278EC90"
       },
       {
         "hpp_name": "pMatchmakingReservation",
         "kind": "signature",
         "name": "pMatchmakingReservation",
-        "rva": "0x2575030"
+        "rva": "0x256E1C8"
       },
       {
         "hpp_name": "pMaterialManager",
         "kind": "signature",
         "name": "pMaterialManager",
-        "rva": "0x2795770"
+        "rva": "0x278EDD0"
       },
       {
         "hpp_name": "pParticleManager",
         "kind": "signature",
         "name": "pParticleManager",
-        "rva": "0x22213E8"
+        "rva": "0x221AEF8"
       },
       {
         "hpp_name": "pPlantedC4s",
         "kind": "signature",
         "name": "pPlantedC4s",
-        "rva": "0x24C7380"
+        "rva": "0x24BD9E8"
       },
       {
         "hpp_name": "pPrediction",
         "kind": "signature",
         "name": "pPrediction",
-        "rva": "0x255E560"
+        "rva": "0x2557440"
       },
       {
         "hpp_name": "pPredictionPlayer",
         "kind": "signature",
         "name": "pPredictionPlayer",
-        "rva": "0x254F410"
+        "rva": "0x2549B78"
       },
       {
         "hpp_name": "pPredictionRandomSeed",
         "kind": "signature",
         "name": "pPredictionRandomSeed",
-        "rva": "0x21BCD60"
+        "rva": "0x21B7008"
       },
       {
         "hpp_name": "pRenderGameSystem",
         "kind": "signature",
         "name": "pRenderGameSystem",
-        "rva": "0x23B5A90"
+        "rva": "0x23AE9E0"
       },
       {
         "hpp_name": "pSensitivity",
         "kind": "signature",
         "name": "pSensitivity",
-        "rva": "0x255B3A8"
+        "rva": "0x25546C8"
       },
       {
         "hpp_name": "pUiEngine",
         "kind": "signature",
         "name": "pUiEngine",
-        "rva": "0x272C720"
+        "rva": "0x2725D40"
       },
       {
         "hpp_name": "pUIInventory",
         "kind": "signature",
         "name": "pUIInventory",
-        "rva": "0x2523FC8"
+        "rva": "0x251D120"
       },
       {
         "hpp_name": "pViewRender",
         "kind": "signature",
         "name": "pViewRender",
-        "rva": "0x2564260"
+        "rva": "0x255D818"
       },
       {
         "hpp_name": "pViewToProjectionMatrix",
         "kind": "signature",
         "name": "pViewToProjectionMatrix",
-        "rva": "0x2563960"
+        "rva": "0x255CE10"
       },
       {
         "hpp_name": "pWeaponC4",
         "kind": "signature",
         "name": "pWeaponC4",
-        "rva": "0x24C2650"
+        "rva": "0x24BB680"
       },
       {
         "hpp_name": "pWeaponRecoilTable",
         "kind": "signature",
         "name": "pWeaponRecoilTable",
-        "rva": "0x2213838"
+        "rva": "0x220D398"
       },
       {
         "hpp_name": "pWorldToProjectionMatrix",
         "kind": "signature",
         "name": "pWorldToProjectionMatrix",
-        "rva": "0x25639A0"
+        "rva": "0x255CE50"
       },
       {
         "hpp_name": "SetItemItemIdFunction",
         "kind": "signature",
         "name": "SetItemItemIdFunction",
-        "rva": "0xE59890"
+        "rva": "0xE579D0"
       },
       {
         "hpp_name": "SetSceneObjectAttributeFloat4",
         "kind": "signature",
         "name": "SetSceneObjectAttributeFloat4",
-        "rva": "0x16A5D0"
+        "rva": "0x16A650"
       },
       {
         "deref": false,
         "hpp_name": "Source2Client002",
         "kind": "interface",
         "name": "Source2Client002",
-        "rva": "0x2557DC0"
+        "rva": "0x2551080"
       },
       {
         "deref": false,
         "hpp_name": "Source2ClientConfig001",
         "kind": "interface",
         "name": "Source2ClientConfig001",
-        "rva": "0x24B4B20"
+        "rva": "0x24ADB00"
       },
       {
         "deref": false,
         "hpp_name": "Source2ClientPrediction001",
         "kind": "interface",
         "name": "Source2ClientPrediction001",
-        "rva": "0x255E560"
+        "rva": "0x2557440"
       },
       {
         "deref": false,
         "hpp_name": "Source2ClientUI001",
         "kind": "interface",
         "name": "Source2ClientUI001",
-        "rva": "0x2238A50"
+        "rva": "0x22322A0"
       },
       {
         "hpp_name": "TransformScale3dVMT",
         "kind": "signature",
         "name": "TransformScale3dVMT",
-        "rva": "0x1CB92A8"
+        "rva": "0x1CB7B08"
       },
       {
         "hpp_name": "TransformTranslate3dVMT",
         "kind": "signature",
         "name": "TransformTranslate3dVMT",
-        "rva": "0x1CB9268"
+        "rva": "0x1CB7AC8"
       }
     ],
     "engine2.dll": [
@@ -460,47 +460,47 @@
         "hpp_name": "BenchmarkService001",
         "kind": "interface",
         "name": "BenchmarkService001",
-        "rva": "0x622E80"
+        "rva": "0x6B89D0"
       },
       {
         "deref": false,
         "hpp_name": "BugBugService001",
         "kind": "interface",
         "name": "BugBugService001",
-        "rva": "0x622F80"
+        "rva": "0x6B8AD0"
       },
       {
         "deref": false,
         "hpp_name": "BugService001",
         "kind": "interface",
         "name": "BugService001",
-        "rva": "0x8DB9F0"
+        "rva": "0x9703C0"
       },
       {
         "deref": false,
         "hpp_name": "ClientServerEngineLoopService_001",
         "kind": "interface",
         "name": "ClientServerEngineLoopService_001",
-        "rva": "0x91D030"
+        "rva": "0x9B1DE0"
       },
       {
         "deref": false,
         "hpp_name": "ClientServerSharedHandleSystem001",
         "kind": "interface",
         "name": "ClientServerSharedHandleSystem001",
-        "rva": "0x91C640"
+        "rva": "0x9B13D0"
       },
       {
         "hpp_name": "BuildNumber",
         "kind": "global",
         "name": "dwBuildNumber",
-        "rva": "0x61D1E8"
+        "rva": "0x6B2D1C"
       },
       {
         "hpp_name": "NetworkGameClient",
         "kind": "global",
         "name": "dwNetworkGameClient",
-        "rva": "0x91B1C0"
+        "rva": "0x9AFB90"
       },
       {
         "hpp_name": "NetworkGameClient_clientTickCount",
@@ -548,258 +548,258 @@
         "hpp_name": "WindowHeight",
         "kind": "global",
         "name": "dwWindowHeight",
-        "rva": "0x91F544"
+        "rva": "0x9B42EC"
       },
       {
         "hpp_name": "WindowWidth",
         "kind": "global",
         "name": "dwWindowWidth",
-        "rva": "0x91F540"
+        "rva": "0x9B42E8"
       },
       {
         "deref": false,
         "hpp_name": "EngineGameUI001",
         "kind": "interface",
         "name": "EngineGameUI001",
-        "rva": "0x6208E0"
+        "rva": "0x6B6430"
       },
       {
         "deref": false,
         "hpp_name": "EngineServiceMgr001",
         "kind": "interface",
         "name": "EngineServiceMgr001",
-        "rva": "0x91C900"
+        "rva": "0x9B1680"
       },
       {
         "deref": false,
         "hpp_name": "GameEventSystemClientV001",
         "kind": "interface",
         "name": "GameEventSystemClientV001",
-        "rva": "0x91CBE0"
+        "rva": "0x9B1970"
       },
       {
         "deref": false,
         "hpp_name": "GameEventSystemServerV001",
         "kind": "interface",
         "name": "GameEventSystemServerV001",
-        "rva": "0x91CD10"
+        "rva": "0x9B1AA0"
       },
       {
         "deref": false,
         "hpp_name": "GameResourceServiceClientV001",
         "kind": "interface",
         "name": "GameResourceServiceClientV001",
-        "rva": "0x622FC0"
+        "rva": "0x6B8B10"
       },
       {
         "deref": false,
         "hpp_name": "GameResourceServiceServerV001",
         "kind": "interface",
         "name": "GameResourceServiceServerV001",
-        "rva": "0x623020"
+        "rva": "0x6B8B70"
       },
       {
         "deref": false,
         "hpp_name": "GameUIService_001",
         "kind": "interface",
         "name": "GameUIService_001",
-        "rva": "0x8DBE40"
+        "rva": "0x970810"
       },
       {
         "deref": false,
         "hpp_name": "HostStateMgr001",
         "kind": "interface",
         "name": "HostStateMgr001",
-        "rva": "0x623740"
+        "rva": "0x6B8FB0"
       },
       {
         "deref": false,
         "hpp_name": "INETSUPPORT_001",
         "kind": "interface",
         "name": "INETSUPPORT_001",
-        "rva": "0x61BE30"
+        "rva": "0x6B1980"
       },
       {
         "deref": false,
         "hpp_name": "InputService_001",
         "kind": "interface",
         "name": "InputService_001",
-        "rva": "0x8DC120"
+        "rva": "0x970AF0"
       },
       {
         "deref": false,
         "hpp_name": "KeyValueCache001",
         "kind": "interface",
         "name": "KeyValueCache001",
-        "rva": "0x6237F0"
+        "rva": "0x6B9060"
       },
       {
         "deref": false,
         "hpp_name": "MapListService_001",
         "kind": "interface",
         "name": "MapListService_001",
-        "rva": "0x91AF90"
+        "rva": "0x9AF960"
       },
       {
         "deref": false,
         "hpp_name": "NetworkClientService_001",
         "kind": "interface",
         "name": "NetworkClientService_001",
-        "rva": "0x91B120"
+        "rva": "0x9AFAF0"
       },
       {
         "deref": false,
         "hpp_name": "NetworkP2PService_001",
         "kind": "interface",
         "name": "NetworkP2PService_001",
-        "rva": "0x91B460"
+        "rva": "0x9AFE30"
       },
       {
         "deref": false,
         "hpp_name": "NetworkServerService_001",
         "kind": "interface",
         "name": "NetworkServerService_001",
-        "rva": "0x91B610"
+        "rva": "0x9AFFE0"
       },
       {
         "deref": false,
         "hpp_name": "NetworkService_001",
         "kind": "interface",
         "name": "NetworkService_001",
-        "rva": "0x623190"
+        "rva": "0x6B8CE0"
       },
       {
         "hpp_name": "pBuildNumber",
         "kind": "signature",
         "name": "pBuildNumber",
-        "rva": "0x61D1E8"
+        "rva": "0x6B2D1C"
       },
       {
         "hpp_name": "pFrameInputRing",
         "kind": "signature",
         "name": "pFrameInputRing",
-        "rva": "0x91D200"
+        "rva": "0x9B1FB0"
       },
       {
         "hpp_name": "pFrameInputRingIndex",
         "kind": "signature",
         "name": "pFrameInputRingIndex",
-        "rva": "0x91CEEC"
+        "rva": "0x9B196C"
       },
       {
         "hpp_name": "pNetworkGameClient",
         "kind": "signature",
         "name": "pNetworkGameClient",
-        "rva": "0x91B1C0"
+        "rva": "0x9AFB90"
       },
       {
         "hpp_name": "pPVSManager",
         "kind": "signature",
         "name": "pPVSManager",
-        "rva": "0x6238A0"
+        "rva": "0x6B9110"
       },
       {
         "hpp_name": "pWindowHeight",
         "kind": "signature",
         "name": "pWindowHeight",
-        "rva": "0x91F544"
+        "rva": "0x9B42EC"
       },
       {
         "hpp_name": "pWindowWidth",
         "kind": "signature",
         "name": "pWindowWidth",
-        "rva": "0x91F540"
+        "rva": "0x9B42E8"
       },
       {
         "deref": false,
         "hpp_name": "RenderService_001",
         "kind": "interface",
         "name": "RenderService_001",
-        "rva": "0x91B880"
+        "rva": "0x9B0250"
       },
       {
         "deref": false,
         "hpp_name": "ScreenshotService001",
         "kind": "interface",
         "name": "ScreenshotService001",
-        "rva": "0x91BB40"
+        "rva": "0x9B0520"
       },
       {
         "deref": false,
         "hpp_name": "SimpleEngineLoopService_001",
         "kind": "interface",
         "name": "SimpleEngineLoopService_001",
-        "rva": "0x623850"
+        "rva": "0x6B90C0"
       },
       {
         "deref": false,
         "hpp_name": "SoundService_001",
         "kind": "interface",
         "name": "SoundService_001",
-        "rva": "0x6231D0"
+        "rva": "0x9B06D0"
       },
       {
         "deref": false,
         "hpp_name": "Source2EngineToClient001",
         "kind": "interface",
         "name": "Source2EngineToClient001",
-        "rva": "0x6201F0"
+        "rva": "0x6B5D40"
       },
       {
         "deref": false,
         "hpp_name": "Source2EngineToClientStringTable001",
         "kind": "interface",
         "name": "Source2EngineToClientStringTable001",
-        "rva": "0x620250"
+        "rva": "0x6B5DA0"
       },
       {
         "deref": false,
         "hpp_name": "Source2EngineToServer001",
         "kind": "interface",
         "name": "Source2EngineToServer001",
-        "rva": "0x6202C8"
+        "rva": "0x6B5E18"
       },
       {
         "deref": false,
         "hpp_name": "Source2EngineToServerStringTable001",
         "kind": "interface",
         "name": "Source2EngineToServerStringTable001",
-        "rva": "0x6202F0"
+        "rva": "0x6B5E40"
       },
       {
         "deref": false,
         "hpp_name": "SplitScreenService_001",
         "kind": "interface",
         "name": "SplitScreenService_001",
-        "rva": "0x6234B0"
+        "rva": "0x6B8D20"
       },
       {
         "deref": false,
         "hpp_name": "StatsService_001",
         "kind": "interface",
         "name": "StatsService_001",
-        "rva": "0x91BE80"
+        "rva": "0x9B0C10"
       },
       {
         "deref": false,
         "hpp_name": "ToolService_001",
         "kind": "interface",
         "name": "ToolService_001",
-        "rva": "0x6235B0"
+        "rva": "0x6B8E20"
       },
       {
         "deref": false,
         "hpp_name": "VENGINE_GAMEUIFUNCS_VERSION005",
         "kind": "interface",
         "name": "VENGINE_GAMEUIFUNCS_VERSION005",
-        "rva": "0x620970"
+        "rva": "0x6B64C0"
       },
       {
         "deref": false,
         "hpp_name": "VProfService_001",
         "kind": "interface",
         "name": "VProfService_001",
-        "rva": "0x6235F0"
+        "rva": "0x6B8E60"
       }
     ],
     "filesystem_stdio.dll": [
@@ -927,21 +927,21 @@
         "hpp_name": "GameTypes",
         "kind": "global",
         "name": "dwGameTypes",
-        "rva": "0x1B0FD0"
+        "rva": "0x1AEFC0"
       },
       {
         "deref": false,
         "hpp_name": "GameTypes001",
         "kind": "interface",
         "name": "GameTypes001",
-        "rva": "0x1B0FD0"
+        "rva": "0x1AEFC0"
       },
       {
         "deref": false,
         "hpp_name": "MATCHFRAMEWORK_001",
         "kind": "interface",
         "name": "MATCHFRAMEWORK_001",
-        "rva": "0x1B90A0"
+        "rva": "0x1B7080"
       }
     ],
     "materialsystem2.dll": [
@@ -950,35 +950,35 @@
         "hpp_name": "FontManager_001",
         "kind": "interface",
         "name": "FontManager_001",
-        "rva": "0x163AE0"
+        "rva": "0x1638E0"
       },
       {
         "deref": false,
         "hpp_name": "MaterialUtils_001",
         "kind": "interface",
         "name": "MaterialUtils_001",
-        "rva": "0x14BF30"
+        "rva": "0x14BD30"
       },
       {
         "deref": false,
         "hpp_name": "PostProcessingSystem_001",
         "kind": "interface",
         "name": "PostProcessingSystem_001",
-        "rva": "0x14BE60"
+        "rva": "0x14BC60"
       },
       {
         "deref": false,
         "hpp_name": "TextLayout_001",
         "kind": "interface",
         "name": "TextLayout_001",
-        "rva": "0x14BEC0"
+        "rva": "0x14BCC0"
       },
       {
         "deref": false,
         "hpp_name": "VMaterialSystem2_001",
         "kind": "interface",
         "name": "VMaterialSystem2_001",
-        "rva": "0x163730"
+        "rva": "0x163530"
       }
     ],
     "meshsystem.dll": [
@@ -1005,34 +1005,34 @@
         "hpp_name": "FlattenedSerializersVersion001",
         "kind": "interface",
         "name": "FlattenedSerializersVersion001",
-        "rva": "0x277A50"
+        "rva": "0x272A30"
       },
       {
         "deref": false,
         "hpp_name": "NetworkMessagesVersion001",
         "kind": "interface",
         "name": "NetworkMessagesVersion001",
-        "rva": "0x2A3F10"
+        "rva": "0x29EE00"
       },
       {
         "deref": false,
         "hpp_name": "NetworkSystemVersion001",
         "kind": "interface",
         "name": "NetworkSystemVersion001",
-        "rva": "0x2911A0"
+        "rva": "0x28C450"
       },
       {
         "hpp_name": "pNetworkSystem",
         "kind": "signature",
         "name": "pNetworkSystem",
-        "rva": "0x2911A0"
+        "rva": "0x28C450"
       },
       {
         "deref": false,
         "hpp_name": "SerializedEntitiesVersion001",
         "kind": "interface",
         "name": "SerializedEntitiesVersion001",
-        "rva": "0x291290"
+        "rva": "0x28C530"
       }
     ],
     "panorama.dll": [
@@ -1041,7 +1041,7 @@
         "hpp_name": "PanoramaUIEngine001",
         "kind": "interface",
         "name": "PanoramaUIEngine001",
-        "rva": "0x587160"
+        "rva": "0x5895F0"
       }
     ],
     "panorama_text_pango.dll": [
@@ -1059,7 +1059,7 @@
         "hpp_name": "PanoramaUIClient001",
         "kind": "interface",
         "name": "PanoramaUIClient001",
-        "rva": "0x26F090"
+        "rva": "0x270710"
       }
     ],
     "particles.dll": [
@@ -1067,14 +1067,14 @@
         "hpp_name": "GetParticleManager",
         "kind": "signature",
         "name": "GetParticleManager",
-        "rva": "0x5FD8D0"
+        "rva": "0x5FD8A8"
       },
       {
         "deref": false,
         "hpp_name": "ParticleSystemMgr003",
         "kind": "interface",
         "name": "ParticleSystemMgr003",
-        "rva": "0x65AEF0"
+        "rva": "0x65AEE0"
       }
     ],
     "pulse_system.dll": [
@@ -1092,21 +1092,21 @@
         "hpp_name": "RenderDeviceMgr001",
         "kind": "interface",
         "name": "RenderDeviceMgr001",
-        "rva": "0x4344D0"
+        "rva": "0x4342F0"
       },
       {
         "deref": false,
         "hpp_name": "RenderUtils_001",
         "kind": "interface",
         "name": "RenderUtils_001",
-        "rva": "0x434DB0"
+        "rva": "0x434BD0"
       },
       {
         "deref": false,
         "hpp_name": "VRenderDeviceMgrBackdoor001",
         "kind": "interface",
         "name": "VRenderDeviceMgrBackdoor001",
-        "rva": "0x434570"
+        "rva": "0x434390"
       }
     ],
     "resourcesystem.dll": [
@@ -1115,7 +1115,7 @@
         "hpp_name": "ResourceSystem013",
         "kind": "interface",
         "name": "ResourceSystem013",
-        "rva": "0x892A0"
+        "rva": "0x89230"
       }
     ],
     "scenefilecache.dll": [
@@ -1139,34 +1139,34 @@
         "hpp_name": "pSceneLightDataQueue",
         "kind": "signature",
         "name": "pSceneLightDataQueue",
-        "rva": "0x921BE8"
+        "rva": "0x921A28"
       },
       {
         "hpp_name": "pSceneSystem",
         "kind": "signature",
         "name": "pSceneSystem",
-        "rva": "0x91FCE0"
+        "rva": "0x91FB20"
       },
       {
         "deref": false,
         "hpp_name": "RenderingPipelines_001",
         "kind": "interface",
         "name": "RenderingPipelines_001",
-        "rva": "0x675C00"
+        "rva": "0x675A00"
       },
       {
         "deref": false,
         "hpp_name": "SceneSystem_002",
         "kind": "interface",
         "name": "SceneSystem_002",
-        "rva": "0x91FCE0"
+        "rva": "0x91FB20"
       },
       {
         "deref": false,
         "hpp_name": "SceneUtils_001",
         "kind": "interface",
         "name": "SceneUtils_001",
-        "rva": "0x676960"
+        "rva": "0x676760"
       }
     ],
     "schemasystem.dll": [
@@ -1190,70 +1190,70 @@
         "hpp_name": "customnavsystem001",
         "kind": "interface",
         "name": "customnavsystem001",
-        "rva": "0x1DA8508"
+        "rva": "0x1D924A8"
       },
       {
         "deref": false,
         "hpp_name": "EmptyWorldService001_Server",
         "kind": "interface",
         "name": "EmptyWorldService001_Server",
-        "rva": "0x1E0B290"
+        "rva": "0x1DF4EA0"
       },
       {
         "deref": false,
         "hpp_name": "EntitySubclassUtilsV001",
         "kind": "interface",
         "name": "EntitySubclassUtilsV001",
-        "rva": "0x1DBABF0"
+        "rva": "0x1DA4B50"
       },
       {
         "deref": false,
         "hpp_name": "NavGameTest001",
         "kind": "interface",
         "name": "NavGameTest001",
-        "rva": "0x1E52ED0"
+        "rva": "0x1E3C898"
       },
       {
         "deref": false,
         "hpp_name": "ServerToolsInfo_001",
         "kind": "interface",
         "name": "ServerToolsInfo_001",
-        "rva": "0x1E31DD8"
+        "rva": "0x1E1B7B8"
       },
       {
         "deref": false,
         "hpp_name": "Source2GameClients001",
         "kind": "interface",
         "name": "Source2GameClients001",
-        "rva": "0x1E31300"
+        "rva": "0x1E1ACE0"
       },
       {
         "deref": false,
         "hpp_name": "Source2GameDirector001",
         "kind": "interface",
         "name": "Source2GameDirector001",
-        "rva": "0x1F9B570"
+        "rva": "0x1F81A80"
       },
       {
         "deref": false,
         "hpp_name": "Source2GameEntities001",
         "kind": "interface",
         "name": "Source2GameEntities001",
-        "rva": "0x1E31580"
+        "rva": "0x1E1AF60"
       },
       {
         "deref": false,
         "hpp_name": "Source2Server001",
         "kind": "interface",
         "name": "Source2Server001",
-        "rva": "0x1E313C0"
+        "rva": "0x1E1ADA0"
       },
       {
         "deref": false,
         "hpp_name": "Source2ServerConfig001",
         "kind": "interface",
         "name": "Source2ServerConfig001",
-        "rva": "0x2116E68"
+        "rva": "0x20FD3F8"
       }
     ],
     "soundsystem.dll": [
@@ -1261,7 +1261,7 @@
         "hpp_name": "SoundSystem",
         "kind": "global",
         "name": "dwSoundSystem",
-        "rva": "0x535340"
+        "rva": "0x532470"
       },
       {
         "hpp_name": "SoundSystem_engineViewData",
@@ -1273,48 +1273,48 @@
         "hpp_name": "pSoundChannels",
         "kind": "signature",
         "name": "pSoundChannels",
-        "rva": "0x657C58"
+        "rva": "0x652ED0"
       },
       {
         "hpp_name": "pSoundSystem",
         "kind": "signature",
         "name": "pSoundSystem",
-        "rva": "0x535340"
+        "rva": "0x532470"
       },
       {
         "deref": false,
         "hpp_name": "SoundBugBugService001_Client",
         "kind": "interface",
         "name": "SoundBugBugService001_Client",
-        "rva": "0x535BA0"
+        "rva": "0x532C90"
       },
       {
         "deref": false,
         "hpp_name": "SoundOpSystem001",
         "kind": "interface",
         "name": "SoundOpSystem001",
-        "rva": "0x535A80"
+        "rva": "0x532B70"
       },
       {
         "deref": false,
         "hpp_name": "SoundOpSystemEdit001",
         "kind": "interface",
         "name": "SoundOpSystemEdit001",
-        "rva": "0x535990"
+        "rva": "0x532A80"
       },
       {
         "deref": false,
         "hpp_name": "SoundSystem001",
         "kind": "interface",
         "name": "SoundSystem001",
-        "rva": "0x535340"
+        "rva": "0x532470"
       },
       {
         "deref": false,
         "hpp_name": "VMixEditTool001",
         "kind": "interface",
         "name": "VMixEditTool001",
-        "rva": "0x5943D7F"
+        "rva": "0x5941BBF"
       }
     ],
     "steamaudio.dll": [
@@ -1383,7 +1383,7 @@
         "hpp_name": "VPhysics2_Interface_001",
         "kind": "interface",
         "name": "VPhysics2_Interface_001",
-        "rva": "0x460E70"
+        "rva": "0x460E60"
       }
     ],
     "vscript.dll": [
@@ -1401,7 +1401,7 @@
         "hpp_name": "WorldRendererMgr001",
         "kind": "interface",
         "name": "WorldRendererMgr001",
-        "rva": "0x236F60"
+        "rva": "0x236D40"
       }
     ]
   },

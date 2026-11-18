@@ -1,5 +1,5 @@
 {
-  "build_number": 14184,
+  "build_number": 14198,
   "note": "Non-schema client struct layouts, hand-verified. Function/instance RVAs are resolved from this dump's patterns.",
   "struct_count": 12,
   "structs": [
@@ -23,36 +23,36 @@
         {
           "name": "CreateMove",
           "pattern": "CreateMove",
-          "rva": "0xB65A70"
+          "rva": "0xB5BA30"
         },
         {
           "name": "GetViewAngles",
           "pattern": "GetViewAngles",
-          "rva": "0xB70C90"
+          "rva": "0xB66EF0"
         },
         {
           "name": "SetViewAngles",
           "pattern": "SetViewAngles",
-          "rva": "0xB80AF0"
+          "rva": "0xB76E40"
         },
         {
           "name": "ProcessInputEvent",
           "pattern": "CCSGOInput_ProcessInputEvent",
-          "rva": "0xB7C070"
+          "rva": "0xB723C0"
         },
         {
           "name": "ReadFrameInput",
           "pattern": "CCSGOInput_ReadFrameInput",
-          "rva": "0xD04D60"
+          "rva": "0xCFDCE0"
         },
         {
           "name": "AddInputHistoryEntry",
           "pattern": "CCSGOInput_AddInputHistoryEntry",
-          "rva": "0xCDEA70"
+          "rva": "0xCD5B70"
         }
       ],
       "instance": "static object embedded in client.dll (no deref); pCSGOInput is a global POINTER to this same object",
-      "instance_rva": "0x2573B40",
+      "instance_rva": "0x256CFE0",
       "module": "client.dll",
       "name": "CCSGOInput",
       "size": null
@@ -143,12 +143,12 @@
         {
           "name": "GetUserCmdManager",
           "pattern": "GetUserCmdManager",
-          "rva": "0x944590"
+          "rva": "0x940540"
         },
         {
           "name": "GetCUserCmdBySequenceNumber",
           "pattern": "GetCUserCmdBySequenceNumber",
-          "rva": "0x944500"
+          "rva": "0x9404B0"
         }
       ],
       "instance": "ring = GetUserCmdManager(controller); cmd = ring + 0x98 * (sequence % 150); current sequence = *(int*)(ring + 0x5910)  (150 * 0x98 = 0x5910)",
@@ -362,7 +362,7 @@
         {
           "name": "SerializeMoveCrc",
           "pattern": "CBaseUserCmdPB_SerializeMoveCrc",
-          "rva": "0x122CFF0"
+          "rva": "0x122E9D0"
         }
       ],
       "instance": "protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start",
@@ -433,7 +433,7 @@
         {
           "name": "CreateSubtickMoveStep",
           "pattern": "CreateSubtickMoveStep",
-          "rva": "0x4F6C40"
+          "rva": "0x4F5700"
         }
       ],
       "instance": "protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start",
@@ -480,7 +480,7 @@
         {
           "name": "New",
           "pattern": "CInButtonStatePB_New",
-          "rva": "0x4F6BC0"
+          "rva": "0x4F5680"
         }
       ],
       "instance": "protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start",
@@ -599,7 +599,7 @@
         {
           "name": "New",
           "pattern": "CCSGOInputHistoryEntryPB_New",
-          "rva": "0x7B3BD0"
+          "rva": "0x7AC640"
         }
       ],
       "instance": "protobuf message: +0x00 vtable, +0x08 internal metadata/arena, fields from +0x10 (has_bits) - offsets below are from the message start",
@@ -733,7 +733,7 @@
         {
           "name": "CreateSwapChain",
           "pattern": "CSwapChainDx11_CreateSwapChain",
-          "rva": "0x3E7D0"
+          "rva": "0x3E3D0"
         }
       ],
       "instance": "one per window; CreateSwapChain receives the instance in rcx - read m_pSwapChain after it returns",
@@ -768,7 +768,7 @@
         {
           "name": "OverrideView",
           "pattern": "OverrideView",
-          "rva": "0xD02650"
+          "rva": "0xCFB560"
         }
       ],
       "instance": "passed to OverrideView in rdx",

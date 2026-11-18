@@ -2,7 +2,7 @@
 
 A signature is an IDA-style byte pattern that finds one function or one global in one module, together with everything needed to use it: the resolved RVA on the current build, the function's Hex-Rays prototype, the first bytes of its prologue, and the other names the community knows it by.
 
-The database is [`src/patterns/database.rs`](https://github.com/scros22/cs2-universal-offsets/blob/main/src/patterns/database.rs). On build 14184 it holds **578 entries; 577 resolve** (some functions are reached by more than one entry — see *Aliases* below). Every published pattern matches **exactly once** in its module: a pattern that matches more than once is treated as broken and fixed before release.
+The database is [`src/patterns/database.rs`](https://github.com/scros22/cs2-universal-offsets/blob/main/src/patterns/database.rs). On build 14198 it holds **578 entries; 577 resolve** (some functions are reached by more than one entry — see *Aliases* below). Every published pattern matches **exactly once** in its module: a pattern that matches more than once is treated as broken and fixed before release.
 
 ## `patterns/patterns.json`
 
@@ -122,6 +122,6 @@ Everything else resolves to the first byte of a function (or, for `riprel` entri
 
 Every function entry is checked against a fresh IDA analysis of the current build, not just re-scanned: the resolved address must be a function start, its Hex-Rays prototype is compared with (and refreshed into) the database, and the name is checked against what the function does — the strings it references, its callers, the vtable it sits in. Entries that fail are fixed or, when the name describes a different function, removed and listed in the [Changelog](Changelog.md). Cross-checks against the a2x dumper's output for the same build cover the classic globals, buttons, interfaces and every schema field offset.
 
-## Coverage on build 14184
+## Coverage on build 14198
 
 577 of 578 entries resolve. The one that does not is `GameSystem_Think_CheckSteamBan` (server.dll): the function still exists, but nothing unique is left to anchor a pattern on. It stays in the database so it is retried on every build instead of being forgotten.

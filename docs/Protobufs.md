@@ -1,6 +1,6 @@
 # Protobufs
 
-CS2 talks to the server, the Game Coordinator and itself in protobuf messages, and the client keeps live copies of many of them (`CBaseUserCmdPB`, `CCSGOInputHistoryEntryPB`, …). The dumper reads libprotobuf's reflection tables from the running modules and emits the exact in-memory layout of every message — field offsets, field numbers, has-bits — so you can cast a live message pointer and read it directly. Build 14184: 2,003 messages across 4 modules.
+CS2 talks to the server, the Game Coordinator and itself in protobuf messages, and the client keeps live copies of many of them (`CBaseUserCmdPB`, `CCSGOInputHistoryEntryPB`, …). The dumper reads libprotobuf's reflection tables from the running modules and emits the exact in-memory layout of every message — field offsets, field numbers, has-bits — so you can cast a live message pointer and read it directly. Build 14198: 1,993 messages across 4 modules.
 
 ## `protobufs/protobufs.hpp`
 
